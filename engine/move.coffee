@@ -1,3 +1,3 @@
 class @Move
-  constructor: (options = {}) ->
-    @priority = options.priority || 0
+  constructor: (@name, attributes = {}) ->
+    @priority = attributes.priority || 0
