@@ -1,0 +1,6 @@
+Tackle:
+  base power: 50
+  type: Normal
+  accuracy: 100
+  pp: 35
+  damage: physical
