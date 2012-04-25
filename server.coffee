@@ -15,13 +15,11 @@ io = socket.listen solid (app) ->
       @head ->
         @js '/jquery.js'
         @js '/socket.io/socket.io.js'
-        @script @html_safe '''
-          var socket = io.connect('http://localhost');
-          socket.on('newuser', function (data) {
-            console.log(data);
-            $("#messages").append(data);
-          });
-        '''
+        @script ->
+          socket = io.connect('http://localhost')
+          socket.on 'newuser', (data) ->
+            console.log(data)
+            $("#messages").append(data)
       @body ->
         @p JSON.stringify(engine.moves)
         @p '#messages'
