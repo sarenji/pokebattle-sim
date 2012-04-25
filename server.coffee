@@ -3,6 +3,7 @@ socket = require 'socket.io'
 
 solid = require 'solid'
 
+{BattleQueue} = require './server/queue'
 {Engine} = require './engine'
 engine = new Engine
   moves: require('./data/bw/moves.yml').shift()
@@ -18,14 +19,29 @@ io = socket.listen solid (app) ->
         @js '/socket.io/socket.io.js'
         @script ->
           socket = io.connect('http://localhost')
-          socket.on 'newuser', (data) ->
-            console.log(data)
-            $("#messages").append(data)
+          socket.on 'connect', ->
+            socket.emit 'adduser', prompt("What's your name?")
+            socket.on 'updatechat', (username, data) ->
+              $("#messages").append("<p>#{username}: #{data}</p>")
+          $(document).on 'keyup', '#chat', (e) ->
+            if e.which == 13
+              socket.emit 'sendchat', $(this).val()
+              $(this).val('')
       @body ->
         @p JSON.stringify(engine.moves)
         @p JSON.stringify(engine.pokemon)
         @p '#messages'
+        @input('#chat', type: 'text')
         @button 'Tackle'
 
+queue = new BattleQueue()
+
 io.sockets.on 'connection', (socket) ->
-  socket.emit 'newuser', 'you joined!'
+  socket.on 'adduser', (username) ->
+    socket.username = username
+    queue.queuePlayer(socket)
+    queue.pairPlayers()
+    socket.broadcast.emit 'updatechat', 'SERVER', "#{username} joined the game!"
+  socket.on 'sendchat', (message) ->
+    io.sockets.emit 'updatechat', socket.username, message
+  # TODO: socket.off after disconnection
