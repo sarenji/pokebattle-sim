@@ -1,3 +1,3 @@
 class @Engine
   constructor: (options) ->
-    {@moves} = options
+    {@moves, @pokemon} = options

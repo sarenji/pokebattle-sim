@@ -1,6 +1,10 @@
 Tackle:
   base power: 50
-  type: Normal
+  type: normal
   accuracy: 100
   pp: 35
   damage: physical
+
+Splash:
+  type: normal
+  pp: 40

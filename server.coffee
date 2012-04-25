@@ -5,7 +5,8 @@ solid = require 'solid'
 
 {Engine} = require './engine'
 engine = new Engine
-  moves: require './data/bw/moves.yml'
+  moves: require('./data/bw/moves.yml').shift()
+  pokemon: require('./data/bw/pokemon.yml').shift()
 
 io = socket.listen solid (app) ->
   app.get '/jquery.js', @jquery
@@ -22,7 +23,9 @@ io = socket.listen solid (app) ->
             $("#messages").append(data)
       @body ->
         @p JSON.stringify(engine.moves)
+        @p JSON.stringify(engine.pokemon)
         @p '#messages'
+        @button 'Tackle'
 
 io.sockets.on 'connection', (socket) ->
   socket.emit 'newuser', 'you joined!'
