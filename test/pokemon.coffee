@@ -1,6 +1,6 @@
 {Pokemon} = require '../engine/pokemon'
 
-describe Pokemon, ->
+describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
     new Pokemon().name.should.equal 'Missingno'
 

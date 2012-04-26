@@ -3,7 +3,7 @@ socket = require 'socket.io'
 
 solid = require 'solid'
 
-{BattleQueue} = require './server/queue'
+{BattleServer} = require './server'
 {Engine} = require './engine'
 engine = new Engine
   moves: require('./data/bw/moves.yml').shift()
@@ -34,13 +34,13 @@ io = socket.listen solid (app) ->
         @input('#chat', type: 'text')
         @button 'Tackle'
 
-queue = new BattleQueue()
+server = new BattleServer()
 
 io.sockets.on 'connection', (socket) ->
   socket.on 'adduser', (username) ->
     socket.username = username
-    queue.queuePlayer(socket)
-    queue.pairPlayers()
+    server.queue.queuePlayer(socket)
+    server.queue.pairPlayers()
     socket.broadcast.emit 'updatechat', 'SERVER', "#{username} joined the game!"
   socket.on 'sendchat', (message) ->
     io.sockets.emit 'updatechat', socket.username, message

@@ -1,6 +1,6 @@
 {Move} = require '../engine/move'
 
-describe Move, ->
+describe 'Move', ->
   it 'takes the name as the first parameter', ->
     new Move('Smooth Move').name.should.equal 'Smooth Move'
 

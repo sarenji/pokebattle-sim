@@ -1,12 +1,12 @@
 class @BattleQueue
-  constructor: ->
+  constructor: (@server) ->
     @queue = []
 
   queuePlayer: (player) ->
     @queue.push(player)
 
   pairPlayers: ->
-    pairs = []
-    for i in [1..@queue.length] by 2
-      pairs.push(@queue[i - 1], @queue[i])
-    pairs
+    while @queue.length >= 2
+      player1 = @queue.shift()
+      player2 = @queue.shift()
+      @server?.battles.push([ player1, player2 ])
