@@ -11,4 +11,4 @@ class @BattleQueue
       # Todo: Use something more efficient than shift
       player1 = @queue.shift()
       player2 = @queue.shift()
-      @server?.battles.push([ player1, player2 ])
+      @server?.startBattle(player1, player2)
