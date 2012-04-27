@@ -32,7 +32,7 @@ describe 'BattleQueue', ->
       queue.add({})
       queue.add({})
       queue.pairPlayers()
-      queue.queue.should.be.empty
+      queue.queuedPlayers().should.be.empty
 
     it 'leaves one person out if the queue length is odd', ->
       queue = new BattleQueue()
@@ -40,7 +40,7 @@ describe 'BattleQueue', ->
       queue.add({})
       queue.add({})
       queue.pairPlayers()
-      queue.queue.should.have.length 1
+      queue.queuedPlayers().should.have.length 1
 
     it 'returns an array of pairs', ->
       queue = new BattleQueue()
