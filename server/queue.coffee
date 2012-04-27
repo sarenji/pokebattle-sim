@@ -1,11 +1,16 @@
+# A queue of users waiting for a battle
 class @BattleQueue
   constructor: (@server) ->
     @queue = []
 
   add: (player) ->
+    # TODO: Do not queue players that are already in the queue
     @queue.push(player)
 
-  # Starts battles between every pair of players
+  remove: (player) ->
+    index = @queue.indexOf(player)
+    @queue.splice(index, 1)  if index != -1
+
   queuedPlayers: ->
     cloned = []
     for player in @queue
