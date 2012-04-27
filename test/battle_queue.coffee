@@ -15,9 +15,8 @@ describe 'BattleQueue', ->
       queue = new BattleQueue()
       player = {}
       queue.add(player)
-      queue.add({})
       queue.remove(player)
-      queue.queue.should.have.length 1
+      queue.queue.should.have.length 0
 
   describe '#queuedPlayers', ->
     it 'returns the players who are queued', ->
