@@ -1,36 +1,44 @@
-{BattleServer} = require '../server'
 {BattleQueue} = require '../server/queue'
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->
     new BattleQueue().queue.should.be.empty
 
-  it 'can queue a new player', ->
-    queue = new BattleQueue()
-    queue.queuePlayer({})
-    queue.queue.should.have.length 1
+  describe '#add', ->
+    it 'queues a new player', ->
+      queue = new BattleQueue()
+      queue.add({})
+      queue.queue.should.have.length 1
 
-  it 'can pair people to take them out of the queue', ->
-    queue = new BattleQueue()
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.pairPlayers()
-    queue.queue.should.be.empty
+  describe '#queuedPlayers', ->
+    it 'returns the players who are queued', ->
+      queue = new BattleQueue()
+      dude = {}
+      queue.add(dude)
+      queue.queuedPlayers().should.include dude
+      queue.queuedPlayers().should.have.length 1
 
-  it 'leaves one person out if the queue length is odd', ->
-    queue = new BattleQueue()
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.pairPlayers()
-    queue.queue.should.have.length 1
+  describe '#pairPlayers', ->
+    it 'takes players out of the queue', ->
+      queue = new BattleQueue()
+      queue.add({})
+      queue.add({})
+      queue.pairPlayers()
+      queue.queue.should.be.empty
 
-  it 'can create a new battle for each pair', ->
-    server = new BattleServer()
-    queue = new BattleQueue(server)
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.queuePlayer({})
-    queue.pairPlayers()
-    server.battles.should.have.length 2
+    it 'leaves one person out if the queue length is odd', ->
+      queue = new BattleQueue()
+      queue.add({})
+      queue.add({})
+      queue.add({})
+      queue.pairPlayers()
+      queue.queue.should.have.length 1
+
+    it 'returns an array of pairs', ->
+      queue = new BattleQueue()
+      queue.add({})
+      queue.add({})
+      queue.add({})
+      queue.add({})
+      pairs = queue.pairPlayers()
+      pairs.should.have.length 2

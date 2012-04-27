@@ -11,6 +11,7 @@
   , "devDependencies": {
       "should": ">= 0.3.2"
     , "mocha": ">= 0.3.6"
+    , "sinon": "*"
   }
   , "scripts": {
       "test": "mocha"
