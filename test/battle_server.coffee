@@ -18,3 +18,16 @@ describe 'BattleServer', ->
       server.queuePlayer({})
       server.beginBattles()
       stub.called.should.be.true
+
+    it 'emits the "start battle" event for each player', ->
+      engine = new Engine()
+      server = new BattleServer(engine)
+      player = { emit: -> }
+      sinon.stub(engine, 'createBattle')
+      mock = sinon.mock(player)
+      mock.expects('emit').twice().withArgs('start battle')
+
+      server.queuePlayer(player)
+      server.queuePlayer(player)
+      server.beginBattles()
+      mock.verify()
