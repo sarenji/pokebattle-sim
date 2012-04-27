@@ -41,8 +41,8 @@ io = socket.listen solid (app) ->
 io.sockets.on 'connection', (socket) ->
   socket.on 'adduser', (username) ->
     socket.username = username
-    server.queue.queuePlayer(socket)
-    server.queue.pairPlayers()
+    server.queuePlayer(socket)
+    server.pairPlayers()
     socket.broadcast.emit 'updatechat', 'SERVER', "#{username} joined the game!"
   socket.on 'sendchat', (message) ->
     io.sockets.emit 'updatechat', socket.username, message
