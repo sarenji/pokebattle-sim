@@ -9,6 +9,9 @@ engine = new Engine
   moves: require('./data/bw/moves.yml').shift()
   pokemon: require('./data/bw/pokemon.yml').shift()
 
+server = new BattleServer()
+
+# Start responding to clients
 io = socket.listen solid (app) ->
   app.get '/jquery.js', @jquery
   app.get '/', @render ->
@@ -34,8 +37,7 @@ io = socket.listen solid (app) ->
         @input('#chat', type: 'text')
         @button 'Tackle'
 
-server = new BattleServer()
-
+# Attach events to incoming users
 io.sockets.on 'connection', (socket) ->
   socket.on 'adduser', (username) ->
     socket.username = username
