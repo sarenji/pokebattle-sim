@@ -10,6 +10,15 @@ describe 'BattleQueue', ->
     queue.queuePlayer({})
     queue.queue.should.have.length 1
 
+  it 'can dequeue old players', ->
+    queue = new BattleQueue()
+    player1 = {}
+    player2 = {}
+    queue.queuePlayer(player1)
+    queue.queuePlayer(player2)
+    queue.dequeuePlayer(player1)
+    queue.queue.should.have.length 1
+
   it 'can pair people to take them out of the queue', ->
     queue = new BattleQueue()
     queue.queuePlayer({})

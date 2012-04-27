@@ -47,3 +47,4 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'sendchat', (message) ->
     io.sockets.emit 'updatechat', socket.username, message
   # TODO: socket.off after disconnection
+  # Dequeue player in socket off
