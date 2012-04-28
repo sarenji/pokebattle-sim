@@ -2,8 +2,8 @@
 
 describe 'Battle', ->
   beforeEach ->
-    @player1 = {clientId: 'abcde'}
-    @player2 = {clientId: 'fghij'}
+    @player1 = {clientId: 'abcde', team: [{id: 1}, {id: 2}]}
+    @player2 = {clientId: 'fghij', team: [{id: 1}, {id: 2}]}
     @battle  = new Battle(players: [@player1, @player2])
 
   it 'starts at turn 0', ->
@@ -13,9 +13,16 @@ describe 'Battle', ->
     it "records a player's move", ->
       @battle.makeMove(@player1, 'Tackle')
       @battle.playerMoves.should.have.property @player1.clientId
-      @battle.playerMoves[@player1.clientId].should.equal 'Tackle'
+      @battle.playerMoves[@player1.clientId].name.should.equal 'Tackle'
 
     # TODO: Invalid moves should fail in some way.
     it "doesn't record invalid moves", ->
       @battle.makeMove(@player1, 'Blooberry Gun')
       @battle.playerMoves.should.not.have.property @player1.clientId
+
+  describe '#switch', ->
+    it "swaps pokemon positions of a player's team", ->
+      [poke1, poke2] = @player1.team
+      @battle.switch(@player1, 1)
+      @battle.endTurn()
+      @player1.team.slice(0, 2).should.eql [poke2, poke1]

@@ -15,22 +15,45 @@ class @Battle
     # Stores the moves each player is about to make
     @playerMoves = {}
 
+    # Maps clientId -> player
+    @playerHash = {}
+    for player in @players
+      @playerHash[player.clientId] = player
+
   makeMove: (player, moveName) =>
     # TODO: Fail if move not in moves
     return  if moveName not of Moves
 
     # Store the move name that this player wants to make.
-    @playerMoves[player.clientId] = moveName
+    @playerMoves[player.clientId] =
+      type: 'move'
+      name: moveName
 
     # End the turn if each player has moved.
     if _.all(@players, (player) => player.clientId of @playerMoves)
       @endTurn()
 
+  switch: (player, toPosition) =>
+    # Record the switch
+    @playerMoves[player.clientId] =
+      type: 'switch'
+      to: toPosition
+
   endTurn: =>
-    # Clean up hash
-    for move of @playerMoves
-      delete @playerMoves[move]
+    # Act on player actions.
+    # TODO: Sort by priority and active pokemon speed.
+    for clientId of @playerMoves
+      move = @playerMoves[clientId]
+      # TODO: abstract better?
+      switch move.type
+        when 'switch'
+          {team} = @playerHash[clientId]
+          {to} = move
+          [team[0], team[to]] = [team[to], team[0]]
+
+      # Clean up playerMoves hash.
+      delete @playerMoves[clientId]
 
     # Send a message to each player about the end of turn.
     for player in @players
-      player.emit 'updatechat', 'SERVER', 'end turn!'
+      player.emit? 'updatechat', 'SERVER', 'end turn!'
