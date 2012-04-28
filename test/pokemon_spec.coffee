@@ -36,8 +36,26 @@ describe 'Pokemon', ->
       # todo: test other numbers later
 
     it 'calculates other stats correctly', ->
-      pokemon = new Pokemon(level: 100, evs: { atk: 255 })
-      pokemon.stat('atk').should.equal 299
-      pokemon = new Pokemon(level: 50, evs: { atk: 255 })
-      pokemon.stat('atk').should.equal 152
+      pokemon = new Pokemon(level: 100, evs: { attack: 255 })
+      pokemon.stat('attack').should.equal 299
+      pokemon = new Pokemon(level: 50, evs: { attack: 255 })
+      pokemon.stat('attack').should.equal 152
       # todo: test other numbers later
+
+    it "calculates a stat with a nature boost correctly", ->
+      pokemon = new Pokemon(nature: 'Adamant')
+      pokemon.stat('attack').should.equal 259
+
+    it "calculates a stat with a nature boost correctly", ->
+      pokemon = new Pokemon(nature: 'Bold')
+      pokemon.stat('attack').should.equal 212
+
+  describe '#natureBoost', ->
+    it "returns 1 by default for non-existent natures", ->
+      new Pokemon(nature: 'Super').natureBoost('attack').should.equal 1
+
+    it "returns 1.1 for natures that boost a certain stat", ->
+      new Pokemon(nature: 'Adamant').natureBoost('attack').should.equal 1.1
+
+    it "returns 0.9 for natures that decrease a certain stat", ->
+      new Pokemon(nature: 'Timid').natureBoost('attack').should.equal 0.9
