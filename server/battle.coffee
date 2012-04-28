@@ -13,7 +13,7 @@ class @Battle
   playerMoves: {}
 
   constructor: (attributes = {}) ->
-    {@engine, @players} = attributes
+    {@players} = attributes
 
   makeMove: (player, moveName) ->
     # TODO: Fail if move not in moves

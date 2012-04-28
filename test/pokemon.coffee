@@ -25,7 +25,7 @@ describe 'Pokemon', ->
       new Pokemon().ev('hp').should.equal 0
 
     it 'retrieves ev successfully', ->
-      new Pokemon(evs: {'hp': 25}).ev('hp').should.equal 25
+      new Pokemon(evs: {hp: 25}).ev('hp').should.equal 25
 
   describe '#stat', ->
     it 'calculates hp correctly', ->
