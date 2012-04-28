@@ -6,16 +6,16 @@ class @Battle
   @moves = Moves = require('../data/bw/moves.yml').pop()
   @pokemon = Pokemon = require('../data/bw/pokemon.yml').pop()
 
-  # Stores the current turn of the battle
-  turn: 0
-
-  # Stores the moves each player is about to make
-  playerMoves: {}
-
   constructor: (attributes = {}) ->
     {@players} = attributes
 
-  makeMove: (player, moveName) ->
+    # Stores the current turn of the battle
+    @turn = 0
+
+    # Stores the moves each player is about to make
+    @playerMoves = {}
+
+  makeMove: (player, moveName) =>
     # TODO: Fail if move not in moves
     return  if moveName not of Moves
 
