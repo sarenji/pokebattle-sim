@@ -2,7 +2,7 @@
 {Battle} = require './battle'
 
 class @BattleServer
-  constructor: (@battles) ->
+  constructor: ->
     @queue = new BattleQueue(this)
     @battles = {}
 
