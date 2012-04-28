@@ -1,165 +1,165 @@
-absorb: {pp: 25, type: grass}
-acid: {pp: 30, type: poison}
-acid-armor: {pp: 40, type: poison}
-agility: {pp: 30, type: psychic}
-amnesia: {pp: 20, type: psychic}
-aurora-beam: {pp: 20, type: ice}
-barrage: {pp: 20, type: normal}
-barrier: {pp: 30, type: psychic}
-bide: {pp: 10, type: normal}
-bind: {pp: 20, type: normal}
-bite: {pp: 25, type: dark}
-blizzard: {pp: 5, type: ice}
-body-slam: {pp: 15, type: normal}
-bone-club: {pp: 20, type: ground}
-bonemerang: {pp: 10, type: ground}
-bubble: {pp: 30, type: water}
-bubblebeam: {pp: 20, type: water}
-clamp: {pp: 15, type: water}
-comet-punch: {pp: 15, type: normal}
-confuse-ray: {pp: 10, type: ghost}
-confusion: {pp: 25, type: psychic}
-constrict: {pp: 35, type: normal}
-conversion: {pp: 30, type: normal}
-counter: {pp: 20, type: fighting}
-crabhammer: {pp: 10, type: water}
-cut: {pp: 30, type: normal}
-defense-curl: {pp: 40, type: normal}
-dig: {pp: 10, type: ground}
-disable: {pp: 20, type: normal}
-dizzy-punch: {pp: 10, type: normal}
-double-edge: {pp: 15, type: normal}
-double-kick: {pp: 30, type: fighting}
-double-team: {pp: 15, type: normal}
-doubleslap: {pp: 10, type: normal}
-dragon-rage: {pp: 10, type: dragon}
-dream-eater: {pp: 15, type: psychic}
-drill-peck: {pp: 20, type: flying}
-earthquake: {pp: 10, type: ground}
-egg-bomb: {pp: 10, type: normal}
-ember: {pp: 25, type: fire}
-explosion: {pp: 5, type: normal}
-fire-blast: {pp: 5, type: fire}
-fire-punch: {pp: 15, type: fire}
-fire-spin: {pp: 15, type: fire}
-fissure: {pp: 5, type: ground}
-flamethrower: {pp: 15, type: fire}
-flash: {pp: 20, type: normal}
-fly: {pp: 15, type: flying}
-focus-energy: {pp: 30, type: normal}
-fury-attack: {pp: 20, type: normal}
-fury-swipes: {pp: 15, type: normal}
-glare: {pp: 30, type: normal}
-growl: {pp: 40, type: normal}
-growth: {pp: 40, type: normal}
-guillotine: {pp: 5, type: normal}
-gust: {pp: 35, type: flying}
-harden: {pp: 30, type: normal}
-haze: {pp: 30, type: ice}
-headbutt: {pp: 15, type: normal}
-hi-jump-kick: {pp: 10, type: fighting}
-horn-attack: {pp: 25, type: normal}
-horn-drill: {pp: 5, type: normal}
-hydro-pump: {pp: 5, type: water}
-hyper-beam: {pp: 5, type: normal}
-hyper-fang: {pp: 15, type: normal}
-hypnosis: {pp: 20, type: psychic}
-ice-beam: {pp: 10, type: ice}
-ice-punch: {pp: 15, type: ice}
-jump-kick: {pp: 10, type: fighting}
-karate-chop: {pp: 25, type: fighting}
-kinesis: {pp: 15, type: psychic}
-leech-life: {pp: 15, type: bug}
-leech-seed: {pp: 10, type: grass}
-leer: {pp: 30, type: normal}
-lick: {pp: 30, type: ghost}
-light-screen: {pp: 30, type: psychic}
-lovely-kiss: {pp: 10, type: normal}
-low-kick: {pp: 20, type: fighting}
-meditate: {pp: 40, type: psychic}
-mega-drain: {pp: 15, type: grass}
-mega-kick: {pp: 5, type: normal}
-mega-punch: {pp: 20, type: normal}
-metronome: {pp: 10, type: normal}
-mimic: {pp: 10, type: normal}
-minimize: {pp: 20, type: normal}
-mirror-move: {pp: 20, type: flying}
-mist: {pp: 30, type: ice}
-night-shade: {pp: 15, type: ghost}
-pay-day: {pp: 20, type: normal}
-peck: {pp: 35, type: flying}
-petal-dance: {pp: 10, type: grass}
-pin-missile: {pp: 20, type: bug}
-poison-gas: {pp: 40, type: poison}
-poison-sting: {pp: 35, type: poison}
-poisonpowder: {pp: 35, type: poison}
-pound: {pp: 35, type: normal}
-psybeam: {pp: 20, type: psychic}
-psychic: {pp: 10, type: psychic}
-psywave: {pp: 15, type: psychic}
-quick-attack: {pp: 30, type: normal}
-rage: {pp: 20, type: normal}
-razor-leaf: {pp: 25, type: grass}
-razor-wind: {pp: 10, type: normal}
-recover: {pp: 10, type: normal}
-reflect: {pp: 20, type: psychic}
-rest: {pp: 10, type: psychic}
-roar: {pp: 20, type: normal}
-rock-slide: {pp: 10, type: rock}
-rock-throw: {pp: 15, type: rock}
-rolling-kick: {pp: 15, type: fighting}
-sand-attack: {pp: 15, type: ground}
-scratch: {pp: 35, type: normal}
-screech: {pp: 40, type: normal}
-seismic-toss: {pp: 20, type: fighting}
-selfdestruct: {pp: 5, type: normal}
-sharpen: {pp: 30, type: normal}
-sing: {pp: 15, type: normal}
-skull-bash: {pp: 15, type: normal}
-sky-attack: {pp: 5, type: flying}
-slam: {pp: 20, type: normal}
-slash: {pp: 20, type: normal}
-sleep-powder: {pp: 15, type: grass}
-sludge: {pp: 20, type: poison}
-smog: {pp: 20, type: poison}
-smokescreen: {pp: 20, type: normal}
-softboiled: {pp: 10, type: normal}
-solarbeam: {pp: 10, type: grass}
-sonicboom: {pp: 20, type: normal}
-spike-cannon: {pp: 15, type: normal}
-splash: {pp: 40, type: normal}
-spore: {pp: 15, type: grass}
-stomp: {pp: 20, type: normal}
-strength: {pp: 15, type: normal}
-string-shot: {pp: 40, type: bug}
-struggle: {pp: null, type: normal}
-stun-spore: {pp: 30, type: grass}
-submission: {pp: 25, type: fighting}
-substitute: {pp: 10, type: normal}
-super-fang: {pp: 10, type: normal}
-supersonic: {pp: 20, type: normal}
-surf: {pp: 15, type: water}
-swift: {pp: 20, type: normal}
-swords-dance: {pp: 30, type: normal}
-tackle: {pp: 35, type: normal}
-tail-whip: {pp: 30, type: normal}
-take-down: {pp: 20, type: normal}
-teleport: {pp: 20, type: psychic}
-thrash: {pp: 10, type: normal}
-thunder: {pp: 10, type: electric}
-thunder-wave: {pp: 20, type: electric}
-thunderbolt: {pp: 15, type: electric}
-thunderpunch: {pp: 15, type: electric}
-thundershock: {pp: 30, type: electric}
-toxic: {pp: 10, type: poison}
-transform: {pp: 10, type: normal}
-tri-attack: {pp: 10, type: normal}
-twineedle: {pp: 20, type: bug}
-vicegrip: {pp: 30, type: normal}
-vine-whip: {pp: 15, type: grass}
-water-gun: {pp: 25, type: water}
-waterfall: {pp: 15, type: water}
-whirlwind: {pp: 20, type: normal}
-wing-attack: {pp: 35, type: flying}
-withdraw: {pp: 40, type: water}
-wrap: {pp: 20, type: normal}
+absorb: {power: 20, pp: 25, type: grass}
+acid: {power: 40, pp: 30, type: poison}
+acid-armor: {power: 0, pp: 40, type: poison}
+agility: {power: 0, pp: 30, type: psychic}
+amnesia: {power: 0, pp: 20, type: psychic}
+aurora-beam: {power: 65, pp: 20, type: ice}
+barrage: {power: 15, pp: 20, type: normal}
+barrier: {power: 0, pp: 30, type: psychic}
+bide: {power: 1, pp: 10, type: normal}
+bind: {power: 15, pp: 20, type: normal}
+bite: {power: 60, pp: 25, type: dark}
+blizzard: {power: 120, pp: 5, type: ice}
+body-slam: {power: 85, pp: 15, type: normal}
+bone-club: {power: 65, pp: 20, type: ground}
+bonemerang: {power: 50, pp: 10, type: ground}
+bubble: {power: 20, pp: 30, type: water}
+bubblebeam: {power: 65, pp: 20, type: water}
+clamp: {power: 35, pp: 15, type: water}
+comet-punch: {power: 18, pp: 15, type: normal}
+confuse-ray: {power: 0, pp: 10, type: ghost}
+confusion: {power: 50, pp: 25, type: psychic}
+constrict: {power: 10, pp: 35, type: normal}
+conversion: {power: 0, pp: 30, type: normal}
+counter: {power: 1, pp: 20, type: fighting}
+crabhammer: {power: 90, pp: 10, type: water}
+cut: {power: 50, pp: 30, type: normal}
+defense-curl: {power: 0, pp: 40, type: normal}
+dig: {power: 80, pp: 10, type: ground}
+disable: {power: 0, pp: 20, type: normal}
+dizzy-punch: {power: 70, pp: 10, type: normal}
+double-edge: {power: 120, pp: 15, type: normal}
+double-kick: {power: 30, pp: 30, type: fighting}
+double-team: {power: 0, pp: 15, type: normal}
+doubleslap: {power: 15, pp: 10, type: normal}
+dragon-rage: {power: 1, pp: 10, type: dragon}
+dream-eater: {power: 100, pp: 15, type: psychic}
+drill-peck: {power: 80, pp: 20, type: flying}
+earthquake: {power: 100, pp: 10, type: ground}
+egg-bomb: {power: 100, pp: 10, type: normal}
+ember: {power: 40, pp: 25, type: fire}
+explosion: {power: 250, pp: 5, type: normal}
+fire-blast: {power: 120, pp: 5, type: fire}
+fire-punch: {power: 75, pp: 15, type: fire}
+fire-spin: {power: 35, pp: 15, type: fire}
+fissure: {power: 1, pp: 5, type: ground}
+flamethrower: {power: 95, pp: 15, type: fire}
+flash: {power: 0, pp: 20, type: normal}
+fly: {power: 90, pp: 15, type: flying}
+focus-energy: {power: 0, pp: 30, type: normal}
+fury-attack: {power: 15, pp: 20, type: normal}
+fury-swipes: {power: 18, pp: 15, type: normal}
+glare: {power: 0, pp: 30, type: normal}
+growl: {power: 0, pp: 40, type: normal}
+growth: {power: 0, pp: 40, type: normal}
+guillotine: {power: 1, pp: 5, type: normal}
+gust: {power: 40, pp: 35, type: flying}
+harden: {power: 0, pp: 30, type: normal}
+haze: {power: 0, pp: 30, type: ice}
+headbutt: {power: 70, pp: 15, type: normal}
+hi-jump-kick: {power: 130, pp: 10, type: fighting}
+horn-attack: {power: 65, pp: 25, type: normal}
+horn-drill: {power: 1, pp: 5, type: normal}
+hydro-pump: {power: 120, pp: 5, type: water}
+hyper-beam: {power: 150, pp: 5, type: normal}
+hyper-fang: {power: 80, pp: 15, type: normal}
+hypnosis: {power: 0, pp: 20, type: psychic}
+ice-beam: {power: 95, pp: 10, type: ice}
+ice-punch: {power: 75, pp: 15, type: ice}
+jump-kick: {power: 100, pp: 10, type: fighting}
+karate-chop: {power: 50, pp: 25, type: fighting}
+kinesis: {power: 0, pp: 15, type: psychic}
+leech-life: {power: 20, pp: 15, type: bug}
+leech-seed: {power: 0, pp: 10, type: grass}
+leer: {power: 0, pp: 30, type: normal}
+lick: {power: 20, pp: 30, type: ghost}
+light-screen: {power: 0, pp: 30, type: psychic}
+lovely-kiss: {power: 0, pp: 10, type: normal}
+low-kick: {power: 1, pp: 20, type: fighting}
+meditate: {power: 0, pp: 40, type: psychic}
+mega-drain: {power: 40, pp: 15, type: grass}
+mega-kick: {power: 120, pp: 5, type: normal}
+mega-punch: {power: 80, pp: 20, type: normal}
+metronome: {power: 0, pp: 10, type: normal}
+mimic: {power: 0, pp: 10, type: normal}
+minimize: {power: 0, pp: 20, type: normal}
+mirror-move: {power: 0, pp: 20, type: flying}
+mist: {power: 0, pp: 30, type: ice}
+night-shade: {power: 1, pp: 15, type: ghost}
+pay-day: {power: 40, pp: 20, type: normal}
+peck: {power: 35, pp: 35, type: flying}
+petal-dance: {power: 120, pp: 10, type: grass}
+pin-missile: {power: 14, pp: 20, type: bug}
+poison-gas: {power: 0, pp: 40, type: poison}
+poison-sting: {power: 15, pp: 35, type: poison}
+poisonpowder: {power: 0, pp: 35, type: poison}
+pound: {power: 40, pp: 35, type: normal}
+psybeam: {power: 65, pp: 20, type: psychic}
+psychic: {power: 90, pp: 10, type: psychic}
+psywave: {power: 1, pp: 15, type: psychic}
+quick-attack: {power: 40, pp: 30, type: normal}
+rage: {power: 20, pp: 20, type: normal}
+razor-leaf: {power: 55, pp: 25, type: grass}
+razor-wind: {power: 80, pp: 10, type: normal}
+recover: {power: 0, pp: 10, type: normal}
+reflect: {power: 0, pp: 20, type: psychic}
+rest: {power: 0, pp: 10, type: psychic}
+roar: {power: 0, pp: 20, type: normal}
+rock-slide: {power: 75, pp: 10, type: rock}
+rock-throw: {power: 50, pp: 15, type: rock}
+rolling-kick: {power: 60, pp: 15, type: fighting}
+sand-attack: {power: 0, pp: 15, type: ground}
+scratch: {power: 40, pp: 35, type: normal}
+screech: {power: 0, pp: 40, type: normal}
+seismic-toss: {power: 1, pp: 20, type: fighting}
+selfdestruct: {power: 200, pp: 5, type: normal}
+sharpen: {power: 0, pp: 30, type: normal}
+sing: {power: 0, pp: 15, type: normal}
+skull-bash: {power: 100, pp: 15, type: normal}
+sky-attack: {power: 140, pp: 5, type: flying}
+slam: {power: 80, pp: 20, type: normal}
+slash: {power: 70, pp: 20, type: normal}
+sleep-powder: {power: 0, pp: 15, type: grass}
+sludge: {power: 65, pp: 20, type: poison}
+smog: {power: 20, pp: 20, type: poison}
+smokescreen: {power: 0, pp: 20, type: normal}
+softboiled: {power: 0, pp: 10, type: normal}
+solarbeam: {power: 120, pp: 10, type: grass}
+sonicboom: {power: 1, pp: 20, type: normal}
+spike-cannon: {power: 20, pp: 15, type: normal}
+splash: {power: 0, pp: 40, type: normal}
+spore: {power: 0, pp: 15, type: grass}
+stomp: {power: 65, pp: 20, type: normal}
+strength: {power: 80, pp: 15, type: normal}
+string-shot: {power: 0, pp: 40, type: bug}
+struggle: {power: 50, pp: null, type: normal}
+stun-spore: {power: 0, pp: 30, type: grass}
+submission: {power: 80, pp: 25, type: fighting}
+substitute: {power: 0, pp: 10, type: normal}
+super-fang: {power: 1, pp: 10, type: normal}
+supersonic: {power: 0, pp: 20, type: normal}
+surf: {power: 95, pp: 15, type: water}
+swift: {power: 60, pp: 20, type: normal}
+swords-dance: {power: 0, pp: 30, type: normal}
+tackle: {power: 50, pp: 35, type: normal}
+tail-whip: {power: 0, pp: 30, type: normal}
+take-down: {power: 90, pp: 20, type: normal}
+teleport: {power: 0, pp: 20, type: psychic}
+thrash: {power: 120, pp: 10, type: normal}
+thunder: {power: 120, pp: 10, type: electric}
+thunder-wave: {power: 0, pp: 20, type: electric}
+thunderbolt: {power: 95, pp: 15, type: electric}
+thunderpunch: {power: 75, pp: 15, type: electric}
+thundershock: {power: 40, pp: 30, type: electric}
+toxic: {power: 0, pp: 10, type: poison}
+transform: {power: 0, pp: 10, type: normal}
+tri-attack: {power: 80, pp: 10, type: normal}
+twineedle: {power: 25, pp: 20, type: bug}
+vicegrip: {power: 55, pp: 30, type: normal}
+vine-whip: {power: 35, pp: 15, type: grass}
+water-gun: {power: 40, pp: 25, type: water}
+waterfall: {power: 80, pp: 15, type: water}
+whirlwind: {power: 0, pp: 20, type: normal}
+wing-attack: {power: 60, pp: 35, type: flying}
+withdraw: {power: 0, pp: 40, type: water}
+wrap: {power: 15, pp: 20, type: normal}
