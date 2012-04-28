@@ -46,7 +46,7 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(nature: 'Adamant')
       pokemon.stat('attack').should.equal 259
 
-    it "calculates a stat with a nature boost correctly", ->
+    it "calculates a stat with a nature decrease correctly", ->
       pokemon = new Pokemon(nature: 'Bold')
       pokemon.stat('attack').should.equal 212
 
