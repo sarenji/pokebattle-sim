@@ -30,14 +30,20 @@ class @Battle
       name: moveName
 
     # End the turn if each player has moved.
-    if _.all(@players, (player) => player.clientId of @playerMoves)
-      @endTurn()
+    if @hasAllPlayersMoved() then @endTurn()
 
   switch: (player, toPosition) =>
     # Record the switch
     @playerMoves[player.clientId] =
       type: 'switch'
       to: toPosition
+
+    # End the turn if each player has moved.
+    if @hasAllPlayersMoved() then @endTurn()
+
+  # Returns true if all players have moved, false otherwise.
+  hasAllPlayersMoved: =>
+    _.all(@players, (player) => player.clientId of @playerMoves)
 
   endTurn: =>
     # Act on player actions.
