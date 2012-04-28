@@ -13,6 +13,9 @@ describe 'Pokemon', ->
   it 'can change the default level', ->
     new Pokemon(level: 5).level.should.equal 5
 
+  it 'gets its current hp populated from its max hp', ->
+    new Pokemon().currentHP.should.equal 341
+
   describe '#iv', ->
     it 'has default iv of 31', ->
       new Pokemon().iv('hp').should.equal 31

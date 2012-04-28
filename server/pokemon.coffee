@@ -9,6 +9,7 @@ class @Pokemon
     @nature = attributes.nature
     @evs = attributes.evs || {}
     @ivs = attributes.ivs || {}
+    @currentHP = @stat('hp')
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
