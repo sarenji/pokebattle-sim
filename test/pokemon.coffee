@@ -20,7 +20,7 @@ describe 'Pokemon', ->
   describe '#iv', ->
     it 'has default iv', ->
       new Pokemon().iv('hp').should.equal 31
-      
+
     it 'retrieves iv successfully', ->
       new Pokemon(ivs: {'hp': 25}).iv('hp').should.equal 25
 
