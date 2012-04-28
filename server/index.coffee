@@ -29,7 +29,6 @@ class @BattleServer
   # Creates a battle and returns its battleId
   createBattle: (players...) =>
     battleId = @generateBattleId()
-    battleId = @generateBattleId()  while battleId of @battles
     @battles[battleId] = new Battle(engine: this, players: players)
     battleId
 
