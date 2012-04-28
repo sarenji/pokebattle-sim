@@ -10,11 +10,6 @@ class @Pokemon
     @evs = attributes.evs || {}
     @ivs = attributes.ivs || {}
 
-    # Create aliases for each stat. For example,
-    # hp() is an alias for stat('hp')
-    for stat in stats
-      do (stat) => @[stat] = -> @stat(stat)
-
   iv: (stat) -> @ivs[stat] || 31
   ev: (stat) -> @evs[stat] || 0
 
@@ -24,10 +19,9 @@ class @Pokemon
   stat: (key) ->
     base = 100 # Todo: obtain base stats from the species
     iv = @iv key
-    ev_f = floor (@ev key) / 4
-    level_f = floor @level / 100
+    ev_f = floor(@ev(key) / 4)
     if key == 'hp'
-      floor (2 * base + iv + ev_f) * level_f + @level + 10
+      floor (2 * base + iv + ev_f) * (@level / 100) + @level + 10
     else
       @nature_boost = 1
-      floor ((2 * base + iv + ev_f) * level_f + 5) * @nature_boost
+      floor ((2 * base + iv + ev_f) * (@level / 100) + 5) * @nature_boost
