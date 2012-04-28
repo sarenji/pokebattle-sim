@@ -3,7 +3,7 @@
 
 class @BattleServer
   constructor: ->
-    @queue = new BattleQueue(this)
+    @queue = new BattleQueue()
     @battles = {}
 
   queuePlayer: (player) =>
