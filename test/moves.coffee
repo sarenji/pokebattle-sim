@@ -1,4 +1,4 @@
-{Move} = require '../engine/move'
+{Move} = require '../server/move'
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->

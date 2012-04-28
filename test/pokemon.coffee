@@ -1,4 +1,4 @@
-{Pokemon} = require '../engine/pokemon'
+{Pokemon} = require '../server/pokemon'
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
