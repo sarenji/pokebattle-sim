@@ -1,6 +1,6 @@
 # A queue of users waiting for a battle
 class @BattleQueue
-  constructor: (@server) ->
+  constructor: ->
     @queue = []
 
   add: (player) ->

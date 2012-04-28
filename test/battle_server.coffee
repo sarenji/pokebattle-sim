@@ -1,5 +1,4 @@
 {BattleServer} = require '../server'
-{Engine} = require '../engine'
 sinon = require 'sinon'
 
 describe 'BattleServer', ->
@@ -11,10 +10,21 @@ describe 'BattleServer', ->
 
   describe '#beginBattles', ->
     it 'tells the engine to create battles', ->
-      engine = new Engine()
-      server = new BattleServer(engine)
-      stub = sinon.stub(engine, 'createBattle')
+      server = new BattleServer()
+      stub = sinon.stub(server, 'createBattle')
       server.queuePlayer({})
       server.queuePlayer({})
       server.beginBattles()
       stub.called.should.be.true
+
+    it 'emits the "start battle" event for each player', ->
+      server = new BattleServer()
+      player = { emit: -> }
+      sinon.stub(server, 'createBattle')
+      mock = sinon.mock(player)
+      mock.expects('emit').twice().withArgs('start battle')
+
+      server.queuePlayer(player)
+      server.queuePlayer(player)
+      server.beginBattles()
+      mock.verify()
