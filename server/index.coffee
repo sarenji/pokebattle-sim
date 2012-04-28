@@ -1,5 +1,8 @@
+{createHmac} = require 'crypto'
+{_} = require 'underscore'
 {BattleQueue} = require './queue'
 {Battle} = require './battle'
+
 
 class @BattleServer
   constructor: ->
@@ -31,9 +34,13 @@ class @BattleServer
     battleId
 
   # Generate a random ID for a new battle.
-  # TODO: Use node's built in crypto library to generate a HMAC
-  generateBattleId: =>
-    Math.floor(Math.random() * 0xFFFFFF).toString(16)
+  generateBattleId: (players) =>
+    # TODO load key from config or env
+    hmac = createHmac('sha1', 'INSECURE KEY')
+    hmac.update((new Date).toISOString())
+    for player in players
+      hmac.update(player.clientId)
+    hmac.digest('hex')
 
   # Returns the battle with battleId.
   findBattle: (battleId) =>
