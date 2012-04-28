@@ -57,5 +57,8 @@ describe 'Pokemon', ->
     it "returns 1.1 for natures that boost a certain stat", ->
       new Pokemon(nature: 'Adamant').natureBoost('attack').should.equal 1.1
 
+    it "returns 1.0 for natures do not affect a certain stat", ->
+      new Pokemon(nature: 'Adamant').natureBoost('speed').should.equal 1
+
     it "returns 0.9 for natures that decrease a certain stat", ->
       new Pokemon(nature: 'Timid').natureBoost('attack').should.equal 0.9
