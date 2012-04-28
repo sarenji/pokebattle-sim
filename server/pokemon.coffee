@@ -37,6 +37,7 @@ class @Pokemon
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
+# TODO: .yml-ify these.
 PLUS  = 1.1
 MINUS = 0.9
 natures =
