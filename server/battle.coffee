@@ -88,9 +88,8 @@ class @Battle
       # TODO: abstract better?
       switch move.type
         when 'switch'
-          {to} = move
           team = @getTeam(clientId)
-          [team[0], team[to]] = [team[to], team[0]]
+          [team[0], team[move.to]] = [team[move.to], team[0]]
         when 'move'
           player = @getPlayer(clientId)
           pokemon = @getTeam(clientId)[0]
