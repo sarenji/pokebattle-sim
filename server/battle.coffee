@@ -11,30 +11,48 @@ class @Battle
   constructor: (attributes = {}) ->
     {@players} = attributes
 
-    for player in @players
-      # TODO: Make this nicer.
-      # Store an "opponents" array for each player. This array contains
-      # all players except the current player.
-      # This assumes a FFA.
-      player.opponents = _.reject(@players, (opponent) -> opponent == player)
-
-      # Turn every hash in a team into a real, live Pokemon.
-      player.team = player.team.map (attributes) ->
-        new Pokemon(attributes)
-
     # Stores the current turn of the battle
     @turn = 0
 
     # Stores the moves each player is about to make
+    # Keyed by player.clientId
     @playerMoves = {}
 
     # Creates a RNG for this battle.
     @rng = new FakeRNG()
 
-    # Maps clientId -> player
-    @playerHash = {}
-    for player in @players
-      @playerHash[player.clientId] = player
+    # Maps clientId -> object
+    @objectHash = {}
+
+    for object in @players
+      @objectHash[object.player.clientId] = object
+
+      # Each object is a hash: {player: socket, team: team}
+      # TODO: Make this nicer.
+      # Store an "opponents" array for each player. This array contains
+      # all players except the current player.
+      # This assumes a FFA.
+      {player, team} = object
+      object.opponents = _.reject @players, (object) ->
+        object.player == player
+
+      # Turn every hash in a team into a real, live Pokemon.
+      object.team = team.map (attributes) ->
+        new Pokemon(attributes)
+
+  getPlayer: (clientId) =>
+    @objectHash[clientId].player
+
+  getTeam: (clientId) =>
+    if !@objectHash[clientId]?
+      console.log clientId
+    @objectHash[clientId].team
+
+  getOpponents: (clientId) =>
+    @objectHash[clientId].opponents
+
+  getMove: (clientId) =>
+    @playerMoves[clientId]
 
   makeMove: (player, moveName) =>
     moveName = moveName.toLowerCase()
@@ -60,25 +78,25 @@ class @Battle
 
   # Returns true if all players have moved, false otherwise.
   hasAllPlayersMoved: =>
-    _.all(@players, (player) => player.clientId of @playerMoves)
+    _.all(@players, (object) => object.player.clientId of @playerMoves)
 
   endTurn: =>
     # Act on player actions.
     # TODO: Sort by priority and active pokemon speed.
     for clientId of @playerMoves
-      move = @playerMoves[clientId]
+      move = @getMove(clientId)
       # TODO: abstract better?
       switch move.type
         when 'switch'
-          {team} = @playerHash[clientId]
           {to} = move
+          team = @getTeam(clientId)
           [team[0], team[to]] = [team[to], team[0]]
         when 'move'
-          player = @playerHash[clientId]
-          pokemon = player.team[0]
+          player = @getPlayer(clientId)
+          pokemon = @getTeam(clientId)[0]
           # TODO: Make this nicer.
-          for opponent in player.opponents
-            defender = opponent.team[0]
+          for opponent in @getOpponents(clientId)
+            defender = @getTeam(opponent.player.clientId)[0]
             baseDamage = @baseDamage(pokemon, defender, MoveData[move.name])
             @damage(pokemon, defender, baseDamage)
 
@@ -88,13 +106,12 @@ class @Battle
           # TODO: Apply type-effectiveness
           # TODO: Apply burn
 
-
       # Clean up playerMoves hash.
       delete @playerMoves[clientId]
 
     # Send a message to each player about the end of turn.
-    for player in @players
-      player.emit? 'updatechat', 'SERVER', 'end turn!'
+    for object in @players
+      object.player.emit? 'updatechat', 'SERVER', 'end turn!'
 
   baseDamage: (attacker, defender, move) =>
     baseDamage = Math.floor((2 * attacker.level) / 5 + 2)

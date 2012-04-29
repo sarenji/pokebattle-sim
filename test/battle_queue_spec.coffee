@@ -7,14 +7,14 @@ describe 'BattleQueue', ->
   describe '#add', ->
     it 'queues a new player', ->
       queue = new BattleQueue()
-      queue.add({})
+      queue.add({}, {})
       queue.queue.should.have.length 1
 
   describe '#remove', ->
     it 'can dequeue old players', ->
       queue = new BattleQueue()
       player = {}
-      queue.add(player)
+      queue.add(player, {})
       queue.remove(player)
       queue.queue.should.have.length 0
 

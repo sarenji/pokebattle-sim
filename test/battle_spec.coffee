@@ -4,9 +4,15 @@ sinon = require 'sinon'
 
 describe 'Battle', ->
   beforeEach ->
-    @player1 = {clientId: 'abcde', team: [{}, {}]}
-    @player2 = {clientId: 'fghij', team: [{}, {}]}
-    @battle  = new Battle(players: [@player1, @player2])
+    @player1 = {clientId: 'abcde'}
+    @player2 = {clientId: 'fghij'}
+    team1   = [{}, {}]
+    team2   = [{}, {}]
+    players = [{player: @player1, team: team1},
+               {player: @player2, team: team2}]
+    @battle = new Battle(players: players)
+    @team1  = @battle.getTeam(@player1.clientId)
+    @team2  = @battle.getTeam(@player2.clientId)
 
   it 'starts at turn 0', ->
     @battle.turn.should.equal 0
@@ -44,10 +50,10 @@ describe 'Battle', ->
 
   describe '#switch', ->
     it "swaps pokemon positions of a player's team", ->
-      [poke1, poke2] = @player1.team
+      [poke1, poke2] = @team1
       @battle.switch(@player1, 1)
       @battle.endTurn()
-      @player1.team.slice(0, 2).should.eql [poke2, poke1]
+      @team1.slice(0, 2).should.eql [poke2, poke1]
 
     it "automatically ends the turn if all players switch", ->
       mock = sinon.mock(@battle)
@@ -58,7 +64,7 @@ describe 'Battle', ->
 
   describe '#endTurn', ->
     it "makes pokemon use move", ->
-      defender = @player2.team[0]
+      defender = @team2[0]
       hp = defender.currentHP
       @battle.makeMove(@player1, 'Tackle')
       @battle.endTurn()
@@ -66,5 +72,5 @@ describe 'Battle', ->
 
   describe "#damage", ->
     it "reduces the pokemon's hp", ->
-      @battle.damage(@player1.team[0], @player2.team[0], 3)
-      @player2.team[0].currentHP.should.equal 338
+      @battle.damage(@team1[0], @team2[0], 3)
+      @team2[0].currentHP.should.equal 338

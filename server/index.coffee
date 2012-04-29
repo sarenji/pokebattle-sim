@@ -23,13 +23,15 @@ class @BattleServer
       id = @createBattle(pair...)
 
       # Tell each player to start a battle with an id `id`.
-      for player in pair
+      players = pair.map (object) -> object.player
+      for player in players
         player.emit? 'start battle', id
 
   # Creates a battle and returns its battleId
-  createBattle: (players...) =>
+  createBattle: (objects...) =>
+    players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
-    @battles[battleId] = new Battle(engine: this, players: players)
+    @battles[battleId] = new Battle(players: objects)
     battleId
 
   # Generate a random ID for a new battle.
