@@ -1,10 +1,10 @@
-Tackle:
+tackle:
   base power: 50
   type: normal
   accuracy: 100
   pp: 35
   damage: physical
 
-Splash:
+splash:
   type: normal
   pp: 40
