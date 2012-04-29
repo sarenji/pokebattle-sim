@@ -40,9 +40,11 @@ io = socket.listen solid (app) ->
 # Attach events to incoming users
 io.sockets.on 'connection', (socket) ->
   socket.on 'adduser', (username, clientId) ->
+    # TODO: Take team from player.
+    team = [{}]
     socket.username = username
     socket.clientId = clientId
-    server.queuePlayer(socket)
+    server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
     io.sockets.emit 'updatechat', 'SERVER', "#{username} joined the game!"

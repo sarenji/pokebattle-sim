@@ -9,8 +9,8 @@ class @BattleServer
     @queue = new BattleQueue()
     @battles = {}
 
-  queuePlayer: (player) =>
-    @queue.add(player)
+  queuePlayer: (player, team) =>
+    @queue.add(player, team)
 
   queuedPlayers: =>
     @queue.queuedPlayers()
