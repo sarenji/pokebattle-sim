@@ -1,4 +1,4 @@
-{BattleServer} = require '../server'
+{BattleServer} = require('../').server
 sinon = require 'sinon'
 
 describe 'BattleServer', ->

@@ -1,4 +1,4 @@
-{Move} = require '../server/move'
+{Move} = require('../').server
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->

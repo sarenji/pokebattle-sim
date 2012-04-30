@@ -1,4 +1,4 @@
-{Pokemon} = require '../server/pokemon'
+{Pokemon} = require('../').server
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->

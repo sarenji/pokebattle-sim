@@ -2,9 +2,11 @@
 {_} = require 'underscore'
 {BattleQueue} = require './queue'
 {Battle} = require './battle'
+{Pokemon} = require './pokemon'
+{Move} = require './move'
+{FakeRNG} = require './rng'
 
-
-class @BattleServer
+class BattleServer
   constructor: ->
     @queue = new BattleQueue()
     @battles = {}
@@ -46,3 +48,5 @@ class @BattleServer
   # Returns the battle with battleId.
   findBattle: (battleId) =>
     @battles[battleId]
+
+module.exports = {BattleQueue, Battle, Pokemon, Move, FakeRNG, BattleServer}

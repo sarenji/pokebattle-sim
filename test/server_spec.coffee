@@ -1,4 +1,4 @@
-{BattleServer} = require '../server'
+{BattleServer} = require('../').server
 
 describe 'BattleServer', ->
   it 'can create a new battle', ->

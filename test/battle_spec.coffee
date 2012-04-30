@@ -1,6 +1,5 @@
 sinon = require 'sinon'
-{Battle} = require '../server/battle'
-{Pokemon} = require '../server/pokemon'
+{Battle, Pokemon} = require('../').server
 
 describe 'Battle', ->
   beforeEach ->
