@@ -56,7 +56,7 @@ natures =
   naive:   {speed: PLUS, specialDefense: MINUS}
   modest:  {specialAttack: PLUS, attack: MINUS}
   mild:    {specialAttack: PLUS, defense: MINUS}
-  quiet:   {specialAttack: PLUS, specialAttack: MINUS}
+  quiet:   {specialAttack: PLUS, speed: MINUS}
   rash:    {specialAttack: PLUS, specialDefense: MINUS}
   calm:    {specialDefense: PLUS, attack: MINUS}
   gentle:  {specialDefense: PLUS, defense: MINUS}
