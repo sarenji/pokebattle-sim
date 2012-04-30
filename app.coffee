@@ -2,7 +2,7 @@ socket = require 'socket.io'
 
 solid = require 'solid'
 
-{BattleServer} = require './server-cov'
+{BattleServer} = require './server'
 server = new BattleServer()
 
 # Start responding to clients
