@@ -5,8 +5,7 @@ require 'js-yaml'
 
 class @Battle
   # TODO: let Battle serialize these.
-  {MoveData, PokemonData} = require '../data/bw'
-  @moves = MoveData
+  {moves, MoveData, PokemonData} = require '../data/bw'
   @pokemon = PokemonData
 
   constructor: (attributes = {}) ->
@@ -96,9 +95,10 @@ class @Battle
           pokemon = @getTeam(clientId)[0]
           # TODO: Make this nicer.
           for opponent in @getOpponents(clientId)
+            # todo: moveObj should be cloned and attached to the pokemon
+            moveObj = moves[move.name]
             defender = @getTeam(opponent.player.clientId)[0]
-            baseDamage = @baseDamage(pokemon, defender, MoveData[move.name])
-            @damage(pokemon, defender, baseDamage)
+            moveObj.execute(this, pokemon, defender)
 
           # TODO: Apply multi-target and weather modifiers
           # TODO: Apply random factor

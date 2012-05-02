@@ -5,9 +5,14 @@ class @Move
 
   # Executes the move on the target. Target may be null
   # if the move attacks all opponents
-  execute: (target) ->
-    # todo: Emit this on the battlefield
+  execute: (battle, user, target) ->
+    # todo: Emit this on the battle
     @beforeMove?()
-    # actual move goes here
+
+    # todo: this should be part of some default battle action
+    baseDamage = battle.baseDamage(user, target, @attributes)
+    battle.damage(user, target, baseDamage)
+
+    # todo: Emit this on the battle
     @afterMove?()
 

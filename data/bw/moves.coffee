@@ -5,7 +5,7 @@
 
 # Generate the initial versions of every single move.
 # Some of these will be overwritten later.
-@moves = {}
+@moves = moves = {}
 for name, attributes of @MoveData
   @moves[name] = new Move(name, attributes)
 
@@ -19,10 +19,15 @@ for name, attributes of @MoveData
 # Example:
 #
 #   extendMove 'flamethrower', (attributes) ->
-#     @initialize: -> # blah
-#     @afterMove: -> # blah
+#     @initialize -> # blah
+#     @afterMove -> # blah
 #
 extendMove = (name, callback) ->
-  move = @moves[name]
-  # todo: crash if it doesn't exist
+  move = moves[name]
+  # todo: error if it doesn't exist
+
+  # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
+
+extendMove 'splash', ->
+  # make splash do nothing
