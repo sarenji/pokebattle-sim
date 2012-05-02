@@ -1,5 +1,5 @@
 tackle:
-  base power: 50
+  power: 50
   type: normal
   accuracy: 100
   pp: 35

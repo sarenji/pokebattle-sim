@@ -5,8 +5,9 @@ require 'js-yaml'
 
 class @Battle
   # TODO: let Battle serialize these.
-  @moves = MoveData = require('../data/rb/moves.yml').pop()
-  @pokemon = PokemonData = require('../data/bw/pokemon.yml').pop()
+  {MoveData, PokemonData} = require '../data/bw'
+  @moves = MoveData
+  @pokemon = PokemonData
 
   constructor: (attributes = {}) ->
     {@players} = attributes
