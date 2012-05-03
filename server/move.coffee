@@ -9,10 +9,11 @@ class @Move
     # todo: Emit this on the battle
     @beforeMove?()
 
-    # todo: this should be part of some default battle action
-    baseDamage = battle.baseDamage(user, target, @attributes)
-    battle.damage(user, target, baseDamage)
+    @activate(battle, user, target)
 
     # todo: Emit this on the battle
     @afterMove?()
 
+  activate: (battle, user, target) ->
+    baseDamage = battle.baseDamage(user, target, @attributes)
+    battle.damage(user, target, baseDamage)

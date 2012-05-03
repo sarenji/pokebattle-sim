@@ -30,4 +30,4 @@ extendMove = (name, callback) ->
   callback.call(move, move.attributes)
 
 extendMove 'splash', ->
-  # make splash do nothing
+  @activate = -> # DO NOTHING MESSAGE
