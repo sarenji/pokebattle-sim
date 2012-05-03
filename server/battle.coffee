@@ -97,7 +97,10 @@ class @Battle
           for opponent in @getOpponents(clientId)
             # todo: the move should be cloned and attached to the pokemon
             defender = @getTeam(opponent.player.clientId)[0]
+
+            # Any before move events
             moves[action.name].execute(this, pokemon, defender)
+            # Any after move events
 
           # TODO: Apply multi-target and weather modifiers
           # TODO: Apply random factor
