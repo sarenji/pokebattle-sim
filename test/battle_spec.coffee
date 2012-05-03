@@ -16,29 +16,29 @@ describe 'Battle', ->
   it 'starts at turn 0', ->
     @battle.turn.should.equal 0
 
-  describe '#hasAllPlayersMoved', ->
+  describe '#hasAllPlayersActed', ->
     it "returns false if no player has moved", ->
-      @battle.hasAllPlayersMoved().should.be.false
+      @battle.hasAllPlayersActed().should.be.false
 
     it "returns false if half the players have not moved", ->
-      @battle.playerMoves[@player1.clientId] = true
-      @battle.hasAllPlayersMoved().should.be.false
+      @battle.playerActions[@player1.clientId] = true
+      @battle.hasAllPlayersActed().should.be.false
 
     it "returns true if all players have moved", ->
-      @battle.playerMoves[@player1.clientId] = true
-      @battle.playerMoves[@player2.clientId] = true
-      @battle.hasAllPlayersMoved().should.be.true
+      @battle.playerActions[@player1.clientId] = true
+      @battle.playerActions[@player2.clientId] = true
+      @battle.hasAllPlayersActed().should.be.true
 
   describe '#makeMove', ->
     it "records a player's move", ->
       @battle.makeMove(@player1, 'Tackle')
-      @battle.playerMoves.should.have.property @player1.clientId
-      @battle.playerMoves[@player1.clientId].name.should.equal 'tackle'
+      @battle.playerActions.should.have.property @player1.clientId
+      @battle.playerActions[@player1.clientId].name.should.equal 'tackle'
 
     # TODO: Invalid moves should fail in some way.
     it "doesn't record invalid moves", ->
       @battle.makeMove(@player1, 'Blooberry Gun')
-      @battle.playerMoves.should.not.have.property @player1.clientId
+      @battle.playerActions.should.not.have.property @player1.clientId
 
     it "automatically ends the turn if all players move", ->
       mock = sinon.mock(@battle)

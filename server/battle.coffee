@@ -14,9 +14,9 @@ class @Battle
     # Stores the current turn of the battle
     @turn = 0
 
-    # Stores the moves each player is about to make
+    # Stores the actions each player is about to make
     # Keyed by player.clientId
-    @playerMoves = {}
+    @playerActions = {}
 
     # Creates a RNG for this battle.
     @rng = new FakeRNG()
@@ -51,8 +51,8 @@ class @Battle
   getOpponents: (clientId) =>
     @objectHash[clientId].opponents
 
-  getMove: (clientId) =>
-    @playerMoves[clientId]
+  getAction: (clientId) =>
+    @playerActions[clientId]
 
   makeMove: (player, moveName) =>
     moveName = moveName.toLowerCase()
@@ -60,45 +60,44 @@ class @Battle
     return  if moveName not of MoveData
 
     # Store the move name that this player wants to make.
-    @playerMoves[player.clientId] =
+    @playerActions[player.clientId] =
       type: 'move'
       name: moveName
 
     # End the turn if each player has moved.
-    if @hasAllPlayersMoved() then @endTurn()
+    if @hasAllPlayersActed() then @endTurn()
 
   switch: (player, toPosition) =>
     # Record the switch
-    @playerMoves[player.clientId] =
+    @playerActions[player.clientId] =
       type: 'switch'
       to: toPosition
 
     # End the turn if each player has moved.
-    if @hasAllPlayersMoved() then @endTurn()
+    if @hasAllPlayersActed() then @endTurn()
 
   # Returns true if all players have moved, false otherwise.
-  hasAllPlayersMoved: =>
-    _.all(@players, (object) => object.player.clientId of @playerMoves)
+  hasAllPlayersActed: =>
+    _.all(@players, (object) => object.player.clientId of @playerActions)
 
   endTurn: =>
     # Act on player actions.
     # TODO: Sort by priority and active pokemon speed.
-    for clientId of @playerMoves
-      move = @getMove(clientId)
+    for clientId of @playerActions
+      action = @getAction(clientId)
       # TODO: abstract better?
-      switch move.type
+      switch action.type
         when 'switch'
           team = @getTeam(clientId)
-          [team[0], team[move.to]] = [team[move.to], team[0]]
+          [team[0], team[action.to]] = [team[action.to], team[0]]
         when 'move'
           player = @getPlayer(clientId)
           pokemon = @getTeam(clientId)[0]
           # TODO: Make this nicer.
           for opponent in @getOpponents(clientId)
-            # todo: moveObj should be cloned and attached to the pokemon
-            moveObj = moves[move.name]
+            # todo: the move should be cloned and attached to the pokemon
             defender = @getTeam(opponent.player.clientId)[0]
-            moveObj.execute(this, pokemon, defender)
+            moves[action.name].execute(this, pokemon, defender)
 
           # TODO: Apply multi-target and weather modifiers
           # TODO: Apply random factor
@@ -106,8 +105,8 @@ class @Battle
           # TODO: Apply type-effectiveness
           # TODO: Apply burn
 
-      # Clean up playerMoves hash.
-      delete @playerMoves[clientId]
+      # Clean up playerActions hash.
+      delete @playerActions[clientId]
 
     # Send a message to each player about the end of turn.
     for object in @players
