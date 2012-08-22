@@ -11,8 +11,9 @@ class @Move
   # if the move attacks all opponents
   execute: (battle, user, target) =>
     damage = @baseDamage(battle, user, target)
-    damage = Math.round((@stab(user) * damage) / 0x1000)
+    damage = damage * 2  if @isCriticalHit(battle, user, target)
     damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
+    damage = Math.round((@stab(user) * damage) / 0x1000)
     damage = Math.max(damage, 1)
     @damage(user, target, damage)
 
@@ -57,7 +58,6 @@ class @Move
   baseDamage: (battle, attacker, defender) =>
     floor = Math.floor
     baseDamage = floor((2 * attacker.level) / 5 + 2)
-    baseDamage *= 2  if @isCriticalHit(battle, attacker, defender)
     # TODO: Apply variable base power
     baseDamage *= @basePower()
     baseDamage *= attacker.stat(whichAttackStat(@spectra))
