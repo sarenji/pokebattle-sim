@@ -22,11 +22,14 @@ class @Move
     else
       0x1000
 
+  basePower: =>
+    @power
+
   baseDamage: (attacker, defender) =>
     floor = Math.floor
     baseDamage = floor((2 * attacker.level) / 5 + 2)
     # TODO: Apply variable base power
-    baseDamage *= @power
+    baseDamage *= @basePower()
     baseDamage *= attacker.stat(whichAttackStat(@spectra))
     baseDamage = floor(baseDamage / defender.stat(whichDefenseStat(@spectra)))
     baseDamage += 2
