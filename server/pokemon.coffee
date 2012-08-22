@@ -12,6 +12,7 @@ class @Pokemon
     @currentHP = @stat('hp')
 
     @moves = attributes.moves
+    @types = attributes.types || []
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
@@ -36,6 +37,9 @@ class @Pokemon
       natures[nature][stat] || 1
     else
       1
+
+  hasType: (type) =>
+    type in @types
 
 
 # A hash that keys a nature with the stats that it boosts.

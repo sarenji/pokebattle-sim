@@ -65,3 +65,10 @@ describe 'Pokemon', ->
 
     it "returns 0.9 for natures that decrease a certain stat", ->
       new Pokemon(nature: 'Timid').natureBoost('attack').should.equal 0.9
+
+  describe '#hasType', ->
+    it 'returns false if the pokemon does not have that type', ->
+      new Pokemon().hasType('Grass').should.equal.false
+
+    it 'returns true if the pokemon has that type', ->
+      new Pokemon(types: ['Dark', 'Grass']).hasType('Grass').should.equal.true

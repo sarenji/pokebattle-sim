@@ -123,15 +123,9 @@ class @Battle
     for object in @players
       object.player.emit? 'updatechat', 'SERVER', messages.join('<br>')
 
-  baseDamage: (attacker, defender, move) =>
-    baseDamage = Math.floor((2 * attacker.level) / 5 + 2)
-    # TODO: Apply variable base power
-    baseDamage *= move.power
-    # TODO: Differentiate between attack and special attack
-    # TODO: Apply boosts to stat
-    baseDamage *= attacker.stat('attack')
-    baseDamage = Math.floor(baseDamage / defender.stat('defense'))
-    baseDamage += 2
-
   damage: (attacker, defender, damage) =>
     defender.currentHP -= damage
+
+  # Returns a random integer N such that min <= N <= max.
+  randInt: (min, max) =>
+    Math.floor(@rng.next() * (max + 1 - min) + min)

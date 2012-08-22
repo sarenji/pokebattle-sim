@@ -3,7 +3,7 @@ tackle:
   type: normal
   accuracy: 100
   pp: 35
-  damage: physical
+  spectra: physical
 
 splash:
   type: normal
