@@ -31,6 +31,7 @@ class @Move
     # TODO: Apply variable base power
     baseDamage *= @basePower()
     baseDamage *= attacker.stat(whichAttackStat(@spectra))
+    # TODO: Some moves act against the defense stat even if they're special.
     baseDamage = floor(baseDamage / defender.stat(whichDefenseStat(@spectra)))
     baseDamage += 2
 
