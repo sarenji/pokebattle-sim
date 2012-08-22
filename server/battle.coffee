@@ -105,10 +105,11 @@ class @Battle
             move = moves[action.name]
 
             # Any before move events
-            move.execute(this, pokemon, defender)
+            damage = move.execute(this, pokemon, defender)
             # Any after move events
 
             messages.push "#{player.username}'s #{pokemon.name} used #{move.name}!"
+            messages.push "#{opponent.username}'s #{defender.name} took #{damage} damage!"
           # TODO: Apply multi-target and weather modifiers
           # TODO: Apply random factor
           # TODO: Apply STAB
@@ -122,9 +123,6 @@ class @Battle
     messages.push 'end turn!'
     for object in @players
       object.player.emit? 'updatechat', 'SERVER', messages.join('<br>')
-
-  damage: (attacker, defender, damage) =>
-    defender.currentHP -= damage
 
   # Returns a random integer N such that min <= N <= max.
   randInt: (min, max) =>

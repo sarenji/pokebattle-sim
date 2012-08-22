@@ -13,7 +13,7 @@ class @Move
     damage = Math.round((@stab(user) * damage) / 0x1000)
     damage = Math.floor(((100 - battle.randInt(0, 15)) * damage) / 100)
     damage = Math.max(damage, 1)
-    battle.damage(user, target, damage)
+    @damage(user, target, damage)
 
   stab: (user) =>
     # TODO: Apply ability STAB modifier, if applicable.
@@ -31,6 +31,9 @@ class @Move
     baseDamage = floor(baseDamage / defender.stat(whichDefenseStat(@spectra)))
     baseDamage += 2
 
+  damage: (attacker, defender, amount) =>
+    defender.currentHP -= amount
+    amount
 
 whichAttackStat = (spectra) ->
   spectra == 'physical' ? 'attack' : 'special attack'
