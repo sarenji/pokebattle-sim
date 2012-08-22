@@ -15,6 +15,7 @@ class @Pokemon
     @types = attributes.types || []
     @item = attributes.item
     @ability = attributes.ability
+    @status = "Normal"
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
@@ -48,6 +49,9 @@ class @Pokemon
 
   hasItem: (itemName) =>
     @item == itemName
+
+  hasStatus: (statusName) =>
+    @status == statusName
 
 
 # A hash that keys a nature with the stats that it boosts.

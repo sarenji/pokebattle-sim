@@ -17,7 +17,7 @@ class @Move
     damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
     damage = Math.round((@stab(user) * damage) / 0x1000)
     damage = Math.floor(@typeEffectiveness(target) * damage)
-    # TODO: Burn.
+    damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     # TODO: Final modifier.
     @damage(user, target, damage)
@@ -50,6 +50,13 @@ class @Move
       targetType = Type[subtype.toUpperCase()]
       effectiveness *= typeChart[userType][targetType]
     effectiveness
+
+  burnCalculation: (user) =>
+    if @spectra == "physical" && !user.hasAbility("Guts")\
+                              &&  user.hasStatus("Burn")
+      .5
+    else
+      1
 
   basePower: =>
     @power

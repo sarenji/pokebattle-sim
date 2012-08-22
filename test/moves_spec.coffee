@@ -123,3 +123,15 @@ describe 'Move', ->
     it 'is 1/4 if the enemy is extra resistant to the type', ->
       defender = new Pokemon(types: ['Fire', 'Water'])
       new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .25
+
+  describe "#burncalculation", ->
+    it "returns 1 normally", ->
+      attacker = new Pokemon()
+      new Move(null, damage: 'physical')
+        .burnCalculation(attacker).should.equal 1
+
+    it "returns .5 with a physical move, no Guts ability, and a burned user", ->
+      attacker = new Pokemon()
+      attacker.status = 'Burn'
+      new Move(null, damage: 'physical')
+        .burnCalculation(attacker).should.equal .5
