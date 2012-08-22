@@ -12,7 +12,7 @@ class @Move
   execute: (battle, user, target) =>
     damage = @baseDamage(battle, user, target)
     damage = Math.round((@stab(user) * damage) / 0x1000)
-    damage = Math.floor(((100 - battle.randInt(0, 15)) * damage) / 100)
+    damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
     damage = Math.max(damage, 1)
     @damage(user, target, damage)
 

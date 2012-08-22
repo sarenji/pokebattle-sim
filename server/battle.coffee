@@ -123,7 +123,3 @@ class @Battle
     messages.push 'end turn!'
     for object in @players
       object.player.emit? 'updatechat', 'SERVER', messages.join('<br>')
-
-  # Returns a random integer N such that min <= N <= max.
-  randInt: (min, max) =>
-    Math.floor(@rng.next() * (max + 1 - min) + min)
