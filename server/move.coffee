@@ -5,11 +5,12 @@ class @Move
     @power = attributes.power
     @type = attributes.type || '???'
     @spectra = attributes.damage || '???'
+    @chLevel = attributes.criticalHitLevel || 1
 
   # Executes the move on the target. Target may be null
   # if the move attacks all opponents
   execute: (battle, user, target) =>
-    damage = @baseDamage(user, target)
+    damage = @baseDamage(battle, user, target)
     damage = Math.round((@stab(user) * damage) / 0x1000)
     damage = Math.floor(((100 - battle.randInt(0, 15)) * damage) / 100)
     damage = Math.max(damage, 1)
@@ -25,9 +26,38 @@ class @Move
   basePower: =>
     @power
 
-  baseDamage: (attacker, defender) =>
+  isCriticalHit: (battle, attacker, defender) =>
+    # TODO: Implement Lucky Chant.
+    # TODO: Implement moves that always critical hit.
+    if defender.hasAbility('Battle Armor') || defender.hasAbility('Shell Armor')
+      return false
+
+    rand = battle.rng.next()
+    switch @criticalHitLevel(battle, attacker, defender)
+      when 1
+        rand < 0.0625
+      when 2
+        rand < 0.125
+      when 3
+        rand < 0.25
+      when 4
+        rand < 1/3
+      else
+        rand < .5
+
+
+  criticalHitLevel: (battle, attacker, defender) =>
+    stage = @chLevel
+    stage += 1  if attacker.hasAbility('Super Luck')
+    stage += 2  if attacker.name == "Farfetch'd" && attacker.hasItem('Stick')
+    stage += 2  if attacker.name == "Chansey" && attacker.hasItem('Lucky Punch')
+    stage += 1  if attacker.hasItem('Razor Claw')
+    stage
+
+  baseDamage: (battle, attacker, defender) =>
     floor = Math.floor
     baseDamage = floor((2 * attacker.level) / 5 + 2)
+    baseDamage *= 2  if @isCriticalHit(battle, attacker, defender)
     # TODO: Apply variable base power
     baseDamage *= @basePower()
     baseDamage *= attacker.stat(whichAttackStat(@spectra))

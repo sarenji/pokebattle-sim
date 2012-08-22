@@ -1,4 +1,5 @@
-{Move, Pokemon} = require('../').server
+sinon = require 'sinon'
+{Battle, Move, Pokemon} = require('../').server
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->
@@ -24,3 +25,76 @@ describe 'Move', ->
     it 'gets applied if the move and user share a type', ->
       user = new Pokemon(types: ['Grass'])
       new Move(null, type: 'Grass').stab(user).should.equal 0x1800
+
+  describe 'critical hit level', ->
+    it "is 1 by default", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon()
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 1
+
+    it "can be changed from the default", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon()
+      new Move(null, criticalHitLevel: 2)
+        .criticalHitLevel(battle, attacker, defender).should.equal 2
+
+    it "is 2 if the attacker has Super Luck", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon(ability: 'Super Luck')
+      defender = new Pokemon()
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
+
+    it "is 3 if the attacker is Farfetch'd with a Stick", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
+      defender = new Pokemon()
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
+
+    it "is 3 if the attacker is Chansey with a Lucky Punch", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
+      defender = new Pokemon()
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
+
+    it "is 2 if the attacker has a Razor Claw", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon(item: 'Razor Claw')
+      defender = new Pokemon()
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
+
+  describe "critical hit", ->
+    it "occurs when the RNG output < the critical hit level", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon()
+      move = new Move()
+      sinon.stub(move, 'criticalHitLevel', -> 3)
+      sinon.stub(battle.rng, 'next', -> 0.2)
+      move.isCriticalHit(battle, attacker, defender).should.be.true
+
+    it "does not occur when the RNG output >= the critical hit level", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon()
+      sinon.stub(battle.rng, 'next', -> 0.0700)
+      new Move().isCriticalHit(battle, attacker, defender).should.be.false
+
+    it "does not occur if the defender has Battle Armor", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon(ability: 'Battle Armor')
+      move = new Move()
+      sinon.stub(move, 'criticalHitLevel', -> 3)
+      sinon.stub(battle.rng, 'next', -> 0.2)
+      move.isCriticalHit(battle, attacker, defender).should.be.false
+
+    it "does not occur if the defender has Shell Armor", ->
+      battle = new Battle(players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon(ability: 'Shell Armor')
+      move = new Move()
+      sinon.stub(move, 'criticalHitLevel', -> 3)
+      sinon.stub(battle.rng, 'next', -> 0.2)
+      move.isCriticalHit(battle, attacker, defender).should.be.false

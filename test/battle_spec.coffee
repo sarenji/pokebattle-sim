@@ -68,8 +68,3 @@ describe 'Battle', ->
       @battle.makeMove(@player1, 'Tackle')
       @battle.endTurn()
       defender.currentHP.should.be.lessThan hp
-
-  describe "#damage", ->
-    it "reduces the pokemon's hp", ->
-      @battle.damage(@team1[0], @team2[0], 3)
-      @team2[0].currentHP.should.equal 338

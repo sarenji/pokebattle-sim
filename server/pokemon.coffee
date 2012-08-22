@@ -13,6 +13,8 @@ class @Pokemon
 
     @moves = attributes.moves
     @types = attributes.types || []
+    @item = attributes.item
+    @ability = attributes.ability
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
@@ -40,6 +42,12 @@ class @Pokemon
 
   hasType: (type) =>
     type in @types
+
+  hasAbility: (abilityName) =>
+    @ability == abilityName
+
+  hasItem: (itemName) =>
+    @item == itemName
 
 
 # A hash that keys a nature with the stats that it boosts.
