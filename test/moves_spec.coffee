@@ -98,3 +98,28 @@ describe 'Move', ->
       sinon.stub(move, 'criticalHitLevel', -> 3)
       sinon.stub(battle.rng, 'next', -> 0.2)
       move.isCriticalHit(battle, attacker, defender).should.be.false
+
+  describe 'type effectiveness', ->
+    it 'is 0 if the enemy has an immunity to the type', ->
+      defender = new Pokemon(types: ['Electric', 'Flying'])
+      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 0
+
+    it 'is 1 if the enemy is neutral to the type', ->
+      defender = new Pokemon(types: ['Normal'])
+      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 1
+
+    it 'is 2 if the enemy is weak to the type', ->
+      defender = new Pokemon(types: ['Electric'])
+      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 2
+
+    it 'is 4 if the enemy is extra weak to the type', ->
+      defender = new Pokemon(types: ['Fire', 'Flying'])
+      new Move(null, type: 'Rock').typeEffectiveness(defender).should.equal 4
+
+    it 'is 1/2 if the enemy is resistant to the type', ->
+      defender = new Pokemon(types: ['Fire', 'Flying'])
+      new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .5
+
+    it 'is 1/4 if the enemy is resistant to the type', ->
+      defender = new Pokemon(types: ['Fire', 'Water'])
+      new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .25

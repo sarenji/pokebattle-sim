@@ -16,7 +16,7 @@ class @Move
     damage = damage * 2  if @isCriticalHit(battle, user, target)
     damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
     damage = Math.round((@stab(user) * damage) / 0x1000)
-    # TODO: Type effectiveness.
+    damage = Math.floor(@typeEffectiveness(target) * damage)
     # TODO: Burn.
     damage = Math.max(damage, 1)
     # TODO: Final modifier.
@@ -43,6 +43,14 @@ class @Move
     else
       0x1000
 
+  typeEffectiveness: (target) =>
+    effectiveness = 1
+    userType = Type[@type.toUpperCase()]
+    for subtype in target.types
+      targetType = Type[subtype.toUpperCase()]
+      effectiveness *= typeChart[userType][targetType]
+    effectiveness
+
   basePower: =>
     @power
 
@@ -64,7 +72,6 @@ class @Move
         rand < 1/3
       else
         rand < .5
-
 
   criticalHitLevel: (battle, attacker, defender) =>
     stage = @chLevel
@@ -93,3 +100,43 @@ whichAttackStat = (spectra) ->
 
 whichDefenseStat = (spectra) ->
   spectra == (if 'physical' then 'defense' else 'special defense')
+
+Type =
+  NORMAL   : 0
+  FIRE     : 1
+  WATER    : 2
+  ELECTRIC : 3
+  GRASS    : 4
+  ICE      : 5
+  FIGHTING : 6
+  POISON   : 7
+  GROUND   : 8
+  FLYING   : 9
+  PSYCHIC  : 10
+  BUG      : 11
+  ROCK     : 12
+  GHOST    : 13
+  DRAGON   : 14
+  DARK     : 15
+  STEEL    : 16
+
+typeChart = [
+  # Nor Fir Wat Ele Gra Ice Fig Poi Gro Fly Psy Bug Roc Gho Dra Dar Ste
+  [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, .5,  0,  1,  1, .5 ], # Nor
+  [  1, .5, .5,  1,  2,  2,  1,  1,  1,  1,  1,  2, .5,  1, .5,  1,  2 ], # Fir
+  [  1,  2, .5,  1, .5,  1,  1,  1,  2,  1,  1,  1,  2,  1, .5,  1,  1 ], # Wat
+  [  1,  1,  2, .5, .5,  1,  1,  1,  0,  2,  1,  1,  1,  1, .5,  1,  1 ], # Ele
+  [  1, .5,  2,  1, .5,  1,  1, .5,  2, .5,  1, .5,  2,  1, .5,  1, .5 ], # Gra
+  [  1, .5, .5,  1,  2, .5,  1,  1,  2,  2,  1,  1,  1,  1,  2,  1, .5 ], # Ice
+  [  2,  1,  1,  1,  1,  2,  1, .5,  1, .5, .5, .5,  2,  0,  1,  2,  2 ], # Fig
+  [  1,  1,  1,  1,  2,  1,  1, .5, .5,  1,  1,  1, .5, .5,  1,  1,  0 ], # Poi
+  [  1,  2,  1,  2, .5,  1,  1,  2,  1,  0,  1, .5,  2,  1,  1,  1,  2 ], # Gro
+  [  1,  1,  1, .5,  2,  1,  2,  1,  1,  1,  1,  2, .5,  1,  1,  1, .5 ], # Fly
+  [  1,  1,  1,  1,  1,  1,  2,  2,  1,  1, .5,  1,  1,  1,  1,  0, .5 ], # Psy
+  [  1, .5,  1,  1,  2,  1, .5, .5,  1, .5,  2,  1,  1, .5,  1,  2, .5 ], # Bug
+  [  1,  2,  1,  1,  1,  2, .5,  1, .5,  2,  1,  2,  1,  1,  1,  1, .5 ], # Roc
+  [  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1, .5, .5 ], # Gho
+  [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1, .5 ], # Dra
+  [  1,  1,  1,  1,  1,  1, .5,  1,  1,  1,  2,  1,  1,  2,  1,  1, .5 ], # Dar
+  [  1, .5, .5, .5,  1,  2,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1, .5 ], # Ste
+]
