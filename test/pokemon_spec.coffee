@@ -68,7 +68,7 @@ describe 'Pokemon', ->
 
   describe '#hasType', ->
     it 'returns false if the pokemon does not have that type', ->
-      new Pokemon().hasType('Grass').should.equal.false
+      new Pokemon().hasType('Grass').should.be.false
 
     it 'returns true if the pokemon has that type', ->
-      new Pokemon(types: ['Dark', 'Grass']).hasType('Grass').should.equal.true
+      new Pokemon(types: ['Dark', 'Grass']).hasType('Grass').should.be.true

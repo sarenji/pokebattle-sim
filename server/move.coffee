@@ -70,7 +70,7 @@ class @Move
     amount
 
 whichAttackStat = (spectra) ->
-  spectra == 'physical' ? 'attack' : 'special attack'
+  spectra == (if 'physical' then 'attack' else 'special attack')
 
 whichDefenseStat = (spectra) ->
-  spectra == 'physical' ? 'defense' : 'special defense'
+  spectra == (if 'physical' then 'defense' else 'special defense')
