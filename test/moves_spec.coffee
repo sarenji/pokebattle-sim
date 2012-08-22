@@ -120,6 +120,6 @@ describe 'Move', ->
       defender = new Pokemon(types: ['Fire', 'Flying'])
       new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .5
 
-    it 'is 1/4 if the enemy is resistant to the type', ->
+    it 'is 1/4 if the enemy is extra resistant to the type', ->
       defender = new Pokemon(types: ['Fire', 'Water'])
       new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .25
