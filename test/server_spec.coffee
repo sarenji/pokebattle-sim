@@ -8,8 +8,8 @@ describe 'BattleServer', ->
     server.battles.should.have.ownProperty battleId
 
   it "emits the 'start battle' event for each matched player", ->
-    players = [{clientId: 'abc', emit: ->},
-               {clientId: 'def', emit: ->}]
+    players = [{id: 'abc', emit: ->},
+               {id: 'def', emit: ->}]
     mocks = []
     for player in players
       mock = sinon.mock(player)

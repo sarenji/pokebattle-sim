@@ -3,15 +3,15 @@
 
 describe 'Mechanics', ->
   beforeEach ->
-    @player1 = {clientId: 'abcde'}
-    @player2 = {clientId: 'fghij'}
+    @player1 = {id: 'abcde'}
+    @player2 = {id: 'fghij'}
     team1   = [{}, {}]
     team2   = [{}, {}]
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle(players: players)
-    @team1  = @battle.getTeam(@player1.clientId)
-    @team2  = @battle.getTeam(@player2.clientId)
+    @team1  = @battle.getTeam(@player1.id)
+    @team2  = @battle.getTeam(@player2.id)
 
   describe 'splash', ->
     it 'does no damage', ->

@@ -11,6 +11,8 @@ class @Pokemon
     @ivs = attributes.ivs || {}
     @currentHP = @stat('hp')
 
+    @moves = attributes.moves
+
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
 

@@ -40,7 +40,7 @@ class @BattleServer
     hmac = createHmac('sha1', 'INSECURE KEY')
     hmac.update((new Date).toISOString())
     for player in players
-      hmac.update(player.clientId)
+      hmac.update(player.id)
     hmac.digest('hex')
 
   # Returns the battle with battleId.

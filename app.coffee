@@ -17,33 +17,33 @@ io = socket.listen solid (app) ->
         @script ->
           socket = io.connect('http://localhost')
           socket.on 'connect', ->
-            # TODO: Better clientId
-            clientId = Math.floor(Math.random() * 100000).toString(16)
-            socket.emit 'adduser', prompt("What's your name?"), clientId
-            socket.on 'updatechat', (username, data) ->
-              $("#messages").append("<p>#{username}: #{data}</p>")
+            socket.emit 'adduser', prompt("What's your name?"), ->
+              socket.on 'updatechat', (username, data) ->
+                $("#messages").append("<p>#{username}: #{data}</p>")
 
-            # Attach events to DOM
-            $(document).on 'keyup', '#chat', (e) ->
-              if e.which == 13
-                socket.emit 'sendchat', $(this).val()
-                $(this).val('')
+              # Attach events to DOM
+              $(document).on 'keyup', '#chat', (e) ->
+                if e.which == 13
+                  socket.emit 'sendchat', $(this).val()
+                  $(this).val('')
 
-            socket.on 'start battle', (battleId) ->
-              $(document).on 'click', 'button', ->
-                socket.emit 'send move', battleId, 'Tackle'
+              socket.on 'start battle', (battleId) ->
+                $(document).on 'click', 'button', ->
+                  socket.emit 'send move', battleId, 'Tackle'
       @body ->
         @p '#messages'
         @input('#chat', type: 'text')
         @button 'Tackle'
+        @button 'Splash'
 
 # Attach events to incoming users
 io.sockets.on 'connection', (socket) ->
-  socket.on 'adduser', (username, clientId) ->
-    # TODO: Take team from player.
-    team = [{}]
+  socket.on 'adduser', (username, callback) ->
     socket.username = username
-    socket.clientId = clientId
+    callback(socket.username)
+    # TODO: Take team from player.
+    # TODO: Validate team.
+    team = [{name: 'Magikarp', moves: ['tackle', 'splash']}]
     server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()

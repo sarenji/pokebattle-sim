@@ -3,15 +3,15 @@ sinon = require 'sinon'
 
 describe 'Battle', ->
   beforeEach ->
-    @player1 = {clientId: 'abcde'}
-    @player2 = {clientId: 'fghij'}
+    @player1 = {id: 'abcde'}
+    @player2 = {id: 'fghij'}
     team1   = [{}, {}]
     team2   = [{}, {}]
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle(players: players)
-    @team1  = @battle.getTeam(@player1.clientId)
-    @team2  = @battle.getTeam(@player2.clientId)
+    @team1  = @battle.getTeam(@player1.id)
+    @team2  = @battle.getTeam(@player2.id)
 
   it 'starts at turn 0', ->
     @battle.turn.should.equal 0
@@ -21,24 +21,24 @@ describe 'Battle', ->
       @battle.hasAllPlayersActed().should.be.false
 
     it "returns false if half the players have not moved", ->
-      @battle.playerActions[@player1.clientId] = true
+      @battle.playerActions[@player1.id] = true
       @battle.hasAllPlayersActed().should.be.false
 
     it "returns true if all players have moved", ->
-      @battle.playerActions[@player1.clientId] = true
-      @battle.playerActions[@player2.clientId] = true
+      @battle.playerActions[@player1.id] = true
+      @battle.playerActions[@player2.id] = true
       @battle.hasAllPlayersActed().should.be.true
 
   describe '#makeMove', ->
     it "records a player's move", ->
       @battle.makeMove(@player1, 'Tackle')
-      @battle.playerActions.should.have.property @player1.clientId
-      @battle.playerActions[@player1.clientId].name.should.equal 'tackle'
+      @battle.playerActions.should.have.property @player1.id
+      @battle.playerActions[@player1.id].name.should.equal 'tackle'
 
     # TODO: Invalid moves should fail in some way.
     it "doesn't record invalid moves", ->
       @battle.makeMove(@player1, 'Blooberry Gun')
-      @battle.playerActions.should.not.have.property @player1.clientId
+      @battle.playerActions.should.not.have.property @player1.id
 
     it "automatically ends the turn if all players move", ->
       mock = sinon.mock(@battle)
