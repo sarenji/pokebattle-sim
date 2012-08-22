@@ -29,6 +29,21 @@ describe 'Battle', ->
       @battle.playerActions[@player2.id] = true
       @battle.hasAllPlayersActed().should.be.true
 
+  describe '#hasWeather(weatherName)', ->
+    it 'returns true if the current battle weather is weatherName', ->
+      @battle.weather = "Sunny"
+      @battle.hasWeather("Sunny").should.be.true
+
+    it 'returns false on non-None in presence of a weather-cancel ability', ->
+      @battle.weather = "Sunny"
+      sinon.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
+      @battle.hasWeather("Sunny").should.be.false
+
+    it 'returns true on None in presence of a weather-cancel ability', ->
+      @battle.weather = "Sunny"
+      sinon.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
+      @battle.hasWeather("None").should.be.true
+
   describe '#makeMove', ->
     it "records a player's move", ->
       @battle.makeMove(@player1, 'Tackle')

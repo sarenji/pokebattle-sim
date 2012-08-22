@@ -24,6 +24,9 @@ class @Battle
     # Maps clientId -> object
     @objectHash = {}
 
+    # Current battle weather.
+    @weather = "None"
+
     for object in @players
       @objectHash[object.player.id] = object
 
@@ -76,6 +79,15 @@ class @Battle
 
     # End the turn if each player has moved.
     if @hasAllPlayersActed() then @endTurn()
+
+  hasWeather: (weatherName) =>
+    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
+    weatherName == weather
+
+  hasWeatherCancelAbilityOnField: =>
+    _.any @players, (object) ->
+      pokemon = object.team[0]
+      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
 
   # Returns true if all players have moved, false otherwise.
   hasAllPlayersActed: =>
