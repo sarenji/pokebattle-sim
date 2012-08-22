@@ -29,7 +29,7 @@ io = socket.listen solid (app) ->
 
               socket.on 'start battle', (battleId) ->
                 $(document).on 'click', 'button', ->
-                  socket.emit 'send move', battleId, 'Tackle'
+                  socket.emit 'send move', battleId, $(this).text()
       @body ->
         @p '#messages'
         @input('#chat', type: 'text')

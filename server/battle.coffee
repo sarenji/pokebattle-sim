@@ -27,6 +27,9 @@ class @Battle
     # Current battle weather.
     @weather = "None"
 
+    # Buffer of messages to send to each client.
+    @buffer = []
+
     for object in @players
       @objectHash[object.player.id] = object
 
@@ -93,10 +96,17 @@ class @Battle
   hasAllPlayersActed: =>
     _.all(@players, (object) => object.player.id of @playerActions)
 
+  # Add `string` to a buffer that will be sent to each client.
+  message: (string) =>
+    @buffer.push(string)
+
+  clearBuffer: =>
+    while @buffer.length > 0
+      @buffer.pop()
+
   endTurn: =>
     # Act on player actions.
     # TODO: Sort by priority and active pokemon speed.
-    messages = []
     for clientId of @playerActions
       player = @getPlayer(clientId)
       action = @getAction(clientId)
@@ -104,9 +114,9 @@ class @Battle
       switch action.type
         when 'switch'
           team = @getTeam(clientId)
-          messages.push "#{player.name} withdrew #{team[0].name}!"
+          @message "#{player.name} withdrew #{team[0].name}!"
           [team[0], team[action.to]] = [team[action.to], team[0]]
-          messages.push "#{player.name} sent out #{team[0].name}!"
+          @message "#{player.name} sent out #{team[0].name}!"
         when 'move'
           player = @getPlayer(clientId)
           pokemon = @getTeam(clientId)[0]
@@ -116,12 +126,11 @@ class @Battle
             defender = @getTeam(opponent.player.id)[0]
             move = moves[action.name]
 
+            @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
+
             # Any before move events
             damage = move.execute(this, pokemon, defender)
             # Any after move events
-
-            messages.push "#{player.username}'s #{pokemon.name} used #{move.name}!"
-            messages.push "#{opponent.username}'s #{defender.name} took #{damage} damage!"
           # TODO: Apply multi-target and weather modifiers
           # TODO: Apply random factor
           # TODO: Apply STAB
@@ -132,6 +141,7 @@ class @Battle
       delete @playerActions[clientId]
 
     # Send a message to each player about the end of turn.
-    messages.push 'end turn!'
+    @message 'end turn!'
     for object in @players
-      object.player.emit? 'updatechat', 'SERVER', messages.join('<br>')
+      object.player.emit? 'updatechat', 'SERVER', @buffer.join("<br>")
+    @clearBuffer()

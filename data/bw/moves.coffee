@@ -30,4 +30,6 @@ extendMove = (name, callback) ->
   callback.call(move, move.attributes)
 
 extendMove 'splash', ->
-  @execute = -> # DO NOTHING MESSAGE
+  # TODO: Cannot select if Gravity is in effect.
+  @execute = (battle, user, target) ->
+    battle.message "But nothing happened!"
