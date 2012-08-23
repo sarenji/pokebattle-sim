@@ -90,13 +90,15 @@ class @Move
 
   baseDamage: (battle, attacker, defender) =>
     floor = Math.floor
-    baseDamage = floor((2 * attacker.level) / 5 + 2)
+    damage = floor((2 * attacker.level) / 5 + 2)
     # TODO: Apply variable base power
-    baseDamage *= @basePower()
-    baseDamage *= attacker.stat(whichAttackStat(@spectra))
+    damage *= @basePower()
+    damage *= attacker.stat(whichAttackStat(@spectra))
     # TODO: Some moves act against the defense stat even if they're special.
-    baseDamage = floor(baseDamage / defender.stat(whichDefenseStat(@spectra)))
-    baseDamage += 2
+    damage = floor(damage / defender.stat(whichDefenseStat(@spectra)))
+    damage = floor(damage / 50)
+    damage += 2
+    damage
 
   damage: (attacker, defender, amount) =>
     defender.currentHP -= amount
