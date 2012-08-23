@@ -53,6 +53,9 @@ class @Pokemon
   hasStatus: (statusName) =>
     @status == statusName
 
+  damage: (amount) =>
+    @currentHP -= amount
+
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

@@ -13,15 +13,15 @@ class @Move
     for target in targets
       damage = @baseDamage(battle, user, target)
       # TODO: Multi-target modifier.
-      damage = Math.round((@weatherModifier(battle) * damage) / 0x1000)
+      damage = @modify(damage, @weatherModifier(battle))
       damage = damage * 2  if @isCriticalHit(battle, user, target)
       damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
-      damage = Math.round((@stab(user) * damage) / 0x1000)
+      damage = @modify(damage, @stab(user))
       damage = Math.floor(@typeEffectiveness(target) * damage)
       damage = Math.floor(@burnCalculation(user) * damage)
       damage = Math.max(damage, 1)
-      damage = Math.floor((finalModifier.run(this, battle, user, target) * damage) / 0x1000)
-      @damage(user, target, damage)
+      damage = @modify(damage, finalModifier.run(this, battle, user, target))
+      target.damage(damage)
       # TODO: Print out opponent's name alongside the pokemon.
       battle.message "#{target.name} took #{damage} damage!"
 
@@ -89,6 +89,9 @@ class @Move
     stage += 1  if attacker.hasItem('Razor Claw')
     stage
 
+  modify: (number, modifier) =>
+    Math.round((number * modifier) / 0x1000)
+
   baseDamage: (battle, attacker, defender) =>
     floor = Math.floor
     damage = floor((2 * attacker.level) / 5 + 2)
@@ -100,10 +103,6 @@ class @Move
     damage = floor(damage / 50)
     damage += 2
     damage
-
-  damage: (attacker, defender, amount) =>
-    defender.currentHP -= amount
-    amount
 
 whichAttackStat = (spectra) ->
   spectra == (if 'physical' then 'attack' else 'specialAttack')
@@ -162,7 +161,7 @@ class ModifierChain
     modifier = @chain[0](move, battle, attacker, defender)
     for callback in @chain[1..]
       prime = callback(move, battle, attacker, defender)
-      modifier = Math.round((modifier * prime + 0x800) / 0x1000)
+      modifier = Math.floor((modifier * prime + 0x800) / 0x1000)
     modifier
 
 finalModifier = new ModifierChain()

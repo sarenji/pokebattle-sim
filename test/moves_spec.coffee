@@ -124,7 +124,7 @@ describe 'Move', ->
       defender = new Pokemon(types: ['Fire', 'Water'])
       new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .25
 
-  describe "#burncalculation", ->
+  describe "#burnCalculation", ->
     it "returns 1 normally", ->
       attacker = new Pokemon()
       new Move(null, damage: 'physical')
