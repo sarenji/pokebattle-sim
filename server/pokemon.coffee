@@ -1,10 +1,11 @@
+{abilities, items} = require '../data/bw'
 floor = Math.floor
 
 class @Pokemon
   constructor: (attributes = {}) ->
-    @species = attributes.species
     @name = attributes.name || 'Missingno'
     @level = attributes.level || 100
+    @baseStats = attributes.stats || {}
 
     @nature = attributes.nature
     @evs = attributes.evs || {}
@@ -12,9 +13,9 @@ class @Pokemon
     @currentHP = @stat('hp')
 
     @moves = attributes.moves
-    @types = attributes.types || []
-    @item = attributes.item
-    @ability = attributes.ability
+    @types = attributes.types || [] # TODO: Get from species.
+    @item = items[attributes.item]
+    @ability = abilities[attributes.ability]
     @status = "Normal"
 
   iv: (stat) => @ivs[stat] || 31
@@ -24,7 +25,7 @@ class @Pokemon
   # Ex: pokemon.stat('hp')
   # TODO: Precalculate the stats in the constructor
   stat: (key) =>
-    base = 100 # Todo: obtain base stats from the species
+    base = @baseStats[key] || 100
     iv = @iv(key)
     ev = floor(@ev(key) / 4)
     if key == 'hp'
@@ -45,10 +46,10 @@ class @Pokemon
     type in @types
 
   hasAbility: (abilityName) =>
-    @ability == abilityName
+    @ability?.name == abilityName
 
   hasItem: (itemName) =>
-    @item == itemName
+    @item?.name == itemName
 
   hasStatus: (statusName) =>
     @status == statusName

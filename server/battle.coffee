@@ -1,11 +1,10 @@
 {_} = require 'underscore'
-require 'js-yaml'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
 
 class @Battle
   # TODO: let Battle serialize these.
-  {moves, MoveData, PokemonData} = require '../data/bw'
+  {moves, MoveData, species, PokemonData} = require '../data/bw'
   @pokemon = PokemonData
 
   constructor: (attributes = {}) ->
@@ -44,6 +43,13 @@ class @Battle
 
       # Turn every hash in a team into a real, live Pokemon.
       object.team = team.map (attributes) ->
+        specimen = species[attributes.name]
+        # TODO: Delete check. Validate somewhere else.
+        if specimen?
+          # TODO: Make nicer.
+          attributes.stats = specimen.stats || {}
+          attributes.moves = specimen.moves || {}
+          attributes.types = specimen.types || []
         new Pokemon(attributes)
 
   getPlayer: (clientId) =>

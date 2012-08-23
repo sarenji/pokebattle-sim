@@ -1,2 +1,5 @@
+require 'js-yaml'
 {@moves, @MoveData} = require './moves'
-@PokemonData = require('./pokemon.yml').pop()
+{@abilities} = require './abilities'
+{@items} = require './items'
+{@species, @PokemonData} = require './pokemon'

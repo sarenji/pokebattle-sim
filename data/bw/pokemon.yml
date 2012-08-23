@@ -1,9 +1,48 @@
 Magikarp:
+  types:
+    - Water
   moves:
     - Tackle
     - Splash
 
 Gyarados:
+  types:
+    - Water
+    - Flying
   moves:
     - Tackle
     - Splash
+
+Hitmonchan:
+  types:
+    - Fighting
+  stats:
+    attack: 105
+  moves:
+    - Ice Punch
+
+Heracross:
+  types:
+    - Bug
+    - Fighting
+  stats:
+    attack: 125
+  moves:
+    - Megahorn
+
+Porygon-Z:
+  types:
+    - Normal
+  stats:
+    hp: 100
+    attack: 80
+    defense: 70
+    specialAttack: 135
+  moves:
+    - Tri Attack
+
+Regirock:
+  types:
+    - Rock
+  stats:
+    defense: 200

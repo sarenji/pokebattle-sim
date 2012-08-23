@@ -1,3 +1,5 @@
+{finalModifier, basePowerModifier, stabModifier} = require './modifiers'
+
 class @Move
   constructor: (@name, attributes = {}) ->
     @attributes = attributes
@@ -16,7 +18,7 @@ class @Move
       damage = @modify(damage, @weatherModifier(battle))
       damage = damage * 2  if @isCriticalHit(battle, user, target)
       damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
-      damage = @modify(damage, @stab(user))
+      damage = @modify(damage, stabModifier.run(this, battle, user, target))
       damage = Math.floor(@typeEffectiveness(target) * damage)
       damage = Math.floor(@burnCalculation(user) * damage)
       damage = Math.max(damage, 1)
@@ -34,13 +36,6 @@ class @Move
       0x1800
     else if @type == 'Water' and battle.hasWeather('Sunny')
       0x0800
-    else
-      0x1000
-
-  stab: (user) =>
-    # TODO: Apply ability STAB modifier, if applicable.
-    if user.hasType(@type)
-      0x1800
     else
       0x1000
 
@@ -92,23 +87,24 @@ class @Move
   modify: (number, modifier) =>
     Math.round((number * modifier) / 0x1000)
 
-  baseDamage: (battle, attacker, defender) =>
+  baseDamage: (battle, user, target) =>
     floor = Math.floor
-    damage = floor((2 * attacker.level) / 5 + 2)
+    damage = floor((2 * user.level) / 5 + 2)
     # TODO: Apply variable base power
     damage *= @basePower()
-    damage *= attacker.stat(whichAttackStat(@spectra))
+    damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
+    damage *= user.stat(whichAttackStat(@spectra))
     # TODO: Some moves act against the defense stat even if they're special.
-    damage = floor(damage / defender.stat(whichDefenseStat(@spectra)))
+    damage = floor(damage / target.stat(whichDefenseStat(@spectra)))
     damage = floor(damage / 50)
     damage += 2
     damage
 
 whichAttackStat = (spectra) ->
-  spectra == (if 'physical' then 'attack' else 'specialAttack')
+  (if spectra == 'physical' then 'attack' else 'specialAttack')
 
 whichDefenseStat = (spectra) ->
-  spectra == (if 'physical' then 'defense' else 'specialDefense')
+  (if spectra == 'physical' then 'defense' else 'specialDefense')
 
 Type =
   NORMAL   : 0
@@ -149,76 +145,3 @@ typeChart = [
   [  1,  1,  1,  1,  1,  1, .5,  1,  1,  1,  2,  1,  1,  2,  1,  1, .5 ], # Dar
   [  1, .5, .5, .5,  1,  2,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1, .5 ], # Ste
 ]
-
-class ModifierChain
-  constructor: ->
-    @chain = []
-
-  add: (callback) =>
-    @chain.push(callback)
-
-  run: (move, battle, attacker, defender) =>
-    modifier = @chain[0](move, battle, attacker, defender)
-    for callback in @chain[1..]
-      prime = callback(move, battle, attacker, defender)
-      modifier = Math.floor((modifier * prime + 0x800) / 0x1000)
-    modifier
-
-finalModifier = new ModifierChain()
-
-# TODO: Reflect modifier.
-# TODO: Light Screen modifier.
-
-# Multiscale modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if defender.hasAbility('Multiscale') &&
-      defender.currentHP == defender.stat('hp')
-    0x800
-  else
-    0x1000
-
-# Tinted lens modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if attacker.hasAbility('Tinted Lens') && move.typeEffectiveness(defender) < 1
-    0x2000
-  else
-    0x1000
-
-# TODO: If an ally has Friend Guard, modifier is 0xC00.
-
-# Sniper modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if attacker.hasAbility('Sniper') && move.willCriticalHit()
-    0x1800
-  else
-    0x1000
-
-# Solid Rock/Filter modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if (attacker.hasAbility('Solid Rock') || attacker.hasAbility('Filter'))\
-      && move.typeEffectiveness(defender) > 1
-    0xC00
-  else
-    0x1000
-
-# TODO: Metronome item modifier.
-
-# Expert belt modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if attacker.hasItem('Expert Belt') && move.typeEffectiveness(defender) > 1
-    0x1333
-  else
-    0x1000
-
-# Life Orb modifier.
-finalModifier.add (move, battle, attacker, defender) ->
-  if attacker.hasItem('Life Orb')
-    0x14CC
-  else
-    0x1000
-
-# TODO: Damage-lowering berry modifier.
-# TODO: Stomp + Minimize modifier.
-# TODO: Earthquake + Dig modifier.
-# TODO: Surf + Dive modifier.
-# TODO: Steamroller + Minimize modifier.

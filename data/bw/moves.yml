@@ -1,10 +1,45 @@
 tackle:
   power: 50
-  type: normal
+  type: Normal
   accuracy: 100
   pp: 35
-  spectra: physical
+  damage: physical
 
 splash:
-  type: normal
+  type: Normal
   pp: 40
+
+ice punch:
+  type: Ice
+  pp: 15
+  power: 75
+  accuracy: 100
+  damage: physical
+
+drain punch:
+  type: Fighting
+  pp: 10
+  power: 60
+  accuracy: 100
+  damage: physical
+
+megahorn:
+  type: Bug
+  pp: 10
+  power: 120
+  accuracy: 85
+  damage: physical
+
+bullet punch:
+  type: Steel
+  pp: 10
+  power: 40
+  accuracy: 100
+  damage: physical
+
+tri attack:
+  type: Normal
+  pp: 10
+  power: 80
+  accuracy: 100
+  damage: special

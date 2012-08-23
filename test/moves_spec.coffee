@@ -17,15 +17,6 @@ describe 'Move', ->
   it 'can change the default type', ->
     new Move(null, type: 'Grass').type.should.equal 'Grass'
 
-  describe 'STAB', ->
-    it "doesn't get applied if the move and user are of different types", ->
-      user = new Pokemon(types: ['Bug'])
-      new Move(null, type: 'Grass').stab(user).should.equal 0x1000
-
-    it 'gets applied if the move and user share a type', ->
-      user = new Pokemon(types: ['Grass'])
-      new Move(null, type: 'Grass').stab(user).should.equal 0x1800
-
   describe 'critical hit level', ->
     it "is 1 by default", ->
       battle = new Battle(players: [])
