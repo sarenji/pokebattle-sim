@@ -120,22 +120,14 @@ class @Battle
         when 'move'
           player = @getPlayer(clientId)
           pokemon = @getTeam(clientId)[0]
-          # TODO: Make this nicer.
-          for opponent in @getOpponents(clientId)
-            # todo: the move should be cloned and attached to the pokemon
-            defender = @getTeam(opponent.player.id)[0]
-            move = moves[action.name]
+          defenders = @getOpponents(clientId).map (opponent) ->
+            opponent.team[0]
+          # todo: the move should be cloned and attached to the pokemon
+          move = moves[action.name]
 
-            @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
-
-            # Any before move events
-            damage = move.execute(this, pokemon, defender)
-            # Any after move events
-          # TODO: Apply multi-target and weather modifiers
-          # TODO: Apply random factor
-          # TODO: Apply STAB
-          # TODO: Apply type-effectiveness
-          # TODO: Apply burn
+          # Any before move events
+          damage = move.execute(this, pokemon, defenders)
+          # Any after move events
 
       # Clean up playerActions hash.
       delete @playerActions[clientId]

@@ -9,20 +9,21 @@ class @Move
 
   # Executes the move on the target. Target may be null
   # if the move attacks all opponents
-  execute: (battle, user, target) =>
-    damage = @baseDamage(battle, user, target)
-    # TODO: Multi-target modifier.
-    damage = Math.round((@weatherModifier(battle) * damage) / 0x1000)
-    damage = damage * 2  if @isCriticalHit(battle, user, target)
-    damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
-    damage = Math.round((@stab(user) * damage) / 0x1000)
-    damage = Math.floor(@typeEffectiveness(target) * damage)
-    damage = Math.floor(@burnCalculation(user) * damage)
-    damage = Math.max(damage, 1)
-    # TODO: Final modifier.
-    @damage(user, target, damage)
-    # TODO: Print out opponent's name alongside the pokemon.
-    battle.message "#{target.name} took #{damage} damage!"
+  execute: (battle, user, targets) =>
+    for target in targets
+      damage = @baseDamage(battle, user, target)
+      # TODO: Multi-target modifier.
+      damage = Math.round((@weatherModifier(battle) * damage) / 0x1000)
+      damage = damage * 2  if @isCriticalHit(battle, user, target)
+      damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
+      damage = Math.round((@stab(user) * damage) / 0x1000)
+      damage = Math.floor(@typeEffectiveness(target) * damage)
+      damage = Math.floor(@burnCalculation(user) * damage)
+      damage = Math.max(damage, 1)
+      # TODO: Final modifier.
+      @damage(user, target, damage)
+      # TODO: Print out opponent's name alongside the pokemon.
+      battle.message "#{target.name} took #{damage} damage!"
 
   weatherModifier: (battle) =>
     if @type == 'Fire' and battle.hasWeather('Sunny')
