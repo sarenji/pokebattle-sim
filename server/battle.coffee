@@ -105,29 +105,12 @@ class @Battle
       @buffer.pop()
 
   endTurn: =>
-    # Act on player actions.
     # TODO: Sort by priority and active pokemon speed.
     for clientId of @playerActions
-      player = @getPlayer(clientId)
       action = @getAction(clientId)
-      # TODO: abstract better?
       switch action.type
-        when 'switch'
-          team = @getTeam(clientId)
-          @message "#{player.name} withdrew #{team[0].name}!"
-          [team[0], team[action.to]] = [team[action.to], team[0]]
-          @message "#{player.name} sent out #{team[0].name}!"
-        when 'move'
-          player = @getPlayer(clientId)
-          pokemon = @getTeam(clientId)[0]
-          defenders = @getOpponents(clientId).map (opponent) ->
-            opponent.team[0]
-          # todo: the move should be cloned and attached to the pokemon
-          move = moves[action.name]
-
-          # Any before move events
-          damage = move.execute(this, pokemon, defenders)
-          # Any after move events
+        when 'switch' then @performSwitch(clientId)
+        when 'move'   then @performMove(clientId)
 
       # Clean up playerActions hash.
       delete @playerActions[clientId]
@@ -137,3 +120,24 @@ class @Battle
     for object in @players
       object.player.emit? 'updatechat', 'SERVER', @buffer.join("<br>")
     @clearBuffer()
+
+  performSwitch: (clientId) =>
+    player = @getPlayer(clientId)
+    action = @getAction(clientId)
+    team = @getTeam(clientId)
+    @message "#{player.name} withdrew #{team[0].name}!"
+    [team[0], team[action.to]] = [team[action.to], team[0]]
+    @message "#{player.name} sent out #{team[0].name}!"
+
+  performMove: (clientId) =>
+    player = @getPlayer(clientId)
+    action = @getAction(clientId)
+    pokemon = @getTeam(clientId)[0]
+    defenders = @getOpponents(clientId).map (opponent) ->
+      opponent.team[0]
+    # todo: the move should be cloned and attached to the pokemon
+    move = moves[action.name]
+
+    # TODO: Execute any before move events
+    damage = move.execute(this, pokemon, defenders)
+    # TODO: Execute any after move events
