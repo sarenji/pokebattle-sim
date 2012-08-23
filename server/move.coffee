@@ -105,10 +105,10 @@ class @Move
     amount
 
 whichAttackStat = (spectra) ->
-  spectra == (if 'physical' then 'attack' else 'special attack')
+  spectra == (if 'physical' then 'attack' else 'specialAttack')
 
 whichDefenseStat = (spectra) ->
-  spectra == (if 'physical' then 'defense' else 'special defense')
+  spectra == (if 'physical' then 'defense' else 'specialDefense')
 
 Type =
   NORMAL   : 0
