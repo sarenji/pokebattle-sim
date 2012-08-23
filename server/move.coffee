@@ -20,7 +20,7 @@ class @Move
       damage = Math.floor(@typeEffectiveness(target) * damage)
       damage = Math.floor(@burnCalculation(user) * damage)
       damage = Math.max(damage, 1)
-      # TODO: Final modifier.
+      damage = Math.floor((finalModifier.run(this, battle, user, target) * damage) / 0x1000)
       @damage(user, target, damage)
       # TODO: Print out opponent's name alongside the pokemon.
       battle.message "#{target.name} took #{damage} damage!"
@@ -150,3 +150,76 @@ typeChart = [
   [  1,  1,  1,  1,  1,  1, .5,  1,  1,  1,  2,  1,  1,  2,  1,  1, .5 ], # Dar
   [  1, .5, .5, .5,  1,  2,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1, .5 ], # Ste
 ]
+
+class ModifierChain
+  constructor: ->
+    @chain = []
+
+  add: (callback) =>
+    @chain.push(callback)
+
+  run: (move, battle, attacker, defender) =>
+    modifier = @chain[0](move, battle, attacker, defender)
+    for callback in @chain[1..]
+      prime = callback(move, battle, attacker, defender)
+      modifier = Math.round((modifier * prime + 0x800) / 0x1000)
+    modifier
+
+finalModifier = new ModifierChain()
+
+# TODO: Reflect modifier.
+# TODO: Light Screen modifier.
+
+# Multiscale modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if defender.hasAbility('Multiscale') &&
+      defender.currentHP == defender.stat('hp')
+    0x800
+  else
+    0x1000
+
+# Tinted lens modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if attacker.hasAbility('Tinted Lens') && move.typeEffectiveness(defender) < 1
+    0x2000
+  else
+    0x1000
+
+# TODO: If an ally has Friend Guard, modifier is 0xC00.
+
+# Sniper modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if attacker.hasAbility('Sniper') && move.willCriticalHit()
+    0x1800
+  else
+    0x1000
+
+# Solid Rock/Filter modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if (attacker.hasAbility('Solid Rock') || attacker.hasAbility('Filter'))\
+      && move.typeEffectiveness(defender) > 1
+    0xC00
+  else
+    0x1000
+
+# TODO: Metronome item modifier.
+
+# Expert belt modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if attacker.hasItem('Expert Belt') && move.typeEffectiveness(defender) > 1
+    0x1333
+  else
+    0x1000
+
+# Life Orb modifier.
+finalModifier.add (move, battle, attacker, defender) ->
+  if attacker.hasItem('Life Orb')
+    0x14CC
+  else
+    0x1000
+
+# TODO: Damage-lowering berry modifier.
+# TODO: Stomp + Minimize modifier.
+# TODO: Earthquake + Dig modifier.
+# TODO: Surf + Dive modifier.
+# TODO: Steamroller + Minimize modifier.
