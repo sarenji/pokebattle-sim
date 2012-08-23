@@ -1,0 +1,11 @@
+!!!
+html
+  head
+    != js('jquery')
+    script(src='/socket.io/socket.io.js')
+    != js('client')
+  body
+    p#messages
+    input#chat(type='text')
+    button Tackle
+    button Splash

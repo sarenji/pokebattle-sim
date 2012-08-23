@@ -1,40 +1,25 @@
+http = require 'http'
 socket = require 'socket.io'
-
-solid = require 'solid'
+express = require 'express'
 
 {BattleServer} = require './server'
+
 server = new BattleServer()
+app = express()
+httpServer = http.createServer(app)
 
-# Start responding to clients
-io = socket.listen solid (app) ->
-  app.get '/jquery.js', @jquery
-  app.get '/', @render ->
-    @doctype 5
-    @html ->
-      @head ->
-        @js '/jquery.js'
-        @js '/socket.io/socket.io.js'
-        @script ->
-          socket = io.connect('http://localhost')
-          socket.on 'connect', ->
-            socket.emit 'adduser', prompt("What's your name?"), ->
-              socket.on 'updatechat', (username, data) ->
-                $("#messages").append("<p>#{username}: #{data}</p>")
+# Configuration
+app.use(express.bodyParser())
+app.use(express.methodOverride())
+app.use(app.router)
+app.use(require('connect-assets')())
 
-              # Attach events to DOM
-              $(document).on 'keyup', '#chat', (e) ->
-                if e.which == 13
-                  socket.emit 'sendchat', $(this).val()
-                  $(this).val('')
+# Routing
+app.get '/', (req, res) ->
+  res.render 'index.jade'
 
-              socket.on 'start battle', (battleId) ->
-                $(document).on 'click', 'button', ->
-                  socket.emit 'send move', battleId, $(this).text()
-      @body ->
-        @p '#messages'
-        @input('#chat', type: 'text')
-        @button 'Tackle'
-        @button 'Splash'
+# Start responding to websocket clients
+io = socket.listen(httpServer)
 
 # Attach events to incoming users
 io.sockets.on 'connection', (socket) ->
@@ -54,3 +39,5 @@ io.sockets.on 'connection', (socket) ->
     server.findBattle(battleId).makeMove(socket, moveName)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
+
+httpServer.listen(process.env.PORT || 8000)
