@@ -21,5 +21,9 @@
   "scripts": {
     "test": "mocha",
     "start": "coffee app.coffee"
+  },
+  "subdomain": "battletower",
+  "engines": {
+    "node": "0.8.x"
   }
 }
