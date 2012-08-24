@@ -9,6 +9,8 @@ stats_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokem
 types_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_types.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
 pokemon_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon.csv'
+moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_moves.csv'
+move_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_names.csv'
 
 int_to_stat = {
   1: 'hp',
@@ -39,6 +41,10 @@ class PokemonInfo:
   def add_type(self, t):
     types = self.info.setdefault('types', [])
     types.append(t)
+
+  def add_move(self, move):
+    moves = self.info.setdefault('moves', [])
+    moves.append(move)
 
 
 pokemon = []
@@ -95,6 +101,28 @@ def add_types():
     line = lines.pop(0)
     forme_id, type_id, slot = line.split(',')
     formes[forme_id].add_type(type_dict[type_id])
+
+def add_moves():
+  move_dict = {}
+
+  # Populate move_dict
+  lines = requests.get(move_names_url).text.splitlines()
+  lines.pop(0) # get rid of info
+
+  while len(lines) > 0:
+    line = lines.pop(0)
+    move_id, language_id, name = line.split(',')
+    if language_id == '9':
+      move_dict[move_id] = name
+
+  # Add moves to PokemonInfo
+  lines = requests.get(moves_url).text.splitlines()
+  lines.pop(0) # get rid of info
+
+  while len(lines) > 0:
+    line = lines.pop(0)
+    forme_id, _, move_id, *tail = line.split(',')
+    formes[forme_id].add_move(move_dict[move_id])
  
 def create_pokemon():
   lines = requests.get(formes_url).text.splitlines()
@@ -109,6 +137,7 @@ map_species_names()
 create_formes()
 add_stats()
 add_types()
+add_moves()
 create_pokemon()
 
 pokemon_names = map(lambda x: x.name, pokemon)
