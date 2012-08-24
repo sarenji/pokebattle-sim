@@ -44,7 +44,8 @@ class PokemonInfo:
 
   def add_move(self, move):
     moves = self.info.setdefault('moves', [])
-    moves.append(move)
+    if move not in moves:
+      moves.append(move)
 
 
 pokemon = []
