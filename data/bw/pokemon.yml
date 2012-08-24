@@ -1,48 +1,7774 @@
-Magikarp:
+abomasnow:
+  species: abomasnow
+  stats:
+    attack: 92
+    defense: 75
+    hp: 90
+    specialAttack: 92
+    specialDefense: 85
+    speed: 60
   types:
-    - Water
-  moves:
-    - Tackle
-    - Splash
-
-Gyarados:
+  - grass
+  - ice
+abra:
+  species: abra
+  stats:
+    attack: 20
+    defense: 15
+    hp: 25
+    specialAttack: 105
+    specialDefense: 55
+    speed: 90
   types:
-    - Water
-    - Flying
-  moves:
-    - Tackle
-    - Splash
-
-Hitmonchan:
+  - psychic
+absol:
+  species: absol
+  stats:
+    attack: 130
+    defense: 60
+    hp: 65
+    specialAttack: 75
+    specialDefense: 60
+    speed: 75
   types:
-    - Fighting
+  - dark
+accelgor:
+  species: accelgor
+  stats:
+    attack: 70
+    defense: 40
+    hp: 80
+    specialAttack: 100
+    specialDefense: 60
+    speed: 145
+  types:
+  - bug
+aerodactyl:
+  species: aerodactyl
   stats:
     attack: 105
-  moves:
-    - Ice Punch
-
-Heracross:
+    defense: 65
+    hp: 80
+    specialAttack: 60
+    specialDefense: 75
+    speed: 130
   types:
-    - Bug
-    - Fighting
+  - rock
+  - flying
+aggron:
+  species: aggron
+  stats:
+    attack: 110
+    defense: 180
+    hp: 70
+    specialAttack: 60
+    specialDefense: 60
+    speed: 50
+  types:
+  - steel
+  - rock
+aipom:
+  species: aipom
+  stats:
+    attack: 70
+    defense: 55
+    hp: 55
+    specialAttack: 40
+    specialDefense: 55
+    speed: 85
+  types:
+  - normal
+alakazam:
+  species: alakazam
+  stats:
+    attack: 50
+    defense: 45
+    hp: 55
+    specialAttack: 135
+    specialDefense: 85
+    speed: 120
+  types:
+  - psychic
+alomomola:
+  species: alomomola
+  stats:
+    attack: 75
+    defense: 80
+    hp: 165
+    specialAttack: 40
+    specialDefense: 45
+    speed: 65
+  types:
+  - water
+altaria:
+  species: altaria
+  stats:
+    attack: 70
+    defense: 90
+    hp: 75
+    specialAttack: 70
+    specialDefense: 105
+    speed: 80
+  types:
+  - dragon
+  - flying
+ambipom:
+  species: ambipom
+  stats:
+    attack: 100
+    defense: 66
+    hp: 75
+    specialAttack: 60
+    specialDefense: 66
+    speed: 115
+  types:
+  - normal
+amoonguss:
+  species: amoonguss
+  stats:
+    attack: 85
+    defense: 70
+    hp: 114
+    specialAttack: 85
+    specialDefense: 80
+    speed: 30
+  types:
+  - grass
+  - poison
+ampharos:
+  species: ampharos
+  stats:
+    attack: 75
+    defense: 75
+    hp: 90
+    specialAttack: 115
+    specialDefense: 90
+    speed: 55
+  types:
+  - electric
+anorith:
+  species: anorith
+  stats:
+    attack: 95
+    defense: 50
+    hp: 45
+    specialAttack: 40
+    specialDefense: 50
+    speed: 75
+  types:
+  - rock
+  - bug
+arbok:
+  species: arbok
+  stats:
+    attack: 85
+    defense: 69
+    hp: 60
+    specialAttack: 65
+    specialDefense: 79
+    speed: 80
+  types:
+  - poison
+arcanine:
+  species: arcanine
+  stats:
+    attack: 110
+    defense: 80
+    hp: 90
+    specialAttack: 100
+    specialDefense: 80
+    speed: 95
+  types:
+  - fire
+arceus (bug): &id001
+  species: arceus
+  stats:
+    attack: 120
+    defense: 120
+    hp: 120
+    specialAttack: 120
+    specialDefense: 120
+    speed: 120
+  types:
+  - normal
+arceus (dark): *id001
+arceus (dragon): *id001
+arceus (electric): *id001
+arceus (fighting): *id001
+arceus (fire): *id001
+arceus (flying): *id001
+arceus (ghost): *id001
+arceus (grass): *id001
+arceus (ground): *id001
+arceus (ice): *id001
+arceus (normal): *id001
+arceus (poison): *id001
+arceus (psychic): *id001
+arceus (rock): *id001
+arceus (steel): *id001
+arceus (unknown): *id001
+arceus (water): *id001
+archen:
+  species: archen
+  stats:
+    attack: 112
+    defense: 45
+    hp: 55
+    specialAttack: 74
+    specialDefense: 45
+    speed: 70
+  types:
+  - rock
+  - flying
+archeops:
+  species: archeops
+  stats:
+    attack: 140
+    defense: 65
+    hp: 75
+    specialAttack: 112
+    specialDefense: 65
+    speed: 110
+  types:
+  - rock
+  - flying
+ariados:
+  species: ariados
+  stats:
+    attack: 90
+    defense: 70
+    hp: 70
+    specialAttack: 60
+    specialDefense: 60
+    speed: 40
+  types:
+  - bug
+  - poison
+armaldo:
+  species: armaldo
   stats:
     attack: 125
-  moves:
-    - Megahorn
-
-Porygon-Z:
+    defense: 100
+    hp: 75
+    specialAttack: 70
+    specialDefense: 80
+    speed: 45
   types:
-    - Normal
+  - rock
+  - bug
+aron:
+  species: aron
   stats:
+    attack: 70
+    defense: 100
+    hp: 50
+    specialAttack: 40
+    specialDefense: 40
+    speed: 30
+  types:
+  - steel
+  - rock
+articuno:
+  species: articuno
+  stats:
+    attack: 85
+    defense: 100
+    hp: 90
+    specialAttack: 95
+    specialDefense: 125
+    speed: 85
+  types:
+  - ice
+  - flying
+audino:
+  species: audino
+  stats:
+    attack: 60
+    defense: 86
+    hp: 103
+    specialAttack: 60
+    specialDefense: 86
+    speed: 50
+  types:
+  - normal
+axew:
+  species: axew
+  stats:
+    attack: 87
+    defense: 60
+    hp: 46
+    specialAttack: 30
+    specialDefense: 40
+    speed: 57
+  types:
+  - dragon
+azelf:
+  species: azelf
+  stats:
+    attack: 125
+    defense: 70
+    hp: 75
+    specialAttack: 125
+    specialDefense: 70
+    speed: 115
+  types:
+  - psychic
+azumarill:
+  species: azumarill
+  stats:
+    attack: 50
+    defense: 80
     hp: 100
+    specialAttack: 50
+    specialDefense: 80
+    speed: 50
+  types:
+  - water
+azurill:
+  species: azurill
+  stats:
+    attack: 20
+    defense: 40
+    hp: 50
+    specialAttack: 20
+    specialDefense: 40
+    speed: 20
+  types:
+  - normal
+bagon:
+  species: bagon
+  stats:
+    attack: 75
+    defense: 60
+    hp: 45
+    specialAttack: 40
+    specialDefense: 30
+    speed: 50
+  types:
+  - dragon
+baltoy:
+  species: baltoy
+  stats:
+    attack: 40
+    defense: 55
+    hp: 40
+    specialAttack: 40
+    specialDefense: 70
+    speed: 55
+  types:
+  - ground
+  - psychic
+banette:
+  species: banette
+  stats:
+    attack: 115
+    defense: 65
+    hp: 64
+    specialAttack: 83
+    specialDefense: 63
+    speed: 65
+  types:
+  - ghost
+barboach:
+  species: barboach
+  stats:
+    attack: 48
+    defense: 43
+    hp: 50
+    specialAttack: 46
+    specialDefense: 41
+    speed: 60
+  types:
+  - water
+  - ground
+basculin (blue-striped):
+  species: basculin
+  stats:
+    attack: 92
+    defense: 65
+    hp: 70
+    specialAttack: 80
+    specialDefense: 55
+    speed: 98
+  types:
+  - water
+basculin (red-striped):
+  species: basculin
+  stats:
+    attack: 92
+    defense: 65
+    hp: 70
+    specialAttack: 80
+    specialDefense: 55
+    speed: 98
+  types:
+  - water
+bastiodon:
+  species: bastiodon
+  stats:
+    attack: 52
+    defense: 168
+    hp: 60
+    specialAttack: 47
+    specialDefense: 138
+    speed: 30
+  types:
+  - rock
+  - steel
+bayleef:
+  species: bayleef
+  stats:
+    attack: 62
+    defense: 80
+    hp: 60
+    specialAttack: 63
+    specialDefense: 80
+    speed: 60
+  types:
+  - grass
+beartic:
+  species: beartic
+  stats:
+    attack: 110
+    defense: 80
+    hp: 95
+    specialAttack: 70
+    specialDefense: 80
+    speed: 50
+  types:
+  - ice
+beautifly:
+  species: beautifly
+  stats:
+    attack: 70
+    defense: 50
+    hp: 60
+    specialAttack: 90
+    specialDefense: 50
+    speed: 65
+  types:
+  - bug
+  - flying
+beedrill:
+  species: beedrill
+  stats:
+    attack: 80
+    defense: 40
+    hp: 65
+    specialAttack: 45
+    specialDefense: 80
+    speed: 75
+  types:
+  - bug
+  - poison
+beheeyem:
+  species: beheeyem
+  stats:
+    attack: 75
+    defense: 75
+    hp: 75
+    specialAttack: 125
+    specialDefense: 95
+    speed: 40
+  types:
+  - psychic
+beldum:
+  species: beldum
+  stats:
+    attack: 55
+    defense: 80
+    hp: 40
+    specialAttack: 35
+    specialDefense: 60
+    speed: 30
+  types:
+  - steel
+  - psychic
+bellossom:
+  species: bellossom
+  stats:
+    attack: 80
+    defense: 85
+    hp: 75
+    specialAttack: 90
+    specialDefense: 100
+    speed: 50
+  types:
+  - grass
+bellsprout:
+  species: bellsprout
+  stats:
+    attack: 75
+    defense: 35
+    hp: 50
+    specialAttack: 70
+    specialDefense: 30
+    speed: 40
+  types:
+  - grass
+  - poison
+bibarel:
+  species: bibarel
+  stats:
+    attack: 85
+    defense: 60
+    hp: 79
+    specialAttack: 55
+    specialDefense: 60
+    speed: 71
+  types:
+  - normal
+  - water
+bidoof:
+  species: bidoof
+  stats:
+    attack: 45
+    defense: 40
+    hp: 59
+    specialAttack: 35
+    specialDefense: 40
+    speed: 31
+  types:
+  - normal
+bisharp:
+  species: bisharp
+  stats:
+    attack: 125
+    defense: 100
+    hp: 65
+    specialAttack: 60
+    specialDefense: 70
+    speed: 70
+  types:
+  - dark
+  - steel
+blastoise:
+  species: blastoise
+  stats:
+    attack: 83
+    defense: 100
+    hp: 79
+    specialAttack: 85
+    specialDefense: 105
+    speed: 78
+  types:
+  - water
+blaziken:
+  species: blaziken
+  stats:
+    attack: 120
+    defense: 70
+    hp: 80
+    specialAttack: 110
+    specialDefense: 70
+    speed: 80
+  types:
+  - fire
+  - fighting
+blissey:
+  species: blissey
+  stats:
+    attack: 10
+    defense: 10
+    hp: 255
+    specialAttack: 75
+    specialDefense: 135
+    speed: 55
+  types:
+  - normal
+blitzle:
+  species: blitzle
+  stats:
+    attack: 60
+    defense: 32
+    hp: 45
+    specialAttack: 50
+    specialDefense: 32
+    speed: 76
+  types:
+  - electric
+boldore:
+  species: boldore
+  stats:
+    attack: 105
+    defense: 105
+    hp: 70
+    specialAttack: 50
+    specialDefense: 40
+    speed: 20
+  types:
+  - rock
+bonsly:
+  species: bonsly
+  stats:
+    attack: 80
+    defense: 95
+    hp: 50
+    specialAttack: 10
+    specialDefense: 45
+    speed: 10
+  types:
+  - rock
+bouffalant:
+  species: bouffalant
+  stats:
+    attack: 110
+    defense: 95
+    hp: 95
+    specialAttack: 40
+    specialDefense: 95
+    speed: 55
+  types:
+  - normal
+braviary:
+  species: braviary
+  stats:
+    attack: 123
+    defense: 75
+    hp: 100
+    specialAttack: 57
+    specialDefense: 75
+    speed: 80
+  types:
+  - normal
+  - flying
+breloom:
+  species: breloom
+  stats:
+    attack: 130
+    defense: 80
+    hp: 60
+    specialAttack: 60
+    specialDefense: 60
+    speed: 70
+  types:
+  - grass
+  - fighting
+bronzong:
+  species: bronzong
+  stats:
+    attack: 89
+    defense: 116
+    hp: 67
+    specialAttack: 79
+    specialDefense: 116
+    speed: 33
+  types:
+  - steel
+  - psychic
+bronzor:
+  species: bronzor
+  stats:
+    attack: 24
+    defense: 86
+    hp: 57
+    specialAttack: 24
+    specialDefense: 86
+    speed: 23
+  types:
+  - steel
+  - psychic
+budew:
+  species: budew
+  stats:
+    attack: 30
+    defense: 35
+    hp: 40
+    specialAttack: 50
+    specialDefense: 70
+    speed: 55
+  types:
+  - grass
+  - poison
+buizel:
+  species: buizel
+  stats:
+    attack: 65
+    defense: 35
+    hp: 55
+    specialAttack: 60
+    specialDefense: 30
+    speed: 85
+  types:
+  - water
+bulbasaur:
+  species: bulbasaur
+  stats:
+    attack: 49
+    defense: 49
+    hp: 45
+    specialAttack: 65
+    specialDefense: 65
+    speed: 45
+  types:
+  - grass
+  - poison
+buneary:
+  species: buneary
+  stats:
+    attack: 66
+    defense: 44
+    hp: 55
+    specialAttack: 44
+    specialDefense: 56
+    speed: 85
+  types:
+  - normal
+burmy (plant): &id002
+  species: burmy
+  stats:
+    attack: 29
+    defense: 45
+    hp: 40
+    specialAttack: 29
+    specialDefense: 45
+    speed: 36
+  types:
+  - bug
+burmy (sandy): *id002
+burmy (trash): *id002
+butterfree:
+  species: butterfree
+  stats:
+    attack: 45
+    defense: 50
+    hp: 60
+    specialAttack: 80
+    specialDefense: 80
+    speed: 70
+  types:
+  - bug
+  - flying
+cacnea:
+  species: cacnea
+  stats:
+    attack: 85
+    defense: 40
+    hp: 50
+    specialAttack: 85
+    specialDefense: 40
+    speed: 35
+  types:
+  - grass
+cacturne:
+  species: cacturne
+  stats:
+    attack: 115
+    defense: 60
+    hp: 70
+    specialAttack: 115
+    specialDefense: 60
+    speed: 55
+  types:
+  - grass
+  - dark
+camerupt:
+  species: camerupt
+  stats:
+    attack: 100
+    defense: 70
+    hp: 70
+    specialAttack: 105
+    specialDefense: 75
+    speed: 40
+  types:
+  - fire
+  - ground
+carnivine:
+  species: carnivine
+  stats:
+    attack: 100
+    defense: 72
+    hp: 74
+    specialAttack: 90
+    specialDefense: 72
+    speed: 46
+  types:
+  - grass
+carracosta:
+  species: carracosta
+  stats:
+    attack: 108
+    defense: 133
+    hp: 74
+    specialAttack: 83
+    specialDefense: 65
+    speed: 32
+  types:
+  - water
+  - rock
+carvanha:
+  species: carvanha
+  stats:
+    attack: 90
+    defense: 20
+    hp: 45
+    specialAttack: 65
+    specialDefense: 20
+    speed: 65
+  types:
+  - water
+  - dark
+cascoon:
+  species: cascoon
+  stats:
+    attack: 35
+    defense: 55
+    hp: 50
+    specialAttack: 25
+    specialDefense: 25
+    speed: 15
+  types:
+  - bug
+castform:
+  species: castform
+  stats:
+    attack: 70
+    defense: 70
+    hp: 70
+    specialAttack: 70
+    specialDefense: 70
+    speed: 70
+  types:
+  - normal
+castform (rainy):
+  species: castform
+  stats:
+    attack: 70
+    defense: 70
+    hp: 70
+    specialAttack: 70
+    specialDefense: 70
+    speed: 70
+  types:
+  - water
+castform (snowy):
+  species: castform
+  stats:
+    attack: 70
+    defense: 70
+    hp: 70
+    specialAttack: 70
+    specialDefense: 70
+    speed: 70
+  types:
+  - ice
+castform (sunny):
+  species: castform
+  stats:
+    attack: 70
+    defense: 70
+    hp: 70
+    specialAttack: 70
+    specialDefense: 70
+    speed: 70
+  types:
+  - fire
+caterpie:
+  species: caterpie
+  stats:
+    attack: 30
+    defense: 35
+    hp: 45
+    specialAttack: 20
+    specialDefense: 20
+    speed: 45
+  types:
+  - bug
+celebi:
+  species: celebi
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - psychic
+  - grass
+chandelure:
+  species: chandelure
+  stats:
+    attack: 55
+    defense: 90
+    hp: 60
+    specialAttack: 145
+    specialDefense: 90
+    speed: 80
+  types:
+  - ghost
+  - fire
+chansey:
+  species: chansey
+  stats:
+    attack: 5
+    defense: 5
+    hp: 250
+    specialAttack: 35
+    specialDefense: 105
+    speed: 50
+  types:
+  - normal
+charizard:
+  species: charizard
+  stats:
+    attack: 84
+    defense: 78
+    hp: 78
+    specialAttack: 109
+    specialDefense: 85
+    speed: 100
+  types:
+  - fire
+  - flying
+charmander:
+  species: charmander
+  stats:
+    attack: 52
+    defense: 43
+    hp: 39
+    specialAttack: 60
+    specialDefense: 50
+    speed: 65
+  types:
+  - fire
+charmeleon:
+  species: charmeleon
+  stats:
+    attack: 64
+    defense: 58
+    hp: 58
+    specialAttack: 80
+    specialDefense: 65
+    speed: 80
+  types:
+  - fire
+chatot:
+  species: chatot
+  stats:
+    attack: 65
+    defense: 45
+    hp: 76
+    specialAttack: 92
+    specialDefense: 42
+    speed: 91
+  types:
+  - normal
+  - flying
+cherrim (overcast): &id003
+  species: cherrim
+  stats:
+    attack: 60
+    defense: 70
+    hp: 70
+    specialAttack: 87
+    specialDefense: 78
+    speed: 85
+  types:
+  - grass
+cherrim (sunshine): *id003
+cherubi:
+  species: cherubi
+  stats:
+    attack: 35
+    defense: 45
+    hp: 45
+    specialAttack: 62
+    specialDefense: 53
+    speed: 35
+  types:
+  - grass
+chikorita:
+  species: chikorita
+  stats:
+    attack: 49
+    defense: 65
+    hp: 45
+    specialAttack: 49
+    specialDefense: 65
+    speed: 45
+  types:
+  - grass
+chimchar:
+  species: chimchar
+  stats:
+    attack: 58
+    defense: 44
+    hp: 44
+    specialAttack: 58
+    specialDefense: 44
+    speed: 61
+  types:
+  - fire
+chimecho:
+  species: chimecho
+  stats:
+    attack: 50
+    defense: 70
+    hp: 65
+    specialAttack: 95
+    specialDefense: 80
+    speed: 65
+  types:
+  - psychic
+chinchou:
+  species: chinchou
+  stats:
+    attack: 38
+    defense: 38
+    hp: 75
+    specialAttack: 56
+    specialDefense: 56
+    speed: 67
+  types:
+  - water
+  - electric
+chingling:
+  species: chingling
+  stats:
+    attack: 30
+    defense: 50
+    hp: 45
+    specialAttack: 65
+    specialDefense: 50
+    speed: 45
+  types:
+  - psychic
+cinccino:
+  species: cinccino
+  stats:
+    attack: 95
+    defense: 60
+    hp: 75
+    specialAttack: 65
+    specialDefense: 60
+    speed: 115
+  types:
+  - normal
+clamperl:
+  species: clamperl
+  stats:
+    attack: 64
+    defense: 85
+    hp: 35
+    specialAttack: 74
+    specialDefense: 55
+    speed: 32
+  types:
+  - water
+claydol:
+  species: claydol
+  stats:
+    attack: 70
+    defense: 105
+    hp: 60
+    specialAttack: 70
+    specialDefense: 120
+    speed: 75
+  types:
+  - ground
+  - psychic
+clefable:
+  species: clefable
+  stats:
+    attack: 70
+    defense: 73
+    hp: 95
+    specialAttack: 85
+    specialDefense: 90
+    speed: 60
+  types:
+  - normal
+clefairy:
+  species: clefairy
+  stats:
+    attack: 45
+    defense: 48
+    hp: 70
+    specialAttack: 60
+    specialDefense: 65
+    speed: 35
+  types:
+  - normal
+cleffa:
+  species: cleffa
+  stats:
+    attack: 25
+    defense: 28
+    hp: 50
+    specialAttack: 45
+    specialDefense: 55
+    speed: 15
+  types:
+  - normal
+cloyster:
+  species: cloyster
+  stats:
+    attack: 95
+    defense: 180
+    hp: 50
+    specialAttack: 85
+    specialDefense: 45
+    speed: 70
+  types:
+  - water
+  - ice
+cobalion:
+  species: cobalion
+  stats:
+    attack: 90
+    defense: 129
+    hp: 91
+    specialAttack: 90
+    specialDefense: 72
+    speed: 108
+  types:
+  - steel
+  - fighting
+cofagrigus:
+  species: cofagrigus
+  stats:
+    attack: 50
+    defense: 145
+    hp: 58
+    specialAttack: 95
+    specialDefense: 105
+    speed: 30
+  types:
+  - ghost
+combee:
+  species: combee
+  stats:
+    attack: 30
+    defense: 42
+    hp: 30
+    specialAttack: 30
+    specialDefense: 42
+    speed: 70
+  types:
+  - bug
+  - flying
+combusken:
+  species: combusken
+  stats:
+    attack: 85
+    defense: 60
+    hp: 60
+    specialAttack: 85
+    specialDefense: 60
+    speed: 55
+  types:
+  - fire
+  - fighting
+conkeldurr:
+  species: conkeldurr
+  stats:
+    attack: 140
+    defense: 95
+    hp: 105
+    specialAttack: 55
+    specialDefense: 65
+    speed: 45
+  types:
+  - fighting
+corphish:
+  species: corphish
+  stats:
+    attack: 80
+    defense: 65
+    hp: 43
+    specialAttack: 50
+    specialDefense: 35
+    speed: 35
+  types:
+  - water
+corsola:
+  species: corsola
+  stats:
+    attack: 55
+    defense: 85
+    hp: 55
+    specialAttack: 65
+    specialDefense: 85
+    speed: 35
+  types:
+  - water
+  - rock
+cottonee:
+  species: cottonee
+  stats:
+    attack: 27
+    defense: 60
+    hp: 40
+    specialAttack: 37
+    specialDefense: 50
+    speed: 66
+  types:
+  - grass
+cradily:
+  species: cradily
+  stats:
+    attack: 81
+    defense: 97
+    hp: 86
+    specialAttack: 81
+    specialDefense: 107
+    speed: 43
+  types:
+  - rock
+  - grass
+cranidos:
+  species: cranidos
+  stats:
+    attack: 125
+    defense: 40
+    hp: 67
+    specialAttack: 30
+    specialDefense: 30
+    speed: 58
+  types:
+  - rock
+crawdaunt:
+  species: crawdaunt
+  stats:
+    attack: 120
+    defense: 85
+    hp: 63
+    specialAttack: 90
+    specialDefense: 55
+    speed: 55
+  types:
+  - water
+  - dark
+cresselia:
+  species: cresselia
+  stats:
+    attack: 70
+    defense: 120
+    hp: 120
+    specialAttack: 75
+    specialDefense: 130
+    speed: 85
+  types:
+  - psychic
+croagunk:
+  species: croagunk
+  stats:
+    attack: 61
+    defense: 40
+    hp: 48
+    specialAttack: 61
+    specialDefense: 40
+    speed: 50
+  types:
+  - poison
+  - fighting
+crobat:
+  species: crobat
+  stats:
+    attack: 90
+    defense: 80
+    hp: 85
+    specialAttack: 70
+    specialDefense: 80
+    speed: 130
+  types:
+  - poison
+  - flying
+croconaw:
+  species: croconaw
+  stats:
+    attack: 80
+    defense: 80
+    hp: 65
+    specialAttack: 59
+    specialDefense: 63
+    speed: 58
+  types:
+  - water
+crustle:
+  species: crustle
+  stats:
+    attack: 95
+    defense: 125
+    hp: 70
+    specialAttack: 65
+    specialDefense: 75
+    speed: 45
+  types:
+  - bug
+  - rock
+cryogonal:
+  species: cryogonal
+  stats:
+    attack: 50
+    defense: 30
+    hp: 70
+    specialAttack: 95
+    specialDefense: 135
+    speed: 105
+  types:
+  - ice
+cubchoo:
+  species: cubchoo
+  stats:
+    attack: 70
+    defense: 40
+    hp: 55
+    specialAttack: 60
+    specialDefense: 40
+    speed: 40
+  types:
+  - ice
+cubone:
+  species: cubone
+  stats:
+    attack: 50
+    defense: 95
+    hp: 50
+    specialAttack: 40
+    specialDefense: 50
+    speed: 35
+  types:
+  - ground
+cyndaquil:
+  species: cyndaquil
+  stats:
+    attack: 52
+    defense: 43
+    hp: 39
+    specialAttack: 60
+    specialDefense: 50
+    speed: 65
+  types:
+  - fire
+darkrai:
+  species: darkrai
+  stats:
+    attack: 90
+    defense: 90
+    hp: 70
+    specialAttack: 135
+    specialDefense: 90
+    speed: 125
+  types:
+  - dark
+darmanitan (standard):
+  species: darmanitan
+  stats:
+    attack: 140
+    defense: 55
+    hp: 105
+    specialAttack: 30
+    specialDefense: 55
+    speed: 95
+  types:
+  - fire
+darmanitan (zen):
+  species: darmanitan
+  stats:
+    attack: 30
+    defense: 105
+    hp: 105
+    specialAttack: 140
+    specialDefense: 105
+    speed: 55
+  types:
+  - fire
+  - psychic
+darumaka:
+  species: darumaka
+  stats:
+    attack: 90
+    defense: 45
+    hp: 70
+    specialAttack: 15
+    specialDefense: 45
+    speed: 50
+  types:
+  - fire
+deerling (autumn): &id004
+  species: deerling
+  stats:
+    attack: 60
+    defense: 50
+    hp: 60
+    specialAttack: 40
+    specialDefense: 50
+    speed: 75
+  types:
+  - normal
+  - grass
+deerling (spring): *id004
+deerling (summer): *id004
+deerling (winter): *id004
+deino:
+  species: deino
+  stats:
+    attack: 65
+    defense: 50
+    hp: 52
+    specialAttack: 45
+    specialDefense: 50
+    speed: 38
+  types:
+  - dark
+  - dragon
+delcatty:
+  species: delcatty
+  stats:
+    attack: 65
+    defense: 65
+    hp: 70
+    specialAttack: 55
+    specialDefense: 55
+    speed: 70
+  types:
+  - normal
+delibird:
+  species: delibird
+  stats:
+    attack: 55
+    defense: 45
+    hp: 45
+    specialAttack: 65
+    specialDefense: 45
+    speed: 75
+  types:
+  - ice
+  - flying
+deoxys (attack):
+  species: deoxys
+  stats:
+    attack: 180
+    defense: 20
+    hp: 50
+    specialAttack: 180
+    specialDefense: 20
+    speed: 150
+  types:
+  - psychic
+deoxys (defense):
+  species: deoxys
+  stats:
+    attack: 70
+    defense: 160
+    hp: 50
+    specialAttack: 70
+    specialDefense: 160
+    speed: 90
+  types:
+  - psychic
+deoxys (normal):
+  species: deoxys
+  stats:
+    attack: 150
+    defense: 50
+    hp: 50
+    specialAttack: 150
+    specialDefense: 50
+    speed: 150
+  types:
+  - psychic
+deoxys (speed):
+  species: deoxys
+  stats:
+    attack: 95
+    defense: 90
+    hp: 50
+    specialAttack: 95
+    specialDefense: 90
+    speed: 180
+  types:
+  - psychic
+dewgong:
+  species: dewgong
+  stats:
+    attack: 70
+    defense: 80
+    hp: 90
+    specialAttack: 70
+    specialDefense: 95
+    speed: 70
+  types:
+  - water
+  - ice
+dewott:
+  species: dewott
+  stats:
+    attack: 75
+    defense: 60
+    hp: 75
+    specialAttack: 83
+    specialDefense: 60
+    speed: 60
+  types:
+  - water
+dialga:
+  species: dialga
+  stats:
+    attack: 120
+    defense: 120
+    hp: 100
+    specialAttack: 150
+    specialDefense: 100
+    speed: 90
+  types:
+  - steel
+  - dragon
+diglett:
+  species: diglett
+  stats:
+    attack: 55
+    defense: 25
+    hp: 10
+    specialAttack: 35
+    specialDefense: 45
+    speed: 95
+  types:
+  - ground
+ditto:
+  species: ditto
+  stats:
+    attack: 48
+    defense: 48
+    hp: 48
+    specialAttack: 48
+    specialDefense: 48
+    speed: 48
+  types:
+  - normal
+dodrio:
+  species: dodrio
+  stats:
+    attack: 110
+    defense: 70
+    hp: 60
+    specialAttack: 60
+    specialDefense: 60
+    speed: 100
+  types:
+  - normal
+  - flying
+doduo:
+  species: doduo
+  stats:
+    attack: 85
+    defense: 45
+    hp: 35
+    specialAttack: 35
+    specialDefense: 35
+    speed: 75
+  types:
+  - normal
+  - flying
+donphan:
+  species: donphan
+  stats:
+    attack: 120
+    defense: 120
+    hp: 90
+    specialAttack: 60
+    specialDefense: 60
+    speed: 50
+  types:
+  - ground
+dragonair:
+  species: dragonair
+  stats:
+    attack: 84
+    defense: 65
+    hp: 61
+    specialAttack: 70
+    specialDefense: 70
+    speed: 70
+  types:
+  - dragon
+dragonite:
+  species: dragonite
+  stats:
+    attack: 134
+    defense: 95
+    hp: 91
+    specialAttack: 100
+    specialDefense: 100
+    speed: 80
+  types:
+  - dragon
+  - flying
+drapion:
+  species: drapion
+  stats:
+    attack: 90
+    defense: 110
+    hp: 70
+    specialAttack: 60
+    specialDefense: 75
+    speed: 95
+  types:
+  - poison
+  - dark
+dratini:
+  species: dratini
+  stats:
+    attack: 64
+    defense: 45
+    hp: 41
+    specialAttack: 50
+    specialDefense: 50
+    speed: 50
+  types:
+  - dragon
+drifblim:
+  species: drifblim
+  stats:
+    attack: 80
+    defense: 44
+    hp: 150
+    specialAttack: 90
+    specialDefense: 54
+    speed: 80
+  types:
+  - ghost
+  - flying
+drifloon:
+  species: drifloon
+  stats:
+    attack: 50
+    defense: 34
+    hp: 90
+    specialAttack: 60
+    specialDefense: 44
+    speed: 70
+  types:
+  - ghost
+  - flying
+drilbur:
+  species: drilbur
+  stats:
+    attack: 85
+    defense: 40
+    hp: 60
+    specialAttack: 30
+    specialDefense: 45
+    speed: 68
+  types:
+  - ground
+drowzee:
+  species: drowzee
+  stats:
+    attack: 48
+    defense: 45
+    hp: 60
+    specialAttack: 43
+    specialDefense: 90
+    speed: 42
+  types:
+  - psychic
+druddigon:
+  species: druddigon
+  stats:
+    attack: 120
+    defense: 90
+    hp: 77
+    specialAttack: 60
+    specialDefense: 90
+    speed: 48
+  types:
+  - dragon
+ducklett:
+  species: ducklett
+  stats:
+    attack: 44
+    defense: 50
+    hp: 62
+    specialAttack: 44
+    specialDefense: 50
+    speed: 55
+  types:
+  - water
+  - flying
+dugtrio:
+  species: dugtrio
+  stats:
+    attack: 80
+    defense: 50
+    hp: 35
+    specialAttack: 50
+    specialDefense: 70
+    speed: 120
+  types:
+  - ground
+dunsparce:
+  species: dunsparce
+  stats:
+    attack: 70
+    defense: 70
+    hp: 100
+    specialAttack: 65
+    specialDefense: 65
+    speed: 45
+  types:
+  - normal
+duosion:
+  species: duosion
+  stats:
+    attack: 40
+    defense: 50
+    hp: 65
+    specialAttack: 125
+    specialDefense: 60
+    speed: 30
+  types:
+  - psychic
+durant:
+  species: durant
+  stats:
+    attack: 109
+    defense: 112
+    hp: 58
+    specialAttack: 48
+    specialDefense: 48
+    speed: 109
+  types:
+  - bug
+  - steel
+dusclops:
+  species: dusclops
+  stats:
+    attack: 70
+    defense: 130
+    hp: 40
+    specialAttack: 60
+    specialDefense: 130
+    speed: 25
+  types:
+  - ghost
+dusknoir:
+  species: dusknoir
+  stats:
+    attack: 100
+    defense: 135
+    hp: 45
+    specialAttack: 65
+    specialDefense: 135
+    speed: 45
+  types:
+  - ghost
+duskull:
+  species: duskull
+  stats:
+    attack: 40
+    defense: 90
+    hp: 20
+    specialAttack: 30
+    specialDefense: 90
+    speed: 25
+  types:
+  - ghost
+dustox:
+  species: dustox
+  stats:
+    attack: 50
+    defense: 70
+    hp: 60
+    specialAttack: 50
+    specialDefense: 90
+    speed: 65
+  types:
+  - bug
+  - poison
+dwebble:
+  species: dwebble
+  stats:
+    attack: 65
+    defense: 85
+    hp: 50
+    specialAttack: 35
+    specialDefense: 35
+    speed: 55
+  types:
+  - bug
+  - rock
+eelektrik:
+  species: eelektrik
+  stats:
+    attack: 85
+    defense: 70
+    hp: 65
+    specialAttack: 75
+    specialDefense: 70
+    speed: 40
+  types:
+  - electric
+eelektross:
+  species: eelektross
+  stats:
+    attack: 115
+    defense: 80
+    hp: 85
+    specialAttack: 105
+    specialDefense: 80
+    speed: 50
+  types:
+  - electric
+eevee:
+  species: eevee
+  stats:
+    attack: 55
+    defense: 50
+    hp: 55
+    specialAttack: 45
+    specialDefense: 65
+    speed: 55
+  types:
+  - normal
+ekans:
+  species: ekans
+  stats:
+    attack: 60
+    defense: 44
+    hp: 35
+    specialAttack: 40
+    specialDefense: 54
+    speed: 55
+  types:
+  - poison
+electabuzz:
+  species: electabuzz
+  stats:
+    attack: 83
+    defense: 57
+    hp: 65
+    specialAttack: 95
+    specialDefense: 85
+    speed: 105
+  types:
+  - electric
+electivire:
+  species: electivire
+  stats:
+    attack: 123
+    defense: 67
+    hp: 75
+    specialAttack: 95
+    specialDefense: 85
+    speed: 95
+  types:
+  - electric
+electrike:
+  species: electrike
+  stats:
+    attack: 45
+    defense: 40
+    hp: 40
+    specialAttack: 65
+    specialDefense: 40
+    speed: 65
+  types:
+  - electric
+electrode:
+  species: electrode
+  stats:
+    attack: 50
+    defense: 70
+    hp: 60
+    specialAttack: 80
+    specialDefense: 80
+    speed: 140
+  types:
+  - electric
+elekid:
+  species: elekid
+  stats:
+    attack: 63
+    defense: 37
+    hp: 45
+    specialAttack: 65
+    specialDefense: 55
+    speed: 95
+  types:
+  - electric
+elgyem:
+  species: elgyem
+  stats:
+    attack: 55
+    defense: 55
+    hp: 55
+    specialAttack: 85
+    specialDefense: 55
+    speed: 30
+  types:
+  - psychic
+emboar:
+  species: emboar
+  stats:
+    attack: 123
+    defense: 65
+    hp: 110
+    specialAttack: 100
+    specialDefense: 65
+    speed: 65
+  types:
+  - fire
+  - fighting
+emolga:
+  species: emolga
+  stats:
+    attack: 75
+    defense: 60
+    hp: 55
+    specialAttack: 75
+    specialDefense: 60
+    speed: 103
+  types:
+  - electric
+  - flying
+empoleon:
+  species: empoleon
+  stats:
+    attack: 86
+    defense: 88
+    hp: 84
+    specialAttack: 111
+    specialDefense: 101
+    speed: 60
+  types:
+  - water
+  - steel
+entei:
+  species: entei
+  stats:
+    attack: 115
+    defense: 85
+    hp: 115
+    specialAttack: 90
+    specialDefense: 75
+    speed: 100
+  types:
+  - fire
+escavalier:
+  species: escavalier
+  stats:
+    attack: 135
+    defense: 105
+    hp: 70
+    specialAttack: 60
+    specialDefense: 105
+    speed: 20
+  types:
+  - bug
+  - steel
+espeon:
+  species: espeon
+  stats:
+    attack: 65
+    defense: 60
+    hp: 65
+    specialAttack: 130
+    specialDefense: 95
+    speed: 110
+  types:
+  - psychic
+excadrill:
+  species: excadrill
+  stats:
+    attack: 135
+    defense: 60
+    hp: 110
+    specialAttack: 50
+    specialDefense: 65
+    speed: 88
+  types:
+  - ground
+  - steel
+exeggcute:
+  species: exeggcute
+  stats:
+    attack: 40
+    defense: 80
+    hp: 60
+    specialAttack: 60
+    specialDefense: 45
+    speed: 40
+  types:
+  - grass
+  - psychic
+exeggutor:
+  species: exeggutor
+  stats:
+    attack: 95
+    defense: 85
+    hp: 95
+    specialAttack: 125
+    specialDefense: 65
+    speed: 55
+  types:
+  - grass
+  - psychic
+exploud:
+  species: exploud
+  stats:
+    attack: 91
+    defense: 63
+    hp: 104
+    specialAttack: 91
+    specialDefense: 63
+    speed: 68
+  types:
+  - normal
+farfetchd:
+  species: farfetchd
+  stats:
+    attack: 65
+    defense: 55
+    hp: 52
+    specialAttack: 58
+    specialDefense: 62
+    speed: 60
+  types:
+  - normal
+  - flying
+fearow:
+  species: fearow
+  stats:
+    attack: 90
+    defense: 65
+    hp: 65
+    specialAttack: 61
+    specialDefense: 61
+    speed: 100
+  types:
+  - normal
+  - flying
+feebas:
+  species: feebas
+  stats:
+    attack: 15
+    defense: 20
+    hp: 20
+    specialAttack: 10
+    specialDefense: 55
+    speed: 80
+  types:
+  - water
+feraligatr:
+  species: feraligatr
+  stats:
+    attack: 105
+    defense: 100
+    hp: 85
+    specialAttack: 79
+    specialDefense: 83
+    speed: 78
+  types:
+  - water
+ferroseed:
+  species: ferroseed
+  stats:
+    attack: 50
+    defense: 91
+    hp: 44
+    specialAttack: 24
+    specialDefense: 86
+    speed: 10
+  types:
+  - grass
+  - steel
+ferrothorn:
+  species: ferrothorn
+  stats:
+    attack: 94
+    defense: 131
+    hp: 74
+    specialAttack: 54
+    specialDefense: 116
+    speed: 20
+  types:
+  - grass
+  - steel
+finneon:
+  species: finneon
+  stats:
+    attack: 49
+    defense: 56
+    hp: 49
+    specialAttack: 49
+    specialDefense: 61
+    speed: 66
+  types:
+  - water
+flaaffy:
+  species: flaaffy
+  stats:
+    attack: 55
+    defense: 55
+    hp: 70
+    specialAttack: 80
+    specialDefense: 60
+    speed: 45
+  types:
+  - electric
+flareon:
+  species: flareon
+  stats:
+    attack: 130
+    defense: 60
+    hp: 65
+    specialAttack: 95
+    specialDefense: 110
+    speed: 65
+  types:
+  - fire
+floatzel:
+  species: floatzel
+  stats:
+    attack: 105
+    defense: 55
+    hp: 85
+    specialAttack: 85
+    specialDefense: 50
+    speed: 115
+  types:
+  - water
+flygon:
+  species: flygon
+  stats:
+    attack: 100
+    defense: 80
+    hp: 80
+    specialAttack: 80
+    specialDefense: 80
+    speed: 100
+  types:
+  - ground
+  - dragon
+foongus:
+  species: foongus
+  stats:
+    attack: 55
+    defense: 45
+    hp: 69
+    specialAttack: 55
+    specialDefense: 55
+    speed: 15
+  types:
+  - grass
+  - poison
+forretress:
+  species: forretress
+  stats:
+    attack: 90
+    defense: 140
+    hp: 75
+    specialAttack: 60
+    specialDefense: 60
+    speed: 40
+  types:
+  - bug
+  - steel
+fraxure:
+  species: fraxure
+  stats:
+    attack: 117
+    defense: 70
+    hp: 66
+    specialAttack: 40
+    specialDefense: 50
+    speed: 67
+  types:
+  - dragon
+frillish:
+  species: frillish
+  stats:
+    attack: 40
+    defense: 50
+    hp: 55
+    specialAttack: 65
+    specialDefense: 85
+    speed: 40
+  types:
+  - water
+  - ghost
+froslass:
+  species: froslass
+  stats:
     attack: 80
     defense: 70
-    specialAttack: 135
-  moves:
-    - Tri Attack
-
-Regirock:
+    hp: 70
+    specialAttack: 80
+    specialDefense: 70
+    speed: 110
   types:
-    - Rock
+  - ice
+  - ghost
+furret:
+  species: furret
   stats:
+    attack: 76
+    defense: 64
+    hp: 85
+    specialAttack: 45
+    specialDefense: 55
+    speed: 90
+  types:
+  - normal
+gabite:
+  species: gabite
+  stats:
+    attack: 90
+    defense: 65
+    hp: 68
+    specialAttack: 50
+    specialDefense: 55
+    speed: 82
+  types:
+  - dragon
+  - ground
+gallade:
+  species: gallade
+  stats:
+    attack: 125
+    defense: 65
+    hp: 68
+    specialAttack: 65
+    specialDefense: 115
+    speed: 80
+  types:
+  - psychic
+  - fighting
+galvantula:
+  species: galvantula
+  stats:
+    attack: 77
+    defense: 60
+    hp: 70
+    specialAttack: 97
+    specialDefense: 60
+    speed: 108
+  types:
+  - bug
+  - electric
+garbodor:
+  species: garbodor
+  stats:
+    attack: 95
+    defense: 82
+    hp: 80
+    specialAttack: 60
+    specialDefense: 82
+    speed: 75
+  types:
+  - poison
+garchomp:
+  species: garchomp
+  stats:
+    attack: 130
+    defense: 95
+    hp: 108
+    specialAttack: 80
+    specialDefense: 85
+    speed: 102
+  types:
+  - dragon
+  - ground
+gardevoir:
+  species: gardevoir
+  stats:
+    attack: 65
+    defense: 65
+    hp: 68
+    specialAttack: 125
+    specialDefense: 115
+    speed: 80
+  types:
+  - psychic
+gastly:
+  species: gastly
+  stats:
+    attack: 35
+    defense: 30
+    hp: 30
+    specialAttack: 100
+    specialDefense: 35
+    speed: 80
+  types:
+  - ghost
+  - poison
+gastrodon (east): &id005
+  species: gastrodon
+  stats:
+    attack: 83
+    defense: 68
+    hp: 111
+    specialAttack: 92
+    specialDefense: 82
+    speed: 39
+  types:
+  - water
+  - ground
+gastrodon (west): *id005
+genesect: &id006
+  species: genesect
+  stats:
+    attack: 120
+    defense: 95
+    hp: 71
+    specialAttack: 120
+    specialDefense: 95
+    speed: 99
+  types:
+  - bug
+  - steel
+genesect (burn): *id006
+genesect (chill): *id006
+genesect (douse): *id006
+genesect (shock): *id006
+gengar:
+  species: gengar
+  stats:
+    attack: 65
+    defense: 60
+    hp: 60
+    specialAttack: 130
+    specialDefense: 75
+    speed: 110
+  types:
+  - ghost
+  - poison
+geodude:
+  species: geodude
+  stats:
+    attack: 80
+    defense: 100
+    hp: 40
+    specialAttack: 30
+    specialDefense: 30
+    speed: 20
+  types:
+  - rock
+  - ground
+gible:
+  species: gible
+  stats:
+    attack: 70
+    defense: 45
+    hp: 58
+    specialAttack: 40
+    specialDefense: 45
+    speed: 42
+  types:
+  - dragon
+  - ground
+gigalith:
+  species: gigalith
+  stats:
+    attack: 135
+    defense: 130
+    hp: 85
+    specialAttack: 60
+    specialDefense: 70
+    speed: 25
+  types:
+  - rock
+girafarig:
+  species: girafarig
+  stats:
+    attack: 80
+    defense: 65
+    hp: 70
+    specialAttack: 90
+    specialDefense: 65
+    speed: 85
+  types:
+  - normal
+  - psychic
+giratina (altered):
+  species: giratina
+  stats:
+    attack: 100
+    defense: 120
+    hp: 150
+    specialAttack: 100
+    specialDefense: 120
+    speed: 90
+  types:
+  - ghost
+  - dragon
+giratina (origin):
+  species: giratina
+  stats:
+    attack: 120
+    defense: 100
+    hp: 150
+    specialAttack: 120
+    specialDefense: 100
+    speed: 90
+  types:
+  - ghost
+  - dragon
+glaceon:
+  species: glaceon
+  stats:
+    attack: 60
+    defense: 110
+    hp: 65
+    specialAttack: 130
+    specialDefense: 95
+    speed: 65
+  types:
+  - ice
+glalie:
+  species: glalie
+  stats:
+    attack: 80
+    defense: 80
+    hp: 80
+    specialAttack: 80
+    specialDefense: 80
+    speed: 80
+  types:
+  - ice
+glameow:
+  species: glameow
+  stats:
+    attack: 55
+    defense: 42
+    hp: 49
+    specialAttack: 42
+    specialDefense: 37
+    speed: 85
+  types:
+  - normal
+gligar:
+  species: gligar
+  stats:
+    attack: 75
+    defense: 105
+    hp: 65
+    specialAttack: 35
+    specialDefense: 65
+    speed: 85
+  types:
+  - ground
+  - flying
+gliscor:
+  species: gliscor
+  stats:
+    attack: 95
+    defense: 125
+    hp: 75
+    specialAttack: 45
+    specialDefense: 75
+    speed: 95
+  types:
+  - ground
+  - flying
+gloom:
+  species: gloom
+  stats:
+    attack: 65
+    defense: 70
+    hp: 60
+    specialAttack: 85
+    specialDefense: 75
+    speed: 40
+  types:
+  - grass
+  - poison
+golbat:
+  species: golbat
+  stats:
+    attack: 80
+    defense: 70
+    hp: 75
+    specialAttack: 65
+    specialDefense: 75
+    speed: 90
+  types:
+  - poison
+  - flying
+goldeen:
+  species: goldeen
+  stats:
+    attack: 67
+    defense: 60
+    hp: 45
+    specialAttack: 35
+    specialDefense: 50
+    speed: 63
+  types:
+  - water
+golduck:
+  species: golduck
+  stats:
+    attack: 82
+    defense: 78
+    hp: 80
+    specialAttack: 95
+    specialDefense: 80
+    speed: 85
+  types:
+  - water
+golem:
+  species: golem
+  stats:
+    attack: 110
+    defense: 130
+    hp: 80
+    specialAttack: 55
+    specialDefense: 65
+    speed: 45
+  types:
+  - rock
+  - ground
+golett:
+  species: golett
+  stats:
+    attack: 74
+    defense: 50
+    hp: 59
+    specialAttack: 35
+    specialDefense: 50
+    speed: 35
+  types:
+  - ground
+  - ghost
+golurk:
+  species: golurk
+  stats:
+    attack: 124
+    defense: 80
+    hp: 89
+    specialAttack: 55
+    specialDefense: 80
+    speed: 55
+  types:
+  - ground
+  - ghost
+gorebyss:
+  species: gorebyss
+  stats:
+    attack: 84
+    defense: 105
+    hp: 55
+    specialAttack: 114
+    specialDefense: 75
+    speed: 52
+  types:
+  - water
+gothita:
+  species: gothita
+  stats:
+    attack: 30
+    defense: 50
+    hp: 45
+    specialAttack: 55
+    specialDefense: 65
+    speed: 45
+  types:
+  - psychic
+gothitelle:
+  species: gothitelle
+  stats:
+    attack: 55
+    defense: 95
+    hp: 70
+    specialAttack: 95
+    specialDefense: 110
+    speed: 65
+  types:
+  - psychic
+gothorita:
+  species: gothorita
+  stats:
+    attack: 45
+    defense: 70
+    hp: 60
+    specialAttack: 75
+    specialDefense: 85
+    speed: 55
+  types:
+  - psychic
+granbull:
+  species: granbull
+  stats:
+    attack: 120
+    defense: 75
+    hp: 90
+    specialAttack: 60
+    specialDefense: 60
+    speed: 45
+  types:
+  - normal
+graveler:
+  species: graveler
+  stats:
+    attack: 95
+    defense: 115
+    hp: 55
+    specialAttack: 45
+    specialDefense: 45
+    speed: 35
+  types:
+  - rock
+  - ground
+grimer:
+  species: grimer
+  stats:
+    attack: 80
+    defense: 50
+    hp: 80
+    specialAttack: 40
+    specialDefense: 50
+    speed: 25
+  types:
+  - poison
+grotle:
+  species: grotle
+  stats:
+    attack: 89
+    defense: 85
+    hp: 75
+    specialAttack: 55
+    specialDefense: 65
+    speed: 36
+  types:
+  - grass
+groudon:
+  species: groudon
+  stats:
+    attack: 150
+    defense: 140
+    hp: 100
+    specialAttack: 100
+    specialDefense: 90
+    speed: 90
+  types:
+  - ground
+grovyle:
+  species: grovyle
+  stats:
+    attack: 65
+    defense: 45
+    hp: 50
+    specialAttack: 85
+    specialDefense: 65
+    speed: 95
+  types:
+  - grass
+growlithe:
+  species: growlithe
+  stats:
+    attack: 70
+    defense: 45
+    hp: 55
+    specialAttack: 70
+    specialDefense: 50
+    speed: 60
+  types:
+  - fire
+grumpig:
+  species: grumpig
+  stats:
+    attack: 45
+    defense: 65
+    hp: 80
+    specialAttack: 90
+    specialDefense: 110
+    speed: 80
+  types:
+  - psychic
+gulpin:
+  species: gulpin
+  stats:
+    attack: 43
+    defense: 53
+    hp: 70
+    specialAttack: 43
+    specialDefense: 53
+    speed: 40
+  types:
+  - poison
+gurdurr:
+  species: gurdurr
+  stats:
+    attack: 105
+    defense: 85
+    hp: 85
+    specialAttack: 40
+    specialDefense: 50
+    speed: 40
+  types:
+  - fighting
+gyarados:
+  species: gyarados
+  stats:
+    attack: 125
+    defense: 79
+    hp: 95
+    specialAttack: 60
+    specialDefense: 100
+    speed: 81
+  types:
+  - water
+  - flying
+happiny:
+  species: happiny
+  stats:
+    attack: 5
+    defense: 5
+    hp: 100
+    specialAttack: 15
+    specialDefense: 65
+    speed: 30
+  types:
+  - normal
+hariyama:
+  species: hariyama
+  stats:
+    attack: 120
+    defense: 60
+    hp: 144
+    specialAttack: 40
+    specialDefense: 60
+    speed: 50
+  types:
+  - fighting
+haunter:
+  species: haunter
+  stats:
+    attack: 50
+    defense: 45
+    hp: 45
+    specialAttack: 115
+    specialDefense: 55
+    speed: 95
+  types:
+  - ghost
+  - poison
+haxorus:
+  species: haxorus
+  stats:
+    attack: 147
+    defense: 90
+    hp: 76
+    specialAttack: 60
+    specialDefense: 70
+    speed: 97
+  types:
+  - dragon
+heatmor:
+  species: heatmor
+  stats:
+    attack: 97
+    defense: 66
+    hp: 85
+    specialAttack: 105
+    specialDefense: 66
+    speed: 65
+  types:
+  - fire
+heatran:
+  species: heatran
+  stats:
+    attack: 90
+    defense: 106
+    hp: 91
+    specialAttack: 130
+    specialDefense: 106
+    speed: 77
+  types:
+  - fire
+  - steel
+heracross:
+  species: heracross
+  stats:
+    attack: 125
+    defense: 75
+    hp: 80
+    specialAttack: 40
+    specialDefense: 95
+    speed: 85
+  types:
+  - bug
+  - fighting
+herdier:
+  species: herdier
+  stats:
+    attack: 80
+    defense: 65
+    hp: 65
+    specialAttack: 35
+    specialDefense: 65
+    speed: 60
+  types:
+  - normal
+hippopotas:
+  species: hippopotas
+  stats:
+    attack: 72
+    defense: 78
+    hp: 68
+    specialAttack: 38
+    specialDefense: 42
+    speed: 32
+  types:
+  - ground
+hippowdon:
+  species: hippowdon
+  stats:
+    attack: 112
+    defense: 118
+    hp: 108
+    specialAttack: 68
+    specialDefense: 72
+    speed: 47
+  types:
+  - ground
+hitmonchan:
+  species: hitmonchan
+  stats:
+    attack: 105
+    defense: 79
+    hp: 50
+    specialAttack: 35
+    specialDefense: 110
+    speed: 76
+  types:
+  - fighting
+hitmonlee:
+  species: hitmonlee
+  stats:
+    attack: 120
+    defense: 53
+    hp: 50
+    specialAttack: 35
+    specialDefense: 110
+    speed: 87
+  types:
+  - fighting
+hitmontop:
+  species: hitmontop
+  stats:
+    attack: 95
+    defense: 95
+    hp: 50
+    specialAttack: 35
+    specialDefense: 110
+    speed: 70
+  types:
+  - fighting
+ho-oh:
+  species: ho-oh
+  stats:
+    attack: 130
+    defense: 90
+    hp: 106
+    specialAttack: 110
+    specialDefense: 154
+    speed: 90
+  types:
+  - fire
+  - flying
+honchkrow:
+  species: honchkrow
+  stats:
+    attack: 125
+    defense: 52
+    hp: 100
+    specialAttack: 105
+    specialDefense: 52
+    speed: 71
+  types:
+  - dark
+  - flying
+hoothoot:
+  species: hoothoot
+  stats:
+    attack: 30
+    defense: 30
+    hp: 60
+    specialAttack: 36
+    specialDefense: 56
+    speed: 50
+  types:
+  - normal
+  - flying
+hoppip:
+  species: hoppip
+  stats:
+    attack: 35
+    defense: 40
+    hp: 35
+    specialAttack: 35
+    specialDefense: 55
+    speed: 50
+  types:
+  - grass
+  - flying
+horsea:
+  species: horsea
+  stats:
+    attack: 40
+    defense: 70
+    hp: 30
+    specialAttack: 70
+    specialDefense: 25
+    speed: 60
+  types:
+  - water
+houndoom:
+  species: houndoom
+  stats:
+    attack: 90
+    defense: 50
+    hp: 75
+    specialAttack: 110
+    specialDefense: 80
+    speed: 95
+  types:
+  - dark
+  - fire
+houndour:
+  species: houndour
+  stats:
+    attack: 60
+    defense: 30
+    hp: 45
+    specialAttack: 80
+    specialDefense: 50
+    speed: 65
+  types:
+  - dark
+  - fire
+huntail:
+  species: huntail
+  stats:
+    attack: 104
+    defense: 105
+    hp: 55
+    specialAttack: 94
+    specialDefense: 75
+    speed: 52
+  types:
+  - water
+hydreigon:
+  species: hydreigon
+  stats:
+    attack: 105
+    defense: 90
+    hp: 92
+    specialAttack: 125
+    specialDefense: 90
+    speed: 98
+  types:
+  - dark
+  - dragon
+hypno:
+  species: hypno
+  stats:
+    attack: 73
+    defense: 70
+    hp: 85
+    specialAttack: 73
+    specialDefense: 115
+    speed: 67
+  types:
+  - psychic
+igglybuff:
+  species: igglybuff
+  stats:
+    attack: 30
+    defense: 15
+    hp: 90
+    specialAttack: 40
+    specialDefense: 20
+    speed: 15
+  types:
+  - normal
+illumise:
+  species: illumise
+  stats:
+    attack: 47
+    defense: 55
+    hp: 65
+    specialAttack: 73
+    specialDefense: 75
+    speed: 85
+  types:
+  - bug
+infernape:
+  species: infernape
+  stats:
+    attack: 104
+    defense: 71
+    hp: 76
+    specialAttack: 104
+    specialDefense: 71
+    speed: 108
+  types:
+  - fire
+  - fighting
+ivysaur:
+  species: ivysaur
+  stats:
+    attack: 62
+    defense: 63
+    hp: 60
+    specialAttack: 80
+    specialDefense: 80
+    speed: 60
+  types:
+  - grass
+  - poison
+jellicent:
+  species: jellicent
+  stats:
+    attack: 60
+    defense: 70
+    hp: 100
+    specialAttack: 85
+    specialDefense: 105
+    speed: 60
+  types:
+  - water
+  - ghost
+jigglypuff:
+  species: jigglypuff
+  stats:
+    attack: 45
+    defense: 20
+    hp: 115
+    specialAttack: 45
+    specialDefense: 25
+    speed: 20
+  types:
+  - normal
+jirachi:
+  species: jirachi
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - steel
+  - psychic
+jolteon:
+  species: jolteon
+  stats:
+    attack: 65
+    defense: 60
+    hp: 65
+    specialAttack: 110
+    specialDefense: 95
+    speed: 130
+  types:
+  - electric
+joltik:
+  species: joltik
+  stats:
+    attack: 47
+    defense: 50
+    hp: 50
+    specialAttack: 57
+    specialDefense: 50
+    speed: 65
+  types:
+  - bug
+  - electric
+jumpluff:
+  species: jumpluff
+  stats:
+    attack: 55
+    defense: 70
+    hp: 75
+    specialAttack: 55
+    specialDefense: 85
+    speed: 110
+  types:
+  - grass
+  - flying
+jynx:
+  species: jynx
+  stats:
+    attack: 50
+    defense: 35
+    hp: 65
+    specialAttack: 115
+    specialDefense: 95
+    speed: 95
+  types:
+  - ice
+  - psychic
+kabuto:
+  species: kabuto
+  stats:
+    attack: 80
+    defense: 90
+    hp: 30
+    specialAttack: 55
+    specialDefense: 45
+    speed: 55
+  types:
+  - rock
+  - water
+kabutops:
+  species: kabutops
+  stats:
+    attack: 115
+    defense: 105
+    hp: 60
+    specialAttack: 65
+    specialDefense: 70
+    speed: 80
+  types:
+  - rock
+  - water
+kadabra:
+  species: kadabra
+  stats:
+    attack: 35
+    defense: 30
+    hp: 40
+    specialAttack: 120
+    specialDefense: 70
+    speed: 105
+  types:
+  - psychic
+kakuna:
+  species: kakuna
+  stats:
+    attack: 25
+    defense: 50
+    hp: 45
+    specialAttack: 25
+    specialDefense: 25
+    speed: 35
+  types:
+  - bug
+  - poison
+kangaskhan:
+  species: kangaskhan
+  stats:
+    attack: 95
+    defense: 80
+    hp: 105
+    specialAttack: 40
+    specialDefense: 80
+    speed: 90
+  types:
+  - normal
+karrablast:
+  species: karrablast
+  stats:
+    attack: 75
+    defense: 45
+    hp: 50
+    specialAttack: 40
+    specialDefense: 45
+    speed: 60
+  types:
+  - bug
+kecleon:
+  species: kecleon
+  stats:
+    attack: 90
+    defense: 70
+    hp: 60
+    specialAttack: 60
+    specialDefense: 120
+    speed: 40
+  types:
+  - normal
+keldeo (regular):
+  species: keldeo
+  stats:
+    attack: 72
+    defense: 90
+    hp: 91
+    specialAttack: 129
+    specialDefense: 90
+    speed: 108
+  types:
+  - water
+  - fighting
+keldeo (resolution):
+  species: keldeo
+  stats:
+    attack: 72
+    defense: 90
+    hp: 91
+    specialAttack: 129
+    specialDefense: 90
+    speed: 108
+  types:
+  - water
+  - fighting
+kingdra:
+  species: kingdra
+  stats:
+    attack: 95
+    defense: 95
+    hp: 75
+    specialAttack: 95
+    specialDefense: 95
+    speed: 85
+  types:
+  - water
+  - dragon
+kingler:
+  species: kingler
+  stats:
+    attack: 130
+    defense: 115
+    hp: 55
+    specialAttack: 50
+    specialDefense: 50
+    speed: 75
+  types:
+  - water
+kirlia:
+  species: kirlia
+  stats:
+    attack: 35
+    defense: 35
+    hp: 38
+    specialAttack: 65
+    specialDefense: 55
+    speed: 50
+  types:
+  - psychic
+klang:
+  species: klang
+  stats:
+    attack: 80
+    defense: 95
+    hp: 60
+    specialAttack: 70
+    specialDefense: 85
+    speed: 50
+  types:
+  - steel
+klink:
+  species: klink
+  stats:
+    attack: 55
+    defense: 70
+    hp: 40
+    specialAttack: 45
+    specialDefense: 60
+    speed: 30
+  types:
+  - steel
+klinklang:
+  species: klinklang
+  stats:
+    attack: 100
+    defense: 115
+    hp: 60
+    specialAttack: 70
+    specialDefense: 85
+    speed: 90
+  types:
+  - steel
+koffing:
+  species: koffing
+  stats:
+    attack: 65
+    defense: 95
+    hp: 40
+    specialAttack: 60
+    specialDefense: 45
+    speed: 35
+  types:
+  - poison
+krabby:
+  species: krabby
+  stats:
+    attack: 105
+    defense: 90
+    hp: 30
+    specialAttack: 25
+    specialDefense: 25
+    speed: 50
+  types:
+  - water
+kricketot:
+  species: kricketot
+  stats:
+    attack: 25
+    defense: 41
+    hp: 37
+    specialAttack: 25
+    specialDefense: 41
+    speed: 25
+  types:
+  - bug
+kricketune:
+  species: kricketune
+  stats:
+    attack: 85
+    defense: 51
+    hp: 77
+    specialAttack: 55
+    specialDefense: 51
+    speed: 65
+  types:
+  - bug
+krokorok:
+  species: krokorok
+  stats:
+    attack: 82
+    defense: 45
+    hp: 60
+    specialAttack: 45
+    specialDefense: 45
+    speed: 74
+  types:
+  - ground
+  - dark
+krookodile:
+  species: krookodile
+  stats:
+    attack: 117
+    defense: 70
+    hp: 95
+    specialAttack: 65
+    specialDefense: 70
+    speed: 92
+  types:
+  - ground
+  - dark
+kyogre:
+  species: kyogre
+  stats:
+    attack: 100
+    defense: 90
+    hp: 100
+    specialAttack: 150
+    specialDefense: 140
+    speed: 90
+  types:
+  - water
+kyurem:
+  species: kyurem
+  stats:
+    attack: 130
+    defense: 90
+    hp: 125
+    specialAttack: 130
+    specialDefense: 90
+    speed: 95
+  types:
+  - dragon
+  - ice
+kyurem (black):
+  species: kyurem
+  stats:
+    attack: 170
+    defense: 100
+    hp: 125
+    specialAttack: 120
+    specialDefense: 90
+    speed: 95
+  types:
+  - dragon
+  - ice
+kyurem (white):
+  species: kyurem
+  stats:
+    attack: 120
+    defense: 90
+    hp: 125
+    specialAttack: 170
+    specialDefense: 100
+    speed: 95
+  types:
+  - dragon
+  - ice
+lairon:
+  species: lairon
+  stats:
+    attack: 90
+    defense: 140
+    hp: 60
+    specialAttack: 50
+    specialDefense: 50
+    speed: 40
+  types:
+  - steel
+  - rock
+lampent:
+  species: lampent
+  stats:
+    attack: 40
+    defense: 60
+    hp: 60
+    specialAttack: 95
+    specialDefense: 60
+    speed: 55
+  types:
+  - ghost
+  - fire
+landorus (incarnate):
+  species: landorus
+  stats:
+    attack: 125
+    defense: 90
+    hp: 89
+    specialAttack: 115
+    specialDefense: 80
+    speed: 101
+  types:
+  - ground
+  - flying
+landorus (therian):
+  species: landorus
+  stats:
+    attack: 145
+    defense: 90
+    hp: 89
+    specialAttack: 105
+    specialDefense: 80
+    speed: 91
+  types:
+  - ground
+  - flying
+lanturn:
+  species: lanturn
+  stats:
+    attack: 58
+    defense: 58
+    hp: 125
+    specialAttack: 76
+    specialDefense: 76
+    speed: 67
+  types:
+  - water
+  - electric
+lapras:
+  species: lapras
+  stats:
+    attack: 85
+    defense: 80
+    hp: 130
+    specialAttack: 85
+    specialDefense: 95
+    speed: 60
+  types:
+  - water
+  - ice
+larvesta:
+  species: larvesta
+  stats:
+    attack: 85
+    defense: 55
+    hp: 55
+    specialAttack: 50
+    specialDefense: 55
+    speed: 60
+  types:
+  - bug
+  - fire
+larvitar:
+  species: larvitar
+  stats:
+    attack: 64
+    defense: 50
+    hp: 50
+    specialAttack: 45
+    specialDefense: 50
+    speed: 41
+  types:
+  - rock
+  - ground
+latias:
+  species: latias
+  stats:
+    attack: 80
+    defense: 90
+    hp: 80
+    specialAttack: 110
+    specialDefense: 130
+    speed: 110
+  types:
+  - dragon
+  - psychic
+latios:
+  species: latios
+  stats:
+    attack: 90
+    defense: 80
+    hp: 80
+    specialAttack: 130
+    specialDefense: 110
+    speed: 110
+  types:
+  - dragon
+  - psychic
+leafeon:
+  species: leafeon
+  stats:
+    attack: 110
+    defense: 130
+    hp: 65
+    specialAttack: 60
+    specialDefense: 65
+    speed: 95
+  types:
+  - grass
+leavanny:
+  species: leavanny
+  stats:
+    attack: 103
+    defense: 80
+    hp: 75
+    specialAttack: 70
+    specialDefense: 70
+    speed: 92
+  types:
+  - bug
+  - grass
+ledian:
+  species: ledian
+  stats:
+    attack: 35
+    defense: 50
+    hp: 55
+    specialAttack: 55
+    specialDefense: 110
+    speed: 85
+  types:
+  - bug
+  - flying
+ledyba:
+  species: ledyba
+  stats:
+    attack: 20
+    defense: 30
+    hp: 40
+    specialAttack: 40
+    specialDefense: 80
+    speed: 55
+  types:
+  - bug
+  - flying
+lickilicky:
+  species: lickilicky
+  stats:
+    attack: 85
+    defense: 95
+    hp: 110
+    specialAttack: 80
+    specialDefense: 95
+    speed: 50
+  types:
+  - normal
+lickitung:
+  species: lickitung
+  stats:
+    attack: 55
+    defense: 75
+    hp: 90
+    specialAttack: 60
+    specialDefense: 75
+    speed: 30
+  types:
+  - normal
+liepard:
+  species: liepard
+  stats:
+    attack: 88
+    defense: 50
+    hp: 64
+    specialAttack: 88
+    specialDefense: 50
+    speed: 106
+  types:
+  - dark
+lileep:
+  species: lileep
+  stats:
+    attack: 41
+    defense: 77
+    hp: 66
+    specialAttack: 61
+    specialDefense: 87
+    speed: 23
+  types:
+  - rock
+  - grass
+lilligant:
+  species: lilligant
+  stats:
+    attack: 60
+    defense: 75
+    hp: 70
+    specialAttack: 110
+    specialDefense: 75
+    speed: 90
+  types:
+  - grass
+lillipup:
+  species: lillipup
+  stats:
+    attack: 60
+    defense: 45
+    hp: 45
+    specialAttack: 25
+    specialDefense: 45
+    speed: 55
+  types:
+  - normal
+linoone:
+  species: linoone
+  stats:
+    attack: 70
+    defense: 61
+    hp: 78
+    specialAttack: 50
+    specialDefense: 61
+    speed: 100
+  types:
+  - normal
+litwick:
+  species: litwick
+  stats:
+    attack: 30
+    defense: 55
+    hp: 50
+    specialAttack: 65
+    specialDefense: 55
+    speed: 20
+  types:
+  - ghost
+  - fire
+lombre:
+  species: lombre
+  stats:
+    attack: 50
+    defense: 50
+    hp: 60
+    specialAttack: 60
+    specialDefense: 70
+    speed: 50
+  types:
+  - water
+  - grass
+lopunny:
+  species: lopunny
+  stats:
+    attack: 76
+    defense: 84
+    hp: 65
+    specialAttack: 54
+    specialDefense: 96
+    speed: 105
+  types:
+  - normal
+lotad:
+  species: lotad
+  stats:
+    attack: 30
+    defense: 30
+    hp: 40
+    specialAttack: 40
+    specialDefense: 50
+    speed: 30
+  types:
+  - water
+  - grass
+loudred:
+  species: loudred
+  stats:
+    attack: 71
+    defense: 43
+    hp: 84
+    specialAttack: 71
+    specialDefense: 43
+    speed: 48
+  types:
+  - normal
+lucario:
+  species: lucario
+  stats:
+    attack: 110
+    defense: 70
+    hp: 70
+    specialAttack: 115
+    specialDefense: 70
+    speed: 90
+  types:
+  - fighting
+  - steel
+ludicolo:
+  species: ludicolo
+  stats:
+    attack: 70
+    defense: 70
+    hp: 80
+    specialAttack: 90
+    specialDefense: 100
+    speed: 70
+  types:
+  - water
+  - grass
+lugia:
+  species: lugia
+  stats:
+    attack: 90
+    defense: 130
+    hp: 106
+    specialAttack: 90
+    specialDefense: 154
+    speed: 110
+  types:
+  - psychic
+  - flying
+lumineon:
+  species: lumineon
+  stats:
+    attack: 69
+    defense: 76
+    hp: 69
+    specialAttack: 69
+    specialDefense: 86
+    speed: 91
+  types:
+  - water
+lunatone:
+  species: lunatone
+  stats:
+    attack: 55
+    defense: 65
+    hp: 70
+    specialAttack: 95
+    specialDefense: 85
+    speed: 70
+  types:
+  - rock
+  - psychic
+luvdisc:
+  species: luvdisc
+  stats:
+    attack: 30
+    defense: 55
+    hp: 43
+    specialAttack: 40
+    specialDefense: 65
+    speed: 97
+  types:
+  - water
+luxio:
+  species: luxio
+  stats:
+    attack: 85
+    defense: 49
+    hp: 60
+    specialAttack: 60
+    specialDefense: 49
+    speed: 60
+  types:
+  - electric
+luxray:
+  species: luxray
+  stats:
+    attack: 120
+    defense: 79
+    hp: 80
+    specialAttack: 95
+    specialDefense: 79
+    speed: 70
+  types:
+  - electric
+machamp:
+  species: machamp
+  stats:
+    attack: 130
+    defense: 80
+    hp: 90
+    specialAttack: 65
+    specialDefense: 85
+    speed: 55
+  types:
+  - fighting
+machoke:
+  species: machoke
+  stats:
+    attack: 100
+    defense: 70
+    hp: 80
+    specialAttack: 50
+    specialDefense: 60
+    speed: 45
+  types:
+  - fighting
+machop:
+  species: machop
+  stats:
+    attack: 80
+    defense: 50
+    hp: 70
+    specialAttack: 35
+    specialDefense: 35
+    speed: 35
+  types:
+  - fighting
+magby:
+  species: magby
+  stats:
+    attack: 75
+    defense: 37
+    hp: 45
+    specialAttack: 70
+    specialDefense: 55
+    speed: 83
+  types:
+  - fire
+magcargo:
+  species: magcargo
+  stats:
+    attack: 50
+    defense: 120
+    hp: 50
+    specialAttack: 80
+    specialDefense: 80
+    speed: 30
+  types:
+  - fire
+  - rock
+magikarp:
+  species: magikarp
+  stats:
+    attack: 10
+    defense: 55
+    hp: 20
+    specialAttack: 15
+    specialDefense: 20
+    speed: 80
+  types:
+  - water
+magmar:
+  species: magmar
+  stats:
+    attack: 95
+    defense: 57
+    hp: 65
+    specialAttack: 100
+    specialDefense: 85
+    speed: 93
+  types:
+  - fire
+magmortar:
+  species: magmortar
+  stats:
+    attack: 95
+    defense: 67
+    hp: 75
+    specialAttack: 125
+    specialDefense: 95
+    speed: 83
+  types:
+  - fire
+magnemite:
+  species: magnemite
+  stats:
+    attack: 35
+    defense: 70
+    hp: 25
+    specialAttack: 95
+    specialDefense: 55
+    speed: 45
+  types:
+  - electric
+  - steel
+magneton:
+  species: magneton
+  stats:
+    attack: 60
+    defense: 95
+    hp: 50
+    specialAttack: 120
+    specialDefense: 70
+    speed: 70
+  types:
+  - electric
+  - steel
+magnezone:
+  species: magnezone
+  stats:
+    attack: 70
+    defense: 115
+    hp: 70
+    specialAttack: 130
+    specialDefense: 90
+    speed: 60
+  types:
+  - electric
+  - steel
+makuhita:
+  species: makuhita
+  stats:
+    attack: 60
+    defense: 30
+    hp: 72
+    specialAttack: 20
+    specialDefense: 30
+    speed: 25
+  types:
+  - fighting
+mamoswine:
+  species: mamoswine
+  stats:
+    attack: 130
+    defense: 80
+    hp: 110
+    specialAttack: 70
+    specialDefense: 60
+    speed: 80
+  types:
+  - ice
+  - ground
+manaphy:
+  species: manaphy
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - water
+mandibuzz:
+  species: mandibuzz
+  stats:
+    attack: 65
+    defense: 105
+    hp: 110
+    specialAttack: 55
+    specialDefense: 95
+    speed: 80
+  types:
+  - dark
+  - flying
+manectric:
+  species: manectric
+  stats:
+    attack: 75
+    defense: 60
+    hp: 70
+    specialAttack: 105
+    specialDefense: 60
+    speed: 105
+  types:
+  - electric
+mankey:
+  species: mankey
+  stats:
+    attack: 80
+    defense: 35
+    hp: 40
+    specialAttack: 35
+    specialDefense: 45
+    speed: 70
+  types:
+  - fighting
+mantine:
+  species: mantine
+  stats:
+    attack: 40
+    defense: 70
+    hp: 65
+    specialAttack: 80
+    specialDefense: 140
+    speed: 70
+  types:
+  - water
+  - flying
+mantyke:
+  species: mantyke
+  stats:
+    attack: 20
+    defense: 50
+    hp: 45
+    specialAttack: 60
+    specialDefense: 120
+    speed: 50
+  types:
+  - water
+  - flying
+maractus:
+  species: maractus
+  stats:
+    attack: 86
+    defense: 67
+    hp: 75
+    specialAttack: 106
+    specialDefense: 67
+    speed: 60
+  types:
+  - grass
+mareep:
+  species: mareep
+  stats:
+    attack: 40
+    defense: 40
+    hp: 55
+    specialAttack: 65
+    specialDefense: 45
+    speed: 35
+  types:
+  - electric
+marill:
+  species: marill
+  stats:
+    attack: 20
+    defense: 50
+    hp: 70
+    specialAttack: 20
+    specialDefense: 50
+    speed: 40
+  types:
+  - water
+marowak:
+  species: marowak
+  stats:
+    attack: 80
+    defense: 110
+    hp: 60
+    specialAttack: 50
+    specialDefense: 80
+    speed: 45
+  types:
+  - ground
+marshtomp:
+  species: marshtomp
+  stats:
+    attack: 85
+    defense: 70
+    hp: 70
+    specialAttack: 60
+    specialDefense: 70
+    speed: 50
+  types:
+  - water
+  - ground
+masquerain:
+  species: masquerain
+  stats:
+    attack: 60
+    defense: 62
+    hp: 70
+    specialAttack: 80
+    specialDefense: 82
+    speed: 60
+  types:
+  - bug
+  - flying
+mawile:
+  species: mawile
+  stats:
+    attack: 85
+    defense: 85
+    hp: 50
+    specialAttack: 55
+    specialDefense: 55
+    speed: 50
+  types:
+  - steel
+medicham:
+  species: medicham
+  stats:
+    attack: 60
+    defense: 75
+    hp: 60
+    specialAttack: 60
+    specialDefense: 75
+    speed: 80
+  types:
+  - fighting
+  - psychic
+meditite:
+  species: meditite
+  stats:
+    attack: 40
+    defense: 55
+    hp: 30
+    specialAttack: 40
+    specialDefense: 55
+    speed: 60
+  types:
+  - fighting
+  - psychic
+meganium:
+  species: meganium
+  stats:
+    attack: 82
+    defense: 100
+    hp: 80
+    specialAttack: 83
+    specialDefense: 100
+    speed: 80
+  types:
+  - grass
+meloetta (aria):
+  species: meloetta
+  stats:
+    attack: 77
+    defense: 77
+    hp: 100
+    specialAttack: 128
+    specialDefense: 128
+    speed: 90
+  types:
+  - normal
+  - psychic
+meloetta (pirouette):
+  species: meloetta
+  stats:
+    attack: 128
+    defense: 90
+    hp: 100
+    specialAttack: 77
+    specialDefense: 77
+    speed: 128
+  types:
+  - normal
+  - fighting
+meowth:
+  species: meowth
+  stats:
+    attack: 45
+    defense: 35
+    hp: 40
+    specialAttack: 40
+    specialDefense: 40
+    speed: 90
+  types:
+  - normal
+mesprit:
+  species: mesprit
+  stats:
+    attack: 105
+    defense: 105
+    hp: 80
+    specialAttack: 105
+    specialDefense: 105
+    speed: 80
+  types:
+  - psychic
+metagross:
+  species: metagross
+  stats:
+    attack: 135
+    defense: 130
+    hp: 80
+    specialAttack: 95
+    specialDefense: 90
+    speed: 70
+  types:
+  - steel
+  - psychic
+metang:
+  species: metang
+  stats:
+    attack: 75
+    defense: 100
+    hp: 60
+    specialAttack: 55
+    specialDefense: 80
+    speed: 50
+  types:
+  - steel
+  - psychic
+metapod:
+  species: metapod
+  stats:
+    attack: 20
+    defense: 55
+    hp: 50
+    specialAttack: 25
+    specialDefense: 25
+    speed: 30
+  types:
+  - bug
+mew:
+  species: mew
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - psychic
+mewtwo:
+  species: mewtwo
+  stats:
+    attack: 110
+    defense: 90
+    hp: 106
+    specialAttack: 154
+    specialDefense: 90
+    speed: 130
+  types:
+  - psychic
+mienfoo:
+  species: mienfoo
+  stats:
+    attack: 85
+    defense: 50
+    hp: 45
+    specialAttack: 55
+    specialDefense: 50
+    speed: 65
+  types:
+  - fighting
+mienshao:
+  species: mienshao
+  stats:
+    attack: 125
+    defense: 60
+    hp: 65
+    specialAttack: 95
+    specialDefense: 60
+    speed: 105
+  types:
+  - fighting
+mightyena:
+  species: mightyena
+  stats:
+    attack: 90
+    defense: 70
+    hp: 70
+    specialAttack: 60
+    specialDefense: 60
+    speed: 70
+  types:
+  - dark
+milotic:
+  species: milotic
+  stats:
+    attack: 60
+    defense: 79
+    hp: 95
+    specialAttack: 100
+    specialDefense: 125
+    speed: 81
+  types:
+  - water
+miltank:
+  species: miltank
+  stats:
+    attack: 80
+    defense: 105
+    hp: 95
+    specialAttack: 40
+    specialDefense: 70
+    speed: 100
+  types:
+  - normal
+mime-jr:
+  species: mime-jr
+  stats:
+    attack: 25
+    defense: 45
+    hp: 20
+    specialAttack: 70
+    specialDefense: 90
+    speed: 60
+  types:
+  - psychic
+minccino:
+  species: minccino
+  stats:
+    attack: 50
+    defense: 40
+    hp: 55
+    specialAttack: 40
+    specialDefense: 40
+    speed: 75
+  types:
+  - normal
+minun:
+  species: minun
+  stats:
+    attack: 40
+    defense: 50
+    hp: 60
+    specialAttack: 75
+    specialDefense: 85
+    speed: 95
+  types:
+  - electric
+misdreavus:
+  species: misdreavus
+  stats:
+    attack: 60
+    defense: 60
+    hp: 60
+    specialAttack: 85
+    specialDefense: 85
+    speed: 85
+  types:
+  - ghost
+mismagius:
+  species: mismagius
+  stats:
+    attack: 60
+    defense: 60
+    hp: 60
+    specialAttack: 105
+    specialDefense: 105
+    speed: 105
+  types:
+  - ghost
+moltres:
+  species: moltres
+  stats:
+    attack: 100
+    defense: 90
+    hp: 90
+    specialAttack: 125
+    specialDefense: 85
+    speed: 90
+  types:
+  - fire
+  - flying
+monferno:
+  species: monferno
+  stats:
+    attack: 78
+    defense: 52
+    hp: 64
+    specialAttack: 78
+    specialDefense: 52
+    speed: 81
+  types:
+  - fire
+  - fighting
+mothim:
+  species: mothim
+  stats:
+    attack: 94
+    defense: 50
+    hp: 70
+    specialAttack: 94
+    specialDefense: 50
+    speed: 66
+  types:
+  - bug
+  - flying
+mr-mime:
+  species: mr-mime
+  stats:
+    attack: 45
+    defense: 65
+    hp: 40
+    specialAttack: 100
+    specialDefense: 120
+    speed: 90
+  types:
+  - psychic
+mudkip:
+  species: mudkip
+  stats:
+    attack: 70
+    defense: 50
+    hp: 50
+    specialAttack: 50
+    specialDefense: 50
+    speed: 40
+  types:
+  - water
+muk:
+  species: muk
+  stats:
+    attack: 105
+    defense: 75
+    hp: 105
+    specialAttack: 65
+    specialDefense: 100
+    speed: 50
+  types:
+  - poison
+munchlax:
+  species: munchlax
+  stats:
+    attack: 85
+    defense: 40
+    hp: 135
+    specialAttack: 40
+    specialDefense: 85
+    speed: 5
+  types:
+  - normal
+munna:
+  species: munna
+  stats:
+    attack: 25
+    defense: 45
+    hp: 76
+    specialAttack: 67
+    specialDefense: 55
+    speed: 24
+  types:
+  - psychic
+murkrow:
+  species: murkrow
+  stats:
+    attack: 85
+    defense: 42
+    hp: 60
+    specialAttack: 85
+    specialDefense: 42
+    speed: 91
+  types:
+  - dark
+  - flying
+musharna:
+  species: musharna
+  stats:
+    attack: 55
+    defense: 85
+    hp: 116
+    specialAttack: 107
+    specialDefense: 95
+    speed: 29
+  types:
+  - psychic
+natu:
+  species: natu
+  stats:
+    attack: 50
+    defense: 45
+    hp: 40
+    specialAttack: 70
+    specialDefense: 45
+    speed: 70
+  types:
+  - psychic
+  - flying
+nidoking:
+  species: nidoking
+  stats:
+    attack: 92
+    defense: 77
+    hp: 81
+    specialAttack: 85
+    specialDefense: 75
+    speed: 85
+  types:
+  - poison
+  - ground
+nidoqueen:
+  species: nidoqueen
+  stats:
+    attack: 82
+    defense: 87
+    hp: 90
+    specialAttack: 75
+    specialDefense: 85
+    speed: 76
+  types:
+  - poison
+  - ground
+nidoran-f:
+  species: nidoran-f
+  stats:
+    attack: 47
+    defense: 52
+    hp: 55
+    specialAttack: 40
+    specialDefense: 40
+    speed: 41
+  types:
+  - poison
+nidoran-m:
+  species: nidoran-m
+  stats:
+    attack: 57
+    defense: 40
+    hp: 46
+    specialAttack: 40
+    specialDefense: 40
+    speed: 50
+  types:
+  - poison
+nidorina:
+  species: nidorina
+  stats:
+    attack: 62
+    defense: 67
+    hp: 70
+    specialAttack: 55
+    specialDefense: 55
+    speed: 56
+  types:
+  - poison
+nidorino:
+  species: nidorino
+  stats:
+    attack: 72
+    defense: 57
+    hp: 61
+    specialAttack: 55
+    specialDefense: 55
+    speed: 65
+  types:
+  - poison
+nincada:
+  species: nincada
+  stats:
+    attack: 45
+    defense: 90
+    hp: 31
+    specialAttack: 30
+    specialDefense: 30
+    speed: 40
+  types:
+  - bug
+  - ground
+ninetales:
+  species: ninetales
+  stats:
+    attack: 76
+    defense: 75
+    hp: 73
+    specialAttack: 81
+    specialDefense: 100
+    speed: 100
+  types:
+  - fire
+ninjask:
+  species: ninjask
+  stats:
+    attack: 90
+    defense: 45
+    hp: 61
+    specialAttack: 50
+    specialDefense: 50
+    speed: 160
+  types:
+  - bug
+  - flying
+noctowl:
+  species: noctowl
+  stats:
+    attack: 50
+    defense: 50
+    hp: 100
+    specialAttack: 76
+    specialDefense: 96
+    speed: 70
+  types:
+  - normal
+  - flying
+nosepass:
+  species: nosepass
+  stats:
+    attack: 45
+    defense: 135
+    hp: 30
+    specialAttack: 45
+    specialDefense: 90
+    speed: 30
+  types:
+  - rock
+numel:
+  species: numel
+  stats:
+    attack: 60
+    defense: 40
+    hp: 60
+    specialAttack: 65
+    specialDefense: 45
+    speed: 35
+  types:
+  - fire
+  - ground
+nuzleaf:
+  species: nuzleaf
+  stats:
+    attack: 70
+    defense: 40
+    hp: 70
+    specialAttack: 60
+    specialDefense: 40
+    speed: 60
+  types:
+  - grass
+  - dark
+octillery:
+  species: octillery
+  stats:
+    attack: 105
+    defense: 75
+    hp: 75
+    specialAttack: 105
+    specialDefense: 75
+    speed: 45
+  types:
+  - water
+oddish:
+  species: oddish
+  stats:
+    attack: 50
+    defense: 55
+    hp: 45
+    specialAttack: 75
+    specialDefense: 65
+    speed: 30
+  types:
+  - grass
+  - poison
+omanyte:
+  species: omanyte
+  stats:
+    attack: 40
+    defense: 100
+    hp: 35
+    specialAttack: 90
+    specialDefense: 55
+    speed: 35
+  types:
+  - rock
+  - water
+omastar:
+  species: omastar
+  stats:
+    attack: 60
+    defense: 125
+    hp: 70
+    specialAttack: 115
+    specialDefense: 70
+    speed: 55
+  types:
+  - rock
+  - water
+onix:
+  species: onix
+  stats:
+    attack: 45
+    defense: 160
+    hp: 35
+    specialAttack: 30
+    specialDefense: 45
+    speed: 70
+  types:
+  - rock
+  - ground
+oshawott:
+  species: oshawott
+  stats:
+    attack: 55
+    defense: 45
+    hp: 55
+    specialAttack: 63
+    specialDefense: 45
+    speed: 45
+  types:
+  - water
+pachirisu:
+  species: pachirisu
+  stats:
+    attack: 45
+    defense: 70
+    hp: 60
+    specialAttack: 45
+    specialDefense: 90
+    speed: 95
+  types:
+  - electric
+palkia:
+  species: palkia
+  stats:
+    attack: 120
+    defense: 100
+    hp: 90
+    specialAttack: 150
+    specialDefense: 120
+    speed: 100
+  types:
+  - water
+  - dragon
+palpitoad:
+  species: palpitoad
+  stats:
+    attack: 65
+    defense: 55
+    hp: 75
+    specialAttack: 65
+    specialDefense: 55
+    speed: 69
+  types:
+  - water
+  - ground
+panpour:
+  species: panpour
+  stats:
+    attack: 53
+    defense: 48
+    hp: 50
+    specialAttack: 53
+    specialDefense: 48
+    speed: 64
+  types:
+  - water
+pansage:
+  species: pansage
+  stats:
+    attack: 53
+    defense: 48
+    hp: 50
+    specialAttack: 53
+    specialDefense: 48
+    speed: 64
+  types:
+  - grass
+pansear:
+  species: pansear
+  stats:
+    attack: 53
+    defense: 48
+    hp: 50
+    specialAttack: 53
+    specialDefense: 48
+    speed: 64
+  types:
+  - fire
+paras:
+  species: paras
+  stats:
+    attack: 70
+    defense: 55
+    hp: 35
+    specialAttack: 45
+    specialDefense: 55
+    speed: 25
+  types:
+  - bug
+  - grass
+parasect:
+  species: parasect
+  stats:
+    attack: 95
+    defense: 80
+    hp: 60
+    specialAttack: 60
+    specialDefense: 80
+    speed: 30
+  types:
+  - bug
+  - grass
+patrat:
+  species: patrat
+  stats:
+    attack: 55
+    defense: 39
+    hp: 45
+    specialAttack: 35
+    specialDefense: 39
+    speed: 42
+  types:
+  - normal
+pawniard:
+  species: pawniard
+  stats:
+    attack: 85
+    defense: 70
+    hp: 45
+    specialAttack: 40
+    specialDefense: 40
+    speed: 60
+  types:
+  - dark
+  - steel
+pelipper:
+  species: pelipper
+  stats:
+    attack: 50
+    defense: 100
+    hp: 60
+    specialAttack: 85
+    specialDefense: 70
+    speed: 65
+  types:
+  - water
+  - flying
+persian:
+  species: persian
+  stats:
+    attack: 70
+    defense: 60
+    hp: 65
+    specialAttack: 65
+    specialDefense: 65
+    speed: 115
+  types:
+  - normal
+petilil:
+  species: petilil
+  stats:
+    attack: 35
+    defense: 50
+    hp: 45
+    specialAttack: 70
+    specialDefense: 50
+    speed: 30
+  types:
+  - grass
+phanpy:
+  species: phanpy
+  stats:
+    attack: 60
+    defense: 60
+    hp: 90
+    specialAttack: 40
+    specialDefense: 40
+    speed: 40
+  types:
+  - ground
+phione:
+  species: phione
+  stats:
+    attack: 80
+    defense: 80
+    hp: 80
+    specialAttack: 80
+    specialDefense: 80
+    speed: 80
+  types:
+  - water
+pichu: &id007
+  species: pichu
+  stats:
+    attack: 40
+    defense: 15
+    hp: 20
+    specialAttack: 35
+    specialDefense: 35
+    speed: 60
+  types:
+  - electric
+pichu (spiky-eared): *id007
+pidgeot:
+  species: pidgeot
+  stats:
+    attack: 80
+    defense: 75
+    hp: 83
+    specialAttack: 70
+    specialDefense: 70
+    speed: 91
+  types:
+  - normal
+  - flying
+pidgeotto:
+  species: pidgeotto
+  stats:
+    attack: 60
+    defense: 55
+    hp: 63
+    specialAttack: 50
+    specialDefense: 50
+    speed: 71
+  types:
+  - normal
+  - flying
+pidgey:
+  species: pidgey
+  stats:
+    attack: 45
+    defense: 40
+    hp: 40
+    specialAttack: 35
+    specialDefense: 35
+    speed: 56
+  types:
+  - normal
+  - flying
+pidove:
+  species: pidove
+  stats:
+    attack: 55
+    defense: 50
+    hp: 50
+    specialAttack: 36
+    specialDefense: 30
+    speed: 43
+  types:
+  - normal
+  - flying
+pignite:
+  species: pignite
+  stats:
+    attack: 93
+    defense: 55
+    hp: 90
+    specialAttack: 70
+    specialDefense: 55
+    speed: 55
+  types:
+  - fire
+  - fighting
+pikachu:
+  species: pikachu
+  stats:
+    attack: 55
+    defense: 30
+    hp: 35
+    specialAttack: 50
+    specialDefense: 40
+    speed: 90
+  types:
+  - electric
+piloswine:
+  species: piloswine
+  stats:
+    attack: 100
+    defense: 80
+    hp: 100
+    specialAttack: 60
+    specialDefense: 60
+    speed: 50
+  types:
+  - ice
+  - ground
+pineco:
+  species: pineco
+  stats:
+    attack: 65
+    defense: 90
+    hp: 50
+    specialAttack: 35
+    specialDefense: 35
+    speed: 15
+  types:
+  - bug
+pinsir:
+  species: pinsir
+  stats:
+    attack: 125
+    defense: 100
+    hp: 65
+    specialAttack: 55
+    specialDefense: 70
+    speed: 85
+  types:
+  - bug
+piplup:
+  species: piplup
+  stats:
+    attack: 51
+    defense: 53
+    hp: 53
+    specialAttack: 61
+    specialDefense: 56
+    speed: 40
+  types:
+  - water
+plusle:
+  species: plusle
+  stats:
+    attack: 50
+    defense: 40
+    hp: 60
+    specialAttack: 85
+    specialDefense: 75
+    speed: 95
+  types:
+  - electric
+politoed:
+  species: politoed
+  stats:
+    attack: 75
+    defense: 75
+    hp: 90
+    specialAttack: 90
+    specialDefense: 100
+    speed: 70
+  types:
+  - water
+poliwag:
+  species: poliwag
+  stats:
+    attack: 50
+    defense: 40
+    hp: 40
+    specialAttack: 40
+    specialDefense: 40
+    speed: 90
+  types:
+  - water
+poliwhirl:
+  species: poliwhirl
+  stats:
+    attack: 65
+    defense: 65
+    hp: 65
+    specialAttack: 50
+    specialDefense: 50
+    speed: 90
+  types:
+  - water
+poliwrath:
+  species: poliwrath
+  stats:
+    attack: 85
+    defense: 95
+    hp: 90
+    specialAttack: 70
+    specialDefense: 90
+    speed: 70
+  types:
+  - water
+  - fighting
+ponyta:
+  species: ponyta
+  stats:
+    attack: 85
+    defense: 55
+    hp: 50
+    specialAttack: 65
+    specialDefense: 65
+    speed: 90
+  types:
+  - fire
+poochyena:
+  species: poochyena
+  stats:
+    attack: 55
+    defense: 35
+    hp: 35
+    specialAttack: 30
+    specialDefense: 30
+    speed: 35
+  types:
+  - dark
+porygon:
+  species: porygon
+  stats:
+    attack: 60
+    defense: 70
+    hp: 65
+    specialAttack: 85
+    specialDefense: 75
+    speed: 40
+  types:
+  - normal
+porygon-z:
+  species: porygon-z
+  stats:
+    attack: 80
+    defense: 70
+    hp: 85
+    specialAttack: 135
+    specialDefense: 75
+    speed: 90
+  types:
+  - normal
+porygon2:
+  species: porygon2
+  stats:
+    attack: 80
+    defense: 90
+    hp: 85
+    specialAttack: 105
+    specialDefense: 95
+    speed: 60
+  types:
+  - normal
+primeape:
+  species: primeape
+  stats:
+    attack: 105
+    defense: 60
+    hp: 65
+    specialAttack: 60
+    specialDefense: 70
+    speed: 95
+  types:
+  - fighting
+prinplup:
+  species: prinplup
+  stats:
+    attack: 66
+    defense: 68
+    hp: 64
+    specialAttack: 81
+    specialDefense: 76
+    speed: 50
+  types:
+  - water
+probopass:
+  species: probopass
+  stats:
+    attack: 55
+    defense: 145
+    hp: 60
+    specialAttack: 75
+    specialDefense: 150
+    speed: 40
+  types:
+  - rock
+  - steel
+psyduck:
+  species: psyduck
+  stats:
+    attack: 52
+    defense: 48
+    hp: 50
+    specialAttack: 65
+    specialDefense: 50
+    speed: 55
+  types:
+  - water
+pupitar:
+  species: pupitar
+  stats:
+    attack: 84
+    defense: 70
+    hp: 70
+    specialAttack: 65
+    specialDefense: 70
+    speed: 51
+  types:
+  - rock
+  - ground
+purrloin:
+  species: purrloin
+  stats:
+    attack: 50
+    defense: 37
+    hp: 41
+    specialAttack: 50
+    specialDefense: 37
+    speed: 66
+  types:
+  - dark
+purugly:
+  species: purugly
+  stats:
+    attack: 82
+    defense: 64
+    hp: 71
+    specialAttack: 64
+    specialDefense: 59
+    speed: 112
+  types:
+  - normal
+quagsire:
+  species: quagsire
+  stats:
+    attack: 85
+    defense: 85
+    hp: 95
+    specialAttack: 65
+    specialDefense: 65
+    speed: 35
+  types:
+  - water
+  - ground
+quilava:
+  species: quilava
+  stats:
+    attack: 64
+    defense: 58
+    hp: 58
+    specialAttack: 80
+    specialDefense: 65
+    speed: 80
+  types:
+  - fire
+qwilfish:
+  species: qwilfish
+  stats:
+    attack: 95
+    defense: 75
+    hp: 65
+    specialAttack: 55
+    specialDefense: 55
+    speed: 85
+  types:
+  - water
+  - poison
+raichu:
+  species: raichu
+  stats:
+    attack: 90
+    defense: 55
+    hp: 60
+    specialAttack: 90
+    specialDefense: 80
+    speed: 100
+  types:
+  - electric
+raikou:
+  species: raikou
+  stats:
+    attack: 85
+    defense: 75
+    hp: 90
+    specialAttack: 115
+    specialDefense: 100
+    speed: 115
+  types:
+  - electric
+ralts:
+  species: ralts
+  stats:
+    attack: 25
+    defense: 25
+    hp: 28
+    specialAttack: 45
+    specialDefense: 35
+    speed: 40
+  types:
+  - psychic
+rampardos:
+  species: rampardos
+  stats:
+    attack: 165
+    defense: 60
+    hp: 97
+    specialAttack: 65
+    specialDefense: 50
+    speed: 58
+  types:
+  - rock
+rapidash:
+  species: rapidash
+  stats:
+    attack: 100
+    defense: 70
+    hp: 65
+    specialAttack: 80
+    specialDefense: 80
+    speed: 105
+  types:
+  - fire
+raticate:
+  species: raticate
+  stats:
+    attack: 81
+    defense: 60
+    hp: 55
+    specialAttack: 50
+    specialDefense: 70
+    speed: 97
+  types:
+  - normal
+rattata:
+  species: rattata
+  stats:
+    attack: 56
+    defense: 35
+    hp: 30
+    specialAttack: 25
+    specialDefense: 35
+    speed: 72
+  types:
+  - normal
+rayquaza:
+  species: rayquaza
+  stats:
+    attack: 150
+    defense: 90
+    hp: 105
+    specialAttack: 150
+    specialDefense: 90
+    speed: 95
+  types:
+  - dragon
+  - flying
+regice:
+  species: regice
+  stats:
+    attack: 50
+    defense: 100
+    hp: 80
+    specialAttack: 100
+    specialDefense: 200
+    speed: 50
+  types:
+  - ice
+regigigas:
+  species: regigigas
+  stats:
+    attack: 160
+    defense: 110
+    hp: 110
+    specialAttack: 80
+    specialDefense: 110
+    speed: 100
+  types:
+  - normal
+regirock:
+  species: regirock
+  stats:
+    attack: 100
     defense: 200
+    hp: 80
+    specialAttack: 50
+    specialDefense: 100
+    speed: 50
+  types:
+  - rock
+registeel:
+  species: registeel
+  stats:
+    attack: 75
+    defense: 150
+    hp: 80
+    specialAttack: 75
+    specialDefense: 150
+    speed: 50
+  types:
+  - steel
+relicanth:
+  species: relicanth
+  stats:
+    attack: 90
+    defense: 130
+    hp: 100
+    specialAttack: 45
+    specialDefense: 65
+    speed: 55
+  types:
+  - water
+  - rock
+remoraid:
+  species: remoraid
+  stats:
+    attack: 65
+    defense: 35
+    hp: 35
+    specialAttack: 65
+    specialDefense: 35
+    speed: 65
+  types:
+  - water
+reshiram:
+  species: reshiram
+  stats:
+    attack: 120
+    defense: 100
+    hp: 100
+    specialAttack: 150
+    specialDefense: 120
+    speed: 90
+  types:
+  - dragon
+  - fire
+reuniclus:
+  species: reuniclus
+  stats:
+    attack: 65
+    defense: 75
+    hp: 110
+    specialAttack: 125
+    specialDefense: 85
+    speed: 30
+  types:
+  - psychic
+rhydon:
+  species: rhydon
+  stats:
+    attack: 130
+    defense: 120
+    hp: 105
+    specialAttack: 45
+    specialDefense: 45
+    speed: 40
+  types:
+  - ground
+  - rock
+rhyhorn:
+  species: rhyhorn
+  stats:
+    attack: 85
+    defense: 95
+    hp: 80
+    specialAttack: 30
+    specialDefense: 30
+    speed: 25
+  types:
+  - ground
+  - rock
+rhyperior:
+  species: rhyperior
+  stats:
+    attack: 140
+    defense: 130
+    hp: 115
+    specialAttack: 55
+    specialDefense: 55
+    speed: 40
+  types:
+  - ground
+  - rock
+riolu:
+  species: riolu
+  stats:
+    attack: 70
+    defense: 40
+    hp: 40
+    specialAttack: 35
+    specialDefense: 40
+    speed: 60
+  types:
+  - fighting
+roggenrola:
+  species: roggenrola
+  stats:
+    attack: 75
+    defense: 85
+    hp: 55
+    specialAttack: 25
+    specialDefense: 25
+    speed: 15
+  types:
+  - rock
+roselia:
+  species: roselia
+  stats:
+    attack: 60
+    defense: 45
+    hp: 50
+    specialAttack: 100
+    specialDefense: 80
+    speed: 65
+  types:
+  - grass
+  - poison
+roserade:
+  species: roserade
+  stats:
+    attack: 70
+    defense: 55
+    hp: 60
+    specialAttack: 125
+    specialDefense: 105
+    speed: 90
+  types:
+  - grass
+  - poison
+rotom:
+  species: rotom
+  stats:
+    attack: 50
+    defense: 77
+    hp: 50
+    specialAttack: 95
+    specialDefense: 77
+    speed: 91
+  types:
+  - electric
+  - ghost
+rotom (fan):
+  species: rotom
+  stats:
+    attack: 65
+    defense: 107
+    hp: 50
+    specialAttack: 105
+    specialDefense: 107
+    speed: 86
+  types:
+  - electric
+  - flying
+rotom (frost):
+  species: rotom
+  stats:
+    attack: 65
+    defense: 107
+    hp: 50
+    specialAttack: 105
+    specialDefense: 107
+    speed: 86
+  types:
+  - electric
+  - ice
+rotom (heat):
+  species: rotom
+  stats:
+    attack: 65
+    defense: 107
+    hp: 50
+    specialAttack: 105
+    specialDefense: 107
+    speed: 86
+  types:
+  - electric
+  - fire
+rotom (mow):
+  species: rotom
+  stats:
+    attack: 65
+    defense: 107
+    hp: 50
+    specialAttack: 105
+    specialDefense: 107
+    speed: 86
+  types:
+  - electric
+  - grass
+rotom (wash):
+  species: rotom
+  stats:
+    attack: 65
+    defense: 107
+    hp: 50
+    specialAttack: 105
+    specialDefense: 107
+    speed: 86
+  types:
+  - electric
+  - water
+rufflet:
+  species: rufflet
+  stats:
+    attack: 83
+    defense: 50
+    hp: 70
+    specialAttack: 37
+    specialDefense: 50
+    speed: 60
+  types:
+  - normal
+  - flying
+sableye:
+  species: sableye
+  stats:
+    attack: 75
+    defense: 75
+    hp: 50
+    specialAttack: 65
+    specialDefense: 65
+    speed: 50
+  types:
+  - dark
+  - ghost
+salamence:
+  species: salamence
+  stats:
+    attack: 135
+    defense: 80
+    hp: 95
+    specialAttack: 110
+    specialDefense: 80
+    speed: 100
+  types:
+  - dragon
+  - flying
+samurott:
+  species: samurott
+  stats:
+    attack: 100
+    defense: 85
+    hp: 95
+    specialAttack: 108
+    specialDefense: 70
+    speed: 70
+  types:
+  - water
+sandile:
+  species: sandile
+  stats:
+    attack: 72
+    defense: 35
+    hp: 50
+    specialAttack: 35
+    specialDefense: 35
+    speed: 65
+  types:
+  - ground
+  - dark
+sandshrew:
+  species: sandshrew
+  stats:
+    attack: 75
+    defense: 85
+    hp: 50
+    specialAttack: 20
+    specialDefense: 30
+    speed: 40
+  types:
+  - ground
+sandslash:
+  species: sandslash
+  stats:
+    attack: 100
+    defense: 110
+    hp: 75
+    specialAttack: 45
+    specialDefense: 55
+    speed: 65
+  types:
+  - ground
+sawk:
+  species: sawk
+  stats:
+    attack: 125
+    defense: 75
+    hp: 75
+    specialAttack: 30
+    specialDefense: 75
+    speed: 85
+  types:
+  - fighting
+sawsbuck (autumn): &id008
+  species: sawsbuck
+  stats:
+    attack: 100
+    defense: 70
+    hp: 80
+    specialAttack: 60
+    specialDefense: 70
+    speed: 95
+  types:
+  - normal
+  - grass
+sawsbuck (spring): *id008
+sawsbuck (summer): *id008
+sawsbuck (winter): *id008
+sceptile:
+  species: sceptile
+  stats:
+    attack: 85
+    defense: 65
+    hp: 70
+    specialAttack: 105
+    specialDefense: 85
+    speed: 120
+  types:
+  - grass
+scizor:
+  species: scizor
+  stats:
+    attack: 130
+    defense: 100
+    hp: 70
+    specialAttack: 55
+    specialDefense: 80
+    speed: 65
+  types:
+  - bug
+  - steel
+scolipede:
+  species: scolipede
+  stats:
+    attack: 90
+    defense: 89
+    hp: 60
+    specialAttack: 55
+    specialDefense: 69
+    speed: 112
+  types:
+  - bug
+  - poison
+scrafty:
+  species: scrafty
+  stats:
+    attack: 90
+    defense: 115
+    hp: 65
+    specialAttack: 45
+    specialDefense: 115
+    speed: 58
+  types:
+  - dark
+  - fighting
+scraggy:
+  species: scraggy
+  stats:
+    attack: 75
+    defense: 70
+    hp: 50
+    specialAttack: 35
+    specialDefense: 70
+    speed: 48
+  types:
+  - dark
+  - fighting
+scyther:
+  species: scyther
+  stats:
+    attack: 110
+    defense: 80
+    hp: 70
+    specialAttack: 55
+    specialDefense: 80
+    speed: 105
+  types:
+  - bug
+  - flying
+seadra:
+  species: seadra
+  stats:
+    attack: 65
+    defense: 95
+    hp: 55
+    specialAttack: 95
+    specialDefense: 45
+    speed: 85
+  types:
+  - water
+seaking:
+  species: seaking
+  stats:
+    attack: 92
+    defense: 65
+    hp: 80
+    specialAttack: 65
+    specialDefense: 80
+    speed: 68
+  types:
+  - water
+sealeo:
+  species: sealeo
+  stats:
+    attack: 60
+    defense: 70
+    hp: 90
+    specialAttack: 75
+    specialDefense: 70
+    speed: 45
+  types:
+  - ice
+  - water
+seedot:
+  species: seedot
+  stats:
+    attack: 40
+    defense: 50
+    hp: 40
+    specialAttack: 30
+    specialDefense: 30
+    speed: 30
+  types:
+  - grass
+seel:
+  species: seel
+  stats:
+    attack: 45
+    defense: 55
+    hp: 65
+    specialAttack: 45
+    specialDefense: 70
+    speed: 45
+  types:
+  - water
+seismitoad:
+  species: seismitoad
+  stats:
+    attack: 85
+    defense: 75
+    hp: 105
+    specialAttack: 85
+    specialDefense: 75
+    speed: 74
+  types:
+  - water
+  - ground
+sentret:
+  species: sentret
+  stats:
+    attack: 46
+    defense: 34
+    hp: 35
+    specialAttack: 35
+    specialDefense: 45
+    speed: 20
+  types:
+  - normal
+serperior:
+  species: serperior
+  stats:
+    attack: 75
+    defense: 95
+    hp: 75
+    specialAttack: 75
+    specialDefense: 95
+    speed: 113
+  types:
+  - grass
+servine:
+  species: servine
+  stats:
+    attack: 60
+    defense: 75
+    hp: 60
+    specialAttack: 60
+    specialDefense: 75
+    speed: 83
+  types:
+  - grass
+seviper:
+  species: seviper
+  stats:
+    attack: 100
+    defense: 60
+    hp: 73
+    specialAttack: 100
+    specialDefense: 60
+    speed: 65
+  types:
+  - poison
+sewaddle:
+  species: sewaddle
+  stats:
+    attack: 53
+    defense: 70
+    hp: 45
+    specialAttack: 40
+    specialDefense: 60
+    speed: 42
+  types:
+  - bug
+  - grass
+sharpedo:
+  species: sharpedo
+  stats:
+    attack: 120
+    defense: 40
+    hp: 70
+    specialAttack: 95
+    specialDefense: 40
+    speed: 95
+  types:
+  - water
+  - dark
+shaymin (land):
+  species: shaymin
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - grass
+shaymin (sky):
+  species: shaymin
+  stats:
+    attack: 103
+    defense: 75
+    hp: 100
+    specialAttack: 120
+    specialDefense: 75
+    speed: 127
+  types:
+  - grass
+  - flying
+shedinja:
+  species: shedinja
+  stats:
+    attack: 90
+    defense: 45
+    hp: 1
+    specialAttack: 30
+    specialDefense: 30
+    speed: 40
+  types:
+  - bug
+  - ghost
+shelgon:
+  species: shelgon
+  stats:
+    attack: 95
+    defense: 100
+    hp: 65
+    specialAttack: 60
+    specialDefense: 50
+    speed: 50
+  types:
+  - dragon
+shellder:
+  species: shellder
+  stats:
+    attack: 65
+    defense: 100
+    hp: 30
+    specialAttack: 45
+    specialDefense: 25
+    speed: 40
+  types:
+  - water
+shellos (east): &id009
+  species: shellos
+  stats:
+    attack: 48
+    defense: 48
+    hp: 76
+    specialAttack: 57
+    specialDefense: 62
+    speed: 34
+  types:
+  - water
+shellos (west): *id009
+shelmet:
+  species: shelmet
+  stats:
+    attack: 40
+    defense: 85
+    hp: 50
+    specialAttack: 40
+    specialDefense: 65
+    speed: 25
+  types:
+  - bug
+shieldon:
+  species: shieldon
+  stats:
+    attack: 42
+    defense: 118
+    hp: 30
+    specialAttack: 42
+    specialDefense: 88
+    speed: 30
+  types:
+  - rock
+  - steel
+shiftry:
+  species: shiftry
+  stats:
+    attack: 100
+    defense: 60
+    hp: 90
+    specialAttack: 90
+    specialDefense: 60
+    speed: 80
+  types:
+  - grass
+  - dark
+shinx:
+  species: shinx
+  stats:
+    attack: 65
+    defense: 34
+    hp: 45
+    specialAttack: 40
+    specialDefense: 34
+    speed: 45
+  types:
+  - electric
+shroomish:
+  species: shroomish
+  stats:
+    attack: 40
+    defense: 60
+    hp: 60
+    specialAttack: 40
+    specialDefense: 60
+    speed: 35
+  types:
+  - grass
+shuckle:
+  species: shuckle
+  stats:
+    attack: 10
+    defense: 230
+    hp: 20
+    specialAttack: 10
+    specialDefense: 230
+    speed: 5
+  types:
+  - bug
+  - rock
+shuppet:
+  species: shuppet
+  stats:
+    attack: 75
+    defense: 35
+    hp: 44
+    specialAttack: 63
+    specialDefense: 33
+    speed: 45
+  types:
+  - ghost
+sigilyph:
+  species: sigilyph
+  stats:
+    attack: 58
+    defense: 80
+    hp: 72
+    specialAttack: 103
+    specialDefense: 80
+    speed: 97
+  types:
+  - psychic
+  - flying
+silcoon:
+  species: silcoon
+  stats:
+    attack: 35
+    defense: 55
+    hp: 50
+    specialAttack: 25
+    specialDefense: 25
+    speed: 15
+  types:
+  - bug
+simipour:
+  species: simipour
+  stats:
+    attack: 98
+    defense: 63
+    hp: 75
+    specialAttack: 98
+    specialDefense: 63
+    speed: 101
+  types:
+  - water
+simisage:
+  species: simisage
+  stats:
+    attack: 98
+    defense: 63
+    hp: 75
+    specialAttack: 98
+    specialDefense: 63
+    speed: 101
+  types:
+  - grass
+simisear:
+  species: simisear
+  stats:
+    attack: 98
+    defense: 63
+    hp: 75
+    specialAttack: 98
+    specialDefense: 63
+    speed: 101
+  types:
+  - fire
+skarmory:
+  species: skarmory
+  stats:
+    attack: 80
+    defense: 140
+    hp: 65
+    specialAttack: 40
+    specialDefense: 70
+    speed: 70
+  types:
+  - steel
+  - flying
+skiploom:
+  species: skiploom
+  stats:
+    attack: 45
+    defense: 50
+    hp: 55
+    specialAttack: 45
+    specialDefense: 65
+    speed: 80
+  types:
+  - grass
+  - flying
+skitty:
+  species: skitty
+  stats:
+    attack: 45
+    defense: 45
+    hp: 50
+    specialAttack: 35
+    specialDefense: 35
+    speed: 50
+  types:
+  - normal
+skorupi:
+  species: skorupi
+  stats:
+    attack: 50
+    defense: 90
+    hp: 40
+    specialAttack: 30
+    specialDefense: 55
+    speed: 65
+  types:
+  - poison
+  - bug
+skuntank:
+  species: skuntank
+  stats:
+    attack: 93
+    defense: 67
+    hp: 103
+    specialAttack: 71
+    specialDefense: 61
+    speed: 84
+  types:
+  - poison
+  - dark
+slaking:
+  species: slaking
+  stats:
+    attack: 160
+    defense: 100
+    hp: 150
+    specialAttack: 95
+    specialDefense: 65
+    speed: 100
+  types:
+  - normal
+slakoth:
+  species: slakoth
+  stats:
+    attack: 60
+    defense: 60
+    hp: 60
+    specialAttack: 35
+    specialDefense: 35
+    speed: 30
+  types:
+  - normal
+slowbro:
+  species: slowbro
+  stats:
+    attack: 75
+    defense: 110
+    hp: 95
+    specialAttack: 100
+    specialDefense: 80
+    speed: 30
+  types:
+  - water
+  - psychic
+slowking:
+  species: slowking
+  stats:
+    attack: 75
+    defense: 80
+    hp: 95
+    specialAttack: 100
+    specialDefense: 110
+    speed: 30
+  types:
+  - water
+  - psychic
+slowpoke:
+  species: slowpoke
+  stats:
+    attack: 65
+    defense: 65
+    hp: 90
+    specialAttack: 40
+    specialDefense: 40
+    speed: 15
+  types:
+  - water
+  - psychic
+slugma:
+  species: slugma
+  stats:
+    attack: 40
+    defense: 40
+    hp: 40
+    specialAttack: 70
+    specialDefense: 40
+    speed: 20
+  types:
+  - fire
+smeargle:
+  species: smeargle
+  stats:
+    attack: 20
+    defense: 35
+    hp: 55
+    specialAttack: 20
+    specialDefense: 45
+    speed: 75
+  types:
+  - normal
+smoochum:
+  species: smoochum
+  stats:
+    attack: 30
+    defense: 15
+    hp: 45
+    specialAttack: 85
+    specialDefense: 65
+    speed: 65
+  types:
+  - ice
+  - psychic
+sneasel:
+  species: sneasel
+  stats:
+    attack: 95
+    defense: 55
+    hp: 55
+    specialAttack: 35
+    specialDefense: 75
+    speed: 115
+  types:
+  - dark
+  - ice
+snivy:
+  species: snivy
+  stats:
+    attack: 45
+    defense: 55
+    hp: 45
+    specialAttack: 45
+    specialDefense: 55
+    speed: 63
+  types:
+  - grass
+snorlax:
+  species: snorlax
+  stats:
+    attack: 110
+    defense: 65
+    hp: 160
+    specialAttack: 65
+    specialDefense: 110
+    speed: 30
+  types:
+  - normal
+snorunt:
+  species: snorunt
+  stats:
+    attack: 50
+    defense: 50
+    hp: 50
+    specialAttack: 50
+    specialDefense: 50
+    speed: 50
+  types:
+  - ice
+snover:
+  species: snover
+  stats:
+    attack: 62
+    defense: 50
+    hp: 60
+    specialAttack: 62
+    specialDefense: 60
+    speed: 40
+  types:
+  - grass
+  - ice
+snubbull:
+  species: snubbull
+  stats:
+    attack: 80
+    defense: 50
+    hp: 60
+    specialAttack: 40
+    specialDefense: 40
+    speed: 30
+  types:
+  - normal
+solosis:
+  species: solosis
+  stats:
+    attack: 30
+    defense: 40
+    hp: 45
+    specialAttack: 105
+    specialDefense: 50
+    speed: 20
+  types:
+  - psychic
+solrock:
+  species: solrock
+  stats:
+    attack: 95
+    defense: 85
+    hp: 70
+    specialAttack: 55
+    specialDefense: 65
+    speed: 70
+  types:
+  - rock
+  - psychic
+spearow:
+  species: spearow
+  stats:
+    attack: 60
+    defense: 30
+    hp: 40
+    specialAttack: 31
+    specialDefense: 31
+    speed: 70
+  types:
+  - normal
+  - flying
+spheal:
+  species: spheal
+  stats:
+    attack: 40
+    defense: 50
+    hp: 70
+    specialAttack: 55
+    specialDefense: 50
+    speed: 25
+  types:
+  - ice
+  - water
+spinarak:
+  species: spinarak
+  stats:
+    attack: 60
+    defense: 40
+    hp: 40
+    specialAttack: 40
+    specialDefense: 40
+    speed: 30
+  types:
+  - bug
+  - poison
+spinda:
+  species: spinda
+  stats:
+    attack: 60
+    defense: 60
+    hp: 60
+    specialAttack: 60
+    specialDefense: 60
+    speed: 60
+  types:
+  - normal
+spiritomb:
+  species: spiritomb
+  stats:
+    attack: 92
+    defense: 108
+    hp: 50
+    specialAttack: 92
+    specialDefense: 108
+    speed: 35
+  types:
+  - ghost
+  - dark
+spoink:
+  species: spoink
+  stats:
+    attack: 25
+    defense: 35
+    hp: 60
+    specialAttack: 70
+    specialDefense: 80
+    speed: 60
+  types:
+  - psychic
+squirtle:
+  species: squirtle
+  stats:
+    attack: 48
+    defense: 65
+    hp: 44
+    specialAttack: 50
+    specialDefense: 64
+    speed: 43
+  types:
+  - water
+stantler:
+  species: stantler
+  stats:
+    attack: 95
+    defense: 62
+    hp: 73
+    specialAttack: 85
+    specialDefense: 65
+    speed: 85
+  types:
+  - normal
+staraptor:
+  species: staraptor
+  stats:
+    attack: 120
+    defense: 70
+    hp: 85
+    specialAttack: 50
+    specialDefense: 50
+    speed: 100
+  types:
+  - normal
+  - flying
+staravia:
+  species: staravia
+  stats:
+    attack: 75
+    defense: 50
+    hp: 55
+    specialAttack: 40
+    specialDefense: 40
+    speed: 80
+  types:
+  - normal
+  - flying
+starly:
+  species: starly
+  stats:
+    attack: 55
+    defense: 30
+    hp: 40
+    specialAttack: 30
+    specialDefense: 30
+    speed: 60
+  types:
+  - normal
+  - flying
+starmie:
+  species: starmie
+  stats:
+    attack: 75
+    defense: 85
+    hp: 60
+    specialAttack: 100
+    specialDefense: 85
+    speed: 115
+  types:
+  - water
+  - psychic
+staryu:
+  species: staryu
+  stats:
+    attack: 45
+    defense: 55
+    hp: 30
+    specialAttack: 70
+    specialDefense: 55
+    speed: 85
+  types:
+  - water
+steelix:
+  species: steelix
+  stats:
+    attack: 85
+    defense: 200
+    hp: 75
+    specialAttack: 55
+    specialDefense: 65
+    speed: 30
+  types:
+  - steel
+  - ground
+stoutland:
+  species: stoutland
+  stats:
+    attack: 100
+    defense: 90
+    hp: 85
+    specialAttack: 45
+    specialDefense: 90
+    speed: 80
+  types:
+  - normal
+stunfisk:
+  species: stunfisk
+  stats:
+    attack: 66
+    defense: 84
+    hp: 109
+    specialAttack: 81
+    specialDefense: 99
+    speed: 32
+  types:
+  - ground
+  - electric
+stunky:
+  species: stunky
+  stats:
+    attack: 63
+    defense: 47
+    hp: 63
+    specialAttack: 41
+    specialDefense: 41
+    speed: 74
+  types:
+  - poison
+  - dark
+sudowoodo:
+  species: sudowoodo
+  stats:
+    attack: 100
+    defense: 115
+    hp: 70
+    specialAttack: 30
+    specialDefense: 65
+    speed: 30
+  types:
+  - rock
+suicune:
+  species: suicune
+  stats:
+    attack: 75
+    defense: 115
+    hp: 100
+    specialAttack: 90
+    specialDefense: 115
+    speed: 85
+  types:
+  - water
+sunflora:
+  species: sunflora
+  stats:
+    attack: 75
+    defense: 55
+    hp: 75
+    specialAttack: 105
+    specialDefense: 85
+    speed: 30
+  types:
+  - grass
+sunkern:
+  species: sunkern
+  stats:
+    attack: 30
+    defense: 30
+    hp: 30
+    specialAttack: 30
+    specialDefense: 30
+    speed: 30
+  types:
+  - grass
+surskit:
+  species: surskit
+  stats:
+    attack: 30
+    defense: 32
+    hp: 40
+    specialAttack: 50
+    specialDefense: 52
+    speed: 65
+  types:
+  - bug
+  - water
+swablu:
+  species: swablu
+  stats:
+    attack: 40
+    defense: 60
+    hp: 45
+    specialAttack: 40
+    specialDefense: 75
+    speed: 50
+  types:
+  - normal
+  - flying
+swadloon:
+  species: swadloon
+  stats:
+    attack: 63
+    defense: 90
+    hp: 55
+    specialAttack: 50
+    specialDefense: 80
+    speed: 42
+  types:
+  - bug
+  - grass
+swalot:
+  species: swalot
+  stats:
+    attack: 73
+    defense: 83
+    hp: 100
+    specialAttack: 73
+    specialDefense: 83
+    speed: 55
+  types:
+  - poison
+swampert:
+  species: swampert
+  stats:
+    attack: 110
+    defense: 90
+    hp: 100
+    specialAttack: 85
+    specialDefense: 90
+    speed: 60
+  types:
+  - water
+  - ground
+swanna:
+  species: swanna
+  stats:
+    attack: 87
+    defense: 63
+    hp: 75
+    specialAttack: 87
+    specialDefense: 63
+    speed: 98
+  types:
+  - water
+  - flying
+swellow:
+  species: swellow
+  stats:
+    attack: 85
+    defense: 60
+    hp: 60
+    specialAttack: 50
+    specialDefense: 50
+    speed: 125
+  types:
+  - normal
+  - flying
+swinub:
+  species: swinub
+  stats:
+    attack: 50
+    defense: 40
+    hp: 50
+    specialAttack: 30
+    specialDefense: 30
+    speed: 50
+  types:
+  - ice
+  - ground
+swoobat:
+  species: swoobat
+  stats:
+    attack: 57
+    defense: 55
+    hp: 67
+    specialAttack: 77
+    specialDefense: 55
+    speed: 114
+  types:
+  - psychic
+  - flying
+taillow:
+  species: taillow
+  stats:
+    attack: 55
+    defense: 30
+    hp: 40
+    specialAttack: 30
+    specialDefense: 30
+    speed: 85
+  types:
+  - normal
+  - flying
+tangela:
+  species: tangela
+  stats:
+    attack: 55
+    defense: 115
+    hp: 65
+    specialAttack: 100
+    specialDefense: 40
+    speed: 60
+  types:
+  - grass
+tangrowth:
+  species: tangrowth
+  stats:
+    attack: 100
+    defense: 125
+    hp: 100
+    specialAttack: 110
+    specialDefense: 50
+    speed: 50
+  types:
+  - grass
+tauros:
+  species: tauros
+  stats:
+    attack: 100
+    defense: 95
+    hp: 75
+    specialAttack: 40
+    specialDefense: 70
+    speed: 110
+  types:
+  - normal
+teddiursa:
+  species: teddiursa
+  stats:
+    attack: 80
+    defense: 50
+    hp: 60
+    specialAttack: 50
+    specialDefense: 50
+    speed: 40
+  types:
+  - normal
+tentacool:
+  species: tentacool
+  stats:
+    attack: 40
+    defense: 35
+    hp: 40
+    specialAttack: 50
+    specialDefense: 100
+    speed: 70
+  types:
+  - water
+  - poison
+tentacruel:
+  species: tentacruel
+  stats:
+    attack: 70
+    defense: 65
+    hp: 80
+    specialAttack: 80
+    specialDefense: 120
+    speed: 100
+  types:
+  - water
+  - poison
+tepig:
+  species: tepig
+  stats:
+    attack: 63
+    defense: 45
+    hp: 65
+    specialAttack: 45
+    specialDefense: 45
+    speed: 45
+  types:
+  - fire
+terrakion:
+  species: terrakion
+  stats:
+    attack: 129
+    defense: 90
+    hp: 91
+    specialAttack: 72
+    specialDefense: 90
+    speed: 108
+  types:
+  - rock
+  - fighting
+throh:
+  species: throh
+  stats:
+    attack: 100
+    defense: 85
+    hp: 120
+    specialAttack: 30
+    specialDefense: 85
+    speed: 45
+  types:
+  - fighting
+thundurus (incarnate):
+  species: thundurus
+  stats:
+    attack: 115
+    defense: 70
+    hp: 79
+    specialAttack: 125
+    specialDefense: 80
+    speed: 111
+  types:
+  - electric
+  - flying
+thundurus (therian):
+  species: thundurus
+  stats:
+    attack: 105
+    defense: 70
+    hp: 79
+    specialAttack: 145
+    specialDefense: 80
+    speed: 101
+  types:
+  - electric
+  - flying
+timburr:
+  species: timburr
+  stats:
+    attack: 80
+    defense: 55
+    hp: 75
+    specialAttack: 25
+    specialDefense: 35
+    speed: 35
+  types:
+  - fighting
+tirtouga:
+  species: tirtouga
+  stats:
+    attack: 78
+    defense: 103
+    hp: 54
+    specialAttack: 53
+    specialDefense: 45
+    speed: 22
+  types:
+  - water
+  - rock
+togekiss:
+  species: togekiss
+  stats:
+    attack: 50
+    defense: 95
+    hp: 85
+    specialAttack: 120
+    specialDefense: 115
+    speed: 80
+  types:
+  - normal
+  - flying
+togepi:
+  species: togepi
+  stats:
+    attack: 20
+    defense: 65
+    hp: 35
+    specialAttack: 40
+    specialDefense: 65
+    speed: 20
+  types:
+  - normal
+togetic:
+  species: togetic
+  stats:
+    attack: 40
+    defense: 85
+    hp: 55
+    specialAttack: 80
+    specialDefense: 105
+    speed: 40
+  types:
+  - normal
+  - flying
+torchic:
+  species: torchic
+  stats:
+    attack: 60
+    defense: 40
+    hp: 45
+    specialAttack: 70
+    specialDefense: 50
+    speed: 45
+  types:
+  - fire
+torkoal:
+  species: torkoal
+  stats:
+    attack: 85
+    defense: 140
+    hp: 70
+    specialAttack: 85
+    specialDefense: 70
+    speed: 20
+  types:
+  - fire
+tornadus (incarnate):
+  species: tornadus
+  stats:
+    attack: 115
+    defense: 70
+    hp: 79
+    specialAttack: 125
+    specialDefense: 80
+    speed: 111
+  types:
+  - flying
+tornadus (therian):
+  species: tornadus
+  stats:
+    attack: 100
+    defense: 80
+    hp: 79
+    specialAttack: 110
+    specialDefense: 90
+    speed: 121
+  types:
+  - flying
+torterra:
+  species: torterra
+  stats:
+    attack: 109
+    defense: 105
+    hp: 95
+    specialAttack: 75
+    specialDefense: 85
+    speed: 56
+  types:
+  - grass
+  - ground
+totodile:
+  species: totodile
+  stats:
+    attack: 65
+    defense: 64
+    hp: 50
+    specialAttack: 44
+    specialDefense: 48
+    speed: 43
+  types:
+  - water
+toxicroak:
+  species: toxicroak
+  stats:
+    attack: 106
+    defense: 65
+    hp: 83
+    specialAttack: 86
+    specialDefense: 65
+    speed: 85
+  types:
+  - poison
+  - fighting
+tranquill:
+  species: tranquill
+  stats:
+    attack: 77
+    defense: 62
+    hp: 62
+    specialAttack: 50
+    specialDefense: 42
+    speed: 65
+  types:
+  - normal
+  - flying
+trapinch:
+  species: trapinch
+  stats:
+    attack: 100
+    defense: 45
+    hp: 45
+    specialAttack: 45
+    specialDefense: 45
+    speed: 10
+  types:
+  - ground
+treecko:
+  species: treecko
+  stats:
+    attack: 45
+    defense: 35
+    hp: 40
+    specialAttack: 65
+    specialDefense: 55
+    speed: 70
+  types:
+  - grass
+tropius:
+  species: tropius
+  stats:
+    attack: 68
+    defense: 83
+    hp: 99
+    specialAttack: 72
+    specialDefense: 87
+    speed: 51
+  types:
+  - grass
+  - flying
+trubbish:
+  species: trubbish
+  stats:
+    attack: 50
+    defense: 62
+    hp: 50
+    specialAttack: 40
+    specialDefense: 62
+    speed: 65
+  types:
+  - poison
+turtwig:
+  species: turtwig
+  stats:
+    attack: 68
+    defense: 64
+    hp: 55
+    specialAttack: 45
+    specialDefense: 55
+    speed: 31
+  types:
+  - grass
+tympole:
+  species: tympole
+  stats:
+    attack: 50
+    defense: 40
+    hp: 50
+    specialAttack: 50
+    specialDefense: 40
+    speed: 64
+  types:
+  - water
+tynamo:
+  species: tynamo
+  stats:
+    attack: 55
+    defense: 40
+    hp: 35
+    specialAttack: 45
+    specialDefense: 40
+    speed: 60
+  types:
+  - electric
+typhlosion:
+  species: typhlosion
+  stats:
+    attack: 84
+    defense: 78
+    hp: 78
+    specialAttack: 109
+    specialDefense: 85
+    speed: 100
+  types:
+  - fire
+tyranitar:
+  species: tyranitar
+  stats:
+    attack: 134
+    defense: 110
+    hp: 100
+    specialAttack: 95
+    specialDefense: 100
+    speed: 61
+  types:
+  - rock
+  - dark
+tyrogue:
+  species: tyrogue
+  stats:
+    attack: 35
+    defense: 35
+    hp: 35
+    specialAttack: 35
+    specialDefense: 35
+    speed: 35
+  types:
+  - fighting
+umbreon:
+  species: umbreon
+  stats:
+    attack: 65
+    defense: 110
+    hp: 95
+    specialAttack: 60
+    specialDefense: 130
+    speed: 65
+  types:
+  - dark
+unfezant:
+  species: unfezant
+  stats:
+    attack: 105
+    defense: 80
+    hp: 80
+    specialAttack: 65
+    specialDefense: 55
+    speed: 93
+  types:
+  - normal
+  - flying
+unown (a): &id010
+  species: unown
+  stats:
+    attack: 72
+    defense: 48
+    hp: 48
+    specialAttack: 72
+    specialDefense: 48
+    speed: 48
+  types:
+  - psychic
+unown (b): *id010
+unown (c): *id010
+unown (d): *id010
+unown (e): *id010
+unown (exclamation): *id010
+unown (f): *id010
+unown (g): *id010
+unown (h): *id010
+unown (i): *id010
+unown (j): *id010
+unown (k): *id010
+unown (l): *id010
+unown (m): *id010
+unown (n): *id010
+unown (o): *id010
+unown (p): *id010
+unown (q): *id010
+unown (question): *id010
+unown (r): *id010
+unown (s): *id010
+unown (t): *id010
+unown (u): *id010
+unown (v): *id010
+unown (w): *id010
+unown (x): *id010
+unown (y): *id010
+unown (z): *id010
+ursaring:
+  species: ursaring
+  stats:
+    attack: 130
+    defense: 75
+    hp: 90
+    specialAttack: 75
+    specialDefense: 75
+    speed: 55
+  types:
+  - normal
+uxie:
+  species: uxie
+  stats:
+    attack: 75
+    defense: 130
+    hp: 75
+    specialAttack: 75
+    specialDefense: 130
+    speed: 95
+  types:
+  - psychic
+vanillish:
+  species: vanillish
+  stats:
+    attack: 65
+    defense: 65
+    hp: 51
+    specialAttack: 80
+    specialDefense: 75
+    speed: 59
+  types:
+  - ice
+vanillite:
+  species: vanillite
+  stats:
+    attack: 50
+    defense: 50
+    hp: 36
+    specialAttack: 65
+    specialDefense: 60
+    speed: 44
+  types:
+  - ice
+vanilluxe:
+  species: vanilluxe
+  stats:
+    attack: 95
+    defense: 85
+    hp: 71
+    specialAttack: 110
+    specialDefense: 95
+    speed: 79
+  types:
+  - ice
+vaporeon:
+  species: vaporeon
+  stats:
+    attack: 65
+    defense: 60
+    hp: 130
+    specialAttack: 110
+    specialDefense: 95
+    speed: 65
+  types:
+  - water
+venipede:
+  species: venipede
+  stats:
+    attack: 45
+    defense: 59
+    hp: 30
+    specialAttack: 30
+    specialDefense: 39
+    speed: 57
+  types:
+  - bug
+  - poison
+venomoth:
+  species: venomoth
+  stats:
+    attack: 65
+    defense: 60
+    hp: 70
+    specialAttack: 90
+    specialDefense: 75
+    speed: 90
+  types:
+  - bug
+  - poison
+venonat:
+  species: venonat
+  stats:
+    attack: 55
+    defense: 50
+    hp: 60
+    specialAttack: 40
+    specialDefense: 55
+    speed: 45
+  types:
+  - bug
+  - poison
+venusaur:
+  species: venusaur
+  stats:
+    attack: 82
+    defense: 83
+    hp: 80
+    specialAttack: 100
+    specialDefense: 100
+    speed: 80
+  types:
+  - grass
+  - poison
+vespiquen:
+  species: vespiquen
+  stats:
+    attack: 80
+    defense: 102
+    hp: 70
+    specialAttack: 80
+    specialDefense: 102
+    speed: 40
+  types:
+  - bug
+  - flying
+vibrava:
+  species: vibrava
+  stats:
+    attack: 70
+    defense: 50
+    hp: 50
+    specialAttack: 50
+    specialDefense: 50
+    speed: 70
+  types:
+  - ground
+  - dragon
+victini:
+  species: victini
+  stats:
+    attack: 100
+    defense: 100
+    hp: 100
+    specialAttack: 100
+    specialDefense: 100
+    speed: 100
+  types:
+  - psychic
+  - fire
+victreebel:
+  species: victreebel
+  stats:
+    attack: 105
+    defense: 65
+    hp: 80
+    specialAttack: 100
+    specialDefense: 60
+    speed: 70
+  types:
+  - grass
+  - poison
+vigoroth:
+  species: vigoroth
+  stats:
+    attack: 80
+    defense: 80
+    hp: 80
+    specialAttack: 55
+    specialDefense: 55
+    speed: 90
+  types:
+  - normal
+vileplume:
+  species: vileplume
+  stats:
+    attack: 80
+    defense: 85
+    hp: 75
+    specialAttack: 100
+    specialDefense: 90
+    speed: 50
+  types:
+  - grass
+  - poison
+virizion:
+  species: virizion
+  stats:
+    attack: 90
+    defense: 72
+    hp: 91
+    specialAttack: 90
+    specialDefense: 129
+    speed: 108
+  types:
+  - grass
+  - fighting
+volbeat:
+  species: volbeat
+  stats:
+    attack: 73
+    defense: 55
+    hp: 65
+    specialAttack: 47
+    specialDefense: 75
+    speed: 85
+  types:
+  - bug
+volcarona:
+  species: volcarona
+  stats:
+    attack: 60
+    defense: 65
+    hp: 85
+    specialAttack: 135
+    specialDefense: 105
+    speed: 100
+  types:
+  - bug
+  - fire
+voltorb:
+  species: voltorb
+  stats:
+    attack: 30
+    defense: 50
+    hp: 40
+    specialAttack: 55
+    specialDefense: 55
+    speed: 100
+  types:
+  - electric
+vullaby:
+  species: vullaby
+  stats:
+    attack: 55
+    defense: 75
+    hp: 70
+    specialAttack: 45
+    specialDefense: 65
+    speed: 60
+  types:
+  - dark
+  - flying
+vulpix:
+  species: vulpix
+  stats:
+    attack: 41
+    defense: 40
+    hp: 38
+    specialAttack: 50
+    specialDefense: 65
+    speed: 65
+  types:
+  - fire
+wailmer:
+  species: wailmer
+  stats:
+    attack: 70
+    defense: 35
+    hp: 130
+    specialAttack: 70
+    specialDefense: 35
+    speed: 60
+  types:
+  - water
+wailord:
+  species: wailord
+  stats:
+    attack: 90
+    defense: 45
+    hp: 170
+    specialAttack: 90
+    specialDefense: 45
+    speed: 60
+  types:
+  - water
+walrein:
+  species: walrein
+  stats:
+    attack: 80
+    defense: 90
+    hp: 110
+    specialAttack: 95
+    specialDefense: 90
+    speed: 65
+  types:
+  - ice
+  - water
+wartortle:
+  species: wartortle
+  stats:
+    attack: 63
+    defense: 80
+    hp: 59
+    specialAttack: 65
+    specialDefense: 80
+    speed: 58
+  types:
+  - water
+watchog:
+  species: watchog
+  stats:
+    attack: 85
+    defense: 69
+    hp: 60
+    specialAttack: 60
+    specialDefense: 69
+    speed: 77
+  types:
+  - normal
+weavile:
+  species: weavile
+  stats:
+    attack: 120
+    defense: 65
+    hp: 70
+    specialAttack: 45
+    specialDefense: 85
+    speed: 125
+  types:
+  - dark
+  - ice
+weedle:
+  species: weedle
+  stats:
+    attack: 35
+    defense: 30
+    hp: 40
+    specialAttack: 20
+    specialDefense: 20
+    speed: 50
+  types:
+  - bug
+  - poison
+weepinbell:
+  species: weepinbell
+  stats:
+    attack: 90
+    defense: 50
+    hp: 65
+    specialAttack: 85
+    specialDefense: 45
+    speed: 55
+  types:
+  - grass
+  - poison
+weezing:
+  species: weezing
+  stats:
+    attack: 90
+    defense: 120
+    hp: 65
+    specialAttack: 85
+    specialDefense: 70
+    speed: 60
+  types:
+  - poison
+whimsicott:
+  species: whimsicott
+  stats:
+    attack: 67
+    defense: 85
+    hp: 60
+    specialAttack: 77
+    specialDefense: 75
+    speed: 116
+  types:
+  - grass
+whirlipede:
+  species: whirlipede
+  stats:
+    attack: 55
+    defense: 99
+    hp: 40
+    specialAttack: 40
+    specialDefense: 79
+    speed: 47
+  types:
+  - bug
+  - poison
+whiscash:
+  species: whiscash
+  stats:
+    attack: 78
+    defense: 73
+    hp: 110
+    specialAttack: 76
+    specialDefense: 71
+    speed: 60
+  types:
+  - water
+  - ground
+whismur:
+  species: whismur
+  stats:
+    attack: 51
+    defense: 23
+    hp: 64
+    specialAttack: 51
+    specialDefense: 23
+    speed: 28
+  types:
+  - normal
+wigglytuff:
+  species: wigglytuff
+  stats:
+    attack: 70
+    defense: 45
+    hp: 140
+    specialAttack: 75
+    specialDefense: 50
+    speed: 45
+  types:
+  - normal
+wingull:
+  species: wingull
+  stats:
+    attack: 30
+    defense: 30
+    hp: 40
+    specialAttack: 55
+    specialDefense: 30
+    speed: 85
+  types:
+  - water
+  - flying
+wobbuffet:
+  species: wobbuffet
+  stats:
+    attack: 33
+    defense: 58
+    hp: 190
+    specialAttack: 33
+    specialDefense: 58
+    speed: 33
+  types:
+  - psychic
+woobat:
+  species: woobat
+  stats:
+    attack: 45
+    defense: 43
+    hp: 55
+    specialAttack: 55
+    specialDefense: 43
+    speed: 72
+  types:
+  - psychic
+  - flying
+wooper:
+  species: wooper
+  stats:
+    attack: 45
+    defense: 45
+    hp: 55
+    specialAttack: 25
+    specialDefense: 25
+    speed: 15
+  types:
+  - water
+  - ground
+wormadam (plant):
+  species: wormadam
+  stats:
+    attack: 59
+    defense: 85
+    hp: 60
+    specialAttack: 79
+    specialDefense: 105
+    speed: 36
+  types:
+  - bug
+  - grass
+wormadam (sandy):
+  species: wormadam
+  stats:
+    attack: 79
+    defense: 105
+    hp: 60
+    specialAttack: 59
+    specialDefense: 85
+    speed: 36
+  types:
+  - bug
+  - ground
+wormadam (trash):
+  species: wormadam
+  stats:
+    attack: 69
+    defense: 95
+    hp: 60
+    specialAttack: 69
+    specialDefense: 95
+    speed: 36
+  types:
+  - bug
+  - steel
+wurmple:
+  species: wurmple
+  stats:
+    attack: 45
+    defense: 35
+    hp: 45
+    specialAttack: 20
+    specialDefense: 30
+    speed: 20
+  types:
+  - bug
+wynaut:
+  species: wynaut
+  stats:
+    attack: 23
+    defense: 48
+    hp: 95
+    specialAttack: 23
+    specialDefense: 48
+    speed: 23
+  types:
+  - psychic
+xatu:
+  species: xatu
+  stats:
+    attack: 75
+    defense: 70
+    hp: 65
+    specialAttack: 95
+    specialDefense: 70
+    speed: 95
+  types:
+  - psychic
+  - flying
+yamask:
+  species: yamask
+  stats:
+    attack: 30
+    defense: 85
+    hp: 38
+    specialAttack: 55
+    specialDefense: 65
+    speed: 30
+  types:
+  - ghost
+yanma:
+  species: yanma
+  stats:
+    attack: 65
+    defense: 45
+    hp: 65
+    specialAttack: 75
+    specialDefense: 45
+    speed: 95
+  types:
+  - bug
+  - flying
+yanmega:
+  species: yanmega
+  stats:
+    attack: 76
+    defense: 86
+    hp: 86
+    specialAttack: 116
+    specialDefense: 56
+    speed: 95
+  types:
+  - bug
+  - flying
+zangoose:
+  species: zangoose
+  stats:
+    attack: 115
+    defense: 60
+    hp: 73
+    specialAttack: 60
+    specialDefense: 60
+    speed: 90
+  types:
+  - normal
+zapdos:
+  species: zapdos
+  stats:
+    attack: 90
+    defense: 85
+    hp: 90
+    specialAttack: 125
+    specialDefense: 90
+    speed: 100
+  types:
+  - electric
+  - flying
+zebstrika:
+  species: zebstrika
+  stats:
+    attack: 100
+    defense: 63
+    hp: 75
+    specialAttack: 80
+    specialDefense: 63
+    speed: 116
+  types:
+  - electric
+zekrom:
+  species: zekrom
+  stats:
+    attack: 150
+    defense: 120
+    hp: 100
+    specialAttack: 120
+    specialDefense: 100
+    speed: 90
+  types:
+  - dragon
+  - electric
+zigzagoon:
+  species: zigzagoon
+  stats:
+    attack: 30
+    defense: 41
+    hp: 38
+    specialAttack: 30
+    specialDefense: 41
+    speed: 60
+  types:
+  - normal
+zoroark:
+  species: zoroark
+  stats:
+    attack: 105
+    defense: 60
+    hp: 60
+    specialAttack: 120
+    specialDefense: 60
+    speed: 105
+  types:
+  - dark
+zorua:
+  species: zorua
+  stats:
+    attack: 65
+    defense: 40
+    hp: 40
+    specialAttack: 80
+    specialDefense: 40
+    speed: 65
+  types:
+  - dark
+zubat:
+  species: zubat
+  stats:
+    attack: 45
+    defense: 35
+    hp: 40
+    specialAttack: 30
+    specialDefense: 40
+    speed: 55
+  types:
+  - poison
+  - flying
+zweilous:
+  species: zweilous
+  stats:
+    attack: 85
+    defense: 70
+    hp: 72
+    specialAttack: 65
+    specialDefense: 70
+    speed: 58
+  types:
+  - dark
+  - dragon
