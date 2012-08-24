@@ -1,7 +1,8 @@
 !!!
 html
   head
-    != js('jquery')
+    != css('main')
+    != js('vendor')
     script(src='/socket.io/socket.io.js')
     != js('client')
   body
@@ -9,3 +10,4 @@ html
     input#chat(type='text')
     button Tackle
     button Splash
+    .builder

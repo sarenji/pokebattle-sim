@@ -1,0 +1,25 @@
+box(size=96px)
+  width      size
+  height     size
+  float      left
+  cursor     pointer
+  &:hover
+    background-color #ccc
+  &.selected
+    background-color #999
+    &:hover
+      background-color #aaa
+
+.builder_pokemon
+  box()
+  // 31 per row
+  background url('http://veekun.com/static/pokedex/downloads/black-white.png')
+
+.builder_add_pokemon
+  box()
+  text-align  center
+  line-height 96px
+  font-size   32px
+
+.builder_detail
+  clear       both

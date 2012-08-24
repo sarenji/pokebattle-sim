@@ -18,6 +18,11 @@ app.use(require('connect-assets')())
 app.get '/', (req, res) ->
   res.render 'index.jade'
 
+# API
+app.get '/v1/api/*', (req, res) ->
+  rest = req.params[0]
+  res.end('hi')
+
 # Start responding to websocket clients
 io = socket.listen(httpServer)
 
