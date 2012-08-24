@@ -4,7 +4,7 @@
 #= require_tree collections
 #= require_tree views
 
-socket = io.connect('http://localhost')
+socket = io.connect(window.location.origin)
 socket.on 'connect', ->
   socket.emit 'adduser', prompt("What's your name?"), ->
     socket.on 'updatechat', (username, data) ->
