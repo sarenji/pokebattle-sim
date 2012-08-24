@@ -11,7 +11,8 @@
     "connect-assets": "~2.3.3",
     "express": "~3.0.0rc3",
     "jade": "~0.27.2",
-    "stylus": "~0.29.0"
+    "stylus": "~0.29.0",
+    "express-namespace": "~0.1.1"
   },
   "devDependencies": {
     "should": "1.1.x",
