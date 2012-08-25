@@ -2,11 +2,11 @@
 
 @species = {}
 
-yaml_url = if process.env.NODE_ENV == 'test'
-  '../../test/data/bw/pokemon.yml'
+json_url = if process.env.NODE_ENV == 'test'
+  '../../test/data/bw/data_pokemon.json'
 else
-  './pokemon.yml'
+  './data_pokemon.json'
 
-@PokemonData = require(yaml_url)
+@PokemonData = require(json_url)
 for name, attributes of @PokemonData
   @species[name] = new Specimen(attributes)

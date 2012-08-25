@@ -1,8 +1,8 @@
 import string
 import requests
-import yaml
+import json
 
-output_path = '../data/bw/pokemon.yml'
+output_path = '../data/bw/pokemon.json'
 
 formes_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_forms.csv'
 species_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_species.csv'
@@ -145,4 +145,4 @@ create_pokemon()
 pokemon_yaml = {p.name:p.info for p in pokemon}
 
 with open(output_path, 'w') as f:
-  f.write(yaml.dump(pokemon_yaml, default_flow_style=False))
+  f.write(json.dumps(pokemon_yaml, sort_keys=True, indent=4))
