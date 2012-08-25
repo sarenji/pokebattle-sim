@@ -22,10 +22,13 @@ class @BattleServer
     for pair in pairs
       id = @createBattle(pair...)
 
-      # Tell each player to start a battle with an id `id`.
+      # TODO: Put this somewhere else. Tell each player to start a battle with
+      # an id `id` and an array of opponents.
       players = pair.map (object) -> object.player
       for player in players
-        player.emit? 'start battle', id
+        opponents = pair.filter((pair) -> pair.player.id != player.id)
+        you = _.find(pair, (pair) -> pair.player.id == player.id)
+        player.emit? 'start battle', id, you.team, opponents.map((o) -> o.team)
 
   # Creates a battle and returns its battleId
   createBattle: (objects...) =>

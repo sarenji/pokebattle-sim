@@ -1,6 +1,6 @@
 # Create the move objects of every single move in the game
 
-@MoveData = require('./moves.yml')
+@MoveData = require('./data_moves.json')
 {Move} = require('../../server/move.coffee')
 
 # Generate the initial versions of every single move.

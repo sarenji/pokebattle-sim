@@ -36,7 +36,7 @@ io.sockets.on 'connection', (socket) ->
     callback(socket.username)
     # TODO: Take team from player.
     # TODO: Validate team.
-    team = [{name: 'Magikarp', moves: ['tackle', 'splash']}]
+    team = defaultTeam
     server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
@@ -45,7 +45,44 @@ io.sockets.on 'connection', (socket) ->
     io.sockets.emit 'updatechat', socket.username, message
   socket.on 'send move', (battleId, moveName) ->
     server.findBattle(battleId).makeMove(socket, moveName)
+  socket.on 'send switch', (battleId, toPokemon) ->
+    server.findBattle(battleId).makeSwitch(socket, toPokemon)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 
 httpServer.listen(process.env.PORT || 8000)
+
+
+# TODO: Implement team builder!
+defaultTeam = [
+  {
+    name: "Pikachu"
+    moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
+    item: "Light Ball"
+  }
+  {
+    name: "Hitmonchan"
+    moves: ["Close Combat", "Mach Punch", "Ice Punch", "Thunderpunch"]
+    item: "Life Orb"
+  }
+  {
+    name: "Charizard"
+    item: "Choice Specs"
+    moves: ["Fire Blast", "Air Slash", "Hidden Power", "Focus Blast"]
+  }
+  {
+    name: "Dragonite"
+    item: "Leftovers"
+    moves: ["Dragon Dance", "Outrage", "Fire Punch", "ExtremeSpeed"]
+  }
+  {
+    name: "Jigglypuff"
+    item: "Leftovers"
+    moves: ["Sing", "Seismic Toss", "Protect", "Wish"]
+  }
+  {
+    name: "Haunter"
+    item: "Leftovers"
+    moves: ["Substitute", "Disable", "Shadow Ball", "Focus Blast"]
+  }
+]

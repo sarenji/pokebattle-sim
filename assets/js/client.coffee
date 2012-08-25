@@ -16,12 +16,18 @@ socket.on 'connect', ->
         socket.emit 'sendchat', $(this).val()
         $(this).val('')
 
-    socket.on 'start battle', (battleId) ->
-      $(document).on 'click', 'button', ->
-        socket.emit 'send move', battleId, $(this).text()
+    socket.on 'start battle', startBattle
 
 $ ->
+  return
   $builder = $('.builder')
   pokemon = new Team(({name: "Bulbasaur"}  for x in [0...6]))
   builderView = new TeamBuilderView(el: $builder, collection: pokemon)
   builderView.render()
+
+startBattle = (battleId, yourTeam, opponentTeams) ->
+  console.log "BATTLE STARTED."
+  $battle = $('.battle')
+  battle = new Battle(id: battleId, socket: socket, you: yourTeam, opponents: opponentTeams)
+  view = new BattleView(el: $battle, model: battle)
+  view.render()

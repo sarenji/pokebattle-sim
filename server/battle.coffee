@@ -67,7 +67,7 @@ class @Battle
     @playerActions[clientId]
 
   makeMove: (player, moveName) =>
-    moveName = moveName.toLowerCase()
+    moveName = moveName.toLowerCase().replace(/\s+/g, '-')
     # TODO: Fail if move not in moves
     # TODO: Fail if move not in player pokemon's moves
     return  if moveName not of MoveData
@@ -79,6 +79,19 @@ class @Battle
 
     # End the turn if each player has moved.
     if @hasAllPlayersActed() then @endTurn()
+
+  # TODO: Test
+  makeSwitch: (player, toPokemon) =>
+    team = @getTeam(player.id)
+    names = team.map((pokemon) -> pokemon.name)
+    index = names.indexOf(toPokemon)
+
+    # TODO: Fail harder if pokemon not in team
+    if index == -1
+      console.log "#{player.username} made an invalid switch to #{toPokemon}."
+      return
+
+    @switch(player, index)
 
   switch: (player, toPosition) =>
     # Record the switch
@@ -131,9 +144,9 @@ class @Battle
     player = @getPlayer(clientId)
     action = @getAction(clientId)
     team = @getTeam(clientId)
-    @message "#{player.name} withdrew #{team[0].name}!"
+    @message "#{player.username} withdrew #{team[0].name}!"
     [team[0], team[action.to]] = [team[action.to], team[0]]
-    @message "#{player.name} sent out #{team[0].name}!"
+    @message "#{player.username} sent out #{team[0].name}!"
 
   performMove: (clientId) =>
     player = @getPlayer(clientId)
