@@ -1,4 +1,3 @@
-require 'js-yaml'
 {@moves, @MoveData} = require './moves'
 {@abilities} = require './abilities'
 {@items} = require './items'
