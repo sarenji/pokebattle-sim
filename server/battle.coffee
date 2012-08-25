@@ -147,6 +147,8 @@ class @Battle
     @message "#{player.username} withdrew #{team[0].name}!"
     [team[0], team[action.to]] = [team[action.to], team[0]]
     @message "#{player.username} sent out #{team[0].name}!"
+    # TODO: Hacky.
+    player.emit? 'switch pokemon', 0, action.to
 
   performMove: (clientId) =>
     player = @getPlayer(clientId)

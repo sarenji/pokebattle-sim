@@ -8,5 +8,8 @@ class @Battle extends Backbone.Model
   makeSwitch: (toPokemon) =>
     @socket.emit 'send switch', @id, toPokemon
 
+  switch: (fromIndex, toIndex) =>
+    [@you[fromIndex], @you[toIndex]] = [@you[toIndex], @you[fromIndex]]
+
   emit: (args...) =>
     @socket(args...)
