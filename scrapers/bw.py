@@ -142,7 +142,7 @@ add_types()
 add_moves()
 create_pokemon()
 
-pokemon_yaml = dict((x.name, x.info) for x in pokemon)
+pokemon_yaml = {p.name:p.info for p in pokemon}
 
 with open(output_path, 'w') as f:
   f.write(yaml.dump(pokemon_yaml, default_flow_style=False))
