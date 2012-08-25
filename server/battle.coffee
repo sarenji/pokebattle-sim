@@ -144,6 +144,8 @@ class @Battle
     # todo: the move should be cloned and attached to the pokemon
     move = moves[action.name]
 
+    @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
+
     # TODO: Execute any before move events
     damage = move.execute(this, pokemon, defenders)
     # TODO: Execute any after move events
