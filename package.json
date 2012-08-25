@@ -20,7 +20,7 @@
     "sinon": "1.4.x"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "make test",
     "start": "coffee app.coffee"
   },
   "subdomain": "battletower",

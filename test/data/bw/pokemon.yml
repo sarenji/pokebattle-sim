@@ -1,0 +1,458 @@
+Magikarp:
+  moves:
+  - Tackle
+  - Splash
+  - Flail
+  - Bounce
+  species: Magikarp
+  stats:
+    attack: 10
+    defense: 55
+    hp: 20
+    specialAttack: 15
+    specialDefense: 20
+    speed: 80
+  types:
+  - Water
+
+Gyarados:
+  moves:
+  - Body Slam
+  - Take Down
+  - Double-Edge
+  - Leer
+  - Bite
+  - Water Gun
+  - Hydro Pump
+  - Surf
+  - Ice Beam
+  - Blizzard
+  - BubbleBeam
+  - Hyper Beam
+  - Strength
+  - Dragon Rage
+  - Thunderbolt
+  - Thunder
+  - Toxic
+  - Rage
+  - Mimic
+  - Double Team
+  - Reflect
+  - Bide
+  - Fire Blast
+  - Skull Bash
+  - Rest
+  - Substitute
+  - Tackle
+  - Headbutt
+  - Thrash
+  - Roar
+  - Waterfall
+  - Snore
+  - Curse
+  - Protect
+  - Zap Cannon
+  - Icy Wind
+  - Sandstorm
+  - Endure
+  - Swagger
+  - Attract
+  - Sleep Talk
+  - Return
+  - Frustration
+  - DragonBreath
+  - Hidden Power
+  - Twister
+  - Rain Dance
+  - Rock Smash
+  - Whirlpool
+  - Flamethrower
+  - Earthquake
+  - Hail
+  - Torment
+  - Facade
+  - Taunt
+  - Secret Power
+  - Dive
+  - Dragon Dance
+  - Water Pulse
+  - Thunder Wave
+  - Brine
+  - Natural Gift
+  - Payback
+  - Dark Pulse
+  - Aqua Tail
+  - Dragon Pulse
+  - Giga Impact
+  - Avalanche
+  - Ice Fang
+  - Stone Edge
+  - Captivate
+  - Spite
+  - Outrage
+  - Uproar
+  - Bounce
+  - Iron Head
+  - Round
+  - Scald
+  - Incinerate
+  - Bulldoze
+  - Dragon Tail
+  - Iron Tail
+  species: Gyarados
+  stats:
+    attack: 125
+    defense: 79
+    hp: 95
+    specialAttack: 60
+    specialDefense: 100
+    speed: 81
+  types:
+  - Water
+  - Flying
+
+Hitmonchan:
+  moves:
+  - Comet Punch
+  - Mega Punch
+  - Fire Punch
+  - Ice Punch
+  - ThunderPunch
+  - Mega Kick
+  - Body Slam
+  - Take Down
+  - Double-Edge
+  - Submission
+  - Counter
+  - Seismic Toss
+  - Strength
+  - Toxic
+  - Agility
+  - Rage
+  - Mimic
+  - Double Team
+  - Bide
+  - Metronome
+  - Swift
+  - Skull Bash
+  - Rest
+  - Substitute
+  - Headbutt
+  - Thief
+  - Snore
+  - Curse
+  - Protect
+  - Mach Punch
+  - Mud-Slap
+  - Detect
+  - Endure
+  - Swagger
+  - Attract
+  - Sleep Talk
+  - Return
+  - Frustration
+  - DynamicPunch
+  - Pursuit
+  - Hidden Power
+  - Sunny Day
+  - Rock Smash
+  - Earthquake
+  - Rain Dance
+  - Facade
+  - Focus Punch
+  - Revenge
+  - Brick Break
+  - Secret Power
+  - Rock Tomb
+  - Sky Uppercut
+  - Bulk Up
+  - Rock Slide
+  - Natural Gift
+  - Feint
+  - Close Combat
+  - Fling
+  - Drain Punch
+  - Vacuum Wave
+  - Focus Blast
+  - Bullet Punch
+  - Rock Climb
+  - Stone Edge
+  - Captivate
+  - Helping Hand
+  - Low Kick
+  - Role Play
+  - Low Sweep
+  - Round
+  - Quick Guard
+  - Retaliate
+  - Bulldoze
+  - Work Up
+  - Covet
+  species: Hitmonchan
+  stats:
+    attack: 105
+    defense: 79
+    hp: 50
+    specialAttack: 35
+    specialDefense: 110
+    speed: 76
+  types:
+  - Fighting
+
+Heracross:
+  moves:
+  - Cut
+  - Headbutt
+  - Horn Attack
+  - Fury Attack
+  - Tackle
+  - Take Down
+  - Leer
+  - Counter
+  - Strength
+  - Earthquake
+  - Toxic
+  - Double Team
+  - Harden
+  - Bide
+  - Rest
+  - Thief
+  - Snore
+  - Curse
+  - Flail
+  - Reversal
+  - Protect
+  - Detect
+  - Endure
+  - Swagger
+  - Fury Cutter
+  - Attract
+  - Sleep Talk
+  - Return
+  - Frustration
+  - Megahorn
+  - Hidden Power
+  - Sunny Day
+  - Rock Smash
+  - Hyper Beam
+  - Dig
+  - False Swipe
+  - Rain Dance
+  - Facade
+  - Focus Punch
+  - Brick Break
+  - Secret Power
+  - Rock Tomb
+  - Bulk Up
+  - Swords Dance
+  - Body Slam
+  - Double-Edge
+  - Seismic Toss
+  - Mimic
+  - Rock Slide
+  - Substitute
+  - Pursuit
+  - Revenge
+  - Aerial Ace
+  - Natural Gift
+  - Feint
+  - Close Combat
+  - Fling
+  - Night Slash
+  - Focus Blast
+  - Giga Impact
+  - Shadow Claw
+  - Stone Edge
+  - Captivate
+  - Helping Hand
+  - Knock Off
+  - Iron Defense
+  - Vacuum Wave
+  - Low Kick
+  - Bug Bite
+  - Venoshock
+  - Smack Down
+  - Round
+  - Retaliate
+  - Struggle Bug
+  - Bulldoze
+  - Work Up
+  - Chip Away
+  species: Heracross
+  stats:
+    attack: 125
+    defense: 75
+    hp: 80
+    specialAttack: 40
+    specialDefense: 95
+    speed: 85
+  types:
+  - Bug
+  - Fighting
+
+Porygon-Z:
+  moves:
+  - Tackle
+  - Ice Beam
+  - Blizzard
+  - Psybeam
+  - Hyper Beam
+  - SolarBeam
+  - Thunderbolt
+  - Thunder Wave
+  - Thunder
+  - Toxic
+  - Psychic
+  - Agility
+  - Double Team
+  - Recover
+  - Dream Eater
+  - Flash
+  - Rest
+  - Conversion
+  - Tri Attack
+  - Substitute
+  - Thief
+  - Conversion 2
+  - Protect
+  - Zap Cannon
+  - Lock-On
+  - Endure
+  - Swagger
+  - Sleep Talk
+  - Return
+  - Frustration
+  - Iron Tail
+  - Hidden Power
+  - Rain Dance
+  - Sunny Day
+  - Psych Up
+  - Shadow Ball
+  - Facade
+  - Magic Coat
+  - Recycle
+  - Secret Power
+  - Signal Beam
+  - Aerial Ace
+  - Shock Wave
+  - Natural Gift
+  - Embargo
+  - Magnet Rise
+  - Dark Pulse
+  - Giga Impact
+  - Nasty Plot
+  - Trick Room
+  - Discharge
+  - Charge Beam
+  - Swift
+  - Snore
+  - Icy Wind
+  - Uproar
+  - Trick
+  - Last Resort
+  - Zen Headbutt
+  - Pain Split
+  - Gravity
+  - Psyshock
+  - Round
+  - Wonder Room
+  - Foul Play
+  - Electroweb
+  species: Porygon-Z
+  stats:
+    attack: 80
+    defense: 70
+    hp: 85
+    specialAttack: 135
+    specialDefense: 75
+    speed: 90
+  types:
+  - Normal
+
+Regirock:
+  moves:
+  - Hyper Beam
+  - Strength
+  - Thunderbolt
+  - Thunder
+  - Rock Throw
+  - Earthquake
+  - Dig
+  - Toxic
+  - Double Team
+  - Explosion
+  - Rest
+  - Curse
+  - Protect
+  - Zap Cannon
+  - Lock-On
+  - Sandstorm
+  - Return
+  - Frustration
+  - Safeguard
+  - Hidden Power
+  - Sunny Day
+  - AncientPower
+  - Rock Smash
+  - Facade
+  - Focus Punch
+  - Superpower
+  - Brick Break
+  - Secret Power
+  - Rock Tomb
+  - Iron Defense
+  - Shock Wave
+  - Mega Punch
+  - Fire Punch
+  - Ice Punch
+  - ThunderPunch
+  - Mega Kick
+  - Body Slam
+  - Double-Edge
+  - Counter
+  - Seismic Toss
+  - Thunder Wave
+  - Mimic
+  - Defense Curl
+  - Rock Slide
+  - Substitute
+  - Snore
+  - Mud-Slap
+  - Endure
+  - Rollout
+  - Swagger
+  - Sleep Talk
+  - DynamicPunch
+  - Psych Up
+  - Hammer Arm
+  - Natural Gift
+  - Fling
+  - Rock Polish
+  - Drain Punch
+  - Focus Blast
+  - Giga Impact
+  - Rock Climb
+  - Stone Edge
+  - Stealth Rock
+  - Charge Beam
+  - Stomp
+  - Earth Power
+  - Iron Head
+  - Headbutt
+  - Block
+  - Gravity
+  - Smack Down
+  - Round
+  - Bulldoze
+  - Selfdestruct
+  species: Regirock
+  stats:
+    attack: 100
+    defense: 200
+    hp: 80
+    specialAttack: 50
+    specialDefense: 100
+    speed: 50
+  types:
+  - Rock
+
