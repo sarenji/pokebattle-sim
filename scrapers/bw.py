@@ -1,3 +1,4 @@
+import string
 import requests
 import yaml
 
@@ -59,7 +60,7 @@ def map_species_names():
   while len(lines) > 0:
     line = lines.pop(0)
     species_id, name, generation_id, *tail = line.split(',')
-    species[species_id] = name
+    species[species_id] = string.capwords(string.capwords(name), '-')
 
 def create_formes():
   lines = requests.get(pokemon_url).text.splitlines()
@@ -91,7 +92,7 @@ def add_types():
   while len(lines) > 0:
     line = lines.pop(0)
     type_id, type_name, generation_id, damage_class = line.split(',')
-    type_dict[type_id] = type_name
+    type_dict[type_id] = type_name.capitalize()
     
   # Read types for every Pokemon.
   lines = requests.get(types_url).text.splitlines()
@@ -141,9 +142,7 @@ add_types()
 add_moves()
 create_pokemon()
 
-pokemon_names = map(lambda x: x.name, pokemon)
-pokemon_info = map(lambda x: x.info, pokemon)
-pokemon_yaml = dict(zip(pokemon_names, pokemon_info))
+pokemon_yaml = dict((x.name, x.info) for x in pokemon)
 
 with open(output_path, 'w') as f:
   f.write(yaml.dump(pokemon_yaml, default_flow_style=False))
