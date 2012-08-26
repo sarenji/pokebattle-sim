@@ -18,7 +18,7 @@ for name, attributes of @MoveData
 #
 # Example:
 #
-#   extendMove 'flamethrower', (attributes) ->
+#   extendMove 'substitute', (attributes) ->
 #     @initialize -> # blah
 #     @afterMove -> # blah
 #
@@ -29,7 +29,28 @@ extendMove = (name, callback) ->
   # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
 
+# Extends a move in the move list as a move with a secondary effect.
+# The chance of the effect is determined by the value of the
+# effectChance attribute.
+#
+# name - The name of the move to turn into a secondary effect attack.
+# effect - The name of the status to inflict, or a callback that inflicts
+#          that status.
+#
+# Example:
+#
+#   TODO: Make example
+#
+makeSecondaryEffectMove = (name, effect) ->
+  extendMove name, (attributes) ->
+    # TODO: Error if attributes has no effectChance defined
+    # TODO: implement after creating an afterSuccessfulHit hook
+
+
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
+
+
+makeSecondaryEffectMove 'flamethrower'

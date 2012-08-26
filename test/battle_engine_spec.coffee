@@ -25,6 +25,16 @@ describe 'Mechanics', ->
       @battle.endTurn()
       defender.currentHP.should.be.equal originalHP
 
+  describe 'secondary effect attacks', ->
+    it 'does damage', ->
+      # TODO: Make this a test for exact damage
+      create.call(this)
+      defender = @team2[0]
+      originalHP = defender.currentHP
+      @battle.makeMove(@player1, 'flamethrower')
+      @battle.endTurn()
+      defender.currentHP.should.be.lessThan originalHP
+
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,
