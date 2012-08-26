@@ -1,6 +1,7 @@
 {
     "absorb": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 20, 
         "pp": 25, 
         "priority": 0, 
@@ -8,13 +9,15 @@
     }, 
     "acid": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
         "type": "Poison"
     }, 
     "acid-armor": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -22,6 +25,7 @@
     }, 
     "acid-spray": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -29,20 +33,23 @@
     }, 
     "acrobatics": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "acupressure": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "aerial-ace": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -50,20 +57,23 @@
     }, 
     "aeroblast": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "after-you": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "agility": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -71,6 +81,7 @@
     }, 
     "air-cutter": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
@@ -78,20 +89,23 @@
     }, 
     "air-slash": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 75, 
         "pp": 20, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "ally-switch": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 1, 
         "type": "Psychic"
     }, 
     "amnesia": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -99,6 +113,7 @@
     }, 
     "ancientpower": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -106,13 +121,15 @@
     }, 
     "aqua-jet": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 20, 
         "priority": 1, 
         "type": "Water"
     }, 
     "aqua-ring": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -120,6 +137,7 @@
     }, 
     "aqua-tail": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -127,20 +145,23 @@
     }, 
     "arm-thrust": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "aromatherapy": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "assist": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -148,6 +169,7 @@
     }, 
     "assurance": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -155,6 +177,7 @@
     }, 
     "astonish": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
@@ -162,6 +185,7 @@
     }, 
     "attack-order": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -169,13 +193,15 @@
     }, 
     "attract": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "aura-sphere": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -183,13 +209,15 @@
     }, 
     "aurora-beam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
         "type": "Ice"
     }, 
     "autotomize": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -197,6 +225,7 @@
     }, 
     "avalanche": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
@@ -204,20 +233,23 @@
     }, 
     "barrage": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "barrier": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "baton-pass": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -225,27 +257,31 @@
     }, 
     "beat-up": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
         "type": "Dark"
     }, 
     "belly-drum": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "bestow": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "bide": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 1, 
@@ -253,6 +289,7 @@
     }, 
     "bind": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -260,6 +297,7 @@
     }, 
     "bite": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
@@ -267,6 +305,7 @@
     }, 
     "blast-burn": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -274,6 +313,7 @@
     }, 
     "blaze-kick": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -281,13 +321,15 @@
     }, 
     "blizzard": {
         "accuracy": 70, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
         "type": "Ice"
     }, 
     "block": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -295,6 +337,7 @@
     }, 
     "blue-flare": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
@@ -302,6 +345,7 @@
     }, 
     "body-slam": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
@@ -309,6 +353,7 @@
     }, 
     "bolt-strike": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
@@ -316,6 +361,7 @@
     }, 
     "bone-club": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -323,6 +369,7 @@
     }, 
     "bone-rush": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -330,6 +377,7 @@
     }, 
     "bonemerang": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -337,6 +385,7 @@
     }, 
     "bounce": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
@@ -344,6 +393,7 @@
     }, 
     "brave-bird": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -351,6 +401,7 @@
     }, 
     "brick-break": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -358,6 +409,7 @@
     }, 
     "brine": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -365,6 +417,7 @@
     }, 
     "bubble": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
@@ -372,6 +425,7 @@
     }, 
     "bubblebeam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -379,6 +433,7 @@
     }, 
     "bug-bite": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -386,13 +441,15 @@
     }, 
     "bug-buzz": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
         "type": "Bug"
     }, 
     "bulk-up": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -400,6 +457,7 @@
     }, 
     "bulldoze": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -407,6 +465,7 @@
     }, 
     "bullet-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -414,20 +473,23 @@
     }, 
     "bullet-seed": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "calm-mind": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "camouflage": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -435,13 +497,15 @@
     }, 
     "captivate": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "charge": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -449,6 +513,7 @@
     }, 
     "charge-beam": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -456,6 +521,7 @@
     }, 
     "charm": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -463,6 +529,7 @@
     }, 
     "chatter": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -470,6 +537,7 @@
     }, 
     "chip-away": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -477,6 +545,7 @@
     }, 
     "circle-throw": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
@@ -484,13 +553,15 @@
     }, 
     "clamp": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
         "type": "Water"
     }, 
     "clear-smog": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -498,13 +569,15 @@
     }, 
     "close-combat": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "coil": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -512,6 +585,7 @@
     }, 
     "comet-punch": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
@@ -519,6 +593,7 @@
     }, 
     "confuse-ray": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -526,6 +601,7 @@
     }, 
     "confusion": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -533,41 +609,47 @@
     }, 
     "constrict": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 10, 
         "pp": 35, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "conversion": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "conversion-2": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "copycat": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "cosmic-power": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "cotton-guard": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -575,6 +657,7 @@
     }, 
     "cotton-spore": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -582,6 +665,7 @@
     }, 
     "counter": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
@@ -589,6 +673,7 @@
     }, 
     "covet": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 40, 
         "priority": 0, 
@@ -596,6 +681,7 @@
     }, 
     "crabhammer": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -603,6 +689,7 @@
     }, 
     "cross-chop": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -610,6 +697,7 @@
     }, 
     "cross-poison": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -617,6 +705,7 @@
     }, 
     "crunch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -624,6 +713,7 @@
     }, 
     "crush-claw": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -631,13 +721,15 @@
     }, 
     "crush-grip": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "curse": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -645,6 +737,7 @@
     }, 
     "cut": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 30, 
         "priority": 0, 
@@ -652,6 +745,7 @@
     }, 
     "dark-pulse": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -659,41 +753,47 @@
     }, 
     "dark-void": {
         "accuracy": 80, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Dark"
     }, 
     "defend-order": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Bug"
     }, 
     "defense-curl": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "defog": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "destiny-bond": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Ghost"
     }, 
     "detect": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 4, 
@@ -701,6 +801,7 @@
     }, 
     "dig": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -708,6 +809,7 @@
     }, 
     "disable": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -715,6 +817,7 @@
     }, 
     "discharge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -722,6 +825,7 @@
     }, 
     "dive": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -729,6 +833,7 @@
     }, 
     "dizzy-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 10, 
         "priority": 0, 
@@ -736,6 +841,7 @@
     }, 
     "doom-desire": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -743,6 +849,7 @@
     }, 
     "double-edge": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -750,6 +857,7 @@
     }, 
     "double-hit": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 35, 
         "pp": 10, 
         "priority": 0, 
@@ -757,13 +865,15 @@
     }, 
     "double-kick": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 30, 
         "pp": 30, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "double-team": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -771,6 +881,7 @@
     }, 
     "doubleslap": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 10, 
         "priority": 0, 
@@ -778,6 +889,7 @@
     }, 
     "draco-meteor": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -785,13 +897,15 @@
     }, 
     "dragon-claw": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
         "type": "Dragon"
     }, 
     "dragon-dance": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -799,6 +913,7 @@
     }, 
     "dragon-pulse": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -806,6 +921,7 @@
     }, 
     "dragon-rage": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -813,6 +929,7 @@
     }, 
     "dragon-rush": {
         "accuracy": 75, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -820,6 +937,7 @@
     }, 
     "dragon-tail": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
@@ -827,6 +945,7 @@
     }, 
     "dragonbreath": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -834,6 +953,7 @@
     }, 
     "drain-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -841,6 +961,7 @@
     }, 
     "dream-eater": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -848,6 +969,7 @@
     }, 
     "drill-peck": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -855,6 +977,7 @@
     }, 
     "drill-run": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -862,6 +985,7 @@
     }, 
     "dual-chop": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -869,6 +993,7 @@
     }, 
     "dynamicpunch": {
         "accuracy": 50, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -876,6 +1001,7 @@
     }, 
     "earth-power": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -883,6 +1009,7 @@
     }, 
     "earthquake": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -890,6 +1017,7 @@
     }, 
     "echoed-voice": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -897,6 +1025,7 @@
     }, 
     "egg-bomb": {
         "accuracy": 75, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -904,6 +1033,7 @@
     }, 
     "electro-ball": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -911,6 +1041,7 @@
     }, 
     "electroweb": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -918,6 +1049,7 @@
     }, 
     "embargo": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -925,6 +1057,7 @@
     }, 
     "ember": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -932,6 +1065,7 @@
     }, 
     "encore": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -939,13 +1073,15 @@
     }, 
     "endeavor": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "endure": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -953,6 +1089,7 @@
     }, 
     "energy-ball": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -960,6 +1097,7 @@
     }, 
     "entrainment": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -967,6 +1105,7 @@
     }, 
     "eruption": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -974,6 +1113,7 @@
     }, 
     "explosion": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 250, 
         "pp": 5, 
         "priority": 0, 
@@ -981,6 +1121,7 @@
     }, 
     "extrasensory": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 30, 
         "priority": 0, 
@@ -988,6 +1129,7 @@
     }, 
     "extremespeed": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 5, 
         "priority": 2, 
@@ -995,13 +1137,15 @@
     }, 
     "facade": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "faint-attack": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -1009,6 +1153,7 @@
     }, 
     "fake-out": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 10, 
         "priority": 3, 
@@ -1016,6 +1161,7 @@
     }, 
     "fake-tears": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1023,6 +1169,7 @@
     }, 
     "false-swipe": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 40, 
         "priority": 0, 
@@ -1030,6 +1177,7 @@
     }, 
     "featherdance": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1037,6 +1185,7 @@
     }, 
     "feint": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 30, 
         "pp": 10, 
         "priority": 2, 
@@ -1044,6 +1193,7 @@
     }, 
     "fiery-dance": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1051,6 +1201,7 @@
     }, 
     "final-gambit": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1058,6 +1209,7 @@
     }, 
     "fire-blast": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1065,6 +1217,7 @@
     }, 
     "fire-fang": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -1072,6 +1225,7 @@
     }, 
     "fire-pledge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -1079,6 +1233,7 @@
     }, 
     "fire-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -1086,6 +1241,7 @@
     }, 
     "fire-spin": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -1093,6 +1249,7 @@
     }, 
     "fissure": {
         "accuracy": 30, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1100,6 +1257,7 @@
     }, 
     "flail": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -1107,6 +1265,7 @@
     }, 
     "flame-burst": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -1114,6 +1273,7 @@
     }, 
     "flame-charge": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 20, 
         "priority": 0, 
@@ -1121,6 +1281,7 @@
     }, 
     "flame-wheel": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
@@ -1128,6 +1289,7 @@
     }, 
     "flamethrower": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -1135,6 +1297,7 @@
     }, 
     "flare-blitz": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -1142,6 +1305,7 @@
     }, 
     "flash": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1149,6 +1313,7 @@
     }, 
     "flash-cannon": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1156,6 +1321,7 @@
     }, 
     "flatter": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1163,6 +1329,7 @@
     }, 
     "fling": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1170,6 +1337,7 @@
     }, 
     "fly": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -1177,13 +1345,15 @@
     }, 
     "focus-blast": {
         "accuracy": 70, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "focus-energy": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1191,13 +1361,15 @@
     }, 
     "focus-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 150, 
         "pp": 20, 
         "priority": -3, 
         "type": "Fighting"
     }, 
     "follow-me": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
@@ -1205,13 +1377,15 @@
     }, 
     "force-palm": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "foresight": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -1219,6 +1393,7 @@
     }, 
     "foul-play": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -1226,6 +1401,7 @@
     }, 
     "freeze-shock": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1233,6 +1409,7 @@
     }, 
     "frenzy-plant": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1240,6 +1417,7 @@
     }, 
     "frost-breath": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -1247,6 +1425,7 @@
     }, 
     "frustration": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -1254,6 +1433,7 @@
     }, 
     "fury-attack": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -1261,6 +1441,7 @@
     }, 
     "fury-cutter": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -1268,6 +1449,7 @@
     }, 
     "fury-swipes": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
@@ -1275,6 +1457,7 @@
     }, 
     "fusion-bolt": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -1282,6 +1465,7 @@
     }, 
     "fusion-flare": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -1289,6 +1473,7 @@
     }, 
     "future-sight": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1296,6 +1481,7 @@
     }, 
     "gastro-acid": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1303,6 +1489,7 @@
     }, 
     "gear-grind": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -1310,6 +1497,7 @@
     }, 
     "giga-drain": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -1317,6 +1505,7 @@
     }, 
     "giga-impact": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1324,6 +1513,7 @@
     }, 
     "glaciate": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -1331,6 +1521,7 @@
     }, 
     "glare": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1338,6 +1529,7 @@
     }, 
     "grass-knot": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -1345,6 +1537,7 @@
     }, 
     "grass-pledge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -1352,13 +1545,15 @@
     }, 
     "grasswhistle": {
         "accuracy": 55, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "gravity": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1366,34 +1561,39 @@
     }, 
     "growl": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "growth": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "grudge": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Ghost"
     }, 
     "guard-split": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "guard-swap": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1401,6 +1601,7 @@
     }, 
     "guillotine": {
         "accuracy": 30, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1408,6 +1609,7 @@
     }, 
     "gunk-shot": {
         "accuracy": 70, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1415,6 +1617,7 @@
     }, 
     "gust": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -1422,13 +1625,15 @@
     }, 
     "gyro-ball": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "hail": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1436,20 +1641,23 @@
     }, 
     "hammer-arm": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "harden": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "haze": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1457,6 +1665,7 @@
     }, 
     "head-charge": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -1464,6 +1673,7 @@
     }, 
     "head-smash": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1471,13 +1681,15 @@
     }, 
     "headbutt": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "heal-bell": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1485,27 +1697,31 @@
     }, 
     "heal-block": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "heal-order": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Bug"
     }, 
     "heal-pulse": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "healing-wish": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1513,13 +1729,15 @@
     }, 
     "heart-stamp": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "heart-swap": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1527,6 +1745,7 @@
     }, 
     "heat-crash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1534,6 +1753,7 @@
     }, 
     "heat-wave": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1541,13 +1761,15 @@
     }, 
     "heavy-slam": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "helping-hand": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 5, 
@@ -1555,6 +1777,7 @@
     }, 
     "hex": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -1562,6 +1785,7 @@
     }, 
     "hi-jump-kick": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 130, 
         "pp": 10, 
         "priority": 0, 
@@ -1569,13 +1793,15 @@
     }, 
     "hidden-power": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "hone-claws": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1583,6 +1809,7 @@
     }, 
     "horn-attack": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 25, 
         "priority": 0, 
@@ -1590,6 +1817,7 @@
     }, 
     "horn-drill": {
         "accuracy": 30, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1597,13 +1825,15 @@
     }, 
     "horn-leech": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "howl": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -1611,6 +1841,7 @@
     }, 
     "hurricane": {
         "accuracy": 70, 
+        "damage": "special", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -1618,6 +1849,7 @@
     }, 
     "hydro-cannon": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1625,6 +1857,7 @@
     }, 
     "hydro-pump": {
         "accuracy": 80, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1632,6 +1865,7 @@
     }, 
     "hyper-beam": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1639,6 +1873,7 @@
     }, 
     "hyper-fang": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -1646,6 +1881,7 @@
     }, 
     "hyper-voice": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -1653,6 +1889,7 @@
     }, 
     "hypnosis": {
         "accuracy": 60, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1660,6 +1897,7 @@
     }, 
     "ice-ball": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
@@ -1667,6 +1905,7 @@
     }, 
     "ice-beam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
@@ -1674,6 +1913,7 @@
     }, 
     "ice-burn": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1681,6 +1921,7 @@
     }, 
     "ice-fang": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -1688,6 +1929,7 @@
     }, 
     "ice-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -1695,6 +1937,7 @@
     }, 
     "ice-shard": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -1702,6 +1945,7 @@
     }, 
     "icicle-crash": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -1709,6 +1953,7 @@
     }, 
     "icicle-spear": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
@@ -1716,13 +1961,15 @@
     }, 
     "icy-wind": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
         "type": "Ice"
     }, 
     "imprison": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1730,6 +1977,7 @@
     }, 
     "incinerate": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
@@ -1737,20 +1985,23 @@
     }, 
     "inferno": {
         "accuracy": 50, 
+        "damage": "special", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
         "type": "Fire"
     }, 
     "ingrain": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "iron-defense": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1758,6 +2009,7 @@
     }, 
     "iron-head": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -1765,6 +2017,7 @@
     }, 
     "iron-tail": {
         "accuracy": 75, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -1772,6 +2025,7 @@
     }, 
     "judgment": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1779,6 +2033,7 @@
     }, 
     "jump-kick": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1786,6 +2041,7 @@
     }, 
     "karate-chop": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -1793,6 +2049,7 @@
     }, 
     "kinesis": {
         "accuracy": 80, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1800,6 +2057,7 @@
     }, 
     "knock-off": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -1807,6 +2065,7 @@
     }, 
     "last-resort": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1814,6 +2073,7 @@
     }, 
     "lava-plume": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -1821,6 +2081,7 @@
     }, 
     "leaf-blade": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -1828,6 +2089,7 @@
     }, 
     "leaf-storm": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1835,6 +2097,7 @@
     }, 
     "leaf-tornado": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -1842,6 +2105,7 @@
     }, 
     "leech-life": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
@@ -1849,6 +2113,7 @@
     }, 
     "leech-seed": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1856,6 +2121,7 @@
     }, 
     "leer": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1863,20 +2129,23 @@
     }, 
     "lick": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
         "type": "Ghost"
     }, 
     "light-screen": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "lock-on": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1884,6 +2153,7 @@
     }, 
     "lovely-kiss": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1891,6 +2161,7 @@
     }, 
     "low-kick": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -1898,20 +2169,23 @@
     }, 
     "low-sweep": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "lucky-chant": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "lunar-dance": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1919,6 +2193,7 @@
     }, 
     "luster-purge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
@@ -1926,27 +2201,31 @@
     }, 
     "mach-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
         "type": "Fighting"
     }, 
     "magic-coat": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 4, 
         "type": "Psychic"
     }, 
     "magic-room": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
         "type": "Psychic"
     }, 
     "magical-leaf": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -1954,20 +2233,23 @@
     }, 
     "magma-storm": {
         "accuracy": 75, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
         "type": "Fire"
     }, 
     "magnet-bomb": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "magnet-rise": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1975,27 +2257,31 @@
     }, 
     "magnitude": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 30, 
         "priority": 0, 
         "type": "Ground"
     }, 
     "me-first": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "mean-look": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "meditate": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2003,6 +2289,7 @@
     }, 
     "mega-drain": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -2010,6 +2297,7 @@
     }, 
     "mega-kick": {
         "accuracy": 75, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2017,6 +2305,7 @@
     }, 
     "mega-punch": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -2024,6 +2313,7 @@
     }, 
     "megahorn": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2031,6 +2321,7 @@
     }, 
     "memento": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2038,6 +2329,7 @@
     }, 
     "metal-burst": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -2045,6 +2337,7 @@
     }, 
     "metal-claw": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
@@ -2052,6 +2345,7 @@
     }, 
     "metal-sound": {
         "accuracy": 85, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2059,48 +2353,55 @@
     }, 
     "meteor-mash": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "metronome": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "milk-drink": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "mimic": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "mind-reader": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "minimize": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "miracle-eye": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2108,13 +2409,15 @@
     }, 
     "mirror-coat": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
         "type": "Psychic"
     }, 
     "mirror-move": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2122,13 +2425,15 @@
     }, 
     "mirror-shot": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "mist": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -2136,20 +2441,23 @@
     }, 
     "mist-ball": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "moonlight": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "morning-sun": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2157,6 +2465,7 @@
     }, 
     "mud-bomb": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -2164,6 +2473,7 @@
     }, 
     "mud-shot": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -2171,13 +2481,15 @@
     }, 
     "mud-slap": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
         "type": "Ground"
     }, 
     "mud-sport": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2185,13 +2497,15 @@
     }, 
     "muddy-water": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
         "type": "Water"
     }, 
     "nasty-plot": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2199,13 +2513,15 @@
     }, 
     "natural-gift": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "nature-power": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2213,6 +2529,7 @@
     }, 
     "needle-arm": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -2220,6 +2537,7 @@
     }, 
     "night-daze": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -2227,6 +2545,7 @@
     }, 
     "night-shade": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2234,6 +2553,7 @@
     }, 
     "night-slash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -2241,6 +2561,7 @@
     }, 
     "nightmare": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2248,13 +2569,15 @@
     }, 
     "octazooka": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
         "type": "Water"
     }, 
     "odor-sleuth": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2262,6 +2585,7 @@
     }, 
     "ominous-wind": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -2269,6 +2593,7 @@
     }, 
     "outrage": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2276,13 +2601,15 @@
     }, 
     "overheat": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
         "type": "Fire"
     }, 
     "pain-split": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2290,6 +2617,7 @@
     }, 
     "pay-day": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -2297,6 +2625,7 @@
     }, 
     "payback": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -2304,13 +2633,15 @@
     }, 
     "peck": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 35, 
         "pp": 35, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "perish-song": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2318,6 +2649,7 @@
     }, 
     "petal-dance": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2325,6 +2657,7 @@
     }, 
     "pin-missile": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 14, 
         "pp": 20, 
         "priority": 0, 
@@ -2332,6 +2665,7 @@
     }, 
     "pluck": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -2339,6 +2673,7 @@
     }, 
     "poison-fang": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -2346,6 +2681,7 @@
     }, 
     "poison-gas": {
         "accuracy": 80, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2353,6 +2689,7 @@
     }, 
     "poison-jab": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -2360,6 +2697,7 @@
     }, 
     "poison-sting": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 35, 
         "priority": 0, 
@@ -2367,6 +2705,7 @@
     }, 
     "poison-tail": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -2374,6 +2713,7 @@
     }, 
     "poisonpowder": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 35, 
         "priority": 0, 
@@ -2381,6 +2721,7 @@
     }, 
     "pound": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -2388,6 +2729,7 @@
     }, 
     "powder-snow": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -2395,27 +2737,31 @@
     }, 
     "power-gem": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
         "type": "Rock"
     }, 
     "power-split": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "power-swap": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "power-trick": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2423,6 +2769,7 @@
     }, 
     "power-whip": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2430,13 +2777,15 @@
     }, 
     "present": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "protect": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -2444,13 +2793,15 @@
     }, 
     "psybeam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "psych-up": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2458,6 +2809,7 @@
     }, 
     "psychic": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -2465,6 +2817,7 @@
     }, 
     "psycho-boost": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -2472,6 +2825,7 @@
     }, 
     "psycho-cut": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -2479,6 +2833,7 @@
     }, 
     "psycho-shift": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2486,6 +2841,7 @@
     }, 
     "psyshock": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -2493,6 +2849,7 @@
     }, 
     "psystrike": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -2500,6 +2857,7 @@
     }, 
     "psywave": {
         "accuracy": 80, 
+        "damage": "special", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2507,6 +2865,7 @@
     }, 
     "punishment": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -2514,6 +2873,7 @@
     }, 
     "pursuit": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -2521,6 +2881,7 @@
     }, 
     "quash": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2528,20 +2889,23 @@
     }, 
     "quick-attack": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
         "type": "Normal"
     }, 
     "quick-guard": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 3, 
         "type": "Fighting"
     }, 
     "quiver-dance": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2549,20 +2913,23 @@
     }, 
     "rage": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "rage-powder": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
         "type": "Bug"
     }, 
     "rain-dance": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2570,6 +2937,7 @@
     }, 
     "rapid-spin": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 40, 
         "priority": 0, 
@@ -2577,6 +2945,7 @@
     }, 
     "razor-leaf": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
@@ -2584,6 +2953,7 @@
     }, 
     "razor-shell": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -2591,41 +2961,47 @@
     }, 
     "razor-wind": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "recover": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "recycle": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "reflect": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "reflect-type": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "refresh": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2633,13 +3009,15 @@
     }, 
     "relic-song": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "rest": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2647,6 +3025,7 @@
     }, 
     "retaliate": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
@@ -2654,6 +3033,7 @@
     }, 
     "return": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -2661,6 +3041,7 @@
     }, 
     "revenge": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
@@ -2668,6 +3049,7 @@
     }, 
     "reversal": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2675,6 +3057,7 @@
     }, 
     "roar": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
@@ -2682,6 +3065,7 @@
     }, 
     "roar-of-time": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -2689,6 +3073,7 @@
     }, 
     "rock-blast": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -2696,13 +3081,15 @@
     }, 
     "rock-climb": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "rock-polish": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2710,6 +3097,7 @@
     }, 
     "rock-slide": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -2717,6 +3105,7 @@
     }, 
     "rock-smash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -2724,6 +3113,7 @@
     }, 
     "rock-throw": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -2731,6 +3121,7 @@
     }, 
     "rock-tomb": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -2738,13 +3129,15 @@
     }, 
     "rock-wrecker": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
         "type": "Rock"
     }, 
     "role-play": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2752,6 +3145,7 @@
     }, 
     "rolling-kick": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -2759,13 +3153,15 @@
     }, 
     "rollout": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
         "type": "Rock"
     }, 
     "roost": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2773,6 +3169,7 @@
     }, 
     "round": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -2780,6 +3177,7 @@
     }, 
     "sacred-fire": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -2787,13 +3185,15 @@
     }, 
     "sacred-sword": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "safeguard": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 25, 
         "priority": 0, 
@@ -2801,6 +3201,7 @@
     }, 
     "sand-attack": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2808,13 +3209,15 @@
     }, 
     "sand-tomb": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
         "type": "Ground"
     }, 
     "sandstorm": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2822,6 +3225,7 @@
     }, 
     "scald": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2829,6 +3233,7 @@
     }, 
     "scary-face": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2836,6 +3241,7 @@
     }, 
     "scratch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -2843,6 +3249,7 @@
     }, 
     "screech": {
         "accuracy": 85, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2850,6 +3257,7 @@
     }, 
     "searing-shot": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -2857,6 +3265,7 @@
     }, 
     "secret-power": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -2864,6 +3273,7 @@
     }, 
     "secret-sword": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -2871,6 +3281,7 @@
     }, 
     "seed-bomb": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2878,6 +3289,7 @@
     }, 
     "seed-flare": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2885,6 +3297,7 @@
     }, 
     "seismic-toss": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -2892,6 +3305,7 @@
     }, 
     "selfdestruct": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 200, 
         "pp": 5, 
         "priority": 0, 
@@ -2899,6 +3313,7 @@
     }, 
     "shadow-ball": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2906,6 +3321,7 @@
     }, 
     "shadow-blast": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": "", 
         "priority": 0, 
@@ -2913,6 +3329,7 @@
     }, 
     "shadow-blitz": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": "", 
         "priority": 0, 
@@ -2920,6 +3337,7 @@
     }, 
     "shadow-bolt": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": "", 
         "priority": 0, 
@@ -2927,6 +3345,7 @@
     }, 
     "shadow-break": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": "", 
         "priority": 0, 
@@ -2934,6 +3353,7 @@
     }, 
     "shadow-chill": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": "", 
         "priority": 0, 
@@ -2941,6 +3361,7 @@
     }, 
     "shadow-claw": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -2948,6 +3369,7 @@
     }, 
     "shadow-down": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
@@ -2955,6 +3377,7 @@
     }, 
     "shadow-end": {
         "accuracy": 60, 
+        "damage": "physical", 
         "power": 120, 
         "pp": "", 
         "priority": 0, 
@@ -2962,6 +3385,7 @@
     }, 
     "shadow-fire": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": "", 
         "priority": 0, 
@@ -2969,6 +3393,7 @@
     }, 
     "shadow-force": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2976,13 +3401,15 @@
     }, 
     "shadow-half": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": "", 
         "priority": 0, 
         "type": "Shadow"
     }, 
     "shadow-hold": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
@@ -2990,6 +3417,7 @@
     }, 
     "shadow-mist": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
@@ -2997,13 +3425,15 @@
     }, 
     "shadow-panic": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
         "type": "Shadow"
     }, 
     "shadow-punch": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3011,6 +3441,7 @@
     }, 
     "shadow-rave": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": "", 
         "priority": 0, 
@@ -3018,20 +3449,23 @@
     }, 
     "shadow-rush": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 55, 
         "pp": "", 
         "priority": 0, 
         "type": "Shadow"
     }, 
     "shadow-shed": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
         "type": "Shadow"
     }, 
     "shadow-sky": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": "", 
         "priority": 0, 
@@ -3039,6 +3473,7 @@
     }, 
     "shadow-sneak": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -3046,6 +3481,7 @@
     }, 
     "shadow-storm": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": "", 
         "priority": 0, 
@@ -3053,13 +3489,15 @@
     }, 
     "shadow-wave": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": "", 
         "priority": 0, 
         "type": "Shadow"
     }, 
     "sharpen": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3067,27 +3505,31 @@
     }, 
     "sheer-cold": {
         "accuracy": 30, 
+        "damage": "special", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
         "type": "Ice"
     }, 
     "shell-smash": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "shift-gear": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "shock-wave": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3095,6 +3537,7 @@
     }, 
     "signal-beam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -3102,6 +3545,7 @@
     }, 
     "silver-wind": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -3109,6 +3553,7 @@
     }, 
     "simple-beam": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3116,20 +3561,23 @@
     }, 
     "sing": {
         "accuracy": 55, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "sketch": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 1, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "skill-swap": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3137,6 +3585,7 @@
     }, 
     "skull-bash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -3144,6 +3593,7 @@
     }, 
     "sky-attack": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -3151,6 +3601,7 @@
     }, 
     "sky-drop": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -3158,13 +3609,15 @@
     }, 
     "sky-uppercut": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "slack-off": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3172,6 +3625,7 @@
     }, 
     "slam": {
         "accuracy": 75, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -3179,6 +3633,7 @@
     }, 
     "slash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3186,13 +3641,15 @@
     }, 
     "sleep-powder": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "sleep-talk": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3200,6 +3657,7 @@
     }, 
     "sludge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -3207,6 +3665,7 @@
     }, 
     "sludge-bomb": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -3214,6 +3673,7 @@
     }, 
     "sludge-wave": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
@@ -3221,6 +3681,7 @@
     }, 
     "smack-down": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -3228,6 +3689,7 @@
     }, 
     "smellingsalt": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -3235,6 +3697,7 @@
     }, 
     "smog": {
         "accuracy": 70, 
+        "damage": "special", 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -3242,6 +3705,7 @@
     }, 
     "smokescreen": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3249,13 +3713,15 @@
     }, 
     "snarl": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
         "type": "Dark"
     }, 
     "snatch": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -3263,6 +3729,7 @@
     }, 
     "snore": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -3270,13 +3737,15 @@
     }, 
     "soak": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Water"
     }, 
     "softboiled": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3284,6 +3753,7 @@
     }, 
     "solarbeam": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -3291,6 +3761,7 @@
     }, 
     "sonicboom": {
         "accuracy": 90, 
+        "damage": "special", 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -3298,6 +3769,7 @@
     }, 
     "spacial-rend": {
         "accuracy": 95, 
+        "damage": "special", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -3305,13 +3777,15 @@
     }, 
     "spark": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
         "type": "Electric"
     }, 
     "spider-web": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3319,13 +3793,15 @@
     }, 
     "spike-cannon": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "spikes": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3333,6 +3809,7 @@
     }, 
     "spit-up": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -3340,13 +3817,15 @@
     }, 
     "spite": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Ghost"
     }, 
     "splash": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -3354,13 +3833,15 @@
     }, 
     "spore": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "stealth-rock": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3368,6 +3849,7 @@
     }, 
     "steamroller": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -3375,13 +3857,15 @@
     }, 
     "steel-wing": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 25, 
         "priority": 0, 
         "type": "Steel"
     }, 
     "stockpile": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3389,6 +3873,7 @@
     }, 
     "stomp": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -3396,6 +3881,7 @@
     }, 
     "stone-edge": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -3403,6 +3889,7 @@
     }, 
     "stored-power": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
@@ -3410,6 +3897,7 @@
     }, 
     "storm-throw": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -3417,6 +3905,7 @@
     }, 
     "strength": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -3424,13 +3913,15 @@
     }, 
     "string-shot": {
         "accuracy": 95, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
         "type": "Bug"
     }, 
     "struggle": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 50, 
         "pp": "", 
         "priority": 0, 
@@ -3438,6 +3929,7 @@
     }, 
     "struggle-bug": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
@@ -3445,6 +3937,7 @@
     }, 
     "stun-spore": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3452,13 +3945,15 @@
     }, 
     "submission": {
         "accuracy": 80, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 25, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "substitute": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3466,13 +3961,15 @@
     }, 
     "sucker-punch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 5, 
         "priority": 1, 
         "type": "Dark"
     }, 
     "sunny-day": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -3480,6 +3977,7 @@
     }, 
     "super-fang": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -3487,6 +3985,7 @@
     }, 
     "superpower": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -3494,6 +3993,7 @@
     }, 
     "supersonic": {
         "accuracy": 55, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3501,6 +4001,7 @@
     }, 
     "surf": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -3508,13 +4009,15 @@
     }, 
     "swagger": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "swallow": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3522,6 +4025,7 @@
     }, 
     "sweet-kiss": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3529,13 +4033,15 @@
     }, 
     "sweet-scent": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "swift": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3543,13 +4049,15 @@
     }, 
     "switcheroo": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Dark"
     }, 
     "swords-dance": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3557,13 +4065,15 @@
     }, 
     "synchronoise": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "synthesis": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -3571,13 +4081,15 @@
     }, 
     "tackle": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "tail-glow": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3585,6 +4097,7 @@
     }, 
     "tail-slap": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -3592,13 +4105,15 @@
     }, 
     "tail-whip": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "tailwind": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3606,6 +4121,7 @@
     }, 
     "take-down": {
         "accuracy": 85, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -3613,6 +4129,7 @@
     }, 
     "taunt": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3620,6 +4137,7 @@
     }, 
     "techno-blast": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
@@ -3627,20 +4145,23 @@
     }, 
     "teeter-dance": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "telekinesis": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "teleport": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3648,6 +4169,7 @@
     }, 
     "thief": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -3655,6 +4177,7 @@
     }, 
     "thrash": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -3662,6 +4185,7 @@
     }, 
     "thunder": {
         "accuracy": 70, 
+        "damage": "special", 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -3669,6 +4193,7 @@
     }, 
     "thunder-fang": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -3676,6 +4201,7 @@
     }, 
     "thunder-wave": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3683,6 +4209,7 @@
     }, 
     "thunderbolt": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -3690,6 +4217,7 @@
     }, 
     "thunderpunch": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -3697,6 +4225,7 @@
     }, 
     "thundershock": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
@@ -3704,6 +4233,7 @@
     }, 
     "tickle": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3711,6 +4241,7 @@
     }, 
     "torment": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3718,20 +4249,23 @@
     }, 
     "toxic": {
         "accuracy": 90, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Poison"
     }, 
     "toxic-spikes": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
         "type": "Poison"
     }, 
     "transform": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3739,6 +4273,7 @@
     }, 
     "tri-attack": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -3746,13 +4281,15 @@
     }, 
     "trick": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Psychic"
     }, 
     "trick-room": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 5, 
         "priority": -7, 
@@ -3760,13 +4297,15 @@
     }, 
     "triple-kick": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 10, 
         "pp": 10, 
         "priority": 0, 
         "type": "Fighting"
     }, 
     "trump-card": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "special", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -3774,6 +4313,7 @@
     }, 
     "twineedle": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 25, 
         "pp": 20, 
         "priority": 0, 
@@ -3781,6 +4321,7 @@
     }, 
     "twister": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -3788,6 +4329,7 @@
     }, 
     "u-turn": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3795,6 +4337,7 @@
     }, 
     "uproar": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -3802,6 +4345,7 @@
     }, 
     "v-create": {
         "accuracy": 95, 
+        "damage": "physical", 
         "power": 180, 
         "pp": 5, 
         "priority": 0, 
@@ -3809,6 +4353,7 @@
     }, 
     "vacuum-wave": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -3816,6 +4361,7 @@
     }, 
     "venoshock": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -3823,6 +4369,7 @@
     }, 
     "vicegrip": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 55, 
         "pp": 30, 
         "priority": 0, 
@@ -3830,13 +4377,15 @@
     }, 
     "vine-whip": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "vital-throw": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "physical", 
         "power": 70, 
         "pp": 10, 
         "priority": -1, 
@@ -3844,6 +4393,7 @@
     }, 
     "volt-switch": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3851,6 +4401,7 @@
     }, 
     "volt-tackle": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -3858,6 +4409,7 @@
     }, 
     "wake-up-slap": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -3865,6 +4417,7 @@
     }, 
     "water-gun": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -3872,6 +4425,7 @@
     }, 
     "water-pledge": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -3879,13 +4433,15 @@
     }, 
     "water-pulse": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
         "type": "Water"
     }, 
     "water-sport": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3893,6 +4449,7 @@
     }, 
     "water-spout": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -3900,6 +4457,7 @@
     }, 
     "waterfall": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -3907,6 +4465,7 @@
     }, 
     "weather-ball": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -3914,6 +4473,7 @@
     }, 
     "whirlpool": {
         "accuracy": 85, 
+        "damage": "special", 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -3921,13 +4481,15 @@
     }, 
     "whirlwind": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
         "type": "Normal"
     }, 
     "wide-guard": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 3, 
@@ -3935,6 +4497,7 @@
     }, 
     "wild-charge": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -3942,6 +4505,7 @@
     }, 
     "will-o-wisp": {
         "accuracy": 75, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3949,27 +4513,31 @@
     }, 
     "wing-attack": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 60, 
         "pp": 35, 
         "priority": 0, 
         "type": "Flying"
     }, 
     "wish": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
         "type": "Normal"
     }, 
     "withdraw": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
         "type": "Water"
     }, 
     "wonder-room": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
@@ -3977,13 +4545,15 @@
     }, 
     "wood-hammer": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
         "type": "Grass"
     }, 
     "work-up": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3991,6 +4561,7 @@
     }, 
     "worry-seed": {
         "accuracy": 100, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3998,6 +4569,7 @@
     }, 
     "wrap": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -4005,6 +4577,7 @@
     }, 
     "wring-out": {
         "accuracy": 100, 
+        "damage": "special", 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -4012,13 +4585,15 @@
     }, 
     "x-scissor": {
         "accuracy": 100, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
         "type": "Bug"
     }, 
     "yawn": {
-        "accuracy": "", 
+        "accuracy": 0, 
+        "damage": "non-damaging", 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4026,6 +4601,7 @@
     }, 
     "zap-cannon": {
         "accuracy": 50, 
+        "damage": "special", 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -4033,6 +4609,7 @@
     }, 
     "zen-headbutt": {
         "accuracy": 90, 
+        "damage": "physical", 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
