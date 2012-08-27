@@ -1,6 +1,7 @@
 sinon = require 'sinon'
 {items} = require('../data/bw')
 {Battle, Pokemon} = require('../').server
+{Factory} = require './factory'
 
 describe 'Mechanics', ->
   create = (opts={}) ->
@@ -40,13 +41,8 @@ describe 'Mechanics', ->
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,
-        team1: [{
-          name: 'Hitmonchan'
-          ability: 'Technician'
-          moves: ['Ice Punch']
-          evs: {attack: 252}
-        }]
-        team2: [{name: 'Mew'}]
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2[0].currentHP
       @battle.endTurn()
@@ -54,13 +50,8 @@ describe 'Mechanics', ->
 
     it "increases damage if the move has bp <= 60", ->
       create.call this,
-        team1: [{
-          name: 'Hitmonchan'
-          ability: 'Technician'
-          moves: ['Bullet Punch']
-          evs: {attack: 252}
-        }]
-        team2: [{name: 'Shaymin'}]
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Shaymin')]
       @battle.makeMove(@player1, 'Bullet Punch')
       hp = @team2[0].currentHP
       @battle.endTurn()
@@ -69,15 +60,8 @@ describe 'Mechanics', ->
   describe 'STAB', ->
     it "gets applied if the move and user share a type", ->
       create.call this,
-        team1: [{
-          name: 'Heracross'
-          ability: 'Guts'
-          moves: ['Megahorn']
-          evs: {attack: 252}
-        }]
-        team2: [{
-          name: 'Regirock'
-        }]
+        team1: [Factory('Heracross')]
+        team2: [Factory('Regirock')]
       @battle.makeMove(@player1, 'Megahorn')
       hp = @team2[0].currentHP
       @battle.endTurn()
@@ -85,13 +69,8 @@ describe 'Mechanics', ->
 
     it "doesn't get applied if the move and user are of different types", ->
       create.call this,
-        team1: [{
-          name: 'Hitmonchan'
-          ability: 'Technician'
-          moves: ['Ice Punch']
-          evs: {attack: 252}
-        }]
-        team2: [{name: 'Mew'}]
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2[0].currentHP
       @battle.endTurn()
@@ -99,13 +78,8 @@ describe 'Mechanics', ->
 
     it 'is 2x if the pokemon has Adaptability', ->
       create.call this,
-        team1: [{
-          name: 'Porygon-Z'
-          ability: 'Adaptability'
-          moves: ['Tri Attack']
-          evs: {specialAttack: 252}
-        }]
-        team2: [{name: 'Mew'}]
+        team1: [Factory('Porygon-Z')]
+        team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Tri Attack')
       hp = @team2[0].currentHP
       @battle.endTurn()
@@ -114,14 +88,8 @@ describe 'Mechanics', ->
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->
       create.call this,
-        team1: [{
-          name: 'Mew'
-          moves: ['Psychic']
-        }]
-        team2: [{
-          name: 'Mew'
-          moves: ['Psychic']
-        }]
+        team1: [Factory('Mew')]
+        team2: [Factory('Mew')]
       spy = sinon.spy(@battle, 'orderIds')
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Psychic')
@@ -135,14 +103,8 @@ describe 'Mechanics', ->
 
     it 'decides winner by highest priority move', ->
       create.call this,
-        team1: [{
-          name: 'Hitmonchan'
-          moves: ['Mach Punch', 'ThunderPunch']
-        }]
-        team2: [{
-          name: 'Hitmonchan'
-          moves: ['Mach Punch', 'ThunderPunch']
-        }]
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Hitmonchan')]
       spy = sinon.spy(@battle, 'orderIds')
       @battle.makeMove(@player1, 'Mach Punch')
       @battle.makeMove(@player2, 'ThunderPunch')
@@ -155,15 +117,8 @@ describe 'Mechanics', ->
 
     it 'decides winner by speed if priority is equal', ->
       create.call this,
-        team1: [{
-          name: 'Hitmonchan'
-          moves: ['Mach Punch', 'ThunderPunch']
-        }]
-        team2: [{
-          name: 'Hitmonchan'
-          moves: ['Mach Punch', 'ThunderPunch']
-          evs: {speed: 4}
-        }]
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Hitmonchan')]
       spy = sinon.spy(@battle, 'orderIds')
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'ThunderPunch')
