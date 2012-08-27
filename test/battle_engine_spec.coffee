@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {items} = require('../data/bw')
-{Battle, Pokemon} = require('../').server
+{Battle, Pokemon, Status} = require('../').server
 {Factory} = require './factory'
 
 describe 'Mechanics', ->
@@ -36,7 +36,7 @@ describe 'Mechanics', ->
       defender = @team2[0]
       @battle.makeMove(@player1, 'flamethrower')
       @battle.endTurn()
-      defender.hasStatus('burn').should.be.true
+      defender.hasStatus(Status.BURN).should.be.true
 
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->

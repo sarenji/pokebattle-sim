@@ -1,7 +1,8 @@
 # Create the move objects of every single move in the game
 
 @MoveData = require('./data_moves.json')
-{Move} = require('../../server/move.coffee')
+{Move} = require('../../server/move')
+{BurnAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
 # Some of these will be overwritten later.
@@ -33,3 +34,14 @@ extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
+
+extendWithSecondaryEffect = (name, Attachment, chance) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      if battle.rng.next() >= chance
+        return
+
+      attachment = new Attachment()
+      target.attach(attachment)
+
+extendWithSecondaryEffect 'flamethrower', BurnAttachment, .1

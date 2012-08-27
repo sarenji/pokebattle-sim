@@ -1,4 +1,5 @@
 {finalModifier, basePowerModifier, stabModifier} = require './modifiers'
+{Status} = require './status'
 
 class @Move
   constructor: (@name, attributes = {}) ->
@@ -32,11 +33,6 @@ class @Move
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
   afterSuccessfulHit: (battle, user, target, damage) =>
-    if @attributes.secondaryEffect?
-      effect = @attributes.secondaryEffect
-      chance = effect.chance || 1
-      if battle.rng.next() < chance
-        target.status = effect.status
 
   weatherModifier: (battle) =>
     if @type == 'Fire' and battle.hasWeather('Sunny')
@@ -60,7 +56,7 @@ class @Move
 
   burnCalculation: (user) =>
     if @spectra == "physical" && !user.hasAbility("Guts")\
-                              &&  user.hasStatus("Burn")
+                              &&  user.hasStatus(Status.BURN)
       .5
     else
       1

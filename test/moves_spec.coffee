@@ -1,5 +1,5 @@
 sinon = require 'sinon'
-{Battle, Move, Pokemon} = require('../').server
+{Battle, Move, Pokemon, BurnAttachment} = require('../').server
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->
@@ -123,6 +123,6 @@ describe 'Move', ->
 
     it "returns .5 with a physical move, no Guts ability, and a burned user", ->
       attacker = new Pokemon()
-      attacker.status = 'Burn'
+      attacker.attach(new BurnAttachment())
       new Move(null, damage: 'physical')
         .burnCalculation(attacker).should.equal .5

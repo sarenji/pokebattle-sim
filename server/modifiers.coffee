@@ -1,4 +1,5 @@
 {ModifierChain} = require './modifier_chain'
+{Status} = require './status'
 
 @finalModifier = finalModifier = new ModifierChain()
 
@@ -62,7 +63,7 @@ basePowerModifier.add 10, (move, battle, user, target) ->
 
 # Flare Boost modifier.
 basePowerModifier.add 20, (move, battle, user, target) ->
-  if user.hasAbility("Flare Boost") && user.hasStatus('Burn') &&
+  if user.hasAbility("Flare Boost") && user.hasStatus(Status.BURN) &&
                                        move.spectra == 'special'
     return 0x1800
   return 0x1000
@@ -90,7 +91,7 @@ basePowerModifier.add 50, (move, battle, user, target) ->
 
 # Toxic Boost modifier.
 basePowerModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Toxic Boost') && user.hasStatus('Poison') &&
+  if user.hasAbility('Toxic Boost') && user.hasStatus(Status.POISON) &&
       move.spectra == 'physical'
     return 0x1800
   return 0x1000

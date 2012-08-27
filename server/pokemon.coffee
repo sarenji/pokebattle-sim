@@ -16,7 +16,7 @@ class @Pokemon
     @types = attributes.types || [] # TODO: Get from species.
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
-    @status = "Normal"
+    @attachments = []
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
@@ -51,12 +51,15 @@ class @Pokemon
   hasItem: (itemName) =>
     @item?.name == itemName
 
-  hasStatus: (statusName) =>
-    @status == statusName
+  hasStatus: (status) =>
+    status in @attachments.map((_) -> _.name)
 
   damage: (amount) =>
     @currentHP -= amount
 
+
+  attach: (attachment) =>
+    @attachments.push(attachment)
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
