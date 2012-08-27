@@ -9,7 +9,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
 
-  # Executes the move on several targets
+  # Executes this move on several targets.
   execute: (battle, user, targets) =>
     for target in targets
       damage = @baseDamage(battle, user, target)
@@ -34,7 +34,7 @@ class @Move
   afterSuccessfulHit: (battle, user, target, damage) =>
     if @attributes.secondaryEffect?
       effect = @attributes.secondaryEffect
-      chance = if effect.chance? then effect.chance else 1
+      chance = effect.chance || 1
       if battle.rng.next() < chance
         target.status = effect.status
 
