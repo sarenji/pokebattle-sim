@@ -1,4 +1,4 @@
-# battle tower
+# battle tower [![Build Status](https://secure.travis-ci.org/sarenji/battletower.png?branch=master)](http://travis-ci.org/sarenji/battletower)
 
 A competitive Pokemon battle simulator playable in the browser.
 
