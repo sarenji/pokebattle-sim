@@ -2,7 +2,7 @@
 
 A competitive Pokemon battle simulator playable in the browser.
 
-## Local install
+## Set up
 
 ```bash
 git clone git://github.com/sarenji/battletower.git
@@ -10,9 +10,21 @@ cd battletower
 npm install
 ```
 
+## Run server
+
+```bash
+npm start
+```
+
+Or if you have `nodemon`:
+
+```bash
+nodemon app.coffee
+```
+
 ## Run tests
 
-```
+```bash
 npm test
 ```
 
