@@ -65,7 +65,9 @@ class @Battle
     @objectHash[clientId].opponents
 
   getOpponentPokemon: (clientId) =>
-    _.flatten(@getOpponents(clientId).map((opponent) -> opponent.team))
+    opponents = @getOpponents(clientId)
+    teams = opponents.map((opponent) -> opponent.team)
+    _.flatten(teams)
 
   getAction: (clientId) =>
     @playerActions[clientId]
