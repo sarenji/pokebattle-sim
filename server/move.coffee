@@ -9,8 +9,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
 
-  # Executes the move on the target. Target may be null
-  # if the move attacks all opponents
+  # Executes the move on several targets
   execute: (battle, user, targets) =>
     for target in targets
       damage = @baseDamage(battle, user, target)
