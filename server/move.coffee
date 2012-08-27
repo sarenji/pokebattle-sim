@@ -9,8 +9,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
 
-  # Executes the move on the target. Target may be null
-  # if the move attacks all opponents
+  # Executes this move on several targets.
   execute: (battle, user, targets) =>
     for target in targets
       damage = @baseDamage(battle, user, target)
@@ -24,8 +23,20 @@ class @Move
       damage = Math.max(damage, 1)
       damage = @modify(damage, finalModifier.run(this, battle, user, target))
       target.damage(damage)
+
+      @afterSuccessfulHit(battle, user, target, damage)  if damage > 0
+
       # TODO: Print out opponent's name alongside the pokemon.
       battle.message "#{target.name} took #{damage} damage!"
+
+  # A hook that executes after a pokemon has been successfully damaged by
+  # a standard move. If execute is overriden, this will not execute.
+  afterSuccessfulHit: (battle, user, target, damage) =>
+    if @attributes.secondaryEffect?
+      effect = @attributes.secondaryEffect
+      chance = effect.chance || 1
+      if battle.rng.next() < chance
+        target.status = effect.status
 
   weatherModifier: (battle) =>
     if @type == 'Fire' and battle.hasWeather('Sunny')
