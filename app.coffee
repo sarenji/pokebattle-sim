@@ -62,7 +62,7 @@ defaultTeam = [
   }
   {
     name: "Hitmonchan"
-    moves: ["Close Combat", "Mach Punch", "Ice Punch", "Thunderpunch"]
+    moves: ["Close Combat", "Mach Punch", "Ice Punch", "ThunderPunch"]
     item: "Life Orb"
   }
   {

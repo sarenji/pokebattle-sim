@@ -4,8 +4,10 @@ sinon = require 'sinon'
 
 describe 'Mechanics', ->
   create = (opts={}) ->
-    @player1 = opts.player1 || {id: 'abcde'}
-    @player2 = opts.player2 || {id: 'fghij'}
+    @id1 = 'abcde'
+    @id2 = 'fghij'
+    @player1 = opts.player1 || {id: @id1}
+    @player2 = opts.player2 || {id: @id2}
     team1   = opts.team1 || [{}, {}]
     team2   = opts.team2 || [{}, {}]
     players = [{player: @player1, team: team1},
@@ -108,3 +110,61 @@ describe 'Mechanics', ->
       hp = @team2[0].currentHP
       @battle.endTurn()
       (hp - @team2[0].currentHP).should.equal 214
+
+  describe 'turn order', ->
+    it 'randomly decides winner if pokemon have the same speed and priority', ->
+      create.call this,
+        team1: [{
+          name: 'Mew'
+          moves: ['Psychic']
+        }]
+        team2: [{
+          name: 'Mew'
+          moves: ['Psychic']
+        }]
+      spy = sinon.spy(@battle, 'orderIds')
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Psychic')
+      spy.returned([@id2, @id1]).should.be.true
+      @battle.rng.next.restore()
+
+      sinon.stub(@battle.rng, 'next', -> .4)
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Psychic')
+      spy.returned([@id1, @id2]).should.be.true
+
+    it 'decides winner by highest priority move', ->
+      create.call this,
+        team1: [{
+          name: 'Hitmonchan'
+          moves: ['Mach Punch', 'ThunderPunch']
+        }]
+        team2: [{
+          name: 'Hitmonchan'
+          moves: ['Mach Punch', 'ThunderPunch']
+        }]
+      spy = sinon.spy(@battle, 'orderIds')
+      @battle.makeMove(@player1, 'Mach Punch')
+      @battle.makeMove(@player2, 'ThunderPunch')
+      spy.returned([@id1, @id2]).should.be.true
+      @battle.rng.next.restore()
+
+      @battle.makeMove(@player1, 'ThunderPunch')
+      @battle.makeMove(@player2, 'Mach Punch')
+      spy.returned([@id2, @id1]).should.be.true
+
+    it 'decides winner by speed if priority is equal', ->
+      create.call this,
+        team1: [{
+          name: 'Hitmonchan'
+          moves: ['Mach Punch', 'ThunderPunch']
+        }]
+        team2: [{
+          name: 'Hitmonchan'
+          moves: ['Mach Punch', 'ThunderPunch']
+          evs: {speed: 4}
+        }]
+      spy = sinon.spy(@battle, 'orderIds')
+      @battle.makeMove(@player1, 'ThunderPunch')
+      @battle.makeMove(@player2, 'ThunderPunch')
+      spy.returned([@id2, @id1]).should.be.true

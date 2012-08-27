@@ -47,9 +47,10 @@ class @Battle
         # TODO: Delete check. Validate somewhere else.
         if specimen?
           # TODO: Make nicer.
-          attributes.stats = specimen.stats || {}
-          attributes.moves = specimen.moves || {}
-          attributes.types = specimen.types || []
+          attributes.stats = _.clone(specimen.stats || {})
+          pokemon_moves = attributes.moves || []
+          attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)
+          attributes.types = (type  for type in specimen.types || [])
         new Pokemon(attributes)
 
   getPlayer: (clientId) =>
@@ -62,6 +63,9 @@ class @Battle
 
   getOpponents: (clientId) =>
     @objectHash[clientId].opponents
+
+  getOpponentPokemon: (clientId) =>
+    _.flatten(@getOpponents(clientId).map((opponent) -> opponent.team))
 
   getAction: (clientId) =>
     @playerActions[clientId]
@@ -124,8 +128,7 @@ class @Battle
       @buffer.pop()
 
   endTurn: =>
-    # TODO: Sort by priority and active pokemon speed.
-    for clientId of @playerActions
+    for clientId in @orderIds()
       action = @getAction(clientId)
       switch action.type
         when 'switch' then @performSwitch(clientId)
@@ -139,6 +142,32 @@ class @Battle
     for object in @players
       object.player.emit? 'updatechat', 'SERVER', @buffer.join("<br>")
     @clearBuffer()
+
+  orderIds: =>
+    ids = (id  for id of @playerActions)
+    ordered = []
+    for id in ids
+      action = @getAction(id)
+      priority = @actionPriority(action)
+      pokemon = @getTeam(id)
+      pokemon.push(@getOpponentPokemon(id)...)
+      ordered.push({id, priority, pokemon})
+    ordered.sort(@orderComparator)
+    ordered.map((o) -> o.id)
+
+  orderComparator: (a, b) =>
+    diff = b.priority - a.priority
+    if diff == 0
+      diff = b.pokemon[0].stat('speed') - a.pokemon[0].stat('speed')
+      if diff == 0
+        diff = (if @rng.next() < .5 then -1 else 1)
+    diff
+
+  actionPriority: (action) =>
+    switch action.type
+      when 'switch' then 5
+      # TODO: Apply priority callbacks
+      when 'move'   then MoveData[action.name].priority
 
   performSwitch: (clientId) =>
     player = @getPlayer(clientId)
