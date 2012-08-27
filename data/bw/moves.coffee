@@ -18,7 +18,7 @@ for name, attributes of @MoveData
 #
 # Example:
 #
-#   extendMove 'flamethrower', (attributes) ->
+#   extendMove 'substitute', (attributes) ->
 #     @initialize -> # blah
 #     @afterMove -> # blah
 #

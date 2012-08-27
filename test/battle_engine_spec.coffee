@@ -25,6 +25,16 @@ describe 'Mechanics', ->
       @battle.endTurn()
       defender.currentHP.should.be.equal originalHP
 
+  describe 'secondary effect attacks', ->
+    it 'can inflict effect on successful hit', ->
+      create.call(this)
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      defender = @team2[0]
+      @battle.makeMove(@player1, 'flamethrower')
+      @battle.endTurn()
+      defender.hasStatus('burn').should.be.true
+
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,

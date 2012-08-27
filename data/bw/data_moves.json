@@ -1293,7 +1293,11 @@
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
-        "type": "Fire"
+        "type": "Fire",
+        "secondaryEffect": {
+            "chance": 0.1,
+            "status": "burn"
+        }
     }, 
     "flare-blitz": {
         "accuracy": 100, 
