@@ -1,6 +1,6 @@
 thermos = {}
 
-thermos.version = '0.0.15'
+thermos.version = '0.1.0'
 
 typeOf = (obj) ->
   Object::toString.call(obj).slice 8, -1
@@ -152,7 +152,7 @@ class ThermosContext
     else
       @text "<#{tagName}#{attrs}>"
       if func?
-        returned = func.call(this)
+        returned = func.call(this, @locals)
         if typeOf(returned) is "String"
           @text returned
       @text
