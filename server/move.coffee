@@ -12,6 +12,11 @@ class @Move
 
   # Executes this move on several targets.
   execute: (battle, user, targets) =>
+    # TODO: Test the below 3 lines.
+    if targets.length == 0
+      battle.message "But there was no target..."
+      return
+
     for target in targets
       damage = @baseDamage(battle, user, target)
       # TODO: Multi-target modifier.
