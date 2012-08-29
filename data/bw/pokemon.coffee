@@ -2,10 +2,7 @@
 
 @species = {}
 
-json_url = if process.env.NODE_ENV == 'test'
-  '../../test/data/bw/data_pokemon.json'
-else
-  './data_pokemon.json'
+json_url = './data_pokemon.json'
 
 @PokemonData = require(json_url)
 for name, attributes of @PokemonData
