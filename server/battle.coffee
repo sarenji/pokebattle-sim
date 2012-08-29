@@ -143,26 +143,31 @@ class @Battle
       @requestAction(player, moves: poke_moves, switches: switches)
 
   requestAction: (player, validActions) =>
+    # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
 
   endTurn: =>
+    skipIds = []
     for id in @orderIds()
+      continue  if id in skipIds
+
       action = @getAction(id)
       player = @getPlayer(id)
       team = @getTeam(id)
+
       switch action.type
         when 'switch' then @performSwitch(id)
         when 'move'   then @performMove(id)
 
+      faintedIds = @requestFaintedReplacements()
+      skipIds.push(faintedIds...)
+
       # Clean up playerActions hash.
       delete @playerActions[id]
 
-      @requestFaintedReplacements()
-
     if @requestQueue.length > 0
-      top = @requestQueue.shift()
-      {player, validActions} = top
+      {player, validActions} = @requestQueue.shift()
       @requestAction(player, validActions)
 
     # Send a message to each player.
@@ -175,12 +180,17 @@ class @Battle
 
   # If a Pokemon faints, add the player to the action queue.
   requestFaintedReplacements: =>
+    ids = []
     for id, player of @players
       team = player.team
-      active = team.getActivePokemon()
-      if _.any(active, (p) -> p.isFainted())
+      fainted = team.getActiveFaintedPokemon()
+      if fainted.length > 0
+        ids.push(id)
+        for pokemon in fainted
+          @message "#{player.username}'s #{pokemon.name} fainted!"
         validActions = {switches: team.getAliveBenchedPokemon()}
         @requestQueue.push({player, validActions})
+    ids
 
   orderIds: =>
     ids = (id  for id of @playerActions)

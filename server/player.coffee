@@ -1,6 +1,6 @@
 class @Player
   constructor: (@socket, @team) ->
-    {@id} = @socket
+    {@id, @username} = @socket
 
   updateChat: (username, message) =>
     @emit 'updatechat', username, message

@@ -51,6 +51,30 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Mach Punch')
       @battle.turn.should.not.equal turn + 1
 
+    it 'removes the fainted pokemon from the action priority queue', ->
+      create.call this,
+        team1: [Factory('Mew')]
+        team2: [Factory('Hitmonchan')]
+      turn = @battle.turn
+      @team1.at(0).currentHP = 1
+      @team2.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Mach Punch')
+      @team1.at(0).currentHP.should.be.below 1
+      @team2.at(0).currentHP.should.equal 1
+
+    it 'lets the player switch in a new pokemon', ->
+      create.call this,
+        team1: [Factory('Mew')]
+        team2: [Factory('Hitmonchan'), Factory('Mew')]
+      turn = @battle.turn
+      pkmn = @team2.at(0)
+      pkmn.currentHP = 1
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Mach Punch')
+      @battle.makeSwitch(@player2, 'Mew')
+      @team2.at(0).should.not.equal pkmn
+
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
       create.call this,
