@@ -1,12 +1,13 @@
 sinon = require 'sinon'
 {Battle, Pokemon} = require('../').server
+{Factory} = require('./factory')
 
 describe 'Battle', ->
   beforeEach ->
     @player1 = {id: 'abcde'}
     @player2 = {id: 'fghij'}
-    team1   = [{}, {}]
-    team2   = [{}, {}]
+    team1   = [Factory('Hitmonchan'), Factory('Heracross')]
+    team2   = [Factory('Hitmonchan'), Factory('Heracross')]
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle(players: players)
@@ -64,10 +65,10 @@ describe 'Battle', ->
 
   describe '#switch', ->
     it "swaps pokemon positions of a player's team", ->
-      [poke1, poke2] = @team1
+      [poke1, poke2] = @team1.pokemon
       @battle.switch(@player1, 1)
       @battle.endTurn()
-      @team1.slice(0, 2).should.eql [poke2, poke1]
+      @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "automatically ends the turn if all players switch", ->
       mock = sinon.mock(@battle)
@@ -75,11 +76,3 @@ describe 'Battle', ->
       @battle.switch(@player1, 1)
       @battle.switch(@player2, 1)
       mock.verify()
-
-  describe '#endTurn', ->
-    it "makes pokemon use move", ->
-      defender = @team2[0]
-      hp = defender.currentHP
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.endTurn()
-      defender.currentHP.should.be.lessThan hp

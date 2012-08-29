@@ -1,14 +1,15 @@
 {_} = require 'underscore'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
+{Player} = require './player'
+{Team} = require './team'
 
 class @Battle
   # TODO: let Battle serialize these.
   {moves, MoveData, species, PokemonData} = require '../data/bw'
-  @pokemon = PokemonData
 
   constructor: (attributes = {}) ->
-    {@players} = attributes
+    @numActive = 1
 
     # Stores the current turn of the battle
     @turn = 0
@@ -29,45 +30,36 @@ class @Battle
     # Buffer of messages to send to each client.
     @buffer = []
 
-    for object in @players
-      @objectHash[object.player.id] = object
+    # Hash of players partaking in the battle.
+    @players = {}
 
-      # Each object is a hash: {player: socket, team: team}
-      # TODO: Make this nicer.
-      # Store an "opponents" array for each player. This array contains
-      # all players except the current player.
-      # This assumes a FFA.
+    for object in attributes.players
       {player, team} = object
-      object.opponents = _.reject @players, (object) ->
-        object.player == player
+      @players[player.id] = new Player(player, new Team(team, @numActive))
 
-      # Turn every hash in a team into a real, live Pokemon.
-      object.team = team.map (attributes) ->
-        specimen = species[attributes.name]
-        # TODO: Delete check. Validate somewhere else.
-        if specimen?
-          # TODO: Make nicer.
-          attributes.stats = _.clone(specimen.stats || {})
-          pokemon_moves = attributes.moves || []
-          attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)
-          attributes.types = (type  for type in specimen.types || [])
-        new Pokemon(attributes)
+  getPlayer: (id) =>
+    @players[id]
 
-  getPlayer: (clientId) =>
-    @objectHash[clientId].player
+  getTeam: (id) =>
+    @getPlayer(id).team
 
-  getTeam: (clientId) =>
-    if !@objectHash[clientId]?
-      console.log clientId
-    @objectHash[clientId].team
+  getOpponents: (id) =>
+    opponents = []
+    for playerId, player of @players
+      opponents.push(player)  if id != playerId
+    opponents
 
-  getOpponents: (clientId) =>
-    @objectHash[clientId].opponents
-
-  getOpponentPokemon: (clientId) =>
-    opponents = @getOpponents(clientId)
-    teams = opponents.map((opponent) -> opponent.team)
+  getOpponentPokemon: (id, max) =>
+    opponents = @getOpponents(id)
+    teams = (opponent.team.all()  for opponent in opponents)
+    teams = (team.slice(0, max)   for team in teams)  if max?
     _.flatten(teams)
+
+  getActivePokemon: =>
+    pokemon = []
+    for id, player of @players
+      pokemon.push(player.team.getActivePokemon()...)
+    pokemon
 
   getAction: (clientId) =>
     @playerActions[clientId]
@@ -89,8 +81,7 @@ class @Battle
   # TODO: Test
   makeSwitch: (player, toPokemon) =>
     team = @getTeam(player.id)
-    names = team.map((pokemon) -> pokemon.name)
-    index = names.indexOf(toPokemon)
+    index = team.indexOf(toPokemon)
 
     # TODO: Fail harder if pokemon not in team
     if index == -1
@@ -113,13 +104,13 @@ class @Battle
     weatherName == weather
 
   hasWeatherCancelAbilityOnField: =>
-    _.any @players, (object) ->
-      pokemon = object.team[0]
+    _.any @getActivePokemon(), (pokemon) ->
       pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
 
   # Returns true if all players have moved, false otherwise.
   hasAllPlayersActed: =>
-    _.all(@players, (object) => object.player.id of @playerActions)
+    ids = (id  for id of @players)
+    _.all(ids, (id) => id of @playerActions)
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
@@ -151,8 +142,7 @@ class @Battle
     for id in ids
       action = @getAction(id)
       priority = @actionPriority(action)
-      pokemon = @getTeam(id)
-      pokemon.push(@getOpponentPokemon(id)...)
+      pokemon = @getTeam(id).at(0)
       ordered.push({id, priority, pokemon})
     ordered.sort(@orderComparator)
     ordered.map((o) -> o.id)
@@ -160,7 +150,7 @@ class @Battle
   orderComparator: (a, b) =>
     diff = b.priority - a.priority
     if diff == 0
-      diff = b.pokemon[0].stat('speed') - a.pokemon[0].stat('speed')
+      diff = b.pokemon.stat('speed') - a.pokemon.stat('speed')
       if diff == 0
         diff = (if @rng.next() < .5 then -1 else 1)
     diff
@@ -171,22 +161,21 @@ class @Battle
       # TODO: Apply priority callbacks
       when 'move'   then MoveData[action.name].priority
 
-  performSwitch: (clientId) =>
-    player = @getPlayer(clientId)
-    action = @getAction(clientId)
-    team = @getTeam(clientId)
-    @message "#{player.username} withdrew #{team[0].name}!"
-    [team[0], team[action.to]] = [team[action.to], team[0]]
-    @message "#{player.username} sent out #{team[0].name}!"
+  performSwitch: (id) =>
+    player = @getPlayer(id)
+    action = @getAction(id)
+    team = @getTeam(id)
+    @message "#{player.username} withdrew #{team.at(0).name}!"
+    team.switch(0, action.to)
+    @message "#{player.username} sent out #{team.at(0).name}!"
     # TODO: Hacky.
     player.emit? 'switch pokemon', 0, action.to
 
-  performMove: (clientId) =>
-    player = @getPlayer(clientId)
-    action = @getAction(clientId)
-    pokemon = @getTeam(clientId)[0]
-    defenders = @getOpponents(clientId).map (opponent) ->
-      opponent.team[0]
+  performMove: (id) =>
+    player = @getPlayer(id)
+    action = @getAction(id)
+    pokemon = @getTeam(id).at(0)
+    defenders = @getOpponentPokemon(id, @numActive)
     # todo: the move should be cloned and attached to the pokemon
     move = moves[action.name]
 

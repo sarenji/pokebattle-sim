@@ -24,7 +24,7 @@ Factory.register 'Mew',
 
 Factory.register 'Porygon-Z',
   ability: 'Adaptability'
-  moves: ['Tri Attack']
+  moves: ['Tri Attack', 'Flamethrower']
   evs: {specialAttack: 252}
 
 Factory.register 'Heracross',
@@ -32,5 +32,8 @@ Factory.register 'Heracross',
   moves: ['Megahorn']
   evs: {attack: 252}
 
+Factory.register 'Magikarp',
+  moves: ['Splash', 'Tackle']
+
 Factory.register 'Regirock'
-Factory.register 'Shaymin'
+Factory.register 'Shaymin (land)'

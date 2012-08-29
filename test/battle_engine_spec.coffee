@@ -9,8 +9,8 @@ describe 'Mechanics', ->
     @id2 = 'fghij'
     @player1 = opts.player1 || {id: @id1}
     @player2 = opts.player2 || {id: @id2}
-    team1   = opts.team1 || [{}, {}]
-    team2   = opts.team2 || [{}, {}]
+    team1   = opts.team1
+    team2   = opts.team2
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle(players: players)
@@ -21,8 +21,10 @@ describe 'Mechanics', ->
 
   describe 'splash', ->
     it 'does no damage', ->
-      create.call(this)
-      defender = @team2[0]
+      create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp')]
+      defender = @team2.at(0)
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'splash')
       @battle.endTurn()
@@ -30,10 +32,12 @@ describe 'Mechanics', ->
 
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
-      create.call(this)
+      create.call this,
+        team1: [Factory('Porygon-Z')]
+        team2: [Factory('Porygon-Z')]
       @battle.rng.next.restore()
       sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
-      defender = @team2[0]
+      defender = @team2.at(0)
       @battle.makeMove(@player1, 'flamethrower')
       @battle.endTurn()
       defender.hasStatus(Status.BURN).should.be.true
@@ -44,18 +48,18 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
-      hp = @team2[0].currentHP
+      hp = @team2.at(0).currentHP
       @battle.endTurn()
-      (hp - @team2[0].currentHP).should.equal 84
+      (hp - @team2.at(0).currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
       create.call this,
         team1: [Factory('Hitmonchan')]
-        team2: [Factory('Shaymin')]
+        team2: [Factory('Shaymin (land)')]
       @battle.makeMove(@player1, 'Bullet Punch')
-      hp = @team2[0].currentHP
+      hp = @team2.at(0).currentHP
       @battle.endTurn()
-      (hp - @team2[0].currentHP).should.equal 67
+      (hp - @team2.at(0).currentHP).should.equal 67
 
   describe 'STAB', ->
     it "gets applied if the move and user share a type", ->
@@ -63,27 +67,27 @@ describe 'Mechanics', ->
         team1: [Factory('Heracross')]
         team2: [Factory('Regirock')]
       @battle.makeMove(@player1, 'Megahorn')
-      hp = @team2[0].currentHP
+      hp = @team2.at(0).currentHP
       @battle.endTurn()
-      (hp - @team2[0].currentHP).should.equal 123
+      (hp - @team2.at(0).currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
       create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
-      hp = @team2[0].currentHP
+      hp = @team2.at(0).currentHP
       @battle.endTurn()
-      (hp - @team2[0].currentHP).should.equal 84
+      (hp - @team2.at(0).currentHP).should.equal 84
 
     it 'is 2x if the pokemon has Adaptability', ->
       create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Tri Attack')
-      hp = @team2[0].currentHP
+      hp = @team2.at(0).currentHP
       @battle.endTurn()
-      (hp - @team2[0].currentHP).should.equal 214
+      (hp - @team2.at(0).currentHP).should.equal 214
 
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->
