@@ -54,6 +54,9 @@ class @Pokemon
   hasStatus: (status) =>
     status in @attachments.map((_) -> _.name)
 
+  isFainted: =>
+    @currentHP <= 0
+
   damage: (amount) =>
     @currentHP -= amount
 

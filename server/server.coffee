@@ -34,7 +34,7 @@ class @BattleServer
   createBattle: (objects...) =>
     players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
-    @battles[battleId] = new Battle(players: objects)
+    @battles[battleId] = new Battle(battleId, players: objects)
     battleId
 
   # Generate a random ID for a new battle.

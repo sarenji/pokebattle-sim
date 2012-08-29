@@ -8,7 +8,7 @@ class @Battle
   # TODO: let Battle serialize these.
   {moves, MoveData, species, PokemonData} = require '../data/bw'
 
-  constructor: (attributes = {}) ->
+  constructor: (@id, attributes = {}) ->
     @numActive = 1
 
     # Stores the current turn of the battle
@@ -17,6 +17,12 @@ class @Battle
     # Stores the actions each player is about to make
     # Keyed by player.id
     @playerActions = {}
+
+    # Stores the current requests for moves. Keyed by player.id
+    @requests = {}
+
+    # Stores queue of players that need to move.
+    @requestQueue = []
 
     # Creates a RNG for this battle.
     @rng = new FakeRNG()
@@ -36,6 +42,8 @@ class @Battle
     for object in attributes.players
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
+
+    @beginTurn()
 
   getPlayer: (id) =>
     @players[id]
@@ -75,8 +83,10 @@ class @Battle
       type: 'move'
       name: moveName
 
+    delete @requests[player.id]
+
     # End the turn if each player has moved.
-    if @hasAllPlayersActed() then @endTurn()
+    if @areAllRequestsCompleted() then @endTurn()
 
   # TODO: Test
   makeSwitch: (player, toPokemon) =>
@@ -96,8 +106,10 @@ class @Battle
       type: 'switch'
       to: toPosition
 
+    delete @requests[player.id]
+
     # End the turn if each player has moved.
-    if @hasAllPlayersActed() then @endTurn()
+    if @areAllRequestsCompleted() then @endTurn()
 
   hasWeather: (weatherName) =>
     weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
@@ -107,10 +119,11 @@ class @Battle
     _.any @getActivePokemon(), (pokemon) ->
       pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
 
-  # Returns true if all players have moved, false otherwise.
-  hasAllPlayersActed: =>
-    ids = (id  for id of @players)
-    _.all(ids, (id) => id of @playerActions)
+  # Returns true if all requests have been completed. False otherwise.
+  areAllRequestsCompleted: =>
+    requests = 0
+    requests += 1  for id of @requests
+    requests == 0
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
@@ -120,21 +133,54 @@ class @Battle
     while @buffer.length > 0
       @buffer.pop()
 
+  beginTurn: =>
+    @turn++
+
+    # Send appropriate requests to players
+    for id, player of @players
+      poke_moves = player.team.at(0).moves
+      switches = player.team.getAlivePokemon().map((p) -> p.name)
+      @requestAction(player, moves: poke_moves, switches: switches)
+
+  requestAction: (player, validActions) =>
+    @requests[player.id] = validActions
+    player.requestAction(@id, validActions)
+
   endTurn: =>
-    for clientId in @orderIds()
-      action = @getAction(clientId)
+    for id in @orderIds()
+      action = @getAction(id)
+      player = @getPlayer(id)
+      team = @getTeam(id)
       switch action.type
-        when 'switch' then @performSwitch(clientId)
-        when 'move'   then @performMove(clientId)
+        when 'switch' then @performSwitch(id)
+        when 'move'   then @performMove(id)
 
       # Clean up playerActions hash.
-      delete @playerActions[clientId]
+      delete @playerActions[id]
 
-    # Send a message to each player about the end of turn.
-    @message 'end turn!'
-    for object in @players
-      object.player.emit? 'updatechat', 'SERVER', @buffer.join("<br>")
+      @requestFaintedReplacements()
+
+    if @requestQueue.length > 0
+      top = @requestQueue.shift()
+      {player, validActions} = top
+      @requestAction(player, validActions)
+
+    # Send a message to each player.
+    @message 'The turn ticked.'
+    for id, player of @players
+      player.updateChat('SERVER', @buffer.join("<br>"))
     @clearBuffer()
+
+    if @areAllRequestsCompleted() then @beginTurn()
+
+  # If a Pokemon faints, add the player to the action queue.
+  requestFaintedReplacements: =>
+    for id, player of @players
+      team = player.team
+      active = team.getActivePokemon()
+      if _.any(active, (p) -> p.isFainted())
+        validActions = {switches: team.getAliveBenchedPokemon()}
+        @requestQueue.push({player, validActions})
 
   orderIds: =>
     ids = (id  for id of @playerActions)

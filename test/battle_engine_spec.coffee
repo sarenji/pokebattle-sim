@@ -7,13 +7,13 @@ describe 'Mechanics', ->
   create = (opts={}) ->
     @id1 = 'abcde'
     @id2 = 'fghij'
-    @player1 = opts.player1 || {id: @id1}
-    @player2 = opts.player2 || {id: @id2}
+    @player1 = opts.player1 || {id: @id1, emit: ->}
+    @player2 = opts.player2 || {id: @id2, emit: ->}
     team1   = opts.team1
     team2   = opts.team2
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
-    @battle = new Battle(players: players)
+    @battle = new Battle('id', players: players)
     sinon.stub(@battle.rng, 'next', -> 1)     # no chs
     sinon.stub(@battle.rng, 'randInt', -> 0)  # always do max damage
     @team1  = @battle.getTeam(@player1.id)
@@ -29,6 +29,27 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'splash')
       @battle.endTurn()
       defender.currentHP.should.be.equal originalHP
+
+  describe 'fainting', ->
+    it 'forces a new pokemon to be picked', ->
+      create.call this,
+        team1: [Factory('Mew')]
+        team2: [Factory('Hitmonchan')]
+      @team2.at(0).currentHP = 1
+      spy = sinon.spy(@player2, 'emit')
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Mach Punch')
+      spy.calledWith('request action').should.be.true
+
+    it 'does not increment the turn count', ->
+      create.call this,
+        team1: [Factory('Mew')]
+        team2: [Factory('Hitmonchan')]
+      turn = @battle.turn
+      @team2.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Psychic')
+      @battle.makeMove(@player2, 'Mach Punch')
+      @battle.turn.should.not.equal turn + 1
 
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->

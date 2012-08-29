@@ -34,10 +34,16 @@ class @Team
     @pokemon.slice(0, @numActive)
 
   getAlivePokemon: =>
-    @pokemon.filter((pokemon) -> pokemon.currentHP > 0)
+    @pokemon.filter((pokemon) -> !pokemon.isFainted())
 
   getFaintedPokemon: =>
-    @pokemon.filter((pokemon) -> pokemon.currentHP <= 0)
+    @pokemon.filter((pokemon) -> pokemon.isFainted())
+
+  getBenchedPokemon: =>
+    @pokemon.slice(@numActive)
+
+  getAliveBenchedPokemon: =>
+    @pokemon.slice(@numActive).filter((pokemon) -> !pokemon.isFainted())
 
   validate: =>
     # TODO

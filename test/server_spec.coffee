@@ -1,5 +1,6 @@
 sinon = require 'sinon'
 {BattleServer, Player} = require('../').server
+{Factory} = require './factory'
 
 describe 'BattleServer', ->
   it 'can create a new battle', ->
@@ -10,16 +11,15 @@ describe 'BattleServer', ->
   it "emits the 'start battle' event for each matched player", ->
     players = [{id: 'abc', emit: ->},
                {id: 'def', emit: ->}]
-    mocks = []
+    spies = []
     for player in players
-      mock = sinon.mock(player)
-      mock.expects('emit').once()
-      mocks.push(mock)
+      spy = sinon.spy(player, 'emit')
+      spies.push(spy)
 
     server = new BattleServer()
     for player in players
-      server.queuePlayer(player, [])
+      server.queuePlayer(player, [Factory('Hitmonchan')])
     server.beginBattles()
 
-    for mock in mocks
-      mock.verify()
+    for spy in spies
+      spy.calledWith('start battle').should.be.true

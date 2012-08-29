@@ -10,25 +10,12 @@ describe 'Battle', ->
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
-    @battle = new Battle(players: players)
+    @battle = new Battle('id', players: players)
     @team1  = @battle.getTeam(@player1.id)
     @team2  = @battle.getTeam(@player2.id)
 
-  it 'starts at turn 0', ->
-    @battle.turn.should.equal 0
-
-  describe '#hasAllPlayersActed', ->
-    it "returns false if no player has moved", ->
-      @battle.hasAllPlayersActed().should.be.false
-
-    it "returns false if half the players have not moved", ->
-      @battle.playerActions[@player1.id] = true
-      @battle.hasAllPlayersActed().should.be.false
-
-    it "returns true if all players have moved", ->
-      @battle.playerActions[@player1.id] = true
-      @battle.playerActions[@player2.id] = true
-      @battle.hasAllPlayersActed().should.be.true
+  it 'starts at turn 1', ->
+    @battle.turn.should.equal 1
 
   describe '#hasWeather(weatherName)', ->
     it 'returns true if the current battle weather is weatherName', ->
