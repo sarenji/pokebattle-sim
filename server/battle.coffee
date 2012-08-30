@@ -168,7 +168,7 @@ class @Battle
       delete @playerActions[id]
 
     if @isOver()
-      @scontinueTurn()
+      @continueTurn()
       @endBattle()
       return
 
@@ -177,11 +177,11 @@ class @Battle
       @requestAction(player, validActions)
 
     # Send a message to each player.
-    @scontinueTurn()
+    @continueTurn()
 
     if @areAllRequestsCompleted() then @startNewTurn()
 
-  scontinueTurn: =>
+  continueTurn: =>
     @message 'The turn continued.'
     for id, player of @players
       player.updateChat('SERVER', @buffer.join("<br>"))
