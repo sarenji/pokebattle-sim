@@ -71,6 +71,14 @@ extendWithFangEffect = (name, chance, Attachment, options) ->
         attachment = new FlinchAttachment(options)
         target.attach(attachment)
 
+extendWithDrain = (name, drainPercent=.5) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      amount = Math.floor(damage * drainPercent)
+      user.currentHP += amount
+      # TODO: Message after drain
+
+extendWithDrain 'absorb'
 extendWithSecondaryEffect 'blaze-kick', .1, BurnAttachment
 extendWithSecondaryEffect 'blizzard', .1, FreezeAttachment
 extendWithSecondaryEffect 'blue-flare', .2, BurnAttachment
@@ -84,6 +92,8 @@ extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
 extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
 extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
+extendWithDrain 'drain-punch'
+extendWithDrain 'dream-eater'
 extendWithSecondaryEffect 'ember', .1, BurnAttachment
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
 extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
@@ -94,10 +104,12 @@ extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
 extendWithSecondaryEffect 'flare-blitz', .1, BurnAttachment
 extendWithSecondaryEffect 'force-palm', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
+extendWithDrain 'giga-drain'
 extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
 extendWithSecondaryEffect 'headbutt', .3, FlinchAttachment
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
+extendWithDrain 'horn-leech'
 extendWithSecondaryEffect 'hurricane', .3, ConfusionAttachment
 extendWithSecondaryEffect 'hyper-fang', .1, FlinchAttachment
 extendWithSecondaryEffect 'ice-beam', .1, FreezeAttachment
@@ -107,7 +119,9 @@ extendWithSecondaryEffect 'ice-punch', .3, FreezeAttachment
 extendWithSecondaryEffect 'icicle-crash', .3, FlinchAttachment
 extendWithSecondaryEffect 'iron-head', .3, FlinchAttachment
 extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
+extendWithDrain 'leech-life'
 extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
+extendWithDrain 'mega-drain'
 extendWithSecondaryEffect 'needle-arm', .3, FlinchAttachment
 extendWithSecondaryEffect 'poison-fang', .3, ToxicAttachment
 extendWithSecondaryEffect 'poison-jab', .3, PoisonAttachment

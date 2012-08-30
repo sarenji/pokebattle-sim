@@ -98,6 +98,19 @@ describe 'Mechanics', ->
       defender.hasAttachment(VolatileStatus.FLINCH).should.be.true
       defender.hasStatus(Status.FREEZE).should.be.true
 
+  describe 'drain attacks', ->
+    it 'recovers a percentage of the damage dealt, rounded down', ->
+      create.call this,
+        team1: [Factory('Conkeldurr')]
+        team2: [Factory('Hitmonchan')]
+      startHP = 1
+      @team1.at(0).currentHP = startHP
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'drain-punch')
+      @battle.continueTurn()
+      damage = (hp - @team2.at(0).currentHP)
+      (@team1.at(0).currentHP - startHP).should.equal Math.floor(damage / 2)
+
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,

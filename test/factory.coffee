@@ -38,5 +38,8 @@ Factory.register 'Magikarp',
 Factory.register 'Gyarados',
   moves: ['Ice Fang']
 
+Factory.register 'Conkeldurr',
+  moves: ['Drain Punch']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
