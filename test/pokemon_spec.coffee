@@ -53,6 +53,19 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(nature: 'Bold')
       pokemon.stat('attack').should.equal 212
 
+  describe 'stat boosts', ->
+    it 'increase the stat by (n+2)/2 if positive', ->
+      pokemon = new Pokemon()
+      speed = pokemon.stat('speed')
+      pokemon.stages.speed = 3
+      pokemon.stat('speed').should.equal Math.floor(2.5 * speed)
+
+    it 'decrease the stat by 2/(n+2) if negative', ->
+      pokemon = new Pokemon()
+      speed = pokemon.stat('speed')
+      pokemon.stages.speed = -3
+      pokemon.stat('speed').should.equal Math.floor(speed / 2.5)
+
   describe '#natureBoost', ->
     it "returns 1 by default for non-existent natures", ->
       new Pokemon(nature: 'Super').natureBoost('attack').should.equal 1

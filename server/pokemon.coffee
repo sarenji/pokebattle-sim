@@ -53,7 +53,11 @@ class @Pokemon
       1
 
   statBoost: (statName, total) =>
-    Math.floor((2 + @stages[statName]) * total / 2)
+    boost = @stages[statName]
+    if boost >= 0
+      Math.floor((2 + boost) * total / 2)
+    else
+      Math.floor(2 * total / (2 - boost))
 
   # Returns a hashmap of the stats that were boosted. The keys are the stats.
   # If no stat was boosted, the value for that stat is false.
