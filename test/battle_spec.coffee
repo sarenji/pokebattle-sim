@@ -45,7 +45,7 @@ describe 'Battle', ->
 
     it "automatically ends the turn if all players move", ->
       mock = sinon.mock(@battle)
-      mock.expects('endTurn').once()
+      mock.expects('endPhase').once()
       @battle.makeMove(@player1, 'Tackle')
       @battle.makeMove(@player2, 'Tackle')
       mock.verify()
@@ -54,12 +54,12 @@ describe 'Battle', ->
     it "swaps pokemon positions of a player's team", ->
       [poke1, poke2] = @team1.pokemon
       @battle.switch(@player1, 1)
-      @battle.endTurn()
+      @battle.endPhase()
       @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "automatically ends the turn if all players switch", ->
       mock = sinon.mock(@battle)
-      mock.expects('endTurn').once()
+      mock.expects('endPhase').once()
       @battle.switch(@player1, 1)
       @battle.switch(@player2, 1)
       mock.verify()

@@ -27,14 +27,14 @@ describe 'Mechanics', ->
       defender = @team2.at(0)
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'splash')
-      @battle.endTurn()
+      @battle.endPhase()
       defender.currentHP.should.be.equal originalHP
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->
       create.call this,
-        team1: [Factory('Mew')]
-        team2: [Factory('Hitmonchan')]
+        team1: [Factory('Mew'), Factory('Heracross')]
+        team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @team2.at(0).currentHP = 1
       spy = sinon.spy(@player2, 'emit')
       @battle.makeMove(@player1, 'Psychic')
@@ -43,8 +43,8 @@ describe 'Mechanics', ->
 
     it 'does not increment the turn count', ->
       create.call this,
-        team1: [Factory('Mew')]
-        team2: [Factory('Hitmonchan')]
+        team1: [Factory('Mew'), Factory('Heracross')]
+        team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
       @team2.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Psychic')
@@ -53,8 +53,8 @@ describe 'Mechanics', ->
 
     it 'removes the fainted pokemon from the action priority queue', ->
       create.call this,
-        team1: [Factory('Mew')]
-        team2: [Factory('Hitmonchan')]
+        team1: [Factory('Mew'), Factory('Heracross')]
+        team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
       @team1.at(0).currentHP = 1
       @team2.at(0).currentHP = 1
@@ -65,15 +65,13 @@ describe 'Mechanics', ->
 
     it 'lets the player switch in a new pokemon', ->
       create.call this,
-        team1: [Factory('Mew')]
-        team2: [Factory('Hitmonchan'), Factory('Mew')]
-      turn = @battle.turn
-      pkmn = @team2.at(0)
-      pkmn.currentHP = 1
+        team1: [Factory('Mew'), Factory('Heracross')]
+        team2: [Factory('Hitmonchan'), Factory('Heracross')]
+      @team2.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Mach Punch')
-      @battle.makeSwitch(@player2, 'Mew')
-      @team2.at(0).should.not.equal pkmn
+      @battle.makeSwitch(@player2, 'Heracross')
+      @team2.at(0).name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
@@ -84,7 +82,7 @@ describe 'Mechanics', ->
       sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
       defender = @team2.at(0)
       @battle.makeMove(@player1, 'flamethrower')
-      @battle.endTurn()
+      @battle.endPhase()
       defender.hasStatus(Status.BURN).should.be.true
 
   describe 'a pokemon with technician', ->
@@ -94,7 +92,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2.at(0).currentHP
-      @battle.endTurn()
+      @battle.endPhase()
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
@@ -103,7 +101,7 @@ describe 'Mechanics', ->
         team2: [Factory('Shaymin (land)')]
       @battle.makeMove(@player1, 'Bullet Punch')
       hp = @team2.at(0).currentHP
-      @battle.endTurn()
+      @battle.endPhase()
       (hp - @team2.at(0).currentHP).should.equal 67
 
   describe 'STAB', ->
@@ -113,7 +111,7 @@ describe 'Mechanics', ->
         team2: [Factory('Regirock')]
       @battle.makeMove(@player1, 'Megahorn')
       hp = @team2.at(0).currentHP
-      @battle.endTurn()
+      @battle.endPhase()
       (hp - @team2.at(0).currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
@@ -122,7 +120,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2.at(0).currentHP
-      @battle.endTurn()
+      @battle.endPhase()
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it 'is 2x if the pokemon has Adaptability', ->
@@ -131,7 +129,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Tri Attack')
       hp = @team2.at(0).currentHP
-      @battle.endTurn()
+      @battle.endPhase()
       (hp - @team2.at(0).currentHP).should.equal 214
 
   describe 'turn order', ->
@@ -172,3 +170,25 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'ThunderPunch')
       spy.returned([@id2, @id1]).should.be.true
+
+  describe 'fainting all the opposing pokemon', ->
+    it "doesn't request any more actions from players", ->
+      create.call this,
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
+      @team2.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Mach Punch')
+      @battle.makeMove(@player2, 'Psychic')
+      @battle.requests.should.not.have.property @player1.id
+      @battle.requests.should.not.have.property @player2.id
+
+    it 'ends the battle', ->
+      create.call this,
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
+      @team2.at(0).currentHP = 1
+      mock = sinon.mock(@battle)
+      mock.expects('endBattle').once()
+      @battle.makeMove(@player1, 'Mach Punch')
+      @battle.makeMove(@player2, 'Psychic')
+      mock.verify()

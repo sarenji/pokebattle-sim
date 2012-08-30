@@ -44,7 +44,7 @@ class @Battle
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
 
-    @beginTurn()
+    @tick()
 
   getPlayer: (id) =>
     @players[id]
@@ -86,8 +86,8 @@ class @Battle
 
     delete @requests[player.id]
 
-    # End the turn if each player has moved.
-    if @areAllRequestsCompleted() then @endTurn()
+    # End the phase if each player has moved.
+    if @areAllRequestsCompleted() then @endPhase()
 
   # TODO: Test
   makeSwitch: (player, toPokemon) =>
@@ -110,7 +110,7 @@ class @Battle
     delete @requests[player.id]
 
     # End the turn if each player has moved.
-    if @areAllRequestsCompleted() then @endTurn()
+    if @areAllRequestsCompleted() then @endPhase()
 
   hasWeather: (weatherName) =>
     weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
@@ -134,7 +134,7 @@ class @Battle
     while @buffer.length > 0
       @buffer.pop()
 
-  beginTurn: =>
+  tick: =>
     @turn++
 
     # Send appropriate requests to players
@@ -148,7 +148,7 @@ class @Battle
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
 
-  endTurn: =>
+  endPhase: =>
     skipIds = []
     for id in @orderIds()
       continue  if id in skipIds
@@ -167,17 +167,44 @@ class @Battle
       # Clean up playerActions hash.
       delete @playerActions[id]
 
+    if @isOver()
+      @sendPhase()
+      @endBattle()
+      return
+
     if @requestQueue.length > 0
       {player, validActions} = @requestQueue.shift()
       @requestAction(player, validActions)
 
     # Send a message to each player.
+    @sendPhase()
+
+    if @areAllRequestsCompleted() then @tick()
+
+  sendPhase: =>
     @message 'The turn ticked.'
     for id, player of @players
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearBuffer()
 
-    if @areAllRequestsCompleted() then @beginTurn()
+  endBattle: =>
+    winner = @getWinner()
+    for id, player of @players
+      player.updateChat('SERVER', "#{winner.username} won!")
+      player.updateChat('SERVER', "END BATTLE.")
+
+  getWinner: =>
+    winner = null
+    length = 0
+    for id, player of @players
+      newLength = player.team.getAlivePokemon().length
+      if newLength > length
+        length = newLength
+        winner = player
+    player
+
+  isOver: =>
+    _.any(@players, (player) -> player.team.getAlivePokemon().length == 0)
 
   # If a Pokemon faints, add the player to the action queue.
   requestFaintedReplacements: =>
