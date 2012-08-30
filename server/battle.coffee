@@ -9,6 +9,7 @@ class @Battle
   {moves, MoveData, species, PokemonData} = require '../data/bw'
 
   constructor: (@id, attributes = {}) ->
+    # Number of pokemon on each side of the field
     @numActive = 1
 
     # Stores the current turn of the battle
