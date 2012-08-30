@@ -111,6 +111,15 @@ describe 'Mechanics', ->
       damage = (hp - @team2.at(0).currentHP)
       (@team1.at(0).currentHP - startHP).should.equal Math.floor(damage / 2)
 
+    it 'cannot recover to over 100% HP', ->
+      create.call this,
+        team1: [Factory('Conkeldurr')]
+        team2: [Factory('Hitmonchan')]
+      hp = @team1.at(0).currentHP = @team1.at(0).stat('hp')
+      @battle.makeMove(@player1, 'drain-punch')
+      @battle.continueTurn()
+      (@team1.at(0).currentHP - hp).should.equal 0
+
   describe 'a pokemon using Acrobatics', ->
     it 'gets double the base power without an item', ->
       create.call this,

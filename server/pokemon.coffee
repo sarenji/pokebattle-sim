@@ -66,7 +66,7 @@ class @Pokemon
 
   damage: (amount) =>
     @currentHP -= amount
-
+    @currentHP = Math.min(@stat('hp'), @currentHP)
 
   attach: (attachment) =>
     @attachments.push(attachment)
