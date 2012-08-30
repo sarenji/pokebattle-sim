@@ -111,6 +111,27 @@ describe 'Mechanics', ->
       damage = (hp - @team2.at(0).currentHP)
       (@team1.at(0).currentHP - startHP).should.equal Math.floor(damage / 2)
 
+  describe 'a pokemon using Acrobatics', ->
+    it 'gets double the base power without an item', ->
+      create.call this,
+        team1: [Factory('Gliscor')]
+        team2: [Factory('Regirock')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'acrobatics')
+      @battle.continueTurn()
+      damage = (hp - @team2.at(0).currentHP)
+      damage.should.equal 36
+
+    it 'has normal base power with an item', ->
+      create.call this,
+        team1: [Factory('Gliscor', item: 'Leftovers')]
+        team2: [Factory('Regirock')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'acrobatics')
+      @battle.continueTurn()
+      damage = (hp - @team2.at(0).currentHP)
+      damage.should.equal 18
+
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,

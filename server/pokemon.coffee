@@ -50,7 +50,10 @@ class @Pokemon
     @ability?.name == abilityName
 
   hasItem: (itemName) =>
-    @item?.name == itemName
+    if itemName?
+      @item?.name == itemName
+    else
+      @item?
 
   hasStatus: (status) =>
     status in @attachments.map((s) -> s.name)

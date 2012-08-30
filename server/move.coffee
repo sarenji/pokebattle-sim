@@ -70,7 +70,7 @@ class @Move
     else
       1
 
-  basePower: =>
+  basePower: (battle, user, target) =>
     @power
 
   isCriticalHit: (battle, attacker, defender) =>
@@ -101,13 +101,13 @@ class @Move
     stage
 
   modify: (number, modifier) =>
-    Math.round((number * modifier) / 0x1000)
+    Math.ceil((number * modifier) / 0x1000 - 0.5)
 
   baseDamage: (battle, user, target) =>
     floor = Math.floor
     damage = floor((2 * user.level) / 5 + 2)
     # TODO: Apply variable base power
-    damage *= @basePower()
+    damage *= @basePower(battle, user, target)
     damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
     damage *= user.stat(whichAttackStat(@spectra))
     # TODO: Some moves act against the defense stat even if they're special.

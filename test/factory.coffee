@@ -41,5 +41,8 @@ Factory.register 'Gyarados',
 Factory.register 'Conkeldurr',
   moves: ['Drain Punch']
 
+Factory.register 'Gliscor',
+  moves: ['Acrobatics']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

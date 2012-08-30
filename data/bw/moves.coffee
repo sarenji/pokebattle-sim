@@ -157,3 +157,7 @@ extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
+
+extendMove 'acrobatics', ->
+  @basePower = (battle, user, target) ->
+    if !user.hasItem() then 2 * @power else @power
