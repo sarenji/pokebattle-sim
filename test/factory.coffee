@@ -48,7 +48,7 @@ Factory.register 'Gliscor',
   moves: ['Acrobatics']
 
 Factory.register 'Blaziken',
-  moves: ['Brave Bird']
+  moves: ['Brave Bird', 'Aerial Ace']
 
 Factory.register 'Celebi',
   moves: ['Leaf Storm']

@@ -67,7 +67,17 @@ describe 'Mechanics', ->
       @team1.at(0).stages.specialAttack.should.equal 0
 
   describe 'an attack with perfect accuracy', ->
-    it 'can never miss'
+    it 'can never miss', ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Gyarados')]
+      @battle.rng.willMiss.restore()
+      @battle.rng.randInt.restore()
+      sinon.stub(@battle.rng, 'randInt', -> 101)
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'aerial-ace')
+      @battle.continueTurn()
+      @team2.at(0).currentHP.should.be.below hp
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->

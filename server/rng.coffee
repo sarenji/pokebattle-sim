@@ -9,4 +9,7 @@ class @FakeRNG
     Math.floor(@next() * (max + 1 - min) + min)
 
   willMiss: (move) =>
-    @randInt(1, 100) > move.accuracy
+    if move.accuracy == 0
+      false
+    else
+      @randInt(1, 100) > move.accuracy
