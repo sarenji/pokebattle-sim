@@ -132,6 +132,18 @@ describe 'Mechanics', ->
       damage = (hp - @team2.at(0).currentHP)
       damage.should.equal 18
 
+  describe 'a pokemon using a standard recoil move', ->
+    it 'receives a percentage of the damage rounded down', ->
+      create.call this,
+        team1: [Factory('Blaziken')]
+        team2: [Factory('Gliscor')]
+      startHP = @team1.at(0).currentHP
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'brave-bird')
+      @battle.continueTurn()
+      damage = (hp - @team2.at(0).currentHP)
+      (startHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 3)
+
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       create.call this,

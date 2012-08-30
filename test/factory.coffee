@@ -44,5 +44,8 @@ Factory.register 'Conkeldurr',
 Factory.register 'Gliscor',
   moves: ['Acrobatics']
 
+Factory.register 'Blaziken',
+  moves: ['Brave Bird']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

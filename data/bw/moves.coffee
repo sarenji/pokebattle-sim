@@ -75,8 +75,15 @@ extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       amount = Math.floor(damage * drainPercent)
-      user.currentHP += amount
+      user.damage(-amount)
       # TODO: Message after drain
+
+extendWithRecoil = (name, recoilPercent=1/3) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      amount = Math.floor(damage * recoilPercent)
+      user.damage(amount)
+      battle.message("#{user.name} was hit by recoil!")
 
 extendWithDrain 'absorb'
 extendWithSecondaryEffect 'blaze-kick', .1, BurnAttachment
@@ -86,10 +93,12 @@ extendWithSecondaryEffect 'body-slam', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'bolt-strike', .2, ParalyzeAttachment
 extendWithSecondaryEffect 'bone-club', .1, FlinchAttachment
 extendWithSecondaryEffect 'bounce', .3, ParalyzeAttachment
+extendWithRecoil 'brave-bird'
 extendWithSecondaryEffect 'confusion', .1, ConfusionAttachment
 extendWithSecondaryEffect 'dark-pulse', .2, FlinchAttachment
 extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
+extendWithRecoil 'double-edge'
 extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
 extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
 extendWithDrain 'drain-punch'
@@ -101,12 +110,15 @@ extendWithFangEffect 'fire-fang', .1, BurnAttachment
 extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
 extendWithSecondaryEffect 'flame-wheel', .1, BurnAttachment
 extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
+# TODO: Add recoil to flare-blitz.
 extendWithSecondaryEffect 'flare-blitz', .1, BurnAttachment
 extendWithSecondaryEffect 'force-palm', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
 extendWithDrain 'giga-drain'
 extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
 extendWithSecondaryEffect 'headbutt', .3, FlinchAttachment
+extendWithRecoil 'head-charge', .25
+extendWithRecoil 'head-smash', .5
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
 extendWithDrain 'horn-leech'
@@ -145,6 +157,8 @@ extendWithSecondaryEffect 'snore', .3, FlinchAttachment
 extendWithSecondaryEffect 'spark', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'steamroller', .3, FlinchAttachment
 extendWithSecondaryEffect 'stomp', .3, FlinchAttachment
+extendWithRecoil 'submission', .25
+extendWithRecoil 'take-down', .25
 extendWithSecondaryEffect 'thunder', .3, ParalyzeAttachment
 extendWithFangEffect 'thunder-fang', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thunderbolt', .1, ParalyzeAttachment
@@ -153,9 +167,12 @@ extendWithSecondaryEffect 'thundershock', .1, ParalyzeAttachment
 # extendWithSecondaryEffect 'tri-attack', .1, ParalyzeAttachment
 # extendWithSecondaryEffect 'twineedle', .2, PoisonAttachment
 extendWithSecondaryEffect 'twister', .2, FlinchAttachment
+# TODO: Volt tackle should have 1/3 recoil.
 extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
+extendWithRecoil 'wild-charge', .25
+extendWithRecoil 'wood-hammer'
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
 
 extendMove 'acrobatics', ->
