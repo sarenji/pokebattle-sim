@@ -27,7 +27,7 @@ describe 'Mechanics', ->
       defender = @team2.at(0)
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'splash')
-      @battle.endPhase()
+      @battle.continueTurn()
       defender.currentHP.should.be.equal originalHP
 
   describe 'fainting', ->
@@ -82,7 +82,7 @@ describe 'Mechanics', ->
       sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
       defender = @team2.at(0)
       @battle.makeMove(@player1, 'flamethrower')
-      @battle.endPhase()
+      @battle.continueTurn()
       defender.hasStatus(Status.BURN).should.be.true
 
   describe 'a pokemon with technician', ->
@@ -92,7 +92,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2.at(0).currentHP
-      @battle.endPhase()
+      @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
@@ -101,7 +101,7 @@ describe 'Mechanics', ->
         team2: [Factory('Shaymin (land)')]
       @battle.makeMove(@player1, 'Bullet Punch')
       hp = @team2.at(0).currentHP
-      @battle.endPhase()
+      @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 67
 
   describe 'STAB', ->
@@ -111,7 +111,7 @@ describe 'Mechanics', ->
         team2: [Factory('Regirock')]
       @battle.makeMove(@player1, 'Megahorn')
       hp = @team2.at(0).currentHP
-      @battle.endPhase()
+      @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
@@ -120,7 +120,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
       hp = @team2.at(0).currentHP
-      @battle.endPhase()
+      @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it 'is 2x if the pokemon has Adaptability', ->
@@ -129,7 +129,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Tri Attack')
       hp = @team2.at(0).currentHP
-      @battle.endPhase()
+      @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 214
 
   describe 'turn order', ->

@@ -44,7 +44,7 @@ class @Battle
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
 
-    @tick()
+    @startNewTurn()
 
   getPlayer: (id) =>
     @players[id]
@@ -86,8 +86,8 @@ class @Battle
 
     delete @requests[player.id]
 
-    # End the phase if each player has moved.
-    if @areAllRequestsCompleted() then @endPhase()
+    # Continue the turn if each player has moved.
+    if @areAllRequestsCompleted() then @continueTurn()
 
   # TODO: Test
   makeSwitch: (player, toPokemon) =>
@@ -109,8 +109,8 @@ class @Battle
 
     delete @requests[player.id]
 
-    # End the turn if each player has moved.
-    if @areAllRequestsCompleted() then @endPhase()
+    # Continue the turn if each player has moved.
+    if @areAllRequestsCompleted() then @continueTurn()
 
   hasWeather: (weatherName) =>
     weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
@@ -134,7 +134,7 @@ class @Battle
     while @buffer.length > 0
       @buffer.pop()
 
-  tick: =>
+  startNewTurn: =>
     @turn++
 
     # Send appropriate requests to players
@@ -148,7 +148,7 @@ class @Battle
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
 
-  endPhase: =>
+  continueTurn: =>
     skipIds = []
     for id in @orderIds()
       continue  if id in skipIds
@@ -168,7 +168,7 @@ class @Battle
       delete @playerActions[id]
 
     if @isOver()
-      @sendPhase()
+      @scontinueTurn()
       @endBattle()
       return
 
@@ -177,12 +177,12 @@ class @Battle
       @requestAction(player, validActions)
 
     # Send a message to each player.
-    @sendPhase()
+    @scontinueTurn()
 
-    if @areAllRequestsCompleted() then @tick()
+    if @areAllRequestsCompleted() then @startNewTurn()
 
-  sendPhase: =>
-    @message 'The turn ticked.'
+  scontinueTurn: =>
+    @message 'The turn continued.'
     for id, player of @players
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearBuffer()
