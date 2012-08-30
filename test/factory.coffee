@@ -35,5 +35,8 @@ Factory.register 'Heracross',
 Factory.register 'Magikarp',
   moves: ['Splash', 'Tackle']
 
+Factory.register 'Gyarados',
+  moves: ['Ice Fang']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

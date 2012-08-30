@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {items} = require('../data/bw')
-{Battle, Pokemon, Status} = require('../').server
+{Battle, Pokemon, Status, VolatileStatus} = require('../').server
 {Factory} = require './factory'
 
 describe 'Mechanics', ->
@@ -84,6 +84,19 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'flamethrower')
       @battle.continueTurn()
       defender.hasStatus(Status.BURN).should.be.true
+
+  describe 'the fang attacks', ->
+    it 'can inflict two effects at the same time', ->
+      create.call this,
+        team1: [Factory('Gyarados')]
+        team2: [Factory('Gyarados')]
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      defender = @team2.at(0)
+      @battle.makeMove(@player1, 'ice-fang')
+      @battle.continueTurn()
+      defender.hasAttachment(VolatileStatus.FLINCH).should.be.true
+      defender.hasStatus(Status.FREEZE).should.be.true
 
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->

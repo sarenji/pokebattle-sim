@@ -1,3 +1,4 @@
+{_} = require 'underscore'
 {abilities, items} = require '../data/bw'
 floor = Math.floor
 
@@ -52,7 +53,10 @@ class @Pokemon
     @item?.name == itemName
 
   hasStatus: (status) =>
-    status in @attachments.map((_) -> _.name)
+    status in @attachments.map((s) -> s.name)
+
+  hasAttachment: (name) =>
+    name in @attachments.map((a) -> a.name)
 
   isFainted: =>
     @currentHP <= 0

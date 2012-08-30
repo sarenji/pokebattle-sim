@@ -2,7 +2,9 @@
 
 @MoveData = require('./data_moves.json')
 {Move} = require('../../server/move')
-{BurnAttachment} = require('../../server/attachment')
+{BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
+PoisonAttachment, ToxicAttachment, SleepAttachment,
+ConfusionAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
 # Some of these will be overwritten later.
@@ -41,20 +43,103 @@ extendMove 'splash', ->
 # effectChance attribute.
 #
 # name - The name of the move to turn into a secondary effect attack.
-# effect - The constructor of the status to inflict
 # chance - The chance that the secondary effect will activate
+# effect - The constructor of the status to inflict
 #
 # Example:
 #
-#   extendWithSecondaryEffect 'flamethrower', BurnAttachment, .1
+#   extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
 #
-extendWithSecondaryEffect = (name, Attachment, chance) ->
+extendWithSecondaryEffect = (name, chance, Attachment, options) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       if battle.rng.next() >= chance
         return
 
-      attachment = new Attachment()
+      attachment = new Attachment(options)
       target.attach(attachment)
 
-extendWithSecondaryEffect 'flamethrower', BurnAttachment, .1
+# The fang moves have an additional 10% chance to flinch.
+extendWithFangEffect = (name, chance, Attachment, options) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      if battle.rng.next() < chance
+        attachment = new Attachment(options)
+        target.attach(attachment)
+
+      if battle.rng.next() < chance
+        attachment = new FlinchAttachment(options)
+        target.attach(attachment)
+
+extendWithSecondaryEffect 'blaze-kick', .1, BurnAttachment
+extendWithSecondaryEffect 'blizzard', .1, FreezeAttachment
+extendWithSecondaryEffect 'blue-flare', .2, BurnAttachment
+extendWithSecondaryEffect 'body-slam', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'bolt-strike', .2, ParalyzeAttachment
+extendWithSecondaryEffect 'bone-club', .1, FlinchAttachment
+extendWithSecondaryEffect 'bounce', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'confusion', .1, ConfusionAttachment
+extendWithSecondaryEffect 'dark-pulse', .2, FlinchAttachment
+extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
+extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
+extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'ember', .1, BurnAttachment
+extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
+extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
+extendWithFangEffect 'fire-fang', .1, BurnAttachment
+extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
+extendWithSecondaryEffect 'flame-wheel', .1, BurnAttachment
+extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
+extendWithSecondaryEffect 'flare-blitz', .1, BurnAttachment
+extendWithSecondaryEffect 'force-palm', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
+extendWithSecondaryEffect 'headbutt', .3, FlinchAttachment
+extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
+extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
+extendWithSecondaryEffect 'hurricane', .3, ConfusionAttachment
+extendWithSecondaryEffect 'hyper-fang', .1, FlinchAttachment
+extendWithSecondaryEffect 'ice-beam', .1, FreezeAttachment
+extendWithSecondaryEffect 'ice-burn', .3, BurnAttachment
+extendWithFangEffect 'ice-fang', .1, FreezeAttachment
+extendWithSecondaryEffect 'ice-punch', .3, FreezeAttachment
+extendWithSecondaryEffect 'icicle-crash', .3, FlinchAttachment
+extendWithSecondaryEffect 'iron-head', .3, FlinchAttachment
+extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
+extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'needle-arm', .3, FlinchAttachment
+extendWithSecondaryEffect 'poison-fang', .3, ToxicAttachment
+extendWithSecondaryEffect 'poison-jab', .3, PoisonAttachment
+extendWithSecondaryEffect 'poison-sting', .3, PoisonAttachment
+extendWithSecondaryEffect 'poison-tail', .1, PoisonAttachment
+extendWithSecondaryEffect 'powder-snow', .1, FreezeAttachment
+extendWithSecondaryEffect 'psybeam', .1, ConfusionAttachment
+extendWithSecondaryEffect 'relic-song', .1, SleepAttachment
+extendWithSecondaryEffect 'rock-climb', .2, ConfusionAttachment
+extendWithSecondaryEffect 'rock-slide', .3, FlinchAttachment
+extendWithSecondaryEffect 'rolling-kick', .3, FlinchAttachment
+extendWithSecondaryEffect 'scald', .3, BurnAttachment
+extendWithSecondaryEffect 'searing-shot', .3, BurnAttachment
+extendWithSecondaryEffect 'signal-beam', .1, ConfusionAttachment
+extendWithSecondaryEffect 'sky-attack', .3, FlinchAttachment
+extendWithSecondaryEffect 'sludge', .3, PoisonAttachment
+extendWithSecondaryEffect 'sludge-bomb', .3, PoisonAttachment
+extendWithSecondaryEffect 'sludge-wave', .1, PoisonAttachment
+extendWithSecondaryEffect 'smog', .4, PoisonAttachment
+extendWithSecondaryEffect 'snore', .3, FlinchAttachment
+extendWithSecondaryEffect 'spark', .3, ParalyzeAttachment
+extendWithSecondaryEffect 'steamroller', .3, FlinchAttachment
+extendWithSecondaryEffect 'stomp', .3, FlinchAttachment
+extendWithSecondaryEffect 'thunder', .3, ParalyzeAttachment
+extendWithFangEffect 'thunder-fang', .1, ParalyzeAttachment
+extendWithSecondaryEffect 'thunderbolt', .1, ParalyzeAttachment
+extendWithSecondaryEffect 'thunderpunch', .1, ParalyzeAttachment
+extendWithSecondaryEffect 'thundershock', .1, ParalyzeAttachment
+# extendWithSecondaryEffect 'tri-attack', .1, ParalyzeAttachment
+# extendWithSecondaryEffect 'twineedle', .2, PoisonAttachment
+extendWithSecondaryEffect 'twister', .2, FlinchAttachment
+extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
+extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
+extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
+extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
