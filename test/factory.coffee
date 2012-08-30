@@ -18,6 +18,9 @@ Factory.register 'Hitmonchan',
   moves: ['Ice Punch', 'Mach Punch', 'Bullet Punch', 'ThunderPunch' ]
   evs: {attack: 252}
 
+Factory.register 'Hitmonlee',
+  moves: ['Hi Jump Kick']
+
 Factory.register 'Mew',
   ability: 'Synchronize'
   moves: ['Psychic', 'AncientPower']

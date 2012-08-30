@@ -8,6 +8,7 @@
 class @Move
   constructor: (@name, attributes = {}) ->
     @attributes = attributes
+    @accuracy = attributes.accuracy || 0
     @priority = attributes.priority || 0
     @power = attributes.power
     @type = attributes.type || '???'
@@ -23,6 +24,10 @@ class @Move
 
     for target in targets
       damage = @calculateDamage(battle, user, target)
+      if battle.rng.willMiss(this)
+        @afterMiss(battle, user, target, damage)
+        continue
+
       if damage > 0
         # TODO: Print out opponent's name alongside the pokemon.
         battle.message "#{target.name} took #{damage} damage!"
@@ -33,6 +38,11 @@ class @Move
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
   afterSuccessfulHit: (battle, user, target, damage) =>
+
+  # A hook that executes after a pokemon misses an attack. If execute is
+  # overriden, this will not execute.
+  afterMiss: (battle, user, target, damage) =>
+    battle.message "#{target.name} avoided the attack!"
 
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0

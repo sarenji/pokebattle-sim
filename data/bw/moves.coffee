@@ -26,8 +26,10 @@ for name, attributes of @MoveData
 #     @afterMove -> # blah
 #
 extendMove = (name, callback) ->
+  if name not of moves
+    throw new Error("Cannot extend Move '#{name}' because it does not exist.")
+
   move = moves[name]
-  # todo: error if it doesn't exist
 
   # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
@@ -84,6 +86,13 @@ extendWithRecoil = (name, recoilPercent=1/3) ->
       amount = Math.floor(damage * recoilPercent)
       user.damage(amount)
       battle.message("#{user.name} was hit by recoil!")
+
+makeJumpKick = (name, recoilPercent=.5) ->
+  extendMove name, ->
+    @afterMiss = (battle, user, target, damage) ->
+      amount = Math.floor(damage * recoilPercent)
+      user.damage(amount)
+      battle.message("#{user.name} kept going and crashed!")
 
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
@@ -212,6 +221,7 @@ extendWithRecoil 'head-charge', .25
 extendWithRecoil 'head-smash', .5
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
+makeJumpKick 'hi-jump-kick'
 # TODO: Accuracy + 1
 extendWithBoost 'hone-claws', 'self', attack: 1
 extendWithDrain 'horn-leech'
@@ -227,6 +237,7 @@ extendWithFangEffect 'ice-fang', .1, FreezeAttachment
 extendWithSecondaryEffect 'ice-punch', .3, FreezeAttachment
 extendWithSecondaryEffect 'icicle-crash', .3, FlinchAttachment
 extendWithSecondaryEffect 'iron-head', .3, FlinchAttachment
+makeJumpKick 'jump-kick'
 extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
 extendWithBoost 'leaf-storm', 'self', specialAttack: -2
 # extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1

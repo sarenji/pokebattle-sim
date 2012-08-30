@@ -14,8 +14,9 @@ describe 'Mechanics', ->
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle('id', players: players)
-    sinon.stub(@battle.rng, 'next', -> 1)     # no chs
-    sinon.stub(@battle.rng, 'randInt', -> 0)  # always do max damage
+    sinon.stub(@battle.rng, 'next', -> 1)          # no chs
+    sinon.stub(@battle.rng, 'randInt', -> 0)       # always do max damage
+    sinon.stub(@battle.rng, 'willMiss', -> false)  # never miss
     @team1  = @battle.getTeam(@player1.id)
     @team2  = @battle.getTeam(@player2.id)
 
@@ -28,7 +29,37 @@ describe 'Mechanics', ->
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'splash')
       @battle.continueTurn()
-      defender.currentHP.should.be.equal originalHP
+      defender.currentHP.should.equal originalHP
+
+  describe 'an attack missing', ->
+    it 'deals no damage', ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Magikarp')]
+      @battle.rng.willMiss.restore()
+      sinon.stub(@battle.rng, 'willMiss', -> true)
+      defender = @team2.at(0)
+      originalHP = defender.currentHP
+      @battle.makeMove(@player1, 'leaf-storm')
+      @battle.continueTurn()
+      defender.currentHP.should.equal originalHP
+
+    it 'triggers effects dependent on the move missing', ->
+      create.call this,
+        team1: [Factory('Hitmonlee')]
+        team2: [Factory('Magikarp')]
+      @battle.rng.willMiss.restore()
+      sinon.stub(@battle.rng, 'willMiss', -> true)
+      originalHP = @team1.at(0).currentHP
+      @battle.makeMove(@player1, 'hi-jump-kick')
+      @battle.continueTurn()
+      damage = 312
+      (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
+
+    it 'does not trigger effects dependent on the move hitting'
+
+  describe 'an attack with perfect accuracy', ->
+    it 'can never miss'
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->
@@ -149,8 +180,7 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       @team1.at(0).stages.should.include attack: 1, speed: 1
 
-    # TODO
-    it "has the boosts removed on switch", ->
+    it "has the boosts removed on switch"
 
   describe 'a pokemon using a move with a secondary boosting effect', ->
     it "has a chance to activate", ->
