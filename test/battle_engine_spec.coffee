@@ -147,8 +147,7 @@ describe 'Mechanics', ->
       speed  = @team1.at(0).stat('speed')
       @battle.makeMove(@player1, 'dragon-dance')
       @battle.continueTurn()
-      @team1.at(0).stat('attack').should.equal Math.floor(1.5 * attack)
-      @team1.at(0).stat('speed').should.equal  Math.floor(1.5 * speed)
+      @team1.at(0).stages.should.include attack: 1, speed: 1
 
     # TODO
     it "has the boosts removed on switch", ->
@@ -164,7 +163,7 @@ describe 'Mechanics', ->
       speed  = @team1.at(0).stat('speed')
       @battle.makeMove(@player1, 'ancientpower')
       @battle.continueTurn()
-      @team1.at(0).stages.should.eql {
+      @team1.at(0).stages.should.include {
         attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
       }
 
