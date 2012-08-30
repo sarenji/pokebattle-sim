@@ -56,7 +56,15 @@ describe 'Mechanics', ->
       damage = 312
       (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
 
-    it 'does not trigger effects dependent on the move hitting'
+    it 'does not trigger effects dependent on the move hitting', ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Gyarados')]
+      @battle.rng.willMiss.restore()
+      sinon.stub(@battle.rng, 'willMiss', -> true)
+      @battle.makeMove(@player1, 'leaf-storm')
+      @battle.continueTurn()
+      @team1.at(0).stages.specialAttack.should.equal 0
 
   describe 'an attack with perfect accuracy', ->
     it 'can never miss'
