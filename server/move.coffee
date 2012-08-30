@@ -22,26 +22,31 @@ class @Move
       return
 
     for target in targets
-      damage = @baseDamage(battle, user, target)
-      # TODO: Multi-target modifier.
-      damage = @modify(damage, @weatherModifier(battle))
-      damage = damage * 2  if @isCriticalHit(battle, user, target)
-      damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
-      damage = @modify(damage, stabModifier.run(this, battle, user, target))
-      damage = Math.floor(@typeEffectiveness(target) * damage)
-      damage = Math.floor(@burnCalculation(user) * damage)
-      damage = Math.max(damage, 1)
-      damage = @modify(damage, finalModifier.run(this, battle, user, target))
-      target.damage(damage)
+      damage = @calculateDamage(battle, user, target)
+      if damage > 0
+        # TODO: Print out opponent's name alongside the pokemon.
+        battle.message "#{target.name} took #{damage} damage!"
+        target.damage(damage)
 
-      @afterSuccessfulHit(battle, user, target, damage)  if damage > 0
-
-      # TODO: Print out opponent's name alongside the pokemon.
-      battle.message "#{target.name} took #{damage} damage!"
+      @afterSuccessfulHit(battle, user, target, damage)
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
   afterSuccessfulHit: (battle, user, target, damage) =>
+
+  calculateDamage: (battle, user, target) =>
+    return 0  if @power == 0
+    damage = @baseDamage(battle, user, target)
+    # TODO: Multi-target modifier.
+    damage = @modify(damage, @weatherModifier(battle))
+    damage = damage * 2  if @isCriticalHit(battle, user, target)
+    damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
+    damage = @modify(damage, stabModifier.run(this, battle, user, target))
+    damage = Math.floor(@typeEffectiveness(target) * damage)
+    damage = Math.floor(@burnCalculation(user) * damage)
+    damage = Math.max(damage, 1)
+    damage = @modify(damage, finalModifier.run(this, battle, user, target))
+    damage
 
   weatherModifier: (battle) =>
     if @type == 'Fire' and battle.hasWeather('Sunny')

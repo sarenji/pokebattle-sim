@@ -120,6 +120,54 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       (@team1.at(0).currentHP - hp).should.equal 0
 
+  describe 'a pokemon using a primary boosting move', ->
+    it "doesn't do damage if base power is 0", ->
+      create.call this,
+        team1: [Factory('Gyarados')]
+        team2: [Factory('Hitmonchan')]
+      @battle.makeMove(@player1, 'dragon-dance')
+      @battle.continueTurn()
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+    it "deals damage and boosts stats if base power is >0", ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Gyarados')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'leaf-storm')
+      @battle.continueTurn()
+      @team1.at(0).stages.specialAttack.should.equal -2
+      (hp - @team2.at(0).currentHP).should.equal 178
+
+    it "boosts the pokemon's stats", ->
+      create.call this,
+        team1: [Factory('Gyarados')]
+        team2: [Factory('Hitmonchan')]
+      attack = @team1.at(0).stat('attack')
+      speed  = @team1.at(0).stat('speed')
+      @battle.makeMove(@player1, 'dragon-dance')
+      @battle.continueTurn()
+      @team1.at(0).stat('attack').should.equal Math.floor(1.5 * attack)
+      @team1.at(0).stat('speed').should.equal  Math.floor(1.5 * speed)
+
+    # TODO
+    it "has the boosts removed on switch", ->
+
+  describe 'a pokemon using a move with a secondary boosting effect', ->
+    it "has a chance to activate", ->
+      create.call this,
+        team1: [Factory('Mew')]
+        team2: [Factory('Hitmonchan')]
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      attack = @team1.at(0).stat('attack')
+      speed  = @team1.at(0).stat('speed')
+      @battle.makeMove(@player1, 'ancientpower')
+      @battle.continueTurn()
+      @team1.at(0).stages.should.eql {
+        attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
+      }
+
   describe 'a pokemon using Acrobatics', ->
     it 'gets double the base power without an item', ->
       create.call this,

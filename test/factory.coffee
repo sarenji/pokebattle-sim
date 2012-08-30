@@ -20,7 +20,7 @@ Factory.register 'Hitmonchan',
 
 Factory.register 'Mew',
   ability: 'Synchronize'
-  moves: ['Psychic']
+  moves: ['Psychic', 'AncientPower']
 
 Factory.register 'Porygon-Z',
   ability: 'Adaptability'
@@ -36,7 +36,7 @@ Factory.register 'Magikarp',
   moves: ['Splash', 'Tackle']
 
 Factory.register 'Gyarados',
-  moves: ['Ice Fang']
+  moves: ['Dragon Dance', 'Ice Fang']
 
 Factory.register 'Conkeldurr',
   moves: ['Drain Punch']
@@ -46,6 +46,9 @@ Factory.register 'Gliscor',
 
 Factory.register 'Blaziken',
   moves: ['Brave Bird']
+
+Factory.register 'Celebi',
+  moves: ['Leaf Storm']
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

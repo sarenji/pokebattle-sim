@@ -19,6 +19,13 @@ class @Pokemon
     @ability = abilities[attributes.ability]
     @attachments = []
 
+    @stages =
+      attack: 0
+      defense: 0
+      speed: 0
+      specialDefense: 0
+      specialAttack: 0
+
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
 
@@ -29,10 +36,12 @@ class @Pokemon
     base = @baseStats[key] || 100
     iv = @iv(key)
     ev = floor(@ev(key) / 4)
-    if key == 'hp'
+    total = if key == 'hp'
       floor((2 * base + iv + ev) * (@level / 100) + @level + 10)
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
+    total = @statBoost(key, total)  if key != 'hp'
+    total
 
   # Returns 1.1, 1.0, or 0.9 according to whether a Pokemon's nature corresponds
   # to that stat. The default return value is 1.0.
@@ -42,6 +51,21 @@ class @Pokemon
       natures[nature][stat] || 1
     else
       1
+
+  statBoost: (statName, total) =>
+    Math.floor((2 + @stages[statName]) * total / 2)
+
+  # Returns a hashmap of the stats that were boosted. The keys are the stats.
+  # If no stat was boosted, the value for that stat is false.
+  boost: (boosts) =>
+    boosted = {}
+    for stat, amount of boosts
+      previous = @stages[stat]
+      @stages[stat] += amount
+      @stages[stat] = Math.max(-6, @stages[stat])
+      @stages[stat] = Math.min(6, @stages[stat])
+      boosted[stat] = (@stages[stat] != previous)
+    boosted
 
   hasType: (type) =>
     type in @types
