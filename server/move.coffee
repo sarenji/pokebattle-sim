@@ -1,6 +1,10 @@
 {finalModifier, basePowerModifier, stabModifier} = require './modifiers'
 {Status} = require './status'
 
+# A single Move in the Pokemon engine. Move objects are constructed in
+# data/VERSION/moves.coffee, with only one instance per move (for example,
+# there is only one Flamethrower). These instances are retrieved by the battle
+# engine.
 class @Move
   constructor: (@name, attributes = {}) ->
     @attributes = attributes
