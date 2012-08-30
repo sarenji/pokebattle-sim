@@ -35,6 +35,19 @@ extendMove 'splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
+
+# Extends a move in the move list as an attack with a secondary effect.
+# The chance of the effect is determined by the value of the
+# effectChance attribute.
+#
+# name - The name of the move to turn into a secondary effect attack.
+# effect - The constructor of the status to inflict
+# chance - The chance that the secondary effect will activate
+#
+# Example:
+#
+#   extendWithSecondaryEffect 'flamethrower', BurnAttachment, .1
+#
 extendWithSecondaryEffect = (name, Attachment, chance) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
