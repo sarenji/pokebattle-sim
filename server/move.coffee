@@ -24,7 +24,7 @@ class @Move
 
     for target in targets
       damage = @calculateDamage(battle, user, target)
-      if battle.rng.willMiss(this)
+      if @willMiss(battle, user, target)
         @afterMiss(battle, user, target, damage)
         continue
 
@@ -57,6 +57,19 @@ class @Move
     damage = Math.max(damage, 1)
     damage = @modify(damage, finalModifier.run(this, battle, user, target))
     damage
+
+  willMiss: (battle, user, target) =>
+    battle.rng.randInt(1, 100) > @chanceToHit(battle, user, target)
+
+  chanceToHit: (battle, user, target) =>
+    return 100  if @accuracy == 0
+    accuracy = @accuracy
+    accuracy = Math.floor(accuracy * (3 + user.stages.accuracy) / 3)
+    accuracy = Math.floor(accuracy * 3 / (3 + target.stages.evasion))
+    # TODO: Accuracy/evasion item modifiers
+    # TODO: Accuracy/evasion ability modifiers
+    # TODO: Gravity modifier
+    accuracy
 
   weatherModifier: (battle) =>
     if @type == 'Fire' and battle.hasWeather('Sunny')

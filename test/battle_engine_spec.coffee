@@ -1,5 +1,5 @@
 sinon = require 'sinon'
-{items} = require('../data/bw')
+{items, moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus} = require('../').server
 {Factory} = require './factory'
 
@@ -15,8 +15,7 @@ describe 'Mechanics', ->
                {player: @player2, team: team2}]
     @battle = new Battle('id', players: players)
     sinon.stub(@battle.rng, 'next', -> 1)          # no chs
-    sinon.stub(@battle.rng, 'randInt', -> 0)       # always do max damage
-    sinon.stub(@battle.rng, 'willMiss', -> false)  # never miss
+    sinon.stub(@battle.rng, 'randInt', -> 0)       # always max damage, no miss
     @team1  = @battle.getTeam(@player1.id)
     @team2  = @battle.getTeam(@player2.id)
 
@@ -36,48 +35,76 @@ describe 'Mechanics', ->
       create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
-      @battle.rng.willMiss.restore()
-      sinon.stub(@battle.rng, 'willMiss', -> true)
+      move = moves['leaf-storm']
+      sinon.stub(move, 'willMiss', -> true)
       defender = @team2.at(0)
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'leaf-storm')
       @battle.continueTurn()
       defender.currentHP.should.equal originalHP
+      move.willMiss.restore()
 
     it 'triggers effects dependent on the move missing', ->
       create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
-      @battle.rng.willMiss.restore()
-      sinon.stub(@battle.rng, 'willMiss', -> true)
+      move = moves['hi-jump-kick']
+      sinon.stub(move, 'willMiss', -> true)
+      mock = sinon.mock(move)
+      mock.expects('afterMiss').once()
       originalHP = @team1.at(0).currentHP
       @battle.makeMove(@player1, 'hi-jump-kick')
       @battle.continueTurn()
-      damage = 312
-      (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
+      mock.verify()
+      mock.restore()
+      move.willMiss.restore()
 
     it 'does not trigger effects dependent on the move hitting', ->
       create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
-      @battle.rng.willMiss.restore()
-      sinon.stub(@battle.rng, 'willMiss', -> true)
+      move = moves['hi-jump-kick']
+      sinon.stub(move, 'willMiss', -> true)
+      mock = sinon.mock(move)
+      mock.expects('afterSuccessfulHit').never()
       @battle.makeMove(@player1, 'leaf-storm')
       @battle.continueTurn()
-      @team1.at(0).stages.specialAttack.should.equal 0
+      mock.verify()
+      mock.restore()
+      move.willMiss.restore()
 
-  describe 'an attack with perfect accuracy', ->
+  describe 'an attack with 0 accuracy', ->
     it 'can never miss', ->
       create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
-      @battle.rng.willMiss.restore()
-      @battle.rng.randInt.restore()
-      sinon.stub(@battle.rng, 'randInt', -> 101)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'aerial-ace')
       @battle.continueTurn()
       @team2.at(0).currentHP.should.be.below hp
+
+  describe 'accuracy and evasion boosts', ->
+    it 'heighten and lower the chances of a move hitting', ->
+      create.call this,
+        team1: [Factory('Hitmonlee')]
+        team2: [Factory('Magikarp')]
+      @battle.rng.randInt.restore()
+      sinon.stub(@battle.rng, 'randInt', -> 50)
+
+      move = moves['mach-punch']
+      mock = sinon.mock(move).expects('afterMiss').once()
+      @team2.at(0).boost(evasion: 6)
+      @battle.makeMove(@player1, 'mach-punch')
+      @battle.continueTurn()
+      mock.verify()
+      move.afterMiss.restore()
+
+      mock = sinon.mock(move).expects('afterSuccessfulHit').once()
+      @team1.at(0).boost(accuracy: 6)
+      @battle.makeMove(@player1, 'mach-punch')
+      @battle.continueTurn()
+      mock.verify()
+      move.afterSuccessfulHit.restore()
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->
@@ -146,6 +173,20 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       defender.hasAttachment(VolatileStatus.FLINCH).should.be.true
       defender.hasStatus(Status.FREEZE).should.be.true
+
+  describe 'jump kick attacks', ->
+    it 'has 50% recoil if it misses', ->
+      create.call this,
+        team1: [Factory('Hitmonlee')]
+        team2: [Factory('Magikarp')]
+      move = moves['hi-jump-kick']
+      sinon.stub(move, 'willMiss', -> true)
+      originalHP = @team1.at(0).currentHP
+      @battle.makeMove(@player1, 'hi-jump-kick')
+      @battle.continueTurn()
+      damage = 312
+      (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
+      move.willMiss.restore()
 
   describe 'drain attacks', ->
     it 'recovers a percentage of the damage dealt, rounded down', ->

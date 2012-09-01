@@ -25,6 +25,8 @@ class @Pokemon
       speed: 0
       specialDefense: 0
       specialAttack: 0
+      evasion: 0
+      accuracy: 0
 
   iv: (stat) => @ivs[stat] || 31
   ev: (stat) => @evs[stat] || 0
