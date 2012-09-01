@@ -57,6 +57,7 @@
     }, 
     "aeroblast": {
         "accuracy": 95, 
+        "criticalHitRatio": 2, 
         "damage": "special", 
         "power": 100, 
         "pp": 5, 
@@ -81,6 +82,7 @@
     }, 
     "air-cutter": {
         "accuracy": 95, 
+        "criticalHitRatio": 2, 
         "damage": "special", 
         "power": 55, 
         "pp": 25, 
@@ -185,6 +187,7 @@
     }, 
     "attack-order": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 15, 
@@ -313,6 +316,7 @@
     }, 
     "blaze-kick": {
         "accuracy": 90, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 85, 
         "pp": 10, 
@@ -681,6 +685,7 @@
     }, 
     "crabhammer": {
         "accuracy": 90, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 10, 
@@ -689,6 +694,7 @@
     }, 
     "cross-chop": {
         "accuracy": 80, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 100, 
         "pp": 5, 
@@ -697,6 +703,7 @@
     }, 
     "cross-poison": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -977,6 +984,7 @@
     }, 
     "drill-run": {
         "accuracy": 95, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 80, 
         "pp": 10, 
@@ -1417,6 +1425,7 @@
     }, 
     "frost-breath": {
         "accuracy": 90, 
+        "criticalHitRatio": 7, 
         "damage": "special", 
         "power": 40, 
         "pp": 10, 
@@ -2041,6 +2050,7 @@
     }, 
     "karate-chop": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 50, 
         "pp": 25, 
@@ -2081,6 +2091,7 @@
     }, 
     "leaf-blade": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 15, 
@@ -2553,6 +2564,7 @@
     }, 
     "night-slash": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 15, 
@@ -2705,6 +2717,7 @@
     }, 
     "poison-tail": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 50, 
         "pp": 25, 
@@ -2825,6 +2838,7 @@
     }, 
     "psycho-cut": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -2945,6 +2959,7 @@
     }, 
     "razor-leaf": {
         "accuracy": 95, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 55, 
         "pp": 25, 
@@ -2961,6 +2976,7 @@
     }, 
     "razor-wind": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "special", 
         "power": 80, 
         "pp": 10, 
@@ -3319,77 +3335,14 @@
         "priority": 0, 
         "type": "Ghost"
     }, 
-    "shadow-blast": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 80, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-blitz": {
-        "accuracy": 100, 
-        "damage": "physical", 
-        "power": 40, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-bolt": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 75, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-break": {
-        "accuracy": 100, 
-        "damage": "physical", 
-        "power": 75, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-chill": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 75, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
     "shadow-claw": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
         "type": "Ghost"
-    }, 
-    "shadow-down": {
-        "accuracy": 100, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-end": {
-        "accuracy": 60, 
-        "damage": "physical", 
-        "power": 120, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-fire": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 75, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
     }, 
     "shadow-force": {
         "accuracy": 100, 
@@ -3399,38 +3352,6 @@
         "priority": 0, 
         "type": "Ghost"
     }, 
-    "shadow-half": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 1, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-hold": {
-        "accuracy": 0, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-mist": {
-        "accuracy": 100, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-panic": {
-        "accuracy": 90, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
     "shadow-punch": {
         "accuracy": 0, 
         "damage": "physical", 
@@ -3439,38 +3360,6 @@
         "priority": 0, 
         "type": "Ghost"
     }, 
-    "shadow-rave": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 70, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-rush": {
-        "accuracy": 100, 
-        "damage": "physical", 
-        "power": 55, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-shed": {
-        "accuracy": 0, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-sky": {
-        "accuracy": 0, 
-        "damage": "non-damaging", 
-        "power": 0, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
     "shadow-sneak": {
         "accuracy": 100, 
         "damage": "physical", 
@@ -3478,22 +3367,6 @@
         "pp": 30, 
         "priority": 1, 
         "type": "Ghost"
-    }, 
-    "shadow-storm": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 95, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
-    }, 
-    "shadow-wave": {
-        "accuracy": 100, 
-        "damage": "special", 
-        "power": 50, 
-        "pp": "", 
-        "priority": 0, 
-        "type": "Shadow"
     }, 
     "sharpen": {
         "accuracy": 0, 
@@ -3593,6 +3466,7 @@
     }, 
     "sky-attack": {
         "accuracy": 90, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 140, 
         "pp": 5, 
@@ -3633,6 +3507,7 @@
     }, 
     "slash": {
         "accuracy": 100, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -3769,6 +3644,7 @@
     }, 
     "spacial-rend": {
         "accuracy": 95, 
+        "criticalHitRatio": 2, 
         "damage": "special", 
         "power": 100, 
         "pp": 5, 
@@ -3881,6 +3757,7 @@
     }, 
     "stone-edge": {
         "accuracy": 80, 
+        "criticalHitRatio": 2, 
         "damage": "physical", 
         "power": 100, 
         "pp": 5, 
@@ -3897,6 +3774,7 @@
     }, 
     "storm-throw": {
         "accuracy": 100, 
+        "criticalHitRatio": 7, 
         "damage": "physical", 
         "power": 40, 
         "pp": 10, 
