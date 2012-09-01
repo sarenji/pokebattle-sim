@@ -30,8 +30,8 @@ class Pokemon:
       self.name = "%s (%s)" % (self.name, forme_name)
 
 class PokemonInfo:
-  def __init__(self, species):
-    self.info = {'species': species}
+  def __init__(self, species, weight):
+    self.info = {'species': species, 'weight': weight}
     self.species = species
 
   def add_base_stat(self, stat_id, stat):
@@ -68,9 +68,9 @@ def create_formes():
 
   while len(lines) > 0:
     line = lines.pop(0)
-    forme_id, species_id, *tail = line.split(',')
+    forme_id, species_id, height, weight, *tail = line.split(',')
     species_name = species[species_id]
-    formes[forme_id] = PokemonInfo(species_name)
+    formes[forme_id] = PokemonInfo(species_name, int(weight))
 
 def add_stats():
   # Base Stats

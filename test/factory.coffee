@@ -51,7 +51,7 @@ Factory.register 'Blaziken',
   moves: ['Brave Bird', 'Aerial Ace']
 
 Factory.register 'Celebi',
-  moves: ['Leaf Storm']
+  moves: ['Leaf Storm', 'Grass Knot']
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

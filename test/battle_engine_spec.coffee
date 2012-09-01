@@ -210,6 +210,25 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       (@team1.at(0).currentHP - hp).should.equal 0
 
+  describe 'weight-based attacks', ->
+    it 'has 80 base power if the pokemon is 50.2kg', ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Hitmonchan')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'grass-knot')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 94
+
+    it 'has 120 base power if the pokemon is >200kg', ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Gyarados')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'grass-knot')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 153
+
   describe 'a pokemon using a primary boosting move', ->
     it "doesn't do damage if base power is 0", ->
       create.call this,

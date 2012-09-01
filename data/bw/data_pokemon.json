@@ -82,7 +82,8 @@
         "types": [
             "Grass", 
             "Ice"
-        ]
+        ], 
+        "weight": 1355
     }, 
     "Abra": {
         "moves": [
@@ -186,7 +187,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Absol": {
         "moves": [
@@ -306,7 +308,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 470
     }, 
     "Accelgor": {
         "moves": [
@@ -362,7 +365,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 253
     }, 
     "Aerodactyl": {
         "moves": [
@@ -466,7 +470,8 @@
         "types": [
             "Rock", 
             "Flying"
-        ]
+        ], 
+        "weight": 590
     }, 
     "Aggron": {
         "moves": [
@@ -587,7 +592,8 @@
         "types": [
             "Steel", 
             "Rock"
-        ]
+        ], 
+        "weight": 3600
     }, 
     "Aipom": {
         "moves": [
@@ -702,7 +708,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 115
     }, 
     "Alakazam": {
         "moves": [
@@ -813,7 +820,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 480
     }, 
     "Alomomola": {
         "moves": [
@@ -882,7 +890,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 316
     }, 
     "Altaria": {
         "moves": [
@@ -973,7 +982,8 @@
         "types": [
             "Dragon", 
             "Flying"
-        ]
+        ], 
+        "weight": 206
     }, 
     "Ambipom": {
         "moves": [
@@ -1069,7 +1079,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 203
     }, 
     "Amoonguss": {
         "moves": [
@@ -1129,7 +1140,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 105
     }, 
     "Ampharos": {
         "moves": [
@@ -1217,7 +1229,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 615
     }, 
     "Anorith": {
         "moves": [
@@ -1295,7 +1308,8 @@
         "types": [
             "Rock", 
             "Bug"
-        ]
+        ], 
+        "weight": 125
     }, 
     "Arbok": {
         "moves": [
@@ -1386,7 +1400,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 650
     }, 
     "Arcanine": {
         "moves": [
@@ -1472,7 +1487,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 1550
     }, 
     "Arceus (bug)": {
         "moves": [
@@ -1614,7 +1630,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (dark)": {
         "moves": [
@@ -1756,7 +1773,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (dragon)": {
         "moves": [
@@ -1898,7 +1916,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (electric)": {
         "moves": [
@@ -2040,7 +2059,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (fighting)": {
         "moves": [
@@ -2182,7 +2202,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (fire)": {
         "moves": [
@@ -2324,7 +2345,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (flying)": {
         "moves": [
@@ -2466,7 +2488,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (ghost)": {
         "moves": [
@@ -2608,7 +2631,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (grass)": {
         "moves": [
@@ -2750,7 +2774,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (ground)": {
         "moves": [
@@ -2892,7 +2917,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (ice)": {
         "moves": [
@@ -3034,7 +3060,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (normal)": {
         "moves": [
@@ -3176,7 +3203,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (poison)": {
         "moves": [
@@ -3318,7 +3346,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (psychic)": {
         "moves": [
@@ -3460,7 +3489,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (rock)": {
         "moves": [
@@ -3602,7 +3632,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (steel)": {
         "moves": [
@@ -3744,7 +3775,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (unknown)": {
         "moves": [
@@ -3886,7 +3918,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Arceus (water)": {
         "moves": [
@@ -4028,7 +4061,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 3200
     }, 
     "Archen": {
         "moves": [
@@ -4108,7 +4142,8 @@
         "types": [
             "Rock", 
             "Flying"
-        ]
+        ], 
+        "weight": 95
     }, 
     "Archeops": {
         "moves": [
@@ -4190,7 +4225,8 @@
         "types": [
             "Rock", 
             "Flying"
-        ]
+        ], 
+        "weight": 320
     }, 
     "Ariados": {
         "moves": [
@@ -4263,7 +4299,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 335
     }, 
     "Armaldo": {
         "moves": [
@@ -4349,7 +4386,8 @@
         "types": [
             "Rock", 
             "Bug"
-        ]
+        ], 
+        "weight": 682
     }, 
     "Aron": {
         "moves": [
@@ -4435,7 +4473,8 @@
         "types": [
             "Steel", 
             "Rock"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Articuno": {
         "moves": [
@@ -4520,7 +4559,8 @@
         "types": [
             "Ice", 
             "Flying"
-        ]
+        ], 
+        "weight": 554
     }, 
     "Audino": {
         "moves": [
@@ -4624,7 +4664,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 310
     }, 
     "Axew": {
         "moves": [
@@ -4697,7 +4738,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 180
     }, 
     "Azelf": {
         "moves": [
@@ -4791,7 +4833,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Azumarill": {
         "moves": [
@@ -4879,7 +4922,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 285
     }, 
     "Azurill": {
         "moves": [
@@ -4955,7 +4999,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Bagon": {
         "moves": [
@@ -5032,7 +5077,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 421
     }, 
     "Baltoy": {
         "moves": [
@@ -5121,7 +5167,8 @@
         "types": [
             "Ground", 
             "Psychic"
-        ]
+        ], 
+        "weight": 215
     }, 
     "Banette": {
         "moves": [
@@ -5208,7 +5255,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 125
     }, 
     "Barboach": {
         "moves": [
@@ -5281,7 +5329,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 19
     }, 
     "Basculin (blue-striped)": {
         "moves": [
@@ -5350,7 +5399,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 180
     }, 
     "Basculin (red-striped)": {
         "moves": [
@@ -5419,7 +5469,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 180
     }, 
     "Bastiodon": {
         "moves": [
@@ -5499,7 +5550,8 @@
         "types": [
             "Rock", 
             "Steel"
-        ]
+        ], 
+        "weight": 1495
     }, 
     "Bayleef": {
         "moves": [
@@ -5571,7 +5623,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 158
     }, 
     "Beartic": {
         "moves": [
@@ -5647,7 +5700,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 2600
     }, 
     "Beautifly": {
         "moves": [
@@ -5720,7 +5774,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 284
     }, 
     "Beedrill": {
         "moves": [
@@ -5808,7 +5863,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 295
     }, 
     "Beheeyem": {
         "moves": [
@@ -5889,7 +5945,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 345
     }, 
     "Beldum": {
         "moves": [
@@ -5911,7 +5968,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 952
     }, 
     "Bellossom": {
         "moves": [
@@ -5978,7 +6036,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 58
     }, 
     "Bellsprout": {
         "moves": [
@@ -6059,7 +6118,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Bibarel": {
         "moves": [
@@ -6149,7 +6209,8 @@
         "types": [
             "Normal", 
             "Water"
-        ]
+        ], 
+        "weight": 315
     }, 
     "Bidoof": {
         "moves": [
@@ -6231,7 +6292,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 200
     }, 
     "Bisharp": {
         "moves": [
@@ -6316,7 +6378,8 @@
         "types": [
             "Dark", 
             "Steel"
-        ]
+        ], 
+        "weight": 700
     }, 
     "Blastoise": {
         "moves": [
@@ -6420,7 +6483,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 855
     }, 
     "Blaziken": {
         "moves": [
@@ -6531,7 +6595,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 520
     }, 
     "Blissey": {
         "moves": [
@@ -6655,7 +6720,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 468
     }, 
     "Blitzle": {
         "moves": [
@@ -6716,7 +6782,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 298
     }, 
     "Boldore": {
         "moves": [
@@ -6770,7 +6837,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 1020
     }, 
     "Bonsly": {
         "moves": [
@@ -6842,7 +6910,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Bouffalant": {
         "moves": [
@@ -6917,7 +6986,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 946
     }, 
     "Braviary": {
         "moves": [
@@ -6984,7 +7054,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 410
     }, 
     "Breloom": {
         "moves": [
@@ -7077,7 +7148,8 @@
         "types": [
             "Grass", 
             "Fighting"
-        ]
+        ], 
+        "weight": 392
     }, 
     "Bronzong": {
         "moves": [
@@ -7166,7 +7238,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 1870
     }, 
     "Bronzor": {
         "moves": [
@@ -7247,7 +7320,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 605
     }, 
     "Budew": {
         "moves": [
@@ -7317,7 +7391,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 12
     }, 
     "Buizel": {
         "moves": [
@@ -7398,7 +7473,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 295
     }, 
     "Bulbasaur": {
         "moves": [
@@ -7490,7 +7566,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 69
     }, 
     "Buneary": {
         "moves": [
@@ -7583,7 +7660,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 55
     }, 
     "Burmy (plant)": {
         "moves": [
@@ -7606,7 +7684,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 34
     }, 
     "Burmy (sandy)": {
         "moves": [
@@ -7629,7 +7708,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 34
     }, 
     "Burmy (trash)": {
         "moves": [
@@ -7652,7 +7732,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 34
     }, 
     "Butterfree": {
         "moves": [
@@ -7743,7 +7824,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 320
     }, 
     "Cacnea": {
         "moves": [
@@ -7835,7 +7917,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 513
     }, 
     "Cacturne": {
         "moves": [
@@ -7930,7 +8013,8 @@
         "types": [
             "Grass", 
             "Dark"
-        ]
+        ], 
+        "weight": 774
     }, 
     "Camerupt": {
         "moves": [
@@ -8015,7 +8099,8 @@
         "types": [
             "Fire", 
             "Ground"
-        ]
+        ], 
+        "weight": 2200
     }, 
     "Carnivine": {
         "moves": [
@@ -8094,7 +8179,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 270
     }, 
     "Carracosta": {
         "moves": [
@@ -8169,7 +8255,8 @@
         "types": [
             "Water", 
             "Rock"
-        ]
+        ], 
+        "weight": 810
     }, 
     "Carvanha": {
         "moves": [
@@ -8248,7 +8335,8 @@
         "types": [
             "Water", 
             "Dark"
-        ]
+        ], 
+        "weight": 208
     }, 
     "Cascoon": {
         "moves": [
@@ -8269,7 +8357,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 115
     }, 
     "Castform": {
         "moves": [
@@ -8349,7 +8438,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 8
     }, 
     "Castform (rainy)": {
         "moves": [
@@ -8429,7 +8519,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 8
     }, 
     "Castform (snowy)": {
         "moves": [
@@ -8509,7 +8600,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 8
     }, 
     "Castform (sunny)": {
         "moves": [
@@ -8589,7 +8681,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 8
     }, 
     "Caterpie": {
         "moves": [
@@ -8610,7 +8703,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 29
     }, 
     "Celebi": {
         "moves": [
@@ -8710,7 +8804,8 @@
         "types": [
             "Psychic", 
             "Grass"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Chandelure": {
         "moves": [
@@ -8774,7 +8869,8 @@
         "types": [
             "Ghost", 
             "Fire"
-        ]
+        ], 
+        "weight": 343
     }, 
     "Chansey": {
         "moves": [
@@ -8908,7 +9004,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 346
     }, 
     "Charizard": {
         "moves": [
@@ -9029,7 +9126,8 @@
         "types": [
             "Fire", 
             "Flying"
-        ]
+        ], 
+        "weight": 905
     }, 
     "Charmander": {
         "moves": [
@@ -9134,7 +9232,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Charmeleon": {
         "moves": [
@@ -9230,7 +9329,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 190
     }, 
     "Chatot": {
         "moves": [
@@ -9304,7 +9404,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 19
     }, 
     "Cherrim (overcast)": {
         "moves": [
@@ -9362,7 +9463,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 93
     }, 
     "Cherrim (sunshine)": {
         "moves": [
@@ -9420,7 +9522,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 93
     }, 
     "Cherubi": {
         "moves": [
@@ -9485,7 +9588,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 33
     }, 
     "Chikorita": {
         "moves": [
@@ -9565,7 +9669,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 64
     }, 
     "Chimchar": {
         "moves": [
@@ -9660,7 +9765,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 62
     }, 
     "Chimecho": {
         "moves": [
@@ -9754,7 +9860,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Chinchou": {
         "moves": [
@@ -9835,7 +9942,8 @@
         "types": [
             "Water", 
             "Electric"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Chingling": {
         "moves": [
@@ -9920,7 +10028,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 6
     }, 
     "Cinccino": {
         "moves": [
@@ -9985,7 +10094,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 75
     }, 
     "Clamperl": {
         "moves": [
@@ -10045,7 +10155,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 525
     }, 
     "Claydol": {
         "moves": [
@@ -10140,7 +10251,8 @@
         "types": [
             "Ground", 
             "Psychic"
-        ]
+        ], 
+        "weight": 1080
     }, 
     "Clefable": {
         "moves": [
@@ -10269,7 +10381,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 400
     }, 
     "Clefairy": {
         "moves": [
@@ -10406,7 +10519,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 75
     }, 
     "Cleffa": {
         "moves": [
@@ -10514,7 +10628,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 30
     }, 
     "Cloyster": {
         "moves": [
@@ -10590,7 +10705,8 @@
         "types": [
             "Water", 
             "Ice"
-        ]
+        ], 
+        "weight": 1325
     }, 
     "Cobalion": {
         "moves": [
@@ -10664,7 +10780,8 @@
         "types": [
             "Steel", 
             "Fighting"
-        ]
+        ], 
+        "weight": 2500
     }, 
     "Cofagrigus": {
         "moves": [
@@ -10738,7 +10855,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 765
     }, 
     "Combee": {
         "moves": [
@@ -10767,7 +10885,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 55
     }, 
     "Combusken": {
         "moves": [
@@ -10862,7 +10981,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Conkeldurr": {
         "moves": [
@@ -10936,7 +11056,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 870
     }, 
     "Corphish": {
         "moves": [
@@ -11022,7 +11143,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 115
     }, 
     "Corsola": {
         "moves": [
@@ -11124,7 +11246,8 @@
         "types": [
             "Water", 
             "Rock"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Cottonee": {
         "moves": [
@@ -11188,7 +11311,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 6
     }, 
     "Cradily": {
         "moves": [
@@ -11272,7 +11396,8 @@
         "types": [
             "Rock", 
             "Grass"
-        ]
+        ], 
+        "weight": 604
     }, 
     "Cranidos": {
         "moves": [
@@ -11365,7 +11490,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 315
     }, 
     "Crawdaunt": {
         "moves": [
@@ -11456,7 +11582,8 @@
         "types": [
             "Water", 
             "Dark"
-        ]
+        ], 
+        "weight": 328
     }, 
     "Cresselia": {
         "moves": [
@@ -11535,7 +11662,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 856
     }, 
     "Croagunk": {
         "moves": [
@@ -11639,7 +11767,8 @@
         "types": [
             "Poison", 
             "Fighting"
-        ]
+        ], 
+        "weight": 230
     }, 
     "Crobat": {
         "moves": [
@@ -11723,7 +11852,8 @@
         "types": [
             "Poison", 
             "Flying"
-        ]
+        ], 
+        "weight": 750
     }, 
     "Croconaw": {
         "moves": [
@@ -11820,7 +11950,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 250
     }, 
     "Crustle": {
         "moves": [
@@ -11886,7 +12017,8 @@
         "types": [
             "Bug", 
             "Rock"
-        ]
+        ], 
+        "weight": 2000
     }, 
     "Cryogonal": {
         "moves": [
@@ -11947,7 +12079,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 1480
     }, 
     "Cubchoo": {
         "moves": [
@@ -12016,7 +12149,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Cubone": {
         "moves": [
@@ -12122,7 +12256,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Cyndaquil": {
         "moves": [
@@ -12202,7 +12337,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 79
     }, 
     "Darkrai": {
         "moves": [
@@ -12301,7 +12437,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 505
     }, 
     "Darmanitan (standard)": {
         "moves": [
@@ -12379,7 +12516,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 929
     }, 
     "Darmanitan (zen)": {
         "moves": [
@@ -12458,7 +12596,8 @@
         "types": [
             "Fire", 
             "Psychic"
-        ]
+        ], 
+        "weight": 929
     }, 
     "Darumaka": {
         "moves": [
@@ -12532,7 +12671,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 375
     }, 
     "Deerling (autumn)": {
         "moves": [
@@ -12602,7 +12742,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Deerling (spring)": {
         "moves": [
@@ -12672,7 +12813,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Deerling (summer)": {
         "moves": [
@@ -12742,7 +12884,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Deerling (winter)": {
         "moves": [
@@ -12812,7 +12955,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Deino": {
         "moves": [
@@ -12886,7 +13030,8 @@
         "types": [
             "Dark", 
             "Dragon"
-        ]
+        ], 
+        "weight": 173
     }, 
     "Delcatty": {
         "moves": [
@@ -12970,7 +13115,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 326
     }, 
     "Delibird": {
         "moves": [
@@ -13051,7 +13197,8 @@
         "types": [
             "Ice", 
             "Flying"
-        ]
+        ], 
+        "weight": 160
     }, 
     "Deoxys (attack)": {
         "moves": [
@@ -13158,7 +13305,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 608
     }, 
     "Deoxys (defense)": {
         "moves": [
@@ -13267,7 +13415,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 608
     }, 
     "Deoxys (normal)": {
         "moves": [
@@ -13374,7 +13523,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 608
     }, 
     "Deoxys (speed)": {
         "moves": [
@@ -13480,7 +13630,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 608
     }, 
     "Dewgong": {
         "moves": [
@@ -13559,7 +13710,8 @@
         "types": [
             "Water", 
             "Ice"
-        ]
+        ], 
+        "weight": 1200
     }, 
     "Dewott": {
         "moves": [
@@ -13626,7 +13778,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 245
     }, 
     "Dialga": {
         "moves": [
@@ -13722,7 +13875,8 @@
         "types": [
             "Steel", 
             "Dragon"
-        ]
+        ], 
+        "weight": 6830
     }, 
     "Diglett": {
         "moves": [
@@ -13801,7 +13955,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 8
     }, 
     "Ditto": {
         "moves": [
@@ -13818,7 +13973,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Dodrio": {
         "moves": [
@@ -13894,7 +14050,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 852
     }, 
     "Doduo": {
         "moves": [
@@ -13973,7 +14130,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 392
     }, 
     "Donphan": {
         "moves": [
@@ -14058,7 +14216,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 1200
     }, 
     "Dragonair": {
         "moves": [
@@ -14144,7 +14303,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 165
     }, 
     "Dragonite": {
         "moves": [
@@ -14270,7 +14430,8 @@
         "types": [
             "Dragon", 
             "Flying"
-        ]
+        ], 
+        "weight": 2100
     }, 
     "Drapion": {
         "moves": [
@@ -14361,7 +14522,8 @@
         "types": [
             "Poison", 
             "Dark"
-        ]
+        ], 
+        "weight": 615
     }, 
     "Dratini": {
         "moves": [
@@ -14451,7 +14613,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 33
     }, 
     "Drifblim": {
         "moves": [
@@ -14540,7 +14703,8 @@
         "types": [
             "Ghost", 
             "Flying"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Drifloon": {
         "moves": [
@@ -14634,7 +14798,8 @@
         "types": [
             "Ghost", 
             "Flying"
-        ]
+        ], 
+        "weight": 12
     }, 
     "Drilbur": {
         "moves": [
@@ -14699,7 +14864,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Drowzee": {
         "moves": [
@@ -14807,7 +14973,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 324
     }, 
     "Druddigon": {
         "moves": [
@@ -14903,7 +15070,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 1390
     }, 
     "Ducklett": {
         "moves": [
@@ -14966,7 +15134,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 55
     }, 
     "Dugtrio": {
         "moves": [
@@ -15043,7 +15212,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 333
     }, 
     "Dunsparce": {
         "moves": [
@@ -15145,7 +15315,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 140
     }, 
     "Duosion": {
         "moves": [
@@ -15215,7 +15386,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 80
     }, 
     "Durant": {
         "moves": [
@@ -15286,7 +15458,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 330
     }, 
     "Dusclops": {
         "moves": [
@@ -15390,7 +15563,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 306
     }, 
     "Dusknoir": {
         "moves": [
@@ -15484,7 +15658,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 1066
     }, 
     "Duskull": {
         "moves": [
@@ -15570,7 +15745,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Dustox": {
         "moves": [
@@ -15643,7 +15819,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 316
     }, 
     "Dwebble": {
         "moves": [
@@ -15714,7 +15891,8 @@
         "types": [
             "Bug", 
             "Rock"
-        ]
+        ], 
+        "weight": 145
     }, 
     "Eelektrik": {
         "moves": [
@@ -15775,7 +15953,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 220
     }, 
     "Eelektross": {
         "moves": [
@@ -15850,7 +16029,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 805
     }, 
     "Eevee": {
         "moves": [
@@ -15927,7 +16107,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Ekans": {
         "moves": [
@@ -16021,7 +16202,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 69
     }, 
     "Electabuzz": {
         "moves": [
@@ -16117,7 +16299,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Electivire": {
         "moves": [
@@ -16201,7 +16384,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 1386
     }, 
     "Electrike": {
         "moves": [
@@ -16277,7 +16461,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 152
     }, 
     "Electrode": {
         "moves": [
@@ -16351,7 +16536,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 666
     }, 
     "Elekid": {
         "moves": [
@@ -16439,7 +16625,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 235
     }, 
     "Elgyem": {
         "moves": [
@@ -16525,7 +16712,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 90
     }, 
     "Emboar": {
         "moves": [
@@ -16615,7 +16803,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 1500
     }, 
     "Emolga": {
         "moves": [
@@ -16685,7 +16874,8 @@
         "types": [
             "Electric", 
             "Flying"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Empoleon": {
         "moves": [
@@ -16779,7 +16969,8 @@
         "types": [
             "Water", 
             "Steel"
-        ]
+        ], 
+        "weight": 845
     }, 
     "Entei": {
         "moves": [
@@ -16858,7 +17049,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 1980
     }, 
     "Escavalier": {
         "moves": [
@@ -16916,7 +17108,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 330
     }, 
     "Espeon": {
         "moves": [
@@ -17002,7 +17195,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 265
     }, 
     "Excadrill": {
         "moves": [
@@ -17069,7 +17263,8 @@
         "types": [
             "Ground", 
             "Steel"
-        ]
+        ], 
+        "weight": 404
     }, 
     "Exeggcute": {
         "moves": [
@@ -17159,7 +17354,8 @@
         "types": [
             "Grass", 
             "Psychic"
-        ]
+        ], 
+        "weight": 25
     }, 
     "Exeggutor": {
         "moves": [
@@ -17245,7 +17441,8 @@
         "types": [
             "Grass", 
             "Psychic"
-        ]
+        ], 
+        "weight": 1200
     }, 
     "Exploud": {
         "moves": [
@@ -17348,7 +17545,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 840
     }, 
     "Farfetchd": {
         "moves": [
@@ -17447,7 +17645,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Fearow": {
         "moves": [
@@ -17525,7 +17724,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 380
     }, 
     "Feebas": {
         "moves": [
@@ -17588,7 +17788,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 74
     }, 
     "Feraligatr": {
         "moves": [
@@ -17697,7 +17898,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 888
     }, 
     "Ferroseed": {
         "moves": [
@@ -17763,7 +17965,8 @@
         "types": [
             "Grass", 
             "Steel"
-        ]
+        ], 
+        "weight": 188
     }, 
     "Ferrothorn": {
         "moves": [
@@ -17839,7 +18042,8 @@
         "types": [
             "Grass", 
             "Steel"
-        ]
+        ], 
+        "weight": 1100
     }, 
     "Finneon": {
         "moves": [
@@ -17913,7 +18117,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 70
     }, 
     "Flaaffy": {
         "moves": [
@@ -17995,7 +18200,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 133
     }, 
     "Flareon": {
         "moves": [
@@ -18081,7 +18287,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 250
     }, 
     "Floatzel": {
         "moves": [
@@ -18162,7 +18369,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 335
     }, 
     "Flygon": {
         "moves": [
@@ -18257,7 +18465,8 @@
         "types": [
             "Ground", 
             "Dragon"
-        ]
+        ], 
+        "weight": 820
     }, 
     "Foongus": {
         "moves": [
@@ -18321,7 +18530,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Forretress": {
         "moves": [
@@ -18409,7 +18619,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 1258
     }, 
     "Fraxure": {
         "moves": [
@@ -18478,7 +18689,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 360
     }, 
     "Frillish": {
         "moves": [
@@ -18554,7 +18766,8 @@
         "types": [
             "Water", 
             "Ghost"
-        ]
+        ], 
+        "weight": 330
     }, 
     "Froslass": {
         "moves": [
@@ -18635,7 +18848,8 @@
         "types": [
             "Ice", 
             "Ghost"
-        ]
+        ], 
+        "weight": 266
     }, 
     "Furret": {
         "moves": [
@@ -18736,7 +18950,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 325
     }, 
     "Gabite": {
         "moves": [
@@ -18812,7 +19027,8 @@
         "types": [
             "Dragon", 
             "Ground"
-        ]
+        ], 
+        "weight": 560
     }, 
     "Gallade": {
         "moves": [
@@ -18930,7 +19146,8 @@
         "types": [
             "Psychic", 
             "Fighting"
-        ]
+        ], 
+        "weight": 520
     }, 
     "Galvantula": {
         "moves": [
@@ -18996,7 +19213,8 @@
         "types": [
             "Bug", 
             "Electric"
-        ]
+        ], 
+        "weight": 143
     }, 
     "Garbodor": {
         "moves": [
@@ -19062,7 +19280,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 1073
     }, 
     "Garchomp": {
         "moves": [
@@ -19151,7 +19370,8 @@
         "types": [
             "Dragon", 
             "Ground"
-        ]
+        ], 
+        "weight": 950
     }, 
     "Gardevoir": {
         "moves": [
@@ -19251,7 +19471,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 484
     }, 
     "Gastly": {
         "moves": [
@@ -19347,7 +19568,8 @@
         "types": [
             "Ghost", 
             "Poison"
-        ]
+        ], 
+        "weight": 1
     }, 
     "Gastrodon (east)": {
         "moves": [
@@ -19421,7 +19643,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 299
     }, 
     "Gastrodon (west)": {
         "moves": [
@@ -19495,7 +19718,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 299
     }, 
     "Genesect": {
         "moves": [
@@ -19579,7 +19803,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 825
     }, 
     "Genesect (burn)": {
         "moves": [
@@ -19663,7 +19888,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 825
     }, 
     "Genesect (chill)": {
         "moves": [
@@ -19747,7 +19973,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 825
     }, 
     "Genesect (douse)": {
         "moves": [
@@ -19831,7 +20058,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 825
     }, 
     "Genesect (shock)": {
         "moves": [
@@ -19915,7 +20143,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 825
     }, 
     "Gengar": {
         "moves": [
@@ -20028,7 +20257,8 @@
         "types": [
             "Ghost", 
             "Poison"
-        ]
+        ], 
+        "weight": 405
     }, 
     "Geodude": {
         "moves": [
@@ -20121,7 +20351,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 200
     }, 
     "Gible": {
         "moves": [
@@ -20203,7 +20434,8 @@
         "types": [
             "Dragon", 
             "Ground"
-        ]
+        ], 
+        "weight": 205
     }, 
     "Gigalith": {
         "moves": [
@@ -20262,7 +20494,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 2600
     }, 
     "Girafarig": {
         "moves": [
@@ -20370,7 +20603,8 @@
         "types": [
             "Normal", 
             "Psychic"
-        ]
+        ], 
+        "weight": 415
     }, 
     "Giratina (altered)": {
         "moves": [
@@ -20473,7 +20707,8 @@
         "types": [
             "Ghost", 
             "Dragon"
-        ]
+        ], 
+        "weight": 7500
     }, 
     "Giratina (origin)": {
         "moves": [
@@ -20576,7 +20811,8 @@
         "types": [
             "Ghost", 
             "Dragon"
-        ]
+        ], 
+        "weight": 6500
     }, 
     "Glaceon": {
         "moves": [
@@ -20649,7 +20885,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 259
     }, 
     "Glalie": {
         "moves": [
@@ -20723,7 +20960,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 2565
     }, 
     "Glameow": {
         "moves": [
@@ -20810,7 +21048,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 39
     }, 
     "Gligar": {
         "moves": [
@@ -20916,7 +21155,8 @@
         "types": [
             "Ground", 
             "Flying"
-        ]
+        ], 
+        "weight": 648
     }, 
     "Gliscor": {
         "moves": [
@@ -21010,7 +21250,8 @@
         "types": [
             "Ground", 
             "Flying"
-        ]
+        ], 
+        "weight": 425
     }, 
     "Gloom": {
         "moves": [
@@ -21080,7 +21321,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 86
     }, 
     "Golbat": {
         "moves": [
@@ -21166,7 +21408,8 @@
         "types": [
             "Poison", 
             "Flying"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Goldeen": {
         "moves": [
@@ -21247,7 +21490,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Golduck": {
         "moves": [
@@ -21355,7 +21599,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 766
     }, 
     "Golem": {
         "moves": [
@@ -21454,7 +21699,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 3000
     }, 
     "Golett": {
         "moves": [
@@ -21532,7 +21778,8 @@
         "types": [
             "Ground", 
             "Ghost"
-        ]
+        ], 
+        "weight": 920
     }, 
     "Golurk": {
         "moves": [
@@ -21620,7 +21867,8 @@
         "types": [
             "Ground", 
             "Ghost"
-        ]
+        ], 
+        "weight": 3300
     }, 
     "Gorebyss": {
         "moves": [
@@ -21687,7 +21935,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 226
     }, 
     "Gothita": {
         "moves": [
@@ -21774,7 +22023,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 58
     }, 
     "Gothitelle": {
         "moves": [
@@ -21860,7 +22110,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 440
     }, 
     "Gothorita": {
         "moves": [
@@ -21942,7 +22193,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 180
     }, 
     "Granbull": {
         "moves": [
@@ -22055,7 +22307,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 487
     }, 
     "Graveler": {
         "moves": [
@@ -22145,7 +22398,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 1050
     }, 
     "Grimer": {
         "moves": [
@@ -22239,7 +22493,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Grotle": {
         "moves": [
@@ -22308,7 +22563,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 970
     }, 
     "Groudon": {
         "moves": [
@@ -22409,7 +22665,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 9500
     }, 
     "Grovyle": {
         "moves": [
@@ -22498,7 +22755,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 216
     }, 
     "Growlithe": {
         "moves": [
@@ -22586,7 +22844,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 190
     }, 
     "Grumpig": {
         "moves": [
@@ -22683,7 +22942,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 715
     }, 
     "Gulpin": {
         "moves": [
@@ -22767,7 +23027,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 103
     }, 
     "Gurdurr": {
         "moves": [
@@ -22837,7 +23098,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 400
     }, 
     "Gyarados": {
         "moves": [
@@ -22936,7 +23198,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 2350
     }, 
     "Happiny": {
         "moves": [
@@ -23016,7 +23279,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 244
     }, 
     "Hariyama": {
         "moves": [
@@ -23112,7 +23376,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 2538
     }, 
     "Haunter": {
         "moves": [
@@ -23204,7 +23469,8 @@
         "types": [
             "Ghost", 
             "Poison"
-        ]
+        ], 
+        "weight": 1
     }, 
     "Haxorus": {
         "moves": [
@@ -23281,7 +23547,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 1055
     }, 
     "Heatmor": {
         "moves": [
@@ -23361,7 +23628,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 580
     }, 
     "Heatran": {
         "moves": [
@@ -23441,7 +23709,8 @@
         "types": [
             "Fire", 
             "Steel"
-        ]
+        ], 
+        "weight": 4300
     }, 
     "Heracross": {
         "moves": [
@@ -23535,7 +23804,8 @@
         "types": [
             "Bug", 
             "Fighting"
-        ]
+        ], 
+        "weight": 540
     }, 
     "Herdier": {
         "moves": [
@@ -23595,7 +23865,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 147
     }, 
     "Hippopotas": {
         "moves": [
@@ -23663,7 +23934,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 495
     }, 
     "Hippowdon": {
         "moves": [
@@ -23730,7 +24002,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 3000
     }, 
     "Hitmonchan": {
         "moves": [
@@ -23821,7 +24094,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 502
     }, 
     "Hitmonlee": {
         "moves": [
@@ -23917,7 +24191,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 498
     }, 
     "Hitmontop": {
         "moves": [
@@ -24002,7 +24277,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 480
     }, 
     "Ho-Oh": {
         "moves": [
@@ -24105,7 +24381,8 @@
         "types": [
             "Fire", 
             "Flying"
-        ]
+        ], 
+        "weight": 1990
     }, 
     "Honchkrow": {
         "moves": [
@@ -24186,7 +24463,8 @@
         "types": [
             "Dark", 
             "Flying"
-        ]
+        ], 
+        "weight": 273
     }, 
     "Hoothoot": {
         "moves": [
@@ -24276,7 +24554,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 212
     }, 
     "Hoppip": {
         "moves": [
@@ -24354,7 +24633,8 @@
         "types": [
             "Grass", 
             "Flying"
-        ]
+        ], 
+        "weight": 5
     }, 
     "Horsea": {
         "moves": [
@@ -24434,7 +24714,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 80
     }, 
     "Houndoom": {
         "moves": [
@@ -24526,7 +24807,8 @@
         "types": [
             "Dark", 
             "Fire"
-        ]
+        ], 
+        "weight": 350
     }, 
     "Houndour": {
         "moves": [
@@ -24621,7 +24903,8 @@
         "types": [
             "Dark", 
             "Fire"
-        ]
+        ], 
+        "weight": 108
     }, 
     "Huntail": {
         "moves": [
@@ -24688,7 +24971,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 270
     }, 
     "Hydreigon": {
         "moves": [
@@ -24778,7 +25062,8 @@
         "types": [
             "Dark", 
             "Dragon"
-        ]
+        ], 
+        "weight": 1600
     }, 
     "Hypno": {
         "moves": [
@@ -24885,7 +25170,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 756
     }, 
     "Igglybuff": {
         "moves": [
@@ -24982,7 +25268,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Illumise": {
         "moves": [
@@ -25074,7 +25361,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 177
     }, 
     "Infernape": {
         "moves": [
@@ -25179,7 +25467,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Ivysaur": {
         "moves": [
@@ -25259,7 +25548,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 130
     }, 
     "Jellicent": {
         "moves": [
@@ -25333,7 +25623,8 @@
         "types": [
             "Water", 
             "Ghost"
-        ]
+        ], 
+        "weight": 1350
     }, 
     "Jigglypuff": {
         "moves": [
@@ -25451,7 +25742,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 55
     }, 
     "Jirachi": {
         "moves": [
@@ -25550,7 +25842,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 11
     }, 
     "Jolteon": {
         "moves": [
@@ -25637,7 +25930,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 245
     }, 
     "Joltik": {
         "moves": [
@@ -25707,7 +26001,8 @@
         "types": [
             "Bug", 
             "Electric"
-        ]
+        ], 
+        "weight": 6
     }, 
     "Jumpluff": {
         "moves": [
@@ -25780,7 +26075,8 @@
         "types": [
             "Grass", 
             "Flying"
-        ]
+        ], 
+        "weight": 30
     }, 
     "Jynx": {
         "moves": [
@@ -25896,7 +26192,8 @@
         "types": [
             "Ice", 
             "Psychic"
-        ]
+        ], 
+        "weight": 406
     }, 
     "Kabuto": {
         "moves": [
@@ -25987,7 +26284,8 @@
         "types": [
             "Rock", 
             "Water"
-        ]
+        ], 
+        "weight": 115
     }, 
     "Kabutops": {
         "moves": [
@@ -26094,7 +26392,8 @@
         "types": [
             "Rock", 
             "Water"
-        ]
+        ], 
+        "weight": 405
     }, 
     "Kadabra": {
         "moves": [
@@ -26202,7 +26501,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 565
     }, 
     "Kakuna": {
         "moves": [
@@ -26224,7 +26524,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 100
     }, 
     "Kangaskhan": {
         "moves": [
@@ -26353,7 +26654,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 800
     }, 
     "Karrablast": {
         "moves": [
@@ -26414,7 +26716,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 59
     }, 
     "Kecleon": {
         "moves": [
@@ -26537,7 +26840,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 220
     }, 
     "Keldeo (regular)": {
         "moves": [
@@ -26609,7 +26913,8 @@
         "types": [
             "Water", 
             "Fighting"
-        ]
+        ], 
+        "weight": 485
     }, 
     "Keldeo (resolution)": {
         "moves": [
@@ -26680,7 +26985,8 @@
         "types": [
             "Water", 
             "Fighting"
-        ]
+        ], 
+        "weight": 485
     }, 
     "Kingdra": {
         "moves": [
@@ -26755,7 +27061,8 @@
         "types": [
             "Water", 
             "Dragon"
-        ]
+        ], 
+        "weight": 1520
     }, 
     "Kingler": {
         "moves": [
@@ -26844,7 +27151,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Kirlia": {
         "moves": [
@@ -26939,7 +27247,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 202
     }, 
     "Klang": {
         "moves": [
@@ -26998,7 +27307,8 @@
         }, 
         "types": [
             "Steel"
-        ]
+        ], 
+        "weight": 510
     }, 
     "Klink": {
         "moves": [
@@ -27057,7 +27367,8 @@
         }, 
         "types": [
             "Steel"
-        ]
+        ], 
+        "weight": 210
     }, 
     "Klinklang": {
         "moves": [
@@ -27119,7 +27430,8 @@
         }, 
         "types": [
             "Steel"
-        ]
+        ], 
+        "weight": 810
     }, 
     "Koffing": {
         "moves": [
@@ -27200,7 +27512,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Krabby": {
         "moves": [
@@ -27290,7 +27603,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Kricketot": {
         "moves": [
@@ -27315,7 +27629,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 22
     }, 
     "Kricketune": {
         "moves": [
@@ -27386,7 +27701,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 255
     }, 
     "Krokorok": {
         "moves": [
@@ -27464,7 +27780,8 @@
         "types": [
             "Ground", 
             "Dark"
-        ]
+        ], 
+        "weight": 334
     }, 
     "Krookodile": {
         "moves": [
@@ -27553,7 +27870,8 @@
         "types": [
             "Ground", 
             "Dark"
-        ]
+        ], 
+        "weight": 963
     }, 
     "Kyogre": {
         "moves": [
@@ -27634,7 +27952,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 3520
     }, 
     "Kyurem": {
         "moves": [
@@ -27710,7 +28029,8 @@
         "types": [
             "Dragon", 
             "Ice"
-        ]
+        ], 
+        "weight": 3250
     }, 
     "Kyurem (black)": {
         "moves": [
@@ -27786,7 +28106,8 @@
         "types": [
             "Dragon", 
             "Ice"
-        ]
+        ], 
+        "weight": 3250
     }, 
     "Kyurem (white)": {
         "moves": [
@@ -27862,7 +28183,8 @@
         "types": [
             "Dragon", 
             "Ice"
-        ]
+        ], 
+        "weight": 3250
     }, 
     "Lairon": {
         "moves": [
@@ -27943,7 +28265,8 @@
         "types": [
             "Steel", 
             "Rock"
-        ]
+        ], 
+        "weight": 1200
     }, 
     "Lampent": {
         "moves": [
@@ -28014,7 +28337,8 @@
         "types": [
             "Ghost", 
             "Fire"
-        ]
+        ], 
+        "weight": 130
     }, 
     "Landorus (incarnate)": {
         "moves": [
@@ -28088,7 +28412,8 @@
         "types": [
             "Ground", 
             "Flying"
-        ]
+        ], 
+        "weight": 680
     }, 
     "Landorus (therian)": {
         "moves": [
@@ -28162,7 +28487,8 @@
         "types": [
             "Ground", 
             "Flying"
-        ]
+        ], 
+        "weight": 680
     }, 
     "Lanturn": {
         "moves": [
@@ -28244,7 +28570,8 @@
         "types": [
             "Water", 
             "Electric"
-        ]
+        ], 
+        "weight": 225
     }, 
     "Lapras": {
         "moves": [
@@ -28351,7 +28678,8 @@
         "types": [
             "Water", 
             "Ice"
-        ]
+        ], 
+        "weight": 2200
     }, 
     "Larvesta": {
         "moves": [
@@ -28417,7 +28745,8 @@
         "types": [
             "Bug", 
             "Fire"
-        ]
+        ], 
+        "weight": 288
     }, 
     "Larvitar": {
         "moves": [
@@ -28501,7 +28830,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 720
     }, 
     "Latias": {
         "moves": [
@@ -28613,7 +28943,8 @@
         "types": [
             "Dragon", 
             "Psychic"
-        ]
+        ], 
+        "weight": 400
     }, 
     "Latios": {
         "moves": [
@@ -28720,7 +29051,8 @@
         "types": [
             "Dragon", 
             "Psychic"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Leafeon": {
         "moves": [
@@ -28797,7 +29129,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 255
     }, 
     "Leavanny": {
         "moves": [
@@ -28870,7 +29203,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 205
     }, 
     "Ledian": {
         "moves": [
@@ -28956,7 +29290,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 356
     }, 
     "Ledyba": {
         "moves": [
@@ -29041,7 +29376,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 108
     }, 
     "Lickilicky": {
         "moves": [
@@ -29141,7 +29477,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 1400
     }, 
     "Lickitung": {
         "moves": [
@@ -29261,7 +29598,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 655
     }, 
     "Liepard": {
         "moves": [
@@ -29337,7 +29675,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 375
     }, 
     "Lileep": {
         "moves": [
@@ -29418,7 +29757,8 @@
         "types": [
             "Rock", 
             "Grass"
-        ]
+        ], 
+        "weight": 238
     }, 
     "Lilligant": {
         "moves": [
@@ -29475,7 +29815,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 163
     }, 
     "Lillipup": {
         "moves": [
@@ -29543,7 +29884,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 41
     }, 
     "Linoone": {
         "moves": [
@@ -29635,7 +29977,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 325
     }, 
     "Litwick": {
         "moves": [
@@ -29712,7 +30055,8 @@
         "types": [
             "Ghost", 
             "Fire"
-        ]
+        ], 
+        "weight": 31
     }, 
     "Lombre": {
         "moves": [
@@ -29797,7 +30141,8 @@
         "types": [
             "Water", 
             "Grass"
-        ]
+        ], 
+        "weight": 325
     }, 
     "Lopunny": {
         "moves": [
@@ -29889,7 +30234,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 333
     }, 
     "Lotad": {
         "moves": [
@@ -29966,7 +30312,8 @@
         "types": [
             "Water", 
             "Grass"
-        ]
+        ], 
+        "weight": 26
     }, 
     "Loudred": {
         "moves": [
@@ -30057,7 +30404,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 405
     }, 
     "Lucario": {
         "moves": [
@@ -30157,7 +30505,8 @@
         "types": [
             "Fighting", 
             "Steel"
-        ]
+        ], 
+        "weight": 540
     }, 
     "Ludicolo": {
         "moves": [
@@ -30248,7 +30597,8 @@
         "types": [
             "Water", 
             "Grass"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Lugia": {
         "moves": [
@@ -30365,7 +30715,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 2160
     }, 
     "Lumineon": {
         "moves": [
@@ -30433,7 +30784,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 240
     }, 
     "Lunatone": {
         "moves": [
@@ -30527,7 +30879,8 @@
         "types": [
             "Rock", 
             "Psychic"
-        ]
+        ], 
+        "weight": 1680
     }, 
     "Luvdisc": {
         "moves": [
@@ -30595,7 +30948,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 87
     }, 
     "Luxio": {
         "moves": [
@@ -30659,7 +31013,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 305
     }, 
     "Luxray": {
         "moves": [
@@ -30726,7 +31081,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 420
     }, 
     "Machamp": {
         "moves": [
@@ -30828,7 +31184,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 1300
     }, 
     "Machoke": {
         "moves": [
@@ -30926,7 +31283,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 705
     }, 
     "Machop": {
         "moves": [
@@ -31033,7 +31391,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Magby": {
         "moves": [
@@ -31118,7 +31477,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 214
     }, 
     "Magcargo": {
         "moves": [
@@ -31202,7 +31562,8 @@
         "types": [
             "Fire", 
             "Rock"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Magikarp": {
         "moves": [
@@ -31222,7 +31583,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 100
     }, 
     "Magmar": {
         "moves": [
@@ -31313,7 +31675,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 445
     }, 
     "Magmortar": {
         "moves": [
@@ -31394,7 +31757,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 680
     }, 
     "Magnemite": {
         "moves": [
@@ -31473,7 +31837,8 @@
         "types": [
             "Electric", 
             "Steel"
-        ]
+        ], 
+        "weight": 60
     }, 
     "Magneton": {
         "moves": [
@@ -31555,7 +31920,8 @@
         "types": [
             "Electric", 
             "Steel"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Magnezone": {
         "moves": [
@@ -31633,7 +31999,8 @@
         "types": [
             "Electric", 
             "Steel"
-        ]
+        ], 
+        "weight": 1800
     }, 
     "Makuhita": {
         "moves": [
@@ -31732,7 +32099,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 864
     }, 
     "Mamoswine": {
         "moves": [
@@ -31809,7 +32177,8 @@
         "types": [
             "Ice", 
             "Ground"
-        ]
+        ], 
+        "weight": 2910
     }, 
     "Manaphy": {
         "moves": [
@@ -31888,7 +32257,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 14
     }, 
     "Mandibuzz": {
         "moves": [
@@ -31963,7 +32333,8 @@
         "types": [
             "Dark", 
             "Flying"
-        ]
+        ], 
+        "weight": 395
     }, 
     "Manectric": {
         "moves": [
@@ -32036,7 +32407,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 402
     }, 
     "Mankey": {
         "moves": [
@@ -32157,7 +32529,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Mantine": {
         "moves": [
@@ -32252,7 +32625,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 2200
     }, 
     "Mantyke": {
         "moves": [
@@ -32330,7 +32704,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 650
     }, 
     "Maractus": {
         "moves": [
@@ -32397,7 +32772,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Mareep": {
         "moves": [
@@ -32472,7 +32848,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 78
     }, 
     "Marill": {
         "moves": [
@@ -32566,7 +32943,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Marowak": {
         "moves": [
@@ -32671,7 +33049,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 450
     }, 
     "Marshtomp": {
         "moves": [
@@ -32760,7 +33139,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Masquerain": {
         "moves": [
@@ -32840,7 +33220,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 36
     }, 
     "Mawile": {
         "moves": [
@@ -32951,7 +33332,8 @@
         }, 
         "types": [
             "Steel"
-        ]
+        ], 
+        "weight": 115
     }, 
     "Medicham": {
         "moves": [
@@ -33054,7 +33436,8 @@
         "types": [
             "Fighting", 
             "Psychic"
-        ]
+        ], 
+        "weight": 315
     }, 
     "Meditite": {
         "moves": [
@@ -33161,7 +33544,8 @@
         "types": [
             "Fighting", 
             "Psychic"
-        ]
+        ], 
+        "weight": 112
     }, 
     "Meganium": {
         "moves": [
@@ -33242,7 +33626,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 1005
     }, 
     "Meloetta (aria)": {
         "moves": [
@@ -33342,7 +33727,8 @@
         "types": [
             "Normal", 
             "Psychic"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Meloetta (pirouette)": {
         "moves": [
@@ -33441,7 +33827,8 @@
         "types": [
             "Normal", 
             "Fighting"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Meowth": {
         "moves": [
@@ -33549,7 +33936,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 42
     }, 
     "Mesprit": {
         "moves": [
@@ -33638,7 +34026,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Metagross": {
         "moves": [
@@ -33733,7 +34122,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 5500
     }, 
     "Metang": {
         "moves": [
@@ -33825,7 +34215,8 @@
         "types": [
             "Steel", 
             "Psychic"
-        ]
+        ], 
+        "weight": 2025
     }, 
     "Metapod": {
         "moves": [
@@ -33846,7 +34237,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 99
     }, 
     "Mew": {
         "moves": [
@@ -34099,7 +34491,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Mewtwo": {
         "moves": [
@@ -34246,7 +34639,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 1220
     }, 
     "Mienfoo": {
         "moves": [
@@ -34327,7 +34721,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 200
     }, 
     "Mienshao": {
         "moves": [
@@ -34404,7 +34799,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 355
     }, 
     "Mightyena": {
         "moves": [
@@ -34481,7 +34877,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 370
     }, 
     "Milotic": {
         "moves": [
@@ -34553,7 +34950,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 1620
     }, 
     "Miltank": {
         "moves": [
@@ -34658,7 +35056,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 755
     }, 
     "Mime-Jr": {
         "moves": [
@@ -34755,7 +35154,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 130
     }, 
     "Minccino": {
         "moves": [
@@ -34827,7 +35227,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 58
     }, 
     "Minun": {
         "moves": [
@@ -34914,7 +35315,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 42
     }, 
     "Misdreavus": {
         "moves": [
@@ -35011,7 +35413,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Mismagius": {
         "moves": [
@@ -35094,7 +35497,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 44
     }, 
     "Moltres": {
         "moves": [
@@ -35177,7 +35581,8 @@
         "types": [
             "Fire", 
             "Flying"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Monferno": {
         "moves": [
@@ -35273,7 +35678,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 220
     }, 
     "Mothim": {
         "moves": [
@@ -35350,7 +35756,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 233
     }, 
     "Mr-Mime": {
         "moves": [
@@ -35478,7 +35885,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 545
     }, 
     "Mudkip": {
         "moves": [
@@ -35566,7 +35974,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 76
     }, 
     "Muk": {
         "moves": [
@@ -35657,7 +36066,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Munchlax": {
         "moves": [
@@ -35757,7 +36167,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 1050
     }, 
     "Munna": {
         "moves": [
@@ -35837,7 +36248,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 233
     }, 
     "Murkrow": {
         "moves": [
@@ -35933,7 +36345,8 @@
         "types": [
             "Dark", 
             "Flying"
-        ]
+        ], 
+        "weight": 21
     }, 
     "Musharna": {
         "moves": [
@@ -36001,7 +36414,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 605
     }, 
     "Natu": {
         "moves": [
@@ -36102,7 +36516,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Nidoking": {
         "moves": [
@@ -36233,7 +36648,8 @@
         "types": [
             "Poison", 
             "Ground"
-        ]
+        ], 
+        "weight": 620
     }, 
     "Nidoqueen": {
         "moves": [
@@ -36360,7 +36776,8 @@
         "types": [
             "Poison", 
             "Ground"
-        ]
+        ], 
+        "weight": 600
     }, 
     "Nidoran-F": {
         "moves": [
@@ -36450,7 +36867,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 70
     }, 
     "Nidoran-M": {
         "moves": [
@@ -36541,7 +36959,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 90
     }, 
     "Nidorina": {
         "moves": [
@@ -36627,7 +37046,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 200
     }, 
     "Nidorino": {
         "moves": [
@@ -36712,7 +37132,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 195
     }, 
     "Nincada": {
         "moves": [
@@ -36778,7 +37199,8 @@
         "types": [
             "Bug", 
             "Ground"
-        ]
+        ], 
+        "weight": 55
     }, 
     "Ninetales": {
         "moves": [
@@ -36858,7 +37280,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 199
     }, 
     "Ninjask": {
         "moves": [
@@ -36935,7 +37358,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Noctowl": {
         "moves": [
@@ -37019,7 +37443,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 408
     }, 
     "Nosepass": {
         "moves": [
@@ -37104,7 +37529,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 970
     }, 
     "Numel": {
         "moves": [
@@ -37186,7 +37612,8 @@
         "types": [
             "Fire", 
             "Ground"
-        ]
+        ], 
+        "weight": 240
     }, 
     "Nuzleaf": {
         "moves": [
@@ -37276,7 +37703,8 @@
         "types": [
             "Grass", 
             "Dark"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Octillery": {
         "moves": [
@@ -37362,7 +37790,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 285
     }, 
     "Oddish": {
         "moves": [
@@ -37437,7 +37866,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 54
     }, 
     "Omanyte": {
         "moves": [
@@ -37530,7 +37960,8 @@
         "types": [
             "Rock", 
             "Water"
-        ]
+        ], 
+        "weight": 75
     }, 
     "Omastar": {
         "moves": [
@@ -37623,7 +38054,8 @@
         "types": [
             "Rock", 
             "Water"
-        ]
+        ], 
+        "weight": 350
     }, 
     "Onix": {
         "moves": [
@@ -37714,7 +38146,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 2100
     }, 
     "Oshawott": {
         "moves": [
@@ -37789,7 +38222,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 59
     }, 
     "Pachirisu": {
         "moves": [
@@ -37870,7 +38304,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 39
     }, 
     "Palkia": {
         "moves": [
@@ -37968,7 +38403,8 @@
         "types": [
             "Water", 
             "Dragon"
-        ]
+        ], 
+        "weight": 3360
     }, 
     "Palpitoad": {
         "moves": [
@@ -38025,7 +38461,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 170
     }, 
     "Panpour": {
         "moves": [
@@ -38107,7 +38544,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 135
     }, 
     "Pansage": {
         "moves": [
@@ -38186,7 +38624,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 105
     }, 
     "Pansear": {
         "moves": [
@@ -38265,7 +38704,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 110
     }, 
     "Paras": {
         "moves": [
@@ -38358,7 +38798,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 54
     }, 
     "Parasect": {
         "moves": [
@@ -38446,7 +38887,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 295
     }, 
     "Patrat": {
         "moves": [
@@ -38517,7 +38959,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 116
     }, 
     "Pawniard": {
         "moves": [
@@ -38603,7 +39046,8 @@
         "types": [
             "Dark", 
             "Steel"
-        ]
+        ], 
+        "weight": 102
     }, 
     "Pelipper": {
         "moves": [
@@ -38688,7 +39132,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Persian": {
         "moves": [
@@ -38794,7 +39239,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 320
     }, 
     "Petilil": {
         "moves": [
@@ -38858,7 +39304,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 66
     }, 
     "Phanpy": {
         "moves": [
@@ -38935,7 +39382,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 335
     }, 
     "Phione": {
         "moves": [
@@ -39002,7 +39450,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 31
     }, 
     "Pichu": {
         "moves": [
@@ -39089,7 +39538,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Pichu (spiky-eared)": {
         "moves": [
@@ -39176,7 +39626,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Pidgeot": {
         "moves": [
@@ -39253,7 +39704,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 395
     }, 
     "Pidgeotto": {
         "moves": [
@@ -39328,7 +39780,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Pidgey": {
         "moves": [
@@ -39407,7 +39860,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 18
     }, 
     "Pidove": {
         "moves": [
@@ -39467,7 +39921,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 21
     }, 
     "Pignite": {
         "moves": [
@@ -39547,7 +40002,8 @@
         "types": [
             "Fire", 
             "Fighting"
-        ]
+        ], 
+        "weight": 555
     }, 
     "Pikachu": {
         "moves": [
@@ -39639,7 +40095,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 60
     }, 
     "Piloswine": {
         "moves": [
@@ -39719,7 +40176,8 @@
         "types": [
             "Ice", 
             "Ground"
-        ]
+        ], 
+        "weight": 558
     }, 
     "Pineco": {
         "moves": [
@@ -39800,7 +40258,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 72
     }, 
     "Pinsir": {
         "moves": [
@@ -39893,7 +40352,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Piplup": {
         "moves": [
@@ -39975,7 +40435,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 52
     }, 
     "Plusle": {
         "moves": [
@@ -40060,7 +40521,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 42
     }, 
     "Politoed": {
         "moves": [
@@ -40144,7 +40606,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 339
     }, 
     "Poliwag": {
         "moves": [
@@ -40224,7 +40687,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 124
     }, 
     "Poliwhirl": {
         "moves": [
@@ -40314,7 +40778,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 200
     }, 
     "Poliwrath": {
         "moves": [
@@ -40412,7 +40877,8 @@
         "types": [
             "Water", 
             "Fighting"
-        ]
+        ], 
+        "weight": 540
     }, 
     "Ponyta": {
         "moves": [
@@ -40489,7 +40955,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Poochyena": {
         "moves": [
@@ -40571,7 +41038,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 136
     }, 
     "Porygon": {
         "moves": [
@@ -40661,7 +41129,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 365
     }, 
     "Porygon-Z": {
         "moves": [
@@ -40743,7 +41212,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 340
     }, 
     "Porygon2": {
         "moves": [
@@ -40826,7 +41296,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 325
     }, 
     "Primeape": {
         "moves": [
@@ -40943,7 +41414,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 320
     }, 
     "Prinplup": {
         "moves": [
@@ -41022,7 +41494,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 230
     }, 
     "Probopass": {
         "moves": [
@@ -41103,7 +41576,8 @@
         "types": [
             "Rock", 
             "Steel"
-        ]
+        ], 
+        "weight": 3400
     }, 
     "Psyduck": {
         "moves": [
@@ -41214,7 +41688,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 196
     }, 
     "Pupitar": {
         "moves": [
@@ -41293,7 +41768,8 @@
         "types": [
             "Rock", 
             "Ground"
-        ]
+        ], 
+        "weight": 1520
     }, 
     "Purrloin": {
         "moves": [
@@ -41373,7 +41849,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 101
     }, 
     "Purugly": {
         "moves": [
@@ -41458,7 +41935,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 438
     }, 
     "Quagsire": {
         "moves": [
@@ -41554,7 +42032,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 750
     }, 
     "Quilava": {
         "moves": [
@@ -41628,7 +42107,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 190
     }, 
     "Qwilfish": {
         "moves": [
@@ -41722,7 +42202,8 @@
         "types": [
             "Water", 
             "Poison"
-        ]
+        ], 
+        "weight": 39
     }, 
     "Raichu": {
         "moves": [
@@ -41812,7 +42293,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Raikou": {
         "moves": [
@@ -41893,7 +42375,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 1780
     }, 
     "Ralts": {
         "moves": [
@@ -41997,7 +42480,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 66
     }, 
     "Rampardos": {
         "moves": [
@@ -42094,7 +42578,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 1025
     }, 
     "Rapidash": {
         "moves": [
@@ -42172,7 +42657,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 950
     }, 
     "Raticate": {
         "moves": [
@@ -42266,7 +42752,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 185
     }, 
     "Rattata": {
         "moves": [
@@ -42361,7 +42848,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 35
     }, 
     "Rayquaza": {
         "moves": [
@@ -42466,7 +42954,8 @@
         "types": [
             "Dragon", 
             "Flying"
-        ]
+        ], 
+        "weight": 2065
     }, 
     "Regice": {
         "moves": [
@@ -42555,7 +43044,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 1750
     }, 
     "Regigigas": {
         "moves": [
@@ -42637,7 +43127,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 4200
     }, 
     "Regirock": {
         "moves": [
@@ -42727,7 +43218,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 2300
     }, 
     "Registeel": {
         "moves": [
@@ -42818,7 +43310,8 @@
         }, 
         "types": [
             "Steel"
-        ]
+        ], 
+        "weight": 2050
     }, 
     "Relicanth": {
         "moves": [
@@ -42904,7 +43397,8 @@
         "types": [
             "Water", 
             "Rock"
-        ]
+        ], 
+        "weight": 234
     }, 
     "Remoraid": {
         "moves": [
@@ -42988,7 +43482,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Reshiram": {
         "moves": [
@@ -43067,7 +43562,8 @@
         "types": [
             "Dragon", 
             "Fire"
-        ]
+        ], 
+        "weight": 3300
     }, 
     "Reuniclus": {
         "moves": [
@@ -43152,7 +43648,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 201
     }, 
     "Rhydon": {
         "moves": [
@@ -43277,7 +43774,8 @@
         "types": [
             "Ground", 
             "Rock"
-        ]
+        ], 
+        "weight": 1200
     }, 
     "Rhyhorn": {
         "moves": [
@@ -43384,7 +43882,8 @@
         "types": [
             "Ground", 
             "Rock"
-        ]
+        ], 
+        "weight": 1150
     }, 
     "Rhyperior": {
         "moves": [
@@ -43493,7 +43992,8 @@
         "types": [
             "Ground", 
             "Rock"
-        ]
+        ], 
+        "weight": 2828
     }, 
     "Riolu": {
         "moves": [
@@ -43587,7 +44087,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 202
     }, 
     "Roggenrola": {
         "moves": [
@@ -43646,7 +44147,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 180
     }, 
     "Roselia": {
         "moves": [
@@ -43727,7 +44229,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Roserade": {
         "moves": [
@@ -43791,7 +44294,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 145
     }, 
     "Rotom": {
         "moves": [
@@ -43860,7 +44364,8 @@
         "types": [
             "Electric", 
             "Ghost"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rotom (fan)": {
         "moves": [
@@ -43930,7 +44435,8 @@
         "types": [
             "Electric", 
             "Flying"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rotom (frost)": {
         "moves": [
@@ -44000,7 +44506,8 @@
         "types": [
             "Electric", 
             "Ice"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rotom (heat)": {
         "moves": [
@@ -44070,7 +44577,8 @@
         "types": [
             "Electric", 
             "Fire"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rotom (mow)": {
         "moves": [
@@ -44140,7 +44648,8 @@
         "types": [
             "Electric", 
             "Grass"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rotom (wash)": {
         "moves": [
@@ -44210,7 +44719,8 @@
         "types": [
             "Electric", 
             "Water"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Rufflet": {
         "moves": [
@@ -44274,7 +44784,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 105
     }, 
     "Sableye": {
         "moves": [
@@ -44394,7 +44905,8 @@
         "types": [
             "Dark", 
             "Ghost"
-        ]
+        ], 
+        "weight": 110
     }, 
     "Salamence": {
         "moves": [
@@ -44486,7 +44998,8 @@
         "types": [
             "Dragon", 
             "Flying"
-        ]
+        ], 
+        "weight": 1026
     }, 
     "Samurott": {
         "moves": [
@@ -44563,7 +45076,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 946
     }, 
     "Sandile": {
         "moves": [
@@ -44641,7 +45155,8 @@
         "types": [
             "Ground", 
             "Dark"
-        ]
+        ], 
+        "weight": 152
     }, 
     "Sandshrew": {
         "moves": [
@@ -44738,7 +45253,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Sandslash": {
         "moves": [
@@ -44834,7 +45350,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 295
     }, 
     "Sawk": {
         "moves": [
@@ -44906,7 +45423,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 510
     }, 
     "Sawsbuck (autumn)": {
         "moves": [
@@ -44977,7 +45495,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 925
     }, 
     "Sawsbuck (spring)": {
         "moves": [
@@ -45048,7 +45567,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 925
     }, 
     "Sawsbuck (summer)": {
         "moves": [
@@ -45119,7 +45639,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 925
     }, 
     "Sawsbuck (winter)": {
         "moves": [
@@ -45190,7 +45711,8 @@
         "types": [
             "Normal", 
             "Grass"
-        ]
+        ], 
+        "weight": 925
     }, 
     "Sceptile": {
         "moves": [
@@ -45292,7 +45814,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 522
     }, 
     "Scizor": {
         "moves": [
@@ -45380,7 +45903,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 1180
     }, 
     "Scolipede": {
         "moves": [
@@ -45450,7 +45974,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 2005
     }, 
     "Scrafty": {
         "moves": [
@@ -45540,7 +46065,8 @@
         "types": [
             "Dark", 
             "Fighting"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Scraggy": {
         "moves": [
@@ -45631,7 +46157,8 @@
         "types": [
             "Dark", 
             "Fighting"
-        ]
+        ], 
+        "weight": 118
     }, 
     "Scyther": {
         "moves": [
@@ -45718,7 +46245,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 560
     }, 
     "Seadra": {
         "moves": [
@@ -45791,7 +46319,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 250
     }, 
     "Seaking": {
         "moves": [
@@ -45868,7 +46397,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 390
     }, 
     "Sealeo": {
         "moves": [
@@ -45941,7 +46471,8 @@
         "types": [
             "Ice", 
             "Water"
-        ]
+        ], 
+        "weight": 876
     }, 
     "Seedot": {
         "moves": [
@@ -46014,7 +46545,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Seel": {
         "moves": [
@@ -46098,7 +46630,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 900
     }, 
     "Seismitoad": {
         "moves": [
@@ -46174,7 +46707,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 620
     }, 
     "Sentret": {
         "moves": [
@@ -46275,7 +46809,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 60
     }, 
     "Serperior": {
         "moves": [
@@ -46351,7 +46886,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 630
     }, 
     "Servine": {
         "moves": [
@@ -46419,7 +46955,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 160
     }, 
     "Seviper": {
         "moves": [
@@ -46507,7 +47044,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 525
     }, 
     "Sewaddle": {
         "moves": [
@@ -46574,7 +47112,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 25
     }, 
     "Sharpedo": {
         "moves": [
@@ -46664,7 +47203,8 @@
         "types": [
             "Water", 
             "Dark"
-        ]
+        ], 
+        "weight": 888
     }, 
     "Shaymin (land)": {
         "moves": [
@@ -46731,7 +47271,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 21
     }, 
     "Shaymin (sky)": {
         "moves": [
@@ -46798,7 +47339,8 @@
         "types": [
             "Grass", 
             "Flying"
-        ]
+        ], 
+        "weight": 52
     }, 
     "Shedinja": {
         "moves": [
@@ -46871,7 +47413,8 @@
         "types": [
             "Bug", 
             "Ghost"
-        ]
+        ], 
+        "weight": 12
     }, 
     "Shelgon": {
         "moves": [
@@ -46944,7 +47487,8 @@
         }, 
         "types": [
             "Dragon"
-        ]
+        ], 
+        "weight": 1105
     }, 
     "Shellder": {
         "moves": [
@@ -47023,7 +47567,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Shellos (east)": {
         "moves": [
@@ -47094,7 +47639,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 63
     }, 
     "Shellos (west)": {
         "moves": [
@@ -47165,7 +47711,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 63
     }, 
     "Shelmet": {
         "moves": [
@@ -47226,7 +47773,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 77
     }, 
     "Shieldon": {
         "moves": [
@@ -47310,7 +47858,8 @@
         "types": [
             "Rock", 
             "Steel"
-        ]
+        ], 
+        "weight": 570
     }, 
     "Shiftry": {
         "moves": [
@@ -47415,7 +47964,8 @@
         "types": [
             "Grass", 
             "Dark"
-        ]
+        ], 
+        "weight": 596
     }, 
     "Shinx": {
         "moves": [
@@ -47487,7 +48037,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 95
     }, 
     "Shroomish": {
         "moves": [
@@ -47555,7 +48106,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 45
     }, 
     "Shuckle": {
         "moves": [
@@ -47643,7 +48195,8 @@
         "types": [
             "Bug", 
             "Rock"
-        ]
+        ], 
+        "weight": 205
     }, 
     "Shuppet": {
         "moves": [
@@ -47732,7 +48285,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 23
     }, 
     "Sigilyph": {
         "moves": [
@@ -47816,7 +48370,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 140
     }, 
     "Silcoon": {
         "moves": [
@@ -47837,7 +48392,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 100
     }, 
     "Simipour": {
         "moves": [
@@ -47912,7 +48468,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 290
     }, 
     "Simisage": {
         "moves": [
@@ -47984,7 +48541,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 305
     }, 
     "Simisear": {
         "moves": [
@@ -48059,7 +48617,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Skarmory": {
         "moves": [
@@ -48152,7 +48711,8 @@
         "types": [
             "Steel", 
             "Flying"
-        ]
+        ], 
+        "weight": 505
     }, 
     "Skiploom": {
         "moves": [
@@ -48223,7 +48783,8 @@
         "types": [
             "Grass", 
             "Flying"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Skitty": {
         "moves": [
@@ -48317,7 +48878,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 110
     }, 
     "Skorupi": {
         "moves": [
@@ -48405,7 +48967,8 @@
         "types": [
             "Poison", 
             "Bug"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Skuntank": {
         "moves": [
@@ -48485,7 +49048,8 @@
         "types": [
             "Poison", 
             "Dark"
-        ]
+        ], 
+        "weight": 380
     }, 
     "Slaking": {
         "moves": [
@@ -48588,7 +49152,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 1305
     }, 
     "Slakoth": {
         "moves": [
@@ -48683,7 +49248,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 240
     }, 
     "Slowbro": {
         "moves": [
@@ -48812,7 +49378,8 @@
         "types": [
             "Water", 
             "Psychic"
-        ]
+        ], 
+        "weight": 785
     }, 
     "Slowking": {
         "moves": [
@@ -48930,7 +49497,8 @@
         "types": [
             "Water", 
             "Psychic"
-        ]
+        ], 
+        "weight": 795
     }, 
     "Slowpoke": {
         "moves": [
@@ -49044,7 +49612,8 @@
         "types": [
             "Water", 
             "Psychic"
-        ]
+        ], 
+        "weight": 360
     }, 
     "Slugma": {
         "moves": [
@@ -49120,7 +49689,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 350
     }, 
     "Smeargle": {
         "moves": [
@@ -49137,7 +49707,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 580
     }, 
     "Smoochum": {
         "moves": [
@@ -49240,7 +49811,8 @@
         "types": [
             "Ice", 
             "Psychic"
-        ]
+        ], 
+        "weight": 60
     }, 
     "Sneasel": {
         "moves": [
@@ -49351,7 +49923,8 @@
         "types": [
             "Dark", 
             "Ice"
-        ]
+        ], 
+        "weight": 280
     }, 
     "Snivy": {
         "moves": [
@@ -49428,7 +50001,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 81
     }, 
     "Snorlax": {
         "moves": [
@@ -49552,7 +50126,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 4600
     }, 
     "Snorunt": {
         "moves": [
@@ -49617,7 +50192,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 168
     }, 
     "Snover": {
         "moves": [
@@ -49692,7 +50268,8 @@
         "types": [
             "Grass", 
             "Ice"
-        ]
+        ], 
+        "weight": 505
     }, 
     "Snubbull": {
         "moves": [
@@ -49801,7 +50378,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 78
     }, 
     "Solosis": {
         "moves": [
@@ -49877,7 +50455,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 10
     }, 
     "Solrock": {
         "moves": [
@@ -49976,7 +50555,8 @@
         "types": [
             "Rock", 
             "Psychic"
-        ]
+        ], 
+        "weight": 1540
     }, 
     "Spearow": {
         "moves": [
@@ -50058,7 +50638,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Spheal": {
         "moves": [
@@ -50138,7 +50719,8 @@
         "types": [
             "Ice", 
             "Water"
-        ]
+        ], 
+        "weight": 395
     }, 
     "Spinarak": {
         "moves": [
@@ -50218,7 +50800,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Spinda": {
         "moves": [
@@ -50328,7 +50911,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Spiritomb": {
         "moves": [
@@ -50410,7 +50994,8 @@
         "types": [
             "Ghost", 
             "Dark"
-        ]
+        ], 
+        "weight": 1080
     }, 
     "Spoink": {
         "moves": [
@@ -50495,7 +51080,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 306
     }, 
     "Squirtle": {
         "moves": [
@@ -50597,7 +51183,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 90
     }, 
     "Stantler": {
         "moves": [
@@ -50698,7 +51285,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 712
     }, 
     "Staraptor": {
         "moves": [
@@ -50767,7 +51355,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 249
     }, 
     "Staravia": {
         "moves": [
@@ -50832,7 +51421,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 155
     }, 
     "Starly": {
         "moves": [
@@ -50906,7 +51496,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 20
     }, 
     "Starmie": {
         "moves": [
@@ -51000,7 +51591,8 @@
         "types": [
             "Water", 
             "Psychic"
-        ]
+        ], 
+        "weight": 800
     }, 
     "Staryu": {
         "moves": [
@@ -51089,7 +51681,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 345
     }, 
     "Steelix": {
         "moves": [
@@ -51183,7 +51776,8 @@
         "types": [
             "Steel", 
             "Ground"
-        ]
+        ], 
+        "weight": 4000
     }, 
     "Stoutland": {
         "moves": [
@@ -51250,7 +51844,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 610
     }, 
     "Stunfisk": {
         "moves": [
@@ -51327,7 +51922,8 @@
         "types": [
             "Ground", 
             "Electric"
-        ]
+        ], 
+        "weight": 110
     }, 
     "Stunky": {
         "moves": [
@@ -51413,7 +52009,8 @@
         "types": [
             "Poison", 
             "Dark"
-        ]
+        ], 
+        "weight": 192
     }, 
     "Sudowoodo": {
         "moves": [
@@ -51504,7 +52101,8 @@
         }, 
         "types": [
             "Rock"
-        ]
+        ], 
+        "weight": 380
     }, 
     "Suicune": {
         "moves": [
@@ -51589,7 +52187,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 1870
     }, 
     "Sunflora": {
         "moves": [
@@ -51659,7 +52258,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Sunkern": {
         "moves": [
@@ -51728,7 +52328,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 18
     }, 
     "Surskit": {
         "moves": [
@@ -51799,7 +52400,8 @@
         "types": [
             "Bug", 
             "Water"
-        ]
+        ], 
+        "weight": 17
     }, 
     "Swablu": {
         "moves": [
@@ -51882,7 +52484,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 12
     }, 
     "Swadloon": {
         "moves": [
@@ -51938,7 +52541,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 73
     }, 
     "Swalot": {
         "moves": [
@@ -52023,7 +52627,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 800
     }, 
     "Swampert": {
         "moves": [
@@ -52123,7 +52728,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 819
     }, 
     "Swanna": {
         "moves": [
@@ -52182,7 +52788,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 242
     }, 
     "Swellow": {
         "moves": [
@@ -52250,7 +52857,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 198
     }, 
     "Swinub": {
         "moves": [
@@ -52330,7 +52938,8 @@
         "types": [
             "Ice", 
             "Ground"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Swoobat": {
         "moves": [
@@ -52415,7 +53024,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 105
     }, 
     "Taillow": {
         "moves": [
@@ -52488,7 +53098,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 23
     }, 
     "Tangela": {
         "moves": [
@@ -52578,7 +53189,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 350
     }, 
     "Tangrowth": {
         "moves": [
@@ -52664,7 +53276,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 1286
     }, 
     "Tauros": {
         "moves": [
@@ -52757,7 +53370,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 884
     }, 
     "Teddiursa": {
         "moves": [
@@ -52862,7 +53476,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 88
     }, 
     "Tentacool": {
         "moves": [
@@ -52955,7 +53570,8 @@
         "types": [
             "Water", 
             "Poison"
-        ]
+        ], 
+        "weight": 455
     }, 
     "Tentacruel": {
         "moves": [
@@ -53040,7 +53656,8 @@
         "types": [
             "Water", 
             "Poison"
-        ]
+        ], 
+        "weight": 550
     }, 
     "Tepig": {
         "moves": [
@@ -53112,7 +53729,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 99
     }, 
     "Terrakion": {
         "moves": [
@@ -53183,7 +53801,8 @@
         "types": [
             "Rock", 
             "Fighting"
-        ]
+        ], 
+        "weight": 2600
     }, 
     "Throh": {
         "moves": [
@@ -53257,7 +53876,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 555
     }, 
     "Thundurus (incarnate)": {
         "moves": [
@@ -53339,7 +53959,8 @@
         "types": [
             "Electric", 
             "Flying"
-        ]
+        ], 
+        "weight": 610
     }, 
     "Thundurus (therian)": {
         "moves": [
@@ -53421,7 +54042,8 @@
         "types": [
             "Electric", 
             "Flying"
-        ]
+        ], 
+        "weight": 610
     }, 
     "Timburr": {
         "moves": [
@@ -53501,7 +54123,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 125
     }, 
     "Tirtouga": {
         "moves": [
@@ -53577,7 +54200,8 @@
         "types": [
             "Water", 
             "Rock"
-        ]
+        ], 
+        "weight": 165
     }, 
     "Togekiss": {
         "moves": [
@@ -53673,7 +54297,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 380
     }, 
     "Togepi": {
         "moves": [
@@ -53781,7 +54406,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 15
     }, 
     "Togetic": {
         "moves": [
@@ -53897,7 +54523,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 32
     }, 
     "Torchic": {
         "moves": [
@@ -53985,7 +54612,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 25
     }, 
     "Torkoal": {
         "moves": [
@@ -54070,7 +54698,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 804
     }, 
     "Tornadus (incarnate)": {
         "moves": [
@@ -54147,7 +54776,8 @@
         }, 
         "types": [
             "Flying"
-        ]
+        ], 
+        "weight": 630
     }, 
     "Tornadus (therian)": {
         "moves": [
@@ -54224,7 +54854,8 @@
         }, 
         "types": [
             "Flying"
-        ]
+        ], 
+        "weight": 630
     }, 
     "Torterra": {
         "moves": [
@@ -54309,7 +54940,8 @@
         "types": [
             "Grass", 
             "Ground"
-        ]
+        ], 
+        "weight": 3100
     }, 
     "Totodile": {
         "moves": [
@@ -54409,7 +55041,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 95
     }, 
     "Toxicroak": {
         "moves": [
@@ -54507,7 +55140,8 @@
         "types": [
             "Poison", 
             "Fighting"
-        ]
+        ], 
+        "weight": 444
     }, 
     "Tranquill": {
         "moves": [
@@ -54561,7 +55195,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Trapinch": {
         "moves": [
@@ -54631,7 +55266,8 @@
         }, 
         "types": [
             "Ground"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Treecko": {
         "moves": [
@@ -54726,7 +55362,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Tropius": {
         "moves": [
@@ -54818,7 +55455,8 @@
         "types": [
             "Grass", 
             "Flying"
-        ]
+        ], 
+        "weight": 1000
     }, 
     "Trubbish": {
         "moves": [
@@ -54883,7 +55521,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 310
     }, 
     "Turtwig": {
         "moves": [
@@ -54963,7 +55602,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 102
     }, 
     "Tympole": {
         "moves": [
@@ -55020,7 +55660,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 45
     }, 
     "Tynamo": {
         "moves": [
@@ -55041,7 +55682,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Typhlosion": {
         "moves": [
@@ -55136,7 +55778,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 795
     }, 
     "Tyranitar": {
         "moves": [
@@ -55260,7 +55903,8 @@
         "types": [
             "Rock", 
             "Dark"
-        ]
+        ], 
+        "weight": 2020
     }, 
     "Tyrogue": {
         "moves": [
@@ -55334,7 +55978,8 @@
         }, 
         "types": [
             "Fighting"
-        ]
+        ], 
+        "weight": 210
     }, 
     "Umbreon": {
         "moves": [
@@ -55420,7 +56065,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 270
     }, 
     "Unfezant": {
         "moves": [
@@ -55477,7 +56123,8 @@
         "types": [
             "Normal", 
             "Flying"
-        ]
+        ], 
+        "weight": 290
     }, 
     "Unown (a)": {
         "moves": [
@@ -55494,7 +56141,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (b)": {
         "moves": [
@@ -55511,7 +56159,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (c)": {
         "moves": [
@@ -55528,7 +56177,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (d)": {
         "moves": [
@@ -55545,7 +56195,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (e)": {
         "moves": [
@@ -55562,7 +56213,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (exclamation)": {
         "moves": [
@@ -55579,7 +56231,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (f)": {
         "moves": [
@@ -55596,7 +56249,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (g)": {
         "moves": [
@@ -55613,7 +56267,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (h)": {
         "moves": [
@@ -55630,7 +56285,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (i)": {
         "moves": [
@@ -55647,7 +56303,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (j)": {
         "moves": [
@@ -55664,7 +56321,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (k)": {
         "moves": [
@@ -55681,7 +56339,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (l)": {
         "moves": [
@@ -55698,7 +56357,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (m)": {
         "moves": [
@@ -55715,7 +56375,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (n)": {
         "moves": [
@@ -55732,7 +56393,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (o)": {
         "moves": [
@@ -55749,7 +56411,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (p)": {
         "moves": [
@@ -55766,7 +56429,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (q)": {
         "moves": [
@@ -55783,7 +56447,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (question)": {
         "moves": [
@@ -55800,7 +56465,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (r)": {
         "moves": [
@@ -55817,7 +56483,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (s)": {
         "moves": [
@@ -55834,7 +56501,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (t)": {
         "moves": [
@@ -55851,7 +56519,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (u)": {
         "moves": [
@@ -55868,7 +56537,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (v)": {
         "moves": [
@@ -55885,7 +56555,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (w)": {
         "moves": [
@@ -55902,7 +56573,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (x)": {
         "moves": [
@@ -55919,7 +56591,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (y)": {
         "moves": [
@@ -55936,7 +56609,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Unown (z)": {
         "moves": [
@@ -55953,7 +56627,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 50
     }, 
     "Ursaring": {
         "moves": [
@@ -56058,7 +56733,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 1258
     }, 
     "Uxie": {
         "moves": [
@@ -56149,7 +56825,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 3
     }, 
     "Vanillish": {
         "moves": [
@@ -56203,7 +56880,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 410
     }, 
     "Vanillite": {
         "moves": [
@@ -56263,7 +56941,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 57
     }, 
     "Vanilluxe": {
         "moves": [
@@ -56320,7 +56999,8 @@
         }, 
         "types": [
             "Ice"
-        ]
+        ], 
+        "weight": 575
     }, 
     "Vaporeon": {
         "moves": [
@@ -56412,7 +57092,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 290
     }, 
     "Venipede": {
         "moves": [
@@ -56470,7 +57151,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 53
     }, 
     "Venomoth": {
         "moves": [
@@ -56560,7 +57242,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 125
     }, 
     "Venonat": {
         "moves": [
@@ -56637,7 +57320,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 300
     }, 
     "Venusaur": {
         "moves": [
@@ -56727,7 +57411,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 1000
     }, 
     "Vespiquen": {
         "moves": [
@@ -56805,7 +57490,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 385
     }, 
     "Vibrava": {
         "moves": [
@@ -56888,7 +57574,8 @@
         "types": [
             "Ground", 
             "Dragon"
-        ]
+        ], 
+        "weight": 153
     }, 
     "Victini": {
         "moves": [
@@ -56978,7 +57665,8 @@
         "types": [
             "Psychic", 
             "Fire"
-        ]
+        ], 
+        "weight": 40
     }, 
     "Victreebel": {
         "moves": [
@@ -57058,7 +57746,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 155
     }, 
     "Vigoroth": {
         "moves": [
@@ -57154,7 +57843,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 465
     }, 
     "Vileplume": {
         "moves": [
@@ -57226,7 +57916,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 186
     }, 
     "Virizion": {
         "moves": [
@@ -57299,7 +57990,8 @@
         "types": [
             "Grass", 
             "Fighting"
-        ]
+        ], 
+        "weight": 2000
     }, 
     "Volbeat": {
         "moves": [
@@ -57388,7 +58080,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 177
     }, 
     "Volcarona": {
         "moves": [
@@ -57459,7 +58152,8 @@
         "types": [
             "Bug", 
             "Fire"
-        ]
+        ], 
+        "weight": 460
     }, 
     "Voltorb": {
         "moves": [
@@ -57530,7 +58224,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 104
     }, 
     "Vullaby": {
         "moves": [
@@ -57605,7 +58300,8 @@
         "types": [
             "Dark", 
             "Flying"
-        ]
+        ], 
+        "weight": 90
     }, 
     "Vulpix": {
         "moves": [
@@ -57692,7 +58388,8 @@
         }, 
         "types": [
             "Fire"
-        ]
+        ], 
+        "weight": 99
     }, 
     "Wailmer": {
         "moves": [
@@ -57771,7 +58468,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 1300
     }, 
     "Wailord": {
         "moves": [
@@ -57848,7 +58546,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 3980
     }, 
     "Walrein": {
         "moves": [
@@ -57929,7 +58628,8 @@
         "types": [
             "Ice", 
             "Water"
-        ]
+        ], 
+        "weight": 1506
     }, 
     "Wartortle": {
         "moves": [
@@ -58017,7 +58717,8 @@
         }, 
         "types": [
             "Water"
-        ]
+        ], 
+        "weight": 225
     }, 
     "Watchog": {
         "moves": [
@@ -58100,7 +58801,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 270
     }, 
     "Weavile": {
         "moves": [
@@ -58198,7 +58900,8 @@
         "types": [
             "Dark", 
             "Ice"
-        ]
+        ], 
+        "weight": 340
     }, 
     "Weedle": {
         "moves": [
@@ -58219,7 +58922,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 32
     }, 
     "Weepinbell": {
         "moves": [
@@ -58293,7 +58997,8 @@
         "types": [
             "Grass", 
             "Poison"
-        ]
+        ], 
+        "weight": 64
     }, 
     "Weezing": {
         "moves": [
@@ -58371,7 +59076,8 @@
         }, 
         "types": [
             "Poison"
-        ]
+        ], 
+        "weight": 95
     }, 
     "Whimsicott": {
         "moves": [
@@ -58432,7 +59138,8 @@
         }, 
         "types": [
             "Grass"
-        ]
+        ], 
+        "weight": 66
     }, 
     "Whirlipede": {
         "moves": [
@@ -58485,7 +59192,8 @@
         "types": [
             "Bug", 
             "Poison"
-        ]
+        ], 
+        "weight": 585
     }, 
     "Whiscash": {
         "moves": [
@@ -58558,7 +59266,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 236
     }, 
     "Whismur": {
         "moves": [
@@ -58643,7 +59352,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 163
     }, 
     "Wigglytuff": {
         "moves": [
@@ -58763,7 +59473,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 120
     }, 
     "Wingull": {
         "moves": [
@@ -58840,7 +59551,8 @@
         "types": [
             "Water", 
             "Flying"
-        ]
+        ], 
+        "weight": 95
     }, 
     "Wobbuffet": {
         "moves": [
@@ -58860,7 +59572,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 285
     }, 
     "Woobat": {
         "moves": [
@@ -58948,7 +59661,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 21
     }, 
     "Wooper": {
         "moves": [
@@ -59037,7 +59751,8 @@
         "types": [
             "Water", 
             "Ground"
-        ]
+        ], 
+        "weight": 85
     }, 
     "Wormadam (plant)": {
         "moves": [
@@ -59108,7 +59823,8 @@
         "types": [
             "Bug", 
             "Grass"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Wormadam (sandy)": {
         "moves": [
@@ -59180,7 +59896,8 @@
         "types": [
             "Bug", 
             "Ground"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Wormadam (trash)": {
         "moves": [
@@ -59249,7 +59966,8 @@
         "types": [
             "Bug", 
             "Steel"
-        ]
+        ], 
+        "weight": 65
     }, 
     "Wurmple": {
         "moves": [
@@ -59271,7 +59989,8 @@
         }, 
         "types": [
             "Bug"
-        ]
+        ], 
+        "weight": 36
     }, 
     "Wynaut": {
         "moves": [
@@ -59294,7 +60013,8 @@
         }, 
         "types": [
             "Psychic"
-        ]
+        ], 
+        "weight": 140
     }, 
     "Xatu": {
         "moves": [
@@ -59393,7 +60113,8 @@
         "types": [
             "Psychic", 
             "Flying"
-        ]
+        ], 
+        "weight": 150
     }, 
     "Yamask": {
         "moves": [
@@ -59470,7 +60191,8 @@
         }, 
         "types": [
             "Ghost"
-        ]
+        ], 
+        "weight": 15
     }, 
     "Yanma": {
         "moves": [
@@ -59549,7 +60271,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 380
     }, 
     "Yanmega": {
         "moves": [
@@ -59626,7 +60349,8 @@
         "types": [
             "Bug", 
             "Flying"
-        ]
+        ], 
+        "weight": 515
     }, 
     "Zangoose": {
         "moves": [
@@ -59742,7 +60466,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 403
     }, 
     "Zapdos": {
         "moves": [
@@ -59826,7 +60551,8 @@
         "types": [
             "Electric", 
             "Flying"
-        ]
+        ], 
+        "weight": 526
     }, 
     "Zebstrika": {
         "moves": [
@@ -59883,7 +60609,8 @@
         }, 
         "types": [
             "Electric"
-        ]
+        ], 
+        "weight": 795
     }, 
     "Zekrom": {
         "moves": [
@@ -59964,7 +60691,8 @@
         "types": [
             "Dragon", 
             "Electric"
-        ]
+        ], 
+        "weight": 3450
     }, 
     "Zigzagoon": {
         "moves": [
@@ -60055,7 +60783,8 @@
         }, 
         "types": [
             "Normal"
-        ]
+        ], 
+        "weight": 175
     }, 
     "Zoroark": {
         "moves": [
@@ -60137,7 +60866,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 811
     }, 
     "Zorua": {
         "moves": [
@@ -60217,7 +60947,8 @@
         }, 
         "types": [
             "Dark"
-        ]
+        ], 
+        "weight": 125
     }, 
     "Zubat": {
         "moves": [
@@ -60307,7 +61038,8 @@
         "types": [
             "Poison", 
             "Flying"
-        ]
+        ], 
+        "weight": 75
     }, 
     "Zweilous": {
         "moves": [
@@ -60373,6 +61105,7 @@
         "types": [
             "Dark", 
             "Dragon"
-        ]
+        ], 
+        "weight": 500
     }
 }

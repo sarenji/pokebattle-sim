@@ -94,6 +94,16 @@ makeJumpKick = (name, recoilPercent=.5) ->
       user.damage(amount)
       battle.message("#{user.name} kept going and crashed!")
 
+makeWeightBased = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      if target.weight <= 100       then 20
+      else if target.weight <= 250  then 40
+      else if target.weight <= 500  then 60
+      else if target.weight <= 1000 then 80
+      else if target.weight <= 2000 then 100
+      else                               120
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -210,6 +220,7 @@ extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
 extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
+makeWeightBased 'grass-knot'
 extendWithBoost 'growl', 'target', attack: -1
 extendWithBoost 'growth', 'self', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
@@ -244,6 +255,7 @@ extendWithBoost 'leaf-storm', 'self', specialAttack: -2
 extendWithBoost 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
 extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
+makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 extendWithBoost 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'

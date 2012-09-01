@@ -8,6 +8,7 @@ class @Team
     @pokemon = pokemon.map (attributes) ->
       specimen = species[attributes.name]
       # TODO: Make nicer.
+      attributes.weight = specimen.weight
       attributes.stats = _.clone(specimen.stats || {})
       pokemon_moves = attributes.moves || []
       attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)

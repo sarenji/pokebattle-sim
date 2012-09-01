@@ -7,6 +7,7 @@ class @Pokemon
     @name = attributes.name || 'Missingno'
     @level = attributes.level || 100
     @baseStats = attributes.stats || {}
+    @weight = attributes.weight
 
     @nature = attributes.nature
     @evs = attributes.evs || {}

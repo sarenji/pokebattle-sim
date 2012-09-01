@@ -1,3 +1,3 @@
 class @Specimen
   constructor: (attributes) ->
-    {@stats, @moves, @types} = attributes
+    {@stats, @moves, @types, @weight} = attributes
