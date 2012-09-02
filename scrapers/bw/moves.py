@@ -6,15 +6,22 @@ output_path = '../../data/bw/data_moves.json'
 moves = {}
 types = {}
 damage_types = {}
+move_meta = {}
 
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/moves.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
 damage_types_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_damage_classes.csv'
+meta_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_meta.csv'
 
 Move = collections.namedtuple('Move', ["id", "identifier", "generation_id", 
   "type_id", "power", "pp", "accuracy", "priority", "target_id", 
   "damage_class_id", "effect_id", "effect_chance", "contest_type_id", 
   "contest_effect_id", "super_contest_effect_id"])
+
+Meta = collections.namedtuple('Meta', ['move_id', 'meta_category_id',
+  'meta_ailment_id', 'min_hits', 'max_hits', 'min_turns', 'max_turns',
+  'recoil', 'healing', 'crit_rate', 'ailment_chance', 'flinch_chance', 
+  'stat_chance'])
 
 # Parse damage types
 lines = requests.get(damage_types_url).text.splitlines()
@@ -35,6 +42,17 @@ while len(lines) > 0:
   type_id, type_name, generation_id, damage_class = line.split(',')
   types[type_id] = type_name.capitalize()
 
+
+# Parse meta info
+lines = requests.get(meta_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+while len(lines) > 0:
+    line = lines.pop(0)
+    meta = Meta(*line.split(','))
+    move_meta[meta.move_id] = meta
+
+
 # Parse moves
 lines = requests.get(moves_url).text.splitlines()
 lines.pop(0) # get rid of info
@@ -42,6 +60,10 @@ lines.pop(0) # get rid of info
 while len(lines) > 0:
   line = lines.pop(0)
   move = Move(*line.split(','))
+
+  # moves after 10000 are shadow moves 
+  if int(move.id) > 10000: continue
+  
   moves[move.identifier] = {
     'type'     : types[move.type_id],
     'power'    : int(move.power),
@@ -50,6 +72,11 @@ while len(lines) > 0:
     'priority' : int(move.priority),
     'damage'   : damage_types[move.damage_class_id],
   }
+
+  # TODO: Find a simple way to add meta info without default values
+  criticalHitRatio = int(move_meta[move.id].crit_rate) + 1
+  if criticalHitRatio != 1:
+    moves[move.identifier]['criticalHitRatio'] = criticalHitRatio
   
 with open(output_path, 'w') as f:
   f.write(json.dumps(moves, sort_keys=True, indent=4))
