@@ -90,6 +90,25 @@ describe 'Move', ->
       sinon.stub(battle.rng, 'next', -> 0.2)
       move.isCriticalHit(battle, attacker, defender).should.be.false
 
+    describe "-1 crit ratios", ->
+      beforeEach ->
+        @battle = new Battle('1', players: [])
+        @attacker = new Pokemon()
+        @move = new Move("TestMove", criticalHitLevel: -1)
+        sinon.stub(@battle.rng, 'next', -> 1)
+
+      it "fails if the defender has Battle Armor", ->
+        defender = new Pokemon(ability: 'Battle Armor')
+        @move.isCriticalHit(@battle, @attacker, defender).should.be.false
+
+      it "fails if the defender has Shell Armor", ->
+        defender = new Pokemon(ability: 'Shell Armor')
+        @move.isCriticalHit(@battle, @attacker, defender).should.be.false
+
+      it "always succeeds if opponent does not have Battle or Shell Armor", ->
+        defender = new Pokemon()
+        @move.isCriticalHit(@battle, @attacker, defender).should.be.true
+
   describe 'type effectiveness', ->
     it 'is 0 if the enemy has an immunity to the type', ->
       defender = new Pokemon(types: ['Electric', 'Flying'])

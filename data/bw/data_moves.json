@@ -57,7 +57,7 @@
     }, 
     "aeroblast": {
         "accuracy": 95, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "special", 
         "power": 100, 
         "pp": 5, 
@@ -82,7 +82,7 @@
     }, 
     "air-cutter": {
         "accuracy": 95, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "special", 
         "power": 55, 
         "pp": 25, 
@@ -187,7 +187,7 @@
     }, 
     "attack-order": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 15, 
@@ -316,7 +316,7 @@
     }, 
     "blaze-kick": {
         "accuracy": 90, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 85, 
         "pp": 10, 
@@ -685,7 +685,7 @@
     }, 
     "crabhammer": {
         "accuracy": 90, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 10, 
@@ -694,7 +694,7 @@
     }, 
     "cross-chop": {
         "accuracy": 80, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 100, 
         "pp": 5, 
@@ -703,7 +703,7 @@
     }, 
     "cross-poison": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -984,7 +984,7 @@
     }, 
     "drill-run": {
         "accuracy": 95, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 80, 
         "pp": 10, 
@@ -1425,7 +1425,7 @@
     }, 
     "frost-breath": {
         "accuracy": 90, 
-        "criticalHitRatio": 7, 
+        "criticalHitLevel": -1, 
         "damage": "special", 
         "power": 40, 
         "pp": 10, 
@@ -2050,7 +2050,7 @@
     }, 
     "karate-chop": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 50, 
         "pp": 25, 
@@ -2091,7 +2091,7 @@
     }, 
     "leaf-blade": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 90, 
         "pp": 15, 
@@ -2564,7 +2564,7 @@
     }, 
     "night-slash": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 15, 
@@ -2717,7 +2717,7 @@
     }, 
     "poison-tail": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 50, 
         "pp": 25, 
@@ -2838,7 +2838,7 @@
     }, 
     "psycho-cut": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -2959,7 +2959,7 @@
     }, 
     "razor-leaf": {
         "accuracy": 95, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 55, 
         "pp": 25, 
@@ -2976,7 +2976,7 @@
     }, 
     "razor-wind": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "special", 
         "power": 80, 
         "pp": 10, 
@@ -3337,7 +3337,7 @@
     }, 
     "shadow-claw": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 15, 
@@ -3466,7 +3466,7 @@
     }, 
     "sky-attack": {
         "accuracy": 90, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 140, 
         "pp": 5, 
@@ -3507,7 +3507,7 @@
     }, 
     "slash": {
         "accuracy": 100, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 70, 
         "pp": 20, 
@@ -3644,7 +3644,7 @@
     }, 
     "spacial-rend": {
         "accuracy": 95, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "special", 
         "power": 100, 
         "pp": 5, 
@@ -3757,7 +3757,7 @@
     }, 
     "stone-edge": {
         "accuracy": 80, 
-        "criticalHitRatio": 2, 
+        "criticalHitLevel": 2, 
         "damage": "physical", 
         "power": 100, 
         "pp": 5, 
@@ -3774,7 +3774,7 @@
     }, 
     "storm-throw": {
         "accuracy": 100, 
-        "criticalHitRatio": 7, 
+        "criticalHitLevel": -1, 
         "damage": "physical", 
         "power": 40, 
         "pp": 10, 
