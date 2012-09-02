@@ -415,3 +415,22 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Mach Punch')
       @battle.makeMove(@player2, 'Psychic')
       mock.verify()
+
+  describe 'a pokemon using a hazing move', ->
+    it 'removes all status boosts from each pokemon', ->
+      create.call this,
+        team1: [Factory('Weezing')]
+        team2: [Factory('Mew')]
+      # Create artificial boosts.
+      @team1.at(0).stages.attack = 2
+      @team1.at(0).stages.evasion = -1
+      @team2.at(0).stages.defense = -3
+      @team2.at(0).stages.specialAttack = 4
+      @battle.makeMove(@player1, 'Haze')
+      @battle.continueTurn()
+      neutralBoosts = {
+        attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
+        speed: 0, evasion: 0, accuracy: 0
+      }
+      @team1.at(0).stages.should.eql neutralBoosts
+      @team2.at(0).stages.should.eql neutralBoosts

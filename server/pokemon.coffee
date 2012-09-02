@@ -74,6 +74,15 @@ class @Pokemon
       boosted[stat] = (@stages[stat] != previous)
     boosted
 
+  resetBoosts: =>
+    @stages.attack = 0
+    @stages.defense = 0
+    @stages.speed = 0
+    @stages.specialAttack = 0
+    @stages.specialDefense = 0
+    @stages.accuracy = 0
+    @stages.evasion = 0
+
   hasType: (type) =>
     type in @types
 

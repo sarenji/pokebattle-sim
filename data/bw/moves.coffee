@@ -352,3 +352,9 @@ extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
+
+extendMove 'haze', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.resetBoosts()
+    target.resetBoosts()
+    battle.message "All stat changes were eliminated!"

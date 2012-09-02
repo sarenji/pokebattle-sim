@@ -53,5 +53,8 @@ Factory.register 'Blaziken',
 Factory.register 'Celebi',
   moves: ['Leaf Storm', 'Grass Knot']
 
+Factory.register 'Weezing',
+  moves: ['Haze']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
