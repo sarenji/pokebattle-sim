@@ -8,7 +8,7 @@ PoisonAttachment, ToxicAttachment, SleepAttachment,
 ConfusionAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
-# Some of these will be overwritten later.
+# Many will be overwritten later.
 @moves = moves = {}
 for name, attributes of @MoveData
   @moves[name] = new Move(name, attributes)
@@ -35,15 +35,7 @@ extendMove = (name, callback) ->
   # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
 
-extendMove 'splash', ->
-  # TODO: Cannot select if Gravity is in effect.
-  @execute = (battle, user, target) ->
-    battle.message "But nothing happened!"
-
-
 # Extends a move in the move list as an attack with a secondary effect.
-# The chance of the effect is determined by the value of the
-# effectChance attribute.
 #
 # name - The name of the move to turn into a secondary effect attack.
 # chance - The chance that the secondary effect will activate
@@ -120,6 +112,12 @@ makeReversalMove = (name) ->
       else if n <= 21 then 80
       else if n <= 42 then 40
       else if n <= 64 then 20
+
+makeEruptionMove = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      power = Math.floor(150 * (user.currentHP / user.stat('hp')))
+      Math.max(power, 1)
 
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
@@ -218,6 +216,7 @@ extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
 extendWithSecondaryEffect 'ember', .1, BurnAttachment
+makeEruptionMove 'eruption'
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
 extendWithBoost 'fake-tears', 'target', specialDefense: -2
 extendWithBoost 'featherdance', 'target', attack: -2
@@ -363,12 +362,18 @@ extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, sp
 # TODO: Volt tackle should have 1/3 recoil.
 extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
+makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
 extendWithRecoil 'wild-charge', .25
 extendWithBoost 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
 extendWithBoost 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
+
+extendMove 'splash', ->
+  # TODO: Cannot select if Gravity is in effect.
+  @execute = (battle, user, target) ->
+    battle.message "But nothing happened!"
 
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->

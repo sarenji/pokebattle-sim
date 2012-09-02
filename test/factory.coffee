@@ -68,6 +68,9 @@ Factory.register 'Forretress',
 Factory.register 'Electrode',
   moves: ['Gyro Ball', 'Explosion']
 
+Factory.register 'Camerupt',
+  moves: ['Eruption']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

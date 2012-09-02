@@ -523,6 +523,26 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 94
 
+  describe 'eruption and water spout', ->
+    beforeEach ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Mew')]
+      @attacker = @team1.at(0)
+      @defender = @team2.at(0)
+      @move = moves['eruption']
+
+    it 'has at least one base power', ->
+      @attacker.currentHP = 1
+      @move.basePower(@battle, @attacker, @defender).should.equal 1
+
+    it 'has 75 base power at 50% hp', ->
+      @attacker.currentHP = @attacker.stat('hp') / 2
+      @move.basePower(@battle, @attacker, @defender).should.equal 75
+
+    it 'has 150 base power at 100% hp', ->
+      @move.basePower(@battle, @attacker, @defender).should.equal 150
+
   describe 'gyro ball', ->
     it 'has 150 base power maximum', ->
       create.call this,
