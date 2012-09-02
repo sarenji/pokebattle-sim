@@ -29,8 +29,8 @@ class @Pokemon
       evasion: 0
       accuracy: 0
 
-  iv: (stat) => @ivs[stat] || 31
-  ev: (stat) => @evs[stat] || 0
+  iv: (stat) => (if stat of @ivs then @ivs[stat] else 31)
+  ev: (stat) => (if stat of @evs then @evs[stat] else 0)
 
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')

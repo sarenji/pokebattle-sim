@@ -522,3 +522,23 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Flail')
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 94
+
+  describe 'gyro ball', ->
+    it 'has 150 base power maximum', ->
+      create.call this,
+        team1: [Factory('Forretress', ivs: {speed: 0})]
+        team2: [Factory('Jolteon', evs: {speed: 252}, nature: "Timid")]
+      hp = @team2.at(0).currentHP
+      @team1.at(0).stages.speed = -6
+      @battle.makeMove(@player1, 'Gyro Ball')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 132
+
+    it 'has variable base power based on speed of target and user', ->
+      create.call this,
+        team1: [Factory('Electrode', evs: {speed: 252}, nature: "Jolly")]
+        team2: [Factory('Magikarp', ivs: {speed: 0})]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Gyro Ball')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 4

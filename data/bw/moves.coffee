@@ -382,6 +382,11 @@ extendMove 'facade', ->
     else
       @power
 
+extendMove 'gyro-ball', ->
+  @basePower = (battle, user, target) ->
+    power = 1 + Math.floor(25 * target.stat('speed') / user.stat('speed'))
+    Math.min(150, power)
+
 extendMove 'haze', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.resetBoosts()

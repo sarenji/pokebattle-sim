@@ -62,5 +62,12 @@ Factory.register 'Blissey',
 Factory.register 'Zangoose',
   moves: ['Facade', 'Flail']
 
+Factory.register 'Forretress',
+  moves: ['Gyro Ball', 'Rapid Spin']
+
+Factory.register 'Electrode',
+  moves: ['Gyro Ball', 'Explosion']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
+Factory.register 'Jolteon'

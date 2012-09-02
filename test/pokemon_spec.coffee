@@ -23,6 +23,9 @@ describe 'Pokemon', ->
     it 'retrieves iv successfully', ->
       new Pokemon(ivs: {'hp': 25}).iv('hp').should.equal 25
 
+    it "doesn't default to 31 if iv is 0", ->
+      new Pokemon(ivs: {'hp': 0}).iv('hp').should.equal 0
+
   describe '#ev', ->
     it 'has default ev of 0', ->
       new Pokemon().ev('hp').should.equal 0
