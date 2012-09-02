@@ -60,7 +60,7 @@ Factory.register 'Blissey',
   moves: ['Seismic Toss', 'Aromatherapy']
 
 Factory.register 'Zangoose',
-  moves: ['Facade']
+  moves: ['Facade', 'Flail']
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

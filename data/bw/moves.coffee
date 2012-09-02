@@ -110,6 +110,17 @@ makeLevelAsDamageMove = (name) ->
     @calculateDamage = (battle, user, target) ->
       user.level
 
+makeReversalMove = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      n = Math.floor(64 * user.currentHP / user.stat('hp'))
+      if n <= 1       then 200
+      else if n <= 5  then 150
+      else if n <= 12 then 100
+      else if n <= 21 then 80
+      else if n <= 42 then 40
+      else if n <= 64 then 20
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -214,6 +225,7 @@ extendWithBoost 'fiery-dance', 'self', specialAttack: 1
 extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
 extendWithFangEffect 'fire-fang', .1, BurnAttachment
 extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
+makeReversalMove 'flail'
 extendWithBoost 'flame-charge', 'self', speed: 1
 extendWithSecondaryEffect 'flame-wheel', .1, BurnAttachment
 extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
@@ -292,6 +304,7 @@ extendWithBoost 'psycho-boost', 'self', specialAttack: -2
 extendWithBoost 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 extendWithSecondaryEffect 'relic-song', .1, SleepAttachment
+makeReversalMove 'reversal'
 extendWithSecondaryEffect 'rock-climb', .2, ConfusionAttachment
 extendWithBoost 'rock-polish', 'self', speed: 2
 extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1

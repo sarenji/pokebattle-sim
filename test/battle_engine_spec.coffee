@@ -501,3 +501,24 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Facade')
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 324
+
+  describe 'reversal and flail', ->
+    it 'have 200 base power at 1 hp', ->
+      create.call this,
+        team1: [Factory('Zangoose')]
+        team2: [Factory('Magikarp')]
+      @team1.at(0).currentHP = 1
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Flail')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 462
+
+    it 'have 40 base power at 50% hp', ->
+      create.call this,
+        team1: [Factory('Zangoose')]
+        team2: [Factory('Magikarp')]
+      @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2)
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Flail')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 94
