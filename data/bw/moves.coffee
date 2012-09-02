@@ -176,8 +176,7 @@ extendWithBoost 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
 extendWithBoost 'charm', 'target', attack: -2
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
-# TODO: Accuracy +1
-extendWithBoost 'coil', 'self', attack: 1, defense: 1
+extendWithBoost 'coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithSecondaryEffect 'confusion', .1, ConfusionAttachment
 extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
 extendWithBoost 'cosmic-power', 'self', defense: 1, specialDefense: 1
@@ -191,7 +190,7 @@ extendWithBoost 'defense-curl', 'self', defense: 1
 extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
 extendWithRecoil 'double-edge'
-# TODO: Double-team
+extendWithBoost 'double-team', 'self', evasion: 1
 extendWithBoost 'dragon-dance', 'self', attack: 1, speed: 1
 extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
 extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
@@ -233,8 +232,7 @@ extendWithRecoil 'head-smash', .5
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
 makeJumpKick 'hi-jump-kick'
-# TODO: Accuracy + 1
-extendWithBoost 'hone-claws', 'self', attack: 1
+extendWithBoost 'hone-claws', 'self', attack: 1, accuracy: 1
 extendWithDrain 'horn-leech'
 extendWithBoost 'howl', 'self', attack: 1
 extendWithBoost 'icy-wind', 'target', speed: -1
@@ -251,7 +249,7 @@ extendWithSecondaryEffect 'iron-head', .3, FlinchAttachment
 makeJumpKick 'jump-kick'
 extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
 extendWithBoost 'leaf-storm', 'self', specialAttack: -2
-# extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
+extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
 extendWithBoost 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
 extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
@@ -261,17 +259,17 @@ extendWithBoost 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
 extendWithBoost 'metal-sound', 'target', specialDefense: -2
-# extendWithBoost 'minimize', 'self', evasion: 2
-# extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
+extendWithBoost 'minimize', 'self', evasion: 2
+extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
-# extendWithSecondaryBoost 'mud-bomb', 'target', .3, accuracy: -1
+extendWithSecondaryBoost 'mud-bomb', 'target', .3, accuracy: -1
 extendWithBoost 'mud-shot', 'target', speed: -1
-# extendWithBoost 'mud-slap', 'target', accuracy: -1
-# extendWithSecondaryBoost 'muddy-water', 'target', .3, accuracy: -1
+extendWithBoost 'mud-slap', 'target', accuracy: -1
+extendWithSecondaryBoost 'muddy-water', 'target', .3, accuracy: -1
 extendWithBoost 'nasty-plot', 'self', specialAttack: 2
 extendWithSecondaryEffect 'needle-arm', .3, FlinchAttachment
-# extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
-# extendWithSecondaryBoost 'octazooka', 'target', .5, accuracy: -1
+extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
+extendWithSecondaryBoost 'octazooka', 'target', .5, accuracy: -1
 extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
@@ -293,7 +291,7 @@ extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
 extendWithBoost 'rock-tomb', 'target', speed: -1
 extendWithSecondaryEffect 'rock-slide', .3, FlinchAttachment
 extendWithSecondaryEffect 'rolling-kick', .3, FlinchAttachment
-# extendWithBoost 'sand-attack', 'target', accuracy: -1
+extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendWithSecondaryEffect 'scald', .3, BurnAttachment
 extendWithBoost 'scary-face', 'target', speed: -2
 extendWithBoost 'screech', 'target', defense: -2
@@ -326,7 +324,7 @@ extendWithBoost 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithRecoil 'submission', .25
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
-# extendWithBoost 'sweet-scent', 'target', evasion: -1
+extendWithBoost 'sweet-scent', 'target', evasion: -1
 extendWithBoost 'swords-dance', 'self', attack: 2
 extendWithBoost 'tail-glow', 'self', attack: 3
 extendWithBoost 'tail-whip', 'target', defense: -1
