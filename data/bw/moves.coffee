@@ -2,6 +2,7 @@
 
 @MoveData = require('./data_moves.json')
 {Move} = require('../../server/move')
+{Status} = require('../../server/status')
 {BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
 PoisonAttachment, ToxicAttachment, SleepAttachment,
 ConfusionAttachment} = require('../../server/attachment')
@@ -359,6 +360,14 @@ extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
+
+extendMove 'facade', ->
+  @basePower = (battle, user, target) ->
+    if user.hasStatus(Status.BURN) || user.hasStatus(Status.POISON) ||
+        user.hasStatus(Status.PARALYZE) || user.hasStatus(Status.TOXIC)
+      2 * @power
+    else
+      @power
 
 extendMove 'haze', ->
   @afterSuccessfulHit = (battle, user, target) ->

@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {items, moves} = require('../data/bw')
-{Battle, Pokemon, Status, VolatileStatus} = require('../').server
+{Battle, Pokemon, Status, VolatileStatus, ParalyzeAttachment} = require('../').server
 {Factory} = require './factory'
 
 describe 'Mechanics', ->
@@ -490,3 +490,14 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 60
       move.willMiss.restore()
+
+  describe 'facade', ->
+    it 'doubles the base power if burned, poisoned, or paralyzed', ->
+      create.call this,
+        team1: [Factory('Zangoose')]
+        team2: [Factory('Magikarp')]
+      hp = @team2.at(0).currentHP
+      @team1.at(0).attach(new ParalyzeAttachment())
+      @battle.makeMove(@player1, 'Facade')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 324

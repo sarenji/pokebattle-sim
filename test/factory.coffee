@@ -59,5 +59,8 @@ Factory.register 'Weezing',
 Factory.register 'Blissey',
   moves: ['Seismic Toss', 'Aromatherapy']
 
+Factory.register 'Zangoose',
+  moves: ['Facade']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
