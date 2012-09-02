@@ -434,3 +434,13 @@ describe 'Mechanics', ->
       }
       @team1.at(0).stages.should.eql neutralBoosts
       @team2.at(0).stages.should.eql neutralBoosts
+
+  describe 'Seismic Toss and Night Shade', ->
+    it 'does exactly the same damage as their level', ->
+      create.call this,
+        team1: [Factory('Blissey')]
+        team2: [Factory('Mew')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Seismic Toss')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 100

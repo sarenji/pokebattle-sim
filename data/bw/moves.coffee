@@ -104,6 +104,11 @@ makeWeightBased = (name) ->
       else if target.weight <= 2000 then 100
       else                               120
 
+makeLevelAsDamageMove = (name) ->
+  extendMove name, ->
+    @calculateDamage = (battle, user, target) ->
+      user.level
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -269,6 +274,7 @@ extendWithSecondaryBoost 'muddy-water', 'target', .3, accuracy: -1
 extendWithBoost 'nasty-plot', 'self', specialAttack: 2
 extendWithSecondaryEffect 'needle-arm', .3, FlinchAttachment
 extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
+makeLevelAsDamageMove 'night-shade'
 extendWithSecondaryBoost 'octazooka', 'target', .5, accuracy: -1
 extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
@@ -297,6 +303,7 @@ extendWithBoost 'scary-face', 'target', speed: -2
 extendWithBoost 'screech', 'target', defense: -2
 extendWithSecondaryEffect 'searing-shot', .3, BurnAttachment
 extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
+makeLevelAsDamageMove 'seismic-toss'
 extendWithSecondaryBoost 'shadow-ball', 'target', .2, specialDefense: -1
 extendWithBoost 'sharpen', 'self', attack: 1
 extendWithBoost 'shell-smash', 'self', {

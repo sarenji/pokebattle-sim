@@ -56,5 +56,8 @@ Factory.register 'Celebi',
 Factory.register 'Weezing',
   moves: ['Haze']
 
+Factory.register 'Blissey',
+  moves: ['Seismic Toss', 'Aromatherapy']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
