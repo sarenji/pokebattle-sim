@@ -109,6 +109,8 @@ class @Move
 
     rand = battle.rng.next()
     switch @criticalHitLevel(battle, attacker, defender)
+      when -1
+        true
       when 1
         rand < 0.0625
       when 2
@@ -121,6 +123,9 @@ class @Move
         rand < .5
 
   criticalHitLevel: (battle, attacker, defender) =>
+    # -1 means always crits
+    return @chLevel  if @chLevel == -1
+
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
     stage += 2  if attacker.name == "Farfetch'd" && attacker.hasItem('Stick')
