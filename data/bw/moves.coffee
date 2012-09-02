@@ -121,6 +121,12 @@ makeReversalMove = (name) ->
       else if n <= 42 then 40
       else if n <= 64 then 20
 
+makeEruptionMove = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      power = Math.floor(150 * (user.currentHP / user.stat('hp')))
+      Math.max(power, 1)
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -218,6 +224,7 @@ extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
 extendWithSecondaryEffect 'ember', .1, BurnAttachment
+makeEruptionMove 'eruption'
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
 extendWithBoost 'fake-tears', 'target', specialDefense: -2
 extendWithBoost 'featherdance', 'target', attack: -2
@@ -363,6 +370,7 @@ extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, sp
 # TODO: Volt tackle should have 1/3 recoil.
 extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
+makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
 extendWithRecoil 'wild-charge', .25
 extendWithBoost 'withdraw', 'user', defense: 1
