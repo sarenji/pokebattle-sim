@@ -8,7 +8,7 @@ PoisonAttachment, ToxicAttachment, SleepAttachment,
 ConfusionAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
-# Some of these will be overwritten later.
+# Many will be overwritten later.
 @moves = moves = {}
 for name, attributes of @MoveData
   @moves[name] = new Move(name, attributes)
@@ -35,15 +35,7 @@ extendMove = (name, callback) ->
   # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
 
-extendMove 'splash', ->
-  # TODO: Cannot select if Gravity is in effect.
-  @execute = (battle, user, target) ->
-    battle.message "But nothing happened!"
-
-
 # Extends a move in the move list as an attack with a secondary effect.
-# The chance of the effect is determined by the value of the
-# effectChance attribute.
 #
 # name - The name of the move to turn into a secondary effect attack.
 # chance - The chance that the secondary effect will activate
@@ -377,6 +369,11 @@ extendWithBoost 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
 extendWithBoost 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
+
+extendMove 'splash', ->
+  # TODO: Cannot select if Gravity is in effect.
+  @execute = (battle, user, target) ->
+    battle.message "But nothing happened!"
 
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->

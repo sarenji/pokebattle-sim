@@ -543,7 +543,6 @@ describe 'Mechanics', ->
     it 'has 150 base power at 100% hp', ->
       @move.basePower(@battle, @attacker, @defender).should.equal 150
 
-
   describe 'gyro ball', ->
     it 'has 150 base power maximum', ->
       create.call this,
