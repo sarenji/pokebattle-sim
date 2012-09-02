@@ -74,9 +74,14 @@ while len(lines) > 0:
   }
 
   # TODO: Find a simple way to add meta info without default values
-  criticalHitRatio = int(move_meta[move.id].crit_rate) + 1
-  if criticalHitRatio != 1:
-    moves[move.identifier]['criticalHitRatio'] = criticalHitRatio
+
+  # Veekun crit rates are 0 indexed and 6 means always crits
+  # Battletower is 1 indexed and -1 means always crits
+  if move_meta[move.id].crit_rate == '6':
+    moves[move.identifier]['criticalHitLevel'] = -1
+  elif move_meta[move.id].crit_rate != '0':
+    criticalHitLevel = int(move_meta[move.id].crit_rate) + 1
+    moves[move.identifier]['criticalHitLevel'] = criticalHitLevel
   
 with open(output_path, 'w') as f:
   f.write(json.dumps(moves, sort_keys=True, indent=4))
