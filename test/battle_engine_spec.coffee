@@ -563,3 +563,21 @@ describe 'Mechanics', ->
       defender = @team2.at(0)
       attacker.stages.speed = -6
       move.basePower(@battle, attacker, defender).should.equal 40
+
+  describe 'brine', ->
+    it 'has normal base power if the target has over 50% HP', ->
+      create.call this,
+        team1: [Factory('Empoleon')]
+        team2: [Factory('Magikarp')]
+      move = moves['brine']
+      @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2) + 1
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 65
+
+    it 'doubles base power if the target has 50% or less HP', ->
+      create.call this,
+        team1: [Factory('Empoleon')]
+        team2: [Factory('Magikarp')]
+      move = moves['brine']
+      @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2)
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
+

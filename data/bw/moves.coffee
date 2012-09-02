@@ -370,14 +370,16 @@ extendWithRecoil 'wood-hammer'
 extendWithBoost 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
 
-extendMove 'splash', ->
-  # TODO: Cannot select if Gravity is in effect.
-  @execute = (battle, user, target) ->
-    battle.message "But nothing happened!"
-
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
+
+extendMove 'brine', ->
+  @basePower = (battle, user, target) ->
+    if target.currentHP <= Math.floor(target.stat('hp') / 2)
+      2 * @power
+    else
+      @power
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->
@@ -402,3 +404,8 @@ extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15) / 10
     Math.floor(user.level * fraction)
+
+extendMove 'splash', ->
+  # TODO: Cannot select if Gravity is in effect.
+  @execute = (battle, user, target) ->
+    battle.message "But nothing happened!"
