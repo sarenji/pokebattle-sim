@@ -15,7 +15,7 @@ describe 'Mechanics', ->
                {player: @player2, team: team2}]
     @battle = new Battle('id', players: players)
     sinon.stub(@battle.rng, 'next', -> 1)          # no chs
-    sinon.stub(@battle.rng, 'randInt', -> 0)       # always max damage, no miss
+    sinon.stub(@battle.rng, 'randInt', -> 0)       # always max damage
     @team1  = @battle.getTeam(@player1.id)
     @team2  = @battle.getTeam(@player2.id)
 
@@ -444,3 +444,49 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Seismic Toss')
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 100
+
+  describe 'Psywave', ->
+    it 'does user.level/2 damage minimum', ->
+      create.call this,
+        team1: [Factory('Weezing')]
+        team2: [Factory('Mew')]
+      move = moves['psywave']
+      @battle.rng.randInt.restore()
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> 0)
+      sinon.stub(move, 'willMiss', -> false)
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Psywave')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 50
+      move.willMiss.restore()
+
+    it 'does user.level * 1.5 damage maximum', ->
+      create.call this,
+        team1: [Factory('Weezing')]
+        team2: [Factory('Mew')]
+      move = moves['psywave']
+      @battle.rng.randInt.restore()
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> .999)
+      sinon.stub(move, 'willMiss', -> false)
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Psywave')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 150
+      move.willMiss.restore()
+
+    it 'rounds down to the nearest .1 multiplier', ->
+      create.call this,
+        team1: [Factory('Weezing')]
+        team2: [Factory('Mew')]
+      move = moves['psywave']
+      @battle.rng.randInt.restore()
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> .11)
+      sinon.stub(move, 'willMiss', -> false)
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'Psywave')
+      @battle.continueTurn()
+      (hp - @team2.at(0).currentHP).should.equal 60
+      move.willMiss.restore()

@@ -365,3 +365,8 @@ extendMove 'haze', ->
     user.resetBoosts()
     target.resetBoosts()
     battle.message "All stat changes were eliminated!"
+
+extendMove 'psywave', ->
+  @calculateDamage = (battle, user, target) ->
+    fraction = battle.rng.randInt(5, 15) / 10
+    Math.floor(user.level * fraction)

@@ -54,7 +54,7 @@ Factory.register 'Celebi',
   moves: ['Leaf Storm', 'Grass Knot']
 
 Factory.register 'Weezing',
-  moves: ['Haze']
+  moves: ['Haze', 'Psywave']
 
 Factory.register 'Blissey',
   moves: ['Seismic Toss', 'Aromatherapy']
