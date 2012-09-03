@@ -50,24 +50,24 @@ describe 'Battle', ->
       @battle.makeMove(@player2, 'Tackle')
       mock.verify()
 
-  describe '#switch', ->
+  describe '#makeSwitch', ->
     it "swaps pokemon positions of a player's team", ->
       [poke1, poke2] = @team1.pokemon
-      @battle.switch(@player1, 1)
+      @battle.makeSwitch(@player1, 1)
       @battle.continueTurn()
       @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "automatically ends the turn if all players switch", ->
       mock = sinon.mock(@battle)
       mock.expects('continueTurn').once()
-      @battle.switch(@player1, 1)
-      @battle.switch(@player2, 1)
+      @battle.makeSwitch(@player1, 1)
+      @battle.makeSwitch(@player2, 1)
       mock.verify()
 
     it "calls the pokemon's switchOut() method", ->
       pokemon = @team1.first()
       mock = sinon.mock(pokemon)
       mock.expects('switchOut').once()
-      @battle.switch(@player1, 1)
+      @battle.makeSwitch(@player1, 1)
       @battle.continueTurn()
       mock.verify()

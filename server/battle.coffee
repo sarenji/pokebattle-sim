@@ -73,6 +73,13 @@ class @Battle
   getAction: (clientId) =>
     @playerActions[clientId]
 
+  # Tells the player to execute a certain move by name. The move is added
+  # to the list of player actions, which are executed once the turn continues.
+  # TODO: Make this compatible with double battles by using the slot.
+  #
+  # player - the player object that will execute the move
+  # moveName - the name of the move to execute
+  #
   makeMove: (player, moveName) =>
     moveName = moveName.toLowerCase().replace(/\s+/g, '-')
     # TODO: Fail if move not in moves
@@ -84,14 +91,36 @@ class @Battle
       type: 'move'
       name: moveName
 
+    # TODO: use splice instead of delete
     delete @requests[player.id]
 
     # Continue the turn if each player has moved.
     if @areAllRequestsCompleted() then @continueTurn()
 
+  # Tells the player to switch with a certain pokemon specified by position.
+  # The switch is added to the list of player actions, which are executed
+  # once the turn continues.
+  # TODO: Make this compatible with double battles by using the slot.
+  #
+  # player - the player object that will execute the move
+  # toPosition - the index of the pokemon to switch to
+  #
+  makeSwitch: (player, toPosition) =>
+    # Record the switch
+    @playerActions[player.id] =
+      type: 'switch'
+      to: toPosition
+
+    # TODO: use splice instead of delete
+    delete @requests[player.id]
+
+    # Continue the turn if each player has moved.
+    if @areAllRequestsCompleted() then @continueTurn()
+
+  # An alternate version of Battle.makeSwitch which takes the name of a pokemon
+  # to switch to instead of the position. Useful for tests.
   # TODO: Test
-  # TODO: This should probably just be an overload or "switchByName"
-  makeSwitch: (player, toPokemon) =>
+  makeSwitchByName: (player, toPokemon) =>
     team = @getTeam(player.id)
     index = team.indexOf(toPokemon)
 
@@ -100,18 +129,7 @@ class @Battle
       console.log "#{player.username} made an invalid switch to #{toPokemon}."
       return
 
-    @switch(player, index)
-
-  switch: (player, toPosition) =>
-    # Record the switch
-    @playerActions[player.id] =
-      type: 'switch'
-      to: toPosition
-
-    delete @requests[player.id]
-
-    # Continue the turn if each player has moved.
-    if @areAllRequestsCompleted() then @continueTurn()
+    @makeSwitch(player, index)
 
   hasWeather: (weatherName) =>
     weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)

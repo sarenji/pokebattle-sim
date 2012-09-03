@@ -146,7 +146,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Mach Punch')
-      @battle.makeSwitch(@player2, 'Heracross')
+      @battle.makeSwitchByName(@player2, 'Heracross')
       @team2.at(0).name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->

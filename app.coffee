@@ -46,7 +46,8 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'send move', (battleId, moveName) ->
     server.findBattle(battleId).makeMove(socket, moveName)
   socket.on 'send switch', (battleId, toPokemon) ->
-    server.findBattle(battleId).makeSwitch(socket, toPokemon)
+    # TODO: Use makeSwitch instead
+    server.findBattle(battleId).makeSwitchByName(socket, toPokemon)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 
