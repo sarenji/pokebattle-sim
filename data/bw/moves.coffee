@@ -5,7 +5,7 @@
 {Status} = require('../../server/status')
 {BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
 PoisonAttachment, ToxicAttachment, SleepAttachment,
-ConfusionAttachment} = require('../../server/attachment')
+ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -402,3 +402,13 @@ extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15) / 10
     Math.floor(user.level * fraction)
+
+extendMove 'yawn', ->
+  # TODO: Fail if the opponent already has a status
+  # TODO: Fail if safeguard is activate
+  # TODO: Fail if the pokemon is already tired
+  # TODO: Handle what happens if the opponent already is yawned
+  # NOTE: Insomnia and Vital Spirit guard against the sleep effect
+  # but not yawn itself.
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(new YawnAttachment())

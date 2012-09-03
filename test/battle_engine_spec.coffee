@@ -562,3 +562,12 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Gyro Ball')
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 4
+
+  describe 'yawn', ->
+    it 'gives the yawn attachment', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Mew')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.continueTurn()
+      @team2.at(0).hasAttachment('YawnAttachment').should.be.true
