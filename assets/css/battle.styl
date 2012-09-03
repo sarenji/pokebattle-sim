@@ -1,0 +1,32 @@
+.battle
+  .button
+    width         130px
+    height        64px
+    line-height   @height
+    border-radius 4px
+    float         left
+    margin-right  10px
+    padding       0 10px
+    background    #CCD8E0
+    background    linear-gradient(top, #DAE4EB, #CCD8E0 50%, #AFBFC9 50%, #94A5B0)
+    border        2px solid #777F85
+    cursor        pointer
+    &:hover
+      background  #F2F0DC
+      background  linear-gradient(top, #FFFEF0, #F2F0DC 50%, #E0DCCA 50%, #CFCAB6)
+      border-color #8A8171
+    .main_text, .meta_info
+      height      32px
+      line-height @height
+      position    relative
+      top         3px
+    .main_text
+      font-size   16px
+      font-weight 700
+      color       #3D3021
+    .meta_info
+      font-size   13px
+      text-align  right
+      .pokemon_icon
+        position  relative
+        top       -3px

@@ -5,8 +5,14 @@ html
     != js('vendor')
     script(src='/socket.io/socket.io.js')
     != js('client')
+    link(href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=PT+Mono', rel='stylesheet', type='text/css')
   body
-    .battle
-    p#messages
-    input#chat(type='text')
-    .builder
+    #header
+      .wrapper
+        h1 Battle Tower
+    .wrapper
+      .battle
+      p#messages
+      input#chat(type='text')
+      .builder

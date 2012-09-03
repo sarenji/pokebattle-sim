@@ -2,8 +2,8 @@ class @BattleView extends Backbone.View
   template: JST['battle_actions']
 
   events:
-    'click button.move': 'makeMove'
-    'click button.switch': 'switchPokemon'
+    'click .move': 'makeMove'
+    'click .switch': 'switchPokemon'
 
   initialize: =>
     @selected = null
