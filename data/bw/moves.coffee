@@ -407,7 +407,6 @@ extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate
   # TODO: Fail if the pokemon is already tired
-  # TODO: Handle what happens if the opponent already is yawned
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
   @afterSuccessfulHit = (battle, user, target) ->

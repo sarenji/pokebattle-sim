@@ -63,3 +63,11 @@ describe 'Battle', ->
       @battle.switch(@player1, 1)
       @battle.switch(@player2, 1)
       mock.verify()
+
+    it "calls the pokemon's switchOut() method", ->
+      pokemon = @team1.first()
+      mock = sinon.mock(pokemon)
+      mock.expects('switchOut').once()
+      @battle.switch(@player1, 1)
+      @battle.continueTurn()
+      mock.verify()

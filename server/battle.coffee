@@ -90,6 +90,7 @@ class @Battle
     if @areAllRequestsCompleted() then @continueTurn()
 
   # TODO: Test
+  # TODO: This should probably just be an overload or "switchByName"
   makeSwitch: (player, toPokemon) =>
     team = @getTeam(player.id)
     index = team.indexOf(toPokemon)
@@ -245,16 +246,22 @@ class @Battle
       # TODO: Apply priority callbacks
       when 'move'   then MoveData[action.name].priority
 
+  # Executed by @continueTurn
   performSwitch: (id) =>
     player = @getPlayer(id)
     action = @getAction(id)
     team = @getTeam(id)
+    
+    team.at(0).switchOut()
     @message "#{player.username} withdrew #{team.at(0).name}!"
     team.switch(0, action.to)
+    # TODO: Implement and call pokemon.activate() or pokemon.switchIn()
     @message "#{player.username} sent out #{team.at(0).name}!"
+    
     # TODO: Hacky.
     player.emit? 'switch pokemon', 0, action.to
 
+  # Executed by @continueTurn
   performMove: (id) =>
     player = @getPlayer(id)
     action = @getAction(id)

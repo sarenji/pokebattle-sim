@@ -96,7 +96,7 @@ describe 'Pokemon', ->
       pokemon.switchOut()
       pokemon.stages['specialAttack'].should.equal 0
 
-    it 'removes volatile statuses', ->
+    it 'removes volatile attachments', ->
       pokemon = new Pokemon()
       pokemon.attach(new VolatileAttachment('TestAttachment'))
       pokemon.switchOut()
