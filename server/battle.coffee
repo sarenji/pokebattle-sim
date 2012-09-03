@@ -91,7 +91,6 @@ class @Battle
       type: 'move'
       name: moveName
 
-    # TODO: use splice instead of delete
     delete @requests[player.id]
 
     # Continue the turn if each player has moved.
@@ -106,12 +105,18 @@ class @Battle
   # toPosition - the index of the pokemon to switch to
   #
   makeSwitch: (player, toPosition) =>
+    # TODO: Fail harder if pokemon not in team
+    # TODO: Add more cases of invalid indices (such as fainted poke or activePokemon)
+    pokemon = @getTeam(player.id).at(toPosition)
+    unless pokemon
+      console.log "#{player.username} made an invalid switch to position #{toPosition}."
+      return
+
     # Record the switch
     @playerActions[player.id] =
       type: 'switch'
       to: toPosition
 
-    # TODO: use splice instead of delete
     delete @requests[player.id]
 
     # Continue the turn if each player has moved.
@@ -123,11 +128,6 @@ class @Battle
   makeSwitchByName: (player, toPokemon) =>
     team = @getTeam(player.id)
     index = team.indexOf(toPokemon)
-
-    # TODO: Fail harder if pokemon not in team
-    if index == -1
-      console.log "#{player.username} made an invalid switch to #{toPokemon}."
-      return
 
     @makeSwitch(player, index)
 
@@ -172,11 +172,7 @@ class @Battle
     for id in @orderIds()
       continue  if id in skipIds
 
-      action = @getAction(id)
-      player = @getPlayer(id)
-      team = @getTeam(id)
-
-      switch action.type
+      switch @getAction(id).type
         when 'switch' then @performSwitch(id)
         when 'move'   then @performMove(id)
 
@@ -285,7 +281,6 @@ class @Battle
     action = @getAction(id)
     pokemon = @getTeam(id).at(0)
     defenders = @getOpponentPokemon(id, @numActive)
-    # todo: the move should be cloned and attached to the pokemon
     move = moves[action.name]
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
