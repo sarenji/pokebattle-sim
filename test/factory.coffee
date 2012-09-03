@@ -71,6 +71,9 @@ Factory.register 'Electrode',
 Factory.register 'Camerupt',
   moves: ['Eruption', 'Yawn']
 
+Factory.register 'Empoleon',
+  moves: ['Brine']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

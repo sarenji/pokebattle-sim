@@ -548,20 +548,38 @@ describe 'Mechanics', ->
       create.call this,
         team1: [Factory('Forretress', ivs: {speed: 0})]
         team2: [Factory('Jolteon', evs: {speed: 252}, nature: "Timid")]
-      hp = @team2.at(0).currentHP
-      @team1.at(0).stages.speed = -6
-      @battle.makeMove(@player1, 'Gyro Ball')
-      @battle.continueTurn()
-      (hp - @team2.at(0).currentHP).should.equal 132
+      move = moves['gyro-ball']
+      attacker = @team1.at(0)
+      defender = @team2.at(0)
+      attacker.stages.speed = -6
+      move.basePower(@battle, attacker, defender).should.equal 150
 
     it 'has variable base power based on speed of target and user', ->
       create.call this,
         team1: [Factory('Electrode', evs: {speed: 252}, nature: "Jolly")]
         team2: [Factory('Magikarp', ivs: {speed: 0})]
-      hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Gyro Ball')
-      @battle.continueTurn()
-      (hp - @team2.at(0).currentHP).should.equal 4
+      move = moves['gyro-ball']
+      attacker = @team1.at(0)
+      defender = @team2.at(0)
+      attacker.stages.speed = -6
+      move.basePower(@battle, attacker, defender).should.equal 40
+
+  describe 'brine', ->
+    it 'has normal base power if the target has over 50% HP', ->
+      create.call this,
+        team1: [Factory('Empoleon')]
+        team2: [Factory('Magikarp')]
+      move = moves['brine']
+      @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2) + 1
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 65
+
+    it 'doubles base power if the target has 50% or less HP', ->
+      create.call this,
+        team1: [Factory('Empoleon')]
+        team2: [Factory('Magikarp')]
+      move = moves['brine']
+      @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2)
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
 
   describe 'yawn', ->
     it 'gives the yawn attachment', ->
