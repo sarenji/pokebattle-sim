@@ -34,3 +34,6 @@ startBattle = (battleId, yourTeam, opponentTeams) ->
   socket.on 'switch pokemon', (fromIndex, toIndex) ->
     battle.switch(fromIndex, toIndex)
     view.render()
+  socket.on 'request action', (battleId, validActions) ->
+    if battle.id == battleId
+      view.enableButtons()
