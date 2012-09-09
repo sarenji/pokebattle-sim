@@ -23,7 +23,7 @@ int_to_stat = {
 }
 
 class Pokemon:
-  def __init__(self, pokemon_info, forme_name=None):
+  def __init__(self, raw_id, pokemon_info, forme_name=None):
     self.name = pokemon_info.species
     self.info = pokemon_info.info
     if forme_name:
@@ -93,7 +93,7 @@ def add_types():
     line = lines.pop(0)
     type_id, type_name, generation_id, damage_class = line.split(',')
     type_dict[type_id] = type_name.capitalize()
-    
+
   # Read types for every Pokemon.
   lines = requests.get(types_url).text.splitlines()
   lines.pop(0) # get rid of info
@@ -125,7 +125,7 @@ def add_moves():
     line = lines.pop(0)
     forme_id, _, move_id, *tail = line.split(',')
     formes[forme_id].add_move(move_dict[move_id])
- 
+
 def create_pokemon():
   lines = requests.get(formes_url).text.splitlines()
   lines.pop(0) # get rid of info
@@ -133,7 +133,7 @@ def create_pokemon():
   while len(lines) > 0:
     line = lines.pop(0)
     raw_id, forme_name, forme_id, *tail = line.split(',')
-    pokemon.append(Pokemon(formes[forme_id], forme_name))
+    pokemon.append(Pokemon(raw_id, formes[forme_id], forme_name))
 
 map_species_names()
 create_formes()

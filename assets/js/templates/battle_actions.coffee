@@ -2,11 +2,16 @@ JST['battle_actions'] = thermos.template (locals) ->
   @h2 "Moves"
   # TODO: if locals.team[0].isAlive()
   console.log locals.team
-  @div ->
+  @div '.clearfix', ->
     for move in locals.team[0].moves
-      @button ".move", move
+      @div ".move.button#{if locals.disabled then '.disabled' else ''}", ->
+        @div '.main_text', -> move
+        @div '.meta_info', -> "15/15"
 
   @h2 "Pokemon"
-  @div ->
+  @div '.clearfix', ->
     for pokemon in locals.team
-      @button ".switch", pokemon.name
+      @div ".switch.button#{if locals.disabled then '.disabled' else ''}", ->
+        @div '.main_text', -> pokemon.name
+        @div '.meta_info', ->
+          @div '.pokemon_icon.right'
