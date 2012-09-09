@@ -25,8 +25,19 @@ class @ChatView extends Backbone.View
       $this.val('')
 
   updateChat: (message) =>
+    wasAtBottom = @isAtBottom()
     @$('.messages').append("<p>#{message}</p>")
+    if wasAtBottom then @scrollToBottom()
 
   remove: =>
     @collection.off 'add remove', @renderUserList
     super()
+
+  # Returns true if the chat is scrolled to the bottom of the screen.
+  isAtBottom: =>
+    $el = @$('.messages')
+    ($el[0].scrollHeight - $el.scrollTop()) == $el.outerHeight()
+
+  scrollToBottom: =>
+    messages = @$('.messages')[0]
+    messages.scrollTop = messages.scrollHeight

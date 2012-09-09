@@ -19,7 +19,7 @@ monospace-font(size=14px)
 
   li
     monospace-font()
-    padding 3px 6px
+    padding 2px 6px
 
 .message_pane
   position absolute
@@ -31,13 +31,24 @@ monospace-font(size=14px)
 .messages
   monospace-font()
   overflow-y scroll
+  position absolute
+  top 0
+  left 0
+  right 0
+  bottom 30px
+  p
+    margin 2px 0
 
 .chat_input
   box-sizing border-box
   border 2px solid #384035
   monospace-font()
   width 100%
-  padding 3px 6px
+  padding 2px 6px
+  margin 0
+  position absolute
+  bottom 0
+  height 30px
   &:hover
     border-color #5D736B
   &:focus
