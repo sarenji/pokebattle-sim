@@ -79,17 +79,6 @@ class @Battle
       pokemon.push(player.team.getActivePokemon()...)
     pokemon
 
-  getAction: (clientId) =>
-    @playerActions[clientId]
-
-  hasWeather: (weatherName) =>
-    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
-    weatherName == weather
-
-  hasWeatherCancelAbilityOnField: =>
-    _.any @getActivePokemon(), (pokemon) ->
-      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
-
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
     @buffer.push(string)
@@ -105,6 +94,80 @@ class @Battle
     for id, player of @players
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearMessages()
+
+  hasWeather: (weatherName) =>
+    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
+    weatherName == weather
+
+  hasWeatherCancelAbilityOnField: =>
+    _.any @getActivePokemon(), (pokemon) ->
+      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
+
+  startNewTurn: =>
+    @turn++
+
+    # Send appropriate requests to players
+    for id, player of @players
+      poke_moves = player.team.at(0).moves
+      switches = player.team.getAlivePokemon().map((p) -> p.name)
+      @requestAction(player, moves: poke_moves, switches: switches)
+
+  # Tells the battle to continue the turn. This is called once all requests
+  # have been submitted and the battle is ready to continue. Once
+  # there are no more requests the next turn begins.
+  continueTurn: =>
+    skipIds = []
+    for id in @orderIds()
+      continue  if id in skipIds
+
+      switch @getAction(id).type
+        when 'switch' then @performSwitch(id)
+        when 'move'   then @performMove(id)
+
+      faintedIds = @requestFaintedReplacements()
+      skipIds.push(faintedIds...)
+
+      # Clean up playerActions hash.
+      delete @playerActions[id]
+
+    # TODO: THE FOLLOWING SHOULD BE SKIPPED IF THIS IS JUST REPLACEMENTS
+    if @isOver()
+      @sendMessages()
+      @endBattle()
+      return
+    
+    # END TURN effects (skipped if replacements phase)
+
+    # TODO: Check to see if a pokemon fainted? Test if its over again?
+
+    if @requestQueue.length > 0
+      {player, validActions} = @requestQueue.shift()
+      @requestAction(player, validActions)
+
+      # Send a message to each player.
+      @sendMessages()
+
+    # If no replacements are left, then continue the turn
+    if @areAllRequestsCompleted() then @startNewTurn()
+
+  endBattle: =>
+    winner = @getWinner()
+    for id, player of @players
+      player.updateChat('SERVER', "#{winner.username} won!")
+      player.updateChat('SERVER', "END BATTLE.")
+
+  getWinner: =>
+    winner = null
+    length = 0
+    for id, player of @players
+      newLength = player.team.getAlivePokemon().length
+      if newLength > length
+        length = newLength
+        winner = player
+    player
+
+  isOver: =>
+    _.any(@players, (player) -> player.team.getAlivePokemon().length == 0)
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
@@ -164,76 +227,19 @@ class @Battle
 
     @makeSwitch(player, index)
 
-  # Returns true if all requests have been completed. False otherwise.
-  areAllRequestsCompleted: =>
-    requests = 0
-    requests += 1  for id of @requests
-    requests == 0
-
-  startNewTurn: =>
-    @turn++
-
-    # Send appropriate requests to players
-    for id, player of @players
-      poke_moves = player.team.at(0).moves
-      switches = player.team.getAlivePokemon().map((p) -> p.name)
-      @requestAction(player, moves: poke_moves, switches: switches)
+  getAction: (clientId) =>
+    @playerActions[clientId]
 
   requestAction: (player, validActions) =>
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
 
-  continueTurn: =>
-    skipIds = []
-    for id in @orderIds()
-      continue  if id in skipIds
-
-      switch @getAction(id).type
-        when 'switch' then @performSwitch(id)
-        when 'move'   then @performMove(id)
-
-      faintedIds = @requestFaintedReplacements()
-      skipIds.push(faintedIds...)
-
-      # Clean up playerActions hash.
-      delete @playerActions[id]
-
-    # TODO: THE FOLLOWING SHOULD BE SKIPPED IF THIS IS JUST REPLACEMENTS
-    if @isOver()
-      @sendMessages()
-      @endBattle()
-      return
-      
-    # END TURN effects (skipped if replacements phase)
-
-    if @requestQueue.length > 0
-      {player, validActions} = @requestQueue.shift()
-      @requestAction(player, validActions)
-
-    # Send a message to each player.
-    @sendMessages()
-
-    if @areAllRequestsCompleted() then @startNewTurn()
-
-  endBattle: =>
-    winner = @getWinner()
-    for id, player of @players
-      player.updateChat('SERVER', "#{winner.username} won!")
-      player.updateChat('SERVER', "END BATTLE.")
-
-  getWinner: =>
-    winner = null
-    length = 0
-    for id, player of @players
-      newLength = player.team.getAlivePokemon().length
-      if newLength > length
-        length = newLength
-        winner = player
-    player
-
-  isOver: =>
-    _.any(@players, (player) -> player.team.getAlivePokemon().length == 0)
+  # Returns true if all requests have been completed. False otherwise.
+  areAllRequestsCompleted: =>
+    requests = 0
+    requests += 1  for id of @requests
+    requests == 0
 
   # If a Pokemon faints, add the player to the action queue.
   requestFaintedReplacements: =>
