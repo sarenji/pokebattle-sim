@@ -2,22 +2,45 @@ class @BattleView extends Backbone.View
   template: JST['battle_actions']
 
   events:
-    'click button.move': 'makeMove'
-    'click button.switch': 'switchPokemon'
+    'click .move': 'makeMove'
+    'click .switch': 'switchPokemon'
 
   initialize: =>
     @selected = null
+    @disabled = false
 
   render: =>
-    @$el.html @template(team: @model.you)
+    @$el.html @template(team: @model.you, disabled: @disabled)
     this
 
+  getText: (el) =>
+    $el = $(el)
+    $el = $el.closest('.button')  if !$el.hasClass('button')
+    $el = $el.find(".main_text")  if !$el.hasClass('main_text')
+    $el.text()
+
+  enableButtons: =>
+    @disabled = false
+    @render()
+
+  disableButtons: =>
+    @disabled = true
+    @render()
+
   makeMove: (e) =>
-    moveName = $(e.target).text()
+    moveName = @getText(e.target)
+    if @disabled
+      console.log "Cannot use #{moveName}."
+      return
     console.log "Making move #{moveName}"
     @model.makeMove(moveName)
+    @disableButtons()
 
   switchPokemon: (e) =>
-    toPokemon = $(e.target).text()
+    toPokemon = @getText(e.target)
+    if @disabled
+      console.log "Cannot switch to #{toPokemon}."
+      return
     console.log "Switching to #{toPokemon}"
     @model.makeSwitch(toPokemon)
+    @disableButtons()

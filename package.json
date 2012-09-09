@@ -10,7 +10,8 @@
     "express": "~3.0.0rc3",
     "jade": "~0.27.2",
     "stylus": "~0.29.0",
-    "express-namespace": "~0.1.1"
+    "express-namespace": "~0.1.1",
+    "nib": "~0.8.2"
   },
   "devDependencies": {
     "should": "1.1.x",
