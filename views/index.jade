@@ -6,13 +6,13 @@ html
     script(src='/socket.io/socket.io.js')
     != js('client')
     link(href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=PT+Sans', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=PT+Mono', rel='stylesheet', type='text/css')
   body
     #header
       .wrapper
         h1 Battle Tower
-    .wrapper
+    #content.wrapper
       .battle
-      p#messages
-      input#chat(type='text')
+      .chat
       .builder

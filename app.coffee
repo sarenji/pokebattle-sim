@@ -29,18 +29,22 @@ app.namespace "/v1/api", ->
 # Start responding to websocket clients
 io = socket.listen(httpServer)
 
+userList = []
+
 # Attach events to incoming users
 io.sockets.on 'connection', (socket) ->
-  socket.on 'adduser', (username, callback) ->
+  socket.on 'login', (username, callback) ->
+    userHash = {id: socket.id, name: username}
+    userList.push(userHash)
     socket.username = username
-    callback(socket.username)
+    callback(socket.username, userList)
+    io.sockets.emit 'join chatroom', userHash
     # TODO: Take team from player.
     # TODO: Validate team.
     team = defaultTeam
     server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
-    io.sockets.emit 'updatechat', 'SERVER', "#{username} joined the game!"
   socket.on 'sendchat', (message) ->
     io.sockets.emit 'updatechat', socket.username, message
   socket.on 'send move', (battleId, moveName) ->
