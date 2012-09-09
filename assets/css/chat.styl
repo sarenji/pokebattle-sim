@@ -1,3 +1,6 @@
+monospace-font(size=14px)
+  font size "PT Mono", "Monaco", monospace
+
 .chat
   height 300px
   position relative
@@ -15,16 +18,28 @@
   list-style none
 
   li
-    font 14px "PT Mono", "Monaco", monospace
+    monospace-font()
     padding 3px 6px
 
 .message_pane
   position absolute
   top    0
   left   0
-  right  310px
+  right  300px
   bottom 0
 
 .messages
-  font 14px "PT Mono", "Monaco", monospace
+  monospace-font()
   overflow-y scroll
+
+.chat_input
+  box-sizing border-box
+  border 2px solid #384035
+  monospace-font()
+  width 100%
+  padding 3px 6px
+  &:hover
+    border-color #5D736B
+  &:focus
+    border-color #F27405
+    outline none
