@@ -52,18 +52,27 @@ class @Battle
   getTeam: (id) =>
     @getPlayer(id).team
 
+  # Returns all opponents of a given player. In a 1v1 it returns
+  # an array with only one opponent.
   getOpponents: (id) =>
     opponents = []
     for playerId, player of @players
       opponents.push(player)  if id != playerId
     opponents
 
+  # Returns all opponent pokemon of a given player.
+  #
+  # id - The player who's opponent's pokemon we want to retrieve
+  # max (optional) - The maximum amount of pokemon per opponent.
+  #
   getOpponentPokemon: (id, max) =>
     opponents = @getOpponents(id)
     teams = (opponent.team.all()  for opponent in opponents)
     teams = (team.slice(0, max)   for team in teams)  if max?
     _.flatten(teams)
 
+  # Returns all active pokemon on the field belonging to both players.
+  # Active pokemon include fainted pokemon that have not been switched out.
   getActivePokemon: =>
     pokemon = []
     for id, player of @players
@@ -72,6 +81,30 @@ class @Battle
 
   getAction: (clientId) =>
     @playerActions[clientId]
+
+  hasWeather: (weatherName) =>
+    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
+    weatherName == weather
+
+  hasWeatherCancelAbilityOnField: =>
+    _.any @getActivePokemon(), (pokemon) ->
+      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
+
+  # Add `string` to a buffer that will be sent to each client.
+  message: (string) =>
+    @buffer.push(string)
+
+  clearMessages: =>
+    while @buffer.length > 0
+      @buffer.pop()
+
+  # Sends to each player the battle messages that have been queued up
+  # TODO: It should be sent to spectators as well
+  sendMessages: =>
+    @message 'The turn continued.'
+    for id, player of @players
+      player.updateChat('SERVER', @buffer.join("<br>"))
+    @clearMessages()
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
@@ -131,27 +164,11 @@ class @Battle
 
     @makeSwitch(player, index)
 
-  hasWeather: (weatherName) =>
-    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
-    weatherName == weather
-
-  hasWeatherCancelAbilityOnField: =>
-    _.any @getActivePokemon(), (pokemon) ->
-      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
-
   # Returns true if all requests have been completed. False otherwise.
   areAllRequestsCompleted: =>
     requests = 0
     requests += 1  for id of @requests
     requests == 0
-
-  # Add `string` to a buffer that will be sent to each client.
-  message: (string) =>
-    @buffer.push(string)
-
-  clearBuffer: =>
-    while @buffer.length > 0
-      @buffer.pop()
 
   startNewTurn: =>
     @turn++
@@ -182,10 +199,13 @@ class @Battle
       # Clean up playerActions hash.
       delete @playerActions[id]
 
+    # TODO: THE FOLLOWING SHOULD BE SKIPPED IF THIS IS JUST REPLACEMENTS
     if @isOver()
       @sendMessages()
       @endBattle()
       return
+      
+    # END TURN effects (skipped if replacements phase)
 
     if @requestQueue.length > 0
       {player, validActions} = @requestQueue.shift()
@@ -195,12 +215,6 @@ class @Battle
     @sendMessages()
 
     if @areAllRequestsCompleted() then @startNewTurn()
-
-  sendMessages: =>
-    @message 'The turn continued.'
-    for id, player of @players
-      player.updateChat('SERVER', @buffer.join("<br>"))
-    @clearBuffer()
 
   endBattle: =>
     winner = @getWinner()
