@@ -16,7 +16,8 @@ class @ChatView extends Backbone.View
     @renderUserList()
 
   renderUserList: =>
-    @$('.user_list').html @userListTemplate(userList: BattleTower.userList)
+    @$('.user_count').text "Users (#{BattleTower.userList.length})"
+    @$('.users').html @userListTemplate(userList: BattleTower.userList)
 
   sendChat: (e) =>
     if e.which == 13

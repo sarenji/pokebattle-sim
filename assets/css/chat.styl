@@ -2,42 +2,50 @@ monospace-font(size=14px)
   font size "PT Mono", "Monaco", monospace
 
 .chat
-  height 300px
-  position relative
-  margin 1em 0
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  background white
+  border-radius 0 4px 4px 0
 
 .user_list
   position absolute
   top    0
   right  0
   bottom 0
-  width  300px
-  background #CCD8E0
-  margin 0
-  padding 0
-  list-style none
-
-  li
-    monospace-font()
+  width  25%
+  background $body-color
+  overflow-y auto
+  border-radius 0 4px 4px 0
+  p
     padding 2px 6px
+    margin 0
+  ul
+    margin 0
+    padding 0
+    list-style none
+    li
+      monospace-font()
+      padding 2px 6px
 
 .message_pane
   position absolute
   top    0
   left   0
-  right  300px
+  right  25%
   bottom 0
 
 .messages
   monospace-font()
-  overflow-y scroll
+  overflow-y auto
   position absolute
   top 0
   left 0
   right 0
   bottom 30px
   p
-    margin 2px 0
+    margin 2px 0 2px 10px
 
 .chat_input
   box-sizing border-box
@@ -49,6 +57,7 @@ monospace-font(size=14px)
   position absolute
   bottom 0
   height 30px
+  border-radius 2px
   &:hover
     border-color #5D736B
   &:focus

@@ -1,24 +1,29 @@
+$body_wrapper = 30px
+
 html, body
   color   #333
   padding 0
   margin  0
   font    100% "PT Sans", "Helvetica Neue", sans-serif
+  background $background-color
 
 h1
   font           36px "PT Sans Narrow", "Helvetica Neue", sans-serif
   font-weight    700
   line-height    50px
   text-transform lowercase
-  margin         0
+  margin         0 $body_wrapper
 
 #header
-  background #384035
-  color      #E3F2DF
+  color      $body-color
+  height 50px
 
-.wrapper
-  min-width 600px
-  margin    0 auto
-  padding   0 20px
+#content
+  position absolute
+  top 50px
+  left $body_wrapper
+  right $body_wrapper
+  bottom $body_wrapper
 
 .pokemon_icon
   background url("http://play.pokemonshowdown.com/sprites/bwicons-sheet.png?v0.7rc2") top left no-repeat

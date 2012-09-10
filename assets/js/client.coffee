@@ -18,7 +18,7 @@ socket.on 'connect', ->
     chatView.render()
 
     socket.on 'updatechat', (username, data) ->
-      chatView.updateChat("#{username}: #{data}")
+      chatView.updateChat("<b>#{username}:</b> #{data}")
 
     socket.on 'join chatroom', (userHash) ->
       BattleTower.userList.add(userHash)
