@@ -4,17 +4,25 @@
 #= require_tree collections
 #= require_tree views
 
+@BattleTower = BattleTower = {}
+
 socket = io.connect(window.location.origin)
 socket.on 'connect', ->
-  socket.emit 'adduser', prompt("What's your name?"), ->
-    socket.on 'updatechat', (username, data) ->
-      $("#messages").append("<p>#{username}: #{data}</p>")
+  socket.emit 'login', prompt("What's your name?"), (username, userList) ->
+    BattleTower.userList = new UserList(userList)
+    chatView = new ChatView(
+      el: $('.chat')
+      collection: BattleTower.userList
+      socket: socket
+    )
+    chatView.render()
 
-    # Attach events to DOM
-    $(document).on 'keyup', '#chat', (e) ->
-      if e.which == 13
-        socket.emit 'sendchat', $(this).val()
-        $(this).val('')
+    socket.on 'updatechat', (username, data) ->
+      chatView.updateChat("#{username}: #{data}")
+
+    socket.on 'join chatroom', (userHash) ->
+      BattleTower.userList.add(userHash)
+      chatView.updateChat("#{userHash.name} joined BattleTower!")
 
     socket.on 'start battle', startBattle
 
@@ -34,3 +42,6 @@ startBattle = (battleId, yourTeam, opponentTeams) ->
   socket.on 'switch pokemon', (fromIndex, toIndex) ->
     battle.switch(fromIndex, toIndex)
     view.render()
+  socket.on 'request action', (battleId, validActions) ->
+    if battle.id == battleId
+      view.enableButtons()
