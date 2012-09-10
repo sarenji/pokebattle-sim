@@ -116,6 +116,9 @@ class @Pokemon
     @resetBoosts()
     attachment.switchOut()  for attachment in @attachments
 
+  endTurn: =>
+    attachment.endTurn()  for attachment in @attachments
+
   # Adds an attachment to the list of attachments
   attach: (attachment) =>
     # TODO: Error if the attachment already has a pokemon

@@ -13,8 +13,8 @@ class @Attachment
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
 
-  afterTurn: =>
   switchOut: =>
+  endTurn: =>
 
 # An attachment that removes itself when a pokemon
 # deactivates.
@@ -58,3 +58,10 @@ class @ConfusionAttachment extends @VolatileAttachment
 class @YawnAttachment extends @VolatileAttachment
   constructor: (attributes) ->
     super('YawnAttachment', attributes)
+    @turn = 0
+
+  endTurn: =>
+    @turn += 1
+    if @turn == 2
+      @pokemon.attach(new exports.SleepAttachment())
+      @remove()

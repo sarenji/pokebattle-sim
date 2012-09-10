@@ -44,6 +44,9 @@ class @Battle
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
 
+    # if replacing = true, continueTurn won't execute end of turn effects
+    @replacing = false
+
     @startNewTurn()
 
   getPlayer: (id) =>
@@ -112,6 +115,8 @@ class @Battle
       switches = player.team.getAlivePokemon().map((p) -> p.name)
       @requestAction(player, moves: poke_moves, switches: switches)
 
+    @replacing = false
+
   # Tells the battle to continue the turn. This is called once all requests
   # have been submitted and the battle is ready to continue. Once
   # there are no more requests the next turn begins.
@@ -130,22 +135,28 @@ class @Battle
       # Clean up playerActions hash.
       delete @playerActions[id]
 
-    # TODO: THE FOLLOWING SHOULD BE SKIPPED IF THIS IS JUST REPLACEMENTS
-    if @isOver()
-      @sendMessages()
-      @endBattle()
-      return
-    
-    # END TURN effects (skipped if replacements phase)
+    unless @replacing
+      if @isOver()
+        @sendMessages()
+        @endBattle()
+        return
+      
+      # TODO: Skip endTurn for pokemon that are fainted?
+      pokemon.endTurn() for pokemon in @getActivePokemon()
 
-    # TODO: Check to see if a pokemon fainted? Test if its over again?
+      # A pokemon may have fainted during endTurn effects
+      @requestFaintedReplacements()
 
-    if @requestQueue.length > 0
-      {player, validActions} = @requestQueue.shift()
-      @requestAction(player, validActions)
+      # TODO: Test if its over again
 
-      # Send a message to each player.
-      @sendMessages()
+      if @requestQueue.length > 0
+        {player, validActions} = @requestQueue.shift()
+        @requestAction(player, validActions)
+        
+      @replacing = true
+
+    # Send a message to each player.
+    @sendMessages()
 
     # If no replacements are left, then continue the turn
     if @areAllRequestsCompleted() then @startNewTurn()

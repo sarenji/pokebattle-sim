@@ -585,7 +585,31 @@ describe 'Mechanics', ->
     it 'gives the yawn attachment', ->
       create.call this,
         team1: [Factory('Camerupt')]
-        team2: [Factory('Mew')]
+        team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Yawn')
-      @battle.continueTurn()
+      @battle.makeMove(@player2, 'Splash')
+
       @team2.at(0).hasAttachment('YawnAttachment').should.be.true
+
+    it 'puts the opponent to sleep at the end of the second turn', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+      
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasStatus(Status.SLEEP).should.be.true
+      @battle.turn.should.equal 3
+
+    it 'does not put the opponent to sleep at the end of the first turn', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasStatus(Status.SLEEP).should.be.false
+      @battle.turn.should.equal 2

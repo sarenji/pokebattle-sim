@@ -71,3 +71,34 @@ describe 'Battle', ->
       @battle.makeSwitch(@player1, 1)
       @battle.continueTurn()
       mock.verify()
+
+  describe '#continueTurn', ->
+    it 'executes player actions', ->
+      # Todo: More a more solid test
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.continueTurn()
+      @team2.at(0).currentHP.should.not.equal @team2.at(0).stat('hp')
+
+    it 'executes end of turn effects', ->
+      mock = sinon.mock(@team1.at(0))
+      mock.expects("endTurn").once()
+      
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.makeMove(@player2, "Mach Punch")
+
+      @battle.turn.should.equal 2
+      mock.verify()
+
+    it 'does not execute end of turn effects when replacing', ->
+      mock = sinon.mock(@team1.at(0))
+      mock.expects('endTurn').once()
+
+      @team2.at(0).currentHP = 0
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.makeMove(@player2, "Mach Punch")
+
+      # makeSwitch should call continueTurn
+      @battle.makeSwitch(@player2, 1)
+      
+      @battle.turn.should.equal 2 # make sure the pokemon did faint
+      mock.verify()
