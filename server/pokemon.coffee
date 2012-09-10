@@ -62,8 +62,12 @@ class @Pokemon
     else
       Math.floor(2 * total / (2 - boost))
 
+  # Boosts this pokemon's stats by the given number of stages.
   # Returns a hashmap of the stats that were boosted. The keys are the stats.
   # If no stat was boosted, the value for that stat is false.
+  #
+  # Example: pokemon.boost(specialAttack: 1, evasion: 2)
+  #
   boost: (boosts) =>
     boosted = {}
     for stat, amount of boosts
@@ -108,8 +112,27 @@ class @Pokemon
     @currentHP -= amount
     @currentHP = Math.min(@stat('hp'), @currentHP)
 
+  switchOut: =>
+    @resetBoosts()
+    attachment.switchOut()  for attachment in @attachments
+
+  endTurn: =>
+    attachment.endTurn()  for attachment in @attachments
+
+  # Adds an attachment to the list of attachments
   attach: (attachment) =>
+    # TODO: Error if the attachment already has a pokemon
     @attachments.push(attachment)
+    attachment.pokemon = this
+
+  # Removes an attachment from the list of attachment
+  # TODO: Also accept a string?
+  unattach: (attachment) =>
+    # TODO: Error if the attachment is not in the list
+    index = @attachments.indexOf(attachment)
+    @attachments.splice(index, 1)
+    attachment.pokemon = undefined
+
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

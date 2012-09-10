@@ -146,7 +146,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Mach Punch')
-      @battle.makeSwitch(@player2, 'Heracross')
+      @battle.makeSwitchByName(@player2, 'Heracross')
       @team2.at(0).name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->
@@ -581,3 +581,35 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
 
+  describe 'yawn', ->
+    it 'gives the yawn attachment', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment('YawnAttachment').should.be.true
+
+    it 'puts the opponent to sleep at the end of the second turn', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+      
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasStatus(Status.SLEEP).should.be.true
+      @battle.turn.should.equal 3
+
+    it 'does not put the opponent to sleep at the end of the first turn', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Yawn')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasStatus(Status.SLEEP).should.be.false
+      @battle.turn.should.equal 2

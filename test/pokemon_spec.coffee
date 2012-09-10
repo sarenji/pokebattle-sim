@@ -1,4 +1,4 @@
-{Pokemon} = require('../').server
+{Pokemon, Attachment, VolatileAttachment} = require('../').server
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
@@ -88,3 +88,30 @@ describe 'Pokemon', ->
 
     it 'returns true if the pokemon has that type', ->
       new Pokemon(types: ['Dark', 'Grass']).hasType('Grass').should.be.true
+
+  describe '#switchOut', ->
+    it 'resets stat boosts', ->
+      pokemon = new Pokemon()
+      pokemon.boost(specialAttack: 2)
+      pokemon.switchOut()
+      pokemon.stages['specialAttack'].should.equal 0
+
+    it 'removes volatile attachments', ->
+      pokemon = new Pokemon()
+      pokemon.attach(new VolatileAttachment('TestAttachment'))
+      pokemon.switchOut()
+      pokemon.hasAttachment('TestAttachment').should.be.false
+
+  describe '#attach', ->
+    it 'adds an attachment to a list of attachments', ->
+      pokemon = new Pokemon()
+      pokemon.attach(new Attachment("TestAttachment"))
+      pokemon.hasAttachment("TestAttachment").should.be.true
+
+  describe '#unattach', ->
+    it 'removes an attachment from the list of attachments', ->
+      pokemon = new Pokemon()
+      attachment = new Attachment('TestAttachment')
+      pokemon.attach(attachment)
+      pokemon.unattach(attachment)
+      pokemon.hasAttachment('TestAttachment').should.be.false
