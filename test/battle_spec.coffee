@@ -82,7 +82,7 @@ describe 'Battle', ->
     it 'executes end of turn effects', ->
       mock = sinon.mock(@team1.at(0))
       mock.expects("endTurn").once()
-      
+
       @battle.makeMove(@player1, "Mach Punch")
       @battle.makeMove(@player2, "Mach Punch")
 
@@ -93,12 +93,12 @@ describe 'Battle', ->
       mock = sinon.mock(@team1.at(0))
       mock.expects('endTurn').once()
 
-      @team2.at(0).currentHP = 0
+      @team2.at(0).currentHP = 1
       @battle.makeMove(@player1, "Mach Punch")
       @battle.makeMove(@player2, "Mach Punch")
 
       # makeSwitch should call continueTurn
       @battle.makeSwitch(@player2, 1)
-      
+
       @battle.turn.should.equal 2 # make sure the pokemon did faint
       mock.verify()
