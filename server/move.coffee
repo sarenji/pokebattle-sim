@@ -28,6 +28,10 @@ class @Move
         @afterMiss(battle, user, target, damage)
         continue
 
+      if target.isImmune(this, battle, user)
+        battle.message "But it doesn't affect #{target.name}..."
+        continue
+
       if damage > 0
         # TODO: Print out opponent's name alongside the pokemon.
         battle.message "#{target.name} took #{damage} damage!"

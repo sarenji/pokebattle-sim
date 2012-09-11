@@ -69,7 +69,7 @@ Factory.register 'Electrode',
   moves: ['Gyro Ball', 'Explosion']
 
 Factory.register 'Camerupt',
-  moves: ['Eruption', 'Yawn']
+  moves: ['Eruption', 'Yawn', 'Earthquake']
 
 Factory.register 'Empoleon',
   moves: ['Brine']

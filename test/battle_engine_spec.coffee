@@ -597,7 +597,7 @@ describe 'Mechanics', ->
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Yawn')
       @battle.makeMove(@player2, 'Splash')
-      
+
       @battle.makeMove(@player1, 'Yawn')
       @battle.makeMove(@player2, 'Splash')
 
@@ -613,3 +613,13 @@ describe 'Mechanics', ->
 
       @team2.at(0).hasStatus(Status.SLEEP).should.be.false
       @battle.turn.should.equal 2
+
+  describe 'a pokemon with a type immunity', ->
+    it 'cannot be damaged by a move of that type', ->
+      create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Gyarados')]
+      @battle.makeMove(@player1, 'Earthquake')
+      @battle.makeMove(@player2, 'Dragon Dance')
+
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')

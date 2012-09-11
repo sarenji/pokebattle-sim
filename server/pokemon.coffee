@@ -112,6 +112,10 @@ class @Pokemon
     @currentHP -= amount
     @currentHP = Math.min(@stat('hp'), @currentHP)
 
+  isImmune: (move, battle, user) =>
+    multiplier = move.typeEffectiveness(this)
+    multiplier == 0
+
   switchOut: =>
     @resetBoosts()
     attachment.switchOut()  for attachment in @attachments
