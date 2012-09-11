@@ -30,6 +30,7 @@ class @Team
 
   switch: (a, b) =>
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
+    # TODO: Call switchOut on any inactive pokemon
 
   getActivePokemon: =>
     @pokemon.slice(0, @numActive)

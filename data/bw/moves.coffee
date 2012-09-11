@@ -5,7 +5,7 @@
 {Status} = require('../../server/status')
 {BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
 PoisonAttachment, ToxicAttachment, SleepAttachment,
-ConfusionAttachment} = require('../../server/attachment')
+ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -409,3 +409,12 @@ extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
+
+extendMove 'yawn', ->
+  # TODO: Fail if the opponent already has a status
+  # TODO: Fail if safeguard is activate
+  # TODO: Fail if the pokemon is already tired
+  # NOTE: Insomnia and Vital Spirit guard against the sleep effect
+  # but not yawn itself.
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(new YawnAttachment())

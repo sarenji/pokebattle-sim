@@ -50,16 +50,55 @@ describe 'Battle', ->
       @battle.makeMove(@player2, 'Tackle')
       mock.verify()
 
-  describe '#switch', ->
+  describe '#makeSwitch', ->
     it "swaps pokemon positions of a player's team", ->
       [poke1, poke2] = @team1.pokemon
-      @battle.switch(@player1, 1)
+      @battle.makeSwitch(@player1, 1)
       @battle.continueTurn()
       @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "automatically ends the turn if all players switch", ->
       mock = sinon.mock(@battle)
       mock.expects('continueTurn').once()
-      @battle.switch(@player1, 1)
-      @battle.switch(@player2, 1)
+      @battle.makeSwitch(@player1, 1)
+      @battle.makeSwitch(@player2, 1)
+      mock.verify()
+
+    it "calls the pokemon's switchOut() method", ->
+      pokemon = @team1.first()
+      mock = sinon.mock(pokemon)
+      mock.expects('switchOut').once()
+      @battle.makeSwitch(@player1, 1)
+      @battle.continueTurn()
+      mock.verify()
+
+  describe '#continueTurn', ->
+    it 'executes player actions', ->
+      # Todo: More a more solid test
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.continueTurn()
+      @team2.at(0).currentHP.should.not.equal @team2.at(0).stat('hp')
+
+    it 'executes end of turn effects', ->
+      mock = sinon.mock(@team1.at(0))
+      mock.expects("endTurn").once()
+      
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.makeMove(@player2, "Mach Punch")
+
+      @battle.turn.should.equal 2
+      mock.verify()
+
+    it 'does not execute end of turn effects when replacing', ->
+      mock = sinon.mock(@team1.at(0))
+      mock.expects('endTurn').once()
+
+      @team2.at(0).currentHP = 0
+      @battle.makeMove(@player1, "Mach Punch")
+      @battle.makeMove(@player2, "Mach Punch")
+
+      # makeSwitch should call continueTurn
+      @battle.makeSwitch(@player2, 1)
+      
+      @battle.turn.should.equal 2 # make sure the pokemon did faint
       mock.verify()
