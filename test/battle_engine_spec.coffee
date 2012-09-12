@@ -821,3 +821,35 @@ describe 'Mechanics', ->
 
       @team1.at(0).currentHP.should.equal Math.min(326, @team1.at(0).stat('hp'))
       @team2.at(0).currentHP.should.equal Math.min(326, @team2.at(0).stat('hp'))
+
+  describe 'belly drum', ->
+    it "maximizes attack", ->
+      create.call this,
+        team1: [Factory('Poliwrath')]
+        team2: [Factory('Magikarp')]
+      @team1.at(0).stages.attack = -6
+      @battle.makeMove(@player1, 'Belly Drum')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).stages.attack.should.equal 6
+
+    it "cuts the pokemon's HP by half", ->
+      create.call this,
+        team1: [Factory('Poliwrath')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Belly Drum')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = @team1.at(0).stat('hp')
+      (hp - @team1.at(0).currentHP).should.equal Math.floor(hp / 2)
+
+    it "fails if the pokemon's HP is less than half", ->
+      create.call this,
+        team1: [Factory('Poliwrath')]
+        team2: [Factory('Magikarp')]
+      hp = @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2) - 1
+      @battle.makeMove(@player1, 'Belly Drum')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).currentHP.should.equal hp
+      @team1.at(0).stages.attack.should.equal 0

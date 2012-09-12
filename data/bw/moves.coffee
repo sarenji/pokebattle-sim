@@ -420,6 +420,16 @@ extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
 
+extendMove 'belly-drum', ->
+  @use = (battle, user, target, damage) ->
+    halfHP = Math.floor(user.stat('hp') / 2)
+    if user.currentHP > halfHP
+      user.damage(halfHP)
+      user.boost(attack: 12)
+      battle.message "#{user.name} cut its own HP and maximized its Attack!"
+    else
+      battle.message "But it failed!"
+
 extendMove 'brine', ->
   @basePower = (battle, user, target) ->
     if target.currentHP <= Math.floor(target.stat('hp') / 2)

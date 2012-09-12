@@ -96,6 +96,9 @@ Factory.register 'Gastrodon (east)',
 Factory.register 'Latias',
   moves: ['Memento']
 
+Factory.register 'Poliwrath',
+  moves: ['Belly Drum']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'
