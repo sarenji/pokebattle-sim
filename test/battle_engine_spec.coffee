@@ -3,6 +3,7 @@ sinon = require 'sinon'
 {Battle, Pokemon, Status, VolatileStatus, ParalyzeAttachment} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
+{_} = require 'underscore'
 
 describe 'Mechanics', ->
   create = (opts={}) ->
@@ -853,3 +854,32 @@ describe 'Mechanics', ->
 
       @team1.at(0).currentHP.should.equal hp
       @team1.at(0).stages.attack.should.equal 0
+
+  describe 'acupressure', ->
+    it "raises a random stat that can be raised", ->
+      create.call this,
+        team1: [Factory('Shuckle')]
+        team2: [Factory('Magikarp')]
+      stages = _.clone(@team1.at(0).stages)
+      @battle.makeMove(@player1, 'Acupressure')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).stages.should.not.eql stages
+
+    it "fails if the Pokemon has maximum stats", ->
+      create.call this,
+        team1: [Factory('Shuckle')]
+        team2: [Factory('Magikarp')]
+      @team1.at(0).stages.attack = 6
+      @team1.at(0).stages.defense = 6
+      @team1.at(0).stages.specialAttack = 6
+      @team1.at(0).stages.specialDefense = 6
+      @team1.at(0).stages.accuracy = 6
+      @team1.at(0).stages.evasion = 6
+      mock = sinon.mock(@team2.at(0))
+      mock.expects('boost').never()
+
+      @battle.makeMove(@player1, 'Acupressure')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.verify()

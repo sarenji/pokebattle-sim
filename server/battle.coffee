@@ -333,6 +333,9 @@ class @Battle
     switch move.target
       when 'user'
         [ @getTeam(id).at(0) ]
+      when 'user-or-ally'
+        # TODO: Actually get selected Pokemon from client
+        [ @getTeam(id).at(0) ]
       when 'all-opponents'
         @getOpponentPokemon(id, @numActive)
       when 'selected-pokemon'
@@ -347,4 +350,4 @@ class @Battle
         pokemon.push(@getTeam(id).at(0))
         pokemon
       else
-        throw new Error("Unimplemented.")
+        throw new Error("Unimplemented target: #{move.target}.")

@@ -99,6 +99,9 @@ Factory.register 'Latias',
 Factory.register 'Poliwrath',
   moves: ['Belly Drum']
 
+Factory.register 'Shuckle',
+  moves: ['Acupressure']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

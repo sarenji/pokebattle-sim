@@ -420,6 +420,17 @@ extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
 
+extendMove 'acupressure', ->
+  @use = (battle, user, target) ->
+    stats = (stat  for stat, num of target.stages when num < 6)
+    if stats.length > 0
+      randomStat = battle.rng.choice(stats)
+      hash = {}
+      hash[randomStat] = 2
+      boostExtension('target', hash)(battle, user, target)
+    else
+      battle.message "But it failed!"
+
 extendMove 'belly-drum', ->
   @use = (battle, user, target, damage) ->
     halfHP = Math.floor(user.stat('hp') / 2)
