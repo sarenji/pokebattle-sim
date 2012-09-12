@@ -883,3 +883,11 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
 
       mock.verify()
+
+  describe 'dragon-rage', ->
+    it 'always does 40 damage', ->
+      create.call this,
+        team1: [Factory('Dratini')]
+        team2: [Factory('Magikarp')]
+      move = moves['dragon-rage']
+      move.calculateDamage(@battle, @team1.at(0), @team2.at(0)).should.equal 40

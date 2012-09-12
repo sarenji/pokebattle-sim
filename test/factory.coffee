@@ -102,6 +102,9 @@ Factory.register 'Poliwrath',
 Factory.register 'Shuckle',
   moves: ['Acupressure']
 
+Factory.register 'Dratini',
+  moves: ['Dragon Rage']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

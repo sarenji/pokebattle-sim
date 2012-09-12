@@ -448,6 +448,10 @@ extendMove 'brine', ->
     else
       @power
 
+extendMove 'dragon-rage', ->
+  @calculateDamage = (battle, user, target) ->
+    40
+
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->
     if user.hasStatus(Status.BURN) || user.hasStatus(Status.POISON) ||
