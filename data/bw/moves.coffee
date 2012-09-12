@@ -6,6 +6,7 @@
 {BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
 PoisonAttachment, ToxicAttachment, SleepAttachment,
 ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
+{_} = require 'underscore'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -145,6 +146,17 @@ makeTrickMove = (name) ->
       return false  if target.hasAbility('Sticky Hold')
       [user.item, target.item] = [target.item, user.item]
 
+makeExplosionMove = (name) ->
+  extendMove name, ->
+    oldExecute = @execute
+    @execute = (battle, user, targets) ->
+      if !_.any(targets, (target) -> target.hasAbility('Damp'))
+        # TODO: Real faint?
+        user.currentHP = 0
+        oldExecute(battle, user, targets)
+      else
+        battle.message "#{user.name} cannot use #{@name}!"
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -250,6 +262,7 @@ extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
 extendWithSecondaryEffect 'ember', .1, BurnAttachment
 makeEruptionMove 'eruption'
+makeExplosionMove 'explosion'
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
 makeBoostMove 'fake-tears', 'target', specialDefense: -2
 makeBoostMove 'featherdance', 'target', attack: -2
@@ -357,6 +370,7 @@ makeBoostMove 'scary-face', 'target', speed: -2
 makeBoostMove 'screech', 'target', defense: -2
 extendWithSecondaryEffect 'searing-shot', .3, BurnAttachment
 extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
+makeExplosionMove 'selfdestruct'
 makeLevelAsDamageMove 'seismic-toss'
 extendWithSecondaryBoost 'shadow-ball', 'target', .2, specialDefense: -1
 makeBoostMove 'sharpen', 'self', attack: 1

@@ -81,7 +81,7 @@ Factory.register 'Audino',
   moves: ['Growl']
 
 Factory.register 'Gengar',
-  moves: ['Shadow Ball', 'Pain Split']
+  moves: ['Shadow Ball', 'Pain Split', 'Explosion']
 
 Factory.register 'Drapion',
   moves: ['Knock Off', 'Swords Dance']
@@ -104,6 +104,10 @@ Factory.register 'Shuckle',
 
 Factory.register 'Dratini',
   moves: ['Dragon Rage']
+
+Factory.register 'Politoed',
+  moves: ['Perish Song']
+  ability: 'Drizzle'
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

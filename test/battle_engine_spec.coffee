@@ -891,3 +891,31 @@ describe 'Mechanics', ->
         team2: [Factory('Magikarp')]
       move = moves['dragon-rage']
       move.calculateDamage(@battle, @team1.at(0), @team2.at(0)).should.equal 40
+
+  describe 'explosion moves', ->
+    it 'faints the user', ->
+      create.call this,
+        team1: [Factory('Gengar')]
+        team2: [Factory('Blissey')]
+      @battle.makeMove(@player1, 'Explosion')
+      @battle.makeMove(@player2, 'Seismic Toss')
+
+      @team1.at(0).isFainted().should.be.true
+
+    it 'faints the user even if enemy is immune', ->
+      create.call this,
+        team1: [Factory('Gengar')]
+        team2: [Factory('Gengar')]
+      @battle.makeMove(@player1, 'Explosion')
+      @battle.makeMove(@player2, 'Pain Split')
+
+      @team1.at(0).isFainted().should.be.true
+
+    it 'fails if an active Pokemon has Damp', ->
+      create.call this,
+        team1: [Factory('Gengar')]
+        team2: [Factory('Politoed', ability: 'Damp')]
+      @battle.makeMove(@player1, 'Explosion')
+      @battle.makeMove(@player2, 'Perish Song')
+
+      @team1.at(0).isFainted().should.be.false

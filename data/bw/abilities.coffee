@@ -32,3 +32,4 @@ makeAbility 'Sniper'
 makeAbility 'Adaptability'
 
 makeAbility 'Sticky Hold'
+makeAbility 'Damp'
