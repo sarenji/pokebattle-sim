@@ -692,3 +692,79 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
 
       should.not.exist @team2.at(0).item
+
+  describe 'trick and switcheroo', ->
+    it "does no damage", ->
+      create.call this,
+        team1: [Factory('Alakazam', item: 'Stick')]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+    it "isn't affected by type-immunities", ->
+      create.call this,
+        team1: [Factory('Alakazam', item: 'Stick')]
+        team2: [Factory('Drapion', item: "Leftovers")]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Swords Dance')
+
+      @team2.at(0).item.should.equal item1
+      @team1.at(0).item.should.equal item2
+
+    it "swaps the target and user's item", ->
+      create.call this,
+        team1: [Factory('Alakazam', item: 'Stick')]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).item.should.equal item1
+      @team1.at(0).item.should.equal item2
+
+    it "fails if the user or target has Sticky Hold", ->
+      create.call this,
+        team1: [Factory('Alakazam', item: 'Stick')]
+        team2: [Factory('Gastrodon (east)', item: "Leftovers")]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Recover')
+
+      @team1.at(0).item.should.equal item1
+      @team2.at(0).item.should.equal item2
+
+    it "fails if the target has no item", ->
+      create.call this,
+        team1: [Factory('Alakazam', item: 'Stick')]
+        team2: [Factory('Magikarp')]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).item.should.equal item1
+      should.not.exist @team2.at(0).item
+
+    it "fails if the user has no item", ->
+      create.call this,
+        team1: [Factory('Alakazam')]
+        team2: [Factory('Magikarp', item: 'Leftovers')]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      @team2.at(0).item.should.equal item2
+
+    it "fails if the user or target is holding a Mail"
+    it "fails if the user or target is Giratina-O"
+    it "fails if the target has a Substitute"
+    it "fails if the user or target has Multitype with a plate item"
+    it "fails if the user or target is Genesect with a Drive item"

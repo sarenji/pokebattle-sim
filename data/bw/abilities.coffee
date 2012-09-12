@@ -30,3 +30,5 @@ makeAbility 'Tinted Lens'
 makeAbility 'Sniper'
 
 makeAbility 'Adaptability'
+
+makeAbility 'Sticky Hold'

@@ -84,7 +84,14 @@ Factory.register 'Gengar',
   moves: ['Shadow Ball']
 
 Factory.register 'Drapion',
-  moves: ['Knock Off']
+  moves: ['Knock Off', 'Swords Dance']
+
+Factory.register 'Alakazam',
+  moves: ['Trick']
+
+Factory.register 'Gastrodon (east)',
+  moves: ['Recover']
+  ability: 'Sticky Hold'
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

@@ -137,6 +137,14 @@ makeRecoveryMove = (name) ->
       battle.message "#{target.name} recovered #{amount} HP!"
       target.damage(-amount)
 
+makeTrickMove = (name) ->
+  extendMove name, ->
+    @use = (battle, user, target) ->
+      # TODO: Fail message
+      return false  unless user.item? && target.item?
+      return false  if target.hasAbility('Sticky Hold')
+      [user.item, target.item] = [target.item, user.item]
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -381,6 +389,7 @@ extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithRecoil 'submission', .25
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
 makeBoostMove 'sweet-scent', 'target', evasion: -1
+makeTrickMove 'switcheroo'
 makeBoostMove 'swords-dance', 'self', attack: 2
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
@@ -392,6 +401,7 @@ extendWithSecondaryEffect 'thunderpunch', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thundershock', .1, ParalyzeAttachment
 makeBoostMove 'tickle', 'target', attack: -1, defense: -1
 # extendWithSecondaryEffect 'tri-attack', .1, ParalyzeAttachment
+makeTrickMove 'trick'
 # extendWithSecondaryEffect 'twineedle', .2, PoisonAttachment
 extendWithSecondaryEffect 'twister', .2, FlinchAttachment
 extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, speed: -1
