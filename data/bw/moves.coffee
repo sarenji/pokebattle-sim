@@ -453,6 +453,11 @@ extendMove 'knock-off', ->
       battle.message "#{user.name} knocked off #{target.name}'s #{target.item.name}!"
       target.item = null
 
+extendMove 'memento', ->
+  @use = (battle, user, target, damage) ->
+    user.currentHP = 0
+    target.boost(attack: -2, specialAttack: -2)
+
 extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15) / 10

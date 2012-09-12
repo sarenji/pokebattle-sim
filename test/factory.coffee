@@ -93,6 +93,9 @@ Factory.register 'Gastrodon (east)',
   moves: ['Recover']
   ability: 'Sticky Hold'
 
+Factory.register 'Latias',
+  moves: ['Memento']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

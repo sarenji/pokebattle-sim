@@ -768,3 +768,25 @@ describe 'Mechanics', ->
     it "fails if the target has a Substitute"
     it "fails if the user or target has Multitype with a plate item"
     it "fails if the user or target is Genesect with a Drive item"
+
+  describe 'memento', ->
+    it "faints the user", ->
+      create.call this,
+        team1: [Factory('Latias')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Memento')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).isFainted().should.be.true
+
+    it "reduces the attack and special attack of the target by two stages", ->
+      create.call this,
+        team1: [Factory('Latias')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Memento')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).stages.should.include attack: -2, specialAttack: -2
+
+    it "doesn't reduce stats if target is protected, but still faints user"
+    it "doesn't reduce stats if target has a substitute, but faints user"
