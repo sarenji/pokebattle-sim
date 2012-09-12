@@ -57,7 +57,7 @@ Factory.register 'Weezing',
   moves: ['Haze', 'Psywave']
 
 Factory.register 'Blissey',
-  moves: ['Seismic Toss', 'Aromatherapy']
+  moves: ['Seismic Toss', 'Aromatherapy', 'Thunder Wave', 'Softboiled']
 
 Factory.register 'Zangoose',
   moves: ['Facade', 'Flail']
@@ -76,6 +76,12 @@ Factory.register 'Empoleon',
 
 Factory.register 'Lapras',
   moves: ['Sheer Cold']
+
+Factory.register 'Audino',
+  moves: ['Growl']
+
+Factory.register 'Gengar',
+  moves: ['Shadow Ball']
 
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'

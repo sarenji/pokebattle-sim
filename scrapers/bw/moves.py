@@ -6,12 +6,14 @@ output_path = '../../data/bw/data_moves.json'
 moves = {}
 types = {}
 damage_types = {}
+target_types = {}
 move_meta = {}
 
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/moves.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
 damage_types_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_damage_classes.csv'
 meta_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_meta.csv'
+targets_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_targets.csv'
 
 Move = collections.namedtuple('Move', ["id", "identifier", "generation_id", 
   "type_id", "power", "pp", "accuracy", "priority", "target_id", 
@@ -31,6 +33,16 @@ while len(lines) > 0:
   line = lines.pop(0)
   damage_type_id, identifier = line.split(',')
   damage_types[damage_type_id] = identifier
+
+
+# Parse target types
+lines = requests.get(targets_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+while len(lines) > 0:
+  line = lines.pop(0)
+  target_id, identifier = line.split(',')
+  target_types[target_id] = identifier
 
 
 # Parse types
@@ -71,6 +83,7 @@ while len(lines) > 0:
     'accuracy' : (move.accuracy and int(move.accuracy)) or 0,
     'priority' : int(move.priority),
     'damage'   : damage_types[move.damage_class_id],
+    'target'   : target_types[move.target_id],
   }
 
   # TODO: Find a simple way to add meta info without default values

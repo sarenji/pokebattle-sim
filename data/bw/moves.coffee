@@ -130,10 +130,25 @@ makeOneHitKOMove = (name) ->
     @chanceToHit = (battle, user, target) ->
       (user.level - target.level) + 30
 
+makeRecoveryMove = (name) ->
+  extendMove name, ->
+    @use = (battle, user, target) ->
+      amount = Math.floor(target.stat('hp') / 2)
+      battle.message "#{target.name} recovered #{amount} HP!"
+      target.damage(-amount)
+
+makeBoostMove = (name, boostTarget, boosts) ->
+  applyBoosts = boostExtension(boostTarget, boosts)
+  extendMove name, ->
+    @use = applyBoosts
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
-    @afterSuccessfulHit = applyBoosts
+    oldUse = @use
+    @use = (battle, user, target, damage) ->
+      if oldUse(battle, user, target, damage) != false
+        applyBoosts(battle, user, target, damage)
 
 extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
@@ -174,16 +189,16 @@ makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
 
 extendWithDrain 'absorb'
 extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
-extendWithBoost 'acid-armor', 'self', defense: 2
-extendWithBoost 'acid-spray', 'target', specialDefense: -2
-extendWithBoost 'agility', 'self', speed: 2
-extendWithBoost 'amnesia', 'self', specialDefense: 2
+makeBoostMove 'acid-armor', 'self', defense: 2
+makeBoostMove 'acid-spray', 'target', specialDefense: -2
+makeBoostMove 'agility', 'self', speed: 2
+makeBoostMove 'amnesia', 'self', specialDefense: 2
 extendWithSecondaryBoost 'ancientpower', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
-extendWithBoost 'autotomize', 'self', speed: 2
-extendWithBoost 'barrier', 'self', defense: 2
+makeBoostMove 'autotomize', 'self', speed: 2
+makeBoostMove 'barrier', 'self', defense: 2
 extendWithSecondaryEffect 'blaze-kick', .1, BurnAttachment
 extendWithSecondaryEffect 'blizzard', .1, FreezeAttachment
 extendWithSecondaryEffect 'blue-flare', .2, BurnAttachment
@@ -195,28 +210,28 @@ extendWithRecoil 'brave-bird'
 extendWithSecondaryBoost 'bubble', 'target', .1, speed: -1
 extendWithSecondaryBoost 'bubblebeam', 'target', .1, speed: -1
 extendWithSecondaryBoost 'bug-buzz', 'target', .1, specialDefense: -1
-extendWithBoost 'bulk-up', 'self', attack: 1, defense: 1
+makeBoostMove 'bulk-up', 'self', attack: 1, defense: 1
 extendWithBoost 'bulldoze', 'target', speed: -1
-extendWithBoost 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
-extendWithBoost 'charm', 'target', attack: -2
+makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
+makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
-extendWithBoost 'coil', 'self', attack: 1, defense: 1, accuracy: 1
+makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithSecondaryEffect 'confusion', .1, ConfusionAttachment
 extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
-extendWithBoost 'cosmic-power', 'self', defense: 1, specialDefense: 1
-extendWithBoost 'cotton-guard', 'self', defense: 3
-extendWithBoost 'cotton-spore', 'target', speed: -2
+makeBoostMove 'cosmic-power', 'self', defense: 1, specialDefense: 1
+makeBoostMove 'cotton-guard', 'self', defense: 3
+makeBoostMove 'cotton-spore', 'target', speed: -2
 extendWithSecondaryBoost 'crunch', 'target', .2, defense: -1
 extendWithSecondaryBoost 'crush-claw', 'target', .5, defense: -1
 extendWithSecondaryEffect 'dark-pulse', .2, FlinchAttachment
-extendWithBoost 'defend-order', 'self', defense: 1, specialDefense: 1
-extendWithBoost 'defense-curl', 'self', defense: 1
+makeBoostMove 'defend-order', 'self', defense: 1, specialDefense: 1
+makeBoostMove 'defense-curl', 'self', defense: 1
 extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
 extendWithRecoil 'double-edge'
-extendWithBoost 'double-team', 'self', evasion: 1
-extendWithBoost 'dragon-dance', 'self', attack: 1, speed: 1
+makeBoostMove 'double-team', 'self', evasion: 1
+makeBoostMove 'dragon-dance', 'self', attack: 1, speed: 1
 extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
 extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
 extendWithDrain 'drain-punch'
@@ -228,9 +243,9 @@ extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
 extendWithSecondaryEffect 'ember', .1, BurnAttachment
 makeEruptionMove 'eruption'
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
-extendWithBoost 'fake-tears', 'target', specialDefense: -2
-extendWithBoost 'featherdance', 'target', attack: -2
-extendWithBoost 'fiery-dance', 'self', specialAttack: 1
+makeBoostMove 'fake-tears', 'target', specialDefense: -2
+makeBoostMove 'featherdance', 'target', attack: -2
+extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
 extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
 extendWithFangEffect 'fire-fang', .1, BurnAttachment
 extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
@@ -248,25 +263,26 @@ extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
-extendWithBoost 'growl', 'target', attack: -1
-extendWithBoost 'growth', 'self', attack: 1, specialAttack: 1
+makeBoostMove 'growl', 'target', attack: -1
+makeBoostMove 'growth', 'self', attack: 1, specialAttack: 1
 makeOneHitKOMove 'guillotine'
 extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
 extendWithBoost 'hammer-arm', 'self', speed: -1
-extendWithBoost 'harden', 'self', defense: 1
-extendWithBoost 'harden', 'self', defense: 1
+makeBoostMove 'harden', 'self', defense: 1
 extendWithSecondaryEffect 'headbutt', .3, FlinchAttachment
 extendWithRecoil 'head-charge', .25
 extendWithRecoil 'head-smash', .5
+makeRecoveryMove 'heal-order'
+makeRecoveryMove 'heal-pulse'
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
 makeJumpKick 'hi-jump-kick'
-extendWithBoost 'hone-claws', 'self', attack: 1, accuracy: 1
+makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
 makeOneHitKOMove 'horn-drill'
 extendWithDrain 'horn-leech'
-extendWithBoost 'howl', 'self', attack: 1
+makeBoostMove 'howl', 'self', attack: 1
 extendWithBoost 'icy-wind', 'target', speed: -1
-extendWithBoost 'iron-defense', 'self', defense: 2
+makeBoostMove 'iron-defense', 'self', defense: 2
 extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
 extendWithSecondaryEffect 'hurricane', .3, ConfusionAttachment
 extendWithSecondaryEffect 'hyper-fang', .1, FlinchAttachment
@@ -280,23 +296,24 @@ makeJumpKick 'jump-kick'
 extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
 extendWithBoost 'leaf-storm', 'self', specialAttack: -2
 extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
-extendWithBoost 'leer', 'target', defense: -1
+makeBoostMove 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
 extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
-extendWithBoost 'meditate', 'self', attack: 1
+makeBoostMove 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
-extendWithBoost 'metal-sound', 'target', specialDefense: -2
-extendWithBoost 'minimize', 'self', evasion: 2
+makeBoostMove 'metal-sound', 'target', specialDefense: -2
+makeRecoveryMove 'milk-drink'
+makeBoostMove 'minimize', 'self', evasion: 2
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
 extendWithSecondaryBoost 'mud-bomb', 'target', .3, accuracy: -1
 extendWithBoost 'mud-shot', 'target', speed: -1
 extendWithBoost 'mud-slap', 'target', accuracy: -1
 extendWithSecondaryBoost 'muddy-water', 'target', .3, accuracy: -1
-extendWithBoost 'nasty-plot', 'self', specialAttack: 2
+makeBoostMove 'nasty-plot', 'self', specialAttack: 2
 extendWithSecondaryEffect 'needle-arm', .3, FlinchAttachment
 extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
 makeLevelAsDamageMove 'night-shade'
@@ -313,62 +330,67 @@ extendWithSecondaryEffect 'powder-snow', .1, FreezeAttachment
 extendWithSecondaryEffect 'psybeam', .1, ConfusionAttachment
 extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2
-extendWithBoost 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
+makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
+makeRecoveryMove 'recover'
 extendWithSecondaryEffect 'relic-song', .1, SleepAttachment
 makeReversalMove 'reversal'
 extendWithSecondaryEffect 'rock-climb', .2, ConfusionAttachment
-extendWithBoost 'rock-polish', 'self', speed: 2
+makeBoostMove 'rock-polish', 'self', speed: 2
 extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
 extendWithBoost 'rock-tomb', 'target', speed: -1
 extendWithSecondaryEffect 'rock-slide', .3, FlinchAttachment
 extendWithSecondaryEffect 'rolling-kick', .3, FlinchAttachment
+# TODO: Temporarily remove Flying type
+makeRecoveryMove 'roost'
 extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendWithSecondaryEffect 'scald', .3, BurnAttachment
-extendWithBoost 'scary-face', 'target', speed: -2
-extendWithBoost 'screech', 'target', defense: -2
+makeBoostMove 'scary-face', 'target', speed: -2
+makeBoostMove 'screech', 'target', defense: -2
 extendWithSecondaryEffect 'searing-shot', .3, BurnAttachment
 extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
 makeLevelAsDamageMove 'seismic-toss'
 extendWithSecondaryBoost 'shadow-ball', 'target', .2, specialDefense: -1
-extendWithBoost 'sharpen', 'self', attack: 1
+makeBoostMove 'sharpen', 'self', attack: 1
 makeOneHitKOMove 'sheer-cold'
-extendWithBoost 'shell-smash', 'self', {
+makeBoostMove 'shell-smash', 'self', {
   attack: 2, specialAttack: 2, speed: 2, defense: -1, specialDefense: -1
 }
-extendWithBoost 'shift-gear', 'self', speed: 2, attack: 1
+makeBoostMove 'shift-gear', 'self', speed: 2, attack: 1
 extendWithSecondaryEffect 'signal-beam', .1, ConfusionAttachment
 extendWithSecondaryBoost 'silver-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 extendWithSecondaryEffect 'sky-attack', .3, FlinchAttachment
+makeRecoveryMove 'slack-off'
 extendWithSecondaryEffect 'sludge', .3, PoisonAttachment
 extendWithSecondaryEffect 'sludge-bomb', .3, PoisonAttachment
 extendWithSecondaryEffect 'sludge-wave', .1, PoisonAttachment
 extendWithSecondaryEffect 'smog', .4, PoisonAttachment
-extendWithBoost 'smokescreen', 'target', accuracy: -1
+makeBoostMove 'smokescreen', 'target', accuracy: -1
 extendWithBoost 'snarl', 'target', specialAttack: -1
 extendWithSecondaryEffect 'snore', .3, FlinchAttachment
+makeRecoveryMove 'softboiled'
 extendWithSecondaryEffect 'spark', .3, ParalyzeAttachment
 extendWithSecondaryEffect 'steamroller', .3, FlinchAttachment
 extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
-extendWithBoost 'stockpile', 'self', defense: 1, specialDefense: 1
+makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
 extendWithSecondaryEffect 'stomp', .3, FlinchAttachment
-extendWithBoost 'string-shot', 'target', speed: -1
+makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithRecoil 'submission', .25
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
-extendWithBoost 'sweet-scent', 'target', evasion: -1
-extendWithBoost 'swords-dance', 'self', attack: 2
-extendWithBoost 'tail-glow', 'self', attack: 3
-extendWithBoost 'tail-whip', 'target', defense: -1
+makeBoostMove 'sweet-scent', 'target', evasion: -1
+makeBoostMove 'swords-dance', 'self', attack: 2
+makeBoostMove 'tail-glow', 'self', attack: 3
+makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25
 extendWithSecondaryEffect 'thunder', .3, ParalyzeAttachment
 extendWithFangEffect 'thunder-fang', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thunderbolt', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thunderpunch', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thundershock', .1, ParalyzeAttachment
-extendWithBoost 'tickle', 'target', attack: -1, defense: -1
+makeBoostMove 'tickle', 'target', attack: -1, defense: -1
 # extendWithSecondaryEffect 'tri-attack', .1, ParalyzeAttachment
 # extendWithSecondaryEffect 'twineedle', .2, PoisonAttachment
 extendWithSecondaryEffect 'twister', .2, FlinchAttachment
@@ -379,9 +401,9 @@ extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
 extendWithRecoil 'wild-charge', .25
-extendWithBoost 'withdraw', 'user', defense: 1
+makeBoostMove 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
-extendWithBoost 'work-up', 'user', attack: 1, specialAttack: 1
+makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, FlinchAttachment
 
 extendMove 'acrobatics', ->
@@ -409,9 +431,10 @@ extendMove 'gyro-ball', ->
     Math.min(150, power)
 
 extendMove 'haze', ->
-  @afterSuccessfulHit = (battle, user, target) ->
+  @execute = (battle, user, targets) ->
     user.resetBoosts()
-    target.resetBoosts()
+    for target in targets
+      target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
 extendMove 'psywave', ->

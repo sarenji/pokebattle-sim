@@ -320,11 +320,31 @@ class @Battle
     player = @getPlayer(id)
     action = @getAction(id)
     pokemon = @getTeam(id).at(0)
-    defenders = @getOpponentPokemon(id, @numActive)
     move = moves[action.name]
+    targets = @getTargets(move, id)
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
     # TODO: Execute any before move events
-    damage = move.execute(this, pokemon, defenders)
+    damage = move.execute(this, pokemon, targets)
     # TODO: Execute any after move events
+
+  getTargets: (move, id) =>
+    switch move.target
+      when 'user'
+        [ @getTeam(id).at(0) ]
+      when 'all-opponents'
+        @getOpponentPokemon(id, @numActive)
+      when 'selected-pokemon'
+        # TODO: Actually get selected Pokemon from client.
+        @getOpponentPokemon(id, 1)
+      when 'all-other-pokemon'
+        # TODO: Add your own party Pokemon as well.
+        @getOpponentPokemon(id, @numActive)
+      when 'entire-field'
+        # TODO: Determine if this is actually what you want.
+        pokemon = @getOpponentPokemon(id, @numActive)
+        pokemon.push(@getTeam(id).at(0))
+        pokemon
+      else
+        throw new Error("Unimplemented.")

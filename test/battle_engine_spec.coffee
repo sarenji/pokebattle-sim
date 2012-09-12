@@ -238,16 +238,6 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
 
-    it "deals damage and boosts stats if base power is >0", ->
-      create.call this,
-        team1: [Factory('Celebi')]
-        team2: [Factory('Gyarados')]
-      hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'leaf-storm')
-      @battle.continueTurn()
-      @team1.at(0).stages.specialAttack.should.equal -2
-      (hp - @team2.at(0).currentHP).should.equal 178
-
     it "boosts the pokemon's stats", ->
       create.call this,
         team1: [Factory('Gyarados')]
@@ -258,7 +248,26 @@ describe 'Mechanics', ->
       @battle.continueTurn()
       @team1.at(0).stages.should.include attack: 1, speed: 1
 
+    it "affects type-immune pokemon", ->
+      create.call this,
+        team1: [Factory('Audino')]
+        team2: [Factory('Gengar')]
+      @battle.makeMove(@player1, 'Growl')
+      @battle.makeMove(@player2, 'Shadow Ball')
+      @team2.at(0).stages.attack.should.equal -1
+
     it "has the boosts removed on switch"
+
+  describe 'a pokemon using a damaging move that also boosts stats on hit', ->
+    it "deals damage and boosts stats", ->
+      create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Gyarados')]
+      hp = @team2.at(0).currentHP
+      @battle.makeMove(@player1, 'leaf-storm')
+      @battle.continueTurn()
+      @team1.at(0).stages.specialAttack.should.equal -2
+      (hp - @team2.at(0).currentHP).should.equal 178
 
   describe 'a pokemon using a move with a secondary boosting effect', ->
     it "has a chance to activate", ->
@@ -642,3 +651,24 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
 
       @team2.at(0).currentHP.should.equal hpDiff
+
+  describe 'a recovery move', ->
+    it "doesn't deal damage", ->
+      create.call this,
+        team1: [Factory('Blissey')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Softboiled')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+    it "recovers 50% of the target's HP", ->
+      create.call this,
+        team1: [Factory('Blissey')]
+        team2: [Factory('Magikarp')]
+      hp = @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Softboiled')
+      @battle.makeMove(@player2, 'Splash')
+
+      recoverHP = Math.floor(@team1.at(0).stat('hp') / 2)
+      (@team1.at(0).currentHP - hp).should.equal recoverHP

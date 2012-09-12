@@ -5,6 +5,7 @@
         "power": 20, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "acid": {
@@ -13,6 +14,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Poison"
     }, 
     "acid-armor": {
@@ -21,6 +23,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Poison"
     }, 
     "acid-spray": {
@@ -29,6 +32,7 @@
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "acrobatics": {
@@ -37,6 +41,7 @@
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "acupressure": {
@@ -45,6 +50,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user-or-ally", 
         "type": "Normal"
     }, 
     "aerial-ace": {
@@ -53,6 +59,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "aeroblast": {
@@ -62,6 +69,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "after-you": {
@@ -70,6 +78,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "agility": {
@@ -78,6 +87,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "air-cutter": {
@@ -87,6 +97,7 @@
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Flying"
     }, 
     "air-slash": {
@@ -95,6 +106,7 @@
         "power": 75, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "ally-switch": {
@@ -103,6 +115,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 1, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "amnesia": {
@@ -111,6 +124,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "ancientpower": {
@@ -119,6 +133,7 @@
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "aqua-jet": {
@@ -127,6 +142,7 @@
         "power": 40, 
         "pp": 20, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "aqua-ring": {
@@ -135,6 +151,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Water"
     }, 
     "aqua-tail": {
@@ -143,6 +160,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "arm-thrust": {
@@ -151,6 +169,7 @@
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "aromatherapy": {
@@ -159,6 +178,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Grass"
     }, 
     "assist": {
@@ -167,6 +187,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "assurance": {
@@ -175,6 +196,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "astonish": {
@@ -183,6 +205,7 @@
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "attack-order": {
@@ -192,6 +215,7 @@
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "attract": {
@@ -200,6 +224,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "aura-sphere": {
@@ -208,6 +233,7 @@
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "aurora-beam": {
@@ -216,6 +242,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "autotomize": {
@@ -224,6 +251,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "user", 
         "type": "Steel"
     }, 
     "avalanche": {
@@ -232,6 +260,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "barrage": {
@@ -240,6 +269,7 @@
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "barrier": {
@@ -248,6 +278,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "baton-pass": {
@@ -256,6 +287,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "beat-up": {
@@ -264,6 +296,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "belly-drum": {
@@ -272,6 +305,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "bestow": {
@@ -280,6 +314,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "bide": {
@@ -288,6 +323,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 1, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "bind": {
@@ -296,6 +332,7 @@
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "bite": {
@@ -304,6 +341,7 @@
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "blast-burn": {
@@ -312,6 +350,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "blaze-kick": {
@@ -321,6 +360,7 @@
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "blizzard": {
@@ -329,6 +369,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Ice"
     }, 
     "block": {
@@ -337,6 +378,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "blue-flare": {
@@ -345,6 +387,7 @@
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "body-slam": {
@@ -353,6 +396,7 @@
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "bolt-strike": {
@@ -361,6 +405,7 @@
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "bone-club": {
@@ -369,6 +414,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "bone-rush": {
@@ -377,6 +423,7 @@
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "bonemerang": {
@@ -385,6 +432,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "bounce": {
@@ -393,6 +441,7 @@
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "brave-bird": {
@@ -401,6 +450,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "brick-break": {
@@ -409,6 +459,7 @@
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "brine": {
@@ -417,6 +468,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "bubble": {
@@ -425,6 +477,7 @@
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Water"
     }, 
     "bubblebeam": {
@@ -433,6 +486,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "bug-bite": {
@@ -441,6 +495,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "bug-buzz": {
@@ -449,6 +504,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "bulk-up": {
@@ -457,6 +513,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Fighting"
     }, 
     "bulldoze": {
@@ -465,6 +522,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
     "bullet-punch": {
@@ -473,6 +531,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "bullet-seed": {
@@ -481,6 +540,7 @@
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "calm-mind": {
@@ -489,6 +549,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "camouflage": {
@@ -497,6 +558,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "captivate": {
@@ -505,6 +567,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "charge": {
@@ -513,6 +576,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Electric"
     }, 
     "charge-beam": {
@@ -521,6 +585,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "charm": {
@@ -529,6 +594,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "chatter": {
@@ -537,6 +603,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "chip-away": {
@@ -545,6 +612,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "circle-throw": {
@@ -553,6 +621,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "clamp": {
@@ -561,6 +630,7 @@
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "clear-smog": {
@@ -569,6 +639,7 @@
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "close-combat": {
@@ -577,6 +648,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "coil": {
@@ -585,6 +657,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Poison"
     }, 
     "comet-punch": {
@@ -593,6 +666,7 @@
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "confuse-ray": {
@@ -601,6 +675,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "confusion": {
@@ -609,6 +684,7 @@
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "constrict": {
@@ -617,6 +693,7 @@
         "power": 10, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "conversion": {
@@ -625,6 +702,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "conversion-2": {
@@ -633,6 +711,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "copycat": {
@@ -641,6 +720,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "cosmic-power": {
@@ -649,6 +729,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "cotton-guard": {
@@ -657,6 +738,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Grass"
     }, 
     "cotton-spore": {
@@ -665,6 +747,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "counter": {
@@ -673,6 +756,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
+        "target": "specific-move", 
         "type": "Fighting"
     }, 
     "covet": {
@@ -681,6 +765,7 @@
         "power": 60, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "crabhammer": {
@@ -690,6 +775,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "cross-chop": {
@@ -699,6 +785,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "cross-poison": {
@@ -708,6 +795,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "crunch": {
@@ -716,6 +804,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "crush-claw": {
@@ -724,6 +813,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "crush-grip": {
@@ -732,6 +822,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "curse": {
@@ -740,6 +831,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "specific-move", 
         "type": "Ghost"
     }, 
     "cut": {
@@ -748,6 +840,7 @@
         "power": 50, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "dark-pulse": {
@@ -756,6 +849,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "dark-void": {
@@ -764,6 +858,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Dark"
     }, 
     "defend-order": {
@@ -772,6 +867,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Bug"
     }, 
     "defense-curl": {
@@ -780,6 +876,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "defog": {
@@ -788,6 +885,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "destiny-bond": {
@@ -796,6 +894,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "user", 
         "type": "Ghost"
     }, 
     "detect": {
@@ -804,6 +903,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 4, 
+        "target": "user", 
         "type": "Fighting"
     }, 
     "dig": {
@@ -812,6 +912,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "disable": {
@@ -820,6 +921,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "discharge": {
@@ -828,6 +930,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Electric"
     }, 
     "dive": {
@@ -836,6 +939,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "dizzy-punch": {
@@ -844,6 +948,7 @@
         "power": 70, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "doom-desire": {
@@ -852,6 +957,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "double-edge": {
@@ -860,6 +966,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "double-hit": {
@@ -868,6 +975,7 @@
         "power": 35, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "double-kick": {
@@ -876,6 +984,7 @@
         "power": 30, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "double-team": {
@@ -884,6 +993,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "doubleslap": {
@@ -892,6 +1002,7 @@
         "power": 15, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "draco-meteor": {
@@ -900,6 +1011,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragon-claw": {
@@ -908,6 +1020,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragon-dance": {
@@ -916,6 +1029,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Dragon"
     }, 
     "dragon-pulse": {
@@ -924,6 +1038,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragon-rage": {
@@ -932,6 +1047,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragon-rush": {
@@ -940,6 +1056,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragon-tail": {
@@ -948,6 +1065,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dragonbreath": {
@@ -956,6 +1074,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "drain-punch": {
@@ -964,6 +1083,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "dream-eater": {
@@ -972,6 +1092,7 @@
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "drill-peck": {
@@ -980,6 +1101,7 @@
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "drill-run": {
@@ -989,6 +1111,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "dual-chop": {
@@ -997,6 +1120,7 @@
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "dynamicpunch": {
@@ -1005,6 +1129,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "earth-power": {
@@ -1013,6 +1138,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "earthquake": {
@@ -1021,6 +1147,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
     "echoed-voice": {
@@ -1029,6 +1156,7 @@
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "egg-bomb": {
@@ -1037,6 +1165,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "electro-ball": {
@@ -1045,6 +1174,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "electroweb": {
@@ -1053,6 +1183,7 @@
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Electric"
     }, 
     "embargo": {
@@ -1061,6 +1192,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "ember": {
@@ -1069,6 +1201,7 @@
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "encore": {
@@ -1077,6 +1210,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "endeavor": {
@@ -1085,6 +1219,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "endure": {
@@ -1093,6 +1228,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "energy-ball": {
@@ -1101,6 +1237,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "entrainment": {
@@ -1109,6 +1246,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "eruption": {
@@ -1117,6 +1255,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Fire"
     }, 
     "explosion": {
@@ -1125,6 +1264,7 @@
         "power": 250, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
     "extrasensory": {
@@ -1133,6 +1273,7 @@
         "power": 80, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "extremespeed": {
@@ -1141,6 +1282,7 @@
         "power": 80, 
         "pp": 5, 
         "priority": 2, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "facade": {
@@ -1149,6 +1291,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "faint-attack": {
@@ -1157,6 +1300,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "fake-out": {
@@ -1165,6 +1309,7 @@
         "power": 40, 
         "pp": 10, 
         "priority": 3, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "fake-tears": {
@@ -1173,6 +1318,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "false-swipe": {
@@ -1181,6 +1327,7 @@
         "power": 40, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "featherdance": {
@@ -1189,6 +1336,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "feint": {
@@ -1197,6 +1345,7 @@
         "power": 30, 
         "pp": 10, 
         "priority": 2, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "fiery-dance": {
@@ -1205,6 +1354,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "final-gambit": {
@@ -1213,6 +1363,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "fire-blast": {
@@ -1221,6 +1372,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "fire-fang": {
@@ -1229,6 +1381,7 @@
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "fire-pledge": {
@@ -1237,6 +1390,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "fire-punch": {
@@ -1245,6 +1399,7 @@
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "fire-spin": {
@@ -1253,6 +1408,7 @@
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "fissure": {
@@ -1261,6 +1417,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "flail": {
@@ -1269,6 +1426,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "flame-burst": {
@@ -1277,6 +1435,7 @@
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "flame-charge": {
@@ -1285,6 +1444,7 @@
         "power": 50, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "flame-wheel": {
@@ -1293,6 +1453,7 @@
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "flamethrower": {
@@ -1301,6 +1462,7 @@
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "flare-blitz": {
@@ -1309,6 +1471,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "flash": {
@@ -1317,6 +1480,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "flash-cannon": {
@@ -1325,6 +1489,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "flatter": {
@@ -1333,6 +1498,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "fling": {
@@ -1341,6 +1507,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "fly": {
@@ -1349,6 +1516,7 @@
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "focus-blast": {
@@ -1357,6 +1525,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "focus-energy": {
@@ -1365,6 +1534,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "focus-punch": {
@@ -1373,6 +1543,7 @@
         "power": 150, 
         "pp": 20, 
         "priority": -3, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "follow-me": {
@@ -1381,6 +1552,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "force-palm": {
@@ -1389,6 +1561,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "foresight": {
@@ -1397,6 +1570,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "foul-play": {
@@ -1405,6 +1579,7 @@
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "freeze-shock": {
@@ -1413,6 +1588,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "frenzy-plant": {
@@ -1421,6 +1597,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "frost-breath": {
@@ -1430,6 +1607,7 @@
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "frustration": {
@@ -1438,6 +1616,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "fury-attack": {
@@ -1446,6 +1625,7 @@
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "fury-cutter": {
@@ -1454,6 +1634,7 @@
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "fury-swipes": {
@@ -1462,6 +1643,7 @@
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "fusion-bolt": {
@@ -1470,6 +1652,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "fusion-flare": {
@@ -1478,6 +1661,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "future-sight": {
@@ -1486,6 +1670,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "gastro-acid": {
@@ -1494,6 +1679,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "gear-grind": {
@@ -1502,6 +1688,7 @@
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "giga-drain": {
@@ -1510,6 +1697,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "giga-impact": {
@@ -1518,6 +1706,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "glaciate": {
@@ -1526,6 +1715,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Ice"
     }, 
     "glare": {
@@ -1534,6 +1724,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "grass-knot": {
@@ -1542,6 +1733,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "grass-pledge": {
@@ -1550,6 +1742,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "grasswhistle": {
@@ -1558,6 +1751,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "gravity": {
@@ -1566,6 +1760,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Psychic"
     }, 
     "growl": {
@@ -1574,6 +1769,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "growth": {
@@ -1582,6 +1778,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "grudge": {
@@ -1590,6 +1787,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "user", 
         "type": "Ghost"
     }, 
     "guard-split": {
@@ -1598,6 +1796,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "guard-swap": {
@@ -1606,6 +1805,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "guillotine": {
@@ -1614,6 +1814,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "gunk-shot": {
@@ -1622,6 +1823,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "gust": {
@@ -1630,6 +1832,7 @@
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "gyro-ball": {
@@ -1638,6 +1841,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "hail": {
@@ -1646,6 +1850,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Ice"
     }, 
     "hammer-arm": {
@@ -1654,6 +1859,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "harden": {
@@ -1662,6 +1868,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "haze": {
@@ -1670,6 +1877,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Ice"
     }, 
     "head-charge": {
@@ -1678,6 +1886,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "head-smash": {
@@ -1686,6 +1895,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "headbutt": {
@@ -1694,6 +1904,7 @@
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "heal-bell": {
@@ -1702,6 +1913,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Normal"
     }, 
     "heal-block": {
@@ -1710,6 +1922,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Psychic"
     }, 
     "heal-order": {
@@ -1718,6 +1931,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Bug"
     }, 
     "heal-pulse": {
@@ -1726,6 +1940,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "healing-wish": {
@@ -1734,6 +1949,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "heart-stamp": {
@@ -1742,6 +1958,7 @@
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "heart-swap": {
@@ -1750,6 +1967,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "heat-crash": {
@@ -1758,6 +1976,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "heat-wave": {
@@ -1766,6 +1985,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Fire"
     }, 
     "heavy-slam": {
@@ -1774,6 +1994,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "helping-hand": {
@@ -1782,6 +2003,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 5, 
+        "target": "ally", 
         "type": "Normal"
     }, 
     "hex": {
@@ -1790,6 +2012,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "hi-jump-kick": {
@@ -1798,6 +2021,7 @@
         "power": 130, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "hidden-power": {
@@ -1806,6 +2030,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "hone-claws": {
@@ -1814,6 +2039,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "user", 
         "type": "Dark"
     }, 
     "horn-attack": {
@@ -1822,6 +2048,7 @@
         "power": 65, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "horn-drill": {
@@ -1830,6 +2057,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "horn-leech": {
@@ -1838,6 +2066,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "howl": {
@@ -1846,6 +2075,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "hurricane": {
@@ -1854,6 +2084,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "hydro-cannon": {
@@ -1862,6 +2093,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "hydro-pump": {
@@ -1870,6 +2102,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "hyper-beam": {
@@ -1878,6 +2111,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "hyper-fang": {
@@ -1886,6 +2120,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "hyper-voice": {
@@ -1894,6 +2129,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "hypnosis": {
@@ -1902,6 +2138,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "ice-ball": {
@@ -1910,6 +2147,7 @@
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "ice-beam": {
@@ -1918,6 +2156,7 @@
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "ice-burn": {
@@ -1926,6 +2165,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "ice-fang": {
@@ -1934,6 +2174,7 @@
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "ice-punch": {
@@ -1942,6 +2183,7 @@
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "ice-shard": {
@@ -1950,6 +2192,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "icicle-crash": {
@@ -1958,6 +2201,7 @@
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "icicle-spear": {
@@ -1966,6 +2210,7 @@
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "icy-wind": {
@@ -1974,6 +2219,7 @@
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Ice"
     }, 
     "imprison": {
@@ -1982,6 +2228,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "incinerate": {
@@ -1990,6 +2237,7 @@
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Fire"
     }, 
     "inferno": {
@@ -1998,6 +2246,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "ingrain": {
@@ -2006,6 +2255,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Grass"
     }, 
     "iron-defense": {
@@ -2014,6 +2264,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "user", 
         "type": "Steel"
     }, 
     "iron-head": {
@@ -2022,6 +2273,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "iron-tail": {
@@ -2030,6 +2282,7 @@
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "judgment": {
@@ -2038,6 +2291,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "jump-kick": {
@@ -2046,6 +2300,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "karate-chop": {
@@ -2055,6 +2310,7 @@
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "kinesis": {
@@ -2063,6 +2319,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "knock-off": {
@@ -2071,6 +2328,7 @@
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "last-resort": {
@@ -2079,6 +2337,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "lava-plume": {
@@ -2087,6 +2346,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Fire"
     }, 
     "leaf-blade": {
@@ -2096,6 +2356,7 @@
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "leaf-storm": {
@@ -2104,6 +2365,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "leaf-tornado": {
@@ -2112,6 +2374,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "leech-life": {
@@ -2120,6 +2383,7 @@
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "leech-seed": {
@@ -2128,6 +2392,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "leer": {
@@ -2136,6 +2401,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "lick": {
@@ -2144,6 +2410,7 @@
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "light-screen": {
@@ -2152,6 +2419,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Psychic"
     }, 
     "lock-on": {
@@ -2160,6 +2428,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "lovely-kiss": {
@@ -2168,6 +2437,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "low-kick": {
@@ -2176,6 +2446,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "low-sweep": {
@@ -2184,6 +2455,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "lucky-chant": {
@@ -2192,6 +2464,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Normal"
     }, 
     "lunar-dance": {
@@ -2200,6 +2473,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "luster-purge": {
@@ -2208,6 +2482,7 @@
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "mach-punch": {
@@ -2216,6 +2491,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "magic-coat": {
@@ -2224,6 +2500,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 4, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "magic-room": {
@@ -2232,6 +2509,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
+        "target": "entire-field", 
         "type": "Psychic"
     }, 
     "magical-leaf": {
@@ -2240,6 +2518,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "magma-storm": {
@@ -2248,6 +2527,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "magnet-bomb": {
@@ -2256,6 +2536,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "magnet-rise": {
@@ -2264,6 +2545,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Electric"
     }, 
     "magnitude": {
@@ -2272,6 +2554,7 @@
         "power": 1, 
         "pp": 30, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
     "me-first": {
@@ -2280,6 +2563,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "mean-look": {
@@ -2288,6 +2572,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "meditate": {
@@ -2296,6 +2581,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "mega-drain": {
@@ -2304,6 +2590,7 @@
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "mega-kick": {
@@ -2312,6 +2599,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "mega-punch": {
@@ -2320,6 +2608,7 @@
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "megahorn": {
@@ -2328,6 +2617,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "memento": {
@@ -2336,6 +2626,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "metal-burst": {
@@ -2344,6 +2635,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "specific-move", 
         "type": "Steel"
     }, 
     "metal-claw": {
@@ -2352,6 +2644,7 @@
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "metal-sound": {
@@ -2360,6 +2653,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "meteor-mash": {
@@ -2368,6 +2662,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "metronome": {
@@ -2376,6 +2671,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "milk-drink": {
@@ -2384,6 +2680,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "mimic": {
@@ -2392,6 +2689,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "mind-reader": {
@@ -2400,6 +2698,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "minimize": {
@@ -2408,6 +2707,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "miracle-eye": {
@@ -2416,6 +2716,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "mirror-coat": {
@@ -2424,6 +2725,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
+        "target": "specific-move", 
         "type": "Psychic"
     }, 
     "mirror-move": {
@@ -2432,6 +2734,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "mirror-shot": {
@@ -2440,6 +2743,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "mist": {
@@ -2448,6 +2752,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Ice"
     }, 
     "mist-ball": {
@@ -2456,6 +2761,7 @@
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "moonlight": {
@@ -2464,6 +2770,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "morning-sun": {
@@ -2472,6 +2779,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "mud-bomb": {
@@ -2480,6 +2788,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "mud-shot": {
@@ -2488,6 +2797,7 @@
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "mud-slap": {
@@ -2496,6 +2806,7 @@
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "mud-sport": {
@@ -2504,6 +2815,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Ground"
     }, 
     "muddy-water": {
@@ -2512,6 +2824,7 @@
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Water"
     }, 
     "nasty-plot": {
@@ -2520,6 +2833,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Dark"
     }, 
     "natural-gift": {
@@ -2528,6 +2842,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "nature-power": {
@@ -2536,6 +2851,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "specific-move", 
         "type": "Normal"
     }, 
     "needle-arm": {
@@ -2544,6 +2860,7 @@
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "night-daze": {
@@ -2552,6 +2869,7 @@
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "night-shade": {
@@ -2560,6 +2878,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "night-slash": {
@@ -2569,6 +2888,7 @@
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "nightmare": {
@@ -2577,6 +2897,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "octazooka": {
@@ -2585,6 +2906,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "odor-sleuth": {
@@ -2593,6 +2915,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "ominous-wind": {
@@ -2601,6 +2924,7 @@
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "outrage": {
@@ -2609,6 +2933,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "random-opponent", 
         "type": "Dragon"
     }, 
     "overheat": {
@@ -2617,6 +2942,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "pain-split": {
@@ -2625,6 +2951,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "pay-day": {
@@ -2633,6 +2960,7 @@
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "payback": {
@@ -2641,6 +2969,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "peck": {
@@ -2649,6 +2978,7 @@
         "power": 35, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "perish-song": {
@@ -2657,6 +2987,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Normal"
     }, 
     "petal-dance": {
@@ -2665,6 +2996,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "random-opponent", 
         "type": "Grass"
     }, 
     "pin-missile": {
@@ -2673,6 +3005,7 @@
         "power": 14, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "pluck": {
@@ -2681,6 +3014,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "poison-fang": {
@@ -2689,6 +3023,7 @@
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "poison-gas": {
@@ -2697,6 +3032,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Poison"
     }, 
     "poison-jab": {
@@ -2705,6 +3041,7 @@
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "poison-sting": {
@@ -2713,6 +3050,7 @@
         "power": 15, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "poison-tail": {
@@ -2722,6 +3060,7 @@
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "poisonpowder": {
@@ -2730,6 +3069,7 @@
         "power": 0, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "pound": {
@@ -2738,6 +3078,7 @@
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "powder-snow": {
@@ -2746,6 +3087,7 @@
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Ice"
     }, 
     "power-gem": {
@@ -2754,6 +3096,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "power-split": {
@@ -2762,6 +3105,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "power-swap": {
@@ -2770,6 +3114,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "power-trick": {
@@ -2778,6 +3123,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "power-whip": {
@@ -2786,6 +3132,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "present": {
@@ -2794,6 +3141,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "protect": {
@@ -2802,6 +3150,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "psybeam": {
@@ -2810,6 +3159,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psych-up": {
@@ -2818,6 +3168,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "psychic": {
@@ -2826,6 +3177,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psycho-boost": {
@@ -2834,6 +3186,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psycho-cut": {
@@ -2843,6 +3196,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psycho-shift": {
@@ -2851,6 +3205,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psyshock": {
@@ -2859,6 +3214,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psystrike": {
@@ -2867,6 +3223,7 @@
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "psywave": {
@@ -2875,6 +3232,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "punishment": {
@@ -2883,6 +3241,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "pursuit": {
@@ -2891,6 +3250,7 @@
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "quash": {
@@ -2899,6 +3259,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "quick-attack": {
@@ -2907,6 +3268,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "quick-guard": {
@@ -2915,6 +3277,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 3, 
+        "target": "users-field", 
         "type": "Fighting"
     }, 
     "quiver-dance": {
@@ -2923,6 +3286,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Bug"
     }, 
     "rage": {
@@ -2931,6 +3295,7 @@
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "rage-powder": {
@@ -2939,6 +3304,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
+        "target": "user", 
         "type": "Bug"
     }, 
     "rain-dance": {
@@ -2947,6 +3313,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Water"
     }, 
     "rapid-spin": {
@@ -2955,6 +3322,7 @@
         "power": 20, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "razor-leaf": {
@@ -2964,6 +3332,7 @@
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Grass"
     }, 
     "razor-shell": {
@@ -2972,6 +3341,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "razor-wind": {
@@ -2981,6 +3351,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "recover": {
@@ -2989,6 +3360,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "recycle": {
@@ -2997,6 +3369,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "reflect": {
@@ -3005,6 +3378,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Psychic"
     }, 
     "reflect-type": {
@@ -3013,6 +3387,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "refresh": {
@@ -3021,6 +3396,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "relic-song": {
@@ -3029,6 +3405,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "rest": {
@@ -3037,6 +3414,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "retaliate": {
@@ -3045,6 +3423,7 @@
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "return": {
@@ -3053,6 +3432,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "revenge": {
@@ -3061,6 +3441,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "reversal": {
@@ -3069,6 +3450,7 @@
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "roar": {
@@ -3077,6 +3459,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "roar-of-time": {
@@ -3085,6 +3468,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "rock-blast": {
@@ -3093,6 +3477,7 @@
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "rock-climb": {
@@ -3101,6 +3486,7 @@
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "rock-polish": {
@@ -3109,6 +3495,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Rock"
     }, 
     "rock-slide": {
@@ -3117,6 +3504,7 @@
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Rock"
     }, 
     "rock-smash": {
@@ -3125,6 +3513,7 @@
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "rock-throw": {
@@ -3133,6 +3522,7 @@
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "rock-tomb": {
@@ -3141,6 +3531,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "rock-wrecker": {
@@ -3149,6 +3540,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "role-play": {
@@ -3157,6 +3549,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "rolling-kick": {
@@ -3165,6 +3558,7 @@
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "rollout": {
@@ -3173,6 +3567,7 @@
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "roost": {
@@ -3181,6 +3576,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Flying"
     }, 
     "round": {
@@ -3189,6 +3585,7 @@
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sacred-fire": {
@@ -3197,6 +3594,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "sacred-sword": {
@@ -3205,6 +3603,7 @@
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "safeguard": {
@@ -3213,6 +3612,7 @@
         "power": 0, 
         "pp": 25, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Normal"
     }, 
     "sand-attack": {
@@ -3221,6 +3621,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "sand-tomb": {
@@ -3229,6 +3630,7 @@
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ground"
     }, 
     "sandstorm": {
@@ -3237,6 +3639,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Rock"
     }, 
     "scald": {
@@ -3245,6 +3648,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "scary-face": {
@@ -3253,6 +3657,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "scratch": {
@@ -3261,6 +3666,7 @@
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "screech": {
@@ -3269,6 +3675,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "searing-shot": {
@@ -3277,6 +3684,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Fire"
     }, 
     "secret-power": {
@@ -3285,6 +3693,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "secret-sword": {
@@ -3293,6 +3702,7 @@
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "seed-bomb": {
@@ -3301,6 +3711,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "seed-flare": {
@@ -3309,6 +3720,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "seismic-toss": {
@@ -3317,6 +3729,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "selfdestruct": {
@@ -3325,6 +3738,7 @@
         "power": 200, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
     "shadow-ball": {
@@ -3333,6 +3747,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "shadow-claw": {
@@ -3342,6 +3757,7 @@
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "shadow-force": {
@@ -3350,6 +3766,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "shadow-punch": {
@@ -3358,6 +3775,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "shadow-sneak": {
@@ -3366,6 +3784,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "sharpen": {
@@ -3374,6 +3793,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "sheer-cold": {
@@ -3382,6 +3802,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ice"
     }, 
     "shell-smash": {
@@ -3390,6 +3811,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "shift-gear": {
@@ -3398,6 +3820,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Steel"
     }, 
     "shock-wave": {
@@ -3406,6 +3829,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "signal-beam": {
@@ -3414,6 +3838,7 @@
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "silver-wind": {
@@ -3422,6 +3847,7 @@
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "simple-beam": {
@@ -3430,6 +3856,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sing": {
@@ -3438,6 +3865,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sketch": {
@@ -3446,6 +3874,7 @@
         "power": 0, 
         "pp": 1, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "skill-swap": {
@@ -3454,6 +3883,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "skull-bash": {
@@ -3462,6 +3892,7 @@
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sky-attack": {
@@ -3471,6 +3902,7 @@
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "sky-drop": {
@@ -3479,6 +3911,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "sky-uppercut": {
@@ -3487,6 +3920,7 @@
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "slack-off": {
@@ -3495,6 +3929,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "slam": {
@@ -3503,6 +3938,7 @@
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "slash": {
@@ -3512,6 +3948,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sleep-powder": {
@@ -3520,6 +3957,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "sleep-talk": {
@@ -3528,6 +3966,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "sludge": {
@@ -3536,6 +3975,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "sludge-bomb": {
@@ -3544,6 +3984,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "sludge-wave": {
@@ -3552,6 +3993,7 @@
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Poison"
     }, 
     "smack-down": {
@@ -3560,6 +4002,7 @@
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "smellingsalt": {
@@ -3568,6 +4011,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "smog": {
@@ -3576,6 +4020,7 @@
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "smokescreen": {
@@ -3584,6 +4029,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "snarl": {
@@ -3592,6 +4038,7 @@
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Dark"
     }, 
     "snatch": {
@@ -3600,6 +4047,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
+        "target": "user", 
         "type": "Dark"
     }, 
     "snore": {
@@ -3608,6 +4056,7 @@
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "soak": {
@@ -3616,6 +4065,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "softboiled": {
@@ -3624,6 +4074,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "solarbeam": {
@@ -3632,6 +4083,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "sonicboom": {
@@ -3640,6 +4092,7 @@
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "spacial-rend": {
@@ -3649,6 +4102,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
     "spark": {
@@ -3657,6 +4111,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "spider-web": {
@@ -3665,6 +4120,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "spike-cannon": {
@@ -3673,6 +4129,7 @@
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "spikes": {
@@ -3681,6 +4138,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "opponents-field", 
         "type": "Ground"
     }, 
     "spit-up": {
@@ -3689,6 +4147,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "spite": {
@@ -3697,6 +4156,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
     "splash": {
@@ -3705,6 +4165,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "spore": {
@@ -3713,6 +4174,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "stealth-rock": {
@@ -3721,6 +4183,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "opponents-field", 
         "type": "Rock"
     }, 
     "steamroller": {
@@ -3729,6 +4192,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "steel-wing": {
@@ -3737,6 +4201,7 @@
         "power": 70, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Steel"
     }, 
     "stockpile": {
@@ -3745,6 +4210,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "stomp": {
@@ -3753,6 +4219,7 @@
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "stone-edge": {
@@ -3762,6 +4229,7 @@
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Rock"
     }, 
     "stored-power": {
@@ -3770,6 +4238,7 @@
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "storm-throw": {
@@ -3779,6 +4248,7 @@
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "strength": {
@@ -3787,6 +4257,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "string-shot": {
@@ -3795,6 +4266,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Bug"
     }, 
     "struggle": {
@@ -3803,6 +4275,7 @@
         "power": 50, 
         "pp": "", 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "struggle-bug": {
@@ -3811,6 +4284,7 @@
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Bug"
     }, 
     "stun-spore": {
@@ -3819,6 +4293,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "submission": {
@@ -3827,6 +4302,7 @@
         "power": 80, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "substitute": {
@@ -3835,6 +4311,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "sucker-punch": {
@@ -3843,6 +4320,7 @@
         "power": 80, 
         "pp": 5, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "sunny-day": {
@@ -3851,6 +4329,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Fire"
     }, 
     "super-fang": {
@@ -3859,6 +4338,7 @@
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "superpower": {
@@ -3867,6 +4347,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "supersonic": {
@@ -3875,6 +4356,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "surf": {
@@ -3883,6 +4365,7 @@
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Water"
     }, 
     "swagger": {
@@ -3891,6 +4374,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "swallow": {
@@ -3899,6 +4383,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "sweet-kiss": {
@@ -3907,6 +4392,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "sweet-scent": {
@@ -3915,6 +4401,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "swift": {
@@ -3923,6 +4410,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "switcheroo": {
@@ -3931,6 +4419,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "swords-dance": {
@@ -3939,6 +4428,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "synchronoise": {
@@ -3947,6 +4437,7 @@
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Psychic"
     }, 
     "synthesis": {
@@ -3955,6 +4446,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
+        "target": "user", 
         "type": "Grass"
     }, 
     "tackle": {
@@ -3963,6 +4455,7 @@
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "tail-glow": {
@@ -3971,6 +4464,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Bug"
     }, 
     "tail-slap": {
@@ -3979,6 +4473,7 @@
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "tail-whip": {
@@ -3987,6 +4482,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Normal"
     }, 
     "tailwind": {
@@ -3995,6 +4491,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "users-field", 
         "type": "Flying"
     }, 
     "take-down": {
@@ -4003,6 +4500,7 @@
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "taunt": {
@@ -4011,6 +4509,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "techno-blast": {
@@ -4019,6 +4518,7 @@
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "teeter-dance": {
@@ -4027,6 +4527,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
     "telekinesis": {
@@ -4035,6 +4536,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "teleport": {
@@ -4043,6 +4545,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "user", 
         "type": "Psychic"
     }, 
     "thief": {
@@ -4051,6 +4554,7 @@
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "thrash": {
@@ -4059,6 +4563,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "random-opponent", 
         "type": "Normal"
     }, 
     "thunder": {
@@ -4067,6 +4572,7 @@
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "thunder-fang": {
@@ -4075,6 +4581,7 @@
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "thunder-wave": {
@@ -4083,6 +4590,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "thunderbolt": {
@@ -4091,6 +4599,7 @@
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "thunderpunch": {
@@ -4099,6 +4608,7 @@
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "thundershock": {
@@ -4107,6 +4617,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "tickle": {
@@ -4115,6 +4626,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "torment": {
@@ -4123,6 +4635,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Dark"
     }, 
     "toxic": {
@@ -4131,6 +4644,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "toxic-spikes": {
@@ -4139,6 +4653,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
+        "target": "opponents-field", 
         "type": "Poison"
     }, 
     "transform": {
@@ -4147,6 +4662,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "tri-attack": {
@@ -4155,6 +4671,7 @@
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "trick": {
@@ -4163,6 +4680,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
     "trick-room": {
@@ -4171,6 +4689,7 @@
         "power": 0, 
         "pp": 5, 
         "priority": -7, 
+        "target": "entire-field", 
         "type": "Psychic"
     }, 
     "triple-kick": {
@@ -4179,6 +4698,7 @@
         "power": 10, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "trump-card": {
@@ -4187,6 +4707,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "twineedle": {
@@ -4195,6 +4716,7 @@
         "power": 25, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "twister": {
@@ -4203,6 +4725,7 @@
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Dragon"
     }, 
     "u-turn": {
@@ -4211,6 +4734,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "uproar": {
@@ -4219,6 +4743,7 @@
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
+        "target": "random-opponent", 
         "type": "Normal"
     }, 
     "v-create": {
@@ -4227,6 +4752,7 @@
         "power": 180, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "vacuum-wave": {
@@ -4235,6 +4761,7 @@
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "venoshock": {
@@ -4243,6 +4770,7 @@
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Poison"
     }, 
     "vicegrip": {
@@ -4251,6 +4779,7 @@
         "power": 55, 
         "pp": 30, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "vine-whip": {
@@ -4259,6 +4788,7 @@
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "vital-throw": {
@@ -4267,6 +4797,7 @@
         "power": 70, 
         "pp": 10, 
         "priority": -1, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "volt-switch": {
@@ -4275,6 +4806,7 @@
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "volt-tackle": {
@@ -4283,6 +4815,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "wake-up-slap": {
@@ -4291,6 +4824,7 @@
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
     "water-gun": {
@@ -4299,6 +4833,7 @@
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "water-pledge": {
@@ -4307,6 +4842,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "water-pulse": {
@@ -4315,6 +4851,7 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "water-sport": {
@@ -4323,6 +4860,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "entire-field", 
         "type": "Water"
     }, 
     "water-spout": {
@@ -4331,6 +4869,7 @@
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
+        "target": "all-opponents", 
         "type": "Water"
     }, 
     "waterfall": {
@@ -4339,6 +4878,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "weather-ball": {
@@ -4347,6 +4887,7 @@
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "whirlpool": {
@@ -4355,6 +4896,7 @@
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Water"
     }, 
     "whirlwind": {
@@ -4363,6 +4905,7 @@
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "wide-guard": {
@@ -4371,6 +4914,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 3, 
+        "target": "users-field", 
         "type": "Rock"
     }, 
     "wild-charge": {
@@ -4379,6 +4923,7 @@
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "will-o-wisp": {
@@ -4387,6 +4932,7 @@
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Fire"
     }, 
     "wing-attack": {
@@ -4395,6 +4941,7 @@
         "power": 60, 
         "pp": 35, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Flying"
     }, 
     "wish": {
@@ -4403,6 +4950,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "withdraw": {
@@ -4411,6 +4959,7 @@
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
+        "target": "user", 
         "type": "Water"
     }, 
     "wonder-room": {
@@ -4419,6 +4968,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
+        "target": "entire-field", 
         "type": "Psychic"
     }, 
     "wood-hammer": {
@@ -4427,6 +4977,7 @@
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "work-up": {
@@ -4435,6 +4986,7 @@
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
+        "target": "user", 
         "type": "Normal"
     }, 
     "worry-seed": {
@@ -4443,6 +4995,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Grass"
     }, 
     "wrap": {
@@ -4451,6 +5004,7 @@
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "wring-out": {
@@ -4459,6 +5013,7 @@
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "x-scissor": {
@@ -4467,6 +5022,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Bug"
     }, 
     "yawn": {
@@ -4475,6 +5031,7 @@
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "zap-cannon": {
@@ -4483,6 +5040,7 @@
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Electric"
     }, 
     "zen-headbutt": {
@@ -4491,6 +5049,7 @@
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
+        "target": "selected-pokemon", 
         "type": "Psychic"
     }
 }

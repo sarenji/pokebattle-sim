@@ -11,6 +11,7 @@ class @Move
     @accuracy = attributes.accuracy || 0
     @priority = attributes.priority || 0
     @power = attributes.power
+    @target = attributes.target
     @type = attributes.type || '???'
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
@@ -28,16 +29,21 @@ class @Move
         @afterMiss(battle, user, target, damage)
         continue
 
-      if target.isImmune(this, battle, user)
-        battle.message "But it doesn't affect #{target.name}..."
-        continue
+      if @use(battle, user, target, damage) != false
+        @afterSuccessfulHit(battle, user, target, damage)
 
-      if damage > 0
-        # TODO: Print out opponent's name alongside the pokemon.
-        battle.message "#{target.name} took #{damage} damage!"
-        target.damage(damage)
+  # A hook with a default implementation of returning false on a type immunity,
+  # otherwise dealing damage.
+  # If `use` returns false, the `afterSuccessfulHit` hook is never called.
+  use: (battle, user, target, damage) =>
+    if target.isImmune(this, battle, user)
+      battle.message "But it doesn't affect #{target.name}..."
+      return false
 
-      @afterSuccessfulHit(battle, user, target, damage)
+    if damage > 0
+      # TODO: Print out opponent's name alongside the pokemon.
+      battle.message "#{target.name} took #{damage} damage!"
+      target.damage(damage)
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
