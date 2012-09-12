@@ -83,6 +83,9 @@ Factory.register 'Audino',
 Factory.register 'Gengar',
   moves: ['Shadow Ball']
 
+Factory.register 'Drapion',
+  moves: ['Knock Off']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

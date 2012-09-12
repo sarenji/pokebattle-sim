@@ -437,6 +437,12 @@ extendMove 'haze', ->
       target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
+extendMove 'knock-off', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    if target.item?
+      battle.message "#{user.name} knocked off #{target.name}'s #{target.item.name}!"
+      target.item = null
+
 extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15) / 10

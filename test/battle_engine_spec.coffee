@@ -2,6 +2,7 @@ sinon = require 'sinon'
 {items, moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus, ParalyzeAttachment} = require('../').server
 {Factory} = require './factory'
+should = require 'should'
 
 describe 'Mechanics', ->
   create = (opts={}) ->
@@ -672,3 +673,22 @@ describe 'Mechanics', ->
 
       recoverHP = Math.floor(@team1.at(0).stat('hp') / 2)
       (@team1.at(0).currentHP - hp).should.equal recoverHP
+
+  describe 'knock off', ->
+    it "deals damage", ->
+      create.call this,
+        team1: [Factory('Drapion')]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      @battle.makeMove(@player1, 'Knock Off')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.be.lessThan @team2.at(0).stat('hp')
+
+    it "removes the target's item", ->
+      create.call this,
+        team1: [Factory('Drapion')]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      @battle.makeMove(@player1, 'Knock Off')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team2.at(0).item
