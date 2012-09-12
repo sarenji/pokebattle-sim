@@ -3,7 +3,7 @@
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.
 # Attachments are "attached" with Pokemon.attach(), and after
-# that the attachment can be retrieved with Attachment.pokemon 
+# that the attachment can be retrieved with Attachment.pokemon
 class @Attachment
   constructor: (name, attributes={}) ->
     @name = name
@@ -65,3 +65,7 @@ class @YawnAttachment extends @VolatileAttachment
     if @turn == 2
       @pokemon.attach(new exports.SleepAttachment())
       @remove()
+
+class @MagnitudeAttachment extends @VolatileAttachment
+  constructor: (attributes) ->
+    super('MagnitudeAttachment', attributes)

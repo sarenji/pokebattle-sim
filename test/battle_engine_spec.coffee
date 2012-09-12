@@ -790,3 +790,13 @@ describe 'Mechanics', ->
 
     it "doesn't reduce stats if target is protected, but still faints user"
     it "doesn't reduce stats if target has a substitute, but faints user"
+
+  describe 'magnitude', ->
+    it "has variable base power", ->
+      create.call this,
+        team1: [Factory('Dugtrio')]
+        team2: [Factory('Magikarp')]
+      @battle.rng.randInt.restore()
+      move = moves['magnitude']
+      sinon.stub(@battle.rng, 'randInt', -> 50)
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 70

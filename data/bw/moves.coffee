@@ -453,6 +453,36 @@ extendMove 'knock-off', ->
       battle.message "#{user.name} knocked off #{target.name}'s #{target.item.name}!"
       target.item = null
 
+extendMove 'magnitude', ->
+  @basePower = (battle, user, target) ->
+    rand = battle.rng.randInt(0, 99)
+    magnitude = 0
+    power = 0
+    if rand < 5
+      power = 10
+      magnitude = 4
+    else if rand < 15
+      power = 30
+      magnitude = 5
+    else if rand < 35
+      power = 50
+      magnitude = 6
+    else if rand < 65
+      power = 70
+      magnitude = 7
+    else if rand < 85
+      power = 90
+      magnitude = 8
+    else if rand < 95
+      power = 110
+      magnitude = 9
+    else
+      power = 150
+      magnitude = 10
+
+    battle.message "Magnitude #{magnitude}!"
+    power
+
 extendMove 'memento', ->
   @use = (battle, user, target, damage) ->
     user.currentHP = 0

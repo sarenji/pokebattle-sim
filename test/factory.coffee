@@ -99,3 +99,5 @@ Factory.register 'Latias',
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'
+Factory.register 'Dugtrio',
+  moves: ['Magnitude', 'Dig']
