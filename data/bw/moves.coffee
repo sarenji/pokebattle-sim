@@ -488,6 +488,13 @@ extendMove 'memento', ->
     user.currentHP = 0
     target.boost(attack: -2, specialAttack: -2)
 
+extendMove 'pain-split', ->
+  @use = (battle, user, target) ->
+    averageHP = Math.floor((user.currentHP + target.currentHP) / 2)
+    user.setHP(averageHP)
+    target.setHP(averageHP)
+    battle.message "The battlers shared their pain!"
+
 extendMove 'pay-day', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.message "Coins were scattered everywhere!"

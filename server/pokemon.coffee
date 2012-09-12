@@ -109,8 +109,10 @@ class @Pokemon
     @currentHP <= 0
 
   damage: (amount) =>
-    @currentHP -= amount
-    @currentHP = Math.min(@stat('hp'), @currentHP)
+    @setHP(@currentHP - amount)
+
+  setHP: (hp) =>
+    @currentHP = Math.min(@stat('hp'), hp)
 
   isImmune: (move, battle, user) =>
     multiplier = move.typeEffectiveness(this)

@@ -81,7 +81,7 @@ Factory.register 'Audino',
   moves: ['Growl']
 
 Factory.register 'Gengar',
-  moves: ['Shadow Ball']
+  moves: ['Shadow Ball', 'Pain Split']
 
 Factory.register 'Drapion',
   moves: ['Knock Off', 'Swords Dance']

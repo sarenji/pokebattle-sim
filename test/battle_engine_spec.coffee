@@ -800,3 +800,24 @@ describe 'Mechanics', ->
       move = moves['magnitude']
       sinon.stub(@battle.rng, 'randInt', -> 50)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 70
+
+  describe 'pain split', ->
+    it "doesn't make a pokemon's HP go over their max", ->
+      create.call this,
+        team1: [Factory('Gengar')]
+        team2: [Factory('Blissey')]
+      @battle.makeMove(@player1, 'Pain Split')
+      @battle.makeMove(@player1, 'Seismic Toss')
+
+      @team1.at(0).currentHP.should.equal @team1.at(0).stat('hp')
+
+    it "averages user and target current HP", ->
+      create.call this,
+        team1: [Factory('Gengar')]
+        team2: [Factory('Blissey')]
+      @team1.at(0).currentHP = 2
+      @battle.makeMove(@player1, 'Pain Split')
+      @battle.makeMove(@player2, 'Seismic Toss')
+
+      @team1.at(0).currentHP.should.equal Math.min(326, @team1.at(0).stat('hp'))
+      @team2.at(0).currentHP.should.equal Math.min(326, @team2.at(0).stat('hp'))
