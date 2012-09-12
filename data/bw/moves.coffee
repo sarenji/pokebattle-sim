@@ -488,6 +488,10 @@ extendMove 'memento', ->
     user.currentHP = 0
     target.boost(attack: -2, specialAttack: -2)
 
+extendMove 'pay-day', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    battle.message "Coins were scattered everywhere!"
+
 extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15) / 10
