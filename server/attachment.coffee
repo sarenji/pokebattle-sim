@@ -65,7 +65,3 @@ class @YawnAttachment extends @VolatileAttachment
     if @turn == 2
       @pokemon.attach(new exports.SleepAttachment())
       @remove()
-
-class @MagnitudeAttachment extends @VolatileAttachment
-  constructor: (attributes) ->
-    super('MagnitudeAttachment', attributes)
