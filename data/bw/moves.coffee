@@ -119,6 +119,17 @@ makeEruptionMove = (name) ->
       power = Math.floor(150 * (user.currentHP / user.stat('hp')))
       Math.max(power, 1)
 
+makeOneHitKOMove = (name) ->
+  extendMove name, ->
+    @calculateDamage = (battle, user, target) ->
+      # TODO: Or was this fixed?
+      target.stat('hp')
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      # TODO: Is this message displayed even if the Pokemon survives?
+      battle.message "It was a one-hit KO!"
+    @chanceToHit = (battle, user, target) ->
+      (user.level - target.level) + 30
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -160,7 +171,6 @@ makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
     "#{pokemon.name}'s #{stat} won't go any higher!"
   else if !wasBoosted && amount < 0
     "#{pokemon.name}'s #{stat} won't go any lower!"
-
 
 extendWithDrain 'absorb'
 extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
@@ -224,6 +234,7 @@ extendWithBoost 'fiery-dance', 'self', specialAttack: 1
 extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
 extendWithFangEffect 'fire-fang', .1, BurnAttachment
 extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
+makeOneHitKOMove 'fissure'
 makeReversalMove 'flail'
 extendWithBoost 'flame-charge', 'self', speed: 1
 extendWithSecondaryEffect 'flame-wheel', .1, BurnAttachment
@@ -239,6 +250,7 @@ extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
 extendWithBoost 'growl', 'target', attack: -1
 extendWithBoost 'growth', 'self', attack: 1, specialAttack: 1
+makeOneHitKOMove 'guillotine'
 extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
 extendWithBoost 'hammer-arm', 'self', speed: -1
 extendWithBoost 'harden', 'self', defense: 1
@@ -250,6 +262,7 @@ extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
 extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
 makeJumpKick 'hi-jump-kick'
 extendWithBoost 'hone-claws', 'self', attack: 1, accuracy: 1
+makeOneHitKOMove 'horn-drill'
 extendWithDrain 'horn-leech'
 extendWithBoost 'howl', 'self', attack: 1
 extendWithBoost 'icy-wind', 'target', speed: -1
@@ -319,6 +332,7 @@ extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
 makeLevelAsDamageMove 'seismic-toss'
 extendWithSecondaryBoost 'shadow-ball', 'target', .2, specialDefense: -1
 extendWithBoost 'sharpen', 'self', attack: 1
+makeOneHitKOMove 'sheer-cold'
 extendWithBoost 'shell-smash', 'self', {
   attack: 2, specialAttack: 2, speed: 2, defense: -1, specialDefense: -1
 }

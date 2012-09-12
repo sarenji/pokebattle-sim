@@ -74,6 +74,9 @@ Factory.register 'Camerupt',
 Factory.register 'Empoleon',
   moves: ['Brine']
 
+Factory.register 'Lapras',
+  moves: ['Sheer Cold']
+
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

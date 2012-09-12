@@ -623,3 +623,22 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Dragon Dance')
 
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+  describe 'an OHKO move', ->
+    it 'ignores accuracy/evasion modifiers', ->
+      @team1.at(0).stages.accuracy = -6
+      @team2.at(0).stages.evasion = 6
+      acc = moves['sheer-cold'].chanceToHit(@battle, @team1.at(0), @team2.at(0))
+
+      acc.should.equal 30
+
+    it "does damage equal to the target's total hp", ->
+      create.call this,
+        team1: [Factory('Lapras')]
+        team2: [Factory('Magikarp')]
+      hpDiff = -1
+      @team2.at(0).currentHP += hpDiff
+      @battle.makeMove(@player1, 'Sheer Cold')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.equal hpDiff
