@@ -22,30 +22,6 @@ class @VolatileAttachment extends @Attachment
   switchOut: =>
     @remove()
 
-class @BurnAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.BURN, attributes)
-
-class @ParalyzeAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.PARALYZE, attributes)
-
-class @FreezeAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.FREEZE, attributes)
-
-class @SleepAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.SLEEP, attributes)
-
-class @PoisonAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.POISON, attributes)
-
-class @ToxicAttachment extends @Attachment
-  constructor: (attributes) ->
-    super(Status.TOXIC, attributes)
-
 class @FlinchAttachment extends @Attachment
   constructor: (attributes={}) ->
     attributes.duration ||= 1
@@ -63,5 +39,5 @@ class @YawnAttachment extends @VolatileAttachment
   endTurn: =>
     @turn += 1
     if @turn == 2
-      @pokemon.attach(new exports.SleepAttachment())
+      @pokemon.setStatus(Status.SLEEP)
       @remove()

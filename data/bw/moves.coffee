@@ -3,9 +3,7 @@
 @MoveData = require('./data_moves.json')
 {Move} = require('../../server/move')
 {Status} = require('../../server/status')
-{BurnAttachment, FreezeAttachment, ParalyzeAttachment, FlinchAttachment,
-PoisonAttachment, ToxicAttachment, SleepAttachment,
-ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
+{FlinchAttachment, ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
 {_} = require 'underscore'
 
 # Generate the initial versions of every single move.
@@ -44,7 +42,7 @@ extendMove = (name, callback) ->
 #
 # Example:
 #
-#   extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
+#   extendWithSecondaryEffect 'iron-head', .1, FlinchAttachment
 #
 extendWithSecondaryEffect = (name, chance, Attachment, options) ->
   extendMove name, ->
@@ -55,13 +53,20 @@ extendWithSecondaryEffect = (name, chance, Attachment, options) ->
       attachment = new Attachment(options)
       target.attach(attachment)
 
+extendWithSecondaryStatus = (name, chance, status) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      if battle.rng.next() >= chance
+        return
+
+      target.setStatus(status)
+
 # The fang moves have an additional 10% chance to flinch.
-extendWithFangEffect = (name, chance, Attachment, options) ->
+extendWithFangEffect = (name, chance, status, options) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       if battle.rng.next() < chance
-        attachment = new Attachment(options)
-        target.attach(attachment)
+        target.setStatus(status)
 
       if battle.rng.next() < chance
         attachment = new FlinchAttachment(options)
@@ -166,6 +171,12 @@ makeThiefMove = (name) ->
       battle.message "#{user.name} stole #{target.name}'s #{target.item.name}!"
       [user.item, target.item] = [target.item, null]
 
+makeStatusCureMove = (name) ->
+  extendMove name, ->
+    @execute = (battle, user, targets) ->
+      for target in targets
+        target.removeStatus()
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -225,16 +236,17 @@ makeBoostMove 'amnesia', 'self', specialDefense: 2
 extendWithSecondaryBoost 'ancientpower', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
+makeStatusCureMove 'aromatherapy'
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
 makeBoostMove 'barrier', 'self', defense: 2
-extendWithSecondaryEffect 'blaze-kick', .1, BurnAttachment
-extendWithSecondaryEffect 'blizzard', .1, FreezeAttachment
-extendWithSecondaryEffect 'blue-flare', .2, BurnAttachment
-extendWithSecondaryEffect 'body-slam', .3, ParalyzeAttachment
-extendWithSecondaryEffect 'bolt-strike', .2, ParalyzeAttachment
+extendWithSecondaryStatus 'blaze-kick', .1, Status.BURN
+extendWithSecondaryStatus 'blizzard', .1, Status.FREEZE
+extendWithSecondaryStatus 'blue-flare', .2, Status.BURN
+extendWithSecondaryStatus 'body-slam', .3, Status.PARALYZE
+extendWithSecondaryStatus 'bolt-strike', .2, Status.PARALYZE
 extendWithSecondaryEffect 'bone-club', .1, FlinchAttachment
-extendWithSecondaryEffect 'bounce', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'bounce', .3, Status.PARALYZE
 extendWithRecoil 'brave-bird'
 extendWithSecondaryBoost 'bubble', 'target', .1, speed: -1
 extendWithSecondaryBoost 'bubblebeam', 'target', .1, speed: -1
@@ -257,56 +269,57 @@ extendWithSecondaryBoost 'crush-claw', 'target', .5, defense: -1
 extendWithSecondaryEffect 'dark-pulse', .2, FlinchAttachment
 makeBoostMove 'defend-order', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'defense-curl', 'self', defense: 1
-extendWithSecondaryEffect 'discharge', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'discharge', .3, Status.PARALYZE
 extendWithSecondaryEffect 'dizzy-punch', .2, ConfusionAttachment
 extendWithRecoil 'double-edge'
 makeBoostMove 'double-team', 'self', evasion: 1
 makeBoostMove 'dragon-dance', 'self', attack: 1, speed: 1
 extendWithSecondaryEffect 'dragon-rush', .2, FlinchAttachment
-extendWithSecondaryEffect 'dragonbreath', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'dragonbreath', .3, Status.PARALYZE
 extendWithDrain 'drain-punch'
 extendWithDrain 'dream-eater'
 extendWithBoost 'draco-meteor', 'self', specialAttack: -2
 extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
-extendWithSecondaryEffect 'ember', .1, BurnAttachment
+extendWithSecondaryStatus 'ember', .1, Status.BURN
 makeEruptionMove 'eruption'
 makeExplosionMove 'explosion'
 extendWithSecondaryEffect 'extrasensory', .1, FlinchAttachment
 makeBoostMove 'fake-tears', 'target', specialDefense: -2
 makeBoostMove 'featherdance', 'target', attack: -2
 extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
-extendWithSecondaryEffect 'fire-blast', .1, BurnAttachment
-extendWithFangEffect 'fire-fang', .1, BurnAttachment
-extendWithSecondaryEffect 'fire-punch', .1, BurnAttachment
+extendWithSecondaryStatus 'fire-blast', .1, Status.BURN
+extendWithFangEffect 'fire-fang', .1, Status.BURN
+extendWithSecondaryStatus 'fire-punch', .1, Status.BURN
 makeOneHitKOMove 'fissure'
 makeReversalMove 'flail'
 extendWithBoost 'flame-charge', 'self', speed: 1
-extendWithSecondaryEffect 'flame-wheel', .1, BurnAttachment
-extendWithSecondaryEffect 'flamethrower', .1, BurnAttachment
+extendWithSecondaryStatus 'flame-wheel', .1, Status.BURN
+extendWithSecondaryStatus 'flamethrower', .1, Status.BURN
 # TODO: Add recoil to flare-blitz.
-extendWithSecondaryEffect 'flare-blitz', .1, BurnAttachment
+extendWithSecondaryStatus 'flare-blitz', .1, Status.BURN
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
-extendWithSecondaryEffect 'force-palm', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'force-palm', .3, Status.PARALYZE
 extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
-extendWithSecondaryEffect 'freeze-shock', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
 makeBoostMove 'growl', 'target', attack: -1
 makeBoostMove 'growth', 'self', attack: 1, specialAttack: 1
 makeOneHitKOMove 'guillotine'
-extendWithSecondaryEffect 'gunk-shot', .3, PoisonAttachment
+extendWithSecondaryStatus 'gunk-shot', .3, Status.POISON
 extendWithBoost 'hammer-arm', 'self', speed: -1
 makeBoostMove 'harden', 'self', defense: 1
 extendWithSecondaryEffect 'headbutt', .3, FlinchAttachment
 extendWithRecoil 'head-charge', .25
 extendWithRecoil 'head-smash', .5
+makeStatusCureMove 'heal-bell'
 makeRecoveryMove 'heal-order'
 makeRecoveryMove 'heal-pulse'
 extendWithSecondaryEffect 'heart-stamp', .3, FlinchAttachment
-extendWithSecondaryEffect 'heat-wave', .1, BurnAttachment
+extendWithSecondaryStatus 'heat-wave', .1, Status.BURN
 makeJumpKick 'hi-jump-kick'
 makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
 makeOneHitKOMove 'horn-drill'
@@ -317,19 +330,19 @@ makeBoostMove 'iron-defense', 'self', defense: 2
 extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
 extendWithSecondaryEffect 'hurricane', .3, ConfusionAttachment
 extendWithSecondaryEffect 'hyper-fang', .1, FlinchAttachment
-extendWithSecondaryEffect 'ice-beam', .1, FreezeAttachment
-extendWithSecondaryEffect 'ice-burn', .3, BurnAttachment
-extendWithFangEffect 'ice-fang', .1, FreezeAttachment
-extendWithSecondaryEffect 'ice-punch', .3, FreezeAttachment
+extendWithSecondaryStatus 'ice-beam', .1, Status.FREEZE
+extendWithSecondaryStatus 'ice-burn', .3, Status.BURN
+extendWithFangEffect 'ice-fang', .1, Status.FREEZE
+extendWithSecondaryStatus 'ice-punch', .3, Status.FREEZE
 extendWithSecondaryEffect 'icicle-crash', .3, FlinchAttachment
 extendWithSecondaryEffect 'iron-head', .3, FlinchAttachment
 makeJumpKick 'jump-kick'
-extendWithSecondaryEffect 'lava-plume', .3, BurnAttachment
+extendWithSecondaryStatus 'lava-plume', .3, Status.BURN
 extendWithBoost 'leaf-storm', 'self', specialAttack: -2
 extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
 makeBoostMove 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
-extendWithSecondaryEffect 'lick', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'lick', .3, Status.PARALYZE
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 makeBoostMove 'meditate', 'self', attack: 1
@@ -353,18 +366,18 @@ extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 extendWithBoost 'overheat', 'self', specialAttack: -2
-extendWithSecondaryEffect 'poison-fang', .3, ToxicAttachment
-extendWithSecondaryEffect 'poison-jab', .3, PoisonAttachment
-extendWithSecondaryEffect 'poison-sting', .3, PoisonAttachment
-extendWithSecondaryEffect 'poison-tail', .1, PoisonAttachment
-extendWithSecondaryEffect 'powder-snow', .1, FreezeAttachment
+extendWithSecondaryStatus 'poison-fang', .3, Status.TOXIC
+extendWithSecondaryStatus 'poison-jab', .3, Status.POISON
+extendWithSecondaryStatus 'poison-sting', .3, Status.POISON
+extendWithSecondaryStatus 'poison-tail', .1, Status.POISON
+extendWithSecondaryStatus 'powder-snow', .1, Status.FREEZE
 extendWithSecondaryEffect 'psybeam', .1, ConfusionAttachment
 extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2
 makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
-extendWithSecondaryEffect 'relic-song', .1, SleepAttachment
+extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
 makeReversalMove 'reversal'
 extendWithSecondaryEffect 'rock-climb', .2, ConfusionAttachment
 makeBoostMove 'rock-polish', 'self', speed: 2
@@ -375,10 +388,10 @@ extendWithSecondaryEffect 'rolling-kick', .3, FlinchAttachment
 # TODO: Temporarily remove Flying type
 makeRecoveryMove 'roost'
 extendWithBoost 'sand-attack', 'target', accuracy: -1
-extendWithSecondaryEffect 'scald', .3, BurnAttachment
+extendWithSecondaryStatus 'scald', .3, Status.BURN
 makeBoostMove 'scary-face', 'target', speed: -2
 makeBoostMove 'screech', 'target', defense: -2
-extendWithSecondaryEffect 'searing-shot', .3, BurnAttachment
+extendWithSecondaryStatus 'searing-shot', .3, Status.BURN
 extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
 makeExplosionMove 'selfdestruct'
 makeLevelAsDamageMove 'seismic-toss'
@@ -395,15 +408,15 @@ extendWithSecondaryBoost 'silver-wind', 'self', .1, {
 }
 extendWithSecondaryEffect 'sky-attack', .3, FlinchAttachment
 makeRecoveryMove 'slack-off'
-extendWithSecondaryEffect 'sludge', .3, PoisonAttachment
-extendWithSecondaryEffect 'sludge-bomb', .3, PoisonAttachment
-extendWithSecondaryEffect 'sludge-wave', .1, PoisonAttachment
-extendWithSecondaryEffect 'smog', .4, PoisonAttachment
+extendWithSecondaryStatus 'sludge', .3, Status.POISON
+extendWithSecondaryStatus 'sludge-bomb', .3, Status.POISON
+extendWithSecondaryStatus 'sludge-wave', .1, Status.POISON
+extendWithSecondaryStatus 'smog', .4, Status.POISON
 makeBoostMove 'smokescreen', 'target', accuracy: -1
 extendWithBoost 'snarl', 'target', specialAttack: -1
 extendWithSecondaryEffect 'snore', .3, FlinchAttachment
 makeRecoveryMove 'softboiled'
-extendWithSecondaryEffect 'spark', .3, ParalyzeAttachment
+extendWithSecondaryStatus 'spark', .3, Status.PARALYZE
 extendWithSecondaryEffect 'steamroller', .3, FlinchAttachment
 extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
 makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
@@ -419,19 +432,19 @@ makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25
 makeThiefMove 'thief'
-extendWithSecondaryEffect 'thunder', .3, ParalyzeAttachment
-extendWithFangEffect 'thunder-fang', .1, ParalyzeAttachment
-extendWithSecondaryEffect 'thunderbolt', .1, ParalyzeAttachment
-extendWithSecondaryEffect 'thunderpunch', .1, ParalyzeAttachment
-extendWithSecondaryEffect 'thundershock', .1, ParalyzeAttachment
+extendWithSecondaryStatus 'thunder', .3, Status.PARALYZE
+extendWithFangEffect 'thunder-fang', .1, Status.PARALYZE
+extendWithSecondaryStatus 'thunderbolt', .1, Status.PARALYZE
+extendWithSecondaryStatus 'thunderpunch', .1, Status.PARALYZE
+extendWithSecondaryStatus 'thundershock', .1, Status.PARALYZE
 makeBoostMove 'tickle', 'target', attack: -1, defense: -1
-# extendWithSecondaryEffect 'tri-attack', .1, ParalyzeAttachment
+# extendWithSecondaryEffect 'tri-attack', .1, Status.PARALYZE
 makeTrickMove 'trick'
-# extendWithSecondaryEffect 'twineedle', .2, PoisonAttachment
+# extendWithSecondaryEffect 'twineedle', .2, Status.POISON
 extendWithSecondaryEffect 'twister', .2, FlinchAttachment
 extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, speed: -1
 # TODO: Volt tackle should have 1/3 recoil.
-extendWithSecondaryEffect 'volt-tackle', .1, ParalyzeAttachment
+extendWithSecondaryStatus 'volt-tackle', .1, Status.PARALYZE
 extendWithSecondaryEffect 'water-pulse', .2, ConfusionAttachment
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, FlinchAttachment
@@ -497,8 +510,7 @@ extendMove 'endeavor', ->
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->
-    if user.hasStatus(Status.BURN) || user.hasStatus(Status.POISON) ||
-        user.hasStatus(Status.PARALYZE) || user.hasStatus(Status.TOXIC)
+    if user.hasStatus()
       2 * @power
     else
       @power
@@ -526,8 +538,7 @@ extendMove 'heavy-slam', ->
 
 extendMove 'hex', ->
   @basePower = (battle, user, target) ->
-    if target.hasStatus(Status.BURN) || target.hasStatus(Status.POISON) ||
-        target.hasStatus(Status.PARALYZE) || target.hasStatus(Status.TOXIC)
+    if target.hasStatus()
       2 * @power
     else
       @power
@@ -600,5 +611,5 @@ extendMove 'yawn', ->
   # TODO: Fail if the pokemon is already tired
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
-  @afterSuccessfulHit = (battle, user, target) ->
+  @use = (battle, user, target) ->
     target.attach(new YawnAttachment())

@@ -4,6 +4,7 @@
   FREEZE: "Freeze"
   POISON: "Poison"
   TOXIC: "Toxic"
+  SLEEP: "Sleep"
 
 @VolatileStatus =
   FLINCH: "Flinch"

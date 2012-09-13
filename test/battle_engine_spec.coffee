@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {items, moves} = require('../data/bw')
-{Battle, Pokemon, Status, VolatileStatus, ParalyzeAttachment} = require('../').server
+{Battle, Pokemon, Status, VolatileStatus} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -130,6 +130,18 @@ describe 'Mechanics', ->
       @team2.at(0).name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->
+    it 'can inflict effect on successful hit', ->
+      shared.create.call this,
+        team1: [Factory('Porygon-Z')]
+        team2: [Factory('Porygon-Z')]
+      @battle.rng.next.restore()
+      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      defender = @team2.at(0)
+      @battle.makeMove(@player1, 'Iron Head')
+      @battle.continueTurn()
+      defender.hasAttachment(VolatileStatus.FLINCH).should.be.true
+
+  describe 'secondary status attacks', ->
     it 'can inflict effect on successful hit', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
@@ -488,7 +500,7 @@ describe 'Mechanics', ->
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       hp = @team2.at(0).currentHP
-      @team1.at(0).attach(new ParalyzeAttachment())
+      @team1.at(0).setStatus(Status.PARALYZE)
       @battle.makeMove(@player1, 'Facade')
       @battle.continueTurn()
       (hp - @team2.at(0).currentHP).should.equal 324
@@ -997,7 +1009,7 @@ describe 'Mechanics', ->
     it 'doubles the base power if target is burned, poisoned, or paralyzed', ->
       shared.create.call(this)
       move = moves['hex']
-      @team2.at(0).attach(new ParalyzeAttachment())
+      @team2.at(0).setStatus(Status.PARALYZE)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
 
   describe 'heavy-slam', ->
@@ -1006,3 +1018,13 @@ describe 'Mechanics', ->
       move = moves['heavy-slam']
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 40
       move.basePower(@battle, @team1.at(0), weight: -1000).should.equal 120
+
+  describe 'a status cure move', ->
+    it 'heals the entire team of status effects', ->
+      shared.create.call this,
+        team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
+      @team1.pokemon.map((pokemon) -> pokemon.setStatus(Status.PARALYZE))
+      @battle.makeMove(@player1, 'Aromatherapy')
+      @battle.makeMove(@player2, 'Splash')
+
+      _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true

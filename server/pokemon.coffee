@@ -1,5 +1,8 @@
 {_} = require 'underscore'
 {abilities, items} = require '../data/bw'
+{Status} = require './status'
+{BurnAttachment, ParalyzeAttachment, FreezeAttachment, SleepAttachment,
+PoisonAttachment, ToxicAttachment} = require './attachment'
 floor = Math.floor
 
 class @Pokemon
@@ -18,6 +21,7 @@ class @Pokemon
     @types = attributes.types || [] # TODO: Get from species.
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
+    @status = null
     @attachments = []
 
     @stages =
@@ -100,10 +104,26 @@ class @Pokemon
       @item?
 
   hasStatus: (status) =>
-    status in @attachments.map((s) -> s.name)
+    if !status?
+      statusArray = (value  for key, value of Status)
+      @status in statusArray
+    else
+      @status == status
 
   hasAttachment: (name) =>
     name in @attachments.map((a) -> a.name)
+
+  # Sets the Pokemon's status. If it succeeds, returns true, otherwise false.
+  setStatus: (newStatus) =>
+    if !@status? && !@hasStatus()
+      @status = newStatus
+      true
+    else
+      false
+
+  removeStatus: (status) =>
+    if !status? || @status == status
+      @status = null
 
   isFainted: =>
     @currentHP <= 0
@@ -120,10 +140,10 @@ class @Pokemon
 
   switchOut: =>
     @resetBoosts()
-    attachment.switchOut()  for attachment in @attachments
+    attachment.switchOut()  for attachment in _.clone(@attachments)
 
   endTurn: =>
-    attachment.endTurn()  for attachment in @attachments
+    attachment.endTurn()  for attachment in _.clone(@attachments)
 
   # Adds an attachment to the list of attachments
   attach: (attachment) =>

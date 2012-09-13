@@ -146,7 +146,7 @@ class @Battle
 
   endTurn: =>
     # TODO: Skip endTurn for pokemon that are fainted?
-    pokemon.endTurn() for pokemon in @getActivePokemon()
+    pokemon.endTurn()  for pokemon in @getActivePokemon()
     @sendMessages()
 
     if @areReplacementsNeeded()
@@ -349,5 +349,7 @@ class @Battle
         pokemon = @getOpponentPokemon(id, @numActive)
         pokemon.push(@getTeam(id).at(0))
         pokemon
+      when 'users-field'
+        @getTeam(id).pokemon
       else
         throw new Error("Unimplemented target: #{move.target}.")
