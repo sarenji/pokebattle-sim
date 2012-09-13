@@ -2,6 +2,10 @@
     "absorb": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 25, 
         "priority": 0, 
@@ -11,6 +15,10 @@
     "acid": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
@@ -20,6 +28,9 @@
     "acid-armor": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -29,6 +40,10 @@
     "acid-spray": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -38,6 +53,12 @@
     "acrobatics": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -47,6 +68,7 @@
     "acupressure": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -56,6 +78,12 @@
     "aerial-ace": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -66,6 +94,11 @@
         "accuracy": 95, 
         "criticalHitLevel": 2, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -75,6 +108,9 @@
     "after-you": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -84,6 +120,9 @@
     "agility": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -94,6 +133,10 @@
         "accuracy": 95, 
         "criticalHitLevel": 2, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
@@ -103,6 +146,11 @@
     "air-slash": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 75, 
         "pp": 20, 
         "priority": 0, 
@@ -112,6 +160,7 @@
     "ally-switch": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 15, 
         "priority": 1, 
@@ -121,6 +170,9 @@
     "amnesia": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -130,6 +182,10 @@
     "ancientpower": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -139,6 +195,11 @@
     "aqua-jet": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 20, 
         "priority": 1, 
@@ -148,6 +209,9 @@
     "aqua-ring": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -157,6 +221,11 @@
     "aqua-tail": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -166,6 +235,11 @@
     "arm-thrust": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -175,6 +249,9 @@
     "aromatherapy": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -184,6 +261,7 @@
     "assist": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -193,6 +271,11 @@
     "assurance": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -202,6 +285,11 @@
     "astonish": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
@@ -212,6 +300,10 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -221,6 +313,12 @@
     "attract": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -230,6 +328,11 @@
     "aura-sphere": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -239,6 +342,10 @@
     "aurora-beam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -248,6 +355,9 @@
     "autotomize": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -257,6 +367,11 @@
     "avalanche": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
@@ -266,6 +381,10 @@
     "barrage": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -275,6 +394,9 @@
     "barrier": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -284,6 +406,7 @@
     "baton-pass": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -293,6 +416,10 @@
     "beat-up": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -302,6 +429,9 @@
     "belly-drum": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -311,6 +441,10 @@
     "bestow": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -320,6 +454,10 @@
     "bide": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 1, 
@@ -329,6 +467,11 @@
     "bind": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -338,6 +481,11 @@
     "bite": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
@@ -347,6 +495,11 @@
     "blast-burn": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -357,6 +510,11 @@
         "accuracy": 90, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -366,6 +524,10 @@
     "blizzard": {
         "accuracy": 70, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -375,6 +537,11 @@
     "block": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -384,6 +551,10 @@
     "blue-flare": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
@@ -393,6 +564,11 @@
     "body-slam": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
@@ -402,6 +578,11 @@
     "bolt-strike": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 130, 
         "pp": 5, 
         "priority": 0, 
@@ -411,6 +592,10 @@
     "bone-club": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -420,6 +605,10 @@
     "bone-rush": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -429,6 +618,10 @@
     "bonemerang": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -438,6 +631,14 @@
     "bounce": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror", 
+            "gravity", 
+            "distance"
+        ], 
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
@@ -447,6 +648,12 @@
     "brave-bird": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -456,6 +663,11 @@
     "brick-break": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -465,6 +677,10 @@
     "brine": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -474,6 +690,10 @@
     "bubble": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
@@ -483,6 +703,10 @@
     "bubblebeam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -492,6 +716,11 @@
     "bug-bite": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -501,6 +730,11 @@
     "bug-buzz": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -510,6 +744,9 @@
     "bulk-up": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -519,6 +756,10 @@
     "bulldoze": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -528,6 +769,12 @@
     "bullet-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -537,6 +784,10 @@
     "bullet-seed": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
@@ -546,6 +797,9 @@
     "calm-mind": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -555,6 +809,9 @@
     "camouflage": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -564,6 +821,11 @@
     "captivate": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -573,6 +835,9 @@
     "charge": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -582,6 +847,10 @@
     "charge-beam": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -591,6 +860,11 @@
     "charm": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -600,6 +874,11 @@
     "chatter": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "sound", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -609,6 +888,11 @@
     "chip-away": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -618,6 +902,11 @@
     "circle-throw": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
@@ -627,6 +916,11 @@
     "clamp": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -636,6 +930,10 @@
     "clear-smog": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -645,6 +943,11 @@
     "close-combat": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -654,6 +957,9 @@
     "coil": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -663,6 +969,12 @@
     "comet-punch": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
@@ -672,6 +984,11 @@
     "confuse-ray": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -681,6 +998,10 @@
     "confusion": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -690,6 +1011,11 @@
     "constrict": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 10, 
         "pp": 35, 
         "priority": 0, 
@@ -699,6 +1025,9 @@
     "conversion": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -708,6 +1037,9 @@
     "conversion-2": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -717,6 +1049,7 @@
     "copycat": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -726,6 +1059,9 @@
     "cosmic-power": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -735,6 +1071,9 @@
     "cotton-guard": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -744,6 +1083,11 @@
     "cotton-spore": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -753,6 +1097,10 @@
     "counter": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
@@ -762,6 +1110,11 @@
     "covet": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 40, 
         "priority": 0, 
@@ -772,6 +1125,11 @@
         "accuracy": 90, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -782,6 +1140,11 @@
         "accuracy": 80, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -792,6 +1155,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -801,6 +1169,11 @@
     "crunch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -810,6 +1183,11 @@
     "crush-claw": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -819,6 +1197,11 @@
     "crush-grip": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -828,6 +1211,9 @@
     "curse": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -837,6 +1223,11 @@
     "cut": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 30, 
         "priority": 0, 
@@ -846,6 +1237,11 @@
     "dark-pulse": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -855,6 +1251,11 @@
     "dark-void": {
         "accuracy": 80, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -864,6 +1265,9 @@
     "defend-order": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -873,6 +1277,9 @@
     "defense-curl": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -882,6 +1289,12 @@
     "defog": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -891,6 +1304,9 @@
     "destiny-bond": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -900,6 +1316,7 @@
     "detect": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 5, 
         "priority": 4, 
@@ -909,6 +1326,12 @@
     "dig": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -918,6 +1341,12 @@
     "disable": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -927,6 +1356,10 @@
     "discharge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -936,6 +1369,12 @@
     "dive": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -945,6 +1384,12 @@
     "dizzy-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 70, 
         "pp": 10, 
         "priority": 0, 
@@ -954,6 +1399,7 @@
     "doom-desire": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -963,6 +1409,11 @@
     "double-edge": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -972,6 +1423,11 @@
     "double-hit": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 10, 
         "priority": 0, 
@@ -981,6 +1437,11 @@
     "double-kick": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 30, 
         "priority": 0, 
@@ -990,6 +1451,9 @@
     "double-team": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -999,6 +1463,11 @@
     "doubleslap": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 10, 
         "priority": 0, 
@@ -1008,6 +1477,10 @@
     "draco-meteor": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1017,6 +1490,11 @@
     "dragon-claw": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -1026,6 +1504,9 @@
     "dragon-dance": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1035,6 +1516,11 @@
     "dragon-pulse": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -1044,6 +1530,10 @@
     "dragon-rage": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1053,6 +1543,11 @@
     "dragon-rush": {
         "accuracy": 75, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1062,6 +1557,11 @@
     "dragon-tail": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": -6, 
@@ -1071,6 +1571,10 @@
     "dragonbreath": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -1080,6 +1584,12 @@
     "drain-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -1089,6 +1599,10 @@
     "dream-eater": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -1098,6 +1612,12 @@
     "drill-peck": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -1108,6 +1628,11 @@
         "accuracy": 95, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1117,6 +1642,11 @@
     "dual-chop": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -1126,6 +1656,12 @@
     "dynamicpunch": {
         "accuracy": 50, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -1135,6 +1671,10 @@
     "earth-power": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -1144,6 +1684,10 @@
     "earthquake": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1153,6 +1697,11 @@
     "echoed-voice": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -1162,6 +1711,10 @@
     "egg-bomb": {
         "accuracy": 75, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1171,6 +1724,10 @@
     "electro-ball": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1180,6 +1737,10 @@
     "electroweb": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -1189,6 +1750,11 @@
     "embargo": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1198,6 +1764,10 @@
     "ember": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -1207,6 +1777,12 @@
     "encore": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1216,6 +1792,11 @@
     "endeavor": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1225,6 +1806,7 @@
     "endure": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -1234,6 +1816,10 @@
     "energy-ball": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1243,6 +1829,11 @@
     "entrainment": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1252,6 +1843,10 @@
     "eruption": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1261,6 +1856,10 @@
     "explosion": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 250, 
         "pp": 5, 
         "priority": 0, 
@@ -1270,6 +1869,10 @@
     "extrasensory": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 30, 
         "priority": 0, 
@@ -1279,6 +1882,11 @@
     "extremespeed": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 5, 
         "priority": 2, 
@@ -1288,6 +1896,11 @@
     "facade": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -1297,6 +1910,11 @@
     "faint-attack": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -1306,6 +1924,11 @@
     "fake-out": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 10, 
         "priority": 3, 
@@ -1315,6 +1938,11 @@
     "fake-tears": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1324,6 +1952,11 @@
     "false-swipe": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 40, 
         "priority": 0, 
@@ -1333,6 +1966,11 @@
     "featherdance": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1342,6 +1980,7 @@
     "feint": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [], 
         "power": 30, 
         "pp": 10, 
         "priority": 2, 
@@ -1351,6 +1990,10 @@
     "fiery-dance": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1360,6 +2003,10 @@
     "final-gambit": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "contact", 
+            "protect"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1369,6 +2016,10 @@
     "fire-blast": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1378,6 +2029,11 @@
     "fire-fang": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -1387,6 +2043,10 @@
     "fire-pledge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -1396,6 +2056,12 @@
     "fire-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -1405,6 +2071,10 @@
     "fire-spin": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -1414,6 +2084,10 @@
     "fissure": {
         "accuracy": 30, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1423,6 +2097,11 @@
     "flail": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -1432,6 +2111,10 @@
     "flame-burst": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -1441,6 +2124,11 @@
     "flame-charge": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 20, 
         "priority": 0, 
@@ -1450,6 +2138,12 @@
     "flame-wheel": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "defrost"
+        ], 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
@@ -1459,6 +2153,10 @@
     "flamethrower": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -1468,6 +2166,12 @@
     "flare-blitz": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "defrost"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -1477,6 +2181,11 @@
     "flash": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -1486,6 +2195,10 @@
     "flash-cannon": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -1495,6 +2208,11 @@
     "flatter": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1504,6 +2222,10 @@
     "fling": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1513,6 +2235,14 @@
     "fly": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror", 
+            "gravity", 
+            "distance"
+        ], 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -1522,6 +2252,10 @@
     "focus-blast": {
         "accuracy": 70, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1531,6 +2265,9 @@
     "focus-energy": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1540,6 +2277,11 @@
     "focus-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "punch"
+        ], 
         "power": 150, 
         "pp": 20, 
         "priority": -3, 
@@ -1549,6 +2291,7 @@
     "follow-me": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
@@ -1558,6 +2301,11 @@
     "force-palm": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -1567,6 +2315,12 @@
     "foresight": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -1576,6 +2330,11 @@
     "foul-play": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -1585,6 +2344,11 @@
     "freeze-shock": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -1594,6 +2358,11 @@
     "frenzy-plant": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1604,6 +2373,10 @@
         "accuracy": 90, 
         "criticalHitLevel": -1, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -1613,6 +2386,11 @@
     "frustration": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -1622,6 +2400,11 @@
     "fury-attack": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -1631,6 +2414,11 @@
     "fury-cutter": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -1640,6 +2428,11 @@
     "fury-swipes": {
         "accuracy": 80, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 18, 
         "pp": 15, 
         "priority": 0, 
@@ -1649,6 +2442,10 @@
     "fusion-bolt": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -1658,6 +2455,11 @@
     "fusion-flare": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "defrost"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -1667,6 +2469,7 @@
     "future-sight": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1676,6 +2479,11 @@
     "gastro-acid": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1685,6 +2493,11 @@
     "gear-grind": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -1694,6 +2507,10 @@
     "giga-drain": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -1703,6 +2520,12 @@
     "giga-impact": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1712,6 +2535,10 @@
     "glaciate": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -1721,6 +2548,11 @@
     "glare": {
         "accuracy": 90, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1730,6 +2562,11 @@
     "grass-knot": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -1739,6 +2576,10 @@
     "grass-pledge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -1748,6 +2589,12 @@
     "grasswhistle": {
         "accuracy": 55, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1757,6 +2604,7 @@
     "gravity": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1766,6 +2614,12 @@
     "growl": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -1775,6 +2629,9 @@
     "growth": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -1784,6 +2641,9 @@
     "grudge": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1793,6 +2653,9 @@
     "guard-split": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1802,6 +2665,11 @@
     "guard-swap": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1811,6 +2679,11 @@
     "guillotine": {
         "accuracy": 30, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1820,6 +2693,10 @@
     "gunk-shot": {
         "accuracy": 70, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -1829,6 +2706,11 @@
     "gust": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -1838,6 +2720,11 @@
     "gyro-ball": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -1847,6 +2734,7 @@
     "hail": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1856,6 +2744,12 @@
     "hammer-arm": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1865,6 +2759,9 @@
     "harden": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1874,6 +2771,7 @@
     "haze": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -1883,6 +2781,11 @@
     "head-charge": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -1892,6 +2795,11 @@
     "head-smash": {
         "accuracy": 80, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -1901,6 +2809,11 @@
     "headbutt": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -1910,6 +2823,10 @@
     "heal-bell": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -1919,6 +2836,11 @@
     "heal-block": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -1928,6 +2850,10 @@
     "heal-order": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1937,6 +2863,12 @@
     "heal-pulse": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "distance", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1946,6 +2878,10 @@
     "healing-wish": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1955,6 +2891,11 @@
     "heart-stamp": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 25, 
         "priority": 0, 
@@ -1964,6 +2905,11 @@
     "heart-swap": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -1973,6 +2919,11 @@
     "heat-crash": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -1982,6 +2933,10 @@
     "heat-wave": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -1991,6 +2946,11 @@
     "heavy-slam": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -2000,6 +2960,9 @@
     "helping-hand": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 5, 
@@ -2009,6 +2972,10 @@
     "hex": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -2018,6 +2985,12 @@
     "hi-jump-kick": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "gravity"
+        ], 
         "power": 130, 
         "pp": 10, 
         "priority": 0, 
@@ -2027,6 +3000,10 @@
     "hidden-power": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2036,6 +3013,9 @@
     "hone-claws": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2045,6 +3025,11 @@
     "horn-attack": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 25, 
         "priority": 0, 
@@ -2054,6 +3039,11 @@
     "horn-drill": {
         "accuracy": 30, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -2063,6 +3053,11 @@
     "horn-leech": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -2072,6 +3067,9 @@
     "howl": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2081,6 +3079,11 @@
     "hurricane": {
         "accuracy": 70, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2090,6 +3093,11 @@
     "hydro-cannon": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -2099,6 +3107,10 @@
     "hydro-pump": {
         "accuracy": 80, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2108,6 +3120,11 @@
     "hyper-beam": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -2117,6 +3134,11 @@
     "hyper-fang": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2126,6 +3148,11 @@
     "hyper-voice": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -2135,6 +3162,11 @@
     "hypnosis": {
         "accuracy": 60, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2144,6 +3176,11 @@
     "ice-ball": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
@@ -2153,6 +3190,10 @@
     "ice-beam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
@@ -2162,6 +3203,11 @@
     "ice-burn": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -2171,6 +3217,11 @@
     "ice-fang": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -2180,6 +3231,12 @@
     "ice-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -2189,6 +3246,10 @@
     "ice-shard": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -2198,6 +3259,10 @@
     "icicle-crash": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -2207,6 +3272,10 @@
     "icicle-spear": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 30, 
         "priority": 0, 
@@ -2216,6 +3285,10 @@
     "icy-wind": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -2225,6 +3298,10 @@
     "imprison": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2234,6 +3311,10 @@
     "incinerate": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 15, 
         "priority": 0, 
@@ -2243,6 +3324,10 @@
     "inferno": {
         "accuracy": 50, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -2252,6 +3337,9 @@
     "ingrain": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2261,6 +3349,9 @@
     "iron-defense": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2270,6 +3361,11 @@
     "iron-head": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2279,6 +3375,11 @@
     "iron-tail": {
         "accuracy": 75, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -2288,6 +3389,10 @@
     "judgment": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -2297,6 +3402,12 @@
     "jump-kick": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "gravity"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -2307,6 +3418,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -2316,6 +3432,11 @@
     "kinesis": {
         "accuracy": 80, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2325,6 +3446,11 @@
     "knock-off": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -2334,6 +3460,11 @@
     "last-resort": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -2343,6 +3474,10 @@
     "lava-plume": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -2353,6 +3488,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -2362,6 +3502,10 @@
     "leaf-storm": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -2371,6 +3515,10 @@
     "leaf-tornado": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -2380,6 +3528,11 @@
     "leech-life": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
@@ -2389,6 +3542,11 @@
     "leech-seed": {
         "accuracy": 90, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2398,6 +3556,11 @@
     "leer": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -2407,6 +3570,11 @@
     "lick": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 30, 
         "priority": 0, 
@@ -2416,6 +3584,9 @@
     "light-screen": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -2425,6 +3596,10 @@
     "lock-on": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2434,6 +3609,11 @@
     "lovely-kiss": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2443,6 +3623,11 @@
     "low-kick": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -2452,6 +3637,11 @@
     "low-sweep": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -2461,6 +3651,9 @@
     "lucky-chant": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -2470,6 +3663,10 @@
     "lunar-dance": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2479,6 +3676,10 @@
     "luster-purge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
@@ -2488,6 +3689,12 @@
     "mach-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -2497,6 +3704,7 @@
     "magic-coat": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 15, 
         "priority": 4, 
@@ -2506,6 +3714,9 @@
     "magic-room": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
@@ -2515,6 +3726,10 @@
     "magical-leaf": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -2524,6 +3739,10 @@
     "magma-storm": {
         "accuracy": 75, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2533,6 +3752,10 @@
     "magnet-bomb": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -2542,6 +3765,10 @@
     "magnet-rise": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "gravity"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2551,6 +3778,10 @@
     "magnitude": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 30, 
         "priority": 0, 
@@ -2560,6 +3791,10 @@
     "me-first": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "authentic"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -2569,6 +3804,11 @@
     "mean-look": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2578,6 +3818,9 @@
     "meditate": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2587,6 +3830,10 @@
     "mega-drain": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -2596,6 +3843,11 @@
     "mega-kick": {
         "accuracy": 75, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -2605,6 +3857,12 @@
     "mega-punch": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -2614,6 +3872,11 @@
     "megahorn": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2623,6 +3886,10 @@
     "memento": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2632,6 +3899,10 @@
     "metal-burst": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -2641,6 +3912,11 @@
     "metal-claw": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
@@ -2650,6 +3926,12 @@
     "metal-sound": {
         "accuracy": 85, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2659,6 +3941,12 @@
     "meteor-mash": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -2668,6 +3956,7 @@
     "metronome": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2677,6 +3966,10 @@
     "milk-drink": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2686,6 +3979,10 @@
     "mimic": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -2695,6 +3992,10 @@
     "mind-reader": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2704,6 +4005,9 @@
     "minimize": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2713,6 +4017,12 @@
     "miracle-eye": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2722,6 +4032,9 @@
     "mirror-coat": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": -5, 
@@ -2731,6 +4044,7 @@
     "mirror-move": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2740,6 +4054,10 @@
     "mirror-shot": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -2749,6 +4067,9 @@
     "mist": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -2758,6 +4079,10 @@
     "mist-ball": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
@@ -2767,6 +4092,10 @@
     "moonlight": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2776,6 +4105,10 @@
     "morning-sun": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2785,6 +4118,10 @@
     "mud-bomb": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -2794,6 +4131,10 @@
     "mud-shot": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -2803,6 +4144,10 @@
     "mud-slap": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
@@ -2812,6 +4157,7 @@
     "mud-sport": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2821,6 +4167,10 @@
     "muddy-water": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
@@ -2830,6 +4180,9 @@
     "nasty-plot": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2839,6 +4192,10 @@
     "natural-gift": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2848,6 +4205,7 @@
     "nature-power": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2857,6 +4215,11 @@
     "needle-arm": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -2866,6 +4229,10 @@
     "night-daze": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -2875,6 +4242,10 @@
     "night-shade": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -2885,6 +4256,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -2894,6 +4270,10 @@
     "nightmare": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -2903,6 +4283,10 @@
     "octazooka": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -2912,6 +4296,12 @@
     "odor-sleuth": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -2921,6 +4311,10 @@
     "ominous-wind": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -2930,6 +4324,11 @@
     "outrage": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -2939,6 +4338,10 @@
     "overheat": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -2948,6 +4351,10 @@
     "pain-split": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -2957,6 +4364,10 @@
     "pay-day": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -2966,6 +4377,11 @@
     "payback": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -2975,6 +4391,12 @@
     "peck": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 35, 
         "pp": 35, 
         "priority": 0, 
@@ -2984,6 +4406,11 @@
     "perish-song": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "sound", 
+            "distance", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -2993,6 +4420,11 @@
     "petal-dance": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -3002,6 +4434,10 @@
     "pin-missile": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 14, 
         "pp": 20, 
         "priority": 0, 
@@ -3011,6 +4447,12 @@
     "pluck": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3020,6 +4462,11 @@
     "poison-fang": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -3029,6 +4476,11 @@
     "poison-gas": {
         "accuracy": 80, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -3038,6 +4490,11 @@
     "poison-jab": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -3047,6 +4504,10 @@
     "poison-sting": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 35, 
         "priority": 0, 
@@ -3057,6 +4518,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 25, 
         "priority": 0, 
@@ -3066,6 +4532,11 @@
     "poisonpowder": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 35, 
         "priority": 0, 
@@ -3075,6 +4546,11 @@
     "pound": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -3084,6 +4560,10 @@
     "powder-snow": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -3093,6 +4573,10 @@
     "power-gem": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3102,6 +4586,9 @@
     "power-split": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3111,6 +4598,11 @@
     "power-swap": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3120,6 +4612,9 @@
     "power-trick": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3129,6 +4624,11 @@
     "power-whip": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -3138,6 +4638,10 @@
     "present": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -3147,6 +4651,7 @@
     "protect": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -3156,6 +4661,10 @@
     "psybeam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -3165,6 +4674,9 @@
     "psych-up": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3174,6 +4686,10 @@
     "psychic": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -3183,6 +4699,10 @@
     "psycho-boost": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -3193,6 +4713,10 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3202,6 +4726,10 @@
     "psycho-shift": {
         "accuracy": 90, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3211,6 +4739,10 @@
     "psyshock": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -3220,6 +4752,10 @@
     "psystrike": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 10, 
         "priority": 0, 
@@ -3229,6 +4765,10 @@
     "psywave": {
         "accuracy": 80, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -3238,6 +4778,11 @@
     "punishment": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -3247,6 +4792,11 @@
     "pursuit": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -3256,6 +4806,10 @@
     "quash": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3265,6 +4819,11 @@
     "quick-attack": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -3274,6 +4833,9 @@
     "quick-guard": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 3, 
@@ -3283,6 +4845,9 @@
     "quiver-dance": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3292,6 +4857,11 @@
     "rage": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -3301,6 +4871,7 @@
     "rage-powder": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 3, 
@@ -3310,6 +4881,7 @@
     "rain-dance": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -3319,6 +4891,11 @@
     "rapid-spin": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 40, 
         "priority": 0, 
@@ -3329,6 +4906,10 @@
         "accuracy": 95, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 25, 
         "priority": 0, 
@@ -3338,6 +4919,11 @@
     "razor-shell": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -3348,6 +4934,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "special", 
+        "flags": [
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -3357,6 +4948,10 @@
     "recover": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3366,6 +4961,9 @@
     "recycle": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3375,6 +4973,9 @@
     "reflect": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3384,6 +4985,10 @@
     "reflect-type": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3393,6 +4998,9 @@
     "refresh": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3402,6 +5010,11 @@
     "relic-song": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -3411,6 +5024,10 @@
     "rest": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3420,6 +5037,11 @@
     "retaliate": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 5, 
         "priority": 0, 
@@ -3429,6 +5051,11 @@
     "return": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -3438,6 +5065,11 @@
     "revenge": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": -4, 
@@ -3447,6 +5079,11 @@
     "reversal": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 15, 
         "priority": 0, 
@@ -3456,6 +5093,13 @@
     "roar": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
@@ -3465,6 +5109,11 @@
     "roar-of-time": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -3474,6 +5123,10 @@
     "rock-blast": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -3483,6 +5136,11 @@
     "rock-climb": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -3492,6 +5150,9 @@
     "rock-polish": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -3501,6 +5162,10 @@
     "rock-slide": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 10, 
         "priority": 0, 
@@ -3510,6 +5175,11 @@
     "rock-smash": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -3519,6 +5189,10 @@
     "rock-throw": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -3528,6 +5202,10 @@
     "rock-tomb": {
         "accuracy": 80, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -3537,6 +5215,11 @@
     "rock-wrecker": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "recharge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -3546,6 +5229,9 @@
     "role-play": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3555,6 +5241,11 @@
     "rolling-kick": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -3564,6 +5255,11 @@
     "rollout": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
@@ -3573,6 +5269,10 @@
     "roost": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3582,6 +5282,11 @@
     "round": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 60, 
         "pp": 15, 
         "priority": 0, 
@@ -3591,6 +5296,11 @@
     "sacred-fire": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "defrost"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -3600,6 +5310,11 @@
     "sacred-sword": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -3609,6 +5324,9 @@
     "safeguard": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 25, 
         "priority": 0, 
@@ -3618,6 +5336,11 @@
     "sand-attack": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3627,6 +5350,10 @@
     "sand-tomb": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -3636,6 +5363,7 @@
     "sandstorm": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3645,6 +5373,11 @@
     "scald": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "defrost"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -3654,6 +5387,11 @@
     "scary-face": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3663,6 +5401,11 @@
     "scratch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 35, 
         "priority": 0, 
@@ -3672,6 +5415,12 @@
     "screech": {
         "accuracy": 85, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -3681,6 +5430,10 @@
     "searing-shot": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -3690,6 +5443,10 @@
     "secret-power": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3699,6 +5456,10 @@
     "secret-sword": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 10, 
         "priority": 0, 
@@ -3708,6 +5469,10 @@
     "seed-bomb": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -3717,6 +5482,10 @@
     "seed-flare": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -3726,6 +5495,11 @@
     "seismic-toss": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -3735,6 +5509,10 @@
     "selfdestruct": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 200, 
         "pp": 5, 
         "priority": 0, 
@@ -3744,6 +5522,10 @@
     "shadow-ball": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -3754,6 +5536,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -3763,6 +5550,11 @@
     "shadow-force": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -3772,6 +5564,12 @@
     "shadow-punch": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3781,6 +5579,11 @@
     "shadow-sneak": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -3790,6 +5593,9 @@
     "sharpen": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -3799,6 +5605,10 @@
     "sheer-cold": {
         "accuracy": 30, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -3808,6 +5618,9 @@
     "shell-smash": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3817,6 +5630,9 @@
     "shift-gear": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3826,6 +5642,10 @@
     "shock-wave": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -3835,6 +5655,10 @@
     "signal-beam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -3844,6 +5668,10 @@
     "silver-wind": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 5, 
         "priority": 0, 
@@ -3853,6 +5681,11 @@
     "simple-beam": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3862,6 +5695,12 @@
     "sing": {
         "accuracy": 55, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3871,6 +5710,9 @@
     "sketch": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 1, 
         "priority": 0, 
@@ -3880,6 +5722,11 @@
     "skill-swap": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3889,6 +5736,12 @@
     "skull-bash": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 15, 
         "priority": 0, 
@@ -3899,6 +5752,12 @@
         "accuracy": 90, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "charge", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 140, 
         "pp": 5, 
         "priority": 0, 
@@ -3908,6 +5767,14 @@
     "sky-drop": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "charge", 
+            "protect", 
+            "mirror", 
+            "gravity", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -3917,6 +5784,12 @@
     "sky-uppercut": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 85, 
         "pp": 15, 
         "priority": 0, 
@@ -3926,6 +5799,10 @@
     "slack-off": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3935,6 +5812,11 @@
     "slam": {
         "accuracy": 75, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 20, 
         "priority": 0, 
@@ -3945,6 +5827,11 @@
         "accuracy": 100, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -3954,6 +5841,11 @@
     "sleep-powder": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -3963,6 +5855,7 @@
     "sleep-talk": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -3972,6 +5865,10 @@
     "sludge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -3981,6 +5878,10 @@
     "sludge-bomb": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -3990,6 +5891,10 @@
     "sludge-wave": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 10, 
         "priority": 0, 
@@ -3999,6 +5904,10 @@
     "smack-down": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 15, 
         "priority": 0, 
@@ -4008,6 +5917,11 @@
     "smellingsalt": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -4017,6 +5931,10 @@
     "smog": {
         "accuracy": 70, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 20, 
         "priority": 0, 
@@ -4026,6 +5944,11 @@
     "smokescreen": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4035,6 +5958,11 @@
     "snarl": {
         "accuracy": 95, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 55, 
         "pp": 15, 
         "priority": 0, 
@@ -4044,6 +5972,9 @@
     "snatch": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 4, 
@@ -4053,6 +5984,11 @@
     "snore": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 40, 
         "pp": 15, 
         "priority": 0, 
@@ -4062,6 +5998,11 @@
     "soak": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4071,6 +6012,10 @@
     "softboiled": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4080,6 +6025,11 @@
     "solarbeam": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "charge", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -4089,6 +6039,10 @@
     "sonicboom": {
         "accuracy": 90, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 20, 
         "priority": 0, 
@@ -4099,6 +6053,10 @@
         "accuracy": 95, 
         "criticalHitLevel": 2, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -4108,6 +6066,11 @@
     "spark": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -4117,6 +6080,11 @@
     "spider-web": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4126,6 +6094,10 @@
     "spike-cannon": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 15, 
         "priority": 0, 
@@ -4135,6 +6107,9 @@
     "spikes": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "reflectable"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4144,6 +6119,9 @@
     "spit-up": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -4153,6 +6131,12 @@
     "spite": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4162,6 +6146,9 @@
     "splash": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "gravity"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -4171,6 +6158,11 @@
     "spore": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4180,6 +6172,9 @@
     "stealth-rock": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "reflectable"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4189,6 +6184,11 @@
     "steamroller": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -4198,6 +6198,11 @@
     "steel-wing": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 25, 
         "priority": 0, 
@@ -4207,6 +6212,9 @@
     "stockpile": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4216,6 +6224,11 @@
     "stomp": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 20, 
         "priority": 0, 
@@ -4226,6 +6239,10 @@
         "accuracy": 80, 
         "criticalHitLevel": 2, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 100, 
         "pp": 5, 
         "priority": 0, 
@@ -4235,6 +6252,10 @@
     "stored-power": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 20, 
         "pp": 10, 
         "priority": 0, 
@@ -4245,6 +6266,11 @@
         "accuracy": 100, 
         "criticalHitLevel": -1, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -4254,6 +6280,11 @@
     "strength": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -4263,6 +6294,11 @@
     "string-shot": {
         "accuracy": 95, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -4272,6 +6308,10 @@
     "struggle": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect"
+        ], 
         "power": 50, 
         "pp": "", 
         "priority": 0, 
@@ -4281,6 +6321,10 @@
     "struggle-bug": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 30, 
         "pp": 20, 
         "priority": 0, 
@@ -4290,6 +6334,11 @@
     "stun-spore": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -4299,6 +6348,11 @@
     "submission": {
         "accuracy": 80, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 25, 
         "priority": 0, 
@@ -4308,6 +6362,9 @@
     "substitute": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4317,6 +6374,11 @@
     "sucker-punch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 5, 
         "priority": 1, 
@@ -4326,6 +6388,7 @@
     "sunny-day": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -4335,6 +6398,11 @@
     "super-fang": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 10, 
         "priority": 0, 
@@ -4344,6 +6412,11 @@
     "superpower": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -4353,6 +6426,12 @@
     "supersonic": {
         "accuracy": 55, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4362,6 +6441,10 @@
     "surf": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -4371,6 +6454,11 @@
     "swagger": {
         "accuracy": 90, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4380,6 +6468,10 @@
     "swallow": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4389,6 +6481,11 @@
     "sweet-kiss": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4398,6 +6495,11 @@
     "sweet-scent": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4407,6 +6509,10 @@
     "swift": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -4416,6 +6522,10 @@
     "switcheroo": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4425,6 +6535,9 @@
     "swords-dance": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -4434,6 +6547,10 @@
     "synchronoise": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 15, 
         "priority": 0, 
@@ -4443,6 +6560,10 @@
     "synthesis": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": 0, 
@@ -4452,6 +6573,11 @@
     "tackle": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 35, 
         "priority": 0, 
@@ -4461,6 +6587,9 @@
     "tail-glow": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4470,6 +6599,11 @@
     "tail-slap": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 10, 
         "priority": 0, 
@@ -4479,6 +6613,11 @@
     "tail-whip": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -4488,6 +6627,9 @@
     "tailwind": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -4497,6 +6639,11 @@
     "take-down": {
         "accuracy": 85, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 20, 
         "priority": 0, 
@@ -4506,6 +6653,12 @@
     "taunt": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4515,6 +6668,10 @@
     "techno-blast": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 85, 
         "pp": 5, 
         "priority": 0, 
@@ -4524,6 +6681,10 @@
     "teeter-dance": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4533,6 +6694,12 @@
     "telekinesis": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "gravity"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4542,6 +6709,7 @@
     "teleport": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4551,6 +6719,11 @@
     "thief": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 10, 
         "priority": 0, 
@@ -4560,6 +6733,11 @@
     "thrash": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -4569,6 +6747,10 @@
     "thunder": {
         "accuracy": 70, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 10, 
         "priority": 0, 
@@ -4578,6 +6760,11 @@
     "thunder-fang": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 15, 
         "priority": 0, 
@@ -4587,6 +6774,11 @@
     "thunder-wave": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4596,6 +6788,10 @@
     "thunderbolt": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 95, 
         "pp": 15, 
         "priority": 0, 
@@ -4605,6 +6801,12 @@
     "thunderpunch": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "punch"
+        ], 
         "power": 75, 
         "pp": 15, 
         "priority": 0, 
@@ -4614,6 +6816,10 @@
     "thundershock": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 0, 
@@ -4623,6 +6829,11 @@
     "tickle": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4632,6 +6843,12 @@
     "torment": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4641,6 +6858,11 @@
     "toxic": {
         "accuracy": 90, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4650,6 +6872,9 @@
     "toxic-spikes": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "reflectable"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": 0, 
@@ -4659,6 +6884,7 @@
     "transform": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4668,6 +6894,10 @@
     "tri-attack": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 10, 
         "priority": 0, 
@@ -4677,6 +6907,10 @@
     "trick": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4686,6 +6920,9 @@
     "trick-room": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 5, 
         "priority": -7, 
@@ -4695,6 +6932,11 @@
     "triple-kick": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 10, 
         "pp": 10, 
         "priority": 0, 
@@ -4704,6 +6946,11 @@
     "trump-card": {
         "accuracy": 0, 
         "damage": "special", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -4713,6 +6960,10 @@
     "twineedle": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 25, 
         "pp": 20, 
         "priority": 0, 
@@ -4722,6 +6973,10 @@
     "twister": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 20, 
         "priority": 0, 
@@ -4731,6 +6986,11 @@
     "u-turn": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -4740,6 +7000,11 @@
     "uproar": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "sound"
+        ], 
         "power": 90, 
         "pp": 10, 
         "priority": 0, 
@@ -4749,6 +7014,11 @@
     "v-create": {
         "accuracy": 95, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 180, 
         "pp": 5, 
         "priority": 0, 
@@ -4758,6 +7028,10 @@
     "vacuum-wave": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 30, 
         "priority": 1, 
@@ -4767,6 +7041,10 @@
     "venoshock": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 65, 
         "pp": 10, 
         "priority": 0, 
@@ -4776,6 +7054,11 @@
     "vicegrip": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 55, 
         "pp": 30, 
         "priority": 0, 
@@ -4785,6 +7068,11 @@
     "vine-whip": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -4794,6 +7082,11 @@
     "vital-throw": {
         "accuracy": 0, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 10, 
         "priority": -1, 
@@ -4803,6 +7096,10 @@
     "volt-switch": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 70, 
         "pp": 20, 
         "priority": 0, 
@@ -4812,6 +7109,11 @@
     "volt-tackle": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -4821,6 +7123,11 @@
     "wake-up-slap": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 60, 
         "pp": 10, 
         "priority": 0, 
@@ -4830,6 +7137,10 @@
     "water-gun": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 40, 
         "pp": 25, 
         "priority": 0, 
@@ -4839,6 +7150,10 @@
     "water-pledge": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -4848,6 +7163,11 @@
     "water-pulse": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
@@ -4857,6 +7177,7 @@
     "water-sport": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4866,6 +7187,10 @@
     "water-spout": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 150, 
         "pp": 5, 
         "priority": 0, 
@@ -4875,6 +7200,11 @@
     "waterfall": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -4884,6 +7214,10 @@
     "weather-ball": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 50, 
         "pp": 10, 
         "priority": 0, 
@@ -4893,6 +7227,10 @@
     "whirlpool": {
         "accuracy": 85, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 35, 
         "pp": 15, 
         "priority": 0, 
@@ -4902,6 +7240,12 @@
     "whirlwind": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror", 
+            "authentic"
+        ], 
         "power": 0, 
         "pp": 20, 
         "priority": -6, 
@@ -4911,6 +7255,9 @@
     "wide-guard": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 3, 
@@ -4920,6 +7267,11 @@
     "wild-charge": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 90, 
         "pp": 15, 
         "priority": 0, 
@@ -4929,6 +7281,11 @@
     "will-o-wisp": {
         "accuracy": 75, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 15, 
         "priority": 0, 
@@ -4938,6 +7295,12 @@
     "wing-attack": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror", 
+            "distance"
+        ], 
         "power": 60, 
         "pp": 35, 
         "priority": 0, 
@@ -4947,6 +7310,10 @@
     "wish": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch", 
+            "heal"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -4956,6 +7323,9 @@
     "withdraw": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 40, 
         "priority": 0, 
@@ -4965,6 +7335,9 @@
     "wonder-room": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": -7, 
@@ -4974,6 +7347,11 @@
     "wood-hammer": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 15, 
         "priority": 0, 
@@ -4983,6 +7361,9 @@
     "work-up": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "snatch"
+        ], 
         "power": 0, 
         "pp": 30, 
         "priority": 0, 
@@ -4992,6 +7373,11 @@
     "worry-seed": {
         "accuracy": 100, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -5001,6 +7387,11 @@
     "wrap": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 15, 
         "pp": 20, 
         "priority": 0, 
@@ -5010,6 +7401,11 @@
     "wring-out": {
         "accuracy": 100, 
         "damage": "special", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 1, 
         "pp": 5, 
         "priority": 0, 
@@ -5019,6 +7415,11 @@
     "x-scissor": {
         "accuracy": 100, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 
@@ -5028,6 +7429,11 @@
     "yawn": {
         "accuracy": 0, 
         "damage": "non-damaging", 
+        "flags": [
+            "protect", 
+            "reflectable", 
+            "mirror"
+        ], 
         "power": 0, 
         "pp": 10, 
         "priority": 0, 
@@ -5037,6 +7443,10 @@
     "zap-cannon": {
         "accuracy": 50, 
         "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
         "power": 120, 
         "pp": 5, 
         "priority": 0, 
@@ -5046,6 +7456,11 @@
     "zen-headbutt": {
         "accuracy": 90, 
         "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
         "power": 80, 
         "pp": 15, 
         "priority": 0, 

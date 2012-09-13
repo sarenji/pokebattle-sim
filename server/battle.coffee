@@ -105,6 +105,10 @@ class @Battle
     _.any @getActivePokemon(), (pokemon) ->
       pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
 
+  # Begins the turn. Replacements are performed and actions are requested
+  # from each player. If no pokemon can move, then the battle engine
+  # progresses to continueTurn. Otherwise, the battle waits for
+  # user responses.
   beginTurn: =>
     @performReplacements()
 
@@ -117,9 +121,10 @@ class @Battle
       switches = player.team.getAlivePokemon().map((p) -> p.name)
       @requestAction(player, moves: poke_moves, switches: switches)
 
-  # Tells the battle to continue the turn. This is called once all requests
-  # have been submitted and the battle is ready to continue. If there no more
-  # requests, the next turn begins. Otherwise, it waits.
+  # Continues the turn. This is called once all requests
+  # have been submitted and the battle is ready to continue. If there are no
+  # more requests, the engine progresses to endTurn. Otherwise, it waits for
+  # continueTurn to be called again.
   continueTurn: =>
     # TODO: Store result of @orderIds() for future calls to continueTurn.
     for id in @orderIds()
@@ -144,6 +149,9 @@ class @Battle
     # Otherwise, wait for further requests to be completed before ending.
     if @areAllRequestsCompleted() then @endTurn()
 
+  # Performs end turn effects. If all pokemon are fainted then it
+  # ends the battle. Otherwise, it will request for new pokemon and wait if
+  # any replacements are needed, or begins the next turn.
   endTurn: =>
     # TODO: Skip endTurn for pokemon that are fainted?
     pokemon.endTurn()  for pokemon in @getActivePokemon()
