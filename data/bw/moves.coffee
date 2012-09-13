@@ -515,6 +515,14 @@ extendMove 'haze', ->
       target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
+extendMove 'hex', ->
+  @basePower = (battle, user, target) ->
+    if target.hasStatus(Status.BURN) || target.hasStatus(Status.POISON) ||
+        target.hasStatus(Status.PARALYZE) || target.hasStatus(Status.TOXIC)
+      2 * @power
+    else
+      @power
+
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.item?

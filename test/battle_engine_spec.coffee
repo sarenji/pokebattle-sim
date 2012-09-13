@@ -992,3 +992,10 @@ describe 'Mechanics', ->
       move = moves['crush-grip']
       @team2.at(0).currentHP = @team2.at(0).stat('hp')
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 121
+
+  describe 'hex', ->
+    it 'doubles the base power if target is burned, poisoned, or paralyzed', ->
+      shared.create.call(this)
+      move = moves['hex']
+      @team2.at(0).attach(new ParalyzeAttachment())
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
