@@ -4,37 +4,15 @@ sinon = require 'sinon'
 {Factory} = require './factory'
 should = require 'should'
 {_} = require 'underscore'
+shared = require './shared'
 
 describe 'Mechanics', ->
-  create = (opts={}) ->
-    @id1 = 'abcde'
-    @id2 = 'fghij'
-    @player1 = opts.player1 || {id: @id1, emit: ->}
-    @player2 = opts.player2 || {id: @id2, emit: ->}
-    team1   = opts.team1
-    team2   = opts.team2
-    players = [{player: @player1, team: team1},
-               {player: @player2, team: team2}]
-    @battle = new Battle('id', players: players)
-    sinon.stub(@battle.rng, 'next', -> 1)          # no chs
-    sinon.stub(@battle.rng, 'randInt', -> 0)       # always max damage
-    @team1  = @battle.getTeam(@player1.id)
-    @team2  = @battle.getTeam(@player2.id)
-
   describe 'splash', ->
-    it 'does no damage', ->
-      create.call this,
-        team1: [Factory('Magikarp')]
-        team2: [Factory('Magikarp')]
-      defender = @team2.at(0)
-      originalHP = defender.currentHP
-      @battle.makeMove(@player1, 'splash')
-      @battle.continueTurn()
-      defender.currentHP.should.equal originalHP
+    shared.shouldDoNoDamage('Splash')
 
   describe 'an attack missing', ->
     it 'deals no damage', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
       move = moves['leaf-storm']
@@ -47,7 +25,7 @@ describe 'Mechanics', ->
       move.willMiss.restore()
 
     it 'triggers effects dependent on the move missing', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
       move = moves['hi-jump-kick']
@@ -62,7 +40,7 @@ describe 'Mechanics', ->
       move.willMiss.restore()
 
     it 'does not trigger effects dependent on the move hitting', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       move = moves['hi-jump-kick']
@@ -77,7 +55,7 @@ describe 'Mechanics', ->
 
   describe 'an attack with 0 accuracy', ->
     it 'can never miss', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @team2.at(0).currentHP
@@ -87,7 +65,7 @@ describe 'Mechanics', ->
 
   describe 'accuracy and evasion boosts', ->
     it 'heighten and lower the chances of a move hitting', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
       @battle.rng.randInt.restore()
@@ -110,7 +88,7 @@ describe 'Mechanics', ->
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @team2.at(0).currentHP = 1
@@ -120,7 +98,7 @@ describe 'Mechanics', ->
       spy.calledWith('request action').should.be.true
 
     it 'does not increment the turn count', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
@@ -130,7 +108,7 @@ describe 'Mechanics', ->
       @battle.turn.should.not.equal turn + 1
 
     it 'removes the fainted pokemon from the action priority queue', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
@@ -142,7 +120,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal 1
 
     it 'lets the player switch in a new pokemon', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @team2.at(0).currentHP = 1
@@ -153,7 +131,7 @@ describe 'Mechanics', ->
 
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       @battle.rng.next.restore()
@@ -165,7 +143,7 @@ describe 'Mechanics', ->
 
   describe 'the fang attacks', ->
     it 'can inflict two effects at the same time', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Gyarados')]
       @battle.rng.next.restore()
@@ -178,7 +156,7 @@ describe 'Mechanics', ->
 
   describe 'jump kick attacks', ->
     it 'has 50% recoil if it misses', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
       move = moves['hi-jump-kick']
@@ -192,7 +170,7 @@ describe 'Mechanics', ->
 
   describe 'drain attacks', ->
     it 'recovers a percentage of the damage dealt, rounded down', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Conkeldurr')]
         team2: [Factory('Hitmonchan')]
       startHP = 1
@@ -204,7 +182,7 @@ describe 'Mechanics', ->
       (@team1.at(0).currentHP - startHP).should.equal Math.floor(damage / 2)
 
     it 'cannot recover to over 100% HP', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Conkeldurr')]
         team2: [Factory('Hitmonchan')]
       hp = @team1.at(0).currentHP = @team1.at(0).stat('hp')
@@ -214,7 +192,7 @@ describe 'Mechanics', ->
 
   describe 'weight-based attacks', ->
     it 'has 80 base power if the pokemon is 50.2kg', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Hitmonchan')]
       hp = @team2.at(0).currentHP
@@ -223,7 +201,7 @@ describe 'Mechanics', ->
       (hp - @team2.at(0).currentHP).should.equal 94
 
     it 'has 120 base power if the pokemon is >200kg', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @team2.at(0).currentHP
@@ -233,7 +211,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon using a primary boosting move', ->
     it "doesn't do damage if base power is 0", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
       @battle.makeMove(@player1, 'dragon-dance')
@@ -241,7 +219,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
 
     it "boosts the pokemon's stats", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
       attack = @team1.at(0).stat('attack')
@@ -251,7 +229,7 @@ describe 'Mechanics', ->
       @team1.at(0).stages.should.include attack: 1, speed: 1
 
     it "affects type-immune pokemon", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Audino')]
         team2: [Factory('Gengar')]
       @battle.makeMove(@player1, 'Growl')
@@ -262,7 +240,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon using a damaging move that also boosts stats on hit', ->
     it "deals damage and boosts stats", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @team2.at(0).currentHP
@@ -273,7 +251,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon using a move with a secondary boosting effect', ->
     it "has a chance to activate", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Hitmonchan')]
       @battle.rng.next.restore()
@@ -288,7 +266,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon using Acrobatics', ->
     it 'gets double the base power without an item', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gliscor')]
         team2: [Factory('Regirock')]
       hp = @team2.at(0).currentHP
@@ -298,7 +276,7 @@ describe 'Mechanics', ->
       damage.should.equal 36
 
     it 'has normal base power with an item', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gliscor', item: 'Leftovers')]
         team2: [Factory('Regirock')]
       hp = @team2.at(0).currentHP
@@ -309,7 +287,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon using a standard recoil move', ->
     it 'receives a percentage of the damage rounded down', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Blaziken')]
         team2: [Factory('Gliscor')]
       startHP = @team1.at(0).currentHP
@@ -321,7 +299,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
@@ -330,7 +308,7 @@ describe 'Mechanics', ->
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Shaymin (land)')]
       @battle.makeMove(@player1, 'Bullet Punch')
@@ -340,7 +318,7 @@ describe 'Mechanics', ->
 
   describe 'STAB', ->
     it "gets applied if the move and user share a type", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Heracross')]
         team2: [Factory('Regirock')]
       @battle.makeMove(@player1, 'Megahorn')
@@ -349,7 +327,7 @@ describe 'Mechanics', ->
       (hp - @team2.at(0).currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Ice Punch')
@@ -358,7 +336,7 @@ describe 'Mechanics', ->
       (hp - @team2.at(0).currentHP).should.equal 84
 
     it 'is 2x if the pokemon has Adaptability', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Mew')]
       @battle.makeMove(@player1, 'Tri Attack')
@@ -368,7 +346,7 @@ describe 'Mechanics', ->
 
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Mew')]
       spy = sinon.spy(@battle, 'orderIds')
@@ -383,7 +361,7 @@ describe 'Mechanics', ->
       spy.returned([@id1, @id2]).should.be.true
 
     it 'decides winner by highest priority move', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan')]
       spy = sinon.spy(@battle, 'orderIds')
@@ -397,7 +375,7 @@ describe 'Mechanics', ->
       spy.returned([@id2, @id1]).should.be.true
 
     it 'decides winner by speed if priority is equal', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan')]
       spy = sinon.spy(@battle, 'orderIds')
@@ -407,7 +385,7 @@ describe 'Mechanics', ->
 
   describe 'fainting all the opposing pokemon', ->
     it "doesn't request any more actions from players", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @team2.at(0).currentHP = 1
@@ -417,7 +395,7 @@ describe 'Mechanics', ->
       @battle.requests.should.not.have.property @player2.id
 
     it 'ends the battle', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @team2.at(0).currentHP = 1
@@ -428,11 +406,13 @@ describe 'Mechanics', ->
       mock.verify()
 
   describe 'a pokemon using a hazing move', ->
+    shared.shouldDoNoDamage('Haze')
+
     it 'removes all status boosts from each pokemon', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
-      # Create artificial boosts.
+      # shared.Create artificial boosts.
       @team1.at(0).stages.attack = 2
       @team1.at(0).stages.evasion = -1
       @team2.at(0).stages.defense = -3
@@ -448,7 +428,7 @@ describe 'Mechanics', ->
 
   describe 'Seismic Toss and Night Shade', ->
     it 'does exactly the same damage as their level', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Blissey')]
         team2: [Factory('Mew')]
       hp = @team2.at(0).currentHP
@@ -458,7 +438,7 @@ describe 'Mechanics', ->
 
   describe 'Psywave', ->
     it 'does user.level/2 damage minimum', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
@@ -473,7 +453,7 @@ describe 'Mechanics', ->
       move.willMiss.restore()
 
     it 'does user.level * 1.5 damage maximum', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
@@ -488,7 +468,7 @@ describe 'Mechanics', ->
       move.willMiss.restore()
 
     it 'rounds down to the nearest .1 multiplier', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
@@ -504,7 +484,7 @@ describe 'Mechanics', ->
 
   describe 'facade', ->
     it 'doubles the base power if burned, poisoned, or paralyzed', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       hp = @team2.at(0).currentHP
@@ -515,7 +495,7 @@ describe 'Mechanics', ->
 
   describe 'reversal and flail', ->
     it 'have 200 base power at 1 hp', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @team1.at(0).currentHP = 1
@@ -525,7 +505,7 @@ describe 'Mechanics', ->
       (hp - @team2.at(0).currentHP).should.equal 462
 
     it 'have 40 base power at 50% hp', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2)
@@ -536,7 +516,7 @@ describe 'Mechanics', ->
 
   describe 'eruption and water spout', ->
     beforeEach ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Mew')]
       @attacker = @team1.at(0)
@@ -556,7 +536,7 @@ describe 'Mechanics', ->
 
   describe 'gyro ball', ->
     it 'has 150 base power maximum', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Forretress', ivs: {speed: 0})]
         team2: [Factory('Jolteon', evs: {speed: 252}, nature: "Timid")]
       move = moves['gyro-ball']
@@ -566,7 +546,7 @@ describe 'Mechanics', ->
       move.basePower(@battle, attacker, defender).should.equal 150
 
     it 'has variable base power based on speed of target and user', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Electrode', evs: {speed: 252}, nature: "Jolly")]
         team2: [Factory('Magikarp', ivs: {speed: 0})]
       move = moves['gyro-ball']
@@ -577,7 +557,7 @@ describe 'Mechanics', ->
 
   describe 'brine', ->
     it 'has normal base power if the target has over 50% HP', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Empoleon')]
         team2: [Factory('Magikarp')]
       move = moves['brine']
@@ -585,7 +565,7 @@ describe 'Mechanics', ->
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 65
 
     it 'doubles base power if the target has 50% or less HP', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Empoleon')]
         team2: [Factory('Magikarp')]
       move = moves['brine']
@@ -593,8 +573,10 @@ describe 'Mechanics', ->
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
 
   describe 'yawn', ->
+    shared.shouldDoNoDamage('Yawn')
+
     it 'gives the yawn attachment', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Yawn')
@@ -603,7 +585,7 @@ describe 'Mechanics', ->
       @team2.at(0).hasAttachment('YawnAttachment').should.be.true
 
     it 'puts the opponent to sleep at the end of the second turn', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Yawn')
@@ -616,7 +598,7 @@ describe 'Mechanics', ->
       @battle.turn.should.equal 3
 
     it 'does not put the opponent to sleep at the end of the first turn', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Yawn')
@@ -627,7 +609,7 @@ describe 'Mechanics', ->
 
   describe 'a pokemon with a type immunity', ->
     it 'cannot be damaged by a move of that type', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Gyarados')]
       @battle.makeMove(@player1, 'Earthquake')
@@ -644,7 +626,7 @@ describe 'Mechanics', ->
       acc.should.equal 30
 
     it "does damage equal to the target's total hp", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Lapras')]
         team2: [Factory('Magikarp')]
       hpDiff = -1
@@ -655,17 +637,10 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal hpDiff
 
   describe 'a recovery move', ->
-    it "doesn't deal damage", ->
-      create.call this,
-        team1: [Factory('Blissey')]
-        team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Softboiled')
-      @battle.makeMove(@player2, 'Splash')
-
-      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+    shared.shouldDoNoDamage('Recover')
 
     it "recovers 50% of the target's HP", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Blissey')]
         team2: [Factory('Magikarp')]
       hp = @team1.at(0).currentHP = 1
@@ -677,7 +652,7 @@ describe 'Mechanics', ->
 
   describe 'knock off', ->
     it "deals damage", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Drapion')]
         team2: [Factory('Magikarp', item: "Leftovers")]
       @battle.makeMove(@player1, 'Knock Off')
@@ -686,7 +661,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.be.lessThan @team2.at(0).stat('hp')
 
     it "removes the target's item", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Drapion')]
         team2: [Factory('Magikarp', item: "Leftovers")]
       @battle.makeMove(@player1, 'Knock Off')
@@ -695,17 +670,10 @@ describe 'Mechanics', ->
       should.not.exist @team2.at(0).item
 
   describe 'trick and switcheroo', ->
-    it "does no damage", ->
-      create.call this,
-        team1: [Factory('Alakazam', item: 'Stick')]
-        team2: [Factory('Magikarp', item: "Leftovers")]
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Splash')
-
-      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+    shared.shouldDoNoDamage('Trick')
 
     it "isn't affected by type-immunities", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
         team2: [Factory('Drapion', item: "Leftovers")]
       item1 = @team1.at(0).item
@@ -717,7 +685,7 @@ describe 'Mechanics', ->
       @team1.at(0).item.should.equal item2
 
     it "swaps the target and user's item", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
         team2: [Factory('Magikarp', item: "Leftovers")]
       item1 = @team1.at(0).item
@@ -729,7 +697,7 @@ describe 'Mechanics', ->
       @team1.at(0).item.should.equal item2
 
     it "fails if the user or target has Sticky Hold", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
         team2: [Factory('Gastrodon (east)', item: "Leftovers")]
       item1 = @team1.at(0).item
@@ -741,7 +709,7 @@ describe 'Mechanics', ->
       @team2.at(0).item.should.equal item2
 
     it "fails if the target has no item", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
         team2: [Factory('Magikarp')]
       item1 = @team1.at(0).item
@@ -753,7 +721,7 @@ describe 'Mechanics', ->
       should.not.exist @team2.at(0).item
 
     it "fails if the user has no item", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Alakazam')]
         team2: [Factory('Magikarp', item: 'Leftovers')]
       item1 = @team1.at(0).item
@@ -771,8 +739,10 @@ describe 'Mechanics', ->
     it "fails if the user or target is Genesect with a Drive item"
 
   describe 'memento', ->
+    shared.shouldDoNoDamage('Memento')
+
     it "faints the user", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Latias')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Memento')
@@ -781,7 +751,7 @@ describe 'Mechanics', ->
       @team1.at(0).isFainted().should.be.true
 
     it "reduces the attack and special attack of the target by two stages", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Latias')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Memento')
@@ -794,7 +764,7 @@ describe 'Mechanics', ->
 
   describe 'magnitude', ->
     it "has variable base power", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Dugtrio')]
         team2: [Factory('Magikarp')]
       @battle.rng.randInt.restore()
@@ -804,7 +774,7 @@ describe 'Mechanics', ->
 
   describe 'pain split', ->
     it "doesn't make a pokemon's HP go over their max", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
       @battle.makeMove(@player1, 'Pain Split')
@@ -813,7 +783,7 @@ describe 'Mechanics', ->
       @team1.at(0).currentHP.should.equal @team1.at(0).stat('hp')
 
     it "averages user and target current HP", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
       @team1.at(0).currentHP = 2
@@ -824,8 +794,10 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal Math.min(326, @team2.at(0).stat('hp'))
 
   describe 'belly drum', ->
+    shared.shouldDoNoDamage('Belly Drum')
+
     it "maximizes attack", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       @team1.at(0).stages.attack = -6
@@ -835,7 +807,7 @@ describe 'Mechanics', ->
       @team1.at(0).stages.attack.should.equal 6
 
     it "cuts the pokemon's HP by half", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       @battle.makeMove(@player1, 'Belly Drum')
@@ -845,7 +817,7 @@ describe 'Mechanics', ->
       (hp - @team1.at(0).currentHP).should.equal Math.floor(hp / 2)
 
     it "fails if the pokemon's HP is less than half", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       hp = @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2) - 1
@@ -856,8 +828,10 @@ describe 'Mechanics', ->
       @team1.at(0).stages.attack.should.equal 0
 
   describe 'acupressure', ->
+    shared.shouldDoNoDamage('Acupressure')
+
     it "raises a random stat that can be raised", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Shuckle')]
         team2: [Factory('Magikarp')]
       stages = _.clone(@team1.at(0).stages)
@@ -867,7 +841,7 @@ describe 'Mechanics', ->
       @team1.at(0).stages.should.not.eql stages
 
     it "fails if the Pokemon has maximum stats", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Shuckle')]
         team2: [Factory('Magikarp')]
       @team1.at(0).stages.attack = 6
@@ -886,7 +860,7 @@ describe 'Mechanics', ->
 
   describe 'dragon-rage', ->
     it 'always does 40 damage', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Dratini')]
         team2: [Factory('Magikarp')]
       move = moves['dragon-rage']
@@ -894,7 +868,7 @@ describe 'Mechanics', ->
 
   describe 'explosion moves', ->
     it 'faints the user', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
       @battle.makeMove(@player1, 'Explosion')
@@ -903,7 +877,7 @@ describe 'Mechanics', ->
       @team1.at(0).isFainted().should.be.true
 
     it 'faints the user even if enemy is immune', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Gengar')]
       @battle.makeMove(@player1, 'Explosion')
@@ -912,7 +886,7 @@ describe 'Mechanics', ->
       @team1.at(0).isFainted().should.be.true
 
     it 'fails if an active Pokemon has Damp', ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Politoed', ability: 'Damp')]
       @battle.makeMove(@player1, 'Explosion')
@@ -921,8 +895,10 @@ describe 'Mechanics', ->
       @team1.at(0).isFainted().should.be.false
 
   describe 'endeavor', ->
+    shared.shouldDoNoDamage('Endeavor')
+
     it "brings the target's hp down to the user's hp", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Politoed')]
         team2: [Factory('Magikarp')]
       hp = 4
@@ -934,7 +910,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal hp
 
     it "fails if the target's hp is less than the user's hp", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Politoed')]
         team2: [Factory('Magikarp')]
       hp = 4
@@ -945,7 +921,7 @@ describe 'Mechanics', ->
       @team2.at(0).currentHP.should.equal hp
 
     it "doesn't hit ghost pokemon", ->
-      create.call this,
+      shared.create.call this,
         team1: [Factory('Politoed')]
         team2: [Factory('Gengar')]
       @team1.at(0).currentHP = 1
