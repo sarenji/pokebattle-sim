@@ -30,8 +30,6 @@ extendMove = (name, callback) ->
     throw new Error("Cannot extend Move '#{name}' because it does not exist.")
 
   move = moves[name]
-
-  # todo: Use an adapter so that it works like in the example
   callback.call(move, move.attributes)
 
 # Extends a move in the move list as an attack with a secondary effect.

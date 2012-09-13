@@ -8,12 +8,16 @@ types = {}
 damage_types = {}
 target_types = {}
 move_meta = {}
+flag_names = {}
+flags = {}
 
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/moves.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
 damage_types_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_damage_classes.csv'
 meta_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_meta.csv'
 targets_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_targets.csv'
+flag_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_flags.csv'
+flags_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_flag_map.csv'
 
 Move = collections.namedtuple('Move', ["id", "identifier", "generation_id", 
   "type_id", "power", "pp", "accuracy", "priority", "target_id", 
@@ -29,8 +33,7 @@ Meta = collections.namedtuple('Meta', ['move_id', 'meta_category_id',
 lines = requests.get(damage_types_url).text.splitlines()
 lines.pop(0) # get rid of info
 
-while len(lines) > 0:
-  line = lines.pop(0)
+for line in lines:
   damage_type_id, identifier = line.split(',')
   damage_types[damage_type_id] = identifier
 
@@ -39,8 +42,7 @@ while len(lines) > 0:
 lines = requests.get(targets_url).text.splitlines()
 lines.pop(0) # get rid of info
 
-while len(lines) > 0:
-  line = lines.pop(0)
+for line in lines:
   target_id, identifier = line.split(',')
   target_types[target_id] = identifier
 
@@ -49,8 +51,7 @@ while len(lines) > 0:
 lines = requests.get(type_names_url).text.splitlines()
 lines.pop(0) # get rid of info
 
-while len(lines) > 0:
-  line = lines.pop(0)
+for line in lines:
   type_id, type_name, generation_id, damage_class = line.split(',')
   types[type_id] = type_name.capitalize()
 
@@ -59,18 +60,35 @@ while len(lines) > 0:
 lines = requests.get(meta_url).text.splitlines()
 lines.pop(0) # get rid of info
 
-while len(lines) > 0:
-    line = lines.pop(0)
-    meta = Meta(*line.split(','))
-    move_meta[meta.move_id] = meta
+for line in lines:
+  meta = Meta(*line.split(','))
+  move_meta[meta.move_id] = meta
+
+
+# Parse flag names
+lines = requests.get(flag_names_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+for line in lines:
+  flag_id, flag = line.split(',')
+  flag_names[flag_id] = flag
+
+
+# Parse flags
+lines = requests.get(flags_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+for line in lines:
+  move_id, move_flag_id = line.split(',')
+  flag = flag_names[move_flag_id]
+  flags.setdefault(move_id, []).append(flag)
 
 
 # Parse moves
 lines = requests.get(moves_url).text.splitlines()
 lines.pop(0) # get rid of info
 
-while len(lines) > 0:
-  line = lines.pop(0)
+for line in lines:
   move = Move(*line.split(','))
 
   # moves after 10000 are shadow moves 
@@ -84,6 +102,7 @@ while len(lines) > 0:
     'priority' : int(move.priority),
     'damage'   : damage_types[move.damage_class_id],
     'target'   : target_types[move.target_id],
+    'flags'    : flags.get(move.id, [])
   }
 
   # TODO: Find a simple way to add meta info without default values
