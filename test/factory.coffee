@@ -81,7 +81,7 @@ Factory.register 'Audino',
   moves: ['Growl']
 
 Factory.register 'Gengar',
-  moves: ['Shadow Ball', 'Pain Split', 'Explosion']
+  moves: ['Shadow Ball', 'Pain Split', 'Explosion', 'Clear Smog']
 
 Factory.register 'Drapion',
   moves: ['Knock Off', 'Swords Dance']
@@ -106,7 +106,7 @@ Factory.register 'Dratini',
   moves: ['Dragon Rage']
 
 Factory.register 'Politoed',
-  moves: ['Perish Song']
+  moves: ['Perish Song', 'Endeavor']
   ability: 'Drizzle'
 
 Factory.register 'Regirock'

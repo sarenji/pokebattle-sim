@@ -919,3 +919,37 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Perish Song')
 
       @team1.at(0).isFainted().should.be.false
+
+  describe 'endeavor', ->
+    it "brings the target's hp down to the user's hp", ->
+      create.call this,
+        team1: [Factory('Politoed')]
+        team2: [Factory('Magikarp')]
+      hp = 4
+      @team1.at(0).currentHP = hp
+
+      @battle.makeMove(@player1, 'Endeavor')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.equal hp
+
+    it "fails if the target's hp is less than the user's hp", ->
+      create.call this,
+        team1: [Factory('Politoed')]
+        team2: [Factory('Magikarp')]
+      hp = 4
+      @team2.at(0).currentHP = hp
+      @battle.makeMove(@player1, 'Endeavor')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).currentHP.should.equal hp
+
+    it "doesn't hit ghost pokemon", ->
+      create.call this,
+        team1: [Factory('Politoed')]
+        team2: [Factory('Gengar')]
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Endeavor')
+      @battle.makeMove(@player2, 'Dragon Dance')
+
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')

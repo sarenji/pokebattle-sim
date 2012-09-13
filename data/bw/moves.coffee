@@ -444,6 +444,7 @@ extendMove 'acupressure', ->
       boostExtension('target', hash)(battle, user, target)
     else
       battle.message "But it failed!"
+      return false
 
 extendMove 'belly-drum', ->
   @use = (battle, user, target, damage) ->
@@ -454,6 +455,7 @@ extendMove 'belly-drum', ->
       battle.message "#{user.name} cut its own HP and maximized its Attack!"
     else
       battle.message "But it failed!"
+      return false
 
 extendMove 'brine', ->
   @basePower = (battle, user, target) ->
@@ -465,6 +467,18 @@ extendMove 'brine', ->
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
+
+extendMove 'endeavor', ->
+  @use = (battle, user, target, damage) ->
+    if target.isImmune(this, battle, user)
+      battle.message "But it doesn't affect #{target.name}..."
+      return false
+
+    if target.currentHP >= user.currentHP
+      target.currentHP = user.currentHP
+    else
+      battle.message "But it failed!"
+      return false
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->
