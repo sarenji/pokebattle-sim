@@ -999,3 +999,10 @@ describe 'Mechanics', ->
       move = moves['hex']
       @team2.at(0).attach(new ParalyzeAttachment())
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
+
+  describe 'heavy-slam', ->
+    it 'has variable base power based on the difference in weight', ->
+      shared.create.call(this)
+      move = moves['heavy-slam']
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 40
+      move.basePower(@battle, @team1.at(0), weight: -1000).should.equal 120

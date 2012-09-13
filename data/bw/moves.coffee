@@ -515,6 +515,15 @@ extendMove 'haze', ->
       target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
+extendMove 'heavy-slam', ->
+  @basePower = (battle, user, target) ->
+    n = target.weight / user.weight
+    if n < .2       then 120
+    else if n < .25 then 100
+    else if n < 1/3 then 80
+    else if n < .5  then 60
+    else                 40
+
 extendMove 'hex', ->
   @basePower = (battle, user, target) ->
     if target.hasStatus(Status.BURN) || target.hasStatus(Status.POISON) ||
