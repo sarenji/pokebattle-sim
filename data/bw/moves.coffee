@@ -157,6 +157,15 @@ makeExplosionMove = (name) ->
       else
         battle.message "#{user.name} cannot use #{@name}!"
 
+makeThiefMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      return  if user.item?
+      return  if target.hasAbility('Sticky Hold')
+      return  if target.hasAbility('Multitype')
+      battle.message "#{user.name} stole #{target.name}'s #{target.item.name}!"
+      [user.item, target.item] = [target.item, null]
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -242,6 +251,7 @@ extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
 makeBoostMove 'cosmic-power', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'cotton-guard', 'self', defense: 3
 makeBoostMove 'cotton-spore', 'target', speed: -2
+makeThiefMove 'covet'
 extendWithSecondaryBoost 'crunch', 'target', .2, defense: -1
 extendWithSecondaryBoost 'crush-claw', 'target', .5, defense: -1
 extendWithSecondaryEffect 'dark-pulse', .2, FlinchAttachment
@@ -408,6 +418,7 @@ makeBoostMove 'swords-dance', 'self', attack: 2
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25
+makeThiefMove 'thief'
 extendWithSecondaryEffect 'thunder', .3, ParalyzeAttachment
 extendWithFangEffect 'thunder-fang', .1, ParalyzeAttachment
 extendWithSecondaryEffect 'thunderbolt', .1, ParalyzeAttachment

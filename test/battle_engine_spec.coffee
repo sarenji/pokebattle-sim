@@ -929,3 +929,52 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Dragon Dance')
 
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+  describe 'a thief move', ->
+    it "should steal the target's item", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).item.should.equal item2
+      should.not.exist @team2.at(0).item
+
+    it "should not steal the target's item if user already has an item", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Stick")]
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      item1 = @team1.at(0).item
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).item.should.equal item1
+      @team2.at(0).item.should.equal item2
+
+    it "should not steal the target's item if target has Sticky Hold", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Leftovers", ability: "Sticky Hold")]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      @team2.at(0).item.should.equal item2
+
+    it "should not steal the target's item if target has Multitype", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Leftovers", ability: "Multitype")]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      @team2.at(0).item.should.equal item2
+
+    # TODO: What about Genesect?
+    it "should not steal the target's item if target is Giratina-O"
