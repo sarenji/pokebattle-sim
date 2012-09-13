@@ -978,3 +978,16 @@ describe 'Mechanics', ->
 
     # TODO: What about Genesect?
     it "should not steal the target's item if target is Giratina-O"
+
+  describe 'crush grip', ->
+    it 'has a base power of 1 minimum', ->
+      shared.create.call(this)
+      move = moves['crush-grip']
+      @team2.at(0).currentHP = 1
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 1
+
+    it 'has a base power of 121 maximum', ->
+      shared.create.call(this)
+      move = moves['crush-grip']
+      @team2.at(0).currentHP = @team2.at(0).stat('hp')
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 121

@@ -3,11 +3,6 @@ sinon = require 'sinon'
 {Factory} = require './factory'
 
 shouldDoNoDamage = (name, battleOptions) ->
-  battleOptions ?= {
-    team1: [Factory('Magikarp')]
-    team2: [Factory('Magikarp')]
-  }
-
   it 'does no damage', ->
     create.call(this, battleOptions)
     @battle.makeMove(@player1, name)
@@ -19,8 +14,8 @@ create = (opts={}) ->
   @id2 = 'fghij'
   @player1 = opts.player1 || {id: @id1, emit: ->}
   @player2 = opts.player2 || {id: @id2, emit: ->}
-  team1   = opts.team1
-  team2   = opts.team2
+  team1   = opts.team1 || [Factory('Magikarp')]
+  team2   = opts.team2 || [Factory('Magikarp')]
   players = [{player: @player1, team: team1},
              {player: @player2, team: team2}]
   @battle = new Battle('id', players: players)

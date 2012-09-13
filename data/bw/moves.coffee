@@ -475,6 +475,10 @@ extendMove 'brine', ->
     else
       @power
 
+extendMove 'crush-grip', ->
+  @basePower = (battle, user, target) ->
+    1 + Math.floor(120 * target.currentHP / target.stat('hp'))
+
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
