@@ -978,6 +978,7 @@ describe 'Mechanics', ->
 
     # TODO: What about Genesect?
     it "should not steal the target's item if target is Giratina-O"
+    it "should not steal the target's item if target holds Mail"
 
   describe 'crush grip', ->
     it 'has a base power of 1 minimum', ->
