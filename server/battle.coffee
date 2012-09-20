@@ -157,7 +157,7 @@ class @Battle
   # any replacements are needed, or begins the next turn.
   endTurn: =>
     # TODO: Skip endTurn for pokemon that are fainted?
-    pokemon.endTurn()  for pokemon in @getActivePokemon()
+    pokemon.endTurn(this)  for pokemon in @getActivePokemon()
     @sendMessages()
 
     if @areReplacementsNeeded()

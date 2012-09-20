@@ -142,7 +142,8 @@ class @Pokemon
     @resetBoosts()
     attachment.switchOut()  for attachment in _.clone(@attachments)
 
-  endTurn: =>
+  endTurn: (battle) =>
+    @item?.endTurn(battle, this)
     attachment.endTurn()  for attachment in _.clone(@attachments)
 
   # Adds an attachment to the list of attachments

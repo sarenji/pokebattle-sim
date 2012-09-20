@@ -8,6 +8,8 @@ class Item
     for key, value of attributes
       @[key] = value
 
+  endTurn: (pokemon) =>
+
 extendItem = (name, callback) ->
   if name not of items
     throw new Error("Cannot extend Item '#{name}' because it does not exist.")
@@ -19,7 +21,8 @@ for name, attributes of json
   items[name] = new Item(name, attributes)
 
 extendItem 'Leftovers', ->
-  @residualDamage = (pokemon) ->
-    amount = Math.floor(pokemon.stat('hp') / 16)
+  @endTurn = (battle, user) ->
+    battle.message "#{user.name} restored a little HP using its #{@name}!"
+    amount = Math.floor(user.stat('hp') / 16)
     amount = 1  if amount == 0
-    pokemon.damage(-amount)
+    user.damage(-amount)

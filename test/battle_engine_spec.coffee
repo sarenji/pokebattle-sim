@@ -1,10 +1,11 @@
 sinon = require 'sinon'
-{items, moves} = require('../data/bw')
+{moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
 {_} = require 'underscore'
 shared = require './shared'
+items = require './bw/items'
 
 describe 'Mechanics', ->
   describe 'splash', ->
@@ -1072,3 +1073,5 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
       mock.restore()
       mock.verify()
+
+  items.test()
