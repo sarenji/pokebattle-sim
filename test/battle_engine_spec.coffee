@@ -10,6 +10,18 @@ describe 'Mechanics', ->
   describe 'splash', ->
     shared.shouldDoNoDamage('Splash')
 
+  describe 'a move being made', ->
+    it "gets recorded as the battle's last move", ->
+      shared.create.call this,
+        team1: [Factory('Celebi')]
+        team2: [Factory('Magikarp')]
+
+      @battle.makeMove(@player1, 'grass-knot')
+      @battle.makeMove(@player2, 'splash')
+
+      should.exist @battle.lastMove
+      @battle.lastMove.should.equal moves['splash']
+
   describe 'an attack missing', ->
     it 'deals no damage', ->
       shared.create.call this,
@@ -1028,3 +1040,35 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
 
       _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
+
+  describe 'copycat', ->
+    beforeEach ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', evs: {speed: 4})] # make faster than team2
+
+    it 'copies the last move used', ->
+      @battle.lastMove = moves['tackle']
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').once()
+      @battle.makeMove(@player1, 'Copycat')
+      @battle.makeMove(@player2, 'Splash')
+      mock.restore()
+      mock.verify()
+
+    it 'fails if no last move was used', ->
+      @battle.lastMove = null
+      mock = sinon.mock(moves['copycat'])
+      mock.expects('fail').once()
+      @battle.makeMove(@player1, 'Copycat')
+      @battle.makeMove(@player2, 'Splash')
+      mock.restore()
+      mock.verify()
+
+    it 'fails if the last move was copycat', ->
+      @battle.lastMove = moves['copycat']
+      mock = sinon.mock(moves['copycat'])
+      mock.expects('fail').once()
+      @battle.makeMove(@player1, 'Copycat')
+      @battle.makeMove(@player2, 'Splash')
+      mock.restore()
+      mock.verify()

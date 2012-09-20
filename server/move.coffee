@@ -54,6 +54,10 @@ class @Move
   afterMiss: (battle, user, target, damage) =>
     battle.message "#{target.name} avoided the attack!"
 
+  # A hook that executes once a move fails.
+  fail: (battle) =>
+    battle.message "But it failed!"
+
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0
     damage = @baseDamage(battle, user, target)

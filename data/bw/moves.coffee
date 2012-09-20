@@ -465,7 +465,7 @@ extendMove 'acupressure', ->
       hash[randomStat] = 2
       boostExtension('target', hash)(battle, user, target)
     else
-      battle.message "But it failed!"
+      @fail(battle)
       return false
 
 extendMove 'belly-drum', ->
@@ -476,7 +476,7 @@ extendMove 'belly-drum', ->
       user.boost(attack: 12)
       battle.message "#{user.name} cut its own HP and maximized its Attack!"
     else
-      battle.message "But it failed!"
+      @fail(battle)
       return false
 
 extendMove 'brine', ->
@@ -485,6 +485,15 @@ extendMove 'brine', ->
       2 * @power
     else
       @power
+
+extendMove 'copycat', ->
+  @execute = (battle, user, targets) ->
+    move = battle.lastMove
+    if move? && move != moves['copycat']
+      battle.message "#{user.name} used #{move.name}!"
+      move.execute(battle, user, targets)
+    else
+      @fail(battle)
 
 extendMove 'crush-grip', ->
   @basePower = (battle, user, target) ->
@@ -503,7 +512,7 @@ extendMove 'endeavor', ->
     if target.currentHP >= user.currentHP
       target.currentHP = user.currentHP
     else
-      battle.message "But it failed!"
+      @fail(battle)
       return false
 
 extendMove 'facade', ->

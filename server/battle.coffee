@@ -40,6 +40,9 @@ class @Battle
     # Hash of players partaking in the battle.
     @players = {}
 
+    # Stores last move used
+    @lastMove = null
+
     for object in attributes.players
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
@@ -336,6 +339,9 @@ class @Battle
     # TODO: Execute any before move events
     damage = move.execute(this, pokemon, targets)
     # TODO: Execute any after move events
+
+    # Record last move.
+    @lastMove = move
 
   getTargets: (move, id) =>
     switch move.target
