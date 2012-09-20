@@ -35,6 +35,9 @@ class @Pokemon
       evasion: 0
       accuracy: 0
 
+    # a list of moves blocked for this turn
+    @blockedMoves = []
+
   iv: (stat) => (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) => (if stat of @evs then @evs[stat] else 0)
 
@@ -140,13 +143,18 @@ class @Pokemon
     multiplier = move.typeEffectiveness(this)
     multiplier == 0
 
-  switchOut: =>
+  switchOut: (battle) =>
     @resetBoosts()
+    @blockedMoves = []
     attachment.switchOut()  for attachment in _.clone(@attachments)
 
   endTurn: (battle) =>
+    @blockedMoves = []
     @item?.endTurn(battle, this)
     attachment.endTurn()  for attachment in _.clone(@attachments)
+
+  beginTurn: (battle) =>
+    attachment.beginTurn()  for attachment in _.clone(@attachments)
 
   # Adds an attachment to the list of attachments
   attach: (attachment) =>
@@ -161,6 +169,13 @@ class @Pokemon
     index = @attachments.indexOf(attachment)
     @attachments.splice(index, 1)
     attachment.pokemon = undefined
+
+  # Blocks a move for a single turn
+  blockMove: (moveName) =>
+    @blockedMoves.push(moveName)
+
+  isMoveBlocked: (moveName) =>
+    return (moveName in @blockedMoves)
 
 
 # A hash that keys a nature with the stats that it boosts.

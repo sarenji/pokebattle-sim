@@ -321,6 +321,32 @@ shared = require '../shared'
       @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
 
+  describe 'disable', ->
+    shared.shouldDoNoDamage('Disable')
+
+    it 'gives the disabled attachment', ->
+      shared.create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment('DisabledAttachment').should.be.true
+
+    it 'prevents a move from being used', ->
+      shared.create.call this,
+        team1: [Factory('Camerupt')]
+        team2: [Factory('Magikarp')]
+      numMoves = @team2.at(0).moves.length
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      requestedMoves = @battle.requests[@player2.id].moves
+      requestedMoves.length.should.equal (numMoves - 1)
+
+    it 'wears off after a certain number of turns'
+    it 'causes a move to fail if the user moves first'
+
   describe 'yawn', ->
     shared.shouldDoNoDamage('Yawn')
 

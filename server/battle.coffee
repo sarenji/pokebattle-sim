@@ -120,11 +120,14 @@ class @Battle
     @performReplacements()
 
     @turn++
+    pokemon.beginTurn(this) for pokemon in @getActivePokemon()
 
     # Send appropriate requests to players
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
+    # TODO: Struggle if no moves are usable
     for id, player of @players
-      poke_moves = player.team.at(0).moves
+      pokemon = player.team.at(0)
+      poke_moves = _(pokemon.moves).difference(pokemon.blockedMoves)
       switches = player.team.getAlivePokemon().map((p) -> p.name)
       @requestAction(player, moves: poke_moves, switches: switches)
 
@@ -313,7 +316,7 @@ class @Battle
     action = @getAction(id)
     team = @getTeam(id)
 
-    team.at(0).switchOut()
+    team.at(0).switchOut(this)
     @message "#{player.username} withdrew #{team.at(0).name}!"
     team.switch(0, action.to)
     # TODO: Implement and call pokemon.activate() or pokemon.switchIn()

@@ -2,7 +2,7 @@
 {Weather} = require('../../server/weather')
 {Move} = require('../../server/move')
 {Status} = require('../../server/status')
-{FlinchAttachment, ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
+{FlinchAttachment, ConfusionAttachment, DisabledAttachment, YawnAttachment} = require('../../server/attachment')
 {_} = require 'underscore'
 util = require '../../server/util'
 
@@ -533,6 +533,15 @@ extendMove 'copycat', ->
 extendMove 'crush-grip', ->
   @basePower = (battle, user, target) ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
+
+extendMove 'disable', ->
+  # TODO: Fail if the pokemon is already disabled?
+  # TODO: Does this stack with cursed body?
+  # TODO: Does it disable a move if it's the only one?
+  @use = (battle, user, target) ->
+    move = battle.rng.choice(target.moves)
+    turns = battle.rng.randInt(4, 7)
+    target.attach(new DisabledAttachment(move: move, turns: turns))
 
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->

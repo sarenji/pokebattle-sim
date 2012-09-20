@@ -96,11 +96,24 @@ describe 'Pokemon', ->
       pokemon.switchOut()
       pokemon.stages['specialAttack'].should.equal 0
 
+    it 'removes blocked moves', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.blockMove('Earthquake')
+      pokemon.switchOut()
+      pokemon.isMoveBlocked('Earthquake').should.be.false
+
     it 'removes volatile attachments', ->
       pokemon = new Pokemon()
       pokemon.attach(new VolatileAttachment('TestAttachment'))
       pokemon.switchOut()
       pokemon.hasAttachment('TestAttachment').should.be.false
+
+  describe '#endTurn', ->
+    it 'removes blocked moves', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.blockMove('Earthquake')
+      pokemon.switchOut()
+      pokemon.isMoveBlocked('Earthquake').should.be.false
 
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
@@ -115,3 +128,21 @@ describe 'Pokemon', ->
       pokemon.attach(attachment)
       pokemon.unattach(attachment)
       pokemon.hasAttachment('TestAttachment').should.be.false
+
+  describe '#blockMove', ->
+    it 'adds a move to a list of blocked moves', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.blockMove('Earthquake')
+      pokemon.blockedMoves.should.include 'Earthquake'
+
+  describe '#isMoveBlocked', ->
+    it 'returns true if the move is blocked', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.blockMove('Earthquake')
+      pokemon.isMoveBlocked('Earthquake').should.be.true
+
+    it 'returns false if the move is not blocked', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.isMoveBlocked('Earthquake').should.be.false
+
+
