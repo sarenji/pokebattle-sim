@@ -36,3 +36,10 @@ extendItem 'Muscle Band', ->
       0x1199
     else
       0x1000
+
+extendItem 'Wise Glasses', ->
+  @basePowerModifier = (move, battle, user, target) ->
+    if move.spectra == 'special'
+      0x1199
+    else
+      0x1000
