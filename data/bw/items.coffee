@@ -28,12 +28,26 @@ makeOrbItem = (name, species) ->
       else
         0x1000
 
+makeTypeBoostItem = (name, type) ->
+  extendItem name, ->
+    @basePowerModifier = (move, battle, user, target) ->
+      if move.type == type
+        0x1333
+      else
+        0x1000
+
+
 for name, attributes of json
   items[name] = new Item(name, attributes)
 
 
 makeOrbItem 'Adamant Orb', 'Dialga'
+makeTypeBoostItem 'Black Belt', 'Fighting'
+makeTypeBoostItem 'BlackGlasses', 'Dark'
+makeTypeBoostItem 'Charcoal', 'Fire'
+makeTypeBoostItem 'Dragon Fang', 'Dragon'
 makeOrbItem 'Griseous Orb', 'Giratina'
+makeTypeBoostItem 'Hard Stone', 'Rock'
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
@@ -43,6 +57,9 @@ extendItem 'Leftovers', ->
     user.damage(-amount)
 
 makeOrbItem 'Lustrous Orb', 'Palkia'
+makeTypeBoostItem 'Magnet', 'Electric'
+makeTypeBoostItem 'Metal Coat', 'Steel'
+makeTypeBoostItem 'Miracle Seed', 'Grass'
 
 extendItem 'Muscle Band', ->
   @basePowerModifier = (move, battle, user, target) ->
@@ -51,12 +68,20 @@ extendItem 'Muscle Band', ->
     else
       0x1000
 
-extendItem 'Odd Incense', ->
-  @basePowerModifier = (move, battle, user, target) ->
-    if move.type == "Psychic"
-      0x1333
-    else
-      0x1000
+makeTypeBoostItem 'Mystic Water', 'Water'
+makeTypeBoostItem 'NeverMeltIce', 'Ice'
+makeTypeBoostItem 'Odd Incense', 'Psychic'
+makeTypeBoostItem 'Poison Barb', 'Poison'
+makeTypeBoostItem 'Rock Incense', 'Rock'
+makeTypeBoostItem 'Rose Incense', 'Grass'
+makeTypeBoostItem 'Sea Incense', 'Water'
+makeTypeBoostItem 'Sharp Beak', 'Flying'
+makeTypeBoostItem 'Silk Scarf', 'Normal'
+makeTypeBoostItem 'SilverPowder', 'Bug'
+makeTypeBoostItem 'Soft Sand', 'Ground'
+makeTypeBoostItem 'Spell Tag', 'Ghost'
+makeTypeBoostItem 'TwistedSpoon', 'Psychic'
+makeTypeBoostItem 'Wave Incense', 'Water'
 
 extendItem 'Wise Glasses', ->
   @basePowerModifier = (move, battle, user, target) ->
