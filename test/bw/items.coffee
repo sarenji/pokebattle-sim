@@ -1,4 +1,5 @@
 sinon = require 'sinon'
+{items, moves} = require('../../data/bw')
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -14,3 +15,10 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
       amount = Math.floor(@team1.at(0).stat('hp') / 16)
       @team1.at(0).currentHP.should.equal(1 + amount)
+
+  describe "muscle band", ->
+    it "increases base power of physical moves by 0x1199", ->
+      shared.create.call(this)
+      move = moves['tackle']
+      modifier = items['Muscle Band'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1199

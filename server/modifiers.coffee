@@ -131,6 +131,11 @@ basePowerModifier.add 110, (move, battle, user, target) ->
     return 0x14CD
   return 0x1000
 
+basePowerModifier.add 120, (move, battle, user, target) ->
+  if user.item?
+    return user.item.basePowerModifier(move, battle, user, target)
+  return 0x1000
+
 # TODO: The rest of the base power modifiers.
 
 @stabModifier = stabModifier = new ModifierChain()
