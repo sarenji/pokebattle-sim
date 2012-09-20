@@ -1,6 +1,8 @@
 {ModifierChain} = require './modifier_chain'
 {Status} = require './status'
 
+# TODO: Pass in an array of things with basePowerModifier defined instead.
+
 @finalModifier = finalModifier = new ModifierChain()
 
 # TODO: Reflect modifier.

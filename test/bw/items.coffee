@@ -53,3 +53,14 @@ shared = require '../shared'
       move = moves['tackle']
       modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
       modifier.should.equal 0x1000
+
+  describe "A type-boosting miscellaneous item", ->
+    it "increases base power of certain typed moves by 0x1333", ->
+      shared.create.call(this)
+      move = moves['outrage']
+      modifier = items['Odd Incense'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1000
+
+      move = moves['psychic']
+      modifier = items['Odd Incense'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1333
