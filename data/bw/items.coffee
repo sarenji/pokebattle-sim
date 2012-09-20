@@ -37,6 +37,11 @@ makeTypeBoostItem = (name, type) ->
       else
         0x1000
 
+# Same as makeTypeBoostItem, but sets item.plate = true.
+makePlateItem = (name, type) ->
+  makeTypeBoostItem(name, type)
+  extendItem(name, -> @plate = true)
+
 # Gem items are one-time use.
 makeGemItem = (name, type) ->
   extendItem name, ->
@@ -63,9 +68,14 @@ makeTypeBoostItem 'Charcoal', 'Fire'
 makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'
 makeGemItem 'Dragon Gem', 'Dragon'
+makePlateItem 'Draco Plate', 'Dragon'
+makePlateItem 'Dread Plate', 'Dark'
+makePlateItem 'Earth Plate', 'Ground'
 makeGemItem 'Electric Gem', 'Electric'
 makeGemItem 'Fighting Gem', 'Fighting'
 makeGemItem 'Fire Gem', 'Fire'
+makePlateItem 'Fist Plate', 'Fighting'
+makePlateItem 'Flame Plate', 'Fire'
 makeGemItem 'Flying Gem', 'Flying'
 makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'
@@ -73,6 +83,9 @@ makeOrbItem 'Griseous Orb', 'Giratina'
 makeGemItem 'Ground Gem', 'Ground'
 makeTypeBoostItem 'Hard Stone', 'Rock'
 makeGemItem 'Ice Gem', 'Ice'
+makePlateItem 'Icicle Plate', 'Ice'
+makePlateItem 'Insect Plate', 'Bug'
+makePlateItem 'Iron Plate', 'Steel'
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
@@ -83,7 +96,9 @@ extendItem 'Leftovers', ->
 
 makeOrbItem 'Lustrous Orb', 'Palkia'
 makeTypeBoostItem 'Magnet', 'Electric'
+makePlateItem 'Meadow Plate', 'Grass'
 makeTypeBoostItem 'Metal Coat', 'Steel'
+makePlateItem 'Mind Plate', 'Psychic'
 makeTypeBoostItem 'Miracle Seed', 'Grass'
 
 extendItem 'Muscle Band', ->
@@ -107,9 +122,14 @@ makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'
+makePlateItem 'Sky Plate', 'Flying'
 makeTypeBoostItem 'Soft Sand', 'Ground'
 makeTypeBoostItem 'Spell Tag', 'Ghost'
+makePlateItem 'Splash Plate', 'Water'
+makePlateItem 'Spooky Plate', 'Ghost'
 makeGemItem 'Steel Gem', 'Steel'
+makePlateItem 'Stone Plate', 'Rock'
+makePlateItem 'Toxic Plate', 'Poison'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
 makeGemItem 'Water Gem', 'Water'
 makeTypeBoostItem 'Wave Incense', 'Water'
@@ -120,3 +140,5 @@ extendItem 'Wise Glasses', ->
       0x1199
     else
       0x1000
+
+makePlateItem 'Zap Plate', 'Electric'
