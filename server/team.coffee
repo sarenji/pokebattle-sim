@@ -13,6 +13,7 @@ class @Team
       pokemon_moves = attributes.moves || []
       attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)
       attributes.types = (type  for type in specimen.types || [])
+      attributes.species = specimen.species
       new Pokemon(attributes)
 
   at: (index) =>

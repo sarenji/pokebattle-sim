@@ -131,6 +131,7 @@ basePowerModifier.add 110, (move, battle, user, target) ->
     return 0x14CD
   return 0x1000
 
+# Various item modifiers
 basePowerModifier.add 120, (move, battle, user, target) ->
   if user.item?
     return user.item.basePowerModifier(move, battle, user, target)

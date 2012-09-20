@@ -37,3 +37,19 @@ shared = require '../shared'
       move = moves['shadow-ball']
       modifier = items['Wise Glasses'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
       modifier.should.equal 0x1199
+
+  describe "An Orb item", ->
+    it "increases base power of moves matching the user's type by 0x1333", ->
+      shared.create.call this,
+        team1: [Factory('Giratina (origin)')]
+      move = moves['outrage']
+      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1333
+
+      move = moves['shadow-ball']
+      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1333
+
+      move = moves['tackle']
+      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1000

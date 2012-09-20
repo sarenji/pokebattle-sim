@@ -20,8 +20,20 @@ extendItem = (name, callback) ->
   item = items[name]
   callback.call(item)
 
+makeOrbItem = (name, species) ->
+  extendItem name, ->
+    @basePowerModifier = (move, battle, user, target) ->
+      if user.species == species && move.type in user.types
+        0x1333
+      else
+        0x1000
+
 for name, attributes of json
   items[name] = new Item(name, attributes)
+
+
+makeOrbItem 'Adamant Orb', 'Dialga'
+makeOrbItem 'Griseous Orb', 'Giratina'
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
@@ -29,6 +41,8 @@ extendItem 'Leftovers', ->
     amount = Math.floor(user.stat('hp') / 16)
     amount = 1  if amount == 0
     user.damage(-amount)
+
+makeOrbItem 'Lustrous Orb', 'Palkia'
 
 extendItem 'Muscle Band', ->
   @basePowerModifier = (move, battle, user, target) ->

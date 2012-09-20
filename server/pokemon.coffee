@@ -6,8 +6,10 @@ PoisonAttachment, ToxicAttachment} = require './attachment'
 floor = Math.floor
 
 class @Pokemon
+  # TODO: Take the species obj, not attributes?
   constructor: (attributes = {}) ->
     @name = attributes.name || 'Missingno'
+    @species = attributes.species
     @level = attributes.level || 100
     @baseStats = attributes.stats || {}
     @weight = attributes.weight
