@@ -64,3 +64,22 @@ shared = require '../shared'
       move = moves['psychic']
       modifier = items['Odd Incense'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
       modifier.should.equal 0x1333
+
+  describe "A typed Gem", ->
+    it "increases base power of certain typed moves by 0x1800", ->
+      shared.create.call(this)
+      move = moves['acrobatics']
+      modifier = items['Flying Gem'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1800
+
+      move = moves['psychic']
+      modifier = items['Flying Gem'].basePowerModifier(move, @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1000
+
+    it "is removed after use", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: 'Flying Gem')]
+      @battle.makeMove(@player1, 'Acrobatics')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item

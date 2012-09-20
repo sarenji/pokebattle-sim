@@ -10,6 +10,7 @@ class Item
 
   endTurn: (pokemon) =>
 
+  afterSuccessfulHit: (battle, user, target, damage, move) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
 
@@ -36,6 +37,19 @@ makeTypeBoostItem = (name, type) ->
       else
         0x1000
 
+# Gem items are one-time use.
+makeGemItem = (name, type) ->
+  extendItem name, ->
+    @basePowerModifier = (move, battle, user, target) ->
+      if move.type == type
+        0x1800
+      else
+        0x1000
+
+    @afterSuccessfulHit = (battle, user, target, damage, move) ->
+      battle.message "The #{@name} strengthened #{move.name}'s power!"
+      user.item = null
+
 
 for name, attributes of json
   items[name] = new Item(name, attributes)
@@ -44,10 +58,21 @@ for name, attributes of json
 makeOrbItem 'Adamant Orb', 'Dialga'
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
+makeGemItem 'Bug Gem', 'Bug'
 makeTypeBoostItem 'Charcoal', 'Fire'
+makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'
+makeGemItem 'Dragon Gem', 'Dragon'
+makeGemItem 'Electric Gem', 'Electric'
+makeGemItem 'Fighting Gem', 'Fighting'
+makeGemItem 'Fire Gem', 'Fire'
+makeGemItem 'Flying Gem', 'Flying'
+makeGemItem 'Ghost Gem', 'Ghost'
+makeGemItem 'Grass Gem', 'Grass'
 makeOrbItem 'Griseous Orb', 'Giratina'
+makeGemItem 'Ground Gem', 'Ground'
 makeTypeBoostItem 'Hard Stone', 'Rock'
+makeGemItem 'Ice Gem', 'Ice'
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
@@ -70,8 +95,12 @@ extendItem 'Muscle Band', ->
 
 makeTypeBoostItem 'Mystic Water', 'Water'
 makeTypeBoostItem 'NeverMeltIce', 'Ice'
+makeGemItem 'Normal Gem', 'Normal'
 makeTypeBoostItem 'Odd Incense', 'Psychic'
 makeTypeBoostItem 'Poison Barb', 'Poison'
+makeGemItem 'Poison Gem', 'Poison'
+makeGemItem 'Psychic Gem', 'Psychic'
+makeGemItem 'Rock Gem', 'Rock'
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
 makeTypeBoostItem 'Sea Incense', 'Water'
@@ -80,7 +109,9 @@ makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'
 makeTypeBoostItem 'Soft Sand', 'Ground'
 makeTypeBoostItem 'Spell Tag', 'Ghost'
+makeGemItem 'Steel Gem', 'Steel'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
+makeGemItem 'Water Gem', 'Water'
 makeTypeBoostItem 'Wave Incense', 'Water'
 
 extendItem 'Wise Glasses', ->

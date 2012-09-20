@@ -31,6 +31,7 @@ class @Move
 
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
+        user.item?.afterSuccessfulHit(battle, user, target, damage, this)
 
   # A hook with a default implementation of returning false on a type immunity,
   # otherwise dealing damage.
