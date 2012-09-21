@@ -440,6 +440,10 @@ extendWithBoost 'superpower', 'self', attack: -1, defense: -1
 makeBoostMove 'sweet-scent', 'target', evasion: -1
 makeTrickMove 'switcheroo'
 makeBoostMove 'swords-dance', 'self', attack: 2
+extendMove 'super-fang', ->
+  @calculateDamage = (battle, user, target) ->
+    halfHP = Math.floor(target.currentHP / 2)
+    Math.max(1, halfHP)
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25

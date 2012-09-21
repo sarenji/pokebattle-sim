@@ -820,3 +820,19 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
       mock.restore()
       mock.verify()
+
+  describe 'Super Fang', ->
+    it "deals half of the target's current HP", ->
+      shared.create.call(this)
+      hp = @team2.at(0).currentHP
+      hp = @team2.at(0).currentHP = (hp - (1 - hp % 2))  # Always odd
+      @battle.makeMove(@player1, 'Super Fang')
+      @battle.makeMove(@player2, 'Splash')
+      @team2.at(0).currentHP.should.equal Math.ceil(hp / 2)
+
+    it "deals 1 damage minimum", ->
+      shared.create.call(this)
+      @team2.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Super Fang')
+      @battle.makeMove(@player2, 'Splash')
+      @team2.at(0).currentHP.should.equal 0
