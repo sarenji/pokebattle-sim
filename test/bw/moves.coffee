@@ -801,3 +801,11 @@ shared = require '../shared'
       move = moves['foul-play']
       atkStat = @team2.at(0).stat('attack')
       move.pickAttackStat(@team1.at(0), @team2.at(0)).should.equal atkStat
+
+  describe 'foul play', ->
+    it "uses the target's attack stat, not the user's", ->
+      shared.create.call this,
+        team1: [Factory('Celebi')]
+      move = moves['foul-play']
+      atkStat = @team2.at(0).stat('attack')
+      move.pickAttackStat(@team1.at(0), @team2.at(0)).should.equal atkStat
