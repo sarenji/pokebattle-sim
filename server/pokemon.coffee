@@ -148,13 +148,13 @@ class @Pokemon
     @blockedMoves = []
     attachment.switchOut()  for attachment in _.clone(@attachments)
 
-  endTurn: (battle) =>
+  beginTurn: (battle) =>
     @blockedMoves = []
+    attachment.beginTurn()  for attachment in _.clone(@attachments)
+
+  endTurn: (battle) =>
     @item?.endTurn(battle, this)
     attachment.endTurn()  for attachment in _.clone(@attachments)
-
-  beginTurn: (battle) =>
-    attachment.beginTurn()  for attachment in _.clone(@attachments)
 
   # Adds an attachment to the list of attachments
   attach: (attachment) =>

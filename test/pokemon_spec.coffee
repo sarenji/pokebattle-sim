@@ -136,6 +136,13 @@ describe 'Pokemon', ->
       pokemon.blockMove('Earthquake')
       pokemon.blockedMoves.should.include 'Earthquake'
 
+    it 'blocks a move for only one turn', ->
+      pokemon = new Pokemon(moves: ['Earthquake'])
+      pokemon.blockMove('Earthquake')
+      pokemon.endTurn()
+      pokemon.beginTurn()
+      pokemon.isMoveBlocked('Earthquake').should.be.false
+
   describe '#isMoveBlocked', ->
     it 'returns true if the move is blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
