@@ -63,6 +63,18 @@ for name, attributes of json
 makeOrbItem 'Adamant Orb', 'Dialga'
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
+
+extendItem 'Black Sludge', ->
+  @endTurn = (battle, user) ->
+    amount = Math.floor(user.stat('hp') / 16)
+    amount = 1  if amount == 0
+    if user.hasType('Poison')
+      battle.message "#{user.name} restored a little HP using its #{@name}!"
+      user.damage(-amount)
+    else
+      battle.message "#{user.name} is hurt by its #{@name}!"
+      user.damage(amount)
+
 makeGemItem 'Bug Gem', 'Bug'
 makeTypeBoostItem 'Charcoal', 'Fire'
 makeGemItem 'Dark Gem', 'Dark'

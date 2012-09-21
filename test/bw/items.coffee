@@ -16,6 +16,25 @@ shared = require '../shared'
       amount = Math.floor(@team1.at(0).stat('hp') / 16)
       @team1.at(0).currentHP.should.equal(1 + amount)
 
+  describe "Black Sludge", ->
+    it "heals 1/16 of a poison pokemon's HP at the end of a turn", ->
+      shared.create.call this,
+        team1: [Factory('Weezing', item: 'Black Sludge')]
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+      amount = Math.floor(@team1.at(0).stat('hp') / 16)
+      @team1.at(0).currentHP.should.equal(1 + amount)
+
+    it "damages 1/16 of a non-poison pokemon's HP at the end of a turn", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: 'Black Sludge')]
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+      fullHP = @team1.at(0).stat('hp')
+      amount = Math.floor(fullHP / 16)
+      (fullHP - @team1.at(0).currentHP).should.equal(amount)
+
   describe "muscle band", ->
     it "increases base power of physical moves by 0x1199", ->
       shared.create.call(this)
