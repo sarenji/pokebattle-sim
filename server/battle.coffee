@@ -363,6 +363,9 @@ class @Battle
         pokemon = @getOpponentPokemon(id, @numActive)
         pokemon.push(@getTeam(id).at(0))
         pokemon
+      when 'random-opponent'
+        pokemon = @getOpponentPokemon(id, @numActive)
+        @rng.choice(pokemon)
       when 'users-field'
         @getTeam(id).pokemon
       else
