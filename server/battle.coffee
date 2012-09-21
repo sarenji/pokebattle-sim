@@ -126,8 +126,7 @@ class @Battle
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
     # TODO: Struggle if no moves are usable
     for id, player of @players
-      pokemon = player.team.at(0)
-      poke_moves = _(pokemon.moves).difference(pokemon.blockedMoves)
+      poke_moves = player.team.at(0).validMoves()
       switches = player.team.getAlivePokemon().map((p) -> p.name)
       @requestAction(player, moves: poke_moves, switches: switches)
 

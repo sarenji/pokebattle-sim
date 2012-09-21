@@ -177,6 +177,10 @@ class @Pokemon
   isMoveBlocked: (moveName) =>
     return (moveName in @blockedMoves)
 
+  # A list of moves that this pokemon can use freely
+  validMoves: =>
+    _(@moves).difference(@blockedMoves)
+
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

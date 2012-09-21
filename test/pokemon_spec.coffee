@@ -1,3 +1,4 @@
+{_} = require 'underscore'
 {Pokemon, Attachment, VolatileAttachment} = require('../').server
 
 describe 'Pokemon', ->
@@ -145,4 +146,9 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
       pokemon.isMoveBlocked('Earthquake').should.be.false
 
+  describe '#validMoves', ->
+    it 'returns moves without blocked moves', ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      pokemon.blockMove('Earthquake')
+      _(pokemon.validMoves()).isEqual(['Splash']).should.be.true
 
