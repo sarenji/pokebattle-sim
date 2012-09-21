@@ -809,3 +809,14 @@ shared = require '../shared'
       move = moves['foul-play']
       atkStat = @team2.at(0).stat('attack')
       move.pickAttackStat(@team1.at(0), @team2.at(0)).should.equal atkStat
+
+  describe 'teleport', ->
+    it "always fails", ->
+      shared.create.call(this)
+      move = moves['teleport']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+      @battle.makeMove(@player1, 'Teleport')
+      @battle.makeMove(@player2, 'Splash')
+      mock.restore()
+      mock.verify()
