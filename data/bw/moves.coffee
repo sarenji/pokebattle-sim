@@ -542,6 +542,7 @@ extendMove 'disable', ->
     move = battle.rng.choice(target.moves)
     turns = battle.rng.randInt(4, 7)
     target.attach(new DisabledAttachment(move: move, turns: turns))
+    battle.message "#{target.name}'s #{move.name} was disabled!"
 
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->

@@ -48,8 +48,7 @@ class @DisabledAttachment extends @VolatileAttachment
   endTurn: (battle) =>
     @turn += 1
     if @turn == @turns
-      # Todo: correct message
-      battle.message "#{pokemon.name} is no longer disabled!"
+      battle.message "#{@pokemon.name} is no longer disabled!"
       @remove()
 
 class @YawnAttachment extends @VolatileAttachment
