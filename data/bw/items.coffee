@@ -52,8 +52,9 @@ makeGemItem = (name, type) ->
         0x1000
 
     @afterSuccessfulHit = (battle, user, target, damage, move) ->
-      battle.message "The #{@name} strengthened #{move.name}'s power!"
-      user.item = null
+      if move.type == type
+        battle.message "The #{@name} strengthened #{move.name}'s power!"
+        user.item = null
 
 
 for name, attributes of json

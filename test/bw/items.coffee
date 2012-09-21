@@ -103,6 +103,14 @@ shared = require '../shared'
 
       should.not.exist @team1.at(0).item
 
+    it "is not removed after use if the move isn't the right type", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: 'Flying Gem')]
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.exist @team1.at(0).item
+
   describe "A typed plate", ->
     it "has the plate boolean set to true", ->
       item = items['Draco Plate']
