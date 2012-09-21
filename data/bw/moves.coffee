@@ -175,6 +175,11 @@ makeStatusCureMove = (name) ->
       for target in targets
         target.removeStatus()
 
+makePickDefenseMove = (name) ->
+  extendMove name, ->
+    @pickDefenseStat = ->
+      'defense'
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -372,6 +377,8 @@ extendWithSecondaryStatus 'powder-snow', .1, Status.FREEZE
 extendWithSecondaryEffect 'psybeam', .1, ConfusionAttachment
 extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2
+makePickDefenseMove 'psyshock'
+makePickDefenseMove 'psystrike'
 makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
@@ -390,6 +397,7 @@ extendWithSecondaryStatus 'scald', .3, Status.BURN
 makeBoostMove 'scary-face', 'target', speed: -2
 makeBoostMove 'screech', 'target', defense: -2
 extendWithSecondaryStatus 'searing-shot', .3, Status.BURN
+makePickDefenseMove 'secret-sword'
 extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
 makeExplosionMove 'selfdestruct'
 makeLevelAsDamageMove 'seismic-toss'

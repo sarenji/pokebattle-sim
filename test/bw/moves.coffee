@@ -786,3 +786,9 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
       mock.restore()
       mock.verify()
+
+  describe 'a move that targets a different stat', ->
+    it "is correctly applied to that stat", ->
+      shared.create.call(this)
+      move = moves['secret-sword']
+      move.pickDefenseStat().should.equal 'defense'

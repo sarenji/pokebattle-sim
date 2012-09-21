@@ -158,8 +158,8 @@ class @Move
 
   baseDamage: (battle, user, target) =>
     floor = Math.floor
-    uStat = user.stat(@whichAttackStat())
-    tStat = target.stat(@whichDefenseStat())
+    uStat = user.stat(@pickAttackStat())
+    tStat = target.stat(@pickDefenseStat())
     damage = floor((2 * user.level) / 5 + 2)
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
@@ -170,10 +170,10 @@ class @Move
     damage += 2
     damage
 
-  whichAttackStat: =>
+  pickAttackStat: =>
     (if @isPhysical() then 'attack' else 'specialAttack')
 
-  whichDefenseStat: =>
+  pickDefenseStat: =>
     (if @isPhysical() then 'defense' else 'specialDefense')
 
 Type =
