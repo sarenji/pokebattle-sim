@@ -788,7 +788,16 @@ shared = require '../shared'
       mock.verify()
 
   describe 'a move that targets a different stat', ->
-    it "is correctly applied to that stat", ->
+    it "uses the correct stat", ->
       shared.create.call(this)
       move = moves['secret-sword']
-      move.pickDefenseStat().should.equal 'defense'
+      defStat = @team2.at(0).stat('defense')
+      move.pickDefenseStat(@team1.at(0), @team2.at(0)).should.equal defStat
+
+  describe 'foul play', ->
+    it "uses the target's attack stat, not the user's", ->
+      shared.create.call this,
+        team1: [Factory('Celebi')]
+      move = moves['foul-play']
+      atkStat = @team2.at(0).stat('attack')
+      move.pickAttackStat(@team1.at(0), @team2.at(0)).should.equal atkStat

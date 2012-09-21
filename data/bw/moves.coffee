@@ -175,10 +175,15 @@ makeStatusCureMove = (name) ->
       for target in targets
         target.removeStatus()
 
+makePickAttackMove = (name) ->
+  extendMove name, ->
+    @pickAttackStat = (user, target) ->
+      target.stat('attack')
+
 makePickDefenseMove = (name) ->
   extendMove name, ->
-    @pickDefenseStat = ->
-      'defense'
+    @pickDefenseStat = (user, target) ->
+      target.stat('defense')
 
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
@@ -305,6 +310,7 @@ extendWithSecondaryStatus 'flare-blitz', .1, Status.BURN
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
 extendWithSecondaryStatus 'force-palm', .3, Status.PARALYZE
 extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
+makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
