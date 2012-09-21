@@ -16,6 +16,12 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
 
+  isPhysical: =>
+    @spectra == 'physical'
+
+  isSpecial: =>
+    @spectra == 'special'
+
   # Executes this move on several targets.
   execute: (battle, user, targets) =>
     # TODO: Test the below 3 lines.
@@ -107,8 +113,7 @@ class @Move
     effectiveness
 
   burnCalculation: (user) =>
-    if @spectra == "physical" && !user.hasAbility("Guts")\
-                              &&  user.hasStatus(Status.BURN)
+    if @isPhysical() && !user.hasAbility("Guts") && user.hasStatus(Status.BURN)
       .5
     else
       1
@@ -153,8 +158,8 @@ class @Move
 
   baseDamage: (battle, user, target) =>
     floor = Math.floor
-    uStat = user.stat(whichAttackStat(@spectra))
-    tStat = target.stat(whichDefenseStat(@spectra))
+    uStat = user.stat(@whichAttackStat())
+    tStat = target.stat(@whichDefenseStat())
     damage = floor((2 * user.level) / 5 + 2)
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
@@ -165,11 +170,11 @@ class @Move
     damage += 2
     damage
 
-whichAttackStat = (spectra) ->
-  (if spectra == 'physical' then 'attack' else 'specialAttack')
+  whichAttackStat: =>
+    (if @isPhysical() then 'attack' else 'specialAttack')
 
-whichDefenseStat = (spectra) ->
-  (if spectra == 'physical' then 'defense' else 'specialDefense')
+  whichDefenseStat: =>
+    (if @isPhysical() then 'defense' else 'specialDefense')
 
 Type =
   NORMAL   : 0

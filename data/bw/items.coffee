@@ -116,7 +116,7 @@ makeTypeBoostItem 'Miracle Seed', 'Grass'
 
 extendItem 'Muscle Band', ->
   @basePowerModifier = (move, battle, user, target) ->
-    if move.spectra == 'physical'
+    if move.isPhysical()
       0x1199
     else
       0x1000
@@ -149,7 +149,7 @@ makeTypeBoostItem 'Wave Incense', 'Water'
 
 extendItem 'Wise Glasses', ->
   @basePowerModifier = (move, battle, user, target) ->
-    if move.spectra == 'special'
+    if move.isSpecial()
       0x1199
     else
       0x1000

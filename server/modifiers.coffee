@@ -66,7 +66,7 @@ basePowerModifier.add 10, (move, battle, user, target) ->
 # Flare Boost modifier.
 basePowerModifier.add 20, (move, battle, user, target) ->
   if user.hasAbility("Flare Boost") && user.hasStatus(Status.BURN) &&
-                                       move.spectra == 'special'
+                                       move.isSpecial()
     return 0x1800
   return 0x1000
 
@@ -94,7 +94,7 @@ basePowerModifier.add 50, (move, battle, user, target) ->
 # Toxic Boost modifier.
 basePowerModifier.add 60, (move, battle, user, target) ->
   if user.hasAbility('Toxic Boost') && user.hasStatus(Status.POISON) &&
-      move.spectra == 'physical'
+      move.isPhysical()
     return 0x1800
   return 0x1000
 
@@ -173,7 +173,7 @@ attackStatModifier.add 20, (move, battle, user, target) ->
 
 # Guts
 attackStatModifier.add 30, (move, battle, user, target) ->
-  if user.hasAbility('Guts') && user.hasStatus() && move.spectra == 'physical'
+  if user.hasAbility('Guts') && user.hasStatus() && move.isPhysical()
     return 0x1800
   return 0x1000
 
@@ -196,13 +196,13 @@ attackStatModifier.add 50, (move, battle, user, target) ->
 
 # Solar Power
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Solar Power') && battle.hasWeather('Sun') && move.spectra == 'special'
+  if user.hasAbility('Solar Power') && battle.hasWeather('Sun') && move.isSpecial()
     return 0x1800
   return 0x1000
 
 # Solar Power
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Hustle') && move.spectra == 'physical'
+  if user.hasAbility('Hustle') && move.isPhysical()
     return 0x1800
   return 0x1000
 
@@ -211,12 +211,12 @@ attackStatModifier.add 60, (move, battle, user, target) ->
 # TODO: Flower Gift
 
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.species in ['Cubone', 'Marowak'] && user.hasItem('Thick Club') && move.spectra == 'physical'
+  if user.species in ['Cubone', 'Marowak'] && user.hasItem('Thick Club') && move.isPhysical()
     return 0x2000
   return 0x1000
 
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.species == 'Clamperl' && user.hasItem('DeepSeaTooth') && move.spectra == 'special'
+  if user.species == 'Clamperl' && user.hasItem('DeepSeaTooth') && move.isSpecial()
     return 0x2000
   return 0x1000
 
@@ -226,16 +226,16 @@ attackStatModifier.add 60, (move, battle, user, target) ->
   return 0x1000
 
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.species in ['Latias', 'Latios'] && user.hasItem('Soul Dew') && move.spectra == 'special'
+  if user.species in ['Latias', 'Latios'] && user.hasItem('Soul Dew') && move.isSpecial()
     return 0x2000
   return 0x1000
 
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasItem('Choice Band') && move.spectra == 'physical'
+  if user.hasItem('Choice Band') && move.isPhysical()
     return 0x1800
   return 0x1000
 
 attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasItem('Choice Specs') && move.spectra == 'special'
+  if user.hasItem('Choice Specs') && move.isSpecial()
     return 0x1800
   return 0x1000
