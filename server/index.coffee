@@ -6,3 +6,4 @@
 {@BattleServer} = require './server'
 {@Attachment, @VolatileAttachment} = require './attachment'
 {@Status, @VolatileStatus} = require './status'
+{@Weather} = require './weather'

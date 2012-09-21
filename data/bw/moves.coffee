@@ -1,10 +1,10 @@
-# Create the move objects of every single move in the game
-
 @MoveData = require('./data_moves.json')
+{Weather} = require('../../server/weather')
 {Move} = require('../../server/move')
 {Status} = require('../../server/status')
 {FlinchAttachment, ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
 {_} = require 'underscore'
+util = require '../../server/util'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -137,7 +137,19 @@ makeOneHitKOMove = (name) ->
 makeRecoveryMove = (name) ->
   extendMove name, ->
     @use = (battle, user, target) ->
-      amount = Math.floor(target.stat('hp') / 2)
+      amount = Math.round(target.stat('hp') / 2)
+      battle.message "#{target.name} recovered #{amount} HP!"
+      target.damage(-amount)
+
+makeWeatherRecoveryMove = (name) ->
+  extendMove name, ->
+    @use = (battle, user, target) ->
+      amount = if battle.hasWeather(Weather.NONE)
+        util.roundHalfDown(target.stat('hp') / 2)
+      else if battle.hasWeather(Weather.SUN)
+        util.roundHalfDown(target.stat('hp') * 2 / 3)
+      else
+        util.roundHalfDown(target.stat('hp') / 4)
       battle.message "#{target.name} recovered #{amount} HP!"
       target.damage(-amount)
 
@@ -362,6 +374,8 @@ makeRecoveryMove 'milk-drink'
 makeBoostMove 'minimize', 'self', evasion: 2
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
+makeWeatherRecoveryMove 'moonlight'
+makeWeatherRecoveryMove 'morning-sun'
 extendWithSecondaryBoost 'mud-bomb', 'target', .3, accuracy: -1
 extendWithBoost 'mud-shot', 'target', speed: -1
 extendWithBoost 'mud-slap', 'target', accuracy: -1
@@ -444,6 +458,7 @@ extendMove 'super-fang', ->
   @calculateDamage = (battle, user, target) ->
     halfHP = Math.floor(target.currentHP / 2)
     Math.max(1, halfHP)
+makeWeatherRecoveryMove 'synthesis'
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25

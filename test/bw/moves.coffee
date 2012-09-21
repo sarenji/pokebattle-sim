@@ -1,6 +1,7 @@
 sinon = require 'sinon'
 {moves} = require('../../data/bw')
-{Battle, Pokemon, Status, VolatileStatus} = require('../../').server
+{Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
+util = require '../../server/util'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -377,7 +378,7 @@ shared = require '../shared'
   describe 'a recovery move', ->
     shared.shouldDoNoDamage('Recover')
 
-    it "recovers 50% of the target's HP", ->
+    it "recovers 50% of the target's HP, rounded half up", ->
       shared.create.call this,
         team1: [Factory('Blissey')]
         team2: [Factory('Magikarp')]
@@ -385,7 +386,7 @@ shared = require '../shared'
       @battle.makeMove(@player1, 'Softboiled')
       @battle.makeMove(@player2, 'Splash')
 
-      recoverHP = Math.floor(@team1.at(0).stat('hp') / 2)
+      recoverHP = Math.round(@team1.at(0).stat('hp') / 2)
       (@team1.at(0).currentHP - hp).should.equal recoverHP
 
   describe 'knock off', ->
@@ -836,3 +837,39 @@ shared = require '../shared'
       @battle.makeMove(@player1, 'Super Fang')
       @battle.makeMove(@player2, 'Splash')
       @team2.at(0).currentHP.should.equal 0
+
+  describe 'Avalanche', ->
+    it "doubles base power if moving after target"
+    it "has normal base power if moving before target"
+    it "doesn't double base power if moving after target, then before target"
+
+  describe "A weather-based recovery move", ->
+    it "heals 50% HP in no weather, rounded half down", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.NONE)
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Moonlight')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = util.roundHalfDown(@team1.at(0).stat('hp') / 2)
+      @team1.at(0).currentHP.should.equal(1 + hp)
+
+    it "heals 25% HP in bad weather, rounded half down", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SAND)
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Moonlight')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = util.roundHalfDown(@team1.at(0).stat('hp') / 4)
+      @team1.at(0).currentHP.should.equal(1 + hp)
+
+    it "heals 66% HP in good weather, rounded half down", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SUN)
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'Moonlight')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = util.roundHalfDown(@team1.at(0).stat('hp') * 2 / 3)
+      @team1.at(0).currentHP.should.equal(1 + hp)

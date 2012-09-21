@@ -3,6 +3,7 @@
 {Pokemon} = require './pokemon'
 {Player} = require './player'
 {Team} = require './team'
+{Weather} = require './weather'
 
 class @Battle
   # TODO: let Battle serialize these.
@@ -32,7 +33,7 @@ class @Battle
     @objectHash = {}
 
     # Current battle weather.
-    @weather = "None"
+    @weather = Weather.NONE
 
     # Buffer of messages to send to each client.
     @buffer = []
@@ -100,8 +101,11 @@ class @Battle
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearMessages()
 
+  setWeather: (weatherName) =>
+    @weather = weatherName
+
   hasWeather: (weatherName) =>
-    weather = (if @hasWeatherCancelAbilityOnField() then "None" else @weather)
+    weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
 
   hasWeatherCancelAbilityOnField: =>
