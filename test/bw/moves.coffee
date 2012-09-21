@@ -325,18 +325,16 @@ shared = require '../shared'
     shared.shouldDoNoDamage('Disable')
 
     it 'gives the disabled attachment', ->
-      shared.create.call this,
-        team1: [Factory('Camerupt')]
-        team2: [Factory('Magikarp')]
+      shared.create.call this
       @battle.makeMove(@player1, 'Disable')
       @battle.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasAttachment('DisabledAttachment').should.be.true
 
+    # remove this once 'disables the last move that hit successfully'
+    # is implemented
     it 'prevents a move from being used', ->
-      shared.create.call this,
-        team1: [Factory('Camerupt')]
-        team2: [Factory('Magikarp')]
+      shared.create.call this
       numMoves = @team2.at(0).moves.length
       @battle.makeMove(@player1, 'Disable')
       @battle.makeMove(@player2, 'Splash')
@@ -344,7 +342,27 @@ shared = require '../shared'
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.length.should.equal (numMoves - 1)
 
-    it 'wears off after a certain number of turns'
+    # Retest once we know disable's proper mechanics
+    it 'wears off after a certain number of turns', ->
+      shared.create.call this
+      @battle.rng.randInt.restore()
+      sinon.stub(@battle.rng, 'randInt', -> 4) # minimum number of turns
+
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment('DisabledAttachment').should.be.false
+
+    it 'disables the last move that hit successfully'
     it 'causes a move to fail if the user moves first'
 
   describe 'yawn', ->

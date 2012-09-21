@@ -535,11 +535,12 @@ extendMove 'crush-grip', ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
 
 extendMove 'disable', ->
+  # TODO: Disable the last move a pokemon used successfully
   # TODO: Fail if the pokemon is already disabled?
   # TODO: Does this stack with cursed body?
   # TODO: Does it disable a move if it's the only one?
   @use = (battle, user, target) ->
-    move = battle.rng.choice(target.moves)
+    move = target.moves[0]
     turns = battle.rng.randInt(4, 7)
     target.attach(new DisabledAttachment(move: move, turns: turns))
     battle.message "#{target.name}'s #{move.name} was disabled!"
