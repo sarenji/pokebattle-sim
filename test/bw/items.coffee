@@ -1,5 +1,6 @@
 sinon = require 'sinon'
 {items, moves} = require('../../data/bw')
+{attackStatModifier} = require '../../server/modifiers'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -118,3 +119,22 @@ shared = require '../shared'
       item.plate.should.be.true
 
     it "changes the Arceus type"
+
+  describe "DeepSeaTooth", ->
+    it "doubles Clamperl's special attack", ->
+      shared.create.call this,
+        team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
+      modifier = attackStatModifier.run(moves['surf'], @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x2000
+
+    it "doesn't double Clamperl's attack", ->
+      shared.create.call this,
+        team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
+      modifier = attackStatModifier.run(moves['tackle'], @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1000
+
+    it "doesn't double non-Clamperl special attack", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: 'DeepSeaTooth')]
+      modifier = attackStatModifier.run(moves['surf'], @battle, @team1.at(0), @team2.at(0))
+      modifier.should.equal 0x1000

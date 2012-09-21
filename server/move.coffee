@@ -1,4 +1,4 @@
-{finalModifier, basePowerModifier, stabModifier} = require './modifiers'
+{finalModifier, basePowerModifier, stabModifier, attackStatModifier} = require './modifiers'
 {Status} = require './status'
 
 # A single Move in the Pokemon engine. Move objects are constructed in
@@ -153,13 +153,14 @@ class @Move
 
   baseDamage: (battle, user, target) =>
     floor = Math.floor
+    uStat = user.stat(whichAttackStat(@spectra))
+    tStat = target.stat(whichDefenseStat(@spectra))
     damage = floor((2 * user.level) / 5 + 2)
-    # TODO: Apply variable base power
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
-    damage *= user.stat(whichAttackStat(@spectra))
+    damage *= @modify(uStat, attackStatModifier.run(this, battle, user, target))
     # TODO: Some moves act against the defense stat even if they're special.
-    damage = floor(damage / target.stat(whichDefenseStat(@spectra)))
+    damage = floor(damage / tStat)
     damage = floor(damage / 50)
     damage += 2
     damage

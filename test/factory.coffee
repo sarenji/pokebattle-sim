@@ -112,6 +112,7 @@ Factory.register 'Politoed',
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'
+Factory.register 'Clamperl'
 Factory.register 'Dugtrio',
   moves: ['Magnitude', 'Dig']
 Factory.register 'Giratina (origin)'

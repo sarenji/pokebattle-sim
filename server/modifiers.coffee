@@ -152,3 +152,90 @@ stabModifier.add 20, (move, battle, user, target) ->
   if user.hasType(move.type)
     return 0x1800
   return 0x1000
+
+
+@attackStatModifier = attackStatModifier = new ModifierChain()
+
+# TODO: Test these
+# TODO: Move these into attackStatModifiers.
+# Thick Fat
+attackStatModifier.add 10, (move, battle, user, target) ->
+  if target.hasAbility('Thick Fat') && move.type in ['Fire', 'Ice']
+    return 0x800
+  return 0x1000
+
+# Torrent
+attackStatModifier.add 20, (move, battle, user, target) ->
+  if user.hasAbility('Torrent') && move.type == 'Water' &&
+      user.currentHP <= Math.floor(user.stat('hp') / 3)
+    return 0x800
+  return 0x1000
+
+# Guts
+attackStatModifier.add 30, (move, battle, user, target) ->
+  if user.hasAbility('Guts') && user.hasStatus() && move.spectra == 'physical'
+    return 0x1800
+  return 0x1000
+
+# TODO: Swarm (Implement when you make Abilities)
+# TODO: Overgrow
+# TODO: Plus/Minus
+# TODO: Blaze
+
+# Defeatist
+attackStatModifier.add 40, (move, battle, user, target) ->
+  if user.hasAbility('Defeatist') && user.currentHP <= Math.floor(user.stat('hp') / 2)
+    return 0x800
+  return 0x1000
+
+# Pure Power and Huge Power
+attackStatModifier.add 50, (move, battle, user, target) ->
+  if user.hasAbility('Huge Power') || user.hasAbility('Pure Power')
+    return 0x2000
+  return 0x1000
+
+# Solar Power
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.hasAbility('Solar Power') && battle.hasWeather('Sun') && move.spectra == 'special'
+    return 0x1800
+  return 0x1000
+
+# Solar Power
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.hasAbility('Hustle') && move.spectra == 'physical'
+    return 0x1800
+  return 0x1000
+
+# TODO: Flash Fire activated
+# TODO: Slow start
+# TODO: Flower Gift
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.species in ['Cubone', 'Marowak'] && user.hasItem('Thick Club') && move.spectra == 'physical'
+    return 0x2000
+  return 0x1000
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.species == 'Clamperl' && user.hasItem('DeepSeaTooth') && move.spectra == 'special'
+    return 0x2000
+  return 0x1000
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.species == 'Pikachu' && user.hasItem('Light Ball')
+    return 0x2000
+  return 0x1000
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.species in ['Latias', 'Latios'] && user.hasItem('Soul Dew') && move.spectra == 'special'
+    return 0x2000
+  return 0x1000
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.hasItem('Choice Band') && move.spectra == 'physical'
+    return 0x1800
+  return 0x1000
+
+attackStatModifier.add 60, (move, battle, user, target) ->
+  if user.hasItem('Choice Specs') && move.spectra == 'special'
+    return 0x1800
+  return 0x1000
