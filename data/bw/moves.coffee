@@ -2,7 +2,7 @@
 {Weather} = require('../../server/weather')
 {Move} = require('../../server/move')
 {Status} = require('../../server/status')
-{FlinchAttachment, ConfusionAttachment, YawnAttachment} = require('../../server/attachment')
+{FlinchAttachment, ConfusionAttachment, DisabledAttachment, YawnAttachment} = require('../../server/attachment')
 {_} = require 'underscore'
 util = require '../../server/util'
 
@@ -534,6 +534,17 @@ extendMove 'crush-grip', ->
   @basePower = (battle, user, target) ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
 
+extendMove 'disable', ->
+  # TODO: Disable the last move a pokemon used successfully
+  # TODO: Fail if the pokemon is already disabled?
+  # TODO: Does this stack with cursed body?
+  # TODO: Does it disable a move if it's the only one?
+  @use = (battle, user, target) ->
+    move = target.moves[0]
+    turns = battle.rng.randInt(4, 7)
+    target.attach(new DisabledAttachment(move: move, turns: turns))
+    battle.message "#{target.name}'s #{move.name} was disabled!"
+
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
@@ -584,6 +595,35 @@ extendMove 'hex', ->
       2 * @power
     else
       @power
+
+extendMove 'hidden-power', ->
+  hpTypes = [
+    'Fighting', 'Flying', 'Poison', 'Ground', 'Rock', 'Bug', 'Ghost',
+    'Steel', 'Fire', 'Water', 'Grass', 'Electric', 'Psychic', 'Ice',
+    'Dragon', 'Dark'
+  ]
+
+  @basePower = (battle, user, target) ->
+    base = 0
+    base += 1   if user.iv('hp') % 4 > 1
+    base += 2   if user.iv('attack') % 4 > 1
+    base += 4   if user.iv('defense') % 4 > 1
+    base += 8   if user.iv('speed') % 4 > 1
+    base += 16  if user.iv('specialAttack') % 4 > 1
+    base += 32  if user.iv('specialDefense') % 4 > 1
+
+    Math.floor(base * (40 / 63) + 30)
+
+  @getType = (battle, user, target) ->
+    value = 0
+    value += 1   if user.iv('hp') % 2 == 1
+    value += 2   if user.iv('attack') % 2 == 1
+    value += 4   if user.iv('defense') % 2 == 1
+    value += 8   if user.iv('speed') % 2 == 1
+    value += 16  if user.iv('specialAttack') % 2 == 1
+    value += 32  if user.iv('specialDefense') % 2 == 1
+
+    hpTypes[Math.floor(value * 15 / 63)]
 
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->

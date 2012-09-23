@@ -321,6 +321,95 @@ shared = require '../shared'
       @team2.at(0).currentHP = Math.floor(@team2.at(0).currentHP / 2)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 130
 
+  describe 'disable', ->
+    shared.shouldDoNoDamage('Disable')
+
+    it 'gives the disabled attachment', ->
+      shared.create.call this
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment('DisabledAttachment').should.be.true
+
+    # remove this once 'disables the last move that hit successfully'
+    # is implemented
+    it 'prevents a move from being used', ->
+      shared.create.call this
+      numMoves = @team2.at(0).moves.length
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      requestedMoves = @battle.requests[@player2.id].moves
+      requestedMoves.length.should.equal (numMoves - 1)
+
+    # Retest once we know disable's proper mechanics
+    it 'wears off after a certain number of turns', ->
+      shared.create.call this
+      @battle.rng.randInt.restore()
+      sinon.stub(@battle.rng, 'randInt', -> 4) # minimum number of turns
+
+      @battle.makeMove(@player1, 'Disable')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment('DisabledAttachment').should.be.false
+
+    it 'disables the last move that hit successfully'
+    it 'causes a move to fail if the user moves first'
+
+  describe 'hidden power', ->
+    it 'has a max power of 70', ->
+      ivs = {
+        hp: 31, attack: 31, defense: 31, 
+        specialAttack: 31, specialDefense: 31, speed: 31
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.eql 70
+
+    it 'has a min power of 30', ->
+      ivs = {
+        hp: 0, attack: 0, defense: 0, 
+        specialAttack: 0, specialDefense: 0, speed: 0
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.eql 30
+
+    it 'is dark when all ivs are 31', ->
+      ivs = {
+        hp: 31, attack: 31, defense: 31, 
+        specialAttack: 31, specialDefense: 31, speed: 31
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.eql 'Dark'
+
+    it 'is fighting when all ivs are 0', ->
+      ivs = {
+        hp: 0, attack: 0, defense: 0, 
+        specialAttack: 0, specialDefense: 0, speed: 0
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.eql 'Fighting'
+
   describe 'yawn', ->
     shared.shouldDoNoDamage('Yawn')
 

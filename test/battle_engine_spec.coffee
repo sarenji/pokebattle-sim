@@ -3,7 +3,6 @@ sinon = require 'sinon'
 {Battle, Pokemon, Status, VolatileStatus} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
-{_} = require 'underscore'
 shared = require './shared'
 itemTests = require './bw/items'
 moveTests = require './bw/moves'
