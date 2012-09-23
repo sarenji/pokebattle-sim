@@ -140,7 +140,7 @@ class @Pokemon
     @currentHP = Math.min(@stat('hp'), hp)
 
   isImmune: (move, battle, user) =>
-    multiplier = move.typeEffectiveness(this)
+    multiplier = move.typeEffectiveness(battle, user, this)
     multiplier == 0
 
   switchOut: (battle) =>

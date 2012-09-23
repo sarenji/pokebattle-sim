@@ -16,7 +16,8 @@ finalModifier.add 30, (move, battle, user, target) ->
 
 # Tinted lens modifier.
 finalModifier.add 40, (move, battle, user, target) ->
-  if user.hasAbility('Tinted Lens') && move.typeEffectiveness(target) < 1
+  effectiveness = move.typeEffectiveness(battle, user, target)
+  if user.hasAbility('Tinted Lens') && effectiveness < 1
     return 0x2000
   return 0x1000
 
@@ -30,8 +31,9 @@ finalModifier.add 60, (move, battle, user, target) ->
 
 # Solid Rock/Filter modifier.
 finalModifier.add 70, (move, battle, user, target) ->
+  effectiveness = move.typeEffectiveness(battle, user, target)
   if (user.hasAbility('Solid Rock') || user.hasAbility('Filter'))\
-      && move.typeEffectiveness(target) > 1
+      && effectiveness > 1
     return 0xC00
   return 0x1000
 
@@ -39,7 +41,8 @@ finalModifier.add 70, (move, battle, user, target) ->
 
 # Expert belt modifier.
 finalModifier.add 80, (move, battle, user, target) ->
-  if user.hasItem('Expert Belt') && move.typeEffectiveness(target) > 1
+  effectiveness = move.typeEffectiveness(battle, user, target)
+  if user.hasItem('Expert Belt') && effectiveness > 1
     return 0x1333
   return 0x1000
 
@@ -111,19 +114,22 @@ basePowerModifier.add 70, (move, battle, user, target) ->
 
 # Sand Force modifier.
 basePowerModifier.add 80, (move, battle, user, target) ->
-  if user.hasAbility('Sand Force') && move.type in ['Rock', 'Ground', 'Steel']
+  type = move.getType(battle, user, target)
+  if user.hasAbility('Sand Force') && type in ['Rock', 'Ground', 'Steel']
     return 0x14CD
   return 0x1000
 
 # Heatproof modifier.
 basePowerModifier.add 90, (move, battle, user, target) ->
-  if target.hasAbility('Heatproof') && move.type == 'Fire'
+  type = move.getType(battle, user, target)
+  if target.hasAbility('Heatproof') && type == 'Fire'
     return 0x800
   return 0x1000
 
 # Dry Skin modifier.
 basePowerModifier.add 100, (move, battle, user, target) ->
-  if target.hasAbility('Dry Skin') && move.type == 'Fire'
+  type = move.getType(battle, user, target)
+  if target.hasAbility('Dry Skin') && type == 'Fire'
     return 0x1400
   return 0x1000
 
@@ -144,12 +150,14 @@ basePowerModifier.add 120, (move, battle, user, target) ->
 @stabModifier = stabModifier = new ModifierChain()
 
 stabModifier.add 10, (move, battle, user, target) ->
-  if user.hasAbility('Adaptability') && user.hasType(move.type)
+  type = move.getType(battle, user, target)
+  if user.hasAbility('Adaptability') && user.hasType(type)
     return [0x2000, true]
   return 0x1000
 
 stabModifier.add 20, (move, battle, user, target) ->
-  if user.hasType(move.type)
+  type = move.getType(battle, user, target)
+  if user.hasType(type)
     return 0x1800
   return 0x1000
 
@@ -160,13 +168,15 @@ stabModifier.add 20, (move, battle, user, target) ->
 # TODO: Move these into attackStatModifiers.
 # Thick Fat
 attackStatModifier.add 10, (move, battle, user, target) ->
-  if target.hasAbility('Thick Fat') && move.type in ['Fire', 'Ice']
+  type = move.getType(battle, user, target)
+  if target.hasAbility('Thick Fat') && type in ['Fire', 'Ice']
     return 0x800
   return 0x1000
 
 # Torrent
 attackStatModifier.add 20, (move, battle, user, target) ->
-  if user.hasAbility('Torrent') && move.type == 'Water' &&
+  type = move.getType(battle, user, target)
+  if user.hasAbility('Torrent') && type == 'Water' &&
       user.currentHP <= Math.floor(user.stat('hp') / 3)
     return 0x800
   return 0x1000

@@ -596,6 +596,35 @@ extendMove 'hex', ->
     else
       @power
 
+extendMove 'hidden-power', ->
+  hpTypes = [
+    'Fighting', 'Flying', 'Poison', 'Ground', 'Rock', 'Bug', 'Ghost',
+    'Steel', 'Fire', 'Water', 'Grass', 'Electric', 'Psychic', 'Ice',
+    'Dragon', 'Dark'
+  ]
+
+  @basePower = (battle, user, target) ->
+    base = 0
+    base += 1   if user.iv('hp') % 4 > 1
+    base += 2   if user.iv('attack') % 4 > 1
+    base += 4   if user.iv('defense') % 4 > 1
+    base += 8   if user.iv('speed') % 4 > 1
+    base += 16  if user.iv('specialAttack') % 4 > 1
+    base += 32  if user.iv('specialDefense') % 4 > 1
+
+    Math.floor(base * (40 / 63) + 30)
+
+  @getType = (battle, user, target) ->
+    value = 0
+    value += 1   if user.iv('hp') % 2 == 1
+    value += 2   if user.iv('attack') % 2 == 1
+    value += 4   if user.iv('defense') % 2 == 1
+    value += 8   if user.iv('speed') % 2 == 1
+    value += 16  if user.iv('specialAttack') % 2 == 1
+    value += 32  if user.iv('specialDefense') % 2 == 1
+
+    hpTypes[Math.floor(value * 15 / 63)]
+
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.item?

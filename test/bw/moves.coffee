@@ -365,6 +365,51 @@ shared = require '../shared'
     it 'disables the last move that hit successfully'
     it 'causes a move to fail if the user moves first'
 
+  describe 'hidden power', ->
+    it 'has a max power of 70', ->
+      ivs = {
+        hp: 31, attack: 31, defense: 31, 
+        specialAttack: 31, specialDefense: 31, speed: 31
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.eql 70
+
+    it 'has a min power of 30', ->
+      ivs = {
+        hp: 0, attack: 0, defense: 0, 
+        specialAttack: 0, specialDefense: 0, speed: 0
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.eql 30
+
+    it 'is dark when all ivs are 31', ->
+      ivs = {
+        hp: 31, attack: 31, defense: 31, 
+        specialAttack: 31, specialDefense: 31, speed: 31
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.eql 'Dark'
+
+    it 'is fighting when all ivs are 0', ->
+      ivs = {
+        hp: 0, attack: 0, defense: 0, 
+        specialAttack: 0, specialDefense: 0, speed: 0
+      }
+      shared.create.call this,
+        team1: [Factory('Magikarp', ivs: ivs)]
+        team2: [Factory('Magikarp')]
+      move = moves['hidden-power']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.eql 'Fighting'
+
   describe 'yawn', ->
     shared.shouldDoNoDamage('Yawn')
 
