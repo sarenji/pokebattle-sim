@@ -110,29 +110,30 @@ describe 'Move', ->
         @move.isCriticalHit(@battle, @attacker, defender).should.be.true
 
   describe 'type effectiveness', ->
+    testTypeEffectiveness = (type, defense, expected) ->
+      battle = new Battle('1', players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon(types: defense)
+      move = new Move(null, type: type)
+      move.typeEffectiveness(battle, attacker, defender).should.equal expected
+
     it 'is 0 if the enemy has an immunity to the type', ->
-      defender = new Pokemon(types: ['Electric', 'Flying'])
-      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 0
+      testTypeEffectiveness('Ground', ['Electric', 'Flying'], 0)
 
     it 'is 1 if the enemy is neutral to the type', ->
-      defender = new Pokemon(types: ['Normal'])
-      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 1
+      testTypeEffectiveness('Ground', ['Normal'], 1)
 
     it 'is 2 if the enemy is weak to the type', ->
-      defender = new Pokemon(types: ['Electric'])
-      new Move(null, type: 'Ground').typeEffectiveness(defender).should.equal 2
+      testTypeEffectiveness('Ground', ['Electric'], 2)
 
     it 'is 4 if the enemy is extra weak to the type', ->
-      defender = new Pokemon(types: ['Fire', 'Flying'])
-      new Move(null, type: 'Rock').typeEffectiveness(defender).should.equal 4
+      testTypeEffectiveness('Rock', ['Fire', 'Flying'], 4)
 
     it 'is 1/2 if the enemy is resistant to the type', ->
-      defender = new Pokemon(types: ['Fire', 'Flying'])
-      new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .5
+      testTypeEffectiveness('Fire', ['Fire', 'Flying'], .5)
 
     it 'is 1/4 if the enemy is extra resistant to the type', ->
-      defender = new Pokemon(types: ['Fire', 'Water'])
-      new Move(null, type: 'Fire').typeEffectiveness(defender).should.equal .25
+      testTypeEffectiveness('Fire', ['Fire', 'Water'], .25)
 
   describe "#burnCalculation", ->
     it "returns 1 normally", ->

@@ -67,13 +67,14 @@ class @Move
 
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0
+
     damage = @baseDamage(battle, user, target)
     # TODO: Multi-target modifier.
-    damage = @modify(damage, @weatherModifier(battle))
+    damage = @modify(damage, @weatherModifier(battle, user, target))
     damage = damage * 2  if @isCriticalHit(battle, user, target)
     damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
     damage = @modify(damage, stabModifier.run(this, battle, user, target))
-    damage = Math.floor(@typeEffectiveness(target) * damage)
+    damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, finalModifier.run(this, battle, user, target))
@@ -92,21 +93,24 @@ class @Move
     # TODO: Gravity modifier
     accuracy
 
-  weatherModifier: (battle) =>
-    if @type == 'Fire' and battle.hasWeather('Sunny')
+  weatherModifier: (battle, user, target) =>
+    type = @getType(battle, user, target).toUpperCase()
+    if type == 'Fire' and battle.hasWeather('Sunny')
       0x1800
-    else if @type == 'Fire' and battle.hasWeather('Rainy')
+    else if type == 'Fire' and battle.hasWeather('Rainy')
       0x0800
-    else if @type == 'Water' and battle.hasWeather('Rainy')
+    else if type == 'Water' and battle.hasWeather('Rainy')
       0x1800
-    else if @type == 'Water' and battle.hasWeather('Sunny')
+    else if type == 'Water' and battle.hasWeather('Sunny')
       0x0800
     else
       0x1000
 
-  typeEffectiveness: (target) =>
+  typeEffectiveness: (battle, user, target) =>
+    type = @getType(battle, user, target).toUpperCase()
+    userType = Type[type]
+
     effectiveness = 1
-    userType = Type[@type.toUpperCase()]
     for subtype in target.types
       targetType = Type[subtype.toUpperCase()]
       effectiveness *= typeChart[userType][targetType]
@@ -169,6 +173,9 @@ class @Move
     damage = floor(damage / 50)
     damage += 2
     damage
+
+  getType: (battle, user, target) =>
+    @type
 
   pickAttackStat: (user, target) =>
     stat = (if @isPhysical() then 'attack' else 'specialAttack')
