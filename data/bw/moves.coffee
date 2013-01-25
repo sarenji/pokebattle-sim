@@ -104,6 +104,16 @@ makeWeightBased = (name) ->
       else if weight <= 2000 then 100
       else                        120
 
+makeWeightRatioBased = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      n = target.calculateWeight() / user.calculateWeight()
+      if n < .2       then 120
+      else if n < .25 then 100
+      else if n < 1/3 then 80
+      else if n < .5  then 60
+      else                 40
+
 makeLevelAsDamageMove = (name) ->
   extendMove name, ->
     @calculateDamage = (battle, user, target) ->
@@ -347,7 +357,9 @@ makeStatusCureMove 'heal-bell'
 makeRecoveryMove 'heal-order'
 makeRecoveryMove 'heal-pulse'
 extendWithSecondaryEffect 'heart-stamp', .3, Attachment.Flinch
+makeWeightRatioBased 'heat-crash'
 extendWithSecondaryStatus 'heat-wave', .1, Status.BURN
+makeWeightRatioBased 'heavy-slam'
 makeJumpKick 'hi-jump-kick'
 makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
 makeOneHitKOMove 'horn-drill'
@@ -598,15 +610,6 @@ extendMove 'haze', ->
 extendMove 'heart-swap', ->
   @use = (battle, user, target, damage) ->
     [user.stages, target.stages] = [target.stages, user.stages]
-
-extendMove 'heavy-slam', ->
-  @basePower = (battle, user, target) ->
-    n = target.calculateWeight() / user.calculateWeight()
-    if n < .2       then 120
-    else if n < .25 then 100
-    else if n < 1/3 then 80
-    else if n < .5  then 60
-    else                 40
 
 extendMove 'hex', ->
   @basePower = (battle, user, target) ->

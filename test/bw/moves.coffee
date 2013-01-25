@@ -820,7 +820,7 @@ shared = require '../shared'
       @team2.at(0).setStatus(Status.PARALYZE)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
 
-  describe 'heavy-slam', ->
+  describe 'heavy slam and heat crash', ->
     it 'has variable base power based on the difference in weight', ->
       shared.create.call(this)
       move = moves['heavy-slam']
