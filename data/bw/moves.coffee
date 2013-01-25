@@ -695,3 +695,14 @@ extendMove 'yawn', ->
   # but not yawn itself.
   @use = (battle, user, target) ->
     target.attach(new Attachment.Yawn())
+
+moves['confusion-recoil'] = new Move "Confusion recoil",
+  "accuracy": 0,
+  "damage": "physical",
+  "power": 40,
+  "priority": 0,
+  "type": "Normal"
+
+extendMove 'confusion-recoil', ->
+  @typeEffectiveness = ->
+    1

@@ -44,6 +44,9 @@ class @Battle
     # Stores last move used
     @lastMove = null
 
+    # Stores the confusion recoil move as it may be different cross-generations
+    @confusionMove = moves['confusion-recoil']
+
     for object in attributes.players
       {player, team} = object
       @players[player.id] = new Player(player, new Team(team, @numActive))
@@ -341,7 +344,7 @@ class @Battle
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
-    if pokemon.beforeMove(this, move)
+    if pokemon.beforeMove(this, move, pokemon, targets)
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
 

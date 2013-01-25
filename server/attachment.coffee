@@ -12,7 +12,7 @@ class @Attachment
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
 
-  beforeMove: (battle, move) =>
+  beforeMove: (battle, move, user, targets) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
@@ -27,7 +27,7 @@ class @Attachment.Flinch extends @VolatileAttachment
   constructor: (attributes={}) ->
     super(VolatileStatus.FLINCH, attributes)
 
-  beforeMove: (battle, move) =>
+  beforeMove: (battle, move, user, targets) =>
     battle.message "#{@pokemon.name} flinched!"
     false
 
@@ -37,6 +37,20 @@ class @Attachment.Flinch extends @VolatileAttachment
 class @Attachment.Confusion extends @VolatileAttachment
   constructor: (attributes) ->
     super(VolatileStatus.CONFUSION, attributes)
+    @turns = attributes.turns
+    @turn = 0
+
+  beforeMove: (battle, move, user, targets) =>
+    battle.message "#{@pokemon.name} is confused!"
+    @turn++
+    if @turn > @turns
+      battle.message "#{@pokemon.name} snapped out of confusion!"
+      @remove()
+    else if battle.rng.next('confusion') < 0.5
+      battle.message "#{@pokemon.name} hurt itself in confusion!"
+      damage = battle.confusionMove.calculateDamage(battle, user, user)
+      user.damage(damage)
+      return false
 
 # TODO: Also call @pokemon.blockMove when attached as well
 class @Attachment.Disabled extends @VolatileAttachment

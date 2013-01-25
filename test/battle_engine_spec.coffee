@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {moves} = require('../data/bw')
-{Battle, Pokemon, Status, VolatileStatus} = require('../').server
+{Battle, Pokemon, Status, VolatileStatus, Attachment} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
 shared = require './shared'
@@ -295,3 +295,36 @@ describe 'Mechanics', ->
 
   moveTests.test()
   itemTests.test()
+
+  describe 'a confused pokemon', ->
+    it "has a 50% chance of hurting itself", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Confusion(turns: 1))
+      @nextStub.withArgs('confusion').returns(0)  # always hits
+
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+      @team1.at(0).currentHP.should.be.lessThan @team1.at(0).stat('hp')
+      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+
+    it "snaps out of confusion after a predetermined number of turns", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Confusion(turns: 1))
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).hasAttachment(VolatileStatus.CONFUSION).should.be.false
+

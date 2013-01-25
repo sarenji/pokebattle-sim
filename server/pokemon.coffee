@@ -152,9 +152,9 @@ class @Pokemon
     @blockedMoves = []
     attachment.beginTurn(battle)  for attachment in _.clone(@attachments)
 
-  beforeMove: (battle, move) =>
+  beforeMove: (battle, move, user, targets) =>
     _.every _.clone(@attachments), (attachment) ->
-      attachment.beforeMove(battle) != false
+      attachment.beforeMove(battle, move, user, targets) != false
 
   endTurn: (battle) =>
     @item?.endTurn(battle, this)
