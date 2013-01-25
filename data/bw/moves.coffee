@@ -212,7 +212,7 @@ extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      if battle.rng.next() >= chance
+      if battle.rng.next('secondary boost') >= chance
         return
       applyBoosts(battle, user, target)
 

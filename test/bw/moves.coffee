@@ -111,7 +111,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Hitmonchan')]
-      @nextStub.withArgs('secondary effect').returns(0)  # 100% chance
+      @nextStub.withArgs('secondary boost').returns(0)  # 100% chance
       attack = @team1.at(0).stat('attack')
       speed  = @team1.at(0).stat('speed')
       @battle.makeMove(@player1, 'ancientpower')
