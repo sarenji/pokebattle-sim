@@ -9,9 +9,10 @@ util = require '../../server/util'
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
 @moves = moves = {}
+@moveList = moveList = []
 for name, attributes of @MoveData
   @moves[name] = new Move(name, attributes)
-
+  @moveList.push(name)
 
 # Extends a move in the move list using a callback.
 #
@@ -698,6 +699,63 @@ extendMove 'memento', ->
     user.currentHP = 0
     target.boost(attack: -2, specialAttack: -2)
 
+# TODO: Test
+# TODO: Figure out how to redetermine move targets.
+extendMove 'metronome', ->
+  impossibleMoves =
+    "after-you": true
+    "assist": true
+    "bestow": true
+    'chatter': true
+    "copycat": true
+    "counter": true
+    "covet": true
+    "destiny-bond": true
+    "detect": true
+    "endure": true
+    "feint": true
+    "focus-punch": true
+    "follow-me": true
+    "freeze-shock": true
+    "helping-hand": true
+    "ice-burn": true
+    "me-first": true
+    "mimic": true
+    "mirror-coat": true
+    "mirror-move": true
+    "nature-power": true
+    "protect": true
+    "quash": true
+    "quick-guard": true
+    "rage-powder": true
+    "relic-song": true
+    "secret-sword": true
+    "sketch": true
+    "sleep-talk": true
+    "snatch": true
+    "snarl": true
+    "snore": true
+    "struggle": true
+    "switcheroo": true
+    "techno-blast": true
+    "thief": true
+    "transform": true
+    "trick": true
+    "v-create": true
+    "wide-guard": true
+
+  for move of impossibleMoves
+    if move not of moves
+      throw new Error("The illegal Metronome move '#{move}' does not exist.")
+
+  @execute = (battle, user, targets) ->
+    index = battle.rng.randInt(0, moveList.length - 1, "metronome")
+    while moveList[index] of impossibleMoves || moveList[index] in user.moves
+      index = battle.rng.randInt(0, moveList.length - 1, "metronome")
+    move = moveList[index]
+    battle.message "Waggling a finger let it use #{move.name}!"
+    move.execute(battle, user, targets)
+
 extendMove 'nightmare', ->
   @use = (battle, user, target, damage) ->
     if target.hasStatus(Status.SLEEP)
@@ -746,6 +804,8 @@ extendMove 'yawn', ->
   @use = (battle, user, target) ->
     target.attach(new Attachment.Yawn())
 
+# Keep this at the bottom or look up how it affects Metronome.
+# TODO: Figure out a better solution
 moves['confusion-recoil'] = new Move "Confusion recoil",
   "accuracy": 0,
   "damage": "physical",
