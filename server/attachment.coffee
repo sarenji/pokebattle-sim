@@ -114,3 +114,20 @@ class @Attachment.Nightmare extends @VolatileAttachment
     else
       @remove()
 
+class @Attachment.Taunt extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("TauntAttachment", attributes)
+    @turns = 3
+    @turn = 0
+
+  beforeMove: (battle, move, user, targets) ->
+    # TODO: user is always == pokemon. Will this change?
+    if user == @pokemon && move.power == 0
+      battle.message "#{@pokemon.name} can't use #{move.name} after the taunt!"
+      return false
+
+  endTurn: (battle) =>
+    @turn++
+    if @turn >= @turns
+      battle.message "#{@pokemon.name}'s taunt wore off!"
+      @remove()

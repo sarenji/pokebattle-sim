@@ -1132,3 +1132,32 @@ shared = require '../shared'
         team1: [ Factory('Magikarp', item: 'Earth Plate') ]
       move = moves['judgment']
       move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Ground'
+
+  describe 'taunt', ->
+    it 'prevents the target from using a non-attacking move that turn', ->
+      shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
+      move = moves['calm-mind']
+      mock = sinon.mock(move)
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'taunt')
+      @battle.makeMove(@player2, 'calm-mind')
+
+      mock.restore()
+      mock.verify()
+
+    it 'lasts three turns', ->
+      shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
+
+      @battle.makeMove(@player1, 'taunt')
+      @battle.makeMove(@player2, 'calm-mind')
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'tackle')
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'tackle')
+
+      @team2.at(0).hasAttachment("TauntAttachment").should.be.false
+
+    it 'prevents the target from selecting that move the next turn'

@@ -784,6 +784,11 @@ extendMove 'splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
+extendMove 'taunt', ->
+  @use = (battle, user, target) ->
+    battle.message "#{target.name} fell for the taunt!"
+    target.attach(new Attachment.Taunt())
+
 extendMove 'weather-ball', ->
   @getType = (battle, user, target) ->
     if      battle.hasWeather(Weather.SUN)  then 'Fire'
