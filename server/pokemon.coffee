@@ -1,8 +1,6 @@
 {_} = require 'underscore'
 {abilities, items} = require '../data/bw'
 {Status} = require './status'
-{BurnAttachment, ParalyzeAttachment, FreezeAttachment, SleepAttachment,
-PoisonAttachment, ToxicAttachment} = require './attachment'
 floor = Math.floor
 
 class @Pokemon
@@ -129,6 +127,9 @@ class @Pokemon
   removeStatus: (status) =>
     if !status? || @status == status
       @status = null
+
+  cureStatus: =>
+    @status = null
 
   isFainted: =>
     @currentHP <= 0

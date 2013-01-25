@@ -1057,3 +1057,47 @@ shared = require '../shared'
 
       @team1.at(0).stages.should.include speed: -2
       @team2.at(0).stages.should.include attack: 2
+
+  describe 'nightmare', ->
+    it 'fails if the pokemon is awake', ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['nightmare'])
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, 'nightmare')
+      @battle.makeMove(@player2, 'splash')
+
+      mock.restore()
+      mock.verify()
+
+    it "cuts the target's HP by 25% each turn", ->
+      shared.create.call(this)
+      @team2.at(0).setStatus(Status.SLEEP)
+
+      hp = @team2.at(0).currentHP
+      quarter = Math.floor(hp / 4)
+
+      @battle.makeMove(@player1, 'nightmare')
+      @battle.makeMove(@player2, 'splash')
+
+      @team2.at(0).currentHP.should.equal(hp - quarter)
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      @team2.at(0).currentHP.should.equal(hp - 2*quarter)
+
+    it "stops the nightmare if the target wakes up", ->
+      shared.create.call(this)
+      @team2.at(0).setStatus(Status.SLEEP)
+
+      @battle.makeMove(@player1, 'nightmare')
+      @battle.makeMove(@player2, 'splash')
+
+      @team2.at(0).cureStatus()
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      @team2.at(0).hasAttachment("NightmareAttachment").should.be.false

@@ -688,6 +688,13 @@ extendMove 'memento', ->
     user.currentHP = 0
     target.boost(attack: -2, specialAttack: -2)
 
+extendMove 'nightmare', ->
+  @use = (battle, user, target, damage) ->
+    if target.hasStatus(Status.SLEEP)
+      target.attach(new Attachment.Nightmare)
+    else
+      @fail(battle)
+
 extendMove 'pain-split', ->
   @use = (battle, user, target) ->
     averageHP = Math.floor((user.currentHP + target.currentHP) / 2)

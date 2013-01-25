@@ -102,3 +102,15 @@ class @Attachment.Autotomize extends @VolatileAttachment
 
   calculateWeight: (weight) =>
     Math.max(weight - 100, .1)
+
+class @Attachment.Nightmare extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("NightmareAttachment", attributes)
+
+  endTurn: (battle) =>
+    if @pokemon.hasStatus(Status.SLEEP)
+      battle.message "#{@pokemon.name} is locked in a nightmare!"
+      @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
+    else
+      @remove()
+
