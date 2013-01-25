@@ -22,6 +22,9 @@ class @Team
   all: =>
     @pokemon.slice(0)
 
+  slice: (args...) =>
+    @pokemon.slice(args...)
+
   indexOf: (pokemonName) =>
     names = @pokemon.map((p) -> p.name)
     names.indexOf(pokemonName)

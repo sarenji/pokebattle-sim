@@ -72,10 +72,9 @@ class @Battle
   # id - The player who's opponent's pokemon we want to retrieve
   # max (optional) - The maximum amount of pokemon per opponent.
   #
-  getOpponentPokemon: (id, max) =>
+  getOpponentPokemon: (id, max=@numActive) =>
     opponents = @getOpponents(id)
-    teams = (opponent.team.all()  for opponent in opponents)
-    teams = (team.slice(0, max)   for team in teams)  if max?
+    teams = (opponent.team.slice(0, max)  for opponent in opponents)
     _.flatten(teams)
 
   # Returns all active pokemon on the field belonging to both players.
