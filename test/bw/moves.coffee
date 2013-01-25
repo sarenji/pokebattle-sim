@@ -1045,3 +1045,15 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'splash')
 
       @team1.at(0).calculateWeight().should.equal 1155
+
+  describe 'heart swap', ->
+    it 'swaps user and target boosts', ->
+      shared.create.call(this)
+      @team1.at(0).stages.attack = 2
+      @team2.at(0).stages.speed = -2
+
+      @battle.makeMove(@player1, 'heart-swap')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.at(0).stages.should.include speed: -2
+      @team2.at(0).stages.should.include attack: 2

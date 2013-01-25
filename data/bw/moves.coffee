@@ -595,6 +595,10 @@ extendMove 'haze', ->
       target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
+extendMove 'heart-swap', ->
+  @use = (battle, user, target, damage) ->
+    [user.stages, target.stages] = [target.stages, user.stages]
+
 extendMove 'heavy-slam', ->
   @basePower = (battle, user, target) ->
     n = target.calculateWeight() / user.calculateWeight()
