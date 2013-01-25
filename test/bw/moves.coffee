@@ -1101,3 +1101,22 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'splash')
 
       @team2.at(0).hasAttachment("NightmareAttachment").should.be.false
+
+  describe 'incinerate', ->
+    it 'destroys the berry of the target', ->
+      shared.create.call this,
+        team2: [ Factory('Magikarp', item: 'Bluk Berry') ]
+
+      @battle.makeMove(@player1, 'incinerate')
+      @battle.makeMove(@player2, 'splash')
+
+      should.not.exist @team2.at(0).item
+
+    it 'does not destroy non-berries', ->
+      shared.create.call this,
+        team2: [ Factory('Magikarp', item: 'Leftovers') ]
+
+      @battle.makeMove(@player1, 'incinerate')
+      @battle.makeMove(@player2, 'splash')
+
+      should.exist @team2.at(0).item

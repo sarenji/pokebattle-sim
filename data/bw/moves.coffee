@@ -647,6 +647,12 @@ extendMove 'hidden-power', ->
 
     hpTypes[Math.floor(value * 15 / 63)]
 
+extendMove 'incinerate', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    if target.item.type == 'berries'
+      battle.message "#{target.name}'s #{target.item.name} was burnt up!"
+      delete target.item
+
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.item?
