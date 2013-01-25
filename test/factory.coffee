@@ -109,6 +109,7 @@ Factory.register 'Politoed',
   moves: ['Perish Song', 'Endeavor']
   ability: 'Drizzle'
 
+Factory.register 'Abomasnow'
 Factory.register 'Regirock'
 Factory.register 'Shaymin (land)'
 Factory.register 'Jolteon'

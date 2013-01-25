@@ -825,7 +825,7 @@ shared = require '../shared'
       shared.create.call(this)
       move = moves['heavy-slam']
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 40
-      move.basePower(@battle, @team1.at(0), weight: -1000).should.equal 120
+      move.basePower(@battle, @team1.at(0), calculateWeight: -> -1000).should.equal 120
 
   describe 'a status cure move', ->
     it 'heals the entire team of status effects', ->
@@ -1017,3 +1017,31 @@ shared = require '../shared'
       move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Rock'
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
 
+  describe 'autotomize', ->
+    it 'changes your weight on success', ->
+      shared.create.call(this)
+      weight = @team1.at(0).calculateWeight()
+      @battle.makeMove(@player1, 'autotomize')
+      @battle.makeMove(@player2, 'splash')
+
+      weight.should.not.equal @team1.at(0).calculateWeight()
+
+    it 'cannot go below .1kg', ->
+      # Magikarp weighs 100kg.
+      shared.create.call this, team1: [ Factory('Magikarp')]
+      @battle.makeMove(@player1, 'autotomize')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.at(0).calculateWeight().should.not.be.lessThan .1
+
+    it 'stacks weight changes', ->
+      it 'cannot go below .1kg', ->
+      # Magikarp weighs 1355kg.
+      shared.create.call this, team1: [ Factory('Abomasnow')]
+
+      @battle.makeMove(@player1, 'autotomize')
+      @battle.makeMove(@player2, 'splash')
+      @battle.makeMove(@player1, 'autotomize')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.at(0).calculateWeight().should.equal 1155

@@ -12,7 +12,7 @@ class @Pokemon
     @species = attributes.species
     @level = attributes.level || 100
     @baseStats = attributes.stats || {}
-    @weight = attributes.weight
+    @weight = attributes.weight  # in kg
 
     @nature = attributes.nature
     @evs = attributes.evs || {}
@@ -142,6 +142,12 @@ class @Pokemon
   isImmune: (move, battle, user) =>
     multiplier = move.typeEffectiveness(battle, user, this)
     multiplier == 0
+
+  calculateWeight: =>
+    weight = @weight
+    for attachment in @attachments
+      weight = attachment.calculateWeight(weight)
+    weight
 
   switchOut: (battle) =>
     @resetBoosts()

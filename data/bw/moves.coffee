@@ -96,12 +96,13 @@ makeJumpKick = (name, recoilPercent=.5) ->
 makeWeightBased = (name) ->
   extendMove name, ->
     @basePower = (battle, user, target) ->
-      if target.weight <= 100       then 20
-      else if target.weight <= 250  then 40
-      else if target.weight <= 500  then 60
-      else if target.weight <= 1000 then 80
-      else if target.weight <= 2000 then 100
-      else                               120
+      weight = target.calculateWeight()
+      if weight <= 100       then 20
+      else if weight <= 250  then 40
+      else if weight <= 500  then 60
+      else if weight <= 1000 then 80
+      else if weight <= 2000 then 100
+      else                        120
 
 makeLevelAsDamageMove = (name) ->
   extendMove name, ->
@@ -496,6 +497,10 @@ extendWithRecoil 'wood-hammer'
 makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
 
+extendMove 'autotomize', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(new Attachment.Autotomize())
+
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
@@ -592,7 +597,7 @@ extendMove 'haze', ->
 
 extendMove 'heavy-slam', ->
   @basePower = (battle, user, target) ->
-    n = target.weight / user.weight
+    n = target.calculateWeight() / user.calculateWeight()
     if n < .2       then 120
     else if n < .25 then 100
     else if n < 1/3 then 80

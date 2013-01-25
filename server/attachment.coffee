@@ -12,6 +12,7 @@ class @Attachment
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
 
+  calculateWeight: (weight) =>
   beforeMove: (battle, move, user, targets) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>
@@ -93,3 +94,11 @@ class @Attachment.Yawn extends @VolatileAttachment
     if @turn == 2
       @pokemon.setStatus(Status.SLEEP)
       @remove()
+
+# TODO: Does weight get lowered if speed does not change?
+class @Attachment.Autotomize extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("AutotomizeAttachment", attributes)
+
+  calculateWeight: (weight) =>
+    Math.max(weight - 100, .1)
