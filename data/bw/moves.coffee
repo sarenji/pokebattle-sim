@@ -318,15 +318,18 @@ extendWithSecondaryStatus 'fire-punch', .1, Status.BURN
 makeOneHitKOMove 'fissure'
 makeReversalMove 'flail'
 extendWithBoost 'flame-charge', 'self', speed: 1
+extendMove 'flame-wheel', -> @thawsUser = true
 extendWithSecondaryStatus 'flame-wheel', .1, Status.BURN
 extendWithSecondaryStatus 'flamethrower', .1, Status.BURN
 # TODO: Add recoil to flare-blitz.
+extendMove 'flare-blitz', -> @thawsUser = true
 extendWithSecondaryStatus 'flare-blitz', .1, Status.BURN
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
 extendWithSecondaryStatus 'force-palm', .3, Status.PARALYZE
 extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
 makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
+extendMove 'fusion-flare', -> @thawsUser = true
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
@@ -416,6 +419,9 @@ extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
 # TODO: Temporarily remove Flying type
 makeRecoveryMove 'roost'
 extendWithBoost 'sand-attack', 'target', accuracy: -1
+extendMove 'sacred-fire', -> @thawsUser = true
+extendWithSecondaryStatus 'sacred-fire', .5, Status.BURN
+extendMove 'scald', -> @thawsUser = true
 extendWithSecondaryStatus 'scald', .3, Status.BURN
 makeBoostMove 'scary-face', 'target', speed: -2
 makeBoostMove 'screech', 'target', defense: -2

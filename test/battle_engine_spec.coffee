@@ -328,3 +328,40 @@ describe 'Mechanics', ->
 
       @team1.at(0).hasAttachment(VolatileStatus.CONFUSION).should.be.false
 
+  describe 'a frozen pokemon', ->
+    it "will not execute moves", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Freeze())
+      @nextStub.withArgs('unfreeze chance').returns(1)  # always stays frozen
+
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+    it "has a 20% chance of unfreezing", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Freeze())
+      @nextStub.withArgs('unfreeze chance').returns(0)  # always unfreezes
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
+
+    it "automatically unfreezes if using a certain move", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Freeze())
+      @nextStub.withArgs('unfreeze chance').returns(1)  # always stays frozen
+
+      @battle.makeMove(@player1, 'Sacred Fire')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.at(0).hasAttachment(Status.FREEZE).should.be.false

@@ -17,6 +17,18 @@ class @Attachment
   beginTurn: (battle) =>
   endTurn: (battle) =>
 
+class @Attachment.Freeze extends @Attachment
+  constructor: (attributes={}) ->
+    super(Status.FREEZE, attributes)
+
+  beforeMove: (battle, move, user, targets) =>
+    if move.thawsUser || battle.rng.next('unfreeze chance') < .2
+      battle.message "#{@pokemon.name} thawed out!"
+      @remove()
+    else
+      battle.message "#{@pokemon.name} is frozen solid!"
+      return false
+
 # An attachment that removes itself when a pokemon
 # deactivates.
 class @VolatileAttachment extends @Attachment
