@@ -341,12 +341,13 @@ class @Battle
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
-    # TODO: Execute any before move events
-    damage = move.execute(this, pokemon, targets)
-    # TODO: Execute any after move events
+    if pokemon.beforeMove(this, move)
+      damage = move.execute(this, pokemon, targets)
+      # TODO: Execute any after move events
 
-    # Record last move.
-    @lastMove = move
+      # TODO: If move is interrupted, do we record?
+      # Record last move.
+      @lastMove = move
 
   getTargets: (move, id) =>
     switch move.target

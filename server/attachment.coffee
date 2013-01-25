@@ -7,12 +7,12 @@
 class @Attachment
   constructor: (name, attributes={}) ->
     @name = name
-    {@duration} = attributes
 
   remove: =>
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
 
+  beforeMove: (battle, move) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
@@ -23,17 +23,23 @@ class @VolatileAttachment extends @Attachment
   switchOut: =>
     @remove()
 
-class @FlinchAttachment extends @Attachment
+class @Attachment.Flinch extends @VolatileAttachment
   constructor: (attributes={}) ->
-    attributes.duration ||= 1
     super(VolatileStatus.FLINCH, attributes)
 
-class @ConfusionAttachment extends @VolatileAttachment
+  beforeMove: (battle, move) =>
+    battle.message "#{@pokemon.name} flinched!"
+    false
+
+  endTurn: =>
+    @remove()
+
+class @Attachment.Confusion extends @VolatileAttachment
   constructor: (attributes) ->
     super(VolatileStatus.CONFUSION, attributes)
 
 # TODO: Also call @pokemon.blockMove when attached as well
-class @DisabledAttachment extends @VolatileAttachment
+class @Attachment.Disabled extends @VolatileAttachment
   constructor: (attributes) ->
     super('DisabledAttachment', attributes)
     @blockedMove = attributes.move
@@ -47,11 +53,11 @@ class @DisabledAttachment extends @VolatileAttachment
   # TODO: Does the turn the attachment is attached count towards the turn total?
   endTurn: (battle) =>
     @turn += 1
-    if @turn == @turns
+    if @turn >= @turns
       battle.message "#{@pokemon.name} is no longer disabled!"
       @remove()
 
-class @YawnAttachment extends @VolatileAttachment
+class @Attachment.Yawn extends @VolatileAttachment
   constructor: (attributes) ->
     super('YawnAttachment', attributes)
     @turn = 0

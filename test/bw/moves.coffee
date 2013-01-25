@@ -111,8 +111,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Hitmonchan')]
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      @nextStub.withArgs('secondary effect').returns(0)  # 100% chance
       attack = @team1.at(0).stat('attack')
       speed  = @team1.at(0).stat('speed')
       @battle.makeMove(@player1, 'ancientpower')
@@ -191,9 +190,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @battle.rng.randInt.restore()
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> 0)
+      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(5)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -206,9 +203,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @battle.rng.randInt.restore()
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> .999)
+      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(15)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -221,9 +216,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @battle.rng.randInt.restore()
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> .11)
+      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(6.09)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -345,8 +338,8 @@ shared = require '../shared'
     # Retest once we know disable's proper mechanics
     it 'wears off after a certain number of turns', ->
       shared.create.call this
-      @battle.rng.randInt.restore()
-      sinon.stub(@battle.rng, 'randInt', -> 4) # minimum number of turns
+      # minimum number of turns
+      @intStub.withArgs(sinon.match.any, sinon.match.any, "disable").returns(4)
 
       @battle.makeMove(@player1, 'Disable')
       @battle.makeMove(@player2, 'Splash')
@@ -595,9 +588,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Dugtrio')]
         team2: [Factory('Magikarp')]
-      @battle.rng.randInt.restore()
       move = moves['magnitude']
-      sinon.stub(@battle.rng, 'randInt', -> 50)
+      @intStub.withArgs(sinon.match.any, sinon.match.any, "magnitude").returns(50)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 70
 
   describe 'pain split', ->
@@ -962,3 +954,25 @@ shared = require '../shared'
 
       hp = util.roundHalfDown(@team1.at(0).stat('hp') * 2 / 3)
       @team1.at(0).currentHP.should.equal(1 + hp)
+
+  describe 'a flinching move', ->
+    it "prevents the other person from executing their move", ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['splash'])
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'Fake Out')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+    it "removes the flinch attachment at the end of the turn", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, 'Fake Out')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.at(0).hasAttachment(VolatileStatus.FLINCH).should.be.false
+

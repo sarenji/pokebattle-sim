@@ -19,8 +19,11 @@ create = (opts={}) ->
   players = [{player: @player1, team: team1},
              {player: @player2, team: team2}]
   @battle = new Battle('id', players: players)
-  sinon.stub(@battle.rng, 'next', -> 1)          # no chs
-  sinon.stub(@battle.rng, 'randInt', -> 0)       # always max damage
+  @nextStub = sinon.stub(@battle.rng, 'next')
+  @nextStub.withArgs("ch").returns(1) # no chs
+  @intStub = sinon.stub(@battle.rng, 'randInt')
+  # always max damage
+  @intStub.withArgs(sinon.match.any, sinon.match.any, "damage roll").returns(0)
   @team1  = @battle.getTeam(@player1.id)
   @team2  = @battle.getTeam(@player2.id)
 

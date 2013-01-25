@@ -42,7 +42,6 @@ describe 'Mechanics', ->
       sinon.stub(move, 'willMiss', -> true)
       mock = sinon.mock(move)
       mock.expects('afterMiss').once()
-      originalHP = @team1.at(0).currentHP
       @battle.makeMove(@player1, 'hi-jump-kick')
       @battle.continueTurn()
       mock.verify()

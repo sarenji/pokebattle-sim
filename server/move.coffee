@@ -72,7 +72,7 @@ class @Move
     # TODO: Multi-target modifier.
     damage = @modify(damage, @weatherModifier(battle, user, target))
     damage = damage * 2  if @isCriticalHit(battle, user, target)
-    damage = Math.floor(((100 - battle.rng.randInt(0, 15)) * damage) / 100)
+    damage = Math.floor(((100 - battle.rng.randInt(0, 15, "damage roll")) * damage) / 100)
     damage = @modify(damage, stabModifier.run(this, battle, user, target))
     damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
@@ -81,7 +81,7 @@ class @Move
     damage
 
   willMiss: (battle, user, target) =>
-    battle.rng.randInt(1, 100) > @chanceToHit(battle, user, target)
+    battle.rng.randInt(1, 100, "miss") > @chanceToHit(battle, user, target)
 
   chanceToHit: (battle, user, target) =>
     return 100  if @accuracy == 0
@@ -131,7 +131,7 @@ class @Move
     if defender.hasAbility('Battle Armor') || defender.hasAbility('Shell Armor')
       return false
 
-    rand = battle.rng.next()
+    rand = battle.rng.next("ch")
     switch @criticalHitLevel(battle, attacker, defender)
       when -1
         true
