@@ -168,7 +168,6 @@ class @Move
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
     damage *= @modify(uStat, attackStatModifier.run(this, battle, user, target))
-    # TODO: Some moves act against the defense stat even if they're special.
     damage = floor(damage / tStat)
     damage = floor(damage / 50)
     damage += 2
