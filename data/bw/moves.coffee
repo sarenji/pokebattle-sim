@@ -697,6 +697,17 @@ extendMove 'splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
+extendMove 'weather-ball', ->
+  @getType = (battle, user, target) ->
+    if      battle.hasWeather(Weather.SUN)  then 'Fire'
+    else if battle.hasWeather(Weather.RAIN) then 'Water'
+    else if battle.hasWeather(Weather.HAIL) then 'Ice'
+    else if battle.hasWeather(Weather.SAND) then 'Rock'
+    else 'Normal'
+
+  @basePower = (battle, user, target) ->
+    if battle.hasWeather(Weather.NONE) then 50 else 100
+
 extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate

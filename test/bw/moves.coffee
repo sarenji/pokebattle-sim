@@ -976,3 +976,44 @@ shared = require '../shared'
 
       @team2.at(0).hasAttachment(VolatileStatus.FLINCH).should.be.false
 
+  describe 'weather ball', ->
+    it "is a 50 base power normal move in normal conditions", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.NONE)
+
+      move = moves['weather-ball']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Normal'
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 50
+
+    it "is a 100 base power Water move in rain", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.RAIN)
+
+      move = moves['weather-ball']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Water'
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
+
+    it "is a 100 base power Fire move in sun", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SUN)
+
+      move = moves['weather-ball']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Fire'
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
+
+    it "is a 100 base power Ice move in hail", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.HAIL)
+
+      move = moves['weather-ball']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Ice'
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
+
+    it "is a 100 base power Rock move in sandstorm", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SAND)
+
+      move = moves['weather-ball']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Rock'
+      move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 100
+
