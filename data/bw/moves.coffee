@@ -484,8 +484,8 @@ makeWeatherRecoveryMove 'synthesis'
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25
-extendMove 'teleport', ->
-  @execute = -> @fail()
+extendMove 'teleport', (battle) ->
+  @execute = -> @fail(battle)
 makeThiefMove 'thief'
 extendWithSecondaryStatus 'thunder', .3, Status.PARALYZE
 extendWithFangEffect 'thunder-fang', .1, Status.PARALYZE
