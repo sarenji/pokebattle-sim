@@ -653,6 +653,10 @@ extendMove 'incinerate', ->
       battle.message "#{target.name}'s #{target.item.name} was burnt up!"
       delete target.item
 
+extendMove 'judgment', ->
+  @getType = (battle, user, target) ->
+    user.item?.plate || @type
+
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.item?

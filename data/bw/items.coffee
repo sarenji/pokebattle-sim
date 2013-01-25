@@ -37,10 +37,10 @@ makeTypeBoostItem = (name, type) ->
       else
         0x1000
 
-# Same as makeTypeBoostItem, but sets item.plate = true.
+# Same as makeTypeBoostItem, but sets item.plate = type.
 makePlateItem = (name, type) ->
   makeTypeBoostItem(name, type)
-  extendItem(name, -> @plate = true)
+  extendItem(name, -> @plate = type)
 
 # Gem items are one-time use.
 makeGemItem = (name, type) ->

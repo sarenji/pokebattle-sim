@@ -1120,3 +1120,15 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'splash')
 
       should.exist @team2.at(0).item
+
+  describe 'judgment', ->
+    it 'is normal type by default', ->
+      shared.create.call(this)
+      move = moves['judgment']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Normal'
+
+    it 'changes type depending on the Plate held by the user', ->
+      shared.create.call this,
+        team1: [ Factory('Magikarp', item: 'Earth Plate') ]
+      move = moves['judgment']
+      move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Ground'

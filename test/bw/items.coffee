@@ -113,10 +113,9 @@ shared = require '../shared'
       should.exist @team1.at(0).item
 
   describe "A typed plate", ->
-    it "has the plate boolean set to true", ->
+    it "has the plate attribute set", ->
       item = items['Draco Plate']
-      should.exist item.plate
-      item.plate.should.be.true
+      item.should.have.property('plate')
 
     it "changes the Arceus type"
 
