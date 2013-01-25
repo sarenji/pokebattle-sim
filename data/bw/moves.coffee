@@ -48,6 +48,10 @@ extendWithSecondaryEffect = (name, chance, Klass, options) ->
       if battle.rng.next("secondary effect") >= chance
         return
 
+      # TODO: Maybe find a better way to do this.
+      if Klass == Attachment.Confusion
+        options.turns ||= battle.rng.nextInt(1, 4)
+
       target.attach(new Klass(options))
 
 extendWithSecondaryStatus = (name, chance, status) ->
