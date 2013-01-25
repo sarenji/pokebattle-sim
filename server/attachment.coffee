@@ -117,10 +117,17 @@ class @Attachment.Nightmare extends @VolatileAttachment
 class @Attachment.Taunt extends @VolatileAttachment
   constructor: (attributes={}) ->
     super("TauntAttachment", attributes)
+    @battle = attributes.battle
     @turns = 3
     @turn = 0
 
-  beforeMove: (battle, move, user, targets) ->
+  beginTurn: (battle) =>
+    for moveName in @pokemon.moves
+      move = battle.getMove(moveName)
+      if move.power == 0
+        @pokemon.blockMove(moveName)
+
+  beforeMove: (battle, move, user, targets) =>
     # TODO: user is always == pokemon. Will this change?
     if user == @pokemon && move.power == 0
       battle.message "#{@pokemon.name} can't use #{move.name} after the taunt!"

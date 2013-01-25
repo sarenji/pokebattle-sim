@@ -379,3 +379,10 @@ class @Battle
         @getTeam(id).pokemon
       else
         throw new Error("Unimplemented target: #{move.target}.")
+
+  getMove: (moveName) =>
+    moveName = moveName.toLowerCase().replace(/\s+/g, '-')
+    moves[moveName]
+
+  toString: =>
+    "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

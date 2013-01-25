@@ -192,6 +192,9 @@ class @Pokemon
   validMoves: =>
     _(@moves).difference(@blockedMoves)
 
+  toString: =>
+    "[Pokemon name:#{@name}]"
+
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

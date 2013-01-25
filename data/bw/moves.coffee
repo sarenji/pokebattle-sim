@@ -787,7 +787,7 @@ extendMove 'splash', ->
 extendMove 'taunt', ->
   @use = (battle, user, target) ->
     battle.message "#{target.name} fell for the taunt!"
-    target.attach(new Attachment.Taunt())
+    target.attach(new Attachment.Taunt(battle))
 
 extendMove 'weather-ball', ->
   @getType = (battle, user, target) ->

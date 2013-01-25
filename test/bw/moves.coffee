@@ -1160,4 +1160,11 @@ shared = require '../shared'
 
       @team2.at(0).hasAttachment("TauntAttachment").should.be.false
 
-    it 'prevents the target from selecting that move the next turn'
+    it 'prevents the target from selecting that move the next turn', ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, 'taunt')
+      @battle.makeMove(@player2, 'calm-mind')
+
+      requestedMoves = @battle.requests[@player2.id].moves
+      requestedMoves.should.not.include 'Splash'
