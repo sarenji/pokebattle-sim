@@ -793,6 +793,10 @@ extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
 
+extendMove 'volt-switch', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    battle.forceSwitch(user)
+
 extendMove 'weather-ball', ->
   @getType = (battle, user, target) ->
     if      battle.hasWeather(Weather.SUN)  then 'Fire'
