@@ -396,10 +396,7 @@ class @Battle
         # TODO: Add your own party Pokemon as well.
         @getOpponentPokemon(id, @numActive)
       when 'entire-field'
-        # TODO: Determine if this is actually what you want.
-        pokemon = @getOpponentPokemon(id, @numActive)
-        pokemon.push(@getTeam(id).at(0))
-        pokemon
+        @getActivePokemon()
       when 'random-opponent'
         pokemon = @getOpponentPokemon(id, @numActive)
         @rng.choice(pokemon)
