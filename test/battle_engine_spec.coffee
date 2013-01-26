@@ -14,7 +14,7 @@ describe 'Mechanics', ->
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
 
-      @battle.makeMove(@player1, 'grass-knot')
+      @battle.makeMove(@player1, 'tackle')
       @battle.makeMove(@player2, 'splash')
 
       should.exist @battle.lastMove
@@ -77,8 +77,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
-      @battle.rng.randInt.restore()
-      sinon.stub(@battle.rng, 'randInt', -> 50)
+      shared.biasRNG.call(this, 'randInt', 'miss', 50)
 
       move = moves['mach-punch']
       mock = sinon.mock(move).expects('afterMiss').once()
@@ -143,8 +142,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
       defender = @team2.at(0)
       @battle.makeMove(@player1, 'Iron Head')
       @battle.continueTurn()
@@ -155,8 +153,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
       defender = @team2.at(0)
       @battle.makeMove(@player1, 'flamethrower')
       @battle.continueTurn()
@@ -167,8 +164,8 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Gyarados')]
-      @battle.rng.next.restore()
-      sinon.stub(@battle.rng, 'next', -> 0)     # 100% chance
+      shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
+      shared.biasRNG.call(this, "next", "fang flinch", 0)
       defender = @team2.at(0)
       @battle.makeMove(@player1, 'ice-fang')
       @battle.continueTurn()
@@ -228,12 +225,12 @@ describe 'Mechanics', ->
         team1: [Factory('Mew')]
         team2: [Factory('Mew')]
       spy = sinon.spy(@battle, 'orderIds')
+      shared.biasRNG.call(this, "next", "turn order", .6)
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Psychic')
       spy.returned([@id2, @id1]).should.be.true
-      @battle.rng.next.restore()
 
-      sinon.stub(@battle.rng, 'next', -> .4)
+      shared.biasRNG.call(this, "next", "turn order", .4)
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Psychic')
       spy.returned([@id1, @id2]).should.be.true
@@ -246,7 +243,6 @@ describe 'Mechanics', ->
       @battle.makeMove(@player1, 'Mach Punch')
       @battle.makeMove(@player2, 'ThunderPunch')
       spy.returned([@id1, @id2]).should.be.true
-      @battle.rng.next.restore()
 
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'Mach Punch')
@@ -255,7 +251,7 @@ describe 'Mechanics', ->
     it 'decides winner by speed if priority is equal', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
-        team2: [Factory('Hitmonchan')]
+        team2: [Factory('Hitmonchan', evs: { speed: 4 })]
       spy = sinon.spy(@battle, 'orderIds')
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'ThunderPunch')
@@ -301,7 +297,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       @team1.at(0).attach(new Attachment.Confusion(turns: 1))
-      @nextStub.withArgs('confusion').returns(0)  # always hits
+      shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
       mock = sinon.mock(moves['tackle'])
       mock.expects('execute').never()
@@ -333,7 +329,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       @team1.at(0).attach(new Attachment.Freeze())
-      @nextStub.withArgs('unfreeze chance').returns(1)  # always stays frozen
+      shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
       mock = sinon.mock(moves['tackle'])
       mock.expects('execute').never()
@@ -348,7 +344,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       @team1.at(0).attach(new Attachment.Freeze())
-      @nextStub.withArgs('unfreeze chance').returns(0)  # always unfreezes
+      shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
       @battle.makeMove(@player1, 'Splash')
       @battle.makeMove(@player2, 'Splash')
@@ -359,7 +355,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       @team1.at(0).attach(new Attachment.Freeze())
-      @nextStub.withArgs('unfreeze chance').returns(1)  # always stays frozen
+      shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
       @battle.makeMove(@player1, 'Sacred Fire')
       @battle.makeMove(@player2, 'Splash')

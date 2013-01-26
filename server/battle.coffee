@@ -326,7 +326,7 @@ class @Battle
     if diff == 0
       diff = b.pokemon.stat('speed') - a.pokemon.stat('speed')
       if diff == 0
-        diff = (if @rng.next() < .5 then -1 else 1)
+        diff = (if @rng.next("turn order") < .5 then -1 else 1)
     diff
 
   actionPriority: (action) =>

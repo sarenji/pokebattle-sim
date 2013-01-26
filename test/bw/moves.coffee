@@ -111,7 +111,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Hitmonchan')]
-      @nextStub.withArgs('secondary boost').returns(0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary boost', 0)  # 100% chance
       attack = @team1.at(0).stat('attack')
       speed  = @team1.at(0).stat('speed')
       @battle.makeMove(@player1, 'ancientpower')
@@ -190,7 +190,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(5)
+      shared.biasRNG.call(this, "randInt", 'psywave', 5)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -203,7 +203,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(15)
+      shared.biasRNG.call(this, "randInt", 'psywave', 15)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -216,7 +216,7 @@ shared = require '../shared'
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
       move = moves['psywave']
-      @intStub.withArgs(sinon.match.any, sinon.match.any, 'psywave').returns(6.09)
+      shared.biasRNG.call(this, "randInt", 'psywave', 6.09)
       sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
       @battle.makeMove(@player1, 'Psywave')
@@ -339,7 +339,7 @@ shared = require '../shared'
     it 'wears off after a certain number of turns', ->
       shared.create.call this
       # minimum number of turns
-      @intStub.withArgs(sinon.match.any, sinon.match.any, "disable").returns(4)
+      shared.biasRNG.call(this, "randInt", 'disable', 4)
 
       @battle.makeMove(@player1, 'Disable')
       @battle.makeMove(@player2, 'Splash')
@@ -589,7 +589,7 @@ shared = require '../shared'
         team1: [Factory('Dugtrio')]
         team2: [Factory('Magikarp')]
       move = moves['magnitude']
-      @intStub.withArgs(sinon.match.any, sinon.match.any, "magnitude").returns(50)
+      shared.biasRNG.call(this, "randInt", 'magnitude', 50)
       move.basePower(@battle, @team1.at(0), @team2.at(0)).should.equal 70
 
   describe 'pain split', ->
@@ -701,7 +701,7 @@ shared = require '../shared'
         team1: [Factory('Gengar')]
         team2: [Factory('Gengar')]
       @battle.makeMove(@player1, 'Explosion')
-      @battle.makeMove(@player2, 'Pain Split')
+      @battle.makeMove(@player2, 'Splash')
 
       @team1.at(0).isFainted().should.be.true
 

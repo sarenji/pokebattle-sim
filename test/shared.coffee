@@ -19,12 +19,26 @@ create = (opts={}) ->
   players = [{player: @player1, team: team1},
              {player: @player2, team: team2}]
   @battle = new Battle('id', players: players)
-  @nextStub = sinon.stub(@battle.rng, 'next')
-  @nextStub.withArgs("ch").returns(1) # no chs
-  @intStub = sinon.stub(@battle.rng, 'randInt')
-  # always max damage
-  @intStub.withArgs(sinon.match.any, sinon.match.any, "damage roll").returns(0)
   @team1  = @battle.getTeam(@player1.id)
   @team2  = @battle.getTeam(@player2.id)
 
-module.exports = {shouldDoNoDamage, create}
+  createTestRNG.call(this)
+  biasRNG.call(this, 'next', 'ch', 1)
+  biasRNG.call(this, 'randInt', 'damage roll', 0)
+  biasRNG.call(this, 'randInt', 'miss', 0)  # Can be overridden, of course.
+
+createTestRNG = ->
+  @biasedRNGFuncs = {}
+  for funcName in ['next', 'randInt']
+    do (funcName) =>
+      oldFunc = @battle.rng[funcName]
+      @battle.rng[funcName] = (args...) =>
+        id = args[args.length - 1]
+        func = @biasedRNGFuncs[funcName]
+        return (if id of func then func[id] else oldFunc(args...))
+
+biasRNG = (funcName, id, returns) ->
+  @biasedRNGFuncs[funcName] ||= {}
+  @biasedRNGFuncs[funcName][id] = returns
+
+module.exports = {shouldDoNoDamage, create, biasRNG}

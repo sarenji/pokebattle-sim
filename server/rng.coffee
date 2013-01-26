@@ -11,5 +11,5 @@ class @FakeRNG
   # Returns a random element in the array.
   # Assumes the array is above length 0.
   choice: (array) =>
-    index = @randInt(0, array.length - 1)
+    index = @randInt(0, array.length - 1, "random choice")
     array[index]
