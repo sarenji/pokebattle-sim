@@ -1248,3 +1248,35 @@ shared = require '../shared'
 
       mock.restore()
       mock.verify()
+
+  describe "Perish Song", ->
+    it "attaches to every pokemon in the field", ->
+      shared.create.call(this)
+      @battle.makeMove(@player1, 'perish-song')
+      @battle.makeMove(@player2, 'splash')
+
+      result = _.all @battle.getActivePokemon(), (pokemon) ->
+        pokemon.hasAttachment("PerishSongAttachment")
+      result.should.be.true
+
+    it "faints pokemon at the end of 4 turns", ->
+      shared.create.call(this)
+      @battle.makeMove(@player1, 'perish-song')
+      @battle.makeMove(@player2, 'splash')
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      result = _.all @battle.getActivePokemon(), (pokemon) ->
+        !pokemon.isFainted()
+      result.should.be.true
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      result = _.all @battle.getActivePokemon(), (pokemon) ->
+        pokemon.isFainted()
+      result.should.be.true
