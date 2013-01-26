@@ -62,6 +62,12 @@ class @Battle
   getTeam: (id) =>
     @getPlayer(id).team
 
+  getTeams: =>
+    teams = []
+    for id, player of @players
+      teams.push(player.team)
+    teams
+
   # Returns all opponents of a given player. In a 1v1 it returns
   # an array with only one opponent.
   getOpponents: (id) =>
@@ -89,15 +95,20 @@ class @Battle
     pokemon
 
   # Finds the Player attached to a certain Pokemon.
-  findOwner: (pokemon) =>
+  getOwner: (pokemon) =>
     for id, player of @players
       return player  if pokemon in player.team.pokemon
 
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) =>
-    player = @findOwner(pokemon)
+    player = @getOwner(pokemon)
     switches = player.team.getAlivePokemon().map((p) -> p.name)
     @requestAction(player, switches: switches)
+
+  # Associates an attachment instance with the team of `user`.
+  attachToTeam: (user, attachment) =>
+    team = @getOwner(user).team
+    team.attach(attachment)
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
@@ -133,6 +144,7 @@ class @Battle
     @performReplacements()
 
     @turn++
+    team.beginTurn(this)  for team in @getTeams()
     pokemon.beginTurn(this) for pokemon in @getActivePokemon()
 
     # Send appropriate requests to players
@@ -175,6 +187,7 @@ class @Battle
   # ends the battle. Otherwise, it will request for new pokemon and wait if
   # any replacements are needed, or begins the next turn.
   endTurn: =>
+    team.endTurn(this)  for team in @getTeams()
     # TODO: Skip endTurn for pokemon that are fainted?
     pokemon.endTurn(this)  for pokemon in @getActivePokemon()
     @sendMessages()
@@ -262,7 +275,7 @@ class @Battle
   # TODO: Test
   makeSwitchByName: (player, toPokemon) =>
     team = @getTeam(player.id)
-    index = team.indexOf(toPokemon)
+    index = team.pokemon.map((p) -> p.name).indexOf(toPokemon)
 
     @makeSwitch(player, index)
 
@@ -328,6 +341,7 @@ class @Battle
     action = @getAction(id)
     team = @getTeam(id)
 
+    team.switchOut(this)
     team.at(0).switchOut(this)
     @message "#{player.username} withdrew #{team.at(0).name}!"
     team.switch(0, action.to)

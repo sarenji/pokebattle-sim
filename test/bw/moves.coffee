@@ -1177,3 +1177,41 @@ shared = require '../shared'
 
       @battle.requests.should.have.property @player1.id
       @battle.turn.should.equal 1
+
+  describe 'wish', ->
+    it "restores half of the user's total hit points the next end of turn", ->
+      shared.create.call(this)
+      hp = @team1.first().currentHP
+      @team1.first().currentHP = 1
+      @battle.makeMove(@player1, 'wish')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.first().currentHP.should.equal 1
+
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.first().currentHP.should.equal(Math.round(hp / 2) + 1)
+
+    it "restores the same total amount of HP to an ally", ->
+      shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
+      hp = @team1.first().currentHP
+      @battle.makeMove(@player1, 'wish')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.at(1).currentHP = 1
+      @battle.makeSwitch(@player1, 1)
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.first().currentHP.should.equal(Math.round(hp / 2) + 1)
+
+    it "fails if the pokemon faints", ->
+      shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
+      @battle.makeMove(@player1, 'wish')
+      @battle.makeMove(@player2, 'splash')
+
+      @team1.at(0).currentHP = 1
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'tackle')
+
+      @team1.hasAttachment("WishAttachment").should.be.false

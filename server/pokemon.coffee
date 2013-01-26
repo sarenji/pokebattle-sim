@@ -179,7 +179,7 @@ class @Pokemon
     # TODO: Error if the attachment is not in the list
     index = @attachments.indexOf(attachment)
     @attachments.splice(index, 1)
-    attachment.pokemon = undefined
+    delete attachment.pokemon
 
   # Blocks a move for a single turn
   blockMove: (moveName) =>

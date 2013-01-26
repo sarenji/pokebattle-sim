@@ -808,6 +808,12 @@ extendMove 'weather-ball', ->
   @basePower = (battle, user, target) ->
     if battle.hasWeather(Weather.NONE) then 50 else 100
 
+
+extendMove 'wish', ->
+  @execute = (battle, user, targets) ->
+    team = battle.getOwner(user).team
+    battle.attachToTeam(user, new Attachment.Wish({user, team}))
+
 extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate

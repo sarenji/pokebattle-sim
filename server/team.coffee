@@ -15,6 +15,7 @@ class @Team
       attributes.types = (type  for type in specimen.types || [])
       attributes.species = specimen.species
       new Pokemon(attributes)
+    @attachments = []
 
   at: (index) =>
     @pokemon[index]
@@ -25,16 +26,36 @@ class @Team
   slice: (args...) =>
     @pokemon.slice(args...)
 
-  indexOf: (pokemonName) =>
-    names = @pokemon.map((p) -> p.name)
-    names.indexOf(pokemonName)
+  indexOf: (pokemon) =>
+    @pokemon.indexOf(pokemon)
 
   first: =>
     @at(0)
 
+  hasAttachment: (name) =>
+    name in @attachments.map((a) -> a.name)
+
+  attach: (attachment) =>
+    attachment.team = this
+    @attachments.push(attachment)
+
+  unattach: (attachment) =>
+    index = @attachments.indexOf(attachment)
+    @attachments.splice(index, 1)
+    delete attachment.team
+
   switch: (a, b) =>
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     # TODO: Call switchOut on any inactive pokemon
+
+  beginTurn: (battle) =>
+    attachment.beginTurn(battle)  for attachment in @attachments
+
+  endTurn: (battle) =>
+    attachment.endTurn(battle)  for attachment in @attachments
+
+  switchOut: (battle) =>
+    attachment.switchOut(battle)  for attachment in @attachments
 
   getActivePokemon: =>
     @pokemon.slice(0, @numActive)

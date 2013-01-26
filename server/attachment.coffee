@@ -18,6 +18,15 @@ class @Attachment
   beginTurn: (battle) =>
   endTurn: (battle) =>
 
+class @TeamAttachment extends @Attachment
+  constructor: (name, attributes) ->
+    super(name, attributes)
+    @team = attributes.team
+
+  remove: =>
+    @team.unattach(this)
+
+
 class @Attachment.Freeze extends @Attachment
   constructor: (attributes={}) ->
     super(Status.FREEZE, attributes)
@@ -137,4 +146,23 @@ class @Attachment.Taunt extends @VolatileAttachment
     @turn++
     if @turn >= @turns
       battle.message "#{@pokemon.name}'s taunt wore off!"
+      @remove()
+
+class @Attachment.Wish extends @TeamAttachment
+  constructor: (attributes={}) ->
+    super("WishAttachment", attributes)
+    {user, team} = attributes
+    @amount = Math.round(user.stat('hp') / 2)
+    @wisherName = user.name
+    @slot = team.indexOf(user)
+    @turns = 2
+    @turn = 0
+
+  endTurn: (battle) =>
+    @turn++
+    if @turn >= @turns
+      pokemon = @team.at(@slot)
+      if !pokemon.isFainted()
+        battle.message "#{@wisherName}'s wish came true!"
+        pokemon.damage(-@amount)
       @remove()
