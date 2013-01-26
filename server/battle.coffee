@@ -88,6 +88,17 @@ class @Battle
       pokemon.push(player.team.getActivePokemon()...)
     pokemon
 
+  # Finds the Player attached to a certain Pokemon.
+  findOwner: (pokemon) =>
+    for id, player of @players
+      return player  if pokemon in player.team.pokemon
+
+  # Forces the owner of a Pokemon to switch.
+  forceSwitch: (pokemon) =>
+    player = @findOwner(pokemon)
+    switches = player.team.getAlivePokemon().map((p) -> p.name)
+    @requestAction(player, switches: switches)
+
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
     @buffer.push(string)

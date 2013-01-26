@@ -1168,3 +1168,12 @@ shared = require '../shared'
 
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.should.not.include 'Splash'
+
+  describe 'u-turn', ->
+    it 'forces the owner to switch', ->
+      shared.create.call(this)
+      @battle.makeMove(@player1, 'u-turn')
+      @battle.makeMove(@player2, 'splash')
+
+      @battle.requests.should.have.property @player1.id
+      @battle.turn.should.equal 1

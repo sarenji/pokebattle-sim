@@ -789,6 +789,10 @@ extendMove 'taunt', ->
     battle.message "#{target.name} fell for the taunt!"
     target.attach(new Attachment.Taunt(battle))
 
+extendMove 'u-turn', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    battle.forceSwitch(user)
+
 extendMove 'weather-ball', ->
   @getType = (battle, user, target) ->
     if      battle.hasWeather(Weather.SUN)  then 'Fire'
