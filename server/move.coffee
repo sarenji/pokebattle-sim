@@ -23,6 +23,8 @@ class @Move
     @spectra == 'special'
 
   # Executes this move on several targets.
+  # Only override this method if the move does not need to be
+  # recorded on the enemy pokemon.
   execute: (battle, user, targets) =>
     # TODO: Test the below 3 lines.
     if targets.length == 0
@@ -38,6 +40,7 @@ class @Move
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
         user.item?.afterSuccessfulHit(battle, user, target, damage, this)
+        target.recordHit(user, damage, this, battle.turn)
 
   # A hook with a default implementation of returning false on a type immunity,
   # otherwise dealing damage.
@@ -64,6 +67,9 @@ class @Move
   # A hook that executes once a move fails.
   fail: (battle) =>
     battle.message "But it failed!"
+
+  # A hook that is only used by special "specific-move" targets.
+  getTargets: (battle) =>
 
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0

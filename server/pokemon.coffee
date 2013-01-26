@@ -140,6 +140,9 @@ class @Pokemon
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
 
+  recordHit: (pokemon, damage, move, turn) ->
+    @lastHitBy = {pokemon, damage, move, turn}
+
   isImmune: (move, battle, user) =>
     multiplier = move.typeEffectiveness(battle, user, this)
     multiplier == 0
@@ -162,6 +165,9 @@ class @Pokemon
   beforeMove: (battle, move, user, targets) =>
     _.every _.clone(@attachments), (attachment) ->
       attachment.beforeMove(battle, move, user, targets) != false
+
+  resetRecords: =>
+    @lastHitBy = null
 
   endTurn: (battle) =>
     @item?.endTurn(battle, this)
@@ -193,7 +199,7 @@ class @Pokemon
     _(@moves).difference(@blockedMoves)
 
   toString: =>
-    "[Pokemon name:#{@name}]"
+    "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
 
 
 # A hash that keys a nature with the stats that it boosts.

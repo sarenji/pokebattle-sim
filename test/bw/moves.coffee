@@ -1215,3 +1215,36 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'tackle')
 
       @team1.hasAttachment("WishAttachment").should.be.false
+
+  describe "counter", ->
+    it "returns double the damage if attacked by a physical move", ->
+      shared.create.call(this)
+      @battle.makeMove(@player1, 'counter')
+      @battle.makeMove(@player2, 'tackle')
+
+      dhp1 = @team1.at(0).stat('hp') - @team1.at(0).currentHP
+      dhp2 = @team2.at(0).stat('hp') - @team2.at(0).currentHP
+      dhp2.should.equal 2*dhp1
+
+    it "fails if attacked by a special move", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['counter'])
+      mock.expects('fail').once()
+      @battle.makeMove(@player1, 'counter')
+      @battle.makeMove(@player2, 'thundershock')
+
+      mock.restore()
+      mock.verify()
+
+    it "fails if not hit by an attack this turn", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['counter'])
+      mock.expects('fail').once()
+      @battle.makeMove(@player1, 'splash')
+      @battle.makeMove(@player2, 'tackle')
+
+      @battle.makeMove(@player1, 'counter')
+      @battle.makeMove(@player2, 'splash')
+
+      mock.restore()
+      mock.verify()

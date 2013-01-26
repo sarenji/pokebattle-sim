@@ -365,7 +365,8 @@ class @Battle
     action = @getAction(id)
     pokemon = @getTeam(id).at(0)
     move = moves[action.name]
-    targets = @getTargets(move, id)
+    targets = @getTargets(move, id, pokemon)
+    targets = targets.filter((p) -> !p.isFainted())
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
@@ -377,7 +378,9 @@ class @Battle
       # Record last move.
       @lastMove = move
 
-  getTargets: (move, id) =>
+    pokemon.resetRecords()
+
+  getTargets: (move, id, user) =>
     switch move.target
       when 'user'
         [ @getTeam(id).at(0) ]
@@ -402,6 +405,8 @@ class @Battle
         @rng.choice(pokemon)
       when 'users-field'
         @getTeam(id).pokemon
+      when 'specific-move'
+        move.getTargets(this, user)
       else
         throw new Error("Unimplemented target: #{move.target}.")
 
