@@ -166,3 +166,16 @@ class @Attachment.Wish extends @TeamAttachment
         battle.message "#{@wisherName}'s wish came true!"
         pokemon.damage(-@amount)
       @remove()
+
+class @Attachment.PerishSong extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("PerishSongAttachment", attributes)
+    @turns = 4
+    @turn = 0
+
+  endTurn: (battle) =>
+    @turn++
+    battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
+    if @turn >= @turns
+      @pokemon.faint(battle)
+

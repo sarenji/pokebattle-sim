@@ -134,6 +134,10 @@ class @Pokemon
   isFainted: =>
     @currentHP <= 0
 
+  faint: (battle) =>
+    @currentHP = 0
+    battle.message "#{@name} fainted!"
+
   damage: (amount) =>
     @setHP(@currentHP - amount)
 

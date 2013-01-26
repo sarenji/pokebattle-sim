@@ -180,8 +180,7 @@ makeExplosionMove = (name) ->
     oldExecute = @execute
     @execute = (battle, user, targets) ->
       if !_.any(targets, (target) -> target.hasAbility('Damp'))
-        # TODO: Real faint?
-        user.currentHP = 0
+        user.faint(battle)
         oldExecute(battle, user, targets)
       else
         battle.message "#{user.name} cannot use #{@name}!"
@@ -805,6 +804,11 @@ extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15, "psywave") / 10
     Math.floor(user.level * fraction)
+
+extendMove 'perish-song', ->
+  @execute = (battle, user, targets) ->
+    battle.message "All Pokemon hearing the song will faint in three turns!"
+    _.each(targets, (p) -> p.attach(new Attachment.PerishSong()))
 
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
