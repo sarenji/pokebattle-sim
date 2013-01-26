@@ -261,6 +261,28 @@ makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
   else if !wasBoosted && amount < 0
     "#{pokemon.name}'s #{stat} won't go any lower!"
 
+makeCounterMove = (name, multiplier, applies) ->
+  extendMove name, ->
+    @getTargets = (battle, user) ->
+      # Return the last pokemon who hit this one, if it's alive.
+      pokemon = user.lastHitBy?.pokemon
+      return [ pokemon ]  if pokemon? && !pokemon.isFainted()
+  
+      # Return a random target (or none).
+      pokemon = battle.getOpponentPokemon(battle.getOwner(user).id)
+      pokemon = pokemon.filter((p) -> !p.isFainted())
+      if pokemon.length == 0
+        []
+      else
+        [ battle.rng.choice(pokemon) ]
+  
+    @use = (battle, user, target) ->
+      hit = user.lastHitBy
+      if hit? && applies(hit.move) && hit.turn == battle.turn
+        target.damage(multiplier * hit.damage)
+      else
+        @fail(battle)
+
 extendWithDrain 'absorb'
 extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
 makeBoostMove 'acid-armor', 'self', defense: 2
@@ -557,26 +579,10 @@ extendMove 'copycat', ->
     else
       @fail(battle)
 
-extendMove 'counter', ->
-  @getTargets = (battle, user) ->
-    # Return the last pokemon who hit this one, if it's alive.
-    pokemon = user.lastHitBy?.pokemon
-    return [ pokemon ]  if pokemon? && !pokemon.isFainted()
 
-    # Return a random target (or none).
-    pokemon = battle.getOpponentPokemon(battle.getOwner(user).id)
-    pokemon = pokemon.filter((p) -> !p.isFainted())
-    if pokemon.length == 0
-      []
-    else
-      [ battle.rng.choice(pokemon) ]
-
-  @use = (battle, user, target) ->
-    hit = user.lastHitBy
-    if hit? && hit.move.isPhysical() && hit.turn == battle.turn
-      target.damage(2 * hit.damage)
-    else
-      @fail(battle)
+makeCounterMove('counter', 2, (move) -> move.isPhysical())
+makeCounterMove('mirror-coat', 2, (move) -> move.isSpecial())
+makeCounterMove('metal-burst', 1.5, (move) -> move.isPhysical() || move.isSpecial())
 
 extendMove 'crush-grip', ->
   @basePower = (battle, user, target) ->
