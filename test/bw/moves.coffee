@@ -1177,6 +1177,14 @@ shared = require '../shared'
       @battle.requests.should.have.property @player1.id
       @battle.turn.should.equal 1
 
+  describe 'venoshock', ->
+    it 'doubles the base power if target is poisoned', ->
+      shared.create.call(this)
+      move = moves['venoshock']
+      @team2.at(0).setStatus(Status.POISON)
+      basePower = move.basePower(@battle, @team1.first(), @team2.first())
+      basePower.should.equal(2 * move.power)
+
   describe 'wish', ->
     it "restores half of the user's total hit points the next end of turn", ->
       shared.create.call(this)

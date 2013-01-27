@@ -824,6 +824,13 @@ extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
 
+extendMove 'venoshock', ->
+  @basePower = (battle, user, target) ->
+    if target.hasStatus(Status.TOXIC, Status.POISON)
+      2 * @power
+    else
+      @power
+
 extendMove 'volt-switch', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
