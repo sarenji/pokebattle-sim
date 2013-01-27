@@ -229,11 +229,11 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
-      hp = @team2.at(0).currentHP
-      @team1.at(0).setStatus(Status.PARALYZE)
-      @battle.makeMove(@player1, 'Facade')
-      @battle.continueTurn()
-      (hp - @team2.at(0).currentHP).should.equal 324
+      hp = @team2.first().currentHP
+      @team1.first().setStatus(Status.PARALYZE)
+      move = moves['facade']
+      basePower = move.basePower(@battle, @team1.first(), @team2.first())
+      basePower.should.equal(2 * move.power)
 
   describe 'reversal and flail', ->
     it 'have 200 base power at 1 hp', ->
@@ -241,20 +241,18 @@ shared = require '../shared'
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @team1.at(0).currentHP = 1
-      hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Flail')
-      @battle.continueTurn()
-      (hp - @team2.at(0).currentHP).should.equal 462
+      move = moves['flail']
+      basePower = move.basePower(@battle, @team1.first(), @team2.first())
+      basePower.should.equal 200
 
     it 'have 40 base power at 50% hp', ->
       shared.create.call this,
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2)
-      hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Flail')
-      @battle.continueTurn()
-      (hp - @team2.at(0).currentHP).should.equal 94
+      move = moves['flail']
+      basePower = move.basePower(@battle, @team1.first(), @team2.first())
+      basePower.should.equal 40
 
   describe 'eruption and water spout', ->
     beforeEach ->
@@ -450,12 +448,13 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Lapras')]
         team2: [Factory('Magikarp')]
-      hpDiff = -1
-      @team2.at(0).currentHP += hpDiff
+      @team2.first().currentHP = Math.floor(@team2.first().stat('hp') / 2)
       @battle.makeMove(@player1, 'Sheer Cold')
       @battle.makeMove(@player2, 'Splash')
 
-      @team2.at(0).currentHP.should.equal hpDiff
+      move = moves['sheer-cold']
+      damage = move.calculateDamage(@battle, @team1.first(), @team2.first())
+      damage.should.equal @team2.first().stat('hp')
 
   describe 'a recovery move', ->
     shared.shouldDoNoDamage('Recover')

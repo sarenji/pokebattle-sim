@@ -46,6 +46,9 @@ class @Move
         target.item?.afterBeingHit(battle, user, target, damage, this)
         user.item?.afterSuccessfulHit(battle, user, target, damage, this)
         target.recordHit(user, damage, this, battle.turn)
+        for pokemon in [user, target]
+          if pokemon.isFainted()
+            pokemon.faint(battle)
 
   # A hook with a default implementation of returning false on a type immunity,
   # otherwise dealing damage.
