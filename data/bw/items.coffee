@@ -61,6 +61,12 @@ makeGemItem = (name, type) ->
 for name, attributes of json
   items[name] = new Item(name, attributes)
 
+extendItem 'Absorb Bulb', ->
+  @afterBeingHit = (battle, user, target, damage, move) ->
+    if move.type == 'Water'
+      battle.message "#{user.name}'s Absorb Bulb made its Special Attack rise!"
+      target.boost(specialAttack: 1)
+      target.item = null
 
 makeOrbItem 'Adamant Orb', 'Dialga'
 makeTypeBoostItem 'Black Belt', 'Fighting'
