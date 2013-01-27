@@ -826,7 +826,7 @@ extendMove 'u-turn', ->
 
 extendMove 'venoshock', ->
   @basePower = (battle, user, target) ->
-    if target.hasStatus(Status.POISON)
+    if target.hasStatus(Status.TOXIC, Status.POISON)
       2 * @power
     else
       @power
