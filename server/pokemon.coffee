@@ -110,6 +110,8 @@ class @Pokemon
     if !status?
       statusArray = (value  for key, value of Status)
       @status in statusArray
+    else if arguments.length > 1
+      @status in arguments
     else
       @status == status
 
