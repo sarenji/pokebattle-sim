@@ -15,12 +15,16 @@ class @Move
     @type = attributes.type || '???'
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
+    @flags = attributes.flags
 
   isPhysical: =>
     @spectra == 'physical'
 
   isSpecial: =>
     @spectra == 'special'
+
+  hasFlag: (flagName) =>
+    flagName in @flags
 
   # Executes this move on several targets.
   # Only override this method if the move does not need to be
@@ -39,6 +43,7 @@ class @Move
 
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
+        target.item?.afterBeingHit(battle, user, target, damage, this)
         user.item?.afterSuccessfulHit(battle, user, target, damage, this)
         target.recordHit(user, damage, this, battle.turn)
 

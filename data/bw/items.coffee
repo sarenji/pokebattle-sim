@@ -11,6 +11,7 @@ class Item
   endTurn: (pokemon) =>
 
   afterSuccessfulHit: (battle, user, target, damage, move) ->
+  afterBeingHit: (battle, user, target, damage, move) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
 
@@ -129,6 +130,14 @@ makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
 makeGemItem 'Rock Gem', 'Rock'
+
+extendItem 'Rocky Helmet', ->
+  @afterBeingHit = (battle, user, target, damage, move) ->
+    if move.hasFlag("contact")
+      battle.message "#{user.name} was hurt by the #{@name}!"
+      amount = Math.floor(user.stat('hp') / 6)
+      user.damage(amount)
+
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
 makeTypeBoostItem 'Sea Incense', 'Water'

@@ -137,3 +137,29 @@ shared = require '../shared'
         team1: [Factory('Magikarp', item: 'DeepSeaTooth')]
       modifier = attackStatModifier.run(moves['surf'], @battle, @team1.at(0), @team2.at(0))
       modifier.should.equal 0x1000
+
+  describe "Rocky Helmet", ->
+    it "deals 1/6 of the attacker's total HP on a contact move", ->
+      shared.create.call this,
+        team2: [Factory('Ferrothorn', item: 'Rocky Helmet')]
+
+      hp = @team1.first().stat('hp')
+      currentHP = @team1.first().currentHP = Math.floor(hp * 2 / 3)
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal currentHP - Math.floor(hp / 6)
+
+    it "doesn't deal damage back to attacker if not a contact move", ->
+      shared.create.call this,
+        team2: [Factory('Ferrothorn', item: 'Rocky Helmet')]
+
+      hp = @team1.first().stat('hp')
+      currentHP = @team1.first().currentHP = Math.floor(hp * 2 / 3)
+      @battle.makeMove(@player1, 'Earthquake')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal currentHP
+
+    it "stacks with each hit of multi-hit moves like Tail Slap"
+    it "doesn't let certain effects activate if attacker faints"
