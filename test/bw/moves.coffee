@@ -460,15 +460,24 @@ shared = require '../shared'
     shared.shouldDoNoDamage('Recover')
 
     it "recovers 50% of the target's HP, rounded half up", ->
-      shared.create.call this,
-        team1: [Factory('Blissey')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       hp = @team1.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Softboiled')
       @battle.makeMove(@player2, 'Splash')
 
       recoverHP = Math.round(@team1.at(0).stat('hp') / 2)
       (@team1.at(0).currentHP - hp).should.equal recoverHP
+
+    it "fails if the user's HP is full", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['softboiled'])
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, 'Softboiled')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
 
   describe 'knock off', ->
     it "deals damage", ->
@@ -1358,6 +1367,7 @@ shared = require '../shared'
         newTypes = @team1.first().types
         ret
 
+      @team1.first().currentHP = 1
       @battle.makeMove(@player1, "Roost")
       @battle.makeMove(@player2, "Splash")
 
@@ -1373,19 +1383,38 @@ shared = require '../shared'
       @team1.first().attach = (args...) =>
         ret = oldAttach.apply(@team1.first(), args)
         newTypes = @team1.first().types
-        console.log newTypes
         ret
 
+      @team1.first().currentHP = 1
       @battle.makeMove(@player1, "Roost")
       @battle.makeMove(@player2, "Splash")
 
       ('Flying' in newTypes).should.be.false
       newTypes.should.eql ['Normal']
 
-    it "returns the user's flying type after the turn", ->
+    it "keeps the user's types the same if non-Flying", ->
+      shared.create.call this,
+        team1: [Factory("Celebi")]
+
+      oldTypes = @team1.first().types
+      newTypes = []
+      oldAttach = @team1.first().attach
+      @team1.first().attach = (args...) =>
+        ret = oldAttach.apply(@team1.first(), args)
+        newTypes = @team1.first().types
+        ret
+
+      @team1.first().currentHP = 1
+      @battle.makeMove(@player1, "Roost")
+      @battle.makeMove(@player2, "Splash")
+
+      newTypes.should.eql oldTypes
+
+    it "restores the user's old types after the turn", ->
       shared.create.call this,
         team1: [Factory("Gliscor")]
 
+      @team1.first().currentHP = 1
       @battle.makeMove(@player1, "Roost")
       @battle.makeMove(@player2, "Splash")
 

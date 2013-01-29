@@ -151,7 +151,11 @@ makeOneHitKOMove = (name) ->
 makeRecoveryMove = (name) ->
   extendMove name, ->
     @use = (battle, user, target) ->
-      amount = Math.round(target.stat('hp') / 2)
+      hpStat = target.stat('hp')
+      if target.currentHP == hpStat
+        @fail(battle)
+        return false
+      amount = Math.round(hpStat / 2)
       battle.message "#{target.name} recovered #{amount} HP!"
       target.damage(-amount)
 
