@@ -155,6 +155,7 @@ class @Pokemon
 
   calculateWeight: =>
     weight = @weight
+    weight = @item.calculateWeight(weight)  if @item?
     for attachment in @attachments
       weight = attachment.calculateWeight(weight)
     weight

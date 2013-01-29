@@ -14,6 +14,7 @@ class Item
   afterBeingHit: (battle, move, user, target, damage) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
+  calculateWeight: (weight) => weight
 
 extendItem = (name, callback) ->
   if name not of items
@@ -96,6 +97,9 @@ makeGemItem 'Fighting Gem', 'Fighting'
 makeGemItem 'Fire Gem', 'Fire'
 makePlateItem 'Fist Plate', 'Fighting'
 makePlateItem 'Flame Plate', 'Fire'
+extendItem 'Float Stone', ->
+  @calculateWeight = (weight) ->
+    Math.floor(weight / 2)
 makeGemItem 'Flying Gem', 'Flying'
 makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'

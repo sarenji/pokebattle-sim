@@ -188,3 +188,11 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team2.first().stages.specialAttack.should.equal 0
+
+  describe "Float Stone", ->
+    it "halves the user's weight", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Float Stone")]
+
+      weight = @team1.first().weight
+      @team1.first().calculateWeight().should.equal Math.floor(weight / 2)
