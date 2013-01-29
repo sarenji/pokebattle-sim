@@ -118,3 +118,4 @@ Factory.register 'Dugtrio',
   moves: ['Magnitude', 'Dig']
 Factory.register 'Giratina (origin)'
 Factory.register 'Ferrothorn'
+Factory.register 'Tornadus (incarnate)'

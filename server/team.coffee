@@ -36,8 +36,9 @@ class @Team
     name in @attachments.map((a) -> a.name)
 
   attach: (attachment) =>
-    attachment.team = this
     @attachments.push(attachment)
+    attachment.team = this
+    attachment.initialize()
 
   unattach: (attachment) =>
     index = @attachments.indexOf(attachment)

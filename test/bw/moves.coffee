@@ -1343,3 +1343,50 @@ shared = require '../shared'
       @battle.makeMove(@player2, "Splash")
 
       @team2.first().currentHP.should.be.lessThan hp
+
+  describe "Roost", ->
+    shared.shouldDoNoDamage('Roost')
+
+    it "removes the user's flying type during the turn", ->
+      shared.create.call this,
+        team1: [Factory("Gliscor")]
+
+      newTypes = []
+      oldAttach = @team1.first().attach
+      @team1.first().attach = (args...) =>
+        ret = oldAttach.apply(@team1.first(), args)
+        newTypes = @team1.first().types
+        ret
+
+      @battle.makeMove(@player1, "Roost")
+      @battle.makeMove(@player2, "Splash")
+
+      ('Flying' in newTypes).should.be.false
+      newTypes.should.eql ['Ground']
+
+    it "turns pure-Flying pokemon into Normal pokemon", ->
+      shared.create.call this,
+        team1: [Factory("Tornadus (incarnate)")]
+
+      newTypes = []
+      oldAttach = @team1.first().attach
+      @team1.first().attach = (args...) =>
+        ret = oldAttach.apply(@team1.first(), args)
+        newTypes = @team1.first().types
+        console.log newTypes
+        ret
+
+      @battle.makeMove(@player1, "Roost")
+      @battle.makeMove(@player2, "Splash")
+
+      ('Flying' in newTypes).should.be.false
+      newTypes.should.eql ['Normal']
+
+    it "returns the user's flying type after the turn", ->
+      shared.create.call this,
+        team1: [Factory("Gliscor")]
+
+      @battle.makeMove(@player1, "Roost")
+      @battle.makeMove(@player2, "Splash")
+
+      ('Flying' in @team1.first().types).should.be.true

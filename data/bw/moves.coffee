@@ -451,8 +451,11 @@ extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
 extendWithBoost 'rock-tomb', 'target', speed: -1
 extendWithSecondaryEffect 'rock-slide', .3, Attachment.Flinch
 extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
-# TODO: Temporarily remove Flying type
 makeRecoveryMove 'roost'
+extendMove 'roost', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    user.attach(new Attachment.Roost())
+
 extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendMove 'sacred-fire', -> @thawsUser = true
 extendWithSecondaryStatus 'sacred-fire', .5, Status.BURN

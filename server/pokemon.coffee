@@ -195,6 +195,7 @@ class @Pokemon
     # TODO: Error if the attachment already has a pokemon
     @attachments.push(attachment)
     attachment.pokemon = this
+    attachment.initialize()
 
   # Removes an attachment from the list of attachment
   # TODO: Also accept a string?

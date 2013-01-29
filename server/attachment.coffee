@@ -8,6 +8,8 @@ class @Attachment
   constructor: (name, attributes={}) ->
     @name = name
 
+  initialize: =>
+
   remove: =>
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
@@ -180,4 +182,17 @@ class @Attachment.PerishSong extends @VolatileAttachment
     battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
     if @turn >= @turns
       @pokemon.faint(battle)
+
+class @Attachment.Roost extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("RoostAttachment", attributes)
+
+  initialize: =>
+    @oldTypes = @pokemon.types
+    @pokemon.types = (type for type in @pokemon.types when type != 'Flying')
+    if @pokemon.types.length == 0 then @pokemon.types = [ 'Normal' ]
+
+  endTurn: (battle) =>
+    @pokemon.types = @oldTypes
+    @remove()
 
