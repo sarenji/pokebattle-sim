@@ -820,6 +820,18 @@ extendMove 'taunt', ->
     battle.message "#{target.name} fell for the taunt!"
     target.attach(new Attachment.Taunt(battle))
 
+extendMove 'techno-blast', ->
+  @getType = (battle, user, target) ->
+    switch user.item?.name
+      when "Burn Drive"
+        "Fire"
+      when "Douse Drive"
+        "Water"
+      when "Shock Drive"
+        "Electric"
+      else
+        "Normal"
+
 extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)

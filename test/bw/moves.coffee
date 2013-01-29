@@ -1287,3 +1287,31 @@ shared = require '../shared'
       result = _.all @battle.getActivePokemon(), (pokemon) ->
         pokemon.isFainted()
       result.should.be.true
+
+  describe "Techno Blast", ->
+    it "is Fire-type if the user holds a Burn Drive", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Burn Drive")]
+      move = moves['techno-blast']
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      type.should.equal "Fire"
+
+    it "is Water-type if the user holds a Douse Drive", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Douse Drive")]
+      move = moves['techno-blast']
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      type.should.equal "Water"
+
+    it "is Electric-type if the user holds a Shock Drive", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Shock Drive")]
+      move = moves['techno-blast']
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      type.should.equal "Electric"
+
+    it "is Normal-type otherwise", ->
+      shared.create.call(this)
+      move = moves['techno-blast']
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      type.should.equal "Normal"
