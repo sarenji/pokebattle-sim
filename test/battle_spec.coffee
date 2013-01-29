@@ -36,7 +36,7 @@ describe 'Battle', ->
     it "records a player's move", ->
       @battle.makeMove(@player1, 'Tackle')
       @battle.playerActions.should.have.property @player1.id
-      @battle.playerActions[@player1.id].name.should.equal 'tackle'
+      @battle.playerActions[@player1.id].move.name.should.equal 'tackle'
 
     # TODO: Invalid moves should fail in some way.
     it "doesn't record invalid moves", ->

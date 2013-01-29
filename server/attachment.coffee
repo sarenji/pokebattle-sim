@@ -135,10 +135,9 @@ class @Attachment.Taunt extends @VolatileAttachment
     @turn = 0
 
   beginTurn: (battle) =>
-    for moveName in @pokemon.moves
-      move = battle.getMove(moveName)
+    for move in @pokemon.moves
       if move.power == 0
-        @pokemon.blockMove(moveName)
+        @pokemon.blockMove(move)
 
   beforeMove: (battle, move, user, targets) =>
     # TODO: user is always == pokemon. Will this change?
@@ -196,3 +195,20 @@ class @Attachment.Roost extends @VolatileAttachment
     @pokemon.types = @oldTypes
     @remove()
 
+class @Attachment.Encore extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("EncoreAttachment", attributes)
+    @turns = 3
+    @turn = 0
+
+  initialize: =>
+    @move = @pokemon.lastMove
+
+  beginTurn: (battle) =>
+    @pokemon.lockMove(@move)
+
+  endTurn: (battle) =>
+    @turn++
+    if @turn >= @turns
+      battle.message("#{@pokemon.name}'s Encore ended!")
+      @remove()

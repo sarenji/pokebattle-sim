@@ -1419,3 +1419,92 @@ shared = require '../shared'
       @battle.makeMove(@player2, "Splash")
 
       ('Flying' in @team1.first().types).should.be.true
+
+  describe 'Encore', ->
+    shared.shouldDoNoDamage('Encore')
+
+    it "fails if the target has not yet used a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", evs: {speed: 4})]
+
+      move = moves['encore']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "forces the target to repeat its last used move", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().validMoves().should.eql [ moves['splash'] ]
+
+    it "changes the target's decision if it has not moved yet", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", evs: {speed: 4})]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team2.first().lastMove.should.equal moves['splash']
+
+    it "lasts 3 turns", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment('EncoreAttachment').should.be.true
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment('EncoreAttachment').should.be.false
+
+    it "fails on certain moves like mimic", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      move = moves['encore']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Mimic")
+
+      mock.restore()
+      mock.verify()
+
+    it "fails if the pokemon is already encored", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      move = moves['encore']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "fails if the move has 0 PP"
+    it "removes itself if the pokemon's move reaches 0 PP"

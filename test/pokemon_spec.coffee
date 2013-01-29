@@ -1,5 +1,6 @@
 {_} = require 'underscore'
 {Pokemon, Attachment, VolatileAttachment} = require('../').server
+{moves} = require('../data/bw')
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
@@ -99,9 +100,9 @@ describe 'Pokemon', ->
 
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove('Earthquake')
+      pokemon.blockMove(moves['earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked('Earthquake').should.be.false
+      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
 
     it 'removes volatile attachments', ->
       pokemon = new Pokemon()
@@ -112,9 +113,9 @@ describe 'Pokemon', ->
   describe '#endTurn', ->
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove('Earthquake')
+      pokemon.blockMove(moves['earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked('Earthquake').should.be.false
+      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
 
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
@@ -133,29 +134,29 @@ describe 'Pokemon', ->
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove('Earthquake')
-      pokemon.blockedMoves.should.include 'Earthquake'
+      pokemon.blockMove(moves['earthquake'])
+      pokemon.blockedMoves.should.include moves['earthquake']
 
     it 'blocks a move for only one turn', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove('Earthquake')
+      pokemon.blockMove(moves['earthquake'])
       pokemon.endTurn()
       pokemon.beginTurn()
-      pokemon.isMoveBlocked('Earthquake').should.be.false
+      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
 
   describe '#isMoveBlocked', ->
     it 'returns true if the move is blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove('Earthquake')
-      pokemon.isMoveBlocked('Earthquake').should.be.true
+      pokemon.blockMove(moves['earthquake'])
+      pokemon.isMoveBlocked(moves['earthquake']).should.be.true
 
     it 'returns false if the move is not blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.isMoveBlocked('Earthquake').should.be.false
+      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
 
   describe '#validMoves', ->
     it 'returns moves without blocked moves', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      pokemon.blockMove('Earthquake')
-      _(pokemon.validMoves()).isEqual(['Splash']).should.be.true
+      pokemon.blockMove(moves['earthquake'])
+      _(pokemon.validMoves()).isEqual([moves['splash']]).should.be.true
 

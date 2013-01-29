@@ -610,6 +610,26 @@ extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
 
+extendMove 'encore', ->
+  bannedMoves =
+    'encore': true
+    'mimic': true
+    'mirror-move': true
+    'sketch': true
+    'struggle': true
+    'transform': true
+  @use = (battle, user, target, damage) ->
+    if !target.lastMove?
+      @fail(battle)
+    else if target.lastMove.name of bannedMoves
+      @fail(battle)
+    else if target.hasAttachment('EncoreAttachment')
+      @fail(battle)
+    else
+      target.attach(new Attachment.Encore())
+      if battle.willMove(target)
+        battle.changeMove(target, target.lastMove)
+
 extendMove 'endeavor', ->
   @use = (battle, user, target, damage) ->
     if target.isImmune(this, battle, user)

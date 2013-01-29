@@ -105,6 +105,16 @@ class @Battle
     switches = player.team.getAlivePokemon().map((p) -> p.name)
     @requestAction(player, switches: switches)
 
+  # Returns true if the Pokemon has yet to move.
+  willMove: (pokemon) =>
+    player = @getOwner(pokemon)
+    (player.id of @playerActions) && @playerActions[player.id].type == 'move'
+
+  changeMove: (pokemon, move) =>
+    player = @getOwner(pokemon)
+    if @playerActions[player.id]?.type == 'move'
+      @playerActions[player.id].move = move
+
   # Associates an attachment instance with the team of `user`.
   attachToTeam: (user, attachment) =>
     team = @getOwner(user).team
@@ -164,12 +174,10 @@ class @Battle
     for id in @orderIds()
       continue  if @getTeam(id).at(0).isFainted()
 
-      switch @getAction(id).type
-        when 'switch' then @performSwitch(id)
-        when 'move'   then @performMove(id)
-
-      # Clean up playerActions hash.
-      delete @playerActions[id]
+      action = @popAction(id)
+      switch action.type
+        when 'switch' then @performSwitch(id, action)
+        when 'move'   then @performMove(id, action)
 
       # If a move adds a request to the queue, the request must be resolved
       # before the battle can continue.
@@ -230,10 +238,10 @@ class @Battle
     # TODO: Fail if move not in player pokemon's moves
     return  if moveName not of MoveData
 
-    # Store the move name that this player wants to make.
+    # Store the move that this player wants to make.
     @playerActions[player.id] =
       type: 'move'
-      name: moveName
+      move: moves[moveName]
 
     delete @requests[player.id]
 
@@ -281,6 +289,11 @@ class @Battle
 
   getAction: (clientId) =>
     @playerActions[clientId]
+
+  popAction: (clientId) =>
+    action = @getAction(clientId)
+    delete @playerActions[clientId]
+    action
 
   requestAction: (player, validActions) =>
     # TODO: Delegate this kind of logic to the Player class.
@@ -333,12 +346,11 @@ class @Battle
     switch action.type
       when 'switch' then 5
       # TODO: Apply priority callbacks
-      when 'move'   then MoveData[action.name].priority
+      when 'move'   then action.move.priority
 
   # Executed by @continueTurn
-  performSwitch: (id) =>
+  performSwitch: (id, action) =>
     player = @getPlayer(id)
-    action = @getAction(id)
     team = @getTeam(id)
 
     team.switchOut(this)
@@ -354,17 +366,13 @@ class @Battle
   # Executed by @beginTurn
   performReplacements: =>
     for id of @playerActions
-      @performSwitch(id)
-
-    for id of @playerActions
-      delete @playerActions[id]
+      @performSwitch(id, @popAction(id))
 
   # Executed by @continueTurn
-  performMove: (id) =>
+  performMove: (id, action) =>
     player = @getPlayer(id)
-    action = @getAction(id)
     pokemon = @getTeam(id).at(0)
-    move = moves[action.name]
+    move = action.move
     targets = @getTargets(move, id, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
 
@@ -377,6 +385,7 @@ class @Battle
       # TODO: If move is interrupted, do we record?
       # Record last move.
       @lastMove = move
+      pokemon.lastMove = move
 
     pokemon.resetRecords()
 

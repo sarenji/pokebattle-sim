@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{abilities, items} = require '../data/bw'
+{abilities, items, moves} = require '../data/bw'
 {Status} = require './status'
 floor = Math.floor
 
@@ -17,7 +17,8 @@ class @Pokemon
     @ivs = attributes.ivs || {}
     @currentHP = @stat('hp')
 
-    @moves = attributes.moves
+    @moves = attributes.moves?.map (move) ->
+      moves[move.toLowerCase().replace(/\s+/g, '-')]
     @types = attributes.types || [] # TODO: Get from species.
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
@@ -35,6 +36,9 @@ class @Pokemon
 
     # a list of moves blocked for this turn
     @blockedMoves = []
+
+    # a record of the last move used by this pokemon.
+    @lastMove = null
 
   iv: (stat) => (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) => (if stat of @evs then @evs[stat] else 0)
@@ -163,6 +167,7 @@ class @Pokemon
   switchOut: (battle) =>
     @resetBoosts()
     @blockedMoves = []
+    delete @lastMove
     attachment.switchOut(battle)  for attachment in _.clone(@attachments)
 
   beginTurn: (battle) =>
@@ -207,11 +212,16 @@ class @Pokemon
     delete attachment.pokemon
 
   # Blocks a move for a single turn
-  blockMove: (moveName) =>
-    @blockedMoves.push(moveName)
+  blockMove: (move) =>
+    @blockedMoves.push(move)
 
-  isMoveBlocked: (moveName) =>
-    return (moveName in @blockedMoves)
+  isMoveBlocked: (move) =>
+    return (move in @blockedMoves)
+
+  # Locks the Pokemon into a single move. Does not limit switches.
+  lockMove: (moveToLock) =>
+    for move in @validMoves()
+      @blockMove(move)  if move != moveToLock
 
   # A list of moves that this pokemon can use freely
   validMoves: =>
