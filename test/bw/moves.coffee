@@ -1315,3 +1315,34 @@ shared = require '../shared'
       move = moves['techno-blast']
       type = move.getType(@battle, @team1.first(), @team2.first())
       type.should.equal "Normal"
+
+  describe "Synchronoise", ->
+    it "fails on Pokemon not of the user's type", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Celebi")]
+
+      move = moves['synchronoise']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Synchronoise")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "works on Pokemon that share one type with the user", ->
+      shared.create.call this,
+        team1: [Factory("Ferrothorn")]
+        team2: [Factory("Celebi")]
+
+      move = moves['synchronoise']
+      mock = sinon.mock(move)
+      mock.expects('fail').never()
+
+      @battle.makeMove(@player1, "Synchronoise")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()

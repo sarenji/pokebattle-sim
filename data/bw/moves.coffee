@@ -815,6 +815,13 @@ extendMove 'splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
+extendMove 'synchronoise', ->
+  oldUse = @use
+  @use = (battle, user, target, damage) ->
+    if _.every(user.types, (type) -> type not in target.types)
+      @fail(battle)
+      return false
+
 extendMove 'taunt', ->
   @use = (battle, user, target) ->
     battle.message "#{target.name} fell for the taunt!"
