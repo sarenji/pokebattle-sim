@@ -43,8 +43,8 @@ class @Move
 
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
-        target.item?.afterBeingHit(battle, user, target, damage, this)
-        user.item?.afterSuccessfulHit(battle, user, target, damage, this)
+        target.afterBeingHit(battle, this, user, target, damage)
+        user.afterSuccessfulHit(battle, this, user, target, damage)
         target.recordHit(user, damage, this, battle.turn)
         for pokemon in [user, target]
           if pokemon.isFainted()

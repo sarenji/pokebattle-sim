@@ -10,8 +10,8 @@ class Item
 
   endTurn: (pokemon) =>
 
-  afterSuccessfulHit: (battle, user, target, damage, move) ->
-  afterBeingHit: (battle, user, target, damage, move) ->
+  afterSuccessfulHit: (battle, move, user, target, damage) ->
+  afterBeingHit: (battle, move, user, target, damage) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
 
@@ -52,7 +52,7 @@ makeGemItem = (name, type) ->
       else
         0x1000
 
-    @afterSuccessfulHit = (battle, user, target, damage, move) ->
+    @afterSuccessfulHit = (battle, move, user, target, damage) ->
       if move.type == type
         battle.message "The #{@name} strengthened #{move.name}'s power!"
         user.item = null
@@ -62,7 +62,7 @@ for name, attributes of json
   items[name] = new Item(name, attributes)
 
 extendItem 'Absorb Bulb', ->
-  @afterBeingHit = (battle, user, target, damage, move) ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
     if move.type == 'Water'
       battle.message "#{user.name}'s Absorb Bulb made its Special Attack rise!"
       target.boost(specialAttack: 1)
@@ -138,7 +138,7 @@ makeGemItem 'Psychic Gem', 'Psychic'
 makeGemItem 'Rock Gem', 'Rock'
 
 extendItem 'Rocky Helmet', ->
-  @afterBeingHit = (battle, user, target, damage, move) ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
     if move.hasFlag("contact")
       battle.message "#{user.name} was hurt by the #{@name}!"
       amount = Math.floor(user.stat('hp') / 6)

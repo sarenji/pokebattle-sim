@@ -12,7 +12,9 @@ class @Attachment
     # Error if @pokemon is undefined
     @pokemon.unattach(this)
 
-  calculateWeight: (weight) =>
+  calculateWeight: (weight) => weight
+  afterBeingHit: (battle, move, user, target, damage) =>
+  afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>

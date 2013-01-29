@@ -175,6 +175,17 @@ class @Pokemon
   resetRecords: =>
     @lastHitBy = null
 
+  # Hook for when the Pokemon gets hit by a move
+  afterBeingHit: (battle, move, user, target, damage) =>
+    @item?.afterBeingHit(battle, move, user, target, damage)
+    for attachment in @attachments
+      attachment.afterBeingHit(battle, move, user, target, damage)
+
+  afterSuccessfulHit: (battle, move, user, target, damage) =>
+    @item?.afterSuccessfulHit(battle, move, user, target, damage)
+    for attachment in @attachments
+      attachment.afterSuccessfulHit(battle, move, user, target, damage)
+
   endTurn: (battle) =>
     @item?.endTurn(battle, this)
     attachment.endTurn(battle)  for attachment in _.clone(@attachments)
