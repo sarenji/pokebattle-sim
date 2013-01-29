@@ -1337,12 +1337,9 @@ shared = require '../shared'
         team1: [Factory("Ferrothorn")]
         team2: [Factory("Celebi")]
 
-      move = moves['synchronoise']
-      mock = sinon.mock(move)
-      mock.expects('fail').never()
+      hp = @team2.first().currentHP
 
       @battle.makeMove(@player1, "Synchronoise")
       @battle.makeMove(@player2, "Splash")
 
-      mock.restore()
-      mock.verify()
+      @team2.first().currentHP.should.be.lessThan hp

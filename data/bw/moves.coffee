@@ -821,6 +821,7 @@ extendMove 'synchronoise', ->
     if _.every(user.types, (type) -> type not in target.types)
       @fail(battle)
       return false
+    return oldUse(battle, user, target, damage)
 
 extendMove 'taunt', ->
   @use = (battle, user, target) ->
