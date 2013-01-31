@@ -649,6 +649,15 @@ extendMove 'facade', ->
     else
       @power
 
+extendMove 'flatter', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
+    target.attach(new Attachment.Confusion(options))
+    boostedStats = target.boost(specialAttack: -2)
+    for stat, wasBoosted of boostedStats
+      message = makeBoostMessage(target, stat, -2, wasBoosted)
+      battle.message(message)
+
 extendMove 'gyro-ball', ->
   @basePower = (battle, user, target) ->
     power = 1 + Math.floor(25 * target.stat('speed') / user.stat('speed'))

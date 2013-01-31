@@ -1525,3 +1525,20 @@ shared = require '../shared'
       @battle.makeMove(@player2, "Splash")
 
       @team2.first().stages.attack.should.equal -2
+
+  describe "Flatter", ->
+    it "confuses the target", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, "Flatter")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
+
+    it "boosts the target's special attack by two stages", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, "Flatter")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().stages.specialAttack.should.equal -2
