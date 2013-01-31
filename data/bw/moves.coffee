@@ -51,7 +51,7 @@ extendWithSecondaryEffect = (name, chance, Klass, options) ->
 
       # TODO: Maybe find a better way to do this.
       if Klass == Attachment.Confusion
-        options.turns ||= battle.rng.nextInt(1, 4)
+        options.turns ||= battle.rng.randInt(1, 4, "confusion turns")
 
       target.attach(new Klass(options))
 
@@ -750,7 +750,10 @@ extendMove 'magnitude', ->
 extendMove 'memento', ->
   @use = (battle, user, target, damage) ->
     user.currentHP = 0
-    target.boost(attack: -2, specialAttack: -2)
+    boostedStats = target.boost(attack: -2, specialAttack: -2)
+    for stat, wasBoosted of boostedStats
+      message = makeBoostMessage(target, stat, -2, wasBoosted)
+      battle.message(message)
 
 # TODO: Test
 # TODO: Figure out how to redetermine move targets.
@@ -841,6 +844,15 @@ extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
+
+extendMove 'swagger', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
+    target.attach(new Attachment.Confusion(options))
+    boostedStats = target.boost(attack: -2)
+    for stat, wasBoosted of boostedStats
+      message = makeBoostMessage(target, stat, -2, wasBoosted)
+      battle.message(message)
 
 extendMove 'synchronoise', ->
   oldUse = @use

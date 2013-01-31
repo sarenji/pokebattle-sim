@@ -1508,3 +1508,20 @@ shared = require '../shared'
 
     it "fails if the move has 0 PP"
     it "removes itself if the pokemon's move reaches 0 PP"
+
+  describe "Swagger", ->
+    it "confuses the target", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, "Swagger")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
+
+    it "boosts the target's attack by two stages", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, "Swagger")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().stages.attack.should.equal -2

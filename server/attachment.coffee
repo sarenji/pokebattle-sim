@@ -61,7 +61,7 @@ class @Attachment.Flinch extends @VolatileAttachment
     @remove()
 
 class @Attachment.Confusion extends @VolatileAttachment
-  constructor: (attributes) ->
+  constructor: (attributes={}) ->
     super(VolatileStatus.CONFUSION, attributes)
     @turns = attributes.turns
     @turn = 0
@@ -80,7 +80,7 @@ class @Attachment.Confusion extends @VolatileAttachment
 
 # TODO: Also call @pokemon.blockMove when attached as well
 class @Attachment.Disabled extends @VolatileAttachment
-  constructor: (attributes) ->
+  constructor: (attributes={}) ->
     super('DisabledAttachment', attributes)
     @blockedMove = attributes.move
     @turns = attributes.turns
@@ -98,7 +98,7 @@ class @Attachment.Disabled extends @VolatileAttachment
       @remove()
 
 class @Attachment.Yawn extends @VolatileAttachment
-  constructor: (attributes) ->
+  constructor: (attributes={}) ->
     super('YawnAttachment', attributes)
     @turn = 0
 
