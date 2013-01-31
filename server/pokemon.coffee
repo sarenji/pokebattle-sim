@@ -147,6 +147,10 @@ class @Pokemon
   damage: (amount) =>
     @setHP(@currentHP - amount)
 
+  editDamage: (battle, move, damage) =>
+    damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
+    damage
+
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
 

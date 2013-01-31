@@ -15,6 +15,7 @@ class Item
   basePowerModifier: (move, battle, user, target) ->
     0x1000
   calculateWeight: (weight) => weight
+  editDamage: (battle, holder, move, damage) => damage
 
 extendItem = (name, callback) ->
   if name not of items
@@ -101,6 +102,16 @@ extendItem 'Float Stone', ->
   @calculateWeight = (weight) ->
     Math.floor(weight / 2)
 makeGemItem 'Flying Gem', 'Flying'
+
+extendItem 'Focus Sash', ->
+  @editDamage = (battle, holder, move, damage) ->
+    maxHP = holder.stat('hp')
+    if holder.currentHP == maxHP && damage >= maxHP
+      battle.message "#{holder.name} hung on using its #{@name}!"
+      holder.item = null
+      return maxHP - 1
+    return damage
+
 makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'
 makeOrbItem 'Griseous Orb', 'Giratina'

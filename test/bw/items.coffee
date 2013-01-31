@@ -196,3 +196,34 @@ shared = require '../shared'
 
       weight = @team1.first().weight
       @team1.first().calculateWeight().should.equal Math.floor(weight / 2)
+
+  describe "Focus Sash", ->
+    it "always lets the user survive at 100% HP", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Focus Sash")]
+
+      item = items['Focus Sash']
+      damage = item.editDamage(@battle, @team1.first(), moves['ember'], 99999)
+      damage.should.equal @team2.first().currentHP - 1
+
+    it "should not activate at <100% HP", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Focus Sash")]
+
+      @team1.first().currentHP--
+
+      item = items['Focus Sash']
+      damage = item.editDamage(@battle, @team1.first(), moves['ember'], 99999)
+      damage.should.equal 99999
+
+    it "disappears after activation", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Focus Sash")]
+
+      stub = sinon.stub(moves['ember'], 'calculateDamage', -> 9999)
+
+      @battle.makeMove(@player1, 'Ember')
+      @battle.makeMove(@player2, 'Splash')
+
+      stub.restore()
+      @team2.first().hasItem().should.be.false

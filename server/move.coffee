@@ -41,6 +41,7 @@ class @Move
         @afterMiss(battle, user, target, damage)
         continue
 
+      damage = target.editDamage(battle, this, damage)
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
         target.afterBeingHit(battle, this, user, target, damage)
