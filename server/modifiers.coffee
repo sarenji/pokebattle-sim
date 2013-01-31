@@ -89,8 +89,7 @@ basePowerModifier.add 40, (move, battle, user, target) ->
 
 # Iron Fist modifier.
 basePowerModifier.add 50, (move, battle, user, target) ->
-  # TODO: implement isPunchingMove()
-  if user.hasAbility('Iron Fist') && move.isPunchingMove()
+  if user.hasAbility('Iron Fist') && move.hasFlag("punch")
     return 0x1333
   return 0x1000
 
