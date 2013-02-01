@@ -1,5 +1,5 @@
 HTMLDOCS = $(DOCS:.md=.html)
-REPORTER = dot
+REPORTER = spec
 
 test:
 	NODE_ENV=test ./node_modules/.bin/mocha \
