@@ -1613,3 +1613,19 @@ shared = require '../shared'
 
     xit "does not force the Outrage user to struggle", ->
     xit "does not prevent consecutive use of Struggle", ->
+
+  describe "Psych Up", ->
+    it "copies the target's stat changes", ->
+      shared.create.call(this)
+
+      @team1.first().stages.specialAttack = 5
+      @team1.first().stages.evasion = 2
+      @team2.first().stages.attack = 6
+      @team2.first().stages.defense = -2
+      @team2.first().stages.speed = -1
+      @battle.makeMove(@player1, "Psych Up")
+      @battle.makeMove(@player2, "Splash")
+      @team1.first().stages.should.eql {
+        attack: 6, defense: -2, specialAttack: 0, specialDefense: 0,
+        speed: -1, accuracy: 0, evasion: 0
+      }

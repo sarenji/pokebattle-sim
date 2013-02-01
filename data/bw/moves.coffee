@@ -851,6 +851,12 @@ extendMove 'perish-song', ->
     battle.message "All Pokemon hearing the song will faint in three turns!"
     _.each(targets, (p) -> p.attach(new Attachment.PerishSong()))
 
+extendMove 'psych-up', ->
+  @use = (battle, user, target) ->
+    for stage, value of target.stages
+      user.stages[stage] = value
+    battle.message "#{user.name} copied #{target.name}'s stat changes!"
+
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
