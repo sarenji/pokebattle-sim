@@ -974,7 +974,7 @@ shared = require '../shared'
       @team1.at(0).currentHP.should.equal(1 + hp)
 
     it "heals 25% HP in bad weather, rounded half down", ->
-      shared.create.call(this)
+      shared.create.call(this, team1: [Factory("Shuckle")])
       @battle.setWeather(Weather.SAND)
       @team1.at(0).currentHP = 1
       @battle.makeMove(@player1, 'Moonlight')

@@ -35,6 +35,9 @@ class @Battle
     # Current battle weather.
     @weather = Weather.NONE
 
+    # Current turn duration for the weather. -1 means infinity.
+    @weatherDuration = -1
+
     # Buffer of messages to send to each client.
     @buffer = []
 
@@ -135,12 +138,54 @@ class @Battle
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearMessages()
 
-  setWeather: (weatherName) =>
+  # Passing -1 to turns makes the weather last forever.
+  setWeather: (weatherName, turns=-1) =>
     @weather = weatherName
+    @weatherDuration = turns
 
   hasWeather: (weatherName) =>
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
+
+  stopWeather: =>
+    message = switch @weather
+      when Weather.SUN
+        "The sunlight faded."
+      when Weather.RAIN
+        "The rain stopped."
+      when Weather.SAND
+        "The sandstorm subsided."
+      when Weather.HAIL
+        "The hail stopped."
+    @setWeather(Weather.NONE)
+    message
+
+  weatherMessage: =>
+    switch @weather
+      when Weather.SAND
+        "The sandstorm rages."
+      when Weather.HAIL
+        "The hail crashes down."
+
+  weatherUpkeep: =>
+    if @weatherDuration == 1
+      @stopWeather()
+    else if @weatherDuration > 1
+      @weatherDuration--
+
+    message = @weatherMessage()
+    @message(message)  if message?
+
+    activePokemon = @getActivePokemon().filter((p) -> !p.isFainted())
+    for pokemon in activePokemon
+      damage = Math.floor(pokemon.stat('hp') / 16)
+      if @hasWeather(Weather.HAIL) && !pokemon.hasType("Ice")
+        @message "#{pokemon.name} is buffeted by the hail!"
+        pokemon.damage(damage)
+      else if @hasWeather(Weather.SAND) && !pokemon.hasType("Ground") &&
+              !pokemon.hasType("Rock") && !pokemon.hasType("Steel")
+        @message "#{pokemon.name} is buffeted by the sandstorm!"
+        pokemon.damage(damage)
 
   hasWeatherCancelAbilityOnField: =>
     _.any @getActivePokemon(), (pokemon) ->
@@ -198,6 +243,7 @@ class @Battle
     team.endTurn(this)  for team in @getTeams()
     # TODO: Skip endTurn for pokemon that are fainted?
     pokemon.endTurn(this)  for pokemon in @getActivePokemon()
+    @weatherUpkeep()
     @sendMessages()
 
     if @areReplacementsNeeded()

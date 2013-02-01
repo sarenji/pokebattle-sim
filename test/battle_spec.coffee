@@ -1,5 +1,5 @@
 sinon = require 'sinon'
-{Battle, Pokemon} = require('../').server
+{Battle, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
 
 describe 'Battle', ->
@@ -102,3 +102,27 @@ describe 'Battle', ->
 
       @battle.turn.should.equal 2 # make sure the pokemon did faint
       mock.verify()
+
+  describe "#setWeather", ->
+    it "can last a set number of turns", ->
+      @battle.setWeather(Weather.SUN, 5)
+      for i in [0...5]
+        @battle.makeMove(@player1, "Splash")
+        @battle.makeMove(@player2, "Splash")
+      @battle.weather.should.equal Weather.NONE
+
+  describe "weather", ->
+    it "damages pokemon who are not of a certain type", ->
+      @battle.setWeather(Weather.SAND)
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+      maxHP = @team1.first().stat('hp')
+      (maxHP - @team1.first().currentHP).should.equal Math.floor(maxHP / 16)
+      (maxHP - @team2.first().currentHP).should.equal Math.floor(maxHP / 16)
+
+      @battle.setWeather(Weather.HAIL)
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+      maxHP = @team1.first().stat('hp')
+      (maxHP - @team1.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
+      (maxHP - @team2.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
