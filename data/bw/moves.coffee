@@ -192,9 +192,11 @@ makeExplosionMove = (name) ->
 makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      return  if user.item?
+      return  if user.hasItem() || !target.hasItem()
       return  if target.hasAbility('Sticky Hold')
       return  if target.hasAbility('Multitype')
+      return  if target.name == "Giratina (origin)"
+      return  if target.item.type == 'mail'
       battle.message "#{user.name} stole #{target.name}'s #{target.item.name}!"
       [user.item, target.item] = [target.item, null]
 

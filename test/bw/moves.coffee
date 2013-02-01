@@ -770,6 +770,17 @@ shared = require '../shared'
       @team1.at(0).item.should.equal item2
       should.not.exist @team2.at(0).item
 
+    it "should not steal the target's item if it has none", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp')]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      should.not.exist @team2.at(0).item
+
     it "should not steal the target's item if user already has an item", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: "Stick")]
@@ -805,8 +816,27 @@ shared = require '../shared'
       @team2.at(0).item.should.equal item2
 
     # TODO: What about Genesect?
-    it "should not steal the target's item if target is Giratina-O"
-    it "should not steal the target's item if target holds Mail"
+    it "should not steal the target's item if target is Giratina-O", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Giratina (origin)', item: "Griseous Orb")]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      @team2.at(0).item.should.equal item2
+
+    it "should not steal the target's item if target holds Mail", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Air Mail")]
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      should.not.exist @team1.at(0).item
+      @team2.at(0).item.should.equal item2
 
   describe 'crush grip', ->
     it 'has a base power of 1 minimum', ->
