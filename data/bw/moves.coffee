@@ -890,6 +890,13 @@ extendMove 'techno-blast', ->
       else
         "Normal"
 
+extendMove 'torment', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.hasAttachment("TormentAttachment")
+      target.attach(new Attachment.Torment())
+    else
+      @fail(battle)
+
 extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)

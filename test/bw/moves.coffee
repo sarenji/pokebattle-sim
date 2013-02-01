@@ -1572,3 +1572,44 @@ shared = require '../shared'
       @battle.makeMove(@player2, "Splash")
 
       @team2.first().stages.specialAttack.should.equal -2
+
+  describe "Torment", ->
+    it "prevents the target from using its last move", ->
+      shared.create.call(this)
+
+      @battle.makeMove(@player1, "Torment")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().validMoves().should.eql [ moves['tackle'] ]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team2.first().validMoves().should.eql [ moves['splash'] ]
+
+    it "still works even if a new pokemon has just switched in", ->
+      shared.create.call(this, team2: [Factory("Magikarp"), Factory("Magikarp")])
+
+      @battle.makeMove(@player1, "Torment")
+      @battle.makeSwitch(@player2, 1)
+
+      @team2.first().validMoves().should.eql [ moves['splash'], moves['tackle'] ]
+
+    # TODO: Is this correct behavior?
+    it "fails if the pokemon is already under Torment", ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['torment'])
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Torment")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Torment")
+      @battle.makeMove(@player2, "Tackle")
+
+      mock.restore()
+      mock.verify()
+
+    xit "does not force the Outrage user to struggle", ->
+    xit "does not prevent consecutive use of Struggle", ->

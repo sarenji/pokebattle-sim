@@ -212,3 +212,10 @@ class @Attachment.Encore extends @VolatileAttachment
     if @turn >= @turns
       battle.message("#{@pokemon.name}'s Encore ended!")
       @remove()
+
+class @Attachment.Torment extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("TormentAttachment", attributes)
+
+  beginTurn: (battle) =>
+    @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
