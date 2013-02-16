@@ -219,3 +219,17 @@ class @Attachment.Torment extends @VolatileAttachment
 
   beginTurn: (battle) =>
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
+
+class @Attachment.ChoiceLock extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("ChoiceLockAttachment", attributes)
+
+  initialize: =>
+    @move = null
+
+  beforeMove: (battle, move, user, targets) =>
+    @move = move
+    true
+
+  beginTurn: (battle) =>
+    @pokemon.lockMove(@move)  if @move?

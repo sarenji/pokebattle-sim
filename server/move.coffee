@@ -199,6 +199,9 @@ class @Move
     stat = (if @isPhysical() then 'defense' else 'specialDefense')
     target.stat(stat)
 
+  toString: =>
+    "[Move name:#{@name}]"
+
 Type =
   NORMAL   : 0
   FIRE     : 1

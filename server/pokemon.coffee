@@ -137,6 +137,18 @@ class @Pokemon
   cureStatus: =>
     @status = null
 
+  setItem: (item) =>
+    if @hasItem() then @removeItem()
+    @item = item
+    @item.initialize(this)
+
+  getItem: =>
+    @item
+
+  removeItem: =>
+    @item.deactivate(this)
+    @item = null
+
   isFainted: =>
     @currentHP <= 0
 
@@ -167,6 +179,9 @@ class @Pokemon
     for attachment in @attachments
       weight = attachment.calculateWeight(weight)
     weight
+
+  switchIn: (battle) =>
+    @item?.initialize(battle, this)
 
   switchOut: (battle) =>
     @resetBoosts()
@@ -208,10 +223,11 @@ class @Pokemon
     attachment.initialize()
 
   # Removes an attachment from the list of attachment
-  # TODO: Also accept a string?
   unattach: (attachment) =>
     # TODO: Error if the attachment is not in the list
     index = @attachments.indexOf(attachment)
+    if index == -1
+      index = @attachments.map((a) -> a.name).indexOf(attachment)
     @attachments.splice(index, 1)
     delete attachment.pokemon
 

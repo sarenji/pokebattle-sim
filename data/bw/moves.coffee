@@ -175,9 +175,11 @@ makeTrickMove = (name) ->
   extendMove name, ->
     @use = (battle, user, target) ->
       # TODO: Fail message
-      return false  unless user.item? && target.item?
+      return false  unless user.hasItem() && target.hasItem()
       return false  if target.hasAbility('Sticky Hold')
-      [user.item, target.item] = [target.item, user.item]
+      item = user.getItem()
+      user.setItem(target.getItem())
+      target.setItem(item)
 
 makeExplosionMove = (name) ->
   extendMove name, ->
@@ -197,8 +199,9 @@ makeThiefMove = (name) ->
       return  if target.hasAbility('Multitype')
       return  if target.name == "Giratina (origin)"
       return  if target.item.type == 'mail'
-      battle.message "#{user.name} stole #{target.name}'s #{target.item.name}!"
-      [user.item, target.item] = [target.item, null]
+      battle.message "#{user.name} stole #{target.name}'s #{target.getItem().name}!"
+      user.setItem(target.getItem())
+      target.removeItem()
 
 makeStatusCureMove = (name) ->
   extendMove name, ->
@@ -714,19 +717,19 @@ extendMove 'hidden-power', ->
 
 extendMove 'incinerate', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    if target.item.type == 'berries'
-      battle.message "#{target.name}'s #{target.item.name} was burnt up!"
-      delete target.item
+    if target.hasItem() && target.getItem().type == 'berries'
+      battle.message "#{target.name}'s #{target.getItem().name} was burnt up!"
+      target.removeItem()
 
 extendMove 'judgment', ->
   @getType = (battle, user, target) ->
-    user.item?.plate || @type
+    user.getItem()?.plate || @type
 
 extendMove 'knock-off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    if target.item?
-      battle.message "#{user.name} knocked off #{target.name}'s #{target.item.name}!"
-      target.item = null
+    if target.hasItem()
+      battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().name}!"
+      target.removeItem()
 
 extendMove 'magnitude', ->
   @basePower = (battle, user, target) ->
@@ -886,7 +889,7 @@ extendMove 'taunt', ->
 
 extendMove 'techno-blast', ->
   @getType = (battle, user, target) ->
-    switch user.item?.name
+    switch user.getItem()?.name
       when "Burn Drive"
         "Fire"
       when "Douse Drive"

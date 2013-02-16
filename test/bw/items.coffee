@@ -227,3 +227,39 @@ shared = require '../shared'
 
       stub.restore()
       @team2.first().hasItem().should.be.false
+
+  describe "Choice items", ->
+    it "locks the user into its first selected move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Choice Band")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      requestedMoves = @battle.requests[@player1.id].moves
+      requestedMoves.should.eql [ moves['splash'] ]
+
+    it "does not lock the user if it moves after gaining the item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Choice Band", evs: {speed:4})]
+
+      @battle.makeMove(@player1, 'Trick')
+      @battle.makeMove(@player2, 'Splash')
+
+      requestedMoves = @battle.requests[@player2.id].moves
+      requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
+
+    it "does not automatically lock the user when it switches back in", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Choice Band"), Factory("Magikarp")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeSwitch(@player1, 1)
+      @battle.makeMove(@player2, 'Splash')
+
+      requestedMoves = @battle.requests[@player1.id].moves
+      requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
+
+    xit "relocks the pokemon after Magic Room"

@@ -815,6 +815,15 @@ shared = require '../shared'
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
 
+    it "should not steal the target's item if the target has no item", ->
+      shared.create.call(this)
+      item2 = @team2.at(0).item
+      @battle.makeMove(@player1, 'Thief')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasItem().should.be.false
+      @team2.first().hasItem().should.be.false
+
     # TODO: What about Genesect?
     it "should not steal the target's item if target is Giratina-O", ->
       shared.create.call this,

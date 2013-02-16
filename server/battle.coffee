@@ -57,6 +57,11 @@ class @Battle
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
 
+    # TODO: beginBattle?
+    pokemon = @getActivePokemon()
+    for p in pokemon
+      p.switchIn(this)
+
     @beginTurn()
 
   getPlayer: (id) =>
@@ -404,6 +409,7 @@ class @Battle
     @message "#{player.username} withdrew #{team.at(0).name}!"
     team.switch(0, action.to)
     # TODO: Implement and call pokemon.activate() or pokemon.switchIn()
+    team.at(0).switchIn(this)
     @message "#{player.username} sent out #{team.at(0).name}!"
 
     # TODO: Hacky.
