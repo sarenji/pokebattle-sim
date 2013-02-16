@@ -2,6 +2,7 @@
 
 json = require './data_items.json'
 {Attachment} = require('../../server/attachment')
+{Status} = require('../../server/status')
 
 class Item
   constructor: (name, attributes={}) ->
@@ -35,6 +36,11 @@ makeOrbItem = (name, species) ->
         0x1333
       else
         0x1000
+
+makeStatusOrbItem = (name, status) ->
+  extendItem name, ->
+    @endTurn = (battle, pokemon) ->
+      pokemon.setStatus(status)
 
 makeTypeBoostItem = (name, type) ->
   extendItem name, ->
@@ -113,6 +119,7 @@ makeGemItem 'Electric Gem', 'Electric'
 makeGemItem 'Fighting Gem', 'Fighting'
 makeGemItem 'Fire Gem', 'Fire'
 makePlateItem 'Fist Plate', 'Fighting'
+makeStatusOrbItem 'Flame Orb', Status.BURN
 makePlateItem 'Flame Plate', 'Fire'
 extendItem 'Float Stone', ->
   @calculateWeight = (weight) ->
@@ -188,6 +195,7 @@ makePlateItem 'Splash Plate', 'Water'
 makePlateItem 'Spooky Plate', 'Ghost'
 makeGemItem 'Steel Gem', 'Steel'
 makePlateItem 'Stone Plate', 'Rock'
+makeStatusOrbItem 'Toxic Orb', Status.TOXIC
 makePlateItem 'Toxic Plate', 'Poison'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
 makeGemItem 'Water Gem', 'Water'

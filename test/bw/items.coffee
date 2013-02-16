@@ -1,6 +1,7 @@
 sinon = require 'sinon'
 {items, moves} = require('../../data/bw')
 {attackStatModifier} = require '../../server/modifiers'
+{Status} = require '../../server/status'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -263,3 +264,45 @@ shared = require '../shared'
       requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
 
     xit "relocks the pokemon after Magic Room"
+
+  describe "Flame Orb", ->
+    it "burns the user at the end of the turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flame Orb")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasStatus(Status.BURN).should.be.true
+
+    it "does not burn the user if it is already statused", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flame Orb")]
+
+      @team1.first().setStatus(Status.SLEEP)
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasStatus(Status.BURN).should.be.false
+
+  describe "Toxic Orb", ->
+    it "toxics the user at the end of the turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Toxic Orb")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasStatus(Status.TOXIC).should.be.true
+
+    it "does not toxic the user if it is already statused", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Toxic Orb")]
+
+      @team1.first().setStatus(Status.SLEEP)
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasStatus(Status.TOXIC).should.be.false
