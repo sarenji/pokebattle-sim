@@ -861,6 +861,19 @@ extendMove 'psych-up', ->
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
+extendMove 'spikes', ->
+  @execute = (battle, user, opponents) ->
+    for opponent in opponents
+      if opponent.hasAttachment("SpikesAttachment")
+        spikes = opponent.getAttachment("SpikesAttachment")
+        if spikes.isAtMax()
+          @fail(battle)
+          return false
+        spikes.incrementLayers()
+      else
+        opponent.attachToTeam(new Attachment.Spikes())
+      battle.message "#{@name} were scattered all around #{opponent.username}'s team's feet!"
+
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->

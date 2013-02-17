@@ -10,10 +10,17 @@ class @Attachments
     attachment.initialize()
 
   unattach: (attachment) =>
-    index = @attachments.indexOf(attachment)
-    if index == -1
-      index = @attachments.map((a) -> a.name).indexOf(attachment)
+    index = @indexOf(attachment)
     @attachments.splice(index, 1)
+
+  indexOf: (attachment) =>
+    if typeof attachment == 'string'
+      @map((a) -> a.name).indexOf(attachment)
+    else
+      @attachments.indexOf(attachment)
+
+  get: (attachment) =>
+    @attachments[@indexOf(attachment)]
 
   contains: (attachment) =>
     if typeof attachment == 'string'
@@ -64,7 +71,8 @@ class @Attachment
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
   isImmune: (battle, type) =>
-  switchOut: (battle) =>
+  switchOut: (battle, pokemon) =>
+  switchIn: (battle, pokemon) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
 
@@ -291,3 +299,21 @@ class @Attachment.AirBalloon extends @Attachment
 
   isImmune: (battle, type) =>
     type == 'Ground'
+
+class @Attachment.Spikes extends @TeamAttachment
+  constructor: (attributes={}) ->
+    super("SpikesAttachment", attributes)
+    @layers = 1
+    @maxLayers = 3
+
+  switchIn: (battle, pokemon) =>
+    return  if pokemon.isImmune(battle, "Ground")
+    fraction = (10 - 2 * @layers)
+    hp = pokemon.stat('hp')
+    pokemon.damage Math.floor(hp / fraction)
+
+  incrementLayers: =>
+    @layers++  if @layers < @maxLayers
+
+  isAtMax: =>
+    @layers == @maxLayers

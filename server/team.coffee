@@ -1,5 +1,6 @@
 {_} = require 'underscore'
 {Pokemon} = require './pokemon'
+{Attachments} = require './attachment'
 
 class @Team
   {species} = require '../data/bw'
@@ -15,7 +16,7 @@ class @Team
       attributes.types = (type  for type in specimen.types || [])
       attributes.species = specimen.species
       new Pokemon(attributes)
-    @attachments = []
+    @attachments = new Attachments()
 
   at: (index) =>
     @pokemon[index]
@@ -32,31 +33,42 @@ class @Team
   first: =>
     @at(0)
 
-  hasAttachment: (name) =>
-    name in @attachments.map((a) -> a.name)
+  hasAttachment: (attachment) =>
+    @attachments.contains(attachment)
+
+  getAttachment: (attachmentName) =>
+    @attachments.get(attachmentName)
 
   attach: (attachment) =>
-    @attachments.push(attachment)
     attachment.team = this
-    attachment.initialize()
+    @attachments.push(attachment)
 
   unattach: (attachment) =>
-    index = @attachments.indexOf(attachment)
-    @attachments.splice(index, 1)
+    @attachments.unattach(attachment)
     delete attachment.team
 
-  switch: (a, b) =>
+  switch: (battle, player, a, b) =>
+    battle.message "#{player.username} withdrew #{@at(a).name}!"
+    @switchOut(battle, @at(a))
+
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    # TODO: Call switchOut on any inactive pokemon
+
+    battle.message "#{player.username} sent out #{@at(a).name}!"
+    @switchIn(battle, @at(a))
 
   beginTurn: (battle) =>
-    attachment.beginTurn(battle)  for attachment in @attachments
+    @attachments.query('beginTurn', battle)
 
   endTurn: (battle) =>
-    attachment.endTurn(battle)  for attachment in @attachments
+    @attachments.query('endTurn', battle)
 
-  switchOut: (battle) =>
-    attachment.switchOut(battle)  for attachment in @attachments
+  switchOut: (battle, pokemon) =>
+    @attachments.query('switchOut', battle, pokemon)
+    pokemon.switchOut(battle)
+
+  switchIn: (battle, pokemon) =>
+    pokemon.switchIn(battle)
+    @attachments.query('switchIn', battle, pokemon)
 
   getActivePokemon: =>
     @pokemon.slice(0, @numActive)

@@ -8,5 +8,19 @@ class @Player
   requestAction: (id, validActions) =>
     @emit 'request action', id, validActions
 
+  attachToTeam: (attachment) =>
+    @team.attach(attachment)
+
+  hasAttachment: (attachment) =>
+    @team.hasAttachment(attachment)
+
+  getAttachment: (attachment) =>
+    @team.getAttachment(attachment)
+
+  # Used in battle#performMove
+  # TODO: Maybe handle this better.
+  isFainted: =>
+    false
+
   emit: (args...) =>
     @socket.emit? args...

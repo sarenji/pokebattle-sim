@@ -125,8 +125,12 @@ class @Battle
 
   # Associates an attachment instance with the team of `user`.
   attachToTeam: (user, attachment) =>
+    player = @getOwner(user)
+    player.attachToTeam(attachment)
+
+  getTeamAttachment: (user, attachmentName) =>
     team = @getOwner(user).team
-    team.attach(attachment)
+    team.getAttachment(attachmentName)
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
@@ -404,13 +408,7 @@ class @Battle
     player = @getPlayer(id)
     team = @getTeam(id)
 
-    team.switchOut(this)
-    team.at(0).switchOut(this)
-    @message "#{player.username} withdrew #{team.at(0).name}!"
-    team.switch(0, action.to)
-    # TODO: Implement and call pokemon.activate() or pokemon.switchIn()
-    team.at(0).switchIn(this)
-    @message "#{player.username} sent out #{team.at(0).name}!"
+    team.switch(this, player, 0, action.to)
 
     # TODO: Hacky.
     player.emit? 'switch pokemon', 0, action.to
@@ -465,6 +463,8 @@ class @Battle
         @getTeam(id).pokemon
       when 'specific-move'
         move.getTargets(this, user)
+      when 'opponents-field'
+        @getOpponents(id)
       else
         throw new Error("Unimplemented target: #{move.target}.")
 

@@ -1638,3 +1638,64 @@ shared = require '../shared'
         attack: 6, defense: -2, specialAttack: 0, specialDefense: 0,
         speed: -1, accuracy: 0, evasion: 0
       }
+
+  describe "Spikes", ->
+    it "puts a layer of spikes on the opponents' field", ->
+      shared.create.call(this)
+
+      @team2.hasAttachment("SpikesAttachment").should.be.false
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.hasAttachment("SpikesAttachment").should.be.true
+
+    it "fails if there are 3 layers", ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['spikes'])
+      mock.expects('fail').once()
+
+      for i in [1..4]
+        @battle.makeMove(@player1, "Spikes")
+        @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "does damage to pokemon switching in according to # of layers", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+
+      hp = @team2.first().stat('hp')
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeSwitch(@player2, 1)
+
+      (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
+      @team2.first().currentHP = hp
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeSwitch(@player2, 1)
+
+      (hp - @team2.first().currentHP).should.equal Math.floor(hp / 6)
+      @team2.first().currentHP = hp
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeSwitch(@player2, 1)
+
+      (hp - @team2.first().currentHP).should.equal Math.floor(hp / 4)
+
+    it "does not affect pokemon with immunity to ground", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Magikarp", item: "Air Balloon")]
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Spikes")
+      @battle.makeSwitch(@player2, 1)
+
+      @team2.first().currentHP.should.equal @team2.first().stat('hp')
