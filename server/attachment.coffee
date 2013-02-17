@@ -63,7 +63,7 @@ class @Attachment
   afterBeingHit: (battle, move, user, target, damage) =>
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
-  isImmune: (battle, move, user) =>
+  isImmune: (battle, type) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
@@ -289,5 +289,5 @@ class @Attachment.AirBalloon extends @Attachment
     battle.message "#{target.name}'s #{target.getItem().name} popped!"
     target.removeItem()
 
-  isImmune: (battle, move, user) =>
-    move.type == 'Ground'
+  isImmune: (battle, type) =>
+    type == 'Ground'

@@ -637,7 +637,8 @@ extendMove 'encore', ->
 
 extendMove 'endeavor', ->
   @use = (battle, user, target, damage) ->
-    if target.isImmune(battle, this, user)
+    type = @getType(battle, user, target)
+    if target.isImmune(battle, type)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 
@@ -954,8 +955,4 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
   "damage": "physical",
   "power": 40,
   "priority": 0,
-  "type": "Normal"
-
-extendMove 'confusion-recoil', ->
-  @typeEffectiveness = ->
-    1
+  "type": "???"

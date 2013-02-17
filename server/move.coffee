@@ -1,5 +1,6 @@
 {finalModifier, basePowerModifier, stabModifier, attackStatModifier} = require './modifiers'
 {Status} = require './status'
+util = require './util'
 
 # A single Move in the Pokemon engine. Move objects are constructed in
 # data/VERSION/moves.coffee, with only one instance per move (for example,
@@ -58,7 +59,8 @@ class @Move
   # otherwise dealing damage.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
   use: (battle, user, target, damage) =>
-    if target.isImmune(battle, this, user)
+    type = @getType(battle, user, target)
+    if target.isImmune(battle, type)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 
@@ -125,14 +127,8 @@ class @Move
       0x1000
 
   typeEffectiveness: (battle, user, target) =>
-    type = @getType(battle, user, target).toUpperCase()
-    userType = Type[type]
-
-    effectiveness = 1
-    for subtype in target.types
-      targetType = Type[subtype.toUpperCase()]
-      effectiveness *= typeChart[userType][targetType]
-    effectiveness
+    type = @getType(battle, user, target)
+    util.typeEffectiveness(type, target.types)
 
   burnCalculation: (user) =>
     if @isPhysical() && !user.hasAbility("Guts") && user.hasStatus(Status.BURN)
@@ -204,43 +200,3 @@ class @Move
 
   toString: =>
     "[Move name:#{@name}]"
-
-Type =
-  NORMAL   : 0
-  FIRE     : 1
-  WATER    : 2
-  ELECTRIC : 3
-  GRASS    : 4
-  ICE      : 5
-  FIGHTING : 6
-  POISON   : 7
-  GROUND   : 8
-  FLYING   : 9
-  PSYCHIC  : 10
-  BUG      : 11
-  ROCK     : 12
-  GHOST    : 13
-  DRAGON   : 14
-  DARK     : 15
-  STEEL    : 16
-
-typeChart = [
-  # Nor Fir Wat Ele Gra Ice Fig Poi Gro Fly Psy Bug Roc Gho Dra Dar Ste
-  [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, .5,  0,  1,  1, .5 ], # Nor
-  [  1, .5, .5,  1,  2,  2,  1,  1,  1,  1,  1,  2, .5,  1, .5,  1,  2 ], # Fir
-  [  1,  2, .5,  1, .5,  1,  1,  1,  2,  1,  1,  1,  2,  1, .5,  1,  1 ], # Wat
-  [  1,  1,  2, .5, .5,  1,  1,  1,  0,  2,  1,  1,  1,  1, .5,  1,  1 ], # Ele
-  [  1, .5,  2,  1, .5,  1,  1, .5,  2, .5,  1, .5,  2,  1, .5,  1, .5 ], # Gra
-  [  1, .5, .5,  1,  2, .5,  1,  1,  2,  2,  1,  1,  1,  1,  2,  1, .5 ], # Ice
-  [  2,  1,  1,  1,  1,  2,  1, .5,  1, .5, .5, .5,  2,  0,  1,  2,  2 ], # Fig
-  [  1,  1,  1,  1,  2,  1,  1, .5, .5,  1,  1,  1, .5, .5,  1,  1,  0 ], # Poi
-  [  1,  2,  1,  2, .5,  1,  1,  2,  1,  0,  1, .5,  2,  1,  1,  1,  2 ], # Gro
-  [  1,  1,  1, .5,  2,  1,  2,  1,  1,  1,  1,  2, .5,  1,  1,  1, .5 ], # Fly
-  [  1,  1,  1,  1,  1,  1,  2,  2,  1,  1, .5,  1,  1,  1,  1,  0, .5 ], # Psy
-  [  1, .5,  1,  1,  2,  1, .5, .5,  1, .5,  2,  1,  1, .5,  1,  2, .5 ], # Bug
-  [  1,  2,  1,  1,  1,  2, .5,  1, .5,  2,  1,  2,  1,  1,  1,  1, .5 ], # Roc
-  [  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1, .5, .5 ], # Gho
-  [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1, .5 ], # Dra
-  [  1,  1,  1,  1,  1,  1, .5,  1,  1,  1,  2,  1,  1,  2,  1,  1, .5 ], # Dar
-  [  1, .5, .5, .5,  1,  2,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1, .5 ], # Ste
-]

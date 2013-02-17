@@ -2,6 +2,7 @@
 {abilities, items, moves} = require '../data/bw'
 {Status} = require './status'
 {Attachments} = require './attachment'
+util = require './util'
 floor = Math.floor
 
 class @Pokemon
@@ -170,11 +171,11 @@ class @Pokemon
   recordHit: (pokemon, damage, move, turn) ->
     @lastHitBy = {pokemon, damage, move, turn}
 
-  isImmune: (battle, move, user) =>
-    if @attachments.queryUntilTrue('isImmune', battle, move, user)
+  isImmune: (battle, type) =>
+    if @attachments.queryUntilTrue('isImmune', battle, type)
       return true
 
-    multiplier = move.typeEffectiveness(battle, user, this)
+    multiplier = util.typeEffectiveness(type, @types)
     return multiplier == 0
 
   calculateWeight: =>

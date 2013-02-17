@@ -313,7 +313,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
       move = moves['earthquake']
-      @team1.first().isImmune(@battle, move, @team2.first()).should.be.true
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      @team1.first().isImmune(@battle, type).should.be.true
 
     it "pops if hit by an attacking move", ->
       shared.create.call this,
@@ -341,7 +342,8 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Tackle')
 
       move = moves['earthquake']
-      @team1.first().isImmune(@battle, move, @team2.first()).should.be.false
+      type = move.getType(@battle, @team1.first(), @team2.first())
+      @team1.first().isImmune(@battle, type).should.be.false
 
     it "stops effecting a pokemon if Tricked away", ->
       shared.create.call this,
