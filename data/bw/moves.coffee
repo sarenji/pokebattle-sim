@@ -941,6 +941,7 @@ extendMove 'toxic-spikes', ->
         spikes.incrementLayers()
       else
         opponent.attachToTeam(new Attachment.ToxicSpikes())
+      battle.message "Poison spikes were scattered all around #{opponent.username}'s team's feet!"
 
 extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
