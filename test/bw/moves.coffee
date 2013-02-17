@@ -1744,3 +1744,80 @@ shared = require '../shared'
 
       hp = @team2.first().stat('hp')
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
+
+  describe "Toxic Spikes", ->
+    it "puts a layer of toxic spikes on the opponents' field", ->
+      shared.create.call(this)
+
+      @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
+
+      @battle.makeMove(@player1, "Toxic Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
+
+    it "fails if there are 2 layers", ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['toxic-spikes'])
+      mock.expects('fail').once()
+
+      for i in [1..3]
+        @battle.makeMove(@player1, "Toxic Spikes")
+        @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "poisons or severely poisons the switch-in if not immune", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+
+      @battle.makeMove(@player1, "Toxic Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeSwitch(@player2, 1)
+      @battle.makeMove(@player1, "Toxic Spikes")
+
+      @team2.first().hasStatus(Status.POISON).should.be.true
+
+      @battle.makeSwitch(@player2, 1)
+      @battle.makeMove(@player1, "Splash")
+
+      @team2.first().hasStatus(Status.TOXIC).should.be.true
+
+    it "does not affect the pokemon if it's immune", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Ferrothorn")]
+
+      @battle.makeMove(@player1, "Toxic Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeSwitch(@player2, 1)
+      @battle.makeMove(@player1, "Splash")
+
+      @team2.first().hasStatus(Status.POISON).should.be.false
+
+    it "disappears if the pokemon switching in is a grounded Poison", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Drapion")]
+
+      @battle.makeMove(@player1, "Toxic Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeSwitch(@player2, 1)
+      @battle.makeMove(@player1, "Splash")
+
+      @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
+
+    it "doesn't disappear if the pokemon switching in is a flying Poison", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Drapion", item: "Air Balloon")]
+
+      @battle.makeMove(@player1, "Toxic Spikes")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeSwitch(@player2, 1)
+      @battle.makeMove(@player1, "Splash")
+
+      @team2.hasAttachment("ToxicSpikesAttachment").should.be.true

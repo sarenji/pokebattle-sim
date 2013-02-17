@@ -930,6 +930,18 @@ extendMove 'torment', ->
     else
       @fail(battle)
 
+extendMove 'toxic-spikes', ->
+  @execute = (battle, user, opponents) ->
+    for opponent in opponents
+      if opponent.hasAttachment("ToxicSpikesAttachment")
+        spikes = opponent.getAttachment("ToxicSpikesAttachment")
+        if spikes.isAtMax()
+          @fail(battle)
+          return false
+        spikes.incrementLayers()
+      else
+        opponent.attachToTeam(new Attachment.ToxicSpikes())
+
 extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)

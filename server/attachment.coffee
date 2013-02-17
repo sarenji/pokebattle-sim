@@ -327,3 +327,28 @@ class @Attachment.StealthRock extends @TeamAttachment
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp * multiplier / 8)
+
+class @Attachment.ToxicSpikes extends @TeamAttachment
+  constructor: (attributes={}) ->
+    super("ToxicSpikesAttachment", attributes)
+    @layers = 1
+    @maxLayers = 2
+
+  switchIn: (battle, pokemon) =>
+    if pokemon.hasType("Poison") && !pokemon.isImmune(battle, "Ground")
+      name = battle.getOwner(pokemon).username
+      battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
+      @remove()
+
+    return  if pokemon.isImmune(battle, "Poison")
+
+    if @layers == 1
+      pokemon.setStatus(Status.POISON)
+    else
+      pokemon.setStatus(Status.TOXIC)
+
+  incrementLayers: =>
+    @layers++  if @layers < @maxLayers
+
+  isAtMax: =>
+    @layers == @maxLayers
