@@ -430,7 +430,7 @@ class @Battle
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
-    if pokemon.beforeMove(this, move, pokemon, targets)
+    if pokemon.beforeMove(this, move, pokemon, targets) != false
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
 

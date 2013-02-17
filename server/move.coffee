@@ -23,6 +23,9 @@ class @Move
   isSpecial: =>
     @spectra == 'special'
 
+  isNonDamaging: =>
+    @spectra == 'non-damaging'
+
   hasFlag: (flagName) =>
     flagName in @flags
 
@@ -55,7 +58,7 @@ class @Move
   # otherwise dealing damage.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
   use: (battle, user, target, damage) =>
-    if target.isImmune(this, battle, user)
+    if target.isImmune(battle, this, user)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 

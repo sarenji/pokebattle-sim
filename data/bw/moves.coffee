@@ -178,8 +178,8 @@ makeTrickMove = (name) ->
       return false  unless user.hasItem() && target.hasItem()
       return false  if target.hasAbility('Sticky Hold')
       item = user.getItem()
-      user.setItem(target.getItem())
-      target.setItem(item)
+      user.setItem(battle, target.getItem())
+      target.setItem(battle, item)
 
 makeExplosionMove = (name) ->
   extendMove name, ->
@@ -200,7 +200,7 @@ makeThiefMove = (name) ->
       return  if target.name == "Giratina (origin)"
       return  if target.item.type == 'mail'
       battle.message "#{user.name} stole #{target.name}'s #{target.getItem().name}!"
-      user.setItem(target.getItem())
+      user.setItem(battle, target.getItem())
       target.removeItem()
 
 makeStatusCureMove = (name) ->
@@ -637,7 +637,7 @@ extendMove 'encore', ->
 
 extendMove 'endeavor', ->
   @use = (battle, user, target, damage) ->
-    if target.isImmune(this, battle, user)
+    if target.isImmune(battle, this, user)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 

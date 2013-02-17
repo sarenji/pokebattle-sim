@@ -11,7 +11,7 @@ class Item
       @[key] = value
 
   # Items are initialized when the Pokemon receives a new item or switches in.
-  initialize: (pokemon) =>
+  initialize: (battle, pokemon) =>
   # Items get deactivated when switching out or when this item is replaced.
   deactivate: (pokemon) =>
   endTurn: (battle, pokemon) =>
@@ -90,6 +90,15 @@ extendItem 'Absorb Bulb', ->
       target.item = null
 
 makeOrbItem 'Adamant Orb', 'Dialga'
+
+extendItem 'Air Balloon', ->
+  @initialize = (battle, pokemon) ->
+    battle.message "#{pokemon.name} floats in the air with its #{@name}!"
+    pokemon.attach(new Attachment.AirBalloon())
+
+  @deactivate = (pokemon) ->
+    pokemon.unattach("AirBalloonAttachment")
+
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
 

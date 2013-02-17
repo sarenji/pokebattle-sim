@@ -306,3 +306,50 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team1.first().hasStatus(Status.TOXIC).should.be.false
+
+  describe "Air Balloon", ->
+    it "makes the user immune to ground moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+
+      move = moves['earthquake']
+      @team1.first().isImmune(@battle, move, @team2.first()).should.be.true
+
+    it "pops if hit by an attacking move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Tackle')
+
+      @team1.first().hasItem().should.be.false
+
+    it "does not pop if hit by a non-attacking move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Flatter')
+
+      @team1.first().hasItem().should.be.true
+
+    it "no longer makes the pokemon immune when popped", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Tackle')
+
+      move = moves['earthquake']
+      @team1.first().isImmune(@battle, move, @team2.first()).should.be.false
+
+    it "stops effecting a pokemon if Tricked away", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+        team2: [Factory("Magikarp", item: "Leftovers")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Trick')
+
+      @team1.first().hasAttachment("AirBalloonAttachment").should.be.false
+      @team2.first().hasAttachment("AirBalloonAttachment").should.be.true

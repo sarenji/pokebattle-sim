@@ -1,6 +1,7 @@
 {_} = require 'underscore'
 {abilities, items, moves} = require '../data/bw'
 {Status} = require './status'
+{Attachments} = require './attachment'
 floor = Math.floor
 
 class @Pokemon
@@ -23,7 +24,7 @@ class @Pokemon
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
     @status = null
-    @attachments = []
+    @attachments = new Attachments()
 
     @stages =
       attack: 0
@@ -120,7 +121,7 @@ class @Pokemon
       @status == status
 
   hasAttachment: (name) =>
-    name in @attachments.map((a) -> a.name)
+    @attachments.contains(name)
 
   # Sets the Pokemon's status. If it succeeds, returns true, otherwise false.
   setStatus: (newStatus) =>
@@ -137,10 +138,10 @@ class @Pokemon
   cureStatus: =>
     @status = null
 
-  setItem: (item) =>
+  setItem: (battle, item) =>
     if @hasItem() then @removeItem()
     @item = item
-    @item.initialize(this)
+    @item.initialize(battle, this)
 
   getItem: =>
     @item
@@ -169,15 +170,17 @@ class @Pokemon
   recordHit: (pokemon, damage, move, turn) ->
     @lastHitBy = {pokemon, damage, move, turn}
 
-  isImmune: (move, battle, user) =>
+  isImmune: (battle, move, user) =>
+    if @attachments.queryUntilTrue('isImmune', battle, move, user)
+      return true
+
     multiplier = move.typeEffectiveness(battle, user, this)
-    multiplier == 0
+    return multiplier == 0
 
   calculateWeight: =>
     weight = @weight
     weight = @item.calculateWeight(weight)  if @item?
-    for attachment in @attachments
-      weight = attachment.calculateWeight(weight)
+    weight = @attachments.queryChain('calculateWeight', weight)
     weight
 
   switchIn: (battle) =>
@@ -187,15 +190,14 @@ class @Pokemon
     @resetBoosts()
     @blockedMoves = []
     delete @lastMove
-    attachment.switchOut(battle)  for attachment in _.clone(@attachments)
+    @attachments.query('switchOut', battle)
 
   beginTurn: (battle) =>
     @blockedMoves = []
-    attachment.beginTurn(battle)  for attachment in _.clone(@attachments)
+    @attachments.query('beginTurn', battle)
 
   beforeMove: (battle, move, user, targets) =>
-    _.every _.clone(@attachments), (attachment) ->
-      attachment.beforeMove(battle, move, user, targets) != false
+    @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
 
   resetRecords: =>
     @lastHitBy = null
@@ -203,32 +205,25 @@ class @Pokemon
   # Hook for when the Pokemon gets hit by a move
   afterBeingHit: (battle, move, user, target, damage) =>
     @item?.afterBeingHit(battle, move, user, target, damage)
-    for attachment in @attachments
-      attachment.afterBeingHit(battle, move, user, target, damage)
+    @attachments.query('afterBeingHit', battle, move, user, target, damage)
 
   afterSuccessfulHit: (battle, move, user, target, damage) =>
     @item?.afterSuccessfulHit(battle, move, user, target, damage)
-    for attachment in @attachments
-      attachment.afterSuccessfulHit(battle, move, user, target, damage)
+    @attachments.query('afterSuccessfulHit', battle, move, user, target, damage)
 
   endTurn: (battle) =>
     @item?.endTurn(battle, this)
-    attachment.endTurn(battle)  for attachment in _.clone(@attachments)
+    @attachments.query('endTurn', battle)
 
   # Adds an attachment to the list of attachments
   attach: (attachment) =>
     # TODO: Error if the attachment already has a pokemon
-    @attachments.push(attachment)
     attachment.pokemon = this
-    attachment.initialize()
+    @attachments.push(attachment)
 
   # Removes an attachment from the list of attachment
   unattach: (attachment) =>
-    # TODO: Error if the attachment is not in the list
-    index = @attachments.indexOf(attachment)
-    if index == -1
-      index = @attachments.map((a) -> a.name).indexOf(attachment)
-    @attachments.splice(index, 1)
+    @attachments.unattach(attachment)
     delete attachment.pokemon
 
   # Blocks a move for a single turn

@@ -1,4 +1,49 @@
 {Status, VolatileStatus} = require './status'
+{_} = require 'underscore'
+
+class @Attachments
+  constructor: ->
+    @attachments = []
+
+  push: (attachment) =>
+    @attachments.push(attachment)
+    attachment.initialize()
+
+  unattach: (attachment) =>
+    index = @attachments.indexOf(attachment)
+    if index == -1
+      index = @attachments.map((a) -> a.name).indexOf(attachment)
+    @attachments.splice(index, 1)
+
+  contains: (attachment) =>
+    if typeof attachment == 'string'
+      attachment in @map((a) -> a.name)
+    else
+      attachment in @attachments
+
+  queryUntil: (funcName, conditional, args...) =>
+    for attachment in _.clone(@attachments)
+      result = attachment[funcName](args...)
+      break  if conditional(result)
+    result
+
+  query: (funcName, args...) =>
+    @queryUntil(funcName, (-> false), args...)
+
+  queryUntilTrue: (funcName, args...) =>
+    conditional = (result) -> result == true
+    @queryUntil(funcName, conditional, args...)
+
+  queryUntilFalse: (funcName, args...) =>
+    conditional = (result) -> result == false
+    @queryUntil(funcName, conditional, args...)
+
+  queryChain: (funcName, result) =>
+    for attachment in _.clone(@attachments)
+      result = attachment[funcName](result)
+    result
+
+  map: => @attachments.map(arguments...)
 
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.
@@ -18,6 +63,7 @@ class @Attachment
   afterBeingHit: (battle, move, user, target, damage) =>
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
+  isImmune: (battle, move, user) =>
   switchOut: (battle) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
@@ -233,3 +279,15 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
 
   beginTurn: (battle) =>
     @pokemon.lockMove(@move)  if @move?
+
+class @Attachment.AirBalloon extends @Attachment
+  constructor: (attributes={}) ->
+    super("AirBalloonAttachment", attributes)
+
+  afterBeingHit: (battle, move, user, target, damage) =>
+    return  if move.isNonDamaging()
+    battle.message "#{target.name}'s #{target.getItem().name} popped!"
+    target.removeItem()
+
+  isImmune: (battle, move, user) =>
+    move.type == 'Ground'
