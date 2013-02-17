@@ -874,6 +874,16 @@ extendMove 'spikes', ->
         opponent.attachToTeam(new Attachment.Spikes())
       battle.message "#{@name} were scattered all around #{opponent.username}'s team's feet!"
 
+extendMove 'stealth-rock', ->
+  @execute = (battle, user, opponents) ->
+    for opponent in opponents
+      if opponent.hasAttachment("StealthRockAttachment")
+        @fail(battle)
+        return false
+
+      opponent.attachToTeam(new Attachment.StealthRock())
+      battle.message "Pointed stones float in the air around #{opponent.username}'s team!"
+
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->

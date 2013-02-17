@@ -119,3 +119,4 @@ Factory.register 'Dugtrio',
 Factory.register 'Giratina (origin)'
 Factory.register 'Ferrothorn'
 Factory.register 'Tornadus (incarnate)'
+Factory.register 'Moltres'

@@ -1699,3 +1699,48 @@ shared = require '../shared'
       @battle.makeSwitch(@player2, 1)
 
       @team2.first().currentHP.should.equal @team2.first().stat('hp')
+
+  describe "Stealth Rock", ->
+    it "puts a layer of rocks on the opponents' field", ->
+      shared.create.call(this)
+
+      @team2.hasAttachment("StealthRockAttachment").should.be.false
+
+      @battle.makeMove(@player1, "Stealth Rock")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.hasAttachment("StealthRockAttachment").should.be.true
+
+    it "fails if there is already rocks on the field", ->
+      shared.create.call(this)
+
+      mock = sinon.mock(moves['stealth-rock'])
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, "Stealth Rock")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Stealth Rock")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "does damage to pokemon switching in according to type", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Moltres")]
+
+      @battle.makeMove(@player1, "Stealth Rock")
+      @battle.makeMove(@player2, "Splash")
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeSwitch(@player2, 1)
+
+      hp = @team2.first().stat('hp')
+      (hp - @team2.first().currentHP).should.equal Math.floor(hp / 2)
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeSwitch(@player2, 1)
+
+      hp = @team2.first().stat('hp')
+      (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)

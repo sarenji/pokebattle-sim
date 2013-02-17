@@ -1,4 +1,5 @@
 {Status, VolatileStatus} = require './status'
+util = require './util'
 {_} = require 'underscore'
 
 class @Attachments
@@ -317,3 +318,12 @@ class @Attachment.Spikes extends @TeamAttachment
 
   isAtMax: =>
     @layers == @maxLayers
+
+class @Attachment.StealthRock extends @TeamAttachment
+  constructor: (attributes={}) ->
+    super("StealthRockAttachment", attributes)
+
+  switchIn: (battle, pokemon) =>
+    multiplier = util.typeEffectiveness("Rock", pokemon.types)
+    hp = pokemon.stat('hp')
+    pokemon.damage Math.floor(hp * multiplier / 8)
