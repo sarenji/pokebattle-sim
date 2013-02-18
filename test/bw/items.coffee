@@ -355,3 +355,15 @@ shared = require '../shared'
 
       @team1.first().hasAttachment("AirBalloonAttachment").should.be.false
       @team2.first().hasAttachment("AirBalloonAttachment").should.be.true
+
+  describe "White Herb", ->
+    it "negates negative status boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "White Herb")]
+
+      @battle.makeMove(@player1, 'Shell Smash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().stages.should.include {
+        attack: 2, defense: 0, speed: 2, specialAttack: 2, specialDefense: 0
+      }

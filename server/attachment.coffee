@@ -76,6 +76,7 @@ class @Attachment
   switchIn: (battle, pokemon) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
+  update: (battle, owner) =>
 
 class @TeamAttachment extends @Attachment
   constructor: (name, attributes) ->

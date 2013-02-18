@@ -21,6 +21,7 @@ class Item
     0x1000
   calculateWeight: (weight) => weight
   editDamage: (battle, holder, move, damage) => damage
+  update: (battle, owner) =>
 
 extendItem = (name, callback) ->
   if name not of items
@@ -209,6 +210,19 @@ makePlateItem 'Toxic Plate', 'Poison'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
 makeGemItem 'Water Gem', 'Water'
 makeTypeBoostItem 'Wave Incense', 'Water'
+
+# TODO: What if White Herb is tricked onto a Pokemon? Are all boosts negated?
+extendItem 'White Herb', ->
+  @update = (battle, owner) ->
+    shouldTrigger = false
+    for stat, boost of owner.stages
+      if boost < 0
+        shouldTrigger = true
+        owner.stages[stat] = 0
+
+    if shouldTrigger
+      owner.removeItem()
+      battle.message "#{owner.name} restored its status using its #{@name}!"
 
 extendItem 'Wise Glasses', ->
   @basePowerModifier = (move, battle, user, target) ->

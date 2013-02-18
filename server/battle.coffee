@@ -226,12 +226,17 @@ class @Battle
   continueTurn: =>
     # TODO: Store result of @orderIds() for future calls to continueTurn.
     for id in @orderIds()
-      continue  if @getTeam(id).at(0).isFainted()
+      pokemon = @getTeam(id).first()
+      continue  if pokemon.isFainted()
 
       action = @popAction(id)
       switch action.type
         when 'switch' then @performSwitch(id, action)
         when 'move'   then @performMove(id, action)
+
+      # Update Pokemon itself.
+      # TODO: Is this the right place?
+      pokemon.update(this)
 
       # If a move adds a request to the queue, the request must be resolved
       # before the battle can continue.

@@ -200,6 +200,10 @@ class @Pokemon
   beforeMove: (battle, move, user, targets) =>
     @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
 
+  update: (battle) =>
+    @item?.update(battle, this)
+    @attachments.query('update', battle, this)
+
   resetRecords: =>
     @lastHitBy = null
 
