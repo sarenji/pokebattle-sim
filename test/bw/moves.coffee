@@ -1821,3 +1821,29 @@ shared = require '../shared'
       @battle.makeMove(@player1, "Splash")
 
       @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
+
+  testWeatherMove = (moveName, weather, item) ->
+    describe moveName, ->
+      it "changes the weather to #{weather.toLowerCase()} for 5 turns", ->
+        shared.create.call(this)
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @battle.weather.should.equal(weather)
+        @battle.weatherDuration.should.equal 4
+
+      it "changes the weather to #{weather.toLowerCase()} for 8 turns if user holds a #{item}", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: item)]
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @battle.weather.should.equal(weather)
+        @battle.weatherDuration.should.equal 7
+
+  testWeatherMove("Rain Dance", Weather.RAIN, "Damp Rock")
+  testWeatherMove("Sunny Day",  Weather.SUN,  "Heat Rock")
+  testWeatherMove("Hail",       Weather.HAIL, "Icy Rock")
+  testWeatherMove("Sandstorm",  Weather.SAND, "Smooth Rock")

@@ -224,6 +224,13 @@ makeBoostMove = (name, boostTarget, boosts) ->
   extendMove name, ->
     @use = applyBoosts
 
+makeWeatherMove = (name, weatherType) ->
+  extendMove name, ->
+    @execute = (battle, user) ->
+      length = 5
+      length = 8  if weatherType == user.getItem()?.lengthensWeather
+      battle.setWeather(weatherType, length)
+
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -399,6 +406,7 @@ makeBoostMove 'howl', 'self', attack: 1
 extendWithBoost 'icy-wind', 'target', speed: -1
 makeBoostMove 'iron-defense', 'self', defense: 2
 extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
+makeWeatherMove 'hail', Weather.HAIL
 extendWithSecondaryEffect 'hurricane', .3, Attachment.Confusion
 extendWithSecondaryEffect 'hyper-fang', .1, Attachment.Flinch
 extendWithSecondaryStatus 'ice-beam', .1, Status.FREEZE
@@ -450,6 +458,7 @@ extendWithBoost 'psycho-boost', 'self', specialAttack: -2
 makePickDefenseMove 'psyshock'
 makePickDefenseMove 'psystrike'
 makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
+makeWeatherMove 'rain-dance', Weather.RAIN
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
 extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
@@ -468,6 +477,7 @@ extendMove 'roost', ->
 extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendMove 'sacred-fire', -> @thawsUser = true
 extendWithSecondaryStatus 'sacred-fire', .5, Status.BURN
+makeWeatherMove 'sandstorm', Weather.SAND
 extendMove 'scald', -> @thawsUser = true
 extendWithSecondaryStatus 'scald', .3, Status.BURN
 makeBoostMove 'scary-face', 'target', speed: -2
@@ -506,6 +516,7 @@ extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithRecoil 'submission', .25
+makeWeatherMove 'sunny-day', Weather.SUN
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
 makeBoostMove 'sweet-scent', 'target', evasion: -1
 makeTrickMove 'switcheroo'

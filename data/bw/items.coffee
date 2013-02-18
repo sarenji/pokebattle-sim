@@ -3,6 +3,7 @@
 json = require './data_items.json'
 {Attachment} = require('../../server/attachment')
 {Status} = require('../../server/status')
+{Weather} = require '.././../server/weather'
 
 class Item
   constructor: (name, attributes={}) ->
@@ -79,6 +80,9 @@ makeChoiceItem = (name) ->
     @deactivate = (pokemon) ->
       pokemon.unattach("ChoiceLockAttachment")
 
+makeWeatherItem = (name, weather) ->
+  extendItem name, ->
+    @lengthensWeather = weather
 
 for name, attributes of json
   items[name] = new Item(name, attributes)
@@ -119,6 +123,7 @@ makeTypeBoostItem 'Charcoal', 'Fire'
 makeChoiceItem 'Choice Band'
 makeChoiceItem 'Choice Specs'
 makeChoiceItem 'Choice Scarf'
+makeWeatherItem 'Damp Rock', Weather.RAIN
 makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'
 makeGemItem 'Dragon Gem', 'Dragon'
@@ -150,8 +155,10 @@ makeGemItem 'Grass Gem', 'Grass'
 makeOrbItem 'Griseous Orb', 'Giratina'
 makeGemItem 'Ground Gem', 'Ground'
 makeTypeBoostItem 'Hard Stone', 'Rock'
+makeWeatherItem 'Heat Rock', Weather.SUN
 makeGemItem 'Ice Gem', 'Ice'
 makePlateItem 'Icicle Plate', 'Ice'
+makeWeatherItem 'Icy Rock', Weather.HAIL
 makePlateItem 'Insect Plate', 'Bug'
 makePlateItem 'Iron Plate', 'Steel'
 
@@ -199,6 +206,7 @@ makeTypeBoostItem 'Sharp Beak', 'Flying'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'
 makePlateItem 'Sky Plate', 'Flying'
+makeWeatherItem 'Smooth Rock', Weather.SAND
 makeTypeBoostItem 'Soft Sand', 'Ground'
 makeTypeBoostItem 'Spell Tag', 'Ghost'
 makePlateItem 'Splash Plate', 'Water'
