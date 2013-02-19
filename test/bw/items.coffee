@@ -367,3 +367,23 @@ shared = require '../shared'
       @team1.first().stages.should.include {
         attack: 2, defense: 0, speed: 2, specialAttack: 2, specialDefense: 0
       }
+
+  describe "Life Orb", ->
+    it "removes 10% from the pokemon's HP when using an attacking move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Life Orb")]
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = @team1.first().stat('hp')
+      (hp - @team1.first().currentHP).should.equal Math.floor(hp / 10)
+
+    it "doesn't remove 10% HP when using a non-attacking move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Life Orb")]
+
+      @battle.makeMove(@player1, 'Growl')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal @team1.first().stat('hp')

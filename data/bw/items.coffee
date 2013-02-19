@@ -169,6 +169,11 @@ extendItem 'Leftovers', ->
     amount = 1  if amount == 0
     user.damage(-amount)
 
+extendItem 'Life Orb', ->
+  @afterSuccessfulHit = (battle, move, user, target, damage) ->
+    return  if move.isNonDamaging()
+    user.damage(Math.floor(user.stat('hp') / 10))
+
 makeOrbItem 'Lustrous Orb', 'Palkia'
 makeTypeBoostItem 'Magnet', 'Electric'
 makePlateItem 'Meadow Plate', 'Grass'
