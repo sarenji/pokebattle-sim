@@ -351,16 +351,17 @@ describe 'Mechanics', ->
 
       @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
 
-    it "automatically unfreezes if using a certain move", ->
-      shared.create.call(this)
+    for moveName in ["Sacred Fire", "Flare Blitz", "Flame Wheel", "Fusion Flare", "Scald"]
+      it "automatically unfreezes if using #{moveName}", ->
+        shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Freeze())
-      shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
+        @team1.at(0).attach(new Attachment.Freeze())
+        shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
-      @battle.makeMove(@player1, 'Sacred Fire')
-      @battle.makeMove(@player2, 'Splash')
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, 'Splash')
 
-      @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
+        @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
 
   describe "a paralyzed pokemon", ->
     it "has a 25% chance of being fully paralyzed", ->

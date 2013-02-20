@@ -46,6 +46,7 @@ class @Move
         continue
 
       damage = target.editDamage(battle, this, damage)
+      damage = Math.min(target.currentHP, damage)
       if @use(battle, user, target, damage) != false
         @afterSuccessfulHit(battle, user, target, damage)
         target.afterBeingHit(battle, this, user, target, damage)

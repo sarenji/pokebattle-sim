@@ -141,17 +141,49 @@ shared = require '../shared'
       damage = (hp - @team2.at(0).currentHP)
       damage.should.equal 18
 
-  describe 'a pokemon using a standard recoil move', ->
-    it 'receives a percentage of the damage rounded down', ->
-      shared.create.call this,
-        team1: [Factory('Blaziken')]
-        team2: [Factory('Gliscor')]
-      startHP = @team1.at(0).currentHP
-      hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'brave-bird')
-      @battle.continueTurn()
-      damage = (hp - @team2.at(0).currentHP)
-      (startHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 3)
+  testRecoilMove = (moveName, recoil) ->
+    describe "a pokemon using #{moveName}", ->
+      it 'receives a percentage of the damage rounded half up', ->
+        shared.create.call this,
+          team1: [Factory('Blaziken')]
+          team2: [Factory('Magikarp')]
+        startHP = @team1.first().currentHP
+        hp = @team2.first().currentHP
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        damage = (hp - @team2.first().currentHP)
+        (startHP - @team1.first().currentHP).should.equal Math.round(damage * recoil)
+
+      it 'receives a minimum of 1 HP of recoil', ->
+        shared.create.call this,
+          team1: [Factory('Blaziken')]
+          team2: [Factory('Magikarp')]
+        startHP = @team1.first().currentHP
+        hp = @team2.first().currentHP
+
+        move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
+        stub = sinon.stub(move, 'calculateDamage', -> .6)
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        stub.restore()
+
+        damage = (hp - @team2.first().currentHP)
+        (startHP - @team1.first().currentHP).should.equal 1
+
+  testRecoilMove("Brave Bird", 1/3)
+  testRecoilMove("Double-Edge", 1/3)
+  testRecoilMove("Flare Blitz", 1/3)
+  testRecoilMove("Head Charge", .25)
+  testRecoilMove("Head Smash", .5)
+  testRecoilMove("Submission", .25)
+  testRecoilMove("Take Down", .25)
+  testRecoilMove("Volt Tackle", 1/3)
+  testRecoilMove("Wild Charge", .25)
+  testRecoilMove("Wood Hammer", 1/3)
 
   describe 'a pokemon using a hazing move', ->
     shared.shouldDoNoDamage('Haze')

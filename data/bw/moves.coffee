@@ -45,7 +45,9 @@ extendMove = (name, callback) ->
 #
 extendWithSecondaryEffect = (name, chance, Klass, options) ->
   extendMove name, ->
+    oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
+      oldFunc.call(this, battle, user, target, damage)
       if battle.rng.next("secondary effect") >= chance
         return
 
@@ -57,7 +59,9 @@ extendWithSecondaryEffect = (name, chance, Klass, options) ->
 
 extendWithSecondaryStatus = (name, chance, status) ->
   extendMove name, ->
+    oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
+      oldFunc.call(this, battle, user, target, damage)
       if battle.rng.next("secondary status") >= chance
         return
 
@@ -75,17 +79,22 @@ extendWithFangEffect = (name, chance, status, options) ->
 
 extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
+    oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
       amount = Math.floor(damage * drainPercent)
       user.damage(-amount)
       # TODO: Message after drain
+      oldFunc.call(this, battle, user, target, damage)
 
 extendWithRecoil = (name, recoilPercent=1/3) ->
   extendMove name, ->
+    oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      amount = Math.floor(damage * recoilPercent)
+      amount = Math.round(damage * recoilPercent)
+      amount = Math.max(1, amount)
       user.damage(amount)
       battle.message("#{user.name} was hit by recoil!")
+      oldFunc.call(this, battle, user, target, damage)
 
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
@@ -370,7 +379,7 @@ extendWithBoost 'flame-charge', 'self', speed: 1
 extendMove 'flame-wheel', -> @thawsUser = true
 extendWithSecondaryStatus 'flame-wheel', .1, Status.BURN
 extendWithSecondaryStatus 'flamethrower', .1, Status.BURN
-# TODO: Add recoil to flare-blitz.
+extendWithRecoil 'flare-blitz'
 extendMove 'flare-blitz', -> @thawsUser = true
 extendWithSecondaryStatus 'flare-blitz', .1, Status.BURN
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
@@ -543,8 +552,8 @@ makeTrickMove 'trick'
 # extendWithSecondaryEffect 'twineedle', .2, Status.POISON
 extendWithSecondaryEffect 'twister', .2, Attachment.Flinch
 extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, speed: -1
-# TODO: Volt tackle should have 1/3 recoil.
 extendWithSecondaryStatus 'volt-tackle', .1, Status.PARALYZE
+extendWithRecoil 'volt-tackle'
 extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
