@@ -33,6 +33,11 @@ extendMove = (name, callback) ->
   move = moves[name]
   callback.call(move, move.attributes)
 
+extendWithPrimaryStatus = (name, status) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      target.setStatus(status)
+
 # Extends a move in the move list as an attack with a secondary effect.
 #
 # name - The name of the move to turn into a secondary effect attack.
@@ -347,6 +352,7 @@ makeThiefMove 'covet'
 extendWithSecondaryBoost 'crunch', 'target', .2, defense: -1
 extendWithSecondaryBoost 'crush-claw', 'target', .5, defense: -1
 extendWithSecondaryEffect 'dark-pulse', .2, Attachment.Flinch
+extendWithPrimaryStatus 'dark-void', Status.SLEEP
 makeBoostMove 'defend-order', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'defense-curl', 'self', defense: 1
 extendWithSecondaryStatus 'discharge', .3, Status.PARALYZE
@@ -391,6 +397,7 @@ extendMove 'fusion-flare', -> @thawsUser = true
 extendWithDrain 'giga-drain'
 extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
+extendWithPrimaryStatus 'grasswhistle', Status.SLEEP
 makeBoostMove 'growl', 'target', attack: -1
 makeBoostMove 'growth', 'self', attack: 1, specialAttack: 1
 makeOneHitKOMove 'guillotine'
@@ -412,6 +419,7 @@ makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
 makeOneHitKOMove 'horn-drill'
 extendWithDrain 'horn-leech'
 makeBoostMove 'howl', 'self', attack: 1
+extendWithPrimaryStatus 'hypnosis', Status.SLEEP
 extendWithBoost 'icy-wind', 'target', speed: -1
 makeBoostMove 'iron-defense', 'self', defense: 2
 extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
@@ -433,6 +441,7 @@ extendWithDrain 'leech-life'
 extendWithSecondaryStatus 'lick', .3, Status.PARALYZE
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
+extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
 makeBoostMove 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
@@ -457,7 +466,9 @@ extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
 }
 extendWithBoost 'overheat', 'self', specialAttack: -2
 extendWithSecondaryStatus 'poison-fang', .3, Status.TOXIC
+extendWithPrimaryStatus 'poison-gas', Status.POISON
 extendWithSecondaryStatus 'poison-jab', .3, Status.POISON
+extendWithPrimaryStatus 'poisonpowder', Status.POISON
 extendWithSecondaryStatus 'poison-sting', .3, Status.POISON
 extendWithSecondaryStatus 'poison-tail', .1, Status.POISON
 extendWithSecondaryStatus 'powder-snow', .1, Status.FREEZE
@@ -507,8 +518,10 @@ extendWithSecondaryEffect 'signal-beam', .1, Attachment.Confusion
 extendWithSecondaryBoost 'silver-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
+extendWithPrimaryStatus 'sing', Status.SLEEP
 extendWithSecondaryEffect 'sky-attack', .3, Attachment.Flinch
 makeRecoveryMove 'slack-off'
+extendWithPrimaryStatus 'sleep-powder', Status.SLEEP
 extendWithSecondaryStatus 'sludge', .3, Status.POISON
 extendWithSecondaryStatus 'sludge-bomb', .3, Status.POISON
 extendWithSecondaryStatus 'sludge-wave', .1, Status.POISON
@@ -518,12 +531,14 @@ extendWithBoost 'snarl', 'target', specialAttack: -1
 extendWithSecondaryEffect 'snore', .3, Attachment.Flinch
 makeRecoveryMove 'softboiled'
 extendWithSecondaryStatus 'spark', .3, Status.PARALYZE
+extendWithPrimaryStatus 'spore', Status.SLEEP
 extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
 extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
 makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
 extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
+extendWithPrimaryStatus 'stun-spore', Status.PARALYZE
 extendWithRecoil 'submission', .25
 makeWeatherMove 'sunny-day', Weather.SUN
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
@@ -543,10 +558,12 @@ extendMove 'teleport', (battle) ->
 makeThiefMove 'thief'
 extendWithSecondaryStatus 'thunder', .3, Status.PARALYZE
 extendWithFangEffect 'thunder-fang', .1, Status.PARALYZE
+extendWithPrimaryStatus 'thunder-wave', Status.PARALYZE
 extendWithSecondaryStatus 'thunderbolt', .1, Status.PARALYZE
 extendWithSecondaryStatus 'thunderpunch', .1, Status.PARALYZE
 extendWithSecondaryStatus 'thundershock', .1, Status.PARALYZE
 makeBoostMove 'tickle', 'target', attack: -1, defense: -1
+extendWithPrimaryStatus 'toxic', Status.TOXIC
 # extendWithSecondaryEffect 'tri-attack', .1, Status.PARALYZE
 makeTrickMove 'trick'
 # extendWithSecondaryEffect 'twineedle', .2, Status.POISON
@@ -558,6 +575,7 @@ extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
 extendWithRecoil 'wild-charge', .25
+extendWithPrimaryStatus 'will-o-wisp', Status.BURN
 makeBoostMove 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
 makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1

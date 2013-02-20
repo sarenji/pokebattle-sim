@@ -1879,3 +1879,42 @@ shared = require '../shared'
   testWeatherMove("Sunny Day",  Weather.SUN,  "Heat Rock")
   testWeatherMove("Hail",       Weather.HAIL, "Icy Rock")
   testWeatherMove("Sandstorm",  Weather.SAND, "Smooth Rock")
+
+  testStatusMove = (moveName, status) ->
+    describe moveName, ->
+      it "changes the status on a Pokemon if it has no status", ->
+        shared.create.call(this)
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().hasStatus(status).should.be.true
+
+      it "does not change the status if Pokemon already has a status", ->
+        shared.create.call(this)
+
+        oldStatus = if status == Status.PARALYZE
+            Status.SLEEP
+          else
+            Status.PARALYZE
+        @team2.first().setStatus(oldStatus)
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().hasStatus(status).should.be.false
+        @team2.first().hasStatus(oldStatus).should.be.true
+
+  testStatusMove("Dark Void", Status.SLEEP)
+  testStatusMove("GrassWhistle", Status.SLEEP)
+  testStatusMove("Hypnosis", Status.SLEEP)
+  testStatusMove("Lovely Kiss", Status.SLEEP)
+  testStatusMove("Poison Gas", Status.POISON)
+  testStatusMove("PoisonPowder", Status.POISON)
+  testStatusMove("Sing", Status.SLEEP)
+  testStatusMove("Sleep Powder", Status.SLEEP)
+  testStatusMove("Spore", Status.SLEEP)
+  testStatusMove("Stun Spore", Status.PARALYZE)
+  testStatusMove("Thunder Wave", Status.PARALYZE)
+  testStatusMove("Toxic", Status.TOXIC)
+  testStatusMove("Will-O-Wisp", Status.BURN)
