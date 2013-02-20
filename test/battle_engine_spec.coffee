@@ -361,3 +361,21 @@ describe 'Mechanics', ->
       @battle.makeMove(@player2, 'Splash')
 
       @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
+
+  describe "a paralyzed pokemon", ->
+    it "has a 25% chance of being fully paralyzed", ->
+      shared.create.call(this)
+
+      @team1.first().attach(new Attachment.Paralysis())
+      shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
+
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+    xit "has its speed quartered", ->

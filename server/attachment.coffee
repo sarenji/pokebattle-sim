@@ -86,6 +86,14 @@ class @TeamAttachment extends @Attachment
   remove: =>
     @team.unattach(this)
 
+class @Attachment.Paralysis extends @Attachment
+  constructor: (attributes={}) ->
+    super(Status.PARALYZE, attributes)
+
+  beforeMove: (battle, move, user, targets) =>
+    if battle.rng.next('paralyze chance') < .25
+      battle.message "#{@pokemon.name} is fully paralyzed!"
+      return false
 
 class @Attachment.Freeze extends @Attachment
   constructor: (attributes={}) ->
