@@ -24,6 +24,17 @@ class Item
   editDamage: (battle, holder, move, damage) => damage
   update: (battle, owner) =>
 
+  # Stat modifications
+  # TODO: Consider subclassing from Attachment
+  modifyHp: (stat) => stat
+  modifySpeed: (stat) => stat
+  modifyAccuracy: (stat) => stat
+  modifyEvasion: (stat) => stat
+  modifyAttack: (stat) => stat
+  modifySpecialAttack: (stat) => stat
+  modifyDefense: (stat) => stat
+  modifySpecialDefense: (stat) => stat
+
 extendItem = (name, callback) ->
   if name not of items
     throw new Error("Cannot extend Item '#{name}' because it does not exist.")
@@ -123,6 +134,11 @@ makeTypeBoostItem 'Charcoal', 'Fire'
 makeChoiceItem 'Choice Band'
 makeChoiceItem 'Choice Specs'
 makeChoiceItem 'Choice Scarf'
+
+extendItem 'Choice Scarf', ->
+  @modifySpeed = (stat) ->
+    Math.floor(stat * 1.5)
+
 makeWeatherItem 'Damp Rock', Weather.RAIN
 makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'

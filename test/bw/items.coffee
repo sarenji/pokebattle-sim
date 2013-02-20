@@ -265,6 +265,14 @@ shared = require '../shared'
 
     xit "relocks the pokemon after Magic Room"
 
+  describe "Choice Scarf", ->
+    it "increases the speed of the Pokemon by x1.5", ->
+      shared.create.call(this)
+
+      speed = @team1.first().stat('speed')
+      @team1.first().setItem(@battle, items['Choice Scarf'])
+      @team1.first().stat('speed').should.equal Math.floor(speed * 1.5)
+
   describe "Flame Orb", ->
     it "burns the user at the end of the turn", ->
       shared.create.call this,

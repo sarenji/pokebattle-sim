@@ -57,6 +57,7 @@ class @Pokemon
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
+    total = @item["modify#{capitalized}"](total)  if @item?
     total = @attachments.queryChain("modify#{capitalized}", total)
     total = @statBoost(key, total)  if key != 'hp'
     total
