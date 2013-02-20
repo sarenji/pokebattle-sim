@@ -33,6 +33,20 @@ extendMove = (name, callback) ->
   move = moves[name]
   callback.call(move, move.attributes)
 
+extendWithPrimaryEffect = (name, Klass, options={}) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      if target.hasAttachment(Klass.name)
+        # TODO: Placeholder
+        @fail(battle)
+        return
+
+      # TODO: Maybe find a better way to do this.
+      if Klass == Attachment.Confusion
+        options.turns ||= battle.rng.randInt(1, 4, "confusion turns")
+
+      target.attach(new Klass(options))
+
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
@@ -340,9 +354,11 @@ makeBoostMove 'bulk-up', 'self', attack: 1, defense: 1
 extendWithBoost 'bulldoze', 'target', speed: -1
 makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
 makeBoostMove 'charm', 'target', attack: -2
+extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
+extendWithPrimaryEffect 'confuse-ray', Attachment.Confusion
 extendWithSecondaryEffect 'confusion', .1, Attachment.Confusion
 extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
 makeBoostMove 'cosmic-power', 'self', defense: 1, specialDefense: 1
@@ -365,6 +381,7 @@ extendWithSecondaryStatus 'dragonbreath', .3, Status.PARALYZE
 extendWithDrain 'drain-punch'
 extendWithDrain 'dream-eater'
 extendWithBoost 'draco-meteor', 'self', specialAttack: -2
+extendWithSecondaryEffect 'dynamicpunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
@@ -542,6 +559,8 @@ extendWithPrimaryStatus 'stun-spore', Status.PARALYZE
 extendWithRecoil 'submission', .25
 makeWeatherMove 'sunny-day', Weather.SUN
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
+extendWithPrimaryEffect 'supersonic', Attachment.Confusion
+extendWithPrimaryEffect 'sweet-kiss', Attachment.Confusion
 makeBoostMove 'sweet-scent', 'target', evasion: -1
 makeTrickMove 'switcheroo'
 makeBoostMove 'swords-dance', 'self', attack: 2
@@ -553,6 +572,7 @@ makeWeatherRecoveryMove 'synthesis'
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
 extendWithRecoil 'take-down', .25
+extendWithPrimaryEffect 'teeter-dance', Attachment.Confusion
 extendMove 'teleport', (battle) ->
   @execute = -> @fail(battle)
 makeThiefMove 'thief'
@@ -580,6 +600,7 @@ makeBoostMove 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
 makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
+extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
 extendMove 'autotomize', ->
   @afterSuccessfulHit = (battle, user, target) ->

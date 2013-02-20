@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {moves} = require('../../data/bw')
-{Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
+{Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
 {Factory} = require '../factory'
 should = require 'should'
@@ -1918,3 +1918,34 @@ shared = require '../shared'
   testStatusMove("Thunder Wave", Status.PARALYZE)
   testStatusMove("Toxic", Status.TOXIC)
   testStatusMove("Will-O-Wisp", Status.BURN)
+
+  testEffectMove = (moveName, effect) ->
+    describe moveName, ->
+      it "adds the effect to the Pokemon if it doesn't have it", ->
+        shared.create.call(this)
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().hasAttachment(effect.name).should.be.true
+
+      it "fails if the Pokemon already has it", ->
+        shared.create.call(this)
+
+        move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
+        mock = sinon.mock(move)
+        mock.expects('fail').once()
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        @battle.makeMove(@player1, moveName)
+        @battle.makeMove(@player2, "Splash")
+
+        mock.restore()
+        mock.verify()
+
+  testEffectMove 'Confuse Ray', Attachment.Confusion
+  testEffectMove 'Supersonic', Attachment.Confusion
+  testEffectMove 'Sweet Kiss', Attachment.Confusion
+  testEffectMove 'Teeter Dance', Attachment.Confusion
