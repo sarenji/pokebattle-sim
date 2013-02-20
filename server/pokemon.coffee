@@ -13,6 +13,7 @@ class @Pokemon
     @level = attributes.level || 100
     @baseStats = attributes.stats || {}
     @weight = attributes.weight  # in kg
+    @attachments = new Attachments()
 
     @nature = attributes.nature
     @evs = attributes.evs || {}
@@ -25,7 +26,6 @@ class @Pokemon
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
     @status = null
-    @attachments = new Attachments()
 
     @stages =
       attack: 0
@@ -56,6 +56,8 @@ class @Pokemon
       floor((2 * base + iv + ev) * (@level / 100) + @level + 10)
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
+    capitalized = key[0].toUpperCase() + key.substr(1)
+    total = @attachments.queryChain("modify#{capitalized}", total)
     total = @statBoost(key, total)  if key != 'hp'
     total
 

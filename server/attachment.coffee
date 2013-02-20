@@ -78,6 +78,18 @@ class @Attachment
   endTurn: (battle) =>
   update: (battle, owner) =>
 
+  # Pokemon-specific attachments
+  # TODO: Turn Attachment into abstract class
+  # TODO: Move into own PokemonAttachment
+  modifyHp: (stat) => stat
+  modifySpeed: (stat) => stat
+  modifyAccuracy: (stat) => stat
+  modifyEvasion: (stat) => stat
+  modifyAttack: (stat) => stat
+  modifySpecialAttack: (stat) => stat
+  modifyDefense: (stat) => stat
+  modifySpecialDefense: (stat) => stat
+
 class @TeamAttachment extends @Attachment
   constructor: (name, attributes) ->
     super(name, attributes)
@@ -94,6 +106,9 @@ class @Attachment.Paralysis extends @Attachment
     if battle.rng.next('paralyze chance') < .25
       battle.message "#{@pokemon.name} is fully paralyzed!"
       return false
+
+  modifySpeed: (stat) =>
+    Math.floor(stat / 4)
 
 class @Attachment.Freeze extends @Attachment
   constructor: (attributes={}) ->

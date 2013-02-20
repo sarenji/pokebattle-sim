@@ -378,4 +378,10 @@ describe 'Mechanics', ->
       mock.restore()
       mock.verify()
 
-    xit "has its speed quartered", ->
+    it "has its speed quartered", ->
+      shared.create.call(this)
+
+      speed = @team1.first().stat('speed')
+      @team1.first().attach(new Attachment.Paralysis())
+
+      @team1.first().stat('speed').should.equal Math.floor(speed / 4)
