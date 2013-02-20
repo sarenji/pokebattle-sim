@@ -3,7 +3,8 @@
 json = require './data_items.json'
 {Attachment} = require('../../server/attachment')
 {Status} = require('../../server/status')
-{Weather} = require '.././../server/weather'
+{Weather} = require '../../server/weather'
+util = require '../../server/util'
 
 class Item
   constructor: (name, attributes={}) ->

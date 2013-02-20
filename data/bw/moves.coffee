@@ -283,26 +283,8 @@ boostExtension = (boostTarget, boosts) ->
       target.boost(boosts)
     else throw new Error("I don't know what target #{boostTarget} is.")
 
-    for stat, wasBoosted of boostedStats
-      pokemon = (if boostTarget == 'self' then user else target)
-      message = makeBoostMessage(pokemon, stat, boosts[stat], wasBoosted)
-      battle.message(message)  if message?
-
-makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
-  if wasBoosted && amount > 0
-    adverb = ""              if amount == 1
-    adverb = " sharply"      if amount == 2
-    adverb = " drastically"  if amount >= 3
-    "#{pokemon.name}'s #{stat} rose#{adverb}!"
-  else if wasBoosted && amount < 0
-    adverb = ""           if amount == -1
-    adverb = " harshly"   if amount == -2
-    adverb = " severely"  if amount <= -3
-    "#{pokemon.name}'s #{stat}#{adverb} fell!"
-  else if !wasBoosted && amount > 0
-    "#{pokemon.name}'s #{stat} won't go any higher!"
-  else if !wasBoosted && amount < 0
-    "#{pokemon.name}'s #{stat} won't go any lower!"
+    pokemon = (if boostTarget == 'self' then user else target)
+    util.printBoostMessage(battle, pokemon, boostedStats, boosts)
 
 makeCounterMove = (name, multiplier, applies) ->
   extendMove name, ->
@@ -718,10 +700,10 @@ extendMove 'flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
     options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
     target.attach(new Attachment.Confusion(options))
-    boostedStats = target.boost(specialAttack: -2)
-    for stat, wasBoosted of boostedStats
-      message = makeBoostMessage(target, stat, -2, wasBoosted)
-      battle.message(message)
+
+    boosts = {specialAttack: -2}
+    boostedStats = target.boost(boosts)
+    util.printBoostMessage(battle, target, boostedStats, boosts)
 
 extendMove 'gyro-ball', ->
   @basePower = (battle, user, target) ->
@@ -824,10 +806,9 @@ extendMove 'magnitude', ->
 extendMove 'memento', ->
   @use = (battle, user, target, damage) ->
     user.currentHP = 0
-    boostedStats = target.boost(attack: -2, specialAttack: -2)
-    for stat, wasBoosted of boostedStats
-      message = makeBoostMessage(target, stat, -2, wasBoosted)
-      battle.message(message)
+    boosts = {attack: -2, specialAttack: -2}
+    boostedStats = target.boost(boosts)
+    util.printBoostMessage(battle, target, boostedStats, boosts)
 
 # TODO: Test
 # TODO: Figure out how to redetermine move targets.
@@ -952,10 +933,9 @@ extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
     target.attach(new Attachment.Confusion(options))
-    boostedStats = target.boost(attack: -2)
-    for stat, wasBoosted of boostedStats
-      message = makeBoostMessage(target, stat, -2, wasBoosted)
-      battle.message(message)
+    boosts = {attack: -2}
+    boostedStats = target.boost(boosts)
+    util.printBoostMessage(battle, target, boostedStats, boosts)
 
 extendMove 'synchronoise', ->
   oldUse = @use

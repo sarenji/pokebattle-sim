@@ -1,6 +1,28 @@
 @roundHalfDown = (number) ->
   Math.ceil(number - .5)
 
+makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
+  if wasBoosted && amount > 0
+    adverb = ""              if amount == 1
+    adverb = " sharply"      if amount == 2
+    adverb = " drastically"  if amount >= 3
+    "#{pokemon.name}'s #{stat} rose#{adverb}!"
+  else if wasBoosted && amount < 0
+    adverb = ""           if amount == -1
+    adverb = " harshly"   if amount == -2
+    adverb = " severely"  if amount <= -3
+    "#{pokemon.name}'s #{stat}#{adverb} fell!"
+  else if !wasBoosted && amount > 0
+    "#{pokemon.name}'s #{stat} won't go any higher!"
+  else if !wasBoosted && amount < 0
+    "#{pokemon.name}'s #{stat} won't go any lower!"
+
+@printBoostMessage = (battle, pokemon, boostedStats, amountHash) ->
+  for stat, wasBoosted of boostedStats
+    message = makeBoostMessage(pokemon, stat, amountHash[stat], wasBoosted)
+    battle.message(message)  if message?
+  true
+
 @typeEffectiveness = (userType, againstTypes) ->
   userType = Type[userType.toUpperCase()]
   effectiveness = 1
