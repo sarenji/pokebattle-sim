@@ -1919,7 +1919,7 @@ shared = require '../shared'
   testStatusMove("Toxic", Status.TOXIC)
   testStatusMove("Will-O-Wisp", Status.BURN)
 
-  testEffectMove = (moveName, effect) ->
+  testEffectMove = (moveName, Effect) ->
     describe moveName, ->
       it "adds the effect to the Pokemon if it doesn't have it", ->
         shared.create.call(this)
@@ -1927,7 +1927,7 @@ shared = require '../shared'
         @battle.makeMove(@player1, moveName)
         @battle.makeMove(@player2, "Splash")
 
-        @team2.first().hasAttachment(effect.name).should.be.true
+        @team2.first().hasAttachment(Effect.name).should.be.true
 
       it "fails if the Pokemon already has it", ->
         shared.create.call(this)
@@ -1936,8 +1936,7 @@ shared = require '../shared'
         mock = sinon.mock(move)
         mock.expects('fail').once()
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        @team2.first().attach(new Effect(turns: 4))  # turns is for confusion
 
         @battle.makeMove(@player1, moveName)
         @battle.makeMove(@player2, "Splash")
