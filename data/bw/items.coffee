@@ -60,6 +60,22 @@ makeStatBoostBerry = (name, boosts) ->
     boostedStats = owner.boost(boosts)
     util.printBoostMessage(battle, owner, boostedStats, boosts)
 
+makeFlavorHealingBerry = (name, stat) ->
+  extendItem name, ->
+    @eat = (battle, owner) ->
+      # TODO: Replace with the real battle message.
+      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      owner.damage(-Math.floor(owner.stat('hp') / 8))
+      if owner.natureBoost(stat) < 1.0
+        # TODO: Replace with the real battle message.
+        battle.message "The #{name} was bitter!"
+        owner.attach(new Attachment.Confusion({battle}))
+      owner.removeItem()
+
+    @update = (battle, owner) ->
+      if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
+        @eat(battle, owner)
+
 makeOrbItem = (name, species) ->
   extendItem name, ->
     @basePowerModifier = (move, battle, user, target) ->
@@ -124,6 +140,7 @@ extendItem 'Absorb Bulb', ->
       target.item = null
 
 makeOrbItem 'Adamant Orb', 'Dialga'
+makeFlavorHealingBerry 'Aguav Berry', "specialDefense"
 
 extendItem 'Air Balloon', ->
   @initialize = (battle, pokemon) ->
@@ -167,6 +184,7 @@ makePlateItem 'Dread Plate', 'Dark'
 makePlateItem 'Earth Plate', 'Ground'
 makeGemItem 'Electric Gem', 'Electric'
 makeGemItem 'Fighting Gem', 'Fighting'
+makeFlavorHealingBerry 'Figy Berry', "attack"
 makeGemItem 'Fire Gem', 'Fire'
 makePlateItem 'Fist Plate', 'Fighting'
 makeStatusOrbItem 'Flame Orb', Status.BURN
@@ -192,6 +210,7 @@ makeOrbItem 'Griseous Orb', 'Giratina'
 makeGemItem 'Ground Gem', 'Ground'
 makeTypeBoostItem 'Hard Stone', 'Rock'
 makeWeatherItem 'Heat Rock', Weather.SUN
+makeFlavorHealingBerry 'Iapapa Berry', "defense"
 makeGemItem 'Ice Gem', 'Ice'
 makePlateItem 'Icicle Plate', 'Ice'
 makeWeatherItem 'Icy Rock', Weather.HAIL
@@ -213,6 +232,7 @@ extendItem 'Life Orb', ->
 
 makeOrbItem 'Lustrous Orb', 'Palkia'
 makeTypeBoostItem 'Magnet', 'Electric'
+makeFlavorHealingBerry 'Mago Berry', "speed"
 makePlateItem 'Meadow Plate', 'Grass'
 makeTypeBoostItem 'Metal Coat', 'Steel'
 makePlateItem 'Mind Plate', 'Psychic'
@@ -287,6 +307,8 @@ extendItem 'White Herb', ->
     if shouldTrigger
       owner.removeItem()
       battle.message "#{owner.name} restored its status using its #{@name}!"
+
+makeFlavorHealingBerry 'Wiki Berry', "specialAttack"
 
 extendItem 'Wise Glasses', ->
   @basePowerModifier = (move, battle, user, target) ->
