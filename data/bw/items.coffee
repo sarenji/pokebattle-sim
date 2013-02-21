@@ -43,6 +43,23 @@ extendItem = (name, callback) ->
   item = items[name]
   callback.call(item)
 
+makePinchBerry = (name, func) ->
+  extendItem name, ->
+    @eat = (battle, owner) ->
+      func.call(this, battle, owner)
+      owner.removeItem()
+
+    @update = (battle, owner) ->
+      if owner.currentHP <= Math.floor(owner.stat('hp') / 4)
+        @eat(battle, owner)
+
+# TODO: If the stat is maxed, does anything special happen?
+#       Is the berry still consumed?
+makeStatBoostBerry = (name, boosts) ->
+  makePinchBerry name, (battle, owner) ->
+    boostedStats = owner.boost(boosts)
+    util.printBoostMessage(battle, owner, boostedStats, boosts)
+
 makeOrbItem = (name, species) ->
   extendItem name, ->
     @basePowerModifier = (move, battle, user, target) ->
@@ -116,6 +133,7 @@ extendItem 'Air Balloon', ->
   @deactivate = (pokemon) ->
     pokemon.unattach("AirBalloonAttachment")
 
+makeStatBoostBerry 'Apicot Berry', specialDefense: 1
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
 
@@ -167,6 +185,7 @@ extendItem 'Focus Sash', ->
       return maxHP - 1
     return damage
 
+makeStatBoostBerry 'Ganlon Berry', defense: 1
 makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'
 makeOrbItem 'Griseous Orb', 'Giratina'
@@ -186,6 +205,7 @@ extendItem 'Leftovers', ->
     amount = 1  if amount == 0
     user.damage(-amount)
 
+makeStatBoostBerry 'Liechi Berry', attack: 1
 extendItem 'Life Orb', ->
   @afterSuccessfulHit = (battle, move, user, target, damage) ->
     return  if move.isNonDamaging()
@@ -209,6 +229,7 @@ makeTypeBoostItem 'Mystic Water', 'Water'
 makeTypeBoostItem 'NeverMeltIce', 'Ice'
 makeGemItem 'Normal Gem', 'Normal'
 makeTypeBoostItem 'Odd Incense', 'Psychic'
+makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
@@ -223,6 +244,7 @@ extendItem 'Rocky Helmet', ->
 
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
+makeStatBoostBerry 'Salac Berry', speed: 1
 makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
@@ -233,6 +255,18 @@ makeTypeBoostItem 'Soft Sand', 'Ground'
 makeTypeBoostItem 'Spell Tag', 'Ghost'
 makePlateItem 'Splash Plate', 'Water'
 makePlateItem 'Spooky Plate', 'Ghost'
+
+# TODO: If there is no stat left to boost, is it still consumed?
+makePinchBerry 'Starf Berry', (battle, owner) ->
+  stats = ["attack", "defense", "specialAttack", "specialDefense", "speed"]
+  stats = stats.filter((stat) -> owner.stages[stat] != 6)
+  return  if stats.length == 0
+  index = battle.rng.randInt(0, stats.length - 1, "starf berry stat")
+  boosts = {}
+  boosts[stats[index]] = 2
+  boostedStats = owner.boost(boosts)
+  util.printBoostMessage(battle, owner, boostedStats, boosts)
+
 makeGemItem 'Steel Gem', 'Steel'
 makePlateItem 'Stone Plate', 'Rock'
 makeStatusOrbItem 'Toxic Orb', Status.TOXIC

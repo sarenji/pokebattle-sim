@@ -395,3 +395,89 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal @team1.first().stat('hp')
+
+  describe "Salac berry", ->
+    it "raises the Pokemon's Speed when HP falls at 25% or less", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().stages.speed.should.equal(0)
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().stages.speed.should.equal(1)
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasItem().should.be.false
+
+  describe "Starf berry", ->
+    it "sharply raises a random stat when HP falls at 25% or less", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Starf Berry")]
+
+      shared.biasRNG.call(this, "randInt", 'starf berry stat', 1)
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().stages.defense.should.equal(2)
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasItem().should.be.false
+
+    it "only raises stats that aren't at +6", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Starf Berry")]
+
+      shared.biasRNG.call(this, "randInt", 'starf berry stat', 1)
+
+      @team1.first().stages.defense = 6
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      # Note: This depends on the stats array inside
+      # the definition of Starf Berry. Not exactly robust.
+      @team1.first().stages.specialAttack.should.equal(2)
+      @team1.first().hasItem().should.be.false
+
+    it "doesn't raise any stat if all main stats are at +6", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Starf Berry")]
+
+      shared.biasRNG.call(this, "randInt", 'starf berry stat', 1)
+
+      stats = ["attack", "defense", "specialAttack", "specialDefense", "speed"]
+      for stat in stats
+        @team1.first().stages[stat] = 6
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      hash = {}
+      for stat in stats
+        hash[stat] = 6
+      @team1.first().stages.should.include(hash)
+      @team1.first().hasItem().should.be.false
+

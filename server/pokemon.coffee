@@ -87,6 +87,8 @@ class @Pokemon
   boost: (boosts) =>
     boosted = {}
     for stat, amount of boosts
+      if stat not of @stages
+        throw new Error("Tried to boost non-existent stat #{stat} by #{amount}")
       previous = @stages[stat]
       @stages[stat] += amount
       @stages[stat] = Math.max(-6, @stages[stat])
