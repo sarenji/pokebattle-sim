@@ -519,3 +519,31 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team1.first().hasAttachment(Attachment.Confusion.name).should.be.true
+
+  describe "a healing berry", ->
+    it "restores a variable number of HP when owner is at 50% HP or under", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sitrus Berry")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasItem().should.be.true
+
+      maxHP = @team1.first().stat('hp')
+      hp = Math.floor(maxHP / 2)
+      @team1.first().currentHP = hp
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal(hp + Math.floor(maxHP / 4))
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sitrus Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().stat('hp') / 2)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().hasItem().should.be.false

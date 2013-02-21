@@ -76,6 +76,18 @@ makeFlavorHealingBerry = (name, stat) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
 
+makeHealingBerry = (name, func) ->
+  extendItem name, ->
+    @eat = (battle, owner) ->
+      # TODO: Replace with the real battle message.
+      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      owner.damage(-func(owner))
+      owner.removeItem()
+
+    @update = (battle, owner) ->
+      if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
+        @eat(battle, owner)
+
 makeOrbItem = (name, species) ->
   extendItem name, ->
     @basePowerModifier = (move, battle, user, target) ->
@@ -151,6 +163,7 @@ extendItem 'Air Balloon', ->
     pokemon.unattach("AirBalloonAttachment")
 
 makeStatBoostBerry 'Apicot Berry', specialDefense: 1
+makeHealingBerry 'Berry Juice', -> 20
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
 
@@ -249,6 +262,7 @@ makeTypeBoostItem 'Mystic Water', 'Water'
 makeTypeBoostItem 'NeverMeltIce', 'Ice'
 makeGemItem 'Normal Gem', 'Normal'
 makeTypeBoostItem 'Odd Incense', 'Psychic'
+makeHealingBerry 'Oran Berry', -> 10
 makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
@@ -269,6 +283,7 @@ makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'
+makeHealingBerry 'Sitrus Berry', (owner) -> Math.floor(owner.stat('hp') / 4)
 makePlateItem 'Sky Plate', 'Flying'
 makeWeatherItem 'Smooth Rock', Weather.SAND
 makeTypeBoostItem 'Soft Sand', 'Ground'
