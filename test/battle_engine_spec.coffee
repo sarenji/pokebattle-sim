@@ -296,7 +296,8 @@ describe 'Mechanics', ->
     it "has a 50% chance of hurting itself", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Confusion(turns: 1))
+      shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
+      @team1.at(0).attach(new Attachment.Confusion({@battle}))
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
       mock = sinon.mock(moves['tackle'])
@@ -314,7 +315,8 @@ describe 'Mechanics', ->
     it "snaps out of confusion after a predetermined number of turns", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Confusion(turns: 1))
+      shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
+      @team1.at(0).attach(new Attachment.Confusion({@battle}))
 
       @battle.makeMove(@player1, 'Splash')
       @battle.makeMove(@player2, 'Splash')

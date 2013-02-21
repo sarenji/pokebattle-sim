@@ -41,11 +41,9 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
         @fail(battle)
         return
 
-      # TODO: Maybe find a better way to do this.
-      if Klass == Attachment.Confusion
-        options.turns ||= battle.rng.randInt(1, 4, "confusion turns")
-
-      target.attach(new Klass(options))
+      hash = _.clone(options)
+      hash.battle = battle
+      target.attach(new Klass(hash))
 
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
@@ -62,7 +60,7 @@ extendWithPrimaryStatus = (name, status) ->
 #
 #   extendWithSecondaryEffect 'iron-head', .3, Attachment.Flinch
 #
-extendWithSecondaryEffect = (name, chance, Klass, options) ->
+extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
   extendMove name, ->
     oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
@@ -70,11 +68,9 @@ extendWithSecondaryEffect = (name, chance, Klass, options) ->
       if battle.rng.next("secondary effect") >= chance
         return
 
-      # TODO: Maybe find a better way to do this.
-      if Klass == Attachment.Confusion
-        options.turns ||= battle.rng.randInt(1, 4, "confusion turns")
-
-      target.attach(new Klass(options))
+      hash = _.clone(options)
+      hash.battle = battle
+      target.attach(new Klass(hash))
 
 extendWithSecondaryStatus = (name, chance, status) ->
   extendMove name, ->
@@ -698,8 +694,7 @@ extendMove 'facade', ->
 
 extendMove 'flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
-    target.attach(new Attachment.Confusion(options))
+    target.attach(new Attachment.Confusion({battle}))
 
     boosts = {specialAttack: -2}
     boostedStats = target.boost(boosts)
@@ -931,8 +926,7 @@ extendMove 'splash', ->
 
 extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    options = {turns: battle.rng.randInt(1, 4, "confusion turns")}
-    target.attach(new Attachment.Confusion(options))
+    target.attach(new Attachment.Confusion({battle}))
     boosts = {attack: -2}
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)

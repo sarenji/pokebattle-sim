@@ -1936,7 +1936,8 @@ shared = require '../shared'
         mock = sinon.mock(move)
         mock.expects('fail').once()
 
-        @team2.first().attach(new Effect(turns: 4))  # turns is for confusion
+        shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
+        @team2.first().attach(new Effect({@battle}))
 
         @battle.makeMove(@player1, moveName)
         @battle.makeMove(@player2, "Splash")

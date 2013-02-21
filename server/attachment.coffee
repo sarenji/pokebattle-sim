@@ -142,7 +142,7 @@ class @Attachment.Flinch extends @VolatileAttachment
 class @Attachment.Confusion extends @VolatileAttachment
   constructor: (attributes={}) ->
     super(VolatileStatus.CONFUSION, attributes)
-    @turns = attributes.turns
+    @turns = attributes.battle.rng.randInt(1, 4, "confusion turns")
     @turn = 0
 
   beforeMove: (battle, move, user, targets) =>
