@@ -17,6 +17,8 @@ class @Attachments
   indexOf: (attachment) =>
     if typeof attachment == 'string'
       @map((a) -> a.name).indexOf(attachment)
+    else if typeof attachment == 'function'
+      @map((a) -> a.constructor).indexOf(attachment)
     else
       @attachments.indexOf(attachment)
 
@@ -24,10 +26,7 @@ class @Attachments
     @attachments[@indexOf(attachment)]
 
   contains: (attachment) =>
-    if typeof attachment == 'string'
-      attachment in @map((a) -> a.name)
-    else
-      attachment in @attachments
+    @indexOf(attachment) != -1
 
   queryUntil: (funcName, conditional, args...) =>
     for attachment in _.clone(@attachments)

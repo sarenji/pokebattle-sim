@@ -109,6 +109,19 @@ makeFeedbackDamageBerry = (name, klass) ->
       user.damage(Math.floor(user.stat('hp') / 8))
       target.removeItem()
 
+makeStatusCureBerry = (name, statuses...) ->
+  extendItem name, ->
+    @update = (battle, owner) ->
+      removed = false
+      for attachment in statuses
+        if owner.hasStatus(attachment)
+          owner.cureStatus()
+          removed = true
+        else if owner.hasAttachment(attachment)
+          owner.unattach(attachment)
+          removed = true
+      owner.removeItem()  if removed
+
 makeOrbItem = (name, species) ->
   extendItem name, ->
     @basePowerModifier = (move, battle, user, target) ->
@@ -184,6 +197,7 @@ extendItem 'Air Balloon', ->
     pokemon.unattach("AirBalloonAttachment")
 
 makeStatBoostBerry 'Apicot Berry', specialDefense: 1
+makeStatusCureBerry 'Aspear Berry', Status.FREEZE
 makeTypeResistBerry 'Babiri Berry', 'Steel'
 makeHealingBerry 'Berry Juice', -> 20
 makeTypeBoostItem 'Black Belt', 'Fighting'
@@ -203,6 +217,8 @@ extendItem 'Black Sludge', ->
 makeGemItem 'Bug Gem', 'Bug'
 makeTypeBoostItem 'Charcoal', 'Fire'
 makeTypeResistBerry 'Charti Berry', 'Rock'
+makeStatusCureBerry 'Cheri Berry', Status.PARALYZE
+makeStatusCureBerry 'Chesto Berry', Status.SLEEP
 makeTypeResistBerry 'Chilan Berry', 'Normal'
 makeChoiceItem 'Choice Band'
 makeChoiceItem 'Choice Specs'
@@ -274,6 +290,8 @@ extendItem 'Life Orb', ->
     return  if move.isNonDamaging()
     user.damage(Math.floor(user.stat('hp') / 10))
 
+makeStatusCureBerry 'Lum Berry', Status.PARALYZE, Status.SLEEP, Status.POISON,
+  Status.TOXIC, Status.BURN, Status.FREEZE, Attachment.Confusion
 makeOrbItem 'Lustrous Orb', 'Palkia'
 makeTypeBoostItem 'Magnet', 'Electric'
 makeFlavorHealingBerry 'Mago Berry', "speed"
@@ -297,10 +315,13 @@ makeTypeBoostItem 'Odd Incense', 'Psychic'
 makeHealingBerry 'Oran Berry', -> 10
 makeTypeResistBerry 'Passho Berry', 'Water'
 makeTypeResistBerry 'Payapa Berry', 'Psychic'
+makeStatusCureBerry 'Pecha Berry', Status.TOXIC, Status.POISON
+makeStatusCureBerry 'Persim Berry', Attachment.Confusion
 makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
+makeStatusCureBerry 'Rawst Berry', Status.BURN
 makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
 

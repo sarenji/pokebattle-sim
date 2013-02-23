@@ -637,3 +637,35 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal @team1.first().stat('hp')
+
+  describe "status cure berries", ->
+    it "restores certain statuses", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Cheri Berry")]
+
+      @team2.first().setStatus(Status.PARALYZE)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasStatus(Status.PARALYZE).should.be.false
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Cheri Berry")]
+
+      @team2.first().setStatus(Status.PARALYZE)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasItem().should.be.false
+
+    it "restores confusion", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Lum Berry")]
+
+      shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
+      @team2.first().attach(new Attachment.Confusion({@battle}))
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasAttachment(Attachment.Confusion).should.be.false
