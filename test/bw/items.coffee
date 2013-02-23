@@ -669,3 +669,37 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team2.first().hasAttachment(Attachment.Confusion).should.be.false
+
+  describe "Enigma Berry", ->
+    it "restores 25% of HP after the owner is hit by a super-effective move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Enigma Berry")]
+
+      hp = @team1.first().stat('hp')
+      damage = Math.floor(hp / 2)
+      sinon.stub(@team1.first(), "editDamage", -> damage)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Thunderbolt')
+
+      @team1.first().currentHP.should.equal(hp - damage + Math.floor(hp / 4))
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Enigma Berry")]
+
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Thunderbolt')
+
+      @team1.first().hasItem().should.be.false
+
+    it "doesn't restore 25% of HP if move isn't super-effective", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Enigma Berry")]
+
+      hp = @team1.first().stat('hp')
+      damage = Math.floor(hp / 2)
+      sinon.stub(@team1.first(), "editDamage", -> damage)
+      @battle.makeMove(@player1, 'Splash')
+      @battle.makeMove(@player2, 'Tackle')
+
+      @team1.first().currentHP.should.equal(hp - damage)

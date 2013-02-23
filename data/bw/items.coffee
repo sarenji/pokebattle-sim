@@ -239,6 +239,15 @@ makePlateItem 'Draco Plate', 'Dragon'
 makePlateItem 'Dread Plate', 'Dark'
 makePlateItem 'Earth Plate', 'Ground'
 makeGemItem 'Electric Gem', 'Electric'
+
+extendItem 'Enigma Berry', ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
+    return  if util.typeEffectiveness(move.type, target.types) <= 1
+    # TODO: real message
+    battle.message "The #{name} restored #{target.name}'s HP a little!"
+    target.damage(-Math.floor(target.stat('hp') / 4))
+    target.removeItem()
+
 makeGemItem 'Fighting Gem', 'Fighting'
 makeFlavorHealingBerry 'Figy Berry', "attack"
 makeGemItem 'Fire Gem', 'Fire'
