@@ -1,6 +1,6 @@
 sinon = require 'sinon'
 {items, moves} = require('../../data/bw')
-{attackStatModifier} = require '../../server/modifiers'
+{basePowerModifier, attackStatModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
 {Attachment} = require '../../server/attachment'
 {Factory} = require '../factory'
@@ -547,3 +547,54 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
+
+  describe "a type-resist berry", ->
+    it "halves base power of a super-effective move used on the target", ->
+      shared.create.call this,
+        team2: [Factory("Blaziken", item: "Shuca Berry")]
+
+      move = moves['earthquake']
+      mod = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x800
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team2: [Factory("Blaziken", item: "Shuca Berry")]
+
+      @battle.makeMove(@player1, 'Earthquake')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasItem().should.be.false
+
+    it "is not triggered by non-damaging moves", ->
+      shared.create.call this,
+        team2: [Factory("Celebi", item: "Occa Berry")]
+
+      @battle.makeMove(@player1, 'Will-O-Wisp')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasItem().should.be.true
+
+    it "does not halve if the move is not of the required type", ->
+      shared.create.call this,
+        team2: [Factory("Blaziken", item: "Shuca Berry")]
+
+      move = moves['surf']
+      mod = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+    it "does not halve if the move is not super-effective", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Shuca Berry")]
+
+      move = moves['earthquake']
+      mod = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+    it "halves nevertheless, if it's the normal-resist berry", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Chilan Berry")]
+
+      move = moves['double-edge']
+      mod = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x800

@@ -21,6 +21,8 @@ class Item
   afterBeingHit: (battle, move, user, target, damage) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
+  basePowerModifierTarget: (move, battle, user, target) ->
+    0x1000
   calculateWeight: (weight) => weight
   editDamage: (battle, holder, move, damage) => damage
   update: (battle, owner) =>
@@ -87,6 +89,15 @@ makeHealingBerry = (name, func) ->
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
+
+makeTypeResistBerry = (name, type) ->
+  extendItem name, ->
+    @basePowerModifierTarget = (move, battle, user, target) ->
+      return 0x1000  if move.type != type
+      return 0x1000  if util.typeEffectiveness(type, target.types) <= 1 && type != 'Normal'
+      battle.message "The #{name} weakened the damage to #{target.name}!"
+      target.removeItem()
+      return 0x800
 
 makeOrbItem = (name, species) ->
   extendItem name, ->
@@ -163,6 +174,7 @@ extendItem 'Air Balloon', ->
     pokemon.unattach("AirBalloonAttachment")
 
 makeStatBoostBerry 'Apicot Berry', specialDefense: 1
+makeTypeResistBerry 'Babiri Berry', 'Steel'
 makeHealingBerry 'Berry Juice', -> 20
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
@@ -180,6 +192,8 @@ extendItem 'Black Sludge', ->
 
 makeGemItem 'Bug Gem', 'Bug'
 makeTypeBoostItem 'Charcoal', 'Fire'
+makeTypeResistBerry 'Charti Berry', 'Rock'
+makeTypeResistBerry 'Chilan Berry', 'Normal'
 makeChoiceItem 'Choice Band'
 makeChoiceItem 'Choice Specs'
 makeChoiceItem 'Choice Scarf'
@@ -188,6 +202,9 @@ extendItem 'Choice Scarf', ->
   @modifySpeed = (stat) ->
     Math.floor(stat * 1.5)
 
+makeTypeResistBerry 'Chople Berry', 'Fighting'
+makeTypeResistBerry 'Coba Berry', 'Flying'
+makeTypeResistBerry 'Colbur Berry', 'Dark'
 makeWeatherItem 'Damp Rock', Weather.RAIN
 makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'
@@ -221,6 +238,7 @@ makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'
 makeOrbItem 'Griseous Orb', 'Giratina'
 makeGemItem 'Ground Gem', 'Ground'
+makeTypeResistBerry 'Haban Berry', 'Dragon'
 makeTypeBoostItem 'Hard Stone', 'Rock'
 makeWeatherItem 'Heat Rock', Weather.SUN
 makeFlavorHealingBerry 'Iapapa Berry', "defense"
@@ -229,6 +247,8 @@ makePlateItem 'Icicle Plate', 'Ice'
 makeWeatherItem 'Icy Rock', Weather.HAIL
 makePlateItem 'Insect Plate', 'Bug'
 makePlateItem 'Iron Plate', 'Steel'
+makeTypeResistBerry 'Kasib Berry', 'Ghost'
+makeTypeResistBerry 'Kebia Berry', 'Poison'
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
@@ -261,12 +281,16 @@ extendItem 'Muscle Band', ->
 makeTypeBoostItem 'Mystic Water', 'Water'
 makeTypeBoostItem 'NeverMeltIce', 'Ice'
 makeGemItem 'Normal Gem', 'Normal'
+makeTypeResistBerry 'Occa Berry', 'Fire'
 makeTypeBoostItem 'Odd Incense', 'Psychic'
 makeHealingBerry 'Oran Berry', -> 10
+makeTypeResistBerry 'Passho Berry', 'Water'
+makeTypeResistBerry 'Payapa Berry', 'Psychic'
 makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
+makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
 
 extendItem 'Rocky Helmet', ->
@@ -281,6 +305,7 @@ makeTypeBoostItem 'Rose Incense', 'Grass'
 makeStatBoostBerry 'Salac Berry', speed: 1
 makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
+makeTypeResistBerry 'Shuca Berry', 'Ground'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'
 makeHealingBerry 'Sitrus Berry', (owner) -> Math.floor(owner.stat('hp') / 4)
@@ -304,9 +329,11 @@ makePinchBerry 'Starf Berry', (battle, owner) ->
 
 makeGemItem 'Steel Gem', 'Steel'
 makePlateItem 'Stone Plate', 'Rock'
+makeTypeResistBerry 'Tanga Berry', 'Bug'
 makeStatusOrbItem 'Toxic Orb', Status.TOXIC
 makePlateItem 'Toxic Plate', 'Poison'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
+makeTypeResistBerry 'Wacan Berry', 'Electric'
 makeGemItem 'Water Gem', 'Water'
 makeTypeBoostItem 'Wave Incense', 'Water'
 
@@ -332,4 +359,5 @@ extendItem 'Wise Glasses', ->
     else
       0x1000
 
+makeTypeResistBerry 'Yache Berry', 'Ice'
 makePlateItem 'Zap Plate', 'Electric'
