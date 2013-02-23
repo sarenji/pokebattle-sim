@@ -598,3 +598,42 @@ shared = require '../shared'
       move = moves['double-edge']
       mod = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
       mod.should.equal 0x800
+
+  describe "a feedback damage berry", ->
+    it "damages the attacker by 12.5% if move class matches", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Jaboca Berry")]
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      hp = @team1.first().stat('hp')
+      (hp - @team1.first().currentHP).should.equal Math.floor(hp / 8)
+
+    it "is consumed after use", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Jaboca Berry")]
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team2.first().hasItem().should.be.false
+
+    it "does not damage the attacker by 12.5% if move class doesn't match", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Rowap Berry")]
+
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal @team1.first().stat('hp')
+
+    it "does not damage the attacker if defender faints", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Rowap Berry")]
+
+      @team2.first().currentHP = 1
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Splash')
+
+      @team1.first().currentHP.should.equal @team1.first().stat('hp')

@@ -99,6 +99,16 @@ makeTypeResistBerry = (name, type) ->
       target.removeItem()
       return 0x800
 
+makeFeedbackDamageBerry = (name, klass) ->
+  extendItem name, ->
+    @afterBeingHit = (battle, move, user, target, damage) ->
+      return  if !move[klass]()
+      return  if target.isFainted()
+      # TODO: Real message.
+      battle.message "The #{name} hurt #{user.name}!"
+      user.damage(Math.floor(user.stat('hp') / 8))
+      target.removeItem()
+
 makeOrbItem = (name, species) ->
   extendItem name, ->
     @basePowerModifier = (move, battle, user, target) ->
@@ -247,6 +257,7 @@ makePlateItem 'Icicle Plate', 'Ice'
 makeWeatherItem 'Icy Rock', Weather.HAIL
 makePlateItem 'Insect Plate', 'Bug'
 makePlateItem 'Iron Plate', 'Steel'
+makeFeedbackDamageBerry 'Jaboca Berry', 'isPhysical'
 makeTypeResistBerry 'Kasib Berry', 'Ghost'
 makeTypeResistBerry 'Kebia Berry', 'Poison'
 
@@ -302,6 +313,7 @@ extendItem 'Rocky Helmet', ->
 
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
+makeFeedbackDamageBerry 'Rowap Berry', 'isSpecial'
 makeStatBoostBerry 'Salac Berry', speed: 1
 makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
