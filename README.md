@@ -30,42 +30,18 @@ npm test
 
 ## Guide
 
-battletower is a one-page app, and the server serves the client. Following this
-sentence is the main parts that make up battletower with a short explanation of
-each.
+battletower is a one-page app. The server serves the client.
 
-### assets/
-
-All JavaScript and CSS in this directory are compiled and served to the client.
-This is where the main client code lives.
-
-### data/
-
-All raw data goes here. This is also the place that converts raw data into
-Move, Pokemon, or other instances for use by the simulator.
-
-### scrapers/
-
-Python scripts to scrape Veekun's Pokedex and populate raw data.
-
-### server/
-
-The entire server logic is encapsulated in this folder.
-
-### test/
-
-Tests for the server and client go here.
-
-### views/
-
-All views that are rendered server-side go here. Since battletower is a single
-page app, there likely will only be one view.
-
-### app.coffee
-
-The main entry point of battletower.
-
-The API and socket.io listeners are hosted here. This will probably change.
+```
+assets/          Main client code. Contains JS and CSS.
+data/            Convert raw data into move/pokemon/etc instances.
+scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
+server/          Battle logic, move logic, Pokemon logic, etc.
+test/            Automated tests for server and client.
+views/           All views that are rendered server-side go here.
+app.coffee       The main entry point of battletower.
+                 The API and socket.io listeners are hosted here. This will probably change.
+```
 
 ## Contributing
 
