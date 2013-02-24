@@ -1,6 +1,7 @@
 sinon = require 'sinon'
 {Battle, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
+{moves} = require('../data/bw')
 
 describe 'Battle', ->
   beforeEach ->
@@ -126,3 +127,15 @@ describe 'Battle', ->
       maxHP = @team1.first().stat('hp')
       (maxHP - @team1.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
       (maxHP - @team2.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
+
+  describe "move PP", ->
+    it "goes down after a pokemon uses a move", ->
+      p1 = @team1.first()
+      p2 = @team2.first()
+      p1Move = p1.moves[0]
+      p2Move = p2.moves[1]
+      @battle.makeMove(@player1, p1Move.name)
+      @battle.makeMove(@player2, p2Move.name)
+
+      p1.pp(p1Move).should.equal p1.maxPP(p1Move) - 1
+      p2.pp(p2Move).should.equal p2.maxPP(p2Move) - 1

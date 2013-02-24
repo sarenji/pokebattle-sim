@@ -18,6 +18,11 @@ describe 'Pokemon', ->
   it 'gets its current hp populated from its max hp', ->
     new Pokemon().currentHP.should.equal 341
 
+  it 'has pp for each move', ->
+    pokemon = new Pokemon(moves: ["Tackle", "Splash"])
+    pokemon.pp(moves['tackle']).should.equal 35 * 8/5
+    pokemon.pp(moves['splash']).should.equal 40 * 8/5
+
   describe '#iv', ->
     it 'has default iv of 31', ->
       new Pokemon().iv('hp').should.equal 31
@@ -159,4 +164,11 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
       pokemon.blockMove(moves['earthquake'])
       _(pokemon.validMoves()).isEqual([moves['splash']]).should.be.true
+
+  describe '#reducePP', ->
+    it 'reduces PP of a move by 1', ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = moves['splash']
+      pokemon.reducePP(move)
+      pokemon.pp(move).should.equal pokemon.maxPP(move) - 1
 

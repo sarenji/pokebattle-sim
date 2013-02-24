@@ -22,6 +22,10 @@ class @Pokemon
 
     @moves = attributes.moves?.map (move) ->
       moves[move.toLowerCase().replace(/\s+/g, '-')]
+    @ppHash = {}
+    if @moves?
+      for move in @moves
+        @ppHash[move.name] = @maxPP(move)
     @types = attributes.types || [] # TODO: Get from species.
     @item = items[attributes.item]
     @ability = abilities[attributes.ability]
@@ -44,6 +48,10 @@ class @Pokemon
 
   iv: (stat) => (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) => (if stat of @evs then @evs[stat] else 0)
+
+  pp: (move) => @ppHash[move.name]
+  maxPP: (move) => move.pp * 8/5
+  reducePP: (move) => @ppHash[move.name] -= 1
 
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')

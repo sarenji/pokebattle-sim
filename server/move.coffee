@@ -17,6 +17,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
     @flags = attributes.flags
+    @pp = attributes.pp
 
   isPhysical: =>
     @spectra == 'physical'

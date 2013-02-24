@@ -436,6 +436,7 @@ class @Battle
     if pokemon.beforeMove(this, move, pokemon, targets) != false
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
+      pokemon.reducePP(move)
 
       # TODO: If move is interrupted, do we record?
       # Record last move.
