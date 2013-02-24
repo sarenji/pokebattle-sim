@@ -1949,3 +1949,53 @@ shared = require '../shared'
   testEffectMove 'Supersonic', Attachment.Confusion
   testEffectMove 'Sweet Kiss', Attachment.Confusion
   testEffectMove 'Teeter Dance', Attachment.Confusion
+
+  describe "Trump Card", ->
+    it "has 40 base power by default", ->
+      shared.create.call(this)
+
+      moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 40
+
+    it "has 50 base power if the move has 3 PP after use", ->
+      shared.create.call this,
+        team1: [Factory("Corphish")]
+
+      pp = @team1.first().pp(moves['trump-card'])
+      for x in [0...pp - 3]
+        @team1.first().reducePP(moves['trump-card'])
+      @team1.first().pp(moves['trump-card']).should.equal 3
+
+      moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 50
+
+    it "has 60 base power if the move has 2 PP after use", ->
+      shared.create.call this,
+        team1: [Factory("Corphish")]
+
+      pp = @team1.first().pp(moves['trump-card'])
+      for x in [0...pp - 2]
+        @team1.first().reducePP(moves['trump-card'])
+      @team1.first().pp(moves['trump-card']).should.equal 2
+
+      moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 60
+
+    it "has 80 base power if the move has 1 PP after use", ->
+      shared.create.call this,
+        team1: [Factory("Corphish")]
+
+      pp = @team1.first().pp(moves['trump-card'])
+      for x in [0...pp - 1]
+        @team1.first().reducePP(moves['trump-card'])
+      @team1.first().pp(moves['trump-card']).should.equal 1
+
+      moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 80
+
+    it "has 200 base power if the move has 0 PP after use", ->
+      shared.create.call this,
+        team1: [Factory("Corphish")]
+
+      pp = @team1.first().pp(moves['trump-card'])
+      for x in [0...pp - 0]
+        @team1.first().reducePP(moves['trump-card'])
+      @team1.first().pp(moves['trump-card']).should.equal 0
+
+      moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 200

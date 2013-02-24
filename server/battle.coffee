@@ -434,9 +434,10 @@ class @Battle
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
     if pokemon.beforeMove(this, move, pokemon, targets) != false
+      # TODO: Pressure
+      pokemon.reducePP(move)
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
-      pokemon.reducePP(move)
 
       # TODO: If move is interrupted, do we record?
       # Record last move.

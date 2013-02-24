@@ -976,6 +976,20 @@ extendMove 'toxic-spikes', ->
         opponent.attachToTeam(new Attachment.ToxicSpikes())
       battle.message "Poison spikes were scattered all around #{opponent.username}'s team's feet!"
 
+extendMove 'trump-card', ->
+  @basePower = (battle, user, target) ->
+    switch user.pp(this)
+      when 3
+        50
+      when 2
+        60
+      when 1
+        80
+      when 0
+        200
+      else
+        40
+
 extendMove 'u-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)

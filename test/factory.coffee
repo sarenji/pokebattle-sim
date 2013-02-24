@@ -25,6 +25,9 @@ Factory.register 'Mew',
   ability: 'Synchronize'
   moves: ['Psychic', 'AncientPower']
 
+Factory.register 'Corphish'
+  moves: ['Trump Card', "Crunch", "Round"]
+
 Factory.register 'Porygon-Z',
   ability: 'Adaptability'
   moves: ['Tri Attack', 'Flamethrower']
