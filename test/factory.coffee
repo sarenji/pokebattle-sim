@@ -112,14 +112,5 @@ Factory.register 'Politoed',
   moves: ['Perish Song', 'Endeavor']
   ability: 'Drizzle'
 
-Factory.register 'Abomasnow'
-Factory.register 'Regirock'
-Factory.register 'Shaymin (land)'
-Factory.register 'Jolteon'
-Factory.register 'Clamperl'
 Factory.register 'Dugtrio',
   moves: ['Magnitude', 'Dig']
-Factory.register 'Giratina (origin)'
-Factory.register 'Ferrothorn'
-Factory.register 'Tornadus (incarnate)'
-Factory.register 'Moltres'
