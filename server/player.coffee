@@ -17,6 +17,9 @@ class @Player
   getAttachment: (attachment) =>
     @team.getAttachment(attachment)
 
+  switch: (battle, index1, index2) =>
+    @team.switch(battle, this, index1, index2)
+
   # Used in battle#performMove
   # TODO: Maybe handle this better.
   isFainted: =>

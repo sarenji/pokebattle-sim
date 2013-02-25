@@ -1999,3 +1999,31 @@ shared = require '../shared'
       @team1.first().pp(moves['trump-card']).should.equal 0
 
       moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 200
+
+  testRandomSwitchMove = (name) ->
+    describe name, ->
+      it "should switch opponent out to a random member", ->
+        shared.create.call(this, team2: [Factory("Magikarp"), Factory("Abra")])
+
+        target = @team2.at(1)
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().should.equal target
+
+      it "should not force switches if opponent is the last pokemon", ->
+        shared.create.call(this, team2: [Factory("Magikarp")])
+
+        mock = sinon.mock(@battle.getOwner(@team2.first()))
+        mock.expects("switch").never()
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        mock.restore()
+        mock.verify()
+
+  testRandomSwitchMove "Roar"
+  testRandomSwitchMove "Whirlwind"
+  testRandomSwitchMove "Dragon Tail"
+  testRandomSwitchMove "Circle Throw"

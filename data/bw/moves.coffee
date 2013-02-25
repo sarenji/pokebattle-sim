@@ -243,6 +243,16 @@ makePickDefenseMove = (name) ->
     @pickDefenseStat = (user, target) ->
       target.stat('defense')
 
+makeRandomSwitchMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      opponent = battle.getOwner(target)
+      benched  = opponent.team.getAliveBenchedPokemon()
+      return  if benched.length == 0
+      pokemon = battle.rng.choice(benched)
+      index = opponent.team.indexOf(pokemon)
+      opponent.switch(battle, 0, index)
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -1039,3 +1049,8 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
   "power": 40,
   "priority": 0,
   "type": "???"
+
+makeRandomSwitchMove "roar"
+makeRandomSwitchMove "whirlwind"
+makeRandomSwitchMove "dragon-tail"
+makeRandomSwitchMove "circle-throw"
