@@ -29,14 +29,14 @@ class Item
 
   # Stat modifications
   # TODO: Consider subclassing from Attachment
-  modifyHp: (stat) => stat
-  modifySpeed: (stat) => stat
-  modifyAccuracy: (stat) => stat
-  modifyEvasion: (stat) => stat
-  modifyAttack: (stat) => stat
-  modifySpecialAttack: (stat) => stat
-  modifyDefense: (stat) => stat
-  modifySpecialDefense: (stat) => stat
+  modifyHp: (stat, pokemon) => stat
+  modifySpeed: (stat, pokemon) => stat
+  modifyAccuracy: (stat, pokemon) => stat
+  modifyEvasion: (stat, pokemon) => stat
+  modifyAttack: (stat, pokemon) => stat
+  modifySpecialAttack: (stat, pokemon) => stat
+  modifyDefense: (stat, pokemon) => stat
+  modifySpecialDefense: (stat, pokemon) => stat
 
 extendItem = (name, callback) ->
   if name not of items
@@ -174,6 +174,16 @@ makeChoiceItem = (name) ->
 makeWeatherItem = (name, weather) ->
   extendItem name, ->
     @lengthensWeather = weather
+
+makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
+  extendItem name, ->
+    for stat, boost of statsHash
+      capitalizedStat = stat[0].toUpperCase() + stat.substr(1)
+      this["modify#{capitalizedStat}"] = (stat, pokemon) ->
+        if pokemon.species in speciesArray
+          Math.floor(stat * boost)
+        else
+          stat
 
 for name, attributes of json
   items[name] = new Item(name, attributes)
@@ -354,6 +364,8 @@ makeHealingBerry 'Sitrus Berry', (owner) -> Math.floor(owner.stat('hp') / 4)
 makePlateItem 'Sky Plate', 'Flying'
 makeWeatherItem 'Smooth Rock', Weather.SAND
 makeTypeBoostItem 'Soft Sand', 'Ground'
+makeSpeciesBoostingItem 'Soul Dew', ["Latias", "Latios"],
+  specialAttack: 1.5, specialDefense: 1.5
 makeTypeBoostItem 'Spell Tag', 'Ghost'
 makePlateItem 'Splash Plate', 'Water'
 makePlateItem 'Spooky Plate', 'Ghost'
@@ -403,3 +415,11 @@ extendItem 'Wise Glasses', ->
 
 makeTypeResistBerry 'Yache Berry', 'Ice'
 makePlateItem 'Zap Plate', 'Electric'
+
+makeSpeciesBoostingItem("DeepSeaTooth", ["Clamperl"], specialAttack: 2)
+makeSpeciesBoostingItem("DeepSeaScale", ["Clamperl"], specialDefense: 2)
+makeSpeciesBoostingItem("Light Ball", ["Pikachu"], attack: 2, specialAttack: 2)
+makeSpeciesBoostingItem("Thick Club", ["Cubone", "Marowak"], attack: 2)
+makeSpeciesBoostingItem("Metal Powder", ["Ditto"],
+  defense: 2, specialDefense: 2)
+makeSpeciesBoostingItem("Quick Powder", ["Ditto"], speed: 2)

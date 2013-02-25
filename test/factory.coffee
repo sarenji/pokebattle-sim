@@ -4,7 +4,7 @@ factories = {}
 
 @Factory = Factory = (name, attributes={}) ->
   if name not of factories
-    throw new Error("No Factory with name '#{name}' registered.")
+    Factory.register(name)
   cloned = _.clone(factories[name])
   _.extend(cloned, attributes)
 

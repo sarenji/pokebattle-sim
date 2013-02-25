@@ -703,3 +703,43 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Tackle')
 
       @team1.first().currentHP.should.equal(hp - damage)
+
+  testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
+    describe itemName, ->
+      for species in speciesArray
+        it "should raise the proper stats given that the wielder is #{species}", ->
+          shared.create.call this,
+            team1: [Factory(species)]
+
+          stats = (stat  for stat of statsHash)
+          pokemonStats = (@team1.first().stat(stat)  for stat in stats)
+
+          @team1.first().setItem(@battle, items[itemName])
+
+          for stat, i in stats
+            amount = @team1.first().stat(stat)
+            amount.should.equal Math.floor(pokemonStats[i] * statsHash[stat])
+
+      it "shouldn't raise the proper stats given the wrong species", ->
+          shared.create.call this,
+            team1: [Factory("Magikarp")]
+
+          stats = (stat  for stat of statsHash)
+          pokemonStats = (@team1.first().stat(stat)  for stat in stats)
+
+          @team1.first().setItem(@battle, items[itemName])
+
+          for stat, i in stats
+            amount = @team1.first().stat(stat)
+            amount.should.equal(pokemonStats[i])
+
+
+  testSpeciesBoostingItem("Soul Dew", ["Latios", "Latias"],
+    specialAttack: 1.5, specialDefense: 1.5)
+  testSpeciesBoostingItem("DeepSeaTooth", ["Clamperl"], specialAttack: 2)
+  testSpeciesBoostingItem("DeepSeaScale", ["Clamperl"], specialDefense: 2)
+  testSpeciesBoostingItem("Light Ball", ["Pikachu"], attack: 2, specialAttack: 2)
+  testSpeciesBoostingItem("Thick Club", ["Cubone", "Marowak"], attack: 2)
+  testSpeciesBoostingItem("Metal Powder", ["Ditto"],
+    defense: 2, specialDefense: 2)
+  testSpeciesBoostingItem("Quick Powder", ["Ditto"], speed: 2)
