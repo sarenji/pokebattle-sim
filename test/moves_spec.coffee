@@ -39,21 +39,22 @@ describe 'Move', ->
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
       battle = new Battle('1', players: [])
-      attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
+      attacker = new Pokemon(name: "Farfetch'd", species: "Farfetch'd", item: 'Stick')
       defender = new Pokemon()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Chansey with a Lucky Punch", ->
       battle = new Battle('1', players: [])
-      attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
+      attacker = new Pokemon(name: "Chansey", species: "Chansey", item: 'Lucky Punch')
       defender = new Pokemon()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
-    it "is 2 if the attacker has a Razor Claw", ->
-      battle = new Battle('1', players: [])
-      attacker = new Pokemon(item: 'Razor Claw')
-      defender = new Pokemon()
-      new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
+    for item in ["Razor Claw", "Scope Lens"]
+      it "is 2 if the attacker has a #{item}", ->
+        battle = new Battle('1', players: [])
+        attacker = new Pokemon(item: item)
+        defender = new Pokemon()
+        new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
 
   describe "critical hit", ->
     it "occurs when the RNG output < the critical hit level", ->

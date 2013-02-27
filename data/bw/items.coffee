@@ -26,6 +26,7 @@ class Item
   calculateWeight: (weight) => weight
   editDamage: (battle, holder, move, damage) => damage
   update: (battle, owner) =>
+  criticalModifier: (battle, owner) =>
 
   # Stat modifications
   # TODO: Consider subclassing from Attachment
@@ -184,6 +185,18 @@ makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
           Math.floor(stat * boost)
         else
           stat
+
+makeSpeciesCriticalItem = (name, species) ->
+  extendItem name, ->
+    @criticalModifier = (battle, owner) ->
+      if owner.species == species
+        2
+      else
+        0
+
+makeCriticalBoostItem = (name) ->
+  extendItem name, ->
+    @criticalModifier = (battle, owner) -> 1
 
 for name, attributes of json
   items[name] = new Item(name, attributes)
@@ -423,3 +436,9 @@ makeSpeciesBoostingItem("Thick Club", ["Cubone", "Marowak"], attack: 2)
 makeSpeciesBoostingItem("Metal Powder", ["Ditto"],
   defense: 2, specialDefense: 2)
 makeSpeciesBoostingItem("Quick Powder", ["Ditto"], speed: 2)
+
+makeSpeciesCriticalItem "Lucky Punch", "Chansey"
+makeSpeciesCriticalItem "Stick", "Farfetch'd"
+
+makeCriticalBoostItem 'Razor Claw'
+makeCriticalBoostItem 'Scope Lens'

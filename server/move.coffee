@@ -168,9 +168,7 @@ class @Move
 
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
-    stage += 2  if attacker.name == "Farfetch'd" && attacker.hasItem('Stick')
-    stage += 2  if attacker.name == "Chansey" && attacker.hasItem('Lucky Punch')
-    stage += 1  if attacker.hasItem('Razor Claw')
+    stage += attacker.item?.criticalModifier(battle, attacker) || 0
     stage
 
   modify: (number, modifier) =>
