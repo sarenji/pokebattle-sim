@@ -52,6 +52,7 @@ class @Pokemon
   pp: (move) => @ppHash[move.name]
   maxPP: (move) => move.pp * 8/5
   reducePP: (move) => @ppHash[move.name] -= 1
+  setPP: (move, pp) => @ppHash[move.name] = pp
 
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')

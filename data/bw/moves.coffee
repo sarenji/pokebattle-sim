@@ -677,6 +677,8 @@ extendMove 'encore', ->
       @fail(battle)
     else if target.hasAttachment('EncoreAttachment')
       @fail(battle)
+    else if target.pp(target.lastMove) == 0
+      @fail(battle)
     else
       target.attach(new Attachment.Encore())
       if battle.willMove(target)

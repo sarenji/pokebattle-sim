@@ -287,7 +287,7 @@ class @Attachment.Encore extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turn++
-    if @turn >= @turns
+    if @turn >= @turns || @pokemon.pp(@move) == 0
       battle.message("#{@pokemon.name}'s Encore ended!")
       @remove()
 

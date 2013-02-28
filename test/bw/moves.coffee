@@ -1577,8 +1577,35 @@ shared = require '../shared'
       mock.restore()
       mock.verify()
 
-    it "fails if the move has 0 PP"
-    it "removes itself if the pokemon's move reaches 0 PP"
+    it "fails if the move has 0 PP", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      move = moves['encore']
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @team2.first().setPP(moves['splash'], 1)
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      mock.restore()
+      mock.verify()
+
+    it "removes itself if the pokemon's move reaches 0 PP", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @team2.first().setPP(moves['splash'], 2)
+      @battle.makeMove(@player1, "Encore")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment("EncoreAttachment").should.be.true
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+
+      @team2.first().hasAttachment("EncoreAttachment").should.be.false
 
   describe "Swagger", ->
     it "confuses the target", ->
