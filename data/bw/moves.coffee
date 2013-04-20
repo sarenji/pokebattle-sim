@@ -344,6 +344,7 @@ makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
 makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
+makeRandomSwitchMove "circle-throw"
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithPrimaryEffect 'confuse-ray', Attachment.Confusion
@@ -369,6 +370,7 @@ extendWithSecondaryStatus 'dragonbreath', .3, Status.PARALYZE
 extendWithDrain 'drain-punch'
 extendWithDrain 'dream-eater'
 extendWithBoost 'draco-meteor', 'self', specialAttack: -2
+makeRandomSwitchMove "dragon-tail"
 extendWithSecondaryEffect 'dynamicpunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
@@ -488,6 +490,7 @@ extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
 extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
 makeReversalMove 'reversal'
+makeRandomSwitchMove "roar"
 extendWithSecondaryEffect 'rock-climb', .2, Attachment.Confusion
 makeBoostMove 'rock-polish', 'self', speed: 2
 extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
@@ -582,6 +585,7 @@ extendWithRecoil 'volt-tackle'
 extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
+makeRandomSwitchMove "whirlwind"
 extendWithRecoil 'wild-charge', .25
 extendWithPrimaryStatus 'will-o-wisp', Status.BURN
 makeBoostMove 'withdraw', 'user', defense: 1
@@ -1055,8 +1059,3 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
 # Confusion never crits
 extendMove 'confusion-recoil', ->
   @isCriticalHit = -> false
-
-makeRandomSwitchMove "roar"
-makeRandomSwitchMove "whirlwind"
-makeRandomSwitchMove "dragon-tail"
-makeRandomSwitchMove "circle-throw"
