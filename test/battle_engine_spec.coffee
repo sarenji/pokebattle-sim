@@ -326,6 +326,19 @@ describe 'Mechanics', ->
 
       @team1.at(0).hasAttachment(VolatileStatus.CONFUSION).should.be.false
 
+    it "will not crit the confusion recoil", ->
+      shared.create.call(this)
+
+      @team1.at(0).attach(new Attachment.Confusion({@battle}))
+      shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
+      shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
+
+      spy = sinon.spy(@battle.confusionMove, 'isCriticalHit')
+      @battle.makeMove(@player1, 'Tackle')
+      @battle.makeMove(@player2, 'Tackle')
+
+      spy.returned(false).should.be.true
+
   describe 'a frozen pokemon', ->
     it "will not execute moves", ->
       shared.create.call(this)

@@ -1052,6 +1052,10 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
   "priority": 0,
   "type": "???"
 
+# Confusion never crits
+extendMove 'confusion-recoil', ->
+  @isCriticalHit = -> false
+
 makeRandomSwitchMove "roar"
 makeRandomSwitchMove "whirlwind"
 makeRandomSwitchMove "dragon-tail"
