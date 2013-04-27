@@ -2054,3 +2054,94 @@ shared = require '../shared'
   testRandomSwitchMove "Whirlwind"
   testRandomSwitchMove "Dragon Tail"
   testRandomSwitchMove "Circle Throw"
+
+  testTrappingMove = (name) ->
+    describe name, ->
+      it "blocks switching", ->
+        shared.create.call(this)
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().isSwitchBlocked().should.be.true
+        @team2.first().hasAttachment(Attachment.Trap).should.be.true
+        @team1.first().hasAttachment(Attachment.TrapLeash).should.be.true
+
+      it "deals 1/16 of the pokemon's max hp every turn", ->
+        shared.create.call(this, team2: [Factory("Blissey")])
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+
+        maxHP = @team2.first().stat('hp')
+        expected = maxHP - Math.floor(maxHP / 16)
+        @team2.first().currentHP.should.equal expected
+
+      it "lasts several turns", ->
+        shared.create.call(this, team2: [Factory("Blissey")])
+        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
+        for i in [1..5]
+          @team2.first().hasAttachment(Attachment.Trap).should.be.true
+          @battle.makeMove(@player1, "Splash")
+          @battle.makeMove(@player2, "Splash")
+
+      it "wears off after a certain number of turns", ->
+        shared.create.call(this, team2: [Factory("Blissey")])
+        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
+        for i in [1..5]
+          @battle.makeMove(@player1, "Splash")
+          @battle.makeMove(@player2, "Splash")
+
+        @team2.first().isSwitchBlocked().should.be.false
+        @team2.first().hasAttachment(Attachment.Trap).should.be.false
+        @team1.first().hasAttachment(Attachment.TrapLeash).should.be.false
+
+      it "does not reset the duration if used twice", ->
+        shared.create.call(this, team2: [Factory("Blissey")])
+        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Splash")
+
+        # loop for 4 more turns.
+        for i in [1..4]
+          @battle.makeMove(@player1, "Splash")
+          @battle.makeMove(@player2, "Splash")
+
+        @team2.first().isSwitchBlocked().should.be.false
+        @team2.first().hasAttachment(Attachment.Trap).should.be.false
+        @team1.first().hasAttachment(Attachment.TrapLeash).should.be.false
+
+      it "wears off if the user switches", ->
+        shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
+
+        @battle.makeMove(@player1, name)
+        @battle.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+
+        @battle.makeSwitch(@player1, 1)
+        @battle.makeMove(@player2, "Splash")
+
+        @team2.first().isSwitchBlocked().should.be.false
+        @team2.first().hasAttachment(Attachment.Trap).should.be.false
+
+      it "is always 5 turns if the user is holding grip claw"
+      it "is removed by rapid spin"
+
+  testTrappingMove "bind"
+  testTrappingMove "clamp"
+  testTrappingMove "fire-spin"
+  testTrappingMove "magma-storm"
+  testTrappingMove "sand-tomb"

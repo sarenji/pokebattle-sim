@@ -40,8 +40,9 @@ class @Pokemon
       evasion: 0
       accuracy: 0
 
-    # a list of moves blocked for this turn
+    # What moves are blocked, and is switching blocked
     @blockedMoves = []
+    @switchBlocked = false
 
     # a record of the last move used by this pokemon.
     @lastMove = null
@@ -204,11 +205,13 @@ class @Pokemon
   switchOut: (battle) =>
     @resetBoosts()
     @blockedMoves = []
+    @switchBlocked = false
     delete @lastMove
     @attachments.query('switchOut', battle)
 
   beginTurn: (battle) =>
     @blockedMoves = []
+    @switchBlocked = false
     @attachments.query('beginTurn', battle)
 
   beforeMove: (battle, move, user, targets) =>
@@ -251,6 +254,13 @@ class @Pokemon
 
   isMoveBlocked: (move) =>
     return (move in @blockedMoves)
+
+  isSwitchBlocked: =>
+    @switchBlocked
+
+  # Blocks a switch for a single turn
+  blockSwitch: (move) =>
+    @switchBlocked = true
 
   # Locks the Pokemon into a single move. Does not limit switches.
   lockMove: (moveToLock) =>
