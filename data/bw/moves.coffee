@@ -314,6 +314,19 @@ makeCounterMove = (name, multiplier, applies) ->
       else
         @fail(battle)
 
+makeTrappingMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target, damage) ->
+      unless target.hasAttachment(Attachment.Trap)
+        if battle.rng.next("trapping move") < 0.5
+          turns = 4
+        else
+          turns = 5
+
+        trap = new Attachment.Trap(user: user, moveName: name, turns: turns)
+        target.attach(trap)
+        user.attach(new Attachment.TrapLeash(trap: trap))
+
 extendWithDrain 'absorb'
 extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
 makeBoostMove 'acid-armor', 'self', defense: 2
@@ -327,6 +340,7 @@ makeStatusCureMove 'aromatherapy'
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
 makeBoostMove 'barrier', 'self', defense: 2
+makeTrappingMove "bind"
 extendWithSecondaryStatus 'blaze-kick', .1, Status.BURN
 extendWithSecondaryStatus 'blizzard', .1, Status.FREEZE
 extendWithSecondaryStatus 'blue-flare', .2, Status.BURN
@@ -344,6 +358,8 @@ makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
 makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
+makeRandomSwitchMove "circle-throw"
+makeTrappingMove "clamp"
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithPrimaryEffect 'confuse-ray', Attachment.Confusion
@@ -369,6 +385,7 @@ extendWithSecondaryStatus 'dragonbreath', .3, Status.PARALYZE
 extendWithDrain 'drain-punch'
 extendWithDrain 'dream-eater'
 extendWithBoost 'draco-meteor', 'self', specialAttack: -2
+makeRandomSwitchMove "dragon-tail"
 extendWithSecondaryEffect 'dynamicpunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
@@ -384,6 +401,7 @@ extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
 extendWithSecondaryStatus 'fire-blast', .1, Status.BURN
 extendWithFangEffect 'fire-fang', .1, Status.BURN
 extendWithSecondaryStatus 'fire-punch', .1, Status.BURN
+makeTrappingMove "fire-spin"
 makeOneHitKOMove 'fissure'
 makeReversalMove 'flail'
 extendWithBoost 'flame-charge', 'self', speed: 1
@@ -447,6 +465,7 @@ extendWithSecondaryStatus 'lick', .3, Status.PARALYZE
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
+makeTrappingMove "magma-storm"
 makeBoostMove 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
@@ -488,6 +507,7 @@ extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
 extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
 makeReversalMove 'reversal'
+makeRandomSwitchMove "roar"
 extendWithSecondaryEffect 'rock-climb', .2, Attachment.Confusion
 makeBoostMove 'rock-polish', 'self', speed: 2
 extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
@@ -503,6 +523,7 @@ extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendMove 'sacred-fire', -> @thawsUser = true
 extendWithSecondaryStatus 'sacred-fire', .5, Status.BURN
 makeWeatherMove 'sandstorm', Weather.SAND
+makeTrappingMove "sand-tomb"
 extendMove 'scald', -> @thawsUser = true
 extendWithSecondaryStatus 'scald', .3, Status.BURN
 makeBoostMove 'scary-face', 'target', speed: -2
@@ -582,6 +603,7 @@ extendWithRecoil 'volt-tackle'
 extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
+makeRandomSwitchMove "whirlwind"
 extendWithRecoil 'wild-charge', .25
 extendWithPrimaryStatus 'will-o-wisp', Status.BURN
 makeBoostMove 'withdraw', 'user', defense: 1
@@ -1052,7 +1074,6 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
   "priority": 0,
   "type": "???"
 
-makeRandomSwitchMove "roar"
-makeRandomSwitchMove "whirlwind"
-makeRandomSwitchMove "dragon-tail"
-makeRandomSwitchMove "circle-throw"
+# Confusion never crits
+extendMove 'confusion-recoil', ->
+  @isCriticalHit = -> false

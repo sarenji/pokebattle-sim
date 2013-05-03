@@ -375,3 +375,38 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   isAtMax: =>
     @layers == @maxLayers
+
+# A trap created by Fire Spin, Magma Storm, Bind, Clamp, etc
+class @Attachment.Trap extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("TrapAttachment", attributes)
+    @moveName = attributes.moveName
+    @user = attributes.user
+    @turns = attributes.turns
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()
+
+  endTurn: (battle) =>
+    if @turns == 0
+      battle.message "#{@pokemon.name} was freed from #{@moveName}!"
+      @remove()
+      @leash.remove()
+    else
+      battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
+      @pokemon.damage Math.floor(@pokemon.stat('hp') / 16)
+      @turns -= 1
+
+
+# If the creator if fire spin switches out, the trap will end
+# TODO: What happens if another ability removes the trap, and then firespin is used again?
+class @Attachment.TrapLeash extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("TrapLeashAttachment", attributes)
+    @trap = attributes.trap
+    @trap.leash = this
+
+  switchOut: (battle, pokemon) =>
+    if @trap.pokemon
+      @trap.remove()
+    @remove()
