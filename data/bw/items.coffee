@@ -282,12 +282,20 @@ extendItem 'Float Stone', ->
     Math.floor(weight / 2)
 makeGemItem 'Flying Gem', 'Flying'
 
+extendItem 'Focus Band', ->
+  @editDamage = (battle, holder, move, damage) ->
+    if damage >= holder.currentHP && battle.rng.randInt(0, 9, "focus band") == 0
+      battle.message "#{holder.name} hung on using its #{@name}!"
+      holder.removeItem()
+      return holder.currentHP - 1
+    return damage
+
 extendItem 'Focus Sash', ->
   @editDamage = (battle, holder, move, damage) ->
     maxHP = holder.stat('hp')
     if holder.currentHP == maxHP && damage >= maxHP
       battle.message "#{holder.name} hung on using its #{@name}!"
-      holder.item = null
+      holder.removeItem()
       return maxHP - 1
     return damage
 

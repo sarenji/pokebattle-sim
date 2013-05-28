@@ -205,7 +205,7 @@ shared = require '../shared'
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
       item = items['Focus Sash']
-      damage = item.editDamage(@battle, @team1.first(), moves['ember'], 99999)
+      damage = item.editDamage(@battle, @team2.first(), moves['ember'], 99999)
       damage.should.equal @team2.first().currentHP - 1
 
     it "should not activate at <100% HP", ->
@@ -799,3 +799,32 @@ shared = require '../shared'
       @battle.makeMove(@player2, 'Splash')
 
       pokemon.hasItem().should.be.false
+
+  describe "Focus Band", ->
+    it "has a 10% chance to survive an attack", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Focus Band")]
+
+      pokemon = @team1.first()
+      pokemon.currentHP = 1
+
+      shared.biasRNG.call(this, "randInt", 'focus band', 0)
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      pokemon.currentHP.should.equal 1
+
+    it "lets the pokemon faint otherwise", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Focus Band")]
+
+      pokemon = @team1.first()
+      pokemon.currentHP = 1
+
+      shared.biasRNG.call(this, "randInt", 'focus band', 1)
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      pokemon.isFainted().should.be.true
