@@ -756,3 +756,46 @@ shared = require '../shared'
       shared.create.call(this, team1: [Factory("Gyarados", item: "Iron Ball")])
 
       @team1.first().isImmune(@battle, "Ground").should.be.false
+
+  describe "Leppa Berry", ->
+    it "restores 10 PP when the user reaches 0 PP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Leppa Berry")]
+
+      pokemon = @team1.first()
+      move = pokemon.moves[0]
+      pokemon.setPP(move, 1)
+
+      @battle.makeMove(@player1, move.name)
+      @battle.makeMove(@player2, 'Splash')
+
+      pokemon.pp(move).should.equal 10
+
+    it "restores 10 PP to the first move with 0 PP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Leppa Berry")]
+
+      pokemon = @team1.first()
+      for move in pokemon.moves
+        pokemon.setPP(move, 0)
+      secondMove  = pokemon.moves[1]
+      pokemon.setPP(secondMove, 1)
+
+      @battle.makeMove(@player1, secondMove.name)
+      @battle.makeMove(@player2, 'Splash')
+
+      pokemon.pp(pokemon.moves[0]).should.equal 10
+      pokemon.pp(secondMove).should.equal 0
+
+  it "is consumed after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Leppa Berry")]
+
+      pokemon = @team1.first()
+      move = pokemon.moves[0]
+      pokemon.setPP(move, 1)
+
+      @battle.makeMove(@player1, move.name)
+      @battle.makeMove(@player2, 'Splash')
+
+      pokemon.hasItem().should.be.false

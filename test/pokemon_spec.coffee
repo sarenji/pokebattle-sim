@@ -172,3 +172,28 @@ describe 'Pokemon', ->
       pokemon.reducePP(move)
       pokemon.pp(move).should.equal pokemon.maxPP(move) - 1
 
+    it 'does not go below 0', ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = moves['splash']
+      for x in [0..pokemon.maxPP(move)]
+        pokemon.reducePP(move)
+      pokemon.pp(move).should.equal 0
+
+  describe '#setPP', ->
+    it "sets the PP of a move", ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = moves['splash']
+      pokemon.setPP(move, 1)
+      pokemon.pp(move).should.equal 1
+
+    it "cannot go below 0", ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = moves['splash']
+      pokemon.setPP(move, -1)
+      pokemon.pp(move).should.equal 0
+
+    it "cannot go above the max PP possible", ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = moves['splash']
+      pokemon.setPP(move, pokemon.maxPP(move) + 1)
+      pokemon.pp(move).should.equal pokemon.maxPP(move)

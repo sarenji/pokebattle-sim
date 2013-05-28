@@ -453,3 +453,15 @@ extendItem 'Iron Ball', ->
 
   @deactivate = (pokemon) ->
     pokemon.unattach("IronBallAttachment")
+
+extendItem 'Leppa Berry', ->
+  @eat = (battle, owner) ->
+    for move in owner.moves
+      if owner.pp(move) == 0
+        owner.setPP(move, 10)
+        owner.removeItem()
+        break
+
+  @update = (battle, owner) ->
+    if owner.lastMove? && owner.pp(owner.lastMove) == 0
+      @eat(battle, owner)
