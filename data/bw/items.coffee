@@ -442,3 +442,14 @@ makeSpeciesCriticalItem "Stick", "Farfetch'd"
 
 makeCriticalBoostItem 'Razor Claw'
 makeCriticalBoostItem 'Scope Lens'
+
+extendItem 'Iron Ball', ->
+  @modifySpeed = (stat, pokemon) ->
+    Math.floor(stat / 2)
+
+  @initialize = (battle, pokemon) ->
+    attachment = new Attachment.IronBall()
+    pokemon.attach(attachment)
+
+  @deactivate = (pokemon) ->
+    pokemon.unattach("IronBallAttachment")

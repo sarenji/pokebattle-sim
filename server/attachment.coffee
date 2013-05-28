@@ -45,6 +45,10 @@ class @Attachments
     conditional = (result) -> result == false
     @queryUntil(funcName, conditional, args...)
 
+  queryUntilNotNull: (funcName, args...) =>
+    conditional = (result) -> result?
+    @queryUntil(funcName, conditional, args...)
+
   queryChain: (funcName, result) =>
     for attachment in _.clone(@attachments)
       result = attachment[funcName](result)
@@ -311,6 +315,13 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
 
   beginTurn: (battle) =>
     @pokemon.lockMove(@move)  if @move?
+
+class @Attachment.IronBall extends @Attachment
+  constructor: (attributes={}) ->
+    super("IronBallAttachment", attributes)
+
+  isImmune: (battle, type) =>
+    return false  if type == 'Ground'
 
 class @Attachment.AirBalloon extends @Attachment
   constructor: (attributes={}) ->

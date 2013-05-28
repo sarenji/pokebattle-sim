@@ -743,3 +743,16 @@ shared = require '../shared'
   testSpeciesBoostingItem("Metal Powder", ["Ditto"],
     defense: 2, specialDefense: 2)
   testSpeciesBoostingItem("Quick Powder", ["Ditto"], speed: 2)
+
+  describe "Iron Ball", ->
+    it "halves the owner's speed", ->
+      shared.create.call(this)
+
+      speed = @team1.first().stat('speed')
+      @team1.first().setItem(@battle, items["Iron Ball"])
+      @team1.first().stat('speed').should.equal Math.floor(speed / 2)
+
+    it "removes the immunity to ground-type moves", ->
+      shared.create.call(this, team1: [Factory("Gyarados", item: "Iron Ball")])
+
+      @team1.first().isImmune(@battle, "Ground").should.be.false
