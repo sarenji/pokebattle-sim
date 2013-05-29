@@ -144,7 +144,6 @@ class @Move
 
   isCriticalHit: (battle, attacker, defender) =>
     # TODO: Implement Lucky Chant.
-    # TODO: Implement moves that always critical hit.
     if defender.hasAbility('Battle Armor') || defender.hasAbility('Shell Armor')
       return false
 
