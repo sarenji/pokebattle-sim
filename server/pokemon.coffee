@@ -268,7 +268,7 @@ class @Pokemon
     @switchBlocked
 
   # Blocks a switch for a single turn
-  blockSwitch: (move) =>
+  blockSwitch: =>
     @switchBlocked = true
 
   # Locks the Pokemon into a single move. Does not limit switches.
