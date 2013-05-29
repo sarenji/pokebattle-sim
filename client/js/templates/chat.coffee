@@ -5,4 +5,7 @@ JST['chat'] = thermos.template (locals) ->
     @ul '.users'
   @div '.message_pane', ->
     @div '.messages'
-    @input '.chat_input', type: 'text'
+    @div '.chat_input_pane', ->
+      @input '.chat_input_send', type: 'button', value: 'Send'
+      @div '.chat_input_wrapper', ->
+        @input '.chat_input', type: 'text'
