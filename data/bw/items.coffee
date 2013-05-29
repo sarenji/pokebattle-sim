@@ -390,6 +390,14 @@ makeFeedbackDamageBerry 'Rowap Berry', 'isSpecial'
 makeStatBoostBerry 'Salac Berry', speed: 1
 makeTypeBoostItem 'Sea Incense', 'Water'
 makeTypeBoostItem 'Sharp Beak', 'Flying'
+
+extendItem 'Shell Bell', ->
+  @afterSuccessfulHit = (battle, move, user, target, damage) ->
+    # TODO: Does Shell Bell display a message if the Pokemon is at full HP?
+    return  if damage == 0
+    user.damage -Math.floor(damage / 8)
+    battle.message "#{user.name} restored some of its HP using its #{@name}!"
+
 makeTypeResistBerry 'Shuca Berry', 'Ground'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
 makeTypeBoostItem 'SilverPowder', 'Bug'

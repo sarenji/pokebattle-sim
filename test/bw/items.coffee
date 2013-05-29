@@ -878,3 +878,15 @@ shared = require '../shared'
 
       @team1.first().hasItem().should.be.true
       @team2.first().should.equal target
+
+  describe "Shell Bell", ->
+    it "restores 1/8 of damage dealt to target", ->
+      shared.create.call(this, team1: [Factory("Magikarp", item: "Shell Bell")])
+
+      @team1.first().currentHP = startHP = 1
+
+      @battle.makeMove(@player1, "Outrage")
+      @battle.makeMove(@player2, "Splash")
+
+      damage = @team2.first().stat('hp') - @team2.first().currentHP
+      @team1.first().currentHP.should.equal(startHP + Math.floor(damage / 8))
