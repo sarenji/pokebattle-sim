@@ -102,6 +102,10 @@ class @Battle
       pokemon.push(player.team.getActivePokemon()...)
     pokemon
 
+  getActiveAlivePokemon: =>
+    pokemon = @getActivePokemon()
+    pokemon.filter((p) -> p.isAlive())
+
   # Finds the Player attached to a certain Pokemon.
   getOwner: (pokemon) =>
     for id, player of @players
@@ -255,8 +259,7 @@ class @Battle
   # any replacements are needed, or begins the next turn.
   endTurn: =>
     team.endTurn(this)  for team in @getTeams()
-    # TODO: Skip endTurn for pokemon that are fainted?
-    pokemon.endTurn(this)  for pokemon in @getActivePokemon()
+    pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
     @sendMessages()
 

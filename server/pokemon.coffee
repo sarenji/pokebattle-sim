@@ -172,6 +172,9 @@ class @Pokemon
     @item.deactivate(this)
     @item = null
 
+  isAlive: =>
+    !@isFainted()
+
   isFainted: =>
     @currentHP <= 0
 
