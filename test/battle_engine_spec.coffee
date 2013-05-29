@@ -26,41 +26,38 @@ describe 'Mechanics', ->
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
       move = moves['leaf-storm']
-      sinon.stub(move, 'willMiss', -> true)
+      shared.biasRNG.call(this, 'randInt', 'miss', 100)
       defender = @team2.at(0)
       originalHP = defender.currentHP
       @battle.makeMove(@player1, 'leaf-storm')
       @battle.continueTurn()
       defender.currentHP.should.equal originalHP
-      move.willMiss.restore()
 
     it 'triggers effects dependent on the move missing', ->
       shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
       move = moves['hi-jump-kick']
-      sinon.stub(move, 'willMiss', -> true)
+      shared.biasRNG.call(this, 'randInt', 'miss', 100)
       mock = sinon.mock(move)
       mock.expects('afterMiss').once()
       @battle.makeMove(@player1, 'hi-jump-kick')
       @battle.continueTurn()
       mock.verify()
       mock.restore()
-      move.willMiss.restore()
 
     it 'does not trigger effects dependent on the move hitting', ->
       shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       move = moves['hi-jump-kick']
-      sinon.stub(move, 'willMiss', -> true)
+      shared.biasRNG.call(this, 'randInt', 'miss', 100)
       mock = sinon.mock(move)
       mock.expects('afterSuccessfulHit').never()
       @battle.makeMove(@player1, 'leaf-storm')
       @battle.continueTurn()
       mock.verify()
       mock.restore()
-      move.willMiss.restore()
 
   describe 'an attack with 0 accuracy', ->
     it 'can never miss', ->
