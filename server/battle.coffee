@@ -468,7 +468,7 @@ class @Battle
         @getActivePokemon()
       when 'random-opponent'
         pokemon = @getOpponentPokemon(id, @numActive)
-        @rng.choice(pokemon)
+        [ @rng.choice(pokemon) ]
       when 'users-field'
         @getTeam(id).pokemon
       when 'specific-move'
