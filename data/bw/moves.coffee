@@ -337,6 +337,14 @@ extendWithSecondaryBoost 'ancientpower', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 makeStatusCureMove 'aromatherapy'
+
+extendMove 'attract', ->
+  @use = (battle, user, target) ->
+    if !target.hasAttachment("AttractAttachment")
+      target.attach(new Attachment.Attract())
+    else
+      @fail(battle)
+
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
 makeBoostMove 'barrier', 'self', defense: 2

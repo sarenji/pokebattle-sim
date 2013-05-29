@@ -2145,3 +2145,45 @@ shared = require '../shared'
   testTrappingMove "fire-spin"
   testTrappingMove "magma-storm"
   testTrappingMove "sand-tomb"
+
+  describe "Attract", ->
+    it "has a 50% chance to immobilize a pokemon", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      shared.biasRNG.call(this, "next", 'attract chance', 0)  # 100% immobilizes
+
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').never()
+
+      @battle.makeMove(@player1, 'Attract')
+      @battle.makeMove(@player2, 'Tackle')
+
+      mock.restore()
+      mock.verify()
+
+    it "has a 50% chance to not immobilize a pokemon", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      shared.biasRNG.call(this, "next", 'attract chance', .5)  # 0% immobilizes
+
+      mock = sinon.mock(moves['tackle'])
+      mock.expects('execute').once()
+
+      @battle.makeMove(@player1, 'Attract')
+      @battle.makeMove(@player2, 'Tackle')
+
+      mock.restore()
+      mock.verify()
+
+    it "fails if used twice", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+
+      mock = sinon.mock(moves['attract'])
+      mock.expects('fail').once()
+
+      @battle.makeMove(@player1, 'Attract')
+      @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Attract')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()

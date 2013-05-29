@@ -427,3 +427,13 @@ class @Attachment.TrapLeash extends @VolatileAttachment
     if @trap.pokemon
       @trap.remove()
     @remove()
+
+# Has a 50% chance to immobilize a Pokemon before it moves.
+class @Attachment.Attract extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("AttractAttachment", attributes)
+
+  beforeMove: (battle, move, user, targets) =>
+    if battle.rng.next('attract chance') < .5
+      battle.message "#{@pokemon.name} is immobilized by love!"
+      return false
