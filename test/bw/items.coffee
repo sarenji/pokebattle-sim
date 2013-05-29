@@ -890,3 +890,45 @@ shared = require '../shared'
 
       damage = @team2.first().stat('hp') - @team2.first().currentHP
       @team1.first().currentHP.should.equal(startHP + Math.floor(damage / 8))
+
+  describe "Sticky Barb", ->
+    it "damages 1/8 of holder's HP each turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sticky Barb")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Splash")
+
+      hp = @team1.first().stat('hp')
+      (hp - @team1.first().currentHP).should.equal Math.floor(hp / 8)
+
+    it "attaches to the attacking pokemon on a contact move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sticky Barb")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team1.first().hasItem().should.be.false
+      @team2.first().hasItem("Sticky Barb").should.be.true
+
+    it "does not attach to the attacking pokemon on non-contact moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sticky Barb")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Aura Sphere")
+
+      @team1.first().hasItem("Sticky Barb").should.be.true
+      @team2.first().hasItem().should.be.false
+
+    it "does not attach if the attacker has an item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sticky Barb")]
+        team2: [Factory("Magikarp", item: "Leftovers")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team1.first().hasItem("Sticky Barb").should.be.true
+      @team2.first().hasItem("Leftovers").should.be.true

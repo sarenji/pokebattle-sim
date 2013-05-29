@@ -422,6 +422,16 @@ makePinchBerry 'Starf Berry', (battle, owner) ->
   boostedStats = owner.boost(boosts)
   util.printBoostMessage(battle, owner, boostedStats, boosts)
 
+extendItem 'Sticky Barb', ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
+    return  unless move.hasFlag("contact")
+    return  if user.hasItem()
+    user.setItem(battle, this)
+    target.removeItem()
+
+  @endTurn = (battle, pokemon) ->
+    pokemon.damage Math.floor(pokemon.stat('hp') / 8)
+
 makeGemItem 'Steel Gem', 'Steel'
 makePlateItem 'Stone Plate', 'Rock'
 makeTypeResistBerry 'Tanga Berry', 'Bug'
