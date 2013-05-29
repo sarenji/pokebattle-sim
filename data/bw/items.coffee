@@ -362,6 +362,18 @@ makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
 makeStatusCureBerry 'Rawst Berry', Status.BURN
+
+extendItem 'Red Card', ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
+    return  if move.isNonDamaging()
+    opponent = battle.getOwner(user)
+    benched  = opponent.team.getAliveBenchedPokemon()
+    # return  if benched.length == 0
+    pokemon = battle.rng.choice(benched)
+    index = opponent.team.indexOf(pokemon)
+    opponent.switch(battle, 0, index)
+    target.removeItem()
+
 makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
 

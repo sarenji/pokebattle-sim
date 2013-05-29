@@ -840,3 +840,41 @@ shared = require '../shared'
       maxHP = @team2.first().stat('hp')
       expected = maxHP - Math.floor(maxHP / 8)
       @team2.first().currentHP.should.equal expected
+
+  describe "Red Card", ->
+    it "drags a pokemon out if a damaging move is used", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp"), Factory("Abra")]
+
+      target = @team2.at(1)
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team2.first().should.equal target
+
+    it "destroys the Red Card after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp"), Factory("Abra")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Tackle")
+
+      @team1.first().hasItem().should.be.false
+
+    # TODO: Find out if these are true or not.
+    it "does not activate if there is only one Pokemon left"
+    it "does not activate on Sheer Force"
+
+    it "does not activate if a non-damaging move is used", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp"), Factory("Abra")]
+
+      target = @team2.first()
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Will-O-Wisp")
+
+      @team1.first().hasItem().should.be.true
+      @team2.first().should.equal target
