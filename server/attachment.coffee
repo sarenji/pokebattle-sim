@@ -405,8 +405,14 @@ class @Attachment.Trap extends @VolatileAttachment
       @leash.remove()
     else
       battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
-      @pokemon.damage Math.floor(@pokemon.stat('hp') / 16)
+      @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
       @turns -= 1
+
+  getDamagePerTurn: =>
+    if @leash.pokemon.hasItem("Binding Band")
+      8
+    else
+      16
 
 
 # If the creator if fire spin switches out, the trap will end

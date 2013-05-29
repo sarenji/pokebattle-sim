@@ -828,3 +828,15 @@ shared = require '../shared'
       @battle.makeMove(@player2, "Tackle")
 
       pokemon.isFainted().should.be.true
+
+  describe "Binding Band", ->
+    it "makes trapping moves deal 1/8 damage per turn, not 1/16", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", evs: {speed: 4}, item: "Binding Band")]
+
+      @battle.makeMove(@player1, "Fire Spin")
+      @battle.makeMove(@player2, "Recover")
+
+      maxHP = @team2.first().stat('hp')
+      expected = maxHP - Math.floor(maxHP / 8)
+      @team2.first().currentHP.should.equal expected
