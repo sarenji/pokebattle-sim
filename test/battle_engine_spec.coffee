@@ -221,38 +221,38 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Mew')]
-      spy = sinon.spy(@battle, 'orderIds')
+      spy = sinon.spy(@battle, 'determineTurnOrder')
       shared.biasRNG.call(this, "next", "turn order", .6)
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Psychic')
-      spy.returned([@id2, @id1]).should.be.true
+      spy.returned([@team2.first(), @team1.first()]).should.be.true
 
       shared.biasRNG.call(this, "next", "turn order", .4)
       @battle.makeMove(@player1, 'Psychic')
       @battle.makeMove(@player2, 'Psychic')
-      spy.returned([@id1, @id2]).should.be.true
+      spy.returned([@team1.first(), @team2.first()]).should.be.true
 
     it 'decides winner by highest priority move', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan')]
-      spy = sinon.spy(@battle, 'orderIds')
+      spy = sinon.spy(@battle, 'determineTurnOrder')
       @battle.makeMove(@player1, 'Mach Punch')
       @battle.makeMove(@player2, 'ThunderPunch')
-      spy.returned([@id1, @id2]).should.be.true
+      spy.returned([@team1.first(), @team2.first()]).should.be.true
 
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'Mach Punch')
-      spy.returned([@id2, @id1]).should.be.true
+      spy.returned([@team2.first(), @team1.first()]).should.be.true
 
     it 'decides winner by speed if priority is equal', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan', evs: { speed: 4 })]
-      spy = sinon.spy(@battle, 'orderIds')
+      spy = sinon.spy(@battle, 'determineTurnOrder')
       @battle.makeMove(@player1, 'ThunderPunch')
       @battle.makeMove(@player2, 'ThunderPunch')
-      spy.returned([@id2, @id1]).should.be.true
+      spy.returned([@team2.first(), @team1.first()]).should.be.true
 
   describe 'fainting all the opposing pokemon', ->
     it "doesn't request any more actions from players", ->

@@ -47,6 +47,9 @@ class @Battle
     # Stores last move used
     @lastMove = null
 
+    # A queue of Pokemon ordered by priority of their moves.
+    @priorityQueue = null
+
     # Stores the confusion recoil move as it may be different cross-generations
     @confusionMove = moves['confusion-recoil']
 
@@ -212,6 +215,8 @@ class @Battle
     @performReplacements()
 
     @turn++
+    @priorityQueue = null
+
     team.beginTurn(this)  for team in @getTeams()
     pokemon.beginTurn(this) for pokemon in @getActivePokemon()
 
@@ -228,9 +233,8 @@ class @Battle
   # more requests, the engine progresses to endTurn. Otherwise, it waits for
   # continueTurn to be called again.
   continueTurn: =>
-    # TODO: Store result of @orderIds() for future calls to continueTurn.
-    for id in @orderIds()
-      pokemon = @getTeam(id).first()
+    for pokemon in @determineTurnOrder()
+      {id} = @getOwner(pokemon)
       continue  if pokemon.isFainted()
 
       action = @popAction(id)
@@ -386,7 +390,8 @@ class @Battle
         validActions = {switches: team.getAliveBenchedPokemon()}
         @requestAction(player, validActions)
 
-  orderIds: =>
+  determineTurnOrder: =>
+    return @priorityQueue  if @priorityQueue?
     ids = (id  for id of @playerActions)
     ordered = []
     for id in ids
@@ -395,7 +400,7 @@ class @Battle
       pokemon = @getTeam(id).at(0)
       ordered.push({id, priority, pokemon})
     ordered.sort(@orderComparator)
-    ordered.map((o) -> o.id)
+    @priorityQueue = ordered.map((o) -> o.pokemon)
 
   orderComparator: (a, b) =>
     diff = b.priority - a.priority
