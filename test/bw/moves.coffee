@@ -2148,7 +2148,9 @@ shared = require '../shared'
 
   describe "Attract", ->
     it "has a 50% chance to immobilize a pokemon", ->
-      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]
+        team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', 0)  # 100% immobilizes
 
       mock = sinon.mock(moves['tackle'])
@@ -2161,7 +2163,9 @@ shared = require '../shared'
       mock.verify()
 
     it "has a 50% chance to not immobilize a pokemon", ->
-      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]
+        team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', .5)  # 0% immobilizes
 
       mock = sinon.mock(moves['tackle'])
@@ -2174,13 +2178,29 @@ shared = require '../shared'
       mock.verify()
 
     it "fails if used twice", ->
-      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]
+        team2: [Factory("Magikarp", gender: "F")]
 
       mock = sinon.mock(moves['attract'])
       mock.expects('fail').once()
 
       @battle.makeMove(@player1, 'Attract')
       @battle.makeMove(@player2, 'Splash')
+
+      @battle.makeMove(@player1, 'Attract')
+      @battle.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+    it "fails if the Pokemon are not opposite genders", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "F")]
+        team2: [Factory("Magikarp", gender: "F")]
+
+      mock = sinon.mock(moves['attract'])
+      mock.expects('fail').once()
 
       @battle.makeMove(@player1, 'Attract')
       @battle.makeMove(@player2, 'Splash')

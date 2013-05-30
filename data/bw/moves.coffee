@@ -340,10 +340,12 @@ makeStatusCureMove 'aromatherapy'
 
 extendMove 'attract', ->
   @use = (battle, user, target) ->
-    if !target.hasAttachment("AttractAttachment")
-      target.attach(new Attachment.Attract())
-    else
+    if target.hasAttachment("AttractAttachment") ||
+        (!(user.gender == 'M' && target.gender == 'F') &&
+         !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
+      return
+    target.attach(new Attachment.Attract())
 
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2

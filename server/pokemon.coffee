@@ -13,6 +13,7 @@ class @Pokemon
     @level = attributes.level || 100
     @baseStats = attributes.stats || {}
     @weight = attributes.weight  # in kg
+    @gender = attributes.gender || "Genderless"
     @attachments = new Attachments()
 
     @nature = attributes.nature
