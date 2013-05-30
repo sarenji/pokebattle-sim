@@ -198,15 +198,25 @@ makeCriticalBoostItem = (name) ->
   extendItem name, ->
     @criticalModifier = (battle, owner) -> 1
 
+makeBoostOnTypeItem = (name, type, boosts) ->
+  stats = Object.keys(boosts)
+  length = stats.length
+  stats = stats.map (stat) ->
+    stat[0].toUpperCase() + stat[1...length].replace(/[A-Z]/g, " $1")
+  stats[length - 1] = "and #{stats[length - 1]}"  if length >= 2
+  stats = stats.join(", ")  if length >= 3
+  stats = stats.join(" ")   if length == 2
+  extendItem name, ->
+    @afterBeingHit = (battle, move, user, target, damage) ->
+      if move.type == type
+        battle.message "#{user.name}'s #{@name} made its #{stats} rise!"
+        target.boost(boosts)
+        target.removeItem()
+
 for name, attributes of json
   items[name] = new Item(name, attributes)
 
-extendItem 'Absorb Bulb', ->
-  @afterBeingHit = (battle, move, user, target, damage) ->
-    if move.type == 'Water'
-      battle.message "#{user.name}'s Absorb Bulb made its Special Attack rise!"
-      target.boost(specialAttack: 1)
-      target.item = null
+makeBoostOnTypeItem 'Absorb Bulb', 'Water', specialAttack: 1
 
 makeOrbItem 'Adamant Orb', 'Dialga'
 makeFlavorHealingBerry 'Aguav Berry', "specialDefense"
@@ -238,6 +248,7 @@ extendItem 'Black Sludge', ->
       user.damage(amount)
 
 makeGemItem 'Bug Gem', 'Bug'
+makeBoostOnTypeItem 'Cell Battery', 'Electric', attack: 1
 makeTypeBoostItem 'Charcoal', 'Fire'
 makeTypeResistBerry 'Charti Berry', 'Rock'
 makeStatusCureBerry 'Cheri Berry', Status.PARALYZE

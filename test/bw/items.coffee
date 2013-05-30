@@ -166,30 +166,34 @@ shared = require '../shared'
     it "stacks with each hit of multi-hit moves like Tail Slap"
     it "doesn't let certain effects activate if attacker faints"
 
-  describe "Absorb Bulb", ->
-    it "boosts the special attack of the target by 1 if hit by a water move", ->
-      shared.create.call this,
-        team2: [Factory("Ferrothorn", item: "Absorb Bulb")]
-      @battle.makeMove(@player1, 'Water Gun')
-      @battle.makeMove(@player2, 'Splash')
+  testBoostOnTypeItem = (itemName, move, stat) ->
+    describe itemName, ->
+      it "boosts the special attack of the target by 1 if hit by a water move", ->
+        shared.create.call this,
+          team2: [Factory("Ferrothorn", item: itemName)]
+        @battle.makeMove(@player1, move)
+        @battle.makeMove(@player2, 'Splash')
 
-      @team2.first().stages.specialAttack.should.equal 1
+        @team2.first().stages[stat].should.equal 1
 
-    it "is one-time use", ->
-      shared.create.call this,
-        team2: [Factory("Ferrothorn", item: "Absorb Bulb")]
-      @battle.makeMove(@player1, 'Water Gun')
-      @battle.makeMove(@player2, 'Splash')
+      it "is one-time use", ->
+        shared.create.call this,
+          team2: [Factory("Ferrothorn", item: itemName)]
+        @battle.makeMove(@player1, move)
+        @battle.makeMove(@player2, 'Splash')
 
-      should.not.exist @team2.first().item
+        should.not.exist @team2.first().item
 
-    it "does not boost the special attack of the target by 1 if not hit by a water move", ->
-      shared.create.call this,
-        team2: [Factory("Ferrothorn", item: "Absorb Bulb")]
-      @battle.makeMove(@player1, 'Ember')
-      @battle.makeMove(@player2, 'Splash')
+      it "does not boost the special attack of the target by 1 if not hit by a water move", ->
+        shared.create.call this,
+          team2: [Factory("Ferrothorn", item: itemName)]
+        @battle.makeMove(@player1, 'Ember')
+        @battle.makeMove(@player2, 'Splash')
 
-      @team2.first().stages.specialAttack.should.equal 0
+        @team2.first().stages[stat].should.equal 0
+
+  testBoostOnTypeItem("Absorb Bulb", "Water Gun", "specialAttack")
+  testBoostOnTypeItem("Cell Battery", "Thunderbolt", "attack")
 
   describe "Float Stone", ->
     it "halves the user's weight", ->
