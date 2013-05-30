@@ -93,6 +93,8 @@ class @Attachment
   modifyDefense: (stat) => stat
   modifySpecialDefense: (stat) => stat
 
+Attachment = @Attachment
+
 class @TeamAttachment extends @Attachment
   constructor: (name, attributes) ->
     super(name, attributes)
@@ -432,6 +434,12 @@ class @Attachment.TrapLeash extends @VolatileAttachment
 class @Attachment.Attract extends @VolatileAttachment
   constructor: (attributes={}) ->
     super("AttractAttachment", attributes)
+    {@source} = attributes
+
+  initialize: =>
+    if @pokemon.hasItem("Destiny Knot") && !@source.hasAttachment("AttractAttachment")
+      @source.attach(new Attachment.Attract({@source}))
+      @pokemon.removeItem()
 
   beforeMove: (battle, move, user, targets) =>
     if battle.rng.next('attract chance') < .5

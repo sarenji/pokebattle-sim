@@ -936,3 +936,28 @@ shared = require '../shared'
 
       @team1.first().hasItem("Sticky Barb").should.be.true
       @team2.first().hasItem("Leftovers").should.be.true
+
+  describe "Destiny Knot", ->
+    it "infatuates the enemy as well if the holder becomes attracted", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
+        team2: [Factory("Magikarp", gender: "M")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Attract")
+
+      @team1.first().hasAttachment("AttractAttachment").should.be.true
+      @team2.first().hasAttachment("AttractAttachment").should.be.true
+
+    it "is one-time use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
+        team2: [Factory("Magikarp", gender: "M")]
+
+      @battle.makeMove(@player1, "Splash")
+      @battle.makeMove(@player2, "Attract")
+
+      @team1.first().hasItem().should.be.false
+
+    it "what happens if both pokemon have Destiny Knot?"
+    it "what happens if the target is already attracted?"

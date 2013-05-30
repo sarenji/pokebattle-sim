@@ -345,7 +345,7 @@ extendMove 'attract', ->
          !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
       return
-    target.attach(new Attachment.Attract())
+    target.attach(new Attachment.Attract(source: user))
 
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
