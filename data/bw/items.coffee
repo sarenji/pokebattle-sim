@@ -199,6 +199,14 @@ makeSpeciesCriticalItem = (name, species) ->
       else
         0
 
+makeEvasionItem = (name, ratio=0.9) ->
+  extendItem name, ->
+    @initialize = (battle, pokemon) ->
+      pokemon.attach(new Attachment.EvasionItem({ratio}))
+
+    @deactivate = (pokemon) ->
+      pokemon.unattach("EvasionItemAttachment")
+
 makeCriticalBoostItem = (name) ->
   extendItem name, ->
     @criticalModifier = (battle, owner) -> 1
@@ -252,6 +260,7 @@ extendItem 'Black Sludge', ->
       battle.message "#{user.name} is hurt by its #{@name}!"
       user.damage(amount)
 
+makeEvasionItem 'BrightPowder', 0.9
 makeGemItem 'Bug Gem', 'Bug'
 makeBoostOnTypeItem 'Cell Battery', 'Electric', attack: 1
 makeTypeBoostItem 'Charcoal', 'Fire'
@@ -341,6 +350,8 @@ makeTypeResistBerry 'Kebia Berry', 'Poison'
 #       Does the berry still get eaten? Same goes for the other stat berries.
 makePinchBerry 'Lansat Berry', (battle, owner) ->
   owner.attach(new Attachment.FocusEnergy())
+
+makeEvasionItem 'Lax Incense', 0.9
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->

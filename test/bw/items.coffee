@@ -1045,3 +1045,30 @@ shared = require '../shared'
       @controller.makeMove(@player2, "Splash")
 
       @team1.first().hasAttachment("MicleBerryAttachment").should.be.false
+
+  testEvasionItem = (itemName, ratio=0.9) ->
+    describe itemName, ->
+      it "gives the owner a #{ratio}x accuracy reduction", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp", item: itemName)]
+
+        @controller.makeMove(@player1, "Tackle")
+        @controller.makeMove(@player2, "Splash")
+
+        moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+          .should.equal Math.floor(moves['tackle'].accuracy * ratio)
+
+      it "no longer reduces accuracy if item is knocked off", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp", item: itemName)]
+
+        @team2.first().removeItem()
+
+        @controller.makeMove(@player1, "Tackle")
+        @controller.makeMove(@player2, "Splash")
+
+        moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+          .should.equal Math.floor(moves['tackle'].accuracy)
+
+  testEvasionItem "BrightPowder"
+  testEvasionItem "Lax Incense"

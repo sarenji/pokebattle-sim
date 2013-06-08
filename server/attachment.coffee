@@ -72,6 +72,7 @@ class @Attachment
 
   calculateWeight: (weight) => weight
   editAccuracy: (accuracy) => accuracy
+  editEvasion: (evasion) => evasion
   afterBeingHit: (battle, move, user, target, damage) =>
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
@@ -464,3 +465,11 @@ class @Attachment.MicleBerry extends @VolatileAttachment
       @remove()
     else
       @turns--
+
+class @Attachment.EvasionItem extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("EvasionItemAttachment", attributes)
+    @ratio = attributes.ratio || 0.9
+
+  editEvasion: (accuracy) =>
+    Math.floor(accuracy * @ratio)

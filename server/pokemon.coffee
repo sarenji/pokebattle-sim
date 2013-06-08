@@ -194,6 +194,10 @@ class @Pokemon
     accuracy = @attachments.queryChain('editAccuracy', accuracy)
     accuracy
 
+  editEvasion: (accuracy) =>
+    accuracy = @attachments.queryChain('editEvasion', accuracy)
+    accuracy
+
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
 
