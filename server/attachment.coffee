@@ -71,6 +71,7 @@ class @Attachment
     @pokemon.unattach(this)
 
   calculateWeight: (weight) => weight
+  editAccuracy: (accuracy) => accuracy
   afterBeingHit: (battle, move, user, target, damage) =>
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
@@ -449,3 +450,17 @@ class @Attachment.Attract extends @VolatileAttachment
 class @Attachment.FocusEnergy extends @VolatileAttachment
   constructor: (attributes={}) ->
     super("FocusEnergyAttachment", attributes)
+
+class @Attachment.MicleBerry extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("MicleBerryAttachment", attributes)
+    @turns = 1
+
+  editAccuracy: (accuracy) =>
+    Math.floor(accuracy * 1.2)
+
+  endTurn: (battle) =>
+    if @turns == 0
+      @remove()
+    else
+      @turns--

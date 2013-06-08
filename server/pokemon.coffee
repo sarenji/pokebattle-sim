@@ -190,6 +190,10 @@ class @Pokemon
     damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
     damage
 
+  editAccuracy: (accuracy) =>
+    accuracy = @attachments.queryChain('editAccuracy', accuracy)
+    accuracy
+
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
 

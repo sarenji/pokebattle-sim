@@ -1017,3 +1017,31 @@ shared = require '../shared'
       @controller.makeMove(@player2, "Splash")
 
       @team1.first().hasAttachment("FocusEnergyAttachment").should.be.true
+
+  describe "Micle Berry", ->
+    it "gives the owner a 1.2x accuracy boost on their next move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Micle Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+
+      @controller.makeMove(@player1, "Tackle")
+      @controller.makeMove(@player2, "Splash")
+
+      @team1.first().hasAttachment("MicleBerryAttachment").should.be.true
+      moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+        .should.equal Math.floor(moves['tackle'].accuracy * 1.2)
+
+    it "goes away after their next move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Micle Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+
+      @controller.makeMove(@player1, "Tackle")
+      @controller.makeMove(@player2, "Splash")
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
+
+      @team1.first().hasAttachment("MicleBerryAttachment").should.be.false

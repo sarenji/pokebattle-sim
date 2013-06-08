@@ -362,6 +362,10 @@ makeTypeBoostItem 'Magnet', 'Electric'
 makeFlavorHealingBerry 'Mago Berry', "speed"
 makePlateItem 'Meadow Plate', 'Grass'
 makeTypeBoostItem 'Metal Coat', 'Steel'
+
+makePinchBerry 'Micle Berry', (battle, owner) ->
+  owner.attach(new Attachment.MicleBerry())
+
 makePlateItem 'Mind Plate', 'Psychic'
 makeTypeBoostItem 'Miracle Seed', 'Grass'
 

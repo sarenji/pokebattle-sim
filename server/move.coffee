@@ -111,6 +111,7 @@ class @Move
     accuracy = @accuracy
     accuracy = Math.floor(accuracy * (3 + user.stages.accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.stages.evasion))
+    accuracy = user.editAccuracy(accuracy)
     # TODO: Accuracy/evasion item modifiers
     # TODO: Accuracy/evasion ability modifiers
     # TODO: Gravity modifier
