@@ -16,6 +16,7 @@ class Item
   initialize: (battle, pokemon) =>
   # Items get deactivated when switching out or when this item is replaced.
   deactivate: (pokemon) =>
+  afterTurnOrder: (battle, pokemon) =>
   endTurn: (battle, pokemon) =>
   afterSuccessfulHit: (battle, move, user, target, damage) ->
   afterBeingHit: (battle, move, user, target, damage) ->
@@ -46,13 +47,17 @@ extendItem = (name, callback) ->
   item = items[name]
   callback.call(item)
 
-makePinchBerry = (name, func) ->
+makePinchBerry = (name, hookName, func) ->
+  if !func?
+    func = hookName
+    hookName = "update"
+
   extendItem name, ->
     @eat = (battle, owner) ->
       func.call(this, battle, owner)
       owner.removeItem()
 
-    @update = (battle, owner) ->
+    @[hookName] = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 4)
         @eat(battle, owner)
 
@@ -265,6 +270,10 @@ extendItem 'Choice Scarf', ->
 makeTypeResistBerry 'Chople Berry', 'Fighting'
 makeTypeResistBerry 'Coba Berry', 'Flying'
 makeTypeResistBerry 'Colbur Berry', 'Dark'
+
+makePinchBerry 'Custap Berry', 'afterTurnOrder', (battle, owner) ->
+  battle.bump(owner)
+
 makeWeatherItem 'Damp Rock', Weather.RAIN
 makeGemItem 'Dark Gem', 'Dark'
 makeTypeBoostItem 'Dragon Fang', 'Dragon'

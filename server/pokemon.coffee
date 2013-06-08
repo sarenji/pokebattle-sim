@@ -224,6 +224,9 @@ class @Pokemon
     @switchBlocked = false
     @attachments.query('beginTurn', battle)
 
+  afterTurnOrder: (battle) =>
+    @item?.afterTurnOrder(battle, this)
+
   beforeMove: (battle, move, user, targets) =>
     @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
 

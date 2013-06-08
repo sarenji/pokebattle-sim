@@ -962,7 +962,7 @@ shared = require '../shared'
     it "what happens if both pokemon have Destiny Knot?"
     it "what happens if the target is already attracted?"
 
-  xdescribe "Custap Berry", ->
+  describe "Custap Berry", ->
     it "bumps the holder to the front of its priority bracket", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Custap Berry")]
@@ -971,10 +971,11 @@ shared = require '../shared'
       @team1.first().currentHP = 1
       @team2.first().currentHP = 1
 
-      @controller.makeMove(@player1, "Tackle")
-      @controller.makeMove(@player2, "Tackle")
-
-      @team2.first().isFainted().should.be.true
+      @battle.recordMove(@id1, moves["tackle"])
+      @battle.recordMove(@id2, moves["tackle"])
+      @battle.determineTurnOrder()
+      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon.should.eql [ @team1.first(), @team2.first() ]
 
     it "is one-time use", ->
       shared.create.call this,
@@ -995,9 +996,11 @@ shared = require '../shared'
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4) + 1
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Splash")
-
+      @battle.recordMove(@id1, moves["tackle"])
+      @battle.recordMove(@id2, moves["tackle"])
+      @battle.determineTurnOrder()
+      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon.should.eql [ @team2.first(), @team1.first() ]
       @team1.first().hasItem().should.be.true
 
     it "activates at 50% HP if the Pokemon has Gluttony"

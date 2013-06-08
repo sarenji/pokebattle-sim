@@ -238,6 +238,12 @@ class @Battle
       switches = player.team.getAlivePokemon().map((p) -> p.name)
       @requestAction(player, moves: poke_moves, switches: switches)
 
+  # A callback done after turn order is calculated for the first time.
+  # Use this callback to edit the turn order after players have selected
+  # their orders, but before the turn continues.
+  afterTurnOrder: =>
+    pokemon.afterTurnOrder(this)  for pokemon in @getActiveAlivePokemon()
+
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.
   continueTurn: =>
@@ -370,6 +376,7 @@ class @Battle
       pokemon = @getTeam(id).at(0)
       @priorityQueue.push({id, priority, pokemon})
     @priorityQueue.sort(@orderComparator)
+    @afterTurnOrder()
     @priorityQueue
 
   orderComparator: (a, b) =>
