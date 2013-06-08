@@ -337,6 +337,8 @@ makeFeedbackDamageBerry 'Jaboca Berry', 'isPhysical'
 makeTypeResistBerry 'Kasib Berry', 'Ghost'
 makeTypeResistBerry 'Kebia Berry', 'Poison'
 
+# TODO: What happens if the Pokemon already has Focus Energy?
+#       Does the berry still get eaten? Same goes for the other stat berries.
 makePinchBerry 'Lansat Berry', (battle, owner) ->
   owner.attach(new Attachment.FocusEnergy())
 
