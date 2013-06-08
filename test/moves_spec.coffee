@@ -1,5 +1,5 @@
 sinon = require 'sinon'
-{Battle, Move, Pokemon, Status} = require('../').server
+{Battle, Move, Pokemon, Status, Attachment} = require('../').server
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->
@@ -36,6 +36,13 @@ describe 'Move', ->
       attacker = new Pokemon(ability: 'Super Luck')
       defender = new Pokemon()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
+
+    it "is 3 if the attacker has Focus Energy", ->
+      battle = new Battle('1', players: [])
+      attacker = new Pokemon()
+      defender = new Pokemon()
+      attacker.attach(new Attachment.FocusEnergy())
+      new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
       battle = new Battle('1', players: [])

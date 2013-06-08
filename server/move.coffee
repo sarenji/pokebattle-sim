@@ -168,6 +168,7 @@ class @Move
 
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
+    stage += 2  if attacker.hasAttachment('FocusEnergyAttachment')
     stage += attacker.item?.criticalModifier(battle, attacker) || 0
     stage
 
