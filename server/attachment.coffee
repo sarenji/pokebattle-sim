@@ -445,3 +445,7 @@ class @Attachment.Attract extends @VolatileAttachment
     if battle.rng.next('attract chance') < .5
       battle.message "#{@pokemon.name} is immobilized by love!"
       return false
+
+class @Attachment.FocusEnergy extends @VolatileAttachment
+  constructor: (attributes={}) ->
+    super("FocusEnergyAttachment", attributes)

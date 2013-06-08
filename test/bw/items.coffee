@@ -1005,3 +1005,15 @@ shared = require '../shared'
 
     it "activates at 50% HP if the Pokemon has Gluttony"
     it "is not activated by Pursuit on a switching Pokemon"
+
+  describe 'Lansat Berry', ->
+    it "gives the owner a Focus Energy attachment", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Lansat Berry")]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
+
+      @team1.first().hasAttachment("FocusEnergyAttachment").should.be.true

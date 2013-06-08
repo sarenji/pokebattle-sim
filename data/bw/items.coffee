@@ -337,6 +337,9 @@ makeFeedbackDamageBerry 'Jaboca Berry', 'isPhysical'
 makeTypeResistBerry 'Kasib Berry', 'Ghost'
 makeTypeResistBerry 'Kebia Berry', 'Poison'
 
+makePinchBerry 'Lansat Berry', (battle, owner) ->
+  owner.attach(new Attachment.FocusEnergy())
+
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
     battle.message "#{user.name} restored a little HP using its #{@name}!"
