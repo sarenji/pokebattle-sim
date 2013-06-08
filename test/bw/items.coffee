@@ -14,8 +14,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Leftovers')]
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
       amount = Math.floor(@team1.at(0).stat('hp') / 16)
       @team1.at(0).currentHP.should.equal(1 + amount)
 
@@ -24,16 +24,16 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Weezing', item: 'Black Sludge')]
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
       amount = Math.floor(@team1.at(0).stat('hp') / 16)
       @team1.at(0).currentHP.should.equal(1 + amount)
 
     it "damages 1/16 of a non-poison pokemon's HP at the end of a turn", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Black Sludge')]
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
       fullHP = @team1.at(0).stat('hp')
       amount = Math.floor(fullHP / 16)
       (fullHP - @team1.at(0).currentHP).should.equal(amount)
@@ -101,16 +101,16 @@ shared = require '../shared'
     it "is removed after use", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
-      @battle.makeMove(@player1, 'Acrobatics')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Acrobatics')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
 
     it "is not removed after use if the move isn't the right type", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       should.exist @team1.at(0).item
 
@@ -147,8 +147,8 @@ shared = require '../shared'
 
       hp = @team1.first().stat('hp')
       currentHP = @team1.first().currentHP = Math.floor(hp * 2 / 3)
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal currentHP - Math.floor(hp / 6)
 
@@ -158,8 +158,8 @@ shared = require '../shared'
 
       hp = @team1.first().stat('hp')
       currentHP = @team1.first().currentHP = Math.floor(hp * 2 / 3)
-      @battle.makeMove(@player1, 'Earthquake')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Earthquake')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal currentHP
 
@@ -171,24 +171,24 @@ shared = require '../shared'
       it "boosts the special attack of the target by 1 if hit by a water move", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        @battle.makeMove(@player1, move)
-        @battle.makeMove(@player2, 'Splash')
+        @controller.makeMove(@player1, move)
+        @controller.makeMove(@player2, 'Splash')
 
         @team2.first().stages[stat].should.equal 1
 
       it "is one-time use", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        @battle.makeMove(@player1, move)
-        @battle.makeMove(@player2, 'Splash')
+        @controller.makeMove(@player1, move)
+        @controller.makeMove(@player2, 'Splash')
 
         should.not.exist @team2.first().item
 
       it "does not boost the special attack of the target by 1 if not hit by a water move", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        @battle.makeMove(@player1, 'Ember')
-        @battle.makeMove(@player2, 'Splash')
+        @controller.makeMove(@player1, 'Ember')
+        @controller.makeMove(@player2, 'Splash')
 
         @team2.first().stages[stat].should.equal 0
 
@@ -228,8 +228,8 @@ shared = require '../shared'
 
       stub = sinon.stub(moves['ember'], 'calculateDamage', -> 9999)
 
-      @battle.makeMove(@player1, 'Ember')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Ember')
+      @controller.makeMove(@player2, 'Splash')
 
       stub.restore()
       @team2.first().hasItem().should.be.false
@@ -239,8 +239,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Choice Band")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player1.id].moves
       requestedMoves.should.eql [ moves['splash'] ]
@@ -249,8 +249,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Choice Band", evs: {speed:4})]
 
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
@@ -259,11 +259,11 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Choice Band"), Factory("Magikarp")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeSwitch(@player1, 1)
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeSwitch(@player1, 1)
+      @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player1.id].moves
       requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
@@ -283,8 +283,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Flame Orb")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasStatus(Status.BURN).should.be.true
 
@@ -294,8 +294,8 @@ shared = require '../shared'
 
       @team1.first().setStatus(Status.SLEEP)
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasStatus(Status.BURN).should.be.false
 
@@ -304,8 +304,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Toxic Orb")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasStatus(Status.TOXIC).should.be.true
 
@@ -315,8 +315,8 @@ shared = require '../shared'
 
       @team1.first().setStatus(Status.SLEEP)
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasStatus(Status.TOXIC).should.be.false
 
@@ -333,8 +333,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Tackle')
 
       @team1.first().hasItem().should.be.false
 
@@ -342,8 +342,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Flatter')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Flatter')
 
       @team1.first().hasItem().should.be.true
 
@@ -351,8 +351,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Tackle')
 
       move = moves['earthquake']
       type = move.getType(@battle, @team1.first(), @team2.first())
@@ -363,8 +363,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Air Balloon")]
         team2: [Factory("Magikarp", item: "Leftovers")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Trick')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Trick')
 
       @team1.first().hasAttachment("AirBalloonAttachment").should.be.false
       @team2.first().hasAttachment("AirBalloonAttachment").should.be.true
@@ -374,8 +374,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "White Herb")]
 
-      @battle.makeMove(@player1, 'Shell Smash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Shell Smash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().stages.should.include {
         attack: 2, defense: 0, speed: 2, specialAttack: 2, specialDefense: 0
@@ -386,8 +386,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = @team1.first().stat('hp')
       (hp - @team1.first().currentHP).should.equal Math.floor(hp / 10)
@@ -396,8 +396,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
-      @battle.makeMove(@player1, 'Growl')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Growl')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal @team1.first().stat('hp')
 
@@ -406,14 +406,14 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().stages.speed.should.equal(0)
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().stages.speed.should.equal(1)
 
@@ -422,8 +422,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
 
@@ -435,8 +435,8 @@ shared = require '../shared'
       shared.biasRNG.call(this, "randInt", 'starf berry stat', 1)
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().stages.defense.should.equal(2)
 
@@ -445,8 +445,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
 
@@ -458,8 +458,8 @@ shared = require '../shared'
 
       @team1.first().stages.defense = 6
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       # Note: This depends on the stats array inside
       # the definition of Starf Berry. Not exactly robust.
@@ -477,8 +477,8 @@ shared = require '../shared'
         @team1.first().stages[stat] = 6
 
       @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       hash = {}
       for stat in stats
@@ -491,16 +491,16 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Figy Berry")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.true
 
       maxHP = @team1.first().stat('hp')
       hp = Math.floor(maxHP / 2)
       @team1.first().currentHP = hp
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal(hp + Math.floor(maxHP / 8))
 
@@ -509,8 +509,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Figy Berry")]
 
       @team1.first().currentHP = Math.floor(@team1.first().stat('hp') / 2)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
 
@@ -519,8 +519,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Figy Berry", nature: "Calm")]
 
       @team1.first().currentHP = Math.floor(@team1.first().stat('hp') / 2)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasAttachment(Attachment.Confusion.name).should.be.true
 
@@ -529,16 +529,16 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sitrus Berry")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.true
 
       maxHP = @team1.first().stat('hp')
       hp = Math.floor(maxHP / 2)
       @team1.first().currentHP = hp
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal(hp + Math.floor(maxHP / 4))
 
@@ -547,8 +547,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Sitrus Berry")]
 
       @team1.first().currentHP = Math.floor(@team1.first().stat('hp') / 2)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
 
@@ -565,8 +565,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Blaziken", item: "Shuca Berry")]
 
-      @battle.makeMove(@player1, 'Earthquake')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Earthquake')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasItem().should.be.false
 
@@ -574,8 +574,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Celebi", item: "Occa Berry")]
 
-      @battle.makeMove(@player1, 'Will-O-Wisp')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Will-O-Wisp')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasItem().should.be.true
 
@@ -608,8 +608,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Jaboca Berry")]
 
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = @team1.first().stat('hp')
       (hp - @team1.first().currentHP).should.equal Math.floor(hp / 8)
@@ -618,8 +618,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Jaboca Berry")]
 
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasItem().should.be.false
 
@@ -627,8 +627,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Rowap Berry")]
 
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal @team1.first().stat('hp')
 
@@ -637,8 +637,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp", item: "Rowap Berry")]
 
       @team2.first().currentHP = 1
-      @battle.makeMove(@player1, 'Tackle')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Tackle')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().currentHP.should.equal @team1.first().stat('hp')
 
@@ -648,8 +648,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp", item: "Cheri Berry")]
 
       @team2.first().setStatus(Status.PARALYZE)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasStatus(Status.PARALYZE).should.be.false
 
@@ -658,8 +658,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp", item: "Cheri Berry")]
 
       @team2.first().setStatus(Status.PARALYZE)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasItem().should.be.false
 
@@ -669,8 +669,8 @@ shared = require '../shared'
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
       @team2.first().attach(new Attachment.Confusion({@battle}))
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.first().hasAttachment(Attachment.Confusion).should.be.false
 
@@ -682,8 +682,8 @@ shared = require '../shared'
       hp = @team1.first().stat('hp')
       damage = Math.floor(hp / 2)
       sinon.stub(@team1.first(), "editDamage", -> damage)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Thunderbolt')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Thunderbolt')
 
       @team1.first().currentHP.should.equal(hp - damage + Math.floor(hp / 4))
 
@@ -691,8 +691,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Enigma Berry")]
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Thunderbolt')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Thunderbolt')
 
       @team1.first().hasItem().should.be.false
 
@@ -703,8 +703,8 @@ shared = require '../shared'
       hp = @team1.first().stat('hp')
       damage = Math.floor(hp / 2)
       sinon.stub(@team1.first(), "editDamage", -> damage)
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Tackle')
 
       @team1.first().currentHP.should.equal(hp - damage)
 
@@ -770,8 +770,8 @@ shared = require '../shared'
       move = pokemon.moves[0]
       pokemon.setPP(move, 1)
 
-      @battle.makeMove(@player1, move.name)
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, move.name)
+      @controller.makeMove(@player2, 'Splash')
 
       pokemon.pp(move).should.equal 10
 
@@ -785,8 +785,8 @@ shared = require '../shared'
       secondMove  = pokemon.moves[1]
       pokemon.setPP(secondMove, 1)
 
-      @battle.makeMove(@player1, secondMove.name)
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, secondMove.name)
+      @controller.makeMove(@player2, 'Splash')
 
       pokemon.pp(pokemon.moves[0]).should.equal 10
       pokemon.pp(secondMove).should.equal 0
@@ -799,8 +799,8 @@ shared = require '../shared'
       move = pokemon.moves[0]
       pokemon.setPP(move, 1)
 
-      @battle.makeMove(@player1, move.name)
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, move.name)
+      @controller.makeMove(@player2, 'Splash')
 
       pokemon.hasItem().should.be.false
 
@@ -814,8 +814,8 @@ shared = require '../shared'
 
       shared.biasRNG.call(this, "randInt", 'focus band', 0)
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       pokemon.currentHP.should.equal 1
 
@@ -828,8 +828,8 @@ shared = require '../shared'
 
       shared.biasRNG.call(this, "randInt", 'focus band', 1)
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       pokemon.isFainted().should.be.true
 
@@ -838,8 +838,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", evs: {speed: 4}, item: "Binding Band")]
 
-      @battle.makeMove(@player1, "Fire Spin")
-      @battle.makeMove(@player2, "Recover")
+      @controller.makeMove(@player1, "Fire Spin")
+      @controller.makeMove(@player2, "Recover")
 
       maxHP = @team2.first().stat('hp')
       expected = maxHP - Math.floor(maxHP / 8)
@@ -852,8 +852,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp"), Factory("Abra")]
 
       target = @team2.at(1)
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       @team2.first().should.equal target
 
@@ -862,8 +862,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Red Card")]
         team2: [Factory("Magikarp"), Factory("Abra")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       @team1.first().hasItem().should.be.false
 
@@ -877,8 +877,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp"), Factory("Abra")]
 
       target = @team2.first()
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Will-O-Wisp")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Will-O-Wisp")
 
       @team1.first().hasItem().should.be.true
       @team2.first().should.equal target
@@ -889,8 +889,8 @@ shared = require '../shared'
 
       @team1.first().currentHP = startHP = 1
 
-      @battle.makeMove(@player1, "Outrage")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Outrage")
+      @controller.makeMove(@player2, "Splash")
 
       damage = @team2.first().stat('hp') - @team2.first().currentHP
       @team1.first().currentHP.should.equal(startHP + Math.floor(damage / 8))
@@ -900,8 +900,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sticky Barb")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
 
       hp = @team1.first().stat('hp')
       (hp - @team1.first().currentHP).should.equal Math.floor(hp / 8)
@@ -910,8 +910,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sticky Barb")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       @team1.first().hasItem().should.be.false
       @team2.first().hasItem("Sticky Barb").should.be.true
@@ -920,8 +920,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sticky Barb")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Aura Sphere")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Aura Sphere")
 
       @team1.first().hasItem("Sticky Barb").should.be.true
       @team2.first().hasItem().should.be.false
@@ -931,8 +931,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Sticky Barb")]
         team2: [Factory("Magikarp", item: "Leftovers")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       @team1.first().hasItem("Sticky Barb").should.be.true
       @team2.first().hasItem("Leftovers").should.be.true
@@ -943,8 +943,8 @@ shared = require '../shared'
         team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
         team2: [Factory("Magikarp", gender: "M")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Attract")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Attract")
 
       @team1.first().hasAttachment("AttractAttachment").should.be.true
       @team2.first().hasAttachment("AttractAttachment").should.be.true
@@ -954,10 +954,51 @@ shared = require '../shared'
         team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
         team2: [Factory("Magikarp", gender: "M")]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Attract")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Attract")
 
       @team1.first().hasItem().should.be.false
 
     it "what happens if both pokemon have Destiny Knot?"
     it "what happens if the target is already attracted?"
+
+  xdescribe "Custap Berry", ->
+    it "bumps the holder to the front of its priority bracket", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Custap Berry")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @team1.first().currentHP = 1
+      @team2.first().currentHP = 1
+
+      @controller.makeMove(@player1, "Tackle")
+      @controller.makeMove(@player2, "Tackle")
+
+      @team2.first().isFainted().should.be.true
+
+    it "is one-time use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Custap Berry")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @team1.first().currentHP = 1
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
+
+      @team1.first().hasItem().should.be.false
+
+    it "does not activate at 26% HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Custap Berry")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @team1.first().currentHP = Math.floor(@team1.first().currentHP / 4) + 1
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
+
+      @team1.first().hasItem().should.be.true
+
+    it "activates at 50% HP if the Pokemon has Gluttony"
+    it "is not activated by Pursuit on a switching Pokemon"

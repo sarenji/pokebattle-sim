@@ -147,3 +147,33 @@ describe 'Move', ->
       attacker.setStatus(Status.BURN)
       new Move(null, damage: 'physical')
         .burnCalculation(attacker).should.equal .5
+
+  describe 'an attack with 0 accuracy', ->
+    it 'can never miss', ->
+      battle = new Battle('1', players: [])
+      a = new Pokemon()
+      d = new Pokemon()
+      new Move(accuracy: 0).chanceToHit(battle, a, d).should.eql 100
+
+  describe 'accuracy and evasion boosts', ->
+    it 'heighten and lower the chances of a move hitting', ->
+      battle = new Battle('1', players: [])
+      a = new Pokemon()
+      d = new Pokemon()
+      new Move(null, accuracy: 100).chanceToHit(battle, a, d).should.eql 100
+
+      a.stages.accuracy = 3
+      new Move(null, accuracy: 50).chanceToHit(battle, a, d).should.eql 100
+
+      a.stages.accuracy = 3
+      d.stages.evasion = 3
+      new Move(null, accuracy: 50).chanceToHit(battle, a, d).should.eql 50
+
+  describe '#hasFlag', ->
+    it 'returns true if a move has a specific flag', ->
+      new Move(null, flags: ['superman', 'batman'])
+        .hasFlag('batman').should.be.true
+
+    it "returns false if a move doesn't have a specific flag", ->
+      new Move(null, flags: ['superman', 'batman'])
+        .hasFlag('catwoman').should.be.false
