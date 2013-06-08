@@ -99,3 +99,23 @@ describe 'Battle', ->
 
       should.exist @battle.lastMove
       @battle.lastMove.should.equal move
+
+  describe "#bump", ->
+    it "bumps a pokemon to the front of its priority bracket", ->
+      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id2, moves['splash'])
+      @battle.determineTurnOrder()
+
+      # Get last pokemon to move and bump it up
+      {pokemon} = @battle.priorityQueue[@battle.priorityQueue.length - 1]
+      @battle.bump(pokemon)
+      @battle.priorityQueue[0].pokemon.should.eql pokemon
+
+    it "bumps a pokemon to the front of a specific priority bracket", ->
+      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id2, moves['mach-punch'])
+      queue = @battle.determineTurnOrder()
+
+      @battle.bump(@team1.first(), moves['mach-punch'].priority)
+      queue[0].pokemon.should.eql @team1.first()
+

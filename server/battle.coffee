@@ -123,6 +123,23 @@ class @Battle
     if @playerActions[player.id]?.type == 'move'
       @playerActions[player.id].move = move
 
+  # Bumps a Pokemon to the front of a priority bracket.
+  # If no bracket is provided, the Pokemon's current priority bracket is used.
+  bump: (pokemon, bracket) =>
+    if !bracket?
+      action = @getAction(@getOwner(pokemon).id)
+      bracket = @actionPriority(action)
+
+    # Find the priority segment associated with this pokemon
+    index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
+    segment = @priorityQueue.splice(index, 1)[0]
+
+    # Put segment in proper place in the queue
+    for {priority}, i in @priorityQueue
+      continue  if priority != bracket
+      @priorityQueue.splice(i, 0, segment)
+      break
+
   # Associates an attachment instance with the team of `user`.
   attachToTeam: (user, attachment) =>
     player = @getOwner(user)
