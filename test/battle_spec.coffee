@@ -119,3 +119,21 @@ describe 'Battle', ->
       @battle.bump(@team1.first(), moves['mach-punch'].priority)
       queue[0].pokemon.should.eql @team1.first()
 
+  describe "#delay", ->
+    it "delays a pokemon to the end of its priority bracket", ->
+      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id2, moves['splash'])
+      @battle.determineTurnOrder()
+
+      # Get first pokemon to move and delay it
+      {pokemon} = @battle.priorityQueue[0]
+      @battle.delay(pokemon)
+      @battle.priorityQueue[1].pokemon.should.eql pokemon
+
+    it "delays a pokemon to the end of a specific priority bracket", ->
+      @battle.recordMove(@id1, moves['mach-punch'])
+      @battle.recordMove(@id2, moves['tackle'])
+      queue = @battle.determineTurnOrder()
+
+      @battle.delay(@team1.first(), moves['tackle'].priority)
+      queue[1].pokemon.should.eql @team1.first()

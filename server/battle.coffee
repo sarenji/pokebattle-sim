@@ -140,6 +140,24 @@ class @Battle
       @priorityQueue.splice(i, 0, segment)
       break
 
+  # Delays a Pokemon to the end of a priority bracket.
+  # If no bracket is provided, the Pokemon's current priority bracket is used.
+  delay: (pokemon, bracket) =>
+    if !bracket?
+      action = @getAction(@getOwner(pokemon).id)
+      bracket = @actionPriority(action)
+
+    # Find the priority segment associated with this pokemon
+    index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
+    segment = @priorityQueue.splice(index, 1)[0]
+
+    # Put segment in proper place in the queue
+    for i in [(@priorityQueue.length - 1)..0] by -1
+      {priority} = @priorityQueue[i]
+      continue  if priority != bracket
+      @priorityQueue.splice(i + 1, 0, segment)
+      break
+
   # Associates an attachment instance with the team of `user`.
   attachToTeam: (user, attachment) =>
     player = @getOwner(user)
