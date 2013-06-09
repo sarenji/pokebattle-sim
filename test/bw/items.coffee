@@ -1096,3 +1096,44 @@ shared = require '../shared'
       speed = @team1.first().stat('speed')
       @team1.first().setItem(@battle, items["Macho Brace"])
       @team1.first().stat('speed').should.equal Math.floor(speed / 2)
+
+  describe "Eject Button", ->
+    it "requests a switch immediately after being damaged", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
+        team2: [Factory("Magikarp")]
+
+      bench = @team1.getAliveBenchedPokemon()
+      @battle.recordMove(@id1, moves["splash"])
+      @battle.recordMove(@id2, moves["tackle"])
+      @battle.performMove(@id2, moves["tackle"])
+
+      @battle.requests.should.have.property @id1
+      @battle.requests[@id1].should.have.property "switches"
+      @battle.requests[@id1].switches.should.eql bench
+
+    it "destroys the Eject Button after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
+        team2: [Factory("Magikarp")]
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
+
+      @team1.first().hasItem().should.be.false
+
+    # TODO: Find out if these are true or not.
+    it "does not activate if there is only one Pokemon left"
+    it "does not activate on Sheer Force"
+
+    it "does not activate if a non-damaging move is used", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
+        team2: [Factory("Magikarp")]
+
+      @battle.recordMove(@id1, moves["splash"])
+      @battle.recordMove(@id2, moves["will-o-wisp"])
+      @battle.performMove(@id2, moves["will-o-wisp"])
+
+      @team1.first().hasItem().should.be.true
+      @battle.requests.should.not.have.property @id1

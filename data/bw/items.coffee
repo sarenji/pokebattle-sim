@@ -295,6 +295,15 @@ makeGemItem 'Dragon Gem', 'Dragon'
 makePlateItem 'Draco Plate', 'Dragon'
 makePlateItem 'Dread Plate', 'Dark'
 makePlateItem 'Earth Plate', 'Ground'
+
+extendItem 'Eject Button', ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
+    return  if move.isNonDamaging()
+    target.removeItem()
+    self = battle.getOwner(target)
+    switches = self.team.getAliveBenchedPokemon()
+    battle.requestAction(self, switches: switches)
+
 makeGemItem 'Electric Gem', 'Electric'
 
 extendItem 'Enigma Berry', ->
