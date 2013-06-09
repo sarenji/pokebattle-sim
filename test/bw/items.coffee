@@ -1199,3 +1199,41 @@ shared = require '../shared'
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @team2.first(), @team1.first() ]
+
+  testFlinchItem = (itemName) ->
+    describe itemName, ->
+      it "has a 10% chance to flinch a Pokemon", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName)]
+
+        shared.biasRNG.call(this, "next", 'flinch item chance', 0)
+        @battle.performMove(@id1, moves["tackle"])
+        @team2.first().hasAttachment(Attachment.Flinch).should.be.true
+
+      it "has a 90% chance to do nothing", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName)]
+
+        shared.biasRNG.call(this, "next", 'flinch item chance', 0.1)
+        @battle.performMove(@id1, moves["tackle"])
+        @team2.first().hasAttachment(Attachment.Flinch).should.be.false
+
+      it "can't flinch if the move used can already flinch", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName)]
+
+        shared.biasRNG.call(this, "next", 'flinch item chance', 0)
+        shared.biasRNG.call(this, "next", 'secondary effect', 1)
+        @battle.performMove(@id1, moves["headbutt"])
+        @team2.first().hasAttachment(Attachment.Flinch).should.be.false
+
+      it "can't flinch if the move is non-damaging", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName)]
+
+        shared.biasRNG.call(this, "next", 'flinch item chance', 0)
+        @battle.performMove(@id1, moves["glare"])
+        @team2.first().hasAttachment(Attachment.Flinch).should.be.false
+
+  testFlinchItem "King's Rock"
+  testFlinchItem "Razor Fang"

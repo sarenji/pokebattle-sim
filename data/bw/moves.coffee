@@ -1075,6 +1075,15 @@ extendMove 'yawn', ->
   @use = (battle, user, target) ->
     target.attach(new Attachment.Yawn())
 
+for moveName in [ 'bone-club', 'dark-pulse', 'dragon-rush', 'extrasensory',
+                  'fake-out', 'fire-fang', 'headbutt', 'heart-stamp',
+                  'hyper-fang', 'ice-fang', 'icicle-crash', 'iron-head',
+                  'needle-arm', 'rock-slide', 'rolling-kick', 'sky-attack',
+                  'snore', 'steamroller', 'stomp', 'twister', 'waterfall',
+                  'zen-headbutt' ]
+  extendMove moveName, ->
+    @flags.push('flinch')
+
 # Keep this at the bottom or look up how it affects Metronome.
 # TODO: Figure out a better solution
 moves['confusion-recoil'] = new Move "Confusion recoil",

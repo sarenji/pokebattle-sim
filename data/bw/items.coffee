@@ -212,6 +212,13 @@ makeEvasionItem = (name, ratio=0.9) ->
     @deactivate = (pokemon) ->
       pokemon.unattach("EvasionItemAttachment")
 
+makeFlinchItem = (name) ->
+  extendItem name, ->
+    @afterSuccessfulHit = (battle, move, user, target, damage) ->
+      if !move.hasFlag("flinch") && !move.isNonDamaging() &&
+          battle.rng.next("flinch item chance") < .1
+        target.attach(new Attachment.Flinch())
+
 makeCriticalBoostItem = (name) ->
   extendItem name, ->
     @criticalModifier = (battle, owner) -> 1
@@ -360,6 +367,7 @@ makePlateItem 'Iron Plate', 'Steel'
 makeFeedbackDamageBerry 'Jaboca Berry', 'isPhysical'
 makeTypeResistBerry 'Kasib Berry', 'Ghost'
 makeTypeResistBerry 'Kebia Berry', 'Poison'
+makeFlinchItem "King's Rock"
 makeDelayItem 'Lagging Tail'
 
 # TODO: What happens if the Pokemon already has Focus Energy?
@@ -436,6 +444,7 @@ extendItem 'Quick Claw', ->
     battle.bump(owner)  if battle.rng.next("quick claw") < .2
 
 makeStatusCureBerry 'Rawst Berry', Status.BURN
+makeFlinchItem "Razor Fang"
 
 extendItem 'Red Card', ->
   @afterBeingHit = (battle, move, user, target, damage) ->
