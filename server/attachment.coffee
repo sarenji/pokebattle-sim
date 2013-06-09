@@ -165,9 +165,9 @@ class @Attachment.Confusion extends @VolatileAttachment
       return false
 
 # TODO: Also call @pokemon.blockMove when attached as well
-class @Attachment.Disabled extends @VolatileAttachment
+class @Attachment.Disable extends @VolatileAttachment
   constructor: (attributes={}) ->
-    super('DisabledAttachment', attributes)
+    super('DisableAttachment', attributes)
     @blockedMove = attributes.move
     @turns = attributes.turns
     @turn = 0

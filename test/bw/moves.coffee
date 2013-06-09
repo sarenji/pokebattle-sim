@@ -327,7 +327,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Disable')
       @controller.makeMove(@player2, 'Splash')
 
-      @team2.at(0).hasAttachment('DisabledAttachment').should.be.true
+      @team2.at(0).hasAttachment('DisableAttachment').should.be.true
 
     # remove this once 'disables the last move that hit successfully'
     # is implemented
@@ -358,7 +358,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @team2.at(0).hasAttachment('DisabledAttachment').should.be.false
+      @team2.at(0).hasAttachment('DisableAttachment').should.be.false
 
     it 'disables the last move that hit successfully'
     it 'causes a move to fail if the user moves first'

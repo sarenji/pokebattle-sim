@@ -1137,3 +1137,40 @@ shared = require '../shared'
 
       @team1.first().hasItem().should.be.true
       @battle.requests.should.not.have.property @id1
+
+  describe "Mental Herb", ->
+    for effectName in ['Attract','Taunt','Encore','Torment','Disable']
+      it "removes the effect of #{effectName} on Pokemon#update", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: "Mental Herb")]
+
+        pokemon = @team1.first()
+        pokemon.hasAttachment("#{effectName}Attachment").should.be.false
+        pokemon.attach(new Attachment[effectName](turns: 2))
+        pokemon.hasAttachment("#{effectName}Attachment").should.be.true
+
+        pokemon.update(@battle)
+
+        pokemon.hasAttachment("#{effectName}Attachment").should.be.false
+
+    it "disappears after use", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Mental Herb")]
+
+      pokemon = @team1.first()
+      pokemon.attach(new Attachment.Attract())
+      pokemon.update(@battle)
+
+      pokemon.hasItem().should.be.false
+
+    it "gets rid of the first highest priority effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Mental Herb")]
+
+      pokemon = @team1.first()
+      pokemon.attach(new Attachment.Attract())
+      pokemon.attach(new Attachment.Torment())
+      pokemon.update(@battle)
+
+      pokemon.hasAttachment("AttractAttachment").should.be.false
+      pokemon.hasAttachment("TormentAttachment").should.be.true

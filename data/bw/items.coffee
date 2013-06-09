@@ -391,6 +391,16 @@ extendItem 'Macho Brace', ->
 makeTypeBoostItem 'Magnet', 'Electric'
 makeFlavorHealingBerry 'Mago Berry', "speed"
 makePlateItem 'Meadow Plate', 'Grass'
+
+extendItem 'Mental Herb', ->
+  @update = (battle, owner) ->
+    for effectName in ['Attract','Taunt','Encore','Torment','Disable']
+      attachmentName = "#{effectName}Attachment"
+      if owner.hasAttachment(attachmentName)
+        owner.unattach(attachmentName)
+        owner.removeItem()
+        break
+
 makeTypeBoostItem 'Metal Coat', 'Steel'
 
 makePinchBerry 'Micle Berry', (battle, owner) ->
