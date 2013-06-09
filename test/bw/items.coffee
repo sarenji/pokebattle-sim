@@ -1241,3 +1241,28 @@ shared = require '../shared'
 
   testFlinchItem "King's Rock"
   testFlinchItem "Razor Fang"
+
+  describe "Zoom Lens", ->
+    it "multiplies accuracy by 120% if target is moving after", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Zoom Lens", evs: {speed: 4})]
+        team2: [Factory("Magikarp")]
+
+      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id2, moves['tackle'])
+
+      moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+        .should.equal Math.floor(moves['tackle'].accuracy * 1.2)
+
+    it "doesn't change accuracy if target has already moved", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Zoom Lens")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id2, moves['tackle'])
+      # Remove tackle from actions to execute
+      @battle.popAction(@id2)
+
+      moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+        .should.equal Math.floor(moves['tackle'].accuracy)
