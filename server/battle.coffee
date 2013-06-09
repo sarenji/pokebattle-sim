@@ -60,13 +60,6 @@ class @Battle
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
 
-    # TODO: beginBattle?
-    pokemon = @getActivePokemon()
-    for p in pokemon
-      p.switchIn(this)
-
-    @beginTurn()
-
   getPlayer: (id) =>
     @players[id]
 
@@ -229,18 +222,18 @@ class @Battle
       @requestAction(player, moves: poke_moves, switches: switches)
 
   # Continues the turn. This is called once all requests
-  # have been submitted and the battle is ready to continue. If there are no
-  # more requests, the engine progresses to endTurn. Otherwise, it waits for
-  # continueTurn to be called again.
+  # have been submitted and the battle is ready to continue.
   continueTurn: =>
-    for pokemon in @determineTurnOrder()
+    @determineTurnOrder()
+    while @priorityQueue.length > 0
+      {pokemon} = @priorityQueue.shift()
       {id} = @getOwner(pokemon)
       continue  if pokemon.isFainted()
 
       action = @popAction(id)
       switch action.type
-        when 'switch' then @performSwitch(id, action)
-        when 'move'   then @performMove(id, action)
+        when 'switch' then @performSwitch(id, action.to)
+        when 'move'   then @performMove(id, action.move)
 
       # Update Pokemon itself.
       # TODO: Is this the right place?
@@ -254,23 +247,12 @@ class @Battle
         @requestAction(player, validActions)
         break
 
-    # If all requests have been completed, then end the turn.
-    # Otherwise, wait for further requests to be completed before ending.
-    if @areAllRequestsCompleted() then @endTurn()
-
-  # Performs end turn effects. If all pokemon are fainted then it
-  # ends the battle. Otherwise, it will request for new pokemon and wait if
-  # any replacements are needed, or begins the next turn.
+  # Performs end turn effects.
   endTurn: =>
     team.endTurn(this)  for team in @getTeams()
     pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
     @sendMessages()
-
-    if @areReplacementsNeeded()
-      if !@isOver() then @requestFaintedReplacements() else @endBattle()
-    else
-      @beginTurn()
 
   endBattle: =>
     winner = @getWinner()
@@ -299,21 +281,13 @@ class @Battle
   # player - the player object that will execute the move
   # moveName - the name of the move to execute
   #
-  makeMove: (player, moveName) =>
-    moveName = moveName.toLowerCase().replace(/\s+/g, '-')
-    # TODO: Fail if move not in moves
-    # TODO: Fail if move not in player pokemon's moves
-    return  if moveName not of MoveData
-
+  recordMove: (playerId, move) =>
     # Store the move that this player wants to make.
-    @playerActions[player.id] =
+    @playerActions[playerId] =
       type: 'move'
-      move: moves[moveName]
+      move: move
 
-    delete @requests[player.id]
-
-    # Continue the turn if each player has moved.
-    if @areAllRequestsCompleted() then @continueTurn()
+    delete @requests[playerId]
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
@@ -323,36 +297,15 @@ class @Battle
   # player - the player object that will execute the move
   # toPosition - the index of the pokemon to switch to
   #
-  makeSwitch: (player, toPosition) =>
-    # TODO: Fail harder if pokemon not in team
-    # TODO: Add more cases of invalid indices (such as fainted poke or activePokemon)
-    pokemon = @getTeam(player.id).at(toPosition)
-    unless pokemon
-      console.log "#{player.username} made an invalid switch to position #{toPosition}."
-      return
+  recordSwitch: (playerId, toPosition) =>
+    pokemon = @getTeam(playerId).at(toPosition)
 
     # Record the switch
-    @playerActions[player.id] =
+    @playerActions[playerId] =
       type: 'switch'
       to: toPosition
 
-    delete @requests[player.id]
-
-    # Continue or begin a new turn if each player has made an action.
-    if @areAllRequestsCompleted()
-      if @replacing
-        @beginTurn()
-      else
-        @continueTurn()
-
-  # An alternate version of Battle.makeSwitch which takes the name of a pokemon
-  # to switch to instead of the position. Useful for tests.
-  # TODO: Test
-  makeSwitchByName: (player, toPokemon) =>
-    team = @getTeam(player.id)
-    index = team.pokemon.map((p) -> p.name).indexOf(toPokemon)
-
-    @makeSwitch(player, index)
+    delete @requests[playerId]
 
   getAction: (clientId) =>
     @playerActions[clientId]
@@ -393,14 +346,14 @@ class @Battle
   determineTurnOrder: =>
     return @priorityQueue  if @priorityQueue?
     ids = (id  for id of @playerActions)
-    ordered = []
+    @priorityQueue = []
     for id in ids
       action = @getAction(id)
       priority = @actionPriority(action)
       pokemon = @getTeam(id).at(0)
-      ordered.push({id, priority, pokemon})
-    ordered.sort(@orderComparator)
-    @priorityQueue = ordered.map((o) -> o.pokemon)
+      @priorityQueue.push({id, priority, pokemon})
+    @priorityQueue.sort(@orderComparator)
+    @priorityQueue
 
   orderComparator: (a, b) =>
     diff = b.priority - a.priority
@@ -417,25 +370,25 @@ class @Battle
       when 'move'   then action.move.priority
 
   # Executed by @continueTurn
-  performSwitch: (id, action) =>
+  performSwitch: (id, toPosition) =>
     player = @getPlayer(id)
     team = @getTeam(id)
 
-    team.switch(this, player, 0, action.to)
+    team.switch(this, player, 0, toPosition)
 
     # TODO: Hacky.
-    player.emit? 'switch pokemon', 0, action.to
+    # TODO: Move to controller
+    player.emit? 'switch pokemon', 0, toPosition
 
   # Executed by @beginTurn
   performReplacements: =>
     for id of @playerActions
-      @performSwitch(id, @popAction(id))
+      @performSwitch(id, @popAction(id).to)
 
   # Executed by @continueTurn
-  performMove: (id, action) =>
+  performMove: (id, move) =>
     player = @getPlayer(id)
     pokemon = @getTeam(id).at(0)
-    move = action.move
     targets = @getTargets(move, id, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
 
@@ -452,6 +405,7 @@ class @Battle
       @lastMove = move
       pokemon.lastMove = move
 
+    # TODO: Is this the right place...?
     pokemon.resetRecords()
 
   getTargets: (move, id, user) =>

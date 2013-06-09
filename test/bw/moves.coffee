@@ -17,13 +17,11 @@ shared = require '../shared'
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
       move = moves['hi-jump-kick']
-      sinon.stub(move, 'willMiss', -> true)
+      shared.biasRNG.call(this, "randInt", 'miss', 100)
       originalHP = @team1.at(0).currentHP
-      @battle.makeMove(@player1, 'hi-jump-kick')
-      @battle.continueTurn()
+      @battle.performMove(@id1, move)
       damage = 312
       (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
-      move.willMiss.restore()
 
   describe 'drain attacks', ->
     it 'recovers a percentage of the damage dealt, rounded down', ->
@@ -33,8 +31,7 @@ shared = require '../shared'
       startHP = 1
       @team1.at(0).currentHP = startHP
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'drain-punch')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['drain-punch'])
       damage = (hp - @team2.at(0).currentHP)
       (@team1.at(0).currentHP - startHP).should.equal Math.floor(damage / 2)
 
@@ -43,8 +40,7 @@ shared = require '../shared'
         team1: [Factory('Conkeldurr')]
         team2: [Factory('Hitmonchan')]
       hp = @team1.at(0).currentHP = @team1.at(0).stat('hp')
-      @battle.makeMove(@player1, 'drain-punch')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['drain-punch'])
       (@team1.at(0).currentHP - hp).should.equal 0
 
   describe 'weight-based attacks', ->
@@ -53,8 +49,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Hitmonchan')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'grass-knot')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['grass-knot'])
       (hp - @team2.at(0).currentHP).should.equal 94
 
     it 'has 120 base power if the pokemon is >200kg', ->
@@ -62,8 +57,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'grass-knot')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['grass-knot'])
       (hp - @team2.at(0).currentHP).should.equal 153
 
   describe 'a pokemon using a primary boosting move', ->
@@ -71,8 +65,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
-      @battle.makeMove(@player1, 'dragon-dance')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['dragon-dance'])
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
 
     it "boosts the pokemon's stats", ->
@@ -81,16 +74,14 @@ shared = require '../shared'
         team2: [Factory('Hitmonchan')]
       attack = @team1.at(0).stat('attack')
       speed  = @team1.at(0).stat('speed')
-      @battle.makeMove(@player1, 'dragon-dance')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['dragon-dance'])
       @team1.at(0).stages.should.include attack: 1, speed: 1
 
     it "affects type-immune pokemon", ->
       shared.create.call this,
         team1: [Factory('Audino')]
         team2: [Factory('Gengar')]
-      @battle.makeMove(@player1, 'Growl')
-      @battle.makeMove(@player2, 'Shadow Ball')
+      @battle.performMove(@id1, moves['growl'])
       @team2.at(0).stages.attack.should.equal -1
 
     it "has the boosts removed on switch"
@@ -101,8 +92,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'leaf-storm')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['leaf-storm'])
       @team1.at(0).stages.specialAttack.should.equal -2
       (hp - @team2.at(0).currentHP).should.equal 178
 
@@ -114,8 +104,7 @@ shared = require '../shared'
       shared.biasRNG.call(this, "next", 'secondary boost', 0)  # 100% chance
       attack = @team1.at(0).stat('attack')
       speed  = @team1.at(0).stat('speed')
-      @battle.makeMove(@player1, 'ancientpower')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['ancientpower'])
       @team1.at(0).stages.should.include {
         attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
       }
@@ -126,8 +115,7 @@ shared = require '../shared'
         team1: [Factory('Gliscor')]
         team2: [Factory('Regirock')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'acrobatics')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['acrobatics'])
       damage = (hp - @team2.at(0).currentHP)
       damage.should.equal 36
 
@@ -136,8 +124,7 @@ shared = require '../shared'
         team1: [Factory('Gliscor', item: 'Leftovers')]
         team2: [Factory('Regirock')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'acrobatics')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['acrobatics'])
       damage = (hp - @team2.at(0).currentHP)
       damage.should.equal 18
 
@@ -150,8 +137,8 @@ shared = require '../shared'
         startHP = @team1.first().currentHP
         hp = @team2.first().currentHP
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         damage = (hp - @team2.first().currentHP)
         (startHP - @team1.first().currentHP).should.equal Math.round(damage * recoil)
@@ -166,8 +153,8 @@ shared = require '../shared'
         move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
         stub = sinon.stub(move, 'calculateDamage', -> .6)
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         stub.restore()
 
@@ -197,8 +184,7 @@ shared = require '../shared'
       @team1.at(0).stages.evasion = -1
       @team2.at(0).stages.defense = -3
       @team2.at(0).stages.specialAttack = 4
-      @battle.makeMove(@player1, 'Haze')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['haze'])
       neutralBoosts = {
         attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
         speed: 0, evasion: 0, accuracy: 0
@@ -212,8 +198,7 @@ shared = require '../shared'
         team1: [Factory('Blissey')]
         team2: [Factory('Mew')]
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Seismic Toss')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['seismic-toss'])
       (hp - @team2.at(0).currentHP).should.equal 100
 
   describe 'Psywave', ->
@@ -221,14 +206,10 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
-      move = moves['psywave']
       shared.biasRNG.call(this, "randInt", 'psywave', 5)
-      sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Psywave')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['psywave'])
       (hp - @team2.at(0).currentHP).should.equal 50
-      move.willMiss.restore()
 
     it 'does user.level * 1.5 damage maximum', ->
       shared.create.call this,
@@ -236,12 +217,9 @@ shared = require '../shared'
         team2: [Factory('Mew')]
       move = moves['psywave']
       shared.biasRNG.call(this, "randInt", 'psywave', 15)
-      sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Psywave')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['psywave'])
       (hp - @team2.at(0).currentHP).should.equal 150
-      move.willMiss.restore()
 
     it 'rounds down to the nearest .1 multiplier', ->
       shared.create.call this,
@@ -249,12 +227,9 @@ shared = require '../shared'
         team2: [Factory('Mew')]
       move = moves['psywave']
       shared.biasRNG.call(this, "randInt", 'psywave', 6.09)
-      sinon.stub(move, 'willMiss', -> false)
       hp = @team2.at(0).currentHP
-      @battle.makeMove(@player1, 'Psywave')
-      @battle.continueTurn()
+      @battle.performMove(@id1, moves['psywave'])
       (hp - @team2.at(0).currentHP).should.equal 60
-      move.willMiss.restore()
 
   describe 'facade', ->
     it 'doubles the base power if burned, poisoned, or paralyzed', ->
@@ -349,8 +324,8 @@ shared = require '../shared'
 
     it 'gives the disabled attachment', ->
       shared.create.call this
-      @battle.makeMove(@player1, 'Disable')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Disable')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasAttachment('DisabledAttachment').should.be.true
 
@@ -359,8 +334,8 @@ shared = require '../shared'
     it 'prevents a move from being used', ->
       shared.create.call this
       numMoves = @team2.at(0).moves.length
-      @battle.makeMove(@player1, 'Disable')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Disable')
+      @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.length.should.equal (numMoves - 1)
@@ -371,17 +346,17 @@ shared = require '../shared'
       # minimum number of turns
       shared.biasRNG.call(this, "randInt", 'disable', 4)
 
-      @battle.makeMove(@player1, 'Disable')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Disable')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeMove(@player1, 'Splash')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Splash')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasAttachment('DisabledAttachment').should.be.false
 
@@ -440,8 +415,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Yawn')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Yawn')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasAttachment('YawnAttachment').should.be.true
 
@@ -449,11 +424,11 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Yawn')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Yawn')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeMove(@player1, 'Yawn')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Yawn')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasStatus(Status.SLEEP).should.be.true
       @battle.turn.should.equal 3
@@ -462,8 +437,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Yawn')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Yawn')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasStatus(Status.SLEEP).should.be.false
       @battle.turn.should.equal 2
@@ -481,8 +456,8 @@ shared = require '../shared'
         team1: [Factory('Lapras')]
         team2: [Factory('Magikarp')]
       @team2.first().currentHP = Math.floor(@team2.first().stat('hp') / 2)
-      @battle.makeMove(@player1, 'Sheer Cold')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Sheer Cold')
+      @controller.makeMove(@player2, 'Splash')
 
       move = moves['sheer-cold']
       damage = move.calculateDamage(@battle, @team1.first(), @team2.first())
@@ -494,8 +469,8 @@ shared = require '../shared'
     it "recovers 50% of the target's HP, rounded half up", ->
       shared.create.call(this)
       hp = @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Softboiled')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Softboiled')
+      @controller.makeMove(@player2, 'Splash')
 
       recoverHP = Math.round(@team1.at(0).stat('hp') / 2)
       (@team1.at(0).currentHP - hp).should.equal recoverHP
@@ -505,8 +480,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['softboiled'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, 'Softboiled')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Softboiled')
+      @controller.makeMove(@player2, 'Splash')
 
       mock.restore()
       mock.verify()
@@ -516,8 +491,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Drapion')]
         team2: [Factory('Magikarp', item: "Leftovers")]
-      @battle.makeMove(@player1, 'Knock Off')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Knock Off')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).currentHP.should.be.lessThan @team2.at(0).stat('hp')
 
@@ -525,8 +500,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Drapion')]
         team2: [Factory('Magikarp', item: "Leftovers")]
-      @battle.makeMove(@player1, 'Knock Off')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Knock Off')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team2.at(0).item
 
@@ -539,8 +514,8 @@ shared = require '../shared'
         team2: [Factory('Drapion', item: "Leftovers")]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Swords Dance')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Swords Dance')
 
       @team2.at(0).item.should.equal item1
       @team1.at(0).item.should.equal item2
@@ -551,8 +526,8 @@ shared = require '../shared'
         team2: [Factory('Magikarp', item: "Leftovers")]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).item.should.equal item1
       @team1.at(0).item.should.equal item2
@@ -563,8 +538,8 @@ shared = require '../shared'
         team2: [Factory('Gastrodon (east)', item: "Leftovers")]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Recover')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Recover')
 
       @team1.at(0).item.should.equal item1
       @team2.at(0).item.should.equal item2
@@ -575,8 +550,8 @@ shared = require '../shared'
         team2: [Factory('Magikarp')]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).item.should.equal item1
       should.not.exist @team2.at(0).item
@@ -587,8 +562,8 @@ shared = require '../shared'
         team2: [Factory('Magikarp', item: 'Leftovers')]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Trick')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Trick')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
@@ -606,8 +581,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Latias')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Memento')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Memento')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).isFainted().should.be.true
 
@@ -615,8 +590,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Latias')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Memento')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Memento')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).stages.should.include attack: -2, specialAttack: -2
 
@@ -637,8 +612,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
-      @battle.makeMove(@player1, 'Pain Split')
-      @battle.makeMove(@player1, 'Seismic Toss')
+      @controller.makeMove(@player1, 'Pain Split')
+      @controller.makeMove(@player1, 'Seismic Toss')
 
       @team1.at(0).currentHP.should.equal @team1.at(0).stat('hp')
 
@@ -647,8 +622,8 @@ shared = require '../shared'
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
       @team1.at(0).currentHP = 2
-      @battle.makeMove(@player1, 'Pain Split')
-      @battle.makeMove(@player2, 'Seismic Toss')
+      @controller.makeMove(@player1, 'Pain Split')
+      @controller.makeMove(@player2, 'Seismic Toss')
 
       @team1.at(0).currentHP.should.equal Math.min(326, @team1.at(0).stat('hp'))
       @team2.at(0).currentHP.should.equal Math.min(326, @team2.at(0).stat('hp'))
@@ -661,8 +636,8 @@ shared = require '../shared'
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       @team1.at(0).stages.attack = -6
-      @battle.makeMove(@player1, 'Belly Drum')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Belly Drum')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).stages.attack.should.equal 6
 
@@ -670,8 +645,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
-      @battle.makeMove(@player1, 'Belly Drum')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Belly Drum')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = @team1.at(0).stat('hp')
       (hp - @team1.at(0).currentHP).should.equal Math.floor(hp / 2)
@@ -681,8 +656,8 @@ shared = require '../shared'
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       hp = @team1.at(0).currentHP = Math.floor(@team1.at(0).stat('hp') / 2) - 1
-      @battle.makeMove(@player1, 'Belly Drum')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Belly Drum')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).currentHP.should.equal hp
       @team1.at(0).stages.attack.should.equal 0
@@ -695,8 +670,8 @@ shared = require '../shared'
         team1: [Factory('Shuckle')]
         team2: [Factory('Magikarp')]
       stages = _.clone(@team1.at(0).stages)
-      @battle.makeMove(@player1, 'Acupressure')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Acupressure')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).stages.should.not.eql stages
 
@@ -713,8 +688,8 @@ shared = require '../shared'
       mock = sinon.mock(@team2.at(0))
       mock.expects('boost').never()
 
-      @battle.makeMove(@player1, 'Acupressure')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Acupressure')
+      @controller.makeMove(@player2, 'Splash')
 
       mock.verify()
 
@@ -731,8 +706,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
-      @battle.makeMove(@player1, 'Explosion')
-      @battle.makeMove(@player2, 'Seismic Toss')
+      @controller.makeMove(@player1, 'Explosion')
+      @controller.makeMove(@player2, 'Seismic Toss')
 
       @team1.at(0).isFainted().should.be.true
 
@@ -740,8 +715,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Gengar')]
-      @battle.makeMove(@player1, 'Explosion')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Explosion')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).isFainted().should.be.true
 
@@ -749,8 +724,8 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Politoed', ability: 'Damp')]
-      @battle.makeMove(@player1, 'Explosion')
-      @battle.makeMove(@player2, 'Perish Song')
+      @controller.makeMove(@player1, 'Explosion')
+      @controller.makeMove(@player2, 'Perish Song')
 
       @team1.at(0).isFainted().should.be.false
 
@@ -764,8 +739,8 @@ shared = require '../shared'
       hp = 4
       @team1.at(0).currentHP = hp
 
-      @battle.makeMove(@player1, 'Endeavor')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Endeavor')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).currentHP.should.equal hp
 
@@ -775,8 +750,8 @@ shared = require '../shared'
         team2: [Factory('Magikarp')]
       hp = 4
       @team2.at(0).currentHP = hp
-      @battle.makeMove(@player1, 'Endeavor')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Endeavor')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).currentHP.should.equal hp
 
@@ -785,8 +760,8 @@ shared = require '../shared'
         team1: [Factory('Politoed')]
         team2: [Factory('Gengar')]
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Endeavor')
-      @battle.makeMove(@player2, 'Dragon Dance')
+      @controller.makeMove(@player1, 'Endeavor')
+      @controller.makeMove(@player2, 'Dragon Dance')
 
       @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
 
@@ -796,8 +771,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Leftovers")]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).item.should.equal item2
       should.not.exist @team2.at(0).item
@@ -807,8 +782,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp')]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       should.not.exist @team2.at(0).item
@@ -819,8 +794,8 @@ shared = require '../shared'
         team2: [Factory('Magikarp', item: "Leftovers")]
       item1 = @team1.at(0).item
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.at(0).item.should.equal item1
       @team2.at(0).item.should.equal item2
@@ -830,8 +805,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Leftovers", ability: "Sticky Hold")]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
@@ -841,8 +816,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Leftovers", ability: "Multitype")]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
@@ -850,8 +825,8 @@ shared = require '../shared'
     it "should not steal the target's item if the target has no item", ->
       shared.create.call(this)
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       @team1.first().hasItem().should.be.false
       @team2.first().hasItem().should.be.false
@@ -862,8 +837,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Giratina (origin)', item: "Griseous Orb")]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
@@ -873,8 +848,8 @@ shared = require '../shared'
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Air Mail")]
       item2 = @team2.at(0).item
-      @battle.makeMove(@player1, 'Thief')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
 
       should.not.exist @team1.at(0).item
       @team2.at(0).item.should.equal item2
@@ -911,8 +886,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
       @team1.pokemon.map((pokemon) -> pokemon.setStatus(Status.PARALYZE))
-      @battle.makeMove(@player1, 'Aromatherapy')
-      @battle.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, moves['aromatherapy'])
 
       _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
 
@@ -925,8 +899,7 @@ shared = require '../shared'
       @battle.lastMove = moves['tackle']
       mock = sinon.mock(moves['tackle'])
       mock.expects('execute').once()
-      @battle.makeMove(@player1, 'Copycat')
-      @battle.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, moves['copycat'])
       mock.restore()
       mock.verify()
 
@@ -934,8 +907,7 @@ shared = require '../shared'
       @battle.lastMove = null
       mock = sinon.mock(moves['copycat'])
       mock.expects('fail').once()
-      @battle.makeMove(@player1, 'Copycat')
-      @battle.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, moves['copycat'])
       mock.restore()
       mock.verify()
 
@@ -943,8 +915,7 @@ shared = require '../shared'
       @battle.lastMove = moves['copycat']
       mock = sinon.mock(moves['copycat'])
       mock.expects('fail').once()
-      @battle.makeMove(@player1, 'Copycat')
-      @battle.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, moves['copycat'])
       mock.restore()
       mock.verify()
 
@@ -977,8 +948,8 @@ shared = require '../shared'
       move = moves['teleport']
       mock = sinon.mock(move)
       mock.expects('fail').once()
-      @battle.makeMove(@player1, 'Teleport')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Teleport')
+      @controller.makeMove(@player2, 'Splash')
       mock.restore()
       mock.verify()
 
@@ -987,15 +958,15 @@ shared = require '../shared'
       shared.create.call(this)
       hp = @team2.at(0).currentHP
       hp = @team2.at(0).currentHP = (hp - (1 - hp % 2))  # Always odd
-      @battle.makeMove(@player1, 'Super Fang')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Super Fang')
+      @controller.makeMove(@player2, 'Splash')
       @team2.at(0).currentHP.should.equal Math.ceil(hp / 2)
 
     it "deals 1 damage minimum", ->
       shared.create.call(this)
       @team2.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Super Fang')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Super Fang')
+      @controller.makeMove(@player2, 'Splash')
       @team2.at(0).currentHP.should.equal 0
 
   describe 'Avalanche', ->
@@ -1008,8 +979,8 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.NONE)
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Moonlight')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Moonlight')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = util.roundHalfDown(@team1.at(0).stat('hp') / 2)
       @team1.at(0).currentHP.should.equal(1 + hp)
@@ -1018,8 +989,8 @@ shared = require '../shared'
       shared.create.call(this, team1: [Factory("Shuckle")])
       @battle.setWeather(Weather.SAND)
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Moonlight')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Moonlight')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = util.roundHalfDown(@team1.at(0).stat('hp') / 4)
       @team1.at(0).currentHP.should.equal(1 + hp)
@@ -1028,8 +999,8 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.SUN)
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'Moonlight')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Moonlight')
+      @controller.makeMove(@player2, 'Splash')
 
       hp = util.roundHalfDown(@team1.at(0).stat('hp') * 2 / 3)
       @team1.at(0).currentHP.should.equal(1 + hp)
@@ -1041,8 +1012,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['splash'])
       mock.expects('execute').never()
 
-      @battle.makeMove(@player1, 'Fake Out')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Fake Out')
+      @controller.makeMove(@player2, 'Splash')
 
       mock.restore()
       mock.verify()
@@ -1050,8 +1021,8 @@ shared = require '../shared'
     it "removes the flinch attachment at the end of the turn", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, 'Fake Out')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Fake Out')
+      @controller.makeMove(@player2, 'Splash')
 
       @team2.at(0).hasAttachment(VolatileStatus.FLINCH).should.be.false
 
@@ -1100,16 +1071,16 @@ shared = require '../shared'
     it 'changes your weight on success', ->
       shared.create.call(this)
       weight = @team1.at(0).calculateWeight()
-      @battle.makeMove(@player1, 'autotomize')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'autotomize')
+      @controller.makeMove(@player2, 'splash')
 
       weight.should.not.equal @team1.at(0).calculateWeight()
 
     it 'cannot go below .1kg', ->
       # Magikarp weighs 100kg.
       shared.create.call this, team1: [ Factory('Magikarp')]
-      @battle.makeMove(@player1, 'autotomize')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'autotomize')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.at(0).calculateWeight().should.not.be.lessThan .1
 
@@ -1118,10 +1089,10 @@ shared = require '../shared'
       # Magikarp weighs 1355kg.
       shared.create.call this, team1: [ Factory('Abomasnow')]
 
-      @battle.makeMove(@player1, 'autotomize')
-      @battle.makeMove(@player2, 'splash')
-      @battle.makeMove(@player1, 'autotomize')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'autotomize')
+      @controller.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'autotomize')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.at(0).calculateWeight().should.equal 1155
 
@@ -1131,8 +1102,8 @@ shared = require '../shared'
       @team1.at(0).stages.attack = 2
       @team2.at(0).stages.speed = -2
 
-      @battle.makeMove(@player1, 'heart-swap')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'heart-swap')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.at(0).stages.should.include speed: -2
       @team2.at(0).stages.should.include attack: 2
@@ -1144,8 +1115,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['nightmare'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, 'nightmare')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'nightmare')
+      @controller.makeMove(@player2, 'splash')
 
       mock.restore()
       mock.verify()
@@ -1157,13 +1128,13 @@ shared = require '../shared'
       hp = @team2.at(0).currentHP
       quarter = Math.floor(hp / 4)
 
-      @battle.makeMove(@player1, 'nightmare')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'nightmare')
+      @controller.makeMove(@player2, 'splash')
 
       @team2.at(0).currentHP.should.equal(hp - quarter)
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
       @team2.at(0).currentHP.should.equal(hp - 2*quarter)
 
@@ -1171,13 +1142,13 @@ shared = require '../shared'
       shared.create.call(this)
       @team2.at(0).setStatus(Status.SLEEP)
 
-      @battle.makeMove(@player1, 'nightmare')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'nightmare')
+      @controller.makeMove(@player2, 'splash')
 
       @team2.at(0).cureStatus()
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
       @team2.at(0).hasAttachment("NightmareAttachment").should.be.false
 
@@ -1186,8 +1157,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [ Factory('Magikarp', item: 'Bluk Berry') ]
 
-      @battle.makeMove(@player1, 'incinerate')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'incinerate')
+      @controller.makeMove(@player2, 'splash')
 
       should.not.exist @team2.at(0).item
 
@@ -1195,8 +1166,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [ Factory('Magikarp', item: 'Leftovers') ]
 
-      @battle.makeMove(@player1, 'incinerate')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'incinerate')
+      @controller.makeMove(@player2, 'splash')
 
       should.exist @team2.at(0).item
 
@@ -1219,8 +1190,8 @@ shared = require '../shared'
       mock = sinon.mock(move)
       mock.expects('execute').never()
 
-      @battle.makeMove(@player1, 'taunt')
-      @battle.makeMove(@player2, 'calm-mind')
+      @controller.makeMove(@player1, 'taunt')
+      @controller.makeMove(@player2, 'calm-mind')
 
       mock.restore()
       mock.verify()
@@ -1228,22 +1199,22 @@ shared = require '../shared'
     it 'lasts three turns', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
 
-      @battle.makeMove(@player1, 'taunt')
-      @battle.makeMove(@player2, 'calm-mind')
+      @controller.makeMove(@player1, 'taunt')
+      @controller.makeMove(@player2, 'calm-mind')
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'tackle')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'tackle')
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'tackle')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'tackle')
 
       @team2.at(0).hasAttachment("TauntAttachment").should.be.false
 
     it 'prevents the target from selecting that move the next turn', ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, 'taunt')
-      @battle.makeMove(@player2, 'calm-mind')
+      @controller.makeMove(@player1, 'taunt')
+      @controller.makeMove(@player2, 'calm-mind')
 
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.should.not.include 'Splash'
@@ -1251,8 +1222,8 @@ shared = require '../shared'
   describe 'u-turn', ->
     it 'forces the owner to switch', ->
       shared.create.call(this)
-      @battle.makeMove(@player1, 'u-turn')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'u-turn')
+      @controller.makeMove(@player2, 'splash')
 
       @battle.requests.should.have.property @player1.id
       @battle.turn.should.equal 1
@@ -1270,44 +1241,44 @@ shared = require '../shared'
       shared.create.call(this)
       hp = @team1.first().currentHP
       @team1.first().currentHP = 1
-      @battle.makeMove(@player1, 'wish')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'wish')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.first().currentHP.should.equal 1
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.first().currentHP.should.equal(Math.round(hp / 2) + 1)
 
     it "restores the same total amount of HP to an ally", ->
       shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
       hp = @team1.first().currentHP
-      @battle.makeMove(@player1, 'wish')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'wish')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.at(1).currentHP = 1
-      @battle.makeSwitch(@player1, 1)
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeSwitch(@player1, 1)
+      @controller.makeMove(@player2, 'splash')
 
       @team1.first().currentHP.should.equal(Math.round(hp / 2) + 1)
 
     it "fails if the pokemon faints", ->
       shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
-      @battle.makeMove(@player1, 'wish')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'wish')
+      @controller.makeMove(@player2, 'splash')
 
       @team1.at(0).currentHP = 1
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'tackle')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'tackle')
 
       @team1.hasAttachment("WishAttachment").should.be.false
 
   describe "counter", ->
     it "returns double the damage if attacked by a physical move", ->
       shared.create.call(this)
-      @battle.makeMove(@player1, 'counter')
-      @battle.makeMove(@player2, 'tackle')
+      @controller.makeMove(@player1, 'counter')
+      @controller.makeMove(@player2, 'tackle')
 
       dhp1 = @team1.at(0).stat('hp') - @team1.at(0).currentHP
       dhp2 = @team2.at(0).stat('hp') - @team2.at(0).currentHP
@@ -1317,8 +1288,8 @@ shared = require '../shared'
       shared.create.call(this)
       mock = sinon.mock(moves['counter'])
       mock.expects('fail').once()
-      @battle.makeMove(@player1, 'counter')
-      @battle.makeMove(@player2, 'thundershock')
+      @controller.makeMove(@player1, 'counter')
+      @controller.makeMove(@player2, 'thundershock')
 
       mock.restore()
       mock.verify()
@@ -1327,11 +1298,11 @@ shared = require '../shared'
       shared.create.call(this)
       mock = sinon.mock(moves['counter'])
       mock.expects('fail').once()
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'tackle')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'tackle')
 
-      @battle.makeMove(@player1, 'counter')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'counter')
+      @controller.makeMove(@player2, 'splash')
 
       mock.restore()
       mock.verify()
@@ -1339,8 +1310,8 @@ shared = require '../shared'
   describe "Perish Song", ->
     it "attaches to every pokemon in the field", ->
       shared.create.call(this)
-      @battle.makeMove(@player1, 'perish-song')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'perish-song')
+      @controller.makeMove(@player2, 'splash')
 
       result = _.all @battle.getActivePokemon(), (pokemon) ->
         pokemon.hasAttachment("PerishSongAttachment")
@@ -1348,21 +1319,21 @@ shared = require '../shared'
 
     it "faints pokemon at the end of 4 turns", ->
       shared.create.call(this)
-      @battle.makeMove(@player1, 'perish-song')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'perish-song')
+      @controller.makeMove(@player2, 'splash')
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
       result = _.all @battle.getActivePokemon(), (pokemon) ->
         !pokemon.isFainted()
       result.should.be.true
 
-      @battle.makeMove(@player1, 'splash')
-      @battle.makeMove(@player2, 'splash')
+      @controller.makeMove(@player1, 'splash')
+      @controller.makeMove(@player2, 'splash')
 
       result = _.all @battle.getActivePokemon(), (pokemon) ->
         pokemon.isFainted()
@@ -1406,8 +1377,8 @@ shared = require '../shared'
       mock = sinon.mock(move)
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Synchronoise")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Synchronoise")
+      @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1419,8 +1390,8 @@ shared = require '../shared'
 
       hp = @team2.first().currentHP
 
-      @battle.makeMove(@player1, "Synchronoise")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Synchronoise")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().currentHP.should.be.lessThan hp
 
@@ -1439,8 +1410,8 @@ shared = require '../shared'
         ret
 
       @team1.first().currentHP = 1
-      @battle.makeMove(@player1, "Roost")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Roost")
+      @controller.makeMove(@player2, "Splash")
 
       ('Flying' in newTypes).should.be.false
       newTypes.should.eql ['Ground']
@@ -1457,8 +1428,8 @@ shared = require '../shared'
         ret
 
       @team1.first().currentHP = 1
-      @battle.makeMove(@player1, "Roost")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Roost")
+      @controller.makeMove(@player2, "Splash")
 
       ('Flying' in newTypes).should.be.false
       newTypes.should.eql ['Normal']
@@ -1476,8 +1447,8 @@ shared = require '../shared'
         ret
 
       @team1.first().currentHP = 1
-      @battle.makeMove(@player1, "Roost")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Roost")
+      @controller.makeMove(@player2, "Splash")
 
       newTypes.should.eql oldTypes
 
@@ -1486,8 +1457,8 @@ shared = require '../shared'
         team1: [Factory("Gliscor")]
 
       @team1.first().currentHP = 1
-      @battle.makeMove(@player1, "Roost")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Roost")
+      @controller.makeMove(@player2, "Splash")
 
       ('Flying' in @team1.first().types).should.be.true
 
@@ -1502,8 +1473,8 @@ shared = require '../shared'
       mock = sinon.mock(move)
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1512,8 +1483,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().validMoves().should.eql [ moves['splash'] ]
 
@@ -1521,11 +1492,11 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", evs: {speed: 4})]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Tackle")
 
       @team2.first().lastMove.should.equal moves['splash']
 
@@ -1533,16 +1504,16 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment('EncoreAttachment').should.be.true
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment('EncoreAttachment').should.be.false
 
@@ -1554,8 +1525,8 @@ shared = require '../shared'
       mock = sinon.mock(move)
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Mimic")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Mimic")
 
       mock.restore()
       mock.verify()
@@ -1568,11 +1539,11 @@ shared = require '../shared'
       mock = sinon.mock(move)
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1586,8 +1557,8 @@ shared = require '../shared'
       mock.expects('fail').once()
 
       @team2.first().setPP(moves['splash'], 1)
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1597,13 +1568,13 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       @team2.first().setPP(moves['splash'], 2)
-      @battle.makeMove(@player1, "Encore")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Encore")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment("EncoreAttachment").should.be.true
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment("EncoreAttachment").should.be.false
 
@@ -1611,16 +1582,16 @@ shared = require '../shared'
     it "confuses the target", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, "Swagger")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Swagger")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
 
     it "boosts the target's attack by two stages", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, "Swagger")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Swagger")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().stages.attack.should.equal -2
 
@@ -1628,16 +1599,16 @@ shared = require '../shared'
     it "confuses the target", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, "Flatter")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Flatter")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
 
     it "boosts the target's special attack by two stages", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, "Flatter")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Flatter")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().stages.specialAttack.should.equal -2
 
@@ -1645,21 +1616,21 @@ shared = require '../shared'
     it "prevents the target from using its last move", ->
       shared.create.call(this)
 
-      @battle.makeMove(@player1, "Torment")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Torment")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.first().validMoves().should.eql [ moves['tackle'] ]
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
 
       @team2.first().validMoves().should.eql [ moves['splash'] ]
 
     it "still works even if a new pokemon has just switched in", ->
       shared.create.call(this, team2: [Factory("Magikarp"), Factory("Magikarp")])
 
-      @battle.makeMove(@player1, "Torment")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Torment")
+      @controller.makeSwitch(@player2, 1)
 
       @team2.first().validMoves().should.eql [ moves['splash'], moves['tackle'] ]
 
@@ -1670,11 +1641,11 @@ shared = require '../shared'
       mock = sinon.mock(moves['torment'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Torment")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Torment")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Torment")
-      @battle.makeMove(@player2, "Tackle")
+      @controller.makeMove(@player1, "Torment")
+      @controller.makeMove(@player2, "Tackle")
 
       mock.restore()
       mock.verify()
@@ -1691,8 +1662,8 @@ shared = require '../shared'
       @team2.first().stages.attack = 6
       @team2.first().stages.defense = -2
       @team2.first().stages.speed = -1
-      @battle.makeMove(@player1, "Psych Up")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Psych Up")
+      @controller.makeMove(@player2, "Splash")
       @team1.first().stages.should.eql {
         attack: 6, defense: -2, specialAttack: 0, specialDefense: 0,
         speed: -1, accuracy: 0, evasion: 0
@@ -1704,8 +1675,8 @@ shared = require '../shared'
 
       @team2.hasAttachment("SpikesAttachment").should.be.false
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.hasAttachment("SpikesAttachment").should.be.true
 
@@ -1716,8 +1687,8 @@ shared = require '../shared'
       mock.expects('fail').once()
 
       for i in [1..4]
-        @battle.makeMove(@player1, "Spikes")
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, "Spikes")
+        @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1727,23 +1698,23 @@ shared = require '../shared'
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
       hp = @team2.first().stat('hp')
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeSwitch(@player2, 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
       @team2.first().currentHP = hp
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeSwitch(@player2, 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 6)
       @team2.first().currentHP = hp
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeSwitch(@player2, 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 4)
 
@@ -1751,11 +1722,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Spikes")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Spikes")
+      @controller.makeSwitch(@player2, 1)
 
       @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
@@ -1765,8 +1736,8 @@ shared = require '../shared'
 
       @team2.hasAttachment("StealthRockAttachment").should.be.false
 
-      @battle.makeMove(@player1, "Stealth Rock")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Stealth Rock")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.hasAttachment("StealthRockAttachment").should.be.true
 
@@ -1776,11 +1747,11 @@ shared = require '../shared'
       mock = sinon.mock(moves['stealth-rock'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, "Stealth Rock")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Stealth Rock")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Stealth Rock")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Stealth Rock")
+      @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1789,17 +1760,17 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Moltres")]
 
-      @battle.makeMove(@player1, "Stealth Rock")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Stealth Rock")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
 
       hp = @team2.first().stat('hp')
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 2)
 
-      @battle.makeMove(@player1, "Splash")
-      @battle.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
 
       hp = @team2.first().stat('hp')
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
@@ -1810,8 +1781,8 @@ shared = require '../shared'
 
       @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
 
-      @battle.makeMove(@player1, "Toxic Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Toxic Spikes")
+      @controller.makeMove(@player2, "Splash")
 
       @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
 
@@ -1822,8 +1793,8 @@ shared = require '../shared'
       mock.expects('fail').once()
 
       for i in [1..3]
-        @battle.makeMove(@player1, "Toxic Spikes")
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, "Toxic Spikes")
+        @controller.makeMove(@player2, "Splash")
 
       mock.restore()
       mock.verify()
@@ -1832,16 +1803,16 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-      @battle.makeMove(@player1, "Toxic Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Toxic Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeSwitch(@player2, 1)
-      @battle.makeMove(@player1, "Toxic Spikes")
+      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Toxic Spikes")
 
       @team2.first().hasStatus(Status.POISON).should.be.true
 
-      @battle.makeSwitch(@player2, 1)
-      @battle.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
 
       @team2.first().hasStatus(Status.TOXIC).should.be.true
 
@@ -1849,11 +1820,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Ferrothorn")]
 
-      @battle.makeMove(@player1, "Toxic Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Toxic Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeSwitch(@player2, 1)
-      @battle.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
 
       @team2.first().hasStatus(Status.POISON).should.be.false
 
@@ -1861,11 +1832,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Drapion")]
 
-      @battle.makeMove(@player1, "Toxic Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Toxic Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeSwitch(@player2, 1)
-      @battle.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
 
       @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
 
@@ -1873,11 +1844,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Drapion", item: "Air Balloon")]
 
-      @battle.makeMove(@player1, "Toxic Spikes")
-      @battle.makeMove(@player2, "Splash")
+      @controller.makeMove(@player1, "Toxic Spikes")
+      @controller.makeMove(@player2, "Splash")
 
-      @battle.makeSwitch(@player2, 1)
-      @battle.makeMove(@player1, "Splash")
+      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@player1, "Splash")
 
       @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
 
@@ -1886,8 +1857,8 @@ shared = require '../shared'
       it "changes the weather to #{weather.toLowerCase()} for 5 turns", ->
         shared.create.call(this)
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, moveName)
+        @controller.makeMove(@player2, "Splash")
 
         @battle.weather.should.equal(weather)
         @battle.weatherDuration.should.equal 4
@@ -1896,8 +1867,8 @@ shared = require '../shared'
         shared.create.call this,
           team1: [Factory("Magikarp", item: item)]
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, moveName)
+        @controller.makeMove(@player2, "Splash")
 
         @battle.weather.should.equal(weather)
         @battle.weatherDuration.should.equal 7
@@ -1912,8 +1883,8 @@ shared = require '../shared'
       it "changes the status on a Pokemon if it has no status", ->
         shared.create.call(this)
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         @team2.first().hasStatus(status).should.be.true
 
@@ -1926,8 +1897,8 @@ shared = require '../shared'
             Status.PARALYZE
         @team2.first().setStatus(oldStatus)
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         @team2.first().hasStatus(status).should.be.false
         @team2.first().hasStatus(oldStatus).should.be.true
@@ -1951,8 +1922,8 @@ shared = require '../shared'
       it "adds the effect to the Pokemon if it doesn't have it", ->
         shared.create.call(this)
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         @team2.first().hasAttachment(Effect.name).should.be.true
 
@@ -1966,8 +1937,8 @@ shared = require '../shared'
         shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
         @team2.first().attach(new Effect({@battle}))
 
-        @battle.makeMove(@player1, moveName)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         mock.restore()
         mock.verify()
@@ -2027,14 +1998,14 @@ shared = require '../shared'
 
       moves['trump-card'].basePower(@battle, @team1.first(), @team2.first()).should.equal 200
 
-  testRandomSwitchMove = (name) ->
-    describe name, ->
+  testRandomSwitchMove = (moveName) ->
+    describe moveName, ->
       it "should switch opponent out to a random member", ->
         shared.create.call(this, team2: [Factory("Magikarp"), Factory("Abra")])
 
         target = @team2.at(1)
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         @team2.first().should.equal target
 
@@ -2044,8 +2015,8 @@ shared = require '../shared'
         mock = sinon.mock(@battle.getOwner(@team2.first()))
         mock.expects("switch").never()
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
 
         mock.restore()
         mock.verify()
@@ -2060,8 +2031,8 @@ shared = require '../shared'
       it "blocks switching", ->
         shared.create.call(this)
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Splash")
 
         @team2.first().isSwitchBlocked().should.be.true
         @team2.first().hasAttachment(Attachment.Trap).should.be.true
@@ -2070,8 +2041,8 @@ shared = require '../shared'
       it "deals 1/16 of the pokemon's max hp every turn", ->
         shared.create.call(this, team2: [Factory("Blissey")])
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
 
         maxHP = @team2.first().stat('hp')
         expected = maxHP - Math.floor(maxHP / 16)
@@ -2081,26 +2052,26 @@ shared = require '../shared'
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Splash")
 
         # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
         for i in [1..5]
           @team2.first().hasAttachment(Attachment.Trap).should.be.true
-          @battle.makeMove(@player1, "Splash")
-          @battle.makeMove(@player2, "Splash")
+          @controller.makeMove(@player1, "Splash")
+          @controller.makeMove(@player2, "Splash")
 
       it "wears off after a certain number of turns", ->
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Splash")
 
         # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
         for i in [1..5]
-          @battle.makeMove(@player1, "Splash")
-          @battle.makeMove(@player2, "Splash")
+          @controller.makeMove(@player1, "Splash")
+          @controller.makeMove(@player2, "Splash")
 
         @team2.first().isSwitchBlocked().should.be.false
         @team2.first().hasAttachment(Attachment.Trap).should.be.false
@@ -2110,16 +2081,16 @@ shared = require '../shared'
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Splash")
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Splash")
 
         # loop for 4 more turns.
         for i in [1..4]
-          @battle.makeMove(@player1, "Splash")
-          @battle.makeMove(@player2, "Splash")
+          @controller.makeMove(@player1, "Splash")
+          @controller.makeMove(@player2, "Splash")
 
         @team2.first().isSwitchBlocked().should.be.false
         @team2.first().hasAttachment(Attachment.Trap).should.be.false
@@ -2128,11 +2099,11 @@ shared = require '../shared'
       it "wears off if the user switches", ->
         shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
 
-        @battle.makeMove(@player1, name)
-        @battle.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+        @controller.makeMove(@player1, name)
+        @controller.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
 
-        @battle.makeSwitch(@player1, 1)
-        @battle.makeMove(@player2, "Splash")
+        @controller.makeSwitch(@player1, 1)
+        @controller.makeMove(@player2, "Splash")
 
         @team2.first().isSwitchBlocked().should.be.false
         @team2.first().hasAttachment(Attachment.Trap).should.be.false
@@ -2140,11 +2111,11 @@ shared = require '../shared'
       it "is always 5 turns if the user is holding grip claw"
       it "is removed by rapid spin"
 
-  testTrappingMove "bind"
-  testTrappingMove "clamp"
-  testTrappingMove "fire-spin"
-  testTrappingMove "magma-storm"
-  testTrappingMove "sand-tomb"
+  testTrappingMove "Bind"
+  testTrappingMove "Clamp"
+  testTrappingMove "Fire Spin"
+  testTrappingMove "Magma Storm"
+  testTrappingMove "Sand Tomb"
 
   describe "Attract", ->
     it "has a 50% chance to immobilize a pokemon", ->
@@ -2156,8 +2127,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['tackle'])
       mock.expects('execute').never()
 
-      @battle.makeMove(@player1, 'Attract')
-      @battle.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@player1, 'Attract')
+      @controller.makeMove(@player2, 'Tackle')
 
       mock.restore()
       mock.verify()
@@ -2171,8 +2142,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['tackle'])
       mock.expects('execute').once()
 
-      @battle.makeMove(@player1, 'Attract')
-      @battle.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@player1, 'Attract')
+      @controller.makeMove(@player2, 'Tackle')
 
       mock.restore()
       mock.verify()
@@ -2185,11 +2156,11 @@ shared = require '../shared'
       mock = sinon.mock(moves['attract'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, 'Attract')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Attract')
+      @controller.makeMove(@player2, 'Splash')
 
-      @battle.makeMove(@player1, 'Attract')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Attract')
+      @controller.makeMove(@player2, 'Splash')
 
       mock.restore()
       mock.verify()
@@ -2202,8 +2173,8 @@ shared = require '../shared'
       mock = sinon.mock(moves['attract'])
       mock.expects('fail').once()
 
-      @battle.makeMove(@player1, 'Attract')
-      @battle.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player1, 'Attract')
+      @controller.makeMove(@player2, 'Splash')
 
       mock.restore()
       mock.verify()

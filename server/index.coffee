@@ -1,5 +1,6 @@
 {@BattleQueue} = require './queue'
 {@Battle} = require './battle'
+{@BattleController} = require './battle_controller'
 {@Pokemon} = require './pokemon'
 {@Move} = require './move'
 {@FakeRNG} = require './rng'
