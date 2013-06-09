@@ -1122,6 +1122,10 @@ shared = require '../shared'
 
       @team1.first().hasItem().should.be.false
 
+    # TODO: Eject Button will force the owner out, and prevent
+    # the attacker from switching.
+    it "prevents self-switching moves from switching"
+
     # TODO: Find out if these are true or not.
     it "does not activate if there is only one Pokemon left"
     it "does not activate on Sheer Force"
