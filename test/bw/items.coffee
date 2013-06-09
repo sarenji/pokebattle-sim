@@ -1266,3 +1266,11 @@ shared = require '../shared'
 
       moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
         .should.equal Math.floor(moves['tackle'].accuracy)
+
+  describe "Wide Lens", ->
+    it "boosts accuracy by 110%", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Wide Lens")]
+
+      moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
+        .should.equal Math.floor(moves['tackle'].accuracy * 1.1)

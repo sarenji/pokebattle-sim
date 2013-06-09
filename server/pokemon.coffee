@@ -191,6 +191,7 @@ class @Pokemon
     damage
 
   editAccuracy: (accuracy) =>
+    accuracy = @item.editAccuracy(accuracy)  if @hasItem()
     accuracy = @attachments.queryChain('editAccuracy', accuracy)
     accuracy
 

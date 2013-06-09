@@ -26,6 +26,7 @@ class Item
     0x1000
   calculateWeight: (weight) => weight
   editDamage: (battle, holder, move, damage) => damage
+  editAccuracy: (accuracy) => accuracy
   update: (battle, owner) =>
   criticalModifier: (battle, owner) =>
 
@@ -537,6 +538,10 @@ extendItem 'White Herb', ->
     if shouldTrigger
       owner.removeItem()
       battle.message "#{owner.name} restored its status using its #{@name}!"
+
+extendItem "Wide Lens", ->
+  @editAccuracy = (accuracy) ->
+    Math.floor(accuracy * 1.1)
 
 makeFlavorHealingBerry 'Wiki Berry', "specialAttack"
 
