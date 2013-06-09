@@ -3,7 +3,8 @@ class @ChatView extends Backbone.View
   userListTemplate: JST['user_list']
 
   events:
-    'keyup .chat_input': 'sendChat'
+    'keyup .chat_input': 'sendChatIfEnter'
+    'click .chat_input_send': 'sendChat'
 
   # Takes a `collection`, which is a UserList instance.
   # Also takes `socket`, the socket to the server.
@@ -19,11 +20,13 @@ class @ChatView extends Backbone.View
     @$('.user_count').text "Users (#{BattleTower.userList.length})"
     @$('.users').html @userListTemplate(userList: BattleTower.userList)
 
-  sendChat: (e) =>
-    if e.which == 13
-      $this = $(e.target)
-      @socket.emit 'sendchat', $this.val()
-      $this.val('')
+  sendChat: =>
+    $this = $('.chat_input')
+    @socket.emit 'sendchat', $this.val()
+    $this.val('')
+
+  sendChatIfEnter: (e) =>
+    if e.which == 13 then @sendChat()
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()
