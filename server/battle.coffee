@@ -278,7 +278,8 @@ class @Battle
 
       # Update Pokemon itself.
       # TODO: Is this the right place?
-      pokemon.update(this)
+      for active in @getActiveAlivePokemon()
+        active.update(this)
 
       # If a move adds a request to the queue, the request must be resolved
       # before the battle can continue.
