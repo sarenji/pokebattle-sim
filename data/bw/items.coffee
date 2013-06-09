@@ -430,6 +430,11 @@ makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
 makeGemItem 'Poison Gem', 'Poison'
 makeGemItem 'Psychic Gem', 'Psychic'
+
+extendItem 'Quick Claw', ->
+  @afterTurnOrder = (battle, owner) ->
+    battle.bump(owner)  if battle.rng.next("quick claw") < .2
+
 makeStatusCureBerry 'Rawst Berry', Status.BURN
 
 extendItem 'Red Card', ->

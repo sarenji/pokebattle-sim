@@ -1174,3 +1174,28 @@ shared = require '../shared'
 
       pokemon.hasAttachment("AttractAttachment").should.be.false
       pokemon.hasAttachment("TormentAttachment").should.be.true
+
+  describe "Quick Claw", ->
+    it "has a 20% chance to bump the owner's priority", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Quick Claw")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      shared.biasRNG.call(this, "next", 'quick claw', .1)
+      @battle.recordMove(@id1, moves["tackle"])
+      @battle.recordMove(@id2, moves["tackle"])
+      @battle.determineTurnOrder()
+      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon.should.eql [ @team1.first(), @team2.first() ]
+
+    it "has a 80% chance to do nothing", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Quick Claw")]
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+
+      shared.biasRNG.call(this, "next", 'quick claw', .2)
+      @battle.recordMove(@id1, moves["tackle"])
+      @battle.recordMove(@id2, moves["tackle"])
+      @battle.determineTurnOrder()
+      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon.should.eql [ @team2.first(), @team1.first() ]
