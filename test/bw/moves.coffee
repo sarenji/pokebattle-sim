@@ -2086,13 +2086,19 @@ shared = require '../shared'
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
         @controller.makeMove(@player1, name)
-        @controller.makeMove(@player2, "Splash")
+        @controller.makeMove(@player2, "Recover") # Shake off the initial damage
 
-        # loop for 4 more turns. These moves hurt for 4 moves and wear off on the 5th
-        for i in [1..4]
+        # loop for 5 more turns. One of the turns has already passed.
+        # These moves hurt for 5 moves and wear off on the 6th.
+        for i in [1..5]
           @team2.first().hasAttachment(Attachment.Trap).should.be.true
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
+
+        # Test if the actual damage checks out. It should have damaged only 5 times
+        maxHP = @team2.first().stat('hp')
+        expected = maxHP - (Math.floor(maxHP / 16) * 5)
+        @team2.first().currentHP.should.equal expected
 
       it "wears off after a certain number of turns", ->
         shared.create.call(this, team2: [Factory("Blissey")])
@@ -2101,8 +2107,10 @@ shared = require '../shared'
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
 
-        # loop for 4 more turns. These moves hurt for 4 moves and wear off on the 5th
-        for i in [1..4]
+        # loop for 5 more turns. One of the turns has already passed.
+        # These moves hurt for 5 moves and wear off on the 6th. We need
+        # turn number 6 to pass before the attachment should wear off.
+        for i in [1..5]
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
 
@@ -2120,8 +2128,9 @@ shared = require '../shared'
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
 
-        # loop for 3 more turns.
-        for i in [1..3]
+        # loop for 4 more turns. These moves wear off after numTurns + 1.
+        # 2 have already passed.
+        for i in [1..4]
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
 
@@ -2147,8 +2156,11 @@ shared = require '../shared'
 
         move = @battle.getMove(name)
         @battle.performMove(@id1, move)
+        @battle.performMove(@id2, @battle.getMove("Recover"))
 
-        for i in [1..7]
+        # The user is damaged 7 times, but the attachment actually lasts
+        # for 8 turns including the turn it is first used.
+        for i in [1..8]
           @team2.first().hasAttachment(Attachment.Trap).should.be.true
           @battle.endTurn()
 
@@ -2161,6 +2173,7 @@ shared = require '../shared'
   testTrappingMove "Fire Spin"
   testTrappingMove "Magma Storm"
   testTrappingMove "Sand Tomb"
+  testTrappingMove "Wrap"
 
   describe "Attract", ->
     it "has a 50% chance to immobilize a pokemon", ->
