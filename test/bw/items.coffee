@@ -1072,3 +1072,19 @@ shared = require '../shared'
 
   testEvasionItem "BrightPowder"
   testEvasionItem "Lax Incense"
+
+  testDelayItem = (itemName) ->
+    describe itemName, ->
+      it "delays the user to be last in its priority bracket", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName, evs: {speed: 4})]
+          team2: [Factory("Magikarp")]
+
+        @battle.recordMove(@id1, moves["tackle"])
+        @battle.recordMove(@id2, moves["tackle"])
+        @battle.determineTurnOrder()
+        pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+        pokemon.should.eql [ @team2.first(), @team1.first() ]
+
+  testDelayItem 'Full Incense'
+  testDelayItem 'Lagging Tail'

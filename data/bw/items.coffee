@@ -199,6 +199,11 @@ makeSpeciesCriticalItem = (name, species) ->
       else
         0
 
+makeDelayItem = (name) ->
+  extendItem name, ->
+    @afterTurnOrder = (battle, pokemon) ->
+      battle.delay(pokemon)
+
 makeEvasionItem = (name, ratio=0.9) ->
   extendItem name, ->
     @initialize = (battle, pokemon) ->
@@ -328,6 +333,7 @@ extendItem 'Focus Sash', ->
       return maxHP - 1
     return damage
 
+makeDelayItem 'Full Incense'
 makeStatBoostBerry 'Ganlon Berry', defense: 1
 makeGemItem 'Ghost Gem', 'Ghost'
 makeGemItem 'Grass Gem', 'Grass'
@@ -345,6 +351,7 @@ makePlateItem 'Iron Plate', 'Steel'
 makeFeedbackDamageBerry 'Jaboca Berry', 'isPhysical'
 makeTypeResistBerry 'Kasib Berry', 'Ghost'
 makeTypeResistBerry 'Kebia Berry', 'Poison'
+makeDelayItem 'Lagging Tail'
 
 # TODO: What happens if the Pokemon already has Focus Energy?
 #       Does the berry still get eaten? Same goes for the other stat berries.
