@@ -2050,26 +2050,26 @@ shared = require '../shared'
 
       it "lasts several turns", ->
         shared.create.call(this, team2: [Factory("Blissey")])
-        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+        shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
 
-        # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
-        for i in [1..5]
+        # loop for 4 more turns. These moves hurt for 4 moves and wear off on the 5th
+        for i in [1..4]
           @team2.first().hasAttachment(Attachment.Trap).should.be.true
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
 
       it "wears off after a certain number of turns", ->
         shared.create.call(this, team2: [Factory("Blissey")])
-        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+        shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
 
-        # loop for 5 more turns. These moves hurt for 5 moves and wear off on the 6th
-        for i in [1..5]
+        # loop for 4 more turns. These moves hurt for 4 moves and wear off on the 5th
+        for i in [1..4]
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
 
@@ -2079,7 +2079,7 @@ shared = require '../shared'
 
       it "does not reset the duration if used twice", ->
         shared.create.call(this, team2: [Factory("Blissey")])
-        shared.biasRNG.call(this, "next", 'trapping move', 1) # always 5 turns
+        shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
@@ -2087,8 +2087,8 @@ shared = require '../shared'
         @controller.makeMove(@player1, name)
         @controller.makeMove(@player2, "Splash")
 
-        # loop for 4 more turns.
-        for i in [1..4]
+        # loop for 3 more turns.
+        for i in [1..3]
           @controller.makeMove(@player1, "Splash")
           @controller.makeMove(@player2, "Splash")
 
@@ -2108,7 +2108,19 @@ shared = require '../shared'
         @team2.first().isSwitchBlocked().should.be.false
         @team2.first().hasAttachment(Attachment.Trap).should.be.false
 
-      it "is always 5 turns if the user is holding grip claw"
+      it "is always 7 turns if the user is holding grip claw", ->
+        shared.create.call(this, team1: [Factory("Magikarp", item: "Grip Claw")])
+        shared.biasRNG.call(this, "randInt", 'trapping move', 5)
+
+        move = @battle.getMove(name)
+        @battle.performMove(@id1, move)
+
+        for i in [1..7]
+          @team2.first().hasAttachment(Attachment.Trap).should.be.true
+          @battle.endTurn()
+
+        @team2.first().hasAttachment(Attachment.Trap).should.be.false
+
       it "is removed by rapid spin"
 
   testTrappingMove "Bind"

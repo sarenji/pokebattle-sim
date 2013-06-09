@@ -318,10 +318,10 @@ makeTrappingMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       unless target.hasAttachment(Attachment.Trap)
-        if battle.rng.next("trapping move") < 0.5
-          turns = 4
+        turns = if !user.hasItem("Grip Claw")
+          battle.rng.randInt(5, 7, "trapping move")
         else
-          turns = 5
+          7
 
         trap = new Attachment.Trap(user: user, moveName: name, turns: turns)
         target.attach(trap)

@@ -403,6 +403,7 @@ class @Attachment.Trap extends @VolatileAttachment
     @pokemon.blockSwitch()
 
   endTurn: (battle) =>
+    @turns -= 1
     if @turns == 0
       battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @remove()
@@ -410,7 +411,6 @@ class @Attachment.Trap extends @VolatileAttachment
     else
       battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
-      @turns -= 1
 
   getDamagePerTurn: =>
     if @leash.pokemon.hasItem("Binding Band")
