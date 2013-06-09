@@ -319,7 +319,7 @@ makeTrappingMove = (name) ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       unless target.hasAttachment(Attachment.Trap)
         turns = if !user.hasItem("Grip Claw")
-          battle.rng.randInt(5, 7, "trapping move")
+          battle.rng.randInt(4, 5, "trapping move")
         else
           7
 
@@ -619,6 +619,7 @@ extendWithPrimaryStatus 'will-o-wisp', Status.BURN
 makeBoostMove 'withdraw', 'user', defense: 1
 extendWithRecoil 'wood-hammer'
 makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
+makeTrappingMove "wrap"
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
 extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
