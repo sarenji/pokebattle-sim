@@ -9,7 +9,7 @@ class @Player
     @emit 'request action', id, validActions
 
   attachToTeam: (attachment) =>
-    @team.attach(attachment)
+    @team.attach(attachment, team: @team)
 
   hasAttachment: (attachment) =>
     @team.hasAttachment(attachment)

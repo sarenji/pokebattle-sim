@@ -158,15 +158,6 @@ class @Battle
       @priorityQueue.splice(i + 1, 0, segment)
       break
 
-  # Associates an attachment instance with the team of `user`.
-  attachToTeam: (user, attachment) =>
-    player = @getOwner(user)
-    player.attachToTeam(attachment)
-
-  getTeamAttachment: (user, attachmentName) =>
-    team = @getOwner(user).team
-    team.getAttachment(attachmentName)
-
   # Add `string` to a buffer that will be sent to each client.
   message: (string) =>
     @buffer.push(string)

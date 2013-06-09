@@ -39,13 +39,16 @@ class @Team
   getAttachment: (attachmentName) =>
     @attachments.get(attachmentName)
 
-  attach: (attachment) =>
-    attachment.team = this
-    @attachments.push(attachment)
+  attach: (attachment, options={}) =>
+    options = _.clone(options)
+    options.team = this
+    @attachments.push(attachment, options)
 
   unattach: (attachment) =>
-    @attachments.unattach(attachment)
-    delete attachment.team
+    ref = @attachments.unattach(attachment)
+    return  if !ref?
+    delete ref.team
+    ref
 
   switch: (battle, player, a, b) =>
     battle.message "#{player.username} withdrew #{@at(a).name}!"

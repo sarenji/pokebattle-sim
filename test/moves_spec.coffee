@@ -41,7 +41,7 @@ describe 'Move', ->
       battle = new Battle('1', players: [])
       attacker = new Pokemon()
       defender = new Pokemon()
-      attacker.attach(new Attachment.FocusEnergy())
+      attacker.attach(Attachment.FocusEnergy)
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->

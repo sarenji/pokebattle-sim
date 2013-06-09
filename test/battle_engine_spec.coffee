@@ -101,7 +101,7 @@ describe 'Mechanics', ->
       @controller.makeMove(@player1, 'Iron Head')
       @controller.makeMove(@player2, 'Splash')
 
-      spy.args[0][0].should.be.an.instanceof Attachment.Flinch
+      spy.args[0][0].should.eql Attachment.Flinch
 
   describe 'secondary status attacks', ->
     it 'can inflict effect on successful hit', ->
@@ -126,7 +126,7 @@ describe 'Mechanics', ->
       @controller.makeMove(@player1, 'ice-fang')
       @controller.makeMove(@player2, 'Splash')
 
-      spy.args[0][0].should.be.an.instanceof Attachment.Flinch
+      spy.args[0][0].should.eql Attachment.Flinch
       defender.hasStatus(Status.FREEZE).should.be.true
 
   describe 'a pokemon with technician', ->
@@ -273,7 +273,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
-      @team1.at(0).attach(new Attachment.Confusion({@battle}))
+      @team1.at(0).attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
       mock = sinon.mock(moves['tackle'])
@@ -292,7 +292,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
-      @team1.at(0).attach(new Attachment.Confusion({@battle}))
+      @team1.at(0).attach(Attachment.Confusion, {@battle})
 
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
@@ -305,7 +305,7 @@ describe 'Mechanics', ->
     it "will not crit the confusion recoil", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Confusion({@battle}))
+      @team1.at(0).attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
       shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
 
@@ -319,7 +319,7 @@ describe 'Mechanics', ->
     it "will not execute moves", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Freeze())
+      @team1.at(0).attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
       mock = sinon.mock(moves['tackle'])
@@ -334,7 +334,7 @@ describe 'Mechanics', ->
     it "has a 20% chance of unfreezing", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(new Attachment.Freeze())
+      @team1.at(0).attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
       @controller.makeMove(@player1, 'Splash')
@@ -346,7 +346,7 @@ describe 'Mechanics', ->
       it "automatically unfreezes if using #{moveName}", ->
         shared.create.call(this)
 
-        @team1.at(0).attach(new Attachment.Freeze())
+        @team1.at(0).attach(Attachment.Freeze)
         shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
         @controller.makeMove(@player1, moveName)
@@ -358,7 +358,7 @@ describe 'Mechanics', ->
     it "has a 25% chance of being fully paralyzed", ->
       shared.create.call(this)
 
-      @team1.first().attach(new Attachment.Paralysis())
+      @team1.first().attach(Attachment.Paralysis)
       shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
 
       mock = sinon.mock(moves['tackle'])
@@ -374,6 +374,6 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       speed = @team1.first().stat('speed')
-      @team1.first().attach(new Attachment.Paralysis())
+      @team1.first().attach(Attachment.Paralysis)
 
       @team1.first().stat('speed').should.equal Math.floor(speed / 4)

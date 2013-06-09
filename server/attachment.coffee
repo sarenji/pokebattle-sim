@@ -6,9 +6,20 @@ class @Attachments
   constructor: ->
     @attachments = []
 
-  push: (attachment) =>
-    @attachments.push(attachment)
-    attachment.initialize()
+  push: (attachmentClass, options={}) =>
+    attachment = @get(attachmentClass)
+    if !attachment?
+      attachment = new attachmentClass(options)
+      ## hacky
+      attachment.pokemon = options.pokemon
+      attachment.team = options.team
+      ## end hacky
+      @attachments.push(attachment)
+      attachment.initialize()
+
+    return false  if attachment.layers == attachment.maxLayers
+    attachment.layers++
+    return true
 
   unattach: (attachment) =>
     index = @indexOf(attachment)
@@ -61,8 +72,12 @@ class @Attachments
 # Attachments are "attached" with Pokemon.attach(), and after
 # that the attachment can be retrieved with Attachment.pokemon
 class @Attachment
-  constructor: (name, attributes={}) ->
-    @name = name
+  name: "Attachment"
+
+  maxLayers: 1
+
+  constructor: ->
+    @layers = 0
 
   initialize: =>
 
@@ -98,16 +113,13 @@ class @Attachment
 Attachment = @Attachment
 
 class @TeamAttachment extends @Attachment
-  constructor: (name, attributes) ->
-    super(name, attributes)
-    @team = attributes.team
+  name: "TeamAttachment"
 
   remove: =>
     @team.unattach(this)
 
 class @Attachment.Paralysis extends @Attachment
-  constructor: (attributes={}) ->
-    super(Status.PARALYZE, attributes)
+  name: Status.PARALYZE
 
   beforeMove: (battle, move, user, targets) =>
     if battle.rng.next('paralyze chance') < .25
@@ -118,8 +130,7 @@ class @Attachment.Paralysis extends @Attachment
     Math.floor(stat / 4)
 
 class @Attachment.Freeze extends @Attachment
-  constructor: (attributes={}) ->
-    super(Status.FREEZE, attributes)
+  name: Status.FREEZE
 
   beforeMove: (battle, move, user, targets) =>
     if move.thawsUser || battle.rng.next('unfreeze chance') < .2
@@ -136,8 +147,7 @@ class @VolatileAttachment extends @Attachment
     @remove()
 
 class @Attachment.Flinch extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super(VolatileStatus.FLINCH, attributes)
+  name: VolatileStatus.FLINCH
 
   beforeMove: (battle, move, user, targets) =>
     battle.message "#{@pokemon.name} flinched!"
@@ -147,8 +157,10 @@ class @Attachment.Flinch extends @VolatileAttachment
     @remove()
 
 class @Attachment.Confusion extends @VolatileAttachment
+  name: VolatileStatus.CONFUSION
+
   constructor: (attributes={}) ->
-    super(VolatileStatus.CONFUSION, attributes)
+    super()
     @turns = attributes.battle.rng.randInt(1, 4, "confusion turns")
     @turn = 0
 
@@ -166,8 +178,10 @@ class @Attachment.Confusion extends @VolatileAttachment
 
 # TODO: Also call @pokemon.blockMove when attached as well
 class @Attachment.Disable extends @VolatileAttachment
+  name: "DisableAttachment"
+
   constructor: (attributes={}) ->
-    super('DisableAttachment', attributes)
+    super()
     @blockedMove = attributes.move
     @turns = attributes.turns
     @turn = 0
@@ -184,8 +198,10 @@ class @Attachment.Disable extends @VolatileAttachment
       @remove()
 
 class @Attachment.Yawn extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super('YawnAttachment', attributes)
+  name: 'YawnAttachment'
+
+  constructor: ->
+    super()
     @turn = 0
 
   endTurn: =>
@@ -196,15 +212,15 @@ class @Attachment.Yawn extends @VolatileAttachment
 
 # TODO: Does weight get lowered if speed does not change?
 class @Attachment.Autotomize extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("AutotomizeAttachment", attributes)
+  name: "AutotomizeAttachment"
+
+  maxLayers: -1
 
   calculateWeight: (weight) =>
-    Math.max(weight - 100, .1)
+    Math.max(weight - 100 * @layers, .1)
 
 class @Attachment.Nightmare extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("NightmareAttachment", attributes)
+  name: "NightmareAttachment"
 
   endTurn: (battle) =>
     if @pokemon.hasStatus(Status.SLEEP)
@@ -214,9 +230,11 @@ class @Attachment.Nightmare extends @VolatileAttachment
       @remove()
 
 class @Attachment.Taunt extends @VolatileAttachment
+  name: "TauntAttachment"
+
   constructor: (attributes={}) ->
-    super("TauntAttachment", attributes)
-    @battle = attributes.battle
+    super()
+    {@battle} = attributes
     @turns = 3
     @turn = 0
 
@@ -237,13 +255,19 @@ class @Attachment.Taunt extends @VolatileAttachment
       battle.message "#{@pokemon.name}'s taunt wore off!"
       @remove()
 
+  remove: =>
+    delete @battle
+    super()
+
 class @Attachment.Wish extends @TeamAttachment
-  constructor: (attributes={}) ->
-    super("WishAttachment", attributes)
-    {user, team} = attributes
+  name: "WishAttachment"
+
+  constructor: (attributes) ->
+    super()
+    {user, @team} = attributes
     @amount = Math.round(user.stat('hp') / 2)
     @wisherName = user.name
-    @slot = team.indexOf(user)
+    @slot = @team.indexOf(user)
     @turns = 2
     @turn = 0
 
@@ -256,9 +280,15 @@ class @Attachment.Wish extends @TeamAttachment
         pokemon.damage(-@amount)
       @remove()
 
+  remove: =>
+    delete @battle
+    super()
+
 class @Attachment.PerishSong extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("PerishSongAttachment", attributes)
+  name: "PerishSongAttachment"
+
+  constructor: ->
+    super()
     @turns = 4
     @turn = 0
 
@@ -269,8 +299,7 @@ class @Attachment.PerishSong extends @VolatileAttachment
       @pokemon.faint(battle)
 
 class @Attachment.Roost extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("RoostAttachment", attributes)
+  name: "RoostAttachment"
 
   initialize: =>
     @oldTypes = @pokemon.types
@@ -282,8 +311,10 @@ class @Attachment.Roost extends @VolatileAttachment
     @remove()
 
 class @Attachment.Encore extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("EncoreAttachment", attributes)
+  name: "EncoreAttachment"
+
+  constructor: ->
+    super()
     @turns = 3
     @turn = 0
 
@@ -300,15 +331,13 @@ class @Attachment.Encore extends @VolatileAttachment
       @remove()
 
 class @Attachment.Torment extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("TormentAttachment", attributes)
+  name: "TormentAttachment"
 
   beginTurn: (battle) =>
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
 
 class @Attachment.ChoiceLock extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("ChoiceLockAttachment", attributes)
+  name: "ChoiceLockAttachment"
 
   initialize: =>
     @move = null
@@ -320,16 +349,18 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
   beginTurn: (battle) =>
     @pokemon.lockMove(@move)  if @move?
 
+  remove: =>
+    delete @move
+    super()
+
 class @Attachment.IronBall extends @Attachment
-  constructor: (attributes={}) ->
-    super("IronBallAttachment", attributes)
+  name: "IronBallAttachment"
 
   isImmune: (battle, type) =>
     return false  if type == 'Ground'
 
 class @Attachment.AirBalloon extends @Attachment
-  constructor: (attributes={}) ->
-    super("AirBalloonAttachment", attributes)
+  name: "AirBalloonAttachment"
 
   afterBeingHit: (battle, move, user, target, damage) =>
     return  if move.isNonDamaging()
@@ -340,10 +371,9 @@ class @Attachment.AirBalloon extends @Attachment
     type == 'Ground'
 
 class @Attachment.Spikes extends @TeamAttachment
-  constructor: (attributes={}) ->
-    super("SpikesAttachment", attributes)
-    @layers = 1
-    @maxLayers = 3
+  name: "SpikesAttachment"
+
+  maxLayers: 3
 
   switchIn: (battle, pokemon) =>
     return  if pokemon.isImmune(battle, "Ground")
@@ -351,15 +381,8 @@ class @Attachment.Spikes extends @TeamAttachment
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp / fraction)
 
-  incrementLayers: =>
-    @layers++  if @layers < @maxLayers
-
-  isAtMax: =>
-    @layers == @maxLayers
-
 class @Attachment.StealthRock extends @TeamAttachment
-  constructor: (attributes={}) ->
-    super("StealthRockAttachment", attributes)
+  name: "StealthRockAttachment"
 
   switchIn: (battle, pokemon) =>
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
@@ -367,10 +390,9 @@ class @Attachment.StealthRock extends @TeamAttachment
     pokemon.damage Math.floor(hp * multiplier / 8)
 
 class @Attachment.ToxicSpikes extends @TeamAttachment
-  constructor: (attributes={}) ->
-    super("ToxicSpikesAttachment", attributes)
-    @layers = 1
-    @maxLayers = 2
+  name: "ToxicSpikesAttachment"
+
+  maxLayers: 2
 
   switchIn: (battle, pokemon) =>
     if pokemon.hasType("Poison") && !pokemon.isImmune(battle, "Ground")
@@ -385,19 +407,13 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
     else
       pokemon.setStatus(Status.TOXIC)
 
-  incrementLayers: =>
-    @layers++  if @layers < @maxLayers
-
-  isAtMax: =>
-    @layers == @maxLayers
-
 # A trap created by Fire Spin, Magma Storm, Bind, Clamp, etc
 class @Attachment.Trap extends @VolatileAttachment
+  name: "TrapAttachment"
+
   constructor: (attributes={}) ->
-    super("TrapAttachment", attributes)
-    @moveName = attributes.moveName
-    @user = attributes.user
-    @turns = attributes.turns
+    super()
+    {@moveName, @user, @turns} = attributes
 
   beginTurn: (battle) =>
     @pokemon.blockSwitch()
@@ -407,40 +423,46 @@ class @Attachment.Trap extends @VolatileAttachment
     if @turns == 0
       battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @remove()
-      @leash.remove()
     else
       battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
 
   getDamagePerTurn: =>
-    if @leash.pokemon.hasItem("Binding Band")
+    if @user.hasItem("Binding Band")
       8
     else
       16
 
+  remove: =>
+    @user.unattach(Attachment.TrapLeash)
+    delete @user
+    super()
 
 # If the creator if fire spin switches out, the trap will end
 # TODO: What happens if another ability removes the trap, and then firespin is used again?
 class @Attachment.TrapLeash extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("TrapLeashAttachment", attributes)
-    @trap = attributes.trap
-    @trap.leash = this
+  name: "TrapLeashAttachment"
 
-  switchOut: (battle, pokemon) =>
-    if @trap.pokemon
-      @trap.remove()
-    @remove()
+  constructor: (attributes={}) ->
+    super()
+    {@target} = attributes
+
+  remove: =>
+    @target.unattach(Attachment.Trap)
+    delete @target
+    super()
 
 # Has a 50% chance to immobilize a Pokemon before it moves.
 class @Attachment.Attract extends @VolatileAttachment
+  name: "AttractAttachment"
+
   constructor: (attributes={}) ->
-    super("AttractAttachment", attributes)
+    super()
     {@source} = attributes
 
   initialize: =>
-    if @pokemon.hasItem("Destiny Knot") && !@source.hasAttachment("AttractAttachment")
-      @source.attach(new Attachment.Attract({@source}))
+    if @pokemon.hasItem("Destiny Knot") && !@source.hasAttachment(Attachment.Attract)
+      @source.attach(Attachment.Attract, {@source})
       @pokemon.removeItem()
 
   beforeMove: (battle, move, user, targets) =>
@@ -449,12 +471,12 @@ class @Attachment.Attract extends @VolatileAttachment
       return false
 
 class @Attachment.FocusEnergy extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("FocusEnergyAttachment", attributes)
+  name: "FocusEnergyAttachment"
 
 class @Attachment.MicleBerry extends @VolatileAttachment
-  constructor: (attributes={}) ->
-    super("MicleBerryAttachment", attributes)
+  name: "MicleBerryAttachment"
+  constructor: ->
+    super()
     @turns = 1
 
   editAccuracy: (accuracy) =>
@@ -467,8 +489,10 @@ class @Attachment.MicleBerry extends @VolatileAttachment
       @turns--
 
 class @Attachment.EvasionItem extends @VolatileAttachment
+  name: "EvasionItemAttachment"
+
   constructor: (attributes={}) ->
-    super("EvasionItemAttachment", attributes)
+    super()
     @ratio = attributes.ratio || 0.9
 
   editEvasion: (accuracy) =>

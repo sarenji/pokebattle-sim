@@ -260,14 +260,14 @@ class @Pokemon
     @attachments.query('endTurn', battle)
 
   # Adds an attachment to the list of attachments
-  attach: (attachment) =>
-    # TODO: Error if the attachment already has a pokemon
-    attachment.pokemon = this
-    @attachments.push(attachment)
+  attach: (attachment, options={}) =>
+    options = _.clone(options)
+    options.pokemon = this
+    @attachments.push(attachment, options)
 
   # Removes an attachment from the list of attachment
-  unattach: (attachment) =>
-    @attachments.unattach(attachment)
+  unattach: (klass) =>
+    attachment = @attachments.unattach(klass)
     delete attachment.pokemon
 
   # Blocks a move for a single turn

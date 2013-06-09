@@ -366,8 +366,8 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Trick')
 
-      @team1.first().hasAttachment("AirBalloonAttachment").should.be.false
-      @team2.first().hasAttachment("AirBalloonAttachment").should.be.true
+      @team1.first().hasAttachment(Attachment.AirBalloon).should.be.false
+      @team2.first().hasAttachment(Attachment.AirBalloon).should.be.true
 
   describe "White Herb", ->
     it "negates negative status boosts", ->
@@ -668,7 +668,7 @@ shared = require '../shared'
         team2: [Factory("Magikarp", item: "Lum Berry")]
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
-      @team2.first().attach(new Attachment.Confusion({@battle}))
+      @team2.first().attach(Attachment.Confusion, {@battle})
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
@@ -946,8 +946,8 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Attract")
 
-      @team1.first().hasAttachment("AttractAttachment").should.be.true
-      @team2.first().hasAttachment("AttractAttachment").should.be.true
+      @team1.first().hasAttachment(Attachment.Attract).should.be.true
+      @team2.first().hasAttachment(Attachment.Attract).should.be.true
 
     it "is one-time use", ->
       shared.create.call this,
@@ -1016,7 +1016,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Splash")
 
-      @team1.first().hasAttachment("FocusEnergyAttachment").should.be.true
+      @team1.first().hasAttachment(Attachment.FocusEnergy).should.be.true
 
   describe "Micle Berry", ->
     it "gives the owner a 1.2x accuracy boost on their next move", ->
@@ -1028,7 +1028,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Tackle")
       @controller.makeMove(@player2, "Splash")
 
-      @team1.first().hasAttachment("MicleBerryAttachment").should.be.true
+      @team1.first().hasAttachment(Attachment.MicleBerry).should.be.true
       moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
         .should.equal Math.floor(moves['tackle'].accuracy * 1.2)
 
@@ -1044,7 +1044,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Splash")
 
-      @team1.first().hasAttachment("MicleBerryAttachment").should.be.false
+      @team1.first().hasAttachment(Attachment.MicleBerry).should.be.false
 
   testEvasionItem = (itemName, ratio=0.9) ->
     describe itemName, ->
@@ -1149,20 +1149,21 @@ shared = require '../shared'
           team1: [Factory("Magikarp", item: "Mental Herb")]
 
         pokemon = @team1.first()
-        pokemon.hasAttachment("#{effectName}Attachment").should.be.false
-        pokemon.attach(new Attachment[effectName](turns: 2))
-        pokemon.hasAttachment("#{effectName}Attachment").should.be.true
+        attachment = Attachment[effectName]
+        pokemon.hasAttachment(attachment).should.be.false
+        pokemon.attach(attachment, turns: 2)
+        pokemon.hasAttachment(attachment).should.be.true
 
         pokemon.update(@battle)
 
-        pokemon.hasAttachment("#{effectName}Attachment").should.be.false
+        pokemon.hasAttachment(attachment).should.be.false
 
     it "disappears after use", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Mental Herb")]
 
       pokemon = @team1.first()
-      pokemon.attach(new Attachment.Attract())
+      pokemon.attach(Attachment.Attract)
       pokemon.update(@battle)
 
       pokemon.hasItem().should.be.false
@@ -1172,12 +1173,12 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Mental Herb")]
 
       pokemon = @team1.first()
-      pokemon.attach(new Attachment.Attract())
-      pokemon.attach(new Attachment.Torment())
+      pokemon.attach(Attachment.Attract)
+      pokemon.attach(Attachment.Torment)
       pokemon.update(@battle)
 
-      pokemon.hasAttachment("AttractAttachment").should.be.false
-      pokemon.hasAttachment("TormentAttachment").should.be.true
+      pokemon.hasAttachment(Attachment.Attract).should.be.false
+      pokemon.hasAttachment(Attachment.Torment).should.be.true
 
   describe "Quick Claw", ->
     it "has a 20% chance to bump the owner's priority", ->

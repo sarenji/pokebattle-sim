@@ -327,7 +327,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Disable')
       @controller.makeMove(@player2, 'Splash')
 
-      @team2.at(0).hasAttachment('DisableAttachment').should.be.true
+      @team2.at(0).hasAttachment(Attachment.Disable).should.be.true
 
     # remove this once 'disables the last move that hit successfully'
     # is implemented
@@ -358,7 +358,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @team2.at(0).hasAttachment('DisableAttachment').should.be.false
+      @team2.at(0).hasAttachment(Attachment.Disable).should.be.false
 
     it 'disables the last move that hit successfully'
     it 'causes a move to fail if the user moves first'
@@ -418,7 +418,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Yawn')
       @controller.makeMove(@player2, 'Splash')
 
-      @team2.at(0).hasAttachment('YawnAttachment').should.be.true
+      @team2.at(0).hasAttachment(Attachment.Yawn).should.be.true
 
     it 'puts the opponent to sleep at the end of the second turn', ->
       shared.create.call this,
@@ -442,6 +442,17 @@ shared = require '../shared'
 
       @team2.at(0).hasStatus(Status.SLEEP).should.be.false
       @battle.turn.should.equal 2
+
+    it "fails if the target is already yawning", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['yawn'])
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, moves['yawn'])
+      @battle.performMove(@id1, moves['yawn'])
+
+      mock.restore()
+      mock.verify()
 
   describe 'an OHKO move', ->
     it 'ignores accuracy/evasion modifiers', ->
@@ -1150,7 +1161,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'splash')
       @controller.makeMove(@player2, 'splash')
 
-      @team2.at(0).hasAttachment("NightmareAttachment").should.be.false
+      @team2.at(0).hasAttachment(Attachment.Nightmare).should.be.false
 
   describe 'incinerate', ->
     it 'destroys the berry of the target', ->
@@ -1208,7 +1219,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'splash')
       @controller.makeMove(@player2, 'tackle')
 
-      @team2.at(0).hasAttachment("TauntAttachment").should.be.false
+      @team2.at(0).hasAttachment(Attachment.Taunt).should.be.false
 
     it 'prevents the target from selecting that move the next turn', ->
       shared.create.call(this)
@@ -1218,6 +1229,17 @@ shared = require '../shared'
 
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.should.not.include 'Splash'
+
+    it "fails if the target is already under taunt", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['taunt'])
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, moves['taunt'])
+      @battle.performMove(@id1, moves['taunt'])
+
+      mock.restore()
+      mock.verify()
 
   describe 'u-turn', ->
     it 'forces the owner to switch', ->
@@ -1236,7 +1258,7 @@ shared = require '../shared'
       basePower = move.basePower(@battle, @team1.first(), @team2.first())
       basePower.should.equal(2 * move.power)
 
-  describe 'wish', ->
+  describe 'Wish', ->
     it "restores half of the user's total hit points the next end of turn", ->
       shared.create.call(this)
       hp = @team1.first().currentHP
@@ -1272,7 +1294,18 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'splash')
       @controller.makeMove(@player2, 'tackle')
 
-      @team1.hasAttachment("WishAttachment").should.be.false
+      @team1.hasAttachment(Attachment.Wish).should.be.false
+
+    it "fails if the user already used Wish", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['wish'])
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, moves['wish'])
+      @battle.performMove(@id1, moves['wish'])
+
+      mock.restore()
+      mock.verify()
 
   describe "counter", ->
     it "returns double the damage if attacked by a physical move", ->
@@ -1314,7 +1347,7 @@ shared = require '../shared'
       @controller.makeMove(@player2, 'splash')
 
       result = _.all @battle.getActivePokemon(), (pokemon) ->
-        pokemon.hasAttachment("PerishSongAttachment")
+        pokemon.hasAttachment(Attachment.PerishSong)
       result.should.be.true
 
     it "faints pokemon at the end of 4 turns", ->
@@ -1507,7 +1540,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment('EncoreAttachment').should.be.true
+      @team2.first().hasAttachment(Attachment.Encore).should.be.true
 
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Splash")
@@ -1515,7 +1548,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment('EncoreAttachment').should.be.false
+      @team2.first().hasAttachment(Attachment.Encore).should.be.false
 
     it "fails on certain moves like mimic", ->
       shared.create.call this,
@@ -1571,12 +1604,12 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment("EncoreAttachment").should.be.true
+      @team2.first().hasAttachment(Attachment.Encore).should.be.true
 
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment("EncoreAttachment").should.be.false
+      @team2.first().hasAttachment(Attachment.Encore).should.be.false
 
   describe "Swagger", ->
     it "confuses the target", ->
@@ -1673,12 +1706,12 @@ shared = require '../shared'
     it "puts a layer of spikes on the opponents' field", ->
       shared.create.call(this)
 
-      @team2.hasAttachment("SpikesAttachment").should.be.false
+      @team2.hasAttachment(Attachment.Spikes).should.be.false
 
       @controller.makeMove(@player1, "Spikes")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.hasAttachment("SpikesAttachment").should.be.true
+      @team2.hasAttachment(Attachment.Spikes).should.be.true
 
     it "fails if there are 3 layers", ->
       shared.create.call(this)
@@ -1734,12 +1767,12 @@ shared = require '../shared'
     it "puts a layer of rocks on the opponents' field", ->
       shared.create.call(this)
 
-      @team2.hasAttachment("StealthRockAttachment").should.be.false
+      @team2.hasAttachment(Attachment.StealthRock).should.be.false
 
       @controller.makeMove(@player1, "Stealth Rock")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.hasAttachment("StealthRockAttachment").should.be.true
+      @team2.hasAttachment(Attachment.StealthRock).should.be.true
 
     it "fails if there is already rocks on the field", ->
       shared.create.call(this)
@@ -1779,12 +1812,12 @@ shared = require '../shared'
     it "puts a layer of toxic spikes on the opponents' field", ->
       shared.create.call(this)
 
-      @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
 
       @controller.makeMove(@player1, "Toxic Spikes")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
 
     it "fails if there are 2 layers", ->
       shared.create.call(this)
@@ -1838,7 +1871,7 @@ shared = require '../shared'
       @controller.makeSwitch(@player2, 1)
       @controller.makeMove(@player1, "Splash")
 
-      @team2.hasAttachment("ToxicSpikesAttachment").should.be.false
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
 
     it "doesn't disappear if the pokemon switching in is a flying Poison", ->
       shared.create.call this,
@@ -1850,7 +1883,7 @@ shared = require '../shared'
       @controller.makeSwitch(@player2, 1)
       @controller.makeMove(@player1, "Splash")
 
-      @team2.hasAttachment("ToxicSpikesAttachment").should.be.true
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
 
   testWeatherMove = (moveName, weather, item) ->
     describe moveName, ->
@@ -1925,7 +1958,7 @@ shared = require '../shared'
         move = @battle.getMove(moveName)
         @battle.performMove(@id1, move)
 
-        @team2.first().hasAttachment(Effect.name).should.be.true
+        @team2.first().hasAttachment(Effect).should.be.true
 
       it "fails if the Pokemon already has it", ->
         shared.create.call(this)
@@ -1935,7 +1968,7 @@ shared = require '../shared'
         mock.expects('fail').once()
 
         shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
-        @team2.first().attach(new Effect({@battle}))
+        @team2.first().attach(Effect, {@battle})
 
         move = @battle.getMove(moveName)
         @battle.performMove(@id1, move)

@@ -111,9 +111,9 @@ describe 'Pokemon', ->
 
     it 'removes volatile attachments', ->
       pokemon = new Pokemon()
-      pokemon.attach(new VolatileAttachment('TestAttachment'))
+      pokemon.attach(VolatileAttachment)
       pokemon.switchOut()
-      pokemon.hasAttachment('TestAttachment').should.be.false
+      pokemon.hasAttachment(VolatileAttachment).should.be.false
 
   describe '#endTurn', ->
     it 'removes blocked moves', ->
@@ -125,16 +125,15 @@ describe 'Pokemon', ->
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
       pokemon = new Pokemon()
-      pokemon.attach(new Attachment("TestAttachment"))
-      pokemon.hasAttachment("TestAttachment").should.be.true
+      pokemon.attach(Attachment)
+      pokemon.hasAttachment(Attachment).should.be.true
 
   describe '#unattach', ->
     it 'removes an attachment from the list of attachments', ->
       pokemon = new Pokemon()
-      attachment = new Attachment('TestAttachment')
-      pokemon.attach(attachment)
-      pokemon.unattach(attachment)
-      pokemon.hasAttachment('TestAttachment').should.be.false
+      pokemon.attach(Attachment)
+      pokemon.unattach(Attachment)
+      pokemon.hasAttachment(Attachment).should.be.false
 
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->

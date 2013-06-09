@@ -1,5 +1,6 @@
 {finalModifier, basePowerModifier, stabModifier, attackStatModifier} = require './modifiers'
 {Status} = require './status'
+{Attachment} = require './attachment'
 util = require './util'
 
 # A single Move in the Pokemon engine. Move objects are constructed in
@@ -172,7 +173,7 @@ class @Move
 
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
-    stage += 2  if attacker.hasAttachment('FocusEnergyAttachment')
+    stage += 2  if attacker.hasAttachment(Attachment.FocusEnergy)
     stage += attacker.item?.criticalModifier(battle, attacker) || 0
     stage
 

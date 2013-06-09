@@ -78,7 +78,7 @@ makeFlavorHealingBerry = (name, stat) ->
       if owner.natureBoost(stat) < 1.0
         # TODO: Replace with the real battle message.
         battle.message "The #{name} was bitter!"
-        owner.attach(new Attachment.Confusion({battle}))
+        owner.attach(Attachment.Confusion, {battle})
       owner.removeItem()
 
     @update = (battle, owner) ->
@@ -172,11 +172,10 @@ makeGemItem = (name, type) ->
 makeChoiceItem = (name) ->
   extendItem name, ->
     @initialize = (battle, pokemon) ->
-      attachment = new Attachment.ChoiceLock()
-      pokemon.attach(attachment)
+      pokemon.attach(Attachment.ChoiceLock)
 
     @deactivate = (pokemon) ->
-      pokemon.unattach("ChoiceLockAttachment")
+      pokemon.unattach(Attachment.ChoiceLock)
 
 makeWeatherItem = (name, weather) ->
   extendItem name, ->
@@ -208,17 +207,17 @@ makeDelayItem = (name) ->
 makeEvasionItem = (name, ratio=0.9) ->
   extendItem name, ->
     @initialize = (battle, pokemon) ->
-      pokemon.attach(new Attachment.EvasionItem({ratio}))
+      pokemon.attach(Attachment.EvasionItem, {ratio})
 
     @deactivate = (pokemon) ->
-      pokemon.unattach("EvasionItemAttachment")
+      pokemon.unattach(Attachment.EvasionItem)
 
 makeFlinchItem = (name) ->
   extendItem name, ->
     @afterSuccessfulHit = (battle, move, user, target, damage) ->
       if !move.hasFlag("flinch") && !move.isNonDamaging() &&
           battle.rng.next("flinch item chance") < .1
-        target.attach(new Attachment.Flinch())
+        target.attach(Attachment.Flinch)
 
 makeCriticalBoostItem = (name) ->
   extendItem name, ->
@@ -250,10 +249,10 @@ makeFlavorHealingBerry 'Aguav Berry', "specialDefense"
 extendItem 'Air Balloon', ->
   @initialize = (battle, pokemon) ->
     battle.message "#{pokemon.name} floats in the air with its #{@name}!"
-    pokemon.attach(new Attachment.AirBalloon())
+    pokemon.attach(Attachment.AirBalloon)
 
   @deactivate = (pokemon) ->
-    pokemon.unattach("AirBalloonAttachment")
+    pokemon.unattach(Attachment.AirBalloon)
 
 makeStatBoostBerry 'Apicot Berry', specialDefense: 1
 makeStatusCureBerry 'Aspear Berry', Status.FREEZE
@@ -374,7 +373,7 @@ makeDelayItem 'Lagging Tail'
 # TODO: What happens if the Pokemon already has Focus Energy?
 #       Does the berry still get eaten? Same goes for the other stat berries.
 makePinchBerry 'Lansat Berry', (battle, owner) ->
-  owner.attach(new Attachment.FocusEnergy())
+  owner.attach(Attachment.FocusEnergy)
 
 makeEvasionItem 'Lax Incense', 0.9
 
@@ -404,16 +403,16 @@ makePlateItem 'Meadow Plate', 'Grass'
 extendItem 'Mental Herb', ->
   @update = (battle, owner) ->
     for effectName in ['Attract','Taunt','Encore','Torment','Disable']
-      attachmentName = "#{effectName}Attachment"
-      if owner.hasAttachment(attachmentName)
-        owner.unattach(attachmentName)
+      attachment = Attachment[effectName]
+      if owner.hasAttachment(attachment)
+        owner.unattach(attachment)
         owner.removeItem()
         break
 
 makeTypeBoostItem 'Metal Coat', 'Steel'
 
 makePinchBerry 'Micle Berry', (battle, owner) ->
-  owner.attach(new Attachment.MicleBerry())
+  owner.attach(Attachment.MicleBerry)
 
 makePlateItem 'Mind Plate', 'Psychic'
 makeTypeBoostItem 'Miracle Seed', 'Grass'
@@ -574,11 +573,10 @@ extendItem 'Iron Ball', ->
     Math.floor(stat / 2)
 
   @initialize = (battle, pokemon) ->
-    attachment = new Attachment.IronBall()
-    pokemon.attach(attachment)
+    pokemon.attach(Attachment.IronBall)
 
   @deactivate = (pokemon) ->
-    pokemon.unattach("IronBallAttachment")
+    pokemon.unattach(Attachment.IronBall)
 
 extendItem 'Leppa Berry', ->
   @eat = (battle, owner) ->

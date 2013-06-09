@@ -43,7 +43,7 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
 
       hash = _.clone(options)
       hash.battle = battle
-      target.attach(new Klass(hash))
+      target.attach(Klass, hash)
 
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
@@ -70,7 +70,7 @@ extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
 
       hash = _.clone(options)
       hash.battle = battle
-      target.attach(new Klass(hash))
+      target.attach(Klass, hash)
 
 extendWithSecondaryStatus = (name, chance, status) ->
   extendMove name, ->
@@ -90,7 +90,7 @@ extendWithFangEffect = (name, chance, status, options) ->
         target.setStatus(status)
 
       if battle.rng.next("fang flinch") < chance
-        target.attach(new Attachment.Flinch(options))
+        target.attach(Attachment.Flinch)
 
 extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
@@ -323,9 +323,8 @@ makeTrappingMove = (name) ->
         else
           7
 
-        trap = new Attachment.Trap(user: user, moveName: name, turns: turns)
-        target.attach(trap)
-        user.attach(new Attachment.TrapLeash(trap: trap))
+        target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
+        user.attach(Attachment.TrapLeash, {target})
 
 extendWithDrain 'absorb'
 extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
@@ -340,12 +339,12 @@ makeStatusCureMove 'aromatherapy'
 
 extendMove 'attract', ->
   @use = (battle, user, target) ->
-    if target.hasAttachment("AttractAttachment") ||
+    if target.hasAttachment(Attachment.Attract) ||
         (!(user.gender == 'M' && target.gender == 'F') &&
          !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
       return
-    target.attach(new Attachment.Attract(source: user))
+    target.attach(Attachment.Attract, source: user)
 
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
@@ -527,7 +526,7 @@ extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
 makeRecoveryMove 'roost'
 extendMove 'roost', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    user.attach(new Attachment.Roost())
+    user.attach(Attachment.Roost)
 
 extendWithBoost 'sand-attack', 'target', accuracy: -1
 extendMove 'sacred-fire', -> @thawsUser = true
@@ -624,7 +623,7 @@ extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
 extendMove 'autotomize', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(new Attachment.Autotomize())
+    target.attach(Attachment.Autotomize)
 
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->
@@ -687,7 +686,7 @@ extendMove 'disable', ->
   @use = (battle, user, target) ->
     move = target.moves[0]
     turns = battle.rng.randInt(4, 7, "disable")
-    target.attach(new Attachment.Disable(move: move, turns: turns))
+    target.attach(Attachment.Disable, {move, turns})
     battle.message "#{target.name}'s #{move.name} was disabled!"
 
 extendMove 'dragon-rage', ->
@@ -707,14 +706,13 @@ extendMove 'encore', ->
       @fail(battle)
     else if target.lastMove.name of bannedMoves
       @fail(battle)
-    else if target.hasAttachment('EncoreAttachment')
-      @fail(battle)
     else if target.pp(target.lastMove) == 0
       @fail(battle)
-    else
-      target.attach(new Attachment.Encore())
+    else if target.attach(Attachment.Encore)
       if battle.willMove(target)
         battle.changeMove(target, target.lastMove)
+    else
+      @fail(battle)
 
 extendMove 'endeavor', ->
   @use = (battle, user, target, damage) ->
@@ -738,7 +736,7 @@ extendMove 'facade', ->
 
 extendMove 'flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(new Attachment.Confusion({battle}))
+    target.attach(Attachment.Confusion, {battle})
 
     boosts = {specialAttack: -2}
     boostedStats = target.boost(boosts)
@@ -909,7 +907,8 @@ extendMove 'metronome', ->
 extendMove 'nightmare', ->
   @use = (battle, user, target, damage) ->
     if target.hasStatus(Status.SLEEP)
-      target.attach(new Attachment.Nightmare)
+      # TODO: What if the Pokemon is already under Nightmare?
+      target.attach(Attachment.Nightmare)
     else
       @fail(battle)
 
@@ -932,7 +931,8 @@ extendMove 'psywave', ->
 extendMove 'perish-song', ->
   @execute = (battle, user, targets) ->
     battle.message "All Pokemon hearing the song will faint in three turns!"
-    _.each(targets, (p) -> p.attach(new Attachment.PerishSong()))
+    # TODO: What if all Pokemon already have Perish Song?
+    _.each(targets, (p) -> p.attach(Attachment.PerishSong))
 
 extendMove 'psych-up', ->
   @use = (battle, user, target) ->
@@ -943,25 +943,18 @@ extendMove 'psych-up', ->
 extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
-      if opponent.hasAttachment("SpikesAttachment")
-        spikes = opponent.getAttachment("SpikesAttachment")
-        if spikes.isAtMax()
-          @fail(battle)
-          return false
-        spikes.incrementLayers()
+      if opponent.attachToTeam(Attachment.Spikes)
+        battle.message "#{@name} were scattered all around #{opponent.username}'s team's feet!"
       else
-        opponent.attachToTeam(new Attachment.Spikes())
-      battle.message "#{@name} were scattered all around #{opponent.username}'s team's feet!"
+        @fail(battle)
 
 extendMove 'stealth-rock', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
-      if opponent.hasAttachment("StealthRockAttachment")
+      if opponent.attachToTeam(Attachment.StealthRock)
+        battle.message "Pointed stones float in the air around #{opponent.username}'s team!"
+      else
         @fail(battle)
-        return false
-
-      opponent.attachToTeam(new Attachment.StealthRock())
-      battle.message "Pointed stones float in the air around #{opponent.username}'s team!"
 
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
@@ -970,7 +963,7 @@ extendMove 'splash', ->
 
 extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(new Attachment.Confusion({battle}))
+    target.attach(Attachment.Confusion, {battle})
     boosts = {attack: -2}
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)
@@ -985,8 +978,10 @@ extendMove 'synchronoise', ->
 
 extendMove 'taunt', ->
   @use = (battle, user, target) ->
-    battle.message "#{target.name} fell for the taunt!"
-    target.attach(new Attachment.Taunt(battle))
+    if target.attach(Attachment.Taunt, battle)
+      battle.message "#{target.name} fell for the taunt!"
+    else
+      @fail(battle)
 
 extendMove 'techno-blast', ->
   @getType = (battle, user, target) ->
@@ -1002,23 +997,19 @@ extendMove 'techno-blast', ->
 
 extendMove 'torment', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if !target.hasAttachment("TormentAttachment")
-      target.attach(new Attachment.Torment())
+    if target.attach(Attachment.Torment)
+      # TODO: Real message
+      battle.message "#{target.name} fell under Torment!"
     else
       @fail(battle)
 
 extendMove 'toxic-spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
-      if opponent.hasAttachment("ToxicSpikesAttachment")
-        spikes = opponent.getAttachment("ToxicSpikesAttachment")
-        if spikes.isAtMax()
-          @fail(battle)
-          return false
-        spikes.incrementLayers()
+      if opponent.attachToTeam(Attachment.ToxicSpikes)
+        battle.message "Poison spikes were scattered all around #{opponent.username}'s team's feet!"
       else
-        opponent.attachToTeam(new Attachment.ToxicSpikes())
-      battle.message "Poison spikes were scattered all around #{opponent.username}'s team's feet!"
+        @fail(battle)
 
 extendMove 'trump-card', ->
   @basePower = (battle, user, target) ->
@@ -1064,16 +1055,23 @@ extendMove 'weather-ball', ->
 extendMove 'wish', ->
   @execute = (battle, user, targets) ->
     team = battle.getOwner(user).team
-    battle.attachToTeam(user, new Attachment.Wish({user, team}))
+    if team.attach(Attachment.Wish, {user})
+      # TODO: Real message
+      battle.message "#{user.name} made a wish!"
+    else
+      @fail(battle)
 
 extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate
-  # TODO: Fail if the pokemon is already tired
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
   @use = (battle, user, target) ->
-    target.attach(new Attachment.Yawn())
+    if target.attach(Attachment.Yawn)
+      # TODO: Real message
+      battle.message "#{target.name} began yawning!"
+    else
+      @fail(battle)
 
 for moveName in [ 'bone-club', 'dark-pulse', 'dragon-rush', 'extrasensory',
                   'fake-out', 'fire-fang', 'headbutt', 'heart-stamp',
