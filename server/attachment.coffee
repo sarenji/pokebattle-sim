@@ -26,12 +26,7 @@ class @Attachments
     @attachments.splice(index, 1)
 
   indexOf: (attachment) =>
-    if typeof attachment == 'string'
-      @map((a) -> a.name).indexOf(attachment)
-    else if typeof attachment == 'function'
-      @map((a) -> a.constructor).indexOf(attachment)
-    else
-      @attachments.indexOf(attachment)
+    @attachments.map((a) -> a.constructor).indexOf(attachment)
 
   get: (attachment) =>
     @attachments[@indexOf(attachment)]
@@ -64,8 +59,6 @@ class @Attachments
     for attachment in _.clone(@attachments)
       result = attachment[funcName](result)
     result
-
-  map: => @attachments.map(arguments...)
 
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.

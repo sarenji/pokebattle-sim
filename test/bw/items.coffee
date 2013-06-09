@@ -522,7 +522,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @team1.first().hasAttachment(Attachment.Confusion.name).should.be.true
+      @team1.first().hasAttachment(Attachment.Confusion).should.be.true
 
   describe "a healing berry", ->
     it "restores a variable number of HP when owner is at 50% HP or under", ->

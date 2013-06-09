@@ -36,7 +36,7 @@ extendMove = (name, callback) ->
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      if target.hasAttachment(Klass.name)
+      if target.hasAttachment(Klass)
         # TODO: Placeholder
         @fail(battle)
         return

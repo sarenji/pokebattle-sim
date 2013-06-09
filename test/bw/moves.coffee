@@ -1618,7 +1618,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Swagger")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
+      @team2.first().hasAttachment(Attachment.Confusion).should.be.true
 
     it "boosts the target's attack by two stages", ->
       shared.create.call(this)
@@ -1635,7 +1635,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Flatter")
       @controller.makeMove(@player2, "Splash")
 
-      @team2.first().hasAttachment(VolatileStatus.CONFUSION).should.be.true
+      @team2.first().hasAttachment(Attachment.Confusion).should.be.true
 
     it "boosts the target's special attack by two stages", ->
       shared.create.call(this)
