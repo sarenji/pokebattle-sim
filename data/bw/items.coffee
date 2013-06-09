@@ -376,6 +376,9 @@ extendItem 'Life Orb', ->
 makeStatusCureBerry 'Lum Berry', Status.PARALYZE, Status.SLEEP, Status.POISON,
   Status.TOXIC, Status.BURN, Status.FREEZE, Attachment.Confusion
 makeOrbItem 'Lustrous Orb', 'Palkia'
+extendItem 'Macho Brace', ->
+  @modifySpeed = (stat, pokemon) ->
+    Math.floor(stat / 2)
 makeTypeBoostItem 'Magnet', 'Electric'
 makeFlavorHealingBerry 'Mago Berry', "speed"
 makePlateItem 'Meadow Plate', 'Grass'

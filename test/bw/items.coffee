@@ -1088,3 +1088,11 @@ shared = require '../shared'
 
   testDelayItem 'Full Incense'
   testDelayItem 'Lagging Tail'
+
+  describe "Macho Brace", ->
+    it "halves the owner's speed", ->
+      shared.create.call(this)
+
+      speed = @team1.first().stat('speed')
+      @team1.first().setItem(@battle, items["Macho Brace"])
+      @team1.first().stat('speed').should.equal Math.floor(speed / 2)
