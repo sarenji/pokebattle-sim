@@ -265,6 +265,9 @@ class @Pokemon
     options.pokemon = this
     @attachments.push(attachment, options)
 
+  findAttachment: (attachment) =>
+    @attachments.get(attachment)
+
   # Removes an attachment from the list of attachment
   unattach: (klass) =>
     attachment = @attachments.unattach(klass)

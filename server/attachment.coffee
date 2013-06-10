@@ -492,3 +492,12 @@ class @Attachment.EvasionItem extends @VolatileAttachment
 
   editEvasion: (accuracy) =>
     Math.floor(accuracy * @ratio)
+
+class @Attachment.Metronome extends @VolatileAttachment
+  name: "MetronomeAttachment"
+
+  maxLayers: 5
+
+  constructor: (attributes={}) ->
+    super()
+    {@move} = attributes

@@ -1275,3 +1275,57 @@ shared = require '../shared'
 
       moves['tackle'].chanceToHit(@battle, @team1.first(), @team2.first())
         .should.equal Math.floor(moves['tackle'].accuracy * 1.1)
+
+  describe "Metronome", ->
+    it "has a base power of x1.0 the first time a Pokemon uses a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Metronome")]
+
+      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+        @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1000
+
+    it "has a base power of x1.2 the second time a Pokemon uses a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Metronome")]
+
+      @battle.performMove(@id1, moves['tackle'])
+      @battle.endTurn()
+
+      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+        @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1333
+
+    it "has a base power of x2.0 the sixth time a Pokemon uses a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Metronome")]
+
+      for i in [1..5]
+        @battle.performMove(@id1, moves['tackle'])
+        @battle.endTurn()
+
+      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+        @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1FFF
+
+    it "has a base power of x2.0 further times a Pokemon uses a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Metronome")]
+
+      for i in [1..6]
+        @battle.performMove(@id1, moves['tackle'])
+        @battle.endTurn()
+
+      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+        @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1FFF
+
+    it "resets base power multiplier to x1.0 on a different move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Metronome")]
+
+      @battle.performMove(@id1, moves['tackle'])
+
+      modifier = items['Metronome'].basePowerModifier(moves['splash'],
+        @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1000
