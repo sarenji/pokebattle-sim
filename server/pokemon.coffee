@@ -285,7 +285,7 @@ class @Pokemon
 
   # Blocks a switch for a single turn
   blockSwitch: =>
-    @switchBlocked = true
+    @switchBlocked = true  unless @hasItem("Shed Shell")
 
   # Locks the Pokemon into a single move. Does not limit switches.
   lockMove: (moveToLock) =>

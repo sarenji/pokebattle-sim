@@ -2,6 +2,7 @@ sinon = require 'sinon'
 {items, moves} = require('../../data/bw')
 {basePowerModifier, attackStatModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
+{Pokemon} = require '../../server/pokemon'
 {Attachment} = require '../../server/attachment'
 {Factory} = require '../factory'
 should = require 'should'
@@ -1329,3 +1330,9 @@ shared = require '../shared'
       modifier = items['Metronome'].basePowerModifier(moves['splash'],
         @battle, @team1.first(), @team2.first())
       modifier.should.equal 0x1000
+
+  describe "Shed Shell", ->
+    it "prevents blocking switches", ->
+      pokemon = new Pokemon(item: "Shed Shell")
+      pokemon.blockSwitch()
+      pokemon.isSwitchBlocked().should.be.false
