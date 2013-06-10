@@ -97,8 +97,9 @@ extendWithDrain = (name, drainPercent=.5) ->
     oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
       amount = Math.floor(damage * drainPercent)
-      user.damage(-amount)
+      user.drain(amount)
       # TODO: Message after drain
+      battle.message "#{user.name} absorbed some HP!"
       oldFunc.call(this, battle, user, target, damage)
 
 extendWithRecoil = (name, recoilPercent=1/3) ->

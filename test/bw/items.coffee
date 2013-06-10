@@ -5,6 +5,7 @@ sinon = require 'sinon'
 {Pokemon} = require '../../server/pokemon'
 {Attachment} = require '../../server/attachment'
 {Factory} = require '../factory'
+util = require '../../server/util'
 should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
@@ -1336,3 +1337,20 @@ shared = require '../shared'
       pokemon = new Pokemon(item: "Shed Shell")
       pokemon.blockSwitch()
       pokemon.isSwitchBlocked().should.be.false
+
+  describe "Big Root", ->
+    it "boosts draining move recovery", ->
+      shared.create.call this,
+        team1: [Factory('Conkeldurr', item: "Big Root")]
+        team2: [Factory('Hitmonchan')]
+      startHP = 1
+      @team1.first().currentHP = startHP
+      hp = @team2.first().currentHP
+      @battle.performMove(@id1, moves['drain-punch'])
+      damage = (hp - @team2.first().currentHP)
+      amount = util.roundHalfDown(Math.floor(damage / 2) * 1.3)
+      (@team1.first().currentHP - startHP).should.equal(amount)
+
+    it "boosts Leech Seed recovery"
+    it "boosts Ingrain recovery"
+    it "boosts Aqua Ring recovery"

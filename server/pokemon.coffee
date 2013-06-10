@@ -186,6 +186,10 @@ class @Pokemon
   damage: (amount) =>
     @setHP(@currentHP - amount)
 
+  drain: (amount) =>
+    amount = @editDrain(amount)
+    @damage(-amount)
+
   editDamage: (battle, move, damage) =>
     damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
     damage
@@ -198,6 +202,10 @@ class @Pokemon
   editEvasion: (accuracy) =>
     accuracy = @attachments.queryChain('editEvasion', accuracy)
     accuracy
+
+  editDrain: (amount) =>
+    amount = @item.editDrain(amount)  if @hasItem() && @item.editDrain?
+    amount
 
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)

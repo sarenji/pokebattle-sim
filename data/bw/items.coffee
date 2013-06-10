@@ -258,6 +258,11 @@ makeStatBoostBerry 'Apicot Berry', specialDefense: 1
 makeStatusCureBerry 'Aspear Berry', Status.FREEZE
 makeTypeResistBerry 'Babiri Berry', 'Steel'
 makeHealingBerry 'Berry Juice', -> 20
+
+extendItem 'Big Root', ->
+  @editDrain = (amount) ->
+    util.roundHalfDown(amount * 1.3)
+
 makeTypeBoostItem 'Black Belt', 'Fighting'
 makeTypeBoostItem 'BlackGlasses', 'Dark'
 
