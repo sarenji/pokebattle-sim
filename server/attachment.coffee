@@ -508,7 +508,7 @@ class @Attachment.Screen extends @TeamAttachment
   constructor: (attributes={}) ->
     super(attributes)
     {user} = attributes
-    @turns = 5
+    @turns = (if user?.hasItem("Light Clay") then 8 else 5)
 
   endTurn: (battle) =>
     @turns--

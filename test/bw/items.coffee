@@ -1354,3 +1354,14 @@ shared = require '../shared'
     it "boosts Leech Seed recovery"
     it "boosts Ingrain recovery"
     it "boosts Aqua Ring recovery"
+
+  describe "Light Clay", ->
+    it "boosts the Reflect/Light Screen turns to 8", ->
+      shared.create.call(this, team1: [Factory('Magikarp', item: "Light Clay")])
+
+      @battle.performMove(@id1, moves['reflect'])
+
+      for i in [1..8]
+        @team1.hasAttachment(Attachment.Reflect).should.be.true
+        @battle.endTurn()
+      @team1.hasAttachment(Attachment.Reflect).should.be.false
