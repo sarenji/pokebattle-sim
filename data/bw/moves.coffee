@@ -812,6 +812,14 @@ extendMove 'knock-off', ->
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().name}!"
       target.removeItem()
 
+extendMove 'light-screen', ->
+  @execute = (battle, user, opponents) ->
+    {team} = battle.getOwner(user)
+    if team.attach(Attachment.LightScreen, {user})
+      battle.message "A screen came up!"
+    else
+      @fail(battle)
+
 extendMove 'magnitude', ->
   @basePower = (battle, user, target) ->
     rand = battle.rng.randInt(0, 99, "magnitude")
@@ -941,6 +949,14 @@ extendMove 'psych-up', ->
     for stage, value of target.stages
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
+
+extendMove 'reflect', ->
+  @execute = (battle, user, opponents) ->
+    {team} = battle.getOwner(user)
+    if team.attach(Attachment.Reflect, {user})
+      battle.message "A screen came up!"
+    else
+      @fail(battle)
 
 extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->

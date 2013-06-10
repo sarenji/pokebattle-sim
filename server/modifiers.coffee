@@ -1,12 +1,24 @@
 {ModifierChain} = require './modifier_chain'
 {Status} = require './status'
+{Attachment} = require './attachment'
 
 # TODO: Pass in an array of things with basePowerModifier defined instead.
 
 @finalModifier = finalModifier = new ModifierChain()
 
-# TODO: Reflect modifier.
-# TODO: Light Screen modifier.
+# Reflect modifier.
+finalModifier.add 10, (move, battle, user, target) ->
+  team = battle.getOwner(target).team
+  if team.hasAttachment(Attachment.Reflect) && move.isPhysical()
+    return 0x800
+  return 0x1000
+
+# Light Screen modifier.
+finalModifier.add 10, (move, battle, user, target) ->
+  team = battle.getOwner(target).team
+  if team.hasAttachment(Attachment.LightScreen) && move.isSpecial()
+    return 0x800
+  return 0x1000
 
 # Multiscale modifier.
 finalModifier.add 30, (move, battle, user, target) ->

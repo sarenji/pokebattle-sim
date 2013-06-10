@@ -501,3 +501,22 @@ class @Attachment.Metronome extends @VolatileAttachment
   constructor: (attributes={}) ->
     super()
     {@move} = attributes
+
+class @Attachment.Screen extends @TeamAttachment
+  name: "ScreenAttachment"
+
+  constructor: (attributes={}) ->
+    super(attributes)
+    {user} = attributes
+    @turns = 5
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      @remove()
+
+class @Attachment.Reflect extends @Attachment.Screen
+  name: "ReflectAttachment"
+
+class @Attachment.LightScreen extends @Attachment.Screen
+  name: "LightScreenAttachment"

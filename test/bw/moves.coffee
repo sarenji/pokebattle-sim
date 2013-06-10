@@ -2,6 +2,7 @@ sinon = require 'sinon'
 {moves} = require('../../data/bw')
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
+{finalModifier} = require '../../server/modifiers'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -2233,6 +2234,90 @@ shared = require '../shared'
 
       @controller.makeMove(@player1, 'Attract')
       @controller.makeMove(@player2, 'Splash')
+
+      mock.restore()
+      mock.verify()
+
+  describe "Reflect", ->
+    it "halves physical damage", ->
+      shared.create.call(this)
+      move = moves['tackle']
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+      @team2.attach(Attachment.Reflect)
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x800
+
+    it "does not halve non-physical damage", ->
+      shared.create.call(this)
+      move = moves['thundershock']
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+      @team2.attach(Attachment.Reflect)
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+    it "lasts five turns", ->
+      shared.create.call(this)
+
+      @battle.performMove(@id1, moves['reflect'])
+
+      for i in [1..5]
+        @team1.hasAttachment(Attachment.Reflect).should.be.true
+        @battle.endTurn()
+      @team1.hasAttachment(Attachment.Reflect).should.be.false
+
+    it "fails if the user already used it", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['reflect'])
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, moves['reflect'])
+      @battle.performMove(@id1, moves['reflect'])
+
+      mock.restore()
+      mock.verify()
+
+  describe "Light Screen", ->
+    it "halves special damage", ->
+      shared.create.call(this)
+      move = moves['thundershock']
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+      @team2.attach(Attachment.LightScreen)
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x800
+
+    it "does not halve non-physical damage", ->
+      shared.create.call(this)
+      move = moves['tackle']
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+      @team2.attach(Attachment.LightScreen)
+      mod = finalModifier.run(move, @battle, @team1.first(), @team2.first())
+      mod.should.equal 0x1000
+
+    it "lasts five turns", ->
+      shared.create.call(this)
+
+      @battle.performMove(@id1, moves['light-screen'])
+
+      for i in [1..5]
+        @team1.hasAttachment(Attachment.LightScreen).should.be.true
+        @battle.endTurn()
+      @team1.hasAttachment(Attachment.LightScreen).should.be.false
+
+    it "fails if the user already used it", ->
+      shared.create.call(this)
+      mock = sinon.mock(moves['light-screen'])
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, moves['light-screen'])
+      @battle.performMove(@id1, moves['light-screen'])
 
       mock.restore()
       mock.verify()
