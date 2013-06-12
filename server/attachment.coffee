@@ -21,6 +21,7 @@ class @Attachments
     attachment.layers++
     return true
 
+  # todo: should call Attachment#remove() somehow without causing infinite recursion
   unattach: (attachment) =>
     index = @indexOf(attachment)
     @attachments.splice(index, 1)

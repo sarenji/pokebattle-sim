@@ -950,6 +950,28 @@ extendMove 'psych-up', ->
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
+extendMove 'rapid-spin', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    # todo: do not remove anything if the user is fainted. The problem is that recoil
+    # happens during "afterSuccessfulHit", which creates priority issues.
+
+    owner = battle.getOwner(user)
+    team = owner.team
+
+    # Remove any entry hazards
+    entryHazards = [Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes]
+
+    hazardRemoved = false
+    for hazard in entryHazards
+      if team.unattach(hazard)
+        hazardRemoved = true
+
+    if hazardRemoved
+      battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
+
+    # Remove trapping moves like fire-spin
+    user.findAttachment(Attachment.Trap)?.remove()
+
 extendMove 'reflect', ->
   @execute = (battle, user, opponents) ->
     {team} = battle.getOwner(user)

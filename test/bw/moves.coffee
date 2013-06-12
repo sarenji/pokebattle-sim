@@ -2167,8 +2167,6 @@ shared = require '../shared'
 
         @team2.first().hasAttachment(Attachment.Trap).should.be.false
 
-      it "is removed by rapid spin"
-
   testTrappingMove "Bind"
   testTrappingMove "Clamp"
   testTrappingMove "Fire Spin"
@@ -2321,3 +2319,66 @@ shared = require '../shared'
 
       mock.restore()
       mock.verify()
+
+  describe "Rapid Spin", ->
+    it "removes spikes", ->
+      shared.create.call this
+
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.endTurn()
+
+      @team2.hasAttachment(Attachment.Spikes).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.endTurn()
+      @team2.hasAttachment(Attachment.Spikes).should.be.false
+
+    it "removes stealth rock", ->
+      shared.create.call this
+
+      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @battle.endTurn()
+
+      @team2.hasAttachment(Attachment.StealthRock).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.endTurn()
+      @team2.hasAttachment(Attachment.StealthRock).should.be.false
+
+    it "removes toxic spikes", ->
+      shared.create.call this
+
+      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @battle.endTurn()
+
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.endTurn()
+      @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
+
+    it "removes multiple layers of entry hazards", ->
+      shared.create.call this
+
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.endTurn()
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.endTurn()
+
+      @team2.hasAttachment(Attachment.Spikes).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.endTurn()
+      @team2.hasAttachment(Attachment.Spikes).should.be.false
+
+    it "removes trapping moves", ->
+      shared.create.call this
+
+      @battle.performMove(@id1, @battle.getMove("Fire Spin"))
+      @battle.endTurn()
+
+      @team2.first().hasAttachment(Attachment.Trap).should.be.true
+      @team1.first().hasAttachment(Attachment.TrapLeash).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.endTurn()
+      @team2.first().hasAttachment(Attachment.Trap).should.be.false
+      @team1.first().hasAttachment(Attachment.TrapLeash).should.be.false
+
+    it "does not remove entry hazards if the user faints from rough skin"
+    it "does not remove entry hazards if the user faints from recoil"
