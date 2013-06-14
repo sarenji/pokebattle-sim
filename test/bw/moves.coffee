@@ -2325,60 +2325,59 @@ shared = require '../shared'
       shared.create.call this
 
       @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.endTurn()
-
       @team2.hasAttachment(Attachment.Spikes).should.be.true
+
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-      @battle.endTurn()
       @team2.hasAttachment(Attachment.Spikes).should.be.false
 
     it "removes stealth rock", ->
       shared.create.call this
 
       @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
-      @battle.endTurn()
-
       @team2.hasAttachment(Attachment.StealthRock).should.be.true
+
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-      @battle.endTurn()
       @team2.hasAttachment(Attachment.StealthRock).should.be.false
 
     it "removes toxic spikes", ->
       shared.create.call this
 
       @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.endTurn()
-
       @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
+
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-      @battle.endTurn()
       @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
 
     it "removes multiple layers of entry hazards", ->
       shared.create.call this
 
       @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.endTurn()
       @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.endTurn()
-
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
       @team2.hasAttachment(Attachment.Spikes).should.be.true
+
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-      @battle.endTurn()
       @team2.hasAttachment(Attachment.Spikes).should.be.false
 
     it "removes trapping moves", ->
       shared.create.call this
 
       @battle.performMove(@id1, @battle.getMove("Fire Spin"))
-      @battle.endTurn()
 
       @team2.first().hasAttachment(Attachment.Trap).should.be.true
       @team1.first().hasAttachment(Attachment.TrapLeash).should.be.true
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-      @battle.endTurn()
       @team2.first().hasAttachment(Attachment.Trap).should.be.false
       @team1.first().hasAttachment(Attachment.TrapLeash).should.be.false
 
+    it "removes leech seed"
     it "does not remove entry hazards if the user faints from rough skin"
-    it "does not remove entry hazards if the user faints from recoil"
+
+    it "does not remove entry hazards if the user faints from life orb", ->
+      shared.create.call(this, team2: [Factory("Magikarp", item: "Life Orb")])
+
+      @team2.first().currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+
+      @team2.hasAttachment(Attachment.Spikes).should.be.true

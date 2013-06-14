@@ -952,8 +952,9 @@ extendMove 'psych-up', ->
 
 extendMove 'rapid-spin', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    # todo: do not remove anything if the user is fainted. The problem is that recoil
-    # happens during "afterSuccessfulHit", which creates priority issues.
+    # Do not remove anything if the user is fainted.
+    if user.isFainted()
+      return
 
     owner = battle.getOwner(user)
     team = owner.team
@@ -970,7 +971,12 @@ extendMove 'rapid-spin', ->
       battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
 
     # Remove trapping moves like fire-spin
-    user.findAttachment(Attachment.Trap)?.remove()
+    trap = user.findAttachment(Attachment.Trap)
+    if trap
+      battle.message "#{user.name} was freed from #{trap.moveName}!"
+      trap.remove()
+
+    # Todo: Remove leech seed once leech seed is implemented
 
 extendMove 'reflect', ->
   @execute = (battle, user, opponents) ->
