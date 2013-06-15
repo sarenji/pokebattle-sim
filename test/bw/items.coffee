@@ -228,7 +228,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      stub = sinon.stub(moves['ember'], 'calculateDamage', -> 9999)
+      stub = sinon.stub(moves['ember'], 'baseDamage', -> 9999)
 
       @controller.makeMove(@player1, 'Ember')
       @controller.makeMove(@player2, 'Splash')

@@ -198,7 +198,9 @@ makeWeatherRecoveryMove = (name) ->
 
 makeTrickMove = (name) ->
   extendMove name, ->
-    @use = (battle, user, target) ->
+    @use = ->
+
+    @afterSuccessfulHit = (battle, user, target) ->
       # TODO: Fail message
       return false  unless user.hasItem() && target.hasItem()
       return false  if target.hasAbility('Sticky Hold')
@@ -269,10 +271,8 @@ makeWeatherMove = (name, weatherType) ->
 extendWithBoost = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
-    oldUse = @use
-    @use = (battle, user, target, damage) ->
-      if oldUse(battle, user, target, damage) != false
-        applyBoosts(battle, user, target, damage)
+    @afterSuccessfulHit = (battle, user, target) ->
+      applyBoosts(battle, user, target)
 
 extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
@@ -307,8 +307,10 @@ makeCounterMove = (name, multiplier, applies) ->
         []
       else
         [ battle.rng.choice(pokemon) ]
+
+    @calculateDamage = -> 0
   
-    @use = (battle, user, target) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       hit = user.lastHitBy
       if hit? && applies(hit.move) && hit.turn == battle.turn
         target.damage(multiplier * hit.damage)
@@ -339,7 +341,7 @@ extendWithSecondaryBoost 'ancientpower', 'self', .1, {
 makeStatusCureMove 'aromatherapy'
 
 extendMove 'attract', ->
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.hasAttachment(Attachment.Attract) ||
         (!(user.gender == 'M' && target.gender == 'F') &&
          !(user.gender == 'F' && target.gender == 'M'))
@@ -644,7 +646,7 @@ extendMove 'acupressure', ->
       return false
 
 extendMove 'belly-drum', ->
-  @use = (battle, user, target, damage) ->
+  @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)
     if user.currentHP > halfHP
       user.damage(halfHP)
@@ -685,7 +687,7 @@ extendMove 'disable', ->
   # TODO: Fail if the pokemon is already disabled?
   # TODO: Does this stack with cursed body?
   # TODO: Does it disable a move if it's the only one?
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     move = target.moves[0]
     turns = battle.rng.randInt(4, 7, "disable")
     target.attach(Attachment.Disable, {move, turns})
@@ -703,7 +705,7 @@ extendMove 'encore', ->
     'sketch': true
     'struggle': true
     'transform': true
-  @use = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if !target.lastMove?
       @fail(battle)
     else if target.lastMove.name of bannedMoves
@@ -717,17 +719,12 @@ extendMove 'encore', ->
       @fail(battle)
 
 extendMove 'endeavor', ->
-  @use = (battle, user, target, damage) ->
-    type = @getType(battle, user, target)
-    if target.isImmune(battle, type)
-      battle.message "But it doesn't affect #{target.name}..."
-      return false
-
-    if target.currentHP >= user.currentHP
-      target.currentHP = user.currentHP
+  @calculateDamage = (battle, user, target) ->
+    if target.currentHP > user.currentHP
+      target.currentHP - user.currentHP
     else
       @fail(battle)
-      return false
+      false
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->
@@ -757,7 +754,7 @@ extendMove 'haze', ->
     battle.message "All stat changes were eliminated!"
 
 extendMove 'heart-swap', ->
-  @use = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     [user.stages, target.stages] = [target.stages, user.stages]
 
 extendMove 'hex', ->
@@ -851,7 +848,7 @@ extendMove 'magnitude', ->
     power
 
 extendMove 'memento', ->
-  @use = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     user.currentHP = 0
     boosts = {attack: -2, specialAttack: -2}
     boostedStats = target.boost(boosts)
@@ -915,7 +912,7 @@ extendMove 'metronome', ->
     move.execute(battle, user, targets)
 
 extendMove 'nightmare', ->
-  @use = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.hasStatus(Status.SLEEP)
       # TODO: What if the Pokemon is already under Nightmare?
       target.attach(Attachment.Nightmare)
@@ -1016,14 +1013,14 @@ extendMove 'swagger', ->
 
 extendMove 'synchronoise', ->
   oldUse = @use
-  @use = (battle, user, target, damage) ->
+  @use = (battle, user, target) ->
     if _.every(user.types, (type) -> type not in target.types)
       @fail(battle)
       return false
-    return oldUse(battle, user, target, damage)
+    return oldUse(battle, user, target)
 
 extendMove 'taunt', ->
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Taunt, battle)
       battle.message "#{target.name} fell for the taunt!"
     else
@@ -1112,7 +1109,7 @@ extendMove 'yawn', ->
   # TODO: Fail if safeguard is activate
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Yawn)
       # TODO: Real message
       battle.message "#{target.name} began yawning!"

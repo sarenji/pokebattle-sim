@@ -14,14 +14,12 @@ shared = require '../shared'
 
   describe 'jump kick attacks', ->
     it 'has 50% recoil if it misses', ->
-      shared.create.call this,
-        team1: [Factory('Hitmonlee')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       move = moves['hi-jump-kick']
       shared.biasRNG.call(this, "randInt", 'miss', 100)
       originalHP = @team1.at(0).currentHP
       @battle.performMove(@id1, move)
-      damage = 312
+      damage = move.calculateDamage(@battle, @team1.first(), @team2.first())
       (originalHP - @team1.at(0).currentHP).should.equal Math.floor(damage / 2)
 
   describe 'drain attacks', ->
@@ -742,40 +740,27 @@ shared = require '../shared'
       @team1.at(0).isFainted().should.be.false
 
   describe 'endeavor', ->
-    shared.shouldDoNoDamage('Endeavor')
-
     it "brings the target's hp down to the user's hp", ->
-      shared.create.call this,
-        team1: [Factory('Politoed')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       hp = 4
-      @team1.at(0).currentHP = hp
-
-      @controller.makeMove(@player1, 'Endeavor')
-      @controller.makeMove(@player2, 'Splash')
-
-      @team2.at(0).currentHP.should.equal hp
+      @team1.first().currentHP = hp
+      @battle.performMove(@id1, @battle.getMove('Endeavor'))
+      @team2.first().currentHP.should.equal hp
 
     it "fails if the target's hp is less than the user's hp", ->
-      shared.create.call this,
-        team1: [Factory('Politoed')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       hp = 4
-      @team2.at(0).currentHP = hp
-      @controller.makeMove(@player1, 'Endeavor')
-      @controller.makeMove(@player2, 'Splash')
-
-      @team2.at(0).currentHP.should.equal hp
+      @team2.first().currentHP = hp
+      @battle.performMove(@id1, @battle.getMove('Endeavor'))
+      @team2.first().currentHP.should.equal hp
 
     it "doesn't hit ghost pokemon", ->
       shared.create.call this,
         team1: [Factory('Politoed')]
         team2: [Factory('Gengar')]
-      @team1.at(0).currentHP = 1
-      @controller.makeMove(@player1, 'Endeavor')
-      @controller.makeMove(@player2, 'Dragon Dance')
-
-      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+      @team1.first().currentHP = 1
+      @battle.performMove(@id1, @battle.getMove('Endeavor'))
+      @team2.first().currentHP.should.equal @team2.at(0).stat('hp')
 
   describe 'a thief move', ->
     it "should steal the target's item", ->

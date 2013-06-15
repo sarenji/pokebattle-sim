@@ -42,14 +42,13 @@ class @Move
       return
 
     for target in targets
-      damage = @calculateDamage(battle, user, target)
-      if @willMiss(battle, user, target)
-        @afterMiss(battle, user, target, damage)
-        continue
-
-      damage = target.editDamage(battle, this, damage)
-      damage = Math.min(target.currentHP, damage)
-      if @use(battle, user, target, damage) != false
+      if @use(battle, user, target) != false
+        damage = @calculateDamage(battle, user, target)
+        continue  if damage == false
+        if damage > 0
+          # TODO: Print out opponent's name alongside the pokemon.
+          battle.message "#{target.name} took #{damage} damage!"
+          target.damage(damage)
         target.afterBeingHit(battle, this, user, target, damage)
         user.afterSuccessfulHit(battle, this, user, target, damage)
         @afterSuccessfulHit(battle, user, target, damage)
@@ -59,19 +58,18 @@ class @Move
           if pokemon.isFainted()
             pokemon.faint(battle)
 
-  # A hook with a default implementation of returning false on a type immunity,
-  # otherwise dealing damage.
+  # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
-  use: (battle, user, target, damage) =>
+  use: (battle, user, target) =>
+    if @willMiss(battle, user, target)
+      damage = @calculateDamage(battle, user, target)
+      @afterMiss(battle, user, target, damage)
+      return false
+
     type = @getType(battle, user, target)
     if target.isImmune(battle, type)
       battle.message "But it doesn't affect #{target.name}..."
       return false
-
-    if damage > 0
-      # TODO: Print out opponent's name alongside the pokemon.
-      battle.message "#{target.name} took #{damage} damage!"
-      target.damage(damage)
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
@@ -102,6 +100,8 @@ class @Move
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, finalModifier.run(this, battle, user, target))
+    damage = target.editDamage(battle, this, damage)
+    damage = Math.min(target.currentHP, damage)
     damage
 
   willMiss: (battle, user, target) =>
