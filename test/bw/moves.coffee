@@ -2433,3 +2433,17 @@ shared = require '../shared'
       @battle.performMove(@id1, moves['brick-break'])
       @team2.hasAttachment(Attachment.Reflect).should.be.true
       @team2.hasAttachment(Attachment.LightScreen).should.be.true
+
+  describe "Return", ->
+    it "has 102 base power", ->
+      shared.create.call(this)
+      move = @battle.getMove("Return")
+      bp = move.basePower(@battle, @team1.first(), @team2.first())
+      bp.should.equal 102
+
+  describe "Frustration", ->
+    it "has 102 base power", ->
+      shared.create.call(this)
+      move = @battle.getMove("Frustration")
+      bp = move.basePower(@battle, @team1.first(), @team2.first())
+      bp.should.equal 102

@@ -752,6 +752,9 @@ extendMove 'flatter', ->
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
+extendMove 'frustration', ->
+  @basePower = -> 102
+
 extendMove 'gyro-ball', ->
   @basePower = (battle, user, target) ->
     power = 1 + Math.floor(25 * target.stat('speed') / user.stat('speed'))
@@ -993,6 +996,9 @@ extendMove 'reflect', ->
       battle.message "A screen came up!"
     else
       @fail(battle)
+
+extendMove 'return', ->
+  @basePower = -> 102
 
 extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->
