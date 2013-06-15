@@ -950,6 +950,34 @@ extendMove 'psych-up', ->
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
+extendMove 'rapid-spin', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    # Do not remove anything if the user is fainted.
+    if user.isFainted()
+      return
+
+    owner = battle.getOwner(user)
+    team = owner.team
+
+    # Remove any entry hazards
+    entryHazards = [Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes]
+
+    hazardRemoved = false
+    for hazard in entryHazards
+      if team.unattach(hazard)
+        hazardRemoved = true
+
+    if hazardRemoved
+      battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
+
+    # Remove trapping moves like fire-spin
+    trap = user.findAttachment(Attachment.Trap)
+    if trap
+      battle.message "#{user.name} was freed from #{trap.moveName}!"
+      trap.remove()
+
+    # Todo: Remove leech seed once leech seed is implemented
+
 extendMove 'reflect', ->
   @execute = (battle, user, opponents) ->
     {team} = battle.getOwner(user)

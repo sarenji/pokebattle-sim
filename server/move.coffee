@@ -50,9 +50,9 @@ class @Move
       damage = target.editDamage(battle, this, damage)
       damage = Math.min(target.currentHP, damage)
       if @use(battle, user, target, damage) != false
-        @afterSuccessfulHit(battle, user, target, damage)
         target.afterBeingHit(battle, this, user, target, damage)
         user.afterSuccessfulHit(battle, this, user, target, damage)
+        @afterSuccessfulHit(battle, user, target, damage)
         target.recordHit(user, damage, this, battle.turn)
         # TODO: Pull this out of execute. It can be overridden.
         for pokemon in [user, target]
