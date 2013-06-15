@@ -727,12 +727,15 @@ extendMove 'encore', ->
       @fail(battle)
 
 extendMove 'endeavor', ->
-  @calculateDamage = (battle, user, target) ->
-    if target.currentHP > user.currentHP
-      target.currentHP - user.currentHP
-    else
+  oldUse = @use
+  @use = (battle, user, target) ->
+    return false  if oldUse.call(this, battle, user, target) == false
+    if target.currentHP < user.currentHP
       @fail(battle)
-      false
+      return false
+
+  @calculateDamage = (battle, user, target) ->
+    target.currentHP - user.currentHP
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->

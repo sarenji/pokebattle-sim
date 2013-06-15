@@ -749,10 +749,14 @@ shared = require '../shared'
 
     it "fails if the target's hp is less than the user's hp", ->
       shared.create.call(this)
-      hp = 4
-      @team2.first().currentHP = hp
-      @battle.performMove(@id1, @battle.getMove('Endeavor'))
-      @team2.first().currentHP.should.equal hp
+      move = @battle.getMove('Endeavor')
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+      @team2.first().currentHP = hp = 4
+
+      @battle.performMove(@id1, move)
+      mock.restore()
+      mock.verify()
 
     it "doesn't hit ghost pokemon", ->
       shared.create.call this,
@@ -1094,6 +1098,8 @@ shared = require '../shared'
       @team1.at(0).calculateWeight().should.equal 1155
 
   describe 'heart swap', ->
+    shared.shouldDoNoDamage('Heart Swap')
+
     it 'swaps user and target boosts', ->
       shared.create.call(this)
       @team1.at(0).stages.attack = 2
@@ -1106,6 +1112,8 @@ shared = require '../shared'
       @team2.at(0).stages.should.include attack: 2
 
   describe 'nightmare', ->
+    shared.shouldDoNoDamage('Nightmare')
+
     it 'fails if the pokemon is awake', ->
       shared.create.call(this)
 
@@ -2160,6 +2168,8 @@ shared = require '../shared'
   testTrappingMove "Wrap"
 
   describe "Attract", ->
+    shared.shouldDoNoDamage('Attract')
+
     it "has a 50% chance to immobilize a pokemon", ->
       shared.create.call this,
         team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]

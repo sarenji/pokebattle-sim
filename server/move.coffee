@@ -44,7 +44,6 @@ class @Move
     for target in targets
       if @use(battle, user, target) != false
         damage = @calculateDamage(battle, user, target)
-        continue  if damage == false
         if damage > 0
           # TODO: Print out opponent's name alongside the pokemon.
           battle.message "#{target.name} took #{damage} damage!"
