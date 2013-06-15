@@ -656,6 +656,14 @@ extendMove 'belly-drum', ->
       @fail(battle)
       return false
 
+extendMove 'brick-break', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    return false  if oldUse.call(this, battle, user, target) == false
+    {team} = battle.getOwner(target)
+    team.unattach(Attachment.Reflect)
+    team.unattach(Attachment.LightScreen)
+
 extendMove 'brine', ->
   @basePower = (battle, user, target) ->
     if target.currentHP <= Math.floor(target.stat('hp') / 2)

@@ -2263,6 +2263,8 @@ shared = require '../shared'
       mock.restore()
       mock.verify()
 
+    it "does not trigger on critical hits"
+
   describe "Light Screen", ->
     it "halves special damage", ->
       shared.create.call(this)
@@ -2304,6 +2306,8 @@ shared = require '../shared'
 
       mock.restore()
       mock.verify()
+
+    it "does not trigger on critical hits"
 
   describe "Rapid Spin", ->
     it "removes spikes", ->
@@ -2366,3 +2370,56 @@ shared = require '../shared'
       @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
 
       @team2.hasAttachment(Attachment.Spikes).should.be.true
+
+  describe "Brick Break", ->
+    it "shatters Light Screen", ->
+      shared.create.call(this)
+      @team2.attach(Attachment.LightScreen)
+      @battle.performMove(@id1, moves['brick-break'])
+      @team2.hasAttachment(Attachment.LightScreen).should.be.false
+
+    it "shatters Reflect", ->
+      shared.create.call(this)
+      @team2.attach(Attachment.Reflect)
+      @battle.performMove(@id1, moves['brick-break'])
+      @team2.hasAttachment(Attachment.Reflect).should.be.false
+
+    it "shatters both at the same time", ->
+      shared.create.call(this)
+      @team2.attach(Attachment.Reflect)
+      @team2.attach(Attachment.LightScreen)
+      @battle.performMove(@id1, moves['brick-break'])
+      @team2.hasAttachment(Attachment.Reflect).should.be.false
+      @team2.hasAttachment(Attachment.LightScreen).should.be.false
+
+    it "shatters before damage calculation", ->
+      shared.create.call(this)
+      move = @battle.getMove("Brick Break")
+      damage = move.calculateDamage(@battle, @team1.first(), @team2.first())
+      @team2.attach(Attachment.Reflect)
+      @team2.attach(Attachment.LightScreen)
+
+      spy = sinon.spy(move, 'calculateDamage')
+      @battle.performMove(@id1, move)
+      spy.restore()
+      spy.returned(damage).should.be.true
+
+    it "does not shatter if the target is immune", ->
+      shared.create.call(this)
+      @team2.attach(Attachment.Reflect)
+      @team2.attach(Attachment.LightScreen)
+
+      sinon.stub(@team2.first(), 'isImmune', -> true)
+      @battle.performMove(@id1, moves['brick-break'])
+      @team2.hasAttachment(Attachment.Reflect).should.be.true
+      @team2.hasAttachment(Attachment.LightScreen).should.be.true
+
+    it "does not shatter if Brick Break misses", ->
+      shared.create.call(this)
+      @team2.attach(Attachment.Reflect)
+      @team2.attach(Attachment.LightScreen)
+
+      shared.biasRNG.call(this, 'randInt', 'miss', 101)
+      @battle.performMove(@id1, moves['brick-break'])
+      @team2.hasAttachment(Attachment.Reflect).should.be.true
+      @team2.hasAttachment(Attachment.LightScreen).should.be.true
