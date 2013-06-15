@@ -377,3 +377,21 @@ describe 'Mechanics', ->
       @team1.first().attach(Attachment.Paralysis)
 
       @team1.first().stat('speed').should.equal Math.floor(speed / 4)
+
+  describe "Pokemon#turnsActive", ->
+    it "is 0 on start of battle", ->
+      shared.create.call(this)
+      @team1.first().turnsActive.should.equal 0
+
+    it "is set to 0 when switching in", ->
+      shared.create.call(this)
+      @team1.first().turnsActive = 4
+      @team1.first().switchIn(@battle)
+      @team1.first().turnsActive.should.equal 0
+
+    it "increases by 1 when a turn ends", ->
+      shared.create.call(this)
+      @team1.first().turnsActive.should.equal 0
+
+      @battle.endTurn()
+      @team1.first().turnsActive.should.equal 1

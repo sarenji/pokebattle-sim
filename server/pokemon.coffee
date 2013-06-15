@@ -45,6 +45,9 @@ class @Pokemon
     @blockedMoves = []
     @switchBlocked = false
 
+    # a record of how long this pokemon has been in play.
+    @turnsActive = 0
+
     # a record of the last move used by this pokemon.
     @lastMove = null
 
@@ -227,6 +230,7 @@ class @Pokemon
     weight
 
   switchIn: (battle) =>
+    @turnsActive = 0
     @item?.initialize(battle, this)
 
   switchOut: (battle) =>
@@ -266,6 +270,7 @@ class @Pokemon
   endTurn: (battle) =>
     @item?.endTurn(battle, this)
     @attachments.query('endTurn', battle)
+    @turnsActive += 1
 
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) =>
