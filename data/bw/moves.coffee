@@ -293,7 +293,7 @@ makeMeanLookMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
       if target.attach(Attachment.MeanLook)
-        battle.message "#{target.name} cannot escape!"
+        battle.message "#{target.name} can no longer escape!"
       else
         @fail(battle)
         return false
