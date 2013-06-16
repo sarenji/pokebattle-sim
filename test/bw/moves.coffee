@@ -2517,3 +2517,32 @@ shared = require '../shared'
         @team1.first().isImmune(@battle, "Ground").should.be.true
         @battle.endTurn()
       @team1.first().isImmune(@battle, "Ground").should.be.false
+
+  testLockOnMove = (moveName) ->
+    describe moveName, ->
+      shared.shouldDoNoDamage(moveName)
+      shared.shouldFailIfUsedTwice(moveName)
+
+      it "makes the user's next move never miss on this target", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'miss', 101)
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        missMove = @battle.getMove("Tackle")
+        missMove.willMiss(@battle, @team1.first(), @team2.first())
+          .should.be.false
+
+      it "lasts only two turns", ->
+        shared.create.call(this)
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        for i in [1..2]
+          @team1.first().hasAttachment(Attachment.LockOn).should.be.true
+          @battle.endTurn()
+        @team1.first().hasAttachment(Attachment.LockOn).should.be.false
+
+      it "hits through two-turn fade-away moves"
+      it "does not hit through Protect"
+      it "does not affect accuracy on another target"
+      it "re-locks on when used on another target"
+
+  testLockOnMove("Lock-On")
+  testLockOnMove("Mind Reader")

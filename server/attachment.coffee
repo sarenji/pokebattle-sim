@@ -98,8 +98,6 @@ class @Attachment
   # TODO: Move into own PokemonAttachment
   modifyHp: (stat) => stat
   modifySpeed: (stat) => stat
-  modifyAccuracy: (stat) => stat
-  modifyEvasion: (stat) => stat
   modifyAttack: (stat) => stat
   modifySpecialAttack: (stat) => stat
   modifyDefense: (stat) => stat
@@ -558,6 +556,20 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 
   isImmune: (battle, type) =>
     return true  if type == "Ground"
+
+  endTurn: (battle) =>
+    @turns -= 1
+    @remove()  if @turns == 0
+
+class @Attachment.LockOn extends @VolatileAttachment
+  name: "LockOnAttachment"
+
+  constructor: ->
+    super()
+    @turns = 2
+
+  editAccuracy: (stat) =>
+    0  # Always hits
 
   endTurn: (battle) =>
     @turns -= 1

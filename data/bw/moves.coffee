@@ -266,6 +266,21 @@ makeRandomSwitchMove = (name) ->
       index = opponent.team.indexOf(pokemon)
       opponent.switch(battle, 0, index)
 
+# TODO: Does it fail if using twice, but on a different target?
+# From PokemonLab:
+# TODO: Major research is required here. Does Lock On make the next move to
+#       target the subject hit; the next move to target the subject on the
+#       next turn; all moves targeting the subject on the turn turn; or some
+#       other possibility?
+makeLockOnMove = (name) ->
+  extendMove name, ->
+    @use = (battle, user, target) ->
+      if user.attach(Attachment.LockOn, {target})
+        battle.message "#{user.name} locked onto #{target.name}."
+      else
+        @fail(battle)
+        return false
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -529,6 +544,7 @@ extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
 makeBoostMove 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
 extendWithSecondaryStatus 'lick', .3, Status.PARALYZE
+makeLockOnMove 'lock-on'
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
@@ -538,6 +554,7 @@ extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
 makeBoostMove 'metal-sound', 'target', specialDefense: -2
 makeRecoveryMove 'milk-drink'
+makeLockOnMove 'mind-reader'
 makeBoostMove 'minimize', 'self', evasion: 2
 makeIdentifyMove("miracle-eye", "Psychic")
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1

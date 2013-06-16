@@ -104,11 +104,11 @@ class @Move
     damage
 
   willMiss: (battle, user, target) =>
-    return false  if @accuracy == 0
-    battle.rng.randInt(1, 100, "miss") > @chanceToHit(battle, user, target)
+    accuracy = @chanceToHit(battle, user, target)
+    return false  if accuracy == 0
+    battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) =>
-    return 100  if @accuracy == 0
     accuracy = @accuracy
     accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))

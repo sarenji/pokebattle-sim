@@ -34,8 +34,6 @@ class Item
   # TODO: Consider subclassing from Attachment
   modifyHp: (stat, pokemon) => stat
   modifySpeed: (stat, pokemon) => stat
-  modifyAccuracy: (stat, pokemon) => stat
-  modifyEvasion: (stat, pokemon) => stat
   modifyAttack: (stat, pokemon) => stat
   modifySpecialAttack: (stat, pokemon) => stat
   modifyDefense: (stat, pokemon) => stat

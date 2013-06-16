@@ -160,7 +160,7 @@ describe 'Move', ->
       battle = new Battle('1', players: [])
       a = new Pokemon()
       d = new Pokemon()
-      new Move(accuracy: 0).chanceToHit(battle, a, d).should.eql 100
+      new Move(accuracy: 0).willMiss(battle, a, d).should.be.false
 
   describe 'accuracy and evasion boosts', ->
     it 'heighten and lower the chances of a move hitting', ->
