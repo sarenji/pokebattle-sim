@@ -390,7 +390,7 @@ extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
 extendMove 'conversion', ->
   @use = (battle, user, target) ->
     {types, moves} = target
-    moves = _.difference(moves, battle.getMove(@name))
+    moves = _.without(moves, battle.getMove(@name))
     # The original type of the move is used, not its generated type.
     moveTypes = moves.map((move) -> move.type)
     types = _.difference(moveTypes, types)
