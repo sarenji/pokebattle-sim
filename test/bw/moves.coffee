@@ -2557,3 +2557,18 @@ shared = require '../shared'
       @team1.first().hasAttachment(Attachment.DefenseCurl).should.be.false
       @battle.performMove(@id1, @battle.getMove("Defense Curl"))
       @team1.first().hasAttachment(Attachment.DefenseCurl).should.be.true
+
+  describe "Focus Punch", ->
+    it "causes the user to flinch if hit", ->
+      shared.create.call(this)
+      @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      @battle.continueTurn()
+      @team2.first().currentHP.should.not.be.lessThan @team2.first().stat('hp')
+
+    it "does not cause flinching if hit by a non-damaging move", ->
+      shared.create.call(this)
+      @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
+      @battle.recordMove(@id2, @battle.getMove("Will-O-Wisp"))
+      @battle.continueTurn()
+      @team2.first().currentHP.should.be.lessThan @team2.first().stat('hp')

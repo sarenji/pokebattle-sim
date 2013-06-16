@@ -540,3 +540,11 @@ class @Attachment.Identify extends @VolatileAttachment
 
 class @Attachment.DefenseCurl extends @VolatileAttachment
   name: "DefenseCurl"
+
+class @Attachment.FocusPunch extends @VolatileAttachment
+  name: "FocusPunchAttachment"
+
+  beforeMove: (battle, move, user, targets) =>
+    if user.lastHitBy? && !user.lastHitBy.move.isNonDamaging()
+      battle.message "#{user.name} lost its focus and couldn't move!"
+      return false

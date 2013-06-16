@@ -257,6 +257,10 @@ class @Battle
   # have been submitted and the battle is ready to continue.
   continueTurn: =>
     @determineTurnOrder()
+    for {id, pokemon} in @priorityQueue
+      action = @getAction(id)
+      action.move?.beforeTurn?(this, pokemon)
+
     while @priorityQueue.length > 0
       {id, pokemon} = @priorityQueue.shift()
       continue  if pokemon.isFainted()
@@ -429,6 +433,7 @@ class @Battle
 
     if pokemon.beforeMove(this, move, pokemon, targets) != false
       # TODO: Pressure
+      # TODO: What if a Pokemon uses Focus Punch on a Pressure Pokemon?
       pokemon.reducePP(move)
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events

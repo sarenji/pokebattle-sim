@@ -476,6 +476,10 @@ extendMove 'focus-energy', ->
       @fail(battle)
       false
 
+extendMove 'focus-punch', ->
+  @beforeTurn = (battle, user) ->
+    user.attach(Attachment.FocusPunch)
+
 makeIdentifyMove("foresight", "Normal")
 makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
