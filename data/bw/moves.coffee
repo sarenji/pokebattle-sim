@@ -409,6 +409,15 @@ extendWithSecondaryEffect 'extrasensory', .1, Attachment.Flinch
 makeBoostMove 'fake-tears', 'target', specialDefense: -2
 makeBoostMove 'featherdance', 'target', attack: -2
 extendWithSecondaryEffect 'fake-out', 1, Attachment.Flinch
+
+extendMove 'fake-out', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    return false  if oldUse.call(this, battle, user, target) == false
+    if user.turnsActive > 1
+      @fail(battle)
+      return false
+
 extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
 extendWithSecondaryStatus 'fire-blast', .1, Status.BURN
 extendWithFangEffect 'fire-fang', .1, Status.BURN

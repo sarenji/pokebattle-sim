@@ -2447,3 +2447,20 @@ shared = require '../shared'
       move = @battle.getMove("Frustration")
       bp = move.basePower(@battle, @team1.first(), @team2.first())
       bp.should.equal 102
+
+  describe "Fake Out", ->
+    it "flinches the enemy", ->
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Fake Out"))
+      @team2.first().hasAttachment(Attachment.Flinch).should.be.true
+
+    it "fails if the Pokemon has been in play more than one turn", ->
+      shared.create.call(this)
+      @team1.first().turnsActive = 2
+      move = @battle.getMove("Fake Out")
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, move)
+      mock.restore()
+      mock.verify()
