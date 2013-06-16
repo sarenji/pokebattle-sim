@@ -583,3 +583,24 @@ class @Attachment.MeanLook extends @VolatileAttachment
 
   beginTurn: (battle) =>
     @pokemon.blockSwitch()
+
+class @Attachment.Recharge extends @VolatileAttachment
+  name: "RechargeAttachment"
+
+  constructor: ->
+    super()
+    @turns = 2
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()
+    @pokemon.blockMoves()
+    {id} = battle.getOwner(@pokemon)
+    battle.recordMove(id, battle.getMove("Recharge"))
+
+  beforeMove: (battle, move, user, targets) =>
+    battle.message "#{user.name} needs to recharge!"
+    return false
+
+  endTurn: (battle) =>
+    @turns -= 1
+    @remove()  if @turns == 0

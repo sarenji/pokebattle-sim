@@ -298,6 +298,11 @@ makeMeanLookMove = (name) ->
         @fail(battle)
         return false
 
+makeRechargeMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      user.attach(Attachment.Recharge)
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -395,6 +400,7 @@ extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
 makeBoostMove 'barrier', 'self', defense: 2
 makeTrappingMove "bind"
+makeRechargeMove 'blast-burn'
 extendWithSecondaryStatus 'blaze-kick', .1, Status.BURN
 extendWithSecondaryStatus 'blizzard', .1, Status.FREEZE
 makeMeanLookMove 'block'
@@ -516,8 +522,10 @@ extendMove 'focus-punch', ->
 makeIdentifyMove("foresight", "Normal")
 makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
+makeRechargeMove 'frenzy-plant'
 extendMove 'fusion-flare', -> @thawsUser = true
 extendWithDrain 'giga-drain'
+makeRechargeMove 'giga-impact'
 extendWithBoost 'glaciate', 'target', speed: -1
 makeWeightBased 'grass-knot'
 extendWithPrimaryStatus 'grasswhistle', Status.SLEEP
@@ -542,6 +550,8 @@ makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
 makeOneHitKOMove 'horn-drill'
 extendWithDrain 'horn-leech'
 makeBoostMove 'howl', 'self', attack: 1
+makeRechargeMove 'hydro-cannon'
+makeRechargeMove 'hyper-beam'
 extendWithPrimaryStatus 'hypnosis', Status.SLEEP
 extendWithBoost 'icy-wind', 'target', speed: -1
 makeBoostMove 'iron-defense', 'self', defense: 2
@@ -619,11 +629,13 @@ makeRecoveryMove 'recover'
 extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
 makeReversalMove 'reversal'
 makeRandomSwitchMove "roar"
+makeRechargeMove 'roar-of-time'
 extendWithSecondaryEffect 'rock-climb', .2, Attachment.Confusion
 makeBoostMove 'rock-polish', 'self', speed: 2
 extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
 extendWithBoost 'rock-tomb', 'target', speed: -1
 extendWithSecondaryEffect 'rock-slide', .3, Attachment.Flinch
+makeRechargeMove 'rock-wrecker'
 extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
 makeRecoveryMove 'roost'
 extendMove 'roost', ->
@@ -1264,3 +1276,5 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
 # Confusion never crits
 extendMove 'confusion-recoil', ->
   @isCriticalHit = -> false
+
+moves['recharge'] = new Move("Recharge", target: "user")

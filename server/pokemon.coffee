@@ -295,6 +295,10 @@ class @Pokemon
   blockMove: (move) =>
     @blockedMoves.push(move)
 
+  # Blocks all moves for a single turn
+  blockMoves: =>
+    @blockMove(move)  for move in @moves
+
   isMoveBlocked: (move) =>
     return (move in @blockedMoves)
 

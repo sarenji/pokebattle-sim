@@ -2584,6 +2584,7 @@ shared = require '../shared'
 
   testMeanLookMove = (moveName) ->
     describe moveName, ->
+      shared.shouldDoNoDamage(moveName)
       shared.shouldFailIfUsedTwice(moveName)
 
       it "blocks the target from switching", ->
@@ -2597,3 +2598,53 @@ shared = require '../shared'
   testMeanLookMove("Block")
   testMeanLookMove("Mean Look")
   testMeanLookMove("Spider Web")
+
+  testRechargeMove = (moveName) ->
+    describe moveName, ->
+      it "blocks the target from switching the next turn", ->
+        shared.create.call(this)
+        @team1.first().isSwitchBlocked().should.be.false
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+        @team1.first().isSwitchBlocked().should.be.true
+
+      it "blocks the target from picking a new move the next turn", ->
+        shared.create.call(this)
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+        for move in @team1.first().moves
+          @team1.first().isMoveBlocked(move).should.be.true
+
+      it "automatically selects a special recharge move the next turn", ->
+        shared.create.call(this)
+        specialMove = @battle.getMove("Recharge")
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @battle.requests.should.not.have.property @id1
+        @battle.playerActions.should.have.property @id1
+        @battle.playerActions[@id1].move.should.equal(specialMove)
+
+      it "prevents the user from moving the next turn", ->
+        shared.create.call(this)
+
+        spy = sinon.spy(@team1.first(), 'beforeMove')
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+        @battle.continueTurn()
+        spy.returned(false).should.be.true
+
+  testRechargeMove("Hyper Beam")
+  testRechargeMove("Giga Impact")
+  testRechargeMove("Blast Burn")
+  testRechargeMove("Frenzy Plant")
+  testRechargeMove("Hydro Cannon")
+  testRechargeMove("Roar of Time")
+  testRechargeMove("Rock Wrecker")

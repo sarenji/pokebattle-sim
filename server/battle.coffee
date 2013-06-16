@@ -243,9 +243,12 @@ class @Battle
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
     # TODO: Struggle if no moves are usable
     for id, player of @players
-      poke_moves = player.team.at(0).validMoves()
+      pokemon = player.team.at(0)
+      pokeMoves = pokemon.validMoves()
       switches = player.team.getAlivePokemon().map((p) -> p.name)
-      @requestAction(player, moves: poke_moves, switches: switches)
+      switches = []  if pokemon.isSwitchBlocked()
+      canAct = pokeMoves.length > 0 || switches.length > 0
+      @requestAction(player, moves: pokeMoves, switches: switches)  if canAct
 
   # A callback done after turn order is calculated for the first time.
   # Use this callback to edit the turn order after players have selected
