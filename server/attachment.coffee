@@ -364,7 +364,7 @@ class @Attachment.AirBalloon extends @Attachment
     target.removeItem()
 
   isImmune: (battle, type) =>
-    type == 'Ground'
+    return true  if type == 'Ground'
 
 class @Attachment.Spikes extends @TeamAttachment
   name: "SpikesAttachment"
