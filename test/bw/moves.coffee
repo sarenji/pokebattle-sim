@@ -2514,3 +2514,32 @@ shared = require '../shared'
   testIdentifyMove("Foresight", "Normal")
   testIdentifyMove("Odor Sleuth", "Normal")
   testIdentifyMove("Miracle Eye", "Psychic")
+
+  describe "Conversion", ->
+    it "changes the user's type to a random type based on moves", ->
+      shared.create.call this,
+        team1: [Factory("Porygon", moves: [
+          "Thunderbolt", "Ice Beam", "Conversion" ])]
+      shared.biasRNG.call(this, "randInt", 'conversion types', 0)
+      @team1.first().types.should.eql [ "Normal" ]
+      @battle.performMove(@id1, @battle.getMove("Conversion"))
+      @team1.first().types.should.eql [ 'Electric' ]
+
+    it "ignores Conversion as part of the move types", ->
+      shared.create.call this,
+        team1: [Factory("Porygon", moves: [ "Conversion", "Ice Beam" ])]
+      shared.biasRNG.call(this, "randInt", 'conversion types', 0)
+      @team1.first().types = [ "Fake Type" ]
+      @battle.performMove(@id1, @battle.getMove("Conversion"))
+      @team1.first().types.should.eql [ 'Ice' ]
+
+    it "fails if there is no type to convert to", ->
+      shared.create.call this,
+        team1: [Factory("Porygon", moves: [ "Conversion" ])]
+      move = @battle.getMove("Conversion")
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, move)
+      mock.restore()
+      mock.verify()
