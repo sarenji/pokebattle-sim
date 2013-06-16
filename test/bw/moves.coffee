@@ -409,6 +409,7 @@ shared = require '../shared'
 
   describe 'yawn', ->
     shared.shouldDoNoDamage('Yawn')
+    shared.shouldFailIfUsedTwice("Yawn")
 
     it 'gives the yawn attachment', ->
       shared.create.call this,
@@ -441,17 +442,6 @@ shared = require '../shared'
 
       @team2.at(0).hasStatus(Status.SLEEP).should.be.false
       @battle.turn.should.equal 2
-
-    it "fails if the target is already yawning", ->
-      shared.create.call(this)
-      mock = sinon.mock(moves['yawn'])
-      mock.expects('fail').once()
-
-      @battle.performMove(@id1, moves['yawn'])
-      @battle.performMove(@id1, moves['yawn'])
-
-      mock.restore()
-      mock.verify()
 
   describe 'an OHKO move', ->
     it 'ignores accuracy/evasion modifiers', ->
@@ -1189,6 +1179,9 @@ shared = require '../shared'
       move.getType(@battle, @team1.at(0), @team2.at(0)).should.equal 'Ground'
 
   describe 'taunt', ->
+    shared.shouldDoNoDamage("Taunt")
+    shared.shouldFailIfUsedTwice("Taunt")
+
     it 'prevents the target from using a non-attacking move that turn', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
       move = moves['calm-mind']
@@ -1224,17 +1217,6 @@ shared = require '../shared'
       requestedMoves = @battle.requests[@player2.id].moves
       requestedMoves.should.not.include 'Splash'
 
-    it "fails if the target is already under taunt", ->
-      shared.create.call(this)
-      mock = sinon.mock(moves['taunt'])
-      mock.expects('fail').once()
-
-      @battle.performMove(@id1, moves['taunt'])
-      @battle.performMove(@id1, moves['taunt'])
-
-      mock.restore()
-      mock.verify()
-
   describe 'u-turn', ->
     it 'forces the owner to switch', ->
       shared.create.call(this)
@@ -1253,6 +1235,9 @@ shared = require '../shared'
       basePower.should.equal(2 * move.power)
 
   describe 'Wish', ->
+    shared.shouldDoNoDamage("Wish")
+    shared.shouldFailIfUsedTwice("Wish")
+
     it "restores half of the user's total hit points the next end of turn", ->
       shared.create.call(this)
       hp = @team1.first().currentHP
@@ -1289,17 +1274,6 @@ shared = require '../shared'
       @controller.makeMove(@player2, 'tackle')
 
       @team1.hasAttachment(Attachment.Wish).should.be.false
-
-    it "fails if the user already used Wish", ->
-      shared.create.call(this)
-      mock = sinon.mock(moves['wish'])
-      mock.expects('fail').once()
-
-      @battle.performMove(@id1, moves['wish'])
-      @battle.performMove(@id1, moves['wish'])
-
-      mock.restore()
-      mock.verify()
 
   describe "counter", ->
     it "returns double the damage if attacked by a physical move", ->
@@ -1640,6 +1614,9 @@ shared = require '../shared'
       @team2.first().stages.specialAttack.should.equal -2
 
   describe "Torment", ->
+    shared.shouldDoNoDamage("Torment")
+    shared.shouldFailIfUsedTwice("Torment")
+
     it "prevents the target from using its last move", ->
       shared.create.call(this)
 
@@ -1660,22 +1637,6 @@ shared = require '../shared'
       @controller.makeSwitch(@player2, 1)
 
       @team2.first().validMoves().should.eql [ moves['splash'], moves['tackle'] ]
-
-    # TODO: Is this correct behavior?
-    it "fails if the pokemon is already under Torment", ->
-      shared.create.call(this)
-
-      mock = sinon.mock(moves['torment'])
-      mock.expects('fail').once()
-
-      @controller.makeMove(@player1, "Torment")
-      @controller.makeMove(@player2, "Splash")
-
-      @controller.makeMove(@player1, "Torment")
-      @controller.makeMove(@player2, "Tackle")
-
-      mock.restore()
-      mock.verify()
 
     xit "does not force the Outrage user to struggle", ->
     xit "does not prevent consecutive use of Struggle", ->
@@ -1758,6 +1719,9 @@ shared = require '../shared'
       @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
   describe "Stealth Rock", ->
+    shared.shouldDoNoDamage("Stealth Rock")
+    shared.shouldFailIfUsedTwice("Stealth Rock")
+
     it "puts a layer of rocks on the opponents' field", ->
       shared.create.call(this)
 
@@ -1767,21 +1731,6 @@ shared = require '../shared'
       @controller.makeMove(@player2, "Splash")
 
       @team2.hasAttachment(Attachment.StealthRock).should.be.true
-
-    it "fails if there is already rocks on the field", ->
-      shared.create.call(this)
-
-      mock = sinon.mock(moves['stealth-rock'])
-      mock.expects('fail').once()
-
-      @controller.makeMove(@player1, "Stealth Rock")
-      @controller.makeMove(@player2, "Splash")
-
-      @controller.makeMove(@player1, "Stealth Rock")
-      @controller.makeMove(@player2, "Splash")
-
-      mock.restore()
-      mock.verify()
 
     it "does damage to pokemon switching in according to type", ->
       shared.create.call this,
@@ -2169,6 +2118,9 @@ shared = require '../shared'
 
   describe "Attract", ->
     shared.shouldDoNoDamage('Attract')
+    shared.shouldFailIfUsedTwice "Attract",
+      team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]
+      team2: [Factory("Magikarp", gender: "F")]
 
     it "has a 50% chance to immobilize a pokemon", ->
       shared.create.call this,
@@ -2196,23 +2148,6 @@ shared = require '../shared'
 
       @controller.makeMove(@player1, 'Attract')
       @controller.makeMove(@player2, 'Tackle')
-
-      mock.restore()
-      mock.verify()
-
-    it "fails if used twice", ->
-      shared.create.call this,
-        team1: [Factory("Magikarp", gender: "M", evs: {speed: 4})]
-        team2: [Factory("Magikarp", gender: "F")]
-
-      mock = sinon.mock(moves['attract'])
-      mock.expects('fail').once()
-
-      @controller.makeMove(@player1, 'Attract')
-      @controller.makeMove(@player2, 'Splash')
-
-      @controller.makeMove(@player1, 'Attract')
-      @controller.makeMove(@player2, 'Splash')
 
       mock.restore()
       mock.verify()
@@ -2485,6 +2420,9 @@ shared = require '../shared'
 
   testIdentifyMove = (moveName, type) ->
     describe moveName, ->
+      shared.shouldDoNoDamage(moveName)
+      shared.shouldFailIfUsedTwice(moveName)
+
       it "makes the target vulnerable to #{type} moves", ->
         shared.create.call(this, team2: [Factory("Spiritomb")])
         @team2.first().isImmune(@battle, type).should.be.true
@@ -2498,18 +2436,6 @@ shared = require '../shared'
         @team2.first().editBoosts().evasion.should.equal 2
         @battle.performMove(@id1, @battle.getMove(moveName))
         @team2.first().editBoosts().evasion.should.equal 0
-
-      it "fails when used twice", ->
-        shared.create.call(this)
-        move = @battle.getMove(moveName)
-        mock = sinon.mock(move)
-        mock.expects('fail').once()
-
-        @battle.performMove(@id1, move)
-        @battle.performMove(@id1, move)
-
-        mock.restore()
-        mock.verify()
 
   testIdentifyMove("Foresight", "Normal")
   testIdentifyMove("Odor Sleuth", "Normal")
@@ -2574,6 +2500,9 @@ shared = require '../shared'
       @team2.first().currentHP.should.be.lessThan @team2.first().stat('hp')
 
   describe "Magnet Rise", ->
+    shared.shouldDoNoDamage("Magnet Rise")
+    shared.shouldFailIfUsedTwice("Magnet Rise")
+
     it "makes the user immune to ground moves", ->
       shared.create.call(this)
       @team1.first().isImmune(@battle, "Ground").should.be.false
@@ -2588,5 +2517,3 @@ shared = require '../shared'
         @team1.first().isImmune(@battle, "Ground").should.be.true
         @battle.endTurn()
       @team1.first().isImmune(@battle, "Ground").should.be.false
-
-    shared.shouldFailIfUsedTwice("Magnet Rise")
