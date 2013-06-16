@@ -9,6 +9,19 @@ shouldDoNoDamage = (moveName, battleOptions) ->
     @battle.performMove(@id1, move)
     @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
+shouldFailIfUsedTwice = (moveName, battleOptions) ->
+  it 'should fail if used twice', ->
+    create.call(this, battleOptions)
+    move = @battle.getMove(moveName)
+    mock = sinon.mock(move)
+    mock.expects('fail').once()
+
+    @battle.performMove(@id1, move)
+    @battle.performMove(@id1, move)
+
+    mock.restore()
+    mock.verify()
+
 create = (opts={}) ->
   @id1 = 'abcde'
   @id2 = 'fghij'
@@ -43,4 +56,4 @@ biasRNG = (funcName, id, returns) ->
   @biasedRNGFuncs[funcName] ||= {}
   @biasedRNGFuncs[funcName][id] = returns
 
-module.exports = {shouldDoNoDamage, create, biasRNG}
+module.exports = {shouldDoNoDamage, shouldFailIfUsedTwice, create, biasRNG}

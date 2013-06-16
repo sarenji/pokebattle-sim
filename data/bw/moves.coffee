@@ -888,6 +888,14 @@ extendMove 'light-screen', ->
     else
       @fail(battle)
 
+extendMove 'magnet-rise', ->
+  @use = (battle, user, target) ->
+    if target.attach(Attachment.MagnetRise)
+      battle.message "#{target.name} is now floating in the air!"
+    else
+      @fail(battle)
+      return false
+
 extendMove 'magnitude', ->
   @basePower = (battle, user, target) ->
     rand = battle.rng.randInt(0, 99, "magnitude")

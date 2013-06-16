@@ -2572,3 +2572,21 @@ shared = require '../shared'
       @battle.recordMove(@id2, @battle.getMove("Will-O-Wisp"))
       @battle.continueTurn()
       @team2.first().currentHP.should.be.lessThan @team2.first().stat('hp')
+
+  describe "Magnet Rise", ->
+    it "makes the user immune to ground moves", ->
+      shared.create.call(this)
+      @team1.first().isImmune(@battle, "Ground").should.be.false
+      @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
+      @team1.first().isImmune(@battle, "Ground").should.be.true
+
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      @team1.first().isImmune(@battle, "Ground").should.be.false
+      @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
+      for i in [1..5]
+        @team1.first().isImmune(@battle, "Ground").should.be.true
+        @battle.endTurn()
+      @team1.first().isImmune(@battle, "Ground").should.be.false
+
+    shared.shouldFailIfUsedTwice("Magnet Rise")

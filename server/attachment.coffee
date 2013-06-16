@@ -548,3 +548,17 @@ class @Attachment.FocusPunch extends @VolatileAttachment
     if user.lastHitBy? && !user.lastHitBy.move.isNonDamaging()
       battle.message "#{user.name} lost its focus and couldn't move!"
       return false
+
+class @Attachment.MagnetRise extends @VolatileAttachment
+  name: "MagnetRiseAttachment"
+
+  constructor: ->
+    super()
+    @turns = 5
+
+  isImmune: (battle, type) =>
+    return true  if type == "Ground"
+
+  endTurn: (battle) =>
+    @turns -= 1
+    @remove()  if @turns == 0
