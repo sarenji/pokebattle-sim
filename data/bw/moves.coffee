@@ -410,6 +410,13 @@ extendWithSecondaryEffect 'dark-pulse', .2, Attachment.Flinch
 extendWithPrimaryStatus 'dark-void', Status.SLEEP
 makeBoostMove 'defend-order', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'defense-curl', 'self', defense: 1
+
+extendMove 'defense-curl', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    oldUse.call(this, battle, user, target)
+    target.attach(Attachment.DefenseCurl)
+
 extendWithSecondaryStatus 'discharge', .3, Status.PARALYZE
 extendWithSecondaryEffect 'dizzy-punch', .2, Attachment.Confusion
 extendWithRecoil 'double-edge'

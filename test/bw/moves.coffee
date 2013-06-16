@@ -2543,3 +2543,17 @@ shared = require '../shared'
       @battle.performMove(@id1, move)
       mock.restore()
       mock.verify()
+
+  describe "Defense Curl", ->
+    # TODO: Merge tests.
+    it "raises defense by 1 stage", ->
+      shared.create.call(this)
+      @team1.first().stages.defense.should.equal 0
+      @battle.performMove(@id1, @battle.getMove("Defense Curl"))
+      @team1.first().stages.defense.should.equal 1
+
+    it "attaches a volatile attachment", ->
+      shared.create.call(this)
+      @team1.first().hasAttachment(Attachment.DefenseCurl).should.be.false
+      @battle.performMove(@id1, @battle.getMove("Defense Curl"))
+      @team1.first().hasAttachment(Attachment.DefenseCurl).should.be.true

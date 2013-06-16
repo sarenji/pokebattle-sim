@@ -536,3 +536,6 @@ class @Attachment.Identify extends @VolatileAttachment
 
   isImmune: (battle, type) =>
     return false  if type == @type
+
+class @Attachment.DefenseCurl extends @VolatileAttachment
+  name: "DefenseCurl"
