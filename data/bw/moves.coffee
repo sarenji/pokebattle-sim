@@ -435,6 +435,16 @@ extendWithSecondaryStatus 'flare-blitz', .1, Status.BURN
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
 extendWithSecondaryStatus 'force-palm', .3, Status.PARALYZE
 extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
+
+extendMove 'focus-energy', ->
+  @use = (battle, user, target) ->
+    if user.attach(Attachment.FocusEnergy)
+      # TODO: Real message
+      battle.message "#{user.name} began to focus!"
+    else
+      @fail(battle)
+      false
+
 makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
 extendMove 'fusion-flare', -> @thawsUser = true

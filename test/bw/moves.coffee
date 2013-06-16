@@ -2464,3 +2464,21 @@ shared = require '../shared'
       @battle.performMove(@id1, move)
       mock.restore()
       mock.verify()
+
+  describe "Focus Energy", ->
+    it "adds a Focus Energy attachment to the user", ->
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Focus Energy"))
+      @team1.first().hasAttachment(Attachment.FocusEnergy).should.be.true
+
+    it "fails the second time it is used", ->
+      shared.create.call(this)
+      move = @battle.getMove("Focus Energy")
+      mock = sinon.mock(move)
+      mock.expects('fail').once()
+
+      @battle.performMove(@id1, move)
+      @battle.performMove(@id1, move)
+
+      mock.restore()
+      mock.verify()
