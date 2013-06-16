@@ -1229,8 +1229,15 @@ shared = require '../shared'
   describe 'venoshock', ->
     it 'doubles the base power if target is poisoned', ->
       shared.create.call(this)
-      move = moves['venoshock']
-      @team2.at(0).setStatus(Status.POISON)
+      move = @battle.getMove("Venoshock")
+      @team2.first().setStatus(Status.POISON)
+      basePower = move.basePower(@battle, @team1.first(), @team2.first())
+      basePower.should.equal(2 * move.power)
+
+    it 'doubles the base power if target is toxiced', ->
+      shared.create.call(this)
+      move = @battle.getMove("Venoshock")
+      @team2.first().setStatus(Status.TOXIC)
       basePower = move.basePower(@battle, @team1.first(), @team2.first())
       basePower.should.equal(2 * move.power)
 
