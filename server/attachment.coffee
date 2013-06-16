@@ -574,3 +574,6 @@ class @Attachment.LockOn extends @VolatileAttachment
   endTurn: (battle) =>
     @turns -= 1
     @remove()  if @turns == 0
+
+class @Attachment.Minimize extends @VolatileAttachment
+  name: "MinimizeAttachment"

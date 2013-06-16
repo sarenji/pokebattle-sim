@@ -281,6 +281,14 @@ makeLockOnMove = (name) ->
         @fail(battle)
         return false
 
+makeStompMove = (name) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      if target.hasAttachment(Attachment.Minimize)
+        2 * @power
+      else
+        @power
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -555,7 +563,13 @@ extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
 makeBoostMove 'metal-sound', 'target', specialDefense: -2
 makeRecoveryMove 'milk-drink'
 makeLockOnMove 'mind-reader'
-makeBoostMove 'minimize', 'self', evasion: 2
+
+extendMove 'minimize', ->
+  applyBoosts = boostExtension('target', evasion: 2)
+  @use = (battle, user, target) ->
+    applyBoosts(battle, user, target)
+    target.attach(Attachment.Minimize)
+
 makeIdentifyMove("miracle-eye", "Psychic")
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
@@ -645,9 +659,11 @@ makeRecoveryMove 'softboiled'
 extendWithSecondaryStatus 'spark', .3, Status.PARALYZE
 extendWithPrimaryStatus 'spore', Status.SLEEP
 extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
+makeStompMove 'steamroller'
 extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
 makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
 extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
+makeStompMove 'stomp'
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithPrimaryStatus 'stun-spore', Status.PARALYZE

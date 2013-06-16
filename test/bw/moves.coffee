@@ -2546,3 +2546,38 @@ shared = require '../shared'
 
   testLockOnMove("Lock-On")
   testLockOnMove("Mind Reader")
+
+  describe "Minimize", ->
+    it "boosts the user's evasion by 2", ->
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Minimize"))
+      @team1.first().stages.evasion.should.equal 2
+
+    it "adds a Minimize volatile attachment to the user", ->
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Minimize"))
+      @team1.first().hasAttachment(Attachment.Minimize).should.be.true
+
+  testStompMove = (moveName) ->
+    describe moveName, ->
+      it "doubles its base power when the target is minimized", ->
+        shared.create.call(this)
+        @team2.first().attach(Attachment.Minimize)
+        move = @battle.getMove(moveName)
+        bp = move.basePower(@battle, @team1.first(), @team2.first())
+        bp.should.equal(move.power * 2)
+
+      it "has normal base power otherwise", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        bp = move.basePower(@battle, @team1.first(), @team2.first())
+        bp.should.equal(move.power)
+
+      it "has a 30% chance to flinch", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @team2.first().hasAttachment(Attachment.Flinch).should.be.true
+
+  testStompMove("Stomp")
+  testStompMove("Steamroller")
