@@ -2581,3 +2581,19 @@ shared = require '../shared'
 
   testStompMove("Stomp")
   testStompMove("Steamroller")
+
+  testMeanLookMove = (moveName) ->
+    describe moveName, ->
+      shared.shouldFailIfUsedTwice(moveName)
+
+      it "blocks the target from switching", ->
+        shared.create.call(this)
+        @team2.first().isSwitchBlocked().should.be.false
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.beginTurn()
+        @team2.first().isSwitchBlocked().should.be.true
+
+  testMeanLookMove("Block")
+  testMeanLookMove("Mean Look")
+  testMeanLookMove("Spider Web")

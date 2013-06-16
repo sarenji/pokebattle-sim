@@ -577,3 +577,9 @@ class @Attachment.LockOn extends @VolatileAttachment
 
 class @Attachment.Minimize extends @VolatileAttachment
   name: "MinimizeAttachment"
+
+class @Attachment.MeanLook extends @VolatileAttachment
+  name: "MeanLookAttachment"
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()

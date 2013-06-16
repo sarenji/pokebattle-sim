@@ -289,6 +289,15 @@ makeStompMove = (name) ->
       else
         @power
 
+makeMeanLookMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      if target.attach(Attachment.MeanLook)
+        battle.message "#{target.name} cannot escape!"
+      else
+        @fail(battle)
+        return false
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -388,6 +397,7 @@ makeBoostMove 'barrier', 'self', defense: 2
 makeTrappingMove "bind"
 extendWithSecondaryStatus 'blaze-kick', .1, Status.BURN
 extendWithSecondaryStatus 'blizzard', .1, Status.FREEZE
+makeMeanLookMove 'block'
 extendWithSecondaryStatus 'blue-flare', .2, Status.BURN
 extendWithSecondaryStatus 'body-slam', .3, Status.PARALYZE
 extendWithSecondaryStatus 'bolt-strike', .2, Status.PARALYZE
@@ -557,6 +567,7 @@ makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
 makeTrappingMove "magma-storm"
+makeMeanLookMove 'mean-look'
 makeBoostMove 'meditate', 'self', attack: 1
 extendWithDrain 'mega-drain'
 extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
@@ -657,6 +668,7 @@ extendWithBoost 'snarl', 'target', specialAttack: -1
 extendWithSecondaryEffect 'snore', .3, Attachment.Flinch
 makeRecoveryMove 'softboiled'
 extendWithSecondaryStatus 'spark', .3, Status.PARALYZE
+makeMeanLookMove 'spider-web'
 extendWithPrimaryStatus 'spore', Status.SLEEP
 extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
 makeStompMove 'steamroller'
