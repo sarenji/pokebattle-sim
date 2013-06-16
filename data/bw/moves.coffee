@@ -213,7 +213,8 @@ makeExplosionMove = (name) ->
     oldExecute = @execute
     @execute = (battle, user, targets) ->
       if !_.any(targets, (target) -> target.hasAbility('Damp'))
-        user.faint(battle)
+        user.faint()
+        battle.message "#{user.name} fainted!"
         oldExecute(battle, user, targets)
       else
         battle.message "#{user.name} cannot use #{@name}!"

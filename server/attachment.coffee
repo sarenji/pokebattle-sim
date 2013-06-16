@@ -291,7 +291,8 @@ class @Attachment.PerishSong extends @VolatileAttachment
     @turn++
     battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
     if @turn >= @turns
-      @pokemon.faint(battle)
+      @pokemon.faint()
+      battle.message "#{@pokemon.name} fainted!"
 
 class @Attachment.Roost extends @VolatileAttachment
   name: "RoostAttachment"
