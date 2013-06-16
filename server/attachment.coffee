@@ -598,7 +598,7 @@ class @Attachment.Recharge extends @VolatileAttachment
     battle.recordMove(id, battle.getMove("Recharge"))
 
   beforeMove: (battle, move, user, targets) =>
-    battle.message "#{user.name} needs to recharge!"
+    battle.message "#{user.name} must recharge!"
     return false
 
   endTurn: (battle) =>
