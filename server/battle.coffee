@@ -258,8 +258,7 @@ class @Battle
   continueTurn: =>
     @determineTurnOrder()
     while @priorityQueue.length > 0
-      {pokemon} = @priorityQueue.shift()
-      {id} = @getOwner(pokemon)
+      {id, pokemon} = @priorityQueue.shift()
       continue  if pokemon.isFainted()
 
       action = @popAction(id)
