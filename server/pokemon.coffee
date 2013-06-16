@@ -92,7 +92,8 @@ class @Pokemon
       1
 
   statBoost: (statName, total) =>
-    boost = @stages[statName]
+    stages = @editBoosts()
+    boost  = stages[statName]
     if boost >= 0
       Math.floor((2 + boost) * total / 2)
     else
@@ -196,6 +197,11 @@ class @Pokemon
   editDamage: (battle, move, damage) =>
     damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
     damage
+
+  editBoosts: =>
+    stages = _.clone(@stages)
+    stages = @attachments.queryChain('editBoosts', stages)
+    stages
 
   editAccuracy: (accuracy) =>
     accuracy = @item.editAccuracy(accuracy)  if @hasItem()

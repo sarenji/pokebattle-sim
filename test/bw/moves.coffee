@@ -2482,3 +2482,35 @@ shared = require '../shared'
 
       mock.restore()
       mock.verify()
+
+  testIdentifyMove = (moveName, type) ->
+    describe moveName, ->
+      it "makes the target vulnerable to #{type} moves", ->
+        shared.create.call(this, team2: [Factory("Spiritomb")])
+        @team2.first().isImmune(@battle, type).should.be.true
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @team2.first().hasAttachment(Attachment.Identify).should.be.true
+        @team2.first().isImmune(@battle, type).should.be.false
+
+      it "makes the target's evasion be ignored", ->
+        shared.create.call(this)
+        @team2.first().boost(evasion: 2)
+        @team2.first().editBoosts().evasion.should.equal 2
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @team2.first().editBoosts().evasion.should.equal 0
+
+      it "fails when used twice", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        mock = sinon.mock(move)
+        mock.expects('fail').once()
+
+        @battle.performMove(@id1, move)
+        @battle.performMove(@id1, move)
+
+        mock.restore()
+        mock.verify()
+
+  testIdentifyMove("Foresight", "Normal")
+  testIdentifyMove("Odor Sleuth", "Normal")
+  testIdentifyMove("Miracle Eye", "Psychic")

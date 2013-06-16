@@ -471,9 +471,12 @@ class @Battle
       else
         throw new Error("Unimplemented target: #{move.target}.")
 
-  getMove: (moveName) =>
+  getMove = (moveName) ->
     moveName = moveName.toLowerCase().replace(/\s+/g, '-')
     moves[moveName]
+
+  @getMove: getMove
+  getMove: getMove
 
   toString: =>
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

@@ -218,6 +218,15 @@ makeExplosionMove = (name) ->
       else
         battle.message "#{user.name} cannot use #{@name}!"
 
+makeIdentifyMove = (name, type) ->
+  extendMove name, ->
+    @use = (battle, user, target) ->
+      if target.attach(Attachment.Identify, {type})
+        battle.message "#{target.name} was identified!"
+      else
+        @fail(battle)
+        false
+
 makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
@@ -445,6 +454,7 @@ extendMove 'focus-energy', ->
       @fail(battle)
       false
 
+makeIdentifyMove("foresight", "Normal")
 makePickAttackMove 'foul-play'
 extendWithSecondaryStatus 'freeze-shock', .3, Status.PARALYZE
 extendMove 'fusion-flare', -> @thawsUser = true
@@ -503,6 +513,7 @@ extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
 makeBoostMove 'metal-sound', 'target', specialDefense: -2
 makeRecoveryMove 'milk-drink'
 makeBoostMove 'minimize', 'self', evasion: 2
+makeIdentifyMove("miracle-eye", "Psychic")
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
 makeWeatherRecoveryMove 'moonlight'
@@ -516,6 +527,7 @@ extendWithSecondaryEffect 'needle-arm', .3, Attachment.Flinch
 extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
 makeLevelAsDamageMove 'night-shade'
 extendWithSecondaryBoost 'octazooka', 'target', .5, accuracy: -1
+makeIdentifyMove("odor-sleuth", "Normal")
 extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }

@@ -110,8 +110,8 @@ class @Move
   chanceToHit: (battle, user, target) =>
     return 100  if @accuracy == 0
     accuracy = @accuracy
-    accuracy = Math.floor(accuracy * (3 + user.stages.accuracy) / 3)
-    accuracy = Math.floor(accuracy * 3 / (3 + target.stages.evasion))
+    accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
+    accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
     accuracy = user.editAccuracy(accuracy)
     accuracy = target.editEvasion(accuracy)
     if user.hasItem("Zoom Lens") && battle.willMove(target)
