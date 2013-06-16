@@ -421,6 +421,12 @@ extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
 makeRandomSwitchMove "circle-throw"
 makeTrappingMove "clamp"
+
+extendMove 'clear-smog', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.resetBoosts()
+    battle.message "#{target.name}'s stat changes were removed!"
+
 extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithPrimaryEffect 'confuse-ray', Attachment.Confusion

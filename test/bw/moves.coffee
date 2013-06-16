@@ -171,19 +171,17 @@ shared = require '../shared'
   testRecoilMove("Wild Charge", .25)
   testRecoilMove("Wood Hammer", 1/3)
 
-  describe 'a pokemon using a hazing move', ->
+  describe 'Haze', ->
     shared.shouldDoNoDamage('Haze')
 
     it 'removes all status boosts from each pokemon', ->
-      shared.create.call this,
-        team1: [Factory('Weezing')]
-        team2: [Factory('Mew')]
-      # shared.Create artificial boosts.
+      shared.create.call(this)
+      # Create artificial boosts.
       @team1.at(0).stages.attack = 2
       @team1.at(0).stages.evasion = -1
       @team2.at(0).stages.defense = -3
       @team2.at(0).stages.specialAttack = 4
-      @battle.performMove(@id1, moves['haze'])
+      @battle.performMove(@id1, @battle.getMove("Haze"))
       neutralBoosts = {
         attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
         speed: 0, evasion: 0, accuracy: 0
@@ -2655,3 +2653,16 @@ shared = require '../shared'
   testRechargeMove("Hydro Cannon")
   testRechargeMove("Roar of Time")
   testRechargeMove("Rock Wrecker")
+
+  describe 'Clear Smog', ->
+    it 'removes all status boosts on the target pokemon', ->
+      shared.create.call(this)
+      # Create artificial boosts.
+      @team2.at(0).stages.defense = -3
+      @team2.at(0).stages.specialAttack = 4
+      @battle.performMove(@id1, @battle.getMove("Clear Smog"))
+      neutralBoosts = {
+        attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
+        speed: 0, evasion: 0, accuracy: 0
+      }
+      @team2.at(0).stages.should.eql neutralBoosts
