@@ -150,6 +150,9 @@ class @Pokemon
   hasAttachment: (name) =>
     @attachments.contains(name)
 
+  getAttachment: (name) =>
+    @attachments.get(name)
+
   # Sets the Pokemon's status. If it succeeds, returns true, otherwise false.
   setStatus: (newStatus) =>
     if !@status? && !@hasStatus()

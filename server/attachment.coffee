@@ -17,9 +17,9 @@ class @Attachments
       @attachments.push(attachment)
       attachment.initialize()
 
-    return false  if attachment.layers == attachment.maxLayers
+    return null  if attachment.layers == attachment.maxLayers
     attachment.layers++
-    return true
+    return attachment
 
   # todo: should call Attachment#remove() somehow without causing infinite recursion
   unattach: (attachment) =>
@@ -604,3 +604,21 @@ class @Attachment.Recharge extends @VolatileAttachment
   endTurn: (battle) =>
     @turns -= 1
     @remove()  if @turns == 0
+
+class @Attachment.Momentum extends @VolatileAttachment
+  name: "MomentumAttachment"
+
+  maxLayers: 5
+
+  constructor: (attributes={}) ->
+    super()
+    {@move} = attributes
+    @turns = 1
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()
+    @pokemon.lockMove(@move)
+
+  endTurn: (battle) =>
+    @turns -= 1
+    @remove()  if @turns == 0 || @layers == @maxLayers

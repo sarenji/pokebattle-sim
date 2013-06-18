@@ -1,4 +1,5 @@
 {Attachments, Attachment} = require '../server/attachment'
+should = require 'should'
 
 describe "An Attachment list", ->
   class TestAttachment extends Attachment
@@ -9,6 +10,6 @@ describe "An Attachment list", ->
     @attachments = new Attachments()
 
   it "will not add attachments past the maximum stack", ->
-    @attachments.push(TestAttachment).should.be.true
-    @attachments.push(TestAttachment).should.be.true
-    @attachments.push(TestAttachment).should.be.false
+    should.exist @attachments.push(TestAttachment)
+    should.exist @attachments.push(TestAttachment)
+    should.not.exist @attachments.push(TestAttachment)

@@ -2666,3 +2666,82 @@ shared = require '../shared'
         speed: 0, evasion: 0, accuracy: 0
       }
       @team2.at(0).stages.should.eql neutralBoosts
+
+  testMomentumMove = (moveName) ->
+    describe moveName, ->
+      it "prevents the user from switching", ->
+        shared.create.call(this)
+        @team1.first().isSwitchBlocked().should.be.false
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+        @team1.first().isSwitchBlocked().should.be.true
+
+      it "locks the user into using this particular move", ->
+        shared.create.call this,
+          team1: [ Factory("Shuckle") ]
+
+        momentumMove = @battle.getMove(moveName)
+        @team1.first().moves = [ momentumMove,
+                                 @battle.getMove("Rest") ]
+
+        @battle.performMove(@id1, momentumMove)
+        @battle.endTurn()
+        @battle.beginTurn()
+        for move in @team1.first().moves
+          if move == momentumMove
+            @team1.first().isMoveBlocked(move).should.be.false
+          else
+            @team1.first().isMoveBlocked(move).should.be.true
+
+      it "stops if it misses", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, "randInt", 'miss', 100)
+
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+        @team1.first().hasAttachment(Attachment.Momentum).should.be.false
+
+      it "lasts 5 turns", ->
+        shared.create.call(this)
+
+        for i in [1..5]
+          @battle.performMove(@id1, @battle.getMove(moveName))
+          @team1.first().hasAttachment(Attachment.Momentum).should.be.true
+          @battle.endTurn()
+          @battle.beginTurn()
+        @team1.first().hasAttachment(Attachment.Momentum).should.be.false
+
+      it "doubles base power every time", ->
+        shared.create.call(this)
+
+        move = @battle.getMove(moveName)
+        basePower = move.power
+        for i in [1..5]
+          bp = move.basePower(@battle, @team1.first(), @team2.first())
+          bp.should.equal(basePower * Math.pow(2, i - 1))
+          @battle.performMove(@id1, move)
+          @battle.endTurn()
+          @battle.beginTurn()
+
+      it "doubles base power again if user has defense curl's effect", ->
+        shared.create.call(this)
+
+        @team1.first().attach(Attachment.DefenseCurl)
+
+        move = @battle.getMove(moveName)
+        basePower = 2 * move.power
+        for i in [1..5]
+          console.log "1."
+          bp = move.basePower(@battle, @team1.first(), @team2.first())
+          console.log "2."
+          bp.should.equal(basePower * Math.pow(2, i - 1))
+          @battle.performMove(@id1, move)
+          console.log "3."
+          @battle.endTurn()
+          @battle.beginTurn()
+
+  testMomentumMove("Rollout")
+  testMomentumMove("Ice Ball")

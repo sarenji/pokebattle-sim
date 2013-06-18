@@ -303,6 +303,18 @@ makeRechargeMove = (name) ->
     @afterSuccessfulHit = (battle, user, target) ->
       user.attach(Attachment.Recharge)
 
+makeMomentumMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      attachment = user.attach(Attachment.Momentum, move: this)
+      attachment.turns += 1
+
+    @basePower = (battle, user, target) ->
+      times = user.getAttachment(Attachment.Momentum)?.layers || 0
+      bp = @power * Math.pow(2, times)
+      bp *= 2  if user.hasAttachment(Attachment.DefenseCurl)
+      bp
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -559,6 +571,7 @@ makeBoostMove 'howl', 'self', attack: 1
 makeRechargeMove 'hydro-cannon'
 makeRechargeMove 'hyper-beam'
 extendWithPrimaryStatus 'hypnosis', Status.SLEEP
+makeMomentumMove 'ice-ball'
 extendWithBoost 'icy-wind', 'target', speed: -1
 makeBoostMove 'iron-defense', 'self', defense: 2
 extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
@@ -643,6 +656,7 @@ extendWithBoost 'rock-tomb', 'target', speed: -1
 extendWithSecondaryEffect 'rock-slide', .3, Attachment.Flinch
 makeRechargeMove 'rock-wrecker'
 extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
+makeMomentumMove 'rollout'
 makeRecoveryMove 'roost'
 extendMove 'roost', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
