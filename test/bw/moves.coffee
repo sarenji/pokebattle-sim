@@ -1,7 +1,7 @@
 {moves} = require('../../data/bw')
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
-{finalModifier} = require '../../server/modifiers'
+{basePowerModifier, finalModifier} = require '../../server/modifiers'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -2710,3 +2710,78 @@ shared = require '../shared'
 
   testMomentumMove("Rollout")
   testMomentumMove("Ice Ball")
+
+  describe "Me First", ->
+    it "fails if the user goes second", ->
+      shared.create.call(this)
+
+      move = @battle.getMove("Me First")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @battle.recordMove(@id1, move)
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      @battle.determineTurnOrder()
+      @battle.delay @team1.first()
+      @battle.popAction(@id2)
+      @battle.performMove(@id1, move)
+
+      mock.verify()
+
+    it "uses the target's move", ->
+      shared.create.call(this)
+
+      move = @battle.getMove("Tackle")
+      mock = @sandbox.mock(move).expects('execute').once()
+
+      @battle.recordMove(@id1, @battle.getMove("Me First"))
+      @battle.recordMove(@id2, move)
+      @battle.determineTurnOrder()
+      @battle.bump @team1.first()
+      @battle.performMove(@id1, @battle.getMove("Me First"))
+
+      mock.verify()
+
+    it "has 1.5x the base power of the target's move", ->
+      shared.create.call(this)
+
+      move = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id1, @battle.getMove("Me First"))
+      @battle.recordMove(@id2, move)
+      @battle.determineTurnOrder()
+      @battle.bump @team1.first()
+      @battle.performMove(@id1, @battle.getMove("Me First"))
+
+      modifier = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1800
+
+    for moveName in [ "Chatter", "Counter", "Covet", "Focus Punch", "Me First",
+                      "Metal Burst", "Mirror Coat", "Struggle", "Thief" ]
+      do (moveName) ->
+        it "fails if the target is using #{moveName}", ->
+          shared.create.call(this)
+
+          move = @battle.getMove("Me First")
+          mock = @sandbox.mock(move).expects('fail').once()
+
+          @battle.recordMove(@id1, move)
+          @battle.recordMove(@id2, @battle.getMove(moveName))
+          @battle.determineTurnOrder()
+          @battle.bump @team1.first()
+          @battle.performMove(@id1, move)
+
+          mock.verify()
+
+    it "fails if the target is using a non-damaging move", ->
+      shared.create.call(this)
+
+      move = @battle.getMove("Me First")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @battle.recordMove(@id1, move)
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+      @battle.determineTurnOrder()
+      @battle.bump @team1.first()
+      @battle.performMove(@id1, move)
+
+      mock.verify()

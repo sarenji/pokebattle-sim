@@ -622,3 +622,9 @@ class @Attachment.Momentum extends @VolatileAttachment
   endTurn: (battle) =>
     @turns -= 1
     @remove()  if @turns == 0 || @layers == @maxLayers
+
+class @Attachment.MeFirst extends @VolatileAttachment
+  name: "MeFirstAttachment"
+
+  endTurn: (battle) =>
+    @remove()

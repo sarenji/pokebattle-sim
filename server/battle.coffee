@@ -118,6 +118,11 @@ class @Battle
     player = @getOwner(pokemon)
     (player.id of @playerActions) && @playerActions[player.id].type == 'move'
 
+  # Returns the move associated with a Pokemon.
+  peekMove: (pokemon) =>
+    player = @getOwner(pokemon)
+    @playerActions[player.id]?.move
+
   changeMove: (pokemon, move) =>
     player = @getOwner(pokemon)
     if @playerActions[player.id]?.type == 'move'

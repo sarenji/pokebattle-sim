@@ -1003,6 +1003,27 @@ extendMove 'magnitude', ->
     battle.message "Magnitude #{magnitude}!"
     power
 
+extendMove 'me-first', ->
+  bannedMoves = {
+    "chatter"    : true
+    "counter"    : true
+    "covet"      : true
+    "focus-punch": true
+    "me-first"   : true
+    "metal-burst": true
+    "mirror-coat": true
+    "struggle"   : true
+    "thief"      : true
+  }
+  @execute = (battle, user, targets) ->
+    target = targets[0]  # Me First is a single-target move
+    m = battle.peekMove(target)
+    if !battle.willMove(target) || m.isNonDamaging() || bannedMoves[m.name]
+      @fail(battle)
+      return false
+    user.attach(Attachment.MeFirst)
+    m.execute(battle, user, targets)
+
 extendMove 'memento', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.currentHP = 0
