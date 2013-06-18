@@ -1200,8 +1200,7 @@ extendMove 'techno-blast', ->
 extendMove 'torment', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Torment)
-      # TODO: Real message
-      battle.message "#{target.name} fell under Torment!"
+      battle.message "#{target.name} was subjected to torment!"
     else
       @fail(battle)
 
