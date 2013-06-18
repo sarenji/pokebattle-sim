@@ -2702,12 +2702,9 @@ shared = require '../shared'
         move = @battle.getMove(moveName)
         basePower = 2 * move.power
         for i in [1..5]
-          console.log "1."
           bp = move.basePower(@battle, @team1.first(), @team2.first())
-          console.log "2."
           bp.should.equal(basePower * Math.pow(2, i - 1))
           @battle.performMove(@id1, move)
-          console.log "3."
           @battle.endTurn()
           @battle.beginTurn()
 
