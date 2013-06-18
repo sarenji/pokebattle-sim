@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {moves} = require('../../data/bw')
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
@@ -150,12 +149,10 @@ shared = require '../shared'
         hp = @team2.first().currentHP
 
         move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
-        stub = sinon.stub(move, 'calculateDamage', -> .6)
+        stub = @sandbox.stub(move, 'calculateDamage', -> .6)
 
         move = @battle.getMove(moveName)
         @battle.performMove(@id1, move)
-
-        stub.restore()
 
         damage = (hp - @team2.first().currentHP)
         (startHP - @team1.first().currentHP).should.equal 1
@@ -475,13 +472,12 @@ shared = require '../shared'
 
     it "fails if the user's HP is full", ->
       shared.create.call(this)
-      mock = sinon.mock(moves['softboiled'])
+      mock = @sandbox.mock(moves['softboiled'])
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'Softboiled')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
   describe 'knock off', ->
@@ -683,7 +679,7 @@ shared = require '../shared'
       @team1.at(0).stages.specialDefense = 6
       @team1.at(0).stages.accuracy = 6
       @team1.at(0).stages.evasion = 6
-      mock = sinon.mock(@team2.at(0))
+      mock = @sandbox.mock(@team2.at(0))
       mock.expects('boost').never()
 
       @controller.makeMove(@player1, 'Acupressure')
@@ -738,12 +734,11 @@ shared = require '../shared'
     it "fails if the target's hp is less than the user's hp", ->
       shared.create.call(this)
       move = @battle.getMove('Endeavor')
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
       @team2.first().currentHP = hp = 4
 
       @battle.performMove(@id1, move)
-      mock.restore()
       mock.verify()
 
     it "doesn't hit ghost pokemon", ->
@@ -886,26 +881,23 @@ shared = require '../shared'
 
     it 'copies the last move used', ->
       @battle.lastMove = moves['tackle']
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').once()
       @battle.performMove(@id1, moves['copycat'])
-      mock.restore()
       mock.verify()
 
     it 'fails if no last move was used', ->
       @battle.lastMove = null
-      mock = sinon.mock(moves['copycat'])
+      mock = @sandbox.mock(moves['copycat'])
       mock.expects('fail').once()
       @battle.performMove(@id1, moves['copycat'])
-      mock.restore()
       mock.verify()
 
     it 'fails if the last move was copycat', ->
       @battle.lastMove = moves['copycat']
-      mock = sinon.mock(moves['copycat'])
+      mock = @sandbox.mock(moves['copycat'])
       mock.expects('fail').once()
       @battle.performMove(@id1, moves['copycat'])
-      mock.restore()
       mock.verify()
 
   describe 'a move that targets a different stat', ->
@@ -935,11 +927,10 @@ shared = require '../shared'
     it "always fails", ->
       shared.create.call(this)
       move = moves['teleport']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'Teleport')
       @controller.makeMove(@player2, 'Splash')
-      mock.restore()
       mock.verify()
 
   describe 'Super Fang', ->
@@ -998,13 +989,12 @@ shared = require '../shared'
     it "prevents the other person from executing their move", ->
       shared.create.call(this)
 
-      mock = sinon.mock(moves['splash'])
+      mock = @sandbox.mock(moves['splash'])
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Fake Out')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
     it "removes the flinch attachment at the end of the turn", ->
@@ -1105,13 +1095,12 @@ shared = require '../shared'
     it 'fails if the pokemon is awake', ->
       shared.create.call(this)
 
-      mock = sinon.mock(moves['nightmare'])
+      mock = @sandbox.mock(moves['nightmare'])
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'nightmare')
       @controller.makeMove(@player2, 'splash')
 
-      mock.restore()
       mock.verify()
 
     it "cuts the target's HP by 25% each turn", ->
@@ -1183,13 +1172,12 @@ shared = require '../shared'
     it 'prevents the target from using a non-attacking move that turn', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
       move = moves['calm-mind']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'taunt')
       @controller.makeMove(@player2, 'calm-mind')
 
-      mock.restore()
       mock.verify()
 
     it 'lasts three turns', ->
@@ -1292,17 +1280,16 @@ shared = require '../shared'
 
     it "fails if attacked by a special move", ->
       shared.create.call(this)
-      mock = sinon.mock(moves['counter'])
+      mock = @sandbox.mock(moves['counter'])
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'counter')
       @controller.makeMove(@player2, 'thundershock')
 
-      mock.restore()
       mock.verify()
 
     it "fails if not hit by an attack this turn", ->
       shared.create.call(this)
-      mock = sinon.mock(moves['counter'])
+      mock = @sandbox.mock(moves['counter'])
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'splash')
       @controller.makeMove(@player2, 'tackle')
@@ -1310,7 +1297,6 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'counter')
       @controller.makeMove(@player2, 'splash')
 
-      mock.restore()
       mock.verify()
 
   describe "Perish Song", ->
@@ -1380,13 +1366,12 @@ shared = require '../shared'
         team2: [Factory("Celebi")]
 
       move = moves['synchronoise']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, "Synchronoise")
       @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "works on Pokemon that share one type with the user", ->
@@ -1476,13 +1461,12 @@ shared = require '../shared'
         team1: [Factory("Magikarp", evs: {speed: 4})]
 
       move = moves['encore']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "forces the target to repeat its last used move", ->
@@ -1528,13 +1512,12 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       move = moves['encore']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Mimic")
 
-      mock.restore()
       mock.verify()
 
     it "fails if the pokemon is already encored", ->
@@ -1542,7 +1525,7 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       move = moves['encore']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, "Encore")
@@ -1551,7 +1534,6 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "fails if the move has 0 PP", ->
@@ -1559,14 +1541,13 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       move = moves['encore']
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @team2.first().setPP(moves['splash'], 1)
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "removes itself if the pokemon's move reaches 0 PP", ->
@@ -1676,14 +1657,13 @@ shared = require '../shared'
     it "fails if there are 3 layers", ->
       shared.create.call(this)
 
-      mock = sinon.mock(moves['spikes'])
+      mock = @sandbox.mock(moves['spikes'])
       mock.expects('fail').once()
 
       for i in [1..4]
         @controller.makeMove(@player1, "Spikes")
         @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "does damage to pokemon switching in according to # of layers", ->
@@ -1770,14 +1750,13 @@ shared = require '../shared'
     it "fails if there are 2 layers", ->
       shared.create.call(this)
 
-      mock = sinon.mock(moves['toxic-spikes'])
+      mock = @sandbox.mock(moves['toxic-spikes'])
       mock.expects('fail').once()
 
       for i in [1..3]
         @controller.makeMove(@player1, "Toxic Spikes")
         @controller.makeMove(@player2, "Splash")
 
-      mock.restore()
       mock.verify()
 
     it "poisons or severely poisons the switch-in if not immune", ->
@@ -1912,7 +1891,7 @@ shared = require '../shared'
         shared.create.call(this)
 
         move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
-        mock = sinon.mock(move)
+        mock = @sandbox.mock(move)
         mock.expects('fail').once()
 
         shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
@@ -1921,7 +1900,6 @@ shared = require '../shared'
         move = @battle.getMove(moveName)
         @battle.performMove(@id1, move)
 
-        mock.restore()
         mock.verify()
 
   testEffectMove 'Confuse Ray', Attachment.Confusion
@@ -1993,13 +1971,12 @@ shared = require '../shared'
       it "should not force switches if opponent is the last pokemon", ->
         shared.create.call(this, team2: [Factory("Magikarp")])
 
-        mock = sinon.mock(@battle.getOwner(@team2.first()))
+        mock = @sandbox.mock(@battle.getOwner(@team2.first()))
         mock.expects("switch").never()
 
         move = @battle.getMove(moveName)
         @battle.performMove(@id1, move)
 
-        mock.restore()
         mock.verify()
 
   testRandomSwitchMove "Roar"
@@ -2133,13 +2110,12 @@ shared = require '../shared'
         team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', 0)  # 100% immobilizes
 
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Attract')
       @controller.makeMove(@player2, 'Tackle')
 
-      mock.restore()
       mock.verify()
 
     it "has a 50% chance to not immobilize a pokemon", ->
@@ -2148,13 +2124,12 @@ shared = require '../shared'
         team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', .5)  # 0% immobilizes
 
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').once()
 
       @controller.makeMove(@player1, 'Attract')
       @controller.makeMove(@player2, 'Tackle')
 
-      mock.restore()
       mock.verify()
 
     it "fails if the Pokemon are not opposite genders", ->
@@ -2162,13 +2137,12 @@ shared = require '../shared'
         team1: [Factory("Magikarp", gender: "F")]
         team2: [Factory("Magikarp", gender: "F")]
 
-      mock = sinon.mock(moves['attract'])
+      mock = @sandbox.mock(moves['attract'])
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'Attract')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
   describe "Reflect", ->
@@ -2204,13 +2178,12 @@ shared = require '../shared'
 
     it "fails if the user already used it", ->
       shared.create.call(this)
-      mock = sinon.mock(moves['reflect'])
+      mock = @sandbox.mock(moves['reflect'])
       mock.expects('fail').once()
 
       @battle.performMove(@id1, moves['reflect'])
       @battle.performMove(@id1, moves['reflect'])
 
-      mock.restore()
       mock.verify()
 
     it "does not trigger on critical hits"
@@ -2248,13 +2221,12 @@ shared = require '../shared'
 
     it "fails if the user already used it", ->
       shared.create.call(this)
-      mock = sinon.mock(moves['light-screen'])
+      mock = @sandbox.mock(moves['light-screen'])
       mock.expects('fail').once()
 
       @battle.performMove(@id1, moves['light-screen'])
       @battle.performMove(@id1, moves['light-screen'])
 
-      mock.restore()
       mock.verify()
 
     it "does not trigger on critical hits"
@@ -2349,9 +2321,8 @@ shared = require '../shared'
       @team2.attach(Attachment.Reflect)
       @team2.attach(Attachment.LightScreen)
 
-      spy = sinon.spy(move, 'calculateDamage')
+      spy = @sandbox.spy(move, 'calculateDamage')
       @battle.performMove(@id1, move)
-      spy.restore()
       spy.returned(damage).should.be.true
 
     it "does not shatter if the target is immune", ->
@@ -2359,7 +2330,7 @@ shared = require '../shared'
       @team2.attach(Attachment.Reflect)
       @team2.attach(Attachment.LightScreen)
 
-      sinon.stub(@team2.first(), 'isImmune', -> true)
+      @sandbox.stub(@team2.first(), 'isImmune', -> true)
       @battle.performMove(@id1, moves['brick-break'])
       @team2.hasAttachment(Attachment.Reflect).should.be.true
       @team2.hasAttachment(Attachment.LightScreen).should.be.true
@@ -2398,11 +2369,10 @@ shared = require '../shared'
       shared.create.call(this)
       @team1.first().turnsActive = 2
       move = @battle.getMove("Fake Out")
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @battle.performMove(@id1, move)
-      mock.restore()
       mock.verify()
 
   describe "Focus Energy", ->
@@ -2414,13 +2384,12 @@ shared = require '../shared'
     it "fails the second time it is used", ->
       shared.create.call(this)
       move = @battle.getMove("Focus Energy")
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @battle.performMove(@id1, move)
       @battle.performMove(@id1, move)
 
-      mock.restore()
       mock.verify()
 
   testIdentifyMove = (moveName, type) ->
@@ -2468,11 +2437,10 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Porygon", moves: [ "Conversion" ])]
       move = @battle.getMove("Conversion")
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
       @battle.performMove(@id1, move)
-      mock.restore()
       mock.verify()
 
   describe "Defense Curl", ->
@@ -2639,7 +2607,7 @@ shared = require '../shared'
       it "prevents the user from moving the next turn", ->
         shared.create.call(this)
 
-        spy = sinon.spy(@team1.first(), 'beforeMove')
+        spy = @sandbox.spy(@team1.first(), 'beforeMove')
         @battle.performMove(@id1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()

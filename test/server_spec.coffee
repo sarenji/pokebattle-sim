@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {BattleServer, Player} = require('../').server
 {Factory} = require './factory'
 
@@ -13,7 +12,7 @@ describe 'BattleServer', ->
                {id: 'def', emit: ->}]
     spies = []
     for player in players
-      spy = sinon.spy(player, 'emit')
+      spy = @sandbox.spy(player, 'emit')
       spies.push(spy)
 
     server = new BattleServer()

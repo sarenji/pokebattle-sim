@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {Battle, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
 {moves} = require('../data/bw')
@@ -30,12 +29,12 @@ describe 'Battle', ->
 
     it 'returns false on non-None in presence of a weather-cancel ability', ->
       @battle.weather = "Sunny"
-      sinon.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
+      @sandbox.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
       @battle.hasWeather("Sunny").should.be.false
 
     it 'returns true on None in presence of a weather-cancel ability', ->
       @battle.weather = "Sunny"
-      sinon.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
+      @sandbox.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
       @battle.hasWeather("None").should.be.true
 
   describe '#recordMove', ->
@@ -58,7 +57,7 @@ describe 'Battle', ->
 
     it "calls the pokemon's switchOut() method", ->
       pokemon = @team1.first()
-      mock = sinon.mock(pokemon)
+      mock = @sandbox.mock(pokemon)
       mock.expects('switchOut').once()
       @battle.performSwitch(@id1, 1)
       mock.verify()

@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus, Attachment} = require('../').server
 {Factory} = require './factory'
@@ -27,12 +26,11 @@ describe 'Mechanics', ->
         team2: [Factory('Magikarp')]
       move = moves['hi-jump-kick']
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('afterMiss').once()
       @controller.makeMove(@player1, 'hi-jump-kick')
       @controller.makeMove(@player2, 'Splash')
       mock.verify()
-      mock.restore()
 
     it 'does not trigger effects dependent on the move hitting', ->
       shared.create.call this,
@@ -40,12 +38,11 @@ describe 'Mechanics', ->
         team2: [Factory('Gyarados')]
       move = moves['hi-jump-kick']
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      mock = sinon.mock(move)
+      mock = @sandbox.mock(move)
       mock.expects('afterSuccessfulHit').never()
       @controller.makeMove(@player1, 'Hi Jump Kick')
       @controller.makeMove(@player2, 'Splash')
       mock.verify()
-      mock.restore()
 
   describe 'fainting', ->
     it 'forces a new pokemon to be picked', ->
@@ -53,7 +50,7 @@ describe 'Mechanics', ->
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @team2.at(0).currentHP = 1
-      spy = sinon.spy(@player2, 'emit')
+      spy = @sandbox.spy(@player2, 'emit')
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
       spy.calledWith('request action').should.be.true
@@ -96,7 +93,7 @@ describe 'Mechanics', ->
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
       defender = @team2.at(0)
-      spy = sinon.spy(defender, 'attach')
+      spy = @sandbox.spy(defender, 'attach')
 
       @controller.makeMove(@player1, 'Iron Head')
       @controller.makeMove(@player2, 'Splash')
@@ -122,7 +119,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
       shared.biasRNG.call(this, "next", "fang flinch", 0)
       defender = @team2.at(0)
-      spy = sinon.spy(defender, 'attach')
+      spy = @sandbox.spy(defender, 'attach')
       @controller.makeMove(@player1, 'ice-fang')
       @controller.makeMove(@player2, 'Splash')
 
@@ -181,7 +178,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew')]
         team2: [Factory('Mew')]
-      spy = sinon.spy(@battle, 'determineTurnOrder')
+      spy = @sandbox.spy(@battle, 'determineTurnOrder')
       shared.biasRNG.call(this, "next", "turn order", .6)
       @battle.recordMove(@id1, moves['psychic'])
       @battle.recordMove(@id2, moves['psychic'])
@@ -204,7 +201,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan')]
-      spy = sinon.spy(@battle, 'determineTurnOrder')
+      spy = @sandbox.spy(@battle, 'determineTurnOrder')
       @battle.recordMove(@id1, moves['mach-punch'])
       @battle.recordMove(@id2, moves['psychic'])
       @battle.determineTurnOrder().should.eql [
@@ -225,7 +222,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan', evs: { speed: 4 })]
-      spy = sinon.spy(@battle, 'determineTurnOrder')
+      spy = @sandbox.spy(@battle, 'determineTurnOrder')
       @battle.recordMove(@id1, moves['thunderpunch'])
       @battle.recordMove(@id2, moves['thunderpunch'])
       @battle.determineTurnOrder().should.eql [
@@ -249,7 +246,7 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @team2.at(0).currentHP = 1
-      mock = sinon.mock(@controller)
+      mock = @sandbox.mock(@controller)
       mock.expects('endBattle').once()
       @controller.makeMove(@player1, 'Mach Punch')
       @controller.makeMove(@player2, 'Psychic')
@@ -276,13 +273,12 @@ describe 'Mechanics', ->
       @team1.at(0).attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
       @team1.at(0).currentHP.should.be.lessThan @team1.at(0).stat('hp')
@@ -309,7 +305,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
       shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
 
-      spy = sinon.spy(@battle.confusionMove, 'isCriticalHit')
+      spy = @sandbox.spy(@battle.confusionMove, 'isCriticalHit')
       @controller.makeMove(@player1, 'Tackle')
       @controller.makeMove(@player2, 'Tackle')
 
@@ -322,13 +318,12 @@ describe 'Mechanics', ->
       @team1.at(0).attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
     it "has a 20% chance of unfreezing", ->
@@ -361,13 +356,12 @@ describe 'Mechanics', ->
       @team1.first().attach(Attachment.Paralysis)
       shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
 
-      mock = sinon.mock(moves['tackle'])
+      mock = @sandbox.mock(moves['tackle'])
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')
       @controller.makeMove(@player2, 'Splash')
 
-      mock.restore()
       mock.verify()
 
     it "has its speed quartered", ->

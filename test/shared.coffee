@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {Battle, BattleController} = require('../').server
 {Factory} = require './factory'
 
@@ -13,13 +12,12 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
   it 'should fail if used twice', ->
     create.call(this, battleOptions)
     move = @battle.getMove(moveName)
-    mock = sinon.mock(move)
+    mock = @sandbox.mock(move)
     mock.expects('fail').once()
 
     @battle.performMove(@id1, move)
     @battle.performMove(@id1, move)
 
-    mock.restore()
     mock.verify()
 
 create = (opts={}) ->

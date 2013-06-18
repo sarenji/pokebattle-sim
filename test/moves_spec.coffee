@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {Battle, Move, Pokemon, Status, Attachment} = require('../').server
 
 describe 'Move', ->
@@ -69,15 +68,15 @@ describe 'Move', ->
       attacker = new Pokemon()
       defender = new Pokemon()
       move = new Move()
-      sinon.stub(move, 'criticalHitLevel', -> 3)
-      sinon.stub(battle.rng, 'next', -> 0.2)
+      @sandbox.stub(move, 'criticalHitLevel', -> 3)
+      @sandbox.stub(battle.rng, 'next', -> 0.2)
       move.isCriticalHit(battle, attacker, defender).should.be.true
 
     it "does not occur when the RNG output >= the critical hit level", ->
       battle = new Battle('1', players: [])
       attacker = new Pokemon()
       defender = new Pokemon()
-      sinon.stub(battle.rng, 'next', -> 0.0700)
+      @sandbox.stub(battle.rng, 'next', -> 0.0700)
       new Move().isCriticalHit(battle, attacker, defender).should.be.false
 
     it "does not occur if the defender has Battle Armor", ->
@@ -85,8 +84,8 @@ describe 'Move', ->
       attacker = new Pokemon()
       defender = new Pokemon(ability: 'Battle Armor')
       move = new Move()
-      sinon.stub(move, 'criticalHitLevel', -> 3)
-      sinon.stub(battle.rng, 'next', -> 0.2)
+      @sandbox.stub(move, 'criticalHitLevel', -> 3)
+      @sandbox.stub(battle.rng, 'next', -> 0.2)
       move.isCriticalHit(battle, attacker, defender).should.be.false
 
     it "does not occur if the defender has Shell Armor", ->
@@ -94,8 +93,8 @@ describe 'Move', ->
       attacker = new Pokemon()
       defender = new Pokemon(ability: 'Shell Armor')
       move = new Move()
-      sinon.stub(move, 'criticalHitLevel', -> 3)
-      sinon.stub(battle.rng, 'next', -> 0.2)
+      @sandbox.stub(move, 'criticalHitLevel', -> 3)
+      @sandbox.stub(battle.rng, 'next', -> 0.2)
       move.isCriticalHit(battle, attacker, defender).should.be.false
 
     describe "-1 crit ratios", ->
@@ -103,7 +102,7 @@ describe 'Move', ->
         @battle = new Battle('1', players: [])
         @attacker = new Pokemon()
         @move = new Move("TestMove", criticalHitLevel: -1)
-        sinon.stub(@battle.rng, 'next', -> 1)
+        @sandbox.stub(@battle.rng, 'next', -> 1)
 
       it "fails if the defender has Battle Armor", ->
         defender = new Pokemon(ability: 'Battle Armor')

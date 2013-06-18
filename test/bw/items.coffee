@@ -1,4 +1,3 @@
-sinon = require 'sinon'
 {items, moves} = require('../../data/bw')
 {basePowerModifier, attackStatModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
@@ -228,12 +227,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      stub = sinon.stub(moves['ember'], 'baseDamage', -> 9999)
+      stub = @sandbox.stub(moves['ember'], 'baseDamage', -> 9999)
 
       @controller.makeMove(@player1, 'Ember')
       @controller.makeMove(@player2, 'Splash')
 
-      stub.restore()
       @team2.first().hasItem().should.be.false
 
   describe "Choice items", ->
@@ -683,7 +681,7 @@ shared = require '../shared'
 
       hp = @team1.first().stat('hp')
       damage = Math.floor(hp / 2)
-      sinon.stub(@team1.first(), "editDamage", -> damage)
+      @sandbox.stub(@team1.first(), "editDamage", -> damage)
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Thunderbolt')
 
@@ -704,7 +702,7 @@ shared = require '../shared'
 
       hp = @team1.first().stat('hp')
       damage = Math.floor(hp / 2)
-      sinon.stub(@team1.first(), "editDamage", -> damage)
+      @sandbox.stub(@team1.first(), "editDamage", -> damage)
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Tackle')
 
