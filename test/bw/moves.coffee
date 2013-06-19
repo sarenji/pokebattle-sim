@@ -2785,3 +2785,34 @@ shared = require '../shared'
       @battle.performMove(@id1, move)
 
       mock.verify()
+
+  describe "Dream Eater", ->
+    it "fails if the target is not asleep", ->
+      shared.create.call(this)
+      move = @battle.getMove("Dream Eater")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @battle.performMove(@id1, move)
+
+      mock.verify()
+
+    it "does not fail if the target is asleep", ->
+      shared.create.call(this)
+      move = @battle.getMove("Dream Eater")
+      mock = @sandbox.mock(move).expects('fail').never()
+
+      @team2.first().setStatus(Status.SLEEP)
+      @battle.performMove(@id1, move)
+
+      mock.verify()
+
+    it "drains 1/2 of damage", ->
+      shared.create.call(this)
+      @team1.first().currentHP = initialHP = 1
+
+      @team2.first().setStatus(Status.SLEEP)
+      @battle.performMove(@id1, @battle.getMove("Dream Eater"))
+
+      damage = @team2.first().stat('hp') - @team2.first().currentHP
+      healed = Math.floor(damage / 2)
+      @team1.first().currentHP.should.equal(initialHP + healed)

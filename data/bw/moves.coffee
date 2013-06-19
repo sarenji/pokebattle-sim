@@ -839,6 +839,14 @@ extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
 
+extendMove 'dream-eater', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if !target.hasStatus(Status.SLEEP)
+      @fail(battle)
+      return false
+    oldUse.call(this, battle, user, target)
+
 extendMove 'encore', ->
   bannedMoves =
     'encore': true
