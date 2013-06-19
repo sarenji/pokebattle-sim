@@ -2443,6 +2443,25 @@ shared = require '../shared'
       @battle.performMove(@id1, move)
       mock.verify()
 
+  describe "Conversion 2", ->
+    it "fails if the target has not yet moved", ->
+      move = @battle.getMove("Conversion 2")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @team2.first().lastMove = null
+      @battle.performMove(@id1, move)
+      mock.verify()
+
+    it "changes user's type to one resisting or is immune to target's move", ->
+      @team1.first().types = [ "Normal" ]
+
+      move = @battle.getMove("Ember")
+      type = move.type
+      @team2.first().lastMove = move
+      @battle.performMove(@id1, @battle.getMove("Conversion 2"))
+      @team1.first().types.should.have.length 1
+      util.typeEffectiveness(type, @team1.first().types).should.be.lessThan 1
+
   describe "Defense Curl", ->
     # TODO: Merge tests.
     it "raises defense by 1 stage", ->

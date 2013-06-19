@@ -458,6 +458,19 @@ extendMove 'conversion', ->
       return false
     target.types = [ type ]
 
+extendMove 'conversion-2', ->
+  @use = (battle, user, target) ->
+    {lastMove} = target
+    if !lastMove?
+      @fail(battle)
+      return false
+
+    moveType = lastMove.type
+    possibles = []
+    for type, value of util.Type
+      possibles.push(type)  if util.typeEffectiveness(moveType, [ type ]) < 1
+    user.types = [ battle.rng.choice(possibles, "conversion 2") ]
+
 makeBoostMove 'cosmic-power', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'cotton-guard', 'self', defense: 3
 makeBoostMove 'cotton-spore', 'target', speed: -2

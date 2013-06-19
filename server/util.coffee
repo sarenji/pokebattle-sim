@@ -31,7 +31,7 @@ makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
     effectiveness *= typeChart[userType][targetType]
   effectiveness
 
-Type =
+@Type = Type =
   NORMAL   : 0
   FIRE     : 1
   WATER    : 2
