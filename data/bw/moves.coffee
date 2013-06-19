@@ -428,6 +428,13 @@ extendWithSecondaryBoost 'bug-buzz', 'target', .1, specialDefense: -1
 makeBoostMove 'bulk-up', 'self', attack: 1, defense: 1
 extendWithBoost 'bulldoze', 'target', speed: -1
 makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
+
+extendMove 'camouflage', ->
+  @use = (battle, user, target) ->
+    # Camouflage changes type based on terrain
+    # In Wi-Fi battles, the terrain always results in Ground type.
+    target.types = [ "Ground" ]
+
 makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1

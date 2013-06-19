@@ -2835,3 +2835,11 @@ shared = require '../shared'
       damage = @team2.first().stat('hp') - @team2.first().currentHP
       healed = Math.floor(damage / 2)
       @team1.first().currentHP.should.equal(initialHP + healed)
+
+  describe "Camouflage", ->
+    it "changes the user's type to Ground type in Wi-Fi battles", ->
+      shared.create.call(this)
+
+      @team1.first().types = [ "Normal" ]
+      @battle.performMove(@id1, @battle.getMove("Camouflage"))
+      @team1.first().types.should.eql [ "Ground" ]
