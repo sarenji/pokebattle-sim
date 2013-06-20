@@ -7,6 +7,7 @@ class @Attachments
     @attachments = []
 
   push: (attachmentClass, options={}) =>
+    throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
     attachment = @get(attachmentClass)
     if !attachment?
       attachment = new attachmentClass(options)
@@ -628,3 +629,14 @@ class @Attachment.MeFirst extends @VolatileAttachment
 
   endTurn: (battle) =>
     @remove()
+
+class @Attachment.Charge extends @VolatileAttachment
+  name: "ChargeAttachment"
+
+  constructor: ->
+    super()
+    @turns = 2
+
+  endTurn: (battle) =>
+    @turns -= 1
+    @remove()  if @turns == 0

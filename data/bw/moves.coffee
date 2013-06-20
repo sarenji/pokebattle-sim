@@ -435,6 +435,15 @@ extendMove 'camouflage', ->
     # In Wi-Fi battles, the terrain always results in Ground type.
     target.types = [ "Ground" ]
 
+makeBoostMove 'charge', 'self', specialDefense: 1
+extendMove 'charge', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    user.unattach(Attachment.Charge)  # Charge can be used twice in a row
+    user.attach(Attachment.Charge)
+    battle.message "#{user.name} began charging power!"
+    oldUse.call(this, battle, user, target)
+
 makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1

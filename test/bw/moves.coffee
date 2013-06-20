@@ -2843,3 +2843,45 @@ shared = require '../shared'
       @team1.first().types = [ "Normal" ]
       @battle.performMove(@id1, @battle.getMove("Camouflage"))
       @team1.first().types.should.eql [ "Ground" ]
+
+  describe "Charge", ->
+    shared.shouldDoNoDamage("Charge")
+    it "raises the user's special defense by 1", ->
+      shared.create.call(this)
+
+      @team1.first().stages.specialDefense.should.equal 0
+      @battle.performMove(@id1, @battle.getMove("Charge"))
+      @team1.first().stages.specialDefense.should.equal 1
+
+    it "doubles the base power of the user's next move", ->
+      shared.create.call(this)
+      move = @battle.getMove("Thunderbolt")
+
+      modifier = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1000
+      @battle.performMove(@id1, @battle.getMove("Charge"))
+      modifier = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x2000
+
+    it "doesn't double the next move if it is non-electric type", ->
+      shared.create.call(this)
+      move = @battle.getMove("Flamethrower")
+
+      modifier = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1000
+      @battle.performMove(@id1, @battle.getMove("Charge"))
+      modifier = basePowerModifier.run(move, @battle, @team1.first(), @team2.first())
+      modifier.should.equal 0x1000
+
+    it "can be used twice in a row", ->
+      shared.create.call(this)
+      move = @battle.getMove("Charge")
+      mock = @sandbox.mock(move).expects('fail').never()
+
+      @battle.performMove(@id1, move)
+      @battle.endTurn()
+      @battle.performMove(@id1, move)
+      @battle.endTurn()
+
+      @team1.first().hasAttachment(Attachment.Charge).should.be.true
+      mock.verify()

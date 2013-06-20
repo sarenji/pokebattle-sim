@@ -166,6 +166,12 @@ basePowerModifier.add 140, (move, battle, user, target) ->
     return 0x1800
   return 0x1000
 
+basePowerModifier.add 150, (move, battle, user, target) ->
+  if user.hasAttachment(Attachment.Charge) &&
+      move.getType(battle, user, target) == 'Electric'
+    return 0x2000
+  return 0x1000
+
 # TODO: The rest of the base power modifiers.
 
 @stabModifier = stabModifier = new ModifierChain()
