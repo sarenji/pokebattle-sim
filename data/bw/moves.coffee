@@ -640,6 +640,16 @@ extendMove 'minimize', ->
     target.attach(Attachment.Minimize)
 
 makeIdentifyMove("miracle-eye", "Psychic")
+
+extendMove 'mirror-move', ->
+  @execute = (battle, user, targets) ->
+    target = targets[0]
+    move = target.lastMove
+    if !move? || !move.hasFlag("mirror")
+      @fail(battle)
+      return false
+    move.execute(battle, user, targets)
+
 extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
 makeWeatherRecoveryMove 'moonlight'

@@ -2913,3 +2913,33 @@ shared = require '../shared'
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 2)  # frz
       @battle.performMove(@id1, @battle.getMove("Tri Attack"))
       @team2.first().hasStatus(Status.FREEZE).should.be.true
+
+  describe "Mirror Move", ->
+    it "copies the opponent's last move", ->
+      shared.create.call(this)
+      move = @battle.getMove("Tackle")
+      mock = @sandbox.mock(move).expects('execute').once()
+      @team2.first().lastMove = move
+
+      @battle.performMove(@id1, @battle.getMove("Mirror Move"))
+      mock.verify()
+
+    it "fails if the opponent has not moved the past turn", ->
+      shared.create.call(this)
+      move = @battle.getMove("Mirror Move")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @battle.performMove(@id1, move)
+      mock.verify()
+
+    it "fails if the move does not have a `mirror` flag", ->
+      shared.create.call(this)
+      @team2.first().lastMove = @battle.getMove("Dragon Dance")
+      move = @battle.getMove("Mirror Move")
+      mock = @sandbox.mock(move).expects('fail').once()
+
+      @battle.performMove(@id1, move)
+      mock.verify()
+
+    # TODO: Find out if this is true: when is lastMove nullified?
+    it "fails if the pokemon was unable to move the previous turn"
