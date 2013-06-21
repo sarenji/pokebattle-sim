@@ -768,7 +768,16 @@ extendWithSecondaryStatus 'thunderpunch', .1, Status.PARALYZE
 extendWithSecondaryStatus 'thundershock', .1, Status.PARALYZE
 makeBoostMove 'tickle', 'target', attack: -1, defense: -1
 extendWithPrimaryStatus 'toxic', Status.TOXIC
-# extendWithSecondaryEffect 'tri-attack', .1, Status.PARALYZE
+extendMove 'tri-attack', ->
+  oldFunc = @afterSuccessfulHit
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    oldFunc.call(this, battle, user, target, damage)
+    return  if battle.rng.next("secondary status") >= .2
+    switch battle.rng.randInt(0, 2, "tri attack effect")
+      when 0 then target.setStatus(Status.PARALYZE)
+      when 1 then target.setStatus(Status.BURN)
+      when 2 then target.setStatus(Status.FREEZE)
+
 makeTrickMove 'trick'
 # extendWithSecondaryEffect 'twineedle', .2, Status.POISON
 extendWithSecondaryEffect 'twister', .2, Attachment.Flinch

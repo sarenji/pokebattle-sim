@@ -2885,3 +2885,31 @@ shared = require '../shared'
 
       @team1.first().hasAttachment(Attachment.Charge).should.be.true
       mock.verify()
+
+  describe "Tri Attack", ->
+    it "has a 20% chance to activate its secondary effect", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @team2.first().hasStatus().should.be.true
+
+    it "has a 1/3 chance for the secondary effect to be paralysis", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "randInt", 'tri attack effect', 0)  # par
+      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @team2.first().hasStatus(Status.PARALYZE).should.be.true
+
+    it "has a 1/3 chance for the secondary effect to be burn", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "randInt", 'tri attack effect', 1)  # brn
+      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @team2.first().hasStatus(Status.BURN).should.be.true
+
+    it "has a 1/3 chance for the secondary effect to be freeze", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "randInt", 'tri attack effect', 2)  # frz
+      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @team2.first().hasStatus(Status.FREEZE).should.be.true
