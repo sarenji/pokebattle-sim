@@ -2943,3 +2943,39 @@ shared = require '../shared'
 
     # TODO: Find out if this is true: when is lastMove nullified?
     it "fails if the pokemon was unable to move the previous turn"
+
+  describe "Leech Seed", ->
+    it "saps 1/8 of the target's max HP each turn", ->
+      shared.create.call(this)
+      move = @battle.getMove("Leech Seed")
+
+      @team1.first().currentHP = 1
+      @battle.performMove(@id1, move)
+      @battle.endTurn()
+
+      p = @team2.first()
+      fullHP = p.stat('hp')
+      (fullHP - p.currentHP).should.equal Math.floor(fullHP / 8)
+      @team1.first().currentHP.should.equal(fullHP - p.currentHP + 1)
+
+    it "saps up to 1/8 HP", ->
+      shared.create.call(this)
+      move = @battle.getMove("Leech Seed")
+
+      @team1.first().currentHP = 1
+      @team2.first().currentHP = 1
+      @battle.performMove(@id1, move)
+      @battle.endTurn()
+
+      @team1.first().currentHP.should.equal 2
+
+    it "always misses on Grass type Pokemon", ->
+      shared.create.call(this)
+      move = @battle.getMove("Leech Seed")
+      mock = @sandbox.mock(move).expects('afterMiss').once()
+      @team2.first().types = [ "Water", "Grass"]
+
+      @battle.performMove(@id1, move)
+      mock.verify()
+
+    it "does not ever trigger if the Pokemon is fainted"

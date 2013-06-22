@@ -640,3 +640,17 @@ class @Attachment.Charge extends @VolatileAttachment
   endTurn: (battle) =>
     @turns -= 1
     @remove()  if @turns == 0
+
+class @Attachment.LeechSeed extends @VolatileAttachment
+  name: "LeechSeedAttachment"
+
+  constructor: (attributes) ->
+    super()
+    {@user, @target} = attributes
+
+  endTurn: (battle) =>
+    hp = @target.stat('hp')
+    damage = Math.min(Math.floor(hp / 8), @target.currentHP)
+    @target.damage(damage)
+    @user.drain(damage)
+    battle.message "#{@target.name}'s health is sapped by Leech Seed!"

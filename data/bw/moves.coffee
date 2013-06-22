@@ -619,6 +619,19 @@ extendWithBoost 'leaf-storm', 'self', specialAttack: -2
 extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
 makeBoostMove 'leer', 'target', defense: -1
 extendWithDrain 'leech-life'
+
+extendMove 'leech-seed', ->
+  oldWillMiss = @willMiss
+  @willMiss = (battle, user, target) ->
+    if target.hasType("Grass")
+      true
+    else
+      oldWillMiss.call(this, battle, user, target)
+
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    target.attach(Attachment.LeechSeed, {user, target})
+    battle.message "#{target.name} was seeded!"
+
 extendWithSecondaryStatus 'lick', .3, Status.PARALYZE
 makeLockOnMove 'lock-on'
 makeWeightBased 'low-kick'
