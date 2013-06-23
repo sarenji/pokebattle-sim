@@ -668,6 +668,7 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
     @turns--
     @remove()  if @turns == 0
 
+# Actual protect-ing is in move.coffee, for now.
 class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
 
