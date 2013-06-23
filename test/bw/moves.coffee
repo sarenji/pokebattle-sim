@@ -3119,3 +3119,22 @@ shared = require '../shared'
 
     it "removes the Wide Guard attachment, if any, on the target"
     it "removes the Quick Guard attachment, if any, on the target"
+
+  describe "Payback", ->
+    it "doubles base power if target has made a move this turn", ->
+      shared.create.call(this)
+      move = @battle.getMove("Payback")
+      spy  = @sandbox.spy(move, 'basePower')
+
+      @battle.performMove(@id2, @battle.getMove("Splash"))
+      @battle.performMove(@id1, move)
+      spy.returned(2 * move.power).should.be.true
+
+    it "doesn't double base power otherwise", ->
+      shared.create.call(this)
+      move = @battle.getMove("Payback")
+      spy  = @sandbox.spy(move, 'basePower')
+
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+      @battle.performMove(@id1, move)
+      spy.returned(move.power).should.be.true
