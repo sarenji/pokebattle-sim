@@ -18,7 +18,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
     @flags = attributes.flags
-    @flinchChance = attributes.flinchChance / 100
+    @flinchChance = (attributes.flinchChance || 0) / 100
     @pp = attributes.pp
 
   isPhysical: =>
