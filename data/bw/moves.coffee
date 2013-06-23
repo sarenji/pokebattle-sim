@@ -1215,7 +1215,7 @@ extendMove 'pay-day', ->
 
 extendMove 'payback', ->
   @basePower = (battle, user, target) ->
-    if !target.lastMove?
+    if !target.lastMove? || battle.willMove(target)
       @power
     else
       2 * @power

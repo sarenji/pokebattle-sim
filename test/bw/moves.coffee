@@ -3138,3 +3138,18 @@ shared = require '../shared'
       @battle.recordMove(@id2, @battle.getMove("Splash"))
       @battle.performMove(@id1, move)
       spy.returned(move.power).should.be.true
+
+    it "doesn't double BP if target moved last turn, but not this turn", ->
+      shared.create.call(this)
+      move = @battle.getMove("Payback")
+      spy  = @sandbox.spy(move, 'basePower')
+
+      @battle.performMove(@id2, @battle.getMove("Splash"))
+
+      @battle.endTurn()
+      @battle.beginTurn()
+
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+      @battle.performMove(@id1, move)
+
+      spy.returned(move.power).should.be.true
