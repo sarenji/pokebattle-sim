@@ -234,6 +234,7 @@ makeProtectMove = (name) ->
         @fail(battle)
         return
       user.attach(Attachment.Protect)
+      battle.message "#{user.name} protected itself!"
 
 makeIdentifyMove = (name, type) ->
   extendMove name, ->
