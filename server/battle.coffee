@@ -269,7 +269,7 @@ class @Battle
       action = @getAction(id)
       action.move?.beforeTurn?(this, pokemon)
 
-    while @priorityQueue.length > 0
+    while @hasActionsLeft()
       {id, pokemon} = @priorityQueue.shift()
       continue  if pokemon.isFainted()
 
@@ -413,6 +413,9 @@ class @Battle
       when 'switch' then 5
       # TODO: Apply priority callbacks
       when 'move'   then action.move.priority
+
+  hasActionsLeft: =>
+    priorityQueue.length > 0
 
   # Executed by @continueTurn
   performSwitch: (id, toPosition) =>

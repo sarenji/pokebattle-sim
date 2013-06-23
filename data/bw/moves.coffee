@@ -222,10 +222,13 @@ makeExplosionMove = (name) ->
 makeProtectMove = (name) ->
   extendMove name, ->
     @execute = (battle, user, targets) ->
-      if battle.priorityQueue.length == 0
+      # Protect fails if the user is the last to move.
+      if !battle.hasActionsLeft()
         user.unattach(Attachment.ProtectCounter)
         @fail(battle)
         return
+
+      # Calculate and roll chance of success
       attachment = user.attach(Attachment.ProtectCounter)
       attachment.turns = 2
       chance = attachment.successChance()
@@ -233,6 +236,8 @@ makeProtectMove = (name) ->
         user.unattach(Attachment.ProtectCounter)
         @fail(battle)
         return
+
+      # Success!
       user.attach(Attachment.Protect)
       battle.message "#{user.name} protected itself!"
 
