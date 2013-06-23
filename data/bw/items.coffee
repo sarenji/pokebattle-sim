@@ -213,7 +213,7 @@ makeEvasionItem = (name, ratio=0.9) ->
 makeFlinchItem = (name) ->
   extendItem name, ->
     @afterSuccessfulHit = (battle, move, user, target, damage) ->
-      if !move.hasFlag("flinch") && !move.isNonDamaging() &&
+      if move.flinchChance == 0 && !move.isNonDamaging() &&
           battle.rng.next("flinch item chance") < .1
         target.attach(Attachment.Flinch)
 
