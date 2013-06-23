@@ -58,7 +58,7 @@ class @Move
         # TODO: Pull this out of execute. It can be overridden.
         for pokemon in [user, target]
           if pokemon.isFainted()
-            battle.message "#{@name} fainted!"
+            battle.message "#{pokemon.name} fainted!"
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
