@@ -415,7 +415,7 @@ class @Battle
       when 'move'   then action.move.priority
 
   hasActionsLeft: =>
-    priorityQueue.length > 0
+    @priorityQueue.length > 0
 
   # Executed by @continueTurn
   performSwitch: (id, toPosition) =>
