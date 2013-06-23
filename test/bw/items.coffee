@@ -1491,3 +1491,15 @@ shared = require '../shared'
       @team1.first().hasAttachment(Attachment.Endure).should.be.true
       @battle.endTurn()
       @team1.first().hasAttachment(Attachment.Endure).should.be.false
+
+  describe "Feint", ->
+    it "removes the Protect attachment, if any, on the target", ->
+      shared.create.call(this)
+      @team1.first().attach(Attachment.Protect)
+      @team1.first().hasAttachment(Attachment.Protect).should.be.true
+
+      @battle.performMove(@id2, @battle.getMove("Feint"))
+      @team1.first().hasAttachment(Attachment.Protect).should.be.false
+
+    it "removes the Wide Guard attachment, if any, on the target"
+    it "removes the Quick Guard attachment, if any, on the target"

@@ -551,7 +551,6 @@ makeEruptionMove 'eruption'
 makeExplosionMove 'explosion'
 extendWithSecondaryEffect 'extrasensory', .1, Attachment.Flinch
 makeBoostMove 'fake-tears', 'target', specialDefense: -2
-makeBoostMove 'featherdance', 'target', attack: -2
 extendWithSecondaryEffect 'fake-out', 1, Attachment.Flinch
 
 extendMove 'fake-out', ->
@@ -561,6 +560,12 @@ extendMove 'fake-out', ->
     if user.turnsActive > 1
       @fail(battle)
       return false
+
+makeBoostMove 'featherdance', 'target', attack: -2
+
+extendMove 'feint', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    target.unattach(Attachment.Protect)
 
 extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
 extendWithSecondaryStatus 'fire-blast', .1, Status.BURN
