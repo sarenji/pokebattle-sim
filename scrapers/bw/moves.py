@@ -10,6 +10,7 @@ target_types = {}
 move_meta = {}
 flag_names = {}
 flags = {}
+ailments = {}
 
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/moves.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
@@ -18,6 +19,7 @@ meta_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_m
 targets_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_targets.csv'
 flag_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_flags.csv'
 flags_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_flag_map.csv'
+ailments_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_meta_ailments.csv'
 
 Move = collections.namedtuple('Move', ["id", "identifier", "generation_id", 
   "type_id", "power", "pp", "accuracy", "priority", "target_id", 
@@ -84,36 +86,55 @@ for line in lines:
   flags.setdefault(move_id, []).append(flag)
 
 
+# Parse ailments
+lines = requests.get(ailments_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+for line in lines:
+  ailment_id, ailment_name = line.split(',')
+  ailments[ailment_id] = ailment_name
+
+
 # Parse moves
 lines = requests.get(moves_url).text.splitlines()
 lines.pop(0) # get rid of info
 
 for line in lines:
-  move = Move(*line.split(','))
+  data = Move(*line.split(','))
 
   # moves after 10000 are shadow moves 
-  if int(move.id) > 10000: continue
+  if int(data.id) > 10000: continue
   
-  moves[move.identifier] = {
-    'type'     : types[move.type_id],
-    'power'    : int(move.power),
-    'pp'       : move.pp and int(move.pp),
-    'accuracy' : (move.accuracy and int(move.accuracy)) or 0,
-    'priority' : int(move.priority),
-    'damage'   : damage_types[move.damage_class_id],
-    'target'   : target_types[move.target_id],
-    'flags'    : flags.get(move.id, [])
+  move = moves[data.identifier] = {
+    'type'     : types[data.type_id],
+    'power'    : int(data.power),
+    'pp'       : data.pp and int(data.pp),
+    'accuracy' : (data.accuracy and int(data.accuracy)) or 0,
+    'priority' : int(data.priority),
+    'damage'   : damage_types[data.damage_class_id],
+    'target'   : target_types[data.target_id],
+    'flags'    : flags.get(data.id, [])
   }
 
+  # Add OHKO flag if applicable
+  if meta.meta_category_id == 9: move['flags'].append('ohko')
+
   # TODO: Find a simple way to add meta info without default values
+  meta = move_meta[data.id]
+  move['recoil'] = int(meta.recoil)
+  move['ailmentId'] = ailments[meta.meta_ailment_id]
+  move['ailmentChance'] = int(meta.ailment_chance)
+  move['flinchChance'] = int(meta.flinch_chance)
+  move['minHits'] = int(meta.min_hits or "1")
+  move['maxHits'] = int(meta.max_hits or "1")
 
   # Veekun crit rates are 0 indexed and 6 means always crits
   # Battletower is 1 indexed and -1 means always crits
-  if move_meta[move.id].crit_rate == '6':
-    moves[move.identifier]['criticalHitLevel'] = -1
-  elif move_meta[move.id].crit_rate != '0':
-    criticalHitLevel = int(move_meta[move.id].crit_rate) + 1
-    moves[move.identifier]['criticalHitLevel'] = criticalHitLevel
+  if meta.crit_rate == '6':
+    move['criticalHitLevel'] = -1
+  elif meta.crit_rate != '0':
+    criticalHitLevel = int(meta.crit_rate) + 1
+    move['criticalHitLevel'] = criticalHitLevel
   
 with open(output_path, 'w') as f:
   f.write(json.dumps(moves, sort_keys=True, indent=4))
