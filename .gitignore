@@ -2,7 +2,7 @@ node_modules/
 npm-debug.log
 server-cov
 coverage.html
-env/
+venv/
 
 *.sublime-project
 *.sublime-workspace
