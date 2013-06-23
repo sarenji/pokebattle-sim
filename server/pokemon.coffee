@@ -198,6 +198,7 @@ class @Pokemon
 
   editDamage: (battle, move, damage) =>
     damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
+    damage = @attachments.queryChain('editDamage', damage, battle, move, this)
     damage
 
   editBoosts: =>

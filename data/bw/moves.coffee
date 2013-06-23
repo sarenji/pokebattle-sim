@@ -219,7 +219,7 @@ makeExplosionMove = (name) ->
       else
         battle.message "#{user.name} cannot use #{@name}!"
 
-makeProtectMove = (name) ->
+makeProtectCounterMove = (name, callback) ->
   extendMove name, ->
     @execute = (battle, user, targets) ->
       # Protect fails if the user is the last to move.
@@ -238,8 +238,12 @@ makeProtectMove = (name) ->
         return
 
       # Success!
-      user.attach(Attachment.Protect)
-      battle.message "#{user.name} protected itself!"
+      callback.call(this, battle, user, targets)
+
+makeProtectMove = (name) ->
+  makeProtectCounterMove name, (battle, user, targets) ->
+    user.attach(Attachment.Protect)
+    battle.message "#{user.name} protected itself!"
 
 makeIdentifyMove = (name, type) ->
   extendMove name, ->
@@ -963,6 +967,10 @@ extendMove 'endeavor', ->
 
   @calculateDamage = (battle, user, target) ->
     target.currentHP - user.currentHP
+
+extendMove 'endure', ->
+  makeProtectCounterMove 'endure', (battle, user, targets) ->
+    user.attach(Attachment.Endure)
 
 extendMove 'facade', ->
   @basePower = (battle, user, target) ->

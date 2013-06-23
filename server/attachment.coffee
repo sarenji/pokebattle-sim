@@ -57,9 +57,9 @@ class @Attachments
     conditional = (result) -> result?
     @queryUntil(funcName, conditional, args...)
 
-  queryChain: (funcName, result) =>
+  queryChain: (funcName, result, args...) =>
     for attachment in _.clone(@attachments)
-      result = attachment[funcName](result)  if funcName of attachment
+      result = attachment[funcName](result, args...)  if funcName of attachment
     result
 
 # Attachments represents a pokemon's state. Some examples are
@@ -92,7 +92,8 @@ class @Attachment
   beginTurn: (battle) =>
   endTurn: (battle) =>
   update: (battle, owner) =>
-  # editBoosts: =>
+  # editBoosts: (stages) =>
+  # editDamage: (damage, battle, move, user) =>
 
   # Pokemon-specific attachments
   # TODO: Turn Attachment into abstract class
@@ -674,3 +675,12 @@ class @Attachment.Protect extends @VolatileAttachment
 
   endTurn: =>
     @remove()
+
+class @Attachment.Endure extends @VolatileAttachment
+  name: "EndureAttachment"
+
+  endTurn: =>
+    @remove()
+
+  editDamage: (damage, battle, move, user) =>
+    Math.min(damage, user.currentHP - 1)
