@@ -219,6 +219,22 @@ makeExplosionMove = (name) ->
       else
         battle.message "#{user.name} cannot use #{@name}!"
 
+makeProtectMove = (name) ->
+  extendMove name, ->
+    @execute = (battle, user, targets) ->
+      if battle.priorityQueue.length == 0
+        user.unattach(Attachment.ProtectCounter)
+        @fail(battle)
+        return
+      attachment = user.attach(Attachment.ProtectCounter)
+      attachment.turns = 2
+      chance = attachment.successChance()
+      if battle.rng.randInt(1, chance, "protect") > 1
+        user.unattach(Attachment.ProtectCounter)
+        @fail(battle)
+        return
+      user.attach(Attachment.Protect)
+
 makeIdentifyMove = (name, type) ->
   extendMove name, ->
     @use = (battle, user, target) ->
@@ -504,6 +520,7 @@ extendMove 'defense-curl', ->
     oldUse.call(this, battle, user, target)
     target.attach(Attachment.DefenseCurl)
 
+makeProtectMove 'detect'
 extendWithSecondaryStatus 'discharge', .3, Status.PARALYZE
 extendWithSecondaryEffect 'dizzy-punch', .2, Attachment.Confusion
 extendWithRecoil 'double-edge'
@@ -688,6 +705,7 @@ extendWithPrimaryStatus 'poisonpowder', Status.POISON
 extendWithSecondaryStatus 'poison-sting', .3, Status.POISON
 extendWithSecondaryStatus 'poison-tail', .1, Status.POISON
 extendWithSecondaryStatus 'powder-snow', .1, Status.FREEZE
+makeProtectMove 'protect'
 extendWithSecondaryEffect 'psybeam', .1, Attachment.Confusion
 extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2

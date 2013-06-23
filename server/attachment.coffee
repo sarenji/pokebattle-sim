@@ -654,3 +654,22 @@ class @Attachment.LeechSeed extends @VolatileAttachment
     @target.damage(damage)
     @user.drain(damage)
     battle.message "#{@target.name}'s health is sapped by Leech Seed!"
+
+class @Attachment.ProtectCounter extends @VolatileAttachment
+  name: "ProtectCounterAttachment"
+
+  maxLayers: -1
+
+  successChance: =>
+    x = Math.pow(2, @layers - 1)
+    if x >= 256 then Math.pow(2, 32) else x
+
+  endTurn: =>
+    @turns--
+    @remove()  if @turns == 0
+
+class @Attachment.Protect extends @VolatileAttachment
+  name: "ProtectAttachment"
+
+  endTurn: =>
+    @remove()

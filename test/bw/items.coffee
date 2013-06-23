@@ -1363,3 +1363,101 @@ shared = require '../shared'
         @team1.hasAttachment(Attachment.Reflect).should.be.true
         @battle.endTurn()
       @team1.hasAttachment(Attachment.Reflect).should.be.false
+
+  testProtectMove = (moveName) ->
+    describe moveName, ->
+      it "completely protects the user from attacks", ->
+        shared.create.call(this)
+        move = @battle.getMove("Tackle")
+        mock = @sandbox.mock(move).expects('use').never()
+
+        @battle.recordMove(@id2, move)
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@id2, move)
+        mock.verify()
+
+      it "does not carry over to the next turn", ->
+        shared.create.call(this)
+        move = @battle.getMove("Tackle")
+
+        @battle.recordMove(@id2, move)
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@id2, move)
+        @battle.endTurn()
+
+        mock = @sandbox.mock(move).expects('use').once()
+        @battle.performMove(@id2, move)
+        mock.verify()
+
+      it "does not protect the user from attacks without the protect flag", ->
+        shared.create.call(this)
+        move = @battle.getMove("Feint")
+        mock = @sandbox.mock(move).expects('use').once()
+
+        @battle.recordMove(@id2, move)
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@id2, move)
+        mock.verify()
+
+      it "fails if the user moves last this turn", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        mock = @sandbox.mock(move).expects('fail').once()
+
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, move)
+        mock.verify()
+
+      it "has decreasing chances of success", ->
+        shared.create.call(this)
+        p = @team1.first()
+
+        for x in [0..7]
+          attachment = p.attach(Attachment.ProtectCounter)
+          attachment.successChance().should.equal Math.pow(2, x)
+
+        attachment = p.attach(Attachment.ProtectCounter)
+        attachment.successChance().should.equal Math.pow(2, 32)
+
+      it "fails if not successful", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, "randInt", 'protect', 2)
+        move = @battle.getMove(moveName)
+        mock = @sandbox.mock(move).expects('fail').once()
+
+        @battle.recordMove(@id2, @battle.getMove("Tackle"))
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, move)
+        mock.verify()
+
+      it "resets to 100% chance of success if move fails", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, "randInt", 'protect', 2)
+        move = @battle.getMove(moveName)
+
+        @battle.recordMove(@id2, @battle.getMove("Tackle"))
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, move)
+        @team1.first().hasAttachment(Attachment.ProtectCounter).should.be.false
+
+      it "resets to 100% chance of success if user selects a different move", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, "randInt", 'protect', 1)
+        move = @battle.getMove(moveName)
+
+        @battle.recordMove(@id2, @battle.getMove("Tackle"))
+        @battle.determineTurnOrder()
+        @battle.performMove(@id1, move)
+        @battle.endTurn()
+        @team1.first().hasAttachment(Attachment.ProtectCounter).should.be.true
+
+        @battle.performMove(@id1, @battle.getMove('Splash'))
+        @battle.endTurn()
+
+        @team1.first().hasAttachment(Attachment.ProtectCounter).should.be.false
+
+  testProtectMove 'Protect'
+  testProtectMove 'Detect'
