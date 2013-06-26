@@ -1408,11 +1408,7 @@ extendMove 'weather-ball', ->
 extendMove 'wish', ->
   @execute = (battle, user, targets) ->
     team = battle.getOwner(user).team
-    if team.attach(Attachment.Wish, {user})
-      # TODO: Real message
-      battle.message "#{user.name} made a wish!"
-    else
-      @fail(battle)
+    @fail(battle)  unless team.attach(Attachment.Wish, {user})
 
 extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
