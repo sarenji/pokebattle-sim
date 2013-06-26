@@ -196,3 +196,9 @@ describe 'Pokemon', ->
       move = moves['splash']
       pokemon.setPP(move, pokemon.maxPP(move) + 1)
       pokemon.pp(move).should.equal pokemon.maxPP(move)
+
+  describe '#positiveBoostCount', ->
+    it "returns the number of boosts higher than 0", ->
+      pokemon = new Pokemon()
+      pokemon.boost(attack: 4, defense: -3, speed: 1)
+      pokemon.positiveBoostCount().should.equal 5

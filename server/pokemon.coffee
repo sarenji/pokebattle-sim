@@ -117,6 +117,12 @@ class @Pokemon
       boosted[stat] = (@stages[stat] != previous)
     boosted
 
+  positiveBoostCount: =>
+    count = 0
+    for stage, total of @stages
+      count += total  if total > 0
+    count
+
   resetBoosts: =>
     @stages.attack = 0
     @stages.defense = 0
