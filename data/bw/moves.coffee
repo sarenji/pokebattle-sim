@@ -921,7 +921,8 @@ extendMove 'curse', ->
   applyBoosts = boostExtension('self', attack: 1, defense: 1, speed: -1)
 
   @getTargets = (battle, user) ->
-    pokemon = battle.getOpponentPokemon()
+    {id} = battle.getOwner(user)
+    pokemon = battle.getOpponentPokemon(id)
     [ battle.rng.choice(pokemon, "random opponent") ]
 
   @execute = (battle, user, targets) ->
