@@ -917,6 +917,23 @@ extendMove 'crush-grip', ->
   @basePower = (battle, user, target) ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
 
+extendMove 'curse', ->
+  applyBoosts = boostExtension('self', attack: 1, defense: 1, speed: -1)
+
+  @getTargets = (battle, user) ->
+    pokemon = battle.getOpponentPokemon()
+    [ battle.rng.choice(pokemon, "random opponent") ]
+
+  @execute = (battle, user, targets) ->
+    if !user.hasType("Ghost")
+      applyBoosts(battle, user)
+      return
+
+    user.damage Math.floor(user.stat('hp') / 2)
+    for target in targets
+      target.attach(Attachment.Curse)
+      battle.message "#{user.name} cut its own HP and laid a curse on #{target.name}!"
+
 extendMove 'disable', ->
   # TODO: Disable the last move a pokemon used successfully
   # TODO: Fail if the pokemon has not used a move yet

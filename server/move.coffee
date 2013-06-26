@@ -87,7 +87,7 @@ class @Move
     battle.message "But it failed!"
 
   # A hook that is only used by special "specific-move" targets.
-  getTargets: (battle) =>
+  getTargets: (battle, user) =>
 
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0

@@ -684,3 +684,10 @@ class @Attachment.Endure extends @VolatileAttachment
 
   editDamage: (damage, battle, move, user) =>
     Math.min(damage, user.currentHP - 1)
+
+class @Attachment.Curse extends @VolatileAttachment
+  name: "CurseAttachment"
+
+  endTurn: (battle) =>
+    @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
+    battle.message "#{@pokemon.name} was afflicted by the curse!"

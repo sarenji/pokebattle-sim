@@ -1363,3 +1363,64 @@ shared = require '../shared'
         @team1.hasAttachment(Attachment.Reflect).should.be.true
         @battle.endTurn()
       @team1.hasAttachment(Attachment.Reflect).should.be.false
+
+  describe "Curse", ->
+    it "silently chooses a random enemy as the target", ->
+      shared.create.call(this)
+
+      move = @battle.getMove("Curse")
+      targets = move.getTargets(@battle, @team1.first())
+
+      should.exist targets
+      targets.should.eql [ @team2.first() ]
+
+    describe "for Ghost types", ->
+      it "curses the opponent", ->
+        shared.create.call(this)
+        @team1.first().types = [ "Ghost" ]
+
+        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @team2.first().hasAttachment(Attachment.Curse).should.be.true
+
+      it "damages the user for half of its HP, rounded down", ->
+        shared.create.call(this)
+        p = @team1.first()
+        p.types = [ "Ghost" ]
+        maxHP = p.stat('hp')
+
+        @battle.performMove(@id1, @battle.getMove("Curse"))
+        p.currentHP.should.equal(maxHP - Math.floor(maxHP / 2))
+
+      it "causes the opponent to lose 25% of their HP at end of turns", ->
+        shared.create.call(this)
+        @team1.first().types = [ "Ghost" ]
+        p = @team2.first()
+        maxHP = p.stat('hp')
+        quarterHP = Math.floor(maxHP / 4)
+
+        @battle.performMove(@id1, @battle.getMove("Curse"))
+        p.currentHP.should.equal(maxHP)
+
+        @battle.endTurn()
+        p.currentHP.should.equal(maxHP - quarterHP)
+
+        @battle.endTurn()
+        p.currentHP.should.equal(maxHP - 2 * quarterHP)
+
+      it "can faint the user", ->
+        shared.create.call(this)
+        p = @team1.first()
+        p.types = [ "Ghost" ]
+        p.currentHP = 1
+
+        @battle.performMove(@id1, @battle.getMove("Curse"))
+        p.isFainted().should.be.true
+
+    describe "for non-Ghost types", ->
+      it "raises Attack and Defense and lowers Speed", ->
+        shared.create.call(this)
+        p = @team1.first()
+        p.types = [ "Normal" ]
+
+        @battle.performMove(@id1, @battle.getMove("Curse"))
+        p.stages.should.include attack: 1, defense: 1, speed: -1
