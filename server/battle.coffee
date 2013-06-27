@@ -47,6 +47,9 @@ class @Battle
     # Stores last move used
     @lastMove = null
 
+    # Stores last pokemon that moved
+    @lastPokemon = null
+
     # A queue of Pokemon ordered by priority of their moves.
     @priorityQueue = null
 
@@ -101,6 +104,10 @@ class @Battle
   getActiveAlivePokemon: =>
     pokemon = @getActivePokemon()
     pokemon.filter((p) -> p.isAlive())
+
+  getActiveFaintedPokemon: =>
+    pokemon = @getActivePokemon()
+    pokemon.filter((p) -> p.isFainted())
 
   # Finds the Player attached to a certain Pokemon.
   getOwner: (pokemon) =>
@@ -452,10 +459,17 @@ class @Battle
       # TODO: If move is interrupted, do we record?
       # Record last move.
       @lastMove = move
+      @lastPokemon = pokemon
       pokemon.lastMove = move
 
     # TODO: Is this the right place...?
     pokemon.resetRecords()
+
+    # Execute afterFaint events
+    # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
+    for pokemon in @getActiveFaintedPokemon()
+      @message "#{pokemon.name} fainted!"
+      pokemon.afterFaint(this)
 
   getTargets: (move, id, user) =>
     switch move.target

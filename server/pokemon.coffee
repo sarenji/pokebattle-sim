@@ -195,6 +195,9 @@ class @Pokemon
   faint: =>
     @currentHP = 0
 
+  afterFaint: (battle) =>
+    @attachments.query('afterFaint', battle)
+
   damage: (amount) =>
     @setHP(@currentHP - amount)
 

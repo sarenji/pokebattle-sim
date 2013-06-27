@@ -3250,3 +3250,35 @@ shared = require '../shared'
 
   testBasePowerBoostMove("Stored Power", 20, 860, "user")
   testBasePowerBoostMove("Punishment",   60, 200, "target")
+
+  describe "Destiny Bond", ->
+    it "causes the attacker to faint the turn of use if the user faints", ->
+      shared.create.call(this)
+
+      @team1.first().currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @team2.first().isFainted().should.be.true
+
+    it "causes the attacker to faint any time before the user moves again", ->
+      shared.create.call(this)
+
+      @team1.first().currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
+
+      @battle.endTurn()
+      @battle.beginTurn()
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @team2.first().isFainted().should.be.true
+
+    it "does not cause attacker to faint after user moves again", ->
+      shared.create.call(this)
+
+      @team1.first().currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@id1, @battle.getMove("Splash"))
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @team2.first().isFainted().should.be.false
+
+    it "does not cause a party member to faint"
+    it "handles 2+ pokemon destiny-bonding and all fainting at once"

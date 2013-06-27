@@ -222,7 +222,6 @@ makeExplosionMove = (name) ->
     @execute = (battle, user, targets) ->
       if !_.any(targets, (target) -> target.hasAbility('Damp'))
         user.faint()
-        battle.message "#{user.name} fainted!"
         oldExecute(battle, user, targets)
       else
         battle.message "#{user.name} cannot use #{@name}!"
@@ -944,6 +943,11 @@ extendMove 'curse', ->
     for target in targets
       target.attach(Attachment.Curse)
       battle.message "#{user.name} cut its own HP and laid a curse on #{target.name}!"
+
+extendMove 'destiny-bond', ->
+  @execute = (battle, user, targets) ->
+    user.attach(Attachment.DestinyBond)
+    battle.message "#{user.name} is trying to take its foe down with it!"
 
 extendMove 'disable', ->
   # TODO: Disable the last move a pokemon used successfully

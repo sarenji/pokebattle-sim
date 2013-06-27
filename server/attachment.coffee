@@ -94,6 +94,7 @@ class @Attachment
   update: (battle, owner) =>
   # editBoosts: (stages) =>
   # editDamage: (damage, battle, move, user) =>
+  # afterFaint: (battle) =>
 
   # Pokemon-specific attachments
   # TODO: Turn Attachment into abstract class
@@ -290,9 +291,7 @@ class @Attachment.PerishSong extends @VolatileAttachment
   endTurn: (battle) =>
     @turn++
     battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
-    if @turn >= @turns
-      @pokemon.faint()
-      battle.message "#{@pokemon.name} fainted!"
+    @pokemon.faint()  if @turn >= @turns
 
 class @Attachment.Roost extends @VolatileAttachment
   name: "RoostAttachment"
@@ -691,3 +690,16 @@ class @Attachment.Curse extends @VolatileAttachment
   endTurn: (battle) =>
     @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
     battle.message "#{@pokemon.name} was afflicted by the curse!"
+
+class @Attachment.DestinyBond extends @VolatileAttachment
+  name: "DestinyBondAttachment"
+
+  afterFaint: (battle) =>
+    pokemon = battle.lastPokemon
+    if pokemon? && pokemon.isAlive()
+      pokemon.faint()
+      battle.message "#{pokemon.name} took its attacker down with it!"
+
+  beforeMove: (battle, move, user, targets) =>
+    @remove()
+
