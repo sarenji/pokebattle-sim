@@ -184,13 +184,13 @@ makeRecoveryMove = (name) ->
       battle.message "#{target.name} recovered #{amount} HP!"
       target.damage(-amount)
 
-makeBasePowerBoostMove = (name, rawBasePower, what) ->
+makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
   extendMove name, ->
     @basePower = (battle, user, target) ->
       pokemon = {user, target}[what]
-      # NOTE: the 20 and 200 are hardcoded; perhaps this will change later?
+      # NOTE: the 20 is hardcoded; perhaps this will change later?
       power = rawBasePower + 20 * pokemon.positiveBoostCount()
-      Math.min(power, 200)
+      Math.min(power, maxBasePower)
 
 makeWeatherRecoveryMove = (name) ->
   extendMove name, ->
@@ -734,7 +734,7 @@ extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2
 makePickDefenseMove 'psyshock'
 makePickDefenseMove 'psystrike'
-makeBasePowerBoostMove 'punishment', 60, 'target'
+makeBasePowerBoostMove 'punishment', 60, 200, 'target'
 makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 makeWeatherMove 'rain-dance', Weather.RAIN
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
@@ -802,7 +802,7 @@ extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
 makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
 extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
 makeStompMove 'stomp'
-makeBasePowerBoostMove 'stored-power', 20, 'user'
+makeBasePowerBoostMove 'stored-power', 20, 860, 'user'
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithPrimaryStatus 'stun-spore', Status.PARALYZE

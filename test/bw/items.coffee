@@ -1425,7 +1425,7 @@ shared = require '../shared'
         @battle.performMove(@id1, @battle.getMove("Curse"))
         p.stages.should.include attack: 1, defense: 1, speed: -1
 
-  testBasePowerBoostMove = (moveName, rawBasePower, which) ->
+  testBasePowerBoostMove = (moveName, rawBasePower, maxBasePower, which) ->
     describe moveName, ->
       it "increases base power by 20 for each positive stat boost on #{which}", ->
         shared.create.call(this)
@@ -1444,15 +1444,19 @@ shared = require '../shared'
         poke[which].boost(speed: 2, specialAttack: -1)
         move.basePower(@battle, user, target).should.equal rawBasePower + 80
 
-      it "has a maximum of 200 base power", ->
+      it "has a maximum of #{maxBasePower} base power", ->
         shared.create.call(this)
         move = @battle.getMove(moveName)
         poke = { user: @team1.first(), target: @team2.first() }
         {user, target} = poke
 
-        # Total base power would theoretically be 260
-        poke[which].boost(speed: 6, specialAttack: 6, attack: 6, defense: 6)
-        move.basePower(@battle, user, target).should.equal 200
+        # Total base power would theoretically be rawBasePower + 840
+        stats = {
+          speed: 6, specialAttack: 6, attack: 6,
+          defense: 6, specialDefense: 6, evasion: 6, accuracy: 6
+        }
+        poke[which].boost(stats)
+        move.basePower(@battle, user, target).should.equal maxBasePower
 
-  testBasePowerBoostMove("Stored Power", 20, "user")
-  testBasePowerBoostMove("Punishment", 60, "target")
+  testBasePowerBoostMove("Stored Power", 20, 860, "user")
+  testBasePowerBoostMove("Punishment",   60, 200, "target")
