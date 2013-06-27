@@ -184,6 +184,15 @@ makeRecoveryMove = (name) ->
       battle.message "#{target.name} recovered #{amount} HP!"
       target.damage(-amount)
 
+makeBasePowerBoostMove = (name, what) ->
+  extendMove name, ->
+    @basePower = (battle, user, target) ->
+      pokemon = {user, target}[what]
+      # NOTE: the 20 is hardcoded because Punishment actually has a
+      # base power of 1, but Stored Power has a base power of 20.
+      power = 20 + 20 * pokemon.positiveBoostCount()
+      Math.min(power, 200)
+
 makeWeatherRecoveryMove = (name) ->
   extendMove name, ->
     @use = (battle, user, target) ->
@@ -726,6 +735,7 @@ extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'psycho-boost', 'self', specialAttack: -2
 makePickDefenseMove 'psyshock'
 makePickDefenseMove 'psystrike'
+makeBasePowerBoostMove 'punishment', 'target'
 makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 makeWeatherMove 'rain-dance', Weather.RAIN
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
@@ -793,6 +803,7 @@ extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
 makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
 extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
 makeStompMove 'stomp'
+makeBasePowerBoostMove 'stored-power', 'user'
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithPrimaryStatus 'stun-spore', Status.PARALYZE
