@@ -117,7 +117,7 @@ class @Battle
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) =>
     player = @getOwner(pokemon)
-    switches = player.team.getAlivePokemon().map((p) -> p.name)
+    switches = player.team.getAliveBenchedPokemon().map((p) -> p.name)
     @requestAction(player, switches: switches)
 
   # Returns true if the Pokemon has yet to move.
@@ -366,6 +366,12 @@ class @Battle
     delete @playerActions[clientId]
     action
 
+  cancelAction: (pokemon) =>
+    {id} = @getOwner(pokemon)
+    @popAction(id)
+    index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
+    @priorityQueue.splice(index, 1)
+
   requestAction: (player, validActions) =>
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
@@ -395,7 +401,6 @@ class @Battle
         @requestAction(player, validActions)
 
   determineTurnOrder: =>
-    return @priorityQueue  if @priorityQueue?
     ids = (id  for id of @playerActions)
     @priorityQueue = []
     for id in ids
@@ -419,7 +424,7 @@ class @Battle
     switch action.type
       when 'switch' then 5
       # TODO: Apply priority callbacks
-      when 'move'   then action.move.priority
+      when 'move'   then action.move.getPriority(this)
 
   hasActionsLeft: =>
     @priorityQueue.length > 0

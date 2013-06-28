@@ -1269,6 +1269,16 @@ extendMove 'psych-up', ->
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
+extendMove 'pursuit', ->
+  @beforeTurn = (battle, user) ->
+    user.attach(Attachment.Pursuit)
+
+  @basePower = (battle, user, target) ->
+    if user.hasAttachment(Attachment.PursuitModifiers)
+      2 * @power
+    else
+      @power
+
 extendMove 'rapid-spin', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # Do not remove anything if the user is fainted.

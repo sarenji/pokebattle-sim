@@ -703,3 +703,22 @@ class @Attachment.DestinyBond extends @VolatileAttachment
   beforeMove: (battle, move, user, targets) =>
     @remove()
 
+class @Attachment.Pursuit extends @VolatileAttachment
+  name: "PursuitAttachment"
+
+  informSwitch: (battle, switcher) =>
+    move = battle.getMove('Pursuit')
+    battle.cancelAction(@pokemon)
+    @pokemon.attach(Attachment.PursuitModifiers)
+    move.execute(battle, @pokemon, [ switcher ])
+    @pokemon.unattach(Attachment.PursuitModifiers)
+    @remove()
+
+  endTurn: =>
+    @remove()
+
+class @Attachment.PursuitModifiers extends @VolatileAttachment
+  name: "PursuitModifiersAttachment"
+
+  editAccuracy: (accuracy) =>
+    0

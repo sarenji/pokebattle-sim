@@ -258,6 +258,9 @@ class @Pokemon
     delete @lastMove
     @attachments.query('switchOut', battle)
 
+  informSwitch: (battle, switcher) =>
+    @attachments.query('informSwitch', battle, switcher)
+
   beginTurn: (battle) =>
     @blockedMoves = []
     @switchBlocked = false

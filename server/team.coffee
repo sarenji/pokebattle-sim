@@ -52,6 +52,7 @@ class @Team
 
   switch: (battle, player, a, b) =>
     battle.message "#{player.username} withdrew #{@at(a).name}!"
+    p.informSwitch(battle, @at(a))  for p in battle.getOpponentPokemon(player.id)
     @switchOut(battle, @at(a))
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]

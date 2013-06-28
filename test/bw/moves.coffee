@@ -3282,3 +3282,74 @@ shared = require '../shared'
 
     it "does not cause a party member to faint"
     it "handles 2+ pokemon destiny-bonding and all fainting at once"
+
+  describe "Pursuit", ->
+    it "doubles base power if the target switches", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp"), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      spy = @sandbox.spy(pursuit, 'basePower')
+
+      @battle.recordSwitch(@id2, 1)
+      @battle.recordMove(@id1, pursuit)
+      @battle.continueTurn()
+      bp = pursuit.basePower(@battle, @team1.first(), @team2.first())
+      spy.returned(2 * pursuit.power).should.be.true
+
+    it "doubles BP if a faster target uses a damaging switch move", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp", evs: {speed: 4}), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      spy = @sandbox.spy(pursuit, 'basePower')
+
+      @battle.recordMove(@id2, @battle.getMove("U-turn"))
+      @battle.recordMove(@id1, pursuit)
+      @battle.continueTurn()
+      @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
+      @battle.continueTurn()
+      bp = pursuit.basePower(@battle, @team1.first(), @team2.first())
+      spy.returned(2 * pursuit.power).should.be.true
+
+    it "doesn't double BP if a slower target uses a damaging switch move", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", evs: {speed: 4}) ]
+        team2: [ Factory("Magikarp"), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      spy = @sandbox.spy(pursuit, 'basePower')
+
+      @battle.recordMove(@id1, pursuit)
+      @battle.recordMove(@id2, @battle.getMove("U-turn"))
+      @battle.continueTurn()
+      @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
+      @battle.continueTurn()
+      bp = pursuit.basePower(@battle, @team1.first(), @team2.first())
+      spy.returned(pursuit.power).should.be.true
+
+    it "has perfect accuracy if target is switching", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp"), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      spy = @sandbox.spy(pursuit, 'chanceToHit')
+
+      pursuit = @battle.getMove("Pursuit")
+      @battle.recordSwitch(@id2, 1)
+      @battle.recordMove(@id1, pursuit)
+      @battle.continueTurn()
+      spy.returned(0).should.be.true
+
+    it "runs only once", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp"), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      mock = @sandbox.mock(pursuit).expects('execute').once()
+
+      pursuit = @battle.getMove("Pursuit")
+      @battle.recordSwitch(@id2, 1)
+      @battle.recordMove(@id1, pursuit)
+      @battle.continueTurn()
+      @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
+      @battle.continueTurn()
+      mock.verify()
+
+    it "does not trigger on team members"
+    it "retains its normal base power on Baton Pass"
