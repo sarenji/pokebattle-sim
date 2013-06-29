@@ -741,7 +741,8 @@ class @Attachment.Substitute extends @VolatileAttachment
     if @hp <= 0
       @battle.message "#{@pokemon.name}'s substitute faded!"
       @remove()
-    @battle.message "The substitute took damage for #{@pokemon.name}!"
+    else
+      @battle.message "The substitute took damage for #{@pokemon.name}!"
     return 0
 
   shouldBlockExecution: (battle, move, user) =>
