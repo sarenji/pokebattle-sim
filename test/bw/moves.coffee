@@ -3377,3 +3377,43 @@ shared = require '../shared'
 
       p1.stages.should.include defense: -1, specialDefense: 6, attack: 1
       p2.stages.should.include defense: 1, specialDefense: -3, speed: 2
+
+  describe 'Spite', ->
+    it 'reduces the last move used by the target by 4', ->
+      shared.create.call(this)
+
+      move = @team2.first().moves[0]
+      pp = @team2.first().pp(move)
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, @battle.getMove('Spite'))
+      @team2.first().pp(move).should.equal(pp - 4 - 1)
+
+    it 'fails if the target has not recorded their last move', ->
+      shared.create.call(this)
+      spite = @battle.getMove('Spite')
+      mock = @sandbox.mock(spite).expects('fail').once()
+
+      @battle.performMove(@id1, spite)
+      mock.verify()
+
+    it "fails if the target's move has 0 PP", ->
+      shared.create.call(this)
+      spite = @battle.getMove('Spite')
+      move = @team2.first().moves[0]
+      mock = @sandbox.mock(spite).expects('fail').once()
+      @team2.first().setPP(move, 0)
+
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, spite)
+      mock.verify()
+
+    it 'fails if the target no longer knows the move', ->
+      shared.create.call(this)
+      spite = @battle.getMove('Spite')
+      move = @team2.first().moves[0]
+      mock = @sandbox.mock(spite).expects('fail').once()
+
+      @battle.performMove(@id2, move)
+      @team2.first().moves.splice(@team2.first().moves.indexOf(move), 1)
+      @battle.performMove(@id1, spite)
+      mock.verify()

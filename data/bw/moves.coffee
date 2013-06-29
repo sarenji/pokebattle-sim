@@ -1338,6 +1338,16 @@ extendMove 'spikes', ->
       else
         @fail(battle)
 
+extendMove 'spite', ->
+  @execute = (battle, user, opponents) ->
+    for opponent in opponents
+      move = opponent.lastMove
+      if !move || !opponent.knows(move) || opponent.pp(move) == 0
+        @fail(battle)
+        return
+      opponent.reducePP(move, 4)
+      battle.message "It reduced the PP of #{opponent.name}!"
+
 extendMove 'stealth-rock', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents

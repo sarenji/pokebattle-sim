@@ -57,8 +57,8 @@ class @Pokemon
   pp: (move) => @ppHash[move.name]
   maxPP: (move) => move.pp * 8/5
 
-  reducePP: (move) =>
-    @ppHash[move.name] -= 1  if @pp(move) > 0
+  reducePP: (move, amount = 1) =>
+    @setPP(move, @pp(move) - amount)
 
   setPP: (move, pp) =>
     pp = Math.max(pp, 0)
@@ -329,6 +329,10 @@ class @Pokemon
   lockMove: (moveToLock) =>
     for move in @validMoves()
       @blockMove(move)  if move != moveToLock
+
+  # Returns whether this Pokemon has this move in its moveset.
+  knows: (move) =>
+    move in @moves
 
   # A list of moves that this pokemon can use freely
   validMoves: =>

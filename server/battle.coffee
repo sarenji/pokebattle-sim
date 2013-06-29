@@ -452,12 +452,15 @@ class @Battle
     targets = @getTargets(move, id, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
 
+    # TODO: Check for 0 PP here, and cancel execution
+
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
+
+    pokemon.reducePP(move)
 
     if pokemon.beforeMove(this, move, pokemon, targets) != false
       # TODO: Pressure
       # TODO: What if a Pokemon uses Focus Punch on a Pressure Pokemon?
-      pokemon.reducePP(move)
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
 
