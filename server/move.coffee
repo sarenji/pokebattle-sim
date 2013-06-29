@@ -195,10 +195,6 @@ class @Move
     damage += 2
     damage
 
-  # A hook to return this move's priority.
-  getPriority: (battle) =>
-    @priority
-
   getType: (battle, user, target) =>
     @type
 

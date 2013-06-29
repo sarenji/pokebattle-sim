@@ -424,7 +424,7 @@ class @Battle
     switch action.type
       when 'switch' then 5
       # TODO: Apply priority callbacks
-      when 'move'   then action.move.getPriority(this)
+      when 'move'   then action.move.priority
 
   hasActionsLeft: =>
     @priorityQueue.length > 0
