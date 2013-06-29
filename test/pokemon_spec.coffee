@@ -48,6 +48,10 @@ describe 'Pokemon', ->
       pokemon.stat('hp').should.equal 207
       # todo: test other numbers later
 
+    it 'calculates 1 base HP correctly', ->
+      pokemon = new Pokemon(level: 100, stats: { hp: 1 }, evs: { hp: 255 })
+      pokemon.stat('hp').should.equal 1
+
     it 'calculates other stats correctly', ->
       pokemon = new Pokemon(level: 100, evs: { attack: 255 })
       pokemon.stat('attack').should.equal 299

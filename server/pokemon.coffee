@@ -70,6 +70,7 @@ class @Pokemon
   # TODO: Precalculate the stats in the constructor
   stat: (key) =>
     base = @baseStats[key] || 100
+    return 1  if base == 1  # For Shedinja. key doesn't have to be hp.
     iv = @iv(key)
     ev = floor(@ev(key) / 4)
     total = if key == 'hp'
