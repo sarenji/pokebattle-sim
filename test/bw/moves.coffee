@@ -3417,3 +3417,21 @@ shared = require '../shared'
       @team2.first().moves.splice(@team2.first().moves.indexOf(move), 1)
       @battle.performMove(@id1, spite)
       mock.verify()
+
+  describe 'Wring Out', ->
+    it 'has 120 power at maximum HP', ->
+      shared.create.call(this)
+      move = @battle.getMove('Wring Out')
+      move.basePower(@battle, @team1.first(), @team2.first()).should.equal 120
+
+    it 'has 59 power at half-of-odd HP (rounded down)', ->
+      shared.create.call(this)
+      @team1.first().currentHP >>= 1
+      move = @battle.getMove('Wring Out')
+      move.basePower(@battle, @team1.first(), @team2.first()).should.equal 59
+
+    it 'has 1 power minimum', ->
+      shared.create.call(this)
+      @team1.first().currentHP = 1
+      move = @battle.getMove('Wring Out')
+      move.basePower(@battle, @team1.first(), @team2.first()).should.equal 1

@@ -1456,6 +1456,11 @@ extendMove 'wish', ->
     team = battle.getOwner(user).team
     @fail(battle)  unless team.attach(Attachment.Wish, {user})
 
+extendMove 'wring-out', ->
+  @basePower = (battle, user, target) ->
+    power = Math.floor(120 * user.currentHP / user.stat('hp'))
+    Math.max(1, power)
+
 extendMove 'yawn', ->
   # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate
