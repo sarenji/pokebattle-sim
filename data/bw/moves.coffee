@@ -1369,6 +1369,20 @@ extendMove 'splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
+extendMove 'substitute', ->
+  @execute = (battle, user, target) ->
+    dmg = user.stat('hp') >> 2
+    sub = Attachment.Substitute
+    attrs = {hp: dmg, battle: battle}
+    if dmg >= user.currentHP || dmg == 0 || !user.attach(sub, attrs)
+      battle.message "#{user.name} already has a substitute!"
+      @fail(battle)
+      return
+    user.damage(dmg)
+    battle.message "#{user.name} put in a substitute!"
+
+  @fail = (battle) ->
+
 extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})

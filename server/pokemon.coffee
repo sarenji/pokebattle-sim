@@ -207,8 +207,8 @@ class @Pokemon
     @damage(-amount)
 
   editDamage: (battle, move, damage) =>
-    damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
     damage = @attachments.queryChain('editDamage', damage, battle, move, this)
+    damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
     damage
 
   editBoosts: =>
@@ -272,6 +272,9 @@ class @Pokemon
 
   beforeMove: (battle, move, user, targets) =>
     @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
+
+  shouldBlockExecution: (battle, move, user) =>
+    @attachments.queryUntilTrue('shouldBlockExecution', battle, move, user)
 
   update: (battle) =>
     @item?.update(battle, this)

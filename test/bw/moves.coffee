@@ -3467,3 +3467,85 @@ shared = require '../shared'
       @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
       power = move.basePower(@battle, @team1.first(), @team2.first())
       power.should.equal(move.power)
+
+  describe "Substitute", ->
+    shared.shouldDoNoDamage("Substitute")
+    shared.shouldFailIfUsedTwice("Substitute")
+
+    it "removes 25% of the owner's health, rounded down", ->
+      shared.create.call(this)
+      sub = @battle.getMove('Substitute')
+      hp  = @team1.first().stat('hp')
+      @battle.performMove(@id1, sub)
+      @team1.first().currentHP.should.equal(hp - (hp >> 2))
+
+    it "fails if the pokemon has 25% HP or less", ->
+      shared.create.call(this)
+      sub  = @battle.getMove('Substitute')
+      hp   = @team1.first().stat('hp')
+      mock = @sandbox.mock(sub).expects('fail').once()
+      @team1.first().currentHP = hp >> 2
+      @battle.performMove(@id1, sub)
+      mock.verify()
+
+    it "fails if the pokemon does not have enough total HP", ->
+      shared.create.call(this, team1: [Factory("Shedinja")])
+      sub  = @battle.getMove('Substitute')
+      hp   = @team1.first().stat('hp')
+      mock = @sandbox.mock(sub).expects('fail').once()
+      @battle.performMove(@id1, sub)
+      mock.verify()
+
+    it "takes damage for the user", ->
+      shared.create.call(this)
+      sub   = @battle.getMove('Substitute')
+      subHP = (@team1.first().stat('hp') >> 2)
+      @battle.performMove(@id1, sub)
+      hp    = @team1.first().currentHP
+
+      attachment = @team1.first().getAttachment(Attachment.Substitute)
+      attachment.hp.should.equal subHP
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+
+      attachment.hp.should.be.lessThan subHP
+      @team1.first().currentHP.should.equal hp
+
+    it "breaks after taking too much damage", ->
+      shared.create.call(this)
+      tackle = @battle.getMove('Tackle')
+      sub    = @battle.getMove('Substitute')
+
+      @battle.performMove(@id1, sub)
+      hp     = @team1.first().currentHP
+      @team1.first().hasAttachment(Attachment.Substitute).should.be.true
+
+      @sandbox.stub(tackle, 'baseDamage', -> 9999)
+      @battle.performMove(@id2, tackle)
+      @team1.first().hasAttachment(Attachment.Substitute).should.be.false
+      @team1.first().currentHP.should.equal hp
+
+    it "fails most non-damaging moves", ->
+      shared.create.call(this)
+      hypnosis = @battle.getMove('Hypnosis')
+      sub      = @battle.getMove('Substitute')
+
+      @battle.performMove(@id1, sub)
+      @team1.first().hasAttachment(Attachment.Substitute).should.be.true
+
+      mock = @sandbox.mock(hypnosis).expects('fail').once()
+      @battle.performMove(@id2, hypnosis)
+      mock.verify()
+
+    it "does not fail non-damaging moves with an authentic flag", ->
+      shared.create.call(this)
+      foresight = @battle.getMove('Foresight')
+      sub       = @battle.getMove('Substitute')
+
+      @battle.performMove(@id1, sub)
+      @team1.first().hasAttachment(Attachment.Substitute).should.be.true
+
+      mock = @sandbox.mock(foresight).expects('fail').never()
+      @battle.performMove(@id2, foresight)
+      mock.verify()
+
+    it "is baton-passable"

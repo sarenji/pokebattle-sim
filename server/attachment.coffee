@@ -95,6 +95,7 @@ class @Attachment
   # editBoosts: (stages) =>
   # editDamage: (damage, battle, move, user) =>
   # afterFaint: (battle) =>
+  # shouldBlockExecution: (battle, move, user) =>
 
   # Pokemon-specific attachments
   # TODO: Turn Attachment into abstract class
@@ -664,6 +665,11 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
     x = Math.pow(2, @layers - 1)
     if x >= 256 then Math.pow(2, 32) else x
 
+  shouldBlockExecution: (battle, move, user) =>
+    if move.hasFlag("protect") && @pokemon.hasAttachment(Attachment.Protect)
+      battle.message "#{@pokemon.name} protected itself!"
+      return true
+
   endTurn: =>
     @turns--
     @remove()  if @turns == 0
@@ -722,3 +728,23 @@ class @Attachment.PursuitModifiers extends @VolatileAttachment
 
   editAccuracy: (accuracy) =>
     0
+
+class @Attachment.Substitute extends @VolatileAttachment
+  name: "SubstituteAttachment"
+
+  constructor: (attributes) ->
+    super()
+    {@battle, @hp} = attributes
+
+  editDamage: (damage) =>
+    @hp -= damage
+    if @hp <= 0
+      @battle.message "#{@pokemon.name}'s substitute faded!"
+      @remove()
+    @battle.message "The substitute took damage for #{@pokemon.name}!"
+    return 0
+
+  shouldBlockExecution: (battle, move, user) =>
+    if move.isNonDamaging() && !move.hasFlag('authentic')
+      move.fail(battle)
+      return true

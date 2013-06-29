@@ -43,9 +43,8 @@ class @Move
       return
 
     for target in targets
-      if @hasFlag("protect") && target.hasAttachment(Attachment.Protect)
-        battle.message "#{target.name} protected itself!"
-      else if @use(battle, user, target) != false
+      continue  if target.shouldBlockExecution(battle, this, user)
+      if @use(battle, user, target) != false
         damage = @calculateDamage(battle, user, target)
         if damage > 0
           # TODO: Print out opponent's name alongside the pokemon.
