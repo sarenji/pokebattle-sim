@@ -1027,6 +1027,12 @@ extendMove 'flatter', ->
 extendMove 'frustration', ->
   @basePower = -> 102
 
+extendMove 'guard-swap', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    for stat in [ 'defense', 'specialDefense' ]
+      stats = [ target.stages[stat], user.stages[stat] ]
+      [ user.stages[stat], target.stages[stat] ] = stats
+
 extendMove 'gyro-ball', ->
   @basePower = (battle, user, target) ->
     power = 1 + Math.floor(25 * target.stat('speed') / user.stat('speed'))

@@ -3365,3 +3365,15 @@ shared = require '../shared'
 
       p1.stages.should.include attack: 2, specialAttack: 6, speed: 1
       p2.stages.should.include attack: 1, specialAttack: -3, defense: -1
+
+  describe 'Guard Swap', ->
+    it 'swaps defense and special defense boosts with the target', ->
+      shared.create.call(this)
+      [ p1, p2 ] = [ @team1.first(), @team2.first() ]
+      p1.boost(attack: 1, specialDefense: -3, defense: 1)
+      p2.boost(speed: 2, specialDefense: 6, defense: -1)
+
+      @battle.performMove(@id1, @battle.getMove('Guard Swap'))
+
+      p1.stages.should.include defense: -1, specialDefense: 6, attack: 1
+      p2.stages.should.include defense: 1, specialDefense: -3, speed: 2
