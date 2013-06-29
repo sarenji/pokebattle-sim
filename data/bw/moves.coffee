@@ -1252,6 +1252,12 @@ extendMove 'payback', ->
     else
       2 * @power
 
+extendMove 'power-swap', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    for stat in [ 'attack', 'specialAttack' ]
+      stats = [ target.stages[stat], user.stages[stat] ]
+      [ user.stages[stat], target.stages[stat] ] = stats
+
 extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15, "psywave") / 10

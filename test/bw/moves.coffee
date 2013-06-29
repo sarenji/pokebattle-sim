@@ -3353,3 +3353,15 @@ shared = require '../shared'
 
     it "does not trigger on team members"
     it "retains its normal base power on Baton Pass"
+
+  describe 'Power Swap', ->
+    it 'swaps attack and special attack boosts with the target', ->
+      shared.create.call(this)
+      [ p1, p2 ] = [ @team1.first(), @team2.first() ]
+      p1.boost(attack: 1, specialAttack: -3, speed: 1)
+      p2.boost(attack: 2, specialAttack: 6, defense: -1)
+
+      @battle.performMove(@id1, @battle.getMove('Power Swap'))
+
+      p1.stages.should.include attack: 2, specialAttack: 6, speed: 1
+      p2.stages.should.include attack: 1, specialAttack: -3, defense: -1
