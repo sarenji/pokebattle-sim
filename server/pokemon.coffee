@@ -206,6 +206,10 @@ class @Pokemon
     amount = @editDrain(amount)
     @damage(-amount)
 
+  transformHealthChange: (damage) =>
+    damage = @attachments.queryChain('transformHealthChange', damage)
+    damage
+
   editDamage: (battle, move, damage) =>
     damage = @attachments.queryChain('editDamage', damage, battle, move, this)
     damage = @item.editDamage(battle, this, move, damage)  if @hasItem()

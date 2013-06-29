@@ -736,7 +736,7 @@ class @Attachment.Substitute extends @VolatileAttachment
     super()
     {@battle, @hp} = attributes
 
-  editDamage: (damage) =>
+  transformHealthChange: (damage) =>
     @hp -= damage
     if @hp <= 0
       @battle.message "#{@pokemon.name}'s substitute faded!"

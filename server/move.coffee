@@ -49,7 +49,8 @@ class @Move
         if damage > 0
           # TODO: Print out opponent's name alongside the pokemon.
           battle.message "#{target.name} took #{damage} damage!"
-          target.damage(damage)
+          realDamage = target.transformHealthChange(damage)
+          target.damage(realDamage)
         target.afterBeingHit(battle, this, user, target, damage)
         user.afterSuccessfulHit(battle, this, user, target, damage)
         @afterSuccessfulHit(battle, user, target, damage)

@@ -3548,4 +3548,17 @@ shared = require '../shared'
       @battle.performMove(@id2, foresight)
       mock.verify()
 
+    it "stores the actual damage, but deals no damage to the pokemon", ->
+      shared.create.call(this)
+      gigaDrain = @battle.getMove('Giga Drain')
+      sub       = @battle.getMove('Substitute')
+
+      @battle.performMove(@id1, sub)
+      @team1.first().hasAttachment(Attachment.Substitute).should.be.true
+
+      spy = @sandbox.spy(@team2.first(), 'drain')
+      @battle.performMove(@id2, gigaDrain)
+      spy.calledWith(0).should.be.false
+      @team1.first().lastHitBy.damage.should.be.greaterThan 0
+
     it "is baton-passable"
