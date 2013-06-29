@@ -3435,3 +3435,35 @@ shared = require '../shared'
       @team1.first().currentHP = 1
       move = @battle.getMove('Wring Out')
       move.basePower(@battle, @team1.first(), @team2.first()).should.equal 1
+
+  describe 'Assurance', ->
+    it 'doubles base power if the user was damaged this turn', ->
+      shared.create.call(this)
+      move = @battle.getMove('Assurance')
+
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      power = move.basePower(@battle, @team1.first(), @team2.first())
+      power.should.equal(2 * move.power)
+
+    it "doesn't double base power if the user was damaged a different turn", ->
+      shared.create.call(this)
+      move = @battle.getMove('Assurance')
+
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.endTurn()
+      @battle.beginTurn()
+      power = move.basePower(@battle, @team1.first(), @team2.first())
+      power.should.equal(move.power)
+
+    it "doesn't double base power if the user has never used a move", ->
+      shared.create.call(this)
+      move = @battle.getMove('Assurance')
+      power = move.basePower(@battle, @team1.first(), @team2.first())
+      power.should.equal(move.power)
+
+    it "doesn't double base power if hit by a non-damaging move", ->
+      shared.create.call(this)
+      move = @battle.getMove('Assurance')
+      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
+      power = move.basePower(@battle, @team1.first(), @team2.first())
+      power.should.equal(move.power)

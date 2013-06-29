@@ -862,6 +862,14 @@ makeTrappingMove "wrap"
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
 extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
+extendMove 'assurance', ->
+  @basePower = (battle, user, target) ->
+    hit = user.lastHitBy
+    if hit?.turn == battle.turn && !hit.move.isNonDamaging()
+      2 * @power
+    else
+      @power
+
 extendMove 'autotomize', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Autotomize)
