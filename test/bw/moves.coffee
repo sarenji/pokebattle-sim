@@ -3548,7 +3548,7 @@ shared = require '../shared'
       @battle.performMove(@id2, foresight)
       mock.verify()
 
-    it "stores the actual damage, but deals no damage to the pokemon", ->
+    it "still stores the actual damage", ->
       shared.create.call(this)
       gigaDrain = @battle.getMove('Giga Drain')
       sub       = @battle.getMove('Substitute')
