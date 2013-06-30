@@ -3582,3 +3582,48 @@ shared = require '../shared'
       @battle.determineTurnOrder()
       @battle.performMove(@id1, suckerPunch)
       mock.verify()
+
+  describe 'Grudge', ->
+    it "causes the last move to lose all its PP if the user faints", ->
+      shared.create.call(this)
+      grudge = @battle.getMove("Grudge")
+      tackle = @battle.getMove('Tackle')
+      @p2.moves = [ tackle ]
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, grudge)
+      @battle.performMove(@id2, tackle)
+      @p1.isFainted().should.be.true
+      @p2.pp(tackle).should.equal 0
+
+    it "causes the attacker to lose PP any time before the user moves again", ->
+      shared.create.call(this)
+      grudge = @battle.getMove("Grudge")
+      tackle = @battle.getMove('Tackle')
+      @p2.moves = [ tackle ]
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, grudge)
+      @battle.endTurn()
+      @battle.beginTurn()
+
+      @battle.performMove(@id2, tackle)
+      @p2.pp(tackle).should.equal 0
+
+    it "does not cause attacker to lose PP after user moves again", ->
+      shared.create.call(this)
+      grudge = @battle.getMove("Grudge")
+      splash = @battle.getMove('Splash')
+      tackle = @battle.getMove('Tackle')
+      @p2.moves = [ tackle ]
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, grudge)
+      @battle.performMove(@id1, splash)
+      @battle.performMove(@id2, tackle)
+      @p2.pp(tackle).should.not.equal 0
+
+    # TODO: Currently, there is no way for Grudge to trigger from natural causes
+    # as the afterFaint callback is only called in performMove. However, this
+    # may change in the future, so this test is pending for now.
+    it "does not trigger from natural causes"

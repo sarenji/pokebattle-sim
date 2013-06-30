@@ -34,6 +34,8 @@ create = (opts={}) ->
   @controller.beginBattle()
   @team1  = @battle.getTeam(@player1.id)
   @team2  = @battle.getTeam(@player2.id)
+  @p1 = @team1.first()
+  @p2 = @team2.first()
 
   createTestRNG.call(this)
   biasRNG.call(this, 'next', 'ch', 1)

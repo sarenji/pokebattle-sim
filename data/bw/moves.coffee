@@ -617,6 +617,12 @@ makeWeightBased 'grass-knot'
 extendWithPrimaryStatus 'grasswhistle', Status.SLEEP
 makeBoostMove 'growl', 'target', attack: -1
 makeBoostMove 'growth', 'self', attack: 1, specialAttack: 1
+
+extendMove 'grudge', ->
+  @execute = (battle, user, targets) ->
+    user.attach(Attachment.Grudge)
+    battle.message "#{user.name} wants its target to bear a grudge!"
+
 makeOneHitKOMove 'guillotine'
 extendWithSecondaryStatus 'gunk-shot', .3, Status.POISON
 extendWithBoost 'hammer-arm', 'self', speed: -1

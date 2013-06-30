@@ -708,6 +708,19 @@ class @Attachment.DestinyBond extends @VolatileAttachment
   beforeMove: (battle, move, user, targets) =>
     @remove()
 
+class @Attachment.Grudge extends @VolatileAttachment
+  name: "GrudgeAttachment"
+
+  afterFaint: (battle) =>
+    pokemon = battle.lastPokemon
+    if pokemon? && pokemon.isAlive()
+      move = pokemon.lastMove
+      pokemon.setPP(move, 0)
+      battle.message "#{pokemon.name}'s #{move.name} lost all its PP due to the grudge!"
+
+  beforeMove: (battle, move, user, targets) =>
+    @remove()
+
 class @Attachment.Pursuit extends @VolatileAttachment
   name: "PursuitAttachment"
 
