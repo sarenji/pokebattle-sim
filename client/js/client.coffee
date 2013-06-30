@@ -26,6 +26,9 @@ socket.on 'connect', ->
 
     socket.on 'start battle', startBattle
 
+    socket.on 'error', (message) ->
+      alert(message)
+
 $ ->
   return
   $builder = $('.builder')
