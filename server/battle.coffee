@@ -479,13 +479,14 @@ class @Battle
       @message "#{pokemon.name} fainted!"
       pokemon.afterFaint(this)
 
-  getTargets: (move, id, user) =>
+  getTargets: (move, user) =>
+    player = @getOwner(user)
+    team = player.team
     switch move.target
       when 'user'
-        [ @getTeam(id).at(0) ]
+        [ user ]
       when 'user-or-ally'
-        # TODO: Actually get selected Pokemon from client
-        [ @getTeam(id).at(0) ]
+        [ @rng.choice(team.getActivePokemon()) ]
       when 'all-opponents'
         @getOpponentPokemon(id, @numActive)
       when 'selected-pokemon'
@@ -500,7 +501,7 @@ class @Battle
         pokemon = @getOpponentPokemon(id, @numActive)
         [ @rng.choice(pokemon) ]
       when 'users-field'
-        @getTeam(id).pokemon
+        team.pokemon
       when 'specific-move'
         move.getTargets(this, user)
       when 'opponents-field'
