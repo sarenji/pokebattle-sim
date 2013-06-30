@@ -3562,3 +3562,23 @@ shared = require '../shared'
       @team1.first().lastHitBy.damage.should.be.greaterThan 0
 
     it "is baton-passable"
+
+  describe "Sucker Punch", ->
+    it "fails if the target is not moving after the user", ->
+      shared.create.call(this)
+      suckerPunch = @battle.getMove('Sucker Punch')
+
+      mock = @sandbox.mock(suckerPunch).expects('fail').once()
+      @battle.performMove(@id1, suckerPunch)
+      mock.verify()
+
+    it "executes normally if the target is moving after the user", ->
+      shared.create.call(this)
+      suckerPunch = @battle.getMove('Sucker Punch')
+      tackle = @battle.getMove('Tackle')
+
+      mock = @sandbox.mock(suckerPunch).expects('afterSuccessfulHit').once()
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@id1, suckerPunch)
+      mock.verify()

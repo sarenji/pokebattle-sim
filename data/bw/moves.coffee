@@ -1383,6 +1383,15 @@ extendMove 'substitute', ->
 
   @fail = (battle) ->
 
+extendMove 'sucker-punch', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if !battle.willMove(target)
+      @fail(battle)
+      return false
+    else
+      oldUse.call(this, battle, user, target)
+
 extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
