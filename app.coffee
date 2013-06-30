@@ -46,13 +46,26 @@ io.sockets.on 'connection', (socket) ->
     server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
+  
   socket.on 'sendchat', (message) ->
     io.sockets.emit 'updatechat', socket.username, message
+  
   socket.on 'send move', (battleId, moveName) ->
-    server.findBattle(battleId).makeMove(socket, moveName)
+    battle = server.findBattle(battleId)
+    if !battle
+      io.sockets.emit 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.makeMove(socket, moveName)
+  
   socket.on 'send switch', (battleId, toPokemon) ->
     # TODO: Use makeSwitch instead
-    server.findBattle(battleId).makeSwitchByName(socket, toPokemon)
+    battle = server.findBattle(battleId)
+    if !battle
+      io.sockets.emit 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.makeSwitchByName(socket, toPokemon)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 
