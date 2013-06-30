@@ -449,7 +449,7 @@ class @Battle
   performMove: (id, move) =>
     player = @getPlayer(id)
     pokemon = @getTeam(id).at(0)
-    targets = @getTargets(move, id, pokemon)
+    targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
 
     # TODO: Check for 0 PP here, and cancel execution
@@ -481,7 +481,7 @@ class @Battle
 
   getTargets: (move, user) =>
     player = @getOwner(user)
-    team = player.team
+    {id, team} = player
     switch move.target
       when 'user'
         [ user ]
