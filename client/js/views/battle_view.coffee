@@ -10,7 +10,11 @@ class @BattleView extends Backbone.View
     @disabled = false
 
   render: =>
-    @$el.html @template(team: @model.you, disabled: @disabled)
+    locals =
+      team:     @model.you
+      opponent: @model.opponents[0]
+      disabled: @disabled
+    @$el.html @template(locals)
     this
 
   getText: (el) =>

@@ -14,11 +14,13 @@ app.set("views", "client")
 app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(app.router)
+app.use(express.static(__dirname + "/public"))
 app.use(require('connect-assets')(src: "client"))
 
 # Routing
 app.get '/', (req, res) ->
-  res.render 'index.jade'
+  {PokemonData} = require './data/bw'
+  res.render 'index.jade', {PokemonData}
 
 # API
 app.namespace "/v1/api", ->
