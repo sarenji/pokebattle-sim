@@ -3,6 +3,7 @@
 
 {BattleQueue} = require './queue'
 {Battle} = require './battle'
+{BattleController} = require './battle_controller'
 
 class @BattleServer
   constructor: ->
@@ -34,7 +35,8 @@ class @BattleServer
   createBattle: (objects...) =>
     players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
-    @battles[battleId] = new Battle(battleId, players: objects)
+    @battles[battleId] = new BattleController(new Battle(battleId, players: objects))
+    @battles[battleId].beginBattle()
     battleId
 
   # Generate a random ID for a new battle.
