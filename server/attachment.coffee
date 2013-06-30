@@ -665,18 +665,17 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
     x = Math.pow(2, @layers - 1)
     if x >= 256 then Math.pow(2, 32) else x
 
-  shouldBlockExecution: (battle, move, user) =>
-    if move.hasFlag("protect") && @pokemon.hasAttachment(Attachment.Protect)
-      battle.message "#{@pokemon.name} protected itself!"
-      return true
-
   endTurn: =>
     @turns--
     @remove()  if @turns == 0
 
-# Actual protect-ing is in move.coffee, for now.
 class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
+
+  shouldBlockExecution: (battle, move, user) =>
+    if move.hasFlag("protect")
+      battle.message "#{@pokemon.name} protected itself!"
+      return true
 
   endTurn: =>
     @remove()
