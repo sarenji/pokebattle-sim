@@ -6,7 +6,7 @@ shouldDoNoDamage = (moveName, battleOptions) ->
     create.call(this, battleOptions)
     move = @battle.getMove(moveName)
     @battle.performMove(@id1, move)
-    @team2.first().currentHP.should.equal @team2.first().stat('hp')
+    @p2.currentHP.should.equal @p2.stat('hp')
 
 shouldFailIfUsedTwice = (moveName, battleOptions) ->
   it 'should fail if used twice', ->

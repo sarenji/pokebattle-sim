@@ -16,6 +16,8 @@ describe 'Battle', ->
     @battle = new Battle('id', players: players)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
+    @p1     = @team1.first()
+    @p2     = @team2.first()
 
     @battle.beginTurn()
 
@@ -56,7 +58,7 @@ describe 'Battle', ->
       @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "calls the pokemon's switchOut() method", ->
-      pokemon = @team1.first()
+      pokemon = @p1
       mock = @sandbox.mock(pokemon)
       mock.expects('switchOut').once()
       @battle.performSwitch(@id1, 1)
@@ -73,26 +75,26 @@ describe 'Battle', ->
     it "damages pokemon who are not of a certain type", ->
       @battle.setWeather(Weather.SAND)
       @battle.endTurn()
-      maxHP = @team1.first().stat('hp')
-      (maxHP - @team1.first().currentHP).should.equal Math.floor(maxHP / 16)
-      (maxHP - @team2.first().currentHP).should.equal Math.floor(maxHP / 16)
+      maxHP = @p1.stat('hp')
+      (maxHP - @p1.currentHP).should.equal Math.floor(maxHP / 16)
+      (maxHP - @p2.currentHP).should.equal Math.floor(maxHP / 16)
 
       @battle.setWeather(Weather.HAIL)
       @battle.endTurn()
-      maxHP = @team1.first().stat('hp')
-      (maxHP - @team1.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
-      (maxHP - @team2.first().currentHP).should.equal 2*Math.floor(maxHP / 16)
+      maxHP = @p1.stat('hp')
+      (maxHP - @p1.currentHP).should.equal 2*Math.floor(maxHP / 16)
+      (maxHP - @p2.currentHP).should.equal 2*Math.floor(maxHP / 16)
 
   describe "move PP", ->
     it "goes down after a pokemon uses a move", ->
-      pokemon = @team1.first()
+      pokemon = @p1
       move = pokemon.moves[0]
       @battle.performMove(@id1, move)
       pokemon.pp(move).should.equal(pokemon.maxPP(move) - 1)
 
   describe "#performMove", ->
     it "records this move as the battle's last move", ->
-      pokemon = @team1.first()
+      pokemon = @p1
       move = pokemon.moves[0]
       @battle.performMove(@id1, move)
 
@@ -115,8 +117,8 @@ describe 'Battle', ->
       @battle.recordMove(@id2, moves['mach-punch'])
       queue = @battle.determineTurnOrder()
 
-      @battle.bump(@team1.first(), moves['mach-punch'].priority)
-      queue[0].pokemon.should.eql @team1.first()
+      @battle.bump(@p1, moves['mach-punch'].priority)
+      queue[0].pokemon.should.eql @p1
 
   describe "#delay", ->
     it "delays a pokemon to the end of its priority bracket", ->
@@ -134,5 +136,5 @@ describe 'Battle', ->
       @battle.recordMove(@id2, moves['tackle'])
       queue = @battle.determineTurnOrder()
 
-      @battle.delay(@team1.first(), moves['tackle'].priority)
-      queue[1].pokemon.should.eql @team1.first()
+      @battle.delay(@p1, moves['tackle'].priority)
+      queue[1].pokemon.should.eql @p1

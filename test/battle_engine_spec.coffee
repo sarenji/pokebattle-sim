@@ -14,7 +14,7 @@ describe 'Mechanics', ->
         team2: [Factory('Magikarp')]
       move = moves['leaf-storm']
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      defender = @team2.at(0)
+      defender = @p2
       originalHP = defender.currentHP
       @controller.makeMove(@player1, 'Leaf Storm')
       @controller.makeMove(@player2, 'Splash')
@@ -49,7 +49,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
-      @team2.at(0).currentHP = 1
+      @p2.currentHP = 1
       spy = @sandbox.spy(@player2, 'emit')
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
@@ -60,7 +60,7 @@ describe 'Mechanics', ->
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
-      @team2.at(0).currentHP = 1
+      @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
       @battle.turn.should.not.equal turn + 1
@@ -69,22 +69,22 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
-      @team1.at(0).currentHP = 1
-      @team2.at(0).currentHP = 1
+      @p1.currentHP = 1
+      @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
-      @team1.at(0).currentHP.should.be.below 1
-      @team2.at(0).currentHP.should.equal 1
+      @p1.currentHP.should.be.below 1
+      @p2.currentHP.should.equal 1
 
     it 'lets the player switch in a new pokemon', ->
       shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
-      @team2.at(0).currentHP = 1
+      @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
       @controller.makeSwitchByName(@player2, 'Heracross')
-      @team2.at(0).name.should.equal 'Heracross'
+      @team2.first().name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
@@ -92,7 +92,7 @@ describe 'Mechanics', ->
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
-      defender = @team2.at(0)
+      defender = @p2
       spy = @sandbox.spy(defender, 'attach')
 
       @controller.makeMove(@player1, 'Iron Head')
@@ -106,7 +106,7 @@ describe 'Mechanics', ->
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
-      defender = @team2.at(0)
+      defender = @p2
       @controller.makeMove(@player1, 'flamethrower')
       @controller.makeMove(@player2, 'Splash')
       defender.hasStatus(Status.BURN).should.be.true
@@ -118,7 +118,7 @@ describe 'Mechanics', ->
         team2: [Factory('Gyarados')]
       shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
       shared.biasRNG.call(this, "next", "fang flinch", 0)
-      defender = @team2.at(0)
+      defender = @p2
       spy = @sandbox.spy(defender, 'attach')
       @controller.makeMove(@player1, 'ice-fang')
       @controller.makeMove(@player2, 'Splash')
@@ -132,18 +132,18 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @controller.makeMove(@player1, 'Ice Punch')
-      hp = @team2.at(0).currentHP
+      hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')
-      (hp - @team2.at(0).currentHP).should.equal 84
+      (hp - @p2.currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Shaymin (land)')]
       @controller.makeMove(@player1, 'Bullet Punch')
-      hp = @team2.at(0).currentHP
+      hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')
-      (hp - @team2.at(0).currentHP).should.equal 67
+      (hp - @p2.currentHP).should.equal 67
 
   describe 'STAB', ->
     it "gets applied if the move and user share a type", ->
@@ -151,27 +151,27 @@ describe 'Mechanics', ->
         team1: [Factory('Heracross')]
         team2: [Factory('Regirock')]
       @controller.makeMove(@player1, 'Megahorn')
-      hp = @team2.at(0).currentHP
+      hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')
-      (hp - @team2.at(0).currentHP).should.equal 123
+      (hp - @p2.currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @controller.makeMove(@player1, 'Ice Punch')
-      hp = @team2.at(0).currentHP
+      hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')
-      (hp - @team2.at(0).currentHP).should.equal 84
+      (hp - @p2.currentHP).should.equal 84
 
     it 'is 2x if the pokemon has Adaptability', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Mew')]
       @controller.makeMove(@player1, 'Tri Attack')
-      hp = @team2.at(0).currentHP
+      hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')
-      (hp - @team2.at(0).currentHP).should.equal 214
+      (hp - @p2.currentHP).should.equal 214
 
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->
@@ -183,8 +183,8 @@ describe 'Mechanics', ->
       @battle.recordMove(@id1, moves['psychic'])
       @battle.recordMove(@id2, moves['psychic'])
       @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @team2.first(), priority: 0}
-        {id: @id1, pokemon: @team1.first(), priority: 0}
+        {id: @id2, pokemon: @p2, priority: 0}
+        {id: @id1, pokemon: @p1, priority: 0}
       ]
 
       @battle.priorityQueue = null
@@ -193,8 +193,8 @@ describe 'Mechanics', ->
       @battle.recordMove(@id1, moves['psychic'])
       @battle.recordMove(@id2, moves['psychic'])
       @battle.determineTurnOrder().should.eql [
-        {id: @id1, pokemon: @team1.first(), priority: 0}
-        {id: @id2, pokemon: @team2.first(), priority: 0}
+        {id: @id1, pokemon: @p1, priority: 0}
+        {id: @id2, pokemon: @p2, priority: 0}
       ]
 
     it 'decides winner by highest priority move', ->
@@ -205,8 +205,8 @@ describe 'Mechanics', ->
       @battle.recordMove(@id1, moves['mach-punch'])
       @battle.recordMove(@id2, moves['psychic'])
       @battle.determineTurnOrder().should.eql [
-        {id: @id1, pokemon: @team1.first(), priority: 1}
-        {id: @id2, pokemon: @team2.first(), priority: 0}
+        {id: @id1, pokemon: @p1, priority: 1}
+        {id: @id2, pokemon: @p2, priority: 0}
       ]
 
       @battle.priorityQueue = null
@@ -214,8 +214,8 @@ describe 'Mechanics', ->
       @battle.recordMove(@id1, moves['psychic'])
       @battle.recordMove(@id2, moves['mach-punch'])
       @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @team2.first(), priority: 1}
-        {id: @id1, pokemon: @team1.first(), priority: 0}
+        {id: @id2, pokemon: @p2, priority: 1}
+        {id: @id1, pokemon: @p1, priority: 0}
       ]
 
     it 'decides winner by speed if priority is equal', ->
@@ -226,8 +226,8 @@ describe 'Mechanics', ->
       @battle.recordMove(@id1, moves['thunderpunch'])
       @battle.recordMove(@id2, moves['thunderpunch'])
       @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @team2.first(), priority: 0}
-        {id: @id1, pokemon: @team1.first(), priority: 0}
+        {id: @id2, pokemon: @p2, priority: 0}
+        {id: @id1, pokemon: @p1, priority: 0}
       ]
 
   describe 'fainting all the opposing pokemon', ->
@@ -235,7 +235,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      @team2.at(0).currentHP = 1
+      @p2.currentHP = 1
       @controller.makeMove(@player1, 'Mach Punch')
       @controller.makeMove(@player2, 'Psychic')
       @battle.requests.should.not.have.property @player1.id
@@ -245,7 +245,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      @team2.at(0).currentHP = 1
+      @p2.currentHP = 1
       mock = @sandbox.mock(@controller)
       mock.expects('endBattle').once()
       @controller.makeMove(@player1, 'Mach Punch')
@@ -260,7 +260,7 @@ describe 'Mechanics', ->
       @controller.makeMove(@player1, 'Earthquake')
       @controller.makeMove(@player2, 'Dragon Dance')
 
-      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+      @p2.currentHP.should.equal @p2.stat('hp')
 
   moveTests.test()
   itemTests.test()
@@ -270,7 +270,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
-      @team1.at(0).attach(Attachment.Confusion, {@battle})
+      @p1.attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
       mock = @sandbox.mock(moves['tackle'])
@@ -281,14 +281,14 @@ describe 'Mechanics', ->
 
       mock.verify()
 
-      @team1.at(0).currentHP.should.be.lessThan @team1.at(0).stat('hp')
-      @team2.at(0).currentHP.should.equal @team2.at(0).stat('hp')
+      @p1.currentHP.should.be.lessThan @p1.stat('hp')
+      @p2.currentHP.should.equal @p2.stat('hp')
 
     it "snaps out of confusion after a predetermined number of turns", ->
       shared.create.call(this)
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
-      @team1.at(0).attach(Attachment.Confusion, {@battle})
+      @p1.attach(Attachment.Confusion, {@battle})
 
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
@@ -296,12 +296,12 @@ describe 'Mechanics', ->
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @team1.at(0).hasAttachment(VolatileStatus.CONFUSION).should.be.false
+      @p1.hasAttachment(VolatileStatus.CONFUSION).should.be.false
 
     it "will not crit the confusion recoil", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(Attachment.Confusion, {@battle})
+      @p1.attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
       shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
 
@@ -315,7 +315,7 @@ describe 'Mechanics', ->
     it "will not execute moves", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(Attachment.Freeze)
+      @p1.attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
       mock = @sandbox.mock(moves['tackle'])
@@ -329,31 +329,31 @@ describe 'Mechanics', ->
     it "has a 20% chance of unfreezing", ->
       shared.create.call(this)
 
-      @team1.at(0).attach(Attachment.Freeze)
+      @p1.attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
+      @p1.hasAttachment(Status.FREEZE).should.be.false
 
     for moveName in ["Sacred Fire", "Flare Blitz", "Flame Wheel", "Fusion Flare", "Scald"]
       it "automatically unfreezes if using #{moveName}", ->
         shared.create.call(this)
 
-        @team1.at(0).attach(Attachment.Freeze)
+        @p1.attach(Attachment.Freeze)
         shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
         @controller.makeMove(@player1, moveName)
         @controller.makeMove(@player2, 'Splash')
 
-        @team1.at(0).hasAttachment(Status.FREEZE).should.be.false
+        @p1.hasAttachment(Status.FREEZE).should.be.false
 
   describe "a paralyzed pokemon", ->
     it "has a 25% chance of being fully paralyzed", ->
       shared.create.call(this)
 
-      @team1.first().attach(Attachment.Paralysis)
+      @p1.attach(Attachment.Paralysis)
       shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
 
       mock = @sandbox.mock(moves['tackle'])
@@ -367,25 +367,25 @@ describe 'Mechanics', ->
     it "has its speed quartered", ->
       shared.create.call(this)
 
-      speed = @team1.first().stat('speed')
-      @team1.first().attach(Attachment.Paralysis)
+      speed = @p1.stat('speed')
+      @p1.attach(Attachment.Paralysis)
 
-      @team1.first().stat('speed').should.equal Math.floor(speed / 4)
+      @p1.stat('speed').should.equal Math.floor(speed / 4)
 
   describe "Pokemon#turnsActive", ->
     it "is 0 on start of battle", ->
       shared.create.call(this)
-      @team1.first().turnsActive.should.equal 0
+      @p1.turnsActive.should.equal 0
 
     it "is set to 0 when switching in", ->
       shared.create.call(this)
-      @team1.first().turnsActive = 4
-      @team1.first().switchIn(@battle)
-      @team1.first().turnsActive.should.equal 0
+      @p1.turnsActive = 4
+      @p1.switchIn(@battle)
+      @p1.turnsActive.should.equal 0
 
     it "increases by 1 when a turn ends", ->
       shared.create.call(this)
-      @team1.first().turnsActive.should.equal 0
+      @p1.turnsActive.should.equal 0
 
       @battle.endTurn()
-      @team1.first().turnsActive.should.equal 1
+      @p1.turnsActive.should.equal 1
