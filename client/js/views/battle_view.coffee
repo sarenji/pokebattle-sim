@@ -7,13 +7,12 @@ class @BattleView extends Backbone.View
 
   initialize: =>
     @selected = null
-    @disabled = false
 
-  render: =>
+  render: (validActions = {}) =>
     locals =
-      team:     @model.you
-      opponent: @model.opponents[0]
-      disabled: @disabled
+      team         : @model.you
+      opponent     : @model.opponents[0]
+      validActions : validActions
     @$el.html @template(locals)
     this
 
@@ -23,17 +22,20 @@ class @BattleView extends Backbone.View
     $el = $el.find(".main_text")  if !$el.hasClass('main_text')
     $el.text()
 
-  enableButtons: =>
-    @disabled = false
-    @render()
+  isDisabled: (el) =>
+    $el = $(el)
+    $el = $el.closest('.button')  if !$el.hasClass('button')
+    $el.hasClass('disabled')
+
+  enableButtons: (validActions) =>
+    @render(validActions)
 
   disableButtons: =>
-    @disabled = true
     @render()
 
   makeMove: (e) =>
     moveName = @getText(e.target)
-    if @disabled
+    if @isDisabled()
       console.log "Cannot use #{moveName}."
       return
     console.log "Making move #{moveName}"
@@ -42,7 +44,7 @@ class @BattleView extends Backbone.View
 
   switchPokemon: (e) =>
     toPokemon = @getText(e.target)
-    if @disabled
+    if @isDisabled()
       console.log "Cannot switch to #{toPokemon}."
       return
     console.log "Switching to #{toPokemon}"

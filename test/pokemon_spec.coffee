@@ -1,6 +1,6 @@
 {_} = require 'underscore'
 {Pokemon, Attachment, VolatileAttachment} = require('../').server
-{moves} = require('../data/bw')
+{Moves} = require('../data/bw')
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
@@ -20,8 +20,8 @@ describe 'Pokemon', ->
 
   it 'has pp for each move', ->
     pokemon = new Pokemon(moves: ["Tackle", "Splash"])
-    pokemon.pp(moves['tackle']).should.equal 35 * 8/5
-    pokemon.pp(moves['splash']).should.equal 40 * 8/5
+    pokemon.pp(Moves['tackle']).should.equal 35 * 8/5
+    pokemon.pp(Moves['splash']).should.equal 40 * 8/5
 
   describe '#iv', ->
     it 'has default iv of 31', ->
@@ -109,9 +109,9 @@ describe 'Pokemon', ->
 
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
+      pokemon.blockMove(Moves['earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
 
     it 'removes volatile attachments', ->
       pokemon = new Pokemon()
@@ -122,9 +122,9 @@ describe 'Pokemon', ->
   describe '#endTurn', ->
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
+      pokemon.blockMove(Moves['earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
 
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
@@ -142,42 +142,42 @@ describe 'Pokemon', ->
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
-      pokemon.blockedMoves.should.include moves['earthquake']
+      pokemon.blockMove(Moves['earthquake'])
+      pokemon.blockedMoves.should.include Moves['earthquake']
 
     it 'blocks a move for only one turn', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
+      pokemon.blockMove(Moves['earthquake'])
       pokemon.endTurn()
       pokemon.beginTurn()
-      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
 
   describe '#isMoveBlocked', ->
     it 'returns true if the move is blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
-      pokemon.isMoveBlocked(moves['earthquake']).should.be.true
+      pokemon.blockMove(Moves['earthquake'])
+      pokemon.isMoveBlocked(Moves['earthquake']).should.be.true
 
     it 'returns false if the move is not blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.isMoveBlocked(moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
 
   describe '#validMoves', ->
     it 'returns moves without blocked moves', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      pokemon.blockMove(moves['earthquake'])
-      _(pokemon.validMoves()).isEqual([moves['splash']]).should.be.true
+      pokemon.blockMove(Moves['earthquake'])
+      _(pokemon.validMoves()).isEqual([Moves['splash']]).should.be.true
 
   describe '#reducePP', ->
     it 'reduces PP of a move by 1', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = moves['splash']
+      move = Moves['splash']
       pokemon.reducePP(move)
       pokemon.pp(move).should.equal pokemon.maxPP(move) - 1
 
     it 'does not go below 0', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = moves['splash']
+      move = Moves['splash']
       for x in [0..pokemon.maxPP(move)]
         pokemon.reducePP(move)
       pokemon.pp(move).should.equal 0
@@ -185,19 +185,19 @@ describe 'Pokemon', ->
   describe '#setPP', ->
     it "sets the PP of a move", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = moves['splash']
+      move = Moves['splash']
       pokemon.setPP(move, 1)
       pokemon.pp(move).should.equal 1
 
     it "cannot go below 0", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = moves['splash']
+      move = Moves['splash']
       pokemon.setPP(move, -1)
       pokemon.pp(move).should.equal 0
 
     it "cannot go above the max PP possible", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = moves['splash']
+      move = Moves['splash']
       pokemon.setPP(move, pokemon.maxPP(move) + 1)
       pokemon.pp(move).should.equal pokemon.maxPP(move)
 

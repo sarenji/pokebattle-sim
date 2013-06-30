@@ -114,3 +114,9 @@ Factory.register 'Politoed',
 
 Factory.register 'Dugtrio',
   moves: ['Magnitude', 'Dig']
+
+Factory.register 'Regirock',
+  moves: ['Rock Slide']
+
+Factory.register 'Shaymin (land)',
+  moves: ['Seed Flare']

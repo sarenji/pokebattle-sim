@@ -1,4 +1,3 @@
-{moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus, Attachment} = require('../').server
 {Factory} = require './factory'
 should = require 'should'
@@ -12,7 +11,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
-      move = moves['leaf-storm']
+      move = @battle.getMove('Leaf Storm')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       defender = @p2
       originalHP = defender.currentHP
@@ -24,7 +23,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
-      move = moves['hi-jump-kick']
+      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       mock = @sandbox.mock(move)
       mock.expects('afterMiss').once()
@@ -36,7 +35,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
-      move = moves['hi-jump-kick']
+      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       mock = @sandbox.mock(move)
       mock.expects('afterSuccessfulHit').never()
@@ -180,8 +179,8 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       spy = @sandbox.spy(@battle, 'determineTurnOrder')
       shared.biasRNG.call(this, "next", "turn order", .6)
-      @battle.recordMove(@id1, moves['psychic'])
-      @battle.recordMove(@id2, moves['psychic'])
+      @battle.recordMove(@id1, @battle.getMove('Psychic'))
+      @battle.recordMove(@id2, @battle.getMove('Psychic'))
       @battle.determineTurnOrder().should.eql [
         {id: @id2, pokemon: @p2, priority: 0}
         {id: @id1, pokemon: @p1, priority: 0}
@@ -190,8 +189,8 @@ describe 'Mechanics', ->
       @battle.priorityQueue = null
 
       shared.biasRNG.call(this, "next", "turn order", .4)
-      @battle.recordMove(@id1, moves['psychic'])
-      @battle.recordMove(@id2, moves['psychic'])
+      @battle.recordMove(@id1, @battle.getMove('Psychic'))
+      @battle.recordMove(@id2, @battle.getMove('Psychic'))
       @battle.determineTurnOrder().should.eql [
         {id: @id1, pokemon: @p1, priority: 0}
         {id: @id2, pokemon: @p2, priority: 0}
@@ -202,8 +201,8 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan')]
       spy = @sandbox.spy(@battle, 'determineTurnOrder')
-      @battle.recordMove(@id1, moves['mach-punch'])
-      @battle.recordMove(@id2, moves['psychic'])
+      @battle.recordMove(@id1, @battle.getMove('Mach Punch'))
+      @battle.recordMove(@id2, @battle.getMove('Psychic'))
       @battle.determineTurnOrder().should.eql [
         {id: @id1, pokemon: @p1, priority: 1}
         {id: @id2, pokemon: @p2, priority: 0}
@@ -211,8 +210,8 @@ describe 'Mechanics', ->
 
       @battle.priorityQueue = null
 
-      @battle.recordMove(@id1, moves['psychic'])
-      @battle.recordMove(@id2, moves['mach-punch'])
+      @battle.recordMove(@id1, @battle.getMove('Psychic'))
+      @battle.recordMove(@id2, @battle.getMove('Mach Punch'))
       @battle.determineTurnOrder().should.eql [
         {id: @id2, pokemon: @p2, priority: 1}
         {id: @id1, pokemon: @p1, priority: 0}
@@ -223,8 +222,8 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan', evs: { speed: 4 })]
       spy = @sandbox.spy(@battle, 'determineTurnOrder')
-      @battle.recordMove(@id1, moves['thunderpunch'])
-      @battle.recordMove(@id2, moves['thunderpunch'])
+      @battle.recordMove(@id1, @battle.getMove('Thunderpunch'))
+      @battle.recordMove(@id2, @battle.getMove('Thunderpunch'))
       @battle.determineTurnOrder().should.eql [
         {id: @id2, pokemon: @p2, priority: 0}
         {id: @id1, pokemon: @p1, priority: 0}
@@ -273,7 +272,7 @@ describe 'Mechanics', ->
       @p1.attach(Attachment.Confusion, {@battle})
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
 
-      mock = @sandbox.mock(moves['tackle'])
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')
@@ -318,7 +317,7 @@ describe 'Mechanics', ->
       @p1.attach(Attachment.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
-      mock = @sandbox.mock(moves['tackle'])
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')
@@ -356,7 +355,7 @@ describe 'Mechanics', ->
       @p1.attach(Attachment.Paralysis)
       shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
 
-      mock = @sandbox.mock(moves['tackle'])
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Tackle')

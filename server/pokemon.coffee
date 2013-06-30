@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{abilities, items, moves} = require '../data/bw'
+{Abilities, Items, Moves} = require '../data/bw'
 {Status} = require './status'
 {Attachments} = require './attachment'
 util = require './util'
@@ -22,14 +22,14 @@ class @Pokemon
     @currentHP = @stat('hp')
 
     @moves = attributes.moves?.map (move) ->
-      moves[move.toLowerCase().replace(/\s+/g, '-')]
+      Moves[move.toLowerCase().replace(/\s+/g, '-')]
     @ppHash = {}
     if @moves?
       for move in @moves
         @ppHash[move.name] = @maxPP(move)
     @types = attributes.types || [] # TODO: Get from species.
-    @item = items[attributes.item]
-    @ability = abilities[attributes.ability]
+    @item = Items[attributes.item]
+    @ability = Abilities[attributes.ability]
     @status = null
 
     @stages =

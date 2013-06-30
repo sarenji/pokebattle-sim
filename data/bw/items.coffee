@@ -1,4 +1,4 @@
-@items = items = {}
+@Items = Items = {}
 
 json = require './data_items.json'
 {Attachment} = require('../../server/attachment')
@@ -40,10 +40,10 @@ class Item
   modifySpecialDefense: (stat, pokemon) => stat
 
 extendItem = (name, callback) ->
-  if name not of items
+  if name not of Items
     throw new Error("Cannot extend Item '#{name}' because it does not exist.")
 
-  item = items[name]
+  item = Items[name]
   callback.call(item)
 
 makePinchBerry = (name, hookName, func) ->
@@ -237,7 +237,7 @@ makeBoostOnTypeItem = (name, type, boosts) ->
         target.removeItem()
 
 for name, attributes of json
-  items[name] = new Item(name, attributes)
+  Items[name] = new Item(name, attributes)
 
 makeBoostOnTypeItem 'Absorb Bulb', 'Water', specialAttack: 1
 

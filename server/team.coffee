@@ -3,11 +3,11 @@
 {Attachments} = require './attachment'
 
 class @Team
-  {species} = require '../data/bw'
+  {Species} = require '../data/bw'
 
   constructor: (pokemon, @numActive) ->
     @pokemon = pokemon.map (attributes) ->
-      specimen = species[attributes.name]
+      specimen = Species[attributes.name]
       # TODO: Make nicer.
       attributes.weight = specimen.weight
       attributes.stats = _.clone(specimen.stats || {})

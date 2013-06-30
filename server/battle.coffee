@@ -7,7 +7,7 @@
 
 class @Battle
   # TODO: let Battle serialize these.
-  {moves, MoveData, species, PokemonData} = require '../data/bw'
+  {Moves, MoveData, Species, PokemonData} = require '../data/bw'
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
@@ -54,7 +54,7 @@ class @Battle
     @priorityQueue = null
 
     # Stores the confusion recoil move as it may be different cross-generations
-    @confusionMove = moves['confusion-recoil']
+    @confusionMove = Moves['confusion-recoil']
 
     for object in attributes.players
       {player, team} = object
@@ -257,7 +257,7 @@ class @Battle
     for id, player of @players
       pokemon = player.team.at(0)
       pokeMoves = pokemon.validMoves()
-      switches = player.team.getAlivePokemon().map((p) -> p.name)
+      switches = player.team.getAliveBenchedPokemon()
       switches = []  if pokemon.isSwitchBlocked()
       canAct = pokeMoves.length > 0 || switches.length > 0
       @requestAction(player, moves: pokeMoves, switches: switches)  if canAct
@@ -373,6 +373,13 @@ class @Battle
     @priorityQueue.splice(index, 1)
 
   requestAction: (player, validActions) =>
+    # Normalize actions for the client
+    {switches, moves} = validActions
+    if switches?
+      validActions.switches = switches.map((p) -> player.team.indexOf(p))
+    if moves?
+      validActions.moves = moves.map((m) -> m.name)
+
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
@@ -511,7 +518,7 @@ class @Battle
 
   getMove = (moveName) ->
     moveName = moveName.toLowerCase().replace(/\s+/g, '-')
-    moves[moveName]
+    Moves[moveName]
 
   @getMove: getMove
   getMove: getMove

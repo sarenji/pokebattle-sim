@@ -14,10 +14,15 @@ divide(a, b)
     height        300px
     background    #333
     .back
+      image-rendering         -moz-crisp-edges
+      image-rendering         -o-crisp-edges
+      image-rendering         -webkit-optimize-contrast
+      -ms-interpolation-mode  nearest-neighbor
+      font-size 1em
       position absolute
       bottom   0
       left     0
-      width    96px
+      width    188px
       height   @width
     .front
       position absolute

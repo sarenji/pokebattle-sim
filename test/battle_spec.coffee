@@ -1,6 +1,5 @@
 {Battle, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
-{moves} = require('../data/bw')
 should = require 'should'
 
 describe 'Battle', ->
@@ -41,7 +40,7 @@ describe 'Battle', ->
 
   describe '#recordMove', ->
     it "records a player's move", ->
-      @battle.recordMove(@id1, moves['tackle'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.playerActions.should.have.property @id1
       @battle.playerActions[@id1].move.name.should.equal 'tackle'
 
@@ -103,8 +102,8 @@ describe 'Battle', ->
 
   describe "#bump", ->
     it "bumps a pokemon to the front of its priority bracket", ->
-      @battle.recordMove(@id1, moves['tackle'])
-      @battle.recordMove(@id2, moves['splash'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Splash'))
       @battle.determineTurnOrder()
 
       # Get last pokemon to move and bump it up
@@ -113,17 +112,17 @@ describe 'Battle', ->
       @battle.priorityQueue[0].pokemon.should.eql pokemon
 
     it "bumps a pokemon to the front of a specific priority bracket", ->
-      @battle.recordMove(@id1, moves['tackle'])
-      @battle.recordMove(@id2, moves['mach-punch'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Mach Punch'))
       queue = @battle.determineTurnOrder()
 
-      @battle.bump(@p1, moves['mach-punch'].priority)
+      @battle.bump(@p1, @battle.getMove('Mach Punch').priority)
       queue[0].pokemon.should.eql @p1
 
   describe "#delay", ->
     it "delays a pokemon to the end of its priority bracket", ->
-      @battle.recordMove(@id1, moves['tackle'])
-      @battle.recordMove(@id2, moves['splash'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Splash'))
       @battle.determineTurnOrder()
 
       # Get first pokemon to move and delay it
@@ -132,9 +131,9 @@ describe 'Battle', ->
       @battle.priorityQueue[1].pokemon.should.eql pokemon
 
     it "delays a pokemon to the end of a specific priority bracket", ->
-      @battle.recordMove(@id1, moves['mach-punch'])
-      @battle.recordMove(@id2, moves['tackle'])
+      @battle.recordMove(@id1, @battle.getMove('Mach Punch'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       queue = @battle.determineTurnOrder()
 
-      @battle.delay(@p1, moves['tackle'].priority)
+      @battle.delay(@p1, @battle.getMove('Tackle').priority)
       queue[1].pokemon.should.eql @p1

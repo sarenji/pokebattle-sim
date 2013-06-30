@@ -74,7 +74,7 @@ finalModifier.add 90, (move, battle, user, target) ->
 
 # Technician modifier.
 basePowerModifier.add 10, (move, battle, user, target) ->
-  if user.hasAbility('Technician') && move.power <= 60
+  if user.hasAbility('Technician') && move.basePower(battle, user, target) <= 60
     return 0x1800
   return 0x1000
 

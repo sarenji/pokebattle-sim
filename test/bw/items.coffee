@@ -1,4 +1,4 @@
-{items, moves} = require('../../data/bw')
+{Items} = require('../../data/bw')
 {basePowerModifier, attackStatModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
@@ -42,61 +42,61 @@ shared = require '../shared'
   describe "muscle band", ->
     it "increases base power of physical moves by 0x1199", ->
       shared.create.call(this)
-      move = moves['tackle']
-      modifier = items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Tackle')
+      modifier = Items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1199
 
-      move = moves['shadow-ball']
-      modifier = items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Shadow Ball')
+      modifier = Items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "Wise Glasses", ->
     it "increases base power of special moves by 0x1199", ->
       shared.create.call(this)
-      move = moves['tackle']
-      modifier = items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Tackle')
+      modifier = Items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
-      move = moves['shadow-ball']
-      modifier = items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Shadow Ball')
+      modifier = Items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1199
 
   describe "An Orb item", ->
     it "increases base power of moves matching the user's type by 0x1333", ->
       shared.create.call this,
         team1: [Factory('Giratina (origin)')]
-      move = moves['outrage']
-      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Outrage')
+      modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1333
 
-      move = moves['shadow-ball']
-      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Shadow Ball')
+      modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1333
 
-      move = moves['tackle']
-      modifier = items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Tackle')
+      modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "A type-boosting miscellaneous item", ->
     it "increases base power of certain typed moves by 0x1333", ->
       shared.create.call(this)
-      move = moves['outrage']
-      modifier = items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Outrage')
+      modifier = Items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
-      move = moves['psychic']
-      modifier = items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Psychic')
+      modifier = Items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1333
 
   describe "A typed Gem", ->
     it "increases base power of certain typed moves by 0x1800", ->
       shared.create.call(this)
-      move = moves['acrobatics']
-      modifier = items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Acrobatics')
+      modifier = Items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1800
 
-      move = moves['psychic']
-      modifier = items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
+      move = @battle.getMove('Psychic')
+      modifier = Items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
     it "is removed after use", ->
@@ -117,7 +117,7 @@ shared = require '../shared'
 
   describe "A typed plate", ->
     it "has the plate attribute set", ->
-      item = items['Draco Plate']
+      item = Items['Draco Plate']
       item.should.have.property('plate')
 
     it "changes the Arceus type"
@@ -126,19 +126,19 @@ shared = require '../shared'
     it "doubles Clamperl's special attack", ->
       shared.create.call this,
         team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
-      modifier = attackStatModifier.run(moves['surf'], @battle, @p1, @p2)
+      modifier = attackStatModifier.run(@battle.getMove('Surf'), @battle, @p1, @p2)
       modifier.should.equal 0x2000
 
     it "doesn't double Clamperl's attack", ->
       shared.create.call this,
         team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
-      modifier = attackStatModifier.run(moves['tackle'], @battle, @p1, @p2)
+      modifier = attackStatModifier.run(@battle.getMove('Tackle'), @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
     it "doesn't double non-Clamperl special attack", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'DeepSeaTooth')]
-      modifier = attackStatModifier.run(moves['surf'], @battle, @p1, @p2)
+      modifier = attackStatModifier.run(@battle.getMove('Surf'), @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "Rocky Helmet", ->
@@ -209,8 +209,8 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      item = items['Focus Sash']
-      damage = item.editDamage(@battle, @p2, moves['ember'], 99999)
+      item = Items['Focus Sash']
+      damage = item.editDamage(@battle, @p2, @battle.getMove('Ember'), 99999)
       damage.should.equal @p2.currentHP - 1
 
     it "should not activate at <100% HP", ->
@@ -219,15 +219,15 @@ shared = require '../shared'
 
       @p1.currentHP--
 
-      item = items['Focus Sash']
-      damage = item.editDamage(@battle, @p1, moves['ember'], 99999)
+      item = Items['Focus Sash']
+      damage = item.editDamage(@battle, @p1, @battle.getMove('Ember'), 99999)
       damage.should.equal 99999
 
     it "disappears after activation", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      stub = @sandbox.stub(moves['ember'], 'baseDamage', -> 9999)
+      stub = @sandbox.stub(@battle.getMove('Ember'), 'baseDamage', -> 9999)
 
       @controller.makeMove(@player1, 'Ember')
       @controller.makeMove(@player2, 'Splash')
@@ -243,7 +243,7 @@ shared = require '../shared'
       @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player1.id].moves
-      requestedMoves.should.eql [ moves['splash'] ]
+      requestedMoves.should.eql [ @battle.getMove('Splash').name ]
 
     it "does not lock the user if it moves after gaining the item", ->
       shared.create.call this,
@@ -253,7 +253,7 @@ shared = require '../shared'
       @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player2.id].moves
-      requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
+      requestedMoves.should.eql [ @battle.getMove('Splash').name, @battle.getMove('Tackle').name ]
 
     it "does not automatically lock the user when it switches back in", ->
       shared.create.call this,
@@ -266,7 +266,7 @@ shared = require '../shared'
       @controller.makeMove(@player2, 'Splash')
 
       requestedMoves = @battle.requests[@player1.id].moves
-      requestedMoves.should.eql [ moves['splash'], moves['tackle'] ]
+      requestedMoves.should.eql [ @battle.getMove('Splash').name, @battle.getMove('Tackle').name ]
 
     xit "relocks the pokemon after Magic Room"
 
@@ -275,7 +275,7 @@ shared = require '../shared'
       shared.create.call(this)
 
       speed = @p1.stat('speed')
-      @p1.setItem(@battle, items['Choice Scarf'])
+      @p1.setItem(@battle, Items['Choice Scarf'])
       @p1.stat('speed').should.equal Math.floor(speed * 1.5)
 
   describe "Flame Orb", ->
@@ -325,7 +325,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      move = moves['earthquake']
+      move = @battle.getMove('Earthquake')
       type = move.getType(@battle, @p1, @p2)
       @p1.isImmune(@battle, type).should.be.true
 
@@ -354,7 +354,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Tackle')
 
-      move = moves['earthquake']
+      move = @battle.getMove('Earthquake')
       type = move.getType(@battle, @p1, @p2)
       @p1.isImmune(@battle, type).should.be.false
 
@@ -557,7 +557,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Blaziken", item: "Shuca Berry")]
 
-      move = moves['earthquake']
+      move = @battle.getMove('Earthquake')
       mod = basePowerModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x800
 
@@ -583,7 +583,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Blaziken", item: "Shuca Berry")]
 
-      move = moves['surf']
+      move = @battle.getMove('Surf')
       mod = basePowerModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -591,7 +591,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Shuca Berry")]
 
-      move = moves['earthquake']
+      move = @battle.getMove('Earthquake')
       mod = basePowerModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -599,7 +599,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Chilan Berry")]
 
-      move = moves['double-edge']
+      move = @battle.getMove('Double-Edge')
       mod = basePowerModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x800
 
@@ -718,7 +718,7 @@ shared = require '../shared'
           stats = (stat  for stat of statsHash)
           pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-          @p1.setItem(@battle, items[itemName])
+          @p1.setItem(@battle, Items[itemName])
 
           for stat, i in stats
             amount = @p1.stat(stat)
@@ -731,7 +731,7 @@ shared = require '../shared'
           stats = (stat  for stat of statsHash)
           pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-          @p1.setItem(@battle, items[itemName])
+          @p1.setItem(@battle, Items[itemName])
 
           for stat, i in stats
             amount = @p1.stat(stat)
@@ -753,7 +753,7 @@ shared = require '../shared'
       shared.create.call(this)
 
       speed = @p1.stat('speed')
-      @p1.setItem(@battle, items["Iron Ball"])
+      @p1.setItem(@battle, Items["Iron Ball"])
       @p1.stat('speed').should.equal Math.floor(speed / 2)
 
     it "removes the immunity to ground-type moves", ->
@@ -971,8 +971,8 @@ shared = require '../shared'
       @p1.currentHP = 1
       @p2.currentHP = 1
 
-      @battle.recordMove(@id1, moves["tackle"])
-      @battle.recordMove(@id2, moves["tackle"])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @p1, @p2 ]
@@ -996,8 +996,8 @@ shared = require '../shared'
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4) + 1
 
-      @battle.recordMove(@id1, moves["tackle"])
-      @battle.recordMove(@id2, moves["tackle"])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @p2, @p1 ]
@@ -1029,8 +1029,8 @@ shared = require '../shared'
       @controller.makeMove(@player2, "Splash")
 
       @p1.hasAttachment(Attachment.MicleBerry).should.be.true
-      moves['tackle'].chanceToHit(@battle, @p1, @p2)
-        .should.equal Math.floor(moves['tackle'].accuracy * 1.2)
+      @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+        .should.equal Math.floor(@battle.getMove('Tackle').accuracy * 1.2)
 
     it "goes away after their next move", ->
       shared.create.call this,
@@ -1055,8 +1055,8 @@ shared = require '../shared'
         @controller.makeMove(@player1, "Tackle")
         @controller.makeMove(@player2, "Splash")
 
-        moves['tackle'].chanceToHit(@battle, @p1, @p2)
-          .should.equal Math.floor(moves['tackle'].accuracy * ratio)
+        @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+          .should.equal Math.floor(@battle.getMove('Tackle').accuracy * ratio)
 
       it "no longer reduces accuracy if item is knocked off", ->
         shared.create.call this,
@@ -1067,8 +1067,8 @@ shared = require '../shared'
         @controller.makeMove(@player1, "Tackle")
         @controller.makeMove(@player2, "Splash")
 
-        moves['tackle'].chanceToHit(@battle, @p1, @p2)
-          .should.equal Math.floor(moves['tackle'].accuracy)
+        @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+          .should.equal Math.floor(@battle.getMove('Tackle').accuracy)
 
   testEvasionItem "BrightPowder"
   testEvasionItem "Lax Incense"
@@ -1080,8 +1080,8 @@ shared = require '../shared'
           team1: [Factory("Magikarp", item: itemName, evs: {speed: 4})]
           team2: [Factory("Magikarp")]
 
-        @battle.recordMove(@id1, moves["tackle"])
-        @battle.recordMove(@id2, moves["tackle"])
+        @battle.recordMove(@id1, @battle.getMove('Tackle'))
+        @battle.recordMove(@id2, @battle.getMove('Tackle'))
         @battle.determineTurnOrder()
         pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
         pokemon.should.eql [ @p2, @p1 ]
@@ -1094,7 +1094,7 @@ shared = require '../shared'
       shared.create.call(this)
 
       speed = @p1.stat('speed')
-      @p1.setItem(@battle, items["Macho Brace"])
+      @p1.setItem(@battle, Items["Macho Brace"])
       @p1.stat('speed').should.equal Math.floor(speed / 2)
 
   describe "Eject Button", ->
@@ -1104,13 +1104,13 @@ shared = require '../shared'
         team2: [Factory("Magikarp")]
 
       bench = @team1.getAliveBenchedPokemon()
-      @battle.recordMove(@id1, moves["splash"])
-      @battle.recordMove(@id2, moves["tackle"])
-      @battle.performMove(@id2, moves["tackle"])
+      @battle.recordMove(@id1, @battle.getMove('Splash'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
 
       @battle.requests.should.have.property @id1
       @battle.requests[@id1].should.have.property "switches"
-      @battle.requests[@id1].switches.should.eql bench
+      @battle.requests[@id1].switches.should.eql bench.map((p) => @team1.indexOf(p))
 
     it "destroys the Eject Button after use", ->
       shared.create.call this,
@@ -1135,9 +1135,9 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
         team2: [Factory("Magikarp")]
 
-      @battle.recordMove(@id1, moves["splash"])
-      @battle.recordMove(@id2, moves["will-o-wisp"])
-      @battle.performMove(@id2, moves["will-o-wisp"])
+      @battle.recordMove(@id1, @battle.getMove('Splash'))
+      @battle.recordMove(@id2, @battle.getMove('Will-O-Wisp'))
+      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
 
       @p1.hasItem().should.be.true
       @battle.requests.should.not.have.property @id1
@@ -1187,8 +1187,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       shared.biasRNG.call(this, "next", 'quick claw', .1)
-      @battle.recordMove(@id1, moves["tackle"])
-      @battle.recordMove(@id2, moves["tackle"])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @p1, @p2 ]
@@ -1199,8 +1199,8 @@ shared = require '../shared'
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       shared.biasRNG.call(this, "next", 'quick claw', .2)
-      @battle.recordMove(@id1, moves["tackle"])
-      @battle.recordMove(@id2, moves["tackle"])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @p2, @p1 ]
@@ -1212,7 +1212,7 @@ shared = require '../shared'
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
-        @battle.performMove(@id1, moves["tackle"])
+        @battle.performMove(@id1, @battle.getMove('Tackle'))
         @p2.hasAttachment(Attachment.Flinch).should.be.true
 
       it "has a 90% chance to do nothing", ->
@@ -1220,7 +1220,7 @@ shared = require '../shared'
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0.1)
-        @battle.performMove(@id1, moves["tackle"])
+        @battle.performMove(@id1, @battle.getMove('Tackle'))
         @p2.hasAttachment(Attachment.Flinch).should.be.false
 
       it "can't flinch if the move used can already flinch", ->
@@ -1229,7 +1229,7 @@ shared = require '../shared'
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
         shared.biasRNG.call(this, "next", 'secondary effect', 1)
-        @battle.performMove(@id1, moves["headbutt"])
+        @battle.performMove(@id1, @battle.getMove('Headbutt'))
         @p2.hasAttachment(Attachment.Flinch).should.be.false
 
       it "can't flinch if the move is non-damaging", ->
@@ -1237,7 +1237,7 @@ shared = require '../shared'
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
-        @battle.performMove(@id1, moves["glare"])
+        @battle.performMove(@id1, @battle.getMove('Glare'))
         @p2.hasAttachment(Attachment.Flinch).should.be.false
 
   testFlinchItem "King's Rock"
@@ -1249,39 +1249,39 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Zoom Lens", evs: {speed: 4})]
         team2: [Factory("Magikarp")]
 
-      @battle.recordMove(@id1, moves['tackle'])
-      @battle.recordMove(@id2, moves['tackle'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
 
-      moves['tackle'].chanceToHit(@battle, @p1, @p2)
-        .should.equal Math.floor(moves['tackle'].accuracy * 1.2)
+      @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+        .should.equal Math.floor(@battle.getMove('Tackle').accuracy * 1.2)
 
     it "doesn't change accuracy if target has already moved", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Zoom Lens")]
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      @battle.recordMove(@id1, moves['tackle'])
-      @battle.recordMove(@id2, moves['tackle'])
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
       # Remove tackle from actions to execute
       @battle.popAction(@id2)
 
-      moves['tackle'].chanceToHit(@battle, @p1, @p2)
-        .should.equal Math.floor(moves['tackle'].accuracy)
+      @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+        .should.equal Math.floor(@battle.getMove('Tackle').accuracy)
 
   describe "Wide Lens", ->
     it "boosts accuracy by 110%", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Wide Lens")]
 
-      moves['tackle'].chanceToHit(@battle, @p1, @p2)
-        .should.equal Math.floor(moves['tackle'].accuracy * 1.1)
+      @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
+        .should.equal Math.floor(@battle.getMove('Tackle').accuracy * 1.1)
 
   describe "Metronome", ->
     it "has a base power of x1.0 the first time a Pokemon uses a move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
 
-      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
@@ -1289,10 +1289,10 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
 
-      @battle.performMove(@id1, moves['tackle'])
+      @battle.performMove(@id1, @battle.getMove('Tackle'))
       @battle.endTurn()
 
-      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
       modifier.should.equal 0x1333
 
@@ -1301,10 +1301,10 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Metronome")]
 
       for i in [1..5]
-        @battle.performMove(@id1, moves['tackle'])
+        @battle.performMove(@id1, @battle.getMove('Tackle'))
         @battle.endTurn()
 
-      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
       modifier.should.equal 0x1FFF
 
@@ -1313,10 +1313,10 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Metronome")]
 
       for i in [1..6]
-        @battle.performMove(@id1, moves['tackle'])
+        @battle.performMove(@id1, @battle.getMove('Tackle'))
         @battle.endTurn()
 
-      modifier = items['Metronome'].basePowerModifier(moves['tackle'],
+      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
       modifier.should.equal 0x1FFF
 
@@ -1324,9 +1324,9 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
 
-      @battle.performMove(@id1, moves['tackle'])
+      @battle.performMove(@id1, @battle.getMove('Tackle'))
 
-      modifier = items['Metronome'].basePowerModifier(moves['splash'],
+      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Splash'),
         @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
@@ -1344,7 +1344,7 @@ shared = require '../shared'
       startHP = 1
       @p1.currentHP = startHP
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['drain-punch'])
+      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
       damage = (hp - @p2.currentHP)
       amount = util.roundHalfDown(Math.floor(damage / 2) * 1.3)
       (@p1.currentHP - startHP).should.equal(amount)
@@ -1357,7 +1357,7 @@ shared = require '../shared'
     it "boosts the Reflect/Light Screen turns to 8", ->
       shared.create.call(this, team1: [Factory('Magikarp', item: "Light Clay")])
 
-      @battle.performMove(@id1, moves['reflect'])
+      @battle.performMove(@id1, @battle.getMove('Reflect'))
 
       for i in [1..8]
         @team1.hasAttachment(Attachment.Reflect).should.be.true

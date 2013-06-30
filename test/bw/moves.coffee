@@ -1,4 +1,3 @@
-{moves} = require('../../data/bw')
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
 {basePowerModifier, finalModifier} = require '../../server/modifiers'
@@ -14,7 +13,7 @@ shared = require '../shared'
   describe 'jump kick attacks', ->
     it 'has 50% recoil if it misses', ->
       shared.create.call(this)
-      move = moves['hi-jump-kick']
+      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, "randInt", 'miss', 100)
       originalHP = @p1.currentHP
       @battle.performMove(@id1, move)
@@ -29,7 +28,7 @@ shared = require '../shared'
       startHP = 1
       @p1.currentHP = startHP
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['drain-punch'])
+      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
       damage = (hp - @p2.currentHP)
       (@p1.currentHP - startHP).should.equal Math.floor(damage / 2)
 
@@ -38,7 +37,7 @@ shared = require '../shared'
         team1: [Factory('Conkeldurr')]
         team2: [Factory('Hitmonchan')]
       hp = @p1.currentHP = @p1.stat('hp')
-      @battle.performMove(@id1, moves['drain-punch'])
+      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
       (@p1.currentHP - hp).should.equal 0
 
   describe 'weight-based attacks', ->
@@ -47,7 +46,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Hitmonchan')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['grass-knot'])
+      @battle.performMove(@id1, @battle.getMove('Grass Knot'))
       (hp - @p2.currentHP).should.equal 94
 
     it 'has 120 base power if the pokemon is >200kg', ->
@@ -55,7 +54,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['grass-knot'])
+      @battle.performMove(@id1, @battle.getMove('Grass Knot'))
       (hp - @p2.currentHP).should.equal 153
 
   describe 'a pokemon using a primary boosting move', ->
@@ -63,7 +62,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
-      @battle.performMove(@id1, moves['dragon-dance'])
+      @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
       @p2.currentHP.should.equal @p2.stat('hp')
 
     it "boosts the pokemon's stats", ->
@@ -72,14 +71,14 @@ shared = require '../shared'
         team2: [Factory('Hitmonchan')]
       attack = @p1.stat('attack')
       speed  = @p1.stat('speed')
-      @battle.performMove(@id1, moves['dragon-dance'])
+      @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
       @p1.stages.should.include attack: 1, speed: 1
 
     it "affects type-immune pokemon", ->
       shared.create.call this,
         team1: [Factory('Audino')]
         team2: [Factory('Gengar')]
-      @battle.performMove(@id1, moves['growl'])
+      @battle.performMove(@id1, @battle.getMove('Growl'))
       @p2.stages.attack.should.equal -1
 
     it "has the boosts removed on switch"
@@ -90,7 +89,7 @@ shared = require '../shared'
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['leaf-storm'])
+      @battle.performMove(@id1, @battle.getMove('Leaf Storm'))
       @p1.stages.specialAttack.should.equal -2
       (hp - @p2.currentHP).should.equal 178
 
@@ -102,7 +101,7 @@ shared = require '../shared'
       shared.biasRNG.call(this, "next", 'secondary boost', 0)  # 100% chance
       attack = @p1.stat('attack')
       speed  = @p1.stat('speed')
-      @battle.performMove(@id1, moves['ancientpower'])
+      @battle.performMove(@id1, @battle.getMove('Ancientpower'))
       @p1.stages.should.include {
         attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
       }
@@ -113,7 +112,7 @@ shared = require '../shared'
         team1: [Factory('Gliscor')]
         team2: [Factory('Regirock')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['acrobatics'])
+      @battle.performMove(@id1, @battle.getMove('Acrobatics'))
       damage = (hp - @p2.currentHP)
       damage.should.equal 36
 
@@ -122,7 +121,7 @@ shared = require '../shared'
         team1: [Factory('Gliscor', item: 'Leftovers')]
         team2: [Factory('Regirock')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['acrobatics'])
+      @battle.performMove(@id1, @battle.getMove('Acrobatics'))
       damage = (hp - @p2.currentHP)
       damage.should.equal 18
 
@@ -148,7 +147,7 @@ shared = require '../shared'
         startHP = @p1.currentHP
         hp = @p2.currentHP
 
-        move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
+        move = @battle.getMove(moveName)
         stub = @sandbox.stub(move, 'calculateDamage', -> .6)
 
         move = @battle.getMove(moveName)
@@ -192,7 +191,7 @@ shared = require '../shared'
         team1: [Factory('Blissey')]
         team2: [Factory('Mew')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['seismic-toss'])
+      @battle.performMove(@id1, @battle.getMove('Seismic Toss'))
       (hp - @p2.currentHP).should.equal 100
 
   describe 'Psywave', ->
@@ -202,27 +201,27 @@ shared = require '../shared'
         team2: [Factory('Mew')]
       shared.biasRNG.call(this, "randInt", 'psywave', 5)
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['psywave'])
+      @battle.performMove(@id1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 50
 
     it 'does user.level * 1.5 damage maximum', ->
       shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
-      move = moves['psywave']
+      move = @battle.getMove('Psywave')
       shared.biasRNG.call(this, "randInt", 'psywave', 15)
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['psywave'])
+      @battle.performMove(@id1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 150
 
     it 'rounds down to the nearest .1 multiplier', ->
       shared.create.call this,
         team1: [Factory('Weezing')]
         team2: [Factory('Mew')]
-      move = moves['psywave']
+      move = @battle.getMove('Psywave')
       shared.biasRNG.call(this, "randInt", 'psywave', 6.09)
       hp = @p2.currentHP
-      @battle.performMove(@id1, moves['psywave'])
+      @battle.performMove(@id1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 60
 
   describe 'facade', ->
@@ -232,7 +231,7 @@ shared = require '../shared'
         team2: [Factory('Magikarp')]
       hp = @p2.currentHP
       @p1.setStatus(Status.PARALYZE)
-      move = moves['facade']
+      move = @battle.getMove('Facade')
       basePower = move.basePower(@battle, @p1, @p2)
       basePower.should.equal(2 * move.power)
 
@@ -242,7 +241,7 @@ shared = require '../shared'
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @p1.currentHP = 1
-      move = moves['flail']
+      move = @battle.getMove('Flail')
       basePower = move.basePower(@battle, @p1, @p2)
       basePower.should.equal 200
 
@@ -251,7 +250,7 @@ shared = require '../shared'
         team1: [Factory('Zangoose')]
         team2: [Factory('Magikarp')]
       @p1.currentHP = Math.floor(@p1.stat('hp') / 2)
-      move = moves['flail']
+      move = @battle.getMove('Flail')
       basePower = move.basePower(@battle, @p1, @p2)
       basePower.should.equal 40
 
@@ -262,7 +261,7 @@ shared = require '../shared'
         team2: [Factory('Mew')]
       @attacker = @p1
       @defender = @p2
-      @move = moves['eruption']
+      @move = @battle.getMove('Eruption')
 
     it 'has at least one base power', ->
       @attacker.currentHP = 1
@@ -280,7 +279,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Forretress', ivs: {speed: 0})]
         team2: [Factory('Jolteon', evs: {speed: 252}, nature: "Timid")]
-      move = moves['gyro-ball']
+      move = @battle.getMove('Gyro Ball')
       attacker = @p1
       defender = @p2
       attacker.stages.speed = -6
@@ -290,7 +289,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Electrode', evs: {speed: 252}, nature: "Jolly")]
         team2: [Factory('Magikarp', ivs: {speed: 0})]
-      move = moves['gyro-ball']
+      move = @battle.getMove('Gyro Ball')
       attacker = @p1
       defender = @p2
       attacker.stages.speed = -6
@@ -301,7 +300,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Empoleon')]
         team2: [Factory('Magikarp')]
-      move = moves['brine']
+      move = @battle.getMove('Brine')
       @p2.currentHP = Math.floor(@p2.currentHP / 2) + 1
       move.basePower(@battle, @p1, @p2).should.equal 65
 
@@ -309,7 +308,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Empoleon')]
         team2: [Factory('Magikarp')]
-      move = moves['brine']
+      move = @battle.getMove('Brine')
       @p2.currentHP = Math.floor(@p2.currentHP / 2)
       move.basePower(@battle, @p1, @p2).should.equal 130
 
@@ -366,7 +365,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp', ivs: ivs)]
         team2: [Factory('Magikarp')]
-      move = moves['hidden-power']
+      move = @battle.getMove('Hidden Power')
       move.basePower(@battle, @p1, @p2).should.eql 70
 
     it 'has a min power of 30', ->
@@ -377,7 +376,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp', ivs: ivs)]
         team2: [Factory('Magikarp')]
-      move = moves['hidden-power']
+      move = @battle.getMove('Hidden Power')
       move.basePower(@battle, @p1, @p2).should.eql 30
 
     it 'is dark when all ivs are 31', ->
@@ -388,7 +387,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp', ivs: ivs)]
         team2: [Factory('Magikarp')]
-      move = moves['hidden-power']
+      move = @battle.getMove('Hidden Power')
       move.getType(@battle, @p1, @p2).should.eql 'Dark'
 
     it 'is fighting when all ivs are 0', ->
@@ -399,7 +398,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp', ivs: ivs)]
         team2: [Factory('Magikarp')]
-      move = moves['hidden-power']
+      move = @battle.getMove('Hidden Power')
       move.getType(@battle, @p1, @p2).should.eql 'Fighting'
 
   describe 'yawn', ->
@@ -440,9 +439,10 @@ shared = require '../shared'
 
   describe 'an OHKO move', ->
     it 'ignores accuracy/evasion modifiers', ->
+      shared.create.call(this)
       @p1.stages.accuracy = -6
       @p2.stages.evasion = 6
-      acc = moves['sheer-cold'].chanceToHit(@battle, @p1, @p2)
+      acc = @battle.getMove('Sheer Cold').chanceToHit(@battle, @p1, @p2)
 
       acc.should.equal 30
 
@@ -454,7 +454,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, 'Sheer Cold')
       @controller.makeMove(@player2, 'Splash')
 
-      move = moves['sheer-cold']
+      move = @battle.getMove('Sheer Cold')
       damage = move.calculateDamage(@battle, @p1, @p2)
       damage.should.equal @p2.stat('hp')
 
@@ -472,7 +472,7 @@ shared = require '../shared'
 
     it "fails if the user's HP is full", ->
       shared.create.call(this)
-      mock = @sandbox.mock(moves['softboiled'])
+      mock = @sandbox.mock(@battle.getMove('Softboiled'))
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'Softboiled')
@@ -597,7 +597,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Dugtrio')]
         team2: [Factory('Magikarp')]
-      move = moves['magnitude']
+      move = @battle.getMove('Magnitude')
       shared.biasRNG.call(this, "randInt", 'magnitude', 50)
       move.basePower(@battle, @p1, @p2).should.equal 70
 
@@ -692,7 +692,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Dratini')]
         team2: [Factory('Magikarp')]
-      move = moves['dragon-rage']
+      move = @battle.getMove('Dragon Rage')
       move.calculateDamage(@battle, @p1, @p2).should.equal 40
 
   describe 'explosion moves', ->
@@ -841,27 +841,27 @@ shared = require '../shared'
   describe 'crush grip', ->
     it 'has a base power of 1 minimum', ->
       shared.create.call(this)
-      move = moves['crush-grip']
+      move = @battle.getMove('Crush Grip')
       @p2.currentHP = 1
       move.basePower(@battle, @p1, @p2).should.equal 1
 
     it 'has a base power of 121 maximum', ->
       shared.create.call(this)
-      move = moves['crush-grip']
+      move = @battle.getMove('Crush Grip')
       @p2.currentHP = @p2.stat('hp')
       move.basePower(@battle, @p1, @p2).should.equal 121
 
   describe 'hex', ->
     it 'doubles the base power if target is burned, poisoned, or paralyzed', ->
       shared.create.call(this)
-      move = moves['hex']
+      move = @battle.getMove('Hex')
       @p2.setStatus(Status.PARALYZE)
       move.basePower(@battle, @p1, @p2).should.equal 100
 
   describe 'heavy slam and heat crash', ->
     it 'has variable base power based on the difference in weight', ->
       shared.create.call(this)
-      move = moves['heavy-slam']
+      move = @battle.getMove('Heavy Slam')
       move.basePower(@battle, @p1, @p2).should.equal 40
       move.basePower(@battle, @p1, calculateWeight: -> -1000).should.equal 120
 
@@ -870,7 +870,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
       @team1.pokemon.map((pokemon) -> pokemon.setStatus(Status.PARALYZE))
-      @battle.performMove(@id1, moves['aromatherapy'])
+      @battle.performMove(@id1, @battle.getMove('Aromatherapy'))
 
       _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
 
@@ -880,30 +880,30 @@ shared = require '../shared'
         team1: [Factory('Magikarp', evs: {speed: 4})] # make faster than team2
 
     it 'copies the last move used', ->
-      @battle.lastMove = moves['tackle']
-      mock = @sandbox.mock(moves['tackle'])
+      @battle.lastMove = @battle.getMove('Tackle')
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').once()
-      @battle.performMove(@id1, moves['copycat'])
+      @battle.performMove(@id1, @battle.getMove('Copycat'))
       mock.verify()
 
     it 'fails if no last move was used', ->
       @battle.lastMove = null
-      mock = @sandbox.mock(moves['copycat'])
+      mock = @sandbox.mock(@battle.getMove('Copycat'))
       mock.expects('fail').once()
-      @battle.performMove(@id1, moves['copycat'])
+      @battle.performMove(@id1, @battle.getMove('Copycat'))
       mock.verify()
 
     it 'fails if the last move was copycat', ->
-      @battle.lastMove = moves['copycat']
-      mock = @sandbox.mock(moves['copycat'])
+      @battle.lastMove = @battle.getMove('Copycat')
+      mock = @sandbox.mock(@battle.getMove('Copycat'))
       mock.expects('fail').once()
-      @battle.performMove(@id1, moves['copycat'])
+      @battle.performMove(@id1, @battle.getMove('Copycat'))
       mock.verify()
 
   describe 'a move that targets a different stat', ->
     it "uses the correct stat", ->
       shared.create.call(this)
-      move = moves['secret-sword']
+      move = @battle.getMove('Secret Sword')
       defStat = @p2.stat('defense')
       move.pickDefenseStat(@p1, @p2).should.equal defStat
 
@@ -911,7 +911,7 @@ shared = require '../shared'
     it "uses the target's attack stat, not the user's", ->
       shared.create.call this,
         team1: [Factory('Celebi')]
-      move = moves['foul-play']
+      move = @battle.getMove('Foul Play')
       atkStat = @p2.stat('attack')
       move.pickAttackStat(@p1, @p2).should.equal atkStat
 
@@ -919,14 +919,14 @@ shared = require '../shared'
     it "uses the target's attack stat, not the user's", ->
       shared.create.call this,
         team1: [Factory('Celebi')]
-      move = moves['foul-play']
+      move = @battle.getMove('Foul Play')
       atkStat = @p2.stat('attack')
       move.pickAttackStat(@p1, @p2).should.equal atkStat
 
   describe 'teleport', ->
     it "always fails", ->
       shared.create.call(this)
-      move = moves['teleport']
+      move = @battle.getMove('Teleport')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'Teleport')
@@ -989,7 +989,7 @@ shared = require '../shared'
     it "prevents the other person from executing their move", ->
       shared.create.call(this)
 
-      mock = @sandbox.mock(moves['splash'])
+      mock = @sandbox.mock(@battle.getMove('Splash'))
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Fake Out')
@@ -1010,7 +1010,7 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.NONE)
 
-      move = moves['weather-ball']
+      move = @battle.getMove('Weather Ball')
       move.getType(@battle, @p1, @p2).should.equal 'Normal'
       move.basePower(@battle, @p1, @p2).should.equal 50
 
@@ -1018,7 +1018,7 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.RAIN)
 
-      move = moves['weather-ball']
+      move = @battle.getMove('Weather Ball')
       move.getType(@battle, @p1, @p2).should.equal 'Water'
       move.basePower(@battle, @p1, @p2).should.equal 100
 
@@ -1026,7 +1026,7 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.SUN)
 
-      move = moves['weather-ball']
+      move = @battle.getMove('Weather Ball')
       move.getType(@battle, @p1, @p2).should.equal 'Fire'
       move.basePower(@battle, @p1, @p2).should.equal 100
 
@@ -1034,7 +1034,7 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.HAIL)
 
-      move = moves['weather-ball']
+      move = @battle.getMove('Weather Ball')
       move.getType(@battle, @p1, @p2).should.equal 'Ice'
       move.basePower(@battle, @p1, @p2).should.equal 100
 
@@ -1042,7 +1042,7 @@ shared = require '../shared'
       shared.create.call(this)
       @battle.setWeather(Weather.SAND)
 
-      move = moves['weather-ball']
+      move = @battle.getMove('Weather Ball')
       move.getType(@battle, @p1, @p2).should.equal 'Rock'
       move.basePower(@battle, @p1, @p2).should.equal 100
 
@@ -1095,7 +1095,7 @@ shared = require '../shared'
     it 'fails if the pokemon is awake', ->
       shared.create.call(this)
 
-      mock = @sandbox.mock(moves['nightmare'])
+      mock = @sandbox.mock(@battle.getMove('Nightmare'))
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'nightmare')
@@ -1156,13 +1156,13 @@ shared = require '../shared'
   describe 'judgment', ->
     it 'is normal type by default', ->
       shared.create.call(this)
-      move = moves['judgment']
+      move = @battle.getMove('Judgment')
       move.getType(@battle, @p1, @p2).should.equal 'Normal'
 
     it 'changes type depending on the Plate held by the user', ->
       shared.create.call this,
         team1: [ Factory('Magikarp', item: 'Earth Plate') ]
-      move = moves['judgment']
+      move = @battle.getMove('Judgment')
       move.getType(@battle, @p1, @p2).should.equal 'Ground'
 
   describe 'taunt', ->
@@ -1171,7 +1171,7 @@ shared = require '../shared'
 
     it 'prevents the target from using a non-attacking move that turn', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
-      move = moves['calm-mind']
+      move = @battle.getMove('Calm Mind')
       mock = @sandbox.mock(move)
       mock.expects('execute').never()
 
@@ -1281,7 +1281,7 @@ shared = require '../shared'
 
     it "fails if attacked by a special move", ->
       shared.create.call(this)
-      mock = @sandbox.mock(moves['counter'])
+      mock = @sandbox.mock(@battle.getMove('Counter'))
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'counter')
       @controller.makeMove(@player2, 'thundershock')
@@ -1290,7 +1290,7 @@ shared = require '../shared'
 
     it "fails if not hit by an attack this turn", ->
       shared.create.call(this)
-      mock = @sandbox.mock(moves['counter'])
+      mock = @sandbox.mock(@battle.getMove('Counter'))
       mock.expects('fail').once()
       @controller.makeMove(@player1, 'splash')
       @controller.makeMove(@player2, 'tackle')
@@ -1336,27 +1336,27 @@ shared = require '../shared'
     it "is Fire-type if the user holds a Burn Drive", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Burn Drive")]
-      move = moves['techno-blast']
+      move = @battle.getMove('Techno Blast')
       type = move.getType(@battle, @p1, @p2)
       type.should.equal "Fire"
 
     it "is Water-type if the user holds a Douse Drive", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Douse Drive")]
-      move = moves['techno-blast']
+      move = @battle.getMove('Techno Blast')
       type = move.getType(@battle, @p1, @p2)
       type.should.equal "Water"
 
     it "is Electric-type if the user holds a Shock Drive", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Shock Drive")]
-      move = moves['techno-blast']
+      move = @battle.getMove('Techno Blast')
       type = move.getType(@battle, @p1, @p2)
       type.should.equal "Electric"
 
     it "is Normal-type otherwise", ->
       shared.create.call(this)
-      move = moves['techno-blast']
+      move = @battle.getMove('Techno Blast')
       type = move.getType(@battle, @p1, @p2)
       type.should.equal "Normal"
 
@@ -1366,7 +1366,7 @@ shared = require '../shared'
         team1: [Factory("Magikarp")]
         team2: [Factory("Celebi")]
 
-      move = moves['synchronoise']
+      move = @battle.getMove('Synchronoise')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
@@ -1461,7 +1461,7 @@ shared = require '../shared'
       shared.create.call this,
         team1: [Factory("Magikarp", evs: {speed: 4})]
 
-      move = moves['encore']
+      move = @battle.getMove('Encore')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
@@ -1477,7 +1477,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
-      @p2.validMoves().should.eql [ moves['splash'] ]
+      @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
 
     it "changes the target's decision if it has not moved yet", ->
       shared.create.call this,
@@ -1489,7 +1489,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Tackle")
 
-      @p2.lastMove.should.equal moves['splash']
+      @p2.lastMove.should.equal @battle.getMove('Splash')
 
     it "lasts 3 turns", ->
       shared.create.call this,
@@ -1512,7 +1512,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      move = moves['encore']
+      move = @battle.getMove('Encore')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
@@ -1525,7 +1525,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      move = moves['encore']
+      move = @battle.getMove('Encore')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
@@ -1541,11 +1541,11 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      move = moves['encore']
+      move = @battle.getMove('Encore')
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
-      @p2.setPP(moves['splash'], 1)
+      @p2.setPP(@battle.getMove('Splash'), 1)
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
@@ -1555,7 +1555,7 @@ shared = require '../shared'
       shared.create.call this,
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
-      @p2.setPP(moves['splash'], 2)
+      @p2.setPP(@battle.getMove('Splash'), 2)
       @controller.makeMove(@player1, "Encore")
       @controller.makeMove(@player2, "Splash")
 
@@ -1610,12 +1610,12 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Torment")
       @controller.makeMove(@player2, "Splash")
 
-      @p2.validMoves().should.eql [ moves['tackle'] ]
+      @p2.validMoves().should.eql [ @battle.getMove('Tackle') ]
 
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Tackle")
 
-      @p2.validMoves().should.eql [ moves['splash'] ]
+      @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
 
     it "still works even if a new pokemon has just switched in", ->
       shared.create.call(this, team2: [Factory("Magikarp"), Factory("Magikarp")])
@@ -1623,7 +1623,7 @@ shared = require '../shared'
       @controller.makeMove(@player1, "Torment")
       @controller.makeSwitch(@player2, 1)
 
-      @p2.validMoves().should.eql [ moves['splash'], moves['tackle'] ]
+      @p2.validMoves().should.eql [ @battle.getMove('Splash'), @battle.getMove('Tackle') ]
 
     xit "does not force the Outrage user to struggle", ->
     xit "does not prevent consecutive use of Struggle", ->
@@ -1658,7 +1658,7 @@ shared = require '../shared'
     it "fails if there are 3 layers", ->
       shared.create.call(this)
 
-      mock = @sandbox.mock(moves['spikes'])
+      mock = @sandbox.mock(@battle.getMove('Spikes'))
       mock.expects('fail').once()
 
       for i in [1..4]
@@ -1755,7 +1755,7 @@ shared = require '../shared'
     it "fails if there are 2 layers", ->
       shared.create.call(this)
 
-      mock = @sandbox.mock(moves['toxic-spikes'])
+      mock = @sandbox.mock(@battle.getMove('Toxic Spikes'))
       mock.expects('fail').once()
 
       for i in [1..3]
@@ -1895,7 +1895,7 @@ shared = require '../shared'
       it "fails if the Pokemon already has it", ->
         shared.create.call(this)
 
-        move = moves[moveName.toLowerCase().replace(/\s+/g, '-')]
+        move = @battle.getMove(moveName)
         mock = @sandbox.mock(move)
         mock.expects('fail').once()
 
@@ -1916,51 +1916,51 @@ shared = require '../shared'
     it "has 40 base power by default", ->
       shared.create.call(this)
 
-      moves['trump-card'].basePower(@battle, @p1, @p2).should.equal 40
+      @battle.getMove('Trump Card').basePower(@battle, @p1, @p2).should.equal 40
 
     it "has 50 base power if the move has 3 PP after use", ->
       shared.create.call this,
         team1: [Factory("Corphish")]
 
-      pp = @p1.pp(moves['trump-card'])
+      pp = @p1.pp(@battle.getMove('Trump Card'))
       for x in [0...pp - 3]
-        @p1.reducePP(moves['trump-card'])
-      @p1.pp(moves['trump-card']).should.equal 3
+        @p1.reducePP(@battle.getMove('Trump Card'))
+      @p1.pp(@battle.getMove('Trump Card')).should.equal 3
 
-      moves['trump-card'].basePower(@battle, @p1, @p2).should.equal 50
+      @battle.getMove('Trump Card').basePower(@battle, @p1, @p2).should.equal 50
 
     it "has 60 base power if the move has 2 PP after use", ->
       shared.create.call this,
         team1: [Factory("Corphish")]
 
-      pp = @p1.pp(moves['trump-card'])
+      pp = @p1.pp(@battle.getMove('Trump Card'))
       for x in [0...pp - 2]
-        @p1.reducePP(moves['trump-card'])
-      @p1.pp(moves['trump-card']).should.equal 2
+        @p1.reducePP(@battle.getMove('Trump Card'))
+      @p1.pp(@battle.getMove('Trump Card')).should.equal 2
 
-      moves['trump-card'].basePower(@battle, @p1, @p2).should.equal 60
+      @battle.getMove('Trump Card').basePower(@battle, @p1, @p2).should.equal 60
 
     it "has 80 base power if the move has 1 PP after use", ->
       shared.create.call this,
         team1: [Factory("Corphish")]
 
-      pp = @p1.pp(moves['trump-card'])
+      pp = @p1.pp(@battle.getMove('Trump Card'))
       for x in [0...pp - 1]
-        @p1.reducePP(moves['trump-card'])
-      @p1.pp(moves['trump-card']).should.equal 1
+        @p1.reducePP(@battle.getMove('Trump Card'))
+      @p1.pp(@battle.getMove('Trump Card')).should.equal 1
 
-      moves['trump-card'].basePower(@battle, @p1, @p2).should.equal 80
+      @battle.getMove('Trump Card').basePower(@battle, @p1, @p2).should.equal 80
 
     it "has 200 base power if the move has 0 PP after use", ->
       shared.create.call this,
         team1: [Factory("Corphish")]
 
-      pp = @p1.pp(moves['trump-card'])
+      pp = @p1.pp(@battle.getMove('Trump Card'))
       for x in [0...pp - 0]
-        @p1.reducePP(moves['trump-card'])
-      @p1.pp(moves['trump-card']).should.equal 0
+        @p1.reducePP(@battle.getMove('Trump Card'))
+      @p1.pp(@battle.getMove('Trump Card')).should.equal 0
 
-      moves['trump-card'].basePower(@battle, @p1, @p2).should.equal 200
+      @battle.getMove('Trump Card').basePower(@battle, @p1, @p2).should.equal 200
 
   testRandomSwitchMove = (moveName) ->
     describe moveName, ->
@@ -2115,7 +2115,7 @@ shared = require '../shared'
         team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', 0)  # 100% immobilizes
 
-      mock = @sandbox.mock(moves['tackle'])
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
       @controller.makeMove(@player1, 'Attract')
@@ -2129,7 +2129,7 @@ shared = require '../shared'
         team2: [Factory("Magikarp", gender: "F")]
       shared.biasRNG.call(this, "next", 'attract chance', .5)  # 0% immobilizes
 
-      mock = @sandbox.mock(moves['tackle'])
+      mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').once()
 
       @controller.makeMove(@player1, 'Attract')
@@ -2142,7 +2142,7 @@ shared = require '../shared'
         team1: [Factory("Magikarp", gender: "F")]
         team2: [Factory("Magikarp", gender: "F")]
 
-      mock = @sandbox.mock(moves['attract'])
+      mock = @sandbox.mock(@battle.getMove('Attract'))
       mock.expects('fail').once()
 
       @controller.makeMove(@player1, 'Attract')
@@ -2153,7 +2153,7 @@ shared = require '../shared'
   describe "Reflect", ->
     it "halves physical damage", ->
       shared.create.call(this)
-      move = moves['tackle']
+      move = @battle.getMove('Tackle')
       mod = finalModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -2163,7 +2163,7 @@ shared = require '../shared'
 
     it "does not halve non-physical damage", ->
       shared.create.call(this)
-      move = moves['thundershock']
+      move = @battle.getMove('Thundershock')
       mod = finalModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -2174,7 +2174,7 @@ shared = require '../shared'
     it "lasts five turns", ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, moves['reflect'])
+      @battle.performMove(@id1, @battle.getMove('Reflect'))
 
       for i in [1..5]
         @team1.hasAttachment(Attachment.Reflect).should.be.true
@@ -2183,11 +2183,11 @@ shared = require '../shared'
 
     it "fails if the user already used it", ->
       shared.create.call(this)
-      mock = @sandbox.mock(moves['reflect'])
+      mock = @sandbox.mock(@battle.getMove('Reflect'))
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, moves['reflect'])
-      @battle.performMove(@id1, moves['reflect'])
+      @battle.performMove(@id1, @battle.getMove('Reflect'))
+      @battle.performMove(@id1, @battle.getMove('Reflect'))
 
       mock.verify()
 
@@ -2196,7 +2196,7 @@ shared = require '../shared'
   describe "Light Screen", ->
     it "halves special damage", ->
       shared.create.call(this)
-      move = moves['thundershock']
+      move = @battle.getMove('Thundershock')
       mod = finalModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -2206,7 +2206,7 @@ shared = require '../shared'
 
     it "does not halve non-physical damage", ->
       shared.create.call(this)
-      move = moves['tackle']
+      move = @battle.getMove('Tackle')
       mod = finalModifier.run(move, @battle, @p1, @p2)
       mod.should.equal 0x1000
 
@@ -2217,7 +2217,7 @@ shared = require '../shared'
     it "lasts five turns", ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, moves['light-screen'])
+      @battle.performMove(@id1, @battle.getMove('Light Screen'))
 
       for i in [1..5]
         @team1.hasAttachment(Attachment.LightScreen).should.be.true
@@ -2226,11 +2226,11 @@ shared = require '../shared'
 
     it "fails if the user already used it", ->
       shared.create.call(this)
-      mock = @sandbox.mock(moves['light-screen'])
+      mock = @sandbox.mock(@battle.getMove('Light Screen'))
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, moves['light-screen'])
-      @battle.performMove(@id1, moves['light-screen'])
+      @battle.performMove(@id1, @battle.getMove('Light Screen'))
+      @battle.performMove(@id1, @battle.getMove('Light Screen'))
 
       mock.verify()
 
@@ -2302,20 +2302,20 @@ shared = require '../shared'
     it "shatters Light Screen", ->
       shared.create.call(this)
       @team2.attach(Attachment.LightScreen)
-      @battle.performMove(@id1, moves['brick-break'])
+      @battle.performMove(@id1, @battle.getMove('Brick Break'))
       @team2.hasAttachment(Attachment.LightScreen).should.be.false
 
     it "shatters Reflect", ->
       shared.create.call(this)
       @team2.attach(Attachment.Reflect)
-      @battle.performMove(@id1, moves['brick-break'])
+      @battle.performMove(@id1, @battle.getMove('Brick Break'))
       @team2.hasAttachment(Attachment.Reflect).should.be.false
 
     it "shatters both at the same time", ->
       shared.create.call(this)
       @team2.attach(Attachment.Reflect)
       @team2.attach(Attachment.LightScreen)
-      @battle.performMove(@id1, moves['brick-break'])
+      @battle.performMove(@id1, @battle.getMove('Brick Break'))
       @team2.hasAttachment(Attachment.Reflect).should.be.false
       @team2.hasAttachment(Attachment.LightScreen).should.be.false
 
@@ -2336,7 +2336,7 @@ shared = require '../shared'
       @team2.attach(Attachment.LightScreen)
 
       @sandbox.stub(@p2, 'isImmune', -> true)
-      @battle.performMove(@id1, moves['brick-break'])
+      @battle.performMove(@id1, @battle.getMove('Brick Break'))
       @team2.hasAttachment(Attachment.Reflect).should.be.true
       @team2.hasAttachment(Attachment.LightScreen).should.be.true
 
@@ -2346,7 +2346,7 @@ shared = require '../shared'
       @team2.attach(Attachment.LightScreen)
 
       shared.biasRNG.call(this, 'randInt', 'miss', 101)
-      @battle.performMove(@id1, moves['brick-break'])
+      @battle.performMove(@id1, @battle.getMove('Brick Break'))
       @team2.hasAttachment(Attachment.Reflect).should.be.true
       @team2.hasAttachment(Attachment.LightScreen).should.be.true
 

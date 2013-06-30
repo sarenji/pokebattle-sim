@@ -1,4 +1,4 @@
-@abilities = abilities = {}
+@Abilities = Abilities = {}
 
 class Ability
   constructor: (name, attributes={}) ->
@@ -7,7 +7,7 @@ class Ability
       @[key] = value
 
 makeAbility = (name, attributes) ->
-  abilities[name] = new Ability(name, attributes)
+  Abilities[name] = new Ability(name, attributes)
 
 makeAbility 'Technician'
 makeAbility 'Flare Boost'

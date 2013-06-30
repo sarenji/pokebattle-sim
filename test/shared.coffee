@@ -37,6 +37,8 @@ create = (opts={}) ->
   @p1 = @team1.first()
   @p2 = @team2.first()
 
+  @battle.areAllRequestsCompleted().should.be.false
+
   createTestRNG.call(this)
   biasRNG.call(this, 'next', 'ch', 1)
   biasRNG.call(this, 'randInt', 'damage roll', 0)

@@ -8,10 +8,10 @@ util = require '../../server/util'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
-@moves = moves = {}
+@Moves = Moves = {}
 @moveList = moveList = []
 for name, attributes of @MoveData
-  @moves[name] = new Move(name, attributes)
+  @Moves[name] = new Move(name, attributes)
   @moveList.push(name)
 
 # Extends a move in the move list using a callback.
@@ -27,10 +27,10 @@ for name, attributes of @MoveData
 #     @afterMove -> # blah
 #
 extendMove = (name, callback) ->
-  if name not of moves
+  if name not of Moves
     throw new Error("Cannot extend Move '#{name}' because it does not exist.")
 
-  move = moves[name]
+  move = Moves[name]
   callback.call(move, move.attributes)
 
 extendWithPrimaryEffect = (name, Klass, options={}) ->
@@ -925,7 +925,7 @@ extendMove 'brine', ->
 extendMove 'copycat', ->
   @execute = (battle, user, targets) ->
     move = battle.lastMove
-    if move? && move != moves['copycat']
+    if move? && move != battle.getMove('Copycat')
       battle.message "#{user.name} used #{move.name}!"
       move.execute(battle, user, targets)
     else
@@ -1235,7 +1235,7 @@ extendMove 'metronome', ->
     "wide-guard": true
 
   for move of impossibleMoves
-    if move not of moves
+    if move not of Moves
       throw new Error("The illegal Metronome move '#{move}' does not exist.")
 
   @execute = (battle, user, targets) ->
@@ -1516,7 +1516,7 @@ extendMove 'yawn', ->
 
 # Keep this at the bottom or look up how it affects Metronome.
 # TODO: Figure out a better solution
-moves['confusion-recoil'] = new Move "Confusion recoil",
+Moves['confusion-recoil'] = new Move "Confusion recoil",
   "accuracy": 0,
   "damage": "physical",
   "power": 40,
@@ -1527,4 +1527,4 @@ moves['confusion-recoil'] = new Move "Confusion recoil",
 extendMove 'confusion-recoil', ->
   @isCriticalHit = -> false
 
-moves['recharge'] = new Move("Recharge", target: "user")
+Moves['recharge'] = new Move("Recharge", target: "user")
