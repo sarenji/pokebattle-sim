@@ -1378,12 +1378,16 @@ extendMove 'splash', ->
 extendMove 'substitute', ->
   @execute = (battle, user, target) ->
     dmg = user.stat('hp') >> 2
-    sub = Attachment.Substitute
-    attrs = {hp: dmg, battle: battle}
-    if dmg >= user.currentHP || dmg == 0 || !user.attach(sub, attrs)
+    if dmg >= user.currentHP || dmg == 0
+      battle.message "It was too weak to make a substitute!"
+      @fail(battle)
+      return
+
+    if !user.attach(Attachment.Substitute, hp: dmg, battle: battle)
       battle.message "#{user.name} already has a substitute!"
       @fail(battle)
       return
+
     user.damage(dmg)
     battle.message "#{user.name} put in a substitute!"
 
