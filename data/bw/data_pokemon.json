@@ -1,5 +1,6 @@
 {
     "Abomasnow": {
+        "id": 460, 
         "moves": [
             "Ice Punch", 
             "Swords Dance", 
@@ -86,6 +87,7 @@
         "weight": 1355
     }, 
     "Abra": {
+        "id": 63, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -191,6 +193,7 @@
         "weight": 195
     }, 
     "Absol": {
+        "id": 359, 
         "moves": [
             "Scratch", 
             "Razor Wind", 
@@ -312,6 +315,7 @@
         "weight": 470
     }, 
     "Accelgor": {
+        "id": 617, 
         "moves": [
             "Hyper Beam", 
             "Mega Drain", 
@@ -369,6 +373,7 @@
         "weight": 253
     }, 
     "Aerodactyl": {
+        "id": 142, 
         "moves": [
             "Razor Wind", 
             "Wing Attack", 
@@ -474,6 +479,7 @@
         "weight": 590
     }, 
     "Aggron": {
+        "id": 306, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -596,6 +602,7 @@
         "weight": 3600
     }, 
     "Aipom": {
+        "id": 190, 
         "moves": [
             "DoubleSlap", 
             "Fire Punch", 
@@ -712,6 +719,7 @@
         "weight": 115
     }, 
     "Alakazam": {
+        "id": 65, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -824,6 +832,7 @@
         "weight": 480
     }, 
     "Alomomola": {
+        "id": 594, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -894,6 +903,7 @@
         "weight": 316
     }, 
     "Altaria": {
+        "id": 334, 
         "moves": [
             "Fly", 
             "Fury Attack", 
@@ -986,6 +996,7 @@
         "weight": 206
     }, 
     "Ambipom": {
+        "id": 424, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -1083,6 +1094,7 @@
         "weight": 203
     }, 
     "Amoonguss": {
+        "id": 591, 
         "moves": [
             "Hyper Beam", 
             "Absorb", 
@@ -1144,6 +1156,7 @@
         "weight": 105
     }, 
     "Ampharos": {
+        "id": 181, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -1233,6 +1246,7 @@
         "weight": 615
     }, 
     "Anorith": {
+        "id": 347, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -1312,6 +1326,7 @@
         "weight": 125
     }, 
     "Arbok": {
+        "id": 24, 
         "moves": [
             "Body Slam", 
             "Wrap", 
@@ -1404,6 +1419,7 @@
         "weight": 650
     }, 
     "Arcanine": {
+        "id": 59, 
         "moves": [
             "Body Slam", 
             "Take Down", 
@@ -1491,6 +1507,7 @@
         "weight": 1550
     }, 
     "Arceus (bug)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -1633,6 +1650,7 @@
         "weight": 3200
     }, 
     "Arceus (dark)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -1775,6 +1793,7 @@
         "weight": 3200
     }, 
     "Arceus (dragon)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -1917,6 +1936,7 @@
         "weight": 3200
     }, 
     "Arceus (electric)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2059,6 +2079,7 @@
         "weight": 3200
     }, 
     "Arceus (fighting)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2201,6 +2222,7 @@
         "weight": 3200
     }, 
     "Arceus (fire)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2343,6 +2365,7 @@
         "weight": 3200
     }, 
     "Arceus (flying)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2485,6 +2508,7 @@
         "weight": 3200
     }, 
     "Arceus (ghost)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2627,6 +2651,7 @@
         "weight": 3200
     }, 
     "Arceus (grass)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2769,6 +2794,7 @@
         "weight": 3200
     }, 
     "Arceus (ground)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -2911,6 +2937,7 @@
         "weight": 3200
     }, 
     "Arceus (ice)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3053,6 +3080,7 @@
         "weight": 3200
     }, 
     "Arceus (normal)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3195,6 +3223,7 @@
         "weight": 3200
     }, 
     "Arceus (poison)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3337,6 +3366,7 @@
         "weight": 3200
     }, 
     "Arceus (psychic)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3479,6 +3509,7 @@
         "weight": 3200
     }, 
     "Arceus (rock)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3621,6 +3652,7 @@
         "weight": 3200
     }, 
     "Arceus (steel)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3763,6 +3795,7 @@
         "weight": 3200
     }, 
     "Arceus (unknown)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -3905,6 +3938,7 @@
         "weight": 3200
     }, 
     "Arceus (water)": {
+        "id": 706, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -4047,6 +4081,7 @@
         "weight": 3200
     }, 
     "Archen": {
+        "id": 566, 
         "moves": [
             "Cut", 
             "Wing Attack", 
@@ -4128,6 +4163,7 @@
         "weight": 95
     }, 
     "Archeops": {
+        "id": 567, 
         "moves": [
             "Cut", 
             "Wing Attack", 
@@ -4211,6 +4247,7 @@
         "weight": 320
     }, 
     "Ariados": {
+        "id": 168, 
         "moves": [
             "Poison Sting", 
             "Hyper Beam", 
@@ -4285,6 +4322,7 @@
         "weight": 335
     }, 
     "Armaldo": {
+        "id": 348, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -4372,6 +4410,7 @@
         "weight": 682
     }, 
     "Aron": {
+        "id": 304, 
         "moves": [
             "Cut", 
             "Stomp", 
@@ -4459,6 +4498,7 @@
         "weight": 600
     }, 
     "Articuno": {
+        "id": 144, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -4545,6 +4585,7 @@
         "weight": 554
     }, 
     "Audino": {
+        "id": 531, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -4650,6 +4691,7 @@
         "weight": 310
     }, 
     "Axew": {
+        "id": 610, 
         "moves": [
             "Scratch", 
             "Guillotine", 
@@ -4724,6 +4766,7 @@
         "weight": 180
     }, 
     "Azelf": {
+        "id": 482, 
         "moves": [
             "Flamethrower", 
             "Hyper Beam", 
@@ -4819,6 +4862,7 @@
         "weight": 3
     }, 
     "Azumarill": {
+        "id": 184, 
         "moves": [
             "Ice Punch", 
             "Headbutt", 
@@ -4908,6 +4952,7 @@
         "weight": 285
     }, 
     "Azurill": {
+        "id": 298, 
         "moves": [
             "Slam", 
             "Tail Whip", 
@@ -4985,6 +5030,7 @@
         "weight": 20
     }, 
     "Bagon": {
+        "id": 371, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -5063,6 +5109,7 @@
         "weight": 421
     }, 
     "Baltoy": {
+        "id": 343, 
         "moves": [
             "Ice Beam", 
             "Psybeam", 
@@ -5153,6 +5200,7 @@
         "weight": 215
     }, 
     "Banette": {
+        "id": 354, 
         "moves": [
             "Hyper Beam", 
             "Thunderbolt", 
@@ -5241,6 +5289,7 @@
         "weight": 125
     }, 
     "Barboach": {
+        "id": 339, 
         "moves": [
             "Thrash", 
             "Water Gun", 
@@ -5315,6 +5364,7 @@
         "weight": 19
     }, 
     "Basculin (blue-striped)": {
+        "id": 715, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -5385,6 +5435,7 @@
         "weight": 180
     }, 
     "Basculin (red-striped)": {
+        "id": 550, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -5455,6 +5506,7 @@
         "weight": 180
     }, 
     "Bastiodon": {
+        "id": 411, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -5536,6 +5588,7 @@
         "weight": 1495
     }, 
     "Bayleef": {
+        "id": 153, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -5609,6 +5662,7 @@
         "weight": 158
     }, 
     "Beartic": {
+        "id": 614, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -5686,6 +5740,7 @@
         "weight": 2600
     }, 
     "Beautifly": {
+        "id": 267, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -5760,6 +5815,7 @@
         "weight": 284
     }, 
     "Beedrill": {
+        "id": 15, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -5849,6 +5905,7 @@
         "weight": 295
     }, 
     "Beheeyem": {
+        "id": 606, 
         "moves": [
             "Headbutt", 
             "Growl", 
@@ -5931,6 +5988,7 @@
         "weight": 345
     }, 
     "Beldum": {
+        "id": 374, 
         "moves": [
             "Take Down", 
             "Iron Defense", 
@@ -5954,6 +6012,7 @@
         "weight": 952
     }, 
     "Bellossom": {
+        "id": 182, 
         "moves": [
             "Cut", 
             "Hyper Beam", 
@@ -6022,6 +6081,7 @@
         "weight": 58
     }, 
     "Bellsprout": {
+        "id": 69, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -6104,6 +6164,7 @@
         "weight": 40
     }, 
     "Bibarel": {
+        "id": 400, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -6195,6 +6256,7 @@
         "weight": 315
     }, 
     "Bidoof": {
+        "id": 399, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -6278,6 +6340,7 @@
         "weight": 200
     }, 
     "Bisharp": {
+        "id": 625, 
         "moves": [
             "Scratch", 
             "Guillotine", 
@@ -6364,6 +6427,7 @@
         "weight": 700
     }, 
     "Blastoise": {
+        "id": 9, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -6469,6 +6533,7 @@
         "weight": 855
     }, 
     "Blaziken": {
+        "id": 257, 
         "moves": [
             "Fire Punch", 
             "Scratch", 
@@ -6581,6 +6646,7 @@
         "weight": 520
     }, 
     "Blissey": {
+        "id": 242, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -6706,6 +6772,7 @@
         "weight": 468
     }, 
     "Blitzle": {
+        "id": 522, 
         "moves": [
             "Stomp", 
             "Double Kick", 
@@ -6768,6 +6835,7 @@
         "weight": 298
     }, 
     "Boldore": {
+        "id": 525, 
         "moves": [
             "Sand-Attack", 
             "Headbutt", 
@@ -6823,6 +6891,7 @@
         "weight": 1020
     }, 
     "Bonsly": {
+        "id": 438, 
         "moves": [
             "Slam", 
             "Headbutt", 
@@ -6896,6 +6965,7 @@
         "weight": 150
     }, 
     "Bouffalant": {
+        "id": 626, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -6972,6 +7042,7 @@
         "weight": 946
     }, 
     "Braviary": {
+        "id": 628, 
         "moves": [
             "Cut", 
             "Wing Attack", 
@@ -7040,6 +7111,7 @@
         "weight": 410
     }, 
     "Breloom": {
+        "id": 286, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -7134,6 +7206,7 @@
         "weight": 392
     }, 
     "Bronzong": {
+        "id": 437, 
         "moves": [
             "Tackle", 
             "Hyper Beam", 
@@ -7224,6 +7297,7 @@
         "weight": 1870
     }, 
     "Bronzor": {
+        "id": 436, 
         "moves": [
             "Tackle", 
             "SolarBeam", 
@@ -7306,6 +7380,7 @@
         "weight": 605
     }, 
     "Budew": {
+        "id": 406, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -7377,6 +7452,7 @@
         "weight": 12
     }, 
     "Buizel": {
+        "id": 418, 
         "moves": [
             "DoubleSlap", 
             "Razor Wind", 
@@ -7459,6 +7535,7 @@
         "weight": 295
     }, 
     "Bulbasaur": {
+        "id": 1, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -7552,6 +7629,7 @@
         "weight": 69
     }, 
     "Buneary": {
+        "id": 427, 
         "moves": [
             "Pound", 
             "Fire Punch", 
@@ -7646,6 +7724,7 @@
         "weight": 55
     }, 
     "Burmy (plant)": {
+        "id": 684, 
         "moves": [
             "Tackle", 
             "Protect", 
@@ -7670,6 +7749,7 @@
         "weight": 34
     }, 
     "Burmy (sandy)": {
+        "id": 684, 
         "moves": [
             "Tackle", 
             "Protect", 
@@ -7694,6 +7774,7 @@
         "weight": 34
     }, 
     "Burmy (trash)": {
+        "id": 684, 
         "moves": [
             "Tackle", 
             "Protect", 
@@ -7718,6 +7799,7 @@
         "weight": 34
     }, 
     "Butterfree": {
+        "id": 12, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -7810,6 +7892,7 @@
         "weight": 320
     }, 
     "Cacnea": {
+        "id": 331, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -7903,6 +7986,7 @@
         "weight": 513
     }, 
     "Cacturne": {
+        "id": 332, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -7999,6 +8083,7 @@
         "weight": 774
     }, 
     "Camerupt": {
+        "id": 323, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -8085,6 +8170,7 @@
         "weight": 2200
     }, 
     "Carnivine": {
+        "id": 455, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -8165,6 +8251,7 @@
         "weight": 270
     }, 
     "Carracosta": {
+        "id": 565, 
         "moves": [
             "Bite", 
             "Water Gun", 
@@ -8241,6 +8328,7 @@
         "weight": 810
     }, 
     "Carvanha": {
+        "id": 318, 
         "moves": [
             "Take Down", 
             "Thrash", 
@@ -8321,6 +8409,7 @@
         "weight": 208
     }, 
     "Cascoon": {
+        "id": 268, 
         "moves": [
             "Harden", 
             "Iron Defense", 
@@ -8343,6 +8432,7 @@
         "weight": 115
     }, 
     "Castform": {
+        "id": 351, 
         "moves": [
             "Tackle", 
             "Ember", 
@@ -8424,6 +8514,7 @@
         "weight": 8
     }, 
     "Castform (rainy)": {
+        "id": 678, 
         "moves": [
             "Tackle", 
             "Ember", 
@@ -8505,6 +8596,7 @@
         "weight": 8
     }, 
     "Castform (snowy)": {
+        "id": 679, 
         "moves": [
             "Tackle", 
             "Ember", 
@@ -8586,6 +8678,7 @@
         "weight": 8
     }, 
     "Castform (sunny)": {
+        "id": 677, 
         "moves": [
             "Tackle", 
             "Ember", 
@@ -8667,6 +8760,7 @@
         "weight": 8
     }, 
     "Caterpie": {
+        "id": 10, 
         "moves": [
             "Tackle", 
             "String Shot", 
@@ -8689,6 +8783,7 @@
         "weight": 29
     }, 
     "Celebi": {
+        "id": 251, 
         "moves": [
             "Hyper Beam", 
             "Leech Seed", 
@@ -8791,6 +8886,7 @@
         "weight": 50
     }, 
     "Chandelure": {
+        "id": 609, 
         "moves": [
             "Flamethrower", 
             "Hyper Beam", 
@@ -8856,6 +8952,7 @@
         "weight": 343
     }, 
     "Chansey": {
+        "id": 113, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -8991,6 +9088,7 @@
         "weight": 346
     }, 
     "Charizard": {
+        "id": 6, 
         "moves": [
             "Mega Punch", 
             "Scratch", 
@@ -9113,6 +9211,7 @@
         "weight": 905
     }, 
     "Charmander": {
+        "id": 4, 
         "moves": [
             "Mega Punch", 
             "Scratch", 
@@ -9219,6 +9318,7 @@
         "weight": 85
     }, 
     "Charmeleon": {
+        "id": 5, 
         "moves": [
             "Mega Punch", 
             "Scratch", 
@@ -9316,6 +9416,7 @@
         "weight": 190
     }, 
     "Chatot": {
+        "id": 441, 
         "moves": [
             "Fly", 
             "Fury Attack", 
@@ -9391,6 +9492,7 @@
         "weight": 19
     }, 
     "Cherrim (overcast)": {
+        "id": 687, 
         "moves": [
             "Swords Dance", 
             "Tackle", 
@@ -9450,6 +9552,7 @@
         "weight": 93
     }, 
     "Cherrim (sunshine)": {
+        "id": 687, 
         "moves": [
             "Swords Dance", 
             "Tackle", 
@@ -9509,6 +9612,7 @@
         "weight": 93
     }, 
     "Cherubi": {
+        "id": 420, 
         "moves": [
             "Swords Dance", 
             "Tackle", 
@@ -9575,6 +9679,7 @@
         "weight": 33
     }, 
     "Chikorita": {
+        "id": 152, 
         "moves": [
             "Cut", 
             "Vine Whip", 
@@ -9656,6 +9761,7 @@
         "weight": 64
     }, 
     "Chimchar": {
+        "id": 390, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -9752,6 +9858,7 @@
         "weight": 62
     }, 
     "Chimecho": {
+        "id": 358, 
         "moves": [
             "Wrap", 
             "Take Down", 
@@ -9847,6 +9954,7 @@
         "weight": 10
     }, 
     "Chinchou": {
+        "id": 170, 
         "moves": [
             "Take Down", 
             "Supersonic", 
@@ -9929,6 +10037,7 @@
         "weight": 120
     }, 
     "Chingling": {
+        "id": 433, 
         "moves": [
             "Wrap", 
             "Growl", 
@@ -10015,6 +10124,7 @@
         "weight": 6
     }, 
     "Cinccino": {
+        "id": 573, 
         "moves": [
             "Sing", 
             "Hyper Beam", 
@@ -10081,6 +10191,7 @@
         "weight": 75
     }, 
     "Clamperl": {
+        "id": 366, 
         "moves": [
             "Body Slam", 
             "Supersonic", 
@@ -10142,6 +10253,7 @@
         "weight": 525
     }, 
     "Claydol": {
+        "id": 344, 
         "moves": [
             "Ice Beam", 
             "Psybeam", 
@@ -10238,6 +10350,7 @@
         "weight": 1080
     }, 
     "Clefable": {
+        "id": 36, 
         "moves": [
             "DoubleSlap", 
             "Mega Punch", 
@@ -10368,6 +10481,7 @@
         "weight": 400
     }, 
     "Clefairy": {
+        "id": 35, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -10506,6 +10620,7 @@
         "weight": 75
     }, 
     "Cleffa": {
+        "id": 173, 
         "moves": [
             "Pound", 
             "Headbutt", 
@@ -10615,6 +10730,7 @@
         "weight": 30
     }, 
     "Cloyster": {
+        "id": 91, 
         "moves": [
             "Take Down", 
             "Double-Edge", 
@@ -10692,6 +10808,7 @@
         "weight": 1325
     }, 
     "Cobalion": {
+        "id": 638, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -10767,6 +10884,7 @@
         "weight": 2500
     }, 
     "Cofagrigus": {
+        "id": 563, 
         "moves": [
             "Disable", 
             "Hyper Beam", 
@@ -10842,6 +10960,7 @@
         "weight": 765
     }, 
     "Combee": {
+        "id": 415, 
         "moves": [
             "Gust", 
             "Sweet Scent", 
@@ -10872,6 +10991,7 @@
         "weight": 55
     }, 
     "Combusken": {
+        "id": 256, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -10968,6 +11088,7 @@
         "weight": 195
     }, 
     "Conkeldurr": {
+        "id": 534, 
         "moves": [
             "Pound", 
             "Leer", 
@@ -11043,6 +11164,7 @@
         "weight": 870
     }, 
     "Corphish": {
+        "id": 341, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -11130,6 +11252,7 @@
         "weight": 115
     }, 
     "Corsola": {
+        "id": 222, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -11233,6 +11356,7 @@
         "weight": 50
     }, 
     "Cottonee": {
+        "id": 546, 
         "moves": [
             "Absorb", 
             "Mega Drain", 
@@ -11298,6 +11422,7 @@
         "weight": 6
     }, 
     "Cradily": {
+        "id": 346, 
         "moves": [
             "Acid", 
             "Hyper Beam", 
@@ -11383,6 +11508,7 @@
         "weight": 604
     }, 
     "Cranidos": {
+        "id": 408, 
         "moves": [
             "Swords Dance", 
             "Whirlwind", 
@@ -11477,6 +11603,7 @@
         "weight": 315
     }, 
     "Crawdaunt": {
+        "id": 342, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -11569,6 +11696,7 @@
         "weight": 328
     }, 
     "Cresselia": {
+        "id": 488, 
         "moves": [
             "Mist", 
             "Ice Beam", 
@@ -11648,6 +11776,7 @@
         "weight": 856
     }, 
     "Croagunk": {
+        "id": 453, 
         "moves": [
             "Headbutt", 
             "Poison Sting", 
@@ -11753,6 +11882,7 @@
         "weight": 230
     }, 
     "Crobat": {
+        "id": 169, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -11838,6 +11968,7 @@
         "weight": 750
     }, 
     "Croconaw": {
+        "id": 159, 
         "moves": [
             "Ice Punch", 
             "Scratch", 
@@ -11936,6 +12067,7 @@
         "weight": 250
     }, 
     "Crustle": {
+        "id": 558, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -12003,6 +12135,7 @@
         "weight": 2000
     }, 
     "Cryogonal": {
+        "id": 615, 
         "moves": [
             "Bind", 
             "Mist", 
@@ -12065,6 +12198,7 @@
         "weight": 1480
     }, 
     "Cubchoo": {
+        "id": 613, 
         "moves": [
             "Ice Punch", 
             "Cut", 
@@ -12135,6 +12269,7 @@
         "weight": 85
     }, 
     "Cubone": {
+        "id": 104, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -12242,6 +12377,7 @@
         "weight": 65
     }, 
     "Cyndaquil": {
+        "id": 155, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -12323,6 +12459,7 @@
         "weight": 79
     }, 
     "Darkrai": {
+        "id": 491, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -12423,6 +12560,7 @@
         "weight": 505
     }, 
     "Darmanitan (standard)": {
+        "id": 555, 
         "moves": [
             "Fire Punch", 
             "Headbutt", 
@@ -12502,6 +12640,7 @@
         "weight": 929
     }, 
     "Darmanitan (zen)": {
+        "id": 716, 
         "moves": [
             "Fire Punch", 
             "Headbutt", 
@@ -12582,6 +12721,7 @@
         "weight": 929
     }, 
     "Darumaka": {
+        "id": 554, 
         "moves": [
             "Fire Punch", 
             "Headbutt", 
@@ -12657,6 +12797,7 @@
         "weight": 375
     }, 
     "Deerling (autumn)": {
+        "id": 719, 
         "moves": [
             "Double Kick", 
             "Jump Kick", 
@@ -12728,6 +12869,7 @@
         "weight": 195
     }, 
     "Deerling (spring)": {
+        "id": 719, 
         "moves": [
             "Double Kick", 
             "Jump Kick", 
@@ -12799,6 +12941,7 @@
         "weight": 195
     }, 
     "Deerling (summer)": {
+        "id": 719, 
         "moves": [
             "Double Kick", 
             "Jump Kick", 
@@ -12870,6 +13013,7 @@
         "weight": 195
     }, 
     "Deerling (winter)": {
+        "id": 719, 
         "moves": [
             "Double Kick", 
             "Jump Kick", 
@@ -12941,6 +13085,7 @@
         "weight": 195
     }, 
     "Deino": {
+        "id": 633, 
         "moves": [
             "Slam", 
             "Headbutt", 
@@ -13016,6 +13161,7 @@
         "weight": 173
     }, 
     "Delcatty": {
+        "id": 301, 
         "moves": [
             "DoubleSlap", 
             "Growl", 
@@ -13101,6 +13247,7 @@
         "weight": 326
     }, 
     "Delibird": {
+        "id": 225, 
         "moves": [
             "Fly", 
             "Headbutt", 
@@ -13183,6 +13330,7 @@
         "weight": 160
     }, 
     "Deoxys (attack)": {
+        "id": 680, 
         "moves": [
             "Mega Punch", 
             "Cut", 
@@ -13292,6 +13440,7 @@
         "weight": 608
     }, 
     "Deoxys (defense)": {
+        "id": 681, 
         "moves": [
             "Mega Punch", 
             "Cut", 
@@ -13403,6 +13552,7 @@
         "weight": 608
     }, 
     "Deoxys (normal)": {
+        "id": 386, 
         "moves": [
             "Cut", 
             "Wrap", 
@@ -13515,6 +13665,7 @@
         "weight": 608
     }, 
     "Deoxys (speed)": {
+        "id": 682, 
         "moves": [
             "Mega Punch", 
             "Fire Punch", 
@@ -13630,6 +13781,7 @@
         "weight": 608
     }, 
     "Dewgong": {
+        "id": 87, 
         "moves": [
             "Pay Day", 
             "Headbutt", 
@@ -13710,6 +13862,7 @@
         "weight": 1200
     }, 
     "Dewott": {
+        "id": 502, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -13778,6 +13931,7 @@
         "weight": 245
     }, 
     "Dialga": {
+        "id": 483, 
         "moves": [
             "Cut", 
             "Roar", 
@@ -13875,6 +14029,7 @@
         "weight": 6830
     }, 
     "Diglett": {
+        "id": 50, 
         "moves": [
             "Scratch", 
             "Sand-Attack", 
@@ -13955,6 +14110,7 @@
         "weight": 8
     }, 
     "Ditto": {
+        "id": 132, 
         "moves": [
             "Transform"
         ], 
@@ -13973,6 +14129,7 @@
         "weight": 40
     }, 
     "Dodrio": {
+        "id": 85, 
         "moves": [
             "Whirlwind", 
             "Fly", 
@@ -14050,6 +14207,7 @@
         "weight": 852
     }, 
     "Doduo": {
+        "id": 84, 
         "moves": [
             "Whirlwind", 
             "Fly", 
@@ -14130,6 +14288,7 @@
         "weight": 392
     }, 
     "Donphan": {
+        "id": 232, 
         "moves": [
             "Headbutt", 
             "Horn Attack", 
@@ -14216,6 +14375,7 @@
         "weight": 1200
     }, 
     "Dragonair": {
+        "id": 148, 
         "moves": [
             "Slam", 
             "Horn Drill", 
@@ -14303,6 +14463,7 @@
         "weight": 165
     }, 
     "Dragonite": {
+        "id": 149, 
         "moves": [
             "Razor Wind", 
             "Slam", 
@@ -14430,6 +14591,7 @@
         "weight": 2100
     }, 
     "Drapion": {
+        "id": 452, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -14522,6 +14684,7 @@
         "weight": 615
     }, 
     "Dratini": {
+        "id": 147, 
         "moves": [
             "Slam", 
             "Body Slam", 
@@ -14613,6 +14776,7 @@
         "weight": 33
     }, 
     "Drifblim": {
+        "id": 426, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -14703,6 +14867,7 @@
         "weight": 150
     }, 
     "Drifloon": {
+        "id": 425, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -14798,6 +14963,7 @@
         "weight": 12
     }, 
     "Drilbur": {
+        "id": 529, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -14864,6 +15030,7 @@
         "weight": 85
     }, 
     "Drowzee": {
+        "id": 96, 
         "moves": [
             "Pound", 
             "Mega Punch", 
@@ -14973,6 +15140,7 @@
         "weight": 324
     }, 
     "Druddigon": {
+        "id": 621, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -15070,6 +15238,7 @@
         "weight": 1390
     }, 
     "Ducklett": {
+        "id": 580, 
         "moves": [
             "Gust", 
             "Wing Attack", 
@@ -15134,6 +15303,7 @@
         "weight": 55
     }, 
     "Dugtrio": {
+        "id": 51, 
         "moves": [
             "Scratch", 
             "Sand-Attack", 
@@ -15212,6 +15382,7 @@
         "weight": 333
     }, 
     "Dunsparce": {
+        "id": 206, 
         "moves": [
             "Headbutt", 
             "Take Down", 
@@ -15315,6 +15486,7 @@
         "weight": 140
     }, 
     "Duosion": {
+        "id": 578, 
         "moves": [
             "Thunder Wave", 
             "Thunder", 
@@ -15386,6 +15558,7 @@
         "weight": 80
     }, 
     "Durant": {
+        "id": 632, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -15458,6 +15631,7 @@
         "weight": 330
     }, 
     "Dusclops": {
+        "id": 356, 
         "moves": [
             "Bind", 
             "Leer", 
@@ -15563,6 +15737,7 @@
         "weight": 306
     }, 
     "Dusknoir": {
+        "id": 477, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -15658,6 +15833,7 @@
         "weight": 1066
     }, 
     "Duskull": {
+        "id": 355, 
         "moves": [
             "Leer", 
             "Disable", 
@@ -15746,6 +15922,7 @@
         "weight": 150
     }, 
     "Dustox": {
+        "id": 269, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -15820,6 +15997,7 @@
         "weight": 316
     }, 
     "Dwebble": {
+        "id": 557, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -15892,6 +16070,7 @@
         "weight": 145
     }, 
     "Eelektrik": {
+        "id": 603, 
         "moves": [
             "Bind", 
             "Headbutt", 
@@ -15954,6 +16133,7 @@
         "weight": 220
     }, 
     "Eelektross": {
+        "id": 604, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -16030,6 +16210,7 @@
         "weight": 805
     }, 
     "Eevee": {
+        "id": 133, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -16108,6 +16289,7 @@
         "weight": 65
     }, 
     "Ekans": {
+        "id": 23, 
         "moves": [
             "Body Slam", 
             "Wrap", 
@@ -16203,6 +16385,7 @@
         "weight": 69
     }, 
     "Electabuzz": {
+        "id": 125, 
         "moves": [
             "Mega Punch", 
             "ThunderPunch", 
@@ -16300,6 +16483,7 @@
         "weight": 300
     }, 
     "Electivire": {
+        "id": 466, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -16385,6 +16569,7 @@
         "weight": 1386
     }, 
     "Electrike": {
+        "id": 309, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -16462,6 +16647,7 @@
         "weight": 152
     }, 
     "Electrode": {
+        "id": 101, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -16537,6 +16723,7 @@
         "weight": 666
     }, 
     "Elekid": {
+        "id": 239, 
         "moves": [
             "Karate Chop", 
             "Fire Punch", 
@@ -16626,6 +16813,7 @@
         "weight": 235
     }, 
     "Elgyem": {
+        "id": 605, 
         "moves": [
             "Headbutt", 
             "Growl", 
@@ -16713,6 +16901,7 @@
         "weight": 90
     }, 
     "Emboar": {
+        "id": 500, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -16804,6 +16993,7 @@
         "weight": 1500
     }, 
     "Emolga": {
+        "id": 587, 
         "moves": [
             "Cut", 
             "Tail Whip", 
@@ -16875,6 +17065,7 @@
         "weight": 50
     }, 
     "Empoleon": {
+        "id": 395, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -16970,6 +17161,7 @@
         "weight": 845
     }, 
     "Entei": {
+        "id": 244, 
         "moves": [
             "Cut", 
             "Stomp", 
@@ -17050,6 +17242,7 @@
         "weight": 1980
     }, 
     "Escavalier": {
+        "id": 589, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -17109,6 +17302,7 @@
         "weight": 330
     }, 
     "Espeon": {
+        "id": 196, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -17196,6 +17390,7 @@
         "weight": 265
     }, 
     "Excadrill": {
+        "id": 530, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -17264,6 +17459,7 @@
         "weight": 404
     }, 
     "Exeggcute": {
+        "id": 102, 
         "moves": [
             "Take Down", 
             "Double-Edge", 
@@ -17355,6 +17551,7 @@
         "weight": 25
     }, 
     "Exeggutor": {
+        "id": 103, 
         "moves": [
             "Stomp", 
             "Take Down", 
@@ -17442,6 +17639,7 @@
         "weight": 1200
     }, 
     "Exploud": {
+        "id": 295, 
         "moves": [
             "Pound", 
             "Stomp", 
@@ -17546,6 +17744,7 @@
         "weight": 840
     }, 
     "Farfetchd": {
+        "id": 83, 
         "moves": [
             "Razor Wind", 
             "Swords Dance", 
@@ -17646,6 +17845,7 @@
         "weight": 150
     }, 
     "Fearow": {
+        "id": 22, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -17725,6 +17925,7 @@
         "weight": 380
     }, 
     "Feebas": {
+        "id": 349, 
         "moves": [
             "Tackle", 
             "Surf", 
@@ -17789,6 +17990,7 @@
         "weight": 74
     }, 
     "Feraligatr": {
+        "id": 160, 
         "moves": [
             "Ice Punch", 
             "Scratch", 
@@ -17899,6 +18101,7 @@
         "weight": 888
     }, 
     "Ferroseed": {
+        "id": 597, 
         "moves": [
             "Tackle", 
             "Pin Missile", 
@@ -17966,6 +18169,7 @@
         "weight": 188
     }, 
     "Ferrothorn": {
+        "id": 598, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -18043,6 +18247,7 @@
         "weight": 1100
     }, 
     "Finneon": {
+        "id": 456, 
         "moves": [
             "Pound", 
             "Gust", 
@@ -18118,6 +18323,7 @@
         "weight": 70
     }, 
     "Flaaffy": {
+        "id": 180, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -18201,6 +18407,7 @@
         "weight": 133
     }, 
     "Flareon": {
+        "id": 136, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -18288,6 +18495,7 @@
         "weight": 250
     }, 
     "Floatzel": {
+        "id": 419, 
         "moves": [
             "Razor Wind", 
             "Growl", 
@@ -18370,6 +18578,7 @@
         "weight": 335
     }, 
     "Flygon": {
+        "id": 330, 
         "moves": [
             "Fly", 
             "Sand-Attack", 
@@ -18466,6 +18675,7 @@
         "weight": 820
     }, 
     "Foongus": {
+        "id": 590, 
         "moves": [
             "Body Slam", 
             "Absorb", 
@@ -18531,6 +18741,7 @@
         "weight": 10
     }, 
     "Forretress": {
+        "id": 205, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -18620,6 +18831,7 @@
         "weight": 1258
     }, 
     "Fraxure": {
+        "id": 611, 
         "moves": [
             "Scratch", 
             "Guillotine", 
@@ -18690,6 +18902,7 @@
         "weight": 360
     }, 
     "Frillish": {
+        "id": 592, 
         "moves": [
             "Mist", 
             "Hydro Pump", 
@@ -18767,6 +18980,7 @@
         "weight": 330
     }, 
     "Froslass": {
+        "id": 478, 
         "moves": [
             "Leer", 
             "Ice Beam", 
@@ -18849,6 +19063,7 @@
         "weight": 266
     }, 
     "Furret": {
+        "id": 162, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -18951,6 +19166,7 @@
         "weight": 325
     }, 
     "Gabite": {
+        "id": 444, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -19028,6 +19244,7 @@
         "weight": 560
     }, 
     "Gallade": {
+        "id": 475, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -19147,6 +19364,7 @@
         "weight": 520
     }, 
     "Galvantula": {
+        "id": 596, 
         "moves": [
             "Cut", 
             "Hyper Beam", 
@@ -19214,6 +19432,7 @@
         "weight": 143
     }, 
     "Garbodor": {
+        "id": 569, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -19281,6 +19500,7 @@
         "weight": 1073
     }, 
     "Garchomp": {
+        "id": 445, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -19371,6 +19591,7 @@
         "weight": 950
     }, 
     "Gardevoir": {
+        "id": 282, 
         "moves": [
             "Growl", 
             "Hyper Beam", 
@@ -19472,6 +19693,7 @@
         "weight": 484
     }, 
     "Gastly": {
+        "id": 92, 
         "moves": [
             "Mega Drain", 
             "Thunderbolt", 
@@ -19569,6 +19791,7 @@
         "weight": 1
     }, 
     "Gastrodon (east)": {
+        "id": 689, 
         "moves": [
             "Body Slam", 
             "Surf", 
@@ -19644,6 +19867,7 @@
         "weight": 299
     }, 
     "Gastrodon (west)": {
+        "id": 689, 
         "moves": [
             "Body Slam", 
             "Surf", 
@@ -19719,6 +19943,7 @@
         "weight": 299
     }, 
     "Genesect": {
+        "id": 727, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -19804,6 +20029,7 @@
         "weight": 825
     }, 
     "Genesect (burn)": {
+        "id": 727, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -19889,6 +20115,7 @@
         "weight": 825
     }, 
     "Genesect (chill)": {
+        "id": 727, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -19974,6 +20201,7 @@
         "weight": 825
     }, 
     "Genesect (douse)": {
+        "id": 727, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -20059,6 +20287,7 @@
         "weight": 825
     }, 
     "Genesect (shock)": {
+        "id": 727, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -20144,6 +20373,7 @@
         "weight": 825
     }, 
     "Gengar": {
+        "id": 94, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -20258,6 +20488,7 @@
         "weight": 405
     }, 
     "Geodude": {
+        "id": 74, 
         "moves": [
             "Mega Punch", 
             "Tackle", 
@@ -20352,6 +20583,7 @@
         "weight": 200
     }, 
     "Gible": {
+        "id": 443, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -20435,6 +20667,7 @@
         "weight": 205
     }, 
     "Gigalith": {
+        "id": 526, 
         "moves": [
             "Sand-Attack", 
             "Headbutt", 
@@ -20495,6 +20728,7 @@
         "weight": 2600
     }, 
     "Girafarig": {
+        "id": 203, 
         "moves": [
             "Stomp", 
             "Headbutt", 
@@ -20604,6 +20838,7 @@
         "weight": 415
     }, 
     "Giratina (altered)": {
+        "id": 487, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -20705,6 +20940,7 @@
         "weight": 7500
     }, 
     "Giratina (origin)": {
+        "id": 712, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -20807,6 +21043,7 @@
         "weight": 6500
     }, 
     "Glaceon": {
+        "id": 471, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -20881,6 +21118,7 @@
         "weight": 259
     }, 
     "Glalie": {
+        "id": 362, 
         "moves": [
             "Headbutt", 
             "Leer", 
@@ -20956,6 +21194,7 @@
         "weight": 2565
     }, 
     "Glameow": {
+        "id": 431, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -21044,6 +21283,7 @@
         "weight": 39
     }, 
     "Gligar": {
+        "id": 207, 
         "moves": [
             "Guillotine", 
             "Razor Wind", 
@@ -21151,6 +21391,7 @@
         "weight": 648
     }, 
     "Gliscor": {
+        "id": 472, 
         "moves": [
             "Guillotine", 
             "Swords Dance", 
@@ -21246,6 +21487,7 @@
         "weight": 425
     }, 
     "Gloom": {
+        "id": 44, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -21317,6 +21559,7 @@
         "weight": 86
     }, 
     "Golbat": {
+        "id": 42, 
         "moves": [
             "Razor Wind", 
             "Wing Attack", 
@@ -21404,6 +21647,7 @@
         "weight": 550
     }, 
     "Goldeen": {
+        "id": 118, 
         "moves": [
             "Horn Attack", 
             "Fury Attack", 
@@ -21486,6 +21730,7 @@
         "weight": 150
     }, 
     "Golduck": {
+        "id": 55, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -21595,6 +21840,7 @@
         "weight": 766
     }, 
     "Golem": {
+        "id": 76, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -21695,6 +21941,7 @@
         "weight": 3000
     }, 
     "Golett": {
+        "id": 622, 
         "moves": [
             "Pound", 
             "Mega Punch", 
@@ -21774,6 +22021,7 @@
         "weight": 920
     }, 
     "Golurk": {
+        "id": 623, 
         "moves": [
             "Pound", 
             "Mega Punch", 
@@ -21863,6 +22111,7 @@
         "weight": 3300
     }, 
     "Gorebyss": {
+        "id": 368, 
         "moves": [
             "Hydro Pump", 
             "Surf", 
@@ -21931,6 +22180,7 @@
         "weight": 226
     }, 
     "Gothita": {
+        "id": 574, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -22019,6 +22269,7 @@
         "weight": 58
     }, 
     "Gothitelle": {
+        "id": 576, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -22106,6 +22357,7 @@
         "weight": 440
     }, 
     "Gothorita": {
+        "id": 575, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -22189,6 +22441,7 @@
         "weight": 180
     }, 
     "Granbull": {
+        "id": 210, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -22303,6 +22556,7 @@
         "weight": 487
     }, 
     "Graveler": {
+        "id": 75, 
         "moves": [
             "Mega Punch", 
             "Tackle", 
@@ -22394,6 +22648,7 @@
         "weight": 1050
     }, 
     "Grimer": {
+        "id": 88, 
         "moves": [
             "Pound", 
             "Body Slam", 
@@ -22489,6 +22744,7 @@
         "weight": 300
     }, 
     "Grotle": {
+        "id": 388, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -22559,6 +22815,7 @@
         "weight": 970
     }, 
     "Groudon": {
+        "id": 383, 
         "moves": [
             "Cut", 
             "Roar", 
@@ -22661,6 +22918,7 @@
         "weight": 9500
     }, 
     "Grovyle": {
+        "id": 253, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -22751,6 +23009,7 @@
         "weight": 216
     }, 
     "Growlithe": {
+        "id": 58, 
         "moves": [
             "Body Slam", 
             "Take Down", 
@@ -22839,6 +23098,7 @@
         "weight": 190
     }, 
     "Grumpig": {
+        "id": 326, 
         "moves": [
             "Psybeam", 
             "Hyper Beam", 
@@ -22937,6 +23197,7 @@
         "weight": 715
     }, 
     "Gulpin": {
+        "id": 316, 
         "moves": [
             "Pound", 
             "Ice Beam", 
@@ -23022,6 +23283,7 @@
         "weight": 103
     }, 
     "Gurdurr": {
+        "id": 533, 
         "moves": [
             "Pound", 
             "Leer", 
@@ -23093,6 +23355,7 @@
         "weight": 400
     }, 
     "Gyarados": {
+        "id": 130, 
         "moves": [
             "Body Slam", 
             "Take Down", 
@@ -23193,6 +23456,7 @@
         "weight": 2350
     }, 
     "Happiny": {
+        "id": 440, 
         "moves": [
             "Pound", 
             "Flamethrower", 
@@ -23274,6 +23538,7 @@
         "weight": 244
     }, 
     "Hariyama": {
+        "id": 297, 
         "moves": [
             "Whirlwind", 
             "Sand-Attack", 
@@ -23371,6 +23636,7 @@
         "weight": 2538
     }, 
     "Haunter": {
+        "id": 93, 
         "moves": [
             "Mega Drain", 
             "Thunderbolt", 
@@ -23464,6 +23730,7 @@
         "weight": 1
     }, 
     "Haxorus": {
+        "id": 612, 
         "moves": [
             "Scratch", 
             "Guillotine", 
@@ -23542,6 +23809,7 @@
         "weight": 1055
     }, 
     "Heatmor": {
+        "id": 631, 
         "moves": [
             "Cut", 
             "Bind", 
@@ -23623,6 +23891,7 @@
         "weight": 580
     }, 
     "Heatran": {
+        "id": 485, 
         "moves": [
             "Leer", 
             "Roar", 
@@ -23704,6 +23973,7 @@
         "weight": 4300
     }, 
     "Heracross": {
+        "id": 214, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -23799,6 +24069,7 @@
         "weight": 540
     }, 
     "Herdier": {
+        "id": 507, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -23860,6 +24131,7 @@
         "weight": 147
     }, 
     "Hippopotas": {
+        "id": 449, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -23929,6 +24201,7 @@
         "weight": 495
     }, 
     "Hippowdon": {
+        "id": 450, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -23997,6 +24270,7 @@
         "weight": 3000
     }, 
     "Hitmonchan": {
+        "id": 107, 
         "moves": [
             "Comet Punch", 
             "Mega Punch", 
@@ -24089,6 +24363,7 @@
         "weight": 502
     }, 
     "Hitmonlee": {
+        "id": 106, 
         "moves": [
             "Mega Punch", 
             "Double Kick", 
@@ -24186,6 +24461,7 @@
         "weight": 498
     }, 
     "Hitmontop": {
+        "id": 237, 
         "moves": [
             "Rolling Kick", 
             "Headbutt", 
@@ -24272,6 +24548,7 @@
         "weight": 480
     }, 
     "Ho-Oh": {
+        "id": 250, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -24376,6 +24653,7 @@
         "weight": 1990
     }, 
     "Honchkrow": {
+        "id": 430, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -24458,6 +24736,7 @@
         "weight": 273
     }, 
     "Hoothoot": {
+        "id": 163, 
         "moves": [
             "Wing Attack", 
             "Whirlwind", 
@@ -24549,6 +24828,7 @@
         "weight": 212
     }, 
     "Hoppip": {
+        "id": 187, 
         "moves": [
             "Pay Day", 
             "Headbutt", 
@@ -24628,6 +24908,7 @@
         "weight": 5
     }, 
     "Horsea": {
+        "id": 116, 
         "moves": [
             "Take Down", 
             "Double-Edge", 
@@ -24709,6 +24990,7 @@
         "weight": 80
     }, 
     "Houndoom": {
+        "id": 229, 
         "moves": [
             "Headbutt", 
             "Leer", 
@@ -24802,6 +25084,7 @@
         "weight": 350
     }, 
     "Houndour": {
+        "id": 228, 
         "moves": [
             "Headbutt", 
             "Leer", 
@@ -24898,6 +25181,7 @@
         "weight": 108
     }, 
     "Huntail": {
+        "id": 367, 
         "moves": [
             "Bite", 
             "Hydro Pump", 
@@ -24966,6 +25250,7 @@
         "weight": 270
     }, 
     "Hydreigon": {
+        "id": 635, 
         "moves": [
             "Fly", 
             "Slam", 
@@ -25057,6 +25342,7 @@
         "weight": 1600
     }, 
     "Hypno": {
+        "id": 97, 
         "moves": [
             "Pound", 
             "Mega Punch", 
@@ -25165,6 +25451,7 @@
         "weight": 756
     }, 
     "Igglybuff": {
+        "id": 174, 
         "moves": [
             "Pound", 
             "Headbutt", 
@@ -25263,6 +25550,7 @@
         "weight": 10
     }, 
     "Illumise": {
+        "id": 314, 
         "moves": [
             "Tackle", 
             "Growth", 
@@ -25356,6 +25644,7 @@
         "weight": 177
     }, 
     "Infernape": {
+        "id": 392, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -25462,6 +25751,7 @@
         "weight": 550
     }, 
     "Ivysaur": {
+        "id": 2, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -25543,6 +25833,7 @@
         "weight": 130
     }, 
     "Jellicent": {
+        "id": 593, 
         "moves": [
             "Hydro Pump", 
             "Surf", 
@@ -25618,6 +25909,7 @@
         "weight": 1350
     }, 
     "Jigglypuff": {
+        "id": 39, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -25737,6 +26029,7 @@
         "weight": 55
     }, 
     "Jirachi": {
+        "id": 385, 
         "moves": [
             "Double-Edge", 
             "Hyper Beam", 
@@ -25837,6 +26130,7 @@
         "weight": 11
     }, 
     "Jolteon": {
+        "id": 135, 
         "moves": [
             "Double Kick", 
             "Sand-Attack", 
@@ -25925,6 +26219,7 @@
         "weight": 245
     }, 
     "Joltik": {
+        "id": 595, 
         "moves": [
             "Cut", 
             "Poison Sting", 
@@ -25996,6 +26291,7 @@
         "weight": 6
     }, 
     "Jumpluff": {
+        "id": 189, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -26070,6 +26366,7 @@
         "weight": 30
     }, 
     "Jynx": {
+        "id": 124, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -26187,6 +26484,7 @@
         "weight": 406
     }, 
     "Kabuto": {
+        "id": 140, 
         "moves": [
             "Scratch", 
             "Body Slam", 
@@ -26280,6 +26578,7 @@
         "weight": 115
     }, 
     "Kabutops": {
+        "id": 141, 
         "moves": [
             "Scratch", 
             "Razor Wind", 
@@ -26388,6 +26687,7 @@
         "weight": 405
     }, 
     "Kadabra": {
+        "id": 64, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -26497,6 +26797,7 @@
         "weight": 565
     }, 
     "Kakuna": {
+        "id": 14, 
         "moves": [
             "Harden", 
             "Iron Defense", 
@@ -26520,6 +26821,7 @@
         "weight": 100
     }, 
     "Kangaskhan": {
+        "id": 115, 
         "moves": [
             "Comet Punch", 
             "Mega Punch", 
@@ -26649,6 +26951,7 @@
         "weight": 800
     }, 
     "Karrablast": {
+        "id": 588, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -26711,6 +27014,7 @@
         "weight": 59
     }, 
     "Kecleon": {
+        "id": 352, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -26835,6 +27139,7 @@
         "weight": 220
     }, 
     "Keldeo (ordinary)": {
+        "id": 647, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -26908,6 +27213,7 @@
         "weight": 485
     }, 
     "Keldeo (resolute)": {
+        "id": 733, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -26981,6 +27287,7 @@
         "weight": 485
     }, 
     "Kingdra": {
+        "id": 230, 
         "moves": [
             "Headbutt", 
             "Leer", 
@@ -27057,6 +27364,7 @@
         "weight": 1520
     }, 
     "Kingler": {
+        "id": 99, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -27147,6 +27455,7 @@
         "weight": 600
     }, 
     "Kirlia": {
+        "id": 281, 
         "moves": [
             "Growl", 
             "Thunderbolt", 
@@ -27243,6 +27552,7 @@
         "weight": 202
     }, 
     "Klang": {
+        "id": 600, 
         "moves": [
             "ViceGrip", 
             "Bind", 
@@ -27303,6 +27613,7 @@
         "weight": 510
     }, 
     "Klink": {
+        "id": 599, 
         "moves": [
             "ViceGrip", 
             "Bind", 
@@ -27363,6 +27674,7 @@
         "weight": 210
     }, 
     "Klinklang": {
+        "id": 601, 
         "moves": [
             "ViceGrip", 
             "Bind", 
@@ -27426,6 +27738,7 @@
         "weight": 810
     }, 
     "Koffing": {
+        "id": 109, 
         "moves": [
             "Tackle", 
             "Thunderbolt", 
@@ -27508,6 +27821,7 @@
         "weight": 10
     }, 
     "Krabby": {
+        "id": 98, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -27599,6 +27913,7 @@
         "weight": 65
     }, 
     "Kricketot": {
+        "id": 401, 
         "moves": [
             "Growl", 
             "Bide", 
@@ -27625,6 +27940,7 @@
         "weight": 22
     }, 
     "Kricketune": {
+        "id": 402, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -27697,6 +28013,7 @@
         "weight": 255
     }, 
     "Krokorok": {
+        "id": 552, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -27776,6 +28093,7 @@
         "weight": 334
     }, 
     "Krookodile": {
+        "id": 553, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -27866,6 +28184,7 @@
         "weight": 963
     }, 
     "Kyogre": {
+        "id": 382, 
         "moves": [
             "Body Slam", 
             "Double-Edge", 
@@ -27948,6 +28267,7 @@
         "weight": 3520
     }, 
     "Kyurem": {
+        "id": 646, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -28025,6 +28345,7 @@
         "weight": 3250
     }, 
     "Kyurem (black)": {
+        "id": 731, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -28102,6 +28423,7 @@
         "weight": 3250
     }, 
     "Kyurem (white)": {
+        "id": 732, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -28179,6 +28501,7 @@
         "weight": 3250
     }, 
     "Lairon": {
+        "id": 305, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -28261,6 +28584,7 @@
         "weight": 1200
     }, 
     "Lampent": {
+        "id": 608, 
         "moves": [
             "Ember", 
             "Flamethrower", 
@@ -28333,6 +28657,7 @@
         "weight": 130
     }, 
     "Landorus (incarnate)": {
+        "id": 645, 
         "moves": [
             "Swords Dance", 
             "Fly", 
@@ -28408,6 +28733,7 @@
         "weight": 680
     }, 
     "Landorus (therian)": {
+        "id": 730, 
         "moves": [
             "Swords Dance", 
             "Fly", 
@@ -28483,6 +28809,7 @@
         "weight": 680
     }, 
     "Lanturn": {
+        "id": 171, 
         "moves": [
             "Take Down", 
             "Supersonic", 
@@ -28566,6 +28893,7 @@
         "weight": 225
     }, 
     "Lapras": {
+        "id": 131, 
         "moves": [
             "Horn Drill", 
             "Body Slam", 
@@ -28674,6 +29002,7 @@
         "weight": 2200
     }, 
     "Larvesta": {
+        "id": 636, 
         "moves": [
             "Take Down", 
             "Thrash", 
@@ -28741,6 +29070,7 @@
         "weight": 288
     }, 
     "Larvitar": {
+        "id": 246, 
         "moves": [
             "Stomp", 
             "Headbutt", 
@@ -28826,6 +29156,7 @@
         "weight": 720
     }, 
     "Latias": {
+        "id": 380, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -28939,6 +29270,7 @@
         "weight": 400
     }, 
     "Latios": {
+        "id": 381, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -29047,6 +29379,7 @@
         "weight": 600
     }, 
     "Leafeon": {
+        "id": 470, 
         "moves": [
             "Swords Dance", 
             "Sand-Attack", 
@@ -29125,6 +29458,7 @@
         "weight": 255
     }, 
     "Leavanny": {
+        "id": 542, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -29199,6 +29533,7 @@
         "weight": 205
     }, 
     "Ledian": {
+        "id": 166, 
         "moves": [
             "Comet Punch", 
             "Ice Punch", 
@@ -29285,6 +29620,7 @@
         "weight": 356
     }, 
     "Ledyba": {
+        "id": 165, 
         "moves": [
             "Comet Punch", 
             "Ice Punch", 
@@ -29371,6 +29707,7 @@
         "weight": 108
     }, 
     "Lickilicky": {
+        "id": 463, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -29472,6 +29809,7 @@
         "weight": 1400
     }, 
     "Lickitung": {
+        "id": 108, 
         "moves": [
             "Mega Punch", 
             "Swords Dance", 
@@ -29593,6 +29931,7 @@
         "weight": 655
     }, 
     "Liepard": {
+        "id": 510, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -29670,6 +30009,7 @@
         "weight": 375
     }, 
     "Lileep": {
+        "id": 345, 
         "moves": [
             "Acid", 
             "SolarBeam", 
@@ -29751,6 +30091,7 @@
         "weight": 238
     }, 
     "Lilligant": {
+        "id": 549, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -29809,6 +30150,7 @@
         "weight": 163
     }, 
     "Lillipup": {
+        "id": 506, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -29878,6 +30220,7 @@
         "weight": 41
     }, 
     "Linoone": {
+        "id": 264, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -29971,6 +30314,7 @@
         "weight": 325
     }, 
     "Litwick": {
+        "id": 607, 
         "moves": [
             "Acid", 
             "Ember", 
@@ -30049,6 +30393,7 @@
         "weight": 31
     }, 
     "Lombre": {
+        "id": 271, 
         "moves": [
             "Growl", 
             "Hydro Pump", 
@@ -30135,6 +30480,7 @@
         "weight": 325
     }, 
     "Lopunny": {
+        "id": 428, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -30228,6 +30574,7 @@
         "weight": 333
     }, 
     "Lotad": {
+        "id": 270, 
         "moves": [
             "Growl", 
             "Mist", 
@@ -30306,6 +30653,7 @@
         "weight": 26
     }, 
     "Loudred": {
+        "id": 294, 
         "moves": [
             "Pound", 
             "Stomp", 
@@ -30398,6 +30746,7 @@
         "weight": 405
     }, 
     "Lucario": {
+        "id": 448, 
         "moves": [
             "Swords Dance", 
             "Roar", 
@@ -30499,6 +30848,7 @@
         "weight": 540
     }, 
     "Ludicolo": {
+        "id": 272, 
         "moves": [
             "Growl", 
             "Surf", 
@@ -30591,6 +30941,7 @@
         "weight": 550
     }, 
     "Lugia": {
+        "id": 249, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -30709,6 +31060,7 @@
         "weight": 2160
     }, 
     "Lumineon": {
+        "id": 457, 
         "moves": [
             "Pound", 
             "Gust", 
@@ -30778,6 +31130,7 @@
         "weight": 240
     }, 
     "Lunatone": {
+        "id": 337, 
         "moves": [
             "Tackle", 
             "Ice Beam", 
@@ -30873,6 +31226,7 @@
         "weight": 1680
     }, 
     "Luvdisc": {
+        "id": 370, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -30942,6 +31296,7 @@
         "weight": 87
     }, 
     "Luxio": {
+        "id": 404, 
         "moves": [
             "Tackle", 
             "Leer", 
@@ -31007,6 +31362,7 @@
         "weight": 305
     }, 
     "Luxray": {
+        "id": 405, 
         "moves": [
             "Tackle", 
             "Leer", 
@@ -31075,6 +31431,7 @@
         "weight": 420
     }, 
     "Machamp": {
+        "id": 68, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -31178,6 +31535,7 @@
         "weight": 1300
     }, 
     "Machoke": {
+        "id": 67, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -31277,6 +31635,7 @@
         "weight": 705
     }, 
     "Machop": {
+        "id": 66, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -31385,6 +31744,7 @@
         "weight": 195
     }, 
     "Magby": {
+        "id": 240, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -31471,6 +31831,7 @@
         "weight": 214
     }, 
     "Magcargo": {
+        "id": 219, 
         "moves": [
             "Body Slam", 
             "Ember", 
@@ -31556,6 +31917,7 @@
         "weight": 550
     }, 
     "Magikarp": {
+        "id": 129, 
         "moves": [
             "Tackle", 
             "Splash", 
@@ -31577,6 +31939,7 @@
         "weight": 100
     }, 
     "Magmar": {
+        "id": 126, 
         "moves": [
             "Mega Punch", 
             "Fire Punch", 
@@ -31669,6 +32032,7 @@
         "weight": 445
     }, 
     "Magmortar": {
+        "id": 467, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -31751,6 +32115,7 @@
         "weight": 680
     }, 
     "Magnemite": {
+        "id": 81, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -31830,6 +32195,7 @@
         "weight": 60
     }, 
     "Magneton": {
+        "id": 82, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -31912,6 +32278,7 @@
         "weight": 600
     }, 
     "Magnezone": {
+        "id": 462, 
         "moves": [
             "Tackle", 
             "Supersonic", 
@@ -31989,6 +32356,7 @@
         "weight": 1800
     }, 
     "Makuhita": {
+        "id": 296, 
         "moves": [
             "Whirlwind", 
             "Sand-Attack", 
@@ -32089,6 +32457,7 @@
         "weight": 864
     }, 
     "Mamoswine": {
+        "id": 473, 
         "moves": [
             "Take Down", 
             "Roar", 
@@ -32168,6 +32537,7 @@
         "weight": 2910
     }, 
     "Manaphy": {
+        "id": 490, 
         "moves": [
             "Supersonic", 
             "Surf", 
@@ -32248,6 +32618,7 @@
         "weight": 14
     }, 
     "Mandibuzz": {
+        "id": 630, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -32324,6 +32695,7 @@
         "weight": 395
     }, 
     "Manectric": {
+        "id": 310, 
         "moves": [
             "Tackle", 
             "Leer", 
@@ -32398,6 +32770,7 @@
         "weight": 402
     }, 
     "Mankey": {
+        "id": 56, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -32520,6 +32893,7 @@
         "weight": 280
     }, 
     "Mantine": {
+        "id": 226, 
         "moves": [
             "Wing Attack", 
             "Slam", 
@@ -32616,6 +32990,7 @@
         "weight": 2200
     }, 
     "Mantyke": {
+        "id": 458, 
         "moves": [
             "Wing Attack", 
             "Slam", 
@@ -32695,6 +33070,7 @@
         "weight": 650
     }, 
     "Maractus": {
+        "id": 556, 
         "moves": [
             "Pin Missile", 
             "Peck", 
@@ -32763,6 +33139,7 @@
         "weight": 280
     }, 
     "Mareep": {
+        "id": 179, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -32839,6 +33216,7 @@
         "weight": 78
     }, 
     "Marill": {
+        "id": 183, 
         "moves": [
             "Ice Punch", 
             "Headbutt", 
@@ -32934,6 +33312,7 @@
         "weight": 85
     }, 
     "Marowak": {
+        "id": 105, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -33040,6 +33419,7 @@
         "weight": 450
     }, 
     "Marshtomp": {
+        "id": 259, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -33130,6 +33510,7 @@
         "weight": 280
     }, 
     "Masquerain": {
+        "id": 284, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -33211,6 +33592,7 @@
         "weight": 36
     }, 
     "Mawile": {
+        "id": 303, 
         "moves": [
             "ViceGrip", 
             "Swords Dance", 
@@ -33323,6 +33705,7 @@
         "weight": 115
     }, 
     "Medicham": {
+        "id": 308, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -33427,6 +33810,7 @@
         "weight": 315
     }, 
     "Meditite": {
+        "id": 307, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -33535,6 +33919,7 @@
         "weight": 112
     }, 
     "Meganium": {
+        "id": 154, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -33617,6 +34002,7 @@
         "weight": 1005
     }, 
     "Meloetta (aria)": {
+        "id": 648, 
         "moves": [
             "Sing", 
             "Psybeam", 
@@ -33718,6 +34104,7 @@
         "weight": 65
     }, 
     "Meloetta (pirouette)": {
+        "id": 723, 
         "moves": [
             "Sing", 
             "Psybeam", 
@@ -33819,6 +34206,7 @@
         "weight": 65
     }, 
     "Meowth": {
+        "id": 52, 
         "moves": [
             "Pay Day", 
             "Scratch", 
@@ -33928,6 +34316,7 @@
         "weight": 42
     }, 
     "Mesprit": {
+        "id": 481, 
         "moves": [
             "Ice Beam", 
             "Blizzard", 
@@ -34018,6 +34407,7 @@
         "weight": 3
     }, 
     "Metagross": {
+        "id": 376, 
         "moves": [
             "Cut", 
             "Take Down", 
@@ -34114,6 +34504,7 @@
         "weight": 5500
     }, 
     "Metang": {
+        "id": 375, 
         "moves": [
             "Cut", 
             "Take Down", 
@@ -34207,6 +34598,7 @@
         "weight": 2025
     }, 
     "Metapod": {
+        "id": 11, 
         "moves": [
             "Harden", 
             "Iron Defense", 
@@ -34229,6 +34621,7 @@
         "weight": 99
     }, 
     "Mew": {
+        "id": 151, 
         "moves": [
             "Pound", 
             "Mega Punch", 
@@ -34483,6 +34876,7 @@
         "weight": 40
     }, 
     "Mewtwo": {
+        "id": 150, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -34631,6 +35025,7 @@
         "weight": 1220
     }, 
     "Mienfoo": {
+        "id": 619, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -34713,6 +35108,7 @@
         "weight": 200
     }, 
     "Mienshao": {
+        "id": 620, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -34791,6 +35187,7 @@
         "weight": 355
     }, 
     "Mightyena": {
+        "id": 262, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -34869,6 +35266,7 @@
         "weight": 370
     }, 
     "Milotic": {
+        "id": 350, 
         "moves": [
             "Wrap", 
             "Water Gun", 
@@ -34942,6 +35340,7 @@
         "weight": 1620
     }, 
     "Miltank": {
+        "id": 241, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -35048,6 +35447,7 @@
         "weight": 755
     }, 
     "Mime-Jr": {
+        "id": 439, 
         "moves": [
             "DoubleSlap", 
             "Psybeam", 
@@ -35146,6 +35546,7 @@
         "weight": 130
     }, 
     "Minccino": {
+        "id": 572, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -35219,6 +35620,7 @@
         "weight": 58
     }, 
     "Minun": {
+        "id": 312, 
         "moves": [
             "Growl", 
             "Thunderbolt", 
@@ -35307,6 +35709,7 @@
         "weight": 42
     }, 
     "Misdreavus": {
+        "id": 200, 
         "moves": [
             "Headbutt", 
             "Growl", 
@@ -35405,6 +35808,7 @@
         "weight": 10
     }, 
     "Mismagius": {
+        "id": 429, 
         "moves": [
             "Growl", 
             "Hyper Beam", 
@@ -35489,6 +35893,7 @@
         "weight": 44
     }, 
     "Moltres": {
+        "id": 146, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -35573,6 +35978,7 @@
         "weight": 600
     }, 
     "Monferno": {
+        "id": 391, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -35670,6 +36076,7 @@
         "weight": 220
     }, 
     "Mothim": {
+        "id": 414, 
         "moves": [
             "Gust", 
             "Tackle", 
@@ -35748,6 +36155,7 @@
         "weight": 233
     }, 
     "Mr-Mime": {
+        "id": 122, 
         "moves": [
             "DoubleSlap", 
             "Mega Punch", 
@@ -35877,6 +36285,7 @@
         "weight": 545
     }, 
     "Mudkip": {
+        "id": 258, 
         "moves": [
             "Stomp", 
             "Tackle", 
@@ -35966,6 +36375,7 @@
         "weight": 76
     }, 
     "Muk": {
+        "id": 89, 
         "moves": [
             "Pound", 
             "Body Slam", 
@@ -36058,6 +36468,7 @@
         "weight": 300
     }, 
     "Munchlax": {
+        "id": 446, 
         "moves": [
             "Whirlwind", 
             "Tackle", 
@@ -36158,6 +36569,7 @@
         "weight": 1050
     }, 
     "Munna": {
+        "id": 517, 
         "moves": [
             "SonicBoom", 
             "Psybeam", 
@@ -36239,6 +36651,7 @@
         "weight": 233
     }, 
     "Murkrow": {
+        "id": 198, 
         "moves": [
             "Wing Attack", 
             "Whirlwind", 
@@ -36336,6 +36749,7 @@
         "weight": 21
     }, 
     "Musharna": {
+        "id": 518, 
         "moves": [
             "Psybeam", 
             "Hyper Beam", 
@@ -36405,6 +36819,7 @@
         "weight": 605
     }, 
     "Natu": {
+        "id": 177, 
         "moves": [
             "Leer", 
             "Peck", 
@@ -36507,6 +36922,7 @@
         "weight": 20
     }, 
     "Nidoking": {
+        "id": 34, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -36639,6 +37055,7 @@
         "weight": 620
     }, 
     "Nidoqueen": {
+        "id": 31, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -36767,6 +37184,7 @@
         "weight": 600
     }, 
     "Nidoran-F": {
+        "id": 29, 
         "moves": [
             "Scratch", 
             "Double Kick", 
@@ -36858,6 +37276,7 @@
         "weight": 70
     }, 
     "Nidoran-M": {
+        "id": 32, 
         "moves": [
             "Double Kick", 
             "Horn Attack", 
@@ -36950,6 +37369,7 @@
         "weight": 90
     }, 
     "Nidorina": {
+        "id": 30, 
         "moves": [
             "Scratch", 
             "Double Kick", 
@@ -37037,6 +37457,7 @@
         "weight": 200
     }, 
     "Nidorino": {
+        "id": 33, 
         "moves": [
             "Double Kick", 
             "Horn Attack", 
@@ -37123,6 +37544,7 @@
         "weight": 195
     }, 
     "Nincada": {
+        "id": 290, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -37190,6 +37612,7 @@
         "weight": 55
     }, 
     "Ninetales": {
+        "id": 38, 
         "moves": [
             "Body Slam", 
             "Take Down", 
@@ -37271,6 +37694,7 @@
         "weight": 199
     }, 
     "Ninjask": {
+        "id": 291, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -37349,6 +37773,7 @@
         "weight": 120
     }, 
     "Noctowl": {
+        "id": 164, 
         "moves": [
             "Fly", 
             "Tackle", 
@@ -37434,6 +37859,7 @@
         "weight": 408
     }, 
     "Nosepass": {
+        "id": 299, 
         "moves": [
             "Tackle", 
             "Strength", 
@@ -37520,6 +37946,7 @@
         "weight": 970
     }, 
     "Numel": {
+        "id": 322, 
         "moves": [
             "Stomp", 
             "Tackle", 
@@ -37603,6 +38030,7 @@
         "weight": 240
     }, 
     "Nuzleaf": {
+        "id": 274, 
         "moves": [
             "Pound", 
             "Razor Wind", 
@@ -37694,6 +38122,7 @@
         "weight": 280
     }, 
     "Octillery": {
+        "id": 224, 
         "moves": [
             "Water Gun", 
             "Surf", 
@@ -37781,6 +38210,7 @@
         "weight": 285
     }, 
     "Oddish": {
+        "id": 43, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -37857,6 +38287,7 @@
         "weight": 54
     }, 
     "Omanyte": {
+        "id": 138, 
         "moves": [
             "Horn Attack", 
             "Body Slam", 
@@ -37950,6 +38381,7 @@
         "weight": 75
     }, 
     "Omastar": {
+        "id": 139, 
         "moves": [
             "Horn Attack", 
             "Horn Drill", 
@@ -38043,6 +38475,7 @@
         "weight": 350
     }, 
     "Onix": {
+        "id": 95, 
         "moves": [
             "Bind", 
             "Slam", 
@@ -38135,6 +38568,7 @@
         "weight": 2100
     }, 
     "Oshawott": {
+        "id": 501, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -38211,6 +38645,7 @@
         "weight": 59
     }, 
     "Pachirisu": {
+        "id": 417, 
         "moves": [
             "Cut", 
             "Bite", 
@@ -38293,6 +38728,7 @@
         "weight": 39
     }, 
     "Palkia": {
+        "id": 484, 
         "moves": [
             "Cut", 
             "Roar", 
@@ -38392,6 +38828,7 @@
         "weight": 3360
     }, 
     "Palpitoad": {
+        "id": 536, 
         "moves": [
             "Growl", 
             "Supersonic", 
@@ -38450,6 +38887,7 @@
         "weight": 170
     }, 
     "Panpour": {
+        "id": 515, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -38533,6 +38971,7 @@
         "weight": 135
     }, 
     "Pansage": {
+        "id": 511, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -38613,6 +39052,7 @@
         "weight": 105
     }, 
     "Pansear": {
+        "id": 513, 
         "moves": [
             "Fire Punch", 
             "Scratch", 
@@ -38693,6 +39133,7 @@
         "weight": 110
     }, 
     "Paras": {
+        "id": 46, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -38787,6 +39228,7 @@
         "weight": 54
     }, 
     "Parasect": {
+        "id": 47, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -38876,6 +39318,7 @@
         "weight": 295
     }, 
     "Patrat": {
+        "id": 504, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -38948,6 +39391,7 @@
         "weight": 116
     }, 
     "Pawniard": {
+        "id": 624, 
         "moves": [
             "Scratch", 
             "Guillotine", 
@@ -39035,6 +39479,7 @@
         "weight": 102
     }, 
     "Pelipper": {
+        "id": 279, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -39121,6 +39566,7 @@
         "weight": 280
     }, 
     "Persian": {
+        "id": 53, 
         "moves": [
             "Pay Day", 
             "Scratch", 
@@ -39228,6 +39674,7 @@
         "weight": 320
     }, 
     "Petilil": {
+        "id": 548, 
         "moves": [
             "Cut", 
             "Absorb", 
@@ -39293,6 +39740,7 @@
         "weight": 66
     }, 
     "Phanpy": {
+        "id": 231, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -39371,6 +39819,7 @@
         "weight": 335
     }, 
     "Phione": {
+        "id": 489, 
         "moves": [
             "Supersonic", 
             "Surf", 
@@ -39439,6 +39888,7 @@
         "weight": 31
     }, 
     "Pichu": {
+        "id": 714, 
         "moves": [
             "DoubleSlap", 
             "Headbutt", 
@@ -39527,6 +39977,7 @@
         "weight": 20
     }, 
     "Pichu (spiky-eared)": {
+        "id": 714, 
         "moves": [
             "DoubleSlap", 
             "Headbutt", 
@@ -39615,6 +40066,7 @@
         "weight": 20
     }, 
     "Pidgeot": {
+        "id": 18, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -39693,6 +40145,7 @@
         "weight": 395
     }, 
     "Pidgeotto": {
+        "id": 17, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -39769,6 +40222,7 @@
         "weight": 300
     }, 
     "Pidgey": {
+        "id": 16, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -39849,6 +40303,7 @@
         "weight": 18
     }, 
     "Pidove": {
+        "id": 519, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -39910,6 +40365,7 @@
         "weight": 21
     }, 
     "Pignite": {
+        "id": 499, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -39991,6 +40447,7 @@
         "weight": 555
     }, 
     "Pikachu": {
+        "id": 25, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -40084,6 +40541,7 @@
         "weight": 60
     }, 
     "Piloswine": {
+        "id": 221, 
         "moves": [
             "Headbutt", 
             "Horn Attack", 
@@ -40165,6 +40623,7 @@
         "weight": 558
     }, 
     "Pineco": {
+        "id": 204, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -40247,6 +40706,7 @@
         "weight": 72
     }, 
     "Pinsir": {
+        "id": 127, 
         "moves": [
             "ViceGrip", 
             "Guillotine", 
@@ -40341,6 +40801,7 @@
         "weight": 550
     }, 
     "Piplup": {
+        "id": 393, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -40424,6 +40885,7 @@
         "weight": 52
     }, 
     "Plusle": {
+        "id": 311, 
         "moves": [
             "Growl", 
             "Thunderbolt", 
@@ -40510,6 +40972,7 @@
         "weight": 42
     }, 
     "Politoed": {
+        "id": 186, 
         "moves": [
             "DoubleSlap", 
             "Ice Punch", 
@@ -40595,6 +41058,7 @@
         "weight": 339
     }, 
     "Poliwag": {
+        "id": 60, 
         "moves": [
             "DoubleSlap", 
             "Body Slam", 
@@ -40676,6 +41140,7 @@
         "weight": 124
     }, 
     "Poliwhirl": {
+        "id": 61, 
         "moves": [
             "DoubleSlap", 
             "Mega Punch", 
@@ -40767,6 +41232,7 @@
         "weight": 200
     }, 
     "Poliwrath": {
+        "id": 62, 
         "moves": [
             "DoubleSlap", 
             "Mega Punch", 
@@ -40866,6 +41332,7 @@
         "weight": 540
     }, 
     "Ponyta": {
+        "id": 77, 
         "moves": [
             "Stomp", 
             "Horn Drill", 
@@ -40944,6 +41411,7 @@
         "weight": 300
     }, 
     "Poochyena": {
+        "id": 261, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -41027,6 +41495,7 @@
         "weight": 136
     }, 
     "Porygon": {
+        "id": 137, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -41118,6 +41587,7 @@
         "weight": 365
     }, 
     "Porygon-Z": {
+        "id": 474, 
         "moves": [
             "Tackle", 
             "Ice Beam", 
@@ -41201,6 +41671,7 @@
         "weight": 340
     }, 
     "Porygon2": {
+        "id": 233, 
         "moves": [
             "Tackle", 
             "Blizzard", 
@@ -41285,6 +41756,7 @@
         "weight": 325
     }, 
     "Primeape": {
+        "id": 57, 
         "moves": [
             "Karate Chop", 
             "Mega Punch", 
@@ -41403,6 +41875,7 @@
         "weight": 320
     }, 
     "Prinplup": {
+        "id": 394, 
         "moves": [
             "Cut", 
             "Fury Attack", 
@@ -41483,6 +41956,7 @@
         "weight": 230
     }, 
     "Probopass": {
+        "id": 476, 
         "moves": [
             "Tackle", 
             "Hyper Beam", 
@@ -41565,6 +42039,7 @@
         "weight": 3400
     }, 
     "Psyduck": {
+        "id": 54, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -41677,6 +42152,7 @@
         "weight": 196
     }, 
     "Pupitar": {
+        "id": 247, 
         "moves": [
             "Headbutt", 
             "Thrash", 
@@ -41757,6 +42233,7 @@
         "weight": 1520
     }, 
     "Purrloin": {
+        "id": 509, 
         "moves": [
             "Pay Day", 
             "Scratch", 
@@ -41838,6 +42315,7 @@
         "weight": 101
     }, 
     "Purugly": {
+        "id": 432, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -41924,6 +42402,7 @@
         "weight": 438
     }, 
     "Quagsire": {
+        "id": 195, 
         "moves": [
             "Ice Punch", 
             "Slam", 
@@ -42021,6 +42500,7 @@
         "weight": 750
     }, 
     "Quilava": {
+        "id": 156, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -42096,6 +42576,7 @@
         "weight": 190
     }, 
     "Qwilfish": {
+        "id": 211, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -42189,6 +42670,7 @@
         "weight": 39
     }, 
     "Raichu": {
+        "id": 26, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -42280,6 +42762,7 @@
         "weight": 300
     }, 
     "Raikou": {
+        "id": 243, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -42362,6 +42845,7 @@
         "weight": 1780
     }, 
     "Ralts": {
+        "id": 280, 
         "moves": [
             "Growl", 
             "Disable", 
@@ -42467,6 +42951,7 @@
         "weight": 66
     }, 
     "Rampardos": {
+        "id": 409, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -42565,6 +43050,7 @@
         "weight": 1025
     }, 
     "Rapidash": {
+        "id": 78, 
         "moves": [
             "Stomp", 
             "Horn Drill", 
@@ -42644,6 +43130,7 @@
         "weight": 950
     }, 
     "Raticate": {
+        "id": 20, 
         "moves": [
             "Tackle", 
             "Body Slam", 
@@ -42739,6 +43226,7 @@
         "weight": 185
     }, 
     "Rattata": {
+        "id": 19, 
         "moves": [
             "Tackle", 
             "Body Slam", 
@@ -42835,6 +43323,7 @@
         "weight": 35
     }, 
     "Rayquaza": {
+        "id": 384, 
         "moves": [
             "Fly", 
             "Roar", 
@@ -42941,6 +43430,7 @@
         "weight": 2065
     }, 
     "Regice": {
+        "id": 378, 
         "moves": [
             "Ice Beam", 
             "Blizzard", 
@@ -43031,6 +43521,7 @@
         "weight": 1750
     }, 
     "Regigigas": {
+        "id": 486, 
         "moves": [
             "Mega Punch", 
             "Fire Punch", 
@@ -43114,6 +43605,7 @@
         "weight": 4200
     }, 
     "Regirock": {
+        "id": 377, 
         "moves": [
             "Hyper Beam", 
             "Strength", 
@@ -43205,6 +43697,7 @@
         "weight": 2300
     }, 
     "Registeel": {
+        "id": 379, 
         "moves": [
             "Hyper Beam", 
             "Strength", 
@@ -43297,6 +43790,7 @@
         "weight": 2050
     }, 
     "Relicanth": {
+        "id": 369, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -43384,6 +43878,7 @@
         "weight": 234
     }, 
     "Remoraid": {
+        "id": 223, 
         "moves": [
             "Supersonic", 
             "Water Gun", 
@@ -43469,6 +43964,7 @@
         "weight": 120
     }, 
     "Reshiram": {
+        "id": 643, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -43549,6 +44045,7 @@
         "weight": 3300
     }, 
     "Reuniclus": {
+        "id": 579, 
         "moves": [
             "Hyper Beam", 
             "Strength", 
@@ -43635,6 +44132,7 @@
         "weight": 201
     }, 
     "Rhydon": {
+        "id": 112, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -43761,6 +44259,7 @@
         "weight": 1200
     }, 
     "Rhyhorn": {
+        "id": 111, 
         "moves": [
             "Stomp", 
             "Horn Attack", 
@@ -43869,6 +44368,7 @@
         "weight": 1150
     }, 
     "Rhyperior": {
+        "id": 464, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -43979,6 +44479,7 @@
         "weight": 2828
     }, 
     "Riolu": {
+        "id": 447, 
         "moves": [
             "Swords Dance", 
             "Bite", 
@@ -44074,6 +44575,7 @@
         "weight": 202
     }, 
     "Roggenrola": {
+        "id": 524, 
         "moves": [
             "Sand-Attack", 
             "Headbutt", 
@@ -44134,6 +44636,7 @@
         "weight": 180
     }, 
     "Roselia": {
+        "id": 315, 
         "moves": [
             "Cut", 
             "Poison Sting", 
@@ -44216,6 +44719,7 @@
         "weight": 20
     }, 
     "Roserade": {
+        "id": 407, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -44281,6 +44785,7 @@
         "weight": 145
     }, 
     "Rotom": {
+        "id": 479, 
         "moves": [
             "ThunderShock", 
             "Thunderbolt", 
@@ -44351,6 +44856,7 @@
         "weight": 3
     }, 
     "Rotom (fan)": {
+        "id": 710, 
         "moves": [
             "ThunderShock", 
             "Thunderbolt", 
@@ -44422,6 +44928,7 @@
         "weight": 3
     }, 
     "Rotom (frost)": {
+        "id": 709, 
         "moves": [
             "Blizzard", 
             "ThunderShock", 
@@ -44493,6 +45000,7 @@
         "weight": 3
     }, 
     "Rotom (heat)": {
+        "id": 707, 
         "moves": [
             "ThunderShock", 
             "Thunderbolt", 
@@ -44564,6 +45072,7 @@
         "weight": 3
     }, 
     "Rotom (mow)": {
+        "id": 711, 
         "moves": [
             "ThunderShock", 
             "Thunderbolt", 
@@ -44635,6 +45144,7 @@
         "weight": 3
     }, 
     "Rotom (wash)": {
+        "id": 708, 
         "moves": [
             "Hydro Pump", 
             "ThunderShock", 
@@ -44706,6 +45216,7 @@
         "weight": 3
     }, 
     "Rufflet": {
+        "id": 627, 
         "moves": [
             "Cut", 
             "Wing Attack", 
@@ -44771,6 +45282,7 @@
         "weight": 105
     }, 
     "Sableye": {
+        "id": 302, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -44892,6 +45404,7 @@
         "weight": 110
     }, 
     "Salamence": {
+        "id": 373, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -44985,6 +45498,7 @@
         "weight": 1026
     }, 
     "Samurott": {
+        "id": 503, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45063,6 +45577,7 @@
         "weight": 946
     }, 
     "Sandile": {
+        "id": 551, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -45142,6 +45657,7 @@
         "weight": 152
     }, 
     "Sandshrew": {
+        "id": 27, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -45240,6 +45756,7 @@
         "weight": 120
     }, 
     "Sandslash": {
+        "id": 28, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -45337,6 +45854,7 @@
         "weight": 295
     }, 
     "Sawk": {
+        "id": 539, 
         "moves": [
             "Karate Chop", 
             "Double Kick", 
@@ -45410,6 +45928,7 @@
         "weight": 510
     }, 
     "Sawsbuck (autumn)": {
+        "id": 722, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45482,6 +46001,7 @@
         "weight": 925
     }, 
     "Sawsbuck (spring)": {
+        "id": 722, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45554,6 +46074,7 @@
         "weight": 925
     }, 
     "Sawsbuck (summer)": {
+        "id": 722, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45626,6 +46147,7 @@
         "weight": 925
     }, 
     "Sawsbuck (winter)": {
+        "id": 722, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45698,6 +46220,7 @@
         "weight": 925
     }, 
     "Sceptile": {
+        "id": 254, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -45801,6 +46324,7 @@
         "weight": 522
     }, 
     "Scizor": {
+        "id": 212, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45890,6 +46414,7 @@
         "weight": 1180
     }, 
     "Scolipede": {
+        "id": 545, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -45961,6 +46486,7 @@
         "weight": 2005
     }, 
     "Scrafty": {
+        "id": 560, 
         "moves": [
             "Sand-Attack", 
             "Headbutt", 
@@ -46052,6 +46578,7 @@
         "weight": 300
     }, 
     "Scraggy": {
+        "id": 559, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -46144,6 +46671,7 @@
         "weight": 118
     }, 
     "Scyther": {
+        "id": 123, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -46232,6 +46760,7 @@
         "weight": 560
     }, 
     "Seadra": {
+        "id": 117, 
         "moves": [
             "Take Down", 
             "Double-Edge", 
@@ -46306,6 +46835,7 @@
         "weight": 250
     }, 
     "Seaking": {
+        "id": 119, 
         "moves": [
             "Horn Attack", 
             "Fury Attack", 
@@ -46384,6 +46914,7 @@
         "weight": 390
     }, 
     "Sealeo": {
+        "id": 364, 
         "moves": [
             "Body Slam", 
             "Growl", 
@@ -46458,6 +46989,7 @@
         "weight": 876
     }, 
     "Seedot": {
+        "id": 273, 
         "moves": [
             "Razor Wind", 
             "Take Down", 
@@ -46532,6 +47064,7 @@
         "weight": 40
     }, 
     "Seel": {
+        "id": 86, 
         "moves": [
             "Pay Day", 
             "Headbutt", 
@@ -46617,6 +47150,7 @@
         "weight": 900
     }, 
     "Seismitoad": {
+        "id": 537, 
         "moves": [
             "Growl", 
             "Supersonic", 
@@ -46694,6 +47228,7 @@
         "weight": 620
     }, 
     "Sentret": {
+        "id": 161, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -46796,6 +47331,7 @@
         "weight": 60
     }, 
     "Serperior": {
+        "id": 497, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -46873,6 +47409,7 @@
         "weight": 630
     }, 
     "Servine": {
+        "id": 496, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -46942,6 +47479,7 @@
         "weight": 160
     }, 
     "Seviper": {
+        "id": 336, 
         "moves": [
             "Body Slam", 
             "Wrap", 
@@ -47031,6 +47569,7 @@
         "weight": 525
     }, 
     "Sewaddle": {
+        "id": 540, 
         "moves": [
             "Razor Wind", 
             "Cut", 
@@ -47099,6 +47638,7 @@
         "weight": 25
     }, 
     "Sharpedo": {
+        "id": 319, 
         "moves": [
             "Leer", 
             "Bite", 
@@ -47190,6 +47730,7 @@
         "weight": 888
     }, 
     "Shaymin (land)": {
+        "id": 492, 
         "moves": [
             "Swords Dance", 
             "Hyper Beam", 
@@ -47258,6 +47799,7 @@
         "weight": 21
     }, 
     "Shaymin (sky)": {
+        "id": 713, 
         "moves": [
             "Swords Dance", 
             "Hyper Beam", 
@@ -47326,6 +47868,7 @@
         "weight": 52
     }, 
     "Shedinja": {
+        "id": 292, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -47400,6 +47943,7 @@
         "weight": 12
     }, 
     "Shelgon": {
+        "id": 372, 
         "moves": [
             "Cut", 
             "Headbutt", 
@@ -47474,6 +48018,7 @@
         "weight": 1105
     }, 
     "Shellder": {
+        "id": 90, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -47554,6 +48099,7 @@
         "weight": 40
     }, 
     "Shellos (east)": {
+        "id": 688, 
         "moves": [
             "Body Slam", 
             "Surf", 
@@ -47626,6 +48172,7 @@
         "weight": 63
     }, 
     "Shellos (west)": {
+        "id": 688, 
         "moves": [
             "Body Slam", 
             "Surf", 
@@ -47698,6 +48245,7 @@
         "weight": 63
     }, 
     "Shelmet": {
+        "id": 616, 
         "moves": [
             "Body Slam", 
             "Double-Edge", 
@@ -47760,6 +48308,7 @@
         "weight": 77
     }, 
     "Shieldon": {
+        "id": 410, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -47845,6 +48394,7 @@
         "weight": 570
     }, 
     "Shiftry": {
+        "id": 275, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -47951,6 +48501,7 @@
         "weight": 596
     }, 
     "Shinx": {
+        "id": 403, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -48024,6 +48575,7 @@
         "weight": 95
     }, 
     "Shroomish": {
+        "id": 285, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -48093,6 +48645,7 @@
         "weight": 45
     }, 
     "Shuckle": {
+        "id": 213, 
         "moves": [
             "Headbutt", 
             "Wrap", 
@@ -48182,6 +48735,7 @@
         "weight": 205
     }, 
     "Shuppet": {
+        "id": 353, 
         "moves": [
             "Disable", 
             "Thunderbolt", 
@@ -48272,6 +48826,7 @@
         "weight": 23
     }, 
     "Sigilyph": {
+        "id": 561, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -48357,6 +48912,7 @@
         "weight": 140
     }, 
     "Silcoon": {
+        "id": 266, 
         "moves": [
             "Harden", 
             "Iron Defense", 
@@ -48379,6 +48935,7 @@
         "weight": 100
     }, 
     "Simipour": {
+        "id": 516, 
         "moves": [
             "Cut", 
             "Leer", 
@@ -48455,6 +49012,7 @@
         "weight": 290
     }, 
     "Simisage": {
+        "id": 512, 
         "moves": [
             "Cut", 
             "Leer", 
@@ -48528,6 +49086,7 @@
         "weight": 305
     }, 
     "Simisear": {
+        "id": 514, 
         "moves": [
             "Cut", 
             "Leer", 
@@ -48604,6 +49163,7 @@
         "weight": 280
     }, 
     "Skarmory": {
+        "id": 227, 
         "moves": [
             "Cut", 
             "Whirlwind", 
@@ -48698,6 +49258,7 @@
         "weight": 505
     }, 
     "Skiploom": {
+        "id": 188, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -48770,6 +49331,7 @@
         "weight": 10
     }, 
     "Skitty": {
+        "id": 300, 
         "moves": [
             "DoubleSlap", 
             "Tackle", 
@@ -48865,6 +49427,7 @@
         "weight": 110
     }, 
     "Skorupi": {
+        "id": 451, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -48954,6 +49517,7 @@
         "weight": 120
     }, 
     "Skuntank": {
+        "id": 435, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -49035,6 +49599,7 @@
         "weight": 380
     }, 
     "Slaking": {
+        "id": 289, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -49139,6 +49704,7 @@
         "weight": 1305
     }, 
     "Slakoth": {
+        "id": 287, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -49235,6 +49801,7 @@
         "weight": 240
     }, 
     "Slowbro": {
+        "id": 80, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -49365,6 +49932,7 @@
         "weight": 785
     }, 
     "Slowking": {
+        "id": 199, 
         "moves": [
             "Ice Punch", 
             "Headbutt", 
@@ -49484,6 +50052,7 @@
         "weight": 795
     }, 
     "Slowpoke": {
+        "id": 79, 
         "moves": [
             "Pay Day", 
             "Headbutt", 
@@ -49598,6 +50167,7 @@
         "weight": 360
     }, 
     "Slugma": {
+        "id": 218, 
         "moves": [
             "Body Slam", 
             "Ember", 
@@ -49675,6 +50245,7 @@
         "weight": 350
     }, 
     "Smeargle": {
+        "id": 235, 
         "moves": [
             "Sketch"
         ], 
@@ -49693,6 +50264,7 @@
         "weight": 580
     }, 
     "Smoochum": {
+        "id": 238, 
         "moves": [
             "Pound", 
             "Ice Punch", 
@@ -49797,6 +50369,7 @@
         "weight": 60
     }, 
     "Sneasel": {
+        "id": 215, 
         "moves": [
             "Ice Punch", 
             "Scratch", 
@@ -49909,6 +50482,7 @@
         "weight": 280
     }, 
     "Snivy": {
+        "id": 495, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -49987,6 +50561,7 @@
         "weight": 81
     }, 
     "Snorlax": {
+        "id": 143, 
         "moves": [
             "Mega Punch", 
             "Pay Day", 
@@ -50112,6 +50687,7 @@
         "weight": 4600
     }, 
     "Snorunt": {
+        "id": 361, 
         "moves": [
             "Headbutt", 
             "Leer", 
@@ -50178,6 +50754,7 @@
         "weight": 168
     }, 
     "Snover": {
+        "id": 459, 
         "moves": [
             "Swords Dance", 
             "Stomp", 
@@ -50255,6 +50832,7 @@
         "weight": 505
     }, 
     "Snubbull": {
+        "id": 209, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -50365,6 +50943,7 @@
         "weight": 78
     }, 
     "Solosis": {
+        "id": 577, 
         "moves": [
             "Thunder Wave", 
             "Thunder", 
@@ -50442,6 +51021,7 @@
         "weight": 10
     }, 
     "Solrock": {
+        "id": 338, 
         "moves": [
             "Tackle", 
             "Flamethrower", 
@@ -50541,6 +51121,7 @@
         "weight": 1540
     }, 
     "Spearow": {
+        "id": 21, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -50624,6 +51205,7 @@
         "weight": 20
     }, 
     "Spheal": {
+        "id": 363, 
         "moves": [
             "Body Slam", 
             "Growl", 
@@ -50705,6 +51287,7 @@
         "weight": 395
     }, 
     "Spinarak": {
+        "id": 167, 
         "moves": [
             "Poison Sting", 
             "SonicBoom", 
@@ -50786,6 +51369,7 @@
         "weight": 85
     }, 
     "Spinda": {
+        "id": 327, 
         "moves": [
             "Tackle", 
             "Thrash", 
@@ -50897,6 +51481,7 @@
         "weight": 50
     }, 
     "Spiritomb": {
+        "id": 442, 
         "moves": [
             "Hyper Beam", 
             "Toxic", 
@@ -50980,6 +51565,7 @@
         "weight": 1080
     }, 
     "Spoink": {
+        "id": 325, 
         "moves": [
             "Psybeam", 
             "Toxic", 
@@ -51066,6 +51652,7 @@
         "weight": 306
     }, 
     "Squirtle": {
+        "id": 7, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -51169,6 +51756,7 @@
         "weight": 90
     }, 
     "Stantler": {
+        "id": 234, 
         "moves": [
             "Stomp", 
             "Sand-Attack", 
@@ -51271,6 +51859,7 @@
         "weight": 712
     }, 
     "Staraptor": {
+        "id": 398, 
         "moves": [
             "Wing Attack", 
             "Whirlwind", 
@@ -51341,6 +51930,7 @@
         "weight": 249
     }, 
     "Staravia": {
+        "id": 397, 
         "moves": [
             "Wing Attack", 
             "Whirlwind", 
@@ -51407,6 +51997,7 @@
         "weight": 155
     }, 
     "Starly": {
+        "id": 396, 
         "moves": [
             "Wing Attack", 
             "Whirlwind", 
@@ -51482,6 +52073,7 @@
         "weight": 20
     }, 
     "Starmie": {
+        "id": 121, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -51577,6 +52169,7 @@
         "weight": 800
     }, 
     "Staryu": {
+        "id": 120, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -51667,6 +52260,7 @@
         "weight": 345
     }, 
     "Steelix": {
+        "id": 208, 
         "moves": [
             "Cut", 
             "Bind", 
@@ -51762,6 +52356,7 @@
         "weight": 4000
     }, 
     "Stoutland": {
+        "id": 508, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -51830,6 +52425,7 @@
         "weight": 610
     }, 
     "Stunfisk": {
+        "id": 618, 
         "moves": [
             "Surf", 
             "ThunderShock", 
@@ -51908,6 +52504,7 @@
         "weight": 110
     }, 
     "Stunky": {
+        "id": 434, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -51995,6 +52592,7 @@
         "weight": 192
     }, 
     "Sudowoodo": {
+        "id": 185, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -52087,6 +52685,7 @@
         "weight": 380
     }, 
     "Suicune": {
+        "id": 245, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -52173,6 +52772,7 @@
         "weight": 1870
     }, 
     "Sunflora": {
+        "id": 192, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -52244,6 +52844,7 @@
         "weight": 85
     }, 
     "Sunkern": {
+        "id": 191, 
         "moves": [
             "Cut", 
             "Absorb", 
@@ -52314,6 +52915,7 @@
         "weight": 18
     }, 
     "Surskit": {
+        "id": 283, 
         "moves": [
             "Mist", 
             "Hydro Pump", 
@@ -52386,6 +52988,7 @@
         "weight": 17
     }, 
     "Swablu": {
+        "id": 333, 
         "moves": [
             "Fly", 
             "Fury Attack", 
@@ -52470,6 +53073,7 @@
         "weight": 12
     }, 
     "Swadloon": {
+        "id": 541, 
         "moves": [
             "Cut", 
             "Tackle", 
@@ -52527,6 +53131,7 @@
         "weight": 73
     }, 
     "Swalot": {
+        "id": 317, 
         "moves": [
             "Pound", 
             "Body Slam", 
@@ -52613,6 +53218,7 @@
         "weight": 800
     }, 
     "Swampert": {
+        "id": 260, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -52714,6 +53320,7 @@
         "weight": 819
     }, 
     "Swanna": {
+        "id": 581, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -52774,6 +53381,7 @@
         "weight": 242
     }, 
     "Swellow": {
+        "id": 277, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -52843,6 +53451,7 @@
         "weight": 198
     }, 
     "Swinub": {
+        "id": 220, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -52924,6 +53533,7 @@
         "weight": 65
     }, 
     "Swoobat": {
+        "id": 528, 
         "moves": [
             "Gust", 
             "Fly", 
@@ -53010,6 +53620,7 @@
         "weight": 105
     }, 
     "Taillow": {
+        "id": 276, 
         "moves": [
             "Wing Attack", 
             "Fly", 
@@ -53084,6 +53695,7 @@
         "weight": 23
     }, 
     "Tangela": {
+        "id": 114, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -53175,6 +53787,7 @@
         "weight": 350
     }, 
     "Tangrowth": {
+        "id": 465, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -53262,6 +53875,7 @@
         "weight": 1286
     }, 
     "Tauros": {
+        "id": 128, 
         "moves": [
             "Stomp", 
             "Horn Drill", 
@@ -53356,6 +53970,7 @@
         "weight": 884
     }, 
     "Teddiursa": {
+        "id": 216, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -53462,6 +54077,7 @@
         "weight": 88
     }, 
     "Tentacool": {
+        "id": 72, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -53556,6 +54172,7 @@
         "weight": 455
     }, 
     "Tentacruel": {
+        "id": 73, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -53642,6 +54259,7 @@
         "weight": 550
     }, 
     "Tepig": {
+        "id": 498, 
         "moves": [
             "Tackle", 
             "Body Slam", 
@@ -53715,6 +54333,7 @@
         "weight": 99
     }, 
     "Terrakion": {
+        "id": 639, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -53787,6 +54406,7 @@
         "weight": 2600
     }, 
     "Throh": {
+        "id": 538, 
         "moves": [
             "Bind", 
             "Body Slam", 
@@ -53862,6 +54482,7 @@
         "weight": 555
     }, 
     "Thundurus (incarnate)": {
+        "id": 642, 
         "moves": [
             "Fly", 
             "Thrash", 
@@ -53945,6 +54566,7 @@
         "weight": 610
     }, 
     "Thundurus (therian)": {
+        "id": 729, 
         "moves": [
             "ThunderPunch", 
             "Fly", 
@@ -54028,6 +54650,7 @@
         "weight": 610
     }, 
     "Timburr": {
+        "id": 532, 
         "moves": [
             "Pound", 
             "Comet Punch", 
@@ -54109,6 +54732,7 @@
         "weight": 125
     }, 
     "Tirtouga": {
+        "id": 564, 
         "moves": [
             "Slam", 
             "Body Slam", 
@@ -54186,6 +54810,7 @@
         "weight": 165
     }, 
     "Togekiss": {
+        "id": 468, 
         "moves": [
             "Fly", 
             "Flamethrower", 
@@ -54282,6 +54907,7 @@
         "weight": 380
     }, 
     "Togepi": {
+        "id": 175, 
         "moves": [
             "Headbutt", 
             "Double-Edge", 
@@ -54390,6 +55016,7 @@
         "weight": 15
     }, 
     "Togetic": {
+        "id": 176, 
         "moves": [
             "Fly", 
             "Headbutt", 
@@ -54506,6 +55133,7 @@
         "weight": 32
     }, 
     "Torchic": {
+        "id": 255, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -54595,6 +55223,7 @@
         "weight": 25
     }, 
     "Torkoal": {
+        "id": 324, 
         "moves": [
             "Body Slam", 
             "Ember", 
@@ -54681,6 +55310,7 @@
         "weight": 804
     }, 
     "Tornadus (incarnate)": {
+        "id": 641, 
         "moves": [
             "Gust", 
             "Fly", 
@@ -54759,6 +55389,7 @@
         "weight": 630
     }, 
     "Tornadus (therian)": {
+        "id": 728, 
         "moves": [
             "Gust", 
             "Fly", 
@@ -54837,6 +55468,7 @@
         "weight": 630
     }, 
     "Torterra": {
+        "id": 389, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -54923,6 +55555,7 @@
         "weight": 3100
     }, 
     "Totodile": {
+        "id": 158, 
         "moves": [
             "Ice Punch", 
             "Scratch", 
@@ -55024,6 +55657,7 @@
         "weight": 95
     }, 
     "Toxicroak": {
+        "id": 454, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -55123,6 +55757,7 @@
         "weight": 444
     }, 
     "Tranquill": {
+        "id": 520, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -55178,6 +55813,7 @@
         "weight": 150
     }, 
     "Trapinch": {
+        "id": 328, 
         "moves": [
             "Gust", 
             "Sand-Attack", 
@@ -55249,6 +55885,7 @@
         "weight": 150
     }, 
     "Treecko": {
+        "id": 252, 
         "moves": [
             "Pound", 
             "Cut", 
@@ -55345,6 +55982,7 @@
         "weight": 50
     }, 
     "Tropius": {
+        "id": 357, 
         "moves": [
             "Razor Wind", 
             "Cut", 
@@ -55438,6 +56076,7 @@
         "weight": 1000
     }, 
     "Trubbish": {
+        "id": 568, 
         "moves": [
             "Pound", 
             "DoubleSlap", 
@@ -55504,6 +56143,7 @@
         "weight": 310
     }, 
     "Turtwig": {
+        "id": 387, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -55585,6 +56225,7 @@
         "weight": 102
     }, 
     "Tympole": {
+        "id": 535, 
         "moves": [
             "Growl", 
             "Supersonic", 
@@ -55643,6 +56284,7 @@
         "weight": 45
     }, 
     "Tynamo": {
+        "id": 602, 
         "moves": [
             "Tackle", 
             "Thunder Wave", 
@@ -55665,6 +56307,7 @@
         "weight": 3
     }, 
     "Typhlosion": {
+        "id": 157, 
         "moves": [
             "Fire Punch", 
             "ThunderPunch", 
@@ -55761,6 +56404,7 @@
         "weight": 795
     }, 
     "Tyranitar": {
+        "id": 248, 
         "moves": [
             "Fire Punch", 
             "Cut", 
@@ -55886,6 +56530,7 @@
         "weight": 2020
     }, 
     "Tyrogue": {
+        "id": 236, 
         "moves": [
             "Headbutt", 
             "Tackle", 
@@ -55961,6 +56606,7 @@
         "weight": 210
     }, 
     "Umbreon": {
+        "id": 197, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -56048,6 +56694,7 @@
         "weight": 270
     }, 
     "Unfezant": {
+        "id": 521, 
         "moves": [
             "Razor Wind", 
             "Gust", 
@@ -56106,6 +56753,7 @@
         "weight": 290
     }, 
     "Unown (a)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56124,6 +56772,7 @@
         "weight": 50
     }, 
     "Unown (b)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56142,6 +56791,7 @@
         "weight": 50
     }, 
     "Unown (c)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56160,6 +56810,7 @@
         "weight": 50
     }, 
     "Unown (d)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56178,6 +56829,7 @@
         "weight": 50
     }, 
     "Unown (e)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56196,6 +56848,7 @@
         "weight": 50
     }, 
     "Unown (exclamation)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56214,6 +56867,7 @@
         "weight": 50
     }, 
     "Unown (f)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56232,6 +56886,7 @@
         "weight": 50
     }, 
     "Unown (g)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56250,6 +56905,7 @@
         "weight": 50
     }, 
     "Unown (h)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56268,6 +56924,7 @@
         "weight": 50
     }, 
     "Unown (i)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56286,6 +56943,7 @@
         "weight": 50
     }, 
     "Unown (j)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56304,6 +56962,7 @@
         "weight": 50
     }, 
     "Unown (k)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56322,6 +56981,7 @@
         "weight": 50
     }, 
     "Unown (l)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56340,6 +57000,7 @@
         "weight": 50
     }, 
     "Unown (m)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56358,6 +57019,7 @@
         "weight": 50
     }, 
     "Unown (n)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56376,6 +57038,7 @@
         "weight": 50
     }, 
     "Unown (o)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56394,6 +57057,7 @@
         "weight": 50
     }, 
     "Unown (p)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56412,6 +57076,7 @@
         "weight": 50
     }, 
     "Unown (q)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56430,6 +57095,7 @@
         "weight": 50
     }, 
     "Unown (question)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56448,6 +57114,7 @@
         "weight": 50
     }, 
     "Unown (r)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56466,6 +57133,7 @@
         "weight": 50
     }, 
     "Unown (s)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56484,6 +57152,7 @@
         "weight": 50
     }, 
     "Unown (t)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56502,6 +57171,7 @@
         "weight": 50
     }, 
     "Unown (u)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56520,6 +57190,7 @@
         "weight": 50
     }, 
     "Unown (v)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56538,6 +57209,7 @@
         "weight": 50
     }, 
     "Unown (w)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56556,6 +57228,7 @@
         "weight": 50
     }, 
     "Unown (x)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56574,6 +57247,7 @@
         "weight": 50
     }, 
     "Unown (y)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56592,6 +57266,7 @@
         "weight": 50
     }, 
     "Unown (z)": {
+        "id": 676, 
         "moves": [
             "Hidden Power"
         ], 
@@ -56610,6 +57285,7 @@
         "weight": 50
     }, 
     "Ursaring": {
+        "id": 217, 
         "moves": [
             "Fire Punch", 
             "Ice Punch", 
@@ -56716,6 +57392,7 @@
         "weight": 1258
     }, 
     "Uxie": {
+        "id": 480, 
         "moves": [
             "Hyper Beam", 
             "SolarBeam", 
@@ -56808,6 +57485,7 @@
         "weight": 3
     }, 
     "Vanillish": {
+        "id": 583, 
         "moves": [
             "Mist", 
             "Ice Beam", 
@@ -56863,6 +57541,7 @@
         "weight": 410
     }, 
     "Vanillite": {
+        "id": 582, 
         "moves": [
             "Mist", 
             "Ice Beam", 
@@ -56924,6 +57603,7 @@
         "weight": 57
     }, 
     "Vanilluxe": {
+        "id": 584, 
         "moves": [
             "Mist", 
             "Ice Beam", 
@@ -56982,6 +57662,7 @@
         "weight": 575
     }, 
     "Vaporeon": {
+        "id": 134, 
         "moves": [
             "Sand-Attack", 
             "Tackle", 
@@ -57075,6 +57756,7 @@
         "weight": 290
     }, 
     "Venipede": {
+        "id": 543, 
         "moves": [
             "Take Down", 
             "Double-Edge", 
@@ -57134,6 +57816,7 @@
         "weight": 53
     }, 
     "Venomoth": {
+        "id": 49, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -57225,6 +57908,7 @@
         "weight": 125
     }, 
     "Venonat": {
+        "id": 48, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -57303,6 +57987,7 @@
         "weight": 300
     }, 
     "Venusaur": {
+        "id": 3, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -57394,6 +58079,7 @@
         "weight": 1000
     }, 
     "Vespiquen": {
+        "id": 416, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -57473,6 +58159,7 @@
         "weight": 385
     }, 
     "Vibrava": {
+        "id": 329, 
         "moves": [
             "Fly", 
             "Sand-Attack", 
@@ -57557,6 +58244,7 @@
         "weight": 153
     }, 
     "Victini": {
+        "id": 494, 
         "moves": [
             "Headbutt", 
             "Double-Edge", 
@@ -57648,6 +58336,7 @@
         "weight": 40
     }, 
     "Victreebel": {
+        "id": 71, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -57729,6 +58418,7 @@
         "weight": 155
     }, 
     "Vigoroth": {
+        "id": 288, 
         "moves": [
             "Scratch", 
             "Cut", 
@@ -57826,6 +58516,7 @@
         "weight": 465
     }, 
     "Vileplume": {
+        "id": 45, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -57899,6 +58590,7 @@
         "weight": 186
     }, 
     "Virizion": {
+        "id": 640, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -57973,6 +58665,7 @@
         "weight": 2000
     }, 
     "Volbeat": {
+        "id": 313, 
         "moves": [
             "Tackle", 
             "Double-Edge", 
@@ -58063,6 +58756,7 @@
         "weight": 177
     }, 
     "Volcarona": {
+        "id": 637, 
         "moves": [
             "Gust", 
             "Whirlwind", 
@@ -58135,6 +58829,7 @@
         "weight": 460
     }, 
     "Voltorb": {
+        "id": 100, 
         "moves": [
             "Tackle", 
             "Take Down", 
@@ -58207,6 +58902,7 @@
         "weight": 104
     }, 
     "Vullaby": {
+        "id": 629, 
         "moves": [
             "Cut", 
             "Gust", 
@@ -58283,6 +58979,7 @@
         "weight": 90
     }, 
     "Vulpix": {
+        "id": 37, 
         "moves": [
             "Body Slam", 
             "Take Down", 
@@ -58371,6 +59068,7 @@
         "weight": 99
     }, 
     "Wailmer": {
+        "id": 320, 
         "moves": [
             "Thrash", 
             "Double-Edge", 
@@ -58451,6 +59149,7 @@
         "weight": 1300
     }, 
     "Wailord": {
+        "id": 321, 
         "moves": [
             "Growl", 
             "Roar", 
@@ -58529,6 +59228,7 @@
         "weight": 3980
     }, 
     "Walrein": {
+        "id": 365, 
         "moves": [
             "Body Slam", 
             "Growl", 
@@ -58611,6 +59311,7 @@
         "weight": 1506
     }, 
     "Wartortle": {
+        "id": 8, 
         "moves": [
             "Mega Punch", 
             "Mega Kick", 
@@ -58700,6 +59401,7 @@
         "weight": 225
     }, 
     "Watchog": {
+        "id": 505, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -58784,6 +59486,7 @@
         "weight": 270
     }, 
     "Weavile": {
+        "id": 461, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -58883,6 +59586,7 @@
         "weight": 340
     }, 
     "Weedle": {
+        "id": 13, 
         "moves": [
             "Poison Sting", 
             "String Shot", 
@@ -58905,6 +59609,7 @@
         "weight": 32
     }, 
     "Weepinbell": {
+        "id": 70, 
         "moves": [
             "Swords Dance", 
             "Cut", 
@@ -58980,6 +59685,7 @@
         "weight": 64
     }, 
     "Weezing": {
+        "id": 110, 
         "moves": [
             "Tackle", 
             "Hyper Beam", 
@@ -59058,6 +59764,7 @@
         "weight": 95
     }, 
     "Whimsicott": {
+        "id": 547, 
         "moves": [
             "Gust", 
             "Hyper Beam", 
@@ -59120,6 +59827,7 @@
         "weight": 66
     }, 
     "Whirlipede": {
+        "id": 544, 
         "moves": [
             "Double-Edge", 
             "Poison Sting", 
@@ -59174,6 +59882,7 @@
         "weight": 585
     }, 
     "Whiscash": {
+        "id": 340, 
         "moves": [
             "Water Gun", 
             "Surf", 
@@ -59248,6 +59957,7 @@
         "weight": 236
     }, 
     "Whismur": {
+        "id": 293, 
         "moves": [
             "Pound", 
             "Stomp", 
@@ -59334,6 +60044,7 @@
         "weight": 163
     }, 
     "Wigglytuff": {
+        "id": 40, 
         "moves": [
             "DoubleSlap", 
             "Mega Punch", 
@@ -59455,6 +60166,7 @@
         "weight": 120
     }, 
     "Wingull": {
+        "id": 278, 
         "moves": [
             "Gust", 
             "Wing Attack", 
@@ -59533,6 +60245,7 @@
         "weight": 95
     }, 
     "Wobbuffet": {
+        "id": 202, 
         "moves": [
             "Counter", 
             "Destiny Bond", 
@@ -59554,6 +60267,7 @@
         "weight": 285
     }, 
     "Woobat": {
+        "id": 527, 
         "moves": [
             "Gust", 
             "Fly", 
@@ -59643,6 +60357,7 @@
         "weight": 21
     }, 
     "Wooper": {
+        "id": 194, 
         "moves": [
             "Ice Punch", 
             "Slam", 
@@ -59733,6 +60448,7 @@
         "weight": 85
     }, 
     "Wormadam (plant)": {
+        "id": 413, 
         "moves": [
             "Tackle", 
             "Psybeam", 
@@ -59805,6 +60521,7 @@
         "weight": 65
     }, 
     "Wormadam (sandy)": {
+        "id": 685, 
         "moves": [
             "Tackle", 
             "Psybeam", 
@@ -59878,6 +60595,7 @@
         "weight": 65
     }, 
     "Wormadam (trash)": {
+        "id": 686, 
         "moves": [
             "Tackle", 
             "Psybeam", 
@@ -59948,6 +60666,7 @@
         "weight": 65
     }, 
     "Wurmple": {
+        "id": 265, 
         "moves": [
             "Tackle", 
             "Poison Sting", 
@@ -59971,6 +60690,7 @@
         "weight": 36
     }, 
     "Wynaut": {
+        "id": 360, 
         "moves": [
             "Counter", 
             "Splash", 
@@ -59995,6 +60715,7 @@
         "weight": 140
     }, 
     "Xatu": {
+        "id": 178, 
         "moves": [
             "Fly", 
             "Leer", 
@@ -60095,6 +60816,7 @@
         "weight": 150
     }, 
     "Yamask": {
+        "id": 562, 
         "moves": [
             "Disable", 
             "Toxic", 
@@ -60173,6 +60895,7 @@
         "weight": 15
     }, 
     "Yanma": {
+        "id": 193, 
         "moves": [
             "Whirlwind", 
             "Headbutt", 
@@ -60253,6 +60976,7 @@
         "weight": 380
     }, 
     "Yanmega": {
+        "id": 469, 
         "moves": [
             "Tackle", 
             "Supersonic", 
@@ -60331,6 +61055,7 @@
         "weight": 515
     }, 
     "Zangoose": {
+        "id": 335, 
         "moves": [
             "Scratch", 
             "Razor Wind", 
@@ -60448,6 +61173,7 @@
         "weight": 403
     }, 
     "Zapdos": {
+        "id": 145, 
         "moves": [
             "Razor Wind", 
             "Whirlwind", 
@@ -60533,6 +61259,7 @@
         "weight": 526
     }, 
     "Zebstrika": {
+        "id": 523, 
         "moves": [
             "Stomp", 
             "Thrash", 
@@ -60591,6 +61318,7 @@
         "weight": 795
     }, 
     "Zekrom": {
+        "id": 644, 
         "moves": [
             "Cut", 
             "Fly", 
@@ -60673,6 +61401,7 @@
         "weight": 3450
     }, 
     "Zigzagoon": {
+        "id": 263, 
         "moves": [
             "Cut", 
             "Sand-Attack", 
@@ -60765,6 +61494,7 @@
         "weight": 175
     }, 
     "Zoroark": {
+        "id": 571, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -60848,6 +61578,7 @@
         "weight": 811
     }, 
     "Zorua": {
+        "id": 570, 
         "moves": [
             "Scratch", 
             "Swords Dance", 
@@ -60929,6 +61660,7 @@
         "weight": 125
     }, 
     "Zubat": {
+        "id": 41, 
         "moves": [
             "Razor Wind", 
             "Wing Attack", 
@@ -61020,6 +61752,7 @@
         "weight": 75
     }, 
     "Zweilous": {
+        "id": 634, 
         "moves": [
             "Slam", 
             "Headbutt", 

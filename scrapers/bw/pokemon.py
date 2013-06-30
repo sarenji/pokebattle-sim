@@ -26,6 +26,7 @@ class Pokemon:
   def __init__(self, raw_id, pokemon_info, forme_name=None):
     self.name = pokemon_info.species
     self.info = pokemon_info.info
+    self.info['id'] = int(raw_id)
     if forme_name:
       self.name = "%s (%s)" % (self.name, forme_name)
 
