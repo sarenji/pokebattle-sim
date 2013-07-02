@@ -3661,3 +3661,55 @@ shared = require '../shared'
 
       @battle.performMove(@id1, stockpile)
       mock.verify()
+
+  describe 'Spit Up', ->
+    it 'fails if user has no stockpiles', ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      mock = @sandbox.mock(spitUp).expects('fail').once()
+
+      @battle.performMove(@id1, spitUp)
+      mock.verify()
+
+    it "has 100 base power with 1 layer of stockpiles", ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      @p1.attach(Attachment.Stockpile)
+
+      spitUp.basePower(@battle, @p1, @p2).should.equal 100
+
+    it "has 200 base power with 2 layers of stockpiles", ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      spitUp.basePower(@battle, @p1, @p2).should.equal 200
+
+    it "has 300 base power with 3 layers of stockpiles", ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      spitUp.basePower(@battle, @p1, @p2).should.equal 300
+
+    it "resets stockpile count to 0", ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.getAttachment(Attachment.Stockpile).layers.should.equal 1
+      @battle.performMove(@id1, spitUp)
+      @p1.hasAttachment(Attachment.Stockpile).should.be.false
+
+    it "loses def/sp. def according to number of stockpiles", ->
+      shared.create.call(this)
+      spitUp = @battle.getMove("Spit Up")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.stages.should.include defense: 0, specialDefense: 0
+      @battle.performMove(@id1, spitUp)
+      @p1.stages.should.include defense: -2, specialDefense: -2

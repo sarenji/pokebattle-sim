@@ -800,6 +800,30 @@ extendWithSecondaryEffect 'snore', .3, Attachment.Flinch
 makeRecoveryMove 'softboiled'
 extendWithSecondaryStatus 'spark', .3, Status.PARALYZE
 makeMeanLookMove 'spider-web'
+
+extendMove 'spit-up', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if !user.hasAttachment(Attachment.Stockpile)
+      @fail(battle)
+      return false
+    oldUse.call(this, battle, user, target)
+
+  @basePower = (battle, user, target) ->
+    attachment = user.getAttachment(Attachment.Stockpile)
+    layers = attachment?.layers || 0
+    100 * layers
+
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    oldExecute.call(this, battle, user, targets)
+    attachment = user.getAttachment(Attachment.Stockpile)
+    return  if !attachment?
+    num = -attachment.layers
+    applyBoosts = boostExtension('self', defense: num, specialDefense: num)
+    applyBoosts(battle, user)
+    user.unattach(Attachment.Stockpile)
+
 extendWithPrimaryStatus 'spore', Status.SLEEP
 extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
 makeStompMove 'steamroller'
