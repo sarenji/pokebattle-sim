@@ -847,6 +847,32 @@ extendWithRecoil 'submission', .25
 makeWeatherMove 'sunny-day', Weather.SUN
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
 extendWithPrimaryEffect 'supersonic', Attachment.Confusion
+
+extendMove 'swallow', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if !user.hasAttachment(Attachment.Stockpile)
+      @fail(battle)
+      return false
+    oldUse.call(this, battle, user, target)
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    {layers} = target.getAttachment(Attachment.Stockpile)
+    amount = util.roundHalfDown(target.stat('hp') / Math.pow(2, 3 - layers))
+    # Swallow is not a draining move, so it is not affected by Big Root.
+    target.damage(-amount)
+
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    oldExecute.call(this, battle, user, targets)
+    for target in targets
+      attachment = target.getAttachment(Attachment.Stockpile)
+      return  if !attachment?
+      num = -attachment.layers
+      applyBoosts = boostExtension('self', defense: num, specialDefense: num)
+      applyBoosts(battle, target)
+      target.unattach(Attachment.Stockpile)
+
 extendWithPrimaryEffect 'sweet-kiss', Attachment.Confusion
 makeBoostMove 'sweet-scent', 'target', evasion: -1
 makeTrickMove 'switcheroo'

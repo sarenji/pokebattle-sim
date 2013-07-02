@@ -3713,3 +3713,61 @@ shared = require '../shared'
       @p1.stages.should.include defense: 0, specialDefense: 0
       @battle.performMove(@id1, spitUp)
       @p1.stages.should.include defense: -2, specialDefense: -2
+
+  describe 'Swallow', ->
+    it 'fails if user has no stockpiles', ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      mock = @sandbox.mock(swallow).expects('fail').once()
+
+      @battle.performMove(@id1, swallow)
+      mock.verify()
+
+    it "heals 25% of its HP, rounded half-down, with 1 layer of stockpiles", ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, swallow)
+      @p1.currentHP.should.equal(1 + util.roundHalfDown(@p1.stat('hp') / 4))
+
+    it "heals 50% of its HP, rounded half-down, with 2 layers of stockpiles", ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, swallow)
+      @p1.currentHP.should.equal(1 + util.roundHalfDown(@p1.stat('hp') / 2))
+
+    it "heals all of its HP with 3 layers of stockpiles", ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, swallow)
+      @p1.currentHP.should.equal @p1.stat('hp')
+
+    it "resets stockpile count to 0", ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.getAttachment(Attachment.Stockpile).layers.should.equal 1
+      @battle.performMove(@id1, swallow)
+      @p1.hasAttachment(Attachment.Stockpile).should.be.false
+
+    it "loses def/sp. def according to number of stockpiles", ->
+      shared.create.call(this)
+      swallow = @battle.getMove("Swallow")
+      @p1.attach(Attachment.Stockpile)
+      @p1.attach(Attachment.Stockpile)
+
+      @p1.stages.should.include defense: 0, specialDefense: 0
+      @battle.performMove(@id1, swallow)
+      @p1.stages.should.include defense: -2, specialDefense: -2
