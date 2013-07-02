@@ -3630,3 +3630,34 @@ shared = require '../shared'
     # as the afterFaint callback is only called in performMove. However, this
     # may change in the future, so this test is pending for now.
     it "does not trigger from natural causes"
+
+  describe "Stockpile", ->
+    it "raises def and spdef", ->
+      shared.create.call(this)
+      stockpile = @battle.getMove("Stockpile")
+
+      @p1.stages.should.include defense: 0, specialDefense: 0
+      @battle.performMove(@id1, stockpile)
+      @p1.stages.should.include defense: 1, specialDefense: 1
+
+    it "cannot raise if stockpile is at its limit", ->
+      shared.create.call(this)
+      stockpile = @battle.getMove("Stockpile")
+
+      for i in [0...Attachment.Stockpile::maxLayers]
+        @p1.attach(Attachment.Stockpile)
+
+      @p1.stages.should.include defense: 0, specialDefense: 0
+      @battle.performMove(@id1, stockpile)
+      @p1.stages.should.include defense: 0, specialDefense: 0
+
+    it "fails if stockpile is at its limit", ->
+      shared.create.call(this)
+      stockpile = @battle.getMove("Stockpile")
+      mock = @sandbox.mock(stockpile).expects('fail').once()
+
+      for i in [0...Attachment.Stockpile::maxLayers]
+        @p1.attach(Attachment.Stockpile)
+
+      @battle.performMove(@id1, stockpile)
+      mock.verify()

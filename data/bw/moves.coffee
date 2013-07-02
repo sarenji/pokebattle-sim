@@ -804,7 +804,15 @@ extendWithPrimaryStatus 'spore', Status.SLEEP
 extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
 makeStompMove 'steamroller'
 extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
-makeBoostMove 'stockpile', 'self', defense: 1, specialDefense: 1
+
+extendMove 'stockpile', ->
+  applyBoosts = boostExtension('self', defense: 1, specialDefense: 1)
+  @afterSuccessfulHit = (battle, user, target) ->
+    if user.attach(Attachment.Stockpile)
+      applyBoosts(battle, user, target)
+    else
+      @fail(battle)
+
 extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
 makeStompMove 'stomp'
 makeBasePowerBoostMove 'stored-power', 20, 860, 'user'

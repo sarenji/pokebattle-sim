@@ -761,3 +761,8 @@ class @Attachment.Substitute extends @VolatileAttachment
     if move.isNonDamaging() && !move.hasFlag('authentic')
       move.fail(battle)
       return true
+
+class @Attachment.Stockpile extends @VolatileAttachment
+  name: "StockpileAttachment"
+
+  maxLayers: 3
