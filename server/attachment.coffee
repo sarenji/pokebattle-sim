@@ -777,3 +777,12 @@ class @Attachment.Rage extends @VolatileAttachment
     return  if move.isNonDamaging()
     target.boost(attack: 1)
     battle.message "#{target.name}'s rage is building!"
+
+class @Attachment.ChipAway extends @VolatileAttachment
+  name: "ChipAwayAttachment"
+
+  editBoosts: (stages) =>
+    stages.evasion = 0
+    stages.defense = 0
+    stages.specialDefense = 0
+    stages

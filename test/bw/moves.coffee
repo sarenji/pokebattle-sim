@@ -3838,3 +3838,21 @@ shared = require '../shared'
 
   testRevengeMove("Avalanche")
   testRevengeMove("Revenge")
+
+  describe 'Chip Away', ->
+    it "ignores the target's defensive and evasive boosts", ->
+      shared.create.call(this)
+      chipAway = @battle.getMove('Chip Away')
+      stats = [ 'defense', 'specialDefense', 'evasion' ]
+      values = ( @p2.stat(stat)  for stat in stats )
+      spy = @sandbox.spy(@p2, 'stat')
+      spy.withArgs(stat)  for stat in stats
+
+      @p2.boost(defense: 1, specialDefense: 2, evasion: 6)
+      @battle.performMove(@id1, chipAway)
+
+      for i in [0...stats.length]
+        stat  = stats[i]
+        value = values[i]
+        continue  if spy.withArgs(stat).returnValues.length == 0
+        spy.withArgs(stat).alwaysReturned(value).should.be.true

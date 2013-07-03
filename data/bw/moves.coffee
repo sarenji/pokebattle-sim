@@ -491,6 +491,14 @@ extendMove 'charge', ->
 makeBoostMove 'charm', 'target', attack: -2
 extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
 extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
+
+extendMove 'chip-away', ->
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    target.attach(Attachment.ChipAway)  for target in targets
+    oldExecute.call(this, battle, user, targets)
+    target.unattach(Attachment.ChipAway)  for target in targets
+
 makeRandomSwitchMove "circle-throw"
 makeTrappingMove "clamp"
 
