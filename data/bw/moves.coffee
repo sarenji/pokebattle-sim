@@ -162,6 +162,14 @@ makeEruptionMove = (name) ->
       power = Math.floor(150 * (user.currentHP / user.stat('hp')))
       Math.max(power, 1)
 
+makeStatusCureAttackMove = (moveName, status) ->
+  extendMove moveName, ->
+    @basePower = (battle, user, target) ->
+      if target.hasStatus(status) then 2 * @power else @power
+
+    @afterSuccessfulHit = (battle, user, target) ->
+      target.removeStatus(status)
+
 makeOneHitKOMove = (name) ->
   extendMove name, ->
     @calculateDamage = (battle, user, target) ->
@@ -1438,6 +1446,8 @@ extendMove 'reflect', ->
 extendMove 'return', ->
   @basePower = -> 102
 
+makeStatusCureAttackMove 'smellingsalt', Status.PARALYZE
+
 extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
@@ -1573,6 +1583,8 @@ extendMove 'venoshock', ->
 extendMove 'volt-switch', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
+
+makeStatusCureAttackMove 'wake-up-slap', Status.SLEEP
 
 extendMove 'weather-ball', ->
   @getType = (battle, user, target) ->

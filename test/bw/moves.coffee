@@ -3877,3 +3877,30 @@ shared = require '../shared'
       @p2.stages.specialAttack.should.equal 0
       @battle.performMove(@id1, captivate)
       @p2.stages.specialAttack.should.equal -2
+
+  testStatusCureAttackMove = (moveName, status) ->
+    describe moveName, ->
+      it "doubles base power if the target has status #{status}", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+
+        @p2.setStatus(status)
+        move.basePower(@battle, @p1, @p2).should.equal(2 * move.power)
+
+      it "doesn't double if the target doesn't have status #{status}", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+
+        move.basePower(@battle, @p1, @p2).should.equal(move.power)
+
+      it "cures the target of status #{status}", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+
+        @p2.setStatus(status)
+        @p2.hasStatus(status).should.be.true
+        @battle.performMove(@id1, move)
+        @p2.hasStatus().should.be.false
+
+  testStatusCureAttackMove("Wake-Up Slap", Status.SLEEP)
+  testStatusCureAttackMove("Smellingsalt", Status.PARALYZE)
