@@ -348,6 +348,17 @@ makeMomentumMove = (name) ->
       bp *= 2  if user.hasAttachment(Attachment.DefenseCurl)
       bp
 
+makeRevengeMove = (moveName) ->
+  extendMove moveName, ->
+    @basePower = (battle, user, target) ->
+      hit = user.lastHitBy
+      return @power  if !hit?
+      {pokemon, move, turn} = hit
+      if target == pokemon && !move.isNonDamaging() && battle.turn == turn
+        2 * @power
+      else
+        @power
+
 makeBoostMove = (name, boostTarget, boosts) ->
   applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
@@ -745,6 +756,7 @@ makeWeatherMove 'rain-dance', Weather.RAIN
 extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
 makeRecoveryMove 'recover'
 extendWithSecondaryStatus 'relic-song', .1, Status.SLEEP
+makeRevengeMove 'revenge'
 makeReversalMove 'reversal'
 makeRandomSwitchMove "roar"
 makeRechargeMove 'roar-of-time'
@@ -937,6 +949,8 @@ extendMove 'assurance', ->
 extendMove 'autotomize', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Autotomize)
+
+makeRevengeMove 'avalanche'
 
 extendMove 'acrobatics', ->
   @basePower = (battle, user, target) ->

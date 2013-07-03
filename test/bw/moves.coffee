@@ -3803,3 +3803,38 @@ shared = require '../shared'
       @battle.performMove(@id1, rage)
       @battle.performMove(@id2, willOWisp)
       @p1.stages.attack.should.equal 0
+
+  testRevengeMove = (moveName) ->
+    describe moveName, ->
+      it "doubles base power if hit by an attack that turn", ->
+        shared.create.call(this)
+        revenge = @battle.getMove(moveName)
+        tackle  = @battle.getMove("Tackle")
+
+        @battle.performMove(@id2, tackle)
+        revenge.basePower(@battle, @p1, @p2).should.equal(2 * revenge.power)
+
+      it "doesn't double base power if not hit by an attack that turn", ->
+        shared.create.call(this)
+        revenge = @battle.getMove(moveName)
+        revenge.basePower(@battle, @p1, @p2).should.equal(revenge.power)
+
+      it "doesn't double base power if hit by a non-damaging move", ->
+        shared.create.call(this)
+        revenge = @battle.getMove(moveName)
+        willOWisp  = @battle.getMove("Will-O-Wisp")
+
+        @battle.performMove(@id2, willOWisp)
+        revenge.basePower(@battle, @p1, @p2).should.equal(revenge.power)
+
+      it "doesn't double base power if hit last turn, but not this turn", ->
+        shared.create.call(this)
+        revenge = @battle.getMove(moveName)
+        tackle  = @battle.getMove("Tackle")
+
+        @battle.performMove(@id2, tackle)
+        @battle.beginTurn()
+        revenge.basePower(@battle, @p1, @p2).should.equal(revenge.power)
+
+  testRevengeMove("Avalanche")
+  testRevengeMove("Revenge")
