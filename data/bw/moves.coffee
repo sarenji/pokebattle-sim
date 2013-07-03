@@ -479,6 +479,16 @@ extendMove 'camouflage', ->
     # In Wi-Fi battles, the terrain always results in Ground type.
     target.types = [ "Ground" ]
 
+extendMove 'captivate', ->
+  applyBoosts = boostExtension('target', specialAttack: -2)
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if (!(user.gender == 'M' && target.gender == 'F') &&
+        !(user.gender == 'F' && target.gender == 'M'))
+      @fail(battle)
+    else
+      applyBoosts(battle, user, target)
+
 makeBoostMove 'charge', 'self', specialDefense: 1
 extendMove 'charge', ->
   oldUse = @use

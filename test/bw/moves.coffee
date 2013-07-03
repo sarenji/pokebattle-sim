@@ -3856,3 +3856,24 @@ shared = require '../shared'
         value = values[i]
         continue  if spy.withArgs(stat).returnValues.length == 0
         spy.withArgs(stat).alwaysReturned(value).should.be.true
+
+  describe 'Captivate', ->
+    it 'fails if the user and target are not opposite genders', ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "M")]
+        team2: [Factory("Magikarp", gender: "M")]
+      captivate = @battle.getMove('Captivate')
+      mock = @sandbox.mock(captivate).expects('fail').once()
+
+      @battle.performMove(@id1, captivate)
+      mock.verify()
+
+    it "lowers the target's special attack by 2", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "M")]
+        team2: [Factory("Magikarp", gender: "F")]
+      captivate = @battle.getMove('Captivate')
+
+      @p2.stages.specialAttack.should.equal 0
+      @battle.performMove(@id1, captivate)
+      @p2.stages.specialAttack.should.equal -2
