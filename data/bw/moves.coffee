@@ -1448,6 +1448,10 @@ extendMove 'return', ->
 
 makeStatusCureAttackMove 'smellingsalt', Status.PARALYZE
 
+extendMove 'sonicboom', ->
+  @calculateDamage = (battle, user, target) ->
+    20
+
 extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents

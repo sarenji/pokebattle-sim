@@ -687,13 +687,17 @@ shared = require '../shared'
 
       mock.verify()
 
-  describe 'dragon-rage', ->
+  describe 'Dragon Rage', ->
     it 'always does 40 damage', ->
-      shared.create.call this,
-        team1: [Factory('Dratini')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       move = @battle.getMove('Dragon Rage')
       move.calculateDamage(@battle, @p1, @p2).should.equal 40
+
+  describe 'SonicBoom', ->
+    it 'always does 20 damage', ->
+      shared.create.call(this)
+      sonicBoom = @battle.getMove('SonicBoom')
+      sonicBoom.calculateDamage(@battle, @p1, @p2).should.equal 20
 
   describe 'explosion moves', ->
     it 'faints the user', ->
