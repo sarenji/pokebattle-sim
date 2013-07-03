@@ -766,3 +766,14 @@ class @Attachment.Stockpile extends @VolatileAttachment
   name: "StockpileAttachment"
 
   maxLayers: 3
+
+class @Attachment.Rage extends @VolatileAttachment
+  name: "RageAttachment"
+
+  beforeMove: (battle, move, user, targets) =>
+    @remove()
+
+  afterBeingHit: (battle, move, user, target, damage) =>
+    return  if move.isNonDamaging()
+    target.boost(attack: 1)
+    battle.message "#{target.name}'s rage is building!"

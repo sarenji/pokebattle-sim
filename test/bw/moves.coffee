@@ -3771,3 +3771,35 @@ shared = require '../shared'
       @p1.stages.should.include defense: 0, specialDefense: 0
       @battle.performMove(@id1, swallow)
       @p1.stages.should.include defense: -2, specialDefense: -2
+
+  describe 'Rage', ->
+    it "raises the user's attack if hit by a move", ->
+      shared.create.call(this)
+      rage = @battle.getMove('Rage')
+      tackle = @battle.getMove('Tackle')
+
+      @p1.stages.attack.should.equal 0
+      @battle.performMove(@id1, rage)
+      @battle.performMove(@id2, tackle)
+      @p1.stages.attack.should.equal 1
+
+    it "doesn't raise the user's attack if user chooses another move", ->
+      shared.create.call(this)
+      rage = @battle.getMove('Rage')
+      tackle = @battle.getMove('Tackle')
+
+      @p1.stages.attack.should.equal 0
+      @battle.performMove(@id1, rage)
+      @battle.performMove(@id1, tackle)
+      @battle.performMove(@id2, tackle)
+      @p1.stages.attack.should.equal 0
+
+    it "doesn't raise the user's attack if hit by a non-damaging move", ->
+      shared.create.call(this)
+      rage = @battle.getMove('Rage')
+      willOWisp = @battle.getMove('Will-O-Wisp')
+
+      @p1.stages.attack.should.equal 0
+      @battle.performMove(@id1, rage)
+      @battle.performMove(@id2, willOWisp)
+      @p1.stages.attack.should.equal 0

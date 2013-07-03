@@ -1363,6 +1363,10 @@ extendMove 'pursuit', ->
     else
       @power
 
+extendMove 'rage', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.attach(Attachment.Rage)
+
 extendMove 'rapid-spin', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # Do not remove anything if the user is fainted.
