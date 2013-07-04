@@ -616,7 +616,10 @@ makeBoostMove 'featherdance', 'target', attack: -2
 
 extendMove 'feint', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    target.unattach(Attachment.Protect)
+    # TODO: Wide Guard
+    if target.hasAttachment(Attachment.Protect)
+      target.unattach(Attachment.Protect)
+      battle.message "#{target.name} fell for the feint!"
 
 extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
 extendWithSecondaryStatus 'fire-blast', .1, Status.BURN
