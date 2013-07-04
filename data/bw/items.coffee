@@ -266,9 +266,11 @@ makeTypeBoostItem 'BlackGlasses', 'Dark'
 
 extendItem 'Black Sludge', ->
   @endTurn = (battle, user) ->
-    amount = Math.floor(user.stat('hp') / 16)
+    maxHP = user.stat('hp')
+    amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     if user.hasType('Poison')
+      return  if maxHP == user.currentHP
       battle.message "#{user.name} restored a little HP using its #{@name}!"
       user.damage(-amount)
     else
@@ -382,8 +384,10 @@ makeEvasionItem 'Lax Incense', 0.9
 
 extendItem 'Leftovers', ->
   @endTurn = (battle, user) ->
+    maxHP = user.stat('hp')
+    return  if maxHP == user.currentHP
     battle.message "#{user.name} restored a little HP using its #{@name}!"
-    amount = Math.floor(user.stat('hp') / 16)
+    amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     user.damage(-amount)
 
