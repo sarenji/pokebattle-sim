@@ -3908,3 +3908,67 @@ shared = require '../shared'
 
   testStatusCureAttackMove("Wake-Up Slap", Status.SLEEP)
   testStatusCureAttackMove("Smellingsalt", Status.PARALYZE)
+
+  describe 'Aqua Ring', ->
+    it "restores 1/16 max HP at the end of each turn", ->
+      shared.create.call(this)
+      aquaRing = @battle.getMove('Aqua Ring')
+      delta = @p1.currentHP >> 4
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, aquaRing)
+      @p1.currentHP.should.equal(1)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + delta)
+
+  describe 'Ingrain', ->
+    it "restores 1/16 max HP at the end of each turn", ->
+      shared.create.call(this)
+      ingrain = @battle.getMove('Ingrain')
+      delta = @p1.currentHP >> 4
+
+      @p1.currentHP = 1
+      @battle.performMove(@id1, ingrain)
+      @p1.currentHP.should.equal(1)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + delta)
+
+    it "prevents switching", ->
+      shared.create.call(this)
+      ingrain = @battle.getMove('Ingrain')
+
+      @battle.performMove(@id1, ingrain)
+      @battle.beginTurn()
+      @p1.isSwitchBlocked().should.be.true
+
+    it "prevents self from being phased", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      ingrain = @battle.getMove('Ingrain')
+      whirlwind = @battle.getMove('Whirlwind')
+
+      @battle.performMove(@id1, ingrain)
+
+      mock = @sandbox.mock(@team1).expects('switch').never()
+      @battle.performMove(@id2, whirlwind)
+      mock.verify()
+
+    it "lets self be switched out if using self-switching moves", ->
+      shared.create.call(this)
+      ingrain = @battle.getMove('Ingrain')
+      uTurn = @battle.getMove('U-Turn')
+
+      @battle.performMove(@id1, ingrain)
+
+      mock = @sandbox.mock(@battle).expects('requestAction').once()
+      @battle.performMove(@id1, uTurn)
+      mock.verify()
+
+    it "makes self vulnerable to Ground moves", ->
+      shared.create.call(this, team1: [ Factory("Gyarados") ])
+      ingrain = @battle.getMove('Ingrain')
+      uTurn = @battle.getMove('U-Turn')
+
+      @p1.isImmune(@battle, 'Ground').should.be.true
+      @battle.performMove(@id1, ingrain)
+      @p1.isImmune(@battle, 'Ground').should.be.false

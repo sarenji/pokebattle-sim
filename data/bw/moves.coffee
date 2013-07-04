@@ -300,6 +300,7 @@ makePickDefenseMove = (name) ->
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
+      return  if !target.informPhase(battle, user)
       opponent = battle.getOwner(target)
       benched  = opponent.team.getAliveBenchedPokemon()
       return  if benched.length == 0
@@ -964,6 +965,11 @@ makeTrappingMove "wrap"
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
 extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
+extendMove 'aqua-ring', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(Attachment.AquaRing)
+    battle.message "#{target.name} surrounded itself with a veil of water!"
+
 extendMove 'assurance', ->
   @basePower = (battle, user, target) ->
     hit = user.lastHitBy
@@ -1202,6 +1208,11 @@ extendMove 'incinerate', ->
     if target.hasItem() && target.getItem().type == 'berries'
       battle.message "#{target.name}'s #{target.getItem().name} was burnt up!"
       target.removeItem()
+
+extendMove 'ingrain', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(Attachment.Ingrain)
+    battle.message "#{target.name} planted its roots!"
 
 extendMove 'judgment', ->
   @getType = (battle, user, target) ->

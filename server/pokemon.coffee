@@ -266,6 +266,9 @@ class @Pokemon
   informSwitch: (battle, switcher) =>
     @attachments.query('informSwitch', battle, switcher)
 
+  informPhase: (battle, phaser) =>
+    @attachments.queryUntilFalse('informPhase', battle, phaser) != false
+
   beginTurn: (battle) =>
     @blockedMoves = []
     @switchBlocked = false

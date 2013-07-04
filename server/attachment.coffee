@@ -786,3 +786,31 @@ class @Attachment.ChipAway extends @VolatileAttachment
     stages.defense = 0
     stages.specialDefense = 0
     stages
+
+class @Attachment.AquaRing extends @VolatileAttachment
+  name: "AquaRingAttachment"
+
+  endTurn: (battle) =>
+    amount = Math.floor(@pokemon.stat('hp') / 16)
+    # Aqua Ring is considered a drain move for the purposes of Big Root.
+    @pokemon.drain(amount)
+    battle.message "Aqua Ring restored #{@pokemon.name}'s HP!"
+
+class @Attachment.Ingrain extends @VolatileAttachment
+  name: "IngrainAttachment"
+
+  endTurn: (battle) =>
+    amount = Math.floor(@pokemon.stat('hp') / 16)
+    # Ingrain is considered a drain move for the purposes of Big Root.
+    @pokemon.drain(amount)
+    battle.message "#{@pokemon.name} absorbed nutrients with its roots!"
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()
+
+  informPhase: (battle, phaser) ->
+    battle.message "#{@pokemon.name} anchored itself with its roots!"
+    return false
+
+  isImmune: (battle, type) =>
+    return false  if type == 'Ground'

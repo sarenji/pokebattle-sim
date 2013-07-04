@@ -1350,8 +1350,25 @@ shared = require '../shared'
       (@p1.currentHP - startHP).should.equal(amount)
 
     it "boosts Leech Seed recovery"
-    it "boosts Ingrain recovery"
-    it "boosts Aqua Ring recovery"
+    it "boosts Ingrain recovery", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Big Root")]
+      @p1.currentHP = startHP = 1
+      amount = util.roundHalfDown((@p1.stat('hp') >> 4) * 1.3)
+
+      @battle.performMove(@id1, @battle.getMove('Ingrain'))
+      @battle.endTurn()
+      (@p1.currentHP - startHP).should.equal(amount)
+
+    it "boosts Aqua Ring recovery", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Big Root")]
+      @p1.currentHP = startHP = 1
+      amount = util.roundHalfDown((@p1.stat('hp') >> 4) * 1.3)
+
+      @battle.performMove(@id1, @battle.getMove('Aqua Ring'))
+      @battle.endTurn()
+      (@p1.currentHP - startHP).should.equal(amount)
 
   describe "Light Clay", ->
     it "boosts the Reflect/Light Screen turns to 8", ->
