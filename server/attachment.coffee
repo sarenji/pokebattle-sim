@@ -278,7 +278,6 @@ class @Attachment.Wish extends @TeamAttachment
       @remove()
 
   remove: =>
-    delete @battle
     super()
 
 class @Attachment.PerishSong extends @VolatileAttachment
@@ -292,7 +291,9 @@ class @Attachment.PerishSong extends @VolatileAttachment
   endTurn: (battle) =>
     @turn++
     battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
-    @pokemon.faint()  if @turn >= @turns
+    if @turn >= @turns
+      @pokemon.faint()
+      @remove()
 
 class @Attachment.Roost extends @VolatileAttachment
   name: "RoostAttachment"
@@ -349,13 +350,13 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
     delete @move
     super()
 
-class @Attachment.IronBall extends @Attachment
+class @Attachment.IronBall extends @VolatileAttachment
   name: "IronBallAttachment"
 
   isImmune: (battle, type) =>
     return false  if type == 'Ground'
 
-class @Attachment.AirBalloon extends @Attachment
+class @Attachment.AirBalloon extends @VolatileAttachment
   name: "AirBalloonAttachment"
 
   afterBeingHit: (battle, move, user, target, damage) =>
@@ -545,7 +546,8 @@ class @Attachment.FocusPunch extends @VolatileAttachment
   name: "FocusPunchAttachment"
 
   beforeMove: (battle, move, user, targets) =>
-    if user.lastHitBy? && !user.lastHitBy.move.isNonDamaging()
+    hit = user.lastHitBy
+    if hit? && !hit.move.isNonDamaging() && hit.turn == battle.turn
       battle.message "#{user.name} lost its focus and couldn't move!"
       return false
 

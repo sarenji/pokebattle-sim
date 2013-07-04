@@ -2500,6 +2500,15 @@ shared = require '../shared'
       @battle.continueTurn()
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
+    it "does not cause flinching if hit by a move last turn", ->
+      shared.create.call(this)
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.endTurn()
+      @battle.beginTurn()
+      @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
+      @battle.continueTurn()
+      @p2.currentHP.should.be.lessThan @p2.stat('hp')
+
   describe "Magnet Rise", ->
     shared.shouldDoNoDamage("Magnet Rise")
     shared.shouldFailIfUsedTwice("Magnet Rise")
