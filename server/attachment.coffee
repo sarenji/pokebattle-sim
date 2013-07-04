@@ -16,7 +16,7 @@ class @Attachments
       attachment.team = options.team
       ## end hacky
       @attachments.push(attachment)
-      attachment.initialize()
+      attachment.initialize(options)
 
     return null  if attachment.layers == attachment.maxLayers
     attachment.layers++
@@ -832,3 +832,40 @@ class @Attachment.Embargo extends @VolatileAttachment
     if @turns == 0
       battle.message "#{@pokemon.name} can use items again!"
       @remove()
+
+class @Attachment.Charging extends @VolatileAttachment
+  name: "ChargingAttachment"
+
+  initialize: (attributes) =>
+    {@message, @vulnerable, @move, @condition} = attributes
+    @charging = false
+
+  beforeMove: (battle, move, user, targets) =>
+    if user.hasItem("Power Herb")
+      battle.message "#{user.name} became fully charged due to its Power Herb!"
+      @charging = true
+      user.removeItem()
+
+    if @charging || @condition?(battle, move, user, targets)
+      @remove()
+      return
+
+    @charging = true
+    battle.message @message.replace(/$1/g, user.name)
+    return false
+
+  beginTurn: (battle) =>
+    # TODO: Add targets
+    {id} = battle.getOwner(@pokemon)
+    battle.recordMove(id, @move)
+
+  shouldBlockExecution: (battle, move, user) =>
+    if @charging && (move not in @vulnerable.map((v) -> battle.getMove(v)))
+      battle.message "#{@pokemon.name} avoided the attack!"
+      return true
+
+  remove: =>
+    super()
+    delete @move
+    delete @message
+    delete @vulnerable

@@ -340,6 +340,37 @@ makeMeanLookMove = (name) ->
         @fail(battle)
         return false
 
+makeChargeMove = (name, args...) ->
+  condition = args.pop()  if typeof args[args.length - 1] == 'function'
+  message = args.pop()
+  vulnerable = args.pop()  if args.length > 0
+
+  extendMove name, ->
+    @beforeTurn = (battle, user) ->
+      data = {vulnerable, message, condition}
+      data.move = this
+      user.attach(Attachment.Charging, data)
+
+makeChargeMove 'skull-bash', "$1 tucked in its head!"
+makeChargeMove 'razor-wind', "$1 whipped up a whirlwind!"
+makeChargeMove 'sky-attack', "$1 became cloaked in a harsh light!"
+makeChargeMove 'shadow-force', [], "$1 vanished instantly!"
+makeChargeMove 'fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 flew up high!"
+makeChargeMove 'bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 sprang up!"
+makeChargeMove 'dig', ["Earthquake", "Magnitude"], "$1 burrowed its way under the ground!"
+makeChargeMove 'dive', ["Surf", "Whirlpool"], "$1 hid underwater!"
+makeChargeMove 'solarbeam', "$1 absorbed light!", (battle) ->
+  battle.hasWeather(Weather.SUN)
+
+extendMove 'solarbeam', ->
+  @basePower = (battle, user, target) ->
+    if battle.hasWeather(Weather.RAIN) || battle.hasWeather(Weather.SAND) ||
+        battle.hasWeather(Weather.HAIL)
+      @power >> 1
+    else
+      @power
+
+
 makeRechargeMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
@@ -835,6 +866,7 @@ extendWithSecondaryBoost 'silver-wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 extendWithPrimaryStatus 'sing', Status.SLEEP
+makeBoostMove 'skull-bash', 'self', defense: 1
 extendWithSecondaryEffect 'sky-attack', .3, Attachment.Flinch
 makeRecoveryMove 'slack-off'
 extendWithPrimaryStatus 'sleep-powder', Status.SLEEP
@@ -1658,3 +1690,23 @@ extendMove 'confusion-recoil', ->
   @isCriticalHit = -> false
 
 Moves['recharge'] = new Move("Recharge", target: "user")
+
+# After everything to ensure that basePower is overridden last.
+makeVulnerable = (moveName, byMove) ->
+  extendMove byMove, ->
+    oldBasePower = @basePower
+    @basePower = (battle, user, target) ->
+      power    = oldBasePower.call(this, battle, user, target)
+      charging = target.getAttachment(Attachment.Charging)
+      return power  if !charging?
+
+      if charging.move == battle.getMove(moveName) then 2 * power else power
+
+makeVulnerable('fly', 'gust')
+makeVulnerable('fly', 'twister')
+makeVulnerable('bounce', 'gust')
+makeVulnerable('bounce', 'twister')
+makeVulnerable('dig', 'earthquake')
+makeVulnerable('dig', 'magnitude')
+makeVulnerable('dive', 'surf')
+makeVulnerable('dive', 'whirlpool')

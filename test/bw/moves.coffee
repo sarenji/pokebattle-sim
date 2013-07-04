@@ -4016,3 +4016,185 @@ shared = require '../shared'
         @battle.endTurn()
         @battle.beginTurn()
       mock.verify()
+
+  testChargeMove = (moveName, vulnerable) ->
+    describe moveName, ->
+      it "chooses the player's next action for them", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @p1.moves = [ move ]
+
+        @battle.recordMove(@id1, move)
+        @battle.continueTurn()
+        @battle.endTurn()
+        @battle.beginTurn()
+        @battle.requests.should.not.have.property(@id1)
+        @battle.playerActions.should.have.property(@id1)
+
+      it "only spends 1 PP for the entire attack", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @p1.moves = [ move ]
+        @p1.resetAllPP()
+
+        pp = @p1.pp(move)
+        @battle.recordMove(@id1, move)
+        @battle.continueTurn()
+        @p1.pp(move).should.equal(pp)
+        @battle.beginTurn()
+        @battle.continueTurn()
+        @p1.pp(move).should.equal(pp - 1)
+
+      it "skips the charge turn if the user is holding a Power Herb", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: "Power Herb")]
+        move = @battle.getMove(moveName)
+
+        @p1.hasItem("Power Herb").should.be.true
+        mock = @sandbox.mock(move).expects('execute').once()
+        @battle.recordMove(@id1, move)
+        @battle.continueTurn()
+        mock.verify()
+        @p1.hasItem().should.be.false
+
+      if vulnerable?.length?
+        it "makes target invulnerable to moves", ->
+          shared.create.call this,
+            team1: [Factory("Magikarp", evs: {speed: 4})]
+          move = @battle.getMove(moveName)
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, move)
+          @battle.recordMove(@id2, tackle)
+
+          mock = @sandbox.mock(tackle).expects('use').never()
+          @battle.continueTurn()
+          mock.verify()
+
+        it "makes target invulnerable to moves *after* use", ->
+          shared.create.call this,
+            team2: [Factory("Magikarp", evs: {speed: 4})]
+          move = @battle.getMove(moveName)
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, move)
+          @battle.recordMove(@id2, tackle)
+
+          mock = @sandbox.mock(tackle).expects('use').once()
+          @battle.continueTurn()
+          mock.verify()
+
+        it "is vulnerable to attacks from a No Guard pokemon"
+
+        it "is vulnerable to attacks if locked on"
+
+        for vulnerableMove in vulnerable
+          it "is vulnerable to #{vulnerableMove}", ->
+            shared.create.call this,
+              team1: [Factory("Magikarp", evs: {speed: 4})]
+            move = @battle.getMove(moveName)
+            vulnerable = @battle.getMove(vulnerableMove)
+
+            @battle.recordMove(@id1, move)
+            @battle.recordMove(@id2, vulnerable)
+
+            mock = @sandbox.mock(vulnerable).expects('use').once()
+            @battle.continueTurn()
+            mock.verify()
+
+  testChargeMove('Skull Bash')
+  testChargeMove('Razor Wind')
+  testChargeMove('Shadow Force', [])
+  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])
+  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])  # Additional 30% chance to par
+  testChargeMove('Dig', ["Earthquake", "Magnitude"])
+  testChargeMove('Dive', ["Surf", "Whirlpool"])
+  testChargeMove('SolarBeam')  # Strange effects based on weather
+  testChargeMove('Sky Attack')
+
+  describe "Skull Bash", ->
+    it "raises defense of the user on the charge turn", ->
+      shared.create.call(this)
+      skullBash = @battle.getMove('Skull Bash')
+      @p1.stages.defense.should.equal(0)
+      @battle.performMove(@id1, skullBash)
+      @p1.stages.defense.should.equal(1)
+
+  describe "Sky Attack", ->
+    it "has a 30% chance to flinch after execution", ->
+      shared.create.call(this)
+      skyAttack = @battle.getMove('Sky Attack')
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
+
+      @battle.recordMove(@id1, skyAttack)
+      @battle.continueTurn()
+      @p2.hasAttachment(Attachment.Flinch).should.be.false
+      @battle.beginTurn()
+      @battle.continueTurn()
+      @p2.hasAttachment(Attachment.Flinch).should.be.true
+
+  for moveName in [ "Gust", "Twister" ]
+    for chargeMoveName in [ "Fly", "Bounce" ]
+      do (moveName, chargeMoveName) ->
+        describe moveName, ->
+          it "deals double damage to Pokemon using #{chargeMoveName}", ->
+            shared.create.call(this)
+            chargeMove = @battle.getMove(chargeMoveName)
+            move = @battle.getMove(moveName)
+
+            # Make the Pokemon charge
+            @battle.recordMove(@id2, chargeMove)
+            @battle.continueTurn()
+
+            move.basePower(@battle, @p1, @p2).should.equal(2 * move.power)
+
+  for moveName in [ "Surf", "Whirlpool" ]
+    do (moveName) ->
+      describe moveName, ->
+        it "deals double damage to Pokemon using Dive", ->
+          shared.create.call(this)
+          dive = @battle.getMove("Dive")
+          move = @battle.getMove(moveName)
+
+          # Make the Pokemon charge
+          @battle.recordMove(@id2, dive)
+          @battle.continueTurn()
+
+          move.basePower(@battle, @p1, @p2).should.equal(2 * move.power)
+
+  for moveName in [ "Earthquake", "Magnitude" ]
+    do (moveName) ->
+      describe moveName, ->
+        it "deals double damage to Pokemon using Dig", ->
+          shared.create.call(this)
+          dig = @battle.getMove("Dig")
+          move = @battle.getMove(moveName)
+          power = move.power
+          if moveName == 'Magnitude'
+            power = 50
+            shared.biasRNG.call(this, 'randInt', 'magnitude', 20)
+
+          # Make the Pokemon charge
+          @battle.recordMove(@id2, dig)
+          @battle.continueTurn()
+
+          move.basePower(@battle, @p1, @p2).should.equal(2 * power)
+
+  describe "SolarBeam", ->
+    it "skips the charge turn under Sun", ->
+      shared.create.call(this)
+      solarBeam = @battle.getMove("SolarBeam")
+      @battle.setWeather(Weather.SUN)
+
+      mock = @sandbox.mock(solarBeam).expects('execute').once()
+      @battle.recordMove(@id1, solarBeam)
+      @battle.continueTurn()
+      mock.verify()
+
+    for weather in [ Weather.RAIN, Weather.SAND, Weather.HAIL ]
+      it "halves base power under #{weather}", ->
+        shared.create.call(this)
+        move = @battle.getMove("SolarBeam")
+        @battle.setWeather(weather)
+
+        move.basePower(@battle, @p1, @p2).should.equal(move.power >> 1)

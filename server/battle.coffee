@@ -256,6 +256,7 @@ class @Battle
     # TODO: Struggle if no moves are usable
     for id, player of @players
       pokemon = player.team.at(0)
+      continue  if @getAction(pokemon)
       pokeMoves = pokemon.validMoves()
       switches = player.team.getAliveBenchedPokemon()
       switches = []  if pokemon.isSwitchBlocked()
@@ -463,9 +464,8 @@ class @Battle
 
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
-    pokemon.reducePP(move)
-
     if pokemon.beforeMove(this, move, pokemon, targets) != false
+      pokemon.reducePP(move)
       # TODO: Pressure
       # TODO: What if a Pokemon uses Focus Punch on a Pressure Pokemon?
       damage = move.execute(this, pokemon, targets)

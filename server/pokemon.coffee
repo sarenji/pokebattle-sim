@@ -23,10 +23,7 @@ class @Pokemon
 
     @moves = attributes.moves?.map (move) ->
       Moves[move.toLowerCase().replace(/\s+/g, '-')]
-    @ppHash = {}
-    if @moves?
-      for move in @moves
-        @ppHash[move.name] = @maxPP(move)
+    @resetAllPP()
     @types = attributes.types || [] # TODO: Get from species.
     @item = Items[attributes.item]
     @ability = Abilities[attributes.ability]
@@ -63,6 +60,12 @@ class @Pokemon
     pp = Math.max(pp, 0)
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
+
+  resetAllPP: =>
+    @ppHash = {}
+    if @moves?
+      for move in @moves
+        @ppHash[move.name] = @maxPP(move)
 
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')
