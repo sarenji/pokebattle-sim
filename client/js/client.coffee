@@ -8,7 +8,12 @@
 
 socket = io.connect(window.location.origin)
 socket.on 'connect', ->
-  socket.emit 'login', prompt("What's your name?"), (username, userList) ->
+  randomName = (name  for name of PokemonData)
+  randomName = randomName[Math.floor(Math.random() * randomName.length)]
+  randomName = randomName.split(/\s+/)[0]
+  randomName += "Fan" + Math.floor(Math.random() * 10000)
+
+  socket.emit 'login', randomName, (username, userList) ->
     BattleTower.userList = new UserList(userList)
     chatView = new ChatView(
       el: $('.chat')
