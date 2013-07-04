@@ -591,6 +591,12 @@ extendWithSecondaryEffect 'dynamicpunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
 extendWithBoost 'electroweb', 'target', speed: -1
 extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
+
+extendMove 'embargo', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    target.attach(Attachment.Embargo)
+    battle.message "#{target.name} can't use items anymore!"
+
 extendWithSecondaryStatus 'ember', .1, Status.BURN
 makeEruptionMove 'eruption'
 makeExplosionMove 'explosion'

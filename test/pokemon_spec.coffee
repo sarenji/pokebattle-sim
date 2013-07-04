@@ -206,3 +206,8 @@ describe 'Pokemon', ->
       pokemon = new Pokemon()
       pokemon.boost(attack: 4, defense: -3, speed: 1)
       pokemon.positiveBoostCount().should.equal 5
+
+  describe '#isItemBlocked', ->
+    it 'returns true if the Pokemon has no item', ->
+      pokemon = new Pokemon()
+      pokemon.isItemBlocked().should.be.true

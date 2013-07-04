@@ -41,9 +41,8 @@ class @Pokemon
       evasion: 0
       accuracy: 0
 
-    # What moves are blocked, and is switching blocked
-    @blockedMoves = []
-    @switchBlocked = false
+    # What moves are blocked, and is switching blocked, and is item blocked
+    @resetBlocks()
 
     # a record of how long this pokemon has been in play.
     @turnsActive = 0
@@ -78,7 +77,7 @@ class @Pokemon
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
-    total = @item["modify#{capitalized}"](total, this)  if @item?
+    total = @item["modify#{capitalized}"](total, this)  if !@isItemBlocked()
     total = @attachments.queryChain("modify#{capitalized}", total)
     total = @statBoost(key, total)  if key != 'hp'
     total
@@ -212,7 +211,7 @@ class @Pokemon
 
   editDamage: (battle, move, damage) =>
     damage = @attachments.queryChain('editDamage', damage, battle, move, this)
-    damage = @item.editDamage(battle, this, move, damage)  if @hasItem()
+    damage = @item.editDamage(battle, this, move, damage)  if !@isItemBlocked()
     damage
 
   editBoosts: =>
@@ -221,7 +220,7 @@ class @Pokemon
     stages
 
   editAccuracy: (accuracy) =>
-    accuracy = @item.editAccuracy(accuracy)  if @hasItem()
+    accuracy = @item.editAccuracy(accuracy)  if !@isItemBlocked()
     accuracy = @attachments.queryChain('editAccuracy', accuracy)
     accuracy
 
@@ -230,7 +229,7 @@ class @Pokemon
     accuracy
 
   editDrain: (amount) =>
-    amount = @item.editDrain(amount)  if @hasItem() && @item.editDrain?
+    amount = @item.editDrain(amount)  if !@isItemBlocked() && @item.editDrain?
     amount
 
   setHP: (hp) =>
@@ -248,18 +247,17 @@ class @Pokemon
 
   calculateWeight: =>
     weight = @weight
-    weight = @item.calculateWeight(weight)  if @item?
+    weight = @item.calculateWeight(weight)  if !@isItemBlocked()
     weight = @attachments.queryChain('calculateWeight', weight)
     weight
 
   switchIn: (battle) =>
     @turnsActive = 0
-    @item?.initialize(battle, this)
+    @item.initialize(battle, this)  if !@isItemBlocked()
 
   switchOut: (battle) =>
     @resetBoosts()
-    @blockedMoves = []
-    @switchBlocked = false
+    @resetBlocks()
     delete @lastMove
     @attachments.query('switchOut', battle)
 
@@ -270,12 +268,11 @@ class @Pokemon
     @attachments.queryUntilFalse('informPhase', battle, phaser) != false
 
   beginTurn: (battle) =>
-    @blockedMoves = []
-    @switchBlocked = false
+    @resetBlocks()
     @attachments.query('beginTurn', battle)
 
   afterTurnOrder: (battle) =>
-    @item?.afterTurnOrder(battle, this)
+    @item.afterTurnOrder(battle, this)  if !@isItemBlocked()
 
   beforeMove: (battle, move, user, targets) =>
     @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
@@ -284,7 +281,7 @@ class @Pokemon
     @attachments.queryUntilTrue('shouldBlockExecution', battle, move, user)
 
   update: (battle) =>
-    @item?.update(battle, this)
+    @item.update(battle, this)  if !@isItemBlocked()
     @attachments.query('update', battle, this)
 
   resetRecords: =>
@@ -292,15 +289,15 @@ class @Pokemon
 
   # Hook for when the Pokemon gets hit by a move
   afterBeingHit: (battle, move, user, target, damage) =>
-    @item?.afterBeingHit(battle, move, user, target, damage)
+    @item.afterBeingHit(battle, move, user, target, damage)  if !@isItemBlocked()
     @attachments.query('afterBeingHit', battle, move, user, target, damage)
 
   afterSuccessfulHit: (battle, move, user, target, damage) =>
-    @item?.afterSuccessfulHit(battle, move, user, target, damage)
+    @item.afterSuccessfulHit(battle, move, user, target, damage)  if !@isItemBlocked()
     @attachments.query('afterSuccessfulHit', battle, move, user, target, damage)
 
   endTurn: (battle) =>
-    @item?.endTurn(battle, this)
+    @item.endTurn(battle, this)  if !@isItemBlocked()
     @attachments.query('endTurn', battle)
     @turnsActive += 1
 
@@ -332,9 +329,22 @@ class @Pokemon
   isSwitchBlocked: =>
     @switchBlocked
 
+  # Returns true if the Pokemon has no item or the item has been blocked.
+  isItemBlocked: =>
+    !@item? || @itemBlocked
+
   # Blocks a switch for a single turn
   blockSwitch: =>
-    @switchBlocked = true  unless @hasItem("Shed Shell")
+    @switchBlocked = true  unless !@isItemBlocked() && @hasItem("Shed Shell")
+
+  # Blocks an item for a single turn
+  blockItem: =>
+    @itemBlocked = true
+
+  resetBlocks: =>
+    @blockedMoves = []
+    @switchBlocked = false
+    @itemBlocked = false
 
   # Locks the Pokemon into a single move. Does not limit switches.
   lockMove: (moveToLock) =>

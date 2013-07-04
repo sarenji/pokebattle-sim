@@ -3972,3 +3972,38 @@ shared = require '../shared'
       @p1.isImmune(@battle, 'Ground').should.be.true
       @battle.performMove(@id1, ingrain)
       @p1.isImmune(@battle, 'Ground').should.be.false
+
+  describe "Embargo", ->
+    it "prevents the target's use of items", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp", item: "Leftovers") ]
+      embargo = @battle.getMove('Embargo')
+      mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+
+      @battle.performMove(@id1, embargo)
+      @battle.endTurn()
+      mock.verify()
+
+    it "lasts 5 turns", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp", item: "Leftovers") ]
+      embargo = @battle.getMove('Embargo')
+      mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+      @battle.performMove(@id1, embargo)
+
+      for i in [0...5]
+        @p2.hasAttachment(Attachment.Embargo).should.be.true
+        @battle.endTurn()
+      @p2.hasAttachment(Attachment.Embargo).should.be.false
+
+    it "prevents the target's use of items in subsequent turns", ->
+      shared.create.call this,
+        team2: [ Factory("Magikarp", item: "Leftovers") ]
+      embargo = @battle.getMove('Embargo')
+      mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+      @battle.performMove(@id1, embargo)
+      
+      for i in [0...5]
+        @battle.endTurn()
+        @battle.beginTurn()
+      mock.verify()

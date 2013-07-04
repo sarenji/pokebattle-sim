@@ -814,3 +814,19 @@ class @Attachment.Ingrain extends @VolatileAttachment
 
   isImmune: (battle, type) =>
     return false  if type == 'Ground'
+
+class @Attachment.Embargo extends @VolatileAttachment
+  name: "EmbargoAttachment"
+
+  initialize: =>
+    @turns = 5
+    @pokemon.blockItem()
+
+  beginTurn: (battle) =>
+    @pokemon.blockItem()
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      battle.message "#{@pokemon.name} can use items again!"
+      @remove()
