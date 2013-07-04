@@ -3,9 +3,9 @@ JST['battle_actions'] = thermos.template (locals) ->
   @div '.wrapper', ->
     @div '.battle_pane.clearfix', ->
       pokemon = locals.team[0]
-      @img '.back', src: "/images/bw/back/#{PokemonData[pokemon.name].id}.png"
       opponent = locals.opponent[0]
-      @img '.front', src: "/images/bw/#{PokemonData[opponent.name].id}.png"
+      @div '.preload.back', data: { name: pokemon.name }
+      @div '.preload.front', data: { name: opponent.name }
 
     if actions.moves?.length > 0
       @h2 "Moves"

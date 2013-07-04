@@ -14,7 +14,18 @@ class @BattleView extends Backbone.View
       opponent     : @model.opponents[0]
       validActions : validActions
     @$el.html @template(locals)
+    @addImages()
     this
+
+  addImages: =>
+    @$el.find('.preload').each ->
+      $this = $(this)
+      front = $this.hasClass('front')
+      name  = $this.data('name')
+      {id}  = PokemonData[name]
+      url   = imageUrl(id, front: front)
+      scale = if front then 1 else 2
+      addPokemonImage($this, url, scale: scale)
 
   getText: (el) =>
     $el = $(el)
@@ -50,3 +61,25 @@ class @BattleView extends Backbone.View
     console.log "Switching to #{toPokemon}"
     @model.makeSwitch(toPokemon)
     @disableButtons()
+
+imageUrl = (id, options = {}) ->
+  kind = if options.front then 'i' else 'b'
+  id = ("000" + id).substr(-3)
+  "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
+
+addPokemonImage = ($div, url, options = {}) ->
+  scale = options.scale || 1
+  image = new Image()
+  $image = $(image)
+  $image.load ->
+    {width, height} = image
+    if scale != 1
+      width  *= scale
+      height *= scale
+      $image.width(width)
+      $image.height(height)
+    top  = ($div.height() - height) >> 1
+    left = ($div.width() - width) >> 1
+    $image.css(position: 'absolute', top: top, left: left)
+    $image.appendTo($div)
+  image.src = url
