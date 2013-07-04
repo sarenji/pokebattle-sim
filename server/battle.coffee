@@ -139,7 +139,7 @@ class @Battle
   # If no bracket is provided, the Pokemon's current priority bracket is used.
   bump: (pokemon, bracket) =>
     if !bracket?
-      action = @getAction(@getOwner(pokemon).id)
+      action = @getAction(pokemon)
       bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
@@ -156,7 +156,7 @@ class @Battle
   # If no bracket is provided, the Pokemon's current priority bracket is used.
   delay: (pokemon, bracket) =>
     if !bracket?
-      action = @getAction(@getOwner(pokemon).id)
+      action = @getAction(pokemon)
       bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
@@ -272,15 +272,15 @@ class @Battle
   # have been submitted and the battle is ready to continue.
   continueTurn: =>
     @determineTurnOrder()
-    for {id, pokemon} in @priorityQueue
-      action = @getAction(id)
+    for {pokemon} in @priorityQueue
+      action = @getAction(pokemon)
       action.move?.beforeTurn?(this, pokemon)
 
     while @hasActionsLeft()
       {id, pokemon} = @priorityQueue.shift()
       continue  if pokemon.isFainted()
 
-      action = @popAction(id)
+      action = @popAction(pokemon)
       switch action.type
         when 'switch' then @performSwitch(id, action.to)
         when 'move'   then @performMove(id, action.move)
@@ -349,8 +349,6 @@ class @Battle
   # toPosition - the index of the pokemon to switch to
   #
   recordSwitch: (playerId, toPosition) =>
-    pokemon = @getTeam(playerId).at(toPosition)
-
     # Record the switch
     @playerActions[playerId] =
       type: 'switch'
@@ -358,17 +356,18 @@ class @Battle
 
     delete @requests[playerId]
 
-  getAction: (clientId) =>
-    @playerActions[clientId]
+  getAction: (pokemon) =>
+    {id} = @getOwner(pokemon)
+    @playerActions[id]
 
-  popAction: (clientId) =>
-    action = @getAction(clientId)
-    delete @playerActions[clientId]
+  popAction: (pokemon) =>
+    action = @getAction(pokemon)
+    {id}   = @getOwner(pokemon)
+    delete @playerActions[id]
     action
 
   cancelAction: (pokemon) =>
-    {id} = @getOwner(pokemon)
-    @popAction(id)
+    @popAction(pokemon)
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
     @priorityQueue.splice(index, 1)
 
@@ -411,9 +410,9 @@ class @Battle
     ids = (id  for id of @playerActions)
     @priorityQueue = []
     for id in ids
-      action = @getAction(id)
-      priority = @actionPriority(action)
       pokemon = @getTeam(id).at(0)
+      action = @getAction(pokemon)
+      priority = @actionPriority(action)
       @priorityQueue.push({id, priority, pokemon})
     @priorityQueue.sort(@orderComparator)
     @afterTurnOrder()
@@ -450,7 +449,8 @@ class @Battle
   # Executed by @beginTurn
   performReplacements: =>
     for id of @playerActions
-      @performSwitch(id, @popAction(id).to)
+      pokemon = @getTeam(id).first()
+      @performSwitch(id, @popAction(pokemon).to)
 
   # Executed by @continueTurn
   performMove: (id, move) =>

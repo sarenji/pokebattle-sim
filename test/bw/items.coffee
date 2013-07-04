@@ -1255,15 +1255,12 @@ shared = require '../shared'
       @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
         .should.equal Math.floor(@battle.getMove('Tackle').accuracy * 1.2)
 
-    it "doesn't change accuracy if target has already moved", ->
+    it "doesn't change accuracy if target will not move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Zoom Lens")]
         team2: [Factory("Magikarp", evs: {speed: 4})]
 
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
-      @battle.recordMove(@id2, @battle.getMove('Tackle'))
-      # Remove tackle from actions to execute
-      @battle.popAction(@id2)
 
       @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
         .should.equal Math.floor(@battle.getMove('Tackle').accuracy)

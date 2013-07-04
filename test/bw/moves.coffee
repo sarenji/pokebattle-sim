@@ -2759,7 +2759,7 @@ shared = require '../shared'
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
       @battle.delay @p1
-      @battle.popAction(@id2)
+      @battle.popAction(@p2)
       @battle.performMove(@id1, move)
 
       mock.verify()
