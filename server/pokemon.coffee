@@ -205,7 +205,8 @@ class @Pokemon
     @setHP(@currentHP - amount)
 
   drain: (amount) =>
-    amount = @editDrain(amount)
+    if @hasItem("Big Root") && !@isItemBlocked()
+      amount = util.roundHalfDown(amount * 1.3)
     @damage(-amount)
 
   transformHealthChange: (damage) =>
@@ -230,10 +231,6 @@ class @Pokemon
   editEvasion: (accuracy) =>
     accuracy = @attachments.queryChain('editEvasion', accuracy)
     accuracy
-
-  editDrain: (amount) =>
-    amount = @item.editDrain(amount)  if !@isItemBlocked() && @item.editDrain?
-    amount
 
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
