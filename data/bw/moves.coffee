@@ -1298,6 +1298,18 @@ extendMove 'knock-off', ->
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().name}!"
       target.removeItem()
 
+extendMove 'last-resort', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if this not in user.moves || user.moves.length <= 1
+      @fail(battle)
+      return false
+    for moveName in _.without(user.moves, this).map((m) -> m.name)
+      if moveName not of user.used
+        @fail(battle)
+        return false
+    oldUse.call(this, battle, user, target)
+
 extendMove 'light-screen', ->
   @execute = (battle, user, opponents) ->
     {team} = battle.getOwner(user)

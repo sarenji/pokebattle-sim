@@ -23,6 +23,7 @@ class @Pokemon
 
     @moves = attributes.moves?.map (move) ->
       Moves[move.toLowerCase().replace(/\s+/g, '-')]
+    @used = {}
     @resetAllPP()
     @types = attributes.types || [] # TODO: Get from species.
     @item = Items[attributes.item]
@@ -235,7 +236,11 @@ class @Pokemon
   setHP: (hp) =>
     @currentHP = Math.min(@stat('hp'), hp)
 
-  recordHit: (pokemon, damage, move, turn) ->
+  recordMove: (move) =>
+    @lastMove = move
+    @used[move.name] = true
+
+  recordHit: (pokemon, damage, move, turn) =>
     @lastHitBy = {pokemon, damage, move, turn}
 
   isImmune: (battle, type) =>
@@ -259,6 +264,7 @@ class @Pokemon
     @resetBoosts()
     @resetBlocks()
     delete @lastMove
+    @used = {}
     @attachments.query('switchOut', battle)
 
   informSwitch: (battle, switcher) =>

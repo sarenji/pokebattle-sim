@@ -469,7 +469,7 @@ class @Battle
       # Record last move.
       @lastMove = move
       @lastPokemon = pokemon
-      pokemon.lastMove = move
+      pokemon.recordMove(move)
 
     # TODO: Is this the right place...?
     pokemon.resetRecords()

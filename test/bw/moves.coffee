@@ -4412,3 +4412,59 @@ shared = require '../shared'
       benched.hasStatus().should.be.false
 
     it "works for 2v2"
+
+  describe "Last Resort", ->
+    it "fails if the pokemon only has one move", ->
+      shared.create.call(this)
+      lastResort = @battle.getMove("Last Resort")
+      @p1.moves = [ lastResort ]
+
+      mock = @sandbox.mock(lastResort).expects('fail').once()
+      @battle.performMove(@id1, lastResort)
+      mock.verify()
+
+    it "works if the pokemon uses all other moves before Last Resort", ->
+      shared.create.call(this)
+      lastResort = @battle.getMove("Last Resort")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ lastResort, splash ]
+
+      @battle.performMove(@id1, splash)
+      mock = @sandbox.mock(lastResort).expects('afterSuccessfulHit').once()
+      @battle.performMove(@id1, lastResort)
+      mock.verify()
+
+    it "fails if using all moves, but switches out and back in", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      lastResort = @battle.getMove("Last Resort")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ lastResort, splash ]
+
+      mock = @sandbox.mock(lastResort).expects('fail').once()
+      @battle.performMove(@id1, splash)
+      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@id1, lastResort)
+      @battle.performSwitch(@id1, 1)
+      mock.verify()
+
+    it "fails if the pokemon does not know Last Resort", ->
+      shared.create.call(this)
+      splash = @battle.getMove("Splash")
+      tackle = @battle.getMove("Tackle")
+      @p1.moves = [ splash, tackle ]
+      lastResort = @battle.getMove("Last Resort")
+
+      mock = @sandbox.mock(lastResort).expects('fail').once()
+      @battle.performMove(@id1, lastResort)
+      mock.verify()
+
+    it "fails if the pokemon has not used another move since it was active", ->
+      shared.create.call(this)
+      lastResort = @battle.getMove("Last Resort")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ lastResort, splash ]
+
+      mock = @sandbox.mock(lastResort).expects('fail').once()
+      @battle.performMove(@id1, lastResort)
+      mock.verify()
