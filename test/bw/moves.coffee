@@ -4468,3 +4468,61 @@ shared = require '../shared'
       mock = @sandbox.mock(lastResort).expects('fail').once()
       @battle.performMove(@id1, lastResort)
       mock.verify()
+
+  describe "Assist", ->
+    it "fails if no team member exists", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp") ]
+      assist = @battle.getMove("Assist")
+
+      mock = @sandbox.mock(assist).expects('fail').once()
+      @battle.performMove(@id1, assist)
+      mock.verify()
+
+    it "chooses a team member's move at random", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      assist = @battle.getMove("Assist")
+
+      @battle.performMove(@id1, assist)
+
+    it "fails if all team member moves are illegal", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      assist = @battle.getMove("Assist")
+      @team1.at(1).moves = []
+      @team1.at(1).moves.push @battle.getMove("Assist")
+      @team1.at(1).moves.push @battle.getMove("Bestow")
+      @team1.at(1).moves.push @battle.getMove("Chatter")
+      @team1.at(1).moves.push @battle.getMove("Circle Throw")
+      @team1.at(1).moves.push @battle.getMove("Copycat")
+      @team1.at(1).moves.push @battle.getMove("Counter")
+      @team1.at(1).moves.push @battle.getMove("Covet")
+      @team1.at(1).moves.push @battle.getMove("Destiny Bond")
+      @team1.at(1).moves.push @battle.getMove("Detect")
+      @team1.at(1).moves.push @battle.getMove("Dragon Tail")
+      @team1.at(1).moves.push @battle.getMove("Endure")
+      @team1.at(1).moves.push @battle.getMove("Feint")
+      @team1.at(1).moves.push @battle.getMove("Focus Punch")
+      @team1.at(1).moves.push @battle.getMove("Follow Me")
+      @team1.at(1).moves.push @battle.getMove("Helping Hand")
+      @team1.at(1).moves.push @battle.getMove("Me First")
+      @team1.at(1).moves.push @battle.getMove("Metronome")
+      @team1.at(1).moves.push @battle.getMove("Mimic")
+      @team1.at(1).moves.push @battle.getMove("Mirror Coat")
+      @team1.at(1).moves.push @battle.getMove("Mirror Move")
+      @team1.at(1).moves.push @battle.getMove("Nature Power")
+      @team1.at(1).moves.push @battle.getMove("Protect")
+      @team1.at(1).moves.push @battle.getMove("Rage Powder")
+      @team1.at(1).moves.push @battle.getMove("Sketch")
+      @team1.at(1).moves.push @battle.getMove("Sleep Talk")
+      @team1.at(1).moves.push @battle.getMove("Snatch")
+      @team1.at(1).moves.push @battle.getMove("Struggle")
+      @team1.at(1).moves.push @battle.getMove("Switcheroo")
+      @team1.at(1).moves.push @battle.getMove("Thief")
+      @team1.at(1).moves.push @battle.getMove("Transform")
+      @team1.at(1).moves.push @battle.getMove("Trick")
+
+      mock = @sandbox.mock(assist).expects('fail').once()
+      @battle.performMove(@id1, assist)
+      mock.verify()

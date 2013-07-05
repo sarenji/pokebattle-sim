@@ -1016,6 +1016,56 @@ makeTrappingMove "wrap"
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
 extendWithSecondaryStatus 'zap-cannon', 1, Status.PARALYZE
 
+extendMove 'assist', ->
+  bannedMoves =
+    "assist":       true
+    "bestow":       true
+    "chatter":      true
+    "circle-throw": true
+    'copycat':      true
+    "counter":      true
+    "covet":        true
+    "destiny-bond": true
+    "detect":       true
+    "dragon-tail":  true
+    "endure":       true
+    "feint":        true
+    "focus-punch":  true
+    "follow-me":    true
+    "helping-hand": true
+    "me-first":     true
+    "metronome":    true
+    "mimic":        true
+    "mirror-coat":  true
+    "mirror-move":  true
+    "nature-power": true
+    "protect":      true
+    "rage-powder":  true
+    "sketch":       true
+    "sleep-talk":   true
+    "snatch":       true
+    "struggle":     true
+    "switcheroo":   true
+    "thief":        true
+    "transform":    true
+    "trick":        true
+  @execute = (battle, user, targets) ->
+    {team}  = battle.getOwner(user)
+    pokemon = _.without(team.pokemon, user)
+    moves   = _.flatten(pokemon.map((p) -> p.moves))
+    moves   = moves.filter((move) -> move.name not of bannedMoves)
+    if moves.length == 0
+      @fail(battle)
+    else
+      move = battle.rng.choice(moves, "assist")
+      # Assist chooses a random foe if selecting a Pokemon.
+      if move.target == 'selected-pokemon'
+        pokemon = battle.getOpponents(user)
+        targets = [ battle.rng.choice(pokemon) ]
+      else
+        targets = battle.getTargets(move, user)
+      move.execute(battle, user, targets)
+
 extendMove 'aqua-ring', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.AquaRing)
