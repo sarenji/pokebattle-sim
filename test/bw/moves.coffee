@@ -4105,11 +4105,13 @@ shared = require '../shared'
   testChargeMove('Skull Bash')
   testChargeMove('Razor Wind')
   testChargeMove('Shadow Force', [])
+  testChargeMove('Ice Burn', [])
+  testChargeMove('Freeze Shock', [])
   testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])
   testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])  # Additional 30% chance to par
   testChargeMove('Dig', ["Earthquake", "Magnitude"])
   testChargeMove('Dive', ["Surf", "Whirlpool"])
-  testChargeMove('SolarBeam')  # Strange effects based on weather
+  testChargeMove('SolarBeam')
   testChargeMove('Sky Attack')
 
   describe "Skull Bash", ->
