@@ -954,3 +954,12 @@ class @Attachment.HealingWish extends @TeamAttachment
     battle.message "The healing wish came true for #{pokemon.name}!"
     pokemon.currentHP = pokemon.stat('hp')
     pokemon.cureStatus()
+
+class @Attachment.MagicCoat extends @VolatileAttachment
+  name: "MagicCoatAttachment"
+
+  shouldBlockExecution: (battle, move, user) =>
+    return  unless move.hasFlag("reflectable")
+    battle.message "#{@pokemon.name} bounced the #{move.name} back!"
+    move.execute(battle, @pokemon, [ user ])
+    return true

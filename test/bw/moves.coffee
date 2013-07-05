@@ -4484,6 +4484,7 @@ shared = require '../shared'
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       assist = @battle.getMove("Assist")
       move = @team1.at(1).moves[0]
+      shared.biasRNG.call(this, "randInt", "assist", 0)
 
       mock = @sandbox.mock(move).expects('execute').once()
       @battle.performMove(@id1, assist)
@@ -4571,3 +4572,24 @@ shared = require '../shared'
       mock = @sandbox.mock(tackle).expects('execute').once()
       @battle.performMove(@id1, metronome)
       mock.verify()
+
+  describe "Magic Coat", ->
+    it "causes certain moves directed at the user to be bounced back", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      whirlwind = @battle.getMove("Whirlwind")
+      magicCoat = @battle.getMove("Magic Coat")
+
+      spy = @sandbox.spy(whirlwind, 'execute')
+      @battle.performMove(@id1, magicCoat)
+      @battle.performMove(@id2, whirlwind)
+      spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
+
+    it "does not bounce certain moves back", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      tackle = @battle.getMove("Tackle")
+      magicCoat = @battle.getMove("Magic Coat")
+
+      spy = @sandbox.spy(tackle, 'execute')
+      @battle.performMove(@id1, magicCoat)
+      @battle.performMove(@id2, tackle)
+      spy.calledWith(@battle, @p1, [ @p2 ]).should.be.false

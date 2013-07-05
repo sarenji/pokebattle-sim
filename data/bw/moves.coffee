@@ -1386,6 +1386,12 @@ extendMove 'lunar-dance', ->
     else
       @fail(battle)
 
+extendMove 'magic-coat', ->
+  @execute = (battle, user, targets) ->
+    # Magic Coat has one target
+    target = targets[0]
+    target.attach(Attachment.MagicCoat)
+
 extendMove 'magnet-rise', ->
   @use = (battle, user, target) ->
     if target.attach(Attachment.MagnetRise)
