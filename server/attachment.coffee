@@ -882,3 +882,29 @@ class @Attachment.FuryCutter extends @VolatileAttachment
 
   beforeMove: (battle, move, user, targets) =>
     @remove()  if move != @move
+
+class @Attachment.Imprison extends @VolatileAttachment
+  name: "ImprisonAttachment"
+
+  initialize: (attributes) =>
+    {@moves, battle} = attributes
+    for pokemon in battle.getOpponents(@pokemon)
+      pokemon.attach(Attachment.ImprisonPrevention, {@moves})
+
+  beginTurn: (battle) =>
+    for pokemon in battle.getOpponents(@pokemon)
+      pokemon.attach(Attachment.ImprisonPrevention, {@moves})
+
+class @Attachment.ImprisonPrevention extends @VolatileAttachment
+  name: "ImprisonPreventionAttachment"
+
+  initialize: (attributes) =>
+    {@moves} = attributes
+
+  beginTurn: (battle) =>
+    @pokemon.blockMove(move)  for move in @moves
+
+  beforeMove: (battle, move, user, targets) =>
+    if move in @moves
+      battle.message "#{user.name} can't use the sealed #{move.name}!"
+      return false

@@ -4224,3 +4224,32 @@ shared = require '../shared'
       furyCutter.basePower(@battle, @p1, @p2).should.equal(40)
       @battle.performMove(@id1, splash)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
+
+  describe "Imprison", ->
+    it "prevents the opponent from selecting moves that the user knows", ->
+      shared.create.call(this)
+      imprison = @battle.getMove("Imprison")
+      furyCutter = @battle.getMove("Fury Cutter")
+      tackle = @battle.getMove("tackle")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ imprison, tackle, splash ]
+      @p2.moves = [ furyCutter, tackle, splash ]
+
+      @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
+      @battle.performMove(@id1, imprison)
+      @battle.beginTurn()
+      @p2.validMoves().should.eql [ furyCutter ]
+
+    it "prevents the opponent from executing moves that the user knows", ->
+      shared.create.call(this)
+      imprison = @battle.getMove("Imprison")
+      furyCutter = @battle.getMove("Fury Cutter")
+      tackle = @battle.getMove("tackle")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ imprison, tackle, splash ]
+      @p2.moves = [ furyCutter, tackle, splash ]
+
+      @battle.performMove(@id1, imprison)
+      mock = @sandbox.mock(tackle).expects('execute').never()
+      @battle.performMove(@id2, tackle)
+      mock.verify()

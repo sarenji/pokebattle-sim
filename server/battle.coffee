@@ -75,23 +75,17 @@ class @Battle
       teams.push(player.team)
     teams
 
-  # Returns all opponents of a given player. In a 1v1 it returns
-  # an array with only one opponent.
-  getOpponents: (id) =>
-    opponents = []
-    for playerId, player of @players
-      opponents.push(player)  if id != playerId
-    opponents
-
-  # Returns all opponent pokemon of a given player.
-  #
-  # id - The player who's opponent's pokemon we want to retrieve
-  # max (optional) - The maximum amount of pokemon per opponent.
-  #
-  getOpponentPokemon: (id, max=@numActive) =>
-    opponents = @getOpponents(id)
-    teams = (opponent.team.slice(0, max)  for opponent in opponents)
+  # Returns all opposing pokemon of a given pokemon.
+  getOpponents: (pokemon) =>
+    opponents = @getOpponentOwners(pokemon)
+    teams = (opponent.team.slice(0, @numActive)  for opponent in opponents)
     _.flatten(teams)
+
+  # Returns all opponent players of a given pokemon. In a 1v1 it returns
+  # an array with only one opponent.
+  getOpponentOwners: (pokemon) =>
+    {id} = @getOwner(pokemon)
+    (player  for playerId, player of @players when id != playerId)
 
   # Returns all active pokemon on the field belonging to both players.
   # Active pokemon include fainted pokemon that have not been switched out.
@@ -495,24 +489,24 @@ class @Battle
       when 'user-or-ally'
         [ @rng.choice(team.getActivePokemon()) ]
       when 'all-opponents'
-        @getOpponentPokemon(id, @numActive)
+        @getOpponents(user)
       when 'selected-pokemon'
         # TODO: Actually get selected Pokemon from client.
-        @getOpponentPokemon(id, 1)
+        [ @getOpponents(user)[0] ]
       when 'all-other-pokemon'
         # TODO: Add your own party Pokemon as well.
-        @getOpponentPokemon(id, @numActive)
+        @getOpponents(user)
       when 'entire-field'
         @getActivePokemon()
       when 'random-opponent'
-        pokemon = @getOpponentPokemon(id, @numActive)
+        pokemon = @getOpponents(user)
         [ @rng.choice(pokemon) ]
       when 'users-field'
         team.pokemon
       when 'specific-move'
         move.getTargets(this, user)
       when 'opponents-field'
-        @getOpponents(id)
+        @getOpponentOwners(user)
       else
         throw new Error("Unimplemented target: #{move.target}.")
 

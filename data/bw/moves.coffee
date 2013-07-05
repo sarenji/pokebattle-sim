@@ -446,7 +446,7 @@ makeCounterMove = (name, multiplier, applies) ->
       return [ pokemon ]  if pokemon? && !pokemon.isFainted()
   
       # Return a random target (or none).
-      pokemon = battle.getOpponentPokemon(battle.getOwner(user).id)
+      pokemon = battle.getOpponents(user)
       pokemon = pokemon.filter((p) -> !p.isFainted())
       if pokemon.length == 0
         []
@@ -1091,8 +1091,7 @@ extendMove 'curse', ->
   applyBoosts = boostExtension('self', attack: 1, defense: 1, speed: -1)
 
   @getTargets = (battle, user) ->
-    {id} = battle.getOwner(user)
-    pokemon = battle.getOpponentPokemon(id)
+    pokemon = battle.getOpponents(user)
     [ battle.rng.choice(pokemon, "random opponent") ]
 
   @execute = (battle, user, targets) ->
@@ -1254,6 +1253,14 @@ extendMove 'hidden-power', ->
     value += 32  if user.iv('specialDefense') % 2 == 1
 
     hpTypes[Math.floor(value * 15 / 63)]
+
+extendMove 'imprison', ->
+  @execute = (battle, user, targets) =>
+    # There is only one target for Imprison.
+    target = targets[0]
+    {moves} = target
+    target.attach(Attachment.Imprison, {battle, moves})
+    battle.message "#{target.name} sealed the opponent's moves!"
 
 extendMove 'incinerate', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
