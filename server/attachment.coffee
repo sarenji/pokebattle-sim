@@ -937,3 +937,12 @@ class @Attachment.LuckyChant extends @TeamAttachment
       {username} = (p for id, p of battle.players when p.team == @team)[0]
       battle.message "#{username}'s team's Lucky Chant wore off!"
       @remove()
+
+class @Attachment.LunarDance extends @TeamAttachment
+  name: "LunarDanceAttachment"
+
+  switchIn: (battle, pokemon) =>
+    battle.message "#{pokemon.name} became cloaked in mystical moonlight!"
+    pokemon.currentHP = pokemon.stat('hp')
+    pokemon.cureStatus()
+    pokemon.resetAllPP()

@@ -1306,6 +1306,15 @@ extendMove 'light-screen', ->
     else
       @fail(battle)
 
+extendMove 'lunar-dance', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    {team} = battle.getOwner(target)
+    if team.getAliveBenchedPokemon().length > 0
+      target.faint()
+      team.attach(Attachment.LunarDance)
+    else
+      @fail(battle)
+
 extendMove 'magnet-rise', ->
   @use = (battle, user, target) ->
     if target.attach(Attachment.MagnetRise)

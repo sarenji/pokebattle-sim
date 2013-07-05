@@ -4342,3 +4342,39 @@ shared = require '../shared'
         @team1.hasAttachment(Attachment.LuckyChant).should.be.true
         @battle.endTurn()
       @team1.hasAttachment(Attachment.LuckyChant).should.be.false
+
+  describe "Lunar Dance", ->
+    it "faints the user", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      lunarDance = @battle.getMove("Lunar Dance")
+      @battle.performMove(@id1, lunarDance)
+
+      @p1.isFainted().should.be.true
+
+    it "fails if the user is the last active pokemon", ->
+      shared.create.call(this)
+      lunarDance = @battle.getMove("Lunar Dance")
+
+      mock = @sandbox.mock(lunarDance).expects('fail').once()
+      @battle.performMove(@id1, lunarDance)
+      mock.verify()
+      @p1.isFainted().should.be.false
+
+    it "completely restores the switchin's HP, PP, and status", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      lunarDance = @battle.getMove("Lunar Dance")
+      benched = @team1.at(1)
+      benched.setStatus(Status.BURN)
+      benched.currentHP = 1
+      benched.setPP(benched.moves[0], 1)
+
+      @battle.performMove(@id1, lunarDance)
+      @battle.performSwitch(@id1, 1)
+      benched.currentHP.should.equal(benched.stat('hp'))
+      benched.hasStatus().should.be.false
+      for move in benched.moves
+        benched.pp(move).should.equal(benched.maxPP(move))
+
+    it "works for 2v2"
