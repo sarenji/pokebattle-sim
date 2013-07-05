@@ -1306,6 +1306,15 @@ extendMove 'light-screen', ->
     else
       @fail(battle)
 
+extendMove 'healing-wish', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    {team} = battle.getOwner(target)
+    if team.getAliveBenchedPokemon().length > 0
+      target.faint()
+      team.attach(Attachment.HealingWish)
+    else
+      @fail(battle)
+
 extendMove 'lunar-dance', ->
   @afterSuccessfulHit = (battle, user, target) ->
     {team} = battle.getOwner(target)

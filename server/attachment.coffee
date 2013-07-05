@@ -946,3 +946,11 @@ class @Attachment.LunarDance extends @TeamAttachment
     pokemon.currentHP = pokemon.stat('hp')
     pokemon.cureStatus()
     pokemon.resetAllPP()
+
+class @Attachment.HealingWish extends @TeamAttachment
+  name: "HealingWishAttachment"
+
+  switchIn: (battle, pokemon) =>
+    battle.message "The healing wish came true for #{pokemon.name}!"
+    pokemon.currentHP = pokemon.stat('hp')
+    pokemon.cureStatus()
