@@ -1,4 +1,6 @@
 {Battle, Move, Pokemon, Status, Attachment} = require('../').server
+{Factory} = require './factory'
+shared = require('./shared')
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->
@@ -195,3 +197,12 @@ describe 'Move', ->
     it "returns false if a move doesn't have a specific flag", ->
       new Move(null, flags: ['superman', 'batman'])
         .hasFlag('catwoman').should.be.false
+
+  describe '#execute', ->
+    it 'calls use multiple times for multihit moves', ->
+      shared.create.call this
+      move = new Move("multihit", minHits: 4, maxHits: 4)
+      mock = @sandbox.mock(move).expects('use').exactly(4)
+
+      move.execute(@battle, @p1, [@p2], true)
+      mock.verify()

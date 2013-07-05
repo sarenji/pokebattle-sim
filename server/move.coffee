@@ -44,17 +44,20 @@ class @Move
 
     for target in targets
       continue  if target.shouldBlockExecution(battle, this, user)
-      if @use(battle, user, target) != false
-        damage = @calculateDamage(battle, user, target)
-        if damage > 0
-          # TODO: Print out opponent's name alongside the pokemon.
-          battle.message "#{target.name} took #{damage} damage!"
-          realDamage = target.transformHealthChange(damage)
-          target.damage(realDamage)
-        target.afterBeingHit(battle, this, user, target, damage)
-        user.afterSuccessfulHit(battle, this, user, target, damage)
-        @afterSuccessfulHit(battle, user, target, damage)
-        target.recordHit(user, damage, this, battle.turn)
+      
+      numHits = battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
+      for i in [1..numHits]
+        if @use(battle, user, target) != false
+          damage = @calculateDamage(battle, user, target)
+          if damage > 0
+            # TODO: Print out opponent's name alongside the pokemon.
+            battle.message "#{target.name} took #{damage} damage!"
+            realDamage = target.transformHealthChange(damage)
+            target.damage(realDamage)
+          target.afterBeingHit(battle, this, user, target, damage)
+          user.afterSuccessfulHit(battle, this, user, target, damage)
+          @afterSuccessfulHit(battle, user, target, damage)
+          target.recordHit(user, damage, this, battle.turn)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
