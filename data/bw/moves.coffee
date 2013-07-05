@@ -1188,6 +1188,15 @@ extendMove 'flatter', ->
 extendMove 'frustration', ->
   @basePower = -> 102
 
+extendMove 'fury-cutter', ->
+  @afterSuccessfulHit = (battle, user, target, damage) ->
+    user.attach(Attachment.FuryCutter, move: this)
+
+  @basePower = (battle, user, target) ->
+    attachment = user.getAttachment(Attachment.FuryCutter)
+    layers = attachment?.layers || 0
+    @power * Math.pow(2, layers)
+
 extendMove 'guard-swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     for stat in [ 'defense', 'specialDefense' ]

@@ -869,3 +869,14 @@ class @Attachment.Charging extends @VolatileAttachment
     delete @move
     delete @message
     delete @vulnerable
+
+class @Attachment.FuryCutter extends @VolatileAttachment
+  name: "FuryCutterAttachment"
+
+  maxLayers: 3
+
+  initialize: (attributes) =>
+    {@move} = attributes
+
+  beforeMove: (battle, move, user, targets) =>
+    @remove()  if move != @move

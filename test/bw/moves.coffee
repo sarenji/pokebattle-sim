@@ -4200,3 +4200,27 @@ shared = require '../shared'
         @battle.setWeather(weather)
 
         move.basePower(@battle, @p1, @p2).should.equal(move.power >> 1)
+
+  describe "Fury Cutter", ->
+    it "doubles base power after every use, to a max of 160", ->
+      shared.create.call(this)
+      furyCutter = @battle.getMove("Fury Cutter")
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
+      @battle.performMove(@id1, furyCutter)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(40)
+      @battle.performMove(@id1, furyCutter)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(80)
+      @battle.performMove(@id1, furyCutter)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(160)
+      @battle.performMove(@id1, furyCutter)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(160)
+
+    it "resets to normal base power if using a different move", ->
+      shared.create.call(this)
+      furyCutter = @battle.getMove("Fury Cutter")
+      splash = @battle.getMove("Splash")
+
+      @battle.performMove(@id1, furyCutter)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(40)
+      @battle.performMove(@id1, splash)
+      furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
