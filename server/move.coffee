@@ -150,9 +150,10 @@ class @Move
     @power
 
   isCriticalHit: (battle, attacker, defender) =>
-    # TODO: Implement Lucky Chant.
-    if defender.hasAbility('Battle Armor') || defender.hasAbility('Shell Armor')
-      return false
+    owner = battle.getOwner(defender)
+    return false  if owner?.team.hasAttachment(Attachment.LuckyChant)
+    return false  if defender.hasAbility('Battle Armor')
+    return false  if defender.hasAbility('Shell Armor')
 
     rand = battle.rng.next("ch")
     switch @criticalHitLevel(battle, attacker, defender)

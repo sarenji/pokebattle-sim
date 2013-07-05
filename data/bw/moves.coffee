@@ -762,6 +762,14 @@ makeLockOnMove 'lock-on'
 makeWeightBased 'low-kick'
 extendWithBoost 'low-sweep', 'target', speed: -1
 extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
+
+extendMove 'lucky-chant', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    player = battle.getOwner(target)
+    player.team.attach(Attachment.LuckyChant)
+    battle.message "The Lucky Chant shielded #{player.username}'s " +
+                   "team from critical hits!"
+
 makeTrappingMove "magma-storm"
 makeMeanLookMove 'mean-look'
 makeBoostMove 'meditate', 'self', attack: 1

@@ -922,3 +922,18 @@ class @Attachment.Present extends @VolatileAttachment
 
   endTurn: =>
     @remove()
+
+# Lucky Chant's CH prevention is inside Move#isCriticalHit.
+class @Attachment.LuckyChant extends @TeamAttachment
+  name: "LuckyChantAttachment"
+
+  initialize: =>
+    @turns = 5
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      # TODO: Less hacky way of getting username
+      {username} = (p for id, p of battle.players when p.team == @team)[0]
+      battle.message "#{username}'s team's Lucky Chant wore off!"
+      @remove()

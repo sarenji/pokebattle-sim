@@ -4323,3 +4323,22 @@ shared = require '../shared'
       finalGambit = @battle.getMove("Final Gambit")
       @battle.performMove(@id1, finalGambit)
       @p2.currentHP.should.equal(1)
+
+  describe "Lucky Chant", ->
+    it "prevents critical hits on the defender's team", ->
+      shared.create.call(this)
+      luckyChant = @battle.getMove("Lucky Chant")
+      stormThrow = @battle.getMove("Storm Throw")
+      @battle.performMove(@id1, luckyChant)
+
+      stormThrow.isCriticalHit(@battle, @p2, @p1).should.be.false
+
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      luckyChant = @battle.getMove("Lucky Chant")
+      @battle.performMove(@id1, luckyChant)
+
+      for i in [0...5]
+        @team1.hasAttachment(Attachment.LuckyChant).should.be.true
+        @battle.endTurn()
+      @team1.hasAttachment(Attachment.LuckyChant).should.be.false
