@@ -7,7 +7,7 @@
 
 class @Battle
   # TODO: let Battle serialize these.
-  {Moves, MoveData, Species, PokemonData} = require '../data/bw'
+  {Moves, MoveData, MoveList, Species, PokemonData} = require '../data/bw'
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
@@ -516,6 +516,9 @@ class @Battle
 
   @getMove: getMove
   getMove: getMove
+
+  getMoveList: =>
+    MoveList
 
   toString: =>
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

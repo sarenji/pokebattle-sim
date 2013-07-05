@@ -9,10 +9,10 @@ util = require '../../server/util'
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
 @Moves = Moves = {}
-@moveList = moveList = []
+@MoveList = MoveList = []
 for name, attributes of @MoveData
   @Moves[name] = new Move(name, attributes)
-  @moveList.push(name)
+  MoveList.push(@Moves[name])
 
 # Extends a move in the move list using a callback.
 #
@@ -1452,8 +1452,6 @@ extendMove 'memento', ->
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
-# TODO: Test
-# TODO: Figure out how to redetermine move targets.
 extendMove 'metronome', ->
   impossibleMoves =
     "after-you": true
@@ -1502,11 +1500,18 @@ extendMove 'metronome', ->
       throw new Error("The illegal Metronome move '#{move}' does not exist.")
 
   @execute = (battle, user, targets) ->
-    index = battle.rng.randInt(0, moveList.length - 1, "metronome")
-    while moveList[index] of impossibleMoves || moveList[index] in user.moves
-      index = battle.rng.randInt(0, moveList.length - 1, "metronome")
-    move = moveList[index]
+    index = battle.rng.randInt(0, MoveList.length - 1, "metronome")
+    while MoveList[index].name of impossibleMoves || MoveList[index] in user.moves
+      index = battle.rng.randInt(0, MoveList.length - 1, "metronome reselect")
+    move = MoveList[index]
     battle.message "Waggling a finger let it use #{move.name}!"
+
+    # Determine new targets
+    if move.target == 'selected-pokemon'
+      pokemon = battle.getOpponents(user)
+      targets = [ battle.rng.choice(pokemon) ]
+    else
+      targets = battle.getTargets(move, user)
     move.execute(battle, user, targets)
 
 extendMove 'nightmare', ->

@@ -4483,8 +4483,11 @@ shared = require '../shared'
       shared.create.call this,
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       assist = @battle.getMove("Assist")
+      move = @team1.at(1).moves[0]
 
+      mock = @sandbox.mock(move).expects('execute').once()
       @battle.performMove(@id1, assist)
+      mock.verify()
 
     it "fails if all team member moves are illegal", ->
       shared.create.call this,
@@ -4525,4 +4528,46 @@ shared = require '../shared'
 
       mock = @sandbox.mock(assist).expects('fail').once()
       @battle.performMove(@id1, assist)
+      mock.verify()
+
+  describe "Metronome", ->
+    it "chooses a random move to execute", ->
+      shared.create.call(this)
+      @p1.moves = []
+      metronome = @battle.getMove("Metronome")
+      tackle = @battle.getMove("Tackle")
+      index = @battle.getMoveList().indexOf(tackle)
+      shared.biasRNG.call(this, 'randInt', "metronome", index)
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@id1, metronome)
+      mock.verify()
+
+    it "reselects if chosen a user's move", ->
+      shared.create.call(this)
+      metronome = @battle.getMove("Metronome")
+      @p1.moves = [ metronome ]
+      tackle = @battle.getMove("Tackle")
+      index = @battle.getMoveList().indexOf(metronome)
+      reselectIndex = @battle.getMoveList().indexOf(tackle)
+      shared.biasRNG.call(this, 'randInt', "metronome", index)
+      shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@id1, metronome)
+      mock.verify()
+
+    it "reselects if chosen an illegal move", ->
+      shared.create.call(this)
+      @p1.moves = [ metronome ]
+      metronome = @battle.getMove("Metronome")
+      technoBlast = @battle.getMove("Techno Blast")
+      tackle = @battle.getMove("Tackle")
+      index = @battle.getMoveList().indexOf(technoBlast)
+      reselectIndex = @battle.getMoveList().indexOf(tackle)
+      shared.biasRNG.call(this, 'randInt', "metronome", index)
+      shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@id1, metronome)
       mock.verify()
