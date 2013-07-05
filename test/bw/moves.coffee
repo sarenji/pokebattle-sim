@@ -4265,11 +4265,48 @@ shared = require '../shared'
       @p2.moves = [ furyCutter, tackle, splash ]
 
       @battle.performMove(@id1, imprison)
-      @battle.endTurn()
       @battle.beginTurn()
       @p2.validMoves().should.eql [ furyCutter ]
 
       @battle.performSwitch(@id1, 1)
-      @battle.endTurn()
       @battle.beginTurn()
       @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
+
+  describe "Present", ->
+    it "has a 40% chance for 40 base power", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", "present", .6)
+      present = @battle.getMove("Present")
+
+      spy = @sandbox.spy(present, 'basePower')
+      @battle.performMove(@id1, present)
+      spy.alwaysReturned(40).should.be.true
+
+    it "has a 30% chance for 80 base power", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", "present", .3)
+      present = @battle.getMove("Present")
+
+      spy = @sandbox.spy(present, 'basePower')
+      @battle.performMove(@id1, present)
+      spy.alwaysReturned(80).should.be.true
+
+    it "has a 10% chance for 120 base power", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", "present", 0)
+      present = @battle.getMove("Present")
+
+      spy = @sandbox.spy(present, 'basePower')
+      @battle.performMove(@id1, present)
+      spy.alwaysReturned(120).should.be.true
+
+    it "has a 20% chance to heal target by 25% HP, rounded down", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", "present", .1)
+      present = @battle.getMove("Present")
+
+      @p2.currentHP = 1
+      spy = @sandbox.spy(present, 'basePower')
+      @battle.performMove(@id1, present)
+      spy.alwaysReturned(0).should.be.true
+      @p2.currentHP.should.equal(1 + @p2.stat('hp') >> 2)

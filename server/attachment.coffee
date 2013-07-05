@@ -913,3 +913,12 @@ class @Attachment.ImprisonPrevention extends @VolatileAttachment
     if move in @moves
       battle.message "#{user.name} can't use the sealed #{move.name}!"
       return false
+
+class @Attachment.Present extends @VolatileAttachment
+  name: "PresentAttachment"
+
+  initialize: (attributes) =>
+    {@power} = attributes
+
+  endTurn: =>
+    @remove()

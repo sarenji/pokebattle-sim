@@ -1446,6 +1446,29 @@ extendMove 'power-swap', ->
       stats = [ target.stages[stat], user.stages[stat] ]
       [ user.stages[stat], target.stages[stat] ] = stats
 
+extendMove 'present', ->
+  @basePower = (battle, user, target) ->
+    user.getAttachment(Attachment.Present).power
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if user.getAttachment(Attachment.Present).power == 0
+      amount = target.stat('hp') >> 2
+      target.damage(-amount)
+
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    chance = battle.rng.next("present")
+    power  = if chance < .1
+               120
+             else if chance < .3
+               0
+             else if chance < .6
+               80
+             else
+               40
+    user.attach(Attachment.Present, {power})
+    oldExecute.call(this, battle, user, targets)
+
 extendMove 'psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15, "psywave") / 10
