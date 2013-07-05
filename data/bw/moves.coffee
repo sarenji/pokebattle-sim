@@ -1176,6 +1176,13 @@ extendMove 'facade', ->
     else
       @power
 
+extendMove 'final-gambit', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.faint()
+
+  @calculateDamage = (battle, user, target) ->
+    user.currentHP
+
 extendMove 'flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})

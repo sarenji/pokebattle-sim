@@ -4310,3 +4310,16 @@ shared = require '../shared'
       @battle.performMove(@id1, present)
       spy.alwaysReturned(0).should.be.true
       @p2.currentHP.should.equal(1 + @p2.stat('hp') >> 2)
+
+  describe "Final Gambit", ->
+    it "faints the user", ->
+      shared.create.call(this)
+      finalGambit = @battle.getMove("Final Gambit")
+      @battle.performMove(@id1, finalGambit)
+      @p1.isFainted().should.be.true
+
+    it "deals damage equal to the user's HP to the target", ->
+      shared.create.call(this, team2: [Factory("Magikarp", evs: {hp: 4})])
+      finalGambit = @battle.getMove("Final Gambit")
+      @battle.performMove(@id1, finalGambit)
+      @p2.currentHP.should.equal(1)
