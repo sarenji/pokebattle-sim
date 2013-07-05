@@ -87,7 +87,7 @@ class @Attachment
   afterSuccessfulHit: (battle, move, user, target, damage) =>
   beforeMove: (battle, move, user, targets) =>
   isImmune: (battle, type) =>
-  switchOut: (battle, pokemon) =>
+  switchOut: (battle) =>
   switchIn: (battle, pokemon) =>
   beginTurn: (battle) =>
   endTurn: (battle) =>
@@ -894,6 +894,11 @@ class @Attachment.Imprison extends @VolatileAttachment
   beginTurn: (battle) =>
     for pokemon in battle.getOpponents(@pokemon)
       pokemon.attach(Attachment.ImprisonPrevention, {@moves})
+
+  switchOut: (battle) =>
+    for pokemon in battle.getOpponents(@pokemon)
+      pokemon.unattach(Attachment.ImprisonPrevention)
+    super(battle)
 
 class @Attachment.ImprisonPrevention extends @VolatileAttachment
   name: "ImprisonPreventionAttachment"

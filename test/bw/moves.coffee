@@ -4230,7 +4230,7 @@ shared = require '../shared'
       shared.create.call(this)
       imprison = @battle.getMove("Imprison")
       furyCutter = @battle.getMove("Fury Cutter")
-      tackle = @battle.getMove("tackle")
+      tackle = @battle.getMove("Tackle")
       splash = @battle.getMove("Splash")
       @p1.moves = [ imprison, tackle, splash ]
       @p2.moves = [ furyCutter, tackle, splash ]
@@ -4244,7 +4244,7 @@ shared = require '../shared'
       shared.create.call(this)
       imprison = @battle.getMove("Imprison")
       furyCutter = @battle.getMove("Fury Cutter")
-      tackle = @battle.getMove("tackle")
+      tackle = @battle.getMove("Tackle")
       splash = @battle.getMove("Splash")
       @p1.moves = [ imprison, tackle, splash ]
       @p2.moves = [ furyCutter, tackle, splash ]
@@ -4253,3 +4253,23 @@ shared = require '../shared'
       mock = @sandbox.mock(tackle).expects('execute').never()
       @battle.performMove(@id2, tackle)
       mock.verify()
+
+    it "lets opponents use moves again after user switches out", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), Factory("Magikarp")]
+      imprison = @battle.getMove("Imprison")
+      furyCutter = @battle.getMove("Fury Cutter")
+      tackle = @battle.getMove("Tackle")
+      splash = @battle.getMove("Splash")
+      @p1.moves = [ imprison, tackle, splash ]
+      @p2.moves = [ furyCutter, tackle, splash ]
+
+      @battle.performMove(@id1, imprison)
+      @battle.endTurn()
+      @battle.beginTurn()
+      @p2.validMoves().should.eql [ furyCutter ]
+
+      @battle.performSwitch(@id1, 1)
+      @battle.endTurn()
+      @battle.beginTurn()
+      @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
