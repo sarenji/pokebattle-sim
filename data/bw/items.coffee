@@ -415,17 +415,12 @@ makeTypeBoostItem 'Metal Coat', 'Steel'
 
 extendItem 'Metronome', ->
   @basePowerModifier = (move, battle, user, target) ->
-    attachment = user.findAttachment(Attachment.Metronome)
+    attachment = user.getAttachment(Attachment.Metronome)
     layers = attachment?.layers || 0
     0x1000 + layers * 0x333
 
-  @endTurn = (battle, pokemon) ->
-    move = pokemon.lastMove
-    metronomedMove = pokemon.findAttachment(Attachment.Metronome)?.move
-    if !metronomedMove? || move == metronomedMove
-      pokemon.attach(Attachment.Metronome, {move})
-    else
-      pokemon.unattach(Attachment.Metronome)
+  @afterSuccessfulHit = (battle, move, user, target) ->
+    user.attach(Attachment.Metronome, {move})
 
 makePinchBerry 'Micle Berry', (battle, owner) ->
   owner.attach(Attachment.MicleBerry)

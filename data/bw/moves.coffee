@@ -1491,7 +1491,7 @@ extendMove 'rapid-spin', ->
       battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
 
     # Remove trapping moves like fire-spin
-    trap = user.findAttachment(Attachment.Trap)
+    trap = user.getAttachment(Attachment.Trap)
     if trap
       battle.message "#{user.name} was freed from #{trap.moveName}!"
       trap.remove()

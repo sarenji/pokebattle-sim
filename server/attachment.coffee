@@ -502,9 +502,11 @@ class @Attachment.Metronome extends @VolatileAttachment
 
   maxLayers: 5
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) ->
     {@move} = attributes
+
+  beforeMove: (battle, move) ->
+    @remove()  if move != @move
 
 class @Attachment.Screen extends @TeamAttachment
   name: "ScreenAttachment"

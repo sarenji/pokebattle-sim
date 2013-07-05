@@ -1287,7 +1287,6 @@ shared = require '../shared'
         team1: [Factory("Magikarp", item: "Metronome")]
 
       @battle.performMove(@id1, @battle.getMove('Tackle'))
-      @battle.endTurn()
 
       modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
@@ -1299,7 +1298,6 @@ shared = require '../shared'
 
       for i in [1..5]
         @battle.performMove(@id1, @battle.getMove('Tackle'))
-        @battle.endTurn()
 
       modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
@@ -1311,7 +1309,6 @@ shared = require '../shared'
 
       for i in [1..6]
         @battle.performMove(@id1, @battle.getMove('Tackle'))
-        @battle.endTurn()
 
       modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
         @battle, @p1, @p2)
@@ -1320,11 +1317,13 @@ shared = require '../shared'
     it "resets base power multiplier to x1.0 on a different move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
+      tackle = @battle.getMove('Tackle')
+      splash = @battle.getMove('splash')
 
-      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @battle.performMove(@id1, tackle)
+      @battle.performMove(@id1, splash)
 
-      modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Splash'),
-        @battle, @p1, @p2)
+      modifier = Items['Metronome'].basePowerModifier(splash, @battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "Shed Shell", ->
