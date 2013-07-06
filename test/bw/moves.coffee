@@ -4782,5 +4782,3 @@ shared = require '../shared'
       mock = @sandbox.mock(telekinesis).expects('fail').once()
       @battle.performMove(@id1, telekinesis)
       mock.verify()
-
-    it "nullifies Arena Trap"
