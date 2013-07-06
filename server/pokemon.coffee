@@ -316,8 +316,7 @@ class @Pokemon
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) =>
     options = _.clone(options)
-    options.pokemon = this
-    @attachments.push(attachment, options)
+    @attachments.push(attachment, options, pokemon: this)
 
   # Removes an attachment from the list of attachment
   unattach: (klass) =>

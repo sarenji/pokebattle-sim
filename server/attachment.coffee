@@ -6,15 +6,13 @@ class @Attachments
   constructor: ->
     @attachments = []
 
-  push: (attachmentClass, options={}) =>
+  push: (attachmentClass, options={}, attributes={}) =>
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
     attachment = @get(attachmentClass)
     if !attachment?
       attachment = new attachmentClass(options)
-      ## hacky
-      attachment.pokemon = options.pokemon
-      attachment.team = options.team
-      ## end hacky
+      for attribute, value of attributes
+        attachment[attribute] = value
       @attachments.push(attachment)
       attachment.initialize(options)
 
@@ -259,9 +257,8 @@ class @Attachment.Taunt extends @VolatileAttachment
 class @Attachment.Wish extends @TeamAttachment
   name: "WishAttachment"
 
-  constructor: (attributes) ->
-    super()
-    {user, @team} = attributes
+  initialize: (attributes) ->
+    {user} = attributes
     @amount = Math.round(user.stat('hp') / 2)
     @wisherName = user.name
     @slot = @team.indexOf(user)

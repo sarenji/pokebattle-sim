@@ -41,8 +41,7 @@ class @Team
 
   attach: (attachment, options={}) =>
     options = _.clone(options)
-    options.team = this
-    @attachments.push(attachment, options)
+    @attachments.push(attachment, options, team: this)
 
   unattach: (klass) =>
     attachment = @attachments.unattach(klass)
