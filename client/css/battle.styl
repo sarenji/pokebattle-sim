@@ -1,6 +1,14 @@
 divide(a, b)
   a / b
 
+@keyframes glow
+  from
+    box-shadow   none
+  to
+    box-shadow   0 0 10px #B5A891
+    border-color #B5A891
+    color        #57554C
+
 .battle
   position absolute
   top 0
@@ -45,17 +53,19 @@ divide(a, b)
     background    linear-gradient(top, #DAE4EB, #CCD8E0 50%, #AFBFC9 50%, #94A5B0)
     border        2px solid #777F85
     cursor        pointer
+    color         #3D3021
     &:hover
       background  #F2F0DC
       background  linear-gradient(top, #FFFEF0, #F2F0DC 50%, #E0DCCA 50%, #CFCAB6)
       border-color #8A8171
+      animation   glow .3s ease infinite alternate
     &.disabled, &.disabled:hover
       background  #EBEBEB
       background  linear-gradient(top, #F5F5F5, #EBEBEB 50%, #A6A6A6 50%, #808080)
       border-color #8A8171
       cursor      default
-      .main_text
-        color     #999
+      animation   none
+      color     #999
     .main_text, .meta_info
       height      32px
       line-height @height
@@ -64,7 +74,6 @@ divide(a, b)
     .main_text
       font-size   16px
       font-weight 700
-      color       #3D3021
     .meta_info
       font-size   13px
       text-align  right
