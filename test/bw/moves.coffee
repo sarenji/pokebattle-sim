@@ -4580,6 +4580,8 @@ shared = require '../shared'
       mock.verify()
 
   describe "Magic Coat", ->
+    shared.shouldDoNoDamage("Magic Coat")
+
     it "causes certain moves directed at the user to be bounced back", ->
       shared.create.call(this)
       whirlwind = @battle.getMove("Whirlwind")
