@@ -107,11 +107,19 @@ class @Attachment
 
 Attachment = @Attachment
 
+# Used for effects like Tailwind or Reflect.
 class @TeamAttachment extends @Attachment
   name: "TeamAttachment"
 
   remove: =>
     @team.unattach(@constructor)
+
+# Used for effects like Trick Room or Magic Room.
+class @BattleAttachment extends @Attachment
+  name: "BattleAttachment"
+
+  remove: =>
+    @battle.unattach(@constructor)
 
 class @Attachment.Paralysis extends @Attachment
   name: Status.PARALYZE
@@ -980,3 +988,15 @@ class @Attachment.SmackDown extends @VolatileAttachment
     if move in [ battle.getMove("Telekinesis"), battle.getMove("Magnet Rise") ]
       move.fail(battle)
       return true
+
+class @Attachment.EchoedVoice extends @BattleAttachment
+  name: "EchoedVoiceAttachment"
+
+  maxLayers: 4
+
+  initialize: =>
+    @turns = 2
+
+  endTurn: =>
+    @turns--
+    @remove()  if @turns == 0

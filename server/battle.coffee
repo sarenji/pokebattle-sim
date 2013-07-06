@@ -4,6 +4,7 @@
 {Player} = require './player'
 {Team} = require './team'
 {Weather} = require './weather'
+{Attachments} = require './attachment'
 
 class @Battle
   # TODO: let Battle serialize these.
@@ -55,6 +56,9 @@ class @Battle
 
     # Stores the confusion recoil move as it may be different cross-generations
     @confusionMove = Moves['confusion-recoil']
+
+    # Stores attachments on the battle itself.
+    @attachments = new Attachments()
 
     for object in attributes.players
       {player, team} = object
@@ -295,10 +299,26 @@ class @Battle
 
   # Performs end turn effects.
   endTurn: =>
+    @attachments.query('endTurn', this)
     team.endTurn(this)  for team in @getTeams()
     pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
     @sendMessages()
+
+  attach: (klass, options = {}) =>
+    options = _.clone(options)
+    @attachments.push(klass, options, battle: this)
+
+  unattach: (klass) =>
+    attachment = @attachments.unattach(klass)
+    delete attachment.battle  if attachment?
+    attachment
+
+  get: (attachment) =>
+    @attachments.get(attachment)
+
+  has: (attachment) =>
+    @attachments.contains(attachment)
 
   endBattle: =>
     winner = @getWinner()

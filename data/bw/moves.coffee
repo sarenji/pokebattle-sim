@@ -1193,6 +1193,16 @@ extendMove 'dream-eater', ->
       return false
     oldUse.call(this, battle, user, target)
 
+extendMove 'echoed-voice', ->
+  @basePower = (battle, user, target) ->
+    layers = battle.get(Attachment.EchoedVoice)?.layers || 0
+    @power * (layers + 1)
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    battle.attach(Attachment.EchoedVoice)
+    attachment = battle.get(Attachment.EchoedVoice)
+    attachment.turns = 2
+
 extendMove 'encore', ->
   bannedMoves =
     'encore': true

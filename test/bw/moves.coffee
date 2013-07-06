@@ -4781,3 +4781,74 @@ shared = require '../shared'
       mock = @sandbox.mock(telekinesis).expects('fail').once()
       @battle.performMove(@id1, telekinesis)
       mock.verify()
+
+  describe "Echoed Voice", ->
+    it "has 80 base power the second turn in a row it is used", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      @battle.performMove(@id1, echoedVoice)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
+
+    it "has 120 base power the third turn in a row it is used", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      for i in [1...3]
+        @battle.performMove(@id1, echoedVoice)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(120)
+    it "has 160 base power the fourth turn in a row it is used", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      for i in [1...4]
+        @battle.performMove(@id1, echoedVoice)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(160)
+
+    it "has 200 base power the fifth turn in a row it is used", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      for i in [1...5]
+        @battle.performMove(@id1, echoedVoice)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(200)
+
+    it "has 200 base power the sixth and above turn in a row it is used", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      for i in [1...6]
+        @battle.performMove(@id1, echoedVoice)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(200)
+
+    it "resets to 40 base power if nobody uses this move the previous turn", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+      splash = @battle.getMove("Splash")
+
+      @battle.performMove(@id1, echoedVoice)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
+
+      @battle.performMove(@id1, splash)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(40)
+
+    it "has the same base power that turn for all users", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+      splash = @battle.getMove("Splash")
+
+      @battle.performMove(@id1, echoedVoice)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
+      echoedVoice.basePower(@battle, @p2, @p1).should.equal(80)
