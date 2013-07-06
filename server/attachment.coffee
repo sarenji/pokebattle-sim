@@ -816,6 +816,11 @@ class @Attachment.Ingrain extends @VolatileAttachment
     battle.message "#{@pokemon.name} anchored itself with its roots!"
     return false
 
+  shouldBlockExecution: (battle, move, user) =>
+    if move == battle.getMove("Telekinesis")
+      move.fail(battle)
+      return true
+
   isImmune: (battle, type) =>
     return false  if type == 'Ground'
 
@@ -990,3 +995,14 @@ class @Attachment.Telekinesis extends @VolatileAttachment
     if @turns == 0
       battle.message "#{@pokemon} was freed from the telekinesis!"
       @remove()
+
+class @Attachment.SmackDown extends @VolatileAttachment
+  name: "SmackDownAttachment"
+
+  isImmune: (battle, type) =>
+    return false  if type == 'Ground'
+
+  shouldBlockExecution: (battle, move, user) =>
+    if move in [ battle.getMove("Telekinesis"), battle.getMove("Magnet Rise") ]
+      move.fail(battle)
+      return true

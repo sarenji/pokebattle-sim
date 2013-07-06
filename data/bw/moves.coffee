@@ -1648,6 +1648,14 @@ extendMove 'reflect', ->
 extendMove 'return', ->
   @basePower = -> 102
 
+extendMove 'smack-down', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(Attachment.SmackDown)
+    target.unattach(Attachment.MagnetRise)
+    target.unattach(Attachment.Telekinesis)
+    # Smack Down will miss on charge moves it cannot hit.
+    target.unattach(Attachment.Charging)
+
 makeStatusCureAttackMove 'smellingsalt', Status.PARALYZE
 
 extendMove 'sonicboom', ->

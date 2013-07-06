@@ -3992,6 +3992,17 @@ shared = require '../shared'
       @battle.performMove(@id1, ingrain)
       @p1.isImmune(@battle, 'Ground').should.be.false
 
+    it "causes Telekinesis to fail", ->
+      shared.create.call(this)
+      ingrain = @battle.getMove('Ingrain')
+      telekinesis = @battle.getMove('Telekinesis')
+
+      @battle.performMove(@id1, ingrain)
+
+      mock = @sandbox.mock(telekinesis).expects('fail').once()
+      @battle.performMove(@id2, telekinesis)
+      mock.verify()
+
   describe "Embargo", ->
     it "prevents the target's use of items", ->
       shared.create.call this,
@@ -4681,3 +4692,95 @@ shared = require '../shared'
       tackle.willMiss(@battle, @p2, @p1).should.be.true
       @battle.performMove(@id2, telekinesis)
       tackle.willMiss(@battle, @p2, @p1).should.be.false
+
+  describe "Smack Down", ->
+    it "removes target's Ground immunity", ->
+      shared.create.call(this, team2: [ Factory("Gyarados") ])
+      smackDown = @battle.getMove("Smack Down")
+
+      @p2.isImmune(@battle, "Ground").should.be.true
+      @battle.performMove(@id1, smackDown)
+      console.log @p2.has(Attachment.SmackDown)
+      @p2.isImmune(@battle, "Ground").should.be.false
+
+    it "stops Fly", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      fly = @battle.getMove("Fly")
+
+      @battle.recordMove(@id1, fly)
+      @battle.continueTurn()
+
+      @p1.has(Attachment.Charging).should.be.true
+      @battle.performMove(@id2, smackDown)
+      @p1.has(Attachment.Charging).should.be.false
+
+    it "stops Bounce", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      bounce = @battle.getMove("Bounce")
+
+      @battle.recordMove(@id1, bounce)
+      @battle.continueTurn()
+
+      @p1.has(Attachment.Charging).should.be.true
+      @battle.performMove(@id2, smackDown)
+      @p1.has(Attachment.Charging).should.be.false
+
+    it "does not stop other charge moves like Dive", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      dive = @battle.getMove("Dive")
+
+      @battle.recordMove(@id1, dive)
+      @battle.continueTurn()
+
+      @p1.has(Attachment.Charging).should.be.true
+      @battle.performMove(@id2, smackDown)
+      @p1.has(Attachment.Charging).should.be.true
+
+    it "stops Magnet Rise", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      magnetRise = @battle.getMove("Magnet Rise")
+
+      @battle.performMove(@id1, magnetRise)
+
+      @p1.has(Attachment.MagnetRise).should.be.true
+      @battle.performMove(@id2, smackDown)
+      @p1.has(Attachment.MagnetRise).should.be.false
+
+    it "stops Telekinesis", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      telekinesis = @battle.getMove("Telekinesis")
+
+      @battle.performMove(@id2, telekinesis)
+
+      @p1.has(Attachment.Telekinesis).should.be.true
+      @battle.performMove(@id2, smackDown)
+      @p1.has(Attachment.Telekinesis).should.be.false
+
+    it "makes Magnet Rise execution fail", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      magnetRise = @battle.getMove("Magnet Rise")
+
+      @battle.performMove(@id1, smackDown)
+
+      mock = @sandbox.mock(magnetRise).expects('fail').once()
+      @battle.performMove(@id2, magnetRise)
+      mock.verify()
+
+    it "causes Telekinesis execution to fail", ->
+      shared.create.call(this)
+      smackDown = @battle.getMove("Smack Down")
+      telekinesis = @battle.getMove("Telekinesis")
+
+      @battle.performMove(@id1, smackDown)
+
+      mock = @sandbox.mock(telekinesis).expects('fail').once()
+      @battle.performMove(@id1, telekinesis)
+      mock.verify()
+
+    it "nullifies Arena Trap"
