@@ -4226,6 +4226,9 @@ shared = require '../shared'
       furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
 
   describe "Imprison", ->
+    shared.shouldDoNoDamage("Imprison")
+    shared.shouldFailIfUsedTwice("Imprison")
+
     it "prevents the opponent from selecting moves that the user knows", ->
       shared.create.call(this)
       imprison = @battle.getMove("Imprison")

@@ -1326,8 +1326,10 @@ extendMove 'imprison', ->
     # There is only one target for Imprison.
     target = targets[0]
     {moves} = target
-    target.attach(Attachment.Imprison, {battle, moves})
-    battle.message "#{target.name} sealed the opponent's moves!"
+    if target.attach(Attachment.Imprison, {battle, moves})
+      battle.message "#{target.name} sealed the opponent's moves!"
+    else
+      @fail(battle)
 
 extendMove 'incinerate', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
