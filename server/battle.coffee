@@ -473,7 +473,9 @@ class @Battle
     pokemon = @getTeam(id).at(0)
     targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
+    struggle = @getMove('Struggle')
 
+    @message "#{pokemon.name} has no moves left!"  if move == struggle
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
     if pokemon.pp(move) <= 0

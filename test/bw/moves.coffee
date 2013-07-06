@@ -4852,3 +4852,20 @@ shared = require '../shared'
       @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
       echoedVoice.basePower(@battle, @p2, @p1).should.equal(80)
+
+  describe "Struggle", ->
+    it "deals typless damage", ->
+      shared.create.call(this)
+      struggle = @battle.getMove('Struggle')
+
+      for type of util.Type
+        util.typeEffectiveness(struggle.type, [type]).should.equal(1)
+
+    it "deals 25% in recoil to the attacker, rounded down", ->
+      shared.create.call(this)
+      struggle = @battle.getMove('Struggle')
+
+      hp = @p1.currentHP
+      @p1.currentHP.should.equal @p1.stat('hp')
+      @battle.performMove(@id1, struggle)
+      (hp - @p1.currentHP).should.equal(hp >> 2)

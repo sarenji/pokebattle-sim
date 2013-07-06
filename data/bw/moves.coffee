@@ -1698,6 +1698,12 @@ extendMove 'stealth-rock', ->
       else
         @fail(battle)
 
+extendMove 'struggle', ->
+  @type = '???'
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.damage(user.stat('hp') >> 2)
+
 extendMove 'splash', ->
   # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
