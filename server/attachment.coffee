@@ -25,7 +25,7 @@ class @Attachments
   # todo: should call Attachment#remove() somehow without causing infinite recursion
   unattach: (attachment) =>
     index = @indexOf(attachment)
-    @attachments.splice(index, 1)
+    @attachments.splice(index, 1)  if index >= 0
 
   indexOf: (attachment) =>
     @attachments.map((a) -> a.constructor).indexOf(attachment)
@@ -78,7 +78,7 @@ class @Attachment
 
   remove: =>
     # Error if @pokemon is undefined
-    @pokemon.unattach(this)
+    @pokemon.unattach(@constructor)
 
   calculateWeight: (weight) => weight
   editAccuracy: (accuracy) => accuracy
@@ -113,7 +113,7 @@ class @TeamAttachment extends @Attachment
   name: "TeamAttachment"
 
   remove: =>
-    @team.unattach(this)
+    @team.unattach(@constructor)
 
 class @Attachment.Paralysis extends @Attachment
   name: Status.PARALYZE

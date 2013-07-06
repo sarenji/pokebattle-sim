@@ -44,11 +44,10 @@ class @Team
     options.team = this
     @attachments.push(attachment, options)
 
-  unattach: (attachment) =>
-    ref = @attachments.unattach(attachment)
-    return  if !ref?
-    delete ref.team
-    ref
+  unattach: (klass) =>
+    attachment = @attachments.unattach(klass)
+    delete attachment.team  if attachment?
+    attachment
 
   switch: (battle, player, a, b) =>
     battle.message "#{player.username} withdrew #{@at(a).name}!"

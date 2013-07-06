@@ -1107,6 +1107,16 @@ shared = require '../shared'
 
       mock.verify()
 
+    it 'fails if used twice', ->
+      shared.create.call(this)
+      nightmare = @battle.getMove('Nightmare')
+      @p2.setStatus(Status.SLEEP)
+
+      mock = @sandbox.mock(nightmare).expects('fail').once()
+      @battle.performMove(@id1, nightmare)
+      @battle.performMove(@id1, nightmare)
+      mock.verify()
+
     it "cuts the target's HP by 25% each turn", ->
       shared.create.call(this)
       @p2.setStatus(Status.SLEEP)

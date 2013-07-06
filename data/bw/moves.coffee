@@ -1526,9 +1526,8 @@ extendMove 'metronome', ->
 
 extendMove 'nightmare', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.hasStatus(Status.SLEEP)
-      # TODO: What if the Pokemon is already under Nightmare?
-      target.attach(Attachment.Nightmare)
+    if target.hasStatus(Status.SLEEP) && target.attach(Attachment.Nightmare)
+      battle.message "#{target.name} began having a nightmare!"
     else
       @fail(battle)
 

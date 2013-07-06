@@ -161,7 +161,7 @@ class @Pokemon
     @attachments.contains(name)
 
   has: (attachment) =>
-    @hasAttachment.contains(attachment)
+    @hasAttachment(attachment)
 
   getAttachment: (name) =>
     @attachments.get(name)
@@ -322,7 +322,8 @@ class @Pokemon
   # Removes an attachment from the list of attachment
   unattach: (klass) =>
     attachment = @attachments.unattach(klass)
-    delete attachment.pokemon
+    delete attachment.pokemon  if attachment?
+    attachment
 
   # Blocks a move for a single turn
   blockMove: (move) =>
