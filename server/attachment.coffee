@@ -10,7 +10,7 @@ class @Attachments
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
     attachment = @get(attachmentClass)
     if !attachment?
-      attachment = new attachmentClass(options)
+      attachment = new attachmentClass()
       for attribute, value of attributes
         attachment[attribute] = value
       @attachments.push(attachment)
@@ -154,8 +154,7 @@ class @Attachment.Flinch extends @VolatileAttachment
 class @Attachment.Confusion extends @VolatileAttachment
   name: VolatileStatus.CONFUSION
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) ->
     @turns = attributes.battle.rng.randInt(1, 4, "confusion turns")
     @turn = 0
 
@@ -175,8 +174,7 @@ class @Attachment.Confusion extends @VolatileAttachment
 class @Attachment.Disable extends @VolatileAttachment
   name: "DisableAttachment"
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) ->
     @blockedMove = attributes.move
     @turns = attributes.turns
     @turn = 0
@@ -195,8 +193,7 @@ class @Attachment.Disable extends @VolatileAttachment
 class @Attachment.Yawn extends @VolatileAttachment
   name: 'YawnAttachment'
 
-  constructor: ->
-    super()
+  initialize: =>
     @turn = 0
 
   endTurn: =>
@@ -227,8 +224,7 @@ class @Attachment.Nightmare extends @VolatileAttachment
 class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) =>
     {@battle} = attributes
     @turns = 3
     @turn = 0
@@ -280,8 +276,7 @@ class @Attachment.Wish extends @TeamAttachment
 class @Attachment.PerishSong extends @VolatileAttachment
   name: "PerishSongAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 4
     @turn = 0
 
@@ -307,12 +302,9 @@ class @Attachment.Roost extends @VolatileAttachment
 class @Attachment.Encore extends @VolatileAttachment
   name: "EncoreAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 3
     @turn = 0
-
-  initialize: =>
     @move = @pokemon.lastMove
 
   beginTurn: (battle) =>
@@ -405,8 +397,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 class @Attachment.Trap extends @VolatileAttachment
   name: "TrapAttachment"
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) =>
     {@moveName, @user, @turns} = attributes
 
   beginTurn: (battle) =>
@@ -439,8 +430,7 @@ class @Attachment.Trap extends @VolatileAttachment
 class @Attachment.TrapLeash extends @VolatileAttachment
   name: "TrapLeashAttachment"
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) =>
     {@target} = attributes
 
   remove: =>
@@ -452,13 +442,10 @@ class @Attachment.TrapLeash extends @VolatileAttachment
 class @Attachment.Attract extends @VolatileAttachment
   name: "AttractAttachment"
 
-  constructor: (attributes={}) ->
-    super()
-    {@source} = attributes
-
-  initialize: =>
-    if @pokemon.hasItem("Destiny Knot") && !@source.hasAttachment(Attachment.Attract)
-      @source.attach(Attachment.Attract, {@source})
+  initialize: (attributes) =>
+    {source} = attributes
+    if @pokemon.hasItem("Destiny Knot") && !source.has(Attachment.Attract)
+      source.attach(Attachment.Attract, {source})
       @pokemon.removeItem()
 
   beforeMove: (battle, move, user, targets) =>
@@ -471,8 +458,8 @@ class @Attachment.FocusEnergy extends @VolatileAttachment
 
 class @Attachment.MicleBerry extends @VolatileAttachment
   name: "MicleBerryAttachment"
-  constructor: ->
-    super()
+
+  initialize: =>
     @turns = 1
 
   editAccuracy: (accuracy) =>
@@ -487,8 +474,7 @@ class @Attachment.MicleBerry extends @VolatileAttachment
 class @Attachment.EvasionItem extends @VolatileAttachment
   name: "EvasionItemAttachment"
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) =>
     @ratio = attributes.ratio || 0.9
 
   editEvasion: (accuracy) =>
@@ -508,8 +494,7 @@ class @Attachment.Metronome extends @VolatileAttachment
 class @Attachment.Screen extends @TeamAttachment
   name: "ScreenAttachment"
 
-  constructor: (attributes={}) ->
-    super(attributes)
+  initialize: (attributes) =>
     {user} = attributes
     @turns = (if user?.hasItem("Light Clay") then 8 else 5)
 
@@ -527,8 +512,7 @@ class @Attachment.LightScreen extends @Attachment.Screen
 class @Attachment.Identify extends @VolatileAttachment
   name: "IdentifyAttachment"
 
-  constructor: (attributes={}) ->
-    super(attributes)
+  initialize: (attributes) =>
     {@type} = attributes
 
   editBoosts: (stages) =>
@@ -553,8 +537,7 @@ class @Attachment.FocusPunch extends @VolatileAttachment
 class @Attachment.MagnetRise extends @VolatileAttachment
   name: "MagnetRiseAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 5
 
   isImmune: (battle, type) =>
@@ -567,8 +550,7 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 class @Attachment.LockOn extends @VolatileAttachment
   name: "LockOnAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 2
 
   editAccuracy: (stat) =>
@@ -590,8 +572,7 @@ class @Attachment.MeanLook extends @VolatileAttachment
 class @Attachment.Recharge extends @VolatileAttachment
   name: "RechargeAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 2
 
   beginTurn: (battle) =>
@@ -613,8 +594,7 @@ class @Attachment.Momentum extends @VolatileAttachment
 
   maxLayers: 5
 
-  constructor: (attributes={}) ->
-    super()
+  initialize: (attributes) =>
     {@move} = attributes
     @turns = 1
 
@@ -635,8 +615,7 @@ class @Attachment.MeFirst extends @VolatileAttachment
 class @Attachment.Charge extends @VolatileAttachment
   name: "ChargeAttachment"
 
-  constructor: ->
-    super()
+  initialize: =>
     @turns = 2
 
   endTurn: (battle) =>
@@ -646,8 +625,7 @@ class @Attachment.Charge extends @VolatileAttachment
 class @Attachment.LeechSeed extends @VolatileAttachment
   name: "LeechSeedAttachment"
 
-  constructor: (attributes) ->
-    super()
+  initialize: (attributes) =>
     {@user, @target} = attributes
 
   endTurn: (battle) =>
@@ -745,8 +723,7 @@ class @Attachment.PursuitModifiers extends @VolatileAttachment
 class @Attachment.Substitute extends @VolatileAttachment
   name: "SubstituteAttachment"
 
-  constructor: (attributes) ->
-    super()
+  initialize: (attributes) =>
     {@battle, @hp} = attributes
 
   transformHealthChange: (damage) =>
