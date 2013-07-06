@@ -1534,6 +1534,17 @@ extendMove 'metronome', ->
       targets = battle.getTargets(move, user)
     move.execute(battle, user, targets)
 
+extendMove 'nature-power', ->
+  @execute = (battle, user, targets) ->
+    # In Wi-Fi battles, Earthquake is always chosen.
+    battle.message "#{@name} turned into Earthquake!"
+    earthquake = battle.getMove('Earthquake')
+    earthquake.execute(battle, user, targets)
+
+  @getTargets = (battle, user) ->
+    earthquake = battle.getMove('Earthquake')
+    battle.getTargets(earthquake, user)
+
 extendMove 'nightmare', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasStatus(Status.SLEEP) && target.attach(Attachment.Nightmare)

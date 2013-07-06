@@ -84,6 +84,7 @@ class @Move
 
   # A hook that is only used by special "specific-move" targets.
   getTargets: (battle, user) =>
+    throw new Error("Move #{@name} has not implemented getTargets.")
 
   calculateDamage: (battle, user, target) =>
     return 0  if @power == 0

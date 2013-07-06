@@ -4869,3 +4869,14 @@ shared = require '../shared'
       @p1.currentHP.should.equal @p1.stat('hp')
       @battle.performMove(@id1, struggle)
       (hp - @p1.currentHP).should.equal(hp >> 2)
+
+  describe "Nature Power", ->
+    it "uses Earthquake in Wi-Fi battles", ->
+      shared.create.call(this)
+      naturePower = @battle.getMove('Nature Power')
+      earthquake = @battle.getMove('Earthquake')
+
+      mock = @sandbox.mock(earthquake).expects('execute').once()
+                                      .withArgs(@battle, @p1, [ @p2 ])
+      @battle.performMove(@id1, naturePower)
+      mock.verify()
