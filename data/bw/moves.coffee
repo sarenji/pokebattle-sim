@@ -308,6 +308,15 @@ makeRandomSwitchMove = (name) ->
       index = opponent.team.indexOf(pokemon)
       opponent.switch(battle, 0, index)
 
+makeRampageMove = (moveName) ->
+  extendMove moveName, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      user.attach(Attachment.Rampage, battle: battle, move: this)
+
+makeRampageMove("outrage")
+makeRampageMove("petal-dance")
+makeRampageMove("thrash")
+
 # TODO: Does it fail if using twice, but on a different target?
 # From PokemonLab:
 # TODO: Major research is required here. Does Lock On make the next move to

@@ -4880,3 +4880,87 @@ shared = require '../shared'
                                       .withArgs(@battle, @p1, [ @p2 ])
       @battle.performMove(@id1, naturePower)
       mock.verify()
+
+  testRampageMove = (moveName) ->
+    describe moveName, ->
+      it "lasts 2-3 turns", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
+        rampageMove = @battle.getMove(moveName)
+
+        @battle.performMove(@id1, rampageMove)
+        @p1.has(Attachment.Rampage).should.be.true
+        @battle.endTurn()
+        @battle.performMove(@id1, rampageMove)
+        @battle.endTurn()
+        @p1.has(Attachment.Rampage).should.be.false
+
+      it "locks the user into that move until execution ends", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
+        rampageMove = @battle.getMove(moveName)
+        splash = @battle.getMove("Splash")
+        @p1.moves = [ rampageMove, splash ]
+
+        @battle.performMove(@id1, rampageMove)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.validMoves().should.eql [ rampageMove ]
+
+        @battle.performMove(@id1, rampageMove)
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.validMoves().should.eql [ rampageMove, splash ]
+
+      it "blocks switching until execution ends", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
+        rampageMove = @battle.getMove(moveName)
+
+        @battle.performMove(@id1, rampageMove)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.isSwitchBlocked().should.be.true
+
+        @battle.performMove(@id1, rampageMove)
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.isSwitchBlocked().should.be.false
+
+      it "confuses the user after use", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
+        rampageMove = @battle.getMove(moveName)
+
+        @battle.performMove(@id1, rampageMove)
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.has(Attachment.Confusion).should.be.false
+
+        @battle.performMove(@id1, rampageMove)
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p1.has(Attachment.Confusion).should.be.true
+
+      it "stops immediately if the user's move did not hit", ->
+        shared.create.call(this)
+        shared.biasRNG.call(this, 'randInt', 'rampage turns', 3)
+        rampageMove = @battle.getMove(moveName)
+        protect = @battle.getMove("Protect")
+
+        @battle.performMove(@id1, rampageMove)
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @battle.recordMove(@id2, protect)
+        @battle.recordMove(@id1, rampageMove)
+        @battle.continueTurn()
+        @battle.endTurn()
+        @p1.has(Attachment.Rampage).should.be.false
+
+  testRampageMove("Outrage")
+  testRampageMove("Petal Dance")
+  testRampageMove("Thrash")

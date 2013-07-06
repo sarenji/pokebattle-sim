@@ -1000,3 +1000,29 @@ class @Attachment.EchoedVoice extends @BattleAttachment
   endTurn: =>
     @turns--
     @remove()  if @turns == 0
+
+class @Attachment.Rampage extends @VolatileAttachment
+  name: "RampageAttachment"
+
+  maxLayers: -1
+
+  initialize: (attributes) =>
+    {battle, @move} = attributes
+    @turns = battle.rng.randInt(2, 3, "rampage turns")
+    @turn = 0
+
+  beginTurn: (battle) =>
+    @pokemon.blockSwitch()
+    @pokemon.lockMove(@move)
+
+  endTurn: (battle) =>
+    @turn++
+    if @turn >= @turns
+      battle.message "#{@pokemon.name} became confused due to fatigue!"
+      @pokemon.attach(Attachment.Confusion, {battle})
+      @remove()
+    else
+      # afterSuccessfulHit increases the number of layers. If the number of
+      # layers is not keeping up with the number of turns passed, then the
+      # Pokemon's move was interrupted and we should stop rampaging.
+      @remove()  if @turn > @layers
