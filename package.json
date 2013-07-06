@@ -20,7 +20,11 @@
   },
   "scripts": {
     "test": "make test",
-    "start": "coffee app.coffee"
+    "start": "node start.js"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/sarenji/battletower"
   },
   "subdomain": "battletower",
   "engines": {
