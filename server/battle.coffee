@@ -474,11 +474,11 @@ class @Battle
     targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
 
-    # TODO: Check for 0 PP here, and cancel execution
-
     @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
 
-    if pokemon.beforeMove(this, move, pokemon, targets) != false
+    if pokemon.pp(move) <= 0
+      @message "But there was no PP left for the move!"
+    else if pokemon.beforeMove(this, move, pokemon, targets) != false
       pokemon.reducePP(move)
       # TODO: Pressure
       # TODO: What if a Pokemon uses Focus Punch on a Pressure Pokemon?

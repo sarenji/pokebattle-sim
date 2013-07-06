@@ -388,3 +388,13 @@ describe 'Mechanics', ->
 
       @battle.endTurn()
       @p1.turnsActive.should.equal 1
+
+  describe "A move with 0 PP", ->
+    it "will not execute", ->
+      shared.create.call(this)
+      move = @p1.moves[0]
+      @p1.setPP(move, 0)
+
+      @sandbox.mock(move).expects('execute').never()
+      @sandbox.mock(@p1).expects('beforeMove').never()
+      @battle.performMove(@id1, move)
