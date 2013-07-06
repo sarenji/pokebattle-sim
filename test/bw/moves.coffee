@@ -4700,7 +4700,6 @@ shared = require '../shared'
 
       @p2.isImmune(@battle, "Ground").should.be.true
       @battle.performMove(@id1, smackDown)
-      console.log @p2.has(Attachment.SmackDown)
       @p2.isImmune(@battle, "Ground").should.be.false
 
     it "stops Fly", ->
