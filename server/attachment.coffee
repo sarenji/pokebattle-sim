@@ -972,3 +972,21 @@ class @Attachment.MagicCoat extends @VolatileAttachment
 
   endTurn: (battle) =>
     @remove()
+
+class @Attachment.Telekinesis extends @VolatileAttachment
+  name: "TelekinesisAttachment"
+
+  initialize: =>
+    @turns = 3
+
+  editEvasion: =>
+    0  # Always hit
+
+  isImmune: (battle, type) =>
+    return true  if type == 'Ground'
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      battle.message "#{@pokemon} was freed from the telekinesis!"
+      @remove()

@@ -1747,6 +1747,13 @@ extendMove 'techno-blast', ->
       else
         "Normal"
 
+extendMove 'telekinesis', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if target.attach(Attachment.Telekinesis)
+      battle.message "#{target.name} was hurled into the air!"
+    else
+      @fail(battle)
+
 extendMove 'torment', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Torment)

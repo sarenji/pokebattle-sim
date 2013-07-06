@@ -4639,3 +4639,35 @@ shared = require '../shared'
       spy.calledTwice.should.be.true
       spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
       spy.calledWith(@battle, @p2, [ @p1 ]).should.be.true
+
+  describe "Telekinesis", ->
+    shared.shouldDoNoDamage("Telekinesis")
+    shared.shouldFailIfUsedTwice("Telekinesis")
+
+    it "makes the target immune to ground moves", ->
+      shared.create.call(this)
+      telekinesis = @battle.getMove("Telekinesis")
+
+      @p1.isImmune(@battle, 'Ground').should.be.false
+      @battle.performMove(@id2, telekinesis)
+      @p1.isImmune(@battle, 'Ground').should.be.true
+
+    it "lasts 3 turns", ->
+      shared.create.call(this)
+      telekinesis = @battle.getMove("Telekinesis")
+
+      @battle.performMove(@id2, telekinesis)
+      for x in [0...3]
+        @p1.isImmune(@battle, 'Ground').should.be.true
+        @battle.endTurn()
+      @p1.isImmune(@battle, 'Ground').should.be.false
+
+    it "makes the target unable to avoid any attacks", ->
+      shared.create.call(this)
+      telekinesis = @battle.getMove("Telekinesis")
+      tackle = @battle.getMove("Tackle")
+      shared.biasRNG.call(this, 'randInt', "miss", 101)  # Always misses
+
+      tackle.willMiss(@battle, @p2, @p1).should.be.true
+      @battle.performMove(@id2, telekinesis)
+      tackle.willMiss(@battle, @p2, @p1).should.be.false
