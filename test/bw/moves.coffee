@@ -4575,7 +4575,7 @@ shared = require '../shared'
 
   describe "Magic Coat", ->
     it "causes certain moves directed at the user to be bounced back", ->
-      shared.create.call(this, team2: [Factory("Celebi")])
+      shared.create.call(this)
       whirlwind = @battle.getMove("Whirlwind")
       magicCoat = @battle.getMove("Magic Coat")
 
@@ -4585,7 +4585,7 @@ shared = require '../shared'
       spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
 
     it "does not bounce certain moves back", ->
-      shared.create.call(this, team2: [Factory("Celebi")])
+      shared.create.call(this)
       tackle = @battle.getMove("Tackle")
       magicCoat = @battle.getMove("Magic Coat")
 
@@ -4593,3 +4593,41 @@ shared = require '../shared'
       @battle.performMove(@id1, magicCoat)
       @battle.performMove(@id2, tackle)
       spy.calledWith(@battle, @p1, [ @p2 ]).should.be.false
+
+    it "lasts until the end of the turn", ->
+      shared.create.call(this)
+      magicCoat = @battle.getMove("Magic Coat")
+
+      @battle.performMove(@id1, magicCoat)
+      @p1.hasAttachment(Attachment.MagicCoat).should.be.true
+      @battle.endTurn()
+      @p1.hasAttachment(Attachment.MagicCoat).should.be.false
+
+    it "cannot bounce more than once in the same turn", ->
+      shared.create.call(this)
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      thunderWave = @battle.getMove("Thunder Wave")
+      magicCoat = @battle.getMove("Magic Coat")
+
+      @battle.performMove(@id1, magicCoat)
+      @battle.performMove(@id2, willOWisp)
+
+      spy = @sandbox.spy(thunderWave, 'execute')
+      @battle.performMove(@id2, thunderWave)
+      spy.calledWith(@battle, @p1, [ @p2 ]).should.be.false
+
+    it "cannot bounce a certain move more than once in the same turn", ->
+      shared.create.call(this)
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      magicCoat = @battle.getMove("Magic Coat")
+
+      @battle.performMove(@id1, magicCoat)
+      @battle.performMove(@id2, magicCoat)
+
+      spy = @sandbox.spy(willOWisp, 'execute')
+      (=>
+        @battle.performMove(@id2, willOWisp)
+      ).should.not.throw(/Maximum call stack size exceeded/)
+      spy.calledTwice.should.be.true
+      spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
+      spy.calledWith(@battle, @p2, [ @p1 ]).should.be.true

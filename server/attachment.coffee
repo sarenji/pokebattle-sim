@@ -958,8 +958,17 @@ class @Attachment.HealingWish extends @TeamAttachment
 class @Attachment.MagicCoat extends @VolatileAttachment
   name: "MagicCoatAttachment"
 
+  initialize: =>
+    @bounced = false
+
   shouldBlockExecution: (battle, move, user) =>
     return  unless move.hasFlag("reflectable")
+    return  if user.getAttachment(Attachment.MagicCoat)?.bounced
+    return  if @bounced
+    @bounced = true
     battle.message "#{@pokemon.name} bounced the #{move.name} back!"
     move.execute(battle, @pokemon, [ user ])
     return true
+
+  endTurn: (battle) =>
+    @remove()
