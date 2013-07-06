@@ -4325,6 +4325,9 @@ shared = require '../shared'
       @p2.currentHP.should.equal(1)
 
   describe "Lucky Chant", ->
+    shared.shouldDoNoDamage("Lucky Chant")
+    shared.shouldFailIfUsedTwice("Lucky Chant")
+
     it "prevents critical hits on the defender's team", ->
       shared.create.call(this)
       luckyChant = @battle.getMove("Lucky Chant")

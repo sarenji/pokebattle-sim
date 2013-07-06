@@ -766,9 +766,11 @@ extendWithPrimaryStatus 'lovely-kiss', Status.SLEEP
 extendMove 'lucky-chant', ->
   @afterSuccessfulHit = (battle, user, target) ->
     player = battle.getOwner(target)
-    player.team.attach(Attachment.LuckyChant)
-    battle.message "The Lucky Chant shielded #{player.username}'s " +
-                   "team from critical hits!"
+    if player.team.attach(Attachment.LuckyChant)
+      battle.message "The Lucky Chant shielded #{player.username}'s " +
+                     "team from critical hits!"
+    else
+      @fail(battle)
 
 makeTrappingMove "magma-storm"
 makeMeanLookMove 'mean-look'
