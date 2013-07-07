@@ -1180,15 +1180,22 @@ extendMove 'destiny-bond', ->
     battle.message "#{user.name} is trying to take its foe down with it!"
 
 extendMove 'disable', ->
-  # TODO: Disable the last move a pokemon used successfully
-  # TODO: Fail if the pokemon has not used a move yet
-  # TODO: Fail if the pokemon is already disabled?
-  # TODO: Does this stack with cursed body?
-  # TODO: Does it disable a move if it's the only one?
+  # TODO: Does it only reduce duration if the disabled pokemon successfully
+  #       goes through with a move?
+  oldUse = @use
+  @use = (battle, user, target) ->
+    # Fails if the target doesn't know the last move it used or if that move
+    # has zero PP or if the target has not moved since it was active.
+    move = target.lastMove
+    if !move? || !target.knows(move) || target.pp(move) <= 0
+      @fail(battle)
+      return false
+
+    oldUse.call(this, battle, user, target)
+
   @afterSuccessfulHit = (battle, user, target) ->
-    move = target.moves[0]
-    turns = battle.rng.randInt(4, 7, "disable")
-    target.attach(Attachment.Disable, {move, turns})
+    move = target.lastMove
+    target.attach(Attachment.Disable, {move})
     battle.message "#{target.name}'s #{move.name} was disabled!"
 
 extendMove 'dragon-rage', ->

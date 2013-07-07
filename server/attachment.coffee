@@ -230,23 +230,24 @@ class @Attachment.Confusion extends @VolatileAttachment
       user.damage(damage)
       return false
 
-# TODO: Also call @pokemon.blockMove when attached as well
 class @Attachment.Disable extends @VolatileAttachment
   name: "DisableAttachment"
 
   initialize: (attributes) ->
     @blockedMove = attributes.move
-    @turns = attributes.turns
-    @turn = 0
+    @turns = 4
 
   beginTurn: =>
     @pokemon.blockMove(@blockedMove)
 
-  # TODO: Does removal happen at end turn?
-  # TODO: Does the turn the attachment is attached count towards the turn total?
+  beforeMove: (battle, move, user, target) ->
+    if move == @blockedMove
+      battle.message "#{@pokemon.name}'s #{move.name} is disabled!"
+      return false
+
   endTurn: (battle) =>
-    @turn += 1
-    if @turn >= @turns
+    @turns--
+    if @turns == 0
       battle.message "#{@pokemon.name} is no longer disabled!"
       @remove()
 

@@ -312,49 +312,84 @@ shared = require '../shared'
       @p2.currentHP = Math.floor(@p2.currentHP / 2)
       move.basePower(@battle, @p1, @p2).should.equal 130
 
-  describe 'disable', ->
+  describe 'Disable', ->
     shared.shouldDoNoDamage('Disable')
 
     it 'gives the disabled attachment', ->
-      shared.create.call this
-      @controller.makeMove(@player1, 'Disable')
-      @controller.makeMove(@player2, 'Splash')
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      move = @p2.moves[0]
 
-      @p2.hasAttachment(Attachment.Disable).should.be.true
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, disable)
+      @p2.has(Attachment.Disable).should.be.true
 
-    # remove this once 'disables the last move that hit successfully'
-    # is implemented
-    it 'prevents a move from being used', ->
-      shared.create.call this
-      numMoves = @p2.moves.length
-      @controller.makeMove(@player1, 'Disable')
-      @controller.makeMove(@player2, 'Splash')
+    it "prevents the target's last move from being selected", ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      move = @p2.moves[0]
 
-      requestedMoves = @battle.requests[@player2.id].moves
-      requestedMoves.length.should.equal (numMoves - 1)
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, disable)
+      @battle.beginTurn()
 
-    # Retest once we know disable's proper mechanics
-    it 'wears off after a certain number of turns', ->
-      shared.create.call this
-      # minimum number of turns
-      shared.biasRNG.call(this, "randInt", 'disable', 4)
+      @p2.validMoves().should.not.include(move)
+      @p2.validMoves().should.have.length(@p2.moves.length - 1)
 
-      @controller.makeMove(@player1, 'Disable')
-      @controller.makeMove(@player2, 'Splash')
+    it 'wears off after 4 turns', ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      move = @p2.moves[0]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, disable)
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
-
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @battle.endTurn()
+      @battle.endTurn()
+      @battle.endTurn()
+      @battle.endTurn()
 
       @p2.hasAttachment(Attachment.Disable).should.be.false
 
-    it 'disables the last move that hit successfully'
-    it 'causes a move to fail if the user moves first'
+    it 'stops the execution of a disabled move', ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      move = @p2.moves[0]
+
+      @battle.performMove(@id2, move)
+      @battle.performMove(@id1, disable)
+      mock = @sandbox.mock(move).expects('execute').never()
+      @battle.performMove(@id2, move)
+      mock.verify()
+
+    it 'fails if the target has not moved since it was active', ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+
+      mock = @sandbox.mock(disable).expects('fail').once()
+      @battle.performMove(@id1, disable)
+      mock.verify()
+
+    it 'fails if the target does not know the move it used', ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      struggle = @battle.getMove("Struggle")
+
+      mock = @sandbox.mock(disable).expects('fail').once()
+      @battle.performMove(@id2, struggle)
+      @battle.performMove(@id1, disable)
+      mock.verify()
+
+    it "fails if the target's last move has 0 PP", ->
+      shared.create.call(this)
+      disable = @battle.getMove("Disable")
+      splash = @battle.getMove("Splash")
+
+      @battle.performMove(@id2, splash)
+      @p2.setPP(splash, 0)
+      mock = @sandbox.mock(disable).expects('fail').once()
+      @battle.performMove(@id1, disable)
+      mock.verify()
 
   describe 'hidden power', ->
     it 'has a max power of 70', ->
