@@ -43,6 +43,7 @@ create = (opts={}) ->
   biasRNG.call(this, 'next', 'ch', 1)
   biasRNG.call(this, 'randInt', 'damage roll', 0)
   biasRNG.call(this, 'randInt', 'miss', 0)  # Can be overridden, of course.
+  biasRNG.call(this, 'next', 'secondary status', 1)  # Often used in tests.
 
 createTestRNG = ->
   @biasedRNGFuncs = {}
