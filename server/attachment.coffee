@@ -143,6 +143,11 @@ class @Attachment.Freeze extends @Attachment
       battle.message "#{@pokemon.name} is frozen solid!"
       return false
 
+  afterBeingHit: (battle, move, user, target, damage) =>
+    if !move.isNonDamaging() && move.type == 'Fire'
+      battle.message "#{@pokemon.name} thawed out!"
+      @pokemon.cureStatus()
+
 class @Attachment.Poison extends @Attachment
   name: "#{Status.POISON}Attachment"
 

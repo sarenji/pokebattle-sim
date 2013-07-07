@@ -873,6 +873,7 @@ shared = require '../shared'
     it 'heals the entire team of status effects', ->
       shared.create.call this,
         team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
+      shared.biasRNG.call(this, 'next', 'paralyze chance', 1)  # never pars
       @team1.pokemon.forEach((pokemon) -> pokemon.setStatus(Status.PARALYZE))
       @battle.performMove(@id1, @battle.getMove('Aromatherapy'))
 

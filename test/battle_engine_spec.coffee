@@ -164,9 +164,9 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Mew')]
-      @controller.makeMove(@player1, 'Tri Attack')
+
       hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, @battle.getMove('Tri Attack'))
       (hp - @p2.currentHP).should.equal 214
 
   describe 'turn order', ->
@@ -310,7 +310,6 @@ describe 'Mechanics', ->
   describe 'a frozen pokemon', ->
     it "will not execute moves", ->
       shared.create.call(this)
-
       @p1.setStatus(Status.FREEZE)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
@@ -324,7 +323,6 @@ describe 'Mechanics', ->
 
     it "has a 20% chance of unfreezing", ->
       shared.create.call(this)
-
       @p1.setStatus(Status.FREEZE)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
@@ -332,6 +330,22 @@ describe 'Mechanics', ->
       @controller.makeMove(@player2, 'Splash')
 
       @p1.hasStatus(Status.FREEZE).should.be.false
+
+    it "unfreezes if hit by a fire move", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
+      @p1.setStatus(Status.FREEZE)
+
+      @battle.performMove(@id2, @battle.getMove('Flamethrower'))
+      @p1.hasStatus().should.be.false
+
+    it "does not unfreeze if hit by a non-damaging move", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
+      @p1.setStatus(Status.FREEZE)
+
+      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
+      @p1.hasStatus(Status.FREEZE).should.be.true
 
     for moveName in ["Sacred Fire", "Flare Blitz", "Flame Wheel", "Fusion Flare", "Scald"]
       it "automatically unfreezes if using #{moveName}", ->
