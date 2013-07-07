@@ -35,3 +35,5 @@ makeAbility 'Adaptability'
 makeAbility 'Sticky Hold'
 makeAbility 'Multitype'
 makeAbility 'Damp'
+
+makeAbility "Skill Link"

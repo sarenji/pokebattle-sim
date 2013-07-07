@@ -4968,3 +4968,40 @@ shared = require '../shared'
   testRampageMove("Outrage")
   testRampageMove("Petal Dance")
   testRampageMove("Thrash")
+
+  test2To5MulthitMove = (moveName) ->
+    describe moveName, ->
+      it "deals 2 to 5 hits with a probability distribution of 1/3, 1/3, 1/6, 1/6", ->
+        shared.create.call(this)
+
+        move = @battle.getMove(moveName)
+        mock = @sandbox.mock(@battle.rng)
+        mock.expects('choice').withArgs([2, 2, 3, 3, 4, 5], 'num hits').once()
+
+        @battle.performMove(@id1, move)
+        mock.verify()
+
+      it "hits 5 times if the user has Skill Link", ->
+        shared.create.call(this, team1: [Factory('Cloyster', ability: 'Skill Link')])
+
+        # try to "trick" the system into giving an invalid result. It should always hit
+        # 5 times regardless of the rng
+        shared.biasRNG.call(this, "choice", 'num hits', 2)
+        shared.biasRNG.call(this, "randInt", 'num hits', 2)
+
+        move = @battle.getMove(moveName)
+        move.calculateNumberOfHits(@battle, @p1, @p2).should.equal(5)
+
+  test2To5MulthitMove('Arm Thrust')
+  test2To5MulthitMove('Barrage')
+  test2To5MulthitMove('Bone Rush')
+  test2To5MulthitMove('Bullet Seed')
+  test2To5MulthitMove('Comet Punch')
+  test2To5MulthitMove('DoubleSlap')
+  test2To5MulthitMove('Fury Attack')
+  test2To5MulthitMove('Fury Swipes')
+  test2To5MulthitMove('Icicle Spear')
+  test2To5MulthitMove('Pin Missile')
+  test2To5MulthitMove('Rock Blast')
+  test2To5MulthitMove('Spike Cannon')
+  test2To5MulthitMove('Tail Slap')
