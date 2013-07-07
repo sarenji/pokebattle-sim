@@ -1079,3 +1079,16 @@ class @Attachment.Rampage extends @VolatileAttachment
       # layers is not keeping up with the number of turns passed, then the
       # Pokemon's move was interrupted and we should stop rampaging.
       @remove()  if @turn > @layers
+
+# The way Trick Room reverses turn order is implemented in Battle#sortActions.
+class @Attachment.TrickRoom extends @BattleAttachment
+  name: "TrickRoomAttachment"
+
+  initialize: =>
+    @turns = 5
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      battle.message "The twisted dimensions returned to normal!"
+      @remove()

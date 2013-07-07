@@ -1817,6 +1817,14 @@ extendMove 'toxic-spikes', ->
       else
         @fail(battle)
 
+extendMove 'trick-room', ->
+  @execute = (battle, user, targets) ->
+    if battle.attach(Attachment.TrickRoom)
+      battle.message "#{user.name} twisted the dimensions!"
+    else
+      battle.message "The twisted dimensions returned to normal!"
+      battle.unattach(Attachment.TrickRoom)
+
 extendMove 'trump-card', ->
   @basePower = (battle, user, target) ->
     switch user.pp(this)

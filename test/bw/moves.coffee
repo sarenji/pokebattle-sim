@@ -5132,3 +5132,34 @@ shared = require '../shared'
   test2To5MulthitMove('Rock Blast')
   test2To5MulthitMove('Spike Cannon')
   test2To5MulthitMove('Tail Slap')
+
+  describe "Trick Room", ->
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      trickRoom = @battle.getMove("Trick Room")
+      @battle.performMove(@id1, trickRoom)
+      for x in [0...5]
+        @battle.has(Attachment.TrickRoom).should.be.true
+        @battle.endTurn()
+      @battle.has(Attachment.TrickRoom).should.be.false
+
+    it "ends a previous use of Trick Room", ->
+      shared.create.call(this)
+      trickRoom = @battle.getMove("Trick Room")
+
+      @battle.performMove(@id1, trickRoom)
+      @battle.has(Attachment.TrickRoom).should.be.true
+      @battle.performMove(@id1, trickRoom)
+      @battle.has(Attachment.TrickRoom).should.be.false
+
+    it "reverses the order that moves are performed in", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      trickRoom = @battle.getMove("Trick Room")
+      splash = @battle.getMove("Splash")
+      @battle.performMove(@id1, trickRoom)
+
+      @battle.recordMove(@id1, splash)
+      @battle.recordMove(@id2, splash)
+      @battle.determineTurnOrder()
+      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon.should.eql [ @p2, @p1 ]

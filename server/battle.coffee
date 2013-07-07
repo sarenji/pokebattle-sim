@@ -4,7 +4,7 @@
 {Player} = require './player'
 {Team} = require './team'
 {Weather} = require './weather'
-{Attachments} = require './attachment'
+{Attachment, Attachments} = require './attachment'
 
 class @Battle
   # TODO: let Battle serialize these.
@@ -423,23 +423,35 @@ class @Battle
 
   determineTurnOrder: =>
     ids = (id  for id of @playerActions)
-    @priorityQueue = []
+    pq = []
     for id in ids
       pokemon = @getTeam(id).at(0)
       action = @getAction(pokemon)
       priority = @actionPriority(action)
-      @priorityQueue.push({id, priority, pokemon})
-    @priorityQueue.sort(@orderComparator)
+      pq.push({id, priority, pokemon})
+    @priorityQueue = @sortActions(pq)
     @afterTurnOrder()
     @priorityQueue
 
-  orderComparator: (a, b) =>
-    diff = b.priority - a.priority
-    if diff == 0
-      diff = b.pokemon.stat('speed') - a.pokemon.stat('speed')
-      if diff == 0
-        diff = (if @rng.next("turn order") < .5 then -1 else 1)
-    diff
+  # Uses a Schwartzian transform to cut down on unnecessary calculations.
+  # The game bitshifts priority and subpriority to the end and tacks on speed.
+  # As a result, speed precision is 13 bits long; an overflow happens at 8191.
+  # Trick Room replaces the Pokemon's speed with 0x2710 - speed.
+  sortActions: (array) =>
+    trickRoomed = @has(Attachment.TrickRoom)
+    array = array.map (elem) ->
+      speed = elem.pokemon.stat('speed')
+      speed = 0x2710 - speed  if trickRoomed
+      speed &= 8191
+      integer = (elem.priority << 13) | speed
+      [ elem, integer ]
+
+    array.sort (a, b) =>
+      diff = b[1] - a[1]
+      diff = (if @rng.next("turn order") < .5 then -1 else 1)  if diff == 0
+      diff
+
+    array.map (elem) -> elem[0]
 
   actionPriority: (action) =>
     switch action.type
