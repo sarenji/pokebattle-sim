@@ -1,7 +1,7 @@
 {_} = require 'underscore'
 {Abilities, Items, Moves} = require '../data/bw'
 {Status} = require './status'
-{Attachments} = require './attachment'
+{Attachment, Attachments} = require './attachment'
 util = require './util'
 floor = Math.floor
 
@@ -173,16 +173,15 @@ class @Pokemon
   setStatus: (newStatus) =>
     if !@status? && !@hasStatus()
       @status = newStatus
+      @attach(Attachment[newStatus])
       true
     else
       false
 
-  removeStatus: (status) =>
+  cureStatus: (status) =>
     if !status? || @status == status
+      @unattach(Attachment[status])
       @status = null
-
-  cureStatus: =>
-    @status = null
 
   setItem: (battle, item) =>
     if @hasItem() then @removeItem()

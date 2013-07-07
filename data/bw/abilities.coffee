@@ -10,6 +10,7 @@ makeAbility = (name, attributes) ->
   Abilities[name] = new Ability(name, attributes)
 
 makeAbility 'Technician'
+makeAbility 'Guts'
 makeAbility 'Flare Boost'
 makeAbility 'Analytic'
 makeAbility 'Reckless'

@@ -168,7 +168,7 @@ makeStatusCureAttackMove = (moveName, status) ->
       if target.hasStatus(status) then 2 * @power else @power
 
     @afterSuccessfulHit = (battle, user, target) ->
-      target.removeStatus(status)
+      target.cureStatus(status)
 
 makeOneHitKOMove = (name) ->
   extendMove name, ->
@@ -281,11 +281,12 @@ makeThiefMove = (name) ->
       user.setItem(battle, target.getItem())
       target.removeItem()
 
-makeStatusCureMove = (name) ->
+makeStatusCureMove = (name, message) ->
   extendMove name, ->
     @execute = (battle, user, targets) ->
+      battle.message(message)
       for target in targets
-        target.removeStatus()
+        target.cureStatus()
 
 makePickAttackMove = (name) ->
   extendMove name, ->
@@ -492,7 +493,7 @@ makeBoostMove 'amnesia', 'self', specialDefense: 2
 extendWithSecondaryBoost 'ancientpower', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
-makeStatusCureMove 'aromatherapy'
+makeStatusCureMove 'aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'attract', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -719,7 +720,7 @@ makeBoostMove 'harden', 'self', defense: 1
 extendWithSecondaryEffect 'headbutt', .3, Attachment.Flinch
 extendWithRecoil 'head-charge', .25
 extendWithRecoil 'head-smash', .5
-makeStatusCureMove 'heal-bell'
+makeStatusCureMove 'heal-bell', 'A bell chimed!'
 makeRecoveryMove 'heal-order'
 makeRecoveryMove 'heal-pulse'
 extendWithSecondaryEffect 'heart-stamp', .3, Attachment.Flinch

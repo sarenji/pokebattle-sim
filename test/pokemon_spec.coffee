@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Pokemon, Attachment, VolatileAttachment} = require('../').server
+{Pokemon, Status, Attachment, VolatileAttachment} = require('../').server
 {Moves} = require('../data/bw')
 
 describe 'Pokemon', ->
@@ -211,3 +211,46 @@ describe 'Pokemon', ->
     it 'returns true if the Pokemon has no item', ->
       pokemon = new Pokemon()
       pokemon.isItemBlocked().should.be.true
+
+  describe "#setStatus", ->
+    it "returns true on success", ->
+      pokemon = new Pokemon()
+      pokemon.setStatus(Status.FREEZE).should.be.true
+
+    it "sets the status of the pokemon", ->
+      for name, status of Status
+        pokemon = new Pokemon()
+        pokemon.setStatus(status)
+        pokemon.hasStatus(status).should.be.true
+
+    it "sets the corresponding attachment on the pokemon", ->
+      for name, status of Status
+        pokemon = new Pokemon()
+        pokemon.setStatus(status)
+        pokemon.has(Attachment[status]).should.be.true
+
+    it "returns false if the pokemon is already statused", ->
+      pokemon = new Pokemon()
+      pokemon.setStatus(Status.FREEZE).should.be.true
+      pokemon.setStatus(Status.PARALYZE).should.be.false
+
+  describe "#cureStatus", ->
+    it "removes all statuses if no argument is passed", ->
+      pokemon = new Pokemon()
+      for name, status of Status
+        pokemon.setStatus(status)
+        pokemon.cureStatus()
+        pokemon.hasStatus().should.be.false
+
+    it "removes only a certain status if an argument is passed", ->
+      pokemon = new Pokemon()
+      pokemon.setStatus(Status.FREEZE)
+      pokemon.cureStatus(Status.PARALYZE)
+      pokemon.hasStatus(Status.FREEZE).should.be.true
+
+    it "removes the corresponding attachment on the pokemon", ->
+      pokemon = new Pokemon()
+      for name, status of Status
+        pokemon.setStatus(status)
+        pokemon.cureStatus(status)
+        pokemon.has(Attachment[status]).should.be.false

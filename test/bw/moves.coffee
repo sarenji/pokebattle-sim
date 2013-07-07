@@ -873,7 +873,7 @@ shared = require '../shared'
     it 'heals the entire team of status effects', ->
       shared.create.call this,
         team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
-      @team1.pokemon.map((pokemon) -> pokemon.setStatus(Status.PARALYZE))
+      @team1.pokemon.forEach((pokemon) -> pokemon.setStatus(Status.PARALYZE))
       @battle.performMove(@id1, @battle.getMove('Aromatherapy'))
 
       _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
@@ -1109,6 +1109,7 @@ shared = require '../shared'
 
     it 'fails if used twice', ->
       shared.create.call(this)
+      shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
       nightmare = @battle.getMove('Nightmare')
       @p2.setStatus(Status.SLEEP)
 
@@ -1119,6 +1120,7 @@ shared = require '../shared'
 
     it "cuts the target's HP by 25% each turn", ->
       shared.create.call(this)
+      shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
       @p2.setStatus(Status.SLEEP)
 
       hp = @p2.currentHP
@@ -1136,6 +1138,7 @@ shared = require '../shared'
 
     it "stops the nightmare if the target wakes up", ->
       shared.create.call(this)
+      shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
       @p2.setStatus(Status.SLEEP)
 
       @controller.makeMove(@player1, 'nightmare')

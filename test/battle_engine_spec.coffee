@@ -117,13 +117,10 @@ describe 'Mechanics', ->
         team2: [Factory('Gyarados')]
       shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
       shared.biasRNG.call(this, "next", "fang flinch", 0)
-      defender = @p2
-      spy = @sandbox.spy(defender, 'attach')
-      @controller.makeMove(@player1, 'ice-fang')
-      @controller.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, @battle.getMove("Ice Fang"))
 
-      spy.args[0][0].should.eql Attachment.Flinch
-      defender.hasStatus(Status.FREEZE).should.be.true
+      @p2.has(Attachment.Flinch).should.be.true
+      @p2.hasStatus(Status.FREEZE).should.be.true
 
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
@@ -314,7 +311,7 @@ describe 'Mechanics', ->
     it "will not execute moves", ->
       shared.create.call(this)
 
-      @p1.attach(Attachment.Freeze)
+      @p1.setStatus(Status.FREEZE)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
       mock = @sandbox.mock(@battle.getMove('Tackle'))
@@ -328,31 +325,31 @@ describe 'Mechanics', ->
     it "has a 20% chance of unfreezing", ->
       shared.create.call(this)
 
-      @p1.attach(Attachment.Freeze)
+      @p1.setStatus(Status.FREEZE)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
 
-      @p1.hasAttachment(Status.FREEZE).should.be.false
+      @p1.hasStatus(Status.FREEZE).should.be.false
 
     for moveName in ["Sacred Fire", "Flare Blitz", "Flame Wheel", "Fusion Flare", "Scald"]
       it "automatically unfreezes if using #{moveName}", ->
         shared.create.call(this)
 
-        @p1.attach(Attachment.Freeze)
+        @p1.setStatus(Status.FREEZE)
         shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
         @controller.makeMove(@player1, moveName)
         @controller.makeMove(@player2, 'Splash')
 
-        @p1.hasAttachment(Status.FREEZE).should.be.false
+        @p1.hasStatus(Status.FREEZE).should.be.false
 
   describe "a paralyzed pokemon", ->
     it "has a 25% chance of being fully paralyzed", ->
       shared.create.call(this)
 
-      @p1.attach(Attachment.Paralysis)
+      @p1.setStatus(Status.PARALYZE)
       shared.biasRNG.call(this, "next", 'paralyze chance', 0)  # always stays frozen
 
       mock = @sandbox.mock(@battle.getMove('Tackle'))
@@ -367,9 +364,112 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       speed = @p1.stat('speed')
-      @p1.attach(Attachment.Paralysis)
+      @p1.setStatus(Status.PARALYZE)
 
       @p1.stat('speed').should.equal Math.floor(speed / 4)
+
+  describe "a burned pokemon", ->
+    it "loses 1/8 of its HP each turn", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.BURN)
+      hp = @p1.currentHP
+      eighth = Math.floor(hp / 8)
+
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(eighth)
+
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(2 * eighth)
+
+  describe "a sleeping pokemon", ->
+    it "sleeps for 1-3 turns", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "randInt", 'sleep turns', 3)
+      @p1.setStatus(Status.SLEEP)
+      tackle = @battle.getMove('Tackle')
+
+      for i in [0...3]
+        @battle.performMove(@id1, tackle)
+        @p1.hasStatus(Status.SLEEP).should.be.true
+
+      @battle.performMove(@id1, tackle)
+      @p1.hasStatus(Status.SLEEP).should.be.false
+
+    it "cannot move while asleep", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "randInt", 'sleep turns', 3)
+      @p1.setStatus(Status.SLEEP)
+      tackle = @battle.getMove('Tackle')
+
+      mock = @sandbox.mock(tackle).expects('execute').never()
+      for i in [0...3]
+        @battle.performMove(@id1, tackle)
+      mock.verify()
+      tackle.execute.restore()
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@id1, tackle)
+      mock.verify()
+
+    it "resets its counter when switching out", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
+      @p1.setStatus(Status.SLEEP)
+      tackle = @battle.getMove('Tackle')
+
+      @battle.performMove(@id1, tackle)
+      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@id1, tackle)
+      @p1.hasStatus(Status.SLEEP).should.be.true
+
+  describe "a poisoned pokemon", ->
+    it "loses 1/8 of its HP each turn", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.POISON)
+      hp = @p1.currentHP
+      eighth = Math.floor(hp / 8)
+
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(eighth)
+
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(2 * eighth)
+
+  describe "a badly poisoned pokemon", ->
+    it "loses 1/16 of its HP the first turn", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.TOXIC)
+      hp = @p1.currentHP
+
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(hp >> 4)
+
+    it "loses x/16 of its HP where x is the number of turns up to 15", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.TOXIC)
+      hp = @p1.currentHP
+      fraction = (hp >> 4)
+
+      for i in [1..16]
+        @battle.endTurn()
+        hpFraction = Math.min(hp * i, hp * 15)
+        (hp - @p1.currentHP).should.equal(hpFraction >> 4)
+        @p1.currentHP = hp
+
+    it "resets its counter when switching out", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+      @p1.setStatus(Status.TOXIC)
+      hp = @p1.currentHP
+
+      @battle.endTurn()
+      @battle.performSwitch(@id1, 1)
+      @p1.currentHP = hp
+      @battle.performSwitch(@id1, 1)
+      @battle.endTurn()
+      (hp - @p1.currentHP).should.equal(hp >> 4)
 
   describe "Pokemon#turnsActive", ->
     it "is 0 on start of battle", ->

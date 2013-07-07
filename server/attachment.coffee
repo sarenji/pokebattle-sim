@@ -121,8 +121,8 @@ class @BattleAttachment extends @Attachment
   remove: =>
     @battle.unattach(@constructor)
 
-class @Attachment.Paralysis extends @Attachment
-  name: Status.PARALYZE
+class @Attachment.Paralyze extends @Attachment
+  name: "#{Status.PARALYZE}Attachment"
 
   beforeMove: (battle, move, user, targets) =>
     if battle.rng.next('paralyze chance') < .25
@@ -133,15 +133,62 @@ class @Attachment.Paralysis extends @Attachment
     Math.floor(stat / 4)
 
 class @Attachment.Freeze extends @Attachment
-  name: Status.FREEZE
+  name: "#{Status.FREEZE}Attachment"
 
   beforeMove: (battle, move, user, targets) =>
     if move.thawsUser || battle.rng.next('unfreeze chance') < .2
       battle.message "#{@pokemon.name} thawed out!"
-      @remove()
+      @pokemon.cureStatus()
     else
       battle.message "#{@pokemon.name} is frozen solid!"
       return false
+
+class @Attachment.Poison extends @Attachment
+  name: "#{Status.POISON}Attachment"
+
+  endTurn: (battle) =>
+    battle.message "#{@pokemon.name} was hurt by poison!"
+    @pokemon.damage(@pokemon.stat('hp') >> 3)
+
+class @Attachment.Toxic extends @Attachment
+  name: "#{Status.TOXIC}Attachment"
+
+  initialize: =>
+    @counter = 0
+
+  switchOut: =>
+    @counter = 0
+
+  endTurn: (battle) =>
+    battle.message "#{@pokemon.name} was hurt by poison!"
+    @counter = Math.min(@counter + 1, 15)
+    @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
+
+class @Attachment.Sleep extends @Attachment
+  name: "#{Status.SLEEP}Attachment"
+
+  initialize: =>
+    @counter = 0
+
+  switchOut: =>
+    @counter = 0
+
+  beforeMove: (battle, move, user, targets) =>
+    @turns ||= battle.rng.randInt(1, 3, "sleep turns")
+    if @counter == @turns
+      battle.message "#{@pokemon.name} woke up!"
+      @pokemon.cureStatus()
+    else
+      battle.message "#{@pokemon.name} is fast asleep."
+      @counter += 1
+      return false
+
+class @Attachment.Burn extends @Attachment
+  name: "#{Status.BURN}Attachment"
+
+  endTurn: (battle) =>
+    battle.message "#{@pokemon.name} was hurt by its burn!"
+    @pokemon.damage(@pokemon.stat('hp') >> 3)
 
 # An attachment that removes itself when a pokemon
 # deactivates.
