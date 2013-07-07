@@ -1867,14 +1867,12 @@ extendMove 'wring-out', ->
     Math.max(1, power)
 
 extendMove 'yawn', ->
-  # TODO: Fail if the opponent already has a status
   # TODO: Fail if safeguard is activate
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.attach(Attachment.Yawn)
-      # TODO: Real message
-      battle.message "#{target.name} began yawning!"
+    if target.attach(Attachment.Yawn) && !target.hasStatus()
+      battle.message "#{target.name} grew drowsy!"
     else
       @fail(battle)
 

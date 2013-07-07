@@ -437,6 +437,15 @@ shared = require '../shared'
       @p2.hasStatus(Status.SLEEP).should.be.false
       @battle.turn.should.equal 2
 
+    it "fails if the target already is statused", ->
+      shared.create.call(this)
+      yawn = @battle.getMove('Yawn')
+      @p2.setStatus(Status.PARALYZE)
+
+      mock = @sandbox.mock(yawn).expects('fail').once()
+      @battle.performMove(@id1, yawn)
+      mock.verify()
+
   describe 'an OHKO move', ->
     it 'ignores accuracy/evasion modifiers', ->
       shared.create.call(this)
