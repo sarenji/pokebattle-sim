@@ -217,12 +217,13 @@ makeTrickMove = (name) ->
     @use = ->
 
     @afterSuccessfulHit = (battle, user, target) ->
-      # TODO: Fail message
-      return false  unless user.hasItem() && target.hasItem()
-      return false  if target.hasAbility('Sticky Hold')
-      item = user.getItem()
-      user.setItem(battle, target.getItem())
-      target.setItem(battle, item)
+      if !user.hasTakeableItem() || !target.hasTakeableItem()
+        @fail(battle)
+        return false
+      uItem = user.getItem()
+      tItem = target.getItem()
+      user.setItem(battle, tItem)
+      target.setItem(battle, uItem)
 
 makeExplosionMove = (name) ->
   extendMove name, ->
@@ -272,11 +273,7 @@ makeIdentifyMove = (name, type) ->
 makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      return  if user.hasItem() || !target.hasItem()
-      return  if target.hasAbility('Sticky Hold')
-      return  if target.hasAbility('Multitype')
-      return  if target.name == "Giratina (origin)"
-      return  if target.item.type == 'mail'
+      return  if user.hasItem() || !target.hasTakeableItem()
       battle.message "#{user.name} stole #{target.name}'s #{target.getItem().name}!"
       user.setItem(battle, target.getItem())
       target.removeItem()

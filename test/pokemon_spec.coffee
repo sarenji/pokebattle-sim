@@ -254,3 +254,32 @@ describe 'Pokemon', ->
         pokemon.setStatus(status)
         pokemon.cureStatus(status)
         pokemon.has(Attachment[status]).should.be.false
+
+  describe '#hasTakeableItem', ->
+    it "returns false if the pokemon has no item", ->
+      pokemon = new Pokemon()
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns true if the item can be taken", ->
+      pokemon = new Pokemon(item: "Leftovers")
+      pokemon.hasTakeableItem().should.be.true
+
+    it "returns false if the pokemon has a mail", ->
+      pokemon = new Pokemon(item: "Air Mail")
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns false if the pokemon has Sticky Hold", ->
+      pokemon = new Pokemon(ability: "Sticky Hold", item: "Leftovers")
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns false if the pokemon has Multitype and a plate", ->
+      pokemon = new Pokemon(ability: "Multitype", item: "Draco Plate")
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns false if the pokemon is Giratina-O", ->
+      pokemon = new Pokemon(name: "Giratina (origin)", item: "Griseous Orb")
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns false if the pokemon is Genesect with a Drive item", ->
+      pokemon = new Pokemon(name: "Genesect", item: "Burn Drive")
+      pokemon.hasTakeableItem().should.be.false

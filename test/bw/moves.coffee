@@ -552,9 +552,9 @@ shared = require '../shared'
         team2: [Factory('Drapion', item: "Leftovers")]
       item1 = @p1.item
       item2 = @p2.item
-      @controller.makeMove(@player1, 'Trick')
-      @controller.makeMove(@player2, 'Swords Dance')
 
+      trick = @battle.getMove('Trick')
+      @battle.performMove(@id1, trick)
       @p2.item.should.equal item1
       @p1.item.should.equal item2
 
@@ -570,47 +570,120 @@ shared = require '../shared'
       @p2.item.should.equal item1
       @p1.item.should.equal item2
 
-    it "fails if the user or target has Sticky Hold", ->
+    it "fails if the user has Sticky Hold", ->
+      shared.create.call this,
+        team1: [Factory('Alakazam', ability: "Sticky Hold", item: 'Stick')]
+        team2: [Factory('Gastrodon (east)', item: "Leftovers")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the target has Sticky Hold", ->
       shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
-        team2: [Factory('Gastrodon (east)', item: "Leftovers")]
-      item1 = @p1.item
-      item2 = @p2.item
-      @controller.makeMove(@player1, 'Trick')
-      @controller.makeMove(@player2, 'Recover')
-
-      @p1.item.should.equal item1
-      @p2.item.should.equal item2
+        team2: [Factory('Magikarp', ability: "Sticky Hold", item: "Leftovers")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
 
     it "fails if the target has no item", ->
       shared.create.call this,
         team1: [Factory('Alakazam', item: 'Stick')]
         team2: [Factory('Magikarp')]
-      item1 = @p1.item
-      item2 = @p2.item
-      @controller.makeMove(@player1, 'Trick')
-      @controller.makeMove(@player2, 'Splash')
-
-      @p1.item.should.equal item1
-      should.not.exist @p2.item
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
 
     it "fails if the user has no item", ->
       shared.create.call this,
         team1: [Factory('Alakazam')]
         team2: [Factory('Magikarp', item: 'Leftovers')]
-      item1 = @p1.item
-      item2 = @p2.item
-      @controller.makeMove(@player1, 'Trick')
-      @controller.makeMove(@player2, 'Splash')
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
 
-      should.not.exist @p1.item
-      @p2.item.should.equal item2
+    it "fails if the user is holding a Mail", ->
+      shared.create.call this,
+        team1: [Factory('Alakazam', item: 'Air Mail')]
+        team2: [Factory('Magikarp')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
 
-    it "fails if the user or target is holding a Mail"
-    it "fails if the user or target is Giratina-O"
-    it "fails if the target has a Substitute"
-    it "fails if the user or target has Multitype with a plate item"
-    it "fails if the user or target is Genesect with a Drive item"
+    it "fails if the target is holding a Mail", ->
+      shared.create.call this,
+        team1: [Factory('Alakazam')]
+        team2: [Factory('Magikarp', item: 'Air Mail')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the user is Giratina-O", ->
+      shared.create.call this,
+        team1: [Factory('Giratina (origin)')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the target is Giratina-O", ->
+      shared.create.call this,
+        team2: [Factory('Giratina (origin)')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the target has a Substitute", ->
+      shared.create.call(this)
+      trick = @battle.getMove('Trick')
+      substitute = @battle.getMove('Substitute')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id2, substitute)
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the user has Multitype with a plate item", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', ability: "Multitype", item: "Grass Plate")]
+        team2: [Factory('Magikarp')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the target has Multitype with a plate item", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', ability: "Multitype", item: "Grass Plate")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the target is Genesect with a Drive item", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Genesect', item: "Burn Drive")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
+
+    it "fails if the user is Genesect with a Drive item", ->
+      shared.create.call this,
+        team1: [Factory('Genesect', item: "Burn Drive")]
+        team2: [Factory('Magikarp')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@id1, trick)
+      mock.verify()
 
   describe 'memento', ->
     shared.shouldDoNoDamage('Memento')
@@ -843,10 +916,10 @@ shared = require '../shared'
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
-    it "should not steal the target's item if target has Multitype", ->
+    it "should not steal target's item if target has Multitype and a plate", ->
       shared.create.call this,
         team1: [Factory('Magikarp')]
-        team2: [Factory('Magikarp', item: "Leftovers", ability: "Multitype")]
+        team2: [Factory('Magikarp', item: "Draco Plate", ability: "Multitype")]
       item2 = @p2.item
       @controller.makeMove(@player1, 'Thief')
       @controller.makeMove(@player2, 'Splash')
@@ -863,11 +936,21 @@ shared = require '../shared'
       @p1.hasItem().should.be.false
       @p2.hasItem().should.be.false
 
-    # TODO: What about Genesect?
     it "should not steal the target's item if target is Giratina-O", ->
       shared.create.call this,
         team1: [Factory('Magikarp')]
         team2: [Factory('Giratina (origin)', item: "Griseous Orb")]
+      item2 = @p2.item
+      @controller.makeMove(@player1, 'Thief')
+      @controller.makeMove(@player2, 'Splash')
+
+      should.not.exist @p1.item
+      @p2.item.should.equal item2
+
+    it "should not steal the target's item if target is Genesect with Drive", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Genesect', item: "Burn Drive")]
       item2 = @p2.item
       @controller.makeMove(@player1, 'Thief')
       @controller.makeMove(@player2, 'Splash')

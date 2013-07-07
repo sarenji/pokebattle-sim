@@ -195,6 +195,15 @@ class @Pokemon
     @item.deactivate(this)
     @item = null
 
+  hasTakeableItem: =>
+    return false  if !@item?
+    return false  if @item.type == 'mail'
+    return false  if @hasAbility("Sticky Hold")
+    return false  if @hasAbility("Multitype") && @item.plate?
+    return false  if @name == 'Giratina (origin)'
+    return false  if @name == 'Genesect' && /Drive$/.test(@item.name)
+    true
+
   isAlive: =>
     !@isFainted()
 
