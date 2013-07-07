@@ -337,7 +337,7 @@ describe 'Mechanics', ->
       @p1.setStatus(Status.FREEZE)
 
       @battle.performMove(@id2, @battle.getMove('Flamethrower'))
-      @p1.hasStatus().should.be.false
+      @p1.hasStatus(Status.FREEZE).should.be.false
 
     it "does not unfreeze if hit by a non-damaging move", ->
       shared.create.call(this)
