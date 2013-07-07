@@ -44,17 +44,20 @@ class @Move
 
     for target in targets
       continue  if target.shouldBlockExecution(battle, this, user)
-      if @use(battle, user, target) != false
-        damage = @calculateDamage(battle, user, target)
-        if damage > 0
-          # TODO: Print out opponent's name alongside the pokemon.
-          battle.message "#{target.name} took #{damage} damage!"
-          realDamage = target.transformHealthChange(damage)
-          target.damage(realDamage)
-        target.afterBeingHit(battle, this, user, target, damage)
-        user.afterSuccessfulHit(battle, this, user, target, damage)
-        @afterSuccessfulHit(battle, user, target, damage)
-        target.recordHit(user, damage, this, battle.turn)
+      
+      numHits = @calculateNumberOfHits(battle, user, target)
+      for i in [1..numHits]
+        if @use(battle, user, target) != false
+          damage = @calculateDamage(battle, user, target)
+          if damage > 0
+            # TODO: Print out opponent's name alongside the pokemon.
+            battle.message "#{target.name} took #{damage} damage!"
+            realDamage = target.transformHealthChange(damage)
+            target.damage(realDamage)
+          target.afterBeingHit(battle, this, user, target, damage)
+          user.afterSuccessfulHit(battle, this, user, target, damage)
+          @afterSuccessfulHit(battle, user, target, damage)
+          target.recordHit(user, damage, this, battle.turn)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
@@ -196,6 +199,17 @@ class @Move
     damage = floor(damage / 50)
     damage += 2
     damage
+
+  calculateNumberOfHits: (battle, user, target) =>
+    if @attributes.minHits == @attributes.maxHits
+      @attributes.maxHits
+    else if user.hasAbility("Skill Link")
+      @attributes.maxHits
+    else if @attributes.minHits == 2 && @attributes.maxHits == 5
+      # hard coding moves like fury swipes to have 2-3 hits have a 1/3 chance, and 4-5 have 1/6th
+      battle.rng.choice([2, 2, 3, 3, 4, 5], "num hits")
+    else
+      battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
 
   getType: (battle, user, target) =>
     @type

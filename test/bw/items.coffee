@@ -3,6 +3,7 @@
 {Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
 {Attachment} = require '../../server/attachment'
+{Move} = require '../../server/move'
 {Factory} = require '../factory'
 util = require '../../server/util'
 should = require 'should'
@@ -164,7 +165,15 @@ shared = require '../shared'
 
       @p1.currentHP.should.equal currentHP
 
-    it "stacks with each hit of multi-hit moves like Tail Slap"
+    it "stacks with each hit of multi-hit moves like Triple Kick", ->
+      shared.create.call this,
+        team2: [Factory('Ferrothorn', item: 'Rocky Helmet')]
+
+      @battle.performMove(@id1, @battle.getMove("Triple Kick"))
+
+      maxHP = @p1.stat('hp')
+      @p1.currentHP.should.equal(maxHP - (Math.floor(maxHP / 6) * 3))
+
     it "doesn't let certain effects activate if attacker faints"
 
   testBoostOnTypeItem = (itemName, move, stat) ->
@@ -212,6 +221,27 @@ shared = require '../shared'
       item = Items['Focus Sash']
       damage = item.editDamage(@battle, @p2, @battle.getMove('Ember'), 99999)
       damage.should.equal @p2.currentHP - 1
+
+    it "fails to protect from multihit moves", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Focus Sash")]
+
+      overpoweredMultihitMove = new Move(null, minHits: 5, maxHits: 5, target: "selected-pokemon")
+      overpoweredMultihitMove.calculateDamage = -> 99999
+
+      @battle.performMove(@id1, overpoweredMultihitMove)
+      @p2.isFainted().should.be.true
+
+    it "triggers on the first hit of a multihit move if each strike OHKOs", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Focus Sash")]
+
+      overpoweredMultihitMove = new Move(null, minHits: 2, maxHits: 2, target: "selected-pokemon")
+      overpoweredMultihitMove.calculateDamage = -> 99999
+      mock = @sandbox.mock(overpoweredMultihitMove).expects("use").exactly(2)
+
+      @battle.performMove(@id1, overpoweredMultihitMove)
+      mock.verify()
 
     it "should not activate at <100% HP", ->
       shared.create.call this,
@@ -391,6 +421,16 @@ shared = require '../shared'
 
       hp = @p1.stat('hp')
       (hp - @p1.currentHP).should.equal Math.floor(hp / 10)
+
+    # Enable once afterMove gets implemented
+    xit "only recoils once in a multi-hit move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Life Orb")]
+
+      @battle.performMove(@id1, @battle.getMove("Fury Swipes"))
+
+      maxHP = @p1.stat('hp')
+      (maxHP - @p1.currentHP).should.equal Math.floor(maxHP / 10)
 
     it "doesn't remove 10% HP when using a non-attacking move", ->
       shared.create.call this,
