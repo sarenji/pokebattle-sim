@@ -1099,15 +1099,17 @@ class @Attachment.Transform extends @VolatileAttachment
   initialize: (attributes) =>
     {target} = attributes
     # Save old data
-    {@ability, @species, @moves, @stages, @types} = @pokemon
+    {@ability, @species, @moves, @stages, @types, @gender, @weight} = @pokemon
     {@ppHash, @maxPPHash} = @pokemon
-    # The ability and species are static.
+    # This data is safe to be copied.
     @pokemon.ability = target.ability
     @pokemon.species = target.species
+    @pokemon.gender  = target.gender
+    @pokemon.weight  = target.weight
     # The rest aren't.
-    @pokemon.moves = _.clone(target.moves)
-    @pokemon.stages = _.clone(target.stages)
-    @pokemon.types = _.clone(target.types)
+    @pokemon.moves   = _.clone(target.moves)
+    @pokemon.stages  = _.clone(target.stages)
+    @pokemon.types   = _.clone(target.types)
     @pokemon.resetAllPP(5)
 
   remove: =>
@@ -1117,6 +1119,8 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.moves     = @moves
     @pokemon.stages    = @stages
     @pokemon.types     = @types
+    @pokemon.gender    = @gender
+    @pokemon.weight    = @weight
     @pokemon.ppHash    = @ppHash
     @pokemon.maxPPHash = @maxPPHash
     super()

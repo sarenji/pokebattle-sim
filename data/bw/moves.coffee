@@ -1819,7 +1819,13 @@ extendMove 'toxic-spikes', ->
 
 extendMove 'transform', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    user.attach(Attachment.Transform, {target})
+    if target.has(Attachment.Transform)
+      @fail(battle)
+      return false
+    if !user.attach(Attachment.Transform, {target})
+      @fail(battle)
+      return false
+    battle.message "#{user.name} tranformed into #{target.name}!"
 
 extendMove 'trick-room', ->
   @execute = (battle, user, targets) ->

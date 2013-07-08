@@ -5165,6 +5165,9 @@ shared = require '../shared'
       pokemon.should.eql [ @p2, @p1 ]
 
   describe "Transform", ->
+    shared.shouldDoNoDamage("Transform")
+    shared.shouldFailIfUsedTwice("Transform")
+
     it "fails on a substitute", ->
       shared.create.call(this)
       substitute = @battle.getMove("Substitute")
@@ -5218,6 +5221,23 @@ shared = require '../shared'
       @battle.performMove(@id1, transform)
       @p1.hasAbility("Natural Cure").should.be.true
 
+    it "copies the target's weight", ->
+      shared.create.call this,
+        team2: [Factory("Celebi")]
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id1, transform)
+      @p1.weight.should.equal(@p2.weight)
+
+    it "copies the target's gender", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "F")]
+        team2: [Factory("Celebi")]
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id1, transform)
+      @p1.gender.should.equal(@p2.gender)
+
     it "restores the original base stats after switching out", ->
       shared.create.call this,
         team1: [Factory("Ditto"), Factory("Magikarp")]
@@ -5266,3 +5286,36 @@ shared = require '../shared'
       # Transform's PP should go down!
       ppHash[transform.name] -= 1
       @p1.ppHash.should.eql(ppHash)
+
+    it "restores original gender after switch", ->
+      shared.create.call this,
+        team1: [Factory("Ditto"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      gender = @p1.gender
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.gender.should.eql(gender)
+
+    it "restores original weight after switch", ->
+      shared.create.call this,
+        team1: [Factory("Ditto"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      weight = @p1.weight
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.weight.should.eql(weight)
+
+    it "fails if the target is transformed", ->
+      shared.create.call(this)
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id2, transform)
+      mock = @sandbox.mock(transform).expects('fail').once()
+      @battle.performMove(@id1, transform)
+      mock.verify()
+
+    it "fails if the target is under an illusion"
+    it "fails if the user is under an illusion"
+    it "cannot change formes if it has the ability to do so"
