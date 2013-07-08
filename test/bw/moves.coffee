@@ -5163,3 +5163,106 @@ shared = require '../shared'
       @battle.determineTurnOrder()
       pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
       pokemon.should.eql [ @p2, @p1 ]
+
+  describe "Transform", ->
+    it "fails on a substitute", ->
+      shared.create.call(this)
+      substitute = @battle.getMove("Substitute")
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id2, substitute)
+      mock = @sandbox.mock(transform).expects('fail').once()
+      @battle.performMove(@id1, transform)
+      mock.verify()
+
+    it "changes the user's species and type to match the target's", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id1, transform)
+      @p1.types.should.eql @p2.types
+      @p1.species.should.eql @p2.species
+
+    it "changes the user's base stats to the target's, except HP", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id1, transform)
+      for stat, value in @p2.baseStats
+        @p1.baseStats[stat].should.equal(value)
+
+    it "copies the target's moveset, setting each PP and max PP to 5", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      transform = @battle.getMove("Transform")
+      @p2.boost(attack: 3, speed: -2, accuracy: 1)
+
+      @battle.performMove(@id1, transform)
+      @p1.moves.should.eql @p2.moves
+      for move in @p1.moves
+        @p1.pp(move).should.equal(5)
+        @p1.maxPP(move).should.equal(5)
+
+    it "copies the target's stat boosts", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      transform = @battle.getMove("Transform")
+      @p2.boost(attack: 3, speed: -2, accuracy: 1)
+
+      @battle.performMove(@id1, transform)
+      @p1.stages.should.include(attack: 3, speed: -2, accuracy: 1)
+
+    it "copies the target's ability", ->
+      shared.create.call this,
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@id1, transform)
+      @p1.hasAbility("Natural Cure").should.be.true
+
+    it "restores the original base stats after switching out", ->
+      shared.create.call this,
+        team1: [Factory("Ditto"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      baseStats = _.clone(@p1.baseStats)
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.baseStats.should.eql(baseStats)
+
+    it "restores the original species and type after switching out", ->
+      shared.create.call this,
+        team1: [Factory("Ditto"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      species = @p1.species
+      types = _.clone(@p1.types)
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.types.should.eql(types)
+      @p1.species.should.eql(species)
+
+    it "restores the original ability after switching out", ->
+      # Ditto has a fake ability so we can test abilities being restored.
+      shared.create.call this,
+        team1: [Factory("Ditto", ability: "Sniper"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      ability = @p1.ability
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.ability.should.eql(ability)
+
+    it "restores original moveset after switch, but Transform PP decreases", ->
+      shared.create.call this,
+        team1: [Factory("Ditto"), Factory("Magikarp")]
+        team2: [Factory("Celebi", ability: "Natural Cure")]
+      transform = @battle.getMove("Transform")
+      moves = _.clone(@p1.moves)
+      ppHash = _.clone(@p1.ppHash)
+      maxPPHash = _.clone(@p1.maxPPHash)
+      @battle.performMove(@id1, transform)
+      @battle.performSwitch(@id1, 1)
+      @p1.moves.should.eql(moves)
+      @p1.maxPPHash.should.eql(maxPPHash)
+      # Transform's PP should go down!
+      ppHash[transform.name] -= 1
+      @p1.ppHash.should.eql(ppHash)

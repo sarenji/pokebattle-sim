@@ -52,7 +52,7 @@ class @Pokemon
   ev: (stat) => (if stat of @evs then @evs[stat] else 0)
 
   pp: (move) => @ppHash[move.name]
-  maxPP: (move) => move.pp * 8/5
+  maxPP: (move) => @maxPPHash[move.name]
 
   reducePP: (move, amount = 1) =>
     @setPP(move, @pp(move) - amount)
@@ -62,11 +62,12 @@ class @Pokemon
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
 
-  resetAllPP: =>
+  resetAllPP: (pp) =>
     @ppHash = {}
+    @maxPPHash = {}
     if @moves?
       for move in @moves
-        @ppHash[move.name] = @maxPP(move)
+        @ppHash[move.name] = @maxPPHash[move.name] = pp || (move.pp * 8/5)
 
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')

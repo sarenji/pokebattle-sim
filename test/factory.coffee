@@ -120,3 +120,6 @@ Factory.register 'Regirock',
 
 Factory.register 'Shaymin (land)',
   moves: ['Seed Flare']
+
+Factory.register 'Ditto',
+  moves: ['Transform']

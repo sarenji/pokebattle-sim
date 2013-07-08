@@ -1817,6 +1817,10 @@ extendMove 'toxic-spikes', ->
       else
         @fail(battle)
 
+extendMove 'transform', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.attach(Attachment.Transform, {target})
+
 extendMove 'trick-room', ->
   @execute = (battle, user, targets) ->
     if battle.attach(Attachment.TrickRoom)
