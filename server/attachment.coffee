@@ -1087,10 +1087,10 @@ class @Attachment.TrickRoom extends @BattleAttachment
   initialize: =>
     @turns = 5
 
-  endTurn: (battle) =>
+  endTurn: =>
     @turns--
     if @turns == 0
-      battle.message "The twisted dimensions returned to normal!"
+      @battle.message "The twisted dimensions returned to normal!"
       @remove()
 
 class @Attachment.Transform extends @VolatileAttachment
@@ -1152,3 +1152,36 @@ class @Attachment.BeatUp extends @VolatileAttachment
     @index += 1
     pokemon = team.at(@index)
     !pokemon || pokemon.hasStatus() || pokemon.isFainted()
+
+class @Attachment.Gravity extends @BattleAttachment
+  name: "GravityAttachment"
+
+  initialize: =>
+    @turns = 5
+
+  beginTurn: =>
+    for pokemon in @battle.getActivePokemon()
+      pokemon.attach(Attachment.GravityPokemon)
+      for move in pokemon.moves
+        pokemon.blockMove(move)  if move.hasFlag("gravity")
+
+  endTurn: =>
+    @turns--
+    if @turns == 0
+      @battle.message "Gravity turned to normal!"
+      @remove()
+
+class @Attachment.GravityPokemon extends @VolatileAttachment
+  name: "GravityPokemonAttachment"
+
+  beforeMove: (battle, move, user, target) =>
+    if move.hasFlag("gravity")
+      battle.message "#{user.name} can't use #{move.name} because of gravity!"
+      return false
+
+  isImmune: (battle, type) =>
+    # TODO: Display "POKEMON couldn't stay airborne because of gravity!"?
+    return false  if type == 'Ground'
+
+  endTurn: =>
+    @remove()

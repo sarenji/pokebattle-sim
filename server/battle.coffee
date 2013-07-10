@@ -248,6 +248,7 @@ class @Battle
 
     team.beginTurn(this)  for team in @getTeams()
     pokemon.beginTurn(this) for pokemon in @getActivePokemon()
+    @attachments.query('beginTurn')
 
     # Send appropriate requests to players
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
@@ -299,7 +300,7 @@ class @Battle
 
   # Performs end turn effects.
   endTurn: =>
-    @attachments.query('endTurn', this)
+    @attachments.query('endTurn')
     team.endTurn(this)  for team in @getTeams()
     pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()

@@ -1346,6 +1346,19 @@ extendMove 'fury-cutter', ->
     layers = attachment?.layers || 0
     @power * Math.pow(2, layers)
 
+extendMove 'gravity', ->
+  @execute = (battle, user, targets) ->
+    if !battle.attach(Attachment.Gravity)
+      @fail(battle)
+      return
+    battle.message "Gravity intensified!"
+    for target in targets
+      target.attach(Attachment.GravityPokemon)
+      target.unattach(Attachment.MagnetRise)
+      target.unattach(Attachment.Telekinesis)
+      charging = target.get(Attachment.Charging)
+      target.unattach(Attachment.Charging)  if charging?.move.hasFlag("gravity")
+
 extendMove 'guard-swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     for stat in [ 'defense', 'specialDefense' ]
@@ -1798,7 +1811,6 @@ extendMove 'struggle', ->
     user.damage(user.stat('hp') >> 2)
 
 extendMove 'splash', ->
-  # TODO: Cannot select if Gravity is in effect.
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 

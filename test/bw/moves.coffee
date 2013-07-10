@@ -5528,3 +5528,87 @@ shared = require '../shared'
       psychoShift = @battle.getMove("Psycho Shift")
       @battle.performMove(@id1, psychoShift)
       @p2.hasStatus(Status.BURN).should.be.true
+
+  describe "Gravity", ->
+    shared.shouldDoNoDamage("Gravity")
+    shared.shouldFailIfUsedTwice("Gravity")
+
+    it "raises accuracy of all attacks by 5/3", ->
+      shared.create.call(this)
+      gravity = @battle.getMove("Gravity")
+      focusBlast = @battle.getMove("Focus Blast")
+      @battle.performMove(@id1, gravity)
+      accuracy = focusBlast.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(focusBlast.accuracy * 5 / 3)
+
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      gravity = @battle.getMove("Gravity")
+      @battle.performMove(@id1, gravity)
+      for i in [0...5]
+        @battle.has(Attachment.Gravity).should.be.true
+        @battle.endTurn()
+      @battle.has(Attachment.Gravity).should.be.false
+
+    it "makes Pokemon otherwise immune to Ground susceptible to it", ->
+      shared.create.call(this)
+      @p2.types = [ "Flying" ]
+      gravity = @battle.getMove("Gravity")
+      @battle.performMove(@id1, gravity)
+      @p2.isImmune(@battle, "Ground").should.be.false
+
+    # TODO: Sky Drop
+    for moveName in [ "Bounce", "Fly" ]
+      do (moveName) ->
+        it "grounds pokemon using #{moveName}", ->
+          shared.create.call(this)
+          move = @battle.getMove(moveName)
+          gravity = @battle.getMove("Gravity")
+          @battle.recordMove(@id2, move)
+          @battle.continueTurn()
+          @p2.has(Attachment.Charging).should.be.true
+
+          @battle.recordMove(@id1, gravity)
+          @battle.continueTurn()
+          @p2.has(Attachment.Charging).should.be.false
+
+    it "removes Telekinesis", ->
+      shared.create.call(this)
+      telekinesis = @battle.getMove("Telekinesis")
+      gravity = @battle.getMove("Gravity")
+      @battle.performMove(@id1, telekinesis)
+      @p2.has(Attachment.Telekinesis).should.be.true
+      @battle.performMove(@id1, gravity)
+      @p2.has(Attachment.Telekinesis).should.be.false
+
+    it "removes Magnet Rise", ->
+      shared.create.call(this)
+      magnetRise = @battle.getMove("Magnet Rise")
+      gravity = @battle.getMove("Gravity")
+      @battle.performMove(@id2, magnetRise)
+      @p2.has(Attachment.MagnetRise).should.be.true
+      @battle.performMove(@id1, gravity)
+      @p2.has(Attachment.MagnetRise).should.be.false
+
+    for moveName in [ "Jump Kick", "Hi Jump Kick", "Bounce", "Fly", "Sky Drop",
+                      "Splash", "Telekinesis" ]
+      do (moveName) ->
+        it "disables #{moveName}", ->
+          shared.create.call(this)
+          move = @battle.getMove(moveName)
+          gravity = @battle.getMove("Gravity")
+          @p1.moves = [ move ]
+          @p2.moves = [ move ]
+          @battle.performMove(@id1, gravity)
+          @battle.beginTurn()
+          @p1.validMoves().should.not.include(move)
+          @p2.validMoves().should.not.include(move)
+
+        it "prevents the execution of #{moveName}", ->
+          shared.create.call(this)
+          move = @battle.getMove(moveName)
+          gravity = @battle.getMove("Gravity")
+          @battle.performMove(@id1, gravity)
+          mock = @sandbox.mock(move).expects('execute').never()
+          @battle.performMove(@id2, move)
+          mock.verify()
