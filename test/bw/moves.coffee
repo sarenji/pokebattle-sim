@@ -5449,3 +5449,21 @@ shared = require '../shared'
       @battle.continueTurn()
       mock.verify()
       @p1.hasItem().should.be.false
+
+  describe "Bug Bite", ->
+    it "eats the target's berry and gets its effects", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Salac Berry")]
+      bugBite = @battle.getMove("Bug Bite")
+      @battle.performMove(@id1, bugBite)
+      @p2.hasItem().should.be.false
+      @p1.stages.should.include(speed: 1)
+
+    it "does not eat the target's berry if the target fainted", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Salac Berry")]
+      bugBite = @battle.getMove("Bug Bite")
+      @p2.currentHP = 1
+      @battle.performMove(@id1, bugBite)
+      @p2.isFainted().should.be.true
+      @p1.stages.should.not.include(speed: 1)

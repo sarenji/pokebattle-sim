@@ -1136,6 +1136,13 @@ extendMove 'brine', ->
     else
       @power
 
+extendMove 'bug-bite', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    item = target.getItem()
+    if target.isAlive() && item?.type == 'berries'
+      item.eat(battle, user)
+      target.removeItem()
+
 extendMove 'copycat', ->
   @execute = (battle, user, targets) ->
     move = battle.lastMove
