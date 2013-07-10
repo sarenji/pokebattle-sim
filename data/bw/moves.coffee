@@ -1275,6 +1275,41 @@ extendMove 'flatter', ->
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
+extendMove 'fling', ->
+  @beforeTurn = (battle, user) ->
+    user.attach(Attachment.Fling)
+
+  oldUse = @use
+  @use = (battle, user, target) ->
+    fling = user.get(Attachment.Fling)
+    if !fling?.item
+      @fail(battle)
+      return false
+
+    oldUse.call(this, battle, user, target)
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    {item} = user.get(Attachment.Fling)
+    switch item.name
+      when "Poison Barb"
+        target.setStatus(Status.POISON)
+      when "Light Ball"
+        target.setStatus(Status.PARALYZE)
+      when "Flame Orb"
+        target.setStatus(Status.BURN)
+      when "Toxic Orb"
+        target.setStatus(Status.TOXIC)
+      when "King's Rock", "Razor Fang"
+        target.attach(Attachment.Flinch)
+      when "Mental Herb", "White Herb"
+        item.activate(battle, target)
+      else
+        item.eat?(battle, target)  if item.type == "berries"
+
+  @basePower = (battle, user, target) ->
+    fling = user.get(Attachment.Fling)
+    fling.item.flingPower
+
 extendMove 'frustration', ->
   @basePower = -> 102
 

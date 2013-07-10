@@ -1124,3 +1124,19 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.ppHash    = @ppHash
     @pokemon.maxPPHash = @maxPPHash
     super()
+
+class @Attachment.Fling extends @VolatileAttachment
+  name: "FlingAttachment"
+
+  initialize: =>
+    @item = null
+
+  beforeMove: (battle, move, user, targets) =>
+    # The move may be changed by something like Encore
+    return  if move != battle.getMove("Fling")
+    if user.hasItem() && user.hasTakeableItem() && !user.isItemBlocked()
+      @item = user.getItem()
+      user.removeItem()
+
+  endTurn: =>
+    @remove()

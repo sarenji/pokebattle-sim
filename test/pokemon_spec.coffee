@@ -268,6 +268,10 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(item: "Air Mail")
       pokemon.hasTakeableItem().should.be.false
 
+    it "returns false if the pokemon has a key item", ->
+      pokemon = new Pokemon(item: "Acro Bike")
+      pokemon.hasTakeableItem().should.be.false
+
     it "returns false if the pokemon has Sticky Hold", ->
       pokemon = new Pokemon(ability: "Sticky Hold", item: "Leftovers")
       pokemon.hasTakeableItem().should.be.false

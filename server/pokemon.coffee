@@ -199,6 +199,7 @@ class @Pokemon
   hasTakeableItem: =>
     return false  if !@item?
     return false  if @item.type == 'mail'
+    return false  if @item.type == 'key'
     return false  if @hasAbility("Sticky Hold")
     return false  if @hasAbility("Multitype") && @item.plate?
     return false  if @name == 'Giratina (origin)'

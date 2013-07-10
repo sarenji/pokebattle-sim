@@ -5319,3 +5319,133 @@ shared = require '../shared'
     it "fails if the target is under an illusion"
     it "fails if the user is under an illusion"
     it "cannot change formes if it has the ability to do so"
+
+  describe "Fling", ->
+    it "fails if the pokemon has no item", ->
+      shared.create.call(this)
+      fling = @battle.getMove("Fling")
+      mock = @sandbox.mock(fling).expects('fail').once()
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      mock.verify()
+
+    it "fails if the item is not removeable", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Acro Bike")]
+      fling = @battle.getMove("Fling")
+      mock = @sandbox.mock(fling).expects('fail').once()
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      mock.verify()
+
+    it "fails if the user is blocked from using items", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Armor Fossil")]
+      fling = @battle.getMove("Fling")
+      @p1.blockItem()
+      mock = @sandbox.mock(fling).expects('fail').once()
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      mock.verify()
+
+    it "has a base power depending on the item held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Armor Fossil")]
+      fling = @battle.getMove("Fling")
+      fling.beforeTurn(@battle, @p1)
+      @p1.beforeMove(@battle, fling, @p1, [@p2])
+      fling.basePower(@battle, @p1, @p2).should.equal(100)
+
+    it "inflicts Burn on the target if Flame Orb is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flame Orb")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.hasStatus(Status.BURN).should.be.true
+
+    it "inflicts Toxic on the target if Toxic Orb is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Toxic Orb")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.hasStatus(Status.TOXIC).should.be.true
+
+    it "flinches the target if King's Rock is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "King's Rock")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.has(Attachment.Flinch).should.be.true
+
+    it "flinches the target if Razor Fang is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Razor Fang")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.has(Attachment.Flinch).should.be.true
+
+    it "paralyzes the target if Light Ball is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Light Ball")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.hasStatus(Status.PARALYZE).should.be.true
+
+    it "removes negative status effects if Mental Herb is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Mental Herb")]
+      fling = @battle.getMove("Fling")
+      @p2.attach(Attachment.Torment)
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.has(Attachment.Torment).should.be.false
+
+    it "removes negative stat boosts if White Herb is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "White Herb")]
+      fling = @battle.getMove("Fling")
+      @p2.boost(attack: 1, accuracy: -2)
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.stages.should.include(attack: 1, accuracy: 0)
+
+    it "inflicts Poison on the target if Poison Barb is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Poison Barb")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.hasStatus(Status.POISON).should.be.true
+
+    it "causes target to eat the flung berry if a berry is held", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.stages.speed.should.equal(1)
+
+    it "loses the user's item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Poison Barb")]
+      fling = @battle.getMove("Fling")
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p1.hasItem().should.be.false
+
+    it "loses the item even if execution is canceled by protect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Poison Herb")]
+      protect = @battle.getMove("Protect")
+      fling = @battle.getMove("Fling")
+      mock = @sandbox.mock(fling).expects('use').never()
+      @battle.recordMove(@id2, protect)
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      mock.verify()
+      @p1.hasItem().should.be.false

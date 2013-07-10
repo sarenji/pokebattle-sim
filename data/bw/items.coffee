@@ -54,11 +54,11 @@ makePinchBerry = (name, hookName, func) ->
   extendItem name, ->
     @eat = (battle, owner) ->
       func.call(this, battle, owner)
-      owner.removeItem()
 
     @[hookName] = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 4)
         @eat(battle, owner)
+        owner.removeItem()
 
 # TODO: If the stat is maxed, does anything special happen?
 #       Is the berry still consumed?
@@ -77,11 +77,11 @@ makeFlavorHealingBerry = (name, stat) ->
         # TODO: Replace with the real battle message.
         battle.message "The #{name} was bitter!"
         owner.attach(Attachment.Confusion, {battle})
-      owner.removeItem()
 
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
+        owner.removeItem()
 
 makeHealingBerry = (name, func) ->
   extendItem name, ->
@@ -89,14 +89,15 @@ makeHealingBerry = (name, func) ->
       # TODO: Replace with the real battle message.
       battle.message "#{owner.name}'s #{name} restored its HP a little!"
       owner.damage(-func(owner))
-      owner.removeItem()
 
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
+        owner.removeItem()
 
 makeTypeResistBerry = (name, type) ->
   extendItem name, ->
+    @eat = ->
     @basePowerModifierTarget = (move, battle, user, target) ->
       return 0x1000  if move.type != type
       return 0x1000  if util.typeEffectiveness(type, target.types) <= 1 && type != 'Normal'
@@ -106,6 +107,7 @@ makeTypeResistBerry = (name, type) ->
 
 makeFeedbackDamageBerry = (name, klass) ->
   extendItem name, ->
+    @eat = ->
     @afterBeingHit = (battle, move, user, target, damage) ->
       return  if !move[klass]()
       return  if target.isFainted()
@@ -116,7 +118,7 @@ makeFeedbackDamageBerry = (name, klass) ->
 
 makeStatusCureBerry = (name, statuses...) ->
   extendItem name, ->
-    @update = (battle, owner) ->
+    @eat = (battle, owner) ->
       removed = false
       for attachment in statuses
         if owner.hasStatus(attachment)
@@ -125,7 +127,10 @@ makeStatusCureBerry = (name, statuses...) ->
         else if owner.hasAttachment(attachment)
           owner.unattach(attachment)
           removed = true
-      owner.removeItem()  if removed
+      return removed
+
+    @update = (battle, owner) ->
+      if @eat(battle, owner) then owner.removeItem()
 
 makeOrbItem = (name, species) ->
   extendItem name, ->
@@ -314,6 +319,7 @@ extendItem 'Eject Button', ->
 makeGemItem 'Electric Gem', 'Electric'
 
 extendItem 'Enigma Berry', ->
+  @eat = ->
   @afterBeingHit = (battle, move, user, target, damage) ->
     return  if util.typeEffectiveness(move.type, target.types) <= 1
     # TODO: real message
@@ -403,13 +409,17 @@ makeFlavorHealingBerry 'Mago Berry', "speed"
 makePlateItem 'Meadow Plate', 'Grass'
 
 extendItem 'Mental Herb', ->
-  @update = (battle, owner) ->
-    for effectName in ['Attract','Taunt','Encore','Torment','Disable']
+  @activate = (battle, owner) ->
+    for effectName in [ 'Attract', 'Taunt', 'Encore', 'Torment', 'Disable' ]
       attachment = Attachment[effectName]
       if owner.hasAttachment(attachment)
         owner.unattach(attachment)
-        owner.removeItem()
-        break
+        return true
+    return false
+
+  @update = (battle, owner) ->
+    if @activate(battle, owner)
+      owner.removeItem()
 
 makeTypeBoostItem 'Metal Coat', 'Steel'
 
@@ -538,16 +548,18 @@ makeTypeBoostItem 'Wave Incense', 'Water'
 
 # TODO: What if White Herb is tricked onto a Pokemon? Are all boosts negated?
 extendItem 'White Herb', ->
-  @update = (battle, owner) ->
-    shouldTrigger = false
+  @activate = (battle, owner) ->
+    triggered = false
     for stat, boost of owner.stages
       if boost < 0
-        shouldTrigger = true
+        battle.message "#{owner.name} restored its status using its #{@name}!"
+        triggered = true
         owner.stages[stat] = 0
+    return triggered
 
-    if shouldTrigger
+  @update = (battle, owner) ->
+    if @activate(battle, owner)
       owner.removeItem()
-      battle.message "#{owner.name} restored its status using its #{@name}!"
 
 extendItem "Wide Lens", ->
   @editAccuracy = (accuracy) ->
@@ -594,9 +606,22 @@ extendItem 'Leppa Berry', ->
     for move in owner.moves
       if owner.pp(move) == 0
         owner.setPP(move, 10)
-        owner.removeItem()
         break
 
   @update = (battle, owner) ->
     if owner.lastMove? && owner.pp(owner.lastMove) == 0
       @eat(battle, owner)
+      owner.removeItem()
+
+# TODO: Implement Nature Power and implement eat there.
+for berry in "Belue Berry, Bluk Berry, Cornn Berry, Durin Berry, Grepa Berry,
+              Hondew Berry, Kelpsy Berry, Magost Berry, Nanab Berry,
+              Nomel Berry, Pamtre Berry, Pinap Berry, Pomeg Berry, Qualot Berry,
+              Rabuta Berry, Razz Berry, Spelon Berry, Tamato Berry,
+              Watmel Berry, Wepear Berry".split(/,\s+/)
+  Items[berry].eat = ->
+
+# Ensure we aren't purposefully missing berries that need an `eat` function.
+for name, item of Items
+  if item.type == 'berries' && 'eat' not of item
+    console.warn """Note: Item "#{name}" does not have `eat` implemented."""
