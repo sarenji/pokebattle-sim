@@ -172,12 +172,14 @@ class @Pokemon
 
   # Sets the Pokemon's status. If it succeeds, returns true, otherwise false.
   setStatus: (newStatus) =>
-    if !@status? && !@hasStatus()
-      @status = newStatus
-      @attach(Attachment[newStatus])
-      true
-    else
-      false
+    return false  if @hasStatus()
+    return false  if newStatus == Status.BURN && @hasType("Fire")
+    return false  if newStatus == Status.FREEZE && @hasType("Ice")
+    return false  if newStatus == Status.TOXIC && @hasType("Poison")
+    return false  if newStatus == Status.POISON && @hasType("Poison")
+    @status = newStatus
+    @attach(Attachment[newStatus])
+    true
 
   cureStatus: (status) =>
     if !status? || @status == status

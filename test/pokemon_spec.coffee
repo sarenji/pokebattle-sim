@@ -234,6 +234,23 @@ describe 'Pokemon', ->
       pokemon.setStatus(Status.FREEZE).should.be.true
       pokemon.setStatus(Status.PARALYZE).should.be.false
 
+    it "doesn't poison Poison types", ->
+      pokemon = new Pokemon(types: ["Poison"])
+      pokemon.setStatus(Status.POISON).should.be.false
+      pokemon.setStatus(Status.TOXIC).should.be.false
+      pokemon.hasStatus(Status.POISON).should.be.false
+      pokemon.hasStatus(Status.TOXIC).should.be.false
+
+    it "doesn't burn Fire types", ->
+      pokemon = new Pokemon(types: ["Fire"])
+      pokemon.setStatus(Status.BURN).should.be.false
+      pokemon.hasStatus(Status.BURN).should.be.false
+
+    it "doesn't freeze Ice types", ->
+      pokemon = new Pokemon(types: ["Ice"])
+      pokemon.setStatus(Status.FREEZE).should.be.false
+      pokemon.hasStatus(Status.FREEZE).should.be.false
+
   describe "#cureStatus", ->
     it "removes all statuses if no argument is passed", ->
       pokemon = new Pokemon()
