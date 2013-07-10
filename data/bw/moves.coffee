@@ -1110,6 +1110,23 @@ extendMove 'acupressure', ->
       @fail(battle)
       return false
 
+# TODO:
+# All Beat Up hits are boosted if the user of the move has an Attack-raising
+# item such as Choice Band, but the attack ignores all stat changes from
+# moves such as Swords Dance.
+extendMove 'beat-up', ->
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    target.attach(Attachment.BeatUp)  for target in targets
+    oldExecute.call(this, battle, user, targets)
+    target.unattach(Attachment.BeatUp)  for target in targets
+
+  @basePower = (battle, user, target) ->
+    {team} = battle.getOwner(user)
+    attachment = target.get(Attachment.BeatUp)
+    {baseStats} = team.at(attachment.index)
+    5 + Math.floor(baseStats.attack / 10)
+
 extendMove 'belly-drum', ->
   @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)

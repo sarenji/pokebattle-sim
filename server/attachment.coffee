@@ -1140,3 +1140,15 @@ class @Attachment.Fling extends @VolatileAttachment
 
   endTurn: =>
     @remove()
+
+class @Attachment.BeatUp extends @VolatileAttachment
+  name: "BeatUpAttachment"
+
+  initialize: =>
+    @index = -1
+
+  shouldBlockExecution: (battle, move, user) =>
+    {team} = battle.getOwner(user)
+    @index += 1
+    pokemon = team.at(@index)
+    pokemon.hasStatus() || pokemon.isFainted()

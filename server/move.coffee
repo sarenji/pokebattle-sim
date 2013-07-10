@@ -43,10 +43,9 @@ class @Move
       return
 
     for target in targets
-      continue  if target.shouldBlockExecution(battle, this, user)
-      
       numHits = @calculateNumberOfHits(battle, user, target)
       for i in [1..numHits]
+        continue  if target.shouldBlockExecution(battle, this, user)
         if @use(battle, user, target) != false
           damage = @calculateDamage(battle, user, target)
           if damage > 0

@@ -5467,3 +5467,26 @@ shared = require '../shared'
       @battle.performMove(@id1, bugBite)
       @p2.isFainted().should.be.true
       @p1.stages.should.not.include(speed: 1)
+
+  describe "Beat Up", ->
+    it "deals 1 less hit for each unhealthy member in the user's party", ->
+      shared.create.call this,
+        team1: (Factory("Magikarp")  for i in [0...6])
+      @team1.at(5).setStatus(Status.PARALYZE)
+      @team1.at(1).faint()
+      beatUp = @battle.getMove("Beat Up")
+      mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
+      @battle.performMove(@id1, beatUp)
+      mock.verify()
+
+    it "has 5 + X/10 base power for X in team, where X is base attack", ->
+      shared.create.call this,
+        team1: [  Factory("Magikarp"), Factory("Scyther"), Factory("Celebi"),
+                  Factory("Totodile"), Factory("Rayquaza"), Factory("Seedot") ]
+      beatUp = @battle.getMove("Beat Up")
+      spy = @sandbox.spy(beatUp, "basePower")
+      @battle.performMove(@id1, beatUp)
+      for pokemon in @team1.pokemon
+        basePower = 5 + Math.floor(pokemon.baseStats.attack / 10)
+        console.log basePower
+        spy.returned(basePower).should.be.true
