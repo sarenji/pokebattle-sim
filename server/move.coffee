@@ -121,9 +121,7 @@ class @Move
     accuracy = target.editEvasion(accuracy)
     if user.hasItem("Zoom Lens") && battle.willMove(target)
       accuracy = Math.floor(accuracy * 1.2)
-    # TODO: Accuracy/evasion item modifiers
     # TODO: Accuracy/evasion ability modifiers
-    accuracy = Math.floor(accuracy * 5 / 3)  if battle.has(Attachment.Gravity)
     accuracy
 
   weatherModifier: (battle, user, target) =>

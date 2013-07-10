@@ -1179,6 +1179,9 @@ class @Attachment.GravityPokemon extends @VolatileAttachment
       battle.message "#{user.name} can't use #{move.name} because of gravity!"
       return false
 
+  editAccuracy: (accuracy) =>
+    Math.floor(accuracy * 5 / 3)
+
   isImmune: (battle, type) =>
     # TODO: Display "POKEMON couldn't stay airborne because of gravity!"?
     return false  if type == 'Ground'
