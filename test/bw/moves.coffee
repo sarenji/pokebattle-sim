@@ -5488,5 +5488,4 @@ shared = require '../shared'
       @battle.performMove(@id1, beatUp)
       for pokemon in @team1.pokemon
         basePower = 5 + Math.floor(pokemon.baseStats.attack / 10)
-        console.log basePower
         spy.returned(basePower).should.be.true
