@@ -5489,3 +5489,11 @@ shared = require '../shared'
       for pokemon in @team1.pokemon
         basePower = 5 + Math.floor(pokemon.baseStats.attack / 10)
         spy.returned(basePower).should.be.true
+
+    it "works for teams smaller than 6", ->
+      shared.create.call this,
+        team1: (Factory("Magikarp")  for i in [0...4])
+      beatUp = @battle.getMove("Beat Up")
+      mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
+      @battle.performMove(@id1, beatUp)
+      mock.verify()

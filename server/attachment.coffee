@@ -1151,4 +1151,4 @@ class @Attachment.BeatUp extends @VolatileAttachment
     {team} = battle.getOwner(user)
     @index += 1
     pokemon = team.at(@index)
-    pokemon.hasStatus() || pokemon.isFainted()
+    !pokemon || pokemon.hasStatus() || pokemon.isFainted()
