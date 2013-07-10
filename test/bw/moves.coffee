@@ -5497,3 +5497,34 @@ shared = require '../shared'
       mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
       @battle.performMove(@id1, beatUp)
       mock.verify()
+
+  describe "Psycho Shift", ->
+    it "fails if the user doesn't have a status", ->
+      shared.create.call(this)
+      psychoShift = @battle.getMove("Psycho Shift")
+      mock = @sandbox.mock(psychoShift).expects('fail').once()
+      @battle.performMove(@id1, psychoShift)
+      mock.verify()
+
+    it "fails if the target already has a status", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.TOXIC)
+      @p2.setStatus(Status.PARALYZE)
+      psychoShift = @battle.getMove("Psycho Shift")
+      mock = @sandbox.mock(psychoShift).expects('fail').once()
+      @battle.performMove(@id1, psychoShift)
+      mock.verify()
+
+    it "cures the user of its status", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.POISON)
+      psychoShift = @battle.getMove("Psycho Shift")
+      @battle.performMove(@id1, psychoShift)
+      @p1.hasStatus().should.be.false
+
+    it "gives the user's former status to the target", ->
+      shared.create.call(this)
+      @p1.setStatus(Status.BURN)
+      psychoShift = @battle.getMove("Psycho Shift")
+      @battle.performMove(@id1, psychoShift)
+      @p2.hasStatus(Status.BURN).should.be.true

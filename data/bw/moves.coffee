@@ -1689,6 +1689,15 @@ extendMove 'psych-up', ->
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
+extendMove 'psycho-shift', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !user.hasStatus() || target.hasStatus()
+      @fail(battle)
+      return false
+    {status} = user
+    user.cureStatus()
+    target.setStatus(status)
+
 extendMove 'pursuit', ->
   @beforeTurn = (battle, user) ->
     user.attach(Attachment.Pursuit)
