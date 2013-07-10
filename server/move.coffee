@@ -47,16 +47,7 @@ class @Move
       for i in [1..numHits]
         continue  if target.shouldBlockExecution(battle, this, user)
         if @use(battle, user, target) != false
-          damage = @calculateDamage(battle, user, target)
-          if damage > 0
-            # TODO: Print out opponent's name alongside the pokemon.
-            battle.message "#{target.name} took #{damage} damage!"
-            realDamage = target.transformHealthChange(damage)
-            target.damage(realDamage)
-          target.afterBeingHit(battle, this, user, target, damage)
-          user.afterSuccessfulHit(battle, this, user, target, damage)
-          @afterSuccessfulHit(battle, user, target, damage)
-          target.recordHit(user, damage, this, battle.turn)
+          @hit(battle, user, target)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
@@ -70,6 +61,19 @@ class @Move
     if target.isImmune(battle, type)
       battle.message "But it doesn't affect #{target.name}..."
       return false
+
+  # Actually deals damage and runs hooks after hit.
+  hit: (battle, user, target) =>
+    damage = @calculateDamage(battle, user, target)
+    if damage > 0
+      # TODO: Print out opponent's name alongside the pokemon.
+      battle.message "#{target.name} took #{damage} damage!"
+      realDamage = target.transformHealthChange(damage)
+      target.damage(realDamage)
+    target.afterBeingHit(battle, this, user, target, damage)
+    user.afterSuccessfulHit(battle, this, user, target, damage)
+    @afterSuccessfulHit(battle, user, target, damage)
+    target.recordHit(user, damage, this, battle.turn)
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.

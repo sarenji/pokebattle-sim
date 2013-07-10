@@ -5613,3 +5613,33 @@ shared = require '../shared'
           mock = @sandbox.mock(move).expects('execute').never()
           @battle.performMove(@id2, move)
           mock.verify()
+
+  testDelayedAttackMove = (moveName, type) ->
+    describe moveName, ->
+      shared.shouldFailIfUsedTwice(moveName)
+
+      it "waits three turns before attacking", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
+        for x in [0...3]
+          @p2.currentHP.should.equal @p2.stat('hp')
+          @battle.endTurn()
+        @p2.currentHP.should.be.lessThan @p2.stat('hp')
+
+      it "does not activate if the target has fainted", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @battle.performMove(@id1, move)
+        @p2.faint()
+        for x in [0...2]
+          @battle.endTurn()
+        @p2.faint()
+        mock = @sandbox.mock(move).expects('hit').never()
+        @battle.endTurn()
+        mock.verify()
+
+      it "can target multiple positions"
+
+  testDelayedAttackMove("Future Sight")
+  testDelayedAttackMove("Doom Desire")

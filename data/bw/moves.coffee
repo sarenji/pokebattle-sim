@@ -295,6 +295,17 @@ makePickDefenseMove = (name) ->
     @pickDefenseStat = (user, target) ->
       target.stat('defense')
 
+makeDelayedAttackMove = (name, message) ->
+  extendMove name, ->
+    @execute = (battle, user, targets) ->
+      # These moves pick a single target.
+      target = targets[0]
+      {team} = battle.getOwner(target)
+      if !team.attach(Attachment.DelayedAttack, user: user, move: this)
+        @fail(battle)
+        return
+      battle.message message.replace(/$1/, user.name)
+
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
@@ -1219,6 +1230,8 @@ extendMove 'disable', ->
     target.attach(Attachment.Disable, {move})
     battle.message "#{target.name}'s #{move.name} was disabled!"
 
+makeDelayedAttackMove("doom-desire", "$1 chose Doom Desire as its destiny!")
+
 extendMove 'dragon-rage', ->
   @calculateDamage = (battle, user, target) ->
     40
@@ -1345,6 +1358,8 @@ extendMove 'fury-cutter', ->
     attachment = user.getAttachment(Attachment.FuryCutter)
     layers = attachment?.layers || 0
     @power * Math.pow(2, layers)
+
+makeDelayedAttackMove("future-sight", "$1 foresaw an attack!")
 
 extendMove 'gravity', ->
   @execute = (battle, user, targets) ->

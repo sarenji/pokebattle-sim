@@ -1188,3 +1188,20 @@ class @Attachment.GravityPokemon extends @VolatileAttachment
 
   endTurn: =>
     @remove()
+
+class @Attachment.DelayedAttack extends @TeamAttachment
+  name: "DelayedAttackAttachment"
+
+  initialize: (attributes) =>
+    {@move, @user} = attributes
+    @slot = 0
+    @turns = 3
+
+  endTurn: (battle) =>
+    @turns--
+    if @turns == 0
+      pokemon = @team.at(@slot)
+      if pokemon.isAlive()
+        battle.message "#{pokemon.name} took the #{@move.name} attack!"
+        @move.hit(battle, @user, pokemon)
+      @remove()
