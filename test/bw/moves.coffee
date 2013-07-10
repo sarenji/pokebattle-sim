@@ -4346,12 +4346,13 @@ shared = require '../shared'
       mock.verify()
 
     for weather in [ Weather.RAIN, Weather.SAND, Weather.HAIL ]
-      it "halves base power under #{weather}", ->
-        shared.create.call(this)
-        move = @battle.getMove("SolarBeam")
-        @battle.setWeather(weather)
+      do (weather) ->
+        it "halves base power under #{weather}", ->
+          shared.create.call(this)
+          move = @battle.getMove("SolarBeam")
+          @battle.setWeather(weather)
 
-        move.basePower(@battle, @p1, @p2).should.equal(move.power >> 1)
+          move.basePower(@battle, @p1, @p2).should.equal(move.power >> 1)
 
   describe "Fury Cutter", ->
     it "doubles base power after every use, to a max of 160", ->
