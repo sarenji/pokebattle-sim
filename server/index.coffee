@@ -5,6 +5,6 @@
 {@Move} = require './move'
 {@FakeRNG} = require './rng'
 {@BattleServer} = require './server'
-{@Attachment, @VolatileAttachment} = require './attachment'
+{@Attachment, @VolatileAttachment, @BaseAttachment} = require './attachment'
 {@Status, @VolatileStatus} = require './status'
 {@Weather} = require './weather'

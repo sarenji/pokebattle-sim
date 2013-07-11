@@ -1,12 +1,12 @@
-{Attachments, Attachment} = require '../server/attachment'
+{Attachments, Attachment, BaseAttachment} = require '../server/attachment'
 should = require 'should'
 
 describe "An Attachment list", ->
-  class TestAttachment extends Attachment
+  class TestAttachment extends BaseAttachment
     name: "TestAttachment"
     maxLayers: 2
 
-  class OtherAttachment extends Attachment
+  class OtherAttachment extends BaseAttachment
     name: "OtherAttachment"
 
   beforeEach ->

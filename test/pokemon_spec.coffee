@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Pokemon, Status, Attachment, VolatileAttachment} = require('../').server
+{Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
 {Moves} = require('../data/bw')
 
 describe 'Pokemon', ->
@@ -129,15 +129,15 @@ describe 'Pokemon', ->
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
       pokemon = new Pokemon()
-      pokemon.attach(Attachment)
-      pokemon.hasAttachment(Attachment).should.be.true
+      pokemon.attach(BaseAttachment)
+      pokemon.has(BaseAttachment).should.be.true
 
   describe '#unattach', ->
     it 'removes an attachment from the list of attachments', ->
       pokemon = new Pokemon()
-      pokemon.attach(Attachment)
-      pokemon.unattach(Attachment)
-      pokemon.hasAttachment(Attachment).should.be.false
+      pokemon.attach(BaseAttachment)
+      pokemon.unattach(BaseAttachment)
+      pokemon.has(BaseAttachment).should.be.false
 
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->

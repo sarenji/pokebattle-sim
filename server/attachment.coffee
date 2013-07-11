@@ -80,8 +80,8 @@ class @Attachments
 # status effects, entry hazards, and fire spin's trapping effect.
 # Attachments are "attached" with Pokemon.attach(), and after
 # that the attachment can be retrieved with Attachment.pokemon
-class @Attachment
-  name: "Attachment"
+class @BaseAttachment
+  name: "BaseAttachment"
 
   maxLayers: 1
 
@@ -118,17 +118,17 @@ class @Attachment
   modifyDefense: (stat) -> stat
   modifySpecialDefense: (stat) -> stat
 
-Attachment = @Attachment
+@Attachment = Attachment = {}
 
 # Used for effects like Tailwind or Reflect.
-class @TeamAttachment extends @Attachment
+class @TeamAttachment extends @BaseAttachment
   name: "TeamAttachment"
 
 # Used for effects like Trick Room or Magic Room.
-class @BattleAttachment extends @Attachment
+class @BattleAttachment extends @BaseAttachment
   name: "BattleAttachment"
 
-class @Attachment.Paralyze extends @Attachment
+class @Attachment.Paralyze extends @BaseAttachment
   name: "#{Status.PARALYZE}Attachment"
 
   beforeMove: (battle, move, user, targets) ->
@@ -139,7 +139,7 @@ class @Attachment.Paralyze extends @Attachment
   modifySpeed: (stat) ->
     Math.floor(stat / 4)
 
-class @Attachment.Freeze extends @Attachment
+class @Attachment.Freeze extends @BaseAttachment
   name: "#{Status.FREEZE}Attachment"
 
   beforeMove: (battle, move, user, targets) ->
@@ -155,14 +155,14 @@ class @Attachment.Freeze extends @Attachment
       battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
 
-class @Attachment.Poison extends @Attachment
+class @Attachment.Poison extends @BaseAttachment
   name: "#{Status.POISON}Attachment"
 
   endTurn: (battle) ->
     battle.message "#{@pokemon.name} was hurt by poison!"
     @pokemon.damage(@pokemon.stat('hp') >> 3)
 
-class @Attachment.Toxic extends @Attachment
+class @Attachment.Toxic extends @BaseAttachment
   name: "#{Status.TOXIC}Attachment"
 
   initialize: ->
@@ -176,7 +176,7 @@ class @Attachment.Toxic extends @Attachment
     @counter = Math.min(@counter + 1, 15)
     @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
 
-class @Attachment.Sleep extends @Attachment
+class @Attachment.Sleep extends @BaseAttachment
   name: "#{Status.SLEEP}Attachment"
 
   initialize: ->
@@ -195,7 +195,7 @@ class @Attachment.Sleep extends @Attachment
       @counter += 1
       return false
 
-class @Attachment.Burn extends @Attachment
+class @Attachment.Burn extends @BaseAttachment
   name: "#{Status.BURN}Attachment"
 
   endTurn: (battle) ->
@@ -204,7 +204,7 @@ class @Attachment.Burn extends @Attachment
 
 # An attachment that removes itself when a pokemon
 # deactivates.
-class @VolatileAttachment extends @Attachment
+class @VolatileAttachment extends @BaseAttachment
   name: "VolatileAttachment"
   volatile: true
 
