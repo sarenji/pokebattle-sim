@@ -390,14 +390,20 @@ class @Battle
   requestAction: (player, validActions) =>
     # Normalize actions for the client
     {switches, moves} = validActions
+    total = 0
     if switches?
       validActions.switches = switches.map((p) -> player.team.indexOf(p))
+      total += validActions.switches.length
     if moves?
       validActions.moves = moves.map((m) -> m.name)
+      total += validActions.moves.length
+
+    return false  if total == 0
 
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
     player.requestAction(@id, validActions)
+    return true
 
   # Returns true if all requests have been completed. False otherwise.
   areAllRequestsCompleted: =>

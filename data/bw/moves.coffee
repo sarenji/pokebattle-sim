@@ -515,6 +515,24 @@ extendMove 'attract', ->
 extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
 makeBoostMove 'autotomize', 'self', speed: 2
 makeBoostMove 'barrier', 'self', defense: 2
+
+extendMove 'baton-pass', ->
+  @execute = (battle, user, targets) ->
+    {team} = battle.getOwner(user)
+    slot = team.indexOf(user)
+    if !battle.forceSwitch(user)
+      @fail(battle)
+      return
+
+    # Copy!
+    passable = user.attachments.getPassable()
+    stages = _.clone(user.stages)
+    attachments = user.attachments.attachments
+    attachments = attachments.filter((a) -> a.constructor in passable)
+    for attachment in passable
+      user.unattach(attachment)
+    team.attach(Attachment.BatonPass, {slot, stages, attachments})
+
 makeTrappingMove "bind"
 makeRechargeMove 'blast-burn'
 extendWithSecondaryStatus 'blaze-kick', .1, Status.BURN

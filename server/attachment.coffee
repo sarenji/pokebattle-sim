@@ -25,6 +25,11 @@ class @Attachments
     index = @indexOf(attachment)
     @attachments.splice(index, 1)  if index >= 0
 
+  # Returns a list of attachments that can be passed to another Pokemon.
+  getPassable: =>
+    passable = @attachments.filter((attachment) -> attachment.passable)
+    passable.map((a) -> a.constructor)
+
   indexOf: (attachment) =>
     @attachments.map((a) -> a.constructor).indexOf(attachment)
 
@@ -213,9 +218,10 @@ class @Attachment.Flinch extends @VolatileAttachment
 
 class @Attachment.Confusion extends @VolatileAttachment
   name: VolatileStatus.CONFUSION
+  passable: true
 
   initialize: (attributes) ->
-    @turns = attributes.battle.rng.randInt(1, 4, "confusion turns")
+    @turns = attributes.battle?.rng.randInt(1, 4, "confusion turns") || 1
     @turn = 0
 
   beforeMove: (battle, move, user, targets) =>
@@ -336,6 +342,7 @@ class @Attachment.Wish extends @TeamAttachment
 
 class @Attachment.PerishSong extends @VolatileAttachment
   name: "PerishSongAttachment"
+  passable: true
 
   initialize: =>
     @turns = 4
@@ -516,6 +523,7 @@ class @Attachment.Attract extends @VolatileAttachment
 
 class @Attachment.FocusEnergy extends @VolatileAttachment
   name: "FocusEnergyAttachment"
+  passable: true
 
 class @Attachment.MicleBerry extends @VolatileAttachment
   name: "MicleBerryAttachment"
@@ -597,6 +605,7 @@ class @Attachment.FocusPunch extends @VolatileAttachment
 
 class @Attachment.MagnetRise extends @VolatileAttachment
   name: "MagnetRiseAttachment"
+  passable: true
 
   initialize: =>
     @turns = 5
@@ -610,6 +619,7 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 
 class @Attachment.LockOn extends @VolatileAttachment
   name: "LockOnAttachment"
+  passable: true
 
   initialize: =>
     @turns = 2
@@ -685,6 +695,7 @@ class @Attachment.Charge extends @VolatileAttachment
 
 class @Attachment.LeechSeed extends @VolatileAttachment
   name: "LeechSeedAttachment"
+  passable: true
 
   initialize: (attributes) =>
     {@user, @target} = attributes
@@ -731,6 +742,7 @@ class @Attachment.Endure extends @VolatileAttachment
 
 class @Attachment.Curse extends @VolatileAttachment
   name: "CurseAttachment"
+  passable: true
 
   endTurn: (battle) =>
     @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
@@ -783,6 +795,7 @@ class @Attachment.PursuitModifiers extends @VolatileAttachment
 
 class @Attachment.Substitute extends @VolatileAttachment
   name: "SubstituteAttachment"
+  passable: true
 
   initialize: (attributes) =>
     {@battle, @hp} = attributes
@@ -828,6 +841,7 @@ class @Attachment.ChipAway extends @VolatileAttachment
 
 class @Attachment.AquaRing extends @VolatileAttachment
   name: "AquaRingAttachment"
+  passable: true
 
   endTurn: (battle) =>
     amount = Math.floor(@pokemon.stat('hp') / 16)
@@ -837,6 +851,7 @@ class @Attachment.AquaRing extends @VolatileAttachment
 
 class @Attachment.Ingrain extends @VolatileAttachment
   name: "IngrainAttachment"
+  passable: true
 
   endTurn: (battle) =>
     amount = Math.floor(@pokemon.stat('hp') / 16)
@@ -861,10 +876,11 @@ class @Attachment.Ingrain extends @VolatileAttachment
 
 class @Attachment.Embargo extends @VolatileAttachment
   name: "EmbargoAttachment"
+  passable: true
 
   initialize: =>
     @turns = 5
-    @pokemon.blockItem()
+    @pokemon?.blockItem()
 
   beginTurn: (battle) =>
     @pokemon.blockItem()
@@ -1205,3 +1221,18 @@ class @Attachment.DelayedAttack extends @TeamAttachment
         battle.message "#{pokemon.name} took the #{@move.name} attack!"
         @move.hit(battle, @user, pokemon)
       @remove()
+
+class @Attachment.BatonPass extends @TeamAttachment
+  name: "BatonPassAttachment"
+
+  initialize: (attributes) =>
+    {@slot, @attachments, @stages} = attributes
+
+  switchIn: (battle, pokemon) =>
+    return  if @slot != @team.indexOf(pokemon)
+    # Nasty stitching of attachments to the recipient.
+    for attachment in @attachments
+      attachment.pokemon = pokemon
+      pokemon.attachments.attachments.push(attachment)
+    pokemon.boost(@stages)
+    @remove()

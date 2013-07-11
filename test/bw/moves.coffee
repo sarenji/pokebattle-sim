@@ -1350,7 +1350,7 @@ shared = require '../shared'
 
   describe 'u-turn', ->
     it 'forces the owner to switch', ->
-      shared.create.call(this)
+      shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
       @controller.makeMove(@player1, 'u-turn')
       @controller.makeMove(@player2, 'splash')
 
@@ -5643,3 +5643,52 @@ shared = require '../shared'
 
   testDelayedAttackMove("Future Sight")
   testDelayedAttackMove("Doom Desire")
+
+  describe "Baton Pass", ->
+    it "fails if there is no benched pokemon to BP to", ->
+      shared.create.call(this)
+      batonPass = @battle.getMove("Baton Pass")
+      mock = @sandbox.mock(batonPass).expects('fail').once()
+      @battle.performMove(@id1, batonPass)
+      mock.verify()
+
+    it "switches to another pokemon", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Celebi") ]
+      batonPass = @battle.getMove("Baton Pass")
+      @battle.performMove(@id1, batonPass)
+      @battle.requests.should.have.property @id1
+
+    it "passes certain attachments to the next pokemon", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Celebi") ]
+      batonPass = @battle.getMove("Baton Pass")
+      @p1.attach(Attachment.Ingrain)
+      @p1.attach(Attachment.Torment)
+      @battle.performMove(@id1, batonPass)
+      @battle.performSwitch(@id1, 1)
+      @team1.first().has(Attachment.Torment).should.be.false
+      @team1.first().has(Attachment.Ingrain).should.be.true
+
+    it "continues Perish Song's counter", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Celebi") ]
+      batonPass = @battle.getMove("Baton Pass")
+      perishSong = @battle.getMove("Perish Song")
+      @battle.performMove(@id1, perishSong)
+      for i in [0...3]
+        @battle.endTurn()
+      @battle.performMove(@id1, batonPass)
+      @battle.performSwitch(@id1, 1)
+      @team1.first().isFainted().should.be.false
+      @battle.endTurn()
+      @team1.first().isFainted().should.be.true
+
+    it "passes status boosts to the next pokemon", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp"), Factory("Celebi") ]
+      batonPass = @battle.getMove("Baton Pass")
+      @p1.boost(attack: 1, evasion: -3)
+      @battle.performMove(@id1, batonPass)
+      @battle.performSwitch(@id1, 1)
+      @team1.first().stages.should.include(attack: 1, evasion: -3)
