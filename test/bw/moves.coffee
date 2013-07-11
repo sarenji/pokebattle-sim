@@ -2154,7 +2154,7 @@ shared = require '../shared'
         shared.create.call(this, team2: [Factory("Blissey")])
 
         @controller.makeMove(@player1, name)
-        @controller.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+        @controller.makeMove(@player2, "Recover")
 
         maxHP = @p2.stat('hp')
         expected = maxHP - Math.floor(maxHP / 16)
@@ -2221,7 +2221,7 @@ shared = require '../shared'
         shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
 
         @controller.makeMove(@player1, name)
-        @controller.makeMove(@player2, "Recover") # todo: make this rest instead once rest is implemented
+        @controller.makeMove(@player2, "Recover")
 
         @controller.makeSwitch(@player1, 1)
         @controller.makeMove(@player2, "Splash")
@@ -2617,7 +2617,6 @@ shared = require '../shared'
       util.typeEffectiveness(type, @p1.types).should.be.lessThan 1
 
   describe "Defense Curl", ->
-    # TODO: Merge tests.
     it "raises defense by 1 stage", ->
       shared.create.call(this)
       @p1.stages.defense.should.equal 0
