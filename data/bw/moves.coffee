@@ -790,7 +790,9 @@ extendMove 'leech-seed', ->
       oldWillMiss.call(this, battle, user, target)
 
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    target.attach(Attachment.LeechSeed, {user, target})
+    {team} = battle.getOwner(user)
+    slot   = team.indexOf(user)
+    target.attach(Attachment.LeechSeed, {team, slot})
     battle.message "#{target.name} was seeded!"
 
 extendWithSecondaryStatus 'lick', .3, Status.PARALYZE

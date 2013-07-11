@@ -693,14 +693,16 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    {@user, @target} = attributes
+    {@slot, @team} = attributes
 
   endTurn: (battle) ->
-    hp = @target.stat('hp')
-    damage = Math.min(Math.floor(hp / 8), @target.currentHP)
-    @target.damage(damage)
-    @user.drain(damage)
-    battle.message "#{@target.name}'s health is sapped by Leech Seed!"
+    user = @team.at(@slot)
+    return  if user.isFainted() || @pokemon.isFainted()
+    hp = @pokemon.stat('hp')
+    damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
+    @pokemon.damage(damage)
+    user.drain(damage)
+    battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
   name: "ProtectCounterAttachment"

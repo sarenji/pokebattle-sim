@@ -3141,7 +3141,39 @@ shared = require '../shared'
       @battle.performMove(@id1, move)
       mock.verify()
 
-    it "does not ever trigger if the Pokemon is fainted"
+    it "does not trigger if the user has fainted", ->
+      shared.create.call(this, team1: (Factory("Magikarp") for x in [1..2]))
+      @p1.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @p1.faint()
+      @battle.endTurn()
+      @p2.currentHP.should.equal @p2.stat('hp')
+
+    it "leeches next pokemon to switch in at that slot", ->
+      shared.create.call(this, team1: (Factory("Magikarp") for x in [1..2]))
+      @p1.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @p1.faint()
+      @battle.endTurn()
+      @battle.performSwitch(@id1, 1)
+      @p2.currentHP.should.equal @p2.stat('hp')
+
+      newFirst = @team1.first()
+      newFirst.currentHP = 1
+      @battle.endTurn()
+      hp = @p2.stat('hp') - @p2.currentHP
+      hp.should.be.greaterThan(0)
+      newFirst.currentHP.should.equal(hp + 1)
+
+    it "stops if the target has fainted", ->
+      shared.create.call(this, team2: (Factory("Magikarp") for x in [1..2]))
+      @p1.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @p2.faint()
+      @battle.endTurn()
+      @battle.performSwitch(@id2, 1)
+      @team2.first().currentHP.should.equal @team2.first().stat('hp')
+      @p1.currentHP.should.equal(1)
 
   testProtectCounterMove = (moveName) ->
     it "fails if the user moves last this turn", ->
