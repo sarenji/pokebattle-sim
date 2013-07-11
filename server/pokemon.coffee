@@ -284,6 +284,7 @@ class @Pokemon
     delete @lastMove
     @used = {}
     @attachments.query('switchOut', battle)
+    @attachments.unattachAll((a) -> a.volatile)
 
   informSwitch: (battle, switcher) =>
     @attachments.query('informSwitch', battle, switcher)

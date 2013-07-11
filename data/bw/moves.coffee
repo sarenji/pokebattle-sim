@@ -1783,10 +1783,8 @@ extendMove 'rapid-spin', ->
       battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
 
     # Remove trapping moves like fire-spin
-    trap = user.getAttachment(Attachment.Trap)
-    if trap
-      battle.message "#{user.name} was freed from #{trap.moveName}!"
-      trap.remove()
+    trap = user.unattach(Attachment.Trap)
+    battle.message "#{user.name} was freed from #{trap.moveName}!"  if trap
 
     # Todo: Remove leech seed once leech seed is implemented
 

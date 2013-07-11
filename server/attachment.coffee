@@ -20,10 +20,21 @@ class @Attachments
     attachment.layers++
     return attachment
 
-  # todo: should call Attachment#remove() somehow without causing infinite recursion
-  unattach: (attachment) =>
-    index = @indexOf(attachment)
-    @attachments.splice(index, 1)  if index >= 0
+  unattach: (klass) =>
+    index = @indexOf(klass)
+    if index >= 0
+      attachment = @attachments.splice(index, 1)[0]
+      attachment.unattach()
+      attachment
+
+  unattachAll: (condition) =>
+    condition ||= -> true
+    for i in [0...@attachments.length]
+      attachment = @attachments[i]
+      if condition(attachment)
+        attachment.unattach()
+        @attachments.splice(i, 1)
+        i--
 
   # Returns a list of attachments that can be passed to another Pokemon.
   getPassable: =>
@@ -79,10 +90,7 @@ class @Attachment
 
   initialize: =>
 
-  remove: =>
-    # Error if @pokemon is undefined
-    @pokemon.unattach(@constructor)
-
+  unattach: =>
   calculateWeight: (weight) => weight
   editAccuracy: (accuracy) => accuracy
   editEvasion: (evasion) => evasion
@@ -116,15 +124,9 @@ Attachment = @Attachment
 class @TeamAttachment extends @Attachment
   name: "TeamAttachment"
 
-  remove: =>
-    @team.unattach(@constructor)
-
 # Used for effects like Trick Room or Magic Room.
 class @BattleAttachment extends @Attachment
   name: "BattleAttachment"
-
-  remove: =>
-    @battle.unattach(@constructor)
 
 class @Attachment.Paralyze extends @Attachment
   name: "#{Status.PARALYZE}Attachment"
@@ -203,8 +205,8 @@ class @Attachment.Burn extends @Attachment
 # An attachment that removes itself when a pokemon
 # deactivates.
 class @VolatileAttachment extends @Attachment
-  switchOut: =>
-    @remove()
+  name: "VolatileAttachment"
+  volatile: true
 
 class @Attachment.Flinch extends @VolatileAttachment
   name: VolatileStatus.FLINCH
@@ -214,7 +216,7 @@ class @Attachment.Flinch extends @VolatileAttachment
     false
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Confusion extends @VolatileAttachment
   name: VolatileStatus.CONFUSION
@@ -229,7 +231,7 @@ class @Attachment.Confusion extends @VolatileAttachment
     @turn++
     if @turn > @turns
       battle.message "#{@pokemon.name} snapped out of confusion!"
-      @remove()
+      @pokemon.unattach(@constructor)
     else if battle.rng.next('confusion') < 0.5
       battle.message "#{@pokemon.name} hurt itself in confusion!"
       damage = battle.confusionMove.calculateDamage(battle, user, user)
@@ -255,7 +257,7 @@ class @Attachment.Disable extends @VolatileAttachment
     @turns--
     if @turns == 0
       battle.message "#{@pokemon.name} is no longer disabled!"
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.Yawn extends @VolatileAttachment
   name: 'YawnAttachment'
@@ -267,7 +269,7 @@ class @Attachment.Yawn extends @VolatileAttachment
     @turn += 1
     if @turn == 2
       @pokemon.setStatus(Status.SLEEP)
-      @remove()
+      @pokemon.unattach(@constructor)
 
 # TODO: Does weight get lowered if speed does not change?
 class @Attachment.Autotomize extends @VolatileAttachment
@@ -286,7 +288,7 @@ class @Attachment.Nightmare extends @VolatileAttachment
       battle.message "#{@pokemon.name} is locked in a nightmare!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
     else
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
@@ -311,11 +313,10 @@ class @Attachment.Taunt extends @VolatileAttachment
     @turn++
     if @turn >= @turns
       battle.message "#{@pokemon.name}'s taunt wore off!"
-      @remove()
+      @pokemon.unattach(@constructor)
 
-  remove: =>
+  unattach: =>
     delete @battle
-    super()
 
 class @Attachment.Wish extends @TeamAttachment
   name: "WishAttachment"
@@ -335,10 +336,7 @@ class @Attachment.Wish extends @TeamAttachment
       if !pokemon.isFainted()
         battle.message "#{@wisherName}'s wish came true!"
         pokemon.damage(-@amount)
-      @remove()
-
-  remove: =>
-    super()
+      @team.unattach(@constructor)
 
 class @Attachment.PerishSong extends @VolatileAttachment
   name: "PerishSongAttachment"
@@ -353,7 +351,7 @@ class @Attachment.PerishSong extends @VolatileAttachment
     battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
     if @turn >= @turns
       @pokemon.faint()
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.Roost extends @VolatileAttachment
   name: "RoostAttachment"
@@ -365,7 +363,7 @@ class @Attachment.Roost extends @VolatileAttachment
 
   endTurn: (battle) =>
     @pokemon.types = @oldTypes
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Encore extends @VolatileAttachment
   name: "EncoreAttachment"
@@ -382,7 +380,7 @@ class @Attachment.Encore extends @VolatileAttachment
     @turn++
     if @turn >= @turns || @pokemon.pp(@move) == 0
       battle.message("#{@pokemon.name}'s Encore ended!")
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.Torment extends @VolatileAttachment
   name: "TormentAttachment"
@@ -403,9 +401,8 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
   beginTurn: (battle) =>
     @pokemon.lockMove(@move)  if @move?
 
-  remove: =>
+  unattach: =>
     delete @move
-    super()
 
 class @Attachment.IronBall extends @VolatileAttachment
   name: "IronBallAttachment"
@@ -452,7 +449,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
     if pokemon.hasType("Poison") && !pokemon.isImmune(battle, "Ground")
       name = battle.getOwner(pokemon).username
       battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
-      @remove()
+      @team.unattach(@constructor)
 
     return  if pokemon.isImmune(battle, "Poison")
 
@@ -476,7 +473,7 @@ class @Attachment.Trap extends @VolatileAttachment
     # Therefore, if @turns = 5, this attachment should actually last for 6 turns.
     if @turns == 0
       battle.message "#{@pokemon.name} was freed from #{@moveName}!"
-      @remove()
+      @pokemon.unattach(@constructor)
     else
       battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
@@ -488,10 +485,9 @@ class @Attachment.Trap extends @VolatileAttachment
     else
       16
 
-  remove: =>
+  unattach: =>
     @user.unattach(Attachment.TrapLeash)
     delete @user
-    super()
 
 # If the creator if fire spin switches out, the trap will end
 # TODO: What happens if another ability removes the trap, and then firespin is used again?
@@ -501,10 +497,9 @@ class @Attachment.TrapLeash extends @VolatileAttachment
   initialize: (attributes) =>
     {@target} = attributes
 
-  remove: =>
+  unattach: =>
     @target.unattach(Attachment.Trap)
     delete @target
-    super()
 
 # Has a 50% chance to immobilize a Pokemon before it moves.
 class @Attachment.Attract extends @VolatileAttachment
@@ -536,7 +531,7 @@ class @Attachment.MicleBerry extends @VolatileAttachment
 
   endTurn: (battle) =>
     if @turns == 0
-      @remove()
+      @pokemon.unattach(@constructor)
     else
       @turns--
 
@@ -558,7 +553,7 @@ class @Attachment.Metronome extends @VolatileAttachment
     {@move} = attributes
 
   beforeMove: (battle, move) ->
-    @remove()  if move != @move
+    @pokemon.unattach(@constructor)  if move != @move
 
 class @Attachment.Screen extends @TeamAttachment
   name: "ScreenAttachment"
@@ -570,7 +565,7 @@ class @Attachment.Screen extends @TeamAttachment
   endTurn: (battle) =>
     @turns--
     if @turns == 0
-      @remove()
+      @team.unattach(@constructor)
 
 class @Attachment.Reflect extends @Attachment.Screen
   name: "ReflectAttachment"
@@ -615,7 +610,7 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turns -= 1
-    @remove()  if @turns == 0
+    @pokemon.unattach(@constructor)  if @turns == 0
 
 class @Attachment.LockOn extends @VolatileAttachment
   name: "LockOnAttachment"
@@ -629,7 +624,7 @@ class @Attachment.LockOn extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turns -= 1
-    @remove()  if @turns == 0
+    @pokemon.unattach(@constructor)  if @turns == 0
 
 class @Attachment.Minimize extends @VolatileAttachment
   name: "MinimizeAttachment"
@@ -658,7 +653,7 @@ class @Attachment.Recharge extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turns -= 1
-    @remove()  if @turns == 0
+    @pokemon.unattach(@constructor)  if @turns == 0
 
 class @Attachment.Momentum extends @VolatileAttachment
   name: "MomentumAttachment"
@@ -675,13 +670,13 @@ class @Attachment.Momentum extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turns -= 1
-    @remove()  if @turns == 0 || @layers == @maxLayers
+    @pokemon.unattach(@constructor)  if @turns == 0 || @layers == @maxLayers
 
 class @Attachment.MeFirst extends @VolatileAttachment
   name: "MeFirstAttachment"
 
   endTurn: (battle) =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Charge extends @VolatileAttachment
   name: "ChargeAttachment"
@@ -691,7 +686,7 @@ class @Attachment.Charge extends @VolatileAttachment
 
   endTurn: (battle) =>
     @turns -= 1
-    @remove()  if @turns == 0
+    @pokemon.unattach(@constructor)  if @turns == 0
 
 class @Attachment.LeechSeed extends @VolatileAttachment
   name: "LeechSeedAttachment"
@@ -718,7 +713,7 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
 
   endTurn: =>
     @turns--
-    @remove()  if @turns == 0
+    @pokemon.unattach(@constructor)  if @turns == 0
 
 class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
@@ -729,13 +724,13 @@ class @Attachment.Protect extends @VolatileAttachment
       return true
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Endure extends @VolatileAttachment
   name: "EndureAttachment"
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
   editDamage: (damage, battle, move, user) =>
     Math.min(damage, user.currentHP - 1)
@@ -758,7 +753,7 @@ class @Attachment.DestinyBond extends @VolatileAttachment
       battle.message "#{pokemon.name} took its attacker down with it!"
 
   beforeMove: (battle, move, user, targets) =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Grudge extends @VolatileAttachment
   name: "GrudgeAttachment"
@@ -771,7 +766,7 @@ class @Attachment.Grudge extends @VolatileAttachment
       battle.message "#{pokemon.name}'s #{move.name} lost all its PP due to the grudge!"
 
   beforeMove: (battle, move, user, targets) =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Pursuit extends @VolatileAttachment
   name: "PursuitAttachment"
@@ -784,13 +779,13 @@ class @Attachment.Pursuit extends @VolatileAttachment
     @pokemon.attach(Attachment.PursuitModifiers)
     move.execute(battle, @pokemon, [ switcher ])
     @pokemon.unattach(Attachment.PursuitModifiers)
-    @remove()
+    @pokemon.unattach(@constructor)
 
   beforeMove: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.PursuitModifiers extends @VolatileAttachment
   name: "PursuitModifiersAttachment"
@@ -809,7 +804,7 @@ class @Attachment.Substitute extends @VolatileAttachment
     @hp -= damage
     if @hp <= 0
       @battle.message "#{@pokemon.name}'s substitute faded!"
-      @remove()
+      @pokemon.unattach(@constructor)
     else
       @battle.message "The substitute took damage for #{@pokemon.name}!"
     return 0
@@ -828,7 +823,7 @@ class @Attachment.Rage extends @VolatileAttachment
   name: "RageAttachment"
 
   beforeMove: (battle, move, user, targets) =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
   afterBeingHit: (battle, move, user, target, damage) =>
     return  if move.isNonDamaging()
@@ -894,7 +889,7 @@ class @Attachment.Embargo extends @VolatileAttachment
     @turns--
     if @turns == 0
       battle.message "#{@pokemon.name} can use items again!"
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.Charging extends @VolatileAttachment
   name: "ChargingAttachment"
@@ -910,7 +905,7 @@ class @Attachment.Charging extends @VolatileAttachment
       user.removeItem()
 
     if @charging || @condition?(battle, move, user, targets)
-      @remove()
+      @pokemon.unattach(@constructor)
       return
 
     @charging = true
@@ -927,8 +922,7 @@ class @Attachment.Charging extends @VolatileAttachment
       battle.message "#{@pokemon.name} avoided the attack!"
       return true
 
-  remove: =>
-    super()
+  unattach: =>
     delete @move
     delete @message
     delete @vulnerable
@@ -942,7 +936,7 @@ class @Attachment.FuryCutter extends @VolatileAttachment
     {@move} = attributes
 
   beforeMove: (battle, move, user, targets) =>
-    @remove()  if move != @move
+    @pokemon.unattach(@constructor)  if move != @move
 
 class @Attachment.Imprison extends @VolatileAttachment
   name: "ImprisonAttachment"
@@ -959,7 +953,6 @@ class @Attachment.Imprison extends @VolatileAttachment
   switchOut: (battle) =>
     for pokemon in battle.getOpponents(@pokemon)
       pokemon.unattach(Attachment.ImprisonPrevention)
-    super(battle)
 
 class @Attachment.ImprisonPrevention extends @VolatileAttachment
   name: "ImprisonPreventionAttachment"
@@ -982,7 +975,7 @@ class @Attachment.Present extends @VolatileAttachment
     {@power} = attributes
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 # Lucky Chant's CH prevention is inside Move#isCriticalHit.
 class @Attachment.LuckyChant extends @TeamAttachment
@@ -997,7 +990,7 @@ class @Attachment.LuckyChant extends @TeamAttachment
       # TODO: Less hacky way of getting username
       {username} = (p for id, p of battle.players when p.team == @team)[0]
       battle.message "#{username}'s team's Lucky Chant wore off!"
-      @remove()
+      @team.unattach(@constructor)
 
 class @Attachment.LunarDance extends @TeamAttachment
   name: "LunarDanceAttachment"
@@ -1032,7 +1025,7 @@ class @Attachment.MagicCoat extends @VolatileAttachment
     return true
 
   endTurn: (battle) =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.Telekinesis extends @VolatileAttachment
   name: "TelekinesisAttachment"
@@ -1050,7 +1043,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
     @turns--
     if @turns == 0
       battle.message "#{@pokemon} was freed from the telekinesis!"
-      @remove()
+      @pokemon.unattach(@constructor)
 
 class @Attachment.SmackDown extends @VolatileAttachment
   name: "SmackDownAttachment"
@@ -1073,7 +1066,7 @@ class @Attachment.EchoedVoice extends @BattleAttachment
 
   endTurn: =>
     @turns--
-    @remove()  if @turns == 0
+    @battle.unattach(@constructor)  if @turns == 0
 
 class @Attachment.Rampage extends @VolatileAttachment
   name: "RampageAttachment"
@@ -1094,12 +1087,12 @@ class @Attachment.Rampage extends @VolatileAttachment
     if @turn >= @turns
       battle.message "#{@pokemon.name} became confused due to fatigue!"
       @pokemon.attach(Attachment.Confusion, {battle})
-      @remove()
+      @pokemon.unattach(@constructor)
     else
       # afterSuccessfulHit increases the number of layers. If the number of
       # layers is not keeping up with the number of turns passed, then the
       # Pokemon's move was interrupted and we should stop rampaging.
-      @remove()  if @turn > @layers
+      @pokemon.unattach(@constructor)  if @turn > @layers
 
 # The way Trick Room reverses turn order is implemented in Battle#sortActions.
 class @Attachment.TrickRoom extends @BattleAttachment
@@ -1112,7 +1105,7 @@ class @Attachment.TrickRoom extends @BattleAttachment
     @turns--
     if @turns == 0
       @battle.message "The twisted dimensions returned to normal!"
-      @remove()
+      @battle.unattach(@constructor)
 
 class @Attachment.Transform extends @VolatileAttachment
   name: "TransformAttachment"
@@ -1133,7 +1126,7 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.types   = _.clone(target.types)
     @pokemon.resetAllPP(5)
 
-  remove: =>
+  unattach: =>
     # Restore old data
     @pokemon.ability   = @ability
     @pokemon.species   = @species
@@ -1144,7 +1137,6 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.weight    = @weight
     @pokemon.ppHash    = @ppHash
     @pokemon.maxPPHash = @maxPPHash
-    super()
 
 class @Attachment.Fling extends @VolatileAttachment
   name: "FlingAttachment"
@@ -1160,7 +1152,7 @@ class @Attachment.Fling extends @VolatileAttachment
       user.removeItem()
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.BeatUp extends @VolatileAttachment
   name: "BeatUpAttachment"
@@ -1190,7 +1182,7 @@ class @Attachment.Gravity extends @BattleAttachment
     @turns--
     if @turns == 0
       @battle.message "Gravity turned to normal!"
-      @remove()
+      @battle.unattach(@constructor)
 
 class @Attachment.GravityPokemon extends @VolatileAttachment
   name: "GravityPokemonAttachment"
@@ -1208,7 +1200,7 @@ class @Attachment.GravityPokemon extends @VolatileAttachment
     return false  if type == 'Ground'
 
   endTurn: =>
-    @remove()
+    @pokemon.unattach(@constructor)
 
 class @Attachment.DelayedAttack extends @TeamAttachment
   name: "DelayedAttackAttachment"
@@ -1225,7 +1217,7 @@ class @Attachment.DelayedAttack extends @TeamAttachment
       if pokemon.isAlive()
         battle.message "#{pokemon.name} took the #{@move.name} attack!"
         @move.hit(battle, @user, pokemon)
-      @remove()
+      @team.unattach(@constructor)
 
 class @Attachment.BatonPass extends @TeamAttachment
   name: "BatonPassAttachment"
@@ -1240,4 +1232,4 @@ class @Attachment.BatonPass extends @TeamAttachment
       attachment.pokemon = pokemon
       pokemon.attachments.attachments.push(attachment)
     pokemon.boost(@stages)
-    @remove()
+    @team.unattach(@constructor)
