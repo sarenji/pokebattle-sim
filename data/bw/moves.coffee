@@ -231,7 +231,7 @@ makeExplosionMove = (name) ->
     @execute = (battle, user, targets) ->
       if !_.any(targets, (target) -> target.hasAbility('Damp'))
         user.faint()
-        oldExecute(battle, user, targets)
+        oldExecute.call(this, battle, user, targets)
       else
         battle.message "#{user.name} cannot use #{@name}!"
 
@@ -1585,8 +1585,12 @@ extendMove 'me-first', ->
     m.execute(battle, user, targets)
 
 extendMove 'memento', ->
+  oldExecute = @execute
+  @execute = (battle, user, targets) ->
+    user.faint()
+    oldExecute.call(this, battle, user, targets)
+
   @afterSuccessfulHit = (battle, user, target) ->
-    user.currentHP = 0
     boosts = {attack: -2, specialAttack: -2}
     boostedStats = target.boost(boosts)
     util.printBoostMessage(battle, target, boostedStats, boosts)

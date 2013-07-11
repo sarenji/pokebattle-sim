@@ -689,25 +689,29 @@ shared = require '../shared'
     shared.shouldDoNoDamage('Memento')
 
     it "faints the user", ->
-      shared.create.call this,
-        team1: [Factory('Latias')]
-        team2: [Factory('Magikarp')]
-      @controller.makeMove(@player1, 'Memento')
-      @controller.makeMove(@player2, 'Splash')
-
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Memento"))
       @p1.isFainted().should.be.true
 
     it "reduces the attack and special attack of the target by two stages", ->
-      shared.create.call this,
-        team1: [Factory('Latias')]
-        team2: [Factory('Magikarp')]
-      @controller.makeMove(@player1, 'Memento')
-      @controller.makeMove(@player2, 'Splash')
-
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Memento"))
       @p2.stages.should.include attack: -2, specialAttack: -2
 
-    it "doesn't reduce stats if target is protected, but still faints user"
-    it "doesn't reduce stats if target has a substitute, but faints user"
+    it "doesn't reduce stats if target is protected, but faints user", ->
+      shared.create.call(this)
+      @battle.recordMove(@id2, @battle.getMove("Protect"))
+      @battle.recordMove(@id1, @battle.getMove("Memento"))
+      @battle.continueTurn()
+      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p1.isFainted().should.be.true
+
+    it "doesn't reduce stats if target has a substitute, but faints user", ->
+      shared.create.call(this)
+      @battle.performMove(@id2, @battle.getMove("Substitute"))
+      @battle.performMove(@id1, @battle.getMove("Memento"))
+      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p1.isFainted().should.be.true
 
   describe 'magnitude', ->
     it "has variable base power", ->
