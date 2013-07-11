@@ -2435,7 +2435,13 @@ shared = require '../shared'
       @p2.hasAttachment(Attachment.Trap).should.be.false
       @p1.hasAttachment(Attachment.TrapLeash).should.be.false
 
-    it "removes leech seed"
+    it "removes leech seed", ->
+      shared.create.call(this)
+      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @p2.has(Attachment.LeechSeed).should.be.true
+      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @p2.has(Attachment.LeechSeed).should.be.false
+
     it "does not remove entry hazards if the user faints from rough skin"
 
     it "does not remove entry hazards if the user faints from life orb", ->

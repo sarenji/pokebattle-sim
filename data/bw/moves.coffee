@@ -1788,7 +1788,9 @@ extendMove 'rapid-spin', ->
     trap = user.unattach(Attachment.Trap)
     battle.message "#{user.name} was freed from #{trap.moveName}!"  if trap
 
-    # Todo: Remove leech seed once leech seed is implemented
+    # Remove leech seed
+    leechSeed = user.unattach(Attachment.LeechSeed)
+    battle.message "#{user.name} was freed from Leech Seed!"  if leechSeed
 
 extendMove 'reflect', ->
   @execute = (battle, user, opponents) ->
