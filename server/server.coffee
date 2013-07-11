@@ -10,13 +10,13 @@ class @BattleServer
     @queue = new BattleQueue()
     @battles = {}
 
-  queuePlayer: (player, team) =>
+  queuePlayer: (player, team) ->
     @queue.add(player, team)
 
-  queuedPlayers: =>
+  queuedPlayers: ->
     @queue.queuedPlayers()
 
-  beginBattles: =>
+  beginBattles: ->
     pairs = @queue.pairPlayers()
 
     # Create a battle for each pair
@@ -33,17 +33,17 @@ class @BattleServer
       @beginBattle(id)
 
   # Creates a battle and returns its battleId
-  createBattle: (objects...) =>
+  createBattle: (objects...) ->
     players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
     @battles[battleId] = new BattleController(new Battle(battleId, players: objects))
     battleId
 
-  beginBattle: (battleId) =>
+  beginBattle: (battleId) ->
     @battles[battleId].beginBattle()
 
   # Generate a random ID for a new battle.
-  generateBattleId: (players) =>
+  generateBattleId: (players) ->
     # TODO load key from config or env
     hmac = createHmac('sha1', 'INSECURE KEY')
     hmac.update((new Date).toISOString())
@@ -52,5 +52,5 @@ class @BattleServer
     hmac.digest('hex')
 
   # Returns the battle with battleId.
-  findBattle: (battleId) =>
+  findBattle: (battleId) ->
     @battles[battleId]

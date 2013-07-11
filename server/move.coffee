@@ -21,22 +21,22 @@ class @Move
     @flinchChance = (attributes.flinchChance || 0) / 100
     @pp = attributes.pp
 
-  isPhysical: =>
+  isPhysical: ->
     @spectra == 'physical'
 
-  isSpecial: =>
+  isSpecial: ->
     @spectra == 'special'
 
-  isNonDamaging: =>
+  isNonDamaging: ->
     @spectra == 'non-damaging'
 
-  hasFlag: (flagName) =>
+  hasFlag: (flagName) ->
     flagName in @flags
 
   # Executes this move on several targets.
   # Only override this method if the move does not need to be
   # recorded on the enemy pokemon.
-  execute: (battle, user, targets) =>
+  execute: (battle, user, targets) ->
     # TODO: Test the below 3 lines.
     if targets.length == 0
       battle.message "But there was no target..."
@@ -51,7 +51,7 @@ class @Move
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
-  use: (battle, user, target) =>
+  use: (battle, user, target) ->
     if @willMiss(battle, user, target)
       damage = @calculateDamage(battle, user, target)
       @afterMiss(battle, user, target, damage)
@@ -63,7 +63,7 @@ class @Move
       return false
 
   # Actually deals damage and runs hooks after hit.
-  hit: (battle, user, target) =>
+  hit: (battle, user, target) ->
     damage = @calculateDamage(battle, user, target)
     if damage > 0
       # TODO: Print out opponent's name alongside the pokemon.
@@ -77,22 +77,22 @@ class @Move
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.
-  afterSuccessfulHit: (battle, user, target, damage) =>
+  afterSuccessfulHit: (battle, user, target, damage) ->
 
   # A hook that executes after a pokemon misses an attack. If execute is
   # overriden, this will not execute.
-  afterMiss: (battle, user, target, damage) =>
+  afterMiss: (battle, user, target, damage) ->
     battle.message "#{target.name} avoided the attack!"
 
   # A hook that executes once a move fails.
-  fail: (battle) =>
+  fail: (battle) ->
     battle.message "But it failed!"
 
   # A hook that is only used by special "specific-move" targets.
-  getTargets: (battle, user) =>
+  getTargets: (battle, user) ->
     throw new Error("Move #{@name} has not implemented getTargets.")
 
-  calculateDamage: (battle, user, target) =>
+  calculateDamage: (battle, user, target) ->
     return 0  if @power == 0
 
     willCritical = @isCriticalHit(battle, user, target)
@@ -112,12 +112,12 @@ class @Move
     battle.message "A critical hit!"  if willCritical
     damage
 
-  willMiss: (battle, user, target) =>
+  willMiss: (battle, user, target) ->
     accuracy = @chanceToHit(battle, user, target)
     return false  if accuracy == 0
     battle.rng.randInt(1, 100, "miss") > accuracy
 
-  chanceToHit: (battle, user, target) =>
+  chanceToHit: (battle, user, target) ->
     accuracy = @accuracy
     accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
@@ -128,7 +128,7 @@ class @Move
     # TODO: Accuracy/evasion ability modifiers
     accuracy
 
-  weatherModifier: (battle, user, target) =>
+  weatherModifier: (battle, user, target) ->
     type = @getType(battle, user, target).toUpperCase()
     if type == 'Fire' and battle.hasWeather('Sunny')
       0x1800
@@ -141,20 +141,20 @@ class @Move
     else
       0x1000
 
-  typeEffectiveness: (battle, user, target) =>
+  typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
     util.typeEffectiveness(type, target.types)
 
-  burnCalculation: (user) =>
+  burnCalculation: (user) ->
     if @isPhysical() && !user.hasAbility("Guts") && user.hasStatus(Status.BURN)
       .5
     else
       1
 
-  basePower: (battle, user, target) =>
+  basePower: (battle, user, target) ->
     @power
 
-  isCriticalHit: (battle, attacker, defender) =>
+  isCriticalHit: (battle, attacker, defender) ->
     owner = battle.getOwner(defender)
     return false  if owner?.team.hasAttachment(Attachment.LuckyChant)
     return false  if defender.hasAbility('Battle Armor')
@@ -175,7 +175,7 @@ class @Move
       else
         rand < .5
 
-  criticalHitLevel: (battle, attacker, defender) =>
+  criticalHitLevel: (battle, attacker, defender) ->
     # -1 means always crits
     return @chLevel  if @chLevel == -1
 
@@ -185,10 +185,10 @@ class @Move
     stage += attacker.item?.criticalModifier(battle, attacker) || 0
     stage
 
-  modify: (number, modifier) =>
+  modify: (number, modifier) ->
     Math.ceil((number * modifier) / 0x1000 - 0.5)
 
-  baseDamage: (battle, user, target) =>
+  baseDamage: (battle, user, target) ->
     floor = Math.floor
     uStat = @pickAttackStat(user, target)
     tStat = @pickDefenseStat(user, target)
@@ -201,7 +201,7 @@ class @Move
     damage += 2
     damage
 
-  calculateNumberOfHits: (battle, user, target) =>
+  calculateNumberOfHits: (battle, user, target) ->
     if @attributes.minHits == @attributes.maxHits
       @attributes.maxHits
     else if user.hasAbility("Skill Link")
@@ -212,16 +212,16 @@ class @Move
     else
       battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
 
-  getType: (battle, user, target) =>
+  getType: (battle, user, target) ->
     @type
 
-  pickAttackStat: (user, target) =>
+  pickAttackStat: (user, target) ->
     stat = (if @isPhysical() then 'attack' else 'specialAttack')
     user.stat(stat)
 
-  pickDefenseStat: (user, target) =>
+  pickDefenseStat: (user, target) ->
     stat = (if @isPhysical() then 'defense' else 'specialDefense')
     target.stat(stat)
 
-  toString: =>
+  toString: ->
     "[Move name:#{@name}]"

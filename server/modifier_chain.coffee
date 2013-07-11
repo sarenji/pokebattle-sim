@@ -2,7 +2,7 @@ class @ModifierChain
   constructor: ->
     @chain = []
 
-  add: (priority, callback) =>
+  add: (priority, callback) ->
     if !callback?
       [callback, priority] = [priority, 0]
     [min, max, mid] = [0, @chain.length - 1, 0]
@@ -14,7 +14,7 @@ class @ModifierChain
         min = mid + 1
     @chain.splice(min, 0, {priority, callback})
 
-  run: (move, battle, attacker, defender) =>
+  run: (move, battle, attacker, defender) ->
     modifier = 0x1000
     for {callback} in @chain
       prime = callback(move, battle, attacker, defender)

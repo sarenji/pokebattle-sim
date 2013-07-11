@@ -5,7 +5,7 @@ class @BattleController
   constructor: (@battle) ->
 
   # Officially starts the battle.
-  beginBattle: =>
+  beginBattle: ->
     pokemon = @battle.getActivePokemon()
     for p in pokemon
       p.switchIn(@battle)
@@ -14,7 +14,7 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName) =>
+  makeMove: (player, moveName) ->
     move = @battle.getMove(moveName)
     # TODO: Fail if move not in moves
     # TODO: Fail if move not in player pokemon's moves
@@ -27,7 +27,7 @@ class @BattleController
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  makeSwitch: (player, toPosition) =>
+  makeSwitch: (player, toPosition) ->
     # TODO: Send error messages back on invalid indices (such as fainted poke
     #       or activePokemon)
     @battle.recordSwitch(player.id, toPosition)
@@ -42,13 +42,13 @@ class @BattleController
   # An alternate version of #makeSwitch which takes the name of a pokemon
   # to switch to instead of the position. Useful for tests.
   # TODO: Test
-  makeSwitchByName: (player, toPokemon) =>
+  makeSwitchByName: (player, toPokemon) ->
     team = @battle.getTeam(player.id)
     index = team.pokemon.map((p) -> p.name).indexOf(toPokemon)
 
     @makeSwitch(player, index)
 
-  beginTurn: =>
+  beginTurn: ->
     @battle.beginTurn()
 
   # Continues the turn. This is called once all requests
@@ -56,7 +56,7 @@ class @BattleController
   #
   # If there are no more requests, the engine progresses to endTurn. Otherwise,
   # it waits for continueTurn to be called again.
-  continueTurn: =>
+  continueTurn: ->
     @battle.continueTurn()
 
     # If all requests have been completed, then end the turn.
@@ -66,7 +66,7 @@ class @BattleController
   # Calls Battle#endTurn. If all pokemon are fainted, then it
   # ends the battle. Otherwise, it will request for new pokemon and wait if
   # any replacements are needed, or begins the next turn.
-  endTurn: =>
+  endTurn: ->
     @battle.endTurn()
 
     if @battle.areReplacementsNeeded()
@@ -77,5 +77,5 @@ class @BattleController
     else
       @beginTurn()
 
-  endBattle: =>
+  endBattle: ->
     @battle.endBattle()

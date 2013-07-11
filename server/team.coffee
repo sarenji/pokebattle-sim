@@ -18,37 +18,37 @@ class @Team
       new Pokemon(attributes)
     @attachments = new Attachments()
 
-  at: (index) =>
+  at: (index) ->
     @pokemon[index]
 
-  all: =>
+  all: ->
     @pokemon.slice(0)
 
-  slice: (args...) =>
+  slice: (args...) ->
     @pokemon.slice(args...)
 
-  indexOf: (pokemon) =>
+  indexOf: (pokemon) ->
     @pokemon.indexOf(pokemon)
 
-  first: =>
+  first: ->
     @at(0)
 
-  hasAttachment: (attachment) =>
+  hasAttachment: (attachment) ->
     @attachments.contains(attachment)
 
-  getAttachment: (attachmentName) =>
+  getAttachment: (attachmentName) ->
     @attachments.get(attachmentName)
 
-  attach: (attachment, options={}) =>
+  attach: (attachment, options={}) ->
     options = _.clone(options)
     @attachments.push(attachment, options, team: this)
 
-  unattach: (klass) =>
+  unattach: (klass) ->
     attachment = @attachments.unattach(klass)
     delete attachment.team  if attachment?
     attachment
 
-  switch: (battle, player, a, b) =>
+  switch: (battle, player, a, b) ->
     battle.message "#{player.username} withdrew #{@at(a).name}!"
     p.informSwitch(battle, @at(a))  for p in battle.getOpponents(@at(a))
     @switchOut(battle, @at(a))
@@ -58,38 +58,38 @@ class @Team
     battle.message "#{player.username} sent out #{@at(a).name}!"
     @switchIn(battle, @at(a))
 
-  beginTurn: (battle) =>
+  beginTurn: (battle) ->
     @attachments.query('beginTurn', battle)
 
-  endTurn: (battle) =>
+  endTurn: (battle) ->
     @attachments.query('endTurn', battle)
 
-  switchOut: (battle, pokemon) =>
+  switchOut: (battle, pokemon) ->
     @attachments.query('switchOut', battle, pokemon)
     pokemon.switchOut(battle)
 
-  switchIn: (battle, pokemon) =>
+  switchIn: (battle, pokemon) ->
     pokemon.switchIn(battle)
     @attachments.query('switchIn', battle, pokemon)
 
-  getActivePokemon: =>
+  getActivePokemon: ->
     @pokemon.slice(0, @numActive)
 
-  getAlivePokemon: =>
+  getAlivePokemon: ->
     @pokemon.filter((pokemon) -> !pokemon.isFainted())
 
-  getActiveFaintedPokemon: =>
+  getActiveFaintedPokemon: ->
     @getActivePokemon().filter((pokemon) -> pokemon.isFainted())
 
-  getFaintedPokemon: =>
+  getFaintedPokemon: ->
     @pokemon.filter((pokemon) -> pokemon.isFainted())
 
-  getBenchedPokemon: =>
+  getBenchedPokemon: ->
     @pokemon.slice(@numActive)
 
-  getAliveBenchedPokemon: =>
+  getAliveBenchedPokemon: ->
     @getBenchedPokemon().filter((pokemon) -> !pokemon.isFainted())
 
-  validate: =>
+  validate: ->
     # TODO
     true

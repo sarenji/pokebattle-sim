@@ -2,28 +2,28 @@ class @Player
   constructor: (@socket, @team) ->
     {@id, @username} = @socket
 
-  updateChat: (username, message) =>
+  updateChat: (username, message) ->
     @emit 'updatechat', username, message
 
-  requestAction: (id, validActions) =>
+  requestAction: (id, validActions) ->
     @emit 'request action', id, validActions
 
-  attachToTeam: (attachment) =>
+  attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)
 
-  hasAttachment: (attachment) =>
+  hasAttachment: (attachment) ->
     @team.hasAttachment(attachment)
 
-  getAttachment: (attachment) =>
+  getAttachment: (attachment) ->
     @team.getAttachment(attachment)
 
-  switch: (battle, index1, index2) =>
+  switch: (battle, index1, index2) ->
     @team.switch(battle, this, index1, index2)
 
   # Used in battle#performMove
   # TODO: Maybe handle this better.
-  isFainted: =>
+  isFainted: ->
     false
 
-  emit: (args...) =>
+  emit: (args...) ->
     @socket.emit? args...

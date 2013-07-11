@@ -1451,7 +1451,7 @@ extendMove 'hidden-power', ->
     hpTypes[Math.floor(value * 15 / 63)]
 
 extendMove 'imprison', ->
-  @execute = (battle, user, targets) =>
+  @execute = (battle, user, targets) ->
     # There is only one target for Imprison.
     target = targets[0]
     {moves} = target
@@ -1889,7 +1889,7 @@ extendMove 'synchronoise', ->
     if _.every(user.types, (type) -> type not in target.types)
       @fail(battle)
       return false
-    return oldUse(battle, user, target)
+    return oldUse.call(this, battle, user, target)
 
 extendMove 'taunt', ->
   @afterSuccessfulHit = (battle, user, target) ->

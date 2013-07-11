@@ -49,7 +49,7 @@ createTestRNG = ->
   @biasedRNGFuncs = {}
   for funcName in ['next', 'randInt']
     do (funcName) =>
-      oldFunc = @battle.rng[funcName]
+      oldFunc = @battle.rng[funcName].bind(@battle.rng)
       @battle.rng[funcName] = (args...) =>
         id = args[args.length - 1]
         func = @biasedRNGFuncs[funcName]

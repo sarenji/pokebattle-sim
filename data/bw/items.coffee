@@ -13,31 +13,31 @@ class Item
       @[key] = value
 
   # Items are initialized when the Pokemon receives a new item or switches in.
-  initialize: (battle, pokemon) =>
+  initialize: (battle, pokemon) ->
   # Items get deactivated when switching out or when this item is replaced.
-  deactivate: (pokemon) =>
-  afterTurnOrder: (battle, pokemon) =>
-  endTurn: (battle, pokemon) =>
+  deactivate: (pokemon) ->
+  afterTurnOrder: (battle, pokemon) ->
+  endTurn: (battle, pokemon) ->
   afterSuccessfulHit: (battle, move, user, target, damage) ->
   afterBeingHit: (battle, move, user, target, damage) ->
   basePowerModifier: (move, battle, user, target) ->
     0x1000
   basePowerModifierTarget: (move, battle, user, target) ->
     0x1000
-  calculateWeight: (weight) => weight
-  editDamage: (battle, holder, move, damage) => damage
-  editAccuracy: (accuracy) => accuracy
-  update: (battle, owner) =>
-  criticalModifier: (battle, owner) =>
+  calculateWeight: (weight) -> weight
+  editDamage: (battle, holder, move, damage) -> damage
+  editAccuracy: (accuracy) -> accuracy
+  update: (battle, owner) ->
+  criticalModifier: (battle, owner) ->
 
   # Stat modifications
   # TODO: Consider subclassing from Attachment
-  modifyHp: (stat, pokemon) => stat
-  modifySpeed: (stat, pokemon) => stat
-  modifyAttack: (stat, pokemon) => stat
-  modifySpecialAttack: (stat, pokemon) => stat
-  modifyDefense: (stat, pokemon) => stat
-  modifySpecialDefense: (stat, pokemon) => stat
+  modifyHp: (stat, pokemon) -> stat
+  modifySpeed: (stat, pokemon) -> stat
+  modifyAttack: (stat, pokemon) -> stat
+  modifySpecialAttack: (stat, pokemon) -> stat
+  modifyDefense: (stat, pokemon) -> stat
+  modifySpecialDefense: (stat, pokemon) -> stat
 
 extendItem = (name, callback) ->
   if name not of Items

@@ -67,75 +67,75 @@ class @Battle
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
 
-  getPlayer: (id) =>
+  getPlayer: (id) ->
     @players[id]
 
-  getTeam: (id) =>
+  getTeam: (id) ->
     @getPlayer(id).team
 
-  getTeams: =>
+  getTeams: ->
     teams = []
     for id, player of @players
       teams.push(player.team)
     teams
 
   # Returns all opposing pokemon of a given pokemon.
-  getOpponents: (pokemon) =>
+  getOpponents: (pokemon) ->
     opponents = @getOpponentOwners(pokemon)
     teams = (opponent.team.slice(0, @numActive)  for opponent in opponents)
     _.flatten(teams)
 
   # Returns all opponent players of a given pokemon. In a 1v1 it returns
   # an array with only one opponent.
-  getOpponentOwners: (pokemon) =>
+  getOpponentOwners: (pokemon) ->
     {id} = @getOwner(pokemon)
     (player  for playerId, player of @players when id != playerId)
 
   # Returns all active pokemon on the field belonging to both players.
   # Active pokemon include fainted pokemon that have not been switched out.
-  getActivePokemon: =>
+  getActivePokemon: ->
     pokemon = []
     for id, player of @players
       pokemon.push(player.team.getActivePokemon()...)
     pokemon
 
-  getActiveAlivePokemon: =>
+  getActiveAlivePokemon: ->
     pokemon = @getActivePokemon()
     pokemon.filter((p) -> p.isAlive())
 
-  getActiveFaintedPokemon: =>
+  getActiveFaintedPokemon: ->
     pokemon = @getActivePokemon()
     pokemon.filter((p) -> p.isFainted())
 
   # Finds the Player attached to a certain Pokemon.
-  getOwner: (pokemon) =>
+  getOwner: (pokemon) ->
     for id, player of @players
       return player  if pokemon in player.team.pokemon
 
   # Forces the owner of a Pokemon to switch.
-  forceSwitch: (pokemon) =>
+  forceSwitch: (pokemon) ->
     player = @getOwner(pokemon)
     switches = player.team.getAliveBenchedPokemon().map((p) -> p.name)
     @requestAction(player, switches: switches)
 
   # Returns true if the Pokemon has yet to move.
-  willMove: (pokemon) =>
+  willMove: (pokemon) ->
     player = @getOwner(pokemon)
     (player.id of @playerActions) && @playerActions[player.id].type == 'move'
 
   # Returns the move associated with a Pokemon.
-  peekMove: (pokemon) =>
+  peekMove: (pokemon) ->
     player = @getOwner(pokemon)
     @playerActions[player.id]?.move
 
-  changeMove: (pokemon, move) =>
+  changeMove: (pokemon, move) ->
     player = @getOwner(pokemon)
     if @playerActions[player.id]?.type == 'move'
       @playerActions[player.id].move = move
 
   # Bumps a Pokemon to the front of a priority bracket.
   # If no bracket is provided, the Pokemon's current priority bracket is used.
-  bump: (pokemon, bracket) =>
+  bump: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
       bracket = @actionPriority(action)
@@ -152,7 +152,7 @@ class @Battle
 
   # Delays a Pokemon to the end of a priority bracket.
   # If no bracket is provided, the Pokemon's current priority bracket is used.
-  delay: (pokemon, bracket) =>
+  delay: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
       bracket = @actionPriority(action)
@@ -169,30 +169,30 @@ class @Battle
       break
 
   # Add `string` to a buffer that will be sent to each client.
-  message: (string) =>
+  message: (string) ->
     @buffer.push(string)
 
-  clearMessages: =>
+  clearMessages: ->
     while @buffer.length > 0
       @buffer.pop()
 
   # Sends to each player the battle messages that have been queued up
   # TODO: It should be sent to spectators as well
-  sendMessages: =>
+  sendMessages: ->
     for id, player of @players
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearMessages()
 
   # Passing -1 to turns makes the weather last forever.
-  setWeather: (weatherName, turns=-1) =>
+  setWeather: (weatherName, turns=-1) ->
     @weather = weatherName
     @weatherDuration = turns
 
-  hasWeather: (weatherName) =>
+  hasWeather: (weatherName) ->
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
 
-  stopWeather: =>
+  stopWeather: ->
     message = switch @weather
       when Weather.SUN
         "The sunlight faded."
@@ -205,14 +205,14 @@ class @Battle
     @setWeather(Weather.NONE)
     message
 
-  weatherMessage: =>
+  weatherMessage: ->
     switch @weather
       when Weather.SAND
         "The sandstorm rages."
       when Weather.HAIL
         "The hail crashes down."
 
-  weatherUpkeep: =>
+  weatherUpkeep: ->
     if @weatherDuration == 1
       @stopWeather()
     else if @weatherDuration > 1
@@ -232,7 +232,7 @@ class @Battle
         @message "#{pokemon.name} is buffeted by the sandstorm!"
         pokemon.damage(damage)
 
-  hasWeatherCancelAbilityOnField: =>
+  hasWeatherCancelAbilityOnField: ->
     _.any @getActivePokemon(), (pokemon) ->
       pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
 
@@ -240,7 +240,7 @@ class @Battle
   # from each player. If no pokemon can move, then the battle engine
   # progresses to continueTurn. Otherwise, the battle waits for
   # user responses.
-  beginTurn: =>
+  beginTurn: ->
     @performReplacements()
 
     @turn++
@@ -265,12 +265,12 @@ class @Battle
   # A callback done after turn order is calculated for the first time.
   # Use this callback to edit the turn order after players have selected
   # their orders, but before the turn continues.
-  afterTurnOrder: =>
+  afterTurnOrder: ->
     pokemon.afterTurnOrder(this)  for pokemon in @getActiveAlivePokemon()
 
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.
-  continueTurn: =>
+  continueTurn: ->
     @determineTurnOrder()
     for {pokemon} in @priorityQueue
       action = @getAction(pokemon)
@@ -295,36 +295,36 @@ class @Battle
       break  unless @areAllRequestsCompleted()
 
   # Performs end turn effects.
-  endTurn: =>
+  endTurn: ->
     @attachments.query('endTurn')
     team.endTurn(this)  for team in @getTeams()
     pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
     @sendMessages()
 
-  attach: (klass, options = {}) =>
+  attach: (klass, options = {}) ->
     options = _.clone(options)
     @attachments.push(klass, options, battle: this)
 
-  unattach: (klass) =>
+  unattach: (klass) ->
     attachment = @attachments.unattach(klass)
     delete attachment.battle  if attachment?
     attachment
 
-  get: (attachment) =>
+  get: (attachment) ->
     @attachments.get(attachment)
 
-  has: (attachment) =>
+  has: (attachment) ->
     @attachments.contains(attachment)
 
-  endBattle: =>
+  endBattle: ->
     winner = @getWinner()
     for id, player of @players
       @message "#{winner.username} won!"
       @message "END BATTLE."
     @sendMessages()
 
-  getWinner: =>
+  getWinner: ->
     winner = null
     length = 0
     for id, player of @players
@@ -334,7 +334,7 @@ class @Battle
         winner = player
     player
 
-  isOver: =>
+  isOver: ->
     _.any(@players, (player) -> player.team.getAlivePokemon().length == 0)
 
   # Tells the player to execute a certain move by name. The move is added
@@ -344,7 +344,7 @@ class @Battle
   # player - the player object that will execute the move
   # moveName - the name of the move to execute
   #
-  recordMove: (playerId, move) =>
+  recordMove: (playerId, move) ->
     # Store the move that this player wants to make.
     @playerActions[playerId] =
       type: 'move'
@@ -360,7 +360,7 @@ class @Battle
   # player - the player object that will execute the move
   # toPosition - the index of the pokemon to switch to
   #
-  recordSwitch: (playerId, toPosition) =>
+  recordSwitch: (playerId, toPosition) ->
     # Record the switch
     @playerActions[playerId] =
       type: 'switch'
@@ -368,22 +368,22 @@ class @Battle
 
     delete @requests[playerId]
 
-  getAction: (pokemon) =>
+  getAction: (pokemon) ->
     {id} = @getOwner(pokemon)
     @playerActions[id]
 
-  popAction: (pokemon) =>
+  popAction: (pokemon) ->
     action = @getAction(pokemon)
     {id}   = @getOwner(pokemon)
     delete @playerActions[id]
     action
 
-  cancelAction: (pokemon) =>
+  cancelAction: (pokemon) ->
     @popAction(pokemon)
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
     @priorityQueue.splice(index, 1)  if index >= 0
 
-  requestAction: (player, validActions) =>
+  requestAction: (player, validActions) ->
     # Normalize actions for the client
     {switches, moves} = validActions
     total = 0
@@ -402,20 +402,20 @@ class @Battle
     return true
 
   # Returns true if all requests have been completed. False otherwise.
-  areAllRequestsCompleted: =>
+  areAllRequestsCompleted: ->
     requests = 0
     requests += 1  for id of @requests
     requests == 0
 
   # Returns true if any player's active Pokemon are fainted.
-  areReplacementsNeeded: =>
+  areReplacementsNeeded: ->
     for id, player of @players
       if player.team.getActiveFaintedPokemon().length > 0
         return true
     return false
 
   # Force people to replace fainted Pokemon.
-  requestFaintedReplacements: =>
+  requestFaintedReplacements: ->
     @replacing = true
     for id, player of @players
       team = player.team
@@ -424,7 +424,7 @@ class @Battle
         validActions = {switches: team.getAliveBenchedPokemon()}
         @requestAction(player, validActions)
 
-  determineTurnOrder: =>
+  determineTurnOrder: ->
     ids = (id  for id of @playerActions)
     pq = []
     for id in ids
@@ -440,8 +440,9 @@ class @Battle
   # The game bitshifts priority and subpriority to the end and tacks on speed.
   # As a result, speed precision is 13 bits long; an overflow happens at 8191.
   # Trick Room replaces the Pokemon's speed with 0x2710 - speed.
-  sortActions: (array) =>
+  sortActions: (array) ->
     trickRoomed = @has(Attachment.TrickRoom)
+    rng = @rng
     array = array.map (elem) ->
       speed = elem.pokemon.stat('speed')
       speed = 0x2710 - speed  if trickRoomed
@@ -449,24 +450,24 @@ class @Battle
       integer = (elem.priority << 13) | speed
       [ elem, integer ]
 
-    array.sort (a, b) =>
+    array.sort (a, b) ->
       diff = b[1] - a[1]
-      diff = (if @rng.next("turn order") < .5 then -1 else 1)  if diff == 0
+      diff = (if rng.next("turn order") < .5 then -1 else 1)  if diff == 0
       diff
 
     array.map (elem) -> elem[0]
 
-  actionPriority: (action) =>
+  actionPriority: (action) ->
     switch action.type
       when 'switch' then 5
       # TODO: Apply priority callbacks
       when 'move'   then action.move.priority
 
-  hasActionsLeft: =>
+  hasActionsLeft: ->
     @priorityQueue.length > 0
 
   # Executed by @continueTurn
-  performSwitch: (id, toPosition) =>
+  performSwitch: (id, toPosition) ->
     player = @getPlayer(id)
     team = @getTeam(id)
 
@@ -477,13 +478,13 @@ class @Battle
     player.emit? 'switch pokemon', 0, toPosition
 
   # Executed by @beginTurn
-  performReplacements: =>
+  performReplacements: ->
     for id of @playerActions
       pokemon = @getTeam(id).first()
       @performSwitch(id, @popAction(pokemon).to)
 
   # Executed by @continueTurn
-  performMove: (id, move) =>
+  performMove: (id, move) ->
     player = @getPlayer(id)
     pokemon = @getTeam(id).at(0)
     targets = @getTargets(move, pokemon)
@@ -517,7 +518,7 @@ class @Battle
       @message "#{pokemon.name} fainted!"
       pokemon.afterFaint(this)
 
-  getTargets: (move, user) =>
+  getTargets: (move, user) ->
     player = @getOwner(user)
     {id, team} = player
     switch move.target
@@ -554,8 +555,8 @@ class @Battle
   @getMove: getMove
   getMove: getMove
 
-  getMoveList: =>
+  getMoveList: ->
     MoveList
 
-  toString: =>
+  toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"
