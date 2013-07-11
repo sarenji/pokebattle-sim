@@ -3452,8 +3452,7 @@ shared = require '../shared'
       @battle.recordSwitch(@id2, 1)
       @battle.recordMove(@id1, pursuit)
       @battle.continueTurn()
-      bp = pursuit.basePower(@battle, @p1, @p2)
-      spy.returned(2 * pursuit.power).should.be.true
+      spy.alwaysReturned(2 * pursuit.power).should.be.true
 
     it "doubles BP if a faster target uses a damaging switch move", ->
       shared.create.call this,
@@ -3466,8 +3465,7 @@ shared = require '../shared'
       @battle.continueTurn()
       @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
       @battle.continueTurn()
-      bp = pursuit.basePower(@battle, @p1, @p2)
-      spy.returned(2 * pursuit.power).should.be.true
+      spy.alwaysReturned(2 * pursuit.power).should.be.true
 
     it "doesn't double BP if a slower target uses a damaging switch move", ->
       shared.create.call this,
@@ -3481,8 +3479,7 @@ shared = require '../shared'
       @battle.continueTurn()
       @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
       @battle.continueTurn()
-      bp = pursuit.basePower(@battle, @p1, @p2)
-      spy.returned(pursuit.power).should.be.true
+      spy.alwaysReturned(pursuit.power).should.be.true
 
     it "has perfect accuracy if target is switching", ->
       shared.create.call this,
@@ -3494,7 +3491,7 @@ shared = require '../shared'
       @battle.recordSwitch(@id2, 1)
       @battle.recordMove(@id1, pursuit)
       @battle.continueTurn()
-      spy.returned(0).should.be.true
+      spy.alwaysReturned(0).should.be.true
 
     it "runs only once", ->
       shared.create.call this,
@@ -3510,8 +3507,21 @@ shared = require '../shared'
       @battle.continueTurn()
       mock.verify()
 
+    it "doesn't double BP on a faster Baton Passer", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp") ]
+        team2: [ Factory("Magikarp", evs: {speed: 4}), Factory("Magikarp") ]
+      pursuit = @battle.getMove("Pursuit")
+      spy = @sandbox.spy(pursuit, 'basePower')
+
+      @battle.recordMove(@id1, pursuit)
+      @battle.recordMove(@id2, @battle.getMove("Baton Pass"))
+      @battle.continueTurn()
+      @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
+      @battle.continueTurn()
+      spy.alwaysReturned(pursuit.power).should.be.true
+
     it "does not trigger on team members"
-    it "retains its normal base power on Baton Pass"
 
   describe 'Power Swap', ->
     it 'swaps attack and special attack boosts with the target', ->

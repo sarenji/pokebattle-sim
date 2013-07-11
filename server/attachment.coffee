@@ -777,11 +777,16 @@ class @Attachment.Pursuit extends @VolatileAttachment
   name: "PursuitAttachment"
 
   informSwitch: (battle, switcher) =>
+    {team} = battle.getOwner(switcher)
+    return  if team.hasAttachment(Attachment.BatonPass)
     move = battle.getMove('Pursuit')
     battle.cancelAction(@pokemon)
     @pokemon.attach(Attachment.PursuitModifiers)
     move.execute(battle, @pokemon, [ switcher ])
     @pokemon.unattach(Attachment.PursuitModifiers)
+    @remove()
+
+  beforeMove: =>
     @remove()
 
   endTurn: =>

@@ -292,11 +292,7 @@ class @Battle
 
       # If a move adds a request to the queue, the request must be resolved
       # before the battle can continue.
-      if @requestQueue.length > 0
-        {player, validActions} = @requestQueue.shift()
-        @sendMessages()
-        @requestAction(player, validActions)
-        break
+      break  unless @areAllRequestsCompleted()
 
   # Performs end turn effects.
   endTurn: =>
@@ -385,7 +381,7 @@ class @Battle
   cancelAction: (pokemon) =>
     @popAction(pokemon)
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
-    @priorityQueue.splice(index, 1)
+    @priorityQueue.splice(index, 1)  if index >= 0
 
   requestAction: (player, validActions) =>
     # Normalize actions for the client

@@ -1749,7 +1749,7 @@ extendMove 'pursuit', ->
     user.attach(Attachment.Pursuit)
 
   @basePower = (battle, user, target) ->
-    if user.hasAttachment(Attachment.PursuitModifiers)
+    if user.has(Attachment.PursuitModifiers)
       2 * @power
     else
       @power
