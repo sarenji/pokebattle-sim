@@ -2,8 +2,6 @@
 {Factory} = require './factory'
 should = require 'should'
 shared = require './shared'
-itemTests = require './bw/items'
-moveTests = require './bw/moves'
 
 describe 'Mechanics', ->
   describe 'an attack missing', ->
@@ -257,9 +255,6 @@ describe 'Mechanics', ->
       @controller.makeMove(@player2, 'Dragon Dance')
 
       @p2.currentHP.should.equal @p2.stat('hp')
-
-  moveTests.test()
-  itemTests.test()
 
   describe 'a confused pokemon', ->
     it "has a 50% chance of hurting itself", ->
