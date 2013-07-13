@@ -42,12 +42,12 @@ finalModifier.add 60, (move, battle, user, target) ->
   return 0x1000
 
 # Solid Rock/Filter modifier.
-finalModifier.add 70, (move, battle, user, target) ->
-  effectiveness = move.typeEffectiveness(battle, user, target)
-  if (user.hasAbility('Solid Rock') || user.hasAbility('Filter'))\
-      && effectiveness > 1
-    return 0xC00
-  return 0x1000
+# finalModifier.add 70, (move, battle, user, target) ->
+#   effectiveness = move.typeEffectiveness(battle, user, target)
+#   if (user.hasAbility('Solid Rock') || user.hasAbility('Filter'))\
+#       && effectiveness > 1
+#     return 0xC00
+#   return 0x1000
 
 # TODO: Metronome item modifier.
 
@@ -79,11 +79,11 @@ basePowerModifier.add 10, (move, battle, user, target) ->
   return 0x1000
 
 # Flare Boost modifier.
-basePowerModifier.add 20, (move, battle, user, target) ->
-  if user.hasAbility("Flare Boost") && user.hasStatus(Status.BURN) &&
-                                       move.isSpecial()
-    return 0x1800
-  return 0x1000
+# basePowerModifier.add 20, (move, battle, user, target) ->
+#   if user.hasAbility("Flare Boost") && user.hasStatus(Status.BURN) &&
+#                                        move.isSpecial()
+#     return 0x1800
+#   return 0x1000
 
 # Analytic modifier.
 # basePowerModifier.add 30, (move, battle, user, target) ->
@@ -105,11 +105,11 @@ basePowerModifier.add 50, (move, battle, user, target) ->
   return 0x1000
 
 # Toxic Boost modifier.
-basePowerModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Toxic Boost') && user.hasStatus(Status.POISON) &&
-      move.isPhysical()
-    return 0x1800
-  return 0x1000
+# basePowerModifier.add 60, (move, battle, user, target) ->
+#   if user.hasAbility('Toxic Boost') && user.hasStatus(Status.POISON) &&
+#       move.isPhysical()
+#     return 0x1800
+#   return 0x1000
 
 # Rivalry modifier.
 basePowerModifier.add 70, (move, battle, user, target) ->

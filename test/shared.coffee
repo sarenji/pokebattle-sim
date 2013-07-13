@@ -45,7 +45,6 @@ build = (context, opts={}) ->
 create = (opts={}) ->
   build(this, opts)
   @controller.beginBattle()
-  @battle.areAllRequestsCompleted().should.be.false
 
 createTestRNG = ->
   @biasedRNGFuncs = {}

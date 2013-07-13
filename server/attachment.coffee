@@ -1245,3 +1245,10 @@ class @Attachment.BatonPass extends @TeamAttachment
       pokemon.attachments.attachments.push(attachment)
     pokemon.boost(@stages)
     @team.unattach(@constructor)
+
+class @Attachment.FlashFire extends @VolatileAttachment
+  name: "FlashFireAttachment"
+
+  modifyBasePower: (battle, move, user, target) ->
+    return 0x1000  if move.getType(battle, @pokemon, target) != 'Fire'
+    return 0x1800

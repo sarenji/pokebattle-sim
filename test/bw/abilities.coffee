@@ -314,28 +314,6 @@ describe "BW Abilities:", ->
       @battle.performMove(@id2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
-  describe "Cute Charm", ->
-    it "has a 30% chance to attract the attacker", ->
-      shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Cute Charm")]
-      shared.biasRNG.call(this, "next", "cute charm", 0)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
-      @p2.has(Attachment.Attract).should.be.true
-
-    it "does not attract if the move is not a contact move", ->
-      shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Cute Charm")]
-      shared.biasRNG.call(this, "next", "cute charm", 0)
-      @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
-      @p2.has(Attachment.Attract).should.be.false
-
-    it "has a 70% chance to do nothing", ->
-      shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Cute Charm")]
-      shared.biasRNG.call(this, "next", "cute charm", .3)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
-      @p2.has(Attachment.Attract).should.be.false
-
   describe "Defeatist", ->
     it "halves attack and special attack if HP goes under 50%", ->
       shared.create.call this,
@@ -461,3 +439,151 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "randInt", 'effect spore', 1)
       @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
       @p2.hasStatus(Status.SLEEP).should.be.false
+
+  testFilterAbility = (name) ->
+    describe name, ->
+      it "reduces the impact of super-effective moves by 25%", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        seMove = @battle.getMoveList().find (m) =>
+          !m.isNonDamaging() && util.typeEffectiveness(m.type, @p1.types) > 1
+        seMove.modifyDamage(@battle, @p2, @p1).should.equal(0xC00)
+
+      it "keeps non-super-effective moves as normal", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        seMove = @battle.getMoveList().find (m) =>
+          !m.isNonDamaging() && util.typeEffectiveness(m.type, @p1.types) <= 1
+        seMove.modifyDamage(@battle, @p2, @p1).should.equal(0x1000)
+
+  testFilterAbility("Filter")
+  testFilterAbility("Solid Rock")
+
+  testContactStatusAbility = (name, statusOrAttachment) ->
+    isStatus = (statusOrAttachment in Object.values(Status))
+    funcName = (if isStatus then "hasStatus" else "has")
+    effectName = (if isStatus then statusOrAttachment else statusOrAttachment.name)
+    describe name, ->
+      it "has a 30% chance to inflict #{effectName} on the attacker", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.biasRNG.call(this, "next", 'contact status', 0)
+        @battle.performMove(@id2, @battle.getMove('Tackle'))
+        @p2[funcName](statusOrAttachment).should.be.true
+
+      it "inflicts no status if the move used is a non-contact move", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.biasRNG.call(this, "next", 'contact status', 0)
+        @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
+        @p2[funcName](statusOrAttachment).should.be.false
+
+      it "has a 70% chance to do nothing", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.biasRNG.call(this, "next", 'contact status', .3)
+        @battle.performMove(@id2, @battle.getMove('Tackle'))
+        @p2[funcName](statusOrAttachment).should.be.false
+
+  testContactStatusAbility("Cute Charm", Attachment.Attract)
+  testContactStatusAbility("Flame Body", Status.BURN)
+  testContactStatusAbility("Poison Point", Status.POISON)
+  testContactStatusAbility("Static", Status.PARALYZE)
+
+  testStatusBoostAbility = (name, statuses, spectra) ->
+    describe name, ->
+      it "increases #{spectra} moves by 1.5 if has #{statuses.join(', ')}", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        move = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.spectra == spectra
+
+        for status in statuses
+          @p1.cureStatus()
+          @p1.setStatus(status)
+          move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
+
+      it "does not increase non-#{spectra} moves", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        move = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.spectra != spectra
+
+        for status in statuses
+          @p1.cureStatus()
+          @p1.setStatus(status)
+          move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  testStatusBoostAbility("Flare Boost", [Status.BURN], "special")
+  testStatusBoostAbility("Toxic Boost", [Status.POISON, Status.TOXIC], "physical")
+
+  describe "Flash Fire", ->
+    it "makes user invulnerable to Fire-type moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Flash Fire")])
+      ember = @battle.getMove("Ember")
+      mock  = @sandbox.mock(ember).expects('hit').never()
+      @battle.performMove(@id2, ember)
+      mock.verify()
+
+    it "powers up user's Fire-type moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Flash Fire")])
+      ember = @battle.getMove("Ember")
+      tackle = @battle.getMove("Tackle")
+      @battle.performMove(@id2, ember)
+      ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Flower Gift", ->
+    it "changes Cherrim's forme"
+    it "does not change a transformed pokemon's forme"
+    it "grants x1.5 attack and special defense in Sun"
+    it "grants x1.5 attack and special defense to allies in Sun"
+
+  describe "Forecast", ->
+    it "changes Castform's forme"
+    it "does not change a transformed pokemon's forme"
+
+  describe "Forewarn", ->
+    it "considers OHKO moves to have 160 BP", ->
+      shared.create.call(this)
+      Ability.Forewarn.consider(@battle.getMove("Fissure")).should.equal(160)
+
+    it "considers counter moves to have 120 BP", ->
+      shared.create.call(this)
+      {consider} = Ability.Forewarn
+      consider(@battle.getMove("Counter")).should.equal(120)
+      consider(@battle.getMove("Mirror Coat")).should.equal(120)
+      consider(@battle.getMove("Metal Burst")).should.equal(120)
+
+    it "considers specific variable power moves to have 80 BP", ->
+      shared.create.call(this)
+      {consider} = Ability.Forewarn
+      consider(@battle.getMove("Crush Grip")).should.equal(80)
+      consider(@battle.getMove("Dragon Rage")).should.equal(80)
+      consider(@battle.getMove("Endeavor")).should.equal(80)
+      consider(@battle.getMove("Flail")).should.equal(80)
+      consider(@battle.getMove("Frustration")).should.equal(80)
+      consider(@battle.getMove("Grass Knot")).should.equal(80)
+      consider(@battle.getMove("Gyro Ball")).should.equal(80)
+      consider(@battle.getMove("Hidden Power")).should.equal(80)
+      consider(@battle.getMove("Low Kick")).should.equal(80)
+      consider(@battle.getMove("Natural Gift")).should.equal(80)
+      consider(@battle.getMove("Night Shade")).should.equal(80)
+      consider(@battle.getMove("Psywave")).should.equal(80)
+      consider(@battle.getMove("Return")).should.equal(80)
+      consider(@battle.getMove("Reversal")).should.equal(80)
+      consider(@battle.getMove("Seismic Toss")).should.equal(80)
+      consider(@battle.getMove("Sonicboom")).should.equal(80)
+      consider(@battle.getMove("Trump Card")).should.equal(80)
+      consider(@battle.getMove("Wring Out")).should.equal(80)
+
+    it "alerts user about a foe's move with the highest base power", ->
+      shared.build(this, team1: [Factory("Magikarp", ability: "Forewarn")])
+      spy = @sandbox.spy(@battle, 'message')
+      @controller.beginBattle()
+      spy.calledWithMatch('tackle').should.be.true
+
+  describe "Friend Guard", ->
+    it "weakens attacks from allies by 25%"
+
+  describe "Frisk", ->
+    it "randomly selects an opponent and displays the item", ->
+      shared.build this,
+        team1: [Factory("Magikarp", ability: "Frisk")]
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      spy = @sandbox.spy(@battle, 'message')
+      @controller.beginBattle()
+      spy.calledWithMatch('Leftovers').should.be.true

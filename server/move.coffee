@@ -105,7 +105,7 @@ class @Move
     damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
-    damage = @modify(damage, finalModifier.run(this, battle, user, target))
+    damage = @modify(damage, @modifyDamage(battle, user, target))
     damage = target.editDamage(battle, this, damage)
     damage = Math.min(target.currentHP, damage)
 
@@ -225,6 +225,11 @@ class @Move
     modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', battle, this, user, target))
     # TODO: Deprecate
     modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
+
+  modifyDamage: (battle, user, target) ->
+    modify = target.attachments.queryModifiers('modifyDamageTarget', battle, this, user)
+    # TODO: Deprecate
+    modify = @modify(modify, finalModifier.run(this, battle, user, target))
 
   getType: (battle, user, target) ->
     @type
