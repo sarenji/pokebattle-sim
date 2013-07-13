@@ -81,24 +81,6 @@ describe 'Move', ->
       @sandbox.stub(battle.rng, 'next', -> 0.0700)
       new Move().isCriticalHit(battle, attacker, defender).should.be.false
 
-    it "does not occur if the defender has Battle Armor", ->
-      battle = new Battle('1', players: [])
-      attacker = new Pokemon()
-      defender = new Pokemon(ability: 'Battle Armor')
-      move = new Move()
-      @sandbox.stub(move, 'criticalHitLevel', -> 3)
-      @sandbox.stub(battle.rng, 'next', -> 0.2)
-      move.isCriticalHit(battle, attacker, defender).should.be.false
-
-    it "does not occur if the defender has Shell Armor", ->
-      battle = new Battle('1', players: [])
-      attacker = new Pokemon()
-      defender = new Pokemon(ability: 'Shell Armor')
-      move = new Move()
-      @sandbox.stub(move, 'criticalHitLevel', -> 3)
-      @sandbox.stub(battle.rng, 'next', -> 0.2)
-      move.isCriticalHit(battle, attacker, defender).should.be.false
-
     describe "-1 crit ratios", ->
       beforeEach ->
         @battle = new Battle('1', players: [])

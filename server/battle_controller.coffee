@@ -6,11 +6,11 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
+    @beginTurn()
+
     pokemon = @battle.getActivePokemon()
     for p in pokemon
       p.switchIn(@battle)
-
-    @beginTurn()
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.

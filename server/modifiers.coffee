@@ -86,11 +86,10 @@ basePowerModifier.add 20, (move, battle, user, target) ->
   return 0x1000
 
 # Analytic modifier.
-basePowerModifier.add 30, (move, battle, user, target) ->
-  if user.hasAbility('Analytic') && target.hasMoved() &&
-        move.name not in ['Future Sight', 'Doom Desire']
-      return 0x14CD
-  return 0x1000
+# basePowerModifier.add 30, (move, battle, user, target) ->
+#   if user.hasAbility('Analytic') && !battle.hasActionsLeft()
+#     return 0x14CD
+#   return 0x1000
 
 # Reckless modifier.
 basePowerModifier.add 40, (move, battle, user, target) ->
@@ -173,21 +172,6 @@ basePowerModifier.add 150, (move, battle, user, target) ->
   return 0x1000
 
 # TODO: The rest of the base power modifiers.
-
-@stabModifier = stabModifier = new ModifierChain()
-
-stabModifier.add 10, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if user.hasAbility('Adaptability') && user.hasType(type)
-    return [0x2000, true]
-  return 0x1000
-
-stabModifier.add 20, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if user.hasType(type)
-    return 0x1800
-  return 0x1000
-
 
 @attackStatModifier = attackStatModifier = new ModifierChain()
 

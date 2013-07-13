@@ -1,4 +1,4 @@
-{Battle, Pokemon, Weather} = require('../').server
+{Battle, BattleController, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
 should = require 'should'
 
@@ -13,12 +13,13 @@ describe 'Battle', ->
     players = [{player: @player1, team: team1},
                {player: @player2, team: team2}]
     @battle = new Battle('id', players: players)
+    @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
     @p1     = @team1.first()
     @p2     = @team2.first()
 
-    @battle.beginTurn()
+    @controller.beginBattle()
 
   it 'starts at turn 1', ->
     @battle.turn.should.equal 1

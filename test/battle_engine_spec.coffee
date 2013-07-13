@@ -158,15 +158,6 @@ describe 'Mechanics', ->
       @controller.makeMove(@player2, 'Splash')
       (hp - @p2.currentHP).should.equal 84
 
-    it 'is 2x if the pokemon has Adaptability', ->
-      shared.create.call this,
-        team1: [Factory('Porygon-Z')]
-        team2: [Factory('Mew')]
-
-      hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Tri Attack'))
-      (hp - @p2.currentHP).should.equal 214
-
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->
       shared.create.call this,

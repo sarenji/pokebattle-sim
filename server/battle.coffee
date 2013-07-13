@@ -8,7 +8,7 @@
 
 class @Battle
   # TODO: let Battle serialize these.
-  {Moves, MoveData, MoveList, Species, PokemonData} = require '../data/bw'
+  {Ability, Moves, MoveData, MoveList, Species, PokemonData} = require '../data/bw'
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
@@ -187,6 +187,7 @@ class @Battle
   setWeather: (weatherName, turns=-1) ->
     @weather = weatherName
     @weatherDuration = turns
+    pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
 
   hasWeather: (weatherName) ->
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
@@ -234,7 +235,7 @@ class @Battle
 
   hasWeatherCancelAbilityOnField: ->
     _.any @getActivePokemon(), (pokemon) ->
-      pokemon.hasAbility('Air Lock') || pokemon.hasAbility('Cloud Nine')
+      pokemon.ability?.preventsWeather
 
   # Begins the turn. Replacements are performed and actions are requested
   # from each player. If no pokemon can move, then the battle engine
@@ -246,6 +247,7 @@ class @Battle
     @turn++
     @priorityQueue = null
 
+    pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     team.beginTurn(this)  for team in @getTeams()
     pokemon.beginTurn(this) for pokemon in @getActivePokemon()
     @attachments.query('beginTurn')
@@ -464,7 +466,7 @@ class @Battle
       when 'move'   then action.move.priority
 
   hasActionsLeft: ->
-    @priorityQueue.length > 0
+    @priorityQueue?.length > 0
 
   # Executed by @continueTurn
   performSwitch: (id, toPosition) ->

@@ -76,6 +76,14 @@ class @Attachments
       result = attachment[funcName](result, args...)  if funcName of attachment
     result
 
+  queryModifiers: (funcName, args...) ->
+    result = 0x1000
+    for attachment in _.clone(@attachments)
+      continue  unless funcName of attachment
+      modifier = attachment[funcName](args...)
+      result = Math.floor((result * modifier + 0x800) / 0x1000)
+    result
+
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.
 # Attachments are "attached" with Pokemon.attach(), and after
@@ -1113,12 +1121,12 @@ class @Attachment.Transform extends @VolatileAttachment
   name: "TransformAttachment"
 
   initialize: (attributes) ->
-    {target} = attributes
+    {battle, target} = attributes
     # Save old data
     {@ability, @species, @moves, @stages, @types, @gender, @weight} = @pokemon
     {@ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
-    @pokemon.ability = target.ability
+    @pokemon.copyAbility(battle, target.ability)
     @pokemon.species = target.species
     @pokemon.gender  = target.gender
     @pokemon.weight  = target.weight

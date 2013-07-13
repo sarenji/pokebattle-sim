@@ -1,4 +1,4 @@
-{finalModifier, basePowerModifier, stabModifier, attackStatModifier} = require './modifiers'
+{finalModifier, basePowerModifier, attackStatModifier} = require './modifiers'
 {Status} = require './status'
 {Attachment} = require './attachment'
 util = require './util'
@@ -101,7 +101,7 @@ class @Move
     damage = @modify(damage, @weatherModifier(battle, user, target))
     damage = damage * 2  if willCritical
     damage = Math.floor(((100 - battle.rng.randInt(0, 15, "damage roll")) * damage) / 100)
-    damage = @modify(damage, stabModifier.run(this, battle, user, target))
+    damage = @modify(damage, @stabModifier(battle, user, target))
     damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
@@ -109,7 +109,9 @@ class @Move
     damage = target.editDamage(battle, this, damage)
     damage = Math.min(target.currentHP, damage)
 
-    battle.message "A critical hit!"  if willCritical
+    if willCritical
+      battle.message "A critical hit!"
+      target.informCriticalHit(battle)
     damage
 
   willMiss: (battle, user, target) ->
@@ -141,6 +143,13 @@ class @Move
     else
       0x1000
 
+  stabModifier: (battle, user, target) ->
+    type = @getType(battle, user, target)
+    if user.hasType(type)
+      return 0x2000  if user.hasAbility("Adaptability")
+      return 0x1800
+    return 0x1000
+
   typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
     util.typeEffectiveness(type, target.types)
@@ -157,8 +166,7 @@ class @Move
   isCriticalHit: (battle, attacker, defender) ->
     owner = battle.getOwner(defender)
     return false  if owner?.team.hasAttachment(Attachment.LuckyChant)
-    return false  if defender.hasAbility('Battle Armor')
-    return false  if defender.hasAbility('Shell Armor')
+    return false  if defender.ability?.preventsCriticalHits
 
     rand = battle.rng.next("ch")
     switch @criticalHitLevel(battle, attacker, defender)
@@ -194,7 +202,7 @@ class @Move
     tStat = @pickDefenseStat(user, target)
     damage = floor((2 * user.level) / 5 + 2)
     damage *= @basePower(battle, user, target)
-    damage = @modify(damage, basePowerModifier.run(this, battle, user, target))
+    damage = @modify(damage, @modifyBasePower(battle, user, target))
     damage *= @modify(uStat, attackStatModifier.run(this, battle, user, target))
     damage = floor(damage / tStat)
     damage = floor(damage / 50)
@@ -211,6 +219,11 @@ class @Move
       battle.rng.choice([2, 2, 3, 3, 4, 5], "num hits")
     else
       battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
+
+  modifyBasePower: (battle, user, target) ->
+    modify = user.attachments.queryModifiers('modifyBasePower', battle, this, user, target)
+    # TODO: Deprecate
+    modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 
   getType: (battle, user, target) ->
     @type

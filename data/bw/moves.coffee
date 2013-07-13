@@ -172,6 +172,8 @@ makeStatusCureAttackMove = (moveName, status) ->
 
 makeOneHitKOMove = (name) ->
   extendMove name, ->
+    @flags.push("ohko")
+
     @calculateDamage = (battle, user, target) ->
       # TODO: Or was this fixed?
       target.stat('hp')
@@ -1941,7 +1943,7 @@ extendMove 'transform', ->
     if target.has(Attachment.Transform)
       @fail(battle)
       return false
-    if !user.attach(Attachment.Transform, {target})
+    if !user.attach(Attachment.Transform, {battle, target})
       @fail(battle)
       return false
     battle.message "#{user.name} tranformed into #{target.name}!"

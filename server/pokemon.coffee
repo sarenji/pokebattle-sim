@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Abilities, Items, Moves} = require '../data/bw'
+{Ability, Items, Moves} = require '../data/bw'
 {Status} = require './status'
 {Attachment, Attachments} = require './attachment'
 util = require './util'
@@ -27,7 +27,7 @@ class @Pokemon
     @resetAllPP()
     @types = attributes.types || [] # TODO: Get from species.
     @item = Items[attributes.item]
-    @ability = Abilities[attributes.ability]
+    @ability = Ability[attributes.ability?.replace(/\s+/g, '')]
     @status = null
 
     @stages =
@@ -113,6 +113,7 @@ class @Pokemon
   boost: (boosts) ->
     boosted = {}
     for stat, amount of boosts
+      amount *= -1  if @ability == Ability.Contrary
       if stat not of @stages
         throw new Error("Tried to boost non-existent stat #{stat} by #{amount}")
       previous = @stages[stat]
@@ -140,8 +141,12 @@ class @Pokemon
   hasType: (type) ->
     type in @types
 
-  hasAbility: (abilityName) ->
-    @ability?.name == abilityName
+  hasAbility: (ability) ->
+    return false  unless @ability
+    if typeof ability == 'string'
+      @ability::name == ability
+    else
+      @ability == ability
 
   hasItem: (itemName) ->
     if itemName?
@@ -185,6 +190,14 @@ class @Pokemon
     if !status? || @status == status
       @unattach(Attachment[status])
       @status = null
+
+  # TODO: really ugly copying of ability
+  copyAbility: (battle, ability) ->
+    if @ability
+      @get(@ability).switchOut(battle)
+      @unattach(@ability)
+    @ability = ability
+    @attach(@ability).switchIn(battle)  if @ability
 
   setItem: (battle, item) ->
     if @hasItem() then @removeItem()
@@ -276,6 +289,7 @@ class @Pokemon
 
   switchIn: (battle) ->
     @turnsActive = 0
+    @attach(@ability).switchIn(battle)  if @ability
     @item.initialize(battle, this)  if !@isItemBlocked()
 
   switchOut: (battle) ->
@@ -283,6 +297,9 @@ class @Pokemon
     @resetBlocks()
     delete @lastMove
     @used = {}
+    if @ability
+      @get(@ability).switchOut(battle)
+      @unattach(@ability)
     @attachments.query('switchOut', battle)
     @attachments.unattachAll((a) -> a.volatile)
 
@@ -292,8 +309,13 @@ class @Pokemon
   informPhase: (battle, phaser) ->
     @attachments.queryUntilFalse('informPhase', battle, phaser) != false
 
+  informCriticalHit: (battle) ->
+    @attachments.query('informCriticalHit', battle)
+
+  informWeather: (weather) ->
+    @attachments.query('informWeather', weather)
+
   beginTurn: (battle) ->
-    @resetBlocks()
     @attachments.query('beginTurn', battle)
 
   afterTurnOrder: (battle) ->
