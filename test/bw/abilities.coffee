@@ -442,14 +442,12 @@ describe "BW Abilities:", ->
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 2)
       @battle.performMove(@id2, @battle.getMove('Tackle'))
-      console.log @p2.status
       @p2.hasStatus(Status.PARALYZE).should.be.true
 
       # Poison
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 3)
       @battle.performMove(@id2, @battle.getMove('Tackle'))
-      console.log @p2.status
       @p2.hasStatus(Status.POISON).should.be.true
 
     it "has a 70% chance to do nothing", ->

@@ -228,13 +228,10 @@ makeAbility 'Effect Spore', ->
     switch battle.rng.randInt(1, 10, "effect spore")
       when 1
         user.setStatus(Status.SLEEP)
-        console.log "SLEEP"
         battle.message "#{user.name} fell asleep!"
       when 2
         user.setStatus(Status.PARALYZE)
-        console.log "PRZ"
         battle.message "#{user.name} was paralyzed!"
       when 3
         user.setStatus(Status.POISON)
-        console.log "PSN"
         battle.message "#{user.name} was poisoned!"
