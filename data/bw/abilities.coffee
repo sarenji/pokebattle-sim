@@ -15,20 +15,15 @@ makeAbility = (name, func) ->
 makeAbility 'Technician'
 makeAbility 'Natural Cure'
 makeAbility 'Guts'
-makeAbility 'Flare Boost'
 makeAbility 'Reckless'
 makeAbility 'Iron Fist'
-makeAbility 'Toxic Boost'
 makeAbility 'Rivalry'
 makeAbility 'Sand Force'
 makeAbility 'Heatproof'
-makeAbility 'Dry Skin'
 makeAbility 'Sheer Force'
 
 # TODO: Add hook to CH level.
 makeAbility 'Super Luck'
-makeAbility 'Battle Armor'
-makeAbility 'Shell Armor'
 
 makeAbility 'Tinted Lens'
 makeAbility 'Sniper'
