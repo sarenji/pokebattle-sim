@@ -222,6 +222,7 @@ class @Move
 
   modifyBasePower: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyBasePower', battle, this, user, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', battle, this, user, target))
     # TODO: Deprecate
     modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 

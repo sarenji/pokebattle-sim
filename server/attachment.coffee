@@ -194,7 +194,9 @@ class @Attachment.Sleep extends @BaseAttachment
     @counter = 0
 
   beforeMove: (battle, move, user, targets) ->
-    @turns ||= battle.rng.randInt(1, 3, "sleep turns")
+    if !@turns
+      @turns = battle.rng.randInt(1, 3, "sleep turns")
+      @turns >>= 1  if @pokemon.hasAbility("Early Bird")
     if @counter == @turns
       battle.message "#{@pokemon.name} woke up!"
       @pokemon.cureStatus()

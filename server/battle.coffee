@@ -185,6 +185,15 @@ class @Battle
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
+    @message switch weatherName
+      when Weather.SUN
+        "The sunlight turned harsh!"
+      when Weather.RAIN
+        "It started to rain!"
+      when Weather.SAND
+        "A sandstorm kicked up!"
+      when Weather.HAIL
+        "It started to hail!"
     @weather = weatherName
     @weatherDuration = turns
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
@@ -194,7 +203,7 @@ class @Battle
     weatherName == weather
 
   stopWeather: ->
-    message = switch @weather
+    @message switch @weather
       when Weather.SUN
         "The sunlight faded."
       when Weather.RAIN
@@ -204,7 +213,6 @@ class @Battle
       when Weather.HAIL
         "The hail stopped."
     @setWeather(Weather.NONE)
-    message
 
   weatherMessage: ->
     switch @weather

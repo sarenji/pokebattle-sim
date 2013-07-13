@@ -188,7 +188,7 @@ class @Pokemon
 
   cureStatus: (status) ->
     if !status? || @status == status
-      @unattach(Attachment[status])
+      @unattach(Attachment[@status])  if @status
       @status = null
 
   # TODO: really ugly copying of ability

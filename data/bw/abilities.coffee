@@ -35,7 +35,6 @@ makeAbility 'Sniper'
 
 makeAbility 'Sticky Hold'
 makeAbility 'Multitype'
-makeAbility 'Damp'
 
 makeAbility "Skill Link"
 
@@ -44,6 +43,9 @@ makeAbility "Skill Link"
 makeWeatherPreventionAbility = (name) ->
   makeAbility name, ->
     @preventsWeather = true
+
+    this::switchIn = (battle) ->
+      battle.message "The effects of weather disappeared."
 
 makeWeatherPreventionAbility("Air Lock")
 makeWeatherPreventionAbility("Cloud Nine")
@@ -81,6 +83,16 @@ makeLowHealthAbility("Blaze", "Fire")
 makeLowHealthAbility("Torrent", "Water")
 makeLowHealthAbility("Overgrow", "Grass")
 makeLowHealthAbility("Swarm", "Bug")
+
+makeWeatherAbility = (name, weather) ->
+  makeAbility name, ->
+    this::switchIn = (battle) ->
+      battle.setWeather(weather)
+
+makeWeatherAbility("Drizzle", Weather.RAIN)
+makeWeatherAbility("Drought", Weather.SUN)
+makeWeatherAbility("Sand Stream", Weather.SAND)
+makeWeatherAbility("Snow Warning", Weather.HAIL)
 
 # Unique Abilities
 
@@ -160,3 +172,69 @@ makeAbility "Cute Charm", ->
     return  if battle.rng.next("cute charm") >= .3
     battle.message "#{user.name} fell in love!"
     user.attach(Attachment.Attract, source: target)
+
+# Implementation is done in moves.coffee, specifically makeExplosionMove.
+makeAbility 'Damp'
+
+makeAbility 'Defeatist', ->
+  this::modifyAttack = (attack) ->
+    halfHP = (@pokemon.stat('hp') >> 1)
+    if @pokemon.currentHP <= halfHP then attack >> 1 else attack
+
+  this::modifySpecialAttack = (specialAttack) ->
+    halfHP = (@pokemon.stat('hp') >> 1)
+    if @pokemon.currentHP <= halfHP then specialAttack >> 1 else specialAttack
+
+makeAbility 'Download', ->
+  this::switchIn = (battle) ->
+    opponents = battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    totalDef = opponents.reduce(((s, p) -> s + p.stat('defense')), 0)
+    totalSpDef = opponents.reduce(((s, p) -> s + p.stat('specialDefense')), 0)
+    # TODO: Real message
+    if totalSpDef <= totalDef
+      @pokemon.boost(specialAttack: 1)
+      battle.message "#{@pokemon.name}'s Download boosted its Special Attack!"
+    else
+      @pokemon.boost(attack: 1)
+      battle.message "#{@pokemon.name}'s Download boosted its Attack!"
+
+makeAbility 'Dry Skin', ->
+  this::modifyBasePowerTarget = (battle, move, user, target) ->
+    if move.getType(battle, user, target) == 'Fire' then 0x1400 else 0x1000
+
+  this::endTurn = (battle) ->
+    # TODO: Real message
+    if battle.hasWeather(Weather.SUN)
+      @pokemon.damage(@pokemon.stat('hp') >> 3)
+      battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
+    else if battle.hasWeather(Weather.RAIN)
+      @pokemon.damage(-(@pokemon.stat('hp') >> 3))
+      battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
+
+  this::shouldBlockExecution = (battle, move, user) ->
+    return  if move.getType(battle, user, @pokemon) != 'Water'
+    @pokemon.damage(-(@pokemon.stat('hp') >> 2))
+    battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
+    return true
+
+# Implementation is in Attachment.Sleep
+makeAbility 'Early Bird'
+
+makeAbility 'Effect Spore', ->
+  this::afterBeingHit = (battle, move, user, target, damage) ->
+    return  unless move.hasFlag("contact")
+    switch battle.rng.randInt(1, 10, "effect spore")
+      when 1
+        user.setStatus(Status.SLEEP)
+        console.log "SLEEP"
+        battle.message "#{user.name} fell asleep!"
+      when 2
+        user.setStatus(Status.PARALYZE)
+        console.log "PRZ"
+        battle.message "#{user.name} was paralyzed!"
+      when 3
+        user.setStatus(Status.POISON)
+        console.log "PSN"
+        battle.message "#{user.name} was poisoned!"

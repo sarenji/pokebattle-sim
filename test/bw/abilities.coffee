@@ -1,4 +1,5 @@
 {Attachment, Battle, Pokemon, Status, Weather} = require('../../').server
+{Ability} = require '../../data/bw/abilities'
 util = require '../../server/util'
 {Factory} = require '../factory'
 should = require 'should'
@@ -334,3 +335,131 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "next", "cute charm", .3)
       @battle.performMove(@id2, @battle.getMove("Tackle"))
       @p2.has(Attachment.Attract).should.be.false
+
+  describe "Defeatist", ->
+    it "halves attack and special attack if HP goes under 50%", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Defeatist")]
+      attack = @p1.stat('attack')
+      specialAttack = @p1.stat('specialAttack')
+
+      # 50%
+      @p1.currentHP = (@p1.stat('hp') >> 1)
+      @p1.stat('attack').should.equal(attack >> 1)
+      @p1.stat('specialAttack').should.equal(specialAttack >> 1)
+
+      # 50% + 1
+      @p1.currentHP = (@p1.stat('hp') >> 1) + 1
+      @p1.stat('attack').should.equal(attack)
+      @p1.stat('specialAttack').should.equal(specialAttack)
+
+  describe "Defiant", ->
+    it "boosts attack by 2 every time a stat is lowered"
+    it "does not boost attack if the stat was self-lowered"
+
+  describe "Download", ->
+    it "raises attack if foes have total defense < total sp.def", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Abomasnow")]
+      @p1.stages.should.include(attack: 0)
+      @p1.copyAbility(@battle, Ability.Download)
+      @p1.stages.should.include(attack: 1)
+
+    it "raises special attack if foes have total sp.def <= total def", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Celebi")]
+      @p1.stages.should.include(specialAttack: 0)
+      @p1.copyAbility(@battle, Ability.Download)
+      @p1.stages.should.include(specialAttack: 1)
+
+  testWeatherAbility = (name, weather) ->
+    describe name, ->
+      it "causes unending #{weather}", ->
+        shared.build(this, team1: [Factory("Magikarp", ability: name)])
+        @battle.hasWeather().should.be.false
+        @controller.beginBattle()
+        @battle.hasWeather(weather).should.be.true
+        @battle.weatherDuration.should.equal(-1)
+
+  testWeatherAbility("Drizzle", Weather.RAIN)
+  testWeatherAbility("Drought", Weather.SUN)
+  testWeatherAbility("Sand Stream", Weather.SAND)
+  testWeatherAbility("Snow Warning", Weather.HAIL)
+
+  describe "Dry Skin", ->
+    it "gets healed 25% HP by water moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
+      @p1.currentHP = 1
+      @battle.performMove(@id2, @battle.getMove("Hydro Pump"))
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @p1.currentHP.should.be.lessThan(1 + (@p1.stat('hp') >> 2))
+
+    it "gets healed 1/8 HP end of turn in Rain", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1)
+      @battle.setWeather(Weather.RAIN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 3))
+
+    it "gets damaged 25% extra by fire moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
+      ember = @battle.getMove("Ember")
+      ember.modifyBasePower(@battle, @p2, @p1).should.equal(0x1400)
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p2, @p1).should.equal(0x1000)
+
+    it "gets hurt 1/8 HP end of turn in Sun", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
+      @battle.endTurn()
+      @p1.currentHP.should.equal(@p1.stat('hp'))
+      @battle.setWeather(Weather.SUN)
+      @battle.endTurn()
+      (@p1.stat('hp') - @p1.currentHP).should.equal(@p1.stat('hp') >> 3)
+
+  describe "Early Bird", ->
+    it "halves sleep turns", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Early Bird")])
+      shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
+      @p1.setStatus(Status.SLEEP)
+      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @p1.hasStatus(Status.SLEEP).should.be.false
+
+  describe "Effect Spore", ->
+    it "has a 30% chance to inflict poison, paralysis, or sleep on hit", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
+
+      # Sleep
+      shared.biasRNG.call(this, "randInt", 'effect spore', 1)
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @p2.hasStatus(Status.SLEEP).should.be.true
+
+      # Paralysis
+      @p2.cureStatus()
+      shared.biasRNG.call(this, "randInt", 'effect spore', 2)
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      console.log @p2.status
+      @p2.hasStatus(Status.PARALYZE).should.be.true
+
+      # Poison
+      @p2.cureStatus()
+      shared.biasRNG.call(this, "randInt", 'effect spore', 3)
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      console.log @p2.status
+      @p2.hasStatus(Status.POISON).should.be.true
+
+    it "has a 70% chance to do nothing", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
+      shared.biasRNG.call(this, "randInt", 'effect spore', 4)
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @p2.hasStatus().should.be.false
+
+    it "doesn't trigger if the hitting move is a non-contact move", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
+      shared.biasRNG.call(this, "randInt", 'effect spore', 1)
+      @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
+      @p2.hasStatus(Status.SLEEP).should.be.false

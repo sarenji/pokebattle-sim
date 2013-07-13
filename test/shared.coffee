@@ -20,30 +20,32 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
 
     mock.verify()
 
-create = (opts={}) ->
-  @id1 = 'abcde'
-  @id2 = 'fghij'
-  @player1 = opts.player1 || {id: @id1, emit: ->}
-  @player2 = opts.player2 || {id: @id2, emit: ->}
+build = (context, opts={}) ->
+  context.id1 = 'abcde'
+  context.id2 = 'fghij'
+  context.player1 = opts.player1 || {id: context.id1, emit: ->}
+  context.player2 = opts.player2 || {id: context.id2, emit: ->}
   team1   = opts.team1 || [Factory('Magikarp')]
   team2   = opts.team2 || [Factory('Magikarp')]
-  players = [{player: @player1, team: team1},
-             {player: @player2, team: team2}]
-  @battle = new Battle('id', players: players)
-  @controller = new BattleController(@battle)
+  players = [{player: context.player1, team: team1},
+             {player: context.player2, team: team2}]
+  context.battle = new Battle('id', players: players)
+  context.controller = new BattleController(context.battle)
+  context.team1  = context.battle.getTeam(context.player1.id)
+  context.team2  = context.battle.getTeam(context.player2.id)
+  context.p1 = context.team1.first()
+  context.p2 = context.team2.first()
+
+  createTestRNG.call(context)
+  biasRNG.call(context, 'next', 'ch', 1)
+  biasRNG.call(context, 'randInt', 'damage roll', 0)
+  biasRNG.call(context, 'randInt', 'miss', 0)  # Can be overridden, of course.
+  biasRNG.call(context, 'next', 'secondary status', 1)  # Often used in tests.
+
+create = (opts={}) ->
+  build(this, opts)
   @controller.beginBattle()
-  @team1  = @battle.getTeam(@player1.id)
-  @team2  = @battle.getTeam(@player2.id)
-  @p1 = @team1.first()
-  @p2 = @team2.first()
-
   @battle.areAllRequestsCompleted().should.be.false
-
-  createTestRNG.call(this)
-  biasRNG.call(this, 'next', 'ch', 1)
-  biasRNG.call(this, 'randInt', 'damage roll', 0)
-  biasRNG.call(this, 'randInt', 'miss', 0)  # Can be overridden, of course.
-  biasRNG.call(this, 'next', 'secondary status', 1)  # Often used in tests.
 
 createTestRNG = ->
   @biasedRNGFuncs = {}
@@ -59,4 +61,4 @@ biasRNG = (funcName, id, returns) ->
   @biasedRNGFuncs[funcName] ||= {}
   @biasedRNGFuncs[funcName][id] = returns
 
-module.exports = {shouldDoNoDamage, shouldFailIfUsedTwice, create, biasRNG}
+module.exports = {shouldDoNoDamage, shouldFailIfUsedTwice, build, create, biasRNG}

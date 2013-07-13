@@ -137,11 +137,11 @@ basePowerModifier.add 90, (move, battle, user, target) ->
   return 0x1000
 
 # Dry Skin modifier.
-basePowerModifier.add 100, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if target.hasAbility('Dry Skin') && type == 'Fire'
-    return 0x1400
-  return 0x1000
+# basePowerModifier.add 100, (move, battle, user, target) ->
+#   type = move.getType(battle, user, target)
+#   if target.hasAbility('Dry Skin') && type == 'Fire'
+#     return 0x1400
+#   return 0x1000
 
 # Sheer Force modifier.
 basePowerModifier.add 110, (move, battle, user, target) ->
