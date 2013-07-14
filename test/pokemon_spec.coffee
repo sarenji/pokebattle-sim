@@ -118,7 +118,7 @@ describe 'Pokemon', ->
       pokemon = new Pokemon()
       pokemon.attach(VolatileAttachment)
       pokemon.switchOut()
-      pokemon.hasAttachment(VolatileAttachment).should.be.false
+      pokemon.has(VolatileAttachment).should.be.false
 
   describe '#endTurn', ->
     it 'removes blocked moves', ->

@@ -348,7 +348,7 @@ describe 'Disable', ->
     @battle.endTurn()
     @battle.endTurn()
 
-    @p2.hasAttachment(Attachment.Disable).should.be.false
+    @p2.has(Attachment.Disable).should.be.false
 
   it 'stops the execution of a disabled move', ->
     shared.create.call(this)
@@ -446,7 +446,7 @@ describe 'yawn', ->
     @controller.makeMove(@player1, 'Yawn')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasAttachment(Attachment.Yawn).should.be.true
+    @p2.has(Attachment.Yawn).should.be.true
 
   it 'puts the opponent to sleep at the end of the second turn', ->
     shared.create.call this,
@@ -1280,7 +1280,7 @@ describe 'nightmare', ->
     @controller.makeMove(@player1, 'splash')
     @controller.makeMove(@player2, 'splash')
 
-    @p2.hasAttachment(Attachment.Nightmare).should.be.false
+    @p2.has(Attachment.Nightmare).should.be.false
 
 describe 'incinerate', ->
   it 'destroys the berry of the target', ->
@@ -1340,7 +1340,7 @@ describe 'taunt', ->
     @controller.makeMove(@player1, 'splash')
     @controller.makeMove(@player2, 'tackle')
 
-    @p2.hasAttachment(Attachment.Taunt).should.be.false
+    @p2.has(Attachment.Taunt).should.be.false
 
   it 'prevents the target from selecting that move the next turn', ->
     shared.create.call(this)
@@ -1415,7 +1415,7 @@ describe 'Wish', ->
     @controller.makeMove(@player1, 'splash')
     @controller.makeMove(@player2, 'tackle')
 
-    @team1.hasAttachment(Attachment.Wish).should.be.false
+    @team1.has(Attachment.Wish).should.be.false
 
 describe "counter", ->
   it "returns double the damage if attacked by a physical move", ->
@@ -1455,7 +1455,7 @@ describe "Perish Song", ->
     @controller.makeMove(@player2, 'splash')
 
     result = _.all @battle.getActivePokemon(), (pokemon) ->
-      pokemon.hasAttachment(Attachment.PerishSong)
+      pokemon.has(Attachment.PerishSong)
     result.should.be.true
 
   it "faints pokemon at the end of 4 turns", ->
@@ -1646,7 +1646,7 @@ describe 'Encore', ->
     @controller.makeMove(@player1, "Encore")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Encore).should.be.true
+    @p2.has(Attachment.Encore).should.be.true
 
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Splash")
@@ -1654,7 +1654,7 @@ describe 'Encore', ->
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Encore).should.be.false
+    @p2.has(Attachment.Encore).should.be.false
 
   it "fails on certain moves like mimic", ->
     shared.create.call this,
@@ -1707,12 +1707,12 @@ describe 'Encore', ->
     @controller.makeMove(@player1, "Encore")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Encore).should.be.true
+    @p2.has(Attachment.Encore).should.be.true
 
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Encore).should.be.false
+    @p2.has(Attachment.Encore).should.be.false
 
 describe "Swagger", ->
   it "confuses the target", ->
@@ -1721,7 +1721,7 @@ describe "Swagger", ->
     @controller.makeMove(@player1, "Swagger")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Confusion).should.be.true
+    @p2.has(Attachment.Confusion).should.be.true
 
   it "boosts the target's attack by two stages", ->
     shared.create.call(this)
@@ -1738,7 +1738,7 @@ describe "Flatter", ->
     @controller.makeMove(@player1, "Flatter")
     @controller.makeMove(@player2, "Splash")
 
-    @p2.hasAttachment(Attachment.Confusion).should.be.true
+    @p2.has(Attachment.Confusion).should.be.true
 
   it "boosts the target's special attack by two stages", ->
     shared.create.call(this)
@@ -1796,12 +1796,12 @@ describe "Spikes", ->
   it "puts a layer of spikes on the opponents' field", ->
     shared.create.call(this)
 
-    @team2.hasAttachment(Attachment.Spikes).should.be.false
+    @team2.has(Attachment.Spikes).should.be.false
 
     @controller.makeMove(@player1, "Spikes")
     @controller.makeMove(@player2, "Splash")
 
-    @team2.hasAttachment(Attachment.Spikes).should.be.true
+    @team2.has(Attachment.Spikes).should.be.true
 
   it "fails if there are 3 layers", ->
     shared.create.call(this)
@@ -1859,12 +1859,12 @@ describe "Stealth Rock", ->
   it "puts a layer of rocks on the opponents' field", ->
     shared.create.call(this)
 
-    @team2.hasAttachment(Attachment.StealthRock).should.be.false
+    @team2.has(Attachment.StealthRock).should.be.false
 
     @controller.makeMove(@player1, "Stealth Rock")
     @controller.makeMove(@player2, "Splash")
 
-    @team2.hasAttachment(Attachment.StealthRock).should.be.true
+    @team2.has(Attachment.StealthRock).should.be.true
 
   it "does damage to pokemon switching in according to type", ->
     shared.create.call this,
@@ -1893,12 +1893,12 @@ describe "Toxic Spikes", ->
   it "puts a layer of toxic spikes on the opponents' field", ->
     shared.create.call(this)
 
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
+    @team2.has(Attachment.ToxicSpikes).should.be.false
 
     @controller.makeMove(@player1, "Toxic Spikes")
     @controller.makeMove(@player2, "Splash")
 
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
+    @team2.has(Attachment.ToxicSpikes).should.be.true
 
   it "fails if there are 2 layers", ->
     shared.create.call(this)
@@ -1951,7 +1951,7 @@ describe "Toxic Spikes", ->
     @controller.makeSwitch(@player2, 1)
     @controller.makeMove(@player1, "Splash")
 
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
+    @team2.has(Attachment.ToxicSpikes).should.be.false
 
   it "doesn't disappear if the pokemon switching in is a flying Poison", ->
     shared.create.call this,
@@ -1963,7 +1963,7 @@ describe "Toxic Spikes", ->
     @controller.makeSwitch(@player2, 1)
     @controller.makeMove(@player1, "Splash")
 
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
+    @team2.has(Attachment.ToxicSpikes).should.be.true
 
 testWeatherMove = (moveName, weather, item) ->
   describe moveName, ->
@@ -2038,7 +2038,7 @@ testEffectMove = (moveName, Effect) ->
       move = @battle.getMove(moveName)
       @battle.performMove(@id1, move)
 
-      @p2.hasAttachment(Effect).should.be.true
+      @p2.has(Effect).should.be.true
 
     it "fails if the Pokemon already has it", ->
       shared.create.call(this)
@@ -2146,8 +2146,8 @@ testTrappingMove = (name) ->
       @controller.makeMove(@player2, "Splash")
 
       @p2.isSwitchBlocked().should.be.true
-      @p2.hasAttachment(Attachment.Trap).should.be.true
-      @p1.hasAttachment(Attachment.TrapLeash).should.be.true
+      @p2.has(Attachment.Trap).should.be.true
+      @p1.has(Attachment.TrapLeash).should.be.true
 
     it "deals 1/16 of the pokemon's max hp every turn", ->
       shared.create.call(this, team2: [Factory("Blissey")])
@@ -2169,7 +2169,7 @@ testTrappingMove = (name) ->
       # loop for 5 more turns. One of the turns has already passed.
       # These moves hurt for 5 moves and wear off on the 6th.
       for i in [1..5]
-        @p2.hasAttachment(Attachment.Trap).should.be.true
+        @p2.has(Attachment.Trap).should.be.true
         @controller.makeMove(@player1, "Splash")
         @controller.makeMove(@player2, "Splash")
 
@@ -2193,8 +2193,8 @@ testTrappingMove = (name) ->
         @controller.makeMove(@player2, "Splash")
 
       @p2.isSwitchBlocked().should.be.false
-      @p2.hasAttachment(Attachment.Trap).should.be.false
-      @p1.hasAttachment(Attachment.TrapLeash).should.be.false
+      @p2.has(Attachment.Trap).should.be.false
+      @p1.has(Attachment.TrapLeash).should.be.false
 
     it "does not reset the duration if used twice", ->
       shared.create.call(this, team2: [Factory("Blissey")])
@@ -2213,8 +2213,8 @@ testTrappingMove = (name) ->
         @controller.makeMove(@player2, "Splash")
 
       @p2.isSwitchBlocked().should.be.false
-      @p2.hasAttachment(Attachment.Trap).should.be.false
-      @p1.hasAttachment(Attachment.TrapLeash).should.be.false
+      @p2.has(Attachment.Trap).should.be.false
+      @p1.has(Attachment.TrapLeash).should.be.false
 
     it "wears off if the user switches", ->
       shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
@@ -2226,7 +2226,7 @@ testTrappingMove = (name) ->
       @controller.makeMove(@player2, "Splash")
 
       @p2.isSwitchBlocked().should.be.false
-      @p2.hasAttachment(Attachment.Trap).should.be.false
+      @p2.has(Attachment.Trap).should.be.false
 
     it "is always 7 turns if the user is holding grip claw", ->
       shared.create.call(this, team1: [Factory("Magikarp", item: "Grip Claw")])
@@ -2239,10 +2239,10 @@ testTrappingMove = (name) ->
       # The user is damaged 7 times, but the attachment actually lasts
       # for 8 turns including the turn it is first used.
       for i in [1..8]
-        @p2.hasAttachment(Attachment.Trap).should.be.true
+        @p2.has(Attachment.Trap).should.be.true
         @battle.endTurn()
 
-      @p2.hasAttachment(Attachment.Trap).should.be.false
+      @p2.has(Attachment.Trap).should.be.false
 
 testTrappingMove "Bind"
 testTrappingMove "Clamp"
@@ -2325,9 +2325,9 @@ describe "Reflect", ->
     @battle.performMove(@id1, @battle.getMove('Reflect'))
 
     for i in [1..5]
-      @team1.hasAttachment(Attachment.Reflect).should.be.true
+      @team1.has(Attachment.Reflect).should.be.true
       @battle.endTurn()
-    @team1.hasAttachment(Attachment.Reflect).should.be.false
+    @team1.has(Attachment.Reflect).should.be.false
 
   it "fails if the user already used it", ->
     shared.create.call(this)
@@ -2368,9 +2368,9 @@ describe "Light Screen", ->
     @battle.performMove(@id1, @battle.getMove('Light Screen'))
 
     for i in [1..5]
-      @team1.hasAttachment(Attachment.LightScreen).should.be.true
+      @team1.has(Attachment.LightScreen).should.be.true
       @battle.endTurn()
-    @team1.hasAttachment(Attachment.LightScreen).should.be.false
+    @team1.has(Attachment.LightScreen).should.be.false
 
   it "fails if the user already used it", ->
     shared.create.call(this)
@@ -2389,28 +2389,28 @@ describe "Rapid Spin", ->
     shared.create.call this
 
     @battle.performMove(@id1, @battle.getMove("Spikes"))
-    @team2.hasAttachment(Attachment.Spikes).should.be.true
+    @team2.has(Attachment.Spikes).should.be.true
 
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-    @team2.hasAttachment(Attachment.Spikes).should.be.false
+    @team2.has(Attachment.Spikes).should.be.false
 
   it "removes stealth rock", ->
     shared.create.call this
 
     @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
-    @team2.hasAttachment(Attachment.StealthRock).should.be.true
+    @team2.has(Attachment.StealthRock).should.be.true
 
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-    @team2.hasAttachment(Attachment.StealthRock).should.be.false
+    @team2.has(Attachment.StealthRock).should.be.false
 
   it "removes toxic spikes", ->
     shared.create.call this
 
     @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.true
+    @team2.has(Attachment.ToxicSpikes).should.be.true
 
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-    @team2.hasAttachment(Attachment.ToxicSpikes).should.be.false
+    @team2.has(Attachment.ToxicSpikes).should.be.false
 
   it "removes multiple layers of entry hazards", ->
     shared.create.call this
@@ -2418,21 +2418,21 @@ describe "Rapid Spin", ->
     @battle.performMove(@id1, @battle.getMove("Spikes"))
     @battle.performMove(@id1, @battle.getMove("Spikes"))
     @battle.performMove(@id1, @battle.getMove("Spikes"))
-    @team2.hasAttachment(Attachment.Spikes).should.be.true
+    @team2.has(Attachment.Spikes).should.be.true
 
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-    @team2.hasAttachment(Attachment.Spikes).should.be.false
+    @team2.has(Attachment.Spikes).should.be.false
 
   it "removes trapping moves", ->
     shared.create.call this
 
     @battle.performMove(@id1, @battle.getMove("Fire Spin"))
 
-    @p2.hasAttachment(Attachment.Trap).should.be.true
-    @p1.hasAttachment(Attachment.TrapLeash).should.be.true
+    @p2.has(Attachment.Trap).should.be.true
+    @p1.has(Attachment.TrapLeash).should.be.true
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
-    @p2.hasAttachment(Attachment.Trap).should.be.false
-    @p1.hasAttachment(Attachment.TrapLeash).should.be.false
+    @p2.has(Attachment.Trap).should.be.false
+    @p1.has(Attachment.TrapLeash).should.be.false
 
   it "removes leech seed", ->
     shared.create.call(this)
@@ -2450,28 +2450,28 @@ describe "Rapid Spin", ->
     @battle.performMove(@id1, @battle.getMove("Spikes"))
     @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
 
-    @team2.hasAttachment(Attachment.Spikes).should.be.true
+    @team2.has(Attachment.Spikes).should.be.true
 
 describe "Brick Break", ->
   it "shatters Light Screen", ->
     shared.create.call(this)
     @team2.attach(Attachment.LightScreen)
     @battle.performMove(@id1, @battle.getMove('Brick Break'))
-    @team2.hasAttachment(Attachment.LightScreen).should.be.false
+    @team2.has(Attachment.LightScreen).should.be.false
 
   it "shatters Reflect", ->
     shared.create.call(this)
     @team2.attach(Attachment.Reflect)
     @battle.performMove(@id1, @battle.getMove('Brick Break'))
-    @team2.hasAttachment(Attachment.Reflect).should.be.false
+    @team2.has(Attachment.Reflect).should.be.false
 
   it "shatters both at the same time", ->
     shared.create.call(this)
     @team2.attach(Attachment.Reflect)
     @team2.attach(Attachment.LightScreen)
     @battle.performMove(@id1, @battle.getMove('Brick Break'))
-    @team2.hasAttachment(Attachment.Reflect).should.be.false
-    @team2.hasAttachment(Attachment.LightScreen).should.be.false
+    @team2.has(Attachment.Reflect).should.be.false
+    @team2.has(Attachment.LightScreen).should.be.false
 
   it "shatters before damage calculation", ->
     shared.create.call(this)
@@ -2491,8 +2491,8 @@ describe "Brick Break", ->
 
     @sandbox.stub(@p2, 'isImmune', -> true)
     @battle.performMove(@id1, @battle.getMove('Brick Break'))
-    @team2.hasAttachment(Attachment.Reflect).should.be.true
-    @team2.hasAttachment(Attachment.LightScreen).should.be.true
+    @team2.has(Attachment.Reflect).should.be.true
+    @team2.has(Attachment.LightScreen).should.be.true
 
   it "does not shatter if Brick Break misses", ->
     shared.create.call(this)
@@ -2501,8 +2501,8 @@ describe "Brick Break", ->
 
     shared.biasRNG.call(this, 'randInt', 'miss', 101)
     @battle.performMove(@id1, @battle.getMove('Brick Break'))
-    @team2.hasAttachment(Attachment.Reflect).should.be.true
-    @team2.hasAttachment(Attachment.LightScreen).should.be.true
+    @team2.has(Attachment.Reflect).should.be.true
+    @team2.has(Attachment.LightScreen).should.be.true
 
 describe "Return", ->
   it "has 102 base power", ->
@@ -2522,7 +2522,7 @@ describe "Fake Out", ->
   it "flinches the enemy", ->
     shared.create.call(this)
     @battle.performMove(@id1, @battle.getMove("Fake Out"))
-    @p2.hasAttachment(Attachment.Flinch).should.be.true
+    @p2.has(Attachment.Flinch).should.be.true
 
   it "fails if the Pokemon has been in play more than one turn", ->
     shared.create.call(this)
@@ -2538,7 +2538,7 @@ describe "Focus Energy", ->
   it "adds a Focus Energy attachment to the user", ->
     shared.create.call(this)
     @battle.performMove(@id1, @battle.getMove("Focus Energy"))
-    @p1.hasAttachment(Attachment.FocusEnergy).should.be.true
+    @p1.has(Attachment.FocusEnergy).should.be.true
 
   it "fails the second time it is used", ->
     shared.create.call(this)
@@ -2560,7 +2560,7 @@ testIdentifyMove = (moveName, type) ->
       shared.create.call(this, team2: [Factory("Spiritomb")])
       @p2.isImmune(@battle, type).should.be.true
       @battle.performMove(@id1, @battle.getMove(moveName))
-      @p2.hasAttachment(Attachment.Identify).should.be.true
+      @p2.has(Attachment.Identify).should.be.true
       @p2.isImmune(@battle, type).should.be.false
 
     it "makes the target's evasion be ignored", ->
@@ -2630,9 +2630,9 @@ describe "Defense Curl", ->
 
   it "attaches a volatile attachment", ->
     shared.create.call(this)
-    @p1.hasAttachment(Attachment.DefenseCurl).should.be.false
+    @p1.has(Attachment.DefenseCurl).should.be.false
     @battle.performMove(@id1, @battle.getMove("Defense Curl"))
-    @p1.hasAttachment(Attachment.DefenseCurl).should.be.true
+    @p1.has(Attachment.DefenseCurl).should.be.true
 
 describe "Focus Punch", ->
   it "causes the user to flinch if hit", ->
@@ -2694,9 +2694,9 @@ testLockOnMove = (moveName) ->
       shared.create.call(this)
       @battle.performMove(@id1, @battle.getMove(moveName))
       for i in [1..2]
-        @p1.hasAttachment(Attachment.LockOn).should.be.true
+        @p1.has(Attachment.LockOn).should.be.true
         @battle.endTurn()
-      @p1.hasAttachment(Attachment.LockOn).should.be.false
+      @p1.has(Attachment.LockOn).should.be.false
 
     it "hits through two-turn fade-away moves"
     it "does not hit through Protect"
@@ -2715,7 +2715,7 @@ describe "Minimize", ->
   it "adds a Minimize volatile attachment to the user", ->
     shared.create.call(this)
     @battle.performMove(@id1, @battle.getMove("Minimize"))
-    @p1.hasAttachment(Attachment.Minimize).should.be.true
+    @p1.has(Attachment.Minimize).should.be.true
 
 testStompMove = (moveName) ->
   describe moveName, ->
@@ -2736,7 +2736,7 @@ testStompMove = (moveName) ->
       shared.create.call(this)
       shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
       @battle.performMove(@id1, @battle.getMove(moveName))
-      @p2.hasAttachment(Attachment.Flinch).should.be.true
+      @p2.has(Attachment.Flinch).should.be.true
 
 testStompMove("Stomp")
 testStompMove("Steamroller")
@@ -2856,17 +2856,17 @@ testMomentumMove = (moveName) ->
       @battle.performMove(@id1, @battle.getMove(moveName))
       @battle.endTurn()
       @battle.beginTurn()
-      @p1.hasAttachment(Attachment.Momentum).should.be.false
+      @p1.has(Attachment.Momentum).should.be.false
 
     it "lasts 5 turns", ->
       shared.create.call(this)
 
       for i in [1..5]
         @battle.performMove(@id1, @battle.getMove(moveName))
-        @p1.hasAttachment(Attachment.Momentum).should.be.true
+        @p1.has(Attachment.Momentum).should.be.true
         @battle.endTurn()
         @battle.beginTurn()
-      @p1.hasAttachment(Attachment.Momentum).should.be.false
+      @p1.has(Attachment.Momentum).should.be.false
 
     it "doubles base power every time", ->
       shared.create.call(this)
@@ -3050,7 +3050,7 @@ describe "Charge", ->
     @battle.performMove(@id1, move)
     @battle.endTurn()
 
-    @p1.hasAttachment(Attachment.Charge).should.be.true
+    @p1.has(Attachment.Charge).should.be.true
     mock.verify()
 
 describe "Tri Attack", ->
@@ -3219,7 +3219,7 @@ testProtectCounterMove = (moveName) ->
     @battle.recordMove(@id2, @battle.getMove("Tackle"))
     @battle.determineTurnOrder()
     @battle.performMove(@id1, move)
-    @p1.hasAttachment(Attachment.ProtectCounter).should.be.false
+    @p1.has(Attachment.ProtectCounter).should.be.false
 
   it "resets to 100% chance of success if user selects a different move", ->
     shared.create.call(this)
@@ -3230,12 +3230,12 @@ testProtectCounterMove = (moveName) ->
     @battle.determineTurnOrder()
     @battle.performMove(@id1, move)
     @battle.endTurn()
-    @p1.hasAttachment(Attachment.ProtectCounter).should.be.true
+    @p1.has(Attachment.ProtectCounter).should.be.true
 
     @battle.performMove(@id1, @battle.getMove('Splash'))
     @battle.endTurn()
 
-    @p1.hasAttachment(Attachment.ProtectCounter).should.be.false
+    @p1.has(Attachment.ProtectCounter).should.be.false
 
 testProtectMove = (moveName) ->
   describe moveName, ->
@@ -3303,18 +3303,18 @@ describe "Endure", ->
     @battle.performMove(@id1, @battle.getMove("Endure"))
     @battle.performMove(@id2, @battle.getMove("Tackle"))
 
-    @p1.hasAttachment(Attachment.Endure).should.be.true
+    @p1.has(Attachment.Endure).should.be.true
     @battle.endTurn()
-    @p1.hasAttachment(Attachment.Endure).should.be.false
+    @p1.has(Attachment.Endure).should.be.false
 
 describe "Feint", ->
   it "removes the Protect attachment, if any, on the target", ->
     shared.create.call(this)
     @p1.attach(Attachment.Protect)
-    @p1.hasAttachment(Attachment.Protect).should.be.true
+    @p1.has(Attachment.Protect).should.be.true
 
     @battle.performMove(@id2, @battle.getMove("Feint"))
-    @p1.hasAttachment(Attachment.Protect).should.be.false
+    @p1.has(Attachment.Protect).should.be.false
 
   it "removes the Wide Guard attachment, if any, on the target"
   it "removes the Quick Guard attachment, if any, on the target"
@@ -3369,7 +3369,7 @@ describe "Curse", ->
       @p1.types = [ "Ghost" ]
 
       @battle.performMove(@id1, @battle.getMove("Curse"))
-      @p2.hasAttachment(Attachment.Curse).should.be.true
+      @p2.has(Attachment.Curse).should.be.true
 
     it "damages the user for half of its HP, rounded down", ->
       shared.create.call(this)
@@ -3718,7 +3718,7 @@ describe "Substitute", ->
     @battle.performMove(@id1, sub)
     hp    = @p1.currentHP
 
-    attachment = @p1.getAttachment(Attachment.Substitute)
+    attachment = @p1.get(Attachment.Substitute)
     attachment.hp.should.equal subHP
     @battle.performMove(@id2, @battle.getMove('Tackle'))
 
@@ -3732,11 +3732,11 @@ describe "Substitute", ->
 
     @battle.performMove(@id1, sub)
     hp     = @p1.currentHP
-    @p1.hasAttachment(Attachment.Substitute).should.be.true
+    @p1.has(Attachment.Substitute).should.be.true
 
     @sandbox.stub(tackle, 'baseDamage', -> 9999)
     @battle.performMove(@id2, tackle)
-    @p1.hasAttachment(Attachment.Substitute).should.be.false
+    @p1.has(Attachment.Substitute).should.be.false
     @p1.currentHP.should.equal hp
 
   it "fails most non-damaging moves", ->
@@ -3745,7 +3745,7 @@ describe "Substitute", ->
     sub      = @battle.getMove('Substitute')
 
     @battle.performMove(@id1, sub)
-    @p1.hasAttachment(Attachment.Substitute).should.be.true
+    @p1.has(Attachment.Substitute).should.be.true
 
     mock = @sandbox.mock(hypnosis).expects('fail').once()
     @battle.performMove(@id2, hypnosis)
@@ -3757,7 +3757,7 @@ describe "Substitute", ->
     sub       = @battle.getMove('Substitute')
 
     @battle.performMove(@id1, sub)
-    @p1.hasAttachment(Attachment.Substitute).should.be.true
+    @p1.has(Attachment.Substitute).should.be.true
 
     mock = @sandbox.mock(foresight).expects('fail').never()
     @battle.performMove(@id2, foresight)
@@ -3769,7 +3769,7 @@ describe "Substitute", ->
     sub       = @battle.getMove('Substitute')
 
     @battle.performMove(@id1, sub)
-    @p1.hasAttachment(Attachment.Substitute).should.be.true
+    @p1.has(Attachment.Substitute).should.be.true
 
     spy = @sandbox.spy(@p2, 'drain')
     @battle.performMove(@id2, gigaDrain)
@@ -3912,9 +3912,9 @@ describe 'Spit Up', ->
     spitUp = @battle.getMove("Spit Up")
     @p1.attach(Attachment.Stockpile)
 
-    @p1.getAttachment(Attachment.Stockpile).layers.should.equal 1
+    @p1.get(Attachment.Stockpile).layers.should.equal 1
     @battle.performMove(@id1, spitUp)
-    @p1.hasAttachment(Attachment.Stockpile).should.be.false
+    @p1.has(Attachment.Stockpile).should.be.false
 
   it "loses def/sp. def according to number of stockpiles", ->
     shared.create.call(this)
@@ -3970,9 +3970,9 @@ describe 'Swallow', ->
     swallow = @battle.getMove("Swallow")
     @p1.attach(Attachment.Stockpile)
 
-    @p1.getAttachment(Attachment.Stockpile).layers.should.equal 1
+    @p1.get(Attachment.Stockpile).layers.should.equal 1
     @battle.performMove(@id1, swallow)
-    @p1.hasAttachment(Attachment.Stockpile).should.be.false
+    @p1.has(Attachment.Stockpile).should.be.false
 
   it "loses def/sp. def according to number of stockpiles", ->
     shared.create.call(this)
@@ -4211,9 +4211,9 @@ describe "Embargo", ->
     @battle.performMove(@id1, embargo)
 
     for i in [0...5]
-      @p2.hasAttachment(Attachment.Embargo).should.be.true
+      @p2.has(Attachment.Embargo).should.be.true
       @battle.endTurn()
-    @p2.hasAttachment(Attachment.Embargo).should.be.false
+    @p2.has(Attachment.Embargo).should.be.false
 
   it "prevents the target's use of items in subsequent turns", ->
     shared.create.call this,
@@ -4340,10 +4340,10 @@ describe "Sky Attack", ->
 
     @battle.recordMove(@id1, skyAttack)
     @battle.continueTurn()
-    @p2.hasAttachment(Attachment.Flinch).should.be.false
+    @p2.has(Attachment.Flinch).should.be.false
     @battle.beginTurn()
     @battle.continueTurn()
-    @p2.hasAttachment(Attachment.Flinch).should.be.true
+    @p2.has(Attachment.Flinch).should.be.true
 
 for moveName in [ "Gust", "Twister" ]
   for chargeMoveName in [ "Fly", "Bounce" ]
@@ -4556,9 +4556,9 @@ describe "Lucky Chant", ->
     @battle.performMove(@id1, luckyChant)
 
     for i in [0...5]
-      @team1.hasAttachment(Attachment.LuckyChant).should.be.true
+      @team1.has(Attachment.LuckyChant).should.be.true
       @battle.endTurn()
-    @team1.hasAttachment(Attachment.LuckyChant).should.be.false
+    @team1.has(Attachment.LuckyChant).should.be.false
 
 describe "Lunar Dance", ->
   it "faints the user", ->
@@ -4818,9 +4818,9 @@ describe "Magic Coat", ->
     magicCoat = @battle.getMove("Magic Coat")
 
     @battle.performMove(@id1, magicCoat)
-    @p1.hasAttachment(Attachment.MagicCoat).should.be.true
+    @p1.has(Attachment.MagicCoat).should.be.true
     @battle.endTurn()
-    @p1.hasAttachment(Attachment.MagicCoat).should.be.false
+    @p1.has(Attachment.MagicCoat).should.be.false
 
   it "cannot bounce more than once in the same turn", ->
     shared.create.call(this)

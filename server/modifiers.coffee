@@ -9,14 +9,14 @@
 # Reflect modifier.
 finalModifier.add 10, (move, battle, user, target) ->
   team = battle.getOwner(target).team
-  if team.hasAttachment(Attachment.Reflect) && move.isPhysical()
+  if team.has(Attachment.Reflect) && move.isPhysical()
     return 0x800
   return 0x1000
 
 # Light Screen modifier.
 finalModifier.add 10, (move, battle, user, target) ->
   team = battle.getOwner(target).team
-  if team.hasAttachment(Attachment.LightScreen) && move.isSpecial()
+  if team.has(Attachment.LightScreen) && move.isSpecial()
     return 0x800
   return 0x1000
 
@@ -161,12 +161,12 @@ basePowerModifier.add 130, (move, battle, user, target) ->
   return 0x1000
 
 basePowerModifier.add 140, (move, battle, user, target) ->
-  if user.hasAttachment(Attachment.MeFirst)
+  if user.has(Attachment.MeFirst)
     return 0x1800
   return 0x1000
 
 basePowerModifier.add 150, (move, battle, user, target) ->
-  if user.hasAttachment(Attachment.Charge) &&
+  if user.has(Attachment.Charge) &&
       move.getType(battle, user, target) == 'Electric'
     return 0x2000
   return 0x1000

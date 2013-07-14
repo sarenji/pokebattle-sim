@@ -11,11 +11,11 @@ class @Player
   attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)
 
-  hasAttachment: (attachment) ->
-    @team.hasAttachment(attachment)
+  has: (attachment) ->
+    @team.has(attachment)
 
-  getAttachment: (attachment) ->
-    @team.getAttachment(attachment)
+  get: (attachment) ->
+    @team.get(attachment)
 
   switch: (battle, index1, index2) ->
     @team.switch(battle, this, index1, index2)

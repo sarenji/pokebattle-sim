@@ -36,7 +36,7 @@ extendMove = (name, callback) ->
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      if target.hasAttachment(Klass)
+      if target.has(Klass)
         # TODO: Placeholder
         @fail(battle)
         return
@@ -346,7 +346,7 @@ makeLockOnMove = (name) ->
 makeStompMove = (name) ->
   extendMove name, ->
     @basePower = (battle, user, target) ->
-      if target.hasAttachment(Attachment.Minimize)
+      if target.has(Attachment.Minimize)
         2 * @power
       else
         @power
@@ -405,9 +405,9 @@ makeMomentumMove = (name) ->
       attachment.turns += 1
 
     @basePower = (battle, user, target) ->
-      times = user.getAttachment(Attachment.Momentum)?.layers || 0
+      times = user.get(Attachment.Momentum)?.layers || 0
       bp = @power * Math.pow(2, times)
-      bp *= 2  if user.hasAttachment(Attachment.DefenseCurl)
+      bp *= 2  if user.has(Attachment.DefenseCurl)
       bp
 
 makeRevengeMove = (moveName) ->
@@ -485,7 +485,7 @@ makeCounterMove = (name, multiplier, applies) ->
 makeTrappingMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      unless target.hasAttachment(Attachment.Trap)
+      unless target.has(Attachment.Trap)
         turns = if !user.hasItem("Grip Claw")
           battle.rng.randInt(4, 5, "trapping move")
         else
@@ -507,7 +507,7 @@ makeStatusCureMove 'aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'attract', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.hasAttachment(Attachment.Attract) ||
+    if target.has(Attachment.Attract) ||
         (!(user.gender == 'M' && target.gender == 'F') &&
          !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
@@ -688,7 +688,7 @@ makeBoostMove 'featherdance', 'target', attack: -2
 extendMove 'feint', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # TODO: Wide Guard
-    if target.hasAttachment(Attachment.Protect)
+    if target.has(Attachment.Protect)
       target.unattach(Attachment.Protect)
       battle.message "#{target.name} fell for the feint!"
 
@@ -936,20 +936,20 @@ makeMeanLookMove 'spider-web'
 extendMove 'spit-up', ->
   oldUse = @use
   @use = (battle, user, target) ->
-    if !user.hasAttachment(Attachment.Stockpile)
+    if !user.has(Attachment.Stockpile)
       @fail(battle)
       return false
     oldUse.call(this, battle, user, target)
 
   @basePower = (battle, user, target) ->
-    attachment = user.getAttachment(Attachment.Stockpile)
+    attachment = user.get(Attachment.Stockpile)
     layers = attachment?.layers || 0
     100 * layers
 
   oldExecute = @execute
   @execute = (battle, user, targets) ->
     oldExecute.call(this, battle, user, targets)
-    attachment = user.getAttachment(Attachment.Stockpile)
+    attachment = user.get(Attachment.Stockpile)
     return  if !attachment?
     num = -attachment.layers
     applyBoosts = boostExtension('self', defense: num, specialDefense: num)
@@ -983,13 +983,13 @@ extendWithPrimaryEffect 'supersonic', Attachment.Confusion
 extendMove 'swallow', ->
   oldUse = @use
   @use = (battle, user, target) ->
-    if !user.hasAttachment(Attachment.Stockpile)
+    if !user.has(Attachment.Stockpile)
       @fail(battle)
       return false
     oldUse.call(this, battle, user, target)
 
   @afterSuccessfulHit = (battle, user, target) ->
-    {layers} = target.getAttachment(Attachment.Stockpile)
+    {layers} = target.get(Attachment.Stockpile)
     amount = util.roundHalfDown(target.stat('hp') / Math.pow(2, 3 - layers))
     # Swallow is not a draining move, so it is not affected by Big Root.
     target.damage(-amount)
@@ -998,7 +998,7 @@ extendMove 'swallow', ->
   @execute = (battle, user, targets) ->
     oldExecute.call(this, battle, user, targets)
     for target in targets
-      attachment = target.getAttachment(Attachment.Stockpile)
+      attachment = target.get(Attachment.Stockpile)
       return  if !attachment?
       num = -attachment.layers
       applyBoosts = boostExtension('self', defense: num, specialDefense: num)
@@ -1392,7 +1392,7 @@ extendMove 'fury-cutter', ->
     user.attach(Attachment.FuryCutter, move: this)
 
   @basePower = (battle, user, target) ->
-    attachment = user.getAttachment(Attachment.FuryCutter)
+    attachment = user.get(Attachment.FuryCutter)
     layers = attachment?.layers || 0
     @power * Math.pow(2, layers)
 
@@ -1720,10 +1720,10 @@ extendMove 'power-swap', ->
 
 extendMove 'present', ->
   @basePower = (battle, user, target) ->
-    user.getAttachment(Attachment.Present).power
+    user.get(Attachment.Present).power
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if user.getAttachment(Attachment.Present).power == 0
+    if user.get(Attachment.Present).power == 0
       amount = target.stat('hp') >> 2
       target.damage(-amount)
 
@@ -2055,7 +2055,7 @@ makeVulnerable = (moveName, byMove) ->
     oldBasePower = @basePower
     @basePower = (battle, user, target) ->
       power    = oldBasePower.call(this, battle, user, target)
-      charging = target.getAttachment(Attachment.Charging)
+      charging = target.get(Attachment.Charging)
       return power  if !charging?
 
       if charging.move == battle.getMove(moveName) then 2 * power else power

@@ -710,7 +710,7 @@ class @Attachment.Pursuit extends @VolatileAttachment
 
   informSwitch: (battle, switcher) ->
     {team} = battle.getOwner(switcher)
-    return  if team.hasAttachment(Attachment.BatonPass)
+    return  if team.has(Attachment.BatonPass)
     move = battle.getMove('Pursuit')
     battle.cancelAction(@pokemon)
     @pokemon.attach(Attachment.PursuitModifiers)
@@ -954,7 +954,7 @@ class @Attachment.MagicCoat extends @VolatileAttachment
 
   shouldBlockExecution: (battle, move, user) ->
     return  unless move.hasFlag("reflectable")
-    return  if user.getAttachment(Attachment.MagicCoat)?.bounced
+    return  if user.get(Attachment.MagicCoat)?.bounced
     return  if @bounced
     @bounced = true
     battle.message "#{@pokemon.name} bounced the #{move.name} back!"

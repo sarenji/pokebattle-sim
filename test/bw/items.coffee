@@ -395,8 +395,8 @@ describe "Air Balloon", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Trick')
 
-    @p1.hasAttachment(Attachment.AirBalloon).should.be.false
-    @p2.hasAttachment(Attachment.AirBalloon).should.be.true
+    @p1.has(Attachment.AirBalloon).should.be.false
+    @p2.has(Attachment.AirBalloon).should.be.true
 
 describe "White Herb", ->
   it "negates negative status boosts", ->
@@ -561,7 +561,7 @@ describe "a flavor healing berry", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p1.hasAttachment(Attachment.Confusion).should.be.true
+    @p1.has(Attachment.Confusion).should.be.true
 
 describe "a healing berry", ->
   it "restores a variable number of HP when owner is at 50% HP or under", ->
@@ -711,7 +711,7 @@ describe "status cure berries", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasAttachment(Attachment.Confusion).should.be.false
+    @p2.has(Attachment.Confusion).should.be.false
 
 describe "Enigma Berry", ->
   it "restores 25% of HP after the owner is hit by a super-effective move", ->
@@ -985,8 +985,8 @@ describe "Destiny Knot", ->
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Attract")
 
-    @p1.hasAttachment(Attachment.Attract).should.be.true
-    @p2.hasAttachment(Attachment.Attract).should.be.true
+    @p1.has(Attachment.Attract).should.be.true
+    @p2.has(Attachment.Attract).should.be.true
 
   it "is one-time use", ->
     shared.create.call this,
@@ -1055,7 +1055,7 @@ describe 'Lansat Berry', ->
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Splash")
 
-    @p1.hasAttachment(Attachment.FocusEnergy).should.be.true
+    @p1.has(Attachment.FocusEnergy).should.be.true
 
 describe "Micle Berry", ->
   it "gives the owner a 1.2x accuracy boost on their next move", ->
@@ -1067,7 +1067,7 @@ describe "Micle Berry", ->
     @controller.makeMove(@player1, "Tackle")
     @controller.makeMove(@player2, "Splash")
 
-    @p1.hasAttachment(Attachment.MicleBerry).should.be.true
+    @p1.has(Attachment.MicleBerry).should.be.true
     @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
       .should.equal Math.floor(@battle.getMove('Tackle').accuracy * 1.2)
 
@@ -1083,7 +1083,7 @@ describe "Micle Berry", ->
     @controller.makeMove(@player1, "Splash")
     @controller.makeMove(@player2, "Splash")
 
-    @p1.hasAttachment(Attachment.MicleBerry).should.be.false
+    @p1.has(Attachment.MicleBerry).should.be.false
 
 testEvasionItem = (itemName, ratio=0.9) ->
   describe itemName, ->
@@ -1189,13 +1189,13 @@ describe "Mental Herb", ->
 
       pokemon = @p1
       attachment = Attachment[effectName]
-      pokemon.hasAttachment(attachment).should.be.false
+      pokemon.has(attachment).should.be.false
       pokemon.attach(attachment, turns: 2)
-      pokemon.hasAttachment(attachment).should.be.true
+      pokemon.has(attachment).should.be.true
 
       pokemon.update(@battle)
 
-      pokemon.hasAttachment(attachment).should.be.false
+      pokemon.has(attachment).should.be.false
 
   it "disappears after use", ->
     shared.create.call this,
@@ -1216,8 +1216,8 @@ describe "Mental Herb", ->
     pokemon.attach(Attachment.Torment)
     pokemon.update(@battle)
 
-    pokemon.hasAttachment(Attachment.Attract).should.be.false
-    pokemon.hasAttachment(Attachment.Torment).should.be.true
+    pokemon.has(Attachment.Attract).should.be.false
+    pokemon.has(Attachment.Torment).should.be.true
 
 describe "Quick Claw", ->
   it "has a 20% chance to bump the owner's priority", ->
@@ -1252,7 +1252,7 @@ testFlinchItem = (itemName) ->
 
       shared.biasRNG.call(this, "next", 'flinch item chance', 0)
       @battle.performMove(@id1, @battle.getMove('Tackle'))
-      @p2.hasAttachment(Attachment.Flinch).should.be.true
+      @p2.has(Attachment.Flinch).should.be.true
 
     it "has a 90% chance to do nothing", ->
       shared.create.call this,
@@ -1260,7 +1260,7 @@ testFlinchItem = (itemName) ->
 
       shared.biasRNG.call(this, "next", 'flinch item chance', 0.1)
       @battle.performMove(@id1, @battle.getMove('Tackle'))
-      @p2.hasAttachment(Attachment.Flinch).should.be.false
+      @p2.has(Attachment.Flinch).should.be.false
 
     it "can't flinch if the move used can already flinch", ->
       shared.create.call this,
@@ -1269,7 +1269,7 @@ testFlinchItem = (itemName) ->
       shared.biasRNG.call(this, "next", 'flinch item chance', 0)
       shared.biasRNG.call(this, "next", 'secondary effect', 1)
       @battle.performMove(@id1, @battle.getMove('Headbutt'))
-      @p2.hasAttachment(Attachment.Flinch).should.be.false
+      @p2.has(Attachment.Flinch).should.be.false
 
     it "can't flinch if the move is non-damaging", ->
       shared.create.call this,
@@ -1277,7 +1277,7 @@ testFlinchItem = (itemName) ->
 
       shared.biasRNG.call(this, "next", 'flinch item chance', 0)
       @battle.performMove(@id1, @battle.getMove('Glare'))
-      @p2.hasAttachment(Attachment.Flinch).should.be.false
+      @p2.has(Attachment.Flinch).should.be.false
 
 testFlinchItem "King's Rock"
 testFlinchItem "Razor Fang"
@@ -1412,6 +1412,6 @@ describe "Light Clay", ->
     @battle.performMove(@id1, @battle.getMove('Reflect'))
 
     for i in [1..8]
-      @team1.hasAttachment(Attachment.Reflect).should.be.true
+      @team1.has(Attachment.Reflect).should.be.true
       @battle.endTurn()
-    @team1.hasAttachment(Attachment.Reflect).should.be.false
+    @team1.has(Attachment.Reflect).should.be.false

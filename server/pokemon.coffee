@@ -157,17 +157,11 @@ class @Pokemon
   hasStatus: ->
     return !!@status
 
-  hasAttachment: (name) ->
-    @attachments.contains(name)
-
   has: (attachment) ->
-    @hasAttachment(attachment)
-
-  getAttachment: (name) ->
-    @attachments.get(name)
+    @attachments.contains(attachment)
 
   get: (attachment) ->
-    @getAttachment(attachment)
+    @attachments.get(attachment)
 
   cureStatus: (status) ->
     if !status? || Status[@status] == status

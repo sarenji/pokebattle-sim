@@ -409,7 +409,7 @@ extendItem 'Mental Herb', ->
   @activate = (battle, owner) ->
     for effectName in [ 'Attract', 'Taunt', 'Encore', 'Torment', 'Disable' ]
       attachment = Attachment[effectName]
-      if owner.hasAttachment(attachment)
+      if owner.has(attachment)
         owner.unattach(attachment)
         return true
     return false
@@ -422,7 +422,7 @@ makeTypeBoostItem 'Metal Coat', 'Steel'
 
 extendItem 'Metronome', ->
   @basePowerModifier = (move, battle, user, target) ->
-    attachment = user.getAttachment(Attachment.Metronome)
+    attachment = user.get(Attachment.Metronome)
     layers = attachment?.layers || 0
     0x1000 + layers * 0x333
 

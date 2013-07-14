@@ -165,7 +165,7 @@ class @Move
 
   isCriticalHit: (battle, attacker, defender) ->
     owner = battle.getOwner(defender)
-    return false  if owner?.team.hasAttachment(Attachment.LuckyChant)
+    return false  if owner?.team.has(Attachment.LuckyChant)
     return false  if defender.ability?.preventsCriticalHits
 
     rand = battle.rng.next("ch")
@@ -189,7 +189,7 @@ class @Move
 
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
-    stage += 2  if attacker.hasAttachment(Attachment.FocusEnergy)
+    stage += 2  if attacker.has(Attachment.FocusEnergy)
     stage += attacker.item?.criticalModifier(battle, attacker) || 0
     stage
 

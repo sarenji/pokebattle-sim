@@ -33,10 +33,10 @@ class @Team
   first: ->
     @at(0)
 
-  hasAttachment: (attachment) ->
+  has: (attachment) ->
     @attachments.contains(attachment)
 
-  getAttachment: (attachmentName) ->
+  get: (attachmentName) ->
     @attachments.get(attachmentName)
 
   attach: (attachment, options={}) ->
