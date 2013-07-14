@@ -143,7 +143,7 @@ class @Attachment.Paralyze extends @BaseAttachment
       return false
 
   editSpeed: (stat) ->
-    Math.floor(stat / 4)
+    if @pokemon.hasAbility("Quick Feet") then stat else stat >> 2
 
 class @Attachment.Freeze extends @BaseAttachment
   name: "#{Status.FREEZE}Attachment"

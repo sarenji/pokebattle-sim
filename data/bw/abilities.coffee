@@ -424,3 +424,15 @@ makeAbility 'Prankster'
 makeAbility 'Pressure', ->
   this::switchIn = (battle) ->
     battle.message "#{@pokemon.name} is exerting its pressure!"
+
+# Speed drop negation hardcoded into Attachment.Paralyze
+makeAbility 'Quick Feet', ->
+  this::editSpeed = (speed) ->
+    if @pokemon.hasStatus() then Math.floor(1.5 * speed) else speed
+
+makeAbility 'Rain Dish', ->
+  this::endTurn = (battle) ->
+    return  unless battle.hasWeather(Weather.RAIN)
+    battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
+    amount = @pokemon.stat('hp') >> 4
+    @pokemon.damage(-amount)

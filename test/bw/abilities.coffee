@@ -966,3 +966,37 @@ describe "BW Abilities:", ->
       pp = @p2.pp(tackle)
       @battle.performMove(@id2, tackle)
       @p2.pp(tackle).should.equal(pp - 2)
+
+  describe "Quick Feet", ->
+    it "increases speed by x1.5 when statused", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Quick Feet")]
+      speed = @p1.stat('speed')
+      @p1.setStatus(Status.SLEEP)
+      @p1.stat('speed').should.equal Math.floor(1.5 * speed)
+
+    it "negates speed drop from paralysis", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Quick Feet")]
+      speed = @p1.stat('speed')
+      @p1.setStatus(Status.PARALYZE)
+      @p1.stat('speed').should.equal Math.floor(1.5 * speed)
+
+  describe "Rain Dish", ->
+    it "restores 1/16 HP at end of turn under Rain", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Rain Dish")]
+      @p1.currentHP = 1
+      @battle.setWeather(Weather.RAIN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 4))
+
+    it "does not restore HP at end of turn under non-Rain weather", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Rain Dish")]
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1)
+
+  describe "Regenerator", ->
+    it "restores 1/3 of the user's HP upon switch out"
