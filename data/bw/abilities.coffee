@@ -28,8 +28,6 @@ makeAbility 'Sniper'
 
 makeAbility 'Sticky Hold'
 
-makeAbility "Skill Link"
-
 # Ability templates
 
 makeWeatherPreventionAbility = (name) ->
@@ -531,6 +529,10 @@ makeAbility 'Shadow Tag', ->
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       opponent.blockSwitch()
+
+# Implementation hardcoded in Move#calculateNumberOfHits.
+# Tested in test/bw/moves.coffee.
+makeAbility "Skill Link"
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->

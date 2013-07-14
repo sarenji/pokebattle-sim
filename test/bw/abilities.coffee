@@ -1164,9 +1164,6 @@ describe "BW Abilities:", ->
   describe "Simple", ->
     it "doubles stat boosts, negative and positive"
 
-  describe "Skill Link", ->
-    it "maximizes multi-hit moves"
-
   describe "Slow Start", ->
     it "halves attack and speed"
     it "returns attack and speed to normal after five turns"
