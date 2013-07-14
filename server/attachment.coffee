@@ -7,6 +7,7 @@ class @Attachments
 
   push: (attachmentClass, options={}, attributes={}) ->
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
+    return null  if @queryUntilFalse('shouldAttach', attachmentClass) == false
     return null  if attachmentClass.preattach?(attributes) == false
     attachment = @get(attachmentClass)
     if !attachment?

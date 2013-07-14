@@ -131,6 +131,28 @@ makeHugePowerAbility = (name) ->
 makeHugePowerAbility("Huge Power")
 makeHugePowerAbility("Pure Power")
 
+makeAttachmentImmuneAbility = (name, immuneAttachments) ->
+  makeAbility name, ->
+    this::shouldAttach = (attachment) ->
+      # TODO: Message that you're immune
+      return attachment not in immuneAttachments
+
+    this::update = (battle) ->
+      for attachment in immuneAttachments
+        if @pokemon.unattach(attachment)
+          # TODO: end message
+          battle.message "#{@pokemon.name} no longer has #{attachment.name}."
+
+makeAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
+makeAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
+makeAttachmentImmuneAbility("Insomnia", [Status.Sleep])
+makeAttachmentImmuneAbility("Limber", [Status.Paralyze])
+makeAttachmentImmuneAbility("Magma Armor", [Status.Freeze])
+makeAttachmentImmuneAbility("Oblivious", [Attachment.Attract])
+makeAttachmentImmuneAbility("Own Tempo", [Attachment.Confusion])
+makeAttachmentImmuneAbility("Vital Spirit", [Status.Sleep])
+makeAttachmentImmuneAbility("Water Veil", [Status.Burn])
+
 makeRedirectAndBoostAbility = (name, type) ->
   makeAbility name, ->
     this::shouldBlockExecution = (battle, move) ->

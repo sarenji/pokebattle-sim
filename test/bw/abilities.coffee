@@ -722,16 +722,29 @@ describe "BW Abilities:", ->
     it "does not transform if target is behind a substitute"
     it "does not transform if target is behind an illusion"
 
-  testAttachmentImmuneAbility = (name, statuses) ->
+  testAttachmentImmuneAbility = (name, attachments) ->
     describe name, ->
-      it "prevents the pokemon from receiving a specific attachment"
-      it "removes the attachment if the pokemon already has it"
+      it "prevents the pokemon from receiving a specific attachment", ->
+        shared.create.call this, team1: [Factory("Magikarp", ability: name)]
+        for attachment in attachments
+          should.not.exist @p1.attach(attachment)
+          @p1.has(attachment).should.be.false
+
+      it "removes the attachment if the pokemon already has it", ->
+        shared.create.call this, team1: [Factory("Magikarp")]
+        for attachment in attachments
+          @p1.attach(attachment)
+          @p1.has(attachment).should.be.true
+          @p1.copyAbility(@battle, Ability[name.replace(/\s+/g, '')])
+          @p1.update(@battle)
+          @p1.has(attachment).should.be.false
+          @p1.copyAbility(@battle, null)
 
   testAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
   testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
   testAttachmentImmuneAbility("Insomnia", [Status.Sleep])
   testAttachmentImmuneAbility("Limber", [Status.Paralyze])
-  testAttachmentImmuneAbility("Magma Armor", [Status.FREEZE])
+  testAttachmentImmuneAbility("Magma Armor", [Status.Freeze])
   testAttachmentImmuneAbility("Oblivious", [Attachment.Attract])
   testAttachmentImmuneAbility("Own Tempo", [Attachment.Confusion])
   testAttachmentImmuneAbility("Vital Spirit", [Status.Sleep])
