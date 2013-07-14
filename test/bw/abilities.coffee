@@ -762,8 +762,16 @@ describe "BW Abilities:", ->
 
   testContactHurtAbility = (name) ->
     describe name, ->
-      it "damages for 1/8 HP on contact moves"
-      it "does not damage for non-contact moves"
+      it "damages for 1/8 HP on contact moves", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        hp = @p2.stat('hp')
+        @battle.performMove(@id2, @battle.getMove("Tackle"))
+        (hp - @p2.currentHP).should.equal(hp >> 3)
+
+      it "does not damage for non-contact moves", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+        @p2.currentHP.should.equal @p2.stat('hp')
 
   testContactHurtAbility("Iron Barbs")
   testContactHurtAbility("Rough Skin")

@@ -153,6 +153,17 @@ makeAttachmentImmuneAbility("Own Tempo", [Attachment.Confusion])
 makeAttachmentImmuneAbility("Vital Spirit", [Status.Sleep])
 makeAttachmentImmuneAbility("Water Veil", [Status.Burn])
 
+makeContactHurtAbility = (name) ->
+  makeAbility name, ->
+    this::afterBeingHit = (battle, move, user, target, damage) ->
+      return  unless move.hasFlag('contact')
+      battle.message "#{user.name} was hurt!"
+      amount = user.stat('hp') >> 3
+      user.damage(amount)
+
+makeContactHurtAbility("Iron Barbs")
+makeContactHurtAbility("Rough Skin")
+
 makeRedirectAndBoostAbility = (name, type) ->
   makeAbility name, ->
     this::shouldBlockExecution = (battle, move) ->
