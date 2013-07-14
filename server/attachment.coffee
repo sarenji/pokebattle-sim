@@ -1,4 +1,3 @@
-{Status, VolatileStatus} = require './status'
 util = require './util'
 {_} = require 'underscore'
 
@@ -8,6 +7,7 @@ class @Attachments
 
   push: (attachmentClass, options={}, attributes={}) ->
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
+    return null  if attachmentClass.preattach?(attributes) == false
     attachment = @get(attachmentClass)
     if !attachment?
       attachment = new attachmentClass()
@@ -124,6 +124,9 @@ class @BaseAttachment
   # editDefense: (stat) -> stat
   # editSpecialDefense: (stat) -> stat
 
+# Circular dependency on BaseAttachment in status.coffee
+{Status} = require './status'
+
 @Attachment = Attachment = {}
 
 # Used for effects like Tailwind or Reflect.
@@ -134,84 +137,6 @@ class @TeamAttachment extends @BaseAttachment
 class @BattleAttachment extends @BaseAttachment
   name: "BattleAttachment"
 
-class @Attachment.Paralyze extends @BaseAttachment
-  name: "#{Status.PARALYZE}Attachment"
-
-  beforeMove: (battle, move, user, targets) ->
-    if battle.rng.next('paralyze chance') < .25
-      battle.message "#{@pokemon.name} is fully paralyzed!"
-      return false
-
-  editSpeed: (stat) ->
-    if @pokemon.hasAbility("Quick Feet") then stat else stat >> 2
-
-class @Attachment.Freeze extends @BaseAttachment
-  name: "#{Status.FREEZE}Attachment"
-
-  beforeMove: (battle, move, user, targets) ->
-    if move.thawsUser || battle.rng.next('unfreeze chance') < .2
-      battle.message "#{@pokemon.name} thawed out!"
-      @pokemon.cureStatus()
-    else
-      battle.message "#{@pokemon.name} is frozen solid!"
-      return false
-
-  afterBeingHit: (battle, move, user, target, damage) ->
-    if !move.isNonDamaging() && move.type == 'Fire'
-      battle.message "#{@pokemon.name} thawed out!"
-      @pokemon.cureStatus()
-
-class @Attachment.Poison extends @BaseAttachment
-  name: "#{Status.POISON}Attachment"
-
-  endTurn: (battle) ->
-    return  if @pokemon.hasAbility("Poison Heal")
-    battle.message "#{@pokemon.name} was hurt by poison!"
-    @pokemon.damage(@pokemon.stat('hp') >> 3)
-
-class @Attachment.Toxic extends @BaseAttachment
-  name: "#{Status.TOXIC}Attachment"
-
-  initialize: ->
-    @counter = 0
-
-  switchOut: ->
-    @counter = 0
-
-  endTurn: (battle) ->
-    return  if @pokemon.hasAbility("Poison Heal")
-    battle.message "#{@pokemon.name} was hurt by poison!"
-    @counter = Math.min(@counter + 1, 15)
-    @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
-
-class @Attachment.Sleep extends @BaseAttachment
-  name: "#{Status.SLEEP}Attachment"
-
-  initialize: ->
-    @counter = 0
-
-  switchOut: ->
-    @counter = 0
-
-  beforeMove: (battle, move, user, targets) ->
-    if !@turns
-      @turns = battle.rng.randInt(1, 3, "sleep turns")
-      @turns >>= 1  if @pokemon.hasAbility("Early Bird")
-    if @counter == @turns
-      battle.message "#{@pokemon.name} woke up!"
-      @pokemon.cureStatus()
-    else
-      battle.message "#{@pokemon.name} is fast asleep."
-      @counter += 1
-      return false
-
-class @Attachment.Burn extends @BaseAttachment
-  name: "#{Status.BURN}Attachment"
-
-  endTurn: (battle) ->
-    battle.message "#{@pokemon.name} was hurt by its burn!"
-    @pokemon.damage(@pokemon.stat('hp') >> 3)
-
 # An attachment that removes itself when a pokemon
 # deactivates.
 class @VolatileAttachment extends @BaseAttachment
@@ -219,7 +144,7 @@ class @VolatileAttachment extends @BaseAttachment
   volatile: true
 
 class @Attachment.Flinch extends @VolatileAttachment
-  name: VolatileStatus.FLINCH
+  name: "FlinchAttachment"
 
   beforeMove: (battle, move, user, targets) ->
     battle.message "#{@pokemon.name} flinched!"
@@ -229,7 +154,7 @@ class @Attachment.Flinch extends @VolatileAttachment
     @pokemon.unattach(@constructor)
 
 class @Attachment.Confusion extends @VolatileAttachment
-  name: VolatileStatus.CONFUSION
+  name: "ConfusionAttachment"
   passable: true
 
   initialize: (attributes) ->
@@ -278,7 +203,7 @@ class @Attachment.Yawn extends @VolatileAttachment
   endTurn: ->
     @turn += 1
     if @turn == 2
-      @pokemon.setStatus(Status.SLEEP)
+      @pokemon.attach(Status.Sleep)
       @pokemon.unattach(@constructor)
 
 # TODO: Does weight get lowered if speed does not change?
@@ -294,7 +219,7 @@ class @Attachment.Nightmare extends @VolatileAttachment
   name: "NightmareAttachment"
 
   endTurn: (battle) ->
-    if @pokemon.hasStatus(Status.SLEEP)
+    if @pokemon.has(Status.Sleep)
       battle.message "#{@pokemon.name} is locked in a nightmare!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
     else
@@ -464,9 +389,9 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
     return  if pokemon.isImmune(battle, "Poison")
 
     if @layers == 1
-      pokemon.setStatus(Status.POISON)
+      pokemon.attach(Status.Poison)
     else
-      pokemon.setStatus(Status.TOXIC)
+      pokemon.attach(Status.Toxic)
 
 # A trap created by Fire Spin, Magma Storm, Bind, Clamp, etc
 class @Attachment.Trap extends @VolatileAttachment

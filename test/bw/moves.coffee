@@ -229,7 +229,7 @@ describe 'facade', ->
       team1: [Factory('Zangoose')]
       team2: [Factory('Magikarp')]
     hp = @p2.currentHP
-    @p1.setStatus(Status.PARALYZE)
+    @p1.attach(Status.Paralyze)
     move = @battle.getMove('Facade')
     basePower = move.basePower(@battle, @p1, @p2)
     basePower.should.equal(2 * move.power)
@@ -458,7 +458,7 @@ describe 'yawn', ->
     @controller.makeMove(@player1, 'Yawn')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasStatus(Status.SLEEP).should.be.true
+    @p2.has(Status.Sleep).should.be.true
     @battle.turn.should.equal 3
 
   it 'does not put the opponent to sleep at the end of the first turn', ->
@@ -468,13 +468,13 @@ describe 'yawn', ->
     @controller.makeMove(@player1, 'Yawn')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasStatus(Status.SLEEP).should.be.false
+    @p2.has(Status.Sleep).should.be.false
     @battle.turn.should.equal 2
 
   it "fails if the target already is statused", ->
     shared.create.call(this)
     yawn = @battle.getMove('Yawn')
-    @p2.setStatus(Status.PARALYZE)
+    @p2.attach(Status.Paralyze)
 
     mock = @sandbox.mock(yawn).expects('fail').once()
     @battle.performMove(@id1, yawn)
@@ -989,7 +989,7 @@ describe 'hex', ->
   it 'doubles the base power if target is burned, poisoned, or paralyzed', ->
     shared.create.call(this)
     move = @battle.getMove('Hex')
-    @p2.setStatus(Status.PARALYZE)
+    @p2.attach(Status.Paralyze)
     move.basePower(@battle, @p1, @p2).should.equal 100
 
 describe 'heavy slam and heat crash', ->
@@ -1004,7 +1004,7 @@ describe 'a status cure move', ->
     shared.create.call this,
       team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
     shared.biasRNG.call(this, 'next', 'paralyze chance', 1)  # never pars
-    @team1.pokemon.forEach((pokemon) -> pokemon.setStatus(Status.PARALYZE))
+    @team1.pokemon.forEach((pokemon) -> pokemon.attach(Status.Paralyze))
     @battle.performMove(@id1, @battle.getMove('Aromatherapy'))
 
     _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
@@ -1138,7 +1138,7 @@ describe 'a flinching move', ->
     @controller.makeMove(@player1, 'Fake Out')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasAttachment(VolatileStatus.FLINCH).should.be.false
+    @p2.has(Attachment.Flinch).should.be.false
 
 describe 'weather ball', ->
   it "is a 50 base power normal move in normal conditions", ->
@@ -1242,7 +1242,7 @@ describe 'nightmare', ->
     shared.create.call(this)
     shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
     nightmare = @battle.getMove('Nightmare')
-    @p2.setStatus(Status.SLEEP)
+    @p2.attach(Status.Sleep)
 
     mock = @sandbox.mock(nightmare).expects('fail').once()
     @battle.performMove(@id1, nightmare)
@@ -1252,7 +1252,7 @@ describe 'nightmare', ->
   it "cuts the target's HP by 25% each turn", ->
     shared.create.call(this)
     shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
-    @p2.setStatus(Status.SLEEP)
+    @p2.attach(Status.Sleep)
 
     hp = @p2.currentHP
     quarter = Math.floor(hp / 4)
@@ -1270,7 +1270,7 @@ describe 'nightmare', ->
   it "stops the nightmare if the target wakes up", ->
     shared.create.call(this)
     shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
-    @p2.setStatus(Status.SLEEP)
+    @p2.attach(Status.Sleep)
 
     @controller.makeMove(@player1, 'nightmare')
     @controller.makeMove(@player2, 'splash')
@@ -1364,14 +1364,14 @@ describe 'venoshock', ->
   it 'doubles the base power if target is poisoned', ->
     shared.create.call(this)
     move = @battle.getMove("Venoshock")
-    @p2.setStatus(Status.POISON)
+    @p2.attach(Status.Poison)
     basePower = move.basePower(@battle, @p1, @p2)
     basePower.should.equal(2 * move.power)
 
   it 'doubles the base power if target is toxiced', ->
     shared.create.call(this)
     move = @battle.getMove("Venoshock")
-    @p2.setStatus(Status.TOXIC)
+    @p2.attach(Status.Toxic)
     basePower = move.basePower(@battle, @p1, @p2)
     basePower.should.equal(2 * move.power)
 
@@ -1922,12 +1922,12 @@ describe "Toxic Spikes", ->
     @controller.makeSwitch(@player2, 1)
     @controller.makeMove(@player1, "Toxic Spikes")
 
-    @team2.first().hasStatus(Status.POISON).should.be.true
+    @team2.first().has(Status.Poison).should.be.true
 
     @controller.makeSwitch(@player2, 1)
     @controller.makeMove(@player1, "Splash")
 
-    @team2.first().hasStatus(Status.TOXIC).should.be.true
+    @team2.first().has(Status.Toxic).should.be.true
 
   it "does not affect the pokemon if it's immune", ->
     shared.create.call this,
@@ -1939,7 +1939,7 @@ describe "Toxic Spikes", ->
     @controller.makeSwitch(@player2, 1)
     @controller.makeMove(@player1, "Splash")
 
-    @team2.first().hasStatus(Status.POISON).should.be.false
+    @team2.first().has(Status.Poison).should.be.false
 
   it "disappears if the pokemon switching in is a grounded Poison", ->
     shared.create.call this,
@@ -1999,36 +1999,36 @@ testStatusMove = (moveName, status) ->
       move = @battle.getMove(moveName)
       @battle.performMove(@id1, move)
 
-      @p2.hasStatus(status).should.be.true
+      @p2.has(status).should.be.true
 
     it "does not change the status if Pokemon already has a status", ->
       shared.create.call(this)
 
-      oldStatus = if status == Status.PARALYZE
-          Status.SLEEP
+      oldStatus = if status == Status.Paralyze
+          Status.Sleep
         else
-          Status.PARALYZE
-      @p2.setStatus(oldStatus)
+          Status.Paralyze
+      @p2.attach(oldStatus)
 
       move = @battle.getMove(moveName)
       @battle.performMove(@id1, move)
 
-      @p2.hasStatus(status).should.be.false
+      @p2.has(status).should.be.false
       @p2.hasStatus(oldStatus).should.be.true
 
-testStatusMove("Dark Void", Status.SLEEP)
-testStatusMove("GrassWhistle", Status.SLEEP)
-testStatusMove("Hypnosis", Status.SLEEP)
-testStatusMove("Lovely Kiss", Status.SLEEP)
-testStatusMove("Poison Gas", Status.POISON)
-testStatusMove("PoisonPowder", Status.POISON)
-testStatusMove("Sing", Status.SLEEP)
-testStatusMove("Sleep Powder", Status.SLEEP)
-testStatusMove("Spore", Status.SLEEP)
-testStatusMove("Stun Spore", Status.PARALYZE)
-testStatusMove("Thunder Wave", Status.PARALYZE)
-testStatusMove("Toxic", Status.TOXIC)
-testStatusMove("Will-O-Wisp", Status.BURN)
+testStatusMove("Dark Void", Status.Sleep)
+testStatusMove("GrassWhistle", Status.Sleep)
+testStatusMove("Hypnosis", Status.Sleep)
+testStatusMove("Lovely Kiss", Status.Sleep)
+testStatusMove("Poison Gas", Status.Poison)
+testStatusMove("PoisonPowder", Status.Poison)
+testStatusMove("Sing", Status.Sleep)
+testStatusMove("Sleep Powder", Status.Sleep)
+testStatusMove("Spore", Status.Sleep)
+testStatusMove("Stun Spore", Status.Paralyze)
+testStatusMove("Thunder Wave", Status.Paralyze)
+testStatusMove("Toxic", Status.Toxic)
+testStatusMove("Will-O-Wisp", Status.Burn)
 
 testEffectMove = (moveName, Effect) ->
   describe moveName, ->
@@ -2987,7 +2987,7 @@ describe "Dream Eater", ->
     move = @battle.getMove("Dream Eater")
     mock = @sandbox.mock(move).expects('fail').never()
 
-    @p2.setStatus(Status.SLEEP)
+    @p2.attach(Status.Sleep)
     @battle.performMove(@id1, move)
 
     mock.verify()
@@ -2996,7 +2996,7 @@ describe "Dream Eater", ->
     shared.create.call(this)
     @p1.currentHP = initialHP = 1
 
-    @p2.setStatus(Status.SLEEP)
+    @p2.attach(Status.Sleep)
     @battle.performMove(@id1, @battle.getMove("Dream Eater"))
 
     damage = @p2.stat('hp') - @p2.currentHP
@@ -3065,21 +3065,21 @@ describe "Tri Attack", ->
     shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
     shared.biasRNG.call(this, "randInt", 'tri attack effect', 0)  # par
     @battle.performMove(@id1, @battle.getMove("Tri Attack"))
-    @p2.hasStatus(Status.PARALYZE).should.be.true
+    @p2.has(Status.Paralyze).should.be.true
 
   it "has a 1/3 chance for the secondary effect to be burn", ->
     shared.create.call(this)
     shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
     shared.biasRNG.call(this, "randInt", 'tri attack effect', 1)  # brn
     @battle.performMove(@id1, @battle.getMove("Tri Attack"))
-    @p2.hasStatus(Status.BURN).should.be.true
+    @p2.has(Status.Burn).should.be.true
 
   it "has a 1/3 chance for the secondary effect to be freeze", ->
     shared.create.call(this)
     shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
     shared.biasRNG.call(this, "randInt", 'tri attack effect', 2)  # frz
     @battle.performMove(@id1, @battle.getMove("Tri Attack"))
-    @p2.hasStatus(Status.FREEZE).should.be.true
+    @p2.has(Status.Freeze).should.be.true
 
 describe "Mirror Move", ->
   it "copies the opponent's last move", ->
@@ -4092,30 +4092,30 @@ describe 'Captivate', ->
 
 testStatusCureAttackMove = (moveName, status) ->
   describe moveName, ->
-    it "doubles base power if the target has status #{status}", ->
+    it "doubles base power if the target has #{status.name}", ->
       shared.create.call(this)
       move = @battle.getMove(moveName)
 
-      @p2.setStatus(status)
+      @p2.attach(status)
       move.basePower(@battle, @p1, @p2).should.equal(2 * move.power)
 
-    it "doesn't double if the target doesn't have status #{status}", ->
+    it "doesn't double if the target doesn't have #{status.name}", ->
       shared.create.call(this)
       move = @battle.getMove(moveName)
 
       move.basePower(@battle, @p1, @p2).should.equal(move.power)
 
-    it "cures the target of status #{status}", ->
+    it "cures the target of #{status.name}", ->
       shared.create.call(this)
       move = @battle.getMove(moveName)
 
-      @p2.setStatus(status)
-      @p2.hasStatus(status).should.be.true
+      @p2.attach(status)
+      @p2.has(status).should.be.true
       @battle.performMove(@id1, move)
       @p2.hasStatus().should.be.false
 
-testStatusCureAttackMove("Wake-Up Slap", Status.SLEEP)
-testStatusCureAttackMove("Smellingsalt", Status.PARALYZE)
+testStatusCureAttackMove("Wake-Up Slap", Status.Sleep)
+testStatusCureAttackMove("Smellingsalt", Status.Paralyze)
 
 describe 'Aqua Ring', ->
   it "restores 1/16 max HP at the end of each turn", ->
@@ -4583,7 +4583,7 @@ describe "Lunar Dance", ->
       team1: [ Factory("Magikarp"), Factory("Magikarp") ]
     lunarDance = @battle.getMove("Lunar Dance")
     benched = @team1.at(1)
-    benched.setStatus(Status.BURN)
+    benched.attach(Status.Burn)
     benched.currentHP = 1
     benched.setPP(benched.moves[0], 1)
 
@@ -4619,7 +4619,7 @@ describe "Healing Wish", ->
       team1: [ Factory("Magikarp"), Factory("Magikarp") ]
     healingWish = @battle.getMove("Healing Wish")
     benched = @team1.at(1)
-    benched.setStatus(Status.BURN)
+    benched.attach(Status.Burn)
     benched.currentHP = 1
     benched.setPP(benched.moves[0], 1)
 
@@ -5421,7 +5421,7 @@ describe "Fling", ->
     fling = @battle.getMove("Fling")
     @battle.recordMove(@id1, fling)
     @battle.continueTurn()
-    @p2.hasStatus(Status.BURN).should.be.true
+    @p2.has(Status.Burn).should.be.true
 
   it "inflicts Toxic on the target if Toxic Orb is held", ->
     shared.create.call this,
@@ -5429,7 +5429,7 @@ describe "Fling", ->
     fling = @battle.getMove("Fling")
     @battle.recordMove(@id1, fling)
     @battle.continueTurn()
-    @p2.hasStatus(Status.TOXIC).should.be.true
+    @p2.has(Status.Toxic).should.be.true
 
   it "flinches the target if King's Rock is held", ->
     shared.create.call this,
@@ -5453,7 +5453,7 @@ describe "Fling", ->
     fling = @battle.getMove("Fling")
     @battle.recordMove(@id1, fling)
     @battle.continueTurn()
-    @p2.hasStatus(Status.PARALYZE).should.be.true
+    @p2.has(Status.Paralyze).should.be.true
 
   it "removes negative status effects if Mental Herb is held", ->
     shared.create.call this,
@@ -5479,7 +5479,7 @@ describe "Fling", ->
     fling = @battle.getMove("Fling")
     @battle.recordMove(@id1, fling)
     @battle.continueTurn()
-    @p2.hasStatus(Status.POISON).should.be.true
+    @p2.has(Status.Poison).should.be.true
 
   it "causes target to eat the flung berry if a berry is held", ->
     shared.create.call this,
@@ -5531,7 +5531,7 @@ describe "Beat Up", ->
   it "deals 1 less hit for each unhealthy member in the user's party", ->
     shared.create.call this,
       team1: (Factory("Magikarp")  for i in [0...6])
-    @team1.at(5).setStatus(Status.PARALYZE)
+    @team1.at(5).attach(Status.Paralyze)
     @team1.at(1).faint()
     beatUp = @battle.getMove("Beat Up")
     mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
@@ -5567,8 +5567,8 @@ describe "Psycho Shift", ->
 
   it "fails if the target already has a status", ->
     shared.create.call(this)
-    @p1.setStatus(Status.TOXIC)
-    @p2.setStatus(Status.PARALYZE)
+    @p1.attach(Status.Toxic)
+    @p2.attach(Status.Paralyze)
     psychoShift = @battle.getMove("Psycho Shift")
     mock = @sandbox.mock(psychoShift).expects('fail').once()
     @battle.performMove(@id1, psychoShift)
@@ -5576,17 +5576,17 @@ describe "Psycho Shift", ->
 
   it "cures the user of its status", ->
     shared.create.call(this)
-    @p1.setStatus(Status.POISON)
+    @p1.attach(Status.Poison)
     psychoShift = @battle.getMove("Psycho Shift")
     @battle.performMove(@id1, psychoShift)
     @p1.hasStatus().should.be.false
 
   it "gives the user's former status to the target", ->
     shared.create.call(this)
-    @p1.setStatus(Status.BURN)
+    @p1.attach(Status.Burn)
     psychoShift = @battle.getMove("Psycho Shift")
     @battle.performMove(@id1, psychoShift)
-    @p2.hasStatus(Status.BURN).should.be.true
+    @p2.has(Status.Burn).should.be.true
 
 describe "Gravity", ->
   shared.shouldDoNoDamage("Gravity")

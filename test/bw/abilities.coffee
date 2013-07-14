@@ -154,7 +154,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Bad Dreams")]
         team2: [Factory("Celebi")]
       (@p2.stat('hp') - @p2.currentHP).should.equal(0)
-      @p2.setStatus(Status.SLEEP)
+      @p2.attach(Status.Sleep)
       @battle.endTurn()
       (@p2.stat('hp') - @p2.currentHP).should.equal(@p2.stat('hp') >> 3)
 
@@ -403,9 +403,9 @@ describe "BW Abilities:", ->
     it "halves sleep turns", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Early Bird")])
       shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
-      @p1.setStatus(Status.SLEEP)
+      @p1.attach(Status.Sleep)
       @battle.performMove(@id1, @battle.getMove('Tackle'))
-      @p1.hasStatus(Status.SLEEP).should.be.false
+      @p1.hasStatus(Status.Sleep).should.be.false
 
   describe "Effect Spore", ->
     it "has a 30% chance to inflict poison, paralysis, or sleep on hit", ->
@@ -414,19 +414,19 @@ describe "BW Abilities:", ->
       # Sleep
       shared.biasRNG.call(this, "randInt", 'effect spore', 1)
       @battle.performMove(@id2, @battle.getMove('Tackle'))
-      @p2.hasStatus(Status.SLEEP).should.be.true
+      @p2.has(Status.Sleep).should.be.true
 
       # Paralysis
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 2)
       @battle.performMove(@id2, @battle.getMove('Tackle'))
-      @p2.hasStatus(Status.PARALYZE).should.be.true
+      @p2.has(Status.Paralyze).should.be.true
 
       # Poison
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 3)
       @battle.performMove(@id2, @battle.getMove('Tackle'))
-      @p2.hasStatus(Status.POISON).should.be.true
+      @p2.has(Status.Poison).should.be.true
 
     it "has a 70% chance to do nothing", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
@@ -438,7 +438,7 @@ describe "BW Abilities:", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
       shared.biasRNG.call(this, "randInt", 'effect spore', 1)
       @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
-      @p2.hasStatus(Status.SLEEP).should.be.false
+      @p2.has(Status.Sleep).should.be.false
 
   testFilterAbility = (name) ->
     describe name, ->
@@ -457,44 +457,42 @@ describe "BW Abilities:", ->
   testFilterAbility("Filter")
   testFilterAbility("Solid Rock")
 
-  testContactStatusAbility = (name, statusOrAttachment) ->
-    isStatus = (statusOrAttachment in Object.values(Status))
-    funcName = (if isStatus then "hasStatus" else "has")
-    effectName = (if isStatus then statusOrAttachment else statusOrAttachment.name)
+  testContactStatusAbility = (name, attachment) ->
     describe name, ->
-      it "has a 30% chance to inflict #{effectName} on the attacker", ->
+      it "has a 30% chance to inflict #{attachment.name} on the attacker", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', 0)
         @battle.performMove(@id2, @battle.getMove('Tackle'))
-        @p2[funcName](statusOrAttachment).should.be.true
+        @p2.has(attachment).should.be.true
 
       it "inflicts no status if the move used is a non-contact move", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', 0)
         @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
-        @p2[funcName](statusOrAttachment).should.be.false
+        @p2.has(attachment).should.be.false
 
       it "has a 70% chance to do nothing", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', .3)
         @battle.performMove(@id2, @battle.getMove('Tackle'))
-        @p2[funcName](statusOrAttachment).should.be.false
+        @p2.has(attachment).should.be.false
 
   testContactStatusAbility("Cute Charm", Attachment.Attract)
-  testContactStatusAbility("Flame Body", Status.BURN)
-  testContactStatusAbility("Poison Point", Status.POISON)
-  testContactStatusAbility("Static", Status.PARALYZE)
+  testContactStatusAbility("Flame Body", Status.Burn)
+  testContactStatusAbility("Poison Point", Status.Poison)
+  testContactStatusAbility("Static", Status.Paralyze)
 
   testStatusBoostAbility = (name, statuses, spectra) ->
+    statusNames = statuses.map((s) -> s.name).join(', ')
     describe name, ->
-      it "increases #{spectra} moves by 1.5 if has #{statuses.join(', ')}", ->
+      it "increases #{spectra} moves by 1.5 if has #{statusNames}", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         move = @battle.getMoveList().find (m) ->
           !m.isNonDamaging() && m.spectra == spectra
 
         for status in statuses
           @p1.cureStatus()
-          @p1.setStatus(status)
+          @p1.attach(status)
           move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
 
       it "does not increase non-#{spectra} moves", ->
@@ -504,11 +502,11 @@ describe "BW Abilities:", ->
 
         for status in statuses
           @p1.cureStatus()
-          @p1.setStatus(status)
+          @p1.attach(status)
           move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
-  testStatusBoostAbility("Flare Boost", [Status.BURN], "special")
-  testStatusBoostAbility("Toxic Boost", [Status.POISON, Status.TOXIC], "physical")
+  testStatusBoostAbility("Flare Boost", [Status.Burn], "special")
+  testStatusBoostAbility("Toxic Boost", [Status.Poison, Status.Toxic], "physical")
 
   describe "Flash Fire", ->
     it "makes user invulnerable to Fire-type moves", ->
@@ -602,13 +600,13 @@ describe "BW Abilities:", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Guts")])
       tackle = @battle.getMove("Tackle")
       tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
-      @p1.setStatus(Status.BURN)
+      @p1.attach(Status.Burn)
       tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1800)
 
     it "does not multiply attack if move is special", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Guts")])
       thunderbolt = @battle.getMove("Thunderbolt")
-      @p1.setStatus(Status.BURN)
+      @p1.attach(Status.Burn)
       thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Harvest", ->
@@ -635,8 +633,8 @@ describe "BW Abilities:", ->
 
     it "receives half damage from burn", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Heatproof")])
-      @p1.setStatus(Status.BURN)
-      burn = @p1.get(Attachment.Burn)
+      @p1.attach(Status.Burn)
+      burn = @p1.get(Status.Burn)
       mock = @sandbox.mock(burn).expects('endTurn').returns(@p1.currentHP >> 4)
       @battle.endTurn()
       mock.verify()
@@ -677,14 +675,14 @@ describe "BW Abilities:", ->
   describe "Hydration", ->
     it "restores status, in Rain, at the end of the turn", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Hydration")])
-      @p1.setStatus(Status.SLEEP)
+      @p1.attach(Status.Sleep)
       @battle.setWeather(Weather.RAIN)
       @battle.endTurn()
       @p1.hasStatus().should.be.false
 
     it "does not restore status if the weather is not rainy", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Hydration")])
-      @p1.setStatus(Status.SLEEP)
+      @p1.attach(Status.Sleep)
       @battle.endTurn()
       @p1.hasStatus().should.be.true
 
@@ -707,15 +705,15 @@ describe "BW Abilities:", ->
       it "prevents the pokemon from receiving a specific attachment"
       it "removes the attachment if the pokemon already has it"
 
-  testAttachmentImmuneAbility("Immunity", [Status.POISON, Status.TOXIC])
+  testAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
   testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
-  testAttachmentImmuneAbility("Insomnia", [Status.SLEEP])
-  testAttachmentImmuneAbility("Limber", [Status.PARALYZE])
+  testAttachmentImmuneAbility("Insomnia", [Status.Sleep])
+  testAttachmentImmuneAbility("Limber", [Status.Paralyze])
   testAttachmentImmuneAbility("Magma Armor", [Status.FREEZE])
   testAttachmentImmuneAbility("Oblivious", [Attachment.Attract])
   testAttachmentImmuneAbility("Own Tempo", [Attachment.Confusion])
-  testAttachmentImmuneAbility("Vital Spirit", [Status.SLEEP])
-  testAttachmentImmuneAbility("Water Veil", [Status.BURN])
+  testAttachmentImmuneAbility("Vital Spirit", [Status.Sleep])
+  testAttachmentImmuneAbility("Water Veil", [Status.Burn])
 
   describe "Intimidate", ->
     it "lowers the attack of all foe pokemon"
@@ -935,7 +933,7 @@ describe "BW Abilities:", ->
     it "cures status upon switch out", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Natural Cure")]
-      @p1.setStatus(Status.BURN)
+      @p1.attach(Status.Burn)
       @p1.switchOut(@battle)
       @p1.hasStatus().should.be.false
 
@@ -959,18 +957,18 @@ describe "BW Abilities:", ->
     it "prevents normal poison damage", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Poison Heal")]
-      @p1.setStatus(Status.POISON)
+      @p1.attach(Status.Poison)
       @battle.endTurn()
       @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
       @p1.cureStatus()
-      @p1.setStatus(Status.TOXIC)
+      @p1.attach(Status.Toxic)
       @battle.endTurn()
       @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
 
     it "heals 1/8 HP end of turn while poisoned", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Poison Heal")]
-      @p1.setStatus(Status.POISON)
+      @p1.attach(Status.Poison)
       @p1.currentHP = 1
       @battle.endTurn()
       @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 3))
@@ -978,7 +976,7 @@ describe "BW Abilities:", ->
     it "heals 1/8 HP end of turn while toxiced", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Poison Heal")]
-      @p1.setStatus(Status.TOXIC)
+      @p1.attach(Status.Toxic)
       @p1.currentHP = 1
       @battle.endTurn()
       @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 3))
@@ -1010,14 +1008,14 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Quick Feet")]
       speed = @p1.stat('speed')
-      @p1.setStatus(Status.SLEEP)
+      @p1.attach(Status.Sleep)
       @p1.stat('speed').should.equal Math.floor(1.5 * speed)
 
     it "negates speed drop from paralysis", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Quick Feet")]
       speed = @p1.stat('speed')
-      @p1.setStatus(Status.PARALYZE)
+      @p1.attach(Status.Paralyze)
       @p1.stat('speed').should.equal Math.floor(1.5 * speed)
 
   describe "Rain Dish", ->

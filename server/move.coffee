@@ -155,7 +155,7 @@ class @Move
     util.typeEffectiveness(type, target.types)
 
   burnCalculation: (user) ->
-    if @isPhysical() && !user.hasAbility("Guts") && user.hasStatus(Status.BURN)
+    if @isPhysical() && !user.hasAbility("Guts") && user.has(Status.Burn)
       .5
     else
       1

@@ -1,6 +1,7 @@
 {_} = require 'underscore'
 {Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
 {Moves} = require('../data/bw')
+should = require 'should'
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
@@ -205,65 +206,54 @@ describe 'Pokemon', ->
       pokemon = new Pokemon()
       pokemon.isItemBlocked().should.be.true
 
-  describe "#setStatus", ->
-    it "returns true on success", ->
+  describe "attaching statuses", ->
+    it "returns null if attaching too many statuses", ->
       pokemon = new Pokemon()
-      pokemon.setStatus(Status.FREEZE).should.be.true
+      pokemon.attach(Status.Freeze)
+      should.not.exist pokemon.attach(Status.Paralyze)
 
     it "sets the status of the pokemon", ->
       for name, status of Status
         pokemon = new Pokemon()
-        pokemon.setStatus(status)
-        pokemon.hasStatus(status).should.be.true
+        pokemon.attach(status)
+        pokemon.status.should.equal(status.name)
 
     it "sets the corresponding attachment on the pokemon", ->
       for name, status of Status
         pokemon = new Pokemon()
-        pokemon.setStatus(status)
-        pokemon.has(Attachment[status]).should.be.true
-
-    it "returns false if the pokemon is already statused", ->
-      pokemon = new Pokemon()
-      pokemon.setStatus(Status.FREEZE).should.be.true
-      pokemon.setStatus(Status.PARALYZE).should.be.false
+        pokemon.attach(status)
+        pokemon.has(status).should.be.true
 
     it "doesn't poison Poison types", ->
       pokemon = new Pokemon(types: ["Poison"])
-      pokemon.setStatus(Status.POISON).should.be.false
-      pokemon.setStatus(Status.TOXIC).should.be.false
-      pokemon.hasStatus(Status.POISON).should.be.false
-      pokemon.hasStatus(Status.TOXIC).should.be.false
+      pokemon.attach(Status.Poison)
+      pokemon.attach(Status.Toxic)
+      pokemon.has(Status.Poison).should.be.false
+      pokemon.has(Status.Toxic).should.be.false
 
     it "doesn't burn Fire types", ->
       pokemon = new Pokemon(types: ["Fire"])
-      pokemon.setStatus(Status.BURN).should.be.false
-      pokemon.hasStatus(Status.BURN).should.be.false
+      pokemon.attach(Status.Burn)
+      pokemon.has(Status.Burn).should.be.false
 
     it "doesn't freeze Ice types", ->
       pokemon = new Pokemon(types: ["Ice"])
-      pokemon.setStatus(Status.FREEZE).should.be.false
-      pokemon.hasStatus(Status.FREEZE).should.be.false
+      pokemon.attach(Status.Freeze)
+      pokemon.has(Status.Freeze).should.be.false
 
   describe "#cureStatus", ->
     it "removes all statuses if no argument is passed", ->
       pokemon = new Pokemon()
       for name, status of Status
-        pokemon.setStatus(status)
+        pokemon.attach(status)
         pokemon.cureStatus()
         pokemon.hasStatus().should.be.false
 
     it "removes only a certain status if an argument is passed", ->
       pokemon = new Pokemon()
-      pokemon.setStatus(Status.FREEZE)
-      pokemon.cureStatus(Status.PARALYZE)
-      pokemon.hasStatus(Status.FREEZE).should.be.true
-
-    it "removes the corresponding attachment on the pokemon", ->
-      pokemon = new Pokemon()
-      for name, status of Status
-        pokemon.setStatus(status)
-        pokemon.cureStatus(status)
-        pokemon.has(Attachment[status]).should.be.false
+      pokemon.attach(Status.Freeze)
+      pokemon.cureStatus(Status.Paralyze)
+      pokemon.has(Status.Freeze).should.be.true
 
   describe '#hasTakeableItem', ->
     it "returns false if the pokemon has no item", ->

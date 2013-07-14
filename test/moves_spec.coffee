@@ -134,19 +134,19 @@ describe 'Move', ->
 
     it "returns .5 with a physical move, no Guts ability, and a burned user", ->
       attacker = new Pokemon()
-      attacker.setStatus(Status.BURN)
+      attacker.attach(Status.Burn)
       new Move(null, damage: 'physical')
         .burnCalculation(attacker).should.equal .5
 
     it "returns 1 with a special move, no Guts ability, and a burned user", ->
       attacker = new Pokemon()
-      attacker.setStatus(Status.BURN)
+      attacker.attach(Status.Burn)
       new Move(null, damage: 'special')
         .burnCalculation(attacker).should.equal 1
 
     it "returns 1 with a physical move, Guts ability, and a burned user", ->
       attacker = new Pokemon(ability: "Guts")
-      attacker.setStatus(Status.BURN)
+      attacker.attach(Status.Burn)
       new Move(null, damage: 'physical')
         .burnCalculation(attacker).should.equal 1
 

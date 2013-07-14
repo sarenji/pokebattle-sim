@@ -315,18 +315,18 @@ describe "Flame Orb", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p1.hasStatus(Status.BURN).should.be.true
+    @p1.has(Status.Burn).should.be.true
 
   it "does not burn the user if it is already statused", ->
     shared.create.call this,
       team1: [Factory("Magikarp", item: "Flame Orb")]
 
-    @p1.setStatus(Status.SLEEP)
+    @p1.attach(Status.Sleep)
 
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p1.hasStatus(Status.BURN).should.be.false
+    @p1.has(Status.Burn).should.be.false
 
 describe "Toxic Orb", ->
   it "toxics the user at the end of the turn", ->
@@ -336,18 +336,18 @@ describe "Toxic Orb", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p1.hasStatus(Status.TOXIC).should.be.true
+    @p1.has(Status.Toxic).should.be.true
 
   it "does not toxic the user if it is already statused", ->
     shared.create.call this,
       team1: [Factory("Magikarp", item: "Toxic Orb")]
 
-    @p1.setStatus(Status.SLEEP)
+    @p1.attach(Status.Sleep)
 
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p1.hasStatus(Status.TOXIC).should.be.false
+    @p1.has(Status.Toxic).should.be.false
 
 describe "Air Balloon", ->
   it "makes the user immune to ground moves", ->
@@ -686,17 +686,17 @@ describe "status cure berries", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Cheri Berry")]
 
-    @p2.setStatus(Status.PARALYZE)
+    @p2.attach(Status.Paralyze)
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    @p2.hasStatus(Status.PARALYZE).should.be.false
+    @p2.has(Status.Paralyze).should.be.false
 
   it "is consumed after use", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Cheri Berry")]
 
-    @p2.setStatus(Status.PARALYZE)
+    @p2.attach(Status.Paralyze)
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 

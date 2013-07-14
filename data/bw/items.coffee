@@ -121,10 +121,7 @@ makeStatusCureBerry = (name, statuses...) ->
     @eat = (battle, owner) ->
       removed = false
       for attachment in statuses
-        if owner.hasStatus(attachment)
-          owner.cureStatus()
-          removed = true
-        else if owner.hasAttachment(attachment)
+        if owner.has(attachment)
           owner.unattach(attachment)
           removed = true
       return removed
@@ -143,7 +140,7 @@ makeOrbItem = (name, species) ->
 makeStatusOrbItem = (name, status) ->
   extendItem name, ->
     @endTurn = (battle, pokemon) ->
-      pokemon.setStatus(status)
+      pokemon.attach(status)
 
 makeTypeBoostItem = (name, type) ->
   extendItem name, ->
@@ -258,7 +255,7 @@ extendItem 'Air Balloon', ->
     pokemon.unattach(Attachment.AirBalloon)
 
 makeStatBoostBerry 'Apicot Berry', specialDefense: 1
-makeStatusCureBerry 'Aspear Berry', Status.FREEZE
+makeStatusCureBerry 'Aspear Berry', Status.Freeze
 makeTypeResistBerry 'Babiri Berry', 'Steel'
 makeHealingBerry 'Berry Juice', -> 20
 makeTypeBoostItem 'Black Belt', 'Fighting'
@@ -282,8 +279,8 @@ makeGemItem 'Bug Gem', 'Bug'
 makeBoostOnTypeItem 'Cell Battery', 'Electric', attack: 1
 makeTypeBoostItem 'Charcoal', 'Fire'
 makeTypeResistBerry 'Charti Berry', 'Rock'
-makeStatusCureBerry 'Cheri Berry', Status.PARALYZE
-makeStatusCureBerry 'Chesto Berry', Status.SLEEP
+makeStatusCureBerry 'Cheri Berry', Status.Paralyze
+makeStatusCureBerry 'Chesto Berry', Status.Sleep
 makeTypeResistBerry 'Chilan Berry', 'Normal'
 makeChoiceItem 'Choice Band'
 makeChoiceItem 'Choice Specs'
@@ -331,7 +328,7 @@ makeGemItem 'Fighting Gem', 'Fighting'
 makeFlavorHealingBerry 'Figy Berry', "attack"
 makeGemItem 'Fire Gem', 'Fire'
 makePlateItem 'Fist Plate', 'Fighting'
-makeStatusOrbItem 'Flame Orb', Status.BURN
+makeStatusOrbItem 'Flame Orb', Status.Burn
 makePlateItem 'Flame Plate', 'Fire'
 extendItem 'Float Stone', ->
   @calculateWeight = (weight) ->
@@ -398,8 +395,8 @@ extendItem 'Life Orb', ->
     return  if move.isNonDamaging()
     user.damage(Math.floor(user.stat('hp') / 10))
 
-makeStatusCureBerry 'Lum Berry', Status.PARALYZE, Status.SLEEP, Status.POISON,
-  Status.TOXIC, Status.BURN, Status.FREEZE, Attachment.Confusion
+makeStatusCureBerry 'Lum Berry', Status.Paralyze, Status.Sleep, Status.Poison,
+  Status.Toxic, Status.Burn, Status.Freeze, Attachment.Confusion
 makeOrbItem 'Lustrous Orb', 'Palkia'
 extendItem 'Macho Brace', ->
   @editSpeed = (stat, pokemon) ->
@@ -453,7 +450,7 @@ makeTypeBoostItem 'Odd Incense', 'Psychic'
 makeHealingBerry 'Oran Berry', -> 10
 makeTypeResistBerry 'Passho Berry', 'Water'
 makeTypeResistBerry 'Payapa Berry', 'Psychic'
-makeStatusCureBerry 'Pecha Berry', Status.TOXIC, Status.POISON
+makeStatusCureBerry 'Pecha Berry', Status.Toxic, Status.Poison
 makeStatusCureBerry 'Persim Berry', Attachment.Confusion
 makeStatBoostBerry 'Petaya Berry', specialAttack: 1
 makeTypeBoostItem 'Poison Barb', 'Poison'
@@ -464,7 +461,7 @@ extendItem 'Quick Claw', ->
   @afterTurnOrder = (battle, owner) ->
     battle.bump(owner)  if battle.rng.next("quick claw") < .2
 
-makeStatusCureBerry 'Rawst Berry', Status.BURN
+makeStatusCureBerry 'Rawst Berry', Status.Burn
 makeFlinchItem "Razor Fang"
 
 extendItem 'Red Card', ->
@@ -539,7 +536,7 @@ extendItem 'Sticky Barb', ->
 makeGemItem 'Steel Gem', 'Steel'
 makePlateItem 'Stone Plate', 'Rock'
 makeTypeResistBerry 'Tanga Berry', 'Bug'
-makeStatusOrbItem 'Toxic Orb', Status.TOXIC
+makeStatusOrbItem 'Toxic Orb', Status.Toxic
 makePlateItem 'Toxic Plate', 'Poison'
 makeTypeBoostItem 'TwistedSpoon', 'Psychic'
 makeTypeResistBerry 'Wacan Berry', 'Electric'

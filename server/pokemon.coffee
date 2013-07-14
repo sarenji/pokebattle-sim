@@ -1,6 +1,6 @@
 {_} = require 'underscore'
 {Ability, Items, Moves} = require '../data/bw'
-{Status} = require './status'
+{Status, StatusAttachment} = require './status'
 {Attachment, Attachments} = require './attachment'
 util = require './util'
 floor = Math.floor
@@ -154,14 +154,8 @@ class @Pokemon
     else
       @item?
 
-  hasStatus: (status) ->
-    if !status?
-      statusArray = (value  for key, value of Status)
-      @status in statusArray
-    else if arguments.length > 1
-      @status in arguments
-    else
-      @status == status
+  hasStatus: ->
+    return !!@status
 
   hasAttachment: (name) ->
     @attachments.contains(name)
@@ -175,21 +169,9 @@ class @Pokemon
   get: (attachment) ->
     @getAttachment(attachment)
 
-  # Sets the Pokemon's status. If it succeeds, returns true, otherwise false.
-  setStatus: (newStatus) ->
-    return false  if @hasStatus()
-    return false  if newStatus == Status.BURN && @hasType("Fire")
-    return false  if newStatus == Status.FREEZE && @hasType("Ice")
-    return false  if newStatus == Status.TOXIC && @hasType("Poison")
-    return false  if newStatus == Status.POISON && @hasType("Poison")
-    @status = newStatus
-    @attach(Attachment[newStatus])
-    true
-
   cureStatus: (status) ->
-    if !status? || @status == status
-      @unattach(Attachment[@status])  if @status
-      @status = null
+    if !status? || Status[@status] == status
+      @unattach(Status[@status])  if @status
 
   # TODO: really ugly copying of ability
   copyAbility: (battle, ability) ->
@@ -325,6 +307,9 @@ class @Pokemon
 
   beforeMove: (battle, move, user, targets) ->
     @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
+
+  afterMove: (battle, move, user, targets) ->
+    @attachments.query('afterMove', battle, move, user, targets)
 
   shouldBlockExecution: (battle, move, user) ->
     @attachments.queryUntilTrue('shouldBlockExecution', battle, move, user)

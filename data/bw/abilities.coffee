@@ -97,30 +97,28 @@ makeFilterAbility = (name) ->
 makeFilterAbility("Filter")
 makeFilterAbility("Solid Rock")
 
-makeContactStatusAbility = (name, statusOrAttachment) ->
-  isStatus = (statusOrAttachment in Object.values(Status))
-  attachFunc = (if isStatus then "setStatus" else "attach")
+makeContactStatusAbility = (name, attachment) ->
   makeAbility name, ->
     this::afterBeingHit = (battle, move, user) ->
       return  if !move.hasFlag("contact")
       return  if battle.rng.next("contact status") >= .3
-      user[attachFunc](statusOrAttachment, source: @pokemon)
+      user.attach(attachment, source: @pokemon)
 
 makeContactStatusAbility("Cute Charm", Attachment.Attract)
-makeContactStatusAbility("Flame Body", Status.BURN)
-makeContactStatusAbility("Poison Point", Status.POISON)
-makeContactStatusAbility("Static", Status.PARALYZE)
+makeContactStatusAbility("Flame Body", Status.Burn)
+makeContactStatusAbility("Poison Point", Status.Poison)
+makeContactStatusAbility("Static", Status.Paralyze)
 
 makeStatusBoostAbility = (name, statuses, spectra) ->
   makeAbility name, ->
     this::modifyBasePower = (battle, move, user, target) ->
-      if move.spectra == spectra && @pokemon.hasStatus(statuses...)
+      if move.spectra == spectra && statuses.some((s) => @pokemon.has(s))
         0x1800
       else
         0x1000
 
-makeStatusBoostAbility("Flare Boost", [Status.BURN], 'special')
-makeStatusBoostAbility("Toxic Boost", [Status.POISON, Status.TOXIC], 'physical')
+makeStatusBoostAbility("Flare Boost", [Status.Burn], 'special')
+makeStatusBoostAbility("Toxic Boost", [Status.Poison, Status.Toxic], 'physical')
 
 makeHugePowerAbility = (name) ->
   makeAbility name, ->
@@ -199,7 +197,7 @@ makeAbility "Bad Dreams", ->
     # TODO: Make getOpponents return only alive pokemon
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
-      continue  unless opponent.hasStatus(Status.SLEEP)
+      continue  unless opponent.has(Status.Sleep)
       battle.message "#{opponent.name} is tormented!"
       amount = opponent.stat('hp') >> 3
       opponent.damage(amount)
@@ -275,14 +273,14 @@ makeAbility 'Effect Spore', ->
     return  unless move.hasFlag("contact")
     switch battle.rng.randInt(1, 10, "effect spore")
       when 1
-        user.setStatus(Status.SLEEP)
-        battle.message "#{user.name} fell asleep!"
+        if user.attach(Status.Sleep)
+          battle.message "#{user.name} fell asleep!"
       when 2
-        user.setStatus(Status.PARALYZE)
-        battle.message "#{user.name} was paralyzed!"
+        if user.attach(Status.Paralyze)
+          battle.message "#{user.name} was paralyzed!"
       when 3
-        user.setStatus(Status.POISON)
-        battle.message "#{user.name} was poisoned!"
+        if user.attach(Status.Poison)
+          battle.message "#{user.name} was poisoned!"
 
 makeAbility 'Flash Fire', ->
   this::shouldBlockExecution = (battle, move, user) ->
@@ -426,7 +424,7 @@ makeAbility 'No Guard', ->
 makeAbility 'Poison Heal', ->
   # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
   this::endTurn = ->
-    if @pokemon.hasStatus(Status.POISON, Status.TOXIC)
+    if @pokemon.has(Status.Poison) || @pokemon.has(Status.Toxic)
       amount = @pokemon.stat('hp') >> 3
       @pokemon.damage(-amount)
 
