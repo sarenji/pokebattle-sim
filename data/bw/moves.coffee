@@ -311,7 +311,7 @@ makeDelayedAttackMove = (name, message) ->
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      return  if !target.informPhase(battle, user)
+      return  if target.shouldPhase(battle, user) == false
       opponent = battle.getOwner(target)
       benched  = opponent.team.getAliveBenchedPokemon()
       return  if benched.length == 0

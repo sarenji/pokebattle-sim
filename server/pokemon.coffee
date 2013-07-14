@@ -294,8 +294,8 @@ class @Pokemon
   informSwitch: (battle, switcher) ->
     @attachments.query('informSwitch', battle, switcher)
 
-  informPhase: (battle, phaser) ->
-    @attachments.queryUntilFalse('informPhase', battle, phaser) != false
+  shouldPhase: (battle, phaser) ->
+    @attachments.queryUntilFalse('shouldPhase', battle, phaser) != false
 
   informCriticalHit: (battle) ->
     @attachments.query('informCriticalHit', battle)

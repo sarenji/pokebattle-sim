@@ -800,7 +800,7 @@ class @Attachment.Ingrain extends @VolatileAttachment
   beginTurn: (battle) ->
     @pokemon.blockSwitch()
 
-  informPhase: (battle, phaser) ->
+  shouldPhase: (battle, phaser) ->
     battle.message "#{@pokemon.name} anchored itself with its roots!"
     return false
 

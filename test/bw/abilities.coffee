@@ -1187,7 +1187,13 @@ describe "BW Abilities:", ->
     it "lets the user be KOed if not at full HP"
 
   describe "Suction Cups", ->
-    it "prevents user from being phased"
+    it "prevents user from being phased", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Suction Cups"), Factory("Magikarp")]
+      whirlwind = @battle.getMove('Whirlwind')
+      mock = @sandbox.mock(@team1).expects('switch').never()
+      @battle.performMove(@id2, whirlwind)
+      mock.verify()
 
   describe "Synchronize", ->
     it "afflicts the source of a status with the same status"

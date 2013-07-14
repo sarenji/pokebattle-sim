@@ -520,3 +520,8 @@ makeAbility 'Shadow Tag', ->
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       opponent.blockSwitch()
+
+makeAbility 'Suction Cups', ->
+  this::shouldPhase = (battle, phaser) ->
+    battle.message "#{@pokemon.name} anchors itself!"
+    return false
