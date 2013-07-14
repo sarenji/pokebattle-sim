@@ -164,9 +164,11 @@ makeContactHurtAbility("Rough Skin")
 
 makeRedirectAndBoostAbility = (name, type) ->
   makeAbility name, ->
+    # TODO: This should be implemented as isImmune instead.
+    # TODO: Type-immunities should come before ability immunities.
     this::shouldBlockExecution = (battle, move) ->
       return  if move.type != type
-      @pokemon.boost(specialAttack: 1)
+      @pokemon.boost(specialAttack: 1)  unless @pokemon.isImmune(battle, type)
       return true
 
 makeRedirectAndBoostAbility("Lightningrod", "Electric")

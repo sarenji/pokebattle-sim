@@ -850,6 +850,15 @@ describe "BW Abilities:", ->
         @battle.performMove(@id2, typedMove)
         @p1.stages.should.include(specialAttack: 1)
 
+      it "does not boost special attack on #{type}-type moves if immune", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        @sandbox.stub(@p1, 'isImmune', -> true)
+        @battle.performMove(@id2, typedMove)
+        @p1.stages.should.include(specialAttack: 0)
+
       it "does nothing otherwise", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
