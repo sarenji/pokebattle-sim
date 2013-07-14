@@ -1237,7 +1237,23 @@ describe "BW Abilities:", ->
 
   testTypeAbsorbMove = (name, type) ->
     describe name, ->
-      it "heals 25% HP from #{type}-type moves"
+      it "is immune to #{type}-type moves", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.getMoveList().find (m) ->
+          m.type == type
+        mock = @sandbox.mock(typedMove).expects('hit').never()
+        @battle.performMove(@id2, typedMove)
+        mock.verify()
+
+      it "heals 25% HP from #{type}-type moves", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.getMoveList().find (m) ->
+          m.type == type
+        @p1.currentHP = 1
+        @battle.performMove(@id2, typedMove)
+        @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
 
   testTypeAbsorbMove("Water Absorb", "Water")
   testTypeAbsorbMove("Volt Absorb", "Electric")

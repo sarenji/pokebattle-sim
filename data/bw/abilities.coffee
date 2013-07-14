@@ -187,6 +187,17 @@ makeTypeImmuneAbility = (name, type, stat) ->
 makeTypeImmuneAbility("Motor Drive", "Electric", "speed")
 makeTypeImmuneAbility("Sap Sipper", "Grass", "attack")
 
+makeTypeAbsorbMove = (name, type) ->
+  makeAbility name, ->
+    this::shouldBlockExecution = (battle, move, user) ->
+      return  if move.getType(battle, user, @pokemon) != type
+      battle.message "#{@pokemon.name} restored its HP a little."
+      amount = @pokemon.stat('hp') >> 2
+      @pokemon.damage(-amount)
+
+makeTypeAbsorbMove("Water Absorb", "Water")
+makeTypeAbsorbMove("Volt Absorb", "Electric")
+
 # Unique Abilities
 
 makeAbility "Adaptability"
