@@ -874,9 +874,42 @@ describe "BW Abilities:", ->
   describe "Mold Breaker", ->
     it "cancels abilities for the duration of the user's move"
 
-  describe "Motor Drive", ->
-    it "makes the user immune to Electric moves"
-    it "increases speed by 1 if hit by an Electric move"
+  testTypeImmuneAbility = (name, type, stat) ->
+    describe name, ->
+      it "makes the user immune to #{type} moves", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        mock = @sandbox.mock(typedMove).expects('hit').never()
+        @battle.performMove(@id2, typedMove)
+        mock.verify()
+
+      it "increases #{stat} by 1 if hit by a #{type}-type move", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        @battle.performMove(@id2, typedMove)
+        @p1.stages[stat].should.equal(1)
+
+      it "increases #{stat} by only 1 even if move is multi-hit", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        @sandbox.stub(typedMove, 'calculateNumberOfHits', -> 2)
+        @battle.performMove(@id2, typedMove)
+        @p1.stages[stat].should.equal(1)
+
+      it "does nothing otherwise", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type != type
+        mock = @sandbox.mock(typedMove).expects('hit').once()
+        @battle.performMove(@id2, typedMove)
+        @p1.stages[stat].should.equal(0)
+        mock.verify()
+
+  testTypeImmuneAbility("Motor Drive", "Electric", "speed")
+  testTypeImmuneAbility("Sap Sipper", "Grass", "attack")
 
   describe "Moxie", ->
     it "increases attack every time it faints another target"
@@ -1000,3 +1033,32 @@ describe "BW Abilities:", ->
 
   describe "Regenerator", ->
     it "restores 1/3 of the user's HP upon switch out"
+
+  describe "Rivalry", ->
+    it "reduces base power by 25% if user and target are opposite genders", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: 'F', ability: "Rivalry")]
+        team2: [Factory("Magikarp", gender: 'M')]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0xC00)
+
+    it "increases base power by 25% if user and target are the same gender", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: 'F', ability: "Rivalry")]
+        team2: [Factory("Magikarp", gender: 'F')]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1400)
+
+    it "has normal base power if either user or target have no gender", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: 'F', ability: "Rivalry")]
+        team2: [Factory("Magikarp")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Rock Head", ->
+    it "negates recoil"
+
+  describe "Sand Force", ->
+    it "increases base power by 30% in sandstorm"
+    it "grants immunity to sandstorm"

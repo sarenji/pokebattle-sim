@@ -1172,12 +1172,6 @@ class @Attachment.BeatUp extends @VolatileAttachment
   initialize: ->
     @index = -1
 
-  shouldBlockExecution: (battle, move, user) ->
-    {team} = battle.getOwner(user)
-    @index += 1
-    pokemon = team.at(@index)
-    !pokemon || pokemon.hasStatus() || pokemon.isFainted()
-
 class @Attachment.Gravity extends @BattleAttachment
   name: "GravityAttachment"
 

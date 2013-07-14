@@ -112,15 +112,15 @@ basePowerModifier.add 40, (move, battle, user, target) ->
 #   return 0x1000
 
 # Rivalry modifier.
-basePowerModifier.add 70, (move, battle, user, target) ->
-  if !user.hasAbility('Rivalry')
-    0x1000
-  else if !user.gender? || !target.gender?
-    0x1000
-  else if user.gender == target.gender
-    0x1400
-  else
-    0xC00
+# basePowerModifier.add 70, (move, battle, user, target) ->
+#   if !user.hasAbility('Rivalry')
+#     0x1000
+#   else if !user.gender? || !target.gender?
+#     0x1000
+#   else if user.gender == target.gender
+#     0x1400
+#   else
+#     0xC00
 
 # Sand Force modifier.
 basePowerModifier.add 80, (move, battle, user, target) ->

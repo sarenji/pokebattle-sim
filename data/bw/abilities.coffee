@@ -140,6 +140,19 @@ makeRedirectAndBoostAbility = (name, type) ->
 makeRedirectAndBoostAbility("Lightningrod", "Electric")
 makeRedirectAndBoostAbility("Storm Drain", "Water")
 
+makeTypeImmuneAbility = (name, type, stat) ->
+  makeAbility name, ->
+    this::shouldBlockExecution = (battle, move, user) ->
+      return  if move.getType(battle, user, @pokemon) != type
+      battle.message "#{@pokemon.name}'s #{name} increased its #{stat}!"
+      hash = {}
+      hash[stat] = 1
+      @pokemon.boost(hash)
+      return true
+
+makeTypeImmuneAbility("Motor Drive", "Electric", "speed")
+makeTypeImmuneAbility("Sap Sipper", "Grass", "attack")
+
 # Unique Abilities
 
 makeAbility "Adaptability"
@@ -436,3 +449,10 @@ makeAbility 'Rain Dish', ->
     battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
     amount = @pokemon.stat('hp') >> 4
     @pokemon.damage(-amount)
+
+makeAbility 'Rivalry', ->
+  this::modifyBasePower = (battle, move, user, target) ->
+    return 0x1400  if user.gender == target.gender
+    return 0xC00   if (user.gender == 'F' && target.gender == 'M') ||
+                      (user.gender == 'M' && target.gender == 'F')
+    return 0x1000

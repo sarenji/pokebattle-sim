@@ -1154,6 +1154,21 @@ extendMove 'beat-up', ->
     oldExecute.call(this, battle, user, targets)
     target.unattach(Attachment.BeatUp)  for target in targets
 
+  oldUse = @use
+  @use = (battle, user, target) ->
+    {team} = battle.getOwner(user)
+    attachment = target.get(Attachment.BeatUp)
+    attachment.index++
+    pokemon = team.at(attachment.index)
+    while pokemon.hasStatus() || pokemon.isFainted()
+      attachment.index++
+      pokemon = team.at(attachment.index)
+    oldUse.call(this, battle, user, target)
+
+  @calculateNumberOfHits = (battle, user, target) ->
+    {team} = battle.getOwner(user)
+    team.pokemon.filter((p) -> !p.hasStatus() && !p.isFainted()).length
+
   @basePower = (battle, user, target) ->
     {team} = battle.getOwner(user)
     attachment = target.get(Attachment.BeatUp)
