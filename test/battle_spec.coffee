@@ -147,3 +147,10 @@ describe 'Battle', ->
       @battle.endTurn()
       @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
       @p2.currentHP.should.not.be.lessThan @p2.stat('hp')
+
+    it "does not damage a Pokemon who is immune to a weather", ->
+      @battle.setWeather(Weather.HAIL)
+      @sandbox.stub(@p2, 'isWeatherDamageImmune', -> true)
+      @battle.endTurn()
+      @p1.currentHP.should.be.lessThan @p1.stat('hp')
+      @p2.currentHP.should.not.be.lessThan @p2.stat('hp')

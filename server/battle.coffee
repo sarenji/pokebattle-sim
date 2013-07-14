@@ -232,12 +232,12 @@ class @Battle
 
     activePokemon = @getActivePokemon().filter((p) -> !p.isFainted())
     for pokemon in activePokemon
-      damage = Math.floor(pokemon.stat('hp') / 16)
-      if @hasWeather(Weather.HAIL) && !pokemon.hasType("Ice")
+      continue  if pokemon.isWeatherDamageImmune(this, @weather)
+      damage = pokemon.stat('hp') >> 4
+      if @hasWeather(Weather.HAIL)
         @message "#{pokemon.name} is buffeted by the hail!"
         pokemon.damage(damage)
-      else if @hasWeather(Weather.SAND) && !pokemon.hasType("Ground") &&
-              !pokemon.hasType("Rock") && !pokemon.hasType("Steel")
+      else if @hasWeather(Weather.SAND)
         @message "#{pokemon.name} is buffeted by the sandstorm!"
         pokemon.damage(damage)
 

@@ -244,6 +244,11 @@ describe "BW Abilities:", ->
         @battle.setWeather(Weather.NONE)
         @p1.stat('speed').should.equal(speed)
 
+      it "grants immunity to damage from their respective weather", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        @p1.isWeatherDamageImmune(@battle, weather).should.be.true
+
   testWeatherSpeedAbility("Chlorophyll", Weather.SUN)
   testWeatherSpeedAbility("Swift Swim", Weather.RAIN)
   testWeatherSpeedAbility("Sand Rush", Weather.SAND)
@@ -687,8 +692,25 @@ describe "BW Abilities:", ->
       @p1.hasStatus().should.be.true
 
   describe "Ice Body", ->
-    it "restores 1/16 HP in Hail"
-    it "grants immunity to Hail"
+    it "restores 1/16 HP in Hail", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Ice Body")]
+      @p1.currentHP = 1
+      @battle.setWeather(Weather.HAIL)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 4))
+
+    it "restores no HP in other weather", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Ice Body")]
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1)
+
+    it "grants immunity to Hail", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Ice Body")]
+      @p1.isWeatherDamageImmune(@battle, Weather.HAIL).should.be.true
 
   describe "Illusion", ->
     it "masquerades as the last unfainted pokemon in player's party"
@@ -951,7 +973,11 @@ describe "BW Abilities:", ->
       focusBlast.chanceToHit(@battle, @p2, @p1).should.equal(0)
 
   describe "Overcoat", ->
-    it "gives an immunity to adverse weather effects"
+    it "gives an immunity to adverse weather effects", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Overcoat")]
+      @p1.isWeatherDamageImmune(@battle, Weather.HAIL).should.be.true
+      @p1.isWeatherDamageImmune(@battle, Weather.SAND).should.be.true
 
   describe "Poison Heal", ->
     it "prevents normal poison damage", ->
@@ -1063,8 +1089,22 @@ describe "BW Abilities:", ->
     it "negates recoil"
 
   describe "Sand Force", ->
-    it "increases base power by 30% in sandstorm"
-    it "grants immunity to sandstorm"
+    it "increases BP of Ground-, Rock-, and Steel-type moves by 30% in sand", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Force")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+      earthquake = @battle.getMove("Earthquake")
+      earthquake.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+      rockSlide = @battle.getMove("Rock Slide")
+      rockSlide.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+      meteorMash = @battle.getMove("Meteor Mash")
+      meteorMash.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+
+    it "grants immunity to sandstorm", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Force")]
+      @p1.isWeatherDamageImmune(@battle, Weather.SAND).should.be.true
 
   describe "Scrappy", ->
     xit "negates Ghost-type pokemon's immunity to Normal and Fighting", ->

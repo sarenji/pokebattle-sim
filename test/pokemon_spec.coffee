@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
+{Weather, Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
 {Moves} = require('../data/bw')
 should = require 'should'
 
@@ -287,3 +287,25 @@ describe 'Pokemon', ->
     it "returns false if the pokemon is Genesect with a Drive item", ->
       pokemon = new Pokemon(name: "Genesect", item: "Burn Drive")
       pokemon.hasTakeableItem().should.be.false
+
+  describe "#isWeatherDamageImmune", ->
+    it "returns true if it's hailing and the Pokemon is Ice type", ->
+      pokemon = new Pokemon(types: [ "Ice" ])
+      pokemon.isWeatherDamageImmune(null, Weather.HAIL).should.be.true
+
+    it "returns true if it's sandstorming and the Pokemon is Rock type", ->
+      pokemon = new Pokemon(types: [ "Rock" ])
+      pokemon.isWeatherDamageImmune(null, Weather.SAND).should.be.true
+
+    it "returns true if it's sandstorming and the Pokemon is Steel type", ->
+      pokemon = new Pokemon(types: [ "Steel" ])
+      pokemon.isWeatherDamageImmune(null, Weather.SAND).should.be.true
+
+    it "returns true if it's sandstorming and the Pokemon is Ground type", ->
+      pokemon = new Pokemon(types: [ "Ground" ])
+      pokemon.isWeatherDamageImmune(null, Weather.SAND).should.be.true
+
+    it "returns false otherwise", ->
+      pokemon = new Pokemon(types: [ "Grass" ])
+      pokemon.isWeatherDamageImmune(null, Weather.SAND).should.be.false
+      pokemon.isWeatherDamageImmune(null, Weather.HAIL).should.be.false

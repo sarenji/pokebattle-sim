@@ -123,11 +123,11 @@ basePowerModifier.add 40, (move, battle, user, target) ->
 #     0xC00
 
 # Sand Force modifier.
-basePowerModifier.add 80, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if user.hasAbility('Sand Force') && type in ['Rock', 'Ground', 'Steel']
-    return 0x14CD
-  return 0x1000
+# basePowerModifier.add 80, (move, battle, user, target) ->
+#   type = move.getType(battle, user, target)
+#   if user.hasAbility('Sand Force') && type in ['Rock', 'Ground', 'Steel']
+#     return 0x14CD
+#   return 0x1000
 
 # Heatproof modifier.
 # basePowerModifier.add 90, (move, battle, user, target) ->

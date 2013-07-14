@@ -60,6 +60,9 @@ makeWeatherSpeedAbility = (name, weather) ->
     this::editSpeed = (speed) ->
       if @doubleSpeed then 2 * speed else speed
 
+    this::isWeatherDamageImmune = (battle, currentWeather) ->
+      return true  if weather == currentWeather
+
 makeWeatherSpeedAbility("Chlorophyll", Weather.SUN)
 makeWeatherSpeedAbility("Swift Swim", Weather.RAIN)
 makeWeatherSpeedAbility("Sand Rush", Weather.SAND)
@@ -375,6 +378,16 @@ makeAbility "Hydration", ->
       battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}!"
       @pokemon.cureStatus()
 
+makeAbility 'Ice Body', ->
+  this::endTurn = (battle) ->
+    if battle.hasWeather(Weather.HAIL)
+      battle.message "#{@pokemon.name}'s Ice Body restored its HP a little."
+      amount = @pokemon.stat('hp') >> 4
+      @pokemon.damage(-amount)
+
+  this::isWeatherDamageImmune = (battle, weather) ->
+    return true  if weather == Weather.HAIL
+
 makeAbility 'Iron Fist', ->
   this::modifyBasePower = (battle, move) ->
     if move.hasFlag('punch') then 0x1333 else 0x1000
@@ -421,6 +434,9 @@ makeAbility 'No Guard', ->
   this::editAccuracy = -> 0  # Never miss
   this::editEvasion  = -> 0  # Never miss
 
+makeAbility 'Overcoat', ->
+  this::isWeatherDamageImmune = -> true
+
 makeAbility 'Poison Heal', ->
   # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
   this::endTurn = ->
@@ -454,6 +470,15 @@ makeAbility 'Rivalry', ->
     return 0xC00   if (user.gender == 'F' && target.gender == 'M') ||
                       (user.gender == 'M' && target.gender == 'F')
     return 0x1000
+
+makeAbility 'Sand Force', ->
+  this::modifyBasePower = (battle, move, user) ->
+    type = move.getType(battle, user, @pokemon)
+    return 0x14CD  if type in ['Rock', 'Ground', 'Steel']
+    return 0x1000
+
+  this::isWeatherDamageImmune = (battle, weather) ->
+    return true  if weather == Weather.SAND
 
 makeAbility 'Shadow Tag', ->
   this::beginTurn = this::switchIn = (battle) ->

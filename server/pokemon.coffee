@@ -2,6 +2,7 @@
 {Ability, Items, Moves} = require '../data/bw'
 {Status, StatusAttachment} = require './status'
 {Attachment, Attachments} = require './attachment'
+{Weather} = require './weather'
 util = require './util'
 floor = Math.floor
 
@@ -258,6 +259,15 @@ class @Pokemon
 
     multiplier = util.typeEffectiveness(type, @types)
     return multiplier == 0
+
+  isWeatherDamageImmune: (battle, weather) ->
+    b = @attachments.queryUntilNotNull('isWeatherDamageImmune', battle, weather)
+    if b? then return b
+
+    return true  if weather == Weather.HAIL && @hasType("Ice")
+    return true  if weather == Weather.SAND && (@hasType("Ground") ||
+                     @hasType("Rock") || @hasType("Steel"))
+    return battle?.hasWeatherCancelAbilityOnField() || false
 
   calculateWeight: ->
     weight = @weight
