@@ -456,3 +456,11 @@ makeAbility 'Rivalry', ->
     return 0xC00   if (user.gender == 'F' && target.gender == 'M') ||
                       (user.gender == 'M' && target.gender == 'F')
     return 0x1000
+
+makeAbility 'Shadow Tag', ->
+  this::beginTurn = this::switchIn = (battle) ->
+    opponents = battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    for opponent in opponents
+      opponent.blockSwitch()

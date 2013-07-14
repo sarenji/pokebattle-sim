@@ -871,8 +871,13 @@ describe "BW Abilities:", ->
       @battle.beginTurn()
       @p2.isSwitchBlocked().should.be.false
 
-  describe "Mold Breaker", ->
-    it "cancels abilities for the duration of the user's move"
+  testAbilityCancelAbility = (name) ->
+    describe name, ->
+      it "cancels abilities for the duration of the user's move"
+
+  testAbilityCancelAbility("Mold Breaker")
+  testAbilityCancelAbility("Teravolt")
+  testAbilityCancelAbility("Turboblaze")
 
   testTypeImmuneAbility = (name, type, stat) ->
     describe name, ->
@@ -1062,3 +1067,115 @@ describe "BW Abilities:", ->
   describe "Sand Force", ->
     it "increases base power by 30% in sandstorm"
     it "grants immunity to sandstorm"
+
+  describe "Scrappy", ->
+    xit "negates Ghost-type pokemon's immunity to Normal and Fighting", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Scrappy")]
+        team2: [Factory("Gengar")]
+      tackle = @battle.getMove("Tackle")
+      closeCombat = @battle.getMove("Close Combat")
+      tackle.typeEffectiveness(@battle, @p1, @p2).should.equal(1)
+      closeCombat.typeEffectiveness(@battle, @p1, @p2).should.equal(.5)
+
+  describe "Serene Grace", ->
+    it "doubles the chance of secondary effects happening"
+
+  describe "Shadow Tag", ->
+    it "prevents foes from switching", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Shadow Tag")]
+      @p2.isSwitchBlocked().should.be.true
+      @battle.beginTurn()
+      @p2.isSwitchBlocked().should.be.true
+
+  describe "Shed Skin", ->
+    it "has a 30% chance of removing its status effect at end of turn"
+    it "has a 70% chance of doing nothing at end of turn"
+
+  describe "Sheer Force", ->
+    it "raises power of moves with secondary effects by 30%"
+    it "nullifies secondary effects"
+    it "does not apply to some moves that negatively affect user"
+    it "receives no life orb damage"
+
+  describe "Shield Dust", ->
+    it "prevents secondary effects"
+
+  describe "Simple", ->
+    it "doubles stat boosts, negative and positive"
+
+  describe "Skill Link", ->
+    it "maximizes multi-hit moves"
+
+  describe "Slow Start", ->
+    it "halves attack and speed"
+    it "returns attack and speed to normal after five turns"
+
+  describe "Soundproof", ->
+    it "makes user immune to sound moves"
+    it "lets non-sound moves hit"
+
+  describe "Speed Boost", ->
+    it "boosts speed at the end of every turn"
+    it "does not boost speed if pokemon is freshly switched in"
+
+  describe "Sticky Hold", ->
+    it "prevents items from being taken"
+
+  describe "Sturdy", ->
+    it "prevents the user from being OHKOed at full HP"
+    it "lets the user be KOed if not at full HP"
+
+  describe "Suction Cups", ->
+    it "prevents user from being phased"
+
+  describe "Synchronize", ->
+    it "afflicts the source of a status with the same status"
+
+  describe "Tangled Feet", ->
+    it "doubles evasion rate when confused"
+    it "has normal evasion rate when not confused"
+
+  describe "Technician", ->
+    it "increases base power of moves with BP <= 60 by x1.5"
+    it "leaves moves with BP > 60 alone"
+
+  describe "Thick Fat", ->
+    it "halves the base power of Fire and Ice moves"
+    it "doesn't change base power of other moves"
+
+  describe "Tinted Lens", ->
+    it "doubles damage when using a not-very-effective move"
+
+  describe "Trace", ->
+    it "copies a random foe's ability on switch-in"
+    it "does not copy certain abilities"
+
+  describe "Truant", ->
+    it "prevents the user from attacking every other turn"
+
+  describe "Unaware", ->
+    it "ignores attackers' attack, special attack, and accuracy boosts"
+    it "ignores defenders' defense, special defense, and evasion boosts"
+
+  describe "Unburden", ->
+    it "doubles its speed when the owner's item is removed"
+
+  describe "Unnerve", ->
+    it "prevents held berries from being eaten"
+    it "does not prevent Bug Bite, Pluck, etc. from working"
+
+  describe "Victory Star", ->
+    it "increases accuracy of moves by 10%"
+    it "increases accuracy of ally moves by 10%"
+
+  testTypeAbsorbMove = (name, type) ->
+    describe name, ->
+      it "heals 25% HP from #{type}-type moves"
+
+  testTypeAbsorbMove("Water Absorb", "Water")
+  testTypeAbsorbMove("Volt Absorb", "Electric")
+
+  describe "Zen Mode", ->
+    it "changes Darmanitan's forme when going under or above 50% HP"
