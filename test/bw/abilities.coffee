@@ -833,15 +833,6 @@ describe "BW Abilities:", ->
         @battle.performMove(@id2, typedMove)
         mock.verify()
 
-      it "is not immune to moves that change type to Electric", ->
-        shared.create.call this,
-          team1: [Factory("Magikarp", ability: name)]
-        hiddenPower = @battle.getMove("Hidden Power")
-        @sandbox.stub(hiddenPower, 'getType', -> type)
-        mock = @sandbox.mock(hiddenPower).expects('hit').once()
-        @battle.performMove(@id2, hiddenPower)
-        mock.verify()
-
       it "boosts special attack on #{type}-type moves", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]

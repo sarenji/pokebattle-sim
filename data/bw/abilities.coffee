@@ -166,8 +166,8 @@ makeRedirectAndBoostAbility = (name, type) ->
   makeAbility name, ->
     # TODO: This should be implemented as isImmune instead.
     # TODO: Type-immunities should come before ability immunities.
-    this::shouldBlockExecution = (battle, move) ->
-      return  if move.type != type
+    this::shouldBlockExecution = (battle, move, user) ->
+      return  if move.getType(battle, user, @pokemon) != type
       @pokemon.boost(specialAttack: 1)  unless @pokemon.isImmune(battle, type)
       return true
 
