@@ -82,8 +82,8 @@ class @Pokemon
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
-    total = @item["modify#{capitalized}"](total, this)  if !@isItemBlocked()
-    total = @attachments.queryChain("modify#{capitalized}", total)
+    total = @item["edit#{capitalized}"]?(total, this) || total  if !@isItemBlocked()
+    total = @attachments.queryChain("edit#{capitalized}", total)
     total = @statBoost(key, total)  if key != 'hp'
     total
 
@@ -235,10 +235,12 @@ class @Pokemon
 
   damage: (amount) ->
     @setHP(@currentHP - amount)
+    amount
 
-  drain: (amount) ->
+  drain: (amount, source) ->
     if @hasItem("Big Root") && !@isItemBlocked()
       amount = util.roundHalfDown(amount * 1.3)
+    amount *= -1  if source != this && source?.hasAbility("Liquid Ooze")
     @damage(-amount)
 
   transformHealthChange: (damage) ->
@@ -255,13 +257,13 @@ class @Pokemon
     stages = @attachments.queryChain('editBoosts', stages)
     stages
 
-  editAccuracy: (accuracy) ->
-    accuracy = @item.editAccuracy(accuracy)  if !@isItemBlocked()
-    accuracy = @attachments.queryChain('editAccuracy', accuracy)
+  editAccuracy: (accuracy, move) ->
+    accuracy = @item.editAccuracy?(accuracy, move) || accuracy  if !@isItemBlocked()
+    accuracy = @attachments.queryChain('editAccuracy', accuracy, move)
     accuracy
 
-  editEvasion: (accuracy) ->
-    accuracy = @attachments.queryChain('editEvasion', accuracy)
+  editEvasion: (accuracy, move) ->
+    accuracy = @attachments.queryChain('editEvasion', accuracy, move)
     accuracy
 
   setHP: (hp) ->

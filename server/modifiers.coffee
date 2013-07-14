@@ -99,10 +99,10 @@ basePowerModifier.add 40, (move, battle, user, target) ->
   return 0x1000
 
 # Iron Fist modifier.
-basePowerModifier.add 50, (move, battle, user, target) ->
-  if user.hasAbility('Iron Fist') && move.hasFlag("punch")
-    return 0x1333
-  return 0x1000
+# basePowerModifier.add 50, (move, battle, user, target) ->
+#   if user.hasAbility('Iron Fist') && move.hasFlag("punch")
+#     return 0x1333
+#   return 0x1000
 
 # Toxic Boost modifier.
 # basePowerModifier.add 60, (move, battle, user, target) ->
@@ -130,11 +130,11 @@ basePowerModifier.add 80, (move, battle, user, target) ->
   return 0x1000
 
 # Heatproof modifier.
-basePowerModifier.add 90, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if target.hasAbility('Heatproof') && type == 'Fire'
-    return 0x800
-  return 0x1000
+# basePowerModifier.add 90, (move, battle, user, target) ->
+#   type = move.getType(battle, user, target)
+#   if target.hasAbility('Heatproof') && type == 'Fire'
+#     return 0x800
+#   return 0x1000
 
 # Dry Skin modifier.
 # basePowerModifier.add 100, (move, battle, user, target) ->
@@ -193,10 +193,10 @@ attackStatModifier.add 20, (move, battle, user, target) ->
   return 0x1000
 
 # Guts
-attackStatModifier.add 30, (move, battle, user, target) ->
-  if user.hasAbility('Guts') && user.hasStatus() && move.isPhysical()
-    return 0x1800
-  return 0x1000
+# attackStatModifier.add 30, (move, battle, user, target) ->
+#   if user.hasAbility('Guts') && user.hasStatus() && move.isPhysical()
+#     return 0x1800
+#   return 0x1000
 
 # TODO: Swarm (Implement when you make Abilities)
 # TODO: Overgrow
@@ -204,16 +204,16 @@ attackStatModifier.add 30, (move, battle, user, target) ->
 # TODO: Blaze
 
 # Defeatist
-attackStatModifier.add 40, (move, battle, user, target) ->
-  if user.hasAbility('Defeatist') && user.currentHP <= Math.floor(user.stat('hp') / 2)
-    return 0x800
-  return 0x1000
+# attackStatModifier.add 40, (move, battle, user, target) ->
+#   if user.hasAbility('Defeatist') && user.currentHP <= Math.floor(user.stat('hp') / 2)
+#     return 0x800
+#   return 0x1000
 
 # Pure Power and Huge Power
-attackStatModifier.add 50, (move, battle, user, target) ->
-  if user.hasAbility('Huge Power') || user.hasAbility('Pure Power')
-    return 0x2000
-  return 0x1000
+# attackStatModifier.add 50, (move, battle, user, target) ->
+#   if user.hasAbility('Huge Power') || user.hasAbility('Pure Power')
+#     return 0x2000
+#   return 0x1000
 
 # Solar Power
 attackStatModifier.add 60, (move, battle, user, target) ->
@@ -221,11 +221,11 @@ attackStatModifier.add 60, (move, battle, user, target) ->
     return 0x1800
   return 0x1000
 
-# Solar Power
-attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Hustle') && move.isPhysical()
-    return 0x1800
-  return 0x1000
+# Hustle
+# attackStatModifier.add 60, (move, battle, user, target) ->
+#   if user.hasAbility('Hustle') && move.isPhysical()
+#     return 0x1800
+#   return 0x1000
 
 # TODO: Flash Fire activated
 # TODO: Slow start

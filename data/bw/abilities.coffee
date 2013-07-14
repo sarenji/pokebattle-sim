@@ -6,20 +6,18 @@ require 'sugar'
 
 @Ability = Ability = {}
 
-makeAbility = (name, func) ->
+makeAbility = (name, extension, func) ->
+  if arguments.length < 3
+    [extension, func] = [VolatileAttachment, extension]
   condensed = name.replace(/\s+/g, '')
-  class Ability[condensed] extends VolatileAttachment
+  class Ability[condensed] extends extension
     name: name
     func?.call(this)
 
 makeAbility 'Technician'
-makeAbility 'Natural Cure'
-makeAbility 'Guts'
 makeAbility 'Reckless'
-makeAbility 'Iron Fist'
 makeAbility 'Rivalry'
 makeAbility 'Sand Force'
-makeAbility 'Heatproof'
 makeAbility 'Sheer Force'
 
 # TODO: Add hook to CH level.
@@ -29,7 +27,6 @@ makeAbility 'Tinted Lens'
 makeAbility 'Sniper'
 
 makeAbility 'Sticky Hold'
-makeAbility 'Multitype'
 
 makeAbility "Skill Link"
 
@@ -60,7 +57,7 @@ makeWeatherSpeedAbility = (name, weather) ->
     this::informWeather = (newWeather) ->
       @doubleSpeed = (weather == newWeather)
 
-    this::modifySpeed = (speed) ->
+    this::editSpeed = (speed) ->
       if @doubleSpeed then 2 * speed else speed
 
 makeWeatherSpeedAbility("Chlorophyll", Weather.SUN)
@@ -124,6 +121,24 @@ makeStatusBoostAbility = (name, statuses, spectra) ->
 
 makeStatusBoostAbility("Flare Boost", [Status.BURN], 'special')
 makeStatusBoostAbility("Toxic Boost", [Status.POISON, Status.TOXIC], 'physical')
+
+makeHugePowerAbility = (name) ->
+  makeAbility name, ->
+    this::modifyAttack = (battle, move) ->
+      if move.isPhysical() then 0x2000 else 0x1000
+
+makeHugePowerAbility("Huge Power")
+makeHugePowerAbility("Pure Power")
+
+makeRedirectAndBoostAbility = (name, type) ->
+  makeAbility name, ->
+    this::shouldBlockExecution = (battle, move) ->
+      return  if move.type != type
+      @pokemon.boost(specialAttack: 1)
+      return true
+
+makeRedirectAndBoostAbility("Lightningrod", "Electric")
+makeRedirectAndBoostAbility("Storm Drain", "Water")
 
 # Unique Abilities
 
@@ -201,13 +216,9 @@ makeAbility "Cursed Body", ->
 makeAbility 'Damp'
 
 makeAbility 'Defeatist', ->
-  this::modifyAttack = (attack) ->
+  this::modifyAttack = (battle, move, target) ->
     halfHP = (@pokemon.stat('hp') >> 1)
-    if @pokemon.currentHP <= halfHP then attack >> 1 else attack
-
-  this::modifySpecialAttack = (specialAttack) ->
-    halfHP = (@pokemon.stat('hp') >> 1)
-    if @pokemon.currentHP <= halfHP then specialAttack >> 1 else specialAttack
+    if @pokemon.currentHP <= halfHP then 0x800 else 0x1000
 
 makeAbility 'Download', ->
   this::switchIn = (battle) ->
@@ -225,8 +236,8 @@ makeAbility 'Download', ->
       battle.message "#{@pokemon.name}'s Download boosted its Attack!"
 
 makeAbility 'Dry Skin', ->
-  this::modifyBasePowerTarget = (battle, move, user, target) ->
-    if move.getType(battle, user, target) == 'Fire' then 0x1400 else 0x1000
+  this::modifyBasePowerTarget = (battle, move, user) ->
+    if move.getType(battle, user, @pokemon) == 'Fire' then 0x1400 else 0x1000
 
   this::endTurn = (battle) ->
     # TODO: Real message
@@ -324,3 +335,92 @@ makeAbility "Frisk", ->
     if opponent.hasItem()
       item = opponent.getItem()
       battle.message "#{@pokemon.name} frisked its target and found one #{item.name}!"
+
+# Implemented in items.coffee; makePinchBerry
+makeAbility "Gluttony"
+
+makeAbility "Guts", ->
+  this::modifyAttack = (battle, move, target) ->
+    return 0x1800  if @pokemon.hasStatus() && move.isPhysical()
+    return 0x1000
+
+makeAbility 'Heatproof', ->
+  this::modifyBasePowerTarget = (battle, move, user) ->
+    return 0x800  if move.getType(battle, user, @pokemon) == 'Fire'
+    return 0x1000
+
+makeAbility 'Hustle', ->
+  this::modifyAttack = (battle, move, target) ->
+    return 0x1800  if move.isPhysical()
+    return 0x1000
+
+  this::editAccuracy = (accuracy, move) ->
+    return Math.floor(0.8 * accuracy)  if move.isPhysical()
+    return accuracy
+
+makeAbility "Hydration", ->
+  this::endTurn = (battle) ->
+    if battle.hasWeather(Weather.RAIN) && @pokemon.hasStatus()
+      battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}!"
+      @pokemon.cureStatus()
+
+makeAbility 'Iron Fist', ->
+  this::modifyBasePower = (battle, move) ->
+    if move.hasFlag('punch') then 0x1333 else 0x1000
+
+makeAbility 'Justified', ->
+  this::afterBeingHit = (battle, move, user) ->
+    if move.getType(battle, user, @pokemon) == 'Dark'
+      @pokemon.boost(attack: 1)
+      # TODO: Message
+      battle.message "#{@pokemon.name}'s attack rose!"
+
+makeAbility 'Klutz', ->
+  this::beginTurn = this::switchIn = ->
+    @pokemon.blockItem()
+
+makeAbility 'Levitate', ->
+  this::isImmune = (battle, type) ->
+    return true  if type == 'Ground'
+
+# Implemented in Pokemon#drain
+makeAbility 'Liquid Ooze'
+
+makeAbility 'Magic Bounce', Attachment.MagicCoat, ->
+  this::beginTurn = ->
+    @bounced = false
+
+  this::endTurn = ->
+
+makeAbility 'Magnet Pull', ->
+  this::beginTurn = this::switchIn = (battle) ->
+    opponents = battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    opponents = opponents.filter((p) -> p.hasType("Steel"))
+    opponent.blockSwitch()  for opponent in opponents
+
+makeAbility 'Multitype'
+
+makeAbility 'Natural Cure', ->
+  this::switchOut = ->
+    @pokemon.cureStatus()
+
+makeAbility 'No Guard', ->
+  this::editAccuracy = -> 0  # Never miss
+  this::editEvasion  = -> 0  # Never miss
+
+makeAbility 'Poison Heal', ->
+  # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
+  this::endTurn = ->
+    if @pokemon.hasStatus(Status.POISON, Status.TOXIC)
+      amount = @pokemon.stat('hp') >> 3
+      @pokemon.damage(-amount)
+
+# Hardcoded in Battle#actionPriority
+makeAbility 'Prankster'
+
+# PP deduction hardcoded in Battle
+makeAbility 'Pressure', ->
+  this::switchIn = (battle) ->
+    battle.message "#{@pokemon.name} is exerting its pressure!"

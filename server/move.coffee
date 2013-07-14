@@ -123,8 +123,8 @@ class @Move
     accuracy = @accuracy
     accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
-    accuracy = user.editAccuracy(accuracy)
-    accuracy = target.editEvasion(accuracy)
+    accuracy = user.editAccuracy(accuracy, this)
+    accuracy = target.editEvasion(accuracy, this)
     if user.hasItem("Zoom Lens") && battle.willMove(target)
       accuracy = Math.floor(accuracy * 1.2)
     # TODO: Accuracy/evasion ability modifiers
@@ -203,7 +203,7 @@ class @Move
     damage = floor((2 * user.level) / 5 + 2)
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, @modifyBasePower(battle, user, target))
-    damage *= @modify(uStat, attackStatModifier.run(this, battle, user, target))
+    damage *= @modify(uStat, @modifyAttack(battle, user, target))
     damage = floor(damage / tStat)
     damage = floor(damage / 50)
     damage += 2
@@ -222,7 +222,7 @@ class @Move
 
   modifyBasePower: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyBasePower', battle, this, user, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', battle, this, user, target))
+    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', battle, this, user))
     # TODO: Deprecate
     modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 
@@ -230,6 +230,11 @@ class @Move
     modify = target.attachments.queryModifiers('modifyDamageTarget', battle, this, user)
     # TODO: Deprecate
     modify = @modify(modify, finalModifier.run(this, battle, user, target))
+
+  modifyAttack: (battle, user, target) ->
+    modify = user.attachments.queryModifiers('modifyAttack', battle, this, target)
+    # TODO: Deprecate
+    modify = @modify(modify, attackStatModifier.run(this, battle, user, target))
 
   getType: (battle, user, target) ->
     @type

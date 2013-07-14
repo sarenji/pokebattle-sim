@@ -138,7 +138,7 @@ class @Battle
   bump: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
-      bracket = @actionPriority(action)
+      bracket = @actionPriority(action, pokemon)
 
     # Find the priority segment associated with this pokemon
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
@@ -155,7 +155,7 @@ class @Battle
   delay: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
-      bracket = @actionPriority(action)
+      bracket = @actionPriority(action, pokemon)
 
     # Find the priority segment associated with this pokemon
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
@@ -440,7 +440,7 @@ class @Battle
     for id in ids
       pokemon = @getTeam(id).at(0)
       action = @getAction(pokemon)
-      priority = @actionPriority(action)
+      priority = @actionPriority(action, pokemon)
       pq.push({id, priority, pokemon})
     @priorityQueue = @sortActions(pq)
     @afterTurnOrder()
@@ -467,11 +467,15 @@ class @Battle
 
     array.map (elem) -> elem[0]
 
-  actionPriority: (action) ->
+  actionPriority: (action, pokemon) ->
     switch action.type
-      when 'switch' then 5
-      # TODO: Apply priority callbacks
-      when 'move'   then action.move.priority
+      when 'switch'
+        5
+      when 'move'
+        {move} = action
+        {priority} = move
+        priority++  if move.isNonDamaging() && pokemon.hasAbility("Prankster")
+        priority
 
   hasActionsLeft: ->
     @priorityQueue?.length > 0
@@ -508,8 +512,8 @@ class @Battle
       @message "But there was no PP left for the move!"
     else if pokemon.beforeMove(this, move, pokemon, targets) != false
       pokemon.reducePP(move)
-      # TODO: Pressure
-      # TODO: What if a Pokemon uses Focus Punch on a Pressure Pokemon?
+      for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
+        pokemon.reducePP(move)
       damage = move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
 

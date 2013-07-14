@@ -26,18 +26,16 @@ class Item
     0x1000
   calculateWeight: (weight) -> weight
   editDamage: (battle, holder, move, damage) -> damage
-  editAccuracy: (accuracy) -> accuracy
   update: (battle, owner) ->
   criticalModifier: (battle, owner) ->
 
   # Stat modifications
   # TODO: Consider subclassing from Attachment
-  modifyHp: (stat, pokemon) -> stat
-  modifySpeed: (stat, pokemon) -> stat
-  modifyAttack: (stat, pokemon) -> stat
-  modifySpecialAttack: (stat, pokemon) -> stat
-  modifyDefense: (stat, pokemon) -> stat
-  modifySpecialDefense: (stat, pokemon) -> stat
+  editHp: (stat, pokemon) -> stat
+  editSpeed: (stat, pokemon) -> stat
+  editSpecialAttack: (stat, pokemon) -> stat
+  editDefense: (stat, pokemon) -> stat
+  editSpecialDefense: (stat, pokemon) -> stat
 
 extendItem = (name, callback) ->
   if name not of Items
@@ -56,7 +54,9 @@ makePinchBerry = (name, hookName, func) ->
       func.call(this, battle, owner)
 
     @[hookName] = (battle, owner) ->
-      if owner.currentHP <= Math.floor(owner.stat('hp') / 4)
+      amount       = (if owner.hasAbility("Gluttony") then 1 else 2)
+      activationHP = owner.stat('hp') >> amount
+      if owner.currentHP <= activationHP
         @eat(battle, owner)
         owner.removeItem()
 
@@ -188,7 +188,7 @@ makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
   extendItem name, ->
     for stat, boost of statsHash
       capitalizedStat = stat[0].toUpperCase() + stat.substr(1)
-      this["modify#{capitalizedStat}"] = (stat, pokemon) ->
+      this["edit#{capitalizedStat}"] = (stat, pokemon) ->
         if pokemon.species in speciesArray
           Math.floor(stat * boost)
         else
@@ -290,7 +290,7 @@ makeChoiceItem 'Choice Specs'
 makeChoiceItem 'Choice Scarf'
 
 extendItem 'Choice Scarf', ->
-  @modifySpeed = (stat) ->
+  @editSpeed = (stat) ->
     Math.floor(stat * 1.5)
 
 makeTypeResistBerry 'Chople Berry', 'Fighting'
@@ -402,7 +402,7 @@ makeStatusCureBerry 'Lum Berry', Status.PARALYZE, Status.SLEEP, Status.POISON,
   Status.TOXIC, Status.BURN, Status.FREEZE, Attachment.Confusion
 makeOrbItem 'Lustrous Orb', 'Palkia'
 extendItem 'Macho Brace', ->
-  @modifySpeed = (stat, pokemon) ->
+  @editSpeed = (stat, pokemon) ->
     Math.floor(stat / 2)
 makeTypeBoostItem 'Magnet', 'Electric'
 makeFlavorHealingBerry 'Mago Berry', "speed"
@@ -592,7 +592,7 @@ makeCriticalBoostItem 'Razor Claw'
 makeCriticalBoostItem 'Scope Lens'
 
 extendItem 'Iron Ball', ->
-  @modifySpeed = (stat, pokemon) ->
+  @editSpeed = (stat, pokemon) ->
     Math.floor(stat / 2)
 
   @initialize = (battle, pokemon) ->

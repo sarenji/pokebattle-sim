@@ -318,18 +318,18 @@ describe "BW Abilities:", ->
     it "halves attack and special attack if HP goes under 50%", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Defeatist")]
-      attack = @p1.stat('attack')
-      specialAttack = @p1.stat('specialAttack')
+      tackle = @battle.getMove("Tackle")
+      thunderbolt = @battle.getMove("Thunderbolt")
 
       # 50%
       @p1.currentHP = (@p1.stat('hp') >> 1)
-      @p1.stat('attack').should.equal(attack >> 1)
-      @p1.stat('specialAttack').should.equal(specialAttack >> 1)
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
+      thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
 
       # 50% + 1
       @p1.currentHP = (@p1.stat('hp') >> 1) + 1
-      @p1.stat('attack').should.equal(attack)
-      @p1.stat('specialAttack').should.equal(specialAttack)
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Defiant", ->
     it "boosts attack by 2 every time a stat is lowered"
@@ -587,3 +587,382 @@ describe "BW Abilities:", ->
       spy = @sandbox.spy(@battle, 'message')
       @controller.beginBattle()
       spy.calledWithMatch('Leftovers').should.be.true
+
+  describe "Gluttony", ->
+    it "makes berries activate at 50% HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Gluttony")]
+      @p1.stages.should.include(speed: 0)
+      @p1.currentHP >>= 1
+      @p1.update(@battle)
+      @p1.stages.should.include(speed: 1)
+
+  describe "Guts", ->
+    it "multiplies attack by x1.5 if statused", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Guts")])
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      @p1.setStatus(Status.BURN)
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "does not multiply attack if move is special", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Guts")])
+      thunderbolt = @battle.getMove("Thunderbolt")
+      @p1.setStatus(Status.BURN)
+      thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Harvest", ->
+    it "has a 50% chance of re-obtaining a berry it used"
+    it "has a 50% chance of doing nothing"
+    it "has a 100% chance to re-obtain the berry in Sun"
+    it "does not regain a normal item"
+    it "does not regain the berry if it was stolen"
+
+  describe "Healer", ->
+    it "has a 30% chance of healing an ally's status"
+    it "has a 70% chance to do nothing"
+
+  describe "Heatproof", ->
+    it "receives half damage from Fire-type moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Heatproof")])
+      ember = @battle.getMove("Ember")
+      ember.modifyBasePower(@battle, @p2, @p1).should.equal(0x800)
+
+    it "receives normal damage from non-Fire-type moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Heatproof")])
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p2, @p1).should.equal(0x1000)
+
+    it "receives half damage from burn", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Heatproof")])
+      @p1.setStatus(Status.BURN)
+      burn = @p1.get(Attachment.Burn)
+      mock = @sandbox.mock(burn).expects('endTurn').returns(@p1.currentHP >> 4)
+      @battle.endTurn()
+      mock.verify()
+
+  testHugePowerAbility = (name) ->
+    describe name, ->
+      it "doubles attack when using a physical move", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        tackle = @battle.getMove("Tackle")
+        tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x2000)
+
+      it "does not double attack when using a special move", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        thunderbolt = @battle.getMove("Thunderbolt")
+        thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+
+  testHugePowerAbility("Huge Power")
+  testHugePowerAbility("Pure Power")
+
+  describe "Hustle", ->
+    it "multiplies attack by x1.5", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Hustle")])
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1800)
+      thunderbolt = @battle.getMove("Thunderbolt")
+      thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+
+    it "makes physical moves have 20% less accuracy", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Hustle")])
+      tackle = @battle.getMove("Tackle")
+      accuracy = tackle.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(tackle.accuracy * 0.8)
+
+      thunderbolt = @battle.getMove("Thunderbolt")
+      accuracy = thunderbolt.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(thunderbolt.accuracy * 1.0)
+
+  describe "Hydration", ->
+    it "restores status, in Rain, at the end of the turn", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Hydration")])
+      @p1.setStatus(Status.SLEEP)
+      @battle.setWeather(Weather.RAIN)
+      @battle.endTurn()
+      @p1.hasStatus().should.be.false
+
+    it "does not restore status if the weather is not rainy", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Hydration")])
+      @p1.setStatus(Status.SLEEP)
+      @battle.endTurn()
+      @p1.hasStatus().should.be.true
+
+  describe "Ice Body", ->
+    it "restores 1/16 HP in Hail"
+    it "grants immunity to Hail"
+
+  describe "Illusion", ->
+    it "masquerades as the last unfainted pokemon in player's party"
+    it "does not masquerade if all pokemon are fainted"
+    it "is broken when the user takes direct damage"
+
+  describe "Imposter", ->
+    it "automatically transforms into the adjacent foe pokemon"
+    it "does not transform if target is behind a substitute"
+    it "does not transform if target is behind an illusion"
+
+  testAttachmentImmuneAbility = (name, statuses) ->
+    describe name, ->
+      it "prevents the pokemon from receiving a specific attachment"
+      it "removes the attachment if the pokemon already has it"
+
+  testAttachmentImmuneAbility("Immunity", [Status.POISON, Status.TOXIC])
+  testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
+  testAttachmentImmuneAbility("Insomnia", [Status.SLEEP])
+  testAttachmentImmuneAbility("Limber", [Status.PARALYZE])
+  testAttachmentImmuneAbility("Magma Armor", [Status.FREEZE])
+  testAttachmentImmuneAbility("Oblivious", [Attachment.Attract])
+  testAttachmentImmuneAbility("Own Tempo", [Attachment.Confusion])
+  testAttachmentImmuneAbility("Vital Spirit", [Status.SLEEP])
+  testAttachmentImmuneAbility("Water Veil", [Status.BURN])
+
+  describe "Intimidate", ->
+    it "lowers the attack of all foe pokemon"
+    it "lowers attack simultaneously on all begin-turn switch-ins"
+
+  describe "Infiltrator", ->
+    it "ignores Reflect"
+    it "ignores Light Screen"
+    it "ignores Safeguard"
+    it "ignores Mist"
+
+  testContactHurtAbility = (name) ->
+    describe name, ->
+      it "damages for 1/8 HP on contact moves"
+      it "does not damage for non-contact moves"
+
+  testContactHurtAbility("Iron Barbs")
+  testContactHurtAbility("Rough Skin")
+
+  describe "Iron Fist", ->
+    it "increases base power of punching moves by approximately x1.3", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Iron Fist")])
+      icePunch = @battle.getMove("Ice Punch")
+      icePunch.modifyBasePower(@battle, @p1, @p2).should.equal(0x1333)
+
+    it "does not increase base power of non-punching moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Iron Fist")])
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Justified", ->
+    it "boosts attack by 1 after being hit by a Dark move", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
+      @p1.stages.should.include(attack: 0)
+      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @p1.stages.should.include(attack: 0)
+      @battle.performMove(@id2, @battle.getMove("Crunch"))
+      @p1.stages.should.include(attack: 1)
+
+  describe "Klutz", ->
+    it "disables user's item upon switch-in", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), Factory("Magikarp", item: "Leftovers", ability: "Klutz")]
+      @battle.performSwitch(@id1, 1)
+      @team1.first().isItemBlocked().should.be.true
+
+    it "disables user's item in the beginning of the turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Leftovers", ability: "Klutz")]
+      @p1.isItemBlocked().should.be.true
+      @battle.beginTurn()
+      @p1.isItemBlocked().should.be.true
+
+  describe "Leaf Guard", ->
+    it "defends against statuses under Sun"
+    it "does not defend against statuses otherwise"
+
+  describe "Levitate", ->
+    it "adds a ground immunity", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Levitate")]
+      @p1.isImmune(@battle, 'Ground').should.be.true
+
+  testRedirectAndBoostAbility = (name, type) ->
+    describe name, ->
+      it "should redirect attacks of #{type} to user"
+
+      it "makes user immune to #{type}", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        mock = @sandbox.mock(typedMove).expects('hit').never()
+        @battle.performMove(@id2, typedMove)
+        mock.verify()
+
+      it "is not immune to moves that change type to Electric", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        hiddenPower = @battle.getMove("Hidden Power")
+        @sandbox.stub(hiddenPower, 'getType', -> type)
+        mock = @sandbox.mock(hiddenPower).expects('hit').once()
+        @battle.performMove(@id2, hiddenPower)
+        mock.verify()
+
+      it "boosts special attack on #{type}-type moves", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.getMoveList().find (m) ->
+          !m.isNonDamaging() && m.type == type
+        @battle.performMove(@id2, typedMove)
+        @p1.stages.should.include(specialAttack: 1)
+
+      it "does nothing otherwise", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        tackle = @battle.getMove("Tackle")
+        mock = @sandbox.mock(tackle).expects('hit').once()
+        @battle.performMove(@id2, tackle)
+        mock.verify()
+        @p1.stages.should.include(specialAttack: 0)
+
+  testRedirectAndBoostAbility("Lightningrod", "Electric")
+  testRedirectAndBoostAbility("Storm Drain", "Water")
+
+  describe "Liquid Ooze", ->
+    it "causes drain attacks to damage the user as well", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Liquid Ooze")]
+      @battle.performMove(@id2, @battle.getMove("Giga Drain"))
+      @p2.currentHP.should.be.lessThan @p2.stat('hp')
+
+    it "causes Leech Seed to damage the user as well", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Liquid Ooze")]
+      @battle.performMove(@id2, @battle.getMove("Leech Seed"))
+      @battle.endTurn()
+      @p2.currentHP.should.be.lessThan @p2.stat('hp')
+
+  describe "Magic Bounce", ->
+    it "still has the magic coat effect next turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Bounce")]
+      @battle.endTurn()
+      @p1.has(Ability.MagicBounce).should.be.true
+
+    it "@bounced is reset each turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Bounce")]
+      @battle.endTurn()
+      @p1.get(Ability.MagicBounce).bounced = true
+      @battle.beginTurn()
+      @p1.get(Ability.MagicBounce).bounced.should.be.false
+
+  describe "Magic Guard", ->
+    it "takes no damage from anything non-direct"
+    it "takes damage from direct moves"
+
+  describe "Magnet Pull", ->
+    it "prevents Steel-type Pokemon from switching", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magnet Pull")]
+        team2: [Factory("Magnemite")]
+      @p2.isSwitchBlocked().should.be.true
+      @battle.beginTurn()
+      @p2.isSwitchBlocked().should.be.true
+
+    it "doesn't prevent non-Steel-type Pokemon from switching", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magnet Pull")]
+        team2: [Factory("Magikarp")]
+      @p2.isSwitchBlocked().should.be.false
+      @battle.beginTurn()
+      @p2.isSwitchBlocked().should.be.false
+
+  describe "Mold Breaker", ->
+    it "cancels abilities for the duration of the user's move"
+
+  describe "Motor Drive", ->
+    it "makes the user immune to Electric moves"
+    it "increases speed by 1 if hit by an Electric move"
+
+  describe "Moxie", ->
+    it "increases attack every time it faints another target"
+    it "does not increase attack if someone faints another pokemon"
+
+  describe "Multiscale", ->
+    it "takes half damage at full HP"
+    it "takes normal damage at other HP"
+
+  describe "Multitype", ->
+    it "changes Arceus forme for different plates"
+
+  describe "Mummy", ->
+    it "changes the attacker's ability to Mummy on contact"
+    it "doesn't change ability if move used isn't a contact move"
+
+  describe "Natural Cure", ->
+    it "cures status upon switch out", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Natural Cure")]
+      @p1.setStatus(Status.BURN)
+      @p1.switchOut(@battle)
+      @p1.hasStatus().should.be.false
+
+  describe "No Guard", ->
+    it "makes every move by this Pokemon never miss", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "No Guard")]
+      focusBlast = @battle.getMove("Focus Blast")
+      focusBlast.chanceToHit(@battle, @p1, @p2).should.equal(0)
+
+    it "makes every move against this Pokemon never miss", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "No Guard")]
+      focusBlast = @battle.getMove("Focus Blast")
+      focusBlast.chanceToHit(@battle, @p2, @p1).should.equal(0)
+
+  describe "Overcoat", ->
+    it "gives an immunity to adverse weather effects"
+
+  describe "Poison Heal", ->
+    it "prevents normal poison damage", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Poison Heal")]
+      @p1.setStatus(Status.POISON)
+      @battle.endTurn()
+      @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
+      @p1.cureStatus()
+      @p1.setStatus(Status.TOXIC)
+      @battle.endTurn()
+      @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
+
+    it "heals 1/8 HP end of turn while poisoned", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Poison Heal")]
+      @p1.setStatus(Status.POISON)
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 3))
+
+    it "heals 1/8 HP end of turn while toxiced", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Poison Heal")]
+      @p1.setStatus(Status.TOXIC)
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 3))
+
+  describe "Prankster", ->
+    it "makes non-damaging moves have a priority (priority + 1)", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Prankster")]
+      spore = @battle.getMove("Spore")
+      tackle = @battle.getMove("Tackle")
+      action = {type: "move", move: spore}
+      @battle.actionPriority(action, @p1).should.equal(spore.priority + 1)
+      action.move = tackle
+      @battle.actionPriority(action, @p1).should.equal(tackle.priority)
+
+  describe "Pressure", ->
+    it "reduces a move's PP further by 1 if targetted by foe's move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Pressure")]
+      tackle = @battle.getMove("Tackle")
+      @p2.moves = [ tackle ]
+      @p2.resetAllPP()
+      pp = @p2.pp(tackle)
+      @battle.performMove(@id2, tackle)
+      @p2.pp(tackle).should.equal(pp - 2)

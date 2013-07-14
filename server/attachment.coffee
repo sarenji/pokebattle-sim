@@ -100,8 +100,6 @@ class @BaseAttachment
 
   unattach: ->
   calculateWeight: (weight) -> weight
-  editAccuracy: (accuracy) -> accuracy
-  editEvasion: (evasion) -> evasion
   afterBeingHit: (battle, move, user, target, damage) ->
   afterSuccessfulHit: (battle, move, user, target, damage) ->
   beforeMove: (battle, move, user, targets) ->
@@ -119,12 +117,12 @@ class @BaseAttachment
   # Pokemon-specific attachments
   # TODO: Turn Attachment into abstract class
   # TODO: Move into own PokemonAttachment
-  modifyHp: (stat) -> stat
-  modifySpeed: (stat) -> stat
-  modifyAttack: (stat) -> stat
-  modifySpecialAttack: (stat) -> stat
-  modifyDefense: (stat) -> stat
-  modifySpecialDefense: (stat) -> stat
+  # editHp: (stat) -> stat
+  # editAttack: (stat) -> stat
+  # editSpeed: (stat) -> stat
+  # editSpecialAttack: (stat) -> stat
+  # editDefense: (stat) -> stat
+  # editSpecialDefense: (stat) -> stat
 
 @Attachment = Attachment = {}
 
@@ -144,7 +142,7 @@ class @Attachment.Paralyze extends @BaseAttachment
       battle.message "#{@pokemon.name} is fully paralyzed!"
       return false
 
-  modifySpeed: (stat) ->
+  editSpeed: (stat) ->
     Math.floor(stat / 4)
 
 class @Attachment.Freeze extends @BaseAttachment
@@ -167,6 +165,7 @@ class @Attachment.Poison extends @BaseAttachment
   name: "#{Status.POISON}Attachment"
 
   endTurn: (battle) ->
+    return  if @pokemon.hasAbility("Poison Heal")
     battle.message "#{@pokemon.name} was hurt by poison!"
     @pokemon.damage(@pokemon.stat('hp') >> 3)
 
@@ -180,6 +179,7 @@ class @Attachment.Toxic extends @BaseAttachment
     @counter = 0
 
   endTurn: (battle) ->
+    return  if @pokemon.hasAbility("Poison Heal")
     battle.message "#{@pokemon.name} was hurt by poison!"
     @counter = Math.min(@counter + 1, 15)
     @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
@@ -629,7 +629,7 @@ class @Attachment.LockOn extends @VolatileAttachment
   initialize: ->
     @turns = 2
 
-  editAccuracy: (stat) ->
+  editAccuracy: ->
     0  # Always hits
 
   endTurn: (battle) ->
@@ -711,7 +711,7 @@ class @Attachment.LeechSeed extends @VolatileAttachment
     hp = @pokemon.stat('hp')
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
     @pokemon.damage(damage)
-    user.drain(damage)
+    user.drain(damage, @pokemon)
     battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
@@ -802,8 +802,8 @@ class @Attachment.Pursuit extends @VolatileAttachment
 class @Attachment.PursuitModifiers extends @VolatileAttachment
   name: "PursuitModifiersAttachment"
 
-  editAccuracy: (accuracy) ->
-    0
+  editAccuracy: ->
+    0  # Always hits
 
 class @Attachment.Substitute extends @VolatileAttachment
   name: "SubstituteAttachment"
@@ -858,7 +858,7 @@ class @Attachment.AquaRing extends @VolatileAttachment
   endTurn: (battle) ->
     amount = Math.floor(@pokemon.stat('hp') / 16)
     # Aqua Ring is considered a drain move for the purposes of Big Root.
-    @pokemon.drain(amount)
+    @pokemon.drain(amount, @pokemon)
     battle.message "Aqua Ring restored #{@pokemon.name}'s HP!"
 
 class @Attachment.Ingrain extends @VolatileAttachment
@@ -868,7 +868,7 @@ class @Attachment.Ingrain extends @VolatileAttachment
   endTurn: (battle) ->
     amount = Math.floor(@pokemon.stat('hp') / 16)
     # Ingrain is considered a drain move for the purposes of Big Root.
-    @pokemon.drain(amount)
+    @pokemon.drain(amount, @pokemon)
     battle.message "#{@pokemon.name} absorbed nutrients with its roots!"
 
   beginTurn: (battle) ->
