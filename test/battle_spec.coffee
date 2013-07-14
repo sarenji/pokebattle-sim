@@ -1,6 +1,7 @@
 {Battle, BattleController, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
 should = require 'should'
+require './helpers'
 
 describe 'Battle', ->
   beforeEach ->
@@ -138,3 +139,11 @@ describe 'Battle', ->
 
       @battle.delay(@p1, @battle.getMove('Tackle').priority)
       queue[1].pokemon.should.eql @p1
+
+  describe "#weatherUpkeep", ->
+    it "does not damage Pokemon if a weather-cancel ability is on the field", ->
+      @battle.setWeather(Weather.HAIL)
+      @sandbox.stub(@battle, 'hasWeatherCancelAbilityOnField', -> true)
+      @battle.endTurn()
+      @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
+      @p2.currentHP.should.not.be.lessThan @p2.stat('hp')
