@@ -538,6 +538,13 @@ makeAbility 'Soundproof', ->
 # Hardcoded in Pokemon#hasTakeableItem
 makeAbility 'Sticky Hold'
 
+makeAbility 'Sturdy', ->
+  this::editDamage = (damage, battle, move) ->
+    if @pokemon.currentHP == @pokemon.stat('hp')
+      Math.min(@pokemon.currentHP - 1, damage)
+    else
+      damage
+
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->
     battle.message "#{@pokemon.name} anchors itself!"

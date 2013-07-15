@@ -1200,8 +1200,19 @@ describe "BW Abilities:", ->
       @p1.hasTakeableItem().should.be.false
 
   describe "Sturdy", ->
-    it "prevents the user from being OHKOed at full HP"
-    it "lets the user be KOed if not at full HP"
+    it "prevents the user from being OHKOed at full HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sturdy")]
+      tackle = @battle.getMove("Tackle")
+      @p1.editDamage(@battle, tackle, 9999).should.equal(@p1.currentHP - 1)
+
+    it "lets the user be KOed if not at full HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sturdy")]
+      tackle = @battle.getMove("Tackle")
+      damage = 9999
+      @p1.currentHP -= 1
+      @p1.editDamage(@battle, tackle, damage).should.equal(damage)
 
   describe "Suction Cups", ->
     it "prevents user from being phased", ->
