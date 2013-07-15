@@ -14,19 +14,9 @@ makeAbility = (name, extension, func) ->
     name: name
     func?.call(this)
 
-makeAbility 'Technician'
 makeAbility 'Reckless'
-makeAbility 'Rivalry'
-makeAbility 'Sand Force'
 makeAbility 'Sheer Force'
-
-# TODO: Add hook to CH level.
-makeAbility 'Super Luck'
-
-makeAbility 'Tinted Lens'
 makeAbility 'Sniper'
-
-makeAbility 'Sticky Hold'
 
 # Ability templates
 
@@ -545,10 +535,16 @@ makeAbility 'Soundproof', ->
   this::isImmune = (battle, type, move) ->
     return true  if move?.hasFlag('sound')
 
+# Hardcoded in Pokemon#hasTakeableItem
+makeAbility 'Sticky Hold'
+
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->
     battle.message "#{@pokemon.name} anchors itself!"
     return false
+
+# Hardcoded in Move#criticalHitLevel
+makeAbility 'Super Luck'
 
 makeAbility 'Technician', ->
   this::modifyBasePower = (battle, move, user) ->

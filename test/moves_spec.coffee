@@ -32,12 +32,6 @@ describe 'Move', ->
       new Move(null, criticalHitLevel: 2)
         .criticalHitLevel(battle, attacker, defender).should.equal 2
 
-    it "is 2 if the attacker has Super Luck", ->
-      battle = new Battle('1', players: [])
-      attacker = new Pokemon(ability: 'Super Luck')
-      defender = new Pokemon()
-      new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
-
     it "is 3 if the attacker has Focus Energy", ->
       battle = new Battle('1', players: [])
       attacker = new Pokemon()

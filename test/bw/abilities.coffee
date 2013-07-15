@@ -1194,7 +1194,10 @@ describe "BW Abilities:", ->
     it "does not boost speed if pokemon is freshly switched in"
 
   describe "Sticky Hold", ->
-    it "prevents items from being taken"
+    it "prevents items from being taken", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sticky Hold")]
+      @p1.hasTakeableItem().should.be.false
 
   describe "Sturdy", ->
     it "prevents the user from being OHKOed at full HP"
@@ -1208,6 +1211,13 @@ describe "BW Abilities:", ->
       mock = @sandbox.mock(@team1).expects('switch').never()
       @battle.performMove(@id2, whirlwind)
       mock.verify()
+
+  describe "Super Luck", ->
+    it "adds +2 to critical hit level", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Super Luck")]
+      tackle = @battle.getMove("Tackle")
+      tackle.criticalHitLevel(@battle, @p1, @p2).should.equal(2)
 
   describe "Synchronize", ->
     it "afflicts the source of a status with the same status"
