@@ -557,9 +557,10 @@ makeAbility 'Sticky Hold'
 makeAbility 'Sturdy', ->
   this::editDamage = (damage, battle, move) ->
     if @pokemon.currentHP == @pokemon.stat('hp')
-      Math.min(@pokemon.currentHP - 1, damage)
-    else
-      damage
+      if damage >= @pokemon.currentHP
+        battle.message "#{@pokemon.name} endured the hit!"
+        return @pokemon.currentHP - 1
+    return damage
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->

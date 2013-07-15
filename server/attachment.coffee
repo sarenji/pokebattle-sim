@@ -671,7 +671,10 @@ class @Attachment.Endure extends @VolatileAttachment
     @pokemon.unattach(@constructor)
 
   editDamage: (damage, battle, move, user) ->
-    Math.min(damage, user.currentHP - 1)
+    if damage >= @pokemon.currentHP
+      battle.message "#{@pokemon.name} endured the hit!"
+      return @pokemon.currentHP - 1
+    return damage
 
 class @Attachment.Curse extends @VolatileAttachment
   name: "CurseAttachment"

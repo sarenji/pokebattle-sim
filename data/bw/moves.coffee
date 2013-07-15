@@ -1325,6 +1325,7 @@ extendMove 'endeavor', ->
 
 extendMove 'endure', ->
   makeProtectCounterMove 'endure', (battle, user, targets) ->
+    battle.message "#{user.name} braced itself!"
     user.attach(Attachment.Endure)
 
 extendMove 'facade', ->
