@@ -568,6 +568,16 @@ makeAbility 'Tinted Lens', ->
     return 0x2000  if move.typeEffectiveness(battle, @pokemon, target) < 1
     return 0x1000
 
+makeAbility 'Truant', ->
+  this::initialize = ->
+    @truanted = true
+
+  this::beforeMove = (battle) ->
+    @truanted = !@truanted
+    if @truanted
+      battle.message "#{@pokemon.name} is loafing around!"
+      return false
+
 makeAbility 'Victory Star', ->
   this::editAccuracy = (accuracy) ->
     Math.floor(accuracy * 1.1)

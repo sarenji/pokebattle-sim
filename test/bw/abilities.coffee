@@ -1285,7 +1285,25 @@ describe "BW Abilities:", ->
     it "does not copy certain abilities"
 
   describe "Truant", ->
-    it "prevents the user from attacking every other turn"
+    it "prevents the user from attacking every other turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Truant")]
+      splash = @battle.getMove("Splash")
+
+      mock = @sandbox.mock(splash).expects('execute').once()
+      @battle.performMove(@id1, splash)
+      mock.verify()
+      splash.execute.restore()
+
+      mock = @sandbox.mock(splash).expects('execute').never()
+      @battle.performMove(@id1, splash)
+      mock.verify()
+      splash.execute.restore()
+
+      mock = @sandbox.mock(splash).expects('execute').once()
+      @battle.performMove(@id1, splash)
+      mock.verify()
+      splash.execute.restore()
 
   describe "Unaware", ->
     it "ignores attackers' attack, special attack, and accuracy boosts"
