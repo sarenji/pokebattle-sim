@@ -617,6 +617,7 @@ makeAbility 'Truant', ->
       battle.message "#{@pokemon.name} is loafing around!"
       return false
 
+# Hardcoded in Pokemon#removeItem
 makeAbility 'Unburden'
 
 makeAbility 'Victory Star', ->
