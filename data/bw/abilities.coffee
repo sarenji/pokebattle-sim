@@ -468,6 +468,11 @@ makeAbility 'Magnet Pull', ->
     opponents = opponents.filter((p) -> p.hasType("Steel"))
     opponent.blockSwitch()  for opponent in opponents
 
+makeAbility 'Multiscale', ->
+  this::modifyDamageTarget = ->
+    return 0x800  if @pokemon.currentHP == @pokemon.stat('hp')
+    return 0x1000
+
 makeAbility 'Multitype'
 
 makeAbility 'Natural Cure', ->
@@ -535,6 +540,10 @@ makeAbility 'Shadow Tag', ->
 # Implementation hardcoded in Move#calculateNumberOfHits.
 # Tested in test/bw/moves.coffee.
 makeAbility "Skill Link"
+
+makeAbility 'Soundproof', ->
+  this::isImmune = (battle, type, move) ->
+    return true  if move?.hasFlag('sound')
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->

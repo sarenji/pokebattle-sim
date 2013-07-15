@@ -962,8 +962,18 @@ describe "BW Abilities:", ->
     it "does not increase attack if someone faints another pokemon"
 
   describe "Multiscale", ->
-    it "takes half damage at full HP"
-    it "takes normal damage at other HP"
+    it "takes half damage at full HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Multiscale")]
+      iceBeam = @battle.getMove("Ice Beam")
+      iceBeam.modifyDamage(@battle, @p2, @p1).should.equal(0x800)
+
+    it "takes normal damage at other HP", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Multiscale")]
+      iceBeam = @battle.getMove("Ice Beam")
+      @p1.currentHP -= 1
+      iceBeam.modifyDamage(@battle, @p2, @p1).should.equal(0x1000)
 
   describe "Multitype", ->
     it "changes Arceus forme for different plates"
@@ -1169,7 +1179,14 @@ describe "BW Abilities:", ->
     it "returns attack and speed to normal after five turns"
 
   describe "Soundproof", ->
-    it "makes user immune to sound moves"
+    it "makes user immune to sound moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Soundproof")]
+      bugBuzz = @battle.getMove('Bug Buzz')
+      perishSong = @battle.getMove('Perish Song')
+      @p1.isImmune(@battle, bugBuzz.type, bugBuzz).should.be.true
+      @p1.isImmune(@battle, perishSong.type, perishSong).should.be.true
+
     it "lets non-sound moves hit"
 
   describe "Speed Boost", ->

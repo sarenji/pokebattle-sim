@@ -1480,6 +1480,12 @@ describe "Perish Song", ->
       pokemon.isFainted()
     result.should.be.true
 
+  it "fails against Pokemon with Soundproof", ->
+    shared.create.call(this, team1: [Factory("Magikarp", ability: "Soundproof")])
+    @battle.performMove(@id2, @battle.getMove("Perish Song"))
+    @p1.has(Attachment.PerishSong).should.be.false
+    @p2.has(Attachment.PerishSong).should.be.true
+
 describe "Techno Blast", ->
   it "is Fire-type if the user holds a Burn Drive", ->
     shared.create.call this,

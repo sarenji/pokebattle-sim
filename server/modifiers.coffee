@@ -21,10 +21,10 @@ finalModifier.add 10, (move, battle, user, target) ->
   return 0x1000
 
 # Multiscale modifier.
-finalModifier.add 30, (move, battle, user, target) ->
-  if target.hasAbility('Multiscale') && target.currentHP == target.stat('hp')
-    return 0x800
-  return 0x1000
+# finalModifier.add 30, (move, battle, user, target) ->
+#   if target.hasAbility('Multiscale') && target.currentHP == target.stat('hp')
+#     return 0x800
+#   return 0x1000
 
 # Tinted lens modifier.
 # finalModifier.add 40, (move, battle, user, target) ->

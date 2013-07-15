@@ -58,7 +58,7 @@ class @Move
       return false
 
     type = @getType(battle, user, target)
-    if target.isImmune(battle, type)
+    if target.isImmune(battle, type, this)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 

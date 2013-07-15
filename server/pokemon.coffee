@@ -253,8 +253,8 @@ class @Pokemon
   recordHit: (pokemon, damage, move, turn) ->
     @lastHitBy = {pokemon, damage, move, turn}
 
-  isImmune: (battle, type) ->
-    b = @attachments.queryUntilNotNull('isImmune', battle, type)
+  isImmune: (battle, type, move) ->
+    b = @attachments.queryUntilNotNull('isImmune', battle, type, move)
     if b? then return b
 
     multiplier = util.typeEffectiveness(type, @types)

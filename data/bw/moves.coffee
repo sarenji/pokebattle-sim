@@ -1747,10 +1747,13 @@ extendMove 'psywave', ->
     Math.floor(user.level * fraction)
 
 extendMove 'perish-song', ->
+  oldExecute = @execute
   @execute = (battle, user, targets) ->
+    oldExecute.call(this, battle, user, targets)
     battle.message "All Pokemon hearing the song will faint in three turns!"
-    # TODO: What if all Pokemon already have Perish Song?
-    _.each(targets, (p) -> p.attach(Attachment.PerishSong))
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.attach(Attachment.PerishSong)
 
 extendMove 'psych-up', ->
   @use = (battle, user, target) ->
