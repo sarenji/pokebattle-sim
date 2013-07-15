@@ -227,12 +227,14 @@ class @Move
     modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 
   modifyDamage: (battle, user, target) ->
-    modify = target.attachments.queryModifiers('modifyDamageTarget', battle, this, user)
+    modify = user.attachments.queryModifiers('modifyDamage', battle, this, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', battle, this, user))
     # TODO: Deprecate
     modify = @modify(modify, finalModifier.run(this, battle, user, target))
 
   modifyAttack: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyAttack', battle, this, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyAttackTarget', battle, this, user))
     # TODO: Deprecate
     modify = @modify(modify, attackStatModifier.run(this, battle, user, target))
 

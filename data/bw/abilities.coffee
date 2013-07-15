@@ -540,3 +540,22 @@ makeAbility 'Suction Cups', ->
   this::shouldPhase = (battle, phaser) ->
     battle.message "#{@pokemon.name} anchors itself!"
     return false
+
+makeAbility 'Technician', ->
+  this::modifyBasePower = (battle, move, user) ->
+    return 0x1800  if move.basePower(battle, user, @pokemon) <= 60
+    return 0x1000
+
+makeAbility 'Thick Fat', ->
+  this::modifyAttackTarget = (battle, move, user) ->
+    return 0x800  if move.getType(battle, user, @pokemon) in [ 'Fire', 'Ice' ]
+    return 0x1000
+
+makeAbility 'Tinted Lens', ->
+  this::modifyDamage = (battle, move, target) ->
+    return 0x2000  if move.typeEffectiveness(battle, @pokemon, target) < 1
+    return 0x1000
+
+makeAbility 'Victory Star', ->
+  this::editAccuracy = (accuracy) ->
+    Math.floor(accuracy * 1.1)

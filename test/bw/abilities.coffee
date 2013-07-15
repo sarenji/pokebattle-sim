@@ -1200,15 +1200,47 @@ describe "BW Abilities:", ->
     it "has normal evasion rate when not confused"
 
   describe "Technician", ->
-    it "increases base power of moves with BP <= 60 by x1.5"
-    it "leaves moves with BP > 60 alone"
+    it "increases base power of moves with BP <= 60 by x1.5", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Technician")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "leaves moves with BP > 60 alone", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Technician")]
+      iceBeam = @battle.getMove("Ice Beam")
+      iceBeam.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Thick Fat", ->
-    it "halves the base power of Fire and Ice moves"
-    it "doesn't change base power of other moves"
+    it "halves the base power of Fire and Ice moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Thick Fat")]
+      iceBeam = @battle.getMove("Ice Beam")
+      iceBeam.modifyAttack(@battle, @p2, @p1).should.equal(0x800)
+      flamethrower = @battle.getMove("Flamethrower")
+      flamethrower.modifyAttack(@battle, @p2, @p1).should.equal(0x800)
+
+    it "doesn't change base power of other moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Thick Fat")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyAttack(@battle, @p2, @p1).should.equal(0x1000)
 
   describe "Tinted Lens", ->
-    it "doubles damage when using a not-very-effective move"
+    it "doubles damage when using a not-very-effective move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Tinted Lens")]
+        team2: [Factory("Magikarp")]
+      surf = @battle.getMove("Surf")
+      surf.modifyDamage(@battle, @p1, @p2).should.equal(0x2000)
+
+    it "doesn't double damage otherwise", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Tinted Lens")]
+        team2: [Factory("Magikarp")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Trace", ->
     it "copies a random foe's ability on switch-in"
@@ -1229,7 +1261,13 @@ describe "BW Abilities:", ->
     it "does not prevent Bug Bite, Pluck, etc. from working"
 
   describe "Victory Star", ->
-    it "increases accuracy of moves by 10%"
+    it "increases accuracy of moves by 10%", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Victory Star")]
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      accuracy = willOWisp.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(willOWisp.accuracy * 1.1)
+
     it "increases accuracy of ally moves by 10%"
 
   testTypeAbsorbMove = (name, type) ->

@@ -27,11 +27,11 @@ finalModifier.add 30, (move, battle, user, target) ->
   return 0x1000
 
 # Tinted lens modifier.
-finalModifier.add 40, (move, battle, user, target) ->
-  effectiveness = move.typeEffectiveness(battle, user, target)
-  if user.hasAbility('Tinted Lens') && effectiveness < 1
-    return 0x2000
-  return 0x1000
+# finalModifier.add 40, (move, battle, user, target) ->
+#   effectiveness = move.typeEffectiveness(battle, user, target)
+#   if user.hasAbility('Tinted Lens') && effectiveness < 1
+#     return 0x2000
+#   return 0x1000
 
 # TODO: If an ally has Friend Guard, modifier is 0xC00.
 
@@ -73,10 +73,10 @@ finalModifier.add 90, (move, battle, user, target) ->
 @basePowerModifier = basePowerModifier = new ModifierChain()
 
 # Technician modifier.
-basePowerModifier.add 10, (move, battle, user, target) ->
-  if user.hasAbility('Technician') && move.basePower(battle, user, target) <= 60
-    return 0x1800
-  return 0x1000
+# basePowerModifier.add 10, (move, battle, user, target) ->
+#   if user.hasAbility('Technician') && move.basePower(battle, user, target) <= 60
+#     return 0x1800
+#   return 0x1000
 
 # Flare Boost modifier.
 # basePowerModifier.add 20, (move, battle, user, target) ->
@@ -178,11 +178,11 @@ basePowerModifier.add 150, (move, battle, user, target) ->
 # TODO: Test these
 # TODO: Move these into attackStatModifiers.
 # Thick Fat
-attackStatModifier.add 10, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if target.hasAbility('Thick Fat') && type in ['Fire', 'Ice']
-    return 0x800
-  return 0x1000
+# attackStatModifier.add 10, (move, battle, user, target) ->
+#   type = move.getType(battle, user, target)
+#   if target.hasAbility('Thick Fat') && type in ['Fire', 'Ice']
+#     return 0x800
+#   return 0x1000
 
 # Torrent
 attackStatModifier.add 20, (move, battle, user, target) ->
