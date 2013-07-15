@@ -472,22 +472,22 @@ describe 'Mechanics', ->
       (hp - @p1.currentHP).should.equal(hp >> 4)
 
   describe "Pokemon#turnsActive", ->
-    it "is 0 on start of battle", ->
+    it "is 1 on start of battle", ->
       shared.create.call(this)
-      @p1.turnsActive.should.equal 0
+      @p1.turnsActive.should.equal 1
 
-    it "is set to 0 when switching in", ->
-      shared.create.call(this)
+    it "is set to 0 when switching", ->
+      shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
       @p1.turnsActive = 4
-      @p1.switchIn(@battle)
-      @p1.turnsActive.should.equal 0
+      @team1.switch(@battle, @player1, 0, 1)
+      @team1.first().turnsActive.should.equal 0
 
     it "increases by 1 when a turn ends", ->
       shared.create.call(this)
-      @p1.turnsActive.should.equal 0
+      @p1.turnsActive.should.equal 1
 
       @battle.endTurn()
-      @p1.turnsActive.should.equal 1
+      @p1.turnsActive.should.equal 2
 
   describe "A move with 0 PP", ->
     it "will not execute", ->

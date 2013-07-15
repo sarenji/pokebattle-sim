@@ -57,6 +57,7 @@ class @Team
 
     battle.message "#{player.username} sent out #{@at(a).name}!"
     @switchIn(battle, @at(a))
+    @at(a).turnsActive = 0
 
   beginTurn: (battle) ->
     @attachments.query('beginTurn', battle)

@@ -2530,14 +2530,23 @@ describe "Fake Out", ->
     @battle.performMove(@id1, @battle.getMove("Fake Out"))
     @p2.has(Attachment.Flinch).should.be.true
 
-  it "fails if the Pokemon has been in play more than one turn", ->
+  it "fails if the Pokemon has been in play one turn or more", ->
     shared.create.call(this)
-    @p1.turnsActive = 2
-    move = @battle.getMove("Fake Out")
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
+    @battle.endTurn()
+    @battle.beginTurn()
+    fakeOut = @battle.getMove("Fake Out")
+    mock = @sandbox.mock(fakeOut).expects('fail').once()
+    @battle.performMove(@id1, fakeOut)
+    mock.verify()
 
-    @battle.performMove(@id1, move)
+  it "works if the Pokemon is newly switched", ->
+    shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
+    @battle.performSwitch(@id1, 1)
+    @battle.endTurn()
+    @battle.beginTurn()
+    fakeOut = @battle.getMove("Fake Out")
+    mock = @sandbox.mock(fakeOut).expects('fail').never()
+    @battle.performMove(@id1, fakeOut)
     mock.verify()
 
 describe "Focus Energy", ->

@@ -287,7 +287,7 @@ class @Pokemon
     weight
 
   switchIn: (battle) ->
-    @turnsActive = 0
+    @turnsActive = 1
     @attach(@ability).switchIn(battle)  if @ability
     @item.initialize(battle, this)  if !@isItemBlocked()
 

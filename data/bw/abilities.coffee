@@ -551,6 +551,13 @@ makeAbility 'Soundproof', ->
   this::isImmune = (battle, type, move) ->
     return true  if move?.hasFlag('sound')
 
+makeAbility 'Speed Boost', ->
+  this::endTurn = (battle) ->
+    return  if @pokemon.turnsActive <= 0
+    boosts = {speed: 1}
+    boostedStats = @pokemon.boost(boosts)
+    util.printBoostMessage(battle, @pokemon, boostedStats, boosts)
+
 # Hardcoded in Pokemon#hasTakeableItem
 makeAbility 'Sticky Hold'
 

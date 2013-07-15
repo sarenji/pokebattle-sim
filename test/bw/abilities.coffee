@@ -1231,8 +1231,26 @@ describe "BW Abilities:", ->
     it "lets non-sound moves hit"
 
   describe "Speed Boost", ->
-    it "boosts speed at the end of every turn"
-    it "does not boost speed if pokemon is freshly switched in"
+    it "boosts speed at the end of every turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Speed Boost")]
+      @p1.stages.should.include(speed: 0)
+      @battle.endTurn()
+      @p1.stages.should.include(speed: 1)
+      @battle.endTurn()
+      @p1.stages.should.include(speed: 2)
+
+    it "boosts speed the turn after a pokemon is freshly switched in", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Speed Boost")]
+      @battle.performSwitch(@id1, 1)
+      @team1.first().stages.should.include(speed: 0)
+      @battle.endTurn()
+      @team1.first().stages.should.include(speed: 0)
+      @battle.endTurn()
+      @team1.first().stages.should.include(speed: 1)
+      @battle.endTurn()
+      @team1.first().stages.should.include(speed: 2)
 
   describe "Sticky Hold", ->
     it "prevents items from being taken", ->
