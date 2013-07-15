@@ -309,3 +309,29 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(types: [ "Grass" ])
       pokemon.isWeatherDamageImmune(null, Weather.SAND).should.be.false
       pokemon.isWeatherDamageImmune(null, Weather.HAIL).should.be.false
+
+  describe "#useItem", ->
+    it "records the item in lastItem", ->
+      pokemon = new Pokemon(item: "Leftovers")
+      pokemon.useItem()
+      should.exist pokemon.lastItem
+      pokemon.lastItem.name.should.equal("Leftovers")
+
+    it "removes the item", ->
+      pokemon = new Pokemon(item: "Leftovers")
+      pokemon.useItem()
+      pokemon.hasItem().should.be.false
+
+  describe "#removeItem", ->
+    it "removes the item", ->
+      pokemon = new Pokemon(item: "Leftovers")
+      pokemon.removeItem()
+      pokemon.hasItem().should.be.false
+
+    it "removes prior records of an item", ->
+      pokemon = new Pokemon(item: "Flying Gem")
+      fake = new Pokemon(item: "Leftovers")
+      pokemon.useItem()
+      pokemon.item = fake.getItem()
+      pokemon.removeItem()
+      should.not.exist pokemon.lastItem

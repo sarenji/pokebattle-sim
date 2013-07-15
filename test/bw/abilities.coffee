@@ -615,11 +615,46 @@ describe "BW Abilities:", ->
       thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Harvest", ->
-    it "has a 50% chance of re-obtaining a berry it used"
-    it "has a 50% chance of doing nothing"
-    it "has a 100% chance to re-obtain the berry in Sun"
-    it "does not regain a normal item"
-    it "does not regain the berry if it was stolen"
+    it "has a 50% chance of re-obtaining a berry it used", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.useItem()
+      @battle.endTurn()
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "has a 50% chance of doing nothing", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 0)
+      @p1.useItem()
+      @battle.endTurn()
+      @p1.hasItem("Salac Berry").should.be.false
+
+    it "has a 100% chance to re-obtain the berry in Sun", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 0)
+      @p1.useItem()
+      @battle.setWeather(Weather.SUN)
+      @battle.endTurn()
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "does not regain a normal item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.useItem()
+      @battle.endTurn()
+      @p1.hasItem("Flying Gem").should.be.false
+
+    it "does not regain the berry if it was removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.removeItem()
+      @battle.endTurn()
+      @p1.hasItem("Flying Gem").should.be.false
 
   describe "Healer", ->
     it "has a 30% chance of healing an ally's status"
@@ -1326,7 +1361,12 @@ describe "BW Abilities:", ->
     it "ignores defenders' defense, special defense, and evasion boosts"
 
   describe "Unburden", ->
-    it "doubles its speed when the owner's item is removed"
+    it "doubles its speed when the owner's item is removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Unburden")]
+      speed = @p1.stat('speed')
+      @p1.removeItem()
+      @p1.stat('speed').should.equal(2 * speed)
 
   describe "Unnerve", ->
     it "prevents held berries from being eaten"

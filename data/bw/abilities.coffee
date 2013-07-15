@@ -394,6 +394,13 @@ makeAbility "Guts", ->
     return 0x1800  if @pokemon.hasStatus() && move.isPhysical()
     return 0x1000
 
+makeAbility 'Harvest', ->
+  this::endTurn = (battle) ->
+    return  unless @pokemon.lastItem?.type == 'berries'
+    shouldHarvest = battle.hasWeather(Weather.SUN)
+    shouldHarvest ||= battle.rng.randInt(0, 1, "harvest") == 1
+    @pokemon.setItem(battle, @pokemon.lastItem)  if shouldHarvest
+
 makeAbility 'Heatproof', ->
   this::modifyBasePowerTarget = (battle, move, user) ->
     return 0x800  if move.getType(battle, user, @pokemon) == 'Fire'
@@ -602,6 +609,8 @@ makeAbility 'Truant', ->
     if @truanted
       battle.message "#{@pokemon.name} is loafing around!"
       return false
+
+makeAbility 'Unburden'
 
 makeAbility 'Victory Star', ->
   this::editAccuracy = (accuracy) ->

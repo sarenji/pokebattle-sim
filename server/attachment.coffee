@@ -1172,3 +1172,9 @@ class @Attachment.FlashFire extends @VolatileAttachment
   modifyBasePower: (battle, move, user, target) ->
     return 0x1000  if move.getType(battle, @pokemon, target) != 'Fire'
     return 0x1800
+
+class @Attachment.Unburden extends @VolatileAttachment
+  name: "UnburdenAttachment"
+
+  editSpeed: (speed) ->
+    2 * speed

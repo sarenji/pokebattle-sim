@@ -58,7 +58,7 @@ makePinchBerry = (name, hookName, func) ->
       activationHP = owner.stat('hp') >> amount
       if owner.currentHP <= activationHP
         @eat(battle, owner)
-        owner.removeItem()
+        owner.useItem()
 
 # TODO: If the stat is maxed, does anything special happen?
 #       Is the berry still consumed?
@@ -81,7 +81,7 @@ makeFlavorHealingBerry = (name, stat) ->
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
-        owner.removeItem()
+        owner.useItem()
 
 makeHealingBerry = (name, func) ->
   extendItem name, ->
@@ -93,7 +93,7 @@ makeHealingBerry = (name, func) ->
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
         @eat(battle, owner)
-        owner.removeItem()
+        owner.useItem()
 
 makeTypeResistBerry = (name, type) ->
   extendItem name, ->
@@ -102,7 +102,7 @@ makeTypeResistBerry = (name, type) ->
       return 0x1000  if move.type != type
       return 0x1000  if util.typeEffectiveness(type, target.types) <= 1 && type != 'Normal'
       battle.message "The #{name} weakened the damage to #{target.name}!"
-      target.removeItem()
+      target.useItem()
       return 0x800
 
 makeFeedbackDamageBerry = (name, klass) ->
@@ -114,7 +114,7 @@ makeFeedbackDamageBerry = (name, klass) ->
       # TODO: Real message.
       battle.message "The #{name} hurt #{user.name}!"
       user.damage(Math.floor(user.stat('hp') / 8))
-      target.removeItem()
+      target.useItem()
 
 makeStatusCureBerry = (name, statuses...) ->
   extendItem name, ->
@@ -127,7 +127,7 @@ makeStatusCureBerry = (name, statuses...) ->
       return removed
 
     @update = (battle, owner) ->
-      if @eat(battle, owner) then owner.removeItem()
+      if @eat(battle, owner) then owner.useItem()
 
 makeOrbItem = (name, species) ->
   extendItem name, ->
@@ -236,7 +236,7 @@ makeBoostOnTypeItem = (name, type, boosts) ->
       if move.type == type
         battle.message "#{user.name}'s #{@name} made its #{stats} rise!"
         target.boost(boosts)
-        target.removeItem()
+        target.useItem()
 
 for name, attributes of json
   Items[name] = new Item(name, attributes)
@@ -308,7 +308,7 @@ makePlateItem 'Earth Plate', 'Ground'
 extendItem 'Eject Button', ->
   @afterBeingHit = (battle, move, user, target, damage) ->
     return  if move.isNonDamaging()
-    target.removeItem()
+    target.useItem()
     self = battle.getOwner(target)
     switches = self.team.getAliveBenchedPokemon()
     battle.requestAction(self, switches: switches)
@@ -322,7 +322,7 @@ extendItem 'Enigma Berry', ->
     # TODO: real message
     battle.message "The #{name} restored #{target.name}'s HP a little!"
     target.damage(-Math.floor(target.stat('hp') / 4))
-    target.removeItem()
+    target.useItem()
 
 makeGemItem 'Fighting Gem', 'Fighting'
 makeFlavorHealingBerry 'Figy Berry', "attack"
@@ -339,7 +339,7 @@ extendItem 'Focus Band', ->
   @editDamage = (battle, holder, move, damage) ->
     if damage >= holder.currentHP && battle.rng.randInt(0, 9, "focus band") == 0
       battle.message "#{holder.name} hung on using its #{@name}!"
-      holder.removeItem()
+      holder.useItem()
       return holder.currentHP - 1
     return damage
 
@@ -348,7 +348,7 @@ extendItem 'Focus Sash', ->
     maxHP = holder.stat('hp')
     if holder.currentHP == maxHP && damage >= maxHP
       battle.message "#{holder.name} hung on using its #{@name}!"
-      holder.removeItem()
+      holder.useItem()
       return maxHP - 1
     return damage
 
@@ -416,7 +416,7 @@ extendItem 'Mental Herb', ->
 
   @update = (battle, owner) ->
     if @activate(battle, owner)
-      owner.removeItem()
+      owner.useItem()
 
 makeTypeBoostItem 'Metal Coat', 'Steel'
 
@@ -473,7 +473,7 @@ extendItem 'Red Card', ->
     pokemon = battle.rng.choice(benched)
     index = opponent.team.indexOf(pokemon)
     opponent.switch(battle, 0, index)
-    target.removeItem()
+    target.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
@@ -528,7 +528,7 @@ extendItem 'Sticky Barb', ->
     return  unless move.hasFlag("contact")
     return  if user.hasItem()
     user.setItem(battle, this)
-    target.removeItem()
+    target.useItem()
 
   @endTurn = (battle, pokemon) ->
     pokemon.damage Math.floor(pokemon.stat('hp') / 8)
@@ -556,7 +556,7 @@ extendItem 'White Herb', ->
 
   @update = (battle, owner) ->
     if @activate(battle, owner)
-      owner.removeItem()
+      owner.useItem()
 
 extendItem "Wide Lens", ->
   @editAccuracy = (accuracy) ->
@@ -608,7 +608,7 @@ extendItem 'Leppa Berry', ->
   @update = (battle, owner) ->
     if owner.lastMove? && owner.pp(owner.lastMove) == 0
       @eat(battle, owner)
-      owner.removeItem()
+      owner.useItem()
 
 # TODO: Implement Nature Power and implement eat there.
 for berry in "Belue Berry, Bluk Berry, Cornn Berry, Durin Berry, Grepa Berry,

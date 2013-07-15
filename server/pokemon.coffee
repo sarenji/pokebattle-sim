@@ -49,6 +49,10 @@ class @Pokemon
     # a record of the last move used by this pokemon.
     @lastMove = null
 
+    # a record of the last item used by this pokemon.
+    # if the item is removed by someone else, it is not recorded.
+    @lastItem = null
+
   iv: (stat) -> (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) -> (if stat of @evs then @evs[stat] else 0)
 
@@ -184,8 +188,15 @@ class @Pokemon
   getItem: ->
     @item
 
+  useItem: ->
+    item = @item
+    @removeItem()
+    @lastItem = item
+
   removeItem: ->
+    @attach(Attachment.Unburden)  if @hasAbility("Unburden")
     @item.deactivate(this)
+    @lastItem = null
     @item = null
 
   hasTakeableItem: ->
