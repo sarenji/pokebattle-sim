@@ -1234,8 +1234,15 @@ describe "BW Abilities:", ->
     it "afflicts the source of a status with the same status"
 
   describe "Tangled Feet", ->
-    it "doubles evasion rate when confused"
-    it "has normal evasion rate when not confused"
+    it "doubles evasion rate when confused", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Tangled Feet")]
+      tackle = @battle.getMove('tackle')
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(100)
+      @p1.attach(Attachment.Confusion)
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(50)
+      @p1.unattach(Attachment.Confusion)
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(100)
 
   describe "Technician", ->
     it "increases base power of moves with BP <= 60 by x1.5", ->

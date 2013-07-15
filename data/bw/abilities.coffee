@@ -555,6 +555,10 @@ makeAbility 'Suction Cups', ->
 # Hardcoded in Move#criticalHitLevel
 makeAbility 'Super Luck'
 
+makeAbility 'Tangled Feet', ->
+  this::editEvasion = (evasion) ->
+    if @pokemon.has(Attachment.Confusion) then evasion >> 1 else evasion
+
 makeAbility 'Technician', ->
   this::modifyBasePower = (battle, move, user) ->
     return 0x1800  if move.basePower(battle, user, @pokemon) <= 60
