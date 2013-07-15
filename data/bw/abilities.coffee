@@ -399,7 +399,9 @@ makeAbility 'Harvest', ->
     return  unless @pokemon.lastItem?.type == 'berries'
     shouldHarvest = battle.hasWeather(Weather.SUN)
     shouldHarvest ||= battle.rng.randInt(0, 1, "harvest") == 1
-    @pokemon.setItem(battle, @pokemon.lastItem)  if shouldHarvest
+    if shouldHarvest
+      battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.name}!"
+      @pokemon.setItem(battle, @pokemon.lastItem)
 
 makeAbility 'Heatproof', ->
   this::modifyBasePowerTarget = (battle, move, user) ->
