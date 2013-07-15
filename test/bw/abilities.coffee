@@ -1281,8 +1281,17 @@ describe "BW Abilities:", ->
       tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Trace", ->
-    it "copies a random foe's ability on switch-in"
-    it "does not copy certain abilities"
+    it "copies a random foe's ability on switch-in", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Trace")]
+        team2: [Factory("Magikarp", ability: "Truant")]
+      @p1.hasAbility("Truant").should.be.true
+
+    it "does not copy certain abilities", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Trace")]
+        team2: [Factory("Magikarp", ability: "Forecast")]
+      @p1.hasAbility("Forecast").should.be.false
 
   describe "Truant", ->
     it "prevents the user from attacking every other turn", ->

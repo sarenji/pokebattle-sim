@@ -326,6 +326,8 @@ makeAbility 'Flash Fire', ->
     @pokemon.attach(Attachment.FlashFire)
     return true
 
+makeAbility 'Forecast'
+
 makeAbility 'Forewarn', ->
   VariablePowerMoves =
     'crush-grip'   : true
@@ -567,6 +569,25 @@ makeAbility 'Tinted Lens', ->
   this::modifyDamage = (battle, move, target) ->
     return 0x2000  if move.typeEffectiveness(battle, @pokemon, target) < 1
     return 0x1000
+
+makeAbility 'Trace', ->
+  bannedAbilities =
+    "Flower Gift" : true
+    "Forecast"    : true
+    "Illusion"    : true
+    "Imposter"    : true
+    "Multitype"   : true
+    "Trace"       : true
+    "Zen Mode"    : true
+
+  this::switchIn = (battle) ->
+    opponents = battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    abilities = (opponent.ability  for opponent in opponents).compact()
+    ability   = battle.rng.choice(abilities, "trace")
+    if ability && ability::name not of bannedAbilities
+      @pokemon.copyAbility(battle, ability)
 
 makeAbility 'Truant', ->
   this::initialize = ->
