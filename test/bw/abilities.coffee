@@ -1229,8 +1229,30 @@ describe "BW Abilities:", ->
     it "doubles stat boosts, negative and positive"
 
   describe "Slow Start", ->
-    it "halves attack and speed"
-    it "returns attack and speed to normal after five turns"
+    it "halves attack and speed", ->
+      shared.create.call(this)
+      speed = @p1.stat('speed')
+      @p1.copyAbility(@battle, Ability.SlowStart)
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
+      flamethrower = @battle.getMove("Flamethrower")
+      flamethrower.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      @p1.stat('speed').should.equal(speed >> 1)
+
+    it "returns attack and speed to normal after five turns", ->
+      shared.create.call(this)
+      tackle = @battle.getMove("Tackle")
+      flamethrower = @battle.getMove("Flamethrower")
+      speed = @p1.stat('speed')
+      @p1.copyAbility(@battle, Ability.SlowStart)
+      for x in [0...5]
+        tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
+        flamethrower.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+        @p1.stat('speed').should.equal(speed >> 1)
+        @battle.endTurn()
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      flamethrower.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      @p1.stat('speed').should.equal(speed)
 
   describe "Soundproof", ->
     it "makes user immune to sound moves", ->

@@ -554,6 +554,26 @@ makeAbility 'Shed Skin', ->
 # Tested in test/bw/moves.coffee.
 makeAbility "Skill Link"
 
+makeAbility 'Slow Start', ->
+  this::initialize = ->
+    @turns = 5
+
+  this::switchIn = (battle) ->
+    battle.message "#{@pokemon.name} can't get it going!"
+
+  this::endTurn = (battle) ->
+    @turns -= 1
+    if @turns == 0
+      battle.message "#{@pokemon.name} finally got its act together!"
+
+  this::modifyAttack = (battle, move, target) ->
+    return 0x800  if move.isPhysical() && @turns > 0
+    return 0x1000
+
+  this::editSpeed = (speed) ->
+    return speed >> 1  if @turns > 0
+    return speed
+
 makeAbility 'Soundproof', ->
   this::isImmune = (battle, type, move) ->
     return true  if move?.hasFlag('sound')
