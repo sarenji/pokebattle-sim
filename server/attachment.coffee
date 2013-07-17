@@ -1168,6 +1168,7 @@ class @Attachment.BatonPass extends @TeamAttachment
     # Nasty stitching of attachments to the recipient.
     for attachment in @attachments
       attachment.pokemon = pokemon
+      attachment.attached = true
       pokemon.attachments.attachments.push(attachment)
     pokemon.boost(@stages)
     @team.unattach(@constructor)
