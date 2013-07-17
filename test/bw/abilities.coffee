@@ -190,9 +190,16 @@ describe "BW Abilities:", ->
         shared.create.call this, team1: [Factory("Celebi", ability: name)]
         boosts = {}
         boosts[stat] = -1  for stat in allBoosts
-        @p1.boost(boosts)
+        @p1.boost(boosts, @p2)
         boosts[stat] = 0  for stat in protection
         @p1.stages.should.eql(boosts)
+
+      it "does not protect against stat falls if the source is the user", ->
+        shared.create.call this, team1: [Factory("Celebi", ability: name)]
+        boosts = {}
+        boosts[stat] = -1  for stat in allBoosts
+        @p1.boost(boosts)
+        @p1.stages.should.include(boosts)
 
   testBoostProtectionAbility("Big Pecks", [ "defense" ])
   testBoostProtectionAbility("Clear Body")

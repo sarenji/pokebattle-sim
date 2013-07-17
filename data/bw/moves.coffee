@@ -452,7 +452,7 @@ boostExtension = (boostTarget, boosts) ->
     boostedStats = if boostTarget == 'self'
       user.boost(boosts)
     else if boostTarget == 'target'
-      target.boost(boosts)
+      target.boost(boosts, user)
     else throw new Error("I don't know what target #{boostTarget} is.")
 
     pokemon = (if boostTarget == 'self' then user else target)
@@ -1347,7 +1347,7 @@ extendMove 'flatter', ->
     target.attach(Attachment.Confusion, {battle})
 
     boosts = {specialAttack: -2}
-    boostedStats = target.boost(boosts)
+    boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
 extendMove 'fling', ->
@@ -1612,7 +1612,7 @@ extendMove 'memento', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     boosts = {attack: -2, specialAttack: -2}
-    boostedStats = target.boost(boosts)
+    boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
 extendMove 'metronome', ->
@@ -1905,7 +1905,7 @@ extendMove 'swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
     boosts = {attack: -2}
-    boostedStats = target.boost(boosts)
+    boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
 extendMove 'synchronoise', ->

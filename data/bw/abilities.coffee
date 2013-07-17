@@ -39,7 +39,8 @@ makeCriticalHitPreventionAbility("Shell Armor")
 
 makeBoostProtectionAbility = (name, protection) ->
   makeAbility name, ->
-    this::transformBoosts = (boosts) ->
+    this::transformBoosts = (boosts, source) ->
+      return boosts  if source == @pokemon
       didProtect = false
       for stat of boosts
         if (!protection || stat in protection) && boosts[stat] < 0
