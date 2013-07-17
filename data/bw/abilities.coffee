@@ -519,6 +519,11 @@ makeAbility 'Rivalry', ->
                       (user.gender == 'M' && target.gender == 'F')
     return 0x1000
 
+makeAbility 'Regenerator', ->
+  this::switchOut = ->
+    amount = util.roundHalfDown(@pokemon.stat('hp') / 3)
+    @pokemon.damage(-amount)
+
 makeAbility 'Sand Force', ->
   this::modifyBasePower = (battle, move, user) ->
     type = move.getType(battle, user, @pokemon)
