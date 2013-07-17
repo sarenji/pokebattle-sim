@@ -26,6 +26,7 @@ class @Attachments
     if index >= 0
       attachment = @attachments.splice(index, 1)[0]
       attachment.unattach()
+      attachment.attached = false
       attachment
 
   unattachAll: (condition) ->
@@ -53,6 +54,7 @@ class @Attachments
 
   queryUntil: (funcName, conditional, args...) ->
     for attachment in _.clone(@attachments)
+      continue  if !attachment.attached
       result = attachment[funcName](args...)  if funcName of attachment
       break  if conditional(result)
     result
@@ -96,6 +98,7 @@ class @BaseAttachment
 
   constructor: ->
     @layers = 0
+    @attached = true
 
   initialize: ->
 

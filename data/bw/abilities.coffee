@@ -543,6 +543,13 @@ makeAbility 'Shadow Tag', ->
     for opponent in opponents
       opponent.blockSwitch()
 
+makeAbility 'Shed Skin', ->
+  this::endTurn = (battle) ->
+    return  unless @pokemon.hasStatus()
+    if battle.rng.randInt(1, 10, "shed skin") <= 3
+      battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}."
+      @pokemon.cureStatus()
+
 # Implementation hardcoded in Move#calculateNumberOfHits.
 # Tested in test/bw/moves.coffee.
 makeAbility "Skill Link"

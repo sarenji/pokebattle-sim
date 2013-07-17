@@ -1200,8 +1200,21 @@ describe "BW Abilities:", ->
       @p2.isSwitchBlocked().should.be.true
 
   describe "Shed Skin", ->
-    it "has a 30% chance of removing its status effect at end of turn"
-    it "has a 70% chance of doing nothing at end of turn"
+    it "has a 30% chance of removing its status effect at end of turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Shed Skin")]
+      shared.biasRNG.call(this, "randInt", "shed skin", 3)
+      @p1.attach(Status.Burn)
+      @battle.endTurn()
+      @p1.has(Status.Burn).should.be.false
+
+    it "has a 70% chance of doing nothing at end of turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Shed Skin")]
+      shared.biasRNG.call(this, "randInt", "shed skin", 4)
+      @p1.attach(Status.Burn)
+      @battle.endTurn()
+      @p1.has(Status.Burn).should.be.true
 
   describe "Sheer Force", ->
     it "raises power of moves with secondary effects by 30%"
@@ -1227,8 +1240,6 @@ describe "BW Abilities:", ->
       perishSong = @battle.getMove('Perish Song')
       @p1.isImmune(@battle, bugBuzz.type, bugBuzz).should.be.true
       @p1.isImmune(@battle, perishSong.type, perishSong).should.be.true
-
-    it "lets non-sound moves hit"
 
   describe "Speed Boost", ->
     it "boosts speed at the end of every turn", ->
