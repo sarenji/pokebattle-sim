@@ -1127,7 +1127,13 @@ describe "BW Abilities:", ->
       @p1.currentHP.should.equal(1)
 
   describe "Regenerator", ->
-    it "restores 1/3 of the user's HP upon switch out"
+    it "restores 1/3 of the user's HP upon switch out", ->
+    shared.create.call this,
+      team1: [Factory("Magikarp", ability: "Regenerator")]
+    @p1.currentHP = 1
+    @p1.switchOut(@battle)
+    hp = util.roundHalfDown(@p1.stat('hp') / 3)
+    @p1.currentHP.should.equal(1 + hp)
 
   describe "Rivalry", ->
     it "reduces base power by 25% if user and target are opposite genders", ->
