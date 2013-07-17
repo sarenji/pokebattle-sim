@@ -1226,7 +1226,10 @@ describe "BW Abilities:", ->
     it "prevents secondary effects"
 
   describe "Simple", ->
-    it "doubles stat boosts, negative and positive"
+    it "doubles stat boosts, negative and positive", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Simple")])
+      @battle.performMove(@id1, @battle.getMove("Curse"))
+      @p1.stages.should.include(attack: 2, defense: 2, speed: -2)
 
   describe "Slow Start", ->
     it "halves attack and speed", ->

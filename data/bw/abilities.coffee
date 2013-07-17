@@ -550,6 +550,13 @@ makeAbility 'Shed Skin', ->
       battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}."
       @pokemon.cureStatus()
 
+makeAbility 'Simple', ->
+  this::transformBoosts = (boosts) ->
+    newBoosts = {}
+    for stat, boost of boosts
+      newBoosts[stat] = 2 * boost
+    newBoosts
+
 # Implementation hardcoded in Move#calculateNumberOfHits.
 # Tested in test/bw/moves.coffee.
 makeAbility "Skill Link"
