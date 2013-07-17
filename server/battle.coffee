@@ -12,7 +12,7 @@ class @Battle
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
-    @numActive = 1
+    @numActive = attributes.numActive || 1
 
     # Stores the current turn of the battle
     @turn = 0

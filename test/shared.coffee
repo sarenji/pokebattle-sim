@@ -29,7 +29,8 @@ build = (context, opts={}) ->
   team2   = opts.team2 || [Factory('Magikarp')]
   players = [{player: context.player1, team: team1},
              {player: context.player2, team: team2}]
-  context.battle = new Battle('id', players: players)
+  numActive = opts.numActive || 1
+  context.battle = new Battle('id', {players, numActive})
   context.controller = new BattleController(context.battle)
   context.team1  = context.battle.getTeam(context.player1.id)
   context.team2  = context.battle.getTeam(context.player2.id)

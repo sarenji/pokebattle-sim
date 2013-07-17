@@ -375,6 +375,13 @@ makeAbility 'Forewarn', ->
     owner = opponents.find((p) -> finalMove in p.moves)
     battle.message "It was alerted to #{owner.name}'s #{finalMove.name}!"
 
+makeAbility 'Friend Guard', ->
+  this::modifyDamageTarget = (battle, move, user) ->
+    userTeam = battle.getOwner(user).team
+    thisTeam = battle.getOwner(@pokemon).team
+    return 0xC00  if userTeam == thisTeam
+    return 0x1000
+
 makeAbility "Frisk", ->
   this::switchIn = (battle) ->
     opponents = battle.getOpponents(@pokemon)

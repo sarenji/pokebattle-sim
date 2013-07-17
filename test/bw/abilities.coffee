@@ -580,7 +580,19 @@ describe "BW Abilities:", ->
       spy.calledWithMatch('tackle').should.be.true
 
   describe "Friend Guard", ->
-    it "weakens attacks from allies by 25%"
+    it "weakens attacks from allies by 25%", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Friend Guard")]
+      earthquake = @battle.getMove("Earthquake")
+      earthquake.modifyDamage(@battle, @p1, @team1.at(1)).should.equal(0xC00)
+
+    it "keeps attacks by enemies at normal", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Friend Guard")]
+      earthquake = @battle.getMove("Earthquake")
+      earthquake.modifyDamage(@battle, @p2, @team1.at(1)).should.equal(0x1000)
 
   describe "Frisk", ->
     it "randomly selects an opponent and displays the item", ->
