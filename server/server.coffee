@@ -29,7 +29,7 @@ class @BattleServer
       for player in players
         opponents = pair.filter((pair) -> pair.player.id != player.id)
         you = _.find(pair, (pair) -> pair.player.id == player.id)
-        player.emit? 'start battle', id, you.team, opponents.map((o) -> o.team)
+        player.send? 'start battle', id, you.team, opponents.map((o) -> o.team)
       @beginBattle(id)
 
   # Creates a battle and returns its battleId

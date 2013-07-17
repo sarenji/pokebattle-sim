@@ -1,9 +1,8 @@
 http = require 'http'
-socket = require 'socket.io'
 express = require 'express'
 require 'express-namespace'
 
-{BattleServer} = require './server'
+{BattleServer, ConnectionServer} = require './server'
 
 server = new BattleServer()
 app = express()
@@ -28,46 +27,47 @@ app.namespace "/v1/api", ->
     {PokemonData} = require './data/bw'
     res.json(PokemonData)
 
-
-# Start responding to websocket clients
-io = socket.listen(httpServer)
-
 userList = []
 
-# Attach events to incoming users
-io.sockets.on 'connection', (socket) ->
-  socket.on 'login', (username, callback) ->
-    userHash = {id: socket.id, name: username}
+# Start responding to websocket clients
+connections = new ConnectionServer(httpServer, prefix: '/socket')
+
+connections.addEvents
+  'login': (username) ->
+    console.log "Received user #{username}"
+    userHash = {id:  @id, name: username}
     userList.push(userHash)
-    socket.username = username
-    callback(socket.username, userList)
-    io.sockets.emit 'join chatroom', userHash
+    @username = username
+
+    @send 'login result', @id, @username, userList
+    connections.broadcast 'join chatroom', userHash
+
     # TODO: Take team from player.
     # TODO: Validate team.
     team = defaultTeam
-    server.queuePlayer(socket, team)
+    server.queuePlayer(this, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
   
-  socket.on 'sendchat', (message) ->
-    io.sockets.emit 'updatechat', socket.username, message
+  'sendchat': (message) ->
+    connections.broadcast 'updatechat', @username, message
   
-  socket.on 'send move', (battleId, moveName) ->
+  'send move': (battleId, moveName) ->
     battle = server.findBattle(battleId)
     if !battle
-      io.sockets.emit 'error', 'ERROR: Battle does not exist'
+      @send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeMove(socket, moveName)
+    battle.makeMove(this, moveName)
   
-  socket.on 'send switch', (battleId, toPokemon) ->
+  'send switch': (battleId, toPokemon) ->
     # TODO: Use makeSwitch instead
     battle = server.findBattle(battleId)
     if !battle
-      io.sockets.emit 'error', 'ERROR: Battle does not exist'
+      @send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeSwitchByName(socket, toPokemon)
+    battle.makeSwitchByName(this, toPokemon)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 
