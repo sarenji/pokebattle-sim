@@ -185,16 +185,20 @@ describe "BW Abilities:", ->
       allBoosts = [ "attack", "defense", "speed", "specialAttack",
                     "specialDefense", "accuracy", "evasion" ]
       protection ||= allBoosts
-      for stat in protection
-        do (stat) ->
-          it "protects against #{stat} falls"
-      if protection.length < allBoosts.length
-        it "doesn't protect against other stat falls"
+
+      it "protects against certain stat falls", ->
+        shared.create.call this, team1: [Factory("Celebi", ability: name)]
+        boosts = {}
+        boosts[stat] = -1  for stat in allBoosts
+        @p1.boost(boosts)
+        boosts[stat] = 0  for stat in protection
+        @p1.stages.should.eql(boosts)
 
   testBoostProtectionAbility("Big Pecks", [ "defense" ])
   testBoostProtectionAbility("Clear Body")
   testBoostProtectionAbility("Hyper Cutter", [ "attack" ])
   testBoostProtectionAbility("Keen Eye", [ "accuracy" ])
+  testBoostProtectionAbility("White Smoke")
 
   testLowHealthAbility = (name, type) ->
     describe name, ->

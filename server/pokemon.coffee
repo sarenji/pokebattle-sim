@@ -116,7 +116,7 @@ class @Pokemon
   # Example: pokemon.boost(specialAttack: 1, evasion: 2)
   #
   boost: (boosts) ->
-    boosts = @attachments.queryChain('transformBoosts', boosts)
+    boosts = @attachments.queryChain('transformBoosts', _.clone(boosts))
     boosted = {}
     for stat, amount of boosts
       amount *= -1  if @ability == Ability.Contrary

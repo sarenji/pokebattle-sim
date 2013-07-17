@@ -37,6 +37,23 @@ makeCriticalHitPreventionAbility = (name) ->
 makeCriticalHitPreventionAbility("Battle Armor")
 makeCriticalHitPreventionAbility("Shell Armor")
 
+makeBoostProtectionAbility = (name, protection) ->
+  makeAbility name, ->
+    this::transformBoosts = (boosts) ->
+      didProtect = false
+      for stat of boosts
+        if (!protection || stat in protection) && boosts[stat] < 0
+          didProtect = true
+          boosts[stat] = 0
+      # TODO: Print message
+      boosts
+
+makeBoostProtectionAbility("Big Pecks", [ "defense" ])
+makeBoostProtectionAbility("Clear Body")
+makeBoostProtectionAbility("Hyper Cutter", [ "attack" ])
+makeBoostProtectionAbility("Keen Eye", [ "accuracy" ])
+makeBoostProtectionAbility("White Smoke")
+
 makeWeatherSpeedAbility = (name, weather) ->
   makeAbility name, ->
     this::switchIn = (battle) ->
