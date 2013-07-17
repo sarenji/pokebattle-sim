@@ -73,6 +73,14 @@ class @Team
     pokemon.switchIn(battle)
     @attachments.query('switchIn', battle, pokemon)
 
+  getAdjacent: (pokemon) ->
+    index = @pokemon.indexOf(pokemon)
+    adjacent = []
+    return adjacent  if index < 0 || index >= @numActive
+    adjacent.push(@at(index - 1))  if index > 1
+    adjacent.push(@at(index + 1))  if index < @numActive - 1
+    adjacent.filter((p) -> p.isAlive())
+
   getActivePokemon: ->
     @pokemon.slice(0, @numActive)
 

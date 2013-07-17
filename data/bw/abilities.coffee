@@ -410,6 +410,12 @@ makeAbility 'Harvest', ->
       battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.name}!"
       @pokemon.setItem(battle, @pokemon.lastItem)
 
+makeAbility 'Healer', ->
+  this::endTurn = (battle) ->
+    {team} = battle.getOwner(@pokemon)
+    for adjacent in team.getAdjacent(@pokemon)
+      if battle.rng.randInt(1, 10, "healer") <= 3 then adjacent.cureStatus()
+
 makeAbility 'Heatproof', ->
   this::modifyBasePowerTarget = (battle, move, user) ->
     return 0x800  if move.getType(battle, user, @pokemon) == 'Fire'

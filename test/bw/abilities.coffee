@@ -669,8 +669,27 @@ describe "BW Abilities:", ->
       @p1.hasItem("Flying Gem").should.be.false
 
   describe "Healer", ->
-    it "has a 30% chance of healing an ally's status"
-    it "has a 70% chance to do nothing"
+    it "has a 30% chance of healing an adjacent ally's status", ->
+      shared.create.call this,
+        numActive: 3
+        team1: [Factory("Magikarp", ability: "Healer"), Factory("Magikarp"), Factory("Magikarp")]
+      shared.biasRNG.call(this, "randInt", "healer", 3)
+      @team1.at(0).attach(Status.Burn)
+      @team1.at(1).attach(Status.Burn)
+      @team1.at(2).attach(Status.Burn)
+      @battle.endTurn()
+      @team1.at(0).hasStatus().should.be.true
+      @team1.at(1).hasStatus().should.be.false
+      @team1.at(2).hasStatus().should.be.true
+
+    it "has a 70% chance to do nothing", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Healer")]
+      shared.biasRNG.call(this, "randInt", "healer", 4)
+      @p1.attach(Status.Burn)
+      @battle.endTurn()
+      @p1.hasStatus().should.be.true
 
   describe "Heatproof", ->
     it "receives half damage from Fire-type moves", ->
