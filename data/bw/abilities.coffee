@@ -464,6 +464,15 @@ makeAbility 'Ice Body', ->
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.HAIL
 
+makeAbility 'Intimidate', ->
+  this::switchIn = ->
+    opponents = @battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    for opponent in opponents
+      boostedStats = opponent.boost(attack: -1)
+      util.printBoostMessage(@battle, @pokemon, boostedStats, attack: -1)
+
 makeAbility 'Iron Fist', ->
   this::modifyBasePower = (move) ->
     if move.hasFlag('punch') then 0x1333 else 0x1000

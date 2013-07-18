@@ -481,11 +481,11 @@ class @Battle
     @priorityQueue?.length > 0
 
   # Executed by @continueTurn
-  performSwitch: (id, toPosition) ->
+  performSwitch: (id, toPosition, options) ->
     player = @getPlayer(id)
     team = @getTeam(id)
 
-    team.switch(player, 0, toPosition)
+    team.switch(player, 0, toPosition, options)
 
     # TODO: Hacky.
     # TODO: Move to controller
@@ -493,9 +493,15 @@ class @Battle
 
   # Executed by @beginTurn
   performReplacements: ->
+    switched = []
     for id of @playerActions
-      pokemon = @getTeam(id).first()
-      @performSwitch(id, @popAction(pokemon).to)
+      team = @getTeam(id)
+      pokemon = team.at(0)
+      @performSwitch(id, @popAction(pokemon).to, silent: true)
+      switched.push team.at(0)
+    # TODO: Switch-in events are ordered by speed
+    for pokemon in switched
+      pokemon.switchIn()
 
   # Executed by @continueTurn
   performMove: (id, move) ->

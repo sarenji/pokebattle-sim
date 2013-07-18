@@ -828,8 +828,25 @@ describe "BW Abilities:", ->
   testAttachmentImmuneAbility("Water Veil", [Status.Burn])
 
   describe "Intimidate", ->
-    it "lowers the attack of all foe pokemon"
-    it "lowers attack simultaneously on all begin-turn switch-ins"
+    it "lowers the attack of all foe pokemon", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Intimidate")])
+      @p2.stages.should.include(attack: -1)
+
+    it "lowers attack simultaneously on all begin-turn switch-ins", ->
+      shared.create.call this,
+        team1: (Factory("Magikarp", ability: "Intimidate")  for x in [1..2])
+        team2: (Factory("Magikarp", ability: "Intimidate")  for x in [1..2])
+      @p1.stages.should.include(attack: -1)
+      @p2.stages.should.include(attack: -1)
+      @p1.faint()
+      @p2.faint()
+      @battle.requestFaintedReplacements()
+      @controller.makeSwitch(@player1, 1)
+      @controller.makeSwitch(@player2, 1)
+      @team1.first().should.not.equal(@p1)
+      @team2.first().should.not.equal(@p2)
+      @team1.first().stages.should.include(attack: -1)
+      @team2.first().stages.should.include(attack: -1)
 
   describe "Infiltrator", ->
     it "ignores Reflect"

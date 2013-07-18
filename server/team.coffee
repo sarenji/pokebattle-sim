@@ -52,7 +52,7 @@ class @Team
     delete attachment.team  if attachment?
     attachment
 
-  switch: (player, a, b) ->
+  switch: (player, a, b, options = {}) ->
     @battle.message "#{player.username} withdrew #{@at(a).name}!"
     p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
     @switchOut(@at(a))
@@ -60,7 +60,7 @@ class @Team
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
 
     @battle.message "#{player.username} sent out #{@at(a).name}!"
-    @switchIn(@at(a))
+    @switchIn(@at(a))  unless options.silent == true
     @at(a).turnsActive = 0
 
   beginTurn: ->
