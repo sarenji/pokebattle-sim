@@ -304,7 +304,7 @@ describe "Choice Scarf", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(@battle, Items['Choice Scarf'])
+    @p1.setItem(Items['Choice Scarf'])
     @p1.stat('speed').should.equal Math.floor(speed * 1.5)
 
 describe "Flame Orb", ->
@@ -356,7 +356,7 @@ describe "Air Balloon", ->
 
     move = @battle.getMove('Earthquake')
     type = move.getType(@battle, @p1, @p2)
-    @p1.isImmune(@battle, type).should.be.true
+    @p1.isImmune(type).should.be.true
 
   it "pops if hit by an attacking move", ->
     shared.create.call this,
@@ -385,7 +385,7 @@ describe "Air Balloon", ->
 
     move = @battle.getMove('Earthquake')
     type = move.getType(@battle, @p1, @p2)
-    @p1.isImmune(@battle, type).should.be.false
+    @p1.isImmune(type).should.be.false
 
   it "stops effecting a pokemon if Tricked away", ->
     shared.create.call this,
@@ -757,7 +757,7 @@ testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
         stats = (stat  for stat of statsHash)
         pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-        @p1.setItem(@battle, Items[itemName])
+        @p1.setItem(Items[itemName])
 
         for stat, i in stats
           amount = @p1.stat(stat)
@@ -770,7 +770,7 @@ testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
         stats = (stat  for stat of statsHash)
         pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-        @p1.setItem(@battle, Items[itemName])
+        @p1.setItem(Items[itemName])
 
         for stat, i in stats
           amount = @p1.stat(stat)
@@ -792,13 +792,13 @@ describe "Iron Ball", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(@battle, Items["Iron Ball"])
+    @p1.setItem(Items["Iron Ball"])
     @p1.stat('speed').should.equal Math.floor(speed / 2)
 
   it "removes the immunity to ground-type moves", ->
     shared.create.call(this, team1: [Factory("Gyarados", item: "Iron Ball")])
 
-    @p1.isImmune(@battle, "Ground").should.be.false
+    @p1.isImmune("Ground").should.be.false
 
 describe "Leppa Berry", ->
   it "restores 10 PP when the user reaches 0 PP", ->
@@ -1133,7 +1133,7 @@ describe "Macho Brace", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(@battle, Items["Macho Brace"])
+    @p1.setItem(Items["Macho Brace"])
     @p1.stat('speed').should.equal Math.floor(speed / 2)
 
 describe "Eject Button", ->

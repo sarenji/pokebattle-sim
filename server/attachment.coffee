@@ -8,7 +8,7 @@ class @Attachments
   push: (attachmentClass, options={}, attributes={}) ->
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
     return null  if @queryUntilFalse('shouldAttach', attachmentClass) == false
-    return null  if attachmentClass.preattach?(attributes) == false
+    return null  if attachmentClass.preattach?(options, attributes) == false
     attachment = @get(attachmentClass)
     if !attachment?
       attachment = new attachmentClass()
@@ -104,19 +104,19 @@ class @BaseAttachment
 
   unattach: ->
   calculateWeight: (weight) -> weight
-  afterBeingHit: (battle, move, user, target, damage) ->
-  afterSuccessfulHit: (battle, move, user, target, damage) ->
-  beforeMove: (battle, move, user, targets) ->
-  isImmune: (battle, type) ->
-  switchOut: (battle) ->
-  switchIn: (battle, pokemon) ->
-  beginTurn: (battle) ->
-  endTurn: (battle) ->
-  update: (battle, owner) ->
+  afterBeingHit: (move, user, target, damage) ->
+  afterSuccessfulHit: (move, user, target, damage) ->
+  beforeMove: (move, user, targets) ->
+  isImmune: (type) ->
+  switchOut: ->
+  switchIn: (pokemon) ->
+  beginTurn: ->
+  endTurn: ->
+  update: (owner) ->
   # editBoosts: (stages) ->
-  # editDamage: (damage, battle, move, user) ->
-  # afterFaint: (battle) ->
-  # shouldBlockExecution: (battle, move, user) ->
+  # editDamage: (damage, move, user) ->
+  # afterFaint: ->
+  # shouldBlockExecution: (move, user) ->
 
   # Pokemon-specific attachments
   # TODO: Turn Attachment into abstract class
@@ -150,8 +150,8 @@ class @VolatileAttachment extends @BaseAttachment
 class @Attachment.Flinch extends @VolatileAttachment
   name: "FlinchAttachment"
 
-  beforeMove: (battle, move, user, targets) ->
-    battle.message "#{@pokemon.name} flinched!"
+  beforeMove: (move, user, targets) ->
+    @battle.message "#{@pokemon.name} flinched!"
     false
 
   endTurn: ->
@@ -162,18 +162,18 @@ class @Attachment.Confusion extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    @turns = attributes.battle?.rng.randInt(1, 4, "confusion turns") || 1
+    @turns = @battle?.rng.randInt(1, 4, "confusion turns") || 1
     @turn = 0
 
-  beforeMove: (battle, move, user, targets) ->
-    battle.message "#{@pokemon.name} is confused!"
+  beforeMove: (move, user, targets) ->
+    @battle.message "#{@pokemon.name} is confused!"
     @turn++
     if @turn > @turns
-      battle.message "#{@pokemon.name} snapped out of confusion!"
+      @battle.message "#{@pokemon.name} snapped out of confusion!"
       @pokemon.unattach(@constructor)
-    else if battle.rng.next('confusion') < 0.5
-      battle.message "#{@pokemon.name} hurt itself in confusion!"
-      damage = battle.confusionMove.calculateDamage(battle, user, user)
+    else if @battle.rng.next('confusion') < 0.5
+      @battle.message "#{@pokemon.name} hurt itself in confusion!"
+      damage = @battle.confusionMove.calculateDamage(@battle, user, user)
       user.damage(damage)
       return false
 
@@ -187,15 +187,15 @@ class @Attachment.Disable extends @VolatileAttachment
   beginTurn: ->
     @pokemon.blockMove(@blockedMove)
 
-  beforeMove: (battle, move, user, target) ->
+  beforeMove: (move, user, target) ->
     if move == @blockedMove
-      battle.message "#{@pokemon.name}'s #{move.name} is disabled!"
+      @battle.message "#{@pokemon.name}'s #{move.name} is disabled!"
       return false
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
-      battle.message "#{@pokemon.name} is no longer disabled!"
+      @battle.message "#{@pokemon.name} is no longer disabled!"
       @pokemon.unattach(@constructor)
 
 class @Attachment.Yawn extends @VolatileAttachment
@@ -222,9 +222,9 @@ class @Attachment.Autotomize extends @VolatileAttachment
 class @Attachment.Nightmare extends @VolatileAttachment
   name: "NightmareAttachment"
 
-  endTurn: (battle) ->
+  endTurn: ->
     if @pokemon.has(Status.Sleep)
-      battle.message "#{@pokemon.name} is locked in a nightmare!"
+      @battle.message "#{@pokemon.name} is locked in a nightmare!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
     else
       @pokemon.unattach(@constructor)
@@ -233,29 +233,25 @@ class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
 
   initialize: (attributes) ->
-    {@battle} = attributes
     @turns = 3
     @turn = 0
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     for move in @pokemon.moves
       if move.power == 0
         @pokemon.blockMove(move)
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     # TODO: user is always == pokemon. Will this change?
     if user == @pokemon && move.power == 0
-      battle.message "#{@pokemon.name} can't use #{move.name} after the taunt!"
+      @battle.message "#{@pokemon.name} can't use #{move.name} after the taunt!"
       return false
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turn++
     if @turn >= @turns
-      battle.message "#{@pokemon.name}'s taunt wore off!"
+      @battle.message "#{@pokemon.name}'s taunt wore off!"
       @pokemon.unattach(@constructor)
-
-  unattach: ->
-    delete @battle
 
 class @Attachment.Wish extends @TeamAttachment
   name: "WishAttachment"
@@ -268,12 +264,12 @@ class @Attachment.Wish extends @TeamAttachment
     @turns = 2
     @turn = 0
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turn++
     if @turn >= @turns
       pokemon = @team.at(@slot)
       if !pokemon.isFainted()
-        battle.message "#{@wisherName}'s wish came true!"
+        @battle.message "#{@wisherName}'s wish came true!"
         pokemon.damage(-@amount)
       @team.unattach(@constructor)
 
@@ -285,9 +281,9 @@ class @Attachment.PerishSong extends @VolatileAttachment
     @turns = 4
     @turn = 0
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turn++
-    battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
+    @battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
     if @turn >= @turns
       @pokemon.faint()
       @pokemon.unattach(@constructor)
@@ -300,7 +296,7 @@ class @Attachment.Roost extends @VolatileAttachment
     @pokemon.types = (type for type in @pokemon.types when type != 'Flying')
     if @pokemon.types.length == 0 then @pokemon.types = [ 'Normal' ]
 
-  endTurn: (battle) ->
+  endTurn: ->
     @pokemon.types = @oldTypes
     @pokemon.unattach(@constructor)
 
@@ -312,19 +308,19 @@ class @Attachment.Encore extends @VolatileAttachment
     @turn = 0
     @move = @pokemon.lastMove
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.lockMove(@move)
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turn++
     if @turn >= @turns || @pokemon.pp(@move) == 0
-      battle.message("#{@pokemon.name}'s Encore ended!")
+      @battle.message("#{@pokemon.name}'s Encore ended!")
       @pokemon.unattach(@constructor)
 
 class @Attachment.Torment extends @VolatileAttachment
   name: "TormentAttachment"
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
 
 class @Attachment.ChoiceLock extends @VolatileAttachment
@@ -333,11 +329,11 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
   initialize: ->
     @move = null
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     @move = move
     true
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.lockMove(@move)  if @move?
 
   unattach: ->
@@ -346,18 +342,18 @@ class @Attachment.ChoiceLock extends @VolatileAttachment
 class @Attachment.IronBall extends @VolatileAttachment
   name: "IronBallAttachment"
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return false  if type == 'Ground'
 
 class @Attachment.AirBalloon extends @VolatileAttachment
   name: "AirBalloonAttachment"
 
-  afterBeingHit: (battle, move, user, target, damage) ->
+  afterBeingHit: (move, user, target, damage) ->
     return  if move.isNonDamaging()
-    battle.message "#{target.name}'s #{target.getItem().name} popped!"
+    @battle.message "#{target.name}'s #{target.getItem().name} popped!"
     target.removeItem()
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return true  if type == 'Ground'
 
 class @Attachment.Spikes extends @TeamAttachment
@@ -365,8 +361,8 @@ class @Attachment.Spikes extends @TeamAttachment
 
   maxLayers: 3
 
-  switchIn: (battle, pokemon) ->
-    return  if pokemon.isImmune(battle, "Ground")
+  switchIn: (pokemon) ->
+    return  if pokemon.isImmune("Ground")
     fraction = (10 - 2 * @layers)
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp / fraction)
@@ -374,7 +370,7 @@ class @Attachment.Spikes extends @TeamAttachment
 class @Attachment.StealthRock extends @TeamAttachment
   name: "StealthRockAttachment"
 
-  switchIn: (battle, pokemon) ->
+  switchIn: (pokemon) ->
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp * multiplier / 8)
@@ -384,13 +380,13 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   maxLayers: 2
 
-  switchIn: (battle, pokemon) ->
-    if pokemon.hasType("Poison") && !pokemon.isImmune(battle, "Ground")
-      name = battle.getOwner(pokemon).username
-      battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
+  switchIn: (pokemon) ->
+    if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
+      name = @battle.getOwner(pokemon).username
+      @battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
       @team.unattach(@constructor)
 
-    return  if pokemon.isImmune(battle, "Poison")
+    return  if pokemon.isImmune("Poison")
 
     if @layers == 1
       pokemon.attach(Status.Poison)
@@ -404,17 +400,17 @@ class @Attachment.Trap extends @VolatileAttachment
   initialize: (attributes) ->
     {@moveName, @user, @turns} = attributes
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
 
-  endTurn: (battle) ->
+  endTurn: ->
     # For the first numTurns turns it will damage, and at numTurns + 1 it will wear off.
     # Therefore, if @turns = 5, this attachment should actually last for 6 turns.
     if @turns == 0
-      battle.message "#{@pokemon.name} was freed from #{@moveName}!"
+      @battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @pokemon.unattach(@constructor)
     else
-      battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
+      @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
       @turns -= 1
 
@@ -450,9 +446,9 @@ class @Attachment.Attract extends @VolatileAttachment
       source.attach(Attachment.Attract, {source})
       @pokemon.removeItem()
 
-  beforeMove: (battle, move, user, targets) ->
-    if battle.rng.next('attract chance') < .5
-      battle.message "#{@pokemon.name} is immobilized by love!"
+  beforeMove: (move, user, targets) ->
+    if @battle.rng.next('attract chance') < .5
+      @battle.message "#{@pokemon.name} is immobilized by love!"
       return false
 
 class @Attachment.FocusEnergy extends @VolatileAttachment
@@ -468,7 +464,7 @@ class @Attachment.MicleBerry extends @VolatileAttachment
   editAccuracy: (accuracy) ->
     Math.floor(accuracy * 1.2)
 
-  endTurn: (battle) ->
+  endTurn: ->
     if @turns == 0
       @pokemon.unattach(@constructor)
     else
@@ -491,7 +487,7 @@ class @Attachment.Metronome extends @VolatileAttachment
   initialize: (attributes) ->
     {@move} = attributes
 
-  beforeMove: (battle, move) ->
+  beforeMove: (move) ->
     @pokemon.unattach(@constructor)  if move != @move
 
 class @Attachment.Screen extends @TeamAttachment
@@ -501,7 +497,7 @@ class @Attachment.Screen extends @TeamAttachment
     {user} = attributes
     @turns = (if user?.hasItem("Light Clay") then 8 else 5)
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
       @team.unattach(@constructor)
@@ -522,7 +518,7 @@ class @Attachment.Identify extends @VolatileAttachment
     stages.evasion = 0
     stages
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return false  if type == @type
 
 class @Attachment.DefenseCurl extends @VolatileAttachment
@@ -531,10 +527,10 @@ class @Attachment.DefenseCurl extends @VolatileAttachment
 class @Attachment.FocusPunch extends @VolatileAttachment
   name: "FocusPunchAttachment"
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     hit = user.lastHitBy
-    if hit? && !hit.move.isNonDamaging() && hit.turn == battle.turn
-      battle.message "#{user.name} lost its focus and couldn't move!"
+    if hit? && !hit.move.isNonDamaging() && hit.turn == @battle.turn
+      @battle.message "#{user.name} lost its focus and couldn't move!"
       return false
 
 class @Attachment.MagnetRise extends @VolatileAttachment
@@ -544,10 +540,10 @@ class @Attachment.MagnetRise extends @VolatileAttachment
   initialize: ->
     @turns = 5
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return true  if type == "Ground"
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns -= 1
     @pokemon.unattach(@constructor)  if @turns == 0
 
@@ -561,7 +557,7 @@ class @Attachment.LockOn extends @VolatileAttachment
   editAccuracy: ->
     0  # Always hits
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns -= 1
     @pokemon.unattach(@constructor)  if @turns == 0
 
@@ -571,7 +567,7 @@ class @Attachment.Minimize extends @VolatileAttachment
 class @Attachment.MeanLook extends @VolatileAttachment
   name: "MeanLookAttachment"
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
 
 class @Attachment.Recharge extends @VolatileAttachment
@@ -580,17 +576,17 @@ class @Attachment.Recharge extends @VolatileAttachment
   initialize: ->
     @turns = 2
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
     @pokemon.blockMoves()
-    {id} = battle.getOwner(@pokemon)
-    battle.recordMove(id, battle.getMove("Recharge"))
+    {id} = @battle.getOwner(@pokemon)
+    @battle.recordMove(id, @battle.getMove("Recharge"))
 
-  beforeMove: (battle, move, user, targets) ->
-    battle.message "#{user.name} must recharge!"
+  beforeMove: (move, user, targets) ->
+    @battle.message "#{user.name} must recharge!"
     return false
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns -= 1
     @pokemon.unattach(@constructor)  if @turns == 0
 
@@ -603,18 +599,18 @@ class @Attachment.Momentum extends @VolatileAttachment
     {@move} = attributes
     @turns = 1
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
     @pokemon.lockMove(@move)
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns -= 1
     @pokemon.unattach(@constructor)  if @turns == 0 || @layers == @maxLayers
 
 class @Attachment.MeFirst extends @VolatileAttachment
   name: "MeFirstAttachment"
 
-  endTurn: (battle) ->
+  endTurn: ->
     @pokemon.unattach(@constructor)
 
 class @Attachment.Charge extends @VolatileAttachment
@@ -623,7 +619,7 @@ class @Attachment.Charge extends @VolatileAttachment
   initialize: ->
     @turns = 2
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns -= 1
     @pokemon.unattach(@constructor)  if @turns == 0
 
@@ -634,14 +630,14 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   initialize: (attributes) ->
     {@slot, @team} = attributes
 
-  endTurn: (battle) ->
+  endTurn: ->
     user = @team.at(@slot)
     return  if user.isFainted() || @pokemon.isFainted()
     hp = @pokemon.stat('hp')
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
     @pokemon.damage(damage)
     user.drain(damage, @pokemon)
-    battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
+    @battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
   name: "ProtectCounterAttachment"
@@ -659,9 +655,9 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
 class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
 
-  shouldBlockExecution: (battle, move, user) ->
+  shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
-      battle.message "#{@pokemon.name} protected itself!"
+      @battle.message "#{@pokemon.name} protected itself!"
       return true
 
   endTurn: ->
@@ -673,9 +669,9 @@ class @Attachment.Endure extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
-  editDamage: (damage, battle, move, user) ->
+  editDamage: (damage, move, user) ->
     if damage >= @pokemon.currentHP
-      battle.message "#{@pokemon.name} endured the hit!"
+      @battle.message "#{@pokemon.name} endured the hit!"
       return @pokemon.currentHP - 1
     return damage
 
@@ -683,45 +679,45 @@ class @Attachment.Curse extends @VolatileAttachment
   name: "CurseAttachment"
   passable: true
 
-  endTurn: (battle) ->
+  endTurn: ->
     @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
-    battle.message "#{@pokemon.name} was afflicted by the curse!"
+    @battle.message "#{@pokemon.name} was afflicted by the curse!"
 
 class @Attachment.DestinyBond extends @VolatileAttachment
   name: "DestinyBondAttachment"
 
-  afterFaint: (battle) ->
-    pokemon = battle.lastPokemon
+  afterFaint: ->
+    pokemon = @battle.lastPokemon
     if pokemon? && pokemon.isAlive()
       pokemon.faint()
-      battle.message "#{pokemon.name} took its attacker down with it!"
+      @battle.message "#{pokemon.name} took its attacker down with it!"
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
 
 class @Attachment.Grudge extends @VolatileAttachment
   name: "GrudgeAttachment"
 
-  afterFaint: (battle) ->
-    pokemon = battle.lastPokemon
+  afterFaint: ->
+    pokemon = @battle.lastPokemon
     if pokemon? && pokemon.isAlive()
       move = pokemon.lastMove
       pokemon.setPP(move, 0)
-      battle.message "#{pokemon.name}'s #{move.name} lost all its PP due to the grudge!"
+      @battle.message "#{pokemon.name}'s #{move.name} lost all its PP due to the grudge!"
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
 
 class @Attachment.Pursuit extends @VolatileAttachment
   name: "PursuitAttachment"
 
-  informSwitch: (battle, switcher) ->
-    {team} = battle.getOwner(switcher)
+  informSwitch: (switcher) ->
+    {team} = @battle.getOwner(switcher)
     return  if team.has(Attachment.BatonPass)
-    move = battle.getMove('Pursuit')
-    battle.cancelAction(@pokemon)
+    move = @battle.getMove('Pursuit')
+    @battle.cancelAction(@pokemon)
     @pokemon.attach(Attachment.PursuitModifiers)
-    move.execute(battle, @pokemon, [ switcher ])
+    move.execute(@battle, @pokemon, [ switcher ])
     @pokemon.unattach(Attachment.PursuitModifiers)
     @pokemon.unattach(@constructor)
 
@@ -742,7 +738,7 @@ class @Attachment.Substitute extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    {@battle, @hp} = attributes
+    {@hp} = attributes
 
   transformHealthChange: (damage) ->
     @hp -= damage
@@ -753,9 +749,9 @@ class @Attachment.Substitute extends @VolatileAttachment
       @battle.message "The substitute took damage for #{@pokemon.name}!"
     return 0
 
-  shouldBlockExecution: (battle, move, user) ->
+  shouldBlockExecution: (move, user) ->
     if move.isNonDamaging() && !move.hasFlag('authentic')
-      move.fail(battle)
+      move.fail(@battle)
       return true
 
 class @Attachment.Stockpile extends @VolatileAttachment
@@ -766,13 +762,13 @@ class @Attachment.Stockpile extends @VolatileAttachment
 class @Attachment.Rage extends @VolatileAttachment
   name: "RageAttachment"
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
 
-  afterBeingHit: (battle, move, user, target, damage) ->
+  afterBeingHit: (move, user, target, damage) ->
     return  if move.isNonDamaging()
     target.boost(attack: 1)
-    battle.message "#{target.name}'s rage is building!"
+    @battle.message "#{target.name}'s rage is building!"
 
 class @Attachment.ChipAway extends @VolatileAttachment
   name: "ChipAwayAttachment"
@@ -787,35 +783,35 @@ class @Attachment.AquaRing extends @VolatileAttachment
   name: "AquaRingAttachment"
   passable: true
 
-  endTurn: (battle) ->
+  endTurn: ->
     amount = Math.floor(@pokemon.stat('hp') / 16)
     # Aqua Ring is considered a drain move for the purposes of Big Root.
     @pokemon.drain(amount, @pokemon)
-    battle.message "Aqua Ring restored #{@pokemon.name}'s HP!"
+    @battle.message "Aqua Ring restored #{@pokemon.name}'s HP!"
 
 class @Attachment.Ingrain extends @VolatileAttachment
   name: "IngrainAttachment"
   passable: true
 
-  endTurn: (battle) ->
+  endTurn: ->
     amount = Math.floor(@pokemon.stat('hp') / 16)
     # Ingrain is considered a drain move for the purposes of Big Root.
     @pokemon.drain(amount, @pokemon)
-    battle.message "#{@pokemon.name} absorbed nutrients with its roots!"
+    @battle.message "#{@pokemon.name} absorbed nutrients with its roots!"
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
 
-  shouldPhase: (battle, phaser) ->
-    battle.message "#{@pokemon.name} anchored itself with its roots!"
+  shouldPhase: (phaser) ->
+    @battle.message "#{@pokemon.name} anchored itself with its roots!"
     return false
 
-  shouldBlockExecution: (battle, move, user) ->
-    if move == battle.getMove("Telekinesis")
-      move.fail(battle)
+  shouldBlockExecution: (move, user) ->
+    if move == @battle.getMove("Telekinesis")
+      move.fail(@battle)
       return true
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return false  if type == 'Ground'
 
 class @Attachment.Embargo extends @VolatileAttachment
@@ -826,13 +822,13 @@ class @Attachment.Embargo extends @VolatileAttachment
     @turns = 5
     @pokemon?.blockItem()
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockItem()
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
-      battle.message "#{@pokemon.name} can use items again!"
+      @battle.message "#{@pokemon.name} can use items again!"
       @pokemon.unattach(@constructor)
 
 class @Attachment.Charging extends @VolatileAttachment
@@ -842,28 +838,28 @@ class @Attachment.Charging extends @VolatileAttachment
     {@message, @vulnerable, @move, @condition} = attributes
     @charging = false
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     if user.hasItem("Power Herb")
-      battle.message "#{user.name} became fully charged due to its Power Herb!"
+      @battle.message "#{user.name} became fully charged due to its Power Herb!"
       @charging = true
       user.removeItem()
 
-    if @charging || @condition?(battle, move, user, targets)
+    if @charging || @condition?(@battle, move, user, targets)
       @pokemon.unattach(@constructor)
       return
 
     @charging = true
-    battle.message @message.replace(/$1/g, user.name)
+    @battle.message @message.replace(/$1/g, user.name)
     return false
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     # TODO: Add targets
-    {id} = battle.getOwner(@pokemon)
-    battle.recordMove(id, @move)
+    {id} = @battle.getOwner(@pokemon)
+    @battle.recordMove(id, @move)
 
-  shouldBlockExecution: (battle, move, user) ->
-    if @charging && (move not in @vulnerable.map((v) -> battle.getMove(v)))
-      battle.message "#{@pokemon.name} avoided the attack!"
+  shouldBlockExecution: (move, user) ->
+    if @charging && (move not in @vulnerable.map((v) => @battle.getMove(v)))
+      @battle.message "#{@pokemon.name} avoided the attack!"
       return true
 
   unattach: ->
@@ -879,23 +875,23 @@ class @Attachment.FuryCutter extends @VolatileAttachment
   initialize: (attributes) ->
     {@move} = attributes
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)  if move != @move
 
 class @Attachment.Imprison extends @VolatileAttachment
   name: "ImprisonAttachment"
 
   initialize: (attributes) ->
-    {@moves, battle} = attributes
-    for pokemon in battle.getOpponents(@pokemon)
+    {@moves} = attributes
+    for pokemon in @battle.getOpponents(@pokemon)
       pokemon.attach(Attachment.ImprisonPrevention, {@moves})
 
-  beginTurn: (battle) ->
-    for pokemon in battle.getOpponents(@pokemon)
+  beginTurn: ->
+    for pokemon in @battle.getOpponents(@pokemon)
       pokemon.attach(Attachment.ImprisonPrevention, {@moves})
 
-  switchOut: (battle) ->
-    for pokemon in battle.getOpponents(@pokemon)
+  switchOut: ->
+    for pokemon in @battle.getOpponents(@pokemon)
       pokemon.unattach(Attachment.ImprisonPrevention)
 
 class @Attachment.ImprisonPrevention extends @VolatileAttachment
@@ -904,12 +900,12 @@ class @Attachment.ImprisonPrevention extends @VolatileAttachment
   initialize: (attributes) ->
     {@moves} = attributes
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockMove(move)  for move in @moves
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     if move in @moves
-      battle.message "#{user.name} can't use the sealed #{move.name}!"
+      @battle.message "#{user.name} can't use the sealed #{move.name}!"
       return false
 
 class @Attachment.Present extends @VolatileAttachment
@@ -928,19 +924,19 @@ class @Attachment.LuckyChant extends @TeamAttachment
   initialize: ->
     @turns = 5
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
       # TODO: Less hacky way of getting username
-      {username} = (p for id, p of battle.players when p.team == @team)[0]
-      battle.message "#{username}'s team's Lucky Chant wore off!"
+      {username} = (p for id, p of @battle.players when p.team == @team)[0]
+      @battle.message "#{username}'s team's Lucky Chant wore off!"
       @team.unattach(@constructor)
 
 class @Attachment.LunarDance extends @TeamAttachment
   name: "LunarDanceAttachment"
 
-  switchIn: (battle, pokemon) ->
-    battle.message "#{pokemon.name} became cloaked in mystical moonlight!"
+  switchIn: (pokemon) ->
+    @battle.message "#{pokemon.name} became cloaked in mystical moonlight!"
     pokemon.currentHP = pokemon.stat('hp')
     pokemon.cureStatus()
     pokemon.resetAllPP()
@@ -948,8 +944,8 @@ class @Attachment.LunarDance extends @TeamAttachment
 class @Attachment.HealingWish extends @TeamAttachment
   name: "HealingWishAttachment"
 
-  switchIn: (battle, pokemon) ->
-    battle.message "The healing wish came true for #{pokemon.name}!"
+  switchIn: (pokemon) ->
+    @battle.message "The healing wish came true for #{pokemon.name}!"
     pokemon.currentHP = pokemon.stat('hp')
     pokemon.cureStatus()
 
@@ -959,16 +955,16 @@ class @Attachment.MagicCoat extends @VolatileAttachment
   initialize: ->
     @bounced = false
 
-  shouldBlockExecution: (battle, move, user) ->
+  shouldBlockExecution: (move, user) ->
     return  unless move.hasFlag("reflectable")
     return  if user.get(Attachment.MagicCoat)?.bounced
     return  if @bounced
     @bounced = true
-    battle.message "#{@pokemon.name} bounced the #{move.name} back!"
-    move.execute(battle, @pokemon, [ user ])
+    @battle.message "#{@pokemon.name} bounced the #{move.name} back!"
+    move.execute(@battle, @pokemon, [ user ])
     return true
 
-  endTurn: (battle) ->
+  endTurn: ->
     @pokemon.unattach(@constructor)
 
 class @Attachment.Telekinesis extends @VolatileAttachment
@@ -980,24 +976,24 @@ class @Attachment.Telekinesis extends @VolatileAttachment
   editEvasion: ->
     0  # Always hit
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return true  if type == 'Ground'
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
-      battle.message "#{@pokemon} was freed from the telekinesis!"
+      @battle.message "#{@pokemon} was freed from the telekinesis!"
       @pokemon.unattach(@constructor)
 
 class @Attachment.SmackDown extends @VolatileAttachment
   name: "SmackDownAttachment"
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     return false  if type == 'Ground'
 
-  shouldBlockExecution: (battle, move, user) ->
-    if move in [ battle.getMove("Telekinesis"), battle.getMove("Magnet Rise") ]
-      move.fail(battle)
+  shouldBlockExecution: (move, user) ->
+    if move in [ @battle.getMove("Telekinesis"), @battle.getMove("Magnet Rise") ]
+      move.fail(@battle)
       return true
 
 class @Attachment.EchoedVoice extends @BattleAttachment
@@ -1018,19 +1014,19 @@ class @Attachment.Rampage extends @VolatileAttachment
   maxLayers: -1
 
   initialize: (attributes) ->
-    {battle, @move} = attributes
-    @turns = battle.rng.randInt(2, 3, "rampage turns")
+    {@move} = attributes
+    @turns = @battle.rng.randInt(2, 3, "rampage turns")
     @turn = 0
 
-  beginTurn: (battle) ->
+  beginTurn: ->
     @pokemon.blockSwitch()
     @pokemon.lockMove(@move)
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turn++
     if @turn >= @turns
-      battle.message "#{@pokemon.name} became confused due to fatigue!"
-      @pokemon.attach(Attachment.Confusion, {battle})
+      @battle.message "#{@pokemon.name} became confused due to fatigue!"
+      @pokemon.attach(Attachment.Confusion)
       @pokemon.unattach(@constructor)
     else
       # afterSuccessfulHit increases the number of layers. If the number of
@@ -1055,12 +1051,12 @@ class @Attachment.Transform extends @VolatileAttachment
   name: "TransformAttachment"
 
   initialize: (attributes) ->
-    {battle, target} = attributes
+    {target} = attributes
     # Save old data
     {@ability, @species, @moves, @stages, @types, @gender, @weight} = @pokemon
     {@ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
-    @pokemon.copyAbility(battle, target.ability)
+    @pokemon.copyAbility(target.ability)
     @pokemon.species = target.species
     @pokemon.gender  = target.gender
     @pokemon.weight  = target.weight
@@ -1088,9 +1084,9 @@ class @Attachment.Fling extends @VolatileAttachment
   initialize: ->
     @item = null
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     # The move may be changed by something like Encore
-    return  if move != battle.getMove("Fling")
+    return  if move != @battle.getMove("Fling")
     if user.hasItem() && user.hasTakeableItem() && !user.isItemBlocked()
       @item = user.getItem()
       user.removeItem()
@@ -1125,15 +1121,15 @@ class @Attachment.Gravity extends @BattleAttachment
 class @Attachment.GravityPokemon extends @VolatileAttachment
   name: "GravityPokemonAttachment"
 
-  beforeMove: (battle, move, user, target) ->
+  beforeMove: (move, user, target) ->
     if move.hasFlag("gravity")
-      battle.message "#{user.name} can't use #{move.name} because of gravity!"
+      @battle.message "#{user.name} can't use #{move.name} because of gravity!"
       return false
 
   editAccuracy: (accuracy) ->
     Math.floor(accuracy * 5 / 3)
 
-  isImmune: (battle, type) ->
+  isImmune: (type) ->
     # TODO: Display "POKEMON couldn't stay airborne because of gravity!"?
     return false  if type == 'Ground'
 
@@ -1148,13 +1144,13 @@ class @Attachment.DelayedAttack extends @TeamAttachment
     @slot = 0
     @turns = 3
 
-  endTurn: (battle) ->
+  endTurn: ->
     @turns--
     if @turns == 0
       pokemon = @team.at(@slot)
       if pokemon.isAlive()
-        battle.message "#{pokemon.name} took the #{@move.name} attack!"
-        @move.hit(battle, @user, pokemon)
+        @battle.message "#{pokemon.name} took the #{@move.name} attack!"
+        @move.hit(@battle, @user, pokemon)
       @team.unattach(@constructor)
 
 class @Attachment.BatonPass extends @TeamAttachment
@@ -1163,11 +1159,13 @@ class @Attachment.BatonPass extends @TeamAttachment
   initialize: (attributes) ->
     {@slot, @attachments, @stages} = attributes
 
-  switchIn: (battle, pokemon) ->
+  switchIn: (pokemon) ->
     return  if @slot != @team.indexOf(pokemon)
     # Nasty stitching of attachments to the recipient.
     for attachment in @attachments
       attachment.pokemon = pokemon
+      attachment.team = pokemon.team
+      attachment.battle = pokemon.battle
       attachment.attached = true
       pokemon.attachments.attachments.push(attachment)
     pokemon.boost(@stages)
@@ -1176,8 +1174,8 @@ class @Attachment.BatonPass extends @TeamAttachment
 class @Attachment.FlashFire extends @VolatileAttachment
   name: "FlashFireAttachment"
 
-  modifyBasePower: (battle, move, user, target) ->
-    return 0x1000  if move.getType(battle, @pokemon, target) != 'Fire'
+  modifyBasePower: (move, user, target) ->
+    return 0x1000  if move.getType(@battle, @pokemon, target) != 'Fire'
     return 0x1800
 
 class @Attachment.Unburden extends @VolatileAttachment

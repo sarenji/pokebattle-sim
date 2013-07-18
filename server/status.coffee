@@ -4,14 +4,19 @@
 class @StatusAttachment extends BaseAttachment
   name: "StatusAttachment"
 
-  @preattach: (attributes) ->
+  @preattach: (options, attributes) ->
     {pokemon} = attributes
+    {source} = options
     return false  if pokemon.hasStatus()
     return false  if this == Status.Burn && pokemon.hasType("Fire")
     return false  if this == Status.Freeze && pokemon.hasType("Ice")
     return false  if this == Status.Toxic && pokemon.hasType("Poison")
     return false  if this == Status.Poison && pokemon.hasType("Poison")
     pokemon.status = @name
+    if source && pokemon.hasAbility("Synchronize")
+      source.attach(this)  # Do not attach source
+      # Hack
+      pokemon.get(pokemon.ability).synchronizedWith = source
     return true
 
   unattach: ->
@@ -20,9 +25,9 @@ class @StatusAttachment extends BaseAttachment
 class @Status.Paralyze extends @StatusAttachment
   name: "Paralyze"
 
-  beforeMove: (battle, move, user, targets) ->
-    if battle.rng.next('paralyze chance') < .25
-      battle.message "#{@pokemon.name} is fully paralyzed!"
+  beforeMove: (move, user, targets) ->
+    if @battle.rng.next('paralyze chance') < .25
+      @battle.message "#{@pokemon.name} is fully paralyzed!"
       return false
 
   editSpeed: (stat) ->
@@ -31,25 +36,25 @@ class @Status.Paralyze extends @StatusAttachment
 class @Status.Freeze extends @StatusAttachment
   name: "Freeze"
 
-  beforeMove: (battle, move, user, targets) ->
-    if move.thawsUser || battle.rng.next('unfreeze chance') < .2
-      battle.message "#{@pokemon.name} thawed out!"
+  beforeMove: (move, user, targets) ->
+    if move.thawsUser || @battle.rng.next('unfreeze chance') < .2
+      @battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
     else
-      battle.message "#{@pokemon.name} is frozen solid!"
+      @battle.message "#{@pokemon.name} is frozen solid!"
       return false
 
-  afterBeingHit: (battle, move, user, target, damage) ->
+  afterBeingHit: (move, user, target, damage) ->
     if !move.isNonDamaging() && move.type == 'Fire'
-      battle.message "#{@pokemon.name} thawed out!"
+      @battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
 
 class @Status.Poison extends @StatusAttachment
   name: "Poison"
 
-  endTurn: (battle) ->
+  endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    battle.message "#{@pokemon.name} was hurt by poison!"
+    @battle.message "#{@pokemon.name} was hurt by poison!"
     @pokemon.damage(@pokemon.stat('hp') >> 3)
 
 class @Status.Toxic extends @StatusAttachment
@@ -61,9 +66,9 @@ class @Status.Toxic extends @StatusAttachment
   switchOut: ->
     @counter = 0
 
-  endTurn: (battle) ->
+  endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    battle.message "#{@pokemon.name} was hurt by poison!"
+    @battle.message "#{@pokemon.name} was hurt by poison!"
     @counter = Math.min(@counter + 1, 15)
     @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
 
@@ -76,21 +81,21 @@ class @Status.Sleep extends @StatusAttachment
   switchOut: ->
     @counter = 0
 
-  beforeMove: (battle, move, user, targets) ->
+  beforeMove: (move, user, targets) ->
     if !@turns
-      @turns = battle.rng.randInt(1, 3, "sleep turns")
+      @turns = @battle.rng.randInt(1, 3, "sleep turns")
       @turns >>= 1  if @pokemon.hasAbility("Early Bird")
     if @counter == @turns
-      battle.message "#{@pokemon.name} woke up!"
+      @battle.message "#{@pokemon.name} woke up!"
       @pokemon.cureStatus()
     else
-      battle.message "#{@pokemon.name} is fast asleep."
+      @battle.message "#{@pokemon.name} is fast asleep."
       @counter += 1
       return false
 
 class @Status.Burn extends @StatusAttachment
   name: "Burn"
 
-  endTurn: (battle) ->
-    battle.message "#{@pokemon.name} was hurt by its burn!"
+  endTurn: ->
+    @battle.message "#{@pokemon.name} was hurt by its burn!"
     @pokemon.damage(@pokemon.stat('hp') >> 3)

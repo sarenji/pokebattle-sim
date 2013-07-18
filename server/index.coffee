@@ -6,5 +6,5 @@
 {@FakeRNG} = require './rng'
 {@BattleServer} = require './server'
 {@Attachment, @VolatileAttachment, @BaseAttachment} = require './attachment'
-{@Status, @VolatileStatus} = require './status'
+{@Status} = require './status'
 {@Weather} = require './weather'

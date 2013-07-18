@@ -258,7 +258,7 @@ describe "BW Abilities:", ->
       it "grants immunity to damage from their respective weather", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        @p1.isWeatherDamageImmune(@battle, weather).should.be.true
+        @p1.isWeatherDamageImmune(weather).should.be.true
 
   testWeatherSpeedAbility("Chlorophyll", Weather.SUN)
   testWeatherSpeedAbility("Swift Swim", Weather.RAIN)
@@ -357,7 +357,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp")]
         team2: [Factory("Abomasnow")]
       @p1.stages.should.include(attack: 0)
-      @p1.copyAbility(@battle, Ability.Download)
+      @p1.copyAbility(Ability.Download)
       @p1.stages.should.include(attack: 1)
 
     it "raises special attack if foes have total sp.def <= total def", ->
@@ -365,7 +365,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp")]
         team2: [Factory("Celebi")]
       @p1.stages.should.include(specialAttack: 0)
-      @p1.copyAbility(@battle, Ability.Download)
+      @p1.copyAbility(Ability.Download)
       @p1.stages.should.include(specialAttack: 1)
 
   testWeatherAbility = (name, weather) ->
@@ -620,7 +620,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Gluttony")]
       @p1.stages.should.include(speed: 0)
       @p1.currentHP >>= 1
-      @p1.update(@battle)
+      @p1.update()
       @p1.stages.should.include(speed: 1)
 
   describe "Guts", ->
@@ -787,7 +787,7 @@ describe "BW Abilities:", ->
     it "grants immunity to Hail", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Ice Body")]
-      @p1.isWeatherDamageImmune(@battle, Weather.HAIL).should.be.true
+      @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
 
   describe "Illusion", ->
     it "masquerades as the last unfainted pokemon in player's party"
@@ -812,10 +812,10 @@ describe "BW Abilities:", ->
         for attachment in attachments
           @p1.attach(attachment)
           @p1.has(attachment).should.be.true
-          @p1.copyAbility(@battle, Ability[name.replace(/\s+/g, '')])
-          @p1.update(@battle)
+          @p1.copyAbility(Ability[name.replace(/\s+/g, '')])
+          @p1.update()
           @p1.has(attachment).should.be.false
-          @p1.copyAbility(@battle, null)
+          @p1.copyAbility(null)
 
   testAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
   testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
@@ -895,7 +895,7 @@ describe "BW Abilities:", ->
     it "adds a ground immunity", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Levitate")]
-      @p1.isImmune(@battle, 'Ground').should.be.true
+      @p1.isImmune('Ground').should.be.true
 
   testRedirectAndBoostAbility = (name, type) ->
     describe name, ->
@@ -1084,8 +1084,8 @@ describe "BW Abilities:", ->
     it "gives an immunity to adverse weather effects", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Overcoat")]
-      @p1.isWeatherDamageImmune(@battle, Weather.HAIL).should.be.true
-      @p1.isWeatherDamageImmune(@battle, Weather.SAND).should.be.true
+      @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
+      @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
 
   describe "Poison Heal", ->
     it "prevents normal poison damage", ->
@@ -1218,7 +1218,7 @@ describe "BW Abilities:", ->
     it "grants immunity to sandstorm", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sand Force")]
-      @p1.isWeatherDamageImmune(@battle, Weather.SAND).should.be.true
+      @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
 
   describe "Scrappy", ->
     xit "negates Ghost-type pokemon's immunity to Normal and Fighting", ->
@@ -1277,7 +1277,7 @@ describe "BW Abilities:", ->
     it "halves attack and speed", ->
       shared.create.call(this)
       speed = @p1.stat('speed')
-      @p1.copyAbility(@battle, Ability.SlowStart)
+      @p1.copyAbility(Ability.SlowStart)
       tackle = @battle.getMove("Tackle")
       tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
       flamethrower = @battle.getMove("Flamethrower")
@@ -1289,7 +1289,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       flamethrower = @battle.getMove("Flamethrower")
       speed = @p1.stat('speed')
-      @p1.copyAbility(@battle, Ability.SlowStart)
+      @p1.copyAbility(Ability.SlowStart)
       for x in [0...5]
         tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x800)
         flamethrower.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
@@ -1305,8 +1305,8 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Soundproof")]
       bugBuzz = @battle.getMove('Bug Buzz')
       perishSong = @battle.getMove('Perish Song')
-      @p1.isImmune(@battle, bugBuzz.type, bugBuzz).should.be.true
-      @p1.isImmune(@battle, perishSong.type, perishSong).should.be.true
+      @p1.isImmune(bugBuzz.type, bugBuzz).should.be.true
+      @p1.isImmune(perishSong.type, perishSong).should.be.true
 
   describe "Speed Boost", ->
     it "boosts speed at the end of every turn", ->
@@ -1341,7 +1341,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sturdy")]
       tackle = @battle.getMove("Tackle")
-      @p1.editDamage(@battle, tackle, 9999).should.equal(@p1.currentHP - 1)
+      @p1.editDamage(tackle, 9999).should.equal(@p1.currentHP - 1)
 
     it "lets the user be KOed if not at full HP", ->
       shared.create.call this,
@@ -1349,7 +1349,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       damage = 9999
       @p1.currentHP -= 1
-      @p1.editDamage(@battle, tackle, damage).should.equal(damage)
+      @p1.editDamage(tackle, damage).should.equal(damage)
 
   describe "Suction Cups", ->
     it "prevents user from being phased", ->
@@ -1368,7 +1368,18 @@ describe "BW Abilities:", ->
       tackle.criticalHitLevel(@battle, @p1, @p2).should.equal(2)
 
   describe "Synchronize", ->
-    it "afflicts the source of a status with the same status"
+    it "afflicts the source of a status with the same status", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      @p1.attach(Status.Sleep, source: @p2)
+      @p2.has(Status.Sleep).should.be.true
+
+    it "doesn't attempt to afflict target if target is self", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      spy = @sandbox.spy(Status.Sleep, 'preattach')
+      @p1.attach(Status.Sleep, source: @p1)
+      spy.returned(false).should.be.true
 
   describe "Tangled Feet", ->
     it "doubles evasion rate when confused", ->

@@ -5,10 +5,14 @@
 class @Team
   {Species} = require '../data/bw'
 
-  constructor: (pokemon, @numActive) ->
-    @pokemon = pokemon.map (attributes) ->
+  constructor: (battle, pokemon, @numActive) ->
+    # Inject battle dependency
+    @battle = battle
+    @pokemon = pokemon.map (attributes) =>
       specimen = Species[attributes.name]
       # TODO: Make nicer.
+      attributes.battle = battle
+      attributes.team = this
       attributes.weight = specimen.weight
       attributes.stats = _.clone(specimen.stats || {})
       pokemon_moves = attributes.moves || []
@@ -41,37 +45,37 @@ class @Team
 
   attach: (attachment, options={}) ->
     options = _.clone(options)
-    @attachments.push(attachment, options, team: this)
+    @attachments.push(attachment, options, battle: @battle, team: this)
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
     delete attachment.team  if attachment?
     attachment
 
-  switch: (battle, player, a, b) ->
-    battle.message "#{player.username} withdrew #{@at(a).name}!"
-    p.informSwitch(battle, @at(a))  for p in battle.getOpponents(@at(a))
-    @switchOut(battle, @at(a))
+  switch: (player, a, b) ->
+    @battle.message "#{player.username} withdrew #{@at(a).name}!"
+    p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
+    @switchOut(@at(a))
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
 
-    battle.message "#{player.username} sent out #{@at(a).name}!"
-    @switchIn(battle, @at(a))
+    @battle.message "#{player.username} sent out #{@at(a).name}!"
+    @switchIn(@at(a))
     @at(a).turnsActive = 0
 
-  beginTurn: (battle) ->
-    @attachments.query('beginTurn', battle)
+  beginTurn: ->
+    @attachments.query('beginTurn')
 
-  endTurn: (battle) ->
-    @attachments.query('endTurn', battle)
+  endTurn: ->
+    @attachments.query('endTurn')
 
-  switchOut: (battle, pokemon) ->
-    @attachments.query('switchOut', battle, pokemon)
-    pokemon.switchOut(battle)
+  switchOut: (pokemon) ->
+    @attachments.query('switchOut', pokemon)
+    pokemon.switchOut()
 
-  switchIn: (battle, pokemon) ->
-    pokemon.switchIn(battle)
-    @attachments.query('switchIn', battle, pokemon)
+  switchIn: (pokemon) ->
+    pokemon.switchIn()
+    @attachments.query('switchIn', pokemon)
 
   getAdjacent: (pokemon) ->
     index = @pokemon.indexOf(pokemon)

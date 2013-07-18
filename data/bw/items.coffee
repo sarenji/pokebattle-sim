@@ -76,7 +76,7 @@ makeFlavorHealingBerry = (name, stat) ->
       if owner.natureBoost(stat) < 1.0
         # TODO: Replace with the real battle message.
         battle.message "The #{name} was bitter!"
-        owner.attach(Attachment.Confusion, {battle})
+        owner.attach(Attachment.Confusion)
 
     @update = (battle, owner) ->
       if owner.currentHP <= Math.floor(owner.stat('hp') / 2)
@@ -472,7 +472,7 @@ extendItem 'Red Card', ->
     # return  if benched.length == 0
     pokemon = battle.rng.choice(benched)
     index = opponent.team.indexOf(pokemon)
-    opponent.switch(battle, 0, index)
+    opponent.switch(0, index)
     target.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'
@@ -527,7 +527,7 @@ extendItem 'Sticky Barb', ->
   @afterBeingHit = (battle, move, user, target, damage) ->
     return  unless move.hasFlag("contact")
     return  if user.hasItem()
-    user.setItem(battle, this)
+    user.setItem(this)
     target.useItem()
 
   @endTurn = (battle, pokemon) ->

@@ -43,7 +43,7 @@ class @Move
       return
 
     for target in targets
-      continue  if target.shouldBlockExecution(battle, this, user)
+      continue  if target.shouldBlockExecution(this, user)
       numHits = @calculateNumberOfHits(battle, user, target)
       for i in [1..numHits]
         if @use(battle, user, target) != false
@@ -58,7 +58,7 @@ class @Move
       return false
 
     type = @getType(battle, user, target)
-    if target.isImmune(battle, type, this)
+    if target.isImmune(type, this)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 
@@ -70,8 +70,8 @@ class @Move
       battle.message "#{target.name} took #{damage} damage!"
       realDamage = target.transformHealthChange(damage)
       target.damage(realDamage)
-    target.afterBeingHit(battle, this, user, target, damage)
-    user.afterSuccessfulHit(battle, this, user, target, damage)
+    target.afterBeingHit(this, user, target, damage)
+    user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
     target.recordHit(user, damage, this, battle.turn)
 
@@ -106,12 +106,12 @@ class @Move
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, @modifyDamage(battle, user, target))
-    damage = target.editDamage(battle, this, damage)
+    damage = target.editDamage(this, damage)
     damage = Math.min(target.currentHP, damage)
 
     if willCritical
       battle.message "A critical hit!"
-      target.informCriticalHit(battle)
+      target.informCriticalHit()
     damage
 
   willMiss: (battle, user, target) ->
@@ -131,6 +131,7 @@ class @Move
     accuracy
 
   weatherModifier: (battle, user, target) ->
+    # TODO: This is wrong.
     type = @getType(battle, user, target).toUpperCase()
     if type == 'Fire' and battle.hasWeather('Sunny')
       0x1800
@@ -221,20 +222,20 @@ class @Move
       battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
 
   modifyBasePower: (battle, user, target) ->
-    modify = user.attachments.queryModifiers('modifyBasePower', battle, this, user, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', battle, this, user))
+    modify = user.attachments.queryModifiers('modifyBasePower', this, user, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', this, user))
     # TODO: Deprecate
     modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 
   modifyDamage: (battle, user, target) ->
-    modify = user.attachments.queryModifiers('modifyDamage', battle, this, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', battle, this, user))
+    modify = user.attachments.queryModifiers('modifyDamage', this, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', this, user))
     # TODO: Deprecate
     modify = @modify(modify, finalModifier.run(this, battle, user, target))
 
   modifyAttack: (battle, user, target) ->
-    modify = user.attachments.queryModifiers('modifyAttack', battle, this, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyAttackTarget', battle, this, user))
+    modify = user.attachments.queryModifiers('modifyAttack', this, target)
+    modify = @modify(modify, target.attachments.queryModifiers('modifyAttackTarget', this, user))
     # TODO: Deprecate
     modify = @modify(modify, attackStatModifier.run(this, battle, user, target))
 

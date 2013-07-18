@@ -41,9 +41,7 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
         @fail(battle)
         return
 
-      hash = _.clone(options)
-      hash.battle = battle
-      target.attach(Klass, hash)
+      target.attach(Klass, options)
 
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
@@ -68,9 +66,7 @@ extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
       if battle.rng.next("secondary effect") >= chance
         return
 
-      hash = _.clone(options)
-      hash.battle = battle
-      target.attach(Klass, hash)
+      target.attach(Klass, options)
 
 extendWithSecondaryStatus = (name, chance, status) ->
   extendMove name, ->
@@ -224,8 +220,8 @@ makeTrickMove = (name) ->
         return false
       uItem = user.getItem()
       tItem = target.getItem()
-      user.setItem(battle, tItem)
-      target.setItem(battle, uItem)
+      user.setItem(tItem)
+      target.setItem(uItem)
 
 makeExplosionMove = (name) ->
   extendMove name, ->
@@ -277,7 +273,7 @@ makeThiefMove = (name) ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       return  if user.hasItem() || !target.hasTakeableItem()
       battle.message "#{user.name} stole #{target.name}'s #{target.getItem().name}!"
-      user.setItem(battle, target.getItem())
+      user.setItem(target.getItem())
       target.removeItem()
 
 makeStatusCureMove = (name, message) ->
@@ -317,12 +313,12 @@ makeRandomSwitchMove = (name) ->
       return  if benched.length == 0
       pokemon = battle.rng.choice(benched)
       index = opponent.team.indexOf(pokemon)
-      opponent.switch(battle, 0, index)
+      opponent.switch(0, index)
 
 makeRampageMove = (moveName) ->
   extendMove moveName, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      user.attach(Attachment.Rampage, battle: battle, move: this)
+      user.attach(Attachment.Rampage, move: this)
 
 makeRampageMove("outrage")
 makeRampageMove("petal-dance")
@@ -1540,9 +1536,7 @@ extendMove 'lunar-dance', ->
       @fail(battle)
 
 extendMove 'magic-coat', ->
-  @execute = (battle, user, targets) ->
-    # Magic Coat has one target
-    target = targets[0]
+  @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.MagicCoat)
 
 extendMove 'magnet-rise', ->

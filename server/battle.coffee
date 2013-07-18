@@ -62,7 +62,7 @@ class @Battle
 
     for object in attributes.players
       {player, team} = object
-      @players[player.id] = new Player(player, new Team(team, @numActive))
+      @players[player.id] = new Player(player, new Team(this, team, @numActive))
 
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
@@ -232,7 +232,7 @@ class @Battle
 
     activePokemon = @getActivePokemon().filter((p) -> !p.isFainted())
     for pokemon in activePokemon
-      continue  if pokemon.isWeatherDamageImmune(this, @weather)
+      continue  if pokemon.isWeatherDamageImmune(@weather)
       damage = pokemon.stat('hp') >> 4
       if @hasWeather(Weather.HAIL)
         @message "#{pokemon.name} is buffeted by the hail!"
@@ -256,8 +256,8 @@ class @Battle
     @priorityQueue = null
 
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
-    team.beginTurn(this)  for team in @getTeams()
-    pokemon.beginTurn(this) for pokemon in @getActivePokemon()
+    team.beginTurn()  for team in @getTeams()
+    pokemon.beginTurn() for pokemon in @getActivePokemon()
     @attachments.query('beginTurn')
 
     # Send appropriate requests to players
@@ -276,7 +276,7 @@ class @Battle
   # Use this callback to edit the turn order after players have selected
   # their orders, but before the turn continues.
   afterTurnOrder: ->
-    pokemon.afterTurnOrder(this)  for pokemon in @getActiveAlivePokemon()
+    pokemon.afterTurnOrder()  for pokemon in @getActiveAlivePokemon()
 
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.
@@ -298,7 +298,7 @@ class @Battle
       # Update Pokemon itself.
       # TODO: Is this the right place?
       for active in @getActiveAlivePokemon()
-        active.update(this)
+        active.update()
 
       # If a move adds a request to the queue, the request must be resolved
       # before the battle can continue.
@@ -307,8 +307,8 @@ class @Battle
   # Performs end turn effects.
   endTurn: ->
     @attachments.query('endTurn')
-    team.endTurn(this)  for team in @getTeams()
-    pokemon.endTurn(this)  for pokemon in @getActiveAlivePokemon()
+    team.endTurn()  for team in @getTeams()
+    pokemon.endTurn()  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
     @sendMessages()
 
@@ -485,7 +485,7 @@ class @Battle
     player = @getPlayer(id)
     team = @getTeam(id)
 
-    team.switch(this, player, 0, toPosition)
+    team.switch(player, 0, toPosition)
 
     # TODO: Hacky.
     # TODO: Move to controller
@@ -510,7 +510,7 @@ class @Battle
 
     if pokemon.pp(move) <= 0
       @message "But there was no PP left for the move!"
-    else if pokemon.beforeMove(this, move, pokemon, targets) != false
+    else if pokemon.beforeMove(move, pokemon, targets) != false
       pokemon.reducePP(move)
       for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
         pokemon.reducePP(move)
@@ -530,7 +530,7 @@ class @Battle
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
       @message "#{pokemon.name} fainted!"
-      pokemon.afterFaint(this)
+      pokemon.afterFaint()
 
   getTargets: (move, user) ->
     player = @getOwner(user)

@@ -270,7 +270,7 @@ describe 'Mechanics', ->
       shared.create.call(this)
 
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
-      @p1.attach(Attachment.Confusion, {@battle})
+      @p1.attach(Attachment.Confusion)
 
       @controller.makeMove(@player1, 'Splash')
       @controller.makeMove(@player2, 'Splash')
@@ -283,7 +283,7 @@ describe 'Mechanics', ->
     it "will not crit the confusion recoil", ->
       shared.create.call(this)
 
-      @p1.attach(Attachment.Confusion, {@battle})
+      @p1.attach(Attachment.Confusion)
       shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
       shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
 
@@ -479,7 +479,7 @@ describe 'Mechanics', ->
     it "is set to 0 when switching", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
       @p1.turnsActive = 4
-      @team1.switch(@battle, @player1, 0, 1)
+      @team1.switch(@player1, 0, 1)
       @team1.first().turnsActive.should.equal 0
 
     it "increases by 1 when a turn ends", ->

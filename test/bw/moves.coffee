@@ -6,6 +6,9 @@ should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
 
+require '../helpers'
+require 'sugar'
+
 describe 'splash', ->
   shared.shouldDoNoDamage('Splash')
 
@@ -2573,10 +2576,10 @@ testIdentifyMove = (moveName, type) ->
 
     it "makes the target vulnerable to #{type} moves", ->
       shared.create.call(this, team2: [Factory("Spiritomb")])
-      @p2.isImmune(@battle, type).should.be.true
+      @p2.isImmune(type).should.be.true
       @battle.performMove(@id1, @battle.getMove(moveName))
       @p2.has(Attachment.Identify).should.be.true
-      @p2.isImmune(@battle, type).should.be.false
+      @p2.isImmune(type).should.be.false
 
     it "makes the target's evasion be ignored", ->
       shared.create.call(this)
@@ -2679,18 +2682,18 @@ describe "Magnet Rise", ->
 
   it "makes the user immune to ground moves", ->
     shared.create.call(this)
-    @p1.isImmune(@battle, "Ground").should.be.false
+    @p1.isImmune("Ground").should.be.false
     @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
-    @p1.isImmune(@battle, "Ground").should.be.true
+    @p1.isImmune("Ground").should.be.true
 
   it "lasts 5 turns", ->
     shared.create.call(this)
-    @p1.isImmune(@battle, "Ground").should.be.false
+    @p1.isImmune("Ground").should.be.false
     @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
     for i in [1..5]
-      @p1.isImmune(@battle, "Ground").should.be.true
+      @p1.isImmune("Ground").should.be.true
       @battle.endTurn()
-    @p1.isImmune(@battle, "Ground").should.be.false
+    @p1.isImmune("Ground").should.be.false
 
 testLockOnMove = (moveName) ->
   describe moveName, ->
@@ -4192,9 +4195,9 @@ describe 'Ingrain', ->
     ingrain = @battle.getMove('Ingrain')
     uTurn = @battle.getMove('U-Turn')
 
-    @p1.isImmune(@battle, 'Ground').should.be.true
+    @p1.isImmune('Ground').should.be.true
     @battle.performMove(@id1, ingrain)
-    @p1.isImmune(@battle, 'Ground').should.be.false
+    @p1.isImmune('Ground').should.be.false
 
   it "causes Telekinesis to fail", ->
     shared.create.call(this)
@@ -4816,7 +4819,10 @@ describe "Magic Coat", ->
     spy = @sandbox.spy(whirlwind, 'execute')
     @battle.performMove(@id1, magicCoat)
     @battle.performMove(@id2, whirlwind)
-    spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p1 && targets[0] == @p2
+    ).should.be.true
 
   it "does not bounce certain moves back", ->
     shared.create.call(this)
@@ -4826,7 +4832,10 @@ describe "Magic Coat", ->
     spy = @sandbox.spy(tackle, 'execute')
     @battle.performMove(@id1, magicCoat)
     @battle.performMove(@id2, tackle)
-    spy.calledWith(@battle, @p1, [ @p2 ]).should.be.false
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p1 && targets[0] == @p2
+    ).should.be.false
 
   it "lasts until the end of the turn", ->
     shared.create.call(this)
@@ -4848,7 +4857,10 @@ describe "Magic Coat", ->
 
     spy = @sandbox.spy(thunderWave, 'execute')
     @battle.performMove(@id2, thunderWave)
-    spy.calledWith(@battle, @p1, [ @p2 ]).should.be.false
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p1 && targets[0] == @p2
+    ).should.be.false
 
   it "cannot bounce a certain move more than once in the same turn", ->
     shared.create.call(this)
@@ -4863,8 +4875,14 @@ describe "Magic Coat", ->
       @battle.performMove(@id2, willOWisp)
     ).should.not.throw(/Maximum call stack size exceeded/)
     spy.calledTwice.should.be.true
-    spy.calledWith(@battle, @p1, [ @p2 ]).should.be.true
-    spy.calledWith(@battle, @p2, [ @p1 ]).should.be.true
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p1 && targets[0] == @p2
+    ).should.be.true
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p2 && targets[0] == @p1
+    ).should.be.true
 
 describe "Telekinesis", ->
   shared.shouldDoNoDamage("Telekinesis")
@@ -4874,9 +4892,9 @@ describe "Telekinesis", ->
     shared.create.call(this)
     telekinesis = @battle.getMove("Telekinesis")
 
-    @p1.isImmune(@battle, 'Ground').should.be.false
+    @p1.isImmune('Ground').should.be.false
     @battle.performMove(@id2, telekinesis)
-    @p1.isImmune(@battle, 'Ground').should.be.true
+    @p1.isImmune('Ground').should.be.true
 
   it "lasts 3 turns", ->
     shared.create.call(this)
@@ -4884,9 +4902,9 @@ describe "Telekinesis", ->
 
     @battle.performMove(@id2, telekinesis)
     for x in [0...3]
-      @p1.isImmune(@battle, 'Ground').should.be.true
+      @p1.isImmune('Ground').should.be.true
       @battle.endTurn()
-    @p1.isImmune(@battle, 'Ground').should.be.false
+    @p1.isImmune('Ground').should.be.false
 
   it "makes the target unable to avoid any attacks", ->
     shared.create.call(this)
@@ -4903,9 +4921,9 @@ describe "Smack Down", ->
     shared.create.call(this, team2: [ Factory("Gyarados") ])
     smackDown = @battle.getMove("Smack Down")
 
-    @p2.isImmune(@battle, "Ground").should.be.true
+    @p2.isImmune("Ground").should.be.true
     @battle.performMove(@id1, smackDown)
-    @p2.isImmune(@battle, "Ground").should.be.false
+    @p2.isImmune("Ground").should.be.false
 
   it "stops Fly", ->
     shared.create.call(this)
@@ -5427,7 +5445,7 @@ describe "Fling", ->
       team1: [Factory("Magikarp", item: "Armor Fossil")]
     fling = @battle.getMove("Fling")
     fling.beforeTurn(@battle, @p1)
-    @p1.beforeMove(@battle, fling, @p1, [@p2])
+    @p1.beforeMove(fling, @p1, [@p2])
     fling.basePower(@battle, @p1, @p2).should.equal(100)
 
   it "inflicts Burn on the target if Flame Orb is held", ->
@@ -5629,7 +5647,7 @@ describe "Gravity", ->
     @p2.types = [ "Flying" ]
     gravity = @battle.getMove("Gravity")
     @battle.performMove(@id1, gravity)
-    @p2.isImmune(@battle, "Ground").should.be.false
+    @p2.isImmune("Ground").should.be.false
 
   # TODO: Sky Drop
   for moveName in [ "Bounce", "Fly" ]

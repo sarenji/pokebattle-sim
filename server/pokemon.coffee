@@ -9,6 +9,10 @@ floor = Math.floor
 class @Pokemon
   # TODO: Take the species obj, not attributes?
   constructor: (attributes = {}) ->
+    # Inject battle and team dependencies
+    @battle = attributes.battle
+    @team   = attributes.team
+
     @name = attributes.name || 'Missingno'
     @species = attributes.species
     @level = attributes.level || 100
@@ -174,17 +178,17 @@ class @Pokemon
       @unattach(Status[@status])  if @status
 
   # TODO: really ugly copying of ability
-  copyAbility: (battle, ability) ->
+  copyAbility: (ability) ->
     if @ability
-      @get(@ability).switchOut(battle)
+      @get(@ability).switchOut()
       @unattach(@ability)
     @ability = ability
-    @attach(@ability).switchIn(battle)  if @ability
+    @attach(@ability).switchIn()  if @ability
 
-  setItem: (battle, item) ->
+  setItem: (item) ->
     if @hasItem() then @removeItem()
     @item = item
-    @item.initialize(battle, this)
+    @item.initialize(@battle, this)
 
   getItem: ->
     @item
@@ -219,8 +223,8 @@ class @Pokemon
   faint: ->
     @currentHP = 0
 
-  afterFaint: (battle) ->
-    @attachments.query('afterFaint', battle)
+  afterFaint: ->
+    @attachments.query('afterFaint')
 
   damage: (amount) ->
     @setHP(@currentHP - amount)
@@ -236,9 +240,9 @@ class @Pokemon
     damage = @attachments.queryChain('transformHealthChange', damage)
     damage
 
-  editDamage: (battle, move, damage) ->
-    damage = @attachments.queryChain('editDamage', damage, battle, move, this)
-    damage = @item.editDamage(battle, this, move, damage)  if !@isItemBlocked()
+  editDamage: (move, damage) ->
+    damage = @attachments.queryChain('editDamage', damage, move, this)
+    damage = @item.editDamage(@battle, this, move, damage)  if !@isItemBlocked()
     damage
 
   editBoosts: ->
@@ -265,21 +269,21 @@ class @Pokemon
   recordHit: (pokemon, damage, move, turn) ->
     @lastHitBy = {pokemon, damage, move, turn}
 
-  isImmune: (battle, type, move) ->
-    b = @attachments.queryUntilNotNull('isImmune', battle, type, move)
+  isImmune: (type, move) ->
+    b = @attachments.queryUntilNotNull('isImmune', type, move)
     if b? then return b
 
     multiplier = util.typeEffectiveness(type, @types)
     return multiplier == 0
 
-  isWeatherDamageImmune: (battle, weather) ->
-    b = @attachments.queryUntilNotNull('isWeatherDamageImmune', battle, weather)
+  isWeatherDamageImmune: (weather) ->
+    b = @attachments.queryUntilNotNull('isWeatherDamageImmune', weather)
     if b? then return b
 
     return true  if weather == Weather.HAIL && @hasType("Ice")
     return true  if weather == Weather.SAND && (@hasType("Ground") ||
                      @hasType("Rock") || @hasType("Steel"))
-    return battle?.hasWeatherCancelAbilityOnField() || false
+    return @battle?.hasWeatherCancelAbilityOnField() || false
 
   calculateWeight: ->
     weight = @weight
@@ -287,79 +291,82 @@ class @Pokemon
     weight = @attachments.queryChain('calculateWeight', weight)
     weight
 
-  switchIn: (battle) ->
+  switchIn: ->
     @turnsActive = 1
-    @attach(@ability).switchIn(battle)  if @ability
-    @item.initialize(battle, this)  if !@isItemBlocked()
+    @attach(@ability).switchIn()  if @ability
+    @item.initialize(@battle, this)  if !@isItemBlocked()
 
-  switchOut: (battle) ->
+  switchOut: ->
     @resetBoosts()
     @resetBlocks()
     delete @lastMove
     @used = {}
     if @ability
-      @get(@ability).switchOut(battle)
+      @get(@ability).switchOut()
       @unattach(@ability)
-    @attachments.query('switchOut', battle)
+    @attachments.query('switchOut')
     @attachments.unattachAll((a) -> a.volatile)
 
-  informSwitch: (battle, switcher) ->
-    @attachments.query('informSwitch', battle, switcher)
+  informSwitch: (switcher) ->
+    @attachments.query('informSwitch', switcher)
 
-  shouldPhase: (battle, phaser) ->
-    @attachments.queryUntilFalse('shouldPhase', battle, phaser) != false
+  shouldPhase: (phaser) ->
+    @attachments.queryUntilFalse('shouldPhase', phaser) != false
 
-  informCriticalHit: (battle) ->
-    @attachments.query('informCriticalHit', battle)
+  informCriticalHit: ->
+    @attachments.query('informCriticalHit')
 
   informWeather: (weather) ->
     @attachments.query('informWeather', weather)
 
-  beginTurn: (battle) ->
-    @attachments.query('beginTurn', battle)
+  beginTurn: ->
+    @attachments.query('beginTurn')
 
-  afterTurnOrder: (battle) ->
-    @item.afterTurnOrder(battle, this)  if !@isItemBlocked()
+  afterTurnOrder: ->
+    @item.afterTurnOrder(@battle, this)  if !@isItemBlocked()
 
-  beforeMove: (battle, move, user, targets) ->
-    @attachments.queryUntilFalse('beforeMove', battle, move, user, targets)
+  beforeMove: (move, user, targets) ->
+    @attachments.queryUntilFalse('beforeMove', move, user, targets)
 
-  afterMove: (battle, move, user, targets) ->
-    @attachments.query('afterMove', battle, move, user, targets)
+  afterMove: (move, user, targets) ->
+    @attachments.query('afterMove', move, user, targets)
 
-  shouldBlockExecution: (battle, move, user) ->
-    @attachments.queryUntilTrue('shouldBlockExecution', battle, move, user)
+  shouldBlockExecution: (move, user) ->
+    @attachments.queryUntilTrue('shouldBlockExecution', move, user)
 
-  update: (battle) ->
-    @item.update(battle, this)  if !@isItemBlocked()
-    @attachments.query('update', battle, this)
+  update: ->
+    @item.update(@battle, this)  if !@isItemBlocked()
+    @attachments.query('update', this)
 
   resetRecords: ->
     @lastHitBy = null
 
   # Hook for when the Pokemon gets hit by a move
-  afterBeingHit: (battle, move, user, target, damage) ->
-    @item.afterBeingHit(battle, move, user, target, damage)  if !@isItemBlocked()
-    @attachments.query('afterBeingHit', battle, move, user, target, damage)
+  afterBeingHit: (move, user, target, damage) ->
+    @item.afterBeingHit(@battle, move, user, target, damage)  if !@isItemBlocked()
+    @attachments.query('afterBeingHit', move, user, target, damage)
 
-  afterSuccessfulHit: (battle, move, user, target, damage) ->
-    @item.afterSuccessfulHit(battle, move, user, target, damage)  if !@isItemBlocked()
-    @attachments.query('afterSuccessfulHit', battle, move, user, target, damage)
+  afterSuccessfulHit: (move, user, target, damage) ->
+    @item.afterSuccessfulHit(@battle, move, user, target, damage)  if !@isItemBlocked()
+    @attachments.query('afterSuccessfulHit', move, user, target, damage)
 
-  endTurn: (battle) ->
-    @item.endTurn(battle, this)  if !@isItemBlocked()
-    @attachments.query('endTurn', battle)
+  endTurn: ->
+    @item.endTurn(@battle, this)  if !@isItemBlocked()
+    @attachments.query('endTurn')
     @turnsActive += 1
 
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->
     options = _.clone(options)
-    @attachments.push(attachment, options, pokemon: this)
+    @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
 
   # Removes an attachment from the list of attachment
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
-    delete attachment.pokemon  if attachment?
+    if attachment
+      delete attachment.pokemon
+      delete attachment.team
+      delete attachment.battle
     attachment
 
   # Blocks a move for a single turn
