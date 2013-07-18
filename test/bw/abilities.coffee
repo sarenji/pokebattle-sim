@@ -888,8 +888,18 @@ describe "BW Abilities:", ->
       @p1.isItemBlocked().should.be.true
 
   describe "Leaf Guard", ->
-    it "defends against statuses under Sun"
-    it "does not defend against statuses otherwise"
+    it "defends against statuses under Sun", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Leaf Guard")]
+      @battle.setWeather(Weather.SUN)
+      @p1.attach(Status.Burn)
+      @p1.has(Status.Burn).should.be.false
+
+    it "does not defend against statuses otherwise", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Leaf Guard")]
+      @p1.attach(Status.Burn)
+      @p1.has(Status.Burn).should.be.true
 
   describe "Levitate", ->
     it "adds a ground immunity", ->

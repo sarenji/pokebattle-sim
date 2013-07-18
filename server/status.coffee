@@ -9,6 +9,7 @@ class @StatusAttachment extends BaseAttachment
     {battle, pokemon} = attributes
     {source} = options
     return false  if pokemon.hasStatus()
+    return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
     return false  if this == Status.Burn && pokemon.hasType("Fire")
     return false  if this == Status.Toxic && pokemon.hasType("Poison")
     return false  if this == Status.Poison && pokemon.hasType("Poison")

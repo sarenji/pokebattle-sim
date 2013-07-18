@@ -479,6 +479,9 @@ makeAbility 'Klutz', ->
   this::beginTurn = this::switchIn = ->
     @pokemon.blockItem()
 
+# Hardcoded in status.coffee
+makeAbility 'Leaf Guard'
+
 makeAbility 'Levitate', ->
   this::isImmune = (type) ->
     return true  if type == 'Ground'
