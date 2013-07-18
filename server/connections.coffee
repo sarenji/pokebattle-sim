@@ -1,5 +1,6 @@
 sockjs = require 'sockjs'
 {_} = require 'underscore'
+require 'sugar'
 
 # A wrapper around the sockjs socket to support additional operations
 class Socket
@@ -25,7 +26,8 @@ class @ConnectionServer
         # todo: error handling.
         data = JSON.parse(data)
         messageType = data.messageType
-        callback.apply(socketWrapper, data.data) for callback in (@callbacks[messageType] || [])
+        for callback in (@callbacks[messageType] || [])
+          callback.apply(socketWrapper, [socketWrapper, data.data...])
 
       socket.on 'close', =>
         @sockets.remove(socket)

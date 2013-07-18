@@ -13,7 +13,10 @@ class @Socket
 
     handleEvent = (type, data) =>
       console.log "Received event #{type}"
-      callback.apply(this, data) for callback in (@callbacks[type] || [])
+
+      data ?= []
+      for callback in (@callbacks[type] || [])
+        callback.apply(this, [this, data...])
 
     @socket.onopen = =>
       handleEvent('connect')
@@ -54,8 +57,8 @@ $ ->
       randomName += "Fan" + Math.floor(Math.random() * 10000)
       socket.send 'login', randomName
 
-    'login result': (id, username, userList) ->
-      @id = id
+    'login result': (socket, id, username, userList) ->
+      socket.id = id
       BattleTower.userList = new UserList(userList)
       chatView = new ChatView(
         el: $('.chat')
@@ -64,28 +67,28 @@ $ ->
       )
       chatView.render()
 
-    'updatechat': (username, data) ->
+    'updatechat': (socket, username, data) ->
       chatView.updateChat("<b>#{username}:</b> #{data}")
 
-    'join chatroom': (userHash) ->
+    'join chatroom': (socket, userHash) ->
       BattleTower.userList.add(userHash)
       chatView.updateChat("#{userHash.name} joined BattleTower!")
 
     'start battle': startBattle
 
-    'error': (message) ->
+    'error': (socket, message) ->
       alert(message)
 
 
-startBattle = (battleId, yourTeam, opponentTeams) ->
+startBattle = (socket, battleId, yourTeam, opponentTeams) ->
   console.log "BATTLE STARTED."
   $battle = $('.battle')
   battle = new Battle(id: battleId, socket: socket, you: yourTeam, opponents: opponentTeams)
   view = new BattleView(el: $battle, model: battle)
-  socket.on 'switch pokemon', (fromIndex, toIndex) ->
+  socket.on 'switch pokemon', (socket, fromIndex, toIndex) ->
     battle.switch(fromIndex, toIndex)
     view.render()
-  socket.on 'request action', (battleId, validActions) ->
+  socket.on 'request action', (socket, battleId, validActions) ->
     console.log "ACTION REQUESTED:"
     console.log validActions
     if battle.id == battleId

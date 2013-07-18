@@ -33,41 +33,41 @@ userList = []
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
-  'login': (username) ->
+  'login': (socket, username) ->
     console.log "Received user #{username}"
-    userHash = {id:  @id, name: username}
+    userHash = {id:  socket.id, name: username}
     userList.push(userHash)
-    @username = username
+    socket.username = username
 
-    @send 'login result', @id, @username, userList
+    socket.send 'login result', socket.id, socket.username, userList
     connections.broadcast 'join chatroom', userHash
 
     # TODO: Take team from player.
     # TODO: Validate team.
     team = defaultTeam
-    server.queuePlayer(this, team)
+    server.queuePlayer(socket, team)
     if server.queuedPlayers().length == 2
       server.beginBattles()
   
-  'sendchat': (message) ->
-    connections.broadcast 'updatechat', @username, message
+  'sendchat': (socket, message) ->
+    connections.broadcast 'updatechat', socket.username, message
   
-  'send move': (battleId, moveName) ->
+  'send move': (socket, battleId, moveName) ->
     battle = server.findBattle(battleId)
     if !battle
       @send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeMove(this, moveName)
+    battle.makeMove(socket, moveName)
   
-  'send switch': (battleId, toPokemon) ->
+  'send switch': (socket, battleId, toPokemon) ->
     # TODO: Use makeSwitch instead
     battle = server.findBattle(battleId)
     if !battle
-      @send 'error', 'ERROR: Battle does not exist'
+      socket.send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeSwitchByName(this, toPokemon)
+    battle.makeSwitchByName(socket, toPokemon)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 
