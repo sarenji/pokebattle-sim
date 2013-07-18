@@ -1516,6 +1516,17 @@ describe "BW Abilities:", ->
       @p2.currentHP = 1
       @p2.update()
       @p2.stages.should.include(speed: 0)
+      @battle.beginTurn()
+      @p2.update()
+      @p2.stages.should.include(speed: 0)
+
+    it "does not prevent regular item usage", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unnerve")]
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      @p2.currentHP = 1
+      @battle.endTurn()
+      @p2.currentHP.should.be.greaterThan(1)
 
     it "does not prevent Bug Bite, Pluck, etc. from working", ->
       shared.create.call this,

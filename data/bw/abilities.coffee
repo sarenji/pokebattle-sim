@@ -711,7 +711,15 @@ makeAbility 'Truant', ->
 # Hardcoded in Pokemon#removeItem
 makeAbility 'Unburden'
 
-makeAbility 'Unnerve'
+makeAbility 'Unnerve', ->
+  this::beginTurn = this::switchIn = ->
+    opponents = @battle.getOpponents(@pokemon)
+    # TODO: Make getOpponents return only alive pokemon
+    opponents = opponents.filter((p) -> p.isAlive())
+    # TODO: Unnerve likely doesn't last until the end of the turn.
+    # More research is needed here.
+    for opponent in opponents
+      opponent.blockItem()  if opponent.item?.type == 'berries'
 
 makeAbility 'Victory Star', ->
   this::editAccuracy = (accuracy) ->
