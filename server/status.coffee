@@ -5,18 +5,18 @@ class @StatusAttachment extends BaseAttachment
   name: "StatusAttachment"
 
   @preattach: (options, attributes) ->
-    {pokemon} = attributes
+    {battle, pokemon} = attributes
     {source} = options
     return false  if pokemon.hasStatus()
     return false  if this == Status.Burn && pokemon.hasType("Fire")
     return false  if this == Status.Freeze && pokemon.hasType("Ice")
     return false  if this == Status.Toxic && pokemon.hasType("Poison")
     return false  if this == Status.Poison && pokemon.hasType("Poison")
-    pokemon.status = @name
     if source && pokemon.hasAbility("Synchronize")
+      return false  if source == pokemon
       source.attach(this)  # Do not attach source
-      # Hack
-      pokemon.get(pokemon.ability).synchronizedWith = source
+      battle.message "#{pokemon.name} synchronized its status with #{source.name}!"
+    pokemon.status = @name
     return true
 
   unattach: ->

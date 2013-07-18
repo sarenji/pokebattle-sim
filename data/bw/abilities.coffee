@@ -643,13 +643,7 @@ makeAbility 'Suction Cups', ->
 makeAbility 'Super Luck'
 
 # Hardcoded in status.coffee
-makeAbility 'Synchronize', ->
-  # Hack to print message
-  this::update = ->
-    if @synchronizedWith
-      {name} = @synchronizedWith
-      @battle.message "#{@pokemon.name} synchronized its status with #{name}!"
-      delete @synchronizedWith
+makeAbility 'Synchronize'
 
 makeAbility 'Tangled Feet', ->
   this::editEvasion = (evasion) ->
