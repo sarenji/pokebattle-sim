@@ -711,6 +711,8 @@ makeAbility 'Truant', ->
 # Hardcoded in Pokemon#removeItem
 makeAbility 'Unburden'
 
+makeAbility 'Unnerve'
+
 makeAbility 'Victory Star', ->
   this::editAccuracy = (accuracy) ->
     Math.floor(accuracy * 1.1)

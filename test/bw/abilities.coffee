@@ -1509,8 +1509,19 @@ describe "BW Abilities:", ->
       @p1.stat('speed').should.equal(2 * speed)
 
   describe "Unnerve", ->
-    it "prevents held berries from being eaten"
-    it "does not prevent Bug Bite, Pluck, etc. from working"
+    it "prevents held berries from being eaten", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unnerve")]
+        team2: [Factory("Magikarp", item: "Salac Berry")]
+      @p2.currentHP = 1
+      @p2.update()
+      @p2.stages.should.include(speed: 0)
+
+    it "does not prevent Bug Bite, Pluck, etc. from working", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry", ability: "Unnerve")]
+      @battle.performMove(@id2, @battle.getMove("Bug Bite"))
+      @p2.stages.should.include(speed: 1)
 
   describe "Victory Star", ->
     it "increases accuracy of moves by 10%", ->
