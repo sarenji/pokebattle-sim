@@ -23,12 +23,14 @@ makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
     battle.message(message)  if message?
   true
 
-@typeEffectiveness = (userType, againstTypes) ->
+@typeEffectiveness = (userType, againstTypes, options = {}) ->
   userType = Type[userType.toUpperCase()]
   effectiveness = 1
   for subtype in againstTypes
     targetType = Type[subtype.toUpperCase()]
-    effectiveness *= typeChart[userType][targetType]
+    multiplier = typeChart[userType][targetType]
+    multiplier = 1  if multiplier == 0 && options.ignoreImmunities
+    effectiveness *= multiplier
   effectiveness
 
 @Type = Type =

@@ -153,7 +153,8 @@ class @Move
 
   typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
-    util.typeEffectiveness(type, target.types)
+    options = {ignoreImmunities: user.hasAbility("Scrappy")}
+    util.typeEffectiveness(type, target.types, options)
 
   burnCalculation: (user) ->
     if @isPhysical() && !user.hasAbility("Guts") && user.has(Status.Burn)

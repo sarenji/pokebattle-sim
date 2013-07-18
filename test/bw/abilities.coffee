@@ -1248,7 +1248,7 @@ describe "BW Abilities:", ->
       @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
 
   describe "Scrappy", ->
-    xit "negates Ghost-type pokemon's immunity to Normal and Fighting", ->
+    it "negates pokemon immunities", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Scrappy")]
         team2: [Factory("Gengar")]

@@ -578,6 +578,9 @@ makeAbility 'Sand Force', ->
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.SAND
 
+# Hardcoded in move#typeEffectiveness
+makeAbility 'Scrappy'
+
 makeAbility 'Shadow Tag', ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
