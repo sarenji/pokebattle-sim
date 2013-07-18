@@ -22,7 +22,7 @@ class @ChatView extends Backbone.View
 
   sendChat: =>
     $this = $('.chat_input')
-    @socket.emit 'sendchat', $this.val()
+    @socket.send 'sendchat', $this.val()
     $this.val('')
 
   sendChatIfEnter: (e) =>

@@ -489,7 +489,7 @@ class @Battle
 
     # TODO: Hacky.
     # TODO: Move to controller
-    player.emit? 'switch pokemon', 0, toPosition
+    player.send? 'switch pokemon', 0, toPosition
 
   # Executed by @beginTurn
   performReplacements: ->

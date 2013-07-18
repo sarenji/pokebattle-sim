@@ -23,8 +23,8 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
 build = (context, opts={}) ->
   context.id1 = 'abcde'
   context.id2 = 'fghij'
-  context.player1 = opts.player1 || {id: context.id1, emit: ->}
-  context.player2 = opts.player2 || {id: context.id2, emit: ->}
+  context.player1 = opts.player1 || {id: context.id1, send: ->}
+  context.player2 = opts.player2 || {id: context.id2, send: ->}
   team1   = opts.team1 || [Factory('Magikarp')]
   team2   = opts.team2 || [Factory('Magikarp')]
   players = [{player: context.player1, team: team1},

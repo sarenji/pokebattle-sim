@@ -47,7 +47,7 @@ describe 'Mechanics', ->
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @p2.currentHP = 1
-      spy = @sandbox.spy(@player2, 'emit')
+      spy = @sandbox.spy(@player2, 'send')
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
       spy.calledWith('request action').should.be.true

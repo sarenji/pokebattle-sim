@@ -7,12 +7,12 @@ describe 'BattleServer', ->
     battleId = server.createBattle()
     server.battles.should.have.ownProperty battleId
 
-  it "emits the 'start battle' event for each matched player", ->
-    players = [{id: 'abc', emit: ->},
-               {id: 'def', emit: ->}]
+  it "sends the 'start battle' event for each matched player", ->
+    players = [{id: 'abc', send: ->},
+               {id: 'def', send: ->}]
     spies = []
     for player in players
-      spy = @sandbox.spy(player, 'emit')
+      spy = @sandbox.spy(player, 'send')
       spies.push(spy)
 
     server = new BattleServer()
