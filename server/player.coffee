@@ -3,10 +3,10 @@ class @Player
     {@id, @username} = @socket
 
   updateChat: (username, message) ->
-    @emit 'updatechat', username, message
+    @send 'updatechat', username, message
 
   requestAction: (id, validActions) ->
-    @emit 'request action', id, validActions
+    @send 'request action', id, validActions
 
   attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)
@@ -25,5 +25,5 @@ class @Player
   isFainted: ->
     false
 
-  emit: (args...) ->
-    @socket.emit? args...
+  send: (args...) ->
+    @socket.send? args...

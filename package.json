@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "coffee-script": "~1.6.2",
-    "socket.io": "0.9.x",
+    "sockjs": "0.3.x",
     "underscore": "~1.4.x",
     "connect-assets": "~2.3.3",
     "express": "~3.2.x",

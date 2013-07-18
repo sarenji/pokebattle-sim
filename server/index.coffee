@@ -8,3 +8,4 @@
 {@Attachment, @VolatileAttachment, @BaseAttachment} = require './attachment'
 {@Status} = require './status'
 {@Weather} = require './weather'
+{@ConnectionServer} = require './connections'
