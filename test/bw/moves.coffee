@@ -2311,23 +2311,19 @@ describe "Attract", ->
 describe "Reflect", ->
   it "halves physical damage", ->
     shared.create.call(this)
-    move = @battle.getMove('Tackle')
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    tackle = @battle.getMove('Tackle')
+    tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.Reflect)
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x800
+    tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x800)
 
   it "does not halve non-physical damage", ->
     shared.create.call(this)
-    move = @battle.getMove('Thundershock')
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    thundershock = @battle.getMove('Thundershock')
+    thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.Reflect)
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
   it "lasts five turns", ->
     shared.create.call(this)
@@ -2354,23 +2350,19 @@ describe "Reflect", ->
 describe "Light Screen", ->
   it "halves special damage", ->
     shared.create.call(this)
-    move = @battle.getMove('Thundershock')
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    thundershock = @battle.getMove('Thundershock')
+    thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.LightScreen)
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x800
+    thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x800)
 
   it "does not halve non-physical damage", ->
     shared.create.call(this)
-    move = @battle.getMove('Tackle')
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    tackle = @battle.getMove('Tackle')
+    tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.LightScreen)
-    mod = finalModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
   it "lasts five turns", ->
     shared.create.call(this)

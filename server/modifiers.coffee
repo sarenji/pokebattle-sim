@@ -7,18 +7,18 @@
 @finalModifier = finalModifier = new ModifierChain()
 
 # Reflect modifier.
-finalModifier.add 10, (move, battle, user, target) ->
-  team = battle.getOwner(target).team
-  if team.has(Attachment.Reflect) && move.isPhysical()
-    return 0x800
-  return 0x1000
+# finalModifier.add 10, (move, battle, user, target) ->
+#   team = battle.getOwner(target).team
+#   if team.has(Attachment.Reflect) && move.isPhysical()
+#     return 0x800
+#   return 0x1000
 
 # Light Screen modifier.
-finalModifier.add 10, (move, battle, user, target) ->
-  team = battle.getOwner(target).team
-  if team.has(Attachment.LightScreen) && move.isSpecial()
-    return 0x800
-  return 0x1000
+# finalModifier.add 10, (move, battle, user, target) ->
+#   team = battle.getOwner(target).team
+#   if team.has(Attachment.LightScreen) && move.isSpecial()
+#     return 0x800
+#   return 0x1000
 
 # Multiscale modifier.
 # finalModifier.add 30, (move, battle, user, target) ->
