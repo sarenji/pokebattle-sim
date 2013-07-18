@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Weather, Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
+{Battle, Weather, Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
 {Moves} = require('../data/bw')
 should = require 'should'
 
@@ -238,6 +238,14 @@ describe 'Pokemon', ->
 
     it "doesn't freeze Ice types", ->
       pokemon = new Pokemon(types: ["Ice"])
+      pokemon.attach(Status.Freeze)
+      pokemon.has(Status.Freeze).should.be.false
+
+    it "doesn't freeze under Sun", ->
+      battle = new Battle('id', players: [{player: {id: "a", send: ->}, team: []}
+                                        , {player: {id: "b", send: ->}, team: [] }])
+      battle.setWeather(Weather.SUN)
+      pokemon = new Pokemon(battle: battle)
       pokemon.attach(Status.Freeze)
       pokemon.has(Status.Freeze).should.be.false
 

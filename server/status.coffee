@@ -1,4 +1,5 @@
 {BaseAttachment} = require './attachment'
+{Weather} = require './weather'
 @Status = Status = {}
 
 class @StatusAttachment extends BaseAttachment
@@ -9,9 +10,10 @@ class @StatusAttachment extends BaseAttachment
     {source} = options
     return false  if pokemon.hasStatus()
     return false  if this == Status.Burn && pokemon.hasType("Fire")
-    return false  if this == Status.Freeze && pokemon.hasType("Ice")
     return false  if this == Status.Toxic && pokemon.hasType("Poison")
     return false  if this == Status.Poison && pokemon.hasType("Poison")
+    return false  if this == Status.Freeze &&
+      (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
     if source && pokemon.hasAbility("Synchronize")
       return false  if source == pokemon
       source.attach(this)  # Do not attach source
