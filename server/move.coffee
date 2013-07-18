@@ -20,6 +20,7 @@ class @Move
     @flags = attributes.flags
     @flinchChance = (attributes.flinchChance || 0) / 100
     @pp = attributes.pp
+    @recoil = attributes.recoil
 
   isPhysical: ->
     @spectra == 'physical'
@@ -73,6 +74,11 @@ class @Move
     target.afterBeingHit(this, user, target, damage)
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
+    if @recoil < 0 && !user.hasAbility("Rock Head")
+      recoil = Math.round(-damage * @recoil / 100)
+      recoil = Math.max(1, recoil)
+      user.damage(recoil)
+      battle.message("#{user.name} was hit by recoil!")
     target.recordHit(user, damage, this, battle.turn)
 
   # A hook that executes after a pokemon has been successfully damaged by

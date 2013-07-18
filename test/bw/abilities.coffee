@@ -1227,7 +1227,11 @@ describe "BW Abilities:", ->
       tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Rock Head", ->
-    it "negates recoil"
+    it "negates recoil", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Rock Head")]
+      @battle.performMove(@id1, @battle.getMove("Head Smash"))
+      @p1.currentHP.should.equal @p1.stat('hp')
 
   describe "Sand Force", ->
     it "increases BP of Ground-, Rock-, and Steel-type moves by 30% in sand", ->

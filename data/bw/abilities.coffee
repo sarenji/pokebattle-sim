@@ -569,6 +569,9 @@ makeAbility 'Regenerator', ->
     amount = util.roundHalfDown(@pokemon.stat('hp') / 3)
     @pokemon.damage(-amount)
 
+# Hardcoded in move.coffee
+makeAbility 'Rock Head'
+
 makeAbility 'Sand Force', ->
   this::modifyBasePower = (move, user) ->
     type = move.getType(@battle, user, @pokemon)

@@ -127,7 +127,7 @@ describe 'a pokemon using Acrobatics', ->
     damage = (hp - @p2.currentHP)
     damage.should.equal 18
 
-testRecoilMove = (moveName, recoil) ->
+testRecoilMove = (moveName) ->
   describe "a pokemon using #{moveName}", ->
     it 'receives a percentage of the damage rounded half up', ->
       shared.create.call this,
@@ -138,6 +138,7 @@ testRecoilMove = (moveName, recoil) ->
 
       move = @battle.getMove(moveName)
       @battle.performMove(@id1, move)
+      recoil = -move.recoil / 100
 
       damage = (hp - @p2.currentHP)
       (startHP - @p1.currentHP).should.equal Math.round(damage * recoil)
@@ -158,16 +159,16 @@ testRecoilMove = (moveName, recoil) ->
       damage = (hp - @p2.currentHP)
       (startHP - @p1.currentHP).should.equal 1
 
-testRecoilMove("Brave Bird", 1/3)
-testRecoilMove("Double-Edge", 1/3)
-testRecoilMove("Flare Blitz", 1/3)
-testRecoilMove("Head Charge", .25)
-testRecoilMove("Head Smash", .5)
-testRecoilMove("Submission", .25)
-testRecoilMove("Take Down", .25)
-testRecoilMove("Volt Tackle", 1/3)
-testRecoilMove("Wild Charge", .25)
-testRecoilMove("Wood Hammer", 1/3)
+testRecoilMove("Brave Bird")
+testRecoilMove("Double-Edge")
+testRecoilMove("Flare Blitz")
+testRecoilMove("Head Charge")
+testRecoilMove("Head Smash")
+testRecoilMove("Submission")
+testRecoilMove("Take Down")
+testRecoilMove("Volt Tackle")
+testRecoilMove("Wild Charge")
+testRecoilMove("Wood Hammer")
 
 describe 'Haze', ->
   shared.shouldDoNoDamage('Haze')

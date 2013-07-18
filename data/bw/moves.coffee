@@ -98,16 +98,6 @@ extendWithDrain = (name, drainPercent=.5) ->
       battle.message "#{user.name} absorbed some HP!"
       oldFunc.call(this, battle, user, target, damage)
 
-extendWithRecoil = (name, recoilPercent=1/3) ->
-  extendMove name, ->
-    oldFunc = @afterSuccessfulHit
-    @afterSuccessfulHit = (battle, user, target, damage) ->
-      amount = Math.round(damage * recoilPercent)
-      amount = Math.max(1, amount)
-      user.damage(amount)
-      battle.message("#{user.name} was hit by recoil!")
-      oldFunc.call(this, battle, user, target, damage)
-
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
     @afterMiss = (battle, user, target, damage) ->
@@ -541,7 +531,6 @@ extendWithSecondaryStatus 'body-slam', .3, Status.Paralyze
 extendWithSecondaryStatus 'bolt-strike', .2, Status.Paralyze
 extendWithSecondaryEffect 'bone-club', .1, Attachment.Flinch
 extendWithSecondaryStatus 'bounce', .3, Status.Paralyze
-extendWithRecoil 'brave-bird'
 extendWithSecondaryBoost 'bubble', 'target', .1, speed: -1
 extendWithSecondaryBoost 'bubblebeam', 'target', .1, speed: -1
 extendWithSecondaryBoost 'bug-buzz', 'target', .1, specialDefense: -1
@@ -645,7 +634,6 @@ extendMove 'defense-curl', ->
 makeProtectMove 'detect'
 extendWithSecondaryStatus 'discharge', .3, Status.Paralyze
 extendWithSecondaryEffect 'dizzy-punch', .2, Attachment.Confusion
-extendWithRecoil 'double-edge'
 makeBoostMove 'double-team', 'self', evasion: 1
 makeBoostMove 'dragon-dance', 'self', attack: 1, speed: 1
 extendWithSecondaryEffect 'dragon-rush', .2, Attachment.Flinch
@@ -699,7 +687,6 @@ extendWithBoost 'flame-charge', 'self', speed: 1
 extendMove 'flame-wheel', -> @thawsUser = true
 extendWithSecondaryStatus 'flame-wheel', .1, Status.Burn
 extendWithSecondaryStatus 'flamethrower', .1, Status.Burn
-extendWithRecoil 'flare-blitz'
 extendMove 'flare-blitz', -> @thawsUser = true
 extendWithSecondaryStatus 'flare-blitz', .1, Status.Burn
 extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
@@ -742,8 +729,6 @@ extendWithSecondaryStatus 'gunk-shot', .3, Status.Poison
 extendWithBoost 'hammer-arm', 'self', speed: -1
 makeBoostMove 'harden', 'self', defense: 1
 extendWithSecondaryEffect 'headbutt', .3, Attachment.Flinch
-extendWithRecoil 'head-charge', .25
-extendWithRecoil 'head-smash', .5
 makeStatusCureMove 'heal-bell', 'A bell chimed!'
 makeRecoveryMove 'heal-order'
 makeRecoveryMove 'heal-pulse'
@@ -971,7 +956,6 @@ makeBasePowerBoostMove 'stored-power', 20, 860, 'user'
 makeBoostMove 'string-shot', 'target', speed: -1
 extendWithBoost 'struggle-bug', 'target', specialAttack: -1
 extendWithPrimaryStatus 'stun-spore', Status.Paralyze
-extendWithRecoil 'submission', .25
 makeWeatherMove 'sunny-day', Weather.SUN
 extendWithBoost 'superpower', 'self', attack: -1, defense: -1
 extendWithPrimaryEffect 'supersonic', Attachment.Confusion
@@ -1012,7 +996,6 @@ extendMove 'super-fang', ->
 makeWeatherRecoveryMove 'synthesis'
 makeBoostMove 'tail-glow', 'self', attack: 3
 makeBoostMove 'tail-whip', 'target', defense: -1
-extendWithRecoil 'take-down', .25
 extendWithPrimaryEffect 'teeter-dance', Attachment.Confusion
 extendMove 'teleport', (battle) ->
   @execute = -> @fail(battle)
@@ -1040,15 +1023,12 @@ makeTrickMove 'trick'
 extendWithSecondaryEffect 'twister', .2, Attachment.Flinch
 extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, speed: -1
 extendWithSecondaryStatus 'volt-tackle', .1, Status.Paralyze
-extendWithRecoil 'volt-tackle'
 extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
 makeEruptionMove 'water-spout'
 extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
 makeRandomSwitchMove "whirlwind"
-extendWithRecoil 'wild-charge', .25
 extendWithPrimaryStatus 'will-o-wisp', Status.Burn
 makeBoostMove 'withdraw', 'user', defense: 1
-extendWithRecoil 'wood-hammer'
 makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
 makeTrappingMove "wrap"
 extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
