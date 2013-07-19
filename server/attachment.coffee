@@ -1056,6 +1056,10 @@ class @Attachment.TrickRoom extends @BattleAttachment
 class @Attachment.Transform extends @VolatileAttachment
   name: "TransformAttachment"
 
+  @preattach: (attributes) ->
+    {target} = attributes
+    !target.has(Attachment.Transform)
+
   initialize: (attributes) ->
     {target} = attributes
     # Save old data

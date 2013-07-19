@@ -795,9 +795,27 @@ describe "BW Abilities:", ->
     it "is broken when the user takes direct damage"
 
   describe "Imposter", ->
-    it "automatically transforms into the adjacent foe pokemon"
-    it "does not transform if target is behind a substitute"
-    it "does not transform if target is behind an illusion"
+    it "automatically transforms into the adjacent foe pokemon", ->
+      shared.create.call this,
+        numActive: 2
+        team1: (Factory("Magikarp")  for x in [1..2])
+        team2: [Factory("Celebi"), Factory("Mew")]
+      @team1.at(1).copyAbility(Ability.Imposter)
+      @team1.at(1).has(Attachment.Transform).should.be.true
+      @team1.at(1).species.should.equal @team2.at(1).species
+
+    it "does not transform if target is behind a substitute", ->
+      shared.create.call(this)
+      @p2.attach(Attachment.Substitute, hp: 1)
+      @p1.copyAbility(Ability.Imposter)
+      @p1.has(Attachment.Transform).should.be.false
+
+    it "does not transform if target is already transformed", ->
+      shared.create.call(this)
+      @battle.performMove(@id2, @battle.getMove("Transform"))
+      @p2.has(Attachment.Transform).should.be.true
+      @p1.copyAbility(Ability.Imposter)
+      @p1.has(Attachment.Transform).should.be.false
 
   testAttachmentImmuneAbility = (name, attachments) ->
     describe name, ->

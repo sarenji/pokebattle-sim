@@ -464,6 +464,14 @@ makeAbility 'Ice Body', ->
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.HAIL
 
+makeAbility 'Imposter', ->
+  this::switchIn = ->
+    opponents = @battle.getOpponents(@pokemon)
+    index = @team.indexOf(@pokemon)
+    opponent = opponents[index]
+    return  if opponent.has(Attachment.Substitute)
+    @pokemon.attach(Attachment.Transform, target: opponent)
+
 makeAbility 'Intimidate', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
