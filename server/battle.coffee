@@ -487,10 +487,6 @@ class @Battle
 
     team.switch(player, 0, toPosition, options)
 
-    # TODO: Hacky.
-    # TODO: Move to controller
-    player.send? 'switch pokemon', 0, toPosition
-
   # Executed by @beginTurn
   performReplacements: ->
     switched = []

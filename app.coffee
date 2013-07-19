@@ -80,30 +80,36 @@ defaultTeam = [
     name: "Pikachu"
     moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
     item: "Light Ball"
+    ability: "Lightningrod"
   }
   {
     name: "Hitmonchan"
     moves: ["Close Combat", "Mach Punch", "Ice Punch", "ThunderPunch"]
     item: "Life Orb"
+    ability: "Iron Fist"
   }
   {
     name: "Charizard"
     item: "Choice Specs"
     moves: ["Fire Blast", "Air Slash", "Hidden Power", "Focus Blast"]
+    ability: "Blaze"
   }
   {
     name: "Dragonite"
     item: "Leftovers"
     moves: ["Dragon Dance", "Outrage", "Fire Punch", "ExtremeSpeed"]
+    ability: "Multiscale"
   }
   {
     name: "Jigglypuff"
     item: "Leftovers"
     moves: ["Sing", "Seismic Toss", "Protect", "Wish"]
+    ability: "Cute Charm"
   }
   {
     name: "Haunter"
     item: "Leftovers"
     moves: ["Substitute", "Disable", "Shadow Ball", "Focus Blast"]
+    ability: "Levitate"
   }
 ]

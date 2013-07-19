@@ -85,11 +85,9 @@ startBattle = (socket, battleId, yourTeam, opponentTeams) ->
   $battle = $('.battle')
   battle = new Battle(id: battleId, socket: socket, you: yourTeam, opponents: opponentTeams)
   view = new BattleView(el: $battle, model: battle)
-  socket.on 'switch pokemon', (socket, fromIndex, toIndex) ->
-    battle.switch(fromIndex, toIndex)
-    view.render()
-  socket.on 'request action', (socket, battleId, validActions) ->
+  socket.on 'request action', (socket, battleId, validActions, team) ->
     console.log "ACTION REQUESTED:"
     console.log validActions
+    battle.you = team
     if battle.id == battleId
       view.enableButtons(validActions)

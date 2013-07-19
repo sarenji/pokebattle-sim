@@ -12,15 +12,20 @@ JST['battle_actions'] = thermos.template (locals) ->
       # TODO: if locals.team[0].isAlive()
       @div '.clearfix', ->
         moves = locals.team[0].moves
-        templ = (move) =>
+        moveTypes = locals.team[0].moveTypes
+        pps = locals.team[0].pp
+        templ = (i) =>
+          [move, moveType, pp] = [moves[i], moveTypes[i], pps[i]]
           isEnabled = move.toLowerCase().replace(/\s+/g, '-') in actions.moves
-          @div ".move.button#{if !isEnabled then '.disabled' else ''}", ->
+          disabledClass = (if !isEnabled then '.disabled' else '')
+          moveType = moveType.toLowerCase()
+          @div ".move.button.#{moveType}#{disabledClass}", ->
             @div '.main_text', -> move
-            @div '.meta_info', -> "15/15"
+            @div '.meta_info', -> "#{pp}/15"
         for i in [0...moves.length] by 2
           @div '.left', ->
-            templ(moves[i])
-            templ(moves[i + 1])  if moves[i + 1]?
+            templ(i)
+            templ(i + 1)  if i + 1 < moves.length
 
     if actions.switches?.length > 0
       @h2 "Pokemon"

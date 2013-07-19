@@ -416,6 +416,13 @@ class @Pokemon
   toString: ->
     "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
 
+  toJSON: ->
+    "name"      : @name
+    "currentHP" : @currentHP
+    "boosts"    : @stages
+    "moves"     : @moves.map (m) -> m.name
+    "moveTypes" : @moves.map (m) -> m.type
+    "pp"        : @moves.map (m) => @pp(m)
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

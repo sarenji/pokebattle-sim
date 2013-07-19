@@ -6,7 +6,7 @@ class @Player
     @send 'updatechat', username, message
 
   requestAction: (id, validActions) ->
-    @send 'request action', id, validActions
+    @send 'request action', id, validActions, @team.toJSON()
 
   attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)

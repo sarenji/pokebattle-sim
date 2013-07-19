@@ -106,3 +106,7 @@ class @Team
   validate: ->
     # TODO
     true
+
+  toJSON: -> {
+    "pokemon": @pokemon.map (p) -> p.toJSON()
+  }

@@ -6,6 +6,11 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
+    for id, you of @battle.players
+      opponents = (p  for pId, p of @battle.players when id != pId)
+      yourTeam = you.team.toJSON()
+      theirTeam = opponents.map((o) -> o.team.toJSON())
+      you.send? 'start battle', @battle.id, yourTeam, theirTeam
     @beginTurn()
 
     pokemon = @battle.getActivePokemon()

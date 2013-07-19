@@ -10,8 +10,8 @@ class @BattleView extends Backbone.View
 
   render: (validActions = {}) =>
     locals =
-      team         : @model.you
-      opponent     : @model.opponents[0]
+      team         : @model.you.pokemon
+      opponent     : @model.opponents[0].pokemon
       validActions : validActions
     @$el.html @template(locals)
     @addImages()
