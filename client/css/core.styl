@@ -5,22 +5,41 @@ html, body
   padding 0
   margin  0
   font    100% "PT Sans", "Helvetica Neue", sans-serif
-  background $background-color
-
-h1
-  font           36px "PT Sans Narrow", "Helvetica Neue", sans-serif
-  font-weight    700
-  line-height    50px
-  text-transform lowercase
-  margin         0 $body_wrapper
-
-#header
-  color      $body-color
-  height 50px
+  background $background-color url(/images/cream.png)
 
 #content
   position absolute
   top 50px
-  left $body_wrapper
-  right $body_wrapper
-  bottom $body_wrapper
+  left 0
+  right 0
+  bottom 0
+
+a, .fake_link
+  color #F27405
+  text-decoration none
+  &:hover
+    cursor pointer
+    color #BD4F00
+
+.nav
+  clearfix()
+  list-style none
+  padding 0
+  margin 0
+  li
+    float left
+    border-radius 4px 4px 0 0
+    margin-left 2px
+    margin-right @margin-left
+    &:hover
+      background-color #d9d7d7
+    &.active
+      border 1px solid #d9d7d7
+      border-bottom none
+      background white
+      a, .fake_link, &.fake_link
+        color #333
+        text-decoration none
+        cursor default
+  a, .fake_link
+    padding 5px 15px

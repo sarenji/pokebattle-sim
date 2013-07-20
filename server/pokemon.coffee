@@ -424,6 +424,7 @@ class @Pokemon
     "moves"     : @moves.map (m) -> m.name
     "moveTypes" : @moves.map (m) -> m.type
     "pp"        : @moves.map (m) => @pp(m)
+    "maxPP"     : @moves.map (m) => @maxPP(m)
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

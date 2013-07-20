@@ -60,14 +60,13 @@ connections.addEvents
 
     battle.makeMove(socket, moveName)
   
-  'send switch': (socket, battleId, toPokemon) ->
-    # TODO: Use makeSwitch instead
+  'send switch': (socket, battleId, toSlot) ->
     battle = server.findBattle(battleId)
     if !battle
       socket.send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeSwitchByName(socket, toPokemon)
+    battle.makeSwitch(socket, toSlot)
   # TODO: socket.off after disconnection
   # Dequeue player in socket off
 

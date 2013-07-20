@@ -54,12 +54,13 @@ class @BattleView extends Backbone.View
     @disableButtons()
 
   switchPokemon: (e) =>
-    toPokemon = @getText(e.target)
+    toSlot = $(e.currentTarget).data('slot')
     if @isDisabled()
-      console.log "Cannot switch to #{toPokemon}."
+      console.log "Cannot switch to #{toSlot}."
       return
-    console.log "Switching to #{toPokemon}"
-    @model.makeSwitch(toPokemon)
+    console.log "Switching to #{toSlot}"
+    toSlot = parseInt(toSlot, 10)
+    @model.makeSwitch(toSlot)
     @disableButtons()
 
 imageUrl = (id, options = {}) ->

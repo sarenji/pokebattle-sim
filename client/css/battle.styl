@@ -1,13 +1,23 @@
 divide(a, b)
   a / b
 
-@keyframes glow
-  from
-    box-shadow   none
-  to
-    box-shadow   0 0 10px #B5A891
-    border-color #B5A891
-    color        #57554C
+button-bg(clr)
+  clr          = lighten(clr, 50%)
+  dark         = darken(clr, 10%)
+  darker-dark  = darken(dark, 20%)
+  dark-clr     = darken(clr, 20%)
+  darker-clr   = darken(clr, 50%)
+  darkest-clr  = darken(darker-clr, 20%)
+  btn-clr      = darken(darkest-clr, 30%)
+  background   linear-gradient(top, clr, dark-clr)
+  border       1px solid darker-clr
+  border-color rgba(0, 0, 0, .1), rgba(0, 0, 0, .2), rgba(0, 0, 0, .3)
+  color        btn-clr
+  &:hover
+    background linear-gradient(top, dark, darker-dark)
+    border-color darkest-clr
+    color darken(btn-clr, 20%)
+    text-shadow   0 -1px 0 rgba(255, 255, 255, .10)
 
 .battle
   position absolute
@@ -15,7 +25,11 @@ divide(a, b)
   left 0
   bottom 0
   background $body-color
-  border-radius 4px 0 0 4px
+  h2
+    font-size      0.6875em
+    text-transform uppercase
+    letter-spacing 1px
+    border-bottom  1px solid rgba(0, 0, 0, .10)
   .battle_pane
     position      relative
     width         400px
@@ -34,61 +48,94 @@ divide(a, b)
       height   @width
     .front
       position absolute
-      top      0
-      right    0
+      top      30px
+      right    20px
       width    96px
       height   @width
   .wrapper
     margin 10px
+
+.button
+  clearfix()
+  button-bg(#eee)
+  height        32px
+  line-height   @height
+  border-radius 4px
+  float         left
+  margin-right  5px
+  margin-bottom @margin-right
+  padding       0 10px
+  cursor        pointer
+  color         #333
+  text-shadow   0 -1px 0 rgba(255, 255, 255, .25)
+  box-shadow    inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25)
+  &.disabled, &.disabled:hover
+    background  #444
+    border-color #8A8171
+    cursor      default
+    color       #999
+  .main_text
+    font-size   16px
+    font-weight 700
+    float       left
+    margin-right 10px
+  .meta_info
+    font-size   12px
+    float       right
+    font-family "Helvetica Neue", sans-serif
+  .pokemon_icon
+    position    relative
+    width       32px
+    height      @width
+    display     block
+    margin      0 auto
+    top         -3px
+    left        -4px
+    background url("http://i.imgur.com/UUGozoG.png") top left
+  &.normal
+    button-bg(#A9A57A)
+  &.fire
+    button-bg(#E28544)
+  &.water
+    button-bg(#6A97ED)
+  &.electric
+    button-bg(#F0C944)
+  &.grass
+    button-bg(#8FC052)
+  &.ice
+    button-bg(#A2CFD0)
+  &.fighting
+    button-bg(#B04137)
+  &.poison
+    button-bg(#9253A0)
+  &.ground
+    button-bg(#DCBE6F)
+  &.flying
+    button-bg(#A09AEE)
+  &.psychic
+    button-bg(#E0698B)
+  &.bug
+    button-bg(#AEB22D)
+  &.rock
+    button-bg(#B69D42)
+  &.ghost
+    button-bg(#6A5F97)
+  &.dragon
+    button-bg(#5C59F1)
+  &.dark
+    button-bg(#685447)
+  &.steel
+    button-bg(#B7BACF)
+
+.moves
   .button
-    width         130px
-    height        64px
-    line-height   @height
-    border-radius 4px
-    float         left
-    margin-right  10px
-    margin-bottom @margin-right
-    padding       0 10px
-    background    #CCD8E0
-    background    linear-gradient(top, #DAE4EB, #CCD8E0 50%, #AFBFC9 50%, #94A5B0)
-    border        2px solid #777F85
-    cursor        pointer
-    color         #3D3021
-    &:hover
-      background  #F2F0DC
-      background  linear-gradient(top, #FFFEF0, #F2F0DC 50%, #E0DCCA 50%, #CFCAB6)
-      border-color #8A8171
-      animation   glow .3s ease infinite alternate
-    &.disabled, &.disabled:hover
-      background  #EBEBEB
-      background  linear-gradient(top, #F5F5F5, #EBEBEB 50%, #A6A6A6 50%, #808080)
-      border-color #8A8171
-      cursor      default
-      animation   none
-      color     #999
-    .main_text, .meta_info
-      height      32px
-      line-height @height
-      position    relative
-      top         3px
-    .main_text
-      font-size   16px
-      font-weight 700
-    .meta_info
-      font-size   13px
-      text-align  right
-    .pokemon_icon
-      position    relative
-      top         -3px
-      padding-right  4px
-    &.small
-      height      divide(@height, 2)
-      line-height @height
-      background  linear-gradient(top, #DAE4EB, #CCD8E0)
-      .main_text
-        height      @height
-        line-height @height
-      &:hover
-        background  linear-gradient(top, #FFFEF0, #F2F0DC)
-      &.disabled, &.disabled:hover
-        background  linear-gradient(top, #F5F5F5, #EBEBEB)
+    display block
+    float none
+    margin 5px 0
+    &:first-child
+      margin-top 0
+
+.switches
+  .button
+    display block
+    float none

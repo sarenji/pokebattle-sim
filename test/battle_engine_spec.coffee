@@ -80,7 +80,7 @@ describe 'Mechanics', ->
       @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
-      @controller.makeSwitchByName(@player2, 'Heracross')
+      @controller.makeSwitch(@player2, 1)
       @team2.first().name.should.equal 'Heracross'
 
   describe 'secondary effect attacks', ->

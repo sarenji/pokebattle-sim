@@ -44,15 +44,6 @@ class @BattleController
       else
         @continueTurn()
 
-  # An alternate version of #makeSwitch which takes the name of a pokemon
-  # to switch to instead of the position. Useful for tests.
-  # TODO: Test
-  makeSwitchByName: (player, toPokemon) ->
-    team = @battle.getTeam(player.id)
-    index = team.pokemon.map((p) -> p.name).indexOf(toPokemon)
-
-    @makeSwitch(player, index)
-
   beginTurn: ->
     @battle.beginTurn()
 

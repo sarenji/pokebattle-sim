@@ -5,8 +5,8 @@ class @Battle extends Backbone.Model
   makeMove: (moveName) =>
     @socket.send 'send move', @id, moveName
 
-  makeSwitch: (toPokemon) =>
-    @socket.send 'send switch', @id, toPokemon
+  makeSwitch: (toSlot) =>
+    @socket.send 'send switch', @id, toSlot
 
   switch: (fromIndex, toIndex) =>
     [@you[fromIndex], @you[toIndex]] = [@you[toIndex], @you[fromIndex]]

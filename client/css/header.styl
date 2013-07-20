@@ -1,0 +1,18 @@
+h1
+  font           36px "PT Sans Narrow", "Helvetica Neue", sans-serif
+  font-weight    700
+  line-height    50px
+  text-transform lowercase
+  margin         0 $body_wrapper
+  float          left
+
+#header
+  height      50px
+  line-height @height
+  .nav
+    a, .fake_link
+      margin-top 10px
+      padding-top 0
+      padding-bottom 0
+      height @height - @margin-top
+      line-height @height
