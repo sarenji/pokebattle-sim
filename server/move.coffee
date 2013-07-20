@@ -101,11 +101,11 @@ class @Move
   calculateDamage: (battle, user, target) ->
     return 0  if @power == 0
 
-    willCritical = @isCriticalHit(battle, user, target)
+    user.crit = @isCriticalHit(battle, user, target)
     damage = @baseDamage(battle, user, target)
     # TODO: Multi-target modifier.
     damage = @modify(damage, @weatherModifier(battle, user, target))
-    damage = damage * 2  if willCritical
+    damage = damage * 2  if user.crit
     damage = Math.floor(((100 - battle.rng.randInt(0, 15, "damage roll")) * damage) / 100)
     damage = @modify(damage, @stabModifier(battle, user, target))
     damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
@@ -115,7 +115,7 @@ class @Move
     damage = target.editDamage(this, damage)
     damage = Math.min(target.currentHP, damage)
 
-    if willCritical
+    if user.crit
       battle.message "A critical hit!"
       target.informCriticalHit()
     damage

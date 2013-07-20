@@ -2345,7 +2345,12 @@ describe "Reflect", ->
 
     mock.verify()
 
-  it "does not trigger on critical hits"
+  it "does not halve on critical hits", ->
+    shared.create.call(this)
+    tackle = @battle.getMove('Tackle')
+    @team2.attach(Attachment.Reflect)
+    @p1.crit = true
+    tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
 describe "Light Screen", ->
   it "halves special damage", ->
@@ -2384,7 +2389,12 @@ describe "Light Screen", ->
 
     mock.verify()
 
-  it "does not trigger on critical hits"
+  it "does not halve on critical hits", ->
+    shared.create.call(this)
+    thundershock = @battle.getMove('Thundershock')
+    @team2.attach(Attachment.LightScreen)
+    @p1.crit = true
+    thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
 describe "Rapid Spin", ->
   it "removes spikes", ->
