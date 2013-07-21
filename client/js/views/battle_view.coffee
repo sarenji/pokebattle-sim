@@ -65,7 +65,7 @@ class @BattleView extends Backbone.View
 
 imageUrl = (id, options = {}) ->
   kind = if options.front then 'i' else 'b'
-  id = ("000" + id).substr(-3)
+  id   = "000#{id}".substr(-3)
   "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
 
 addPokemonImage = ($div, url, options = {}) ->

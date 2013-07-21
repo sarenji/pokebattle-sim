@@ -18,8 +18,8 @@ app.use(require('connect-assets')(src: "client"))
 
 # Routing
 app.get '/', (req, res) ->
-  {PokemonData} = require './data/bw'
-  res.render 'index.jade', {PokemonData}
+  {PokemonData, MoveData, ItemData} = require './data/bw'
+  res.render 'index.jade', {PokemonData, MoveData, ItemData}
 
 # API
 app.namespace "/v1/api", ->

@@ -1,6 +1,6 @@
 @Items = Items = {}
 
-json = require './data_items.json'
+@ItemData = require './data_items.json'
 {Attachment} = require('../../server/attachment')
 {Status} = require('../../server/status')
 {Weather} = require '../../server/weather'
@@ -238,7 +238,7 @@ makeBoostOnTypeItem = (name, type, boosts) ->
         target.boost(boosts)
         target.useItem()
 
-for name, attributes of json
+for name, attributes of @ItemData
   Items[name] = new Item(name, attributes)
 
 makeBoostOnTypeItem 'Absorb Bulb', 'Water', specialAttack: 1
