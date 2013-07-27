@@ -185,12 +185,12 @@ basePowerModifier.add 150, (move, battle, user, target) ->
 #   return 0x1000
 
 # Torrent
-attackStatModifier.add 20, (move, battle, user, target) ->
-  type = move.getType(battle, user, target)
-  if user.hasAbility('Torrent') && type == 'Water' &&
-      user.currentHP <= Math.floor(user.stat('hp') / 3)
-    return 0x800
-  return 0x1000
+# attackStatModifier.add 20, (move, battle, user, target) ->
+#   type = move.getType(battle, user, target)
+#   if user.hasAbility('Torrent') && type == 'Water' &&
+#       user.currentHP <= Math.floor(user.stat('hp') / 3)
+#     return 0x800
+#   return 0x1000
 
 # Guts
 # attackStatModifier.add 30, (move, battle, user, target) ->
