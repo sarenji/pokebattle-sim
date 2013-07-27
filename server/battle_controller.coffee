@@ -6,8 +6,8 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
-    for id, you of @battle.players
-      opponents = (p  for pId, p of @battle.players when id != pId)
+    for you in @battle.players
+      opponents = (p  for p in @battle.players when you.id != p.id)
       yourTeam = you.team.toJSON()
       theirTeam = opponents.map((o) -> o.team.toJSON())
       you.send? 'start battle', @battle.id, yourTeam, theirTeam

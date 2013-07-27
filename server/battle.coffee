@@ -6,6 +6,8 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 
+require 'sugar'
+
 class @Battle
   # TODO: let Battle serialize these.
   {Ability, Moves, MoveData, MoveList, Species, PokemonData} = require '../data/bw'
@@ -42,8 +44,8 @@ class @Battle
     # Buffer of messages to send to each client.
     @buffer = []
 
-    # Hash of players partaking in the battle.
-    @players = {}
+    # Array of players partaking in the battle.
+    @players = []
 
     # Stores last move used
     @lastMove = null
@@ -62,20 +64,20 @@ class @Battle
 
     for object in attributes.players
       {player, team} = object
-      @players[player.id] = new Player(player, new Team(this, team, @numActive))
+      @players.push(new Player(player, new Team(this, player.id, team, @numActive)))
 
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
 
   getPlayer: (id) ->
-    @players[id]
+    @players.find((p) -> p.id == id)
 
   getTeam: (id) ->
     @getPlayer(id).team
 
   getTeams: ->
     teams = []
-    for id, player of @players
+    for player in @players
       teams.push(player.team)
     teams
 
@@ -89,13 +91,13 @@ class @Battle
   # an array with only one opponent.
   getOpponentOwners: (pokemon) ->
     {id} = @getOwner(pokemon)
-    (player  for playerId, player of @players when id != playerId)
+    (player  for player in @players when id != player.id)
 
   # Returns all active pokemon on the field belonging to both players.
   # Active pokemon include fainted pokemon that have not been switched out.
   getActivePokemon: ->
     pokemon = []
-    for id, player of @players
+    for player in @players
       pokemon.push(player.team.getActivePokemon()...)
     pokemon
 
@@ -109,7 +111,7 @@ class @Battle
 
   # Finds the Player attached to a certain Pokemon.
   getOwner: (pokemon) ->
-    for id, player of @players
+    for player in @players
       return player  if pokemon in player.team.pokemon
 
   # Forces the owner of a Pokemon to switch.
@@ -179,7 +181,7 @@ class @Battle
   # Sends to each player the battle messages that have been queued up
   # TODO: It should be sent to spectators as well
   sendMessages: ->
-    for id, player of @players
+    for player in @players
       player.updateChat('SERVER', @buffer.join("<br>"))
     @clearMessages()
 
@@ -263,7 +265,7 @@ class @Battle
     # Send appropriate requests to players
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
     # TODO: Struggle if no moves are usable
-    for id, player of @players
+    for player in @players
       pokemon = player.team.at(0)
       continue  if @getAction(pokemon)
       pokeMoves = pokemon.validMoves()
@@ -329,7 +331,7 @@ class @Battle
 
   endBattle: ->
     winner = @getWinner()
-    for id, player of @players
+    for player in @players
       @message "#{winner.username} won!"
       @message "END BATTLE."
     @sendMessages()
@@ -337,7 +339,7 @@ class @Battle
   getWinner: ->
     winner = null
     length = 0
-    for id, player of @players
+    for player in @players
       newLength = player.team.getAlivePokemon().length
       if newLength > length
         length = newLength
@@ -345,7 +347,7 @@ class @Battle
     player
 
   isOver: ->
-    _.any(@players, (player) -> player.team.getAlivePokemon().length == 0)
+    @players.any((player) -> player.team.getAlivePokemon().length == 0)
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
@@ -419,7 +421,7 @@ class @Battle
 
   # Returns true if any player's active Pokemon are fainted.
   areReplacementsNeeded: ->
-    for id, player of @players
+    for player in @players
       if player.team.getActiveFaintedPokemon().length > 0
         return true
     return false
@@ -427,7 +429,7 @@ class @Battle
   # Force people to replace fainted Pokemon.
   requestFaintedReplacements: ->
     @replacing = true
-    for id, player of @players
+    for player in @players
       team = player.team
       fainted = team.getActiveFaintedPokemon()
       if fainted.length > 0

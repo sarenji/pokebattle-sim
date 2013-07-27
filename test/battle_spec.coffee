@@ -7,8 +7,8 @@ describe 'Battle', ->
   beforeEach ->
     @id1 = 'abcde'
     @id2 = 'fghij'
-    @player1 = {id: @id1}
-    @player2 = {id: @id2}
+    @player1 = {id: @id1, send: ->}
+    @player2 = {id: @id2, send: ->}
     team1   = [Factory('Hitmonchan'), Factory('Heracross')]
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
     players = [{player: @player1, team: team1},

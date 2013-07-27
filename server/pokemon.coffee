@@ -12,6 +12,7 @@ class @Pokemon
     # Inject battle and team dependencies
     @battle = attributes.battle
     @team   = attributes.team
+    @player = attributes.player
 
     @name = attributes.name || 'Missingno'
     @species = attributes.species

@@ -5,14 +5,16 @@
 class @Team
   {Species} = require '../data/bw'
 
-  constructor: (battle, pokemon, @numActive) ->
+  constructor: (battle, player, pokemon, @numActive) ->
     # Inject battle dependency
     @battle = battle
+    @player = player
     @pokemon = pokemon.map (attributes) =>
       specimen = Species[attributes.name]
       # TODO: Make nicer.
       attributes.battle = battle
       attributes.team = this
+      attributes.player = player
       attributes.weight = specimen.weight
       attributes.stats = _.clone(specimen.stats || {})
       pokemon_moves = attributes.moves || []

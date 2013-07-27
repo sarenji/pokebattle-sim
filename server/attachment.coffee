@@ -934,7 +934,7 @@ class @Attachment.LuckyChant extends @TeamAttachment
     @turns--
     if @turns == 0
       # TODO: Less hacky way of getting username
-      {username} = (p for id, p of @battle.players when p.team == @team)[0]
+      {username} = (p for p in @battle.players when p.team == @team)[0]
       @battle.message "#{username}'s team's Lucky Chant wore off!"
       @team.unattach(@constructor)
 
