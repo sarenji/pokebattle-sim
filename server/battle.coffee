@@ -43,6 +43,7 @@ class @Battle
 
     # Buffer of messages to send to each client.
     @buffer = []
+    @log = []
 
     # Array of players partaking in the battle.
     @players = []
@@ -62,9 +63,13 @@ class @Battle
     # Stores attachments on the battle itself.
     @attachments = new Attachments()
 
-    for object in attributes.players
+    for object, i in attributes.players
       {player, team} = object
-      @players.push(new Player(player, new Team(this, player.id, team, @numActive)))
+      player = new Player(player)
+      player.index = i  # This index is for the client
+      team = new Team(this, player, team, @numActive)
+      player.team = team  # TODO: Deprecate
+      @players.push(player)
 
     # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false

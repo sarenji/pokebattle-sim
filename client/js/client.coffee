@@ -39,6 +39,7 @@ class @Socket
     @socket.send(JSON.stringify(messageType: type, data: data))
 
 @BattleTower = BattleTower = {}
+BattleTower.battles = {}
 socket = null
 chatView = null
 
@@ -76,18 +77,47 @@ $ ->
 
     'start battle': startBattle
 
+    'update battle': updateBattle
+
+    'battle switch': battleSwitch
+
+    'request action': requestAction
+
     'error': (socket, message) ->
       alert(message)
 
 
-startBattle = (socket, battleId, yourTeam, opponentTeams) ->
+startBattle = (socket, id, numActive, index, teams) ->
   console.log "BATTLE STARTED."
   $battle = $('.battle')
-  battle = new Battle(id: battleId, socket: socket, you: yourTeam, opponents: opponentTeams)
+  battle = new Battle({id, numActive, socket, index, teams})
   view = new BattleView(el: $battle, model: battle)
-  socket.on 'request action', (socket, battleId, validActions, team) ->
-    console.log "ACTION REQUESTED:"
-    console.log validActions
-    battle.you = team
-    if battle.id == battleId
-      view.enableButtons(validActions)
+  BattleTower.battles[id] = view
+
+requestAction = (socket, battleId, validActions, team) ->
+  view = BattleTower.battles[battleId]
+  battle = view.model
+  console.log "ACTION REQUESTED:"
+  console.log validActions
+  battle.teams[battle.index] = team
+  view.enableButtons(validActions)
+
+Protocol =
+  CHANGE_HP: 1
+
+updateBattle = (socket, battleId, actions) ->
+  view = BattleTower.battles[battleId]
+  for action in actions
+    [ type, player, rest... ] = action
+    switch type
+      when Protocol.CHANGE_HP
+        [slot, newHP] = rest
+        view.model.teams[player].pokemon[slot].hp = newHP
+        # TODO: Have this be called automatically.
+        view.changeHP(player, slot)
+
+battleSwitch = (socket, battleId, playerIndex, fromSlot, toSlot) ->
+  view = BattleTower.battles[battleId]
+  team = view.model.getTeam(playerIndex)
+  [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
+  view.renderAll()

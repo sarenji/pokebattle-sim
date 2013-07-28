@@ -59,6 +59,8 @@ class @Team
     p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
     @switchOut(@at(a))
 
+    for p in @battle.players
+      p.send('battle switch', @battle.id, player.index, a, b)
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
 
     @battle.message "#{player.username} sent out #{@at(a).name}!"

@@ -35,6 +35,31 @@ button-bg(clr)
     width         400px
     height        300px
     background    #333
+    .hp_bar
+      position      absolute
+      width         144px
+      height        3px
+      border        1px solid #fff
+      border-radius 2px
+      box-shadow    0 0 0 1px #000
+      &.bottom
+        bottom      30%
+        right       10%
+      &.top
+        top         20%
+        left        20%
+      .hp, .hp-red
+        position    absolute
+        top         0
+        left        0
+        bottom      0
+        width       100%
+        transition  .4s cubic-bezier(0, 1, .5, 1)
+      .hp-red
+        background  #C00
+        transition  .4s linear 1s
+      .hp
+        background  #0f0
     .back
       img
         image-rendering         -moz-crisp-edges
@@ -131,9 +156,7 @@ button-bg(clr)
   .button
     display block
     float none
-    margin 5px 0
-    &:first-child
-      margin-top 0
+    margin 0 0 5px
 
 .switches
   .button

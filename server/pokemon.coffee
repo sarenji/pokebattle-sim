@@ -262,6 +262,8 @@ class @Pokemon
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
+    @battle.log.push([1, @player.index, 0, @currentHP])
+    @currentHP
 
   recordMove: (move) ->
     @lastMove = move
@@ -420,7 +422,8 @@ class @Pokemon
 
   toJSON: ->
     "name"      : @name
-    "currentHP" : @currentHP
+    "hp"        : @currentHP
+    "maxHP"     : @stat('hp')
     "boosts"    : @stages
     "moves"     : @moves.map (m) -> m.name
     "moveTypes" : @moves.map (m) -> m.type

@@ -6,11 +6,11 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
-    for you in @battle.players
+    for you, i in @battle.players
       opponents = (p  for p in @battle.players when you.id != p.id)
-      yourTeam = you.team.toJSON()
-      theirTeam = opponents.map((o) -> o.team.toJSON())
-      you.send? 'start battle', @battle.id, yourTeam, theirTeam
+      # TODO: Conceal opponent teams!
+      teams = @battle.players.map((p) -> p.team.toJSON())
+      you.send? 'start battle', @battle.id, @battle.numActive, i, teams
     @beginTurn()
 
     pokemon = @battle.getActivePokemon()
@@ -46,6 +46,7 @@ class @BattleController
 
   beginTurn: ->
     @battle.beginTurn()
+    @sendUpdates()
 
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.
@@ -58,6 +59,7 @@ class @BattleController
     # If all requests have been completed, then end the turn.
     # Otherwise, wait for further requests to be completed before ending.
     if @battle.areAllRequestsCompleted() then @endTurn()
+    @sendUpdates()
 
   # Calls Battle#endTurn. If all pokemon are fainted, then it
   # ends the battle. Otherwise, it will request for new pokemon and wait if
@@ -72,6 +74,14 @@ class @BattleController
         @endBattle()
     else
       @beginTurn()
+    @sendUpdates()
 
   endBattle: ->
     @battle.endBattle()
+
+  # Sends battle updates to players.
+  sendUpdates: ->
+    return  if @battle.log.length == 0
+    for player in @battle.players
+      player.send('update battle', @battle.id, @battle.log)
+    @battle.log = []

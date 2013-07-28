@@ -1,5 +1,6 @@
 class @BattleView extends Backbone.View
-  template: JST['battle_actions']
+  template: JST['battle']
+  action_template: JST['battle_actions']
 
   events:
     'click .move': 'makeMove'
@@ -7,15 +8,24 @@ class @BattleView extends Backbone.View
 
   initialize: =>
     @selected = null
+    # @listenTo(@model, 'change:hp', @changeHP)
+    @renderAll()
 
-  render: (validActions = {}) =>
+  renderAll: =>
     locals =
-      team         : @model.you.pokemon
-      opponent     : @model.opponents[0].pokemon
-      validActions : validActions
+      team         : @model.getTeam()
+      opponent     : @model.getOpponentTeam()
+      numActive    : @model.numActive
+      yourIndex    : @model.index
     @$el.html @template(locals)
     @addImages()
     this
+
+  render: (validActions = {}) =>
+    locals =
+      team         : @model.getTeam()
+      validActions : validActions
+    @$el.find('.battle_actions').html @action_template(locals)
 
   addImages: =>
     @$el.find('.preload').each ->
@@ -26,6 +36,20 @@ class @BattleView extends Backbone.View
       url   = imageUrl(id, front: front)
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
+
+  changeHP: (player, slot) =>
+    $meta = @$el.find(".hp#{player}-#{slot}")
+    $hp = $meta.find('.hp')
+    $allHP = $meta.find('.hp, .hp-red')
+    pokemon = @model.getPokemon(player, slot)
+    percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
+    if percent <= 25
+      $hp.css(backgroundColor: "#f00")
+    else if percent <= 50
+      $hp.css(backgroundColor: "#ff0")
+    else
+      $hp.css(backgroundColor: "#0f0")
+    $allHP.width(percent + "%")
 
   getText: (el) =>
     $el = $(el)
