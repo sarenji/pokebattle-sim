@@ -14,7 +14,6 @@ class @BattleCollection extends Backbone.Collection
       'start battle': @startBattle
       'update battle': @updateBattle
       'battle switch': @battleSwitch
-      'request action': @requestAction
 
   startBattle: (socket, id, numActive, index, teams) =>
     console.log "BATTLE STARTED."
@@ -22,15 +21,6 @@ class @BattleCollection extends Backbone.Collection
     battle = new Battle({id, numActive, socket, index, teams})
     battle.view = new BattleView(el: $battle, model: battle)
     @add(battle)
-
-  requestAction: (socket, battleId, validActions, team) =>
-    console.log "ACTION REQUESTED:"
-    console.log validActions
-
-    battle = @get(battleId)
-    view = battle.view
-    battle.teams[battle.index] = team
-    view.enableButtons(validActions)
 
   updateBattle: (socket, battleId, actions) =>
     view = @get(battleId).view
