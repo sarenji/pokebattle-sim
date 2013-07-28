@@ -40,7 +40,7 @@ class @ChatView extends Backbone.View
   # Returns true if the chat is scrolled to the bottom of the screen.
   isAtBottom: =>
     $el = @$('.messages')
-    ($el[0].scrollHeight - $el.scrollTop()) == $el.outerHeight()
+    ($el.scrollTop() + $el.innerHeight()) >= $el[0].scrollHeight
 
   scrollToBottom: =>
     messages = @$('.messages')[0]
