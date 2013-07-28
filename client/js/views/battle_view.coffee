@@ -1,5 +1,6 @@
 class @BattleView extends Backbone.View
-  template: JST['battle']
+  template: JST['battle_container']
+  battle_template: JST['battle']
   action_template: JST['battle_actions']
 
   events:
@@ -9,19 +10,20 @@ class @BattleView extends Backbone.View
   initialize: =>
     @selected = null
     # @listenTo(@model, 'change:hp', @changeHP)
-    @renderAll()
+    @$el.html @template()
+    @renderBattle()
 
-  renderAll: =>
+  renderBattle: =>
     locals =
       team         : @model.getTeam()
       opponent     : @model.getOpponentTeam()
       numActive    : @model.numActive
       yourIndex    : @model.index
-    @$el.html @template(locals)
+    @$el.find('.battle_container').html @battle_template(locals)
     @addImages()
     this
 
-  render: (validActions = {}) =>
+  renderActions: (validActions = {}) =>
     locals =
       team         : @model.getTeam()
       validActions : validActions
@@ -63,10 +65,10 @@ class @BattleView extends Backbone.View
     $el.hasClass('disabled')
 
   enableButtons: (validActions) =>
-    @render(validActions)
+    @renderActions(validActions)
 
   disableButtons: =>
-    @render()
+    @renderActions()
 
   makeMove: (e) =>
     moveName = @getText(e.target)

@@ -1,6 +1,8 @@
 {Battle, BattleController} = require('../').server
 {Factory} = require './factory'
 
+require 'sugar'
+
 shouldDoNoDamage = (moveName, battleOptions) ->
   it 'does no damage', ->
     create.call(this, battleOptions)
@@ -23,17 +25,19 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
 build = (context, opts={}) ->
   context.id1 = 'abcde'
   context.id2 = 'fghij'
-  context.player1 = opts.player1 || {id: context.id1, send: ->}
-  context.player2 = opts.player2 || {id: context.id2, send: ->}
+  player1 = opts.player1 || {id: context.id1}
+  player2 = opts.player2 || {id: context.id2}
   team1   = opts.team1 || [Factory('Magikarp')]
   team2   = opts.team2 || [Factory('Magikarp')]
-  players = [{player: context.player1, team: team1},
-             {player: context.player2, team: team2}]
+  players = [{player: player1, team: team1},
+             {player: player2, team: team2}]
   numActive = opts.numActive || 1
   context.battle = new Battle('id', {players, numActive})
   context.controller = new BattleController(context.battle)
-  context.team1  = context.battle.getTeam(context.player1.id)
-  context.team2  = context.battle.getTeam(context.player2.id)
+  context.player1 = context.battle.players.find((p) -> p.id == player1.id)
+  context.player2 = context.battle.players.find((p) -> p.id == player2.id)
+  context.team1  = context.player1.team
+  context.team2  = context.player2.team
   context.p1 = context.team1.first()
   context.p2 = context.team2.first()
 

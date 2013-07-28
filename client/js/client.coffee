@@ -76,5 +76,5 @@ $ ->
 
     'error': (socket, message) ->
       alert(message)
-      
+
   new BattleCollection([], socket: socket) # todo: move this elsewhere

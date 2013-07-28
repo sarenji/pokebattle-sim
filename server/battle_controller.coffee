@@ -81,7 +81,7 @@ class @BattleController
 
   # Sends battle updates to players.
   sendUpdates: ->
-    return  if @battle.log.length == 0
     for player in @battle.players
-      player.send('update battle', @battle.id, @battle.log)
-    @battle.log = []
+      continue  if player.queue.length == 0
+      player.send('update battle', @battle.id, player.queue)
+      player.queue = []

@@ -1,12 +1,13 @@
 class @Player
   constructor: (@socket) ->
     {@id, @username} = @socket
+    @queue = []
 
   updateChat: (username, message) ->
     @send 'updatechat', username, message
 
-  requestAction: (id, validActions) ->
-    @send 'request action', id, validActions, @team.toJSON()
+  tell: (args...) ->
+    @queue.push(args)
 
   attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)

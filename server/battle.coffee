@@ -43,7 +43,6 @@ class @Battle
 
     # Buffer of messages to send to each client.
     @buffer = []
-    @log = []
 
     # Array of players partaking in the battle.
     @players = []
@@ -415,7 +414,7 @@ class @Battle
 
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
-    player.requestAction(@id, validActions)
+    player.tell(4, player.index, validActions)
     return true
 
   # Returns true if all requests have been completed. False otherwise.

@@ -71,6 +71,10 @@ class @Pokemon
     pp = Math.max(pp, 0)
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
+    @player?.tell(3, @player.index,
+                  @team.pokemon.indexOf(this),
+                  @moves.indexOf(move), pp)
+    pp
 
   resetAllPP: (pp) ->
     @ppHash = {}
@@ -262,7 +266,10 @@ class @Pokemon
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
-    @battle.log.push([1, @player.index, 0, @currentHP])
+    if @battle?.players
+      # TODO: Send percentages
+      for player in @battle.players
+        player.tell(1, @player.index, 0, @currentHP)
     @currentHP
 
   recordMove: (move) ->

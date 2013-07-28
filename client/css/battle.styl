@@ -94,11 +94,6 @@ button-bg(clr)
   color         #333
   text-shadow   0 -1px 0 rgba(255, 255, 255, .25)
   box-shadow    inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25)
-  &.disabled, &.disabled:hover
-    background  #444
-    border-color #8A8171
-    cursor      default
-    color       #999
   .main_text
     font-size   16px
     font-weight 700
@@ -151,6 +146,12 @@ button-bg(clr)
     button-bg(#685447)
   &.steel
     button-bg(#B7BACF)
+  &.disabled, &.disabled:hover
+    background  #444
+    border-color #8A8171
+    cursor      default
+    color       #888
+    text-shadow none
 
 .moves
   .button

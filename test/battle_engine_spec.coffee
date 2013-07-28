@@ -3,6 +3,8 @@
 should = require 'should'
 shared = require './shared'
 
+require './helpers'
+
 describe 'Mechanics', ->
   describe 'an attack missing', ->
     it 'deals no damage', ->
@@ -47,10 +49,10 @@ describe 'Mechanics', ->
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @p2.currentHP = 1
-      spy = @sandbox.spy(@player2, 'send')
+      spy = @sandbox.spy(@player2, 'tell')
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
-      spy.calledWith('request action').should.be.true
+      spy.calledWith(4).should.be.true
 
     it 'does not increment the turn count', ->
       shared.create.call this,
