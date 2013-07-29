@@ -13,7 +13,6 @@ class @BattleCollection extends Backbone.Collection
     @socket.addEvents
       'start battle': @startBattle
       'update battle': @updateBattle
-      'battle switch': @battleSwitch
 
   startBattle: (socket, id, numActive, index, teams) =>
     console.log "BATTLE STARTED."
@@ -49,10 +48,3 @@ class @BattleCollection extends Backbone.Collection
           console.log "ACTION REQUESTED:"
           console.log validActions
           view.enableButtons(validActions)
-
-
-  battleSwitch: (socket, battleId, playerIndex, fromSlot, toSlot) =>
-    view = @get(battleId).view
-    team = view.model.getTeam(playerIndex)
-    [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
-    view.renderAll()
