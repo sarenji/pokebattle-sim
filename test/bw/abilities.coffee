@@ -1321,6 +1321,35 @@ describe "BW Abilities:", ->
           @battle.performMove(@id2, typedMove)
           @p1.stages.speed.should.equal(1)
 
+  describe "Reckless", ->
+    it "gives a 1.2x boost to recoil moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Reckless")]
+      recoilMoves = @battle.getMoveList().filter (m) ->
+        m.recoil < 0
+      for move in recoilMoves
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1333)
+
+    it "boosts the kick moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Reckless")]
+      recoilMoves = [ @battle.getMove("Jump Kick"),
+                      @battle.getMove("Hi Jump Kick") ]
+      for move in recoilMoves
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1333)
+
+    it "does not boost struggle", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Reckless")]
+      struggle = @battle.getMove("Struggle")
+      struggle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+    it "does not boost drain moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Reckless")]
+      absorb = @battle.getMove("Absorb")
+      absorb.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
   describe "Regenerator", ->
     it "restores 1/3 of the user's HP upon switch out", ->
     shared.create.call this,

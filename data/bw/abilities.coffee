@@ -626,6 +626,14 @@ makeAbility 'Rattled', ->
       boostedStats = @pokemon.boost(boosts)
       util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
 
+makeAbility 'Reckless', ->
+  this::modifyBasePower = (move, user, target) ->
+    kickMoves = [ @battle.getMove("Jump Kick"), @battle.getMove("Hi Jump Kick")]
+    if move.recoil < 0 || move in kickMoves
+      0x1333
+    else
+      0x1000
+
 makeAbility 'Rivalry', ->
   this::modifyBasePower = (move, user, target) ->
     return 0x1400  if user.gender == target.gender

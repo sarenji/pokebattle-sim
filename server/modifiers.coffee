@@ -92,11 +92,11 @@ finalModifier.add 90, (move, battle, user, target) ->
 #   return 0x1000
 
 # Reckless modifier.
-basePowerModifier.add 40, (move, battle, user, target) ->
-  if user.hasAbility('Reckless') && (move.recoil || move.name == 'Jump Kick' ||
-                                     move.name == 'Hi Jump Kick')
-    return 0x1333
-  return 0x1000
+# basePowerModifier.add 40, (move, battle, user, target) ->
+#   if user.hasAbility('Reckless') && (move.recoil || move.name == 'Jump Kick' ||
+#                                      move.name == 'Hi Jump Kick')
+#     return 0x1333
+#   return 0x1000
 
 # Iron Fist modifier.
 # basePowerModifier.add 50, (move, battle, user, target) ->
