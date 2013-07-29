@@ -638,6 +638,11 @@ makeAbility 'Slow Start', ->
     return speed >> 1  if @turns > 0
     return speed
 
+makeAbility 'Sniper', ->
+  this::modifyDamage = (move, target) ->
+    return 0x1800  if @pokemon.crit
+    return 0x1000
+
 makeAbility 'Soundproof', ->
   this::isImmune = (type, move) ->
     return true  if move?.hasFlag('sound')

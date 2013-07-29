@@ -1348,6 +1348,21 @@ describe "BW Abilities:", ->
       flamethrower.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
       @p1.stat('speed').should.equal(speed)
 
+  describe "Sniper", ->
+    it "multiplies damage by a further x1.5 if critting", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sniper")]
+      tackle = @battle.getMove("Tackle")
+      @p1.crit = true
+      tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "has a normal 1x multiplier if not critting", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sniper")]
+      tackle = @battle.getMove("Tackle")
+      @p1.crit = false
+      tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
+
   describe "Soundproof", ->
     it "makes user immune to sound moves", ->
       shared.create.call this,

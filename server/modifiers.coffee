@@ -36,10 +36,10 @@
 # TODO: If an ally has Friend Guard, modifier is 0xC00.
 
 # Sniper modifier.
-finalModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Sniper') && move.willCriticalHit()
-    return 0x1800
-  return 0x1000
+# finalModifier.add 60, (move, battle, user, target) ->
+#   if user.hasAbility('Sniper') && move.willCriticalHit()
+#     return 0x1800
+#   return 0x1000
 
 # Solid Rock/Filter modifier.
 # finalModifier.add 70, (move, battle, user, target) ->
