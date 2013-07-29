@@ -721,6 +721,11 @@ describe "BW Abilities:", ->
       @battle.endTurn()
       mock.verify()
 
+  describe "Heavy Metal", ->
+    it "doubles the user's weight", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Heavy Metal")])
+      @p1.calculateWeight().should.equal(2 * @p1.weight)
+
   testHugePowerAbility = (name) ->
     describe name, ->
       it "doubles attack when using a physical move", ->
@@ -942,6 +947,11 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Levitate")]
       @p1.isImmune('Ground').should.be.true
 
+  describe "Light Metal", ->
+    it "halves the user's weight", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Light Metal")])
+      @p1.calculateWeight().should.equal(@p1.weight >> 1)
+
   testRedirectAndBoostAbility = (name, type) ->
     describe name, ->
       it "should redirect attacks of #{type} to user"
@@ -1034,6 +1044,26 @@ describe "BW Abilities:", ->
       @battle.beginTurn()
       @p2.isSwitchBlocked().should.be.false
 
+  describe "Marvel Scale", ->
+    it "multiplies defense by 1.5 when statused", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Marvel Scale")]
+      defense = @p1.stat('defense')
+      @p1.attach(Status.Burn)
+      @p1.stat('defense').should.equal Math.floor(1.5 * defense)
+
+  describe "Minus", ->
+    it "multiplies special attack by 1.5 if on the field with Plus", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      specialAttack = @p1.stat('specialAttack')
+      @team1.at(0).copyAbility(Ability.Minus)
+      @team1.at(1).copyAbility(Ability.Plus)
+      thunderbolt = @battle.getMove("Thunderbolt")
+      thunderbolt.modifyAttack(@battle, @team1.at(0), @p2).should.equal(0x1800)
+
   testAbilityCancelAbility = (name) ->
     describe name, ->
       it "cancels abilities for the duration of the user's move"
@@ -1041,6 +1071,38 @@ describe "BW Abilities:", ->
   testAbilityCancelAbility("Mold Breaker")
   testAbilityCancelAbility("Teravolt")
   testAbilityCancelAbility("Turboblaze")
+
+  describe "Moody", ->
+    it "at turn end, randomly raise a stat by 2 and lower another by 1", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
+      shared.biasRNG.call(this, "randInt", "moody raise", 1)
+      shared.biasRNG.call(this, "randInt", "moody lower", 0)
+      @battle.endTurn()
+      @p1.stages.should.include(attack: -1, defense: 2)
+
+    it "never raises and lowers the same stat in a single turn", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
+      shared.biasRNG.call(this, "randInt", "moody raise", 0)
+      shared.biasRNG.call(this, "randInt", "moody lower", 0)
+      @battle.endTurn()
+      @p1.stages.should.include(attack: 2, defense: -1)
+
+    it "does not choose individual stats at max/min", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
+      shared.biasRNG.call(this, "randInt", "moody raise", 1)
+      shared.biasRNG.call(this, "randInt", "moody lower", 0)
+      @p1.boost(defense: 6)
+      @p1.boost(attack: -6)
+      @battle.endTurn()
+      @p1.stages.should.include(defense: 5, speed: 2)
+
+    it "does not try to raise a null stat", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
+      shared.biasRNG.call(this, "randInt", "moody raise", 1)
+      shared.biasRNG.call(this, "randInt", "moody lower", 0)
+      @p1.boost(attack: 6, defense: 6, speed: 6, specialAttack: 6)
+      @p1.boost(specialDefense: 6, accuracy: 6, evasion: 6)
+      (=> @battle.endTurn()).should.not.throw()
 
   testTypeImmuneAbility = (name, type, stat) ->
     describe name, ->
@@ -1131,6 +1193,18 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Overcoat")]
       @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
       @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
+
+  describe "Plus", ->
+    it "multiplies special attack by 1.5 if on the field with Minus", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      specialAttack = @p1.stat('specialAttack')
+      @team1.at(0).copyAbility(Ability.Minus)
+      @team1.at(1).copyAbility(Ability.Plus)
+      thunderbolt = @battle.getMove("Thunderbolt")
+      thunderbolt.modifyAttack(@battle, @team1.at(1), @p2).should.equal(0x1800)
 
   describe "Poison Heal", ->
     it "prevents normal poison damage", ->

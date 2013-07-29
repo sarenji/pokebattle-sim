@@ -91,6 +91,9 @@ class @Team
   getActivePokemon: ->
     @pokemon.slice(0, @numActive)
 
+  getActiveAlivePokemon: ->
+    @getActivePokemon().filter((pokemon) -> pokemon.isAlive())
+
   getAlivePokemon: ->
     @pokemon.filter((pokemon) -> !pokemon.isFainted())
 

@@ -439,6 +439,12 @@ makeAbility 'Heatproof', ->
     return 0x800  if move.getType(@battle, user, @pokemon) == 'Fire'
     return 0x1000
 
+makeAbility 'Heavy Metal', ->
+  this::calculateWeight = (weight) ->
+    2 * weight
+
+makeAbility 'Honey Gather'
+
 makeAbility 'Hustle', ->
   this::modifyAttack = (move, target) ->
     return 0x1800  if move.isPhysical()
@@ -464,6 +470,8 @@ makeAbility 'Ice Body', ->
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.HAIL
 
+makeAbility 'Illuminate'
+
 makeAbility 'Imposter', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
@@ -478,7 +486,7 @@ makeAbility 'Intimidate', ->
     # TODO: Make getOpponents return only alive pokemon
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
-      boostedStats = opponent.boost(attack: -1)
+      boostedStats = opponent.boost(attack: -1, @pokemon)
       util.printBoostMessage(@battle, @pokemon, boostedStats, attack: -1)
 
 makeAbility 'Iron Fist', ->
@@ -503,6 +511,10 @@ makeAbility 'Levitate', ->
   this::isImmune = (type) ->
     return true  if type == 'Ground'
 
+makeAbility 'Light Metal', ->
+  this::calculateWeight = (weight) ->
+    weight >> 1
+
 # Implemented in Pokemon#drain
 makeAbility 'Liquid Ooze'
 
@@ -519,6 +531,36 @@ makeAbility 'Magnet Pull', ->
     opponents = opponents.filter((p) -> p.isAlive())
     opponents = opponents.filter((p) -> p.hasType("Steel"))
     opponent.blockSwitch()  for opponent in opponents
+
+makeAbility 'Marvel Scale', ->
+  this::editDefense = (defense) ->
+    if @pokemon.hasStatus() then Math.floor(1.5 * defense) else defense
+
+makeAbility 'Minus', ->
+  this::modifyAttack = (move, target) ->
+    allies = @team.getActiveAlivePokemon()
+    if move.isSpecial() && allies.some((p) -> p.has(Ability.Plus))
+      0x1800
+    else
+      0x1000
+
+makeAbility 'Moody', ->
+  allBoosts = [ "attack", "defense", "speed", "specialAttack",
+                "specialDefense", "accuracy", "evasion" ]
+  this::endTurn = ->
+    possibleRaises = allBoosts.filter (stat) =>
+      @pokemon.stages[stat] < 6
+    raiseStat = @battle.rng.choice(possibleRaises, "moody raise")
+
+    possibleLowers = allBoosts.filter (stat) =>
+      @pokemon.stages[stat] > -6 && stat != raiseStat
+    lowerStat = @battle.rng.choice(possibleLowers, "moody lower")
+
+    boosts = {}
+    boosts[raiseStat] = 2   if raiseStat
+    boosts[lowerStat] = -1  if lowerStat
+    boostedStats = @pokemon.boost(boosts)
+    util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
 
 makeAbility 'Multiscale', ->
   this::modifyDamageTarget = ->
@@ -537,6 +579,14 @@ makeAbility 'No Guard', ->
 
 makeAbility 'Overcoat', ->
   this::isWeatherDamageImmune = -> true
+
+makeAbility 'Plus', ->
+  this::modifyAttack = (move, target) ->
+    allies = @team.getActiveAlivePokemon()
+    if move.isSpecial() && allies.some((p) -> p.has(Ability.Minus))
+      0x1800
+    else
+      0x1000
 
 makeAbility 'Poison Heal', ->
   # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
