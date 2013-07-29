@@ -577,6 +577,9 @@ makeAbility 'No Guard', ->
   this::editAccuracy = -> 0  # Never miss
   this::editEvasion  = -> 0  # Never miss
 
+# Hardcoded in move#typeEffectiveness
+makeAbility 'Normalize'
+
 makeAbility 'Overcoat', ->
   this::isWeatherDamageImmune = -> true
 
@@ -614,6 +617,14 @@ makeAbility 'Rain Dish', ->
     @battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
     amount = @pokemon.stat('hp') >> 4
     @pokemon.damage(-amount)
+
+makeAbility 'Rattled', ->
+  this::afterBeingHit = (move, user) ->
+    type = move.getType(@battle, user, @pokemon)
+    if type in [ "Bug", "Ghost", "Dark" ]
+      boosts = {speed: 1}
+      boostedStats = @pokemon.boost(boosts)
+      util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
 
 makeAbility 'Rivalry', ->
   this::modifyBasePower = (move, user, target) ->

@@ -1187,6 +1187,28 @@ describe "BW Abilities:", ->
       focusBlast = @battle.getMove("Focus Blast")
       focusBlast.chanceToHit(@battle, @p2, @p1).should.equal(0)
 
+  describe "Normalize", ->
+    it "makes every move act as if it were Normal type", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Normalize")]
+        team2: [Factory("Magikarp")]
+      thunderbolt = @battle.getMove("Thunderbolt")
+      thunderbolt.typeEffectiveness(@battle, @p1, @p2).should.equal(1)
+
+    it "has no effect if target is self", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Normalize")]
+        team2: [Factory("Magikarp")]
+      thunderbolt = @battle.getMove("Thunderbolt")
+      thunderbolt.typeEffectiveness(@battle, @p1, @p1).should.equal(2)
+
+    it "has no effect on struggle", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Normalize")]
+        team2: [Factory("Skarmory")]
+      struggle = @battle.getMove("Struggle")
+      struggle.typeEffectiveness(@battle, @p1, @p2).should.equal(1)
+
   describe "Overcoat", ->
     it "gives an immunity to adverse weather effects", ->
       shared.create.call this,
@@ -1286,6 +1308,18 @@ describe "BW Abilities:", ->
       @p1.currentHP = 1
       @battle.endTurn()
       @p1.currentHP.should.equal(1)
+
+  describe "Rattled", ->
+    for type in ["Ghost", "Bug", "Dark"]
+      do (type) ->
+        it "raises speed by 1 when hit by a #{type} move", ->
+          shared.create.call this,
+            team1: [Factory("Magikarp", ability: "Rattled")]
+          typedMove = @battle.getMoveList().find (m) ->
+            m.type == type
+          @p1.stages.speed.should.equal(0)
+          @battle.performMove(@id2, typedMove)
+          @p1.stages.speed.should.equal(1)
 
   describe "Regenerator", ->
     it "restores 1/3 of the user's HP upon switch out", ->

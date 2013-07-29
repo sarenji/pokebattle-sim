@@ -1841,6 +1841,8 @@ extendMove 'stealth-rock', ->
 extendMove 'struggle', ->
   @type = '???'
 
+  @typeEffectiveness = -> 1
+
   @afterSuccessfulHit = (battle, user, target) ->
     user.damage(user.stat('hp') >> 2)
 
