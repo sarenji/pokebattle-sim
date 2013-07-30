@@ -332,9 +332,6 @@ class @Pokemon
   beginTurn: ->
     @attachments.query('beginTurn')
 
-  afterTurnOrder: ->
-    @item.afterTurnOrder(@battle, this)  if !@isItemBlocked()
-
   beforeMove: (move, user, targets) ->
     @attachments.queryUntilFalse('beforeMove', move, user, targets)
 

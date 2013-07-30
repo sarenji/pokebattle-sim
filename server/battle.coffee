@@ -282,7 +282,11 @@ class @Battle
   # Use this callback to edit the turn order after players have selected
   # their orders, but before the turn continues.
   afterTurnOrder: ->
-    pokemon.afterTurnOrder()  for pokemon in @getActiveAlivePokemon()
+    pokemon = @getActiveAlivePokemon()
+    for p in pokemon
+      p.attachments.query('afterTurnOrder')
+    for p in pokemon
+      p.item.afterTurnOrder(this, p)  if !p.isItemBlocked()
 
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.

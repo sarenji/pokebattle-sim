@@ -724,6 +724,25 @@ makeAbility 'Sniper', ->
     return 0x1800  if @pokemon.crit
     return 0x1000
 
+makeAbility 'Snow Cloak', ->
+  this::editEvasion = (accuracy) ->
+    if @battle.hasWeather(Weather.HAIL)
+      Math.floor(.8 * accuracy)
+    else
+      accuracy
+
+  this::isWeatherDamageImmune = (weather) ->
+    return true  if weather == Weather.HAIL
+
+makeAbility 'Solar Power', ->
+  this::modifyAttack = (move, target) ->
+    return 0x1800  if move.isSpecial() && @battle.hasWeather(Weather.SUN)
+    return 0x1000
+
+  this::endTurn = ->
+    if @battle.hasWeather(Weather.SUN)
+      @pokemon.damage(@pokemon.stat('hp') >> 3)
+
 makeAbility 'Soundproof', ->
   this::isImmune = (type, move) ->
     return true  if move?.hasFlag('sound')
@@ -734,6 +753,10 @@ makeAbility 'Speed Boost', ->
     boosts = {speed: 1}
     boostedStats = @pokemon.boost(boosts)
     util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
+
+makeAbility 'Stall', ->
+  this::afterTurnOrder = ->
+    @battle.delay(@pokemon)
 
 # Hardcoded in Pokemon#hasTakeableItem
 makeAbility 'Sticky Hold'

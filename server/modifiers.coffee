@@ -216,10 +216,10 @@ basePowerModifier.add 150, (move, battle, user, target) ->
 #   return 0x1000
 
 # Solar Power
-attackStatModifier.add 60, (move, battle, user, target) ->
-  if user.hasAbility('Solar Power') && battle.hasWeather('Sun') && move.isSpecial()
-    return 0x1800
-  return 0x1000
+# attackStatModifier.add 60, (move, battle, user, target) ->
+#   if user.hasAbility('Solar Power') && battle.hasWeather('Sun') && move.isSpecial()
+#     return 0x1800
+#   return 0x1000
 
 # Hustle
 # attackStatModifier.add 60, (move, battle, user, target) ->

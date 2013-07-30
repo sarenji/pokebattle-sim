@@ -1519,6 +1519,50 @@ describe "BW Abilities:", ->
       @p1.crit = false
       tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
+  describe "Snow Cloak", ->
+    it "increases evasion by 25% in hail", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Snow Cloak")]
+      @battle.setWeather(Weather.HAIL)
+      tackle = @battle.getMove("Tackle")
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(80)
+
+    it "does nothing outside of hail", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Snow Cloak")]
+      tackle = @battle.getMove("Tackle")
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(100)
+
+    it "makes the user immune to hail", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Snow Cloak")]
+      @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
+
+  describe "Solar Power", ->
+    it "increases special attack by 50% in Sun", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Solar Power")]
+      @battle.setWeather(Weather.SUN)
+      tackle = @battle.getMove("Tackle")
+      fireBlast = @battle.getMove("Fire Blast")
+      tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      fireBlast.modifyAttack(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "owner loses 1/8 max HP per end of turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Solar Power")]
+      @battle.setWeather(Weather.SUN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(@p1.stat('hp') - (@p1.stat('hp') >> 3))
+
+    it "does nothing if the weather is not Sun", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Solar Power")]
+      fireBlast = @battle.getMove("Fire Blast")
+      fireBlast.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(@p1.stat('hp'))
+
   describe "Soundproof", ->
     it "makes user immune to sound moves", ->
       shared.create.call this,
@@ -1555,6 +1599,29 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sticky Hold")]
       @p1.hasTakeableItem().should.be.false
+
+  describe "Stall", ->
+    it "forces the user to move last no matter what", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", evs: {speed: 4}, ability: "Stall")]
+        team2: [Factory("Magikarp")]
+      splash = @battle.getMove("Splash")
+      @battle.recordMove(@id1, splash)
+      @battle.recordMove(@id2, splash)
+      @battle.determineTurnOrder()
+      ids = @battle.priorityQueue.map((o) -> o.pokemon.player.id)
+      ids.should.eql [ @id2, @id1 ]
+
+    it "moves before pokemon with lagging tail/full incense", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", evs: {speed: 4}, ability: "Stall")]
+        team2: [Factory("Magikarp", item: "Lagging Tail")]
+      splash = @battle.getMove("Splash")
+      @battle.recordMove(@id1, splash)
+      @battle.recordMove(@id2, splash)
+      @battle.determineTurnOrder()
+      ids = @battle.priorityQueue.map((o) -> o.pokemon.player.id)
+      ids.should.eql [ @id1, @id2 ]
 
   describe "Sturdy", ->
     it "prevents the user from being OHKOed at full HP", ->
