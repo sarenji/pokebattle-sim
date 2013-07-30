@@ -758,6 +758,9 @@ makeAbility 'Stall', ->
   this::afterTurnOrder = ->
     @battle.delay(@pokemon)
 
+# Hardcoded in Attachment.Flinch
+makeAbility 'Steadfast'
+
 # Hardcoded in Pokemon#hasTakeableItem
 makeAbility 'Sticky Hold'
 
@@ -788,6 +791,12 @@ makeAbility 'Technician', ->
   this::modifyBasePower = (move, user) ->
     return 0x1800  if move.basePower(@battle, user, @pokemon) <= 60
     return 0x1000
+
+makeAbility 'Telepathy', ->
+  this::shouldBlockExecution = (move, user) ->
+    return  if user not in @team.pokemon
+    @battle.message "#{@pokemon.name} avoids attacks by its ally Pokemon!"
+    return true
 
 makeAbility 'Thick Fat', ->
   this::modifyAttackTarget = (move, user) ->

@@ -558,8 +558,7 @@ class @Battle
         # TODO: Actually get selected Pokemon from client.
         [ @getOpponents(user)[0] ]
       when 'all-other-pokemon'
-        # TODO: Add your own party Pokemon as well.
-        @getOpponents(user)
+        @getActivePokemon().filter((p) -> p != user)
       when 'entire-field'
         @getActivePokemon()
       when 'random-opponent'

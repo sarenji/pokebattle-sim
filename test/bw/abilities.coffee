@@ -1623,6 +1623,15 @@ describe "BW Abilities:", ->
       ids = @battle.priorityQueue.map((o) -> o.pokemon.player.id)
       ids.should.eql [ @id1, @id2 ]
 
+  describe "Steadfast", ->
+    it "raises speed if the Pokemon flinches", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Steadfast")]
+      tackle = @battle.getMove("Tackle")
+      @p1.attach(Attachment.Flinch)
+      @p1.beforeMove(tackle, @p1, [ @p2 ])
+      @p1.stages.should.include(speed: 1)
+
   describe "Sturdy", ->
     it "prevents the user from being OHKOed at full HP", ->
       shared.create.call this,
@@ -1691,6 +1700,18 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Technician")]
       iceBeam = @battle.getMove("Ice Beam")
       iceBeam.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Telepathy", ->
+    it "cancels damaging attacks from an ally", ->
+      shared.create.call this,
+        numActive: 2
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Telepathy")]
+        team2: (Factory("Magikarp")  for x in [1..2])
+      earthquake = @battle.getMove("Earthquake")
+      mock = @sandbox.mock(earthquake).expects('hit').exactly(2)
+      @battle.performMove(@id1, earthquake)
+      @team1.at(1).currentHP.should.equal(@team1.at(1).stat('hp'))
+      mock.verify()
 
   describe "Thick Fat", ->
     it "halves the base power of Fire and Ice moves", ->

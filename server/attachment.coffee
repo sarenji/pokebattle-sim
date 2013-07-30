@@ -152,6 +152,7 @@ class @Attachment.Flinch extends @VolatileAttachment
 
   beforeMove: (move, user, targets) ->
     @battle.message "#{@pokemon.name} flinched!"
+    @pokemon.boost(speed: 1)  if @pokemon.hasAbility("Steadfast")
     false
 
   endTurn: ->
