@@ -1848,5 +1848,59 @@ describe "BW Abilities:", ->
   testTypeAbsorbMove("Water Absorb", "Water")
   testTypeAbsorbMove("Volt Absorb", "Electric")
 
+  describe "Weak Armor", ->
+    it "lowers defense and raises speed on physical attacks", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Weak Armor")]
+      tackle = @battle.getMove("Tackle")
+      @battle.performMove(@id2, tackle)
+      @p1.stages.should.include(defense: -1, speed: 1)
+
+    it "does nothing on any other kind of move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Weak Armor")]
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      @battle.performMove(@id2, willOWisp)
+      @p1.stages.should.include(defense: 0, speed: 0)
+
+  describe "Wonder Guard", ->
+    it "renders the Pokemon immune to non-super-effective moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Wonder Guard")]
+      tackle = @battle.getMove("Tackle")
+      mock = @sandbox.mock(tackle).expects('hit').never()
+      @battle.performMove(@id2, tackle)
+      mock.verify()
+
+    it "is not immune to struggle", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Wonder Guard")]
+      struggle = @battle.getMove("Struggle")
+      mock = @sandbox.mock(struggle).expects('hit').once()
+      @battle.performMove(@id2, struggle)
+      mock.verify()
+
+    it "is not immune to non-damaging moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Wonder Guard")]
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      mock = @sandbox.mock(willOWisp).expects('hit').once()
+      @battle.performMove(@id2, willOWisp)
+      mock.verify()
+
+    it "is not immune to super-effective moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Wonder Guard")]
+      typedMove = @battle.getMoveList().find (m) ->
+        !m.isNonDamaging() && m.type == 'Electric'
+      mock = @sandbox.mock(typedMove).expects('hit').once()
+      @battle.performMove(@id2, typedMove)
+      mock.verify()
+
+  describe "Wonder Skin", ->
+    it "makes non-damaging moves with over 50% accuracy have 50% accuracy"
+    it "adjusts accuracy before any other modifiers take effect"
+    it "does nothing to non-damaging moves with under 50% accuracy"
+
   describe "Zen Mode", ->
     it "changes Darmanitan's forme when going under or above 50% HP"

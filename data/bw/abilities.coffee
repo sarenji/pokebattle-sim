@@ -853,3 +853,14 @@ makeAbility 'Unnerve', ->
 makeAbility 'Victory Star', ->
   this::editAccuracy = (accuracy) ->
     Math.floor(accuracy * 1.1)
+
+makeAbility 'Weak Armor', ->
+  this::afterBeingHit = (move, user) ->
+    if move.isPhysical() then @pokemon.boost(defense: -1, speed: 1)
+
+makeAbility 'Wonder Guard', ->
+  this::shouldBlockExecution = (move, user) ->
+    return  if move == @battle.getMove("Struggle")
+    return  if move.isNonDamaging()
+    return  if move.typeEffectiveness(@battle, user, @pokemon) > 1
+    return true
