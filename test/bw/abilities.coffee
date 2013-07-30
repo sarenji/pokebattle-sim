@@ -1406,6 +1406,25 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Sand Force")]
       @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
 
+  describe "Sand Veil", ->
+    it "increases evasion by 25% in Sand", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Veil")]
+      @battle.setWeather(Weather.SAND)
+      tackle = @battle.getMove("Tackle")
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(80)
+
+    it "does nothing outside of Sand", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Veil")]
+      tackle = @battle.getMove("Tackle")
+      tackle.chanceToHit(@battle, @p2, @p1).should.equal(100)
+
+    it "makes the user immune to Sand", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Veil")]
+      @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
+
   describe "Scrappy", ->
     it "negates pokemon immunities", ->
       shared.create.call this,

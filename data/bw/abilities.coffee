@@ -649,11 +649,23 @@ makeAbility 'Regenerator', ->
 # Hardcoded in move.coffee
 makeAbility 'Rock Head'
 
+makeAbility 'Run Away'
+
 makeAbility 'Sand Force', ->
   this::modifyBasePower = (move, user) ->
     type = move.getType(@battle, user, @pokemon)
     return 0x14CD  if type in ['Rock', 'Ground', 'Steel']
     return 0x1000
+
+  this::isWeatherDamageImmune = (weather) ->
+    return true  if weather == Weather.SAND
+
+makeAbility 'Sand Veil', ->
+  this::editEvasion = (accuracy) ->
+    if @battle.hasWeather(Weather.SAND)
+      Math.floor(.8 * accuracy)
+    else
+      accuracy
 
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.SAND
