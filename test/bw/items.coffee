@@ -10,6 +10,8 @@ should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
 
+require '../helpers'
+
 describe "leftovers", ->
   it "heals 1/16 of a pokemon's HP at the end of a turn", ->
     shared.create.call this,
@@ -1415,3 +1417,19 @@ describe "Light Clay", ->
       @team1.has(Attachment.Reflect).should.be.true
       @battle.endTurn()
     @team1.has(Attachment.Reflect).should.be.false
+
+describe "Eviolite", ->
+  it "boosts defense and special defense by 50% if holder can evolve", ->
+    shared.create.call(this, team1: [Factory('Magikarp')])
+    defense = @p1.stat('defense')
+    specialDefense = @p1.stat('specialDefense')
+    @p1.setItem(Items['Eviolite'])
+    @p1.stat('defense').should.equal Math.floor(1.5 * defense)
+    @p1.stat('specialDefense').should.equal Math.floor(1.5 * specialDefense)
+
+  it "boosts nothing if holder cannot evolve", ->
+    shared.create.call(this, team1: [Factory('Mew')])
+    defense = @p1.stat('defense')
+    @p1.setItem(Items['Eviolite'])
+    @p1.stat('defense').should.equal(defense)
+    @p1.stat('specialDefense').should.equal(defense)

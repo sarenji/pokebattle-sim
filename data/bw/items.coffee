@@ -324,6 +324,11 @@ extendItem 'Enigma Berry', ->
     target.damage(-Math.floor(target.stat('hp') / 4))
     target.useItem()
 
+extendItem 'Eviolite', ->
+  @editDefense = @editSpecialDefense = (defense, holder) ->
+    return Math.floor(1.5 * defense)  if holder.nfe
+    return defense
+
 makeGemItem 'Fighting Gem', 'Fighting'
 makeFlavorHealingBerry 'Figy Berry', "attack"
 makeGemItem 'Fire Gem', 'Fire'

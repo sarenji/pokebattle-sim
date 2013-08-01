@@ -20,6 +20,7 @@ class @Pokemon
     @baseStats = attributes.stats || {}
     @weight = attributes.weight  # in kg
     @gender = attributes.gender || "Genderless"
+    @nfe = attributes.nfe
     @attachments = new Attachments()
 
     @nature = attributes.nature

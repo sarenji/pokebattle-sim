@@ -21,6 +21,7 @@ class @Team
       attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)
       attributes.types = (type  for type in specimen.types || [])
       attributes.species = specimen.species
+      attributes.nfe = (specimen.evolutions.length > 0)
       new Pokemon(attributes)
     @attachments = new Attachments()
 
