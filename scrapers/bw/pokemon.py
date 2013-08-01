@@ -49,10 +49,15 @@ class PokemonInfo:
     if move not in moves:
       moves.append(move)
 
+  def set_nfe(self, nfe):
+    self.info['nfe'] = nfe
+
 
 pokemon = []
 species = {} # Maps species_id to species names.
 formes = {}  # Maps pokemon stat/type data.
+evolution = {} # Maps evolution data.
+devolution = {} # Maps devolution data.
 
 def map_species_names():
   lines = requests.get(species_url).text.splitlines()
@@ -62,6 +67,35 @@ def map_species_names():
     line = lines.pop(0)
     species_id, name, generation_id, *tail = line.split(',')
     species[species_id] = string.capwords(string.capwords(name), '-')
+
+def map_evolution_line():
+  lines = requests.get(species_url).text.splitlines()
+  lines.pop(0) # get rid of info
+
+  while len(lines) > 0:
+    line = lines.pop(0)
+    species_id, name, generation_id, evolves_from_id, *tail = line.split(',')
+    if len(evolves_from_id) == 0: continue
+    evolution[species_id] = evolves_from_id
+    devolution[evolves_from_id] = species_id
+
+  for species_id, evolutions in evolution.items():
+    evolved_from = []
+    evolves_into = []
+    pokemon = species_id
+    while True:
+      pokemon = evolution.get(pokemon, None)
+      if pokemon is None: break
+      evolved_from.append(int(pokemon))
+
+    pokemon = species_id
+    while True:
+      pokemon = devolution.get(pokemon, None)
+      if pokemon is None: break
+      evolves_into.append(int(pokemon))
+
+    formes[species_id].info["evolutions"] = evolves_into
+    formes[species_id].info["prevolutions"] = evolved_from
 
 def create_formes():
   lines = requests.get(pokemon_url).text.splitlines()
@@ -138,6 +172,7 @@ def create_pokemon():
 
 map_species_names()
 create_formes()
+map_evolution_line()
 add_stats()
 add_types()
 add_moves()
