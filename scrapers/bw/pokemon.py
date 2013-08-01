@@ -181,4 +181,7 @@ create_pokemon()
 pokemon_json = {p.name:p.info for p in pokemon}
 
 with open(output_path, 'w') as f:
-  f.write(json.dumps(pokemon_json, sort_keys=True, indent=4))
+  s = json.dumps(pokemon_json, sort_keys=True, indent=4)
+  split = s.split('\n')
+  split = [ line.rstrip()  for line in split ]
+  f.write('\n'.join(split))
