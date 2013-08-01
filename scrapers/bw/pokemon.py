@@ -79,7 +79,7 @@ def map_evolution_line():
     evolution[species_id] = evolves_from_id
     devolution[evolves_from_id] = species_id
 
-  for species_id, evolutions in evolution.items():
+  for species_id in formes:
     evolved_from = []
     evolves_into = []
     pokemon = species_id

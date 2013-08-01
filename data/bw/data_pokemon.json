@@ -91,6 +91,10 @@
         "weight": 1355
     },
     "Abra": {
+        "evolutions": [
+            64,
+            65
+        ],
         "id": 63,
         "moves": [
             "Mega Punch",
@@ -182,6 +186,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Abra",
         "stats": {
             "attack": 20,
@@ -197,6 +202,7 @@
         "weight": 195
     },
     "Absol": {
+        "evolutions": [],
         "id": 359,
         "moves": [
             "Scratch",
@@ -304,6 +310,7 @@
             "Nightmare",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Absol",
         "stats": {
             "attack": 130,
@@ -381,6 +388,7 @@
         "weight": 253
     },
     "Aerodactyl": {
+        "evolutions": [],
         "id": 142,
         "moves": [
             "Razor Wind",
@@ -471,6 +479,7 @@
             "Incinerate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Aerodactyl",
         "stats": {
             "attack": 105,
@@ -615,6 +624,9 @@
         "weight": 3600
     },
     "Aipom": {
+        "evolutions": [
+            424
+        ],
         "id": 190,
         "moves": [
             "DoubleSlap",
@@ -717,6 +729,7 @@
             "Work Up",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Aipom",
         "stats": {
             "attack": 70,
@@ -850,6 +863,7 @@
         "weight": 480
     },
     "Alomomola": {
+        "evolutions": [],
         "id": 594,
         "moves": [
             "Pound",
@@ -906,6 +920,7 @@
             "Knock Off",
             "Bounce"
         ],
+        "prevolutions": [],
         "species": "Alomomola",
         "stats": {
             "attack": 75,
@@ -1281,6 +1296,9 @@
         "weight": 615
     },
     "Anorith": {
+        "evolutions": [
+            348
+        ],
         "id": 347,
         "moves": [
             "Scratch",
@@ -1345,6 +1363,7 @@
             "Struggle Bug",
             "Bug Bite"
         ],
+        "prevolutions": [],
         "species": "Anorith",
         "stats": {
             "attack": 95,
@@ -1550,6 +1569,7 @@
         "weight": 1550
     },
     "Arceus (bug)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -1678,6 +1698,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -1693,6 +1714,7 @@
         "weight": 3200
     },
     "Arceus (dark)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -1821,6 +1843,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -1836,6 +1859,7 @@
         "weight": 3200
     },
     "Arceus (dragon)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -1964,6 +1988,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -1979,6 +2004,7 @@
         "weight": 3200
     },
     "Arceus (electric)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2107,6 +2133,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2122,6 +2149,7 @@
         "weight": 3200
     },
     "Arceus (fighting)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2250,6 +2278,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2265,6 +2294,7 @@
         "weight": 3200
     },
     "Arceus (fire)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2393,6 +2423,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2408,6 +2439,7 @@
         "weight": 3200
     },
     "Arceus (flying)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2536,6 +2568,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2551,6 +2584,7 @@
         "weight": 3200
     },
     "Arceus (ghost)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2679,6 +2713,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2694,6 +2729,7 @@
         "weight": 3200
     },
     "Arceus (grass)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2822,6 +2858,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2837,6 +2874,7 @@
         "weight": 3200
     },
     "Arceus (ground)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -2965,6 +3003,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -2980,6 +3019,7 @@
         "weight": 3200
     },
     "Arceus (ice)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3108,6 +3148,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3123,6 +3164,7 @@
         "weight": 3200
     },
     "Arceus (normal)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3251,6 +3293,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3266,6 +3309,7 @@
         "weight": 3200
     },
     "Arceus (poison)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3394,6 +3438,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3409,6 +3454,7 @@
         "weight": 3200
     },
     "Arceus (psychic)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3537,6 +3583,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3552,6 +3599,7 @@
         "weight": 3200
     },
     "Arceus (rock)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3680,6 +3728,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3695,6 +3744,7 @@
         "weight": 3200
     },
     "Arceus (steel)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3823,6 +3873,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3838,6 +3889,7 @@
         "weight": 3200
     },
     "Arceus (unknown)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -3966,6 +4018,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -3981,6 +4034,7 @@
         "weight": 3200
     },
     "Arceus (water)": {
+        "evolutions": [],
         "id": 706,
         "moves": [
             "Swords Dance",
@@ -4109,6 +4163,7 @@
             "Work Up",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Arceus",
         "stats": {
             "attack": 120,
@@ -4124,6 +4179,9 @@
         "weight": 3200
     },
     "Archen": {
+        "evolutions": [
+            567
+        ],
         "id": 566,
         "moves": [
             "Cut",
@@ -4190,6 +4248,7 @@
             "Aqua Tail",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Archen",
         "stats": {
             "attack": 112,
@@ -4465,6 +4524,10 @@
         "weight": 682
     },
     "Aron": {
+        "evolutions": [
+            305,
+            306
+        ],
         "id": 304,
         "moves": [
             "Cut",
@@ -4537,6 +4600,7 @@
             "Round",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Aron",
         "stats": {
             "attack": 70,
@@ -4553,6 +4617,7 @@
         "weight": 600
     },
     "Articuno": {
+        "evolutions": [],
         "id": 144,
         "moves": [
             "Razor Wind",
@@ -4624,6 +4689,7 @@
             "Frost Breath",
             "Hurricane"
         ],
+        "prevolutions": [],
         "species": "Articuno",
         "stats": {
             "attack": 85,
@@ -4640,6 +4706,7 @@
         "weight": 554
     },
     "Audino": {
+        "evolutions": [],
         "id": 531,
         "moves": [
             "Pound",
@@ -4731,6 +4798,7 @@
             "Drain Punch",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Audino",
         "stats": {
             "attack": 60,
@@ -4746,6 +4814,10 @@
         "weight": 310
     },
     "Axew": {
+        "evolutions": [
+            611,
+            612
+        ],
         "id": 610,
         "moves": [
             "Scratch",
@@ -4806,6 +4878,7 @@
             "Superpower",
             "Aqua Tail"
         ],
+        "prevolutions": [],
         "species": "Axew",
         "stats": {
             "attack": 87,
@@ -4821,6 +4894,7 @@
         "weight": 180
     },
     "Azelf": {
+        "evolutions": [],
         "id": 482,
         "moves": [
             "Flamethrower",
@@ -4902,6 +4976,7 @@
             "Wonder Room",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Azelf",
         "stats": {
             "attack": 125,
@@ -5012,6 +5087,10 @@
         "weight": 285
     },
     "Azurill": {
+        "evolutions": [
+            183,
+            184
+        ],
         "id": 298,
         "moves": [
             "Slam",
@@ -5075,6 +5154,7 @@
             "Bounce",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Azurill",
         "stats": {
             "attack": 20,
@@ -5090,6 +5170,10 @@
         "weight": 20
     },
     "Bagon": {
+        "evolutions": [
+            372,
+            373
+        ],
         "id": 371,
         "moves": [
             "Cut",
@@ -5154,6 +5238,7 @@
             "Incinerate",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Bagon",
         "stats": {
             "attack": 75,
@@ -5169,6 +5254,9 @@
         "weight": 421
     },
     "Baltoy": {
+        "evolutions": [
+            344
+        ],
         "id": 343,
         "moves": [
             "Ice Beam",
@@ -5244,6 +5332,7 @@
             "Wonder Room",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Baltoy",
         "stats": {
             "attack": 40,
@@ -5353,6 +5442,9 @@
         "weight": 125
     },
     "Barboach": {
+        "evolutions": [
+            340
+        ],
         "id": 339,
         "moves": [
             "Thrash",
@@ -5412,6 +5504,7 @@
             "Scald",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Barboach",
         "stats": {
             "attack": 48,
@@ -5428,6 +5521,7 @@
         "weight": 19
     },
     "Basculin (blue-striped)": {
+        "evolutions": [],
         "id": 715,
         "moves": [
             "Cut",
@@ -5484,6 +5578,7 @@
             "Bounce",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Basculin",
         "stats": {
             "attack": 92,
@@ -5499,6 +5594,7 @@
         "weight": 180
     },
     "Basculin (red-striped)": {
+        "evolutions": [],
         "id": 550,
         "moves": [
             "Cut",
@@ -5555,6 +5651,7 @@
             "Bounce",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Basculin",
         "stats": {
             "attack": 92,
@@ -6080,6 +6177,10 @@
         "weight": 345
     },
     "Beldum": {
+        "evolutions": [
+            375,
+            376
+        ],
         "id": 374,
         "moves": [
             "Take Down",
@@ -6088,6 +6189,7 @@
             "Iron Head",
             "Headbutt"
         ],
+        "prevolutions": [],
         "species": "Beldum",
         "stats": {
             "attack": 55,
@@ -6178,6 +6280,10 @@
         "weight": 58
     },
     "Bellsprout": {
+        "evolutions": [
+            70,
+            71
+        ],
         "id": 69,
         "moves": [
             "Swords Dance",
@@ -6245,6 +6351,7 @@
             "Clear Smog",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Bellsprout",
         "stats": {
             "attack": 75,
@@ -6357,6 +6464,9 @@
         "weight": 315
     },
     "Bidoof": {
+        "evolutions": [
+            400
+        ],
         "id": 399,
         "moves": [
             "Cut",
@@ -6426,6 +6536,7 @@
             "Work Up",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Bidoof",
         "stats": {
             "attack": 45,
@@ -6892,6 +7003,9 @@
         "weight": 468
     },
     "Blitzle": {
+        "evolutions": [
+            523
+        ],
         "id": 522,
         "moves": [
             "Stomp",
@@ -6940,6 +7054,7 @@
             "Bounce",
             "Magnet Rise"
         ],
+        "prevolutions": [],
         "species": "Blitzle",
         "stats": {
             "attack": 60,
@@ -7017,6 +7132,9 @@
         "weight": 1020
     },
     "Bonsly": {
+        "evolutions": [
+            185
+        ],
         "id": 438,
         "moves": [
             "Slam",
@@ -7076,6 +7194,7 @@
             "Foul Play",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Bonsly",
         "stats": {
             "attack": 80,
@@ -7091,6 +7210,7 @@
         "weight": 150
     },
     "Bouffalant": {
+        "evolutions": [],
         "id": 626,
         "moves": [
             "Swords Dance",
@@ -7153,6 +7273,7 @@
             "Endeavor",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Bouffalant",
         "stats": {
             "attack": 110,
@@ -7435,6 +7556,9 @@
         "weight": 1870
     },
     "Bronzor": {
+        "evolutions": [
+            437
+        ],
         "id": 436,
         "moves": [
             "Tackle",
@@ -7502,6 +7626,7 @@
             "Metal Sound",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Bronzor",
         "stats": {
             "attack": 24,
@@ -7518,6 +7643,10 @@
         "weight": 605
     },
     "Budew": {
+        "evolutions": [
+            315,
+            407
+        ],
         "id": 406,
         "moves": [
             "Swords Dance",
@@ -7574,6 +7703,7 @@
             "Round",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Budew",
         "stats": {
             "attack": 30,
@@ -7590,6 +7720,9 @@
         "weight": 12
     },
     "Buizel": {
+        "evolutions": [
+            419
+        ],
         "id": 418,
         "moves": [
             "DoubleSlap",
@@ -7658,6 +7791,7 @@
             "Hydro Pump",
             "Double Hit"
         ],
+        "prevolutions": [],
         "species": "Buizel",
         "stats": {
             "attack": 65,
@@ -7673,6 +7807,10 @@
         "weight": 295
     },
     "Bulbasaur": {
+        "evolutions": [
+            2,
+            3
+        ],
         "id": 1,
         "moves": [
             "Swords Dance",
@@ -7751,6 +7889,7 @@
             "Grass Pledge",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Bulbasaur",
         "stats": {
             "attack": 49,
@@ -7767,6 +7906,9 @@
         "weight": 69
     },
     "Buneary": {
+        "evolutions": [
+            428
+        ],
         "id": 427,
         "moves": [
             "Pound",
@@ -7847,6 +7989,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Buneary",
         "stats": {
             "attack": 66,
@@ -7862,6 +8005,9 @@
         "weight": 55
     },
     "Burmy (plant)": {
+        "evolutions": [
+            414
+        ],
         "id": 684,
         "moves": [
             "Tackle",
@@ -7872,6 +8018,7 @@
             "String Shot",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Burmy",
         "stats": {
             "attack": 29,
@@ -7887,6 +8034,9 @@
         "weight": 34
     },
     "Burmy (sandy)": {
+        "evolutions": [
+            414
+        ],
         "id": 684,
         "moves": [
             "Tackle",
@@ -7897,6 +8047,7 @@
             "String Shot",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Burmy",
         "stats": {
             "attack": 29,
@@ -7912,6 +8063,9 @@
         "weight": 34
     },
     "Burmy (trash)": {
+        "evolutions": [
+            414
+        ],
         "id": 684,
         "moves": [
             "Tackle",
@@ -7922,6 +8076,7 @@
             "String Shot",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Burmy",
         "stats": {
             "attack": 29,
@@ -8035,6 +8190,9 @@
         "weight": 320
     },
     "Cacnea": {
+        "evolutions": [
+            332
+        ],
         "id": 331,
         "moves": [
             "Cut",
@@ -8114,6 +8272,7 @@
             "Venoshock",
             "Round"
         ],
+        "prevolutions": [],
         "species": "Cacnea",
         "stats": {
             "attack": 85,
@@ -8321,6 +8480,7 @@
         "weight": 2200
     },
     "Carnivine": {
+        "evolutions": [],
         "id": 455,
         "moves": [
             "Swords Dance",
@@ -8387,6 +8547,7 @@
             "Round",
             "Leaf Tornado"
         ],
+        "prevolutions": [],
         "species": "Carnivine",
         "stats": {
             "attack": 100,
@@ -8483,6 +8644,9 @@
         "weight": 810
     },
     "Carvanha": {
+        "evolutions": [
+            319
+        ],
         "id": 318,
         "moves": [
             "Take Down",
@@ -8548,6 +8712,7 @@
             "Retaliate",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Carvanha",
         "stats": {
             "attack": 90,
@@ -8593,6 +8758,7 @@
         "weight": 115
     },
     "Castform": {
+        "evolutions": [],
         "id": 351,
         "moves": [
             "Tackle",
@@ -8660,6 +8826,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Castform",
         "stats": {
             "attack": 70,
@@ -8675,6 +8842,7 @@
         "weight": 8
     },
     "Castform (rainy)": {
+        "evolutions": [],
         "id": 678,
         "moves": [
             "Tackle",
@@ -8742,6 +8910,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Castform",
         "stats": {
             "attack": 70,
@@ -8757,6 +8926,7 @@
         "weight": 8
     },
     "Castform (snowy)": {
+        "evolutions": [],
         "id": 679,
         "moves": [
             "Tackle",
@@ -8824,6 +8994,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Castform",
         "stats": {
             "attack": 70,
@@ -8839,6 +9010,7 @@
         "weight": 8
     },
     "Castform (sunny)": {
+        "evolutions": [],
         "id": 677,
         "moves": [
             "Tackle",
@@ -8906,6 +9078,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Castform",
         "stats": {
             "attack": 70,
@@ -8921,6 +9094,10 @@
         "weight": 8
     },
     "Caterpie": {
+        "evolutions": [
+            11,
+            12
+        ],
         "id": 10,
         "moves": [
             "Tackle",
@@ -8929,6 +9106,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Caterpie",
         "stats": {
             "attack": 30,
@@ -8944,6 +9122,7 @@
         "weight": 29
     },
     "Celebi": {
+        "evolutions": [],
         "id": 251,
         "moves": [
             "Hyper Beam",
@@ -9031,6 +9210,7 @@
             "Wonder Room",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Celebi",
         "stats": {
             "attack": 100,
@@ -9388,6 +9568,10 @@
         "weight": 905
     },
     "Charmander": {
+        "evolutions": [
+            5,
+            6
+        ],
         "id": 4,
         "moves": [
             "Mega Punch",
@@ -9480,6 +9664,7 @@
             "Inferno",
             "Fire Pledge"
         ],
+        "prevolutions": [],
         "species": "Charmander",
         "stats": {
             "attack": 52,
@@ -9599,6 +9784,7 @@
         "weight": 190
     },
     "Chatot": {
+        "evolutions": [],
         "id": 441,
         "moves": [
             "Fly",
@@ -9659,6 +9845,7 @@
             "Echoed Voice",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Chatot",
         "stats": {
             "attack": 65,
@@ -9803,6 +9990,9 @@
         "weight": 93
     },
     "Cherubi": {
+        "evolutions": [
+            421
+        ],
         "id": 420,
         "moves": [
             "Swords Dance",
@@ -9855,6 +10045,7 @@
             "Round",
             "Heal Pulse"
         ],
+        "prevolutions": [],
         "species": "Cherubi",
         "stats": {
             "attack": 35,
@@ -9870,6 +10061,10 @@
         "weight": 33
     },
     "Chikorita": {
+        "evolutions": [
+            153,
+            154
+        ],
         "id": 152,
         "moves": [
             "Cut",
@@ -9937,6 +10132,7 @@
             "Heal Pulse",
             "Grass Pledge"
         ],
+        "prevolutions": [],
         "species": "Chikorita",
         "stats": {
             "attack": 49,
@@ -9952,6 +10148,10 @@
         "weight": 64
     },
     "Chimchar": {
+        "evolutions": [
+            391,
+            392
+        ],
         "id": 390,
         "moves": [
             "Fire Punch",
@@ -10034,6 +10234,7 @@
             "Fire Pledge",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Chimchar",
         "stats": {
             "attack": 58,
@@ -10149,6 +10350,9 @@
         "weight": 10
     },
     "Chinchou": {
+        "evolutions": [
+            171
+        ],
         "id": 170,
         "moves": [
             "Take Down",
@@ -10216,6 +10420,7 @@
             "Volt Switch",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Chinchou",
         "stats": {
             "attack": 38,
@@ -10232,6 +10437,9 @@
         "weight": 120
     },
     "Chingling": {
+        "evolutions": [
+            358
+        ],
         "id": 433,
         "moves": [
             "Wrap",
@@ -10304,6 +10512,7 @@
             "Bind",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Chingling",
         "stats": {
             "attack": 30,
@@ -10390,6 +10599,9 @@
         "weight": 75
     },
     "Clamperl": {
+        "evolutions": [
+            368
+        ],
         "id": 366,
         "moves": [
             "Body Slam",
@@ -10437,6 +10649,7 @@
             "Scald",
             "Shell Smash"
         ],
+        "prevolutions": [],
         "species": "Clamperl",
         "stats": {
             "attack": 64,
@@ -10834,6 +11047,10 @@
         "weight": 75
     },
     "Cleffa": {
+        "evolutions": [
+            35,
+            36
+        ],
         "id": 173,
         "moves": [
             "Pound",
@@ -10929,6 +11146,7 @@
             "Wonder Room",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Cleffa",
         "stats": {
             "attack": 25,
@@ -11026,6 +11244,7 @@
         "weight": 1325
     },
     "Cobalion": {
+        "evolutions": [],
         "id": 638,
         "moves": [
             "Swords Dance",
@@ -11086,6 +11305,7 @@
             "Zen Headbutt",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Cobalion",
         "stats": {
             "attack": 90,
@@ -11182,6 +11402,9 @@
         "weight": 765
     },
     "Combee": {
+        "evolutions": [
+            416
+        ],
         "id": 415,
         "moves": [
             "Gust",
@@ -11197,6 +11420,7 @@
             "Tailwind",
             "Bug Buzz"
         ],
+        "prevolutions": [],
         "species": "Combee",
         "stats": {
             "attack": 30,
@@ -11397,6 +11621,9 @@
         "weight": 870
     },
     "Corphish": {
+        "evolutions": [
+            342
+        ],
         "id": 341,
         "moves": [
             "ViceGrip",
@@ -11470,6 +11697,7 @@
             "Chip Away",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Corphish",
         "stats": {
             "attack": 80,
@@ -11485,6 +11713,7 @@
         "weight": 115
     },
     "Corsola": {
+        "evolutions": [],
         "id": 222,
         "moves": [
             "Headbutt",
@@ -11573,6 +11802,7 @@
             "Flail",
             "Iron Defense"
         ],
+        "prevolutions": [],
         "species": "Corsola",
         "stats": {
             "attack": 55,
@@ -11589,6 +11819,9 @@
         "weight": 50
     },
     "Cottonee": {
+        "evolutions": [
+            547
+        ],
         "id": 546,
         "moves": [
             "Absorb",
@@ -11640,6 +11873,7 @@
             "Tailwind",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Cottonee",
         "stats": {
             "attack": 27,
@@ -11745,6 +11979,9 @@
         "weight": 604
     },
     "Cranidos": {
+        "evolutions": [
+            409
+        ],
         "id": 408,
         "moves": [
             "Swords Dance",
@@ -11825,6 +12062,7 @@
             "Incinerate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Cranidos",
         "stats": {
             "attack": 125,
@@ -11937,6 +12175,7 @@
         "weight": 328
     },
     "Cresselia": {
+        "evolutions": [],
         "id": 488,
         "moves": [
             "Mist",
@@ -12002,6 +12241,7 @@
             "Round",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Cresselia",
         "stats": {
             "attack": 70,
@@ -12017,6 +12257,9 @@
         "weight": 856
     },
     "Croagunk": {
+        "evolutions": [
+            454
+        ],
         "id": 453,
         "moves": [
             "Headbutt",
@@ -12107,6 +12350,7 @@
             "Foul Play",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Croagunk",
         "stats": {
             "attack": 61,
@@ -12391,6 +12635,7 @@
         "weight": 2000
     },
     "Cryogonal": {
+        "evolutions": [],
         "id": 615,
         "moves": [
             "Bind",
@@ -12439,6 +12684,7 @@
             "Signal Beam",
             "Iron Defense"
         ],
+        "prevolutions": [],
         "species": "Cryogonal",
         "stats": {
             "attack": 50,
@@ -12454,6 +12700,9 @@
         "weight": 1480
     },
     "Cubchoo": {
+        "evolutions": [
+            614
+        ],
         "id": 613,
         "moves": [
             "Ice Punch",
@@ -12510,6 +12759,7 @@
             "Superpower",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Cubchoo",
         "stats": {
             "attack": 70,
@@ -12525,6 +12775,9 @@
         "weight": 85
     },
     "Cubone": {
+        "evolutions": [
+            105
+        ],
         "id": 104,
         "moves": [
             "Mega Punch",
@@ -12618,6 +12871,7 @@
             "Retaliate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Cubone",
         "stats": {
             "attack": 50,
@@ -12633,6 +12887,10 @@
         "weight": 65
     },
     "Cyndaquil": {
+        "evolutions": [
+            156,
+            157
+        ],
         "id": 155,
         "moves": [
             "Cut",
@@ -12700,6 +12958,7 @@
             "Fire Pledge",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Cyndaquil",
         "stats": {
             "attack": 52,
@@ -12715,6 +12974,7 @@
         "weight": 79
     },
     "Darkrai": {
+        "evolutions": [],
         "id": 491,
         "moves": [
             "Swords Dance",
@@ -12801,6 +13061,7 @@
             "Wonder Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Darkrai",
         "stats": {
             "attack": 90,
@@ -12900,6 +13161,7 @@
         "weight": 929
     },
     "Darmanitan (zen)": {
+        "evolutions": [],
         "id": 716,
         "moves": [
             "Fire Punch",
@@ -12965,6 +13227,7 @@
             "Endeavor",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Darmanitan",
         "stats": {
             "attack": 30,
@@ -12981,6 +13244,9 @@
         "weight": 929
     },
     "Darumaka": {
+        "evolutions": [
+            555
+        ],
         "id": 554,
         "moves": [
             "Fire Punch",
@@ -13042,6 +13308,7 @@
             "Endeavor",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Darumaka",
         "stats": {
             "attack": 90,
@@ -13057,6 +13324,9 @@
         "weight": 375
     },
     "Deerling (autumn)": {
+        "evolutions": [
+            586
+        ],
         "id": 719,
         "moves": [
             "Double Kick",
@@ -13113,6 +13383,7 @@
             "Last Resort",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Deerling",
         "stats": {
             "attack": 60,
@@ -13129,6 +13400,9 @@
         "weight": 195
     },
     "Deerling (spring)": {
+        "evolutions": [
+            586
+        ],
         "id": 719,
         "moves": [
             "Double Kick",
@@ -13185,6 +13459,7 @@
             "Last Resort",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Deerling",
         "stats": {
             "attack": 60,
@@ -13201,6 +13476,9 @@
         "weight": 195
     },
     "Deerling (summer)": {
+        "evolutions": [
+            586
+        ],
         "id": 719,
         "moves": [
             "Double Kick",
@@ -13257,6 +13535,7 @@
             "Last Resort",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Deerling",
         "stats": {
             "attack": 60,
@@ -13273,6 +13552,9 @@
         "weight": 195
     },
     "Deerling (winter)": {
+        "evolutions": [
+            586
+        ],
         "id": 719,
         "moves": [
             "Double Kick",
@@ -13329,6 +13611,7 @@
             "Last Resort",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Deerling",
         "stats": {
             "attack": 60,
@@ -13345,6 +13628,10 @@
         "weight": 195
     },
     "Deino": {
+        "evolutions": [
+            634,
+            635
+        ],
         "id": 633,
         "moves": [
             "Slam",
@@ -13405,6 +13692,7 @@
             "Aqua Tail",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Deino",
         "stats": {
             "attack": 65,
@@ -13511,6 +13799,7 @@
         "weight": 326
     },
     "Delibird": {
+        "evolutions": [],
         "id": 225,
         "moves": [
             "Fly",
@@ -13578,6 +13867,7 @@
             "Bestow",
             "Frost Breath"
         ],
+        "prevolutions": [],
         "species": "Delibird",
         "stats": {
             "attack": 55,
@@ -13594,6 +13884,7 @@
         "weight": 160
     },
     "Deoxys (attack)": {
+        "evolutions": [],
         "id": 680,
         "moves": [
             "Mega Punch",
@@ -13689,6 +13980,7 @@
             "Bind",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Deoxys",
         "stats": {
             "attack": 180,
@@ -13704,6 +13996,7 @@
         "weight": 608
     },
     "Deoxys (defense)": {
+        "evolutions": [],
         "id": 681,
         "moves": [
             "Mega Punch",
@@ -13801,6 +14094,7 @@
             "Bind",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Deoxys",
         "stats": {
             "attack": 70,
@@ -13816,6 +14110,7 @@
         "weight": 608
     },
     "Deoxys (normal)": {
+        "evolutions": [],
         "id": 386,
         "moves": [
             "Cut",
@@ -13914,6 +14209,7 @@
             "Bind",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Deoxys",
         "stats": {
             "attack": 150,
@@ -13929,6 +14225,7 @@
         "weight": 608
     },
     "Deoxys (speed)": {
+        "evolutions": [],
         "id": 682,
         "moves": [
             "Mega Punch",
@@ -14030,6 +14327,7 @@
             "Bind",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Deoxys",
         "stats": {
             "attack": 95,
@@ -14205,6 +14503,7 @@
         "weight": 245
     },
     "Dialga": {
+        "evolutions": [],
         "id": 483,
         "moves": [
             "Cut",
@@ -14287,6 +14586,7 @@
             "Dragon Tail",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Dialga",
         "stats": {
             "attack": 120,
@@ -14303,6 +14603,9 @@
         "weight": 6830
     },
     "Diglett": {
+        "evolutions": [
+            51
+        ],
         "id": 50,
         "moves": [
             "Scratch",
@@ -14369,6 +14672,7 @@
             "Final Gambit",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Diglett",
         "stats": {
             "attack": 55,
@@ -14384,10 +14688,12 @@
         "weight": 8
     },
     "Ditto": {
+        "evolutions": [],
         "id": 132,
         "moves": [
             "Transform"
         ],
+        "prevolutions": [],
         "species": "Ditto",
         "stats": {
             "attack": 48,
@@ -14485,6 +14791,9 @@
         "weight": 852
     },
     "Doduo": {
+        "evolutions": [
+            85
+        ],
         "id": 84,
         "moves": [
             "Whirlwind",
@@ -14550,6 +14859,7 @@
             "Echoed Voice",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Doduo",
         "stats": {
             "attack": 85,
@@ -14981,6 +15291,10 @@
         "weight": 615
     },
     "Dratini": {
+        "evolutions": [
+            148,
+            149
+        ],
         "id": 147,
         "moves": [
             "Slam",
@@ -15058,6 +15372,7 @@
             "Dragon Tail",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Dratini",
         "stats": {
             "attack": 64,
@@ -15168,6 +15483,9 @@
         "weight": 150
     },
     "Drifloon": {
+        "evolutions": [
+            426
+        ],
         "id": 425,
         "moves": [
             "Cut",
@@ -15248,6 +15566,7 @@
             "Bind",
             "Amnesia"
         ],
+        "prevolutions": [],
         "species": "Drifloon",
         "stats": {
             "attack": 50,
@@ -15264,6 +15583,9 @@
         "weight": 12
     },
     "Drilbur": {
+        "evolutions": [
+            530
+        ],
         "id": 529,
         "moves": [
             "Scratch",
@@ -15316,6 +15638,7 @@
             "Sleep Talk",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Drilbur",
         "stats": {
             "attack": 85,
@@ -15331,6 +15654,9 @@
         "weight": 85
     },
     "Drowzee": {
+        "evolutions": [
+            97
+        ],
         "id": 96,
         "moves": [
             "Pound",
@@ -15426,6 +15752,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Drowzee",
         "stats": {
             "attack": 48,
@@ -15441,6 +15768,7 @@
         "weight": 324
     },
     "Druddigon": {
+        "evolutions": [],
         "id": 621,
         "moves": [
             "Scratch",
@@ -15524,6 +15852,7 @@
             "Iron Head",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Druddigon",
         "stats": {
             "attack": 120,
@@ -15539,6 +15868,9 @@
         "weight": 1390
     },
     "Ducklett": {
+        "evolutions": [
+            581
+        ],
         "id": 580,
         "moves": [
             "Gust",
@@ -15588,6 +15920,7 @@
             "Uproar",
             "Endeavor"
         ],
+        "prevolutions": [],
         "species": "Ducklett",
         "stats": {
             "attack": 44,
@@ -15687,6 +16020,7 @@
         "weight": 333
     },
     "Dunsparce": {
+        "evolutions": [],
         "id": 206,
         "moves": [
             "Headbutt",
@@ -15776,6 +16110,7 @@
             "Bind",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Dunsparce",
         "stats": {
             "attack": 70,
@@ -15869,6 +16204,7 @@
         "weight": 80
     },
     "Durant": {
+        "evolutions": [],
         "id": 632,
         "moves": [
             "ViceGrip",
@@ -15926,6 +16262,7 @@
             "Superpower",
             "Endeavor"
         ],
+        "prevolutions": [],
         "species": "Durant",
         "stats": {
             "attack": 109,
@@ -16155,6 +16492,10 @@
         "weight": 1066
     },
     "Duskull": {
+        "evolutions": [
+            356,
+            477
+        ],
         "id": 355,
         "moves": [
             "Leer",
@@ -16229,6 +16570,7 @@
             "Nightmare",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Duskull",
         "stats": {
             "attack": 40,
@@ -16324,6 +16666,9 @@
         "weight": 316
     },
     "Dwebble": {
+        "evolutions": [
+            558
+        ],
         "id": 557,
         "moves": [
             "Swords Dance",
@@ -16381,6 +16726,7 @@
             "Sleep Talk",
             "Knock Off"
         ],
+        "prevolutions": [],
         "species": "Dwebble",
         "stats": {
             "attack": 65,
@@ -16548,6 +16894,9 @@
         "weight": 805
     },
     "Eevee": {
+        "evolutions": [
+            471
+        ],
         "id": 133,
         "moves": [
             "Sand-Attack",
@@ -16612,6 +16961,7 @@
             "Work Up",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Eevee",
         "stats": {
             "attack": 55,
@@ -16627,6 +16977,9 @@
         "weight": 65
     },
     "Ekans": {
+        "evolutions": [
+            24
+        ],
         "id": 23,
         "moves": [
             "Body Slam",
@@ -16708,6 +17061,7 @@
             "Bulldoze",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Ekans",
         "stats": {
             "attack": 60,
@@ -16918,6 +17272,9 @@
         "weight": 1386
     },
     "Electrike": {
+        "evolutions": [
+            310
+        ],
         "id": 309,
         "moves": [
             "Headbutt",
@@ -16981,6 +17338,7 @@
             "Wild Charge",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Electrike",
         "stats": {
             "attack": 45,
@@ -17076,6 +17434,10 @@
         "weight": 666
     },
     "Elekid": {
+        "evolutions": [
+            125,
+            466
+        ],
         "id": 239,
         "moves": [
             "Karate Chop",
@@ -17151,6 +17513,7 @@
             "Electroweb",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Elekid",
         "stats": {
             "attack": 63,
@@ -17166,6 +17529,9 @@
         "weight": 235
     },
     "Elgyem": {
+        "evolutions": [
+            606
+        ],
         "id": 605,
         "moves": [
             "Headbutt",
@@ -17239,6 +17605,7 @@
             "Dark Pulse",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Elgyem",
         "stats": {
             "attack": 55,
@@ -17351,6 +17718,7 @@
         "weight": 1500
     },
     "Emolga": {
+        "evolutions": [],
         "id": 587,
         "moves": [
             "Cut",
@@ -17407,6 +17775,7 @@
             "Tailwind",
             "Last Resort"
         ],
+        "prevolutions": [],
         "species": "Emolga",
         "stats": {
             "attack": 75,
@@ -17524,6 +17893,7 @@
         "weight": 845
     },
     "Entei": {
+        "evolutions": [],
         "id": 244,
         "moves": [
             "Cut",
@@ -17590,6 +17960,7 @@
             "Bulldoze",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Entei",
         "stats": {
             "attack": 115,
@@ -17834,6 +18205,9 @@
         "weight": 404
     },
     "Exeggcute": {
+        "evolutions": [
+            103
+        ],
         "id": 102,
         "moves": [
             "Take Down",
@@ -17910,6 +18284,7 @@
             "Bestow",
             "Extrasensory"
         ],
+        "prevolutions": [],
         "species": "Exeggcute",
         "stats": {
             "attack": 40,
@@ -18128,6 +18503,7 @@
         "weight": 840
     },
     "Farfetchd": {
+        "evolutions": [],
         "id": 83,
         "moves": [
             "Razor Wind",
@@ -18213,6 +18589,7 @@
             "Helping Hand",
             "Tailwind"
         ],
+        "prevolutions": [],
         "species": "Farfetchd",
         "stats": {
             "attack": 65,
@@ -18313,6 +18690,9 @@
         "weight": 380
     },
     "Feebas": {
+        "evolutions": [
+            350
+        ],
         "id": 349,
         "moves": [
             "Tackle",
@@ -18363,6 +18743,7 @@
             "Round",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Feebas",
         "stats": {
             "attack": 15,
@@ -18494,6 +18875,9 @@
         "weight": 888
     },
     "Ferroseed": {
+        "evolutions": [
+            598
+        ],
         "id": 597,
         "moves": [
             "Tackle",
@@ -18546,6 +18930,7 @@
             "Endeavor",
             "Magnet Rise"
         ],
+        "prevolutions": [],
         "species": "Ferroseed",
         "stats": {
             "attack": 50,
@@ -18644,6 +19029,9 @@
         "weight": 1100
     },
     "Finneon": {
+        "evolutions": [
+            457
+        ],
         "id": 456,
         "moves": [
             "Pound",
@@ -18705,6 +19093,7 @@
             "Round",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Finneon",
         "stats": {
             "attack": 49,
@@ -19091,6 +19480,9 @@
         "weight": 820
     },
     "Foongus": {
+        "evolutions": [
+            591
+        ],
         "id": 590,
         "moves": [
             "Body Slam",
@@ -19141,6 +19533,7 @@
             "Foul Play",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Foongus",
         "stats": {
             "attack": 55,
@@ -19328,6 +19721,9 @@
         "weight": 360
     },
     "Frillish": {
+        "evolutions": [
+            593
+        ],
         "id": 592,
         "moves": [
             "Mist",
@@ -19390,6 +19786,7 @@
             "Magic Coat",
             "Dark Pulse"
         ],
+        "prevolutions": [],
         "species": "Frillish",
         "stats": {
             "attack": 40,
@@ -20156,6 +20553,10 @@
         "weight": 484
     },
     "Gastly": {
+        "evolutions": [
+            93,
+            94
+        ],
         "id": 92,
         "moves": [
             "Mega Drain",
@@ -20238,6 +20639,7 @@
             "Wonder Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Gastly",
         "stats": {
             "attack": 35,
@@ -20414,6 +20816,7 @@
         "weight": 299
     },
     "Genesect": {
+        "evolutions": [],
         "id": 727,
         "moves": [
             "Fly",
@@ -20484,6 +20887,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Genesect",
         "stats": {
             "attack": 120,
@@ -20500,6 +20904,7 @@
         "weight": 825
     },
     "Genesect (burn)": {
+        "evolutions": [],
         "id": 727,
         "moves": [
             "Fly",
@@ -20570,6 +20975,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Genesect",
         "stats": {
             "attack": 120,
@@ -20586,6 +20992,7 @@
         "weight": 825
     },
     "Genesect (chill)": {
+        "evolutions": [],
         "id": 727,
         "moves": [
             "Fly",
@@ -20656,6 +21063,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Genesect",
         "stats": {
             "attack": 120,
@@ -20672,6 +21080,7 @@
         "weight": 825
     },
     "Genesect (douse)": {
+        "evolutions": [],
         "id": 727,
         "moves": [
             "Fly",
@@ -20742,6 +21151,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Genesect",
         "stats": {
             "attack": 120,
@@ -20758,6 +21168,7 @@
         "weight": 825
     },
     "Genesect (shock)": {
+        "evolutions": [],
         "id": 727,
         "moves": [
             "Fly",
@@ -20828,6 +21239,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Genesect",
         "stats": {
             "attack": 120,
@@ -20964,6 +21376,10 @@
         "weight": 405
     },
     "Geodude": {
+        "evolutions": [
+            75,
+            76
+        ],
         "id": 74,
         "moves": [
             "Mega Punch",
@@ -21043,6 +21459,7 @@
             "Bulldoze",
             "Iron Defense"
         ],
+        "prevolutions": [],
         "species": "Geodude",
         "stats": {
             "attack": 80,
@@ -21059,6 +21476,10 @@
         "weight": 200
     },
     "Gible": {
+        "evolutions": [
+            444,
+            445
+        ],
         "id": 443,
         "moves": [
             "Cut",
@@ -21127,6 +21548,7 @@
             "Incinerate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Gible",
         "stats": {
             "attack": 70,
@@ -21209,6 +21631,7 @@
         "weight": 2600
     },
     "Girafarig": {
+        "evolutions": [],
         "id": 203,
         "moves": [
             "Stomp",
@@ -21303,6 +21726,7 @@
             "Hyper Voice",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Girafarig",
         "stats": {
             "attack": 80,
@@ -21319,6 +21743,7 @@
         "weight": 415
     },
     "Giratina (altered)": {
+        "evolutions": [],
         "id": 487,
         "moves": [
             "Cut",
@@ -21405,6 +21830,7 @@
             "Dragon Tail",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Giratina",
         "stats": {
             "attack": 100,
@@ -21421,6 +21847,7 @@
         "weight": 7500
     },
     "Giratina (origin)": {
+        "evolutions": [],
         "id": 712,
         "moves": [
             "Cut",
@@ -21508,6 +21935,7 @@
             "Dragon Tail",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Giratina",
         "stats": {
             "attack": 120,
@@ -21683,6 +22111,9 @@
         "weight": 2565
     },
     "Glameow": {
+        "evolutions": [
+            432
+        ],
         "id": 431,
         "moves": [
             "Scratch",
@@ -21757,6 +22188,7 @@
             "Covet",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Glameow",
         "stats": {
             "attack": 55,
@@ -21772,6 +22204,9 @@
         "weight": 39
     },
     "Gligar": {
+        "evolutions": [
+            472
+        ],
         "id": 207,
         "moves": [
             "Guillotine",
@@ -21864,6 +22299,7 @@
             "Sky Uppercut",
             "Bug Bite"
         ],
+        "prevolutions": [],
         "species": "Gligar",
         "stats": {
             "attack": 75,
@@ -22152,6 +22588,9 @@
         "weight": 550
     },
     "Goldeen": {
+        "evolutions": [
+            119
+        ],
         "id": 118,
         "moves": [
             "Horn Attack",
@@ -22220,6 +22659,7 @@
             "Scald",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Goldeen",
         "stats": {
             "attack": 67,
@@ -22455,6 +22895,9 @@
         "weight": 3000
     },
     "Golett": {
+        "evolutions": [
+            623
+        ],
         "id": 622,
         "moves": [
             "Pound",
@@ -22519,6 +22962,7 @@
             "Earth Power",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Golett",
         "stats": {
             "attack": 74,
@@ -22702,6 +23146,10 @@
         "weight": 226
     },
     "Gothita": {
+        "evolutions": [
+            575,
+            576
+        ],
         "id": 574,
         "moves": [
             "Pound",
@@ -22776,6 +23224,7 @@
             "Zen Headbutt",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Gothita",
         "stats": {
             "attack": 30,
@@ -23191,6 +23640,9 @@
         "weight": 1050
     },
     "Grimer": {
+        "evolutions": [
+            89
+        ],
         "id": 88,
         "moves": [
             "Pound",
@@ -23272,6 +23724,7 @@
             "Round",
             "Incinerate"
         ],
+        "prevolutions": [],
         "species": "Grimer",
         "stats": {
             "attack": 80,
@@ -23364,6 +23817,7 @@
         "weight": 970
     },
     "Groudon": {
+        "evolutions": [],
         "id": 383,
         "moves": [
             "Cut",
@@ -23452,6 +23906,7 @@
             "Bulldoze",
             "Dragon Tail"
         ],
+        "prevolutions": [],
         "species": "Groudon",
         "stats": {
             "attack": 150,
@@ -23564,6 +24019,9 @@
         "weight": 216
     },
     "Growlithe": {
+        "evolutions": [
+            59
+        ],
         "id": 58,
         "moves": [
             "Body Slam",
@@ -23638,6 +24096,7 @@
             "Snarl",
             "Outrage"
         ],
+        "prevolutions": [],
         "species": "Growlithe",
         "stats": {
             "attack": 70,
@@ -23756,6 +24215,9 @@
         "weight": 715
     },
     "Gulpin": {
+        "evolutions": [
+            317
+        ],
         "id": 316,
         "moves": [
             "Pound",
@@ -23827,6 +24289,7 @@
             "Selfdestruct",
             "Nightmare"
         ],
+        "prevolutions": [],
         "species": "Gulpin",
         "stats": {
             "attack": 43,
@@ -24025,6 +24488,10 @@
         "weight": 2350
     },
     "Happiny": {
+        "evolutions": [
+            113,
+            242
+        ],
         "id": 440,
         "moves": [
             "Pound",
@@ -24092,6 +24559,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Happiny",
         "stats": {
             "attack": 5,
@@ -24393,6 +24861,7 @@
         "weight": 1055
     },
     "Heatmor": {
+        "evolutions": [],
         "id": 631,
         "moves": [
             "Cut",
@@ -24460,6 +24929,7 @@
             "Knock Off",
             "Gastro Acid"
         ],
+        "prevolutions": [],
         "species": "Heatmor",
         "stats": {
             "attack": 97,
@@ -24475,6 +24945,7 @@
         "weight": 580
     },
     "Heatran": {
+        "evolutions": [],
         "id": 485,
         "moves": [
             "Leer",
@@ -24541,6 +25012,7 @@
             "Incinerate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Heatran",
         "stats": {
             "attack": 90,
@@ -24557,6 +25029,7 @@
         "weight": 4300
     },
     "Heracross": {
+        "evolutions": [],
         "id": 214,
         "moves": [
             "Cut",
@@ -24637,6 +25110,7 @@
             "Work Up",
             "Chip Away"
         ],
+        "prevolutions": [],
         "species": "Heracross",
         "stats": {
             "attack": 125,
@@ -24721,6 +25195,9 @@
         "weight": 147
     },
     "Hippopotas": {
+        "evolutions": [
+            450
+        ],
         "id": 449,
         "moves": [
             "Sand-Attack",
@@ -24776,6 +25253,7 @@
             "Round",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Hippopotas",
         "stats": {
             "attack": 72,
@@ -25154,6 +25632,7 @@
         "weight": 480
     },
     "Ho-Oh": {
+        "evolutions": [],
         "id": 250,
         "moves": [
             "Gust",
@@ -25243,6 +25722,7 @@
             "Bulldoze",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Ho-Oh",
         "stats": {
             "attack": 130,
@@ -25346,6 +25826,9 @@
         "weight": 273
     },
     "Hoothoot": {
+        "evolutions": [
+            164
+        ],
         "id": 163,
         "moves": [
             "Wing Attack",
@@ -25422,6 +25905,7 @@
             "Work Up",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Hoothoot",
         "stats": {
             "attack": 30,
@@ -25438,6 +25922,10 @@
         "weight": 212
     },
     "Hoppip": {
+        "evolutions": [
+            188,
+            189
+        ],
         "id": 187,
         "moves": [
             "Pay Day",
@@ -25502,6 +25990,7 @@
             "Acrobatics",
             "Cotton Guard"
         ],
+        "prevolutions": [],
         "species": "Hoppip",
         "stats": {
             "attack": 35,
@@ -25518,6 +26007,10 @@
         "weight": 5
     },
     "Horsea": {
+        "evolutions": [
+            117,
+            230
+        ],
         "id": 116,
         "moves": [
             "Take Down",
@@ -25585,6 +26078,7 @@
             "Clear Smog",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Horsea",
         "stats": {
             "attack": 40,
@@ -25698,6 +26192,9 @@
         "weight": 350
     },
     "Houndour": {
+        "evolutions": [
+            229
+        ],
         "id": 228,
         "moves": [
             "Headbutt",
@@ -25779,6 +26276,7 @@
             "Snarl",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Houndour",
         "stats": {
             "attack": 60,
@@ -26078,6 +26576,10 @@
         "weight": 756
     },
     "Igglybuff": {
+        "evolutions": [
+            39,
+            40
+        ],
         "id": 174,
         "moves": [
             "Pound",
@@ -26162,6 +26664,7 @@
             "Wild Charge",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Igglybuff",
         "stats": {
             "attack": 30,
@@ -26177,6 +26680,7 @@
         "weight": 10
     },
     "Illumise": {
+        "evolutions": [],
         "id": 314,
         "moves": [
             "Tackle",
@@ -26256,6 +26760,7 @@
             "Acrobatics",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Illumise",
         "stats": {
             "attack": 47,
@@ -26677,6 +27182,7 @@
         "weight": 55
     },
     "Jirachi": {
+        "evolutions": [],
         "id": 385,
         "moves": [
             "Double-Edge",
@@ -26762,6 +27268,7 @@
             "Nightmare",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Jirachi",
         "stats": {
             "attack": 100,
@@ -26871,6 +27378,9 @@
         "weight": 245
     },
     "Joltik": {
+        "evolutions": [
+            596
+        ],
         "id": 595,
         "moves": [
             "Cut",
@@ -26927,6 +27437,7 @@
             "Bounce",
             "Magnet Rise"
         ],
+        "prevolutions": [],
         "species": "Joltik",
         "stats": {
             "attack": 47,
@@ -27145,6 +27656,9 @@
         "weight": 406
     },
     "Kabuto": {
+        "evolutions": [
+            141
+        ],
         "id": 140,
         "moves": [
             "Scratch",
@@ -27223,6 +27737,7 @@
             "Round",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Kabuto",
         "stats": {
             "attack": 80,
@@ -27498,6 +28013,7 @@
         "weight": 100
     },
     "Kangaskhan": {
+        "evolutions": [],
         "id": 115,
         "moves": [
             "Comet Punch",
@@ -27613,6 +28129,7 @@
             "Work Up",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Kangaskhan",
         "stats": {
             "attack": 95,
@@ -27628,6 +28145,9 @@
         "weight": 800
     },
     "Karrablast": {
+        "evolutions": [
+            589
+        ],
         "id": 588,
         "moves": [
             "Swords Dance",
@@ -27676,6 +28196,7 @@
             "Sleep Talk",
             "Iron Defense"
         ],
+        "prevolutions": [],
         "species": "Karrablast",
         "stats": {
             "attack": 75,
@@ -27691,6 +28212,7 @@
         "weight": 59
     },
     "Kecleon": {
+        "evolutions": [],
         "id": 352,
         "moves": [
             "Scratch",
@@ -27801,6 +28323,7 @@
             "Wonder Room",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Kecleon",
         "stats": {
             "attack": 90,
@@ -27816,6 +28339,7 @@
         "weight": 220
     },
     "Keldeo (ordinary)": {
+        "evolutions": [],
         "id": 647,
         "moves": [
             "Swords Dance",
@@ -27874,6 +28398,7 @@
             "Covet",
             "Last Resort"
         ],
+        "prevolutions": [],
         "species": "Keldeo",
         "stats": {
             "attack": 72,
@@ -27890,6 +28415,7 @@
         "weight": 485
     },
     "Keldeo (resolute)": {
+        "evolutions": [],
         "id": 733,
         "moves": [
             "Swords Dance",
@@ -27948,6 +28474,7 @@
             "Sacred Sword",
             "Secret Sword"
         ],
+        "prevolutions": [],
         "species": "Keldeo",
         "stats": {
             "attack": 72,
@@ -28311,6 +28838,10 @@
         "weight": 510
     },
     "Klink": {
+        "evolutions": [
+            600,
+            601
+        ],
         "id": 599,
         "moves": [
             "ViceGrip",
@@ -28357,6 +28888,7 @@
             "Magnet Rise",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Klink",
         "stats": {
             "attack": 55,
@@ -28441,6 +28973,9 @@
         "weight": 810
     },
     "Koffing": {
+        "evolutions": [
+            110
+        ],
         "id": 109,
         "moves": [
             "Tackle",
@@ -28509,6 +29044,7 @@
             "Clear Smog",
             "Incinerate"
         ],
+        "prevolutions": [],
         "species": "Koffing",
         "stats": {
             "attack": 65,
@@ -28524,6 +29060,9 @@
         "weight": 10
     },
     "Krabby": {
+        "evolutions": [
+            99
+        ],
         "id": 98,
         "moves": [
             "ViceGrip",
@@ -28601,6 +29140,7 @@
             "Chip Away",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Krabby",
         "stats": {
             "attack": 105,
@@ -28616,6 +29156,9 @@
         "weight": 65
     },
     "Kricketot": {
+        "evolutions": [
+            402
+        ],
         "id": 401,
         "moves": [
             "Growl",
@@ -28628,6 +29171,7 @@
             "String Shot",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Kricketot",
         "stats": {
             "attack": 25,
@@ -28902,6 +29446,7 @@
         "weight": 963
     },
     "Kyogre": {
+        "evolutions": [],
         "id": 382,
         "moves": [
             "Body Slam",
@@ -28970,6 +29515,7 @@
             "Scald",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Kyogre",
         "stats": {
             "attack": 100,
@@ -28985,6 +29531,7 @@
         "weight": 3520
     },
     "Kyurem": {
+        "evolutions": [],
         "id": 646,
         "moves": [
             "Cut",
@@ -29047,6 +29594,7 @@
             "Zen Headbutt",
             "Iron Head"
         ],
+        "prevolutions": [],
         "species": "Kyurem",
         "stats": {
             "attack": 130,
@@ -29063,6 +29611,7 @@
         "weight": 3250
     },
     "Kyurem (black)": {
+        "evolutions": [],
         "id": 731,
         "moves": [
             "Cut",
@@ -29125,6 +29674,7 @@
             "Freeze Shock",
             "Fusion Bolt"
         ],
+        "prevolutions": [],
         "species": "Kyurem",
         "stats": {
             "attack": 170,
@@ -29141,6 +29691,7 @@
         "weight": 3250
     },
     "Kyurem (white)": {
+        "evolutions": [],
         "id": 732,
         "moves": [
             "Cut",
@@ -29203,6 +29754,7 @@
             "Ice Burn",
             "Fusion Flare"
         ],
+        "prevolutions": [],
         "species": "Kyurem",
         "stats": {
             "attack": 120,
@@ -29387,6 +29939,7 @@
         "weight": 130
     },
     "Landorus (incarnate)": {
+        "evolutions": [],
         "id": 645,
         "moves": [
             "Swords Dance",
@@ -29447,6 +30000,7 @@
             "Gravity",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Landorus",
         "stats": {
             "attack": 125,
@@ -29463,6 +30017,7 @@
         "weight": 680
     },
     "Landorus (therian)": {
+        "evolutions": [],
         "id": 730,
         "moves": [
             "Swords Dance",
@@ -29523,6 +30078,7 @@
             "Round",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Landorus",
         "stats": {
             "attack": 145,
@@ -29627,6 +30183,7 @@
         "weight": 225
     },
     "Lapras": {
+        "evolutions": [],
         "id": 131,
         "moves": [
             "Horn Drill",
@@ -29720,6 +30277,7 @@
             "Hyper Voice",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Lapras",
         "stats": {
             "attack": 85,
@@ -29736,6 +30294,9 @@
         "weight": 2200
     },
     "Larvesta": {
+        "evolutions": [
+            637
+        ],
         "id": 636,
         "moves": [
             "Take Down",
@@ -29788,6 +30349,7 @@
             "Heat Wave",
             "Signal Beam"
         ],
+        "prevolutions": [],
         "species": "Larvesta",
         "stats": {
             "attack": 85,
@@ -29804,6 +30366,10 @@
         "weight": 288
     },
     "Larvitar": {
+        "evolutions": [
+            247,
+            248
+        ],
         "id": 246,
         "moves": [
             "Stomp",
@@ -29874,6 +30440,7 @@
             "Bulldoze",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Larvitar",
         "stats": {
             "attack": 64,
@@ -29890,6 +30457,7 @@
         "weight": 720
     },
     "Latias": {
+        "evolutions": [],
         "id": 380,
         "moves": [
             "Cut",
@@ -29988,6 +30556,7 @@
             "Covet",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Latias",
         "stats": {
             "attack": 80,
@@ -30004,6 +30573,7 @@
         "weight": 400
     },
     "Latios": {
+        "evolutions": [],
         "id": 381,
         "moves": [
             "Cut",
@@ -30097,6 +30667,7 @@
             "Bulldoze",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Latios",
         "stats": {
             "attack": 90,
@@ -30367,6 +30938,9 @@
         "weight": 356
     },
     "Ledyba": {
+        "evolutions": [
+            166
+        ],
         "id": 165,
         "moves": [
             "Comet Punch",
@@ -30438,6 +31012,7 @@
             "Acrobatics",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Ledyba",
         "stats": {
             "attack": 20,
@@ -30560,6 +31135,9 @@
         "weight": 1400
     },
     "Lickitung": {
+        "evolutions": [
+            463
+        ],
         "id": 108,
         "moves": [
             "Mega Punch",
@@ -30667,6 +31245,7 @@
             "Work Up",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Lickitung",
         "stats": {
             "attack": 55,
@@ -30764,6 +31343,9 @@
         "weight": 375
     },
     "Lileep": {
+        "evolutions": [
+            346
+        ],
         "id": 345,
         "moves": [
             "Acid",
@@ -30830,6 +31412,7 @@
             "Round",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Lileep",
         "stats": {
             "attack": 41,
@@ -30909,6 +31492,10 @@
         "weight": 163
     },
     "Lillipup": {
+        "evolutions": [
+            507,
+            508
+        ],
         "id": 506,
         "moves": [
             "Sand-Attack",
@@ -30964,6 +31551,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Lillipup",
         "stats": {
             "attack": 60,
@@ -31077,6 +31665,10 @@
         "weight": 325
     },
     "Litwick": {
+        "evolutions": [
+            608,
+            609
+        ],
         "id": 607,
         "moves": [
             "Acid",
@@ -31140,6 +31732,7 @@
             "Trick",
             "Dark Pulse"
         ],
+        "prevolutions": [],
         "species": "Litwick",
         "stats": {
             "attack": 30,
@@ -31347,6 +31940,10 @@
         "weight": 333
     },
     "Lotad": {
+        "evolutions": [
+            271,
+            272
+        ],
         "id": 270,
         "moves": [
             "Growl",
@@ -31410,6 +32007,7 @@
             "Echoed Voice",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Lotad",
         "stats": {
             "attack": 30,
@@ -31729,6 +32327,7 @@
         "weight": 550
     },
     "Lugia": {
+        "evolutions": [],
         "id": 249,
         "moves": [
             "Gust",
@@ -31832,6 +32431,7 @@
             "Hyper Voice",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Lugia",
         "stats": {
             "attack": 90,
@@ -31922,6 +32522,7 @@
         "weight": 240
     },
     "Lunatone": {
+        "evolutions": [],
         "id": 337,
         "moves": [
             "Tackle",
@@ -32002,6 +32603,7 @@
             "Selfdestruct",
             "Icy Wind"
         ],
+        "prevolutions": [],
         "species": "Lunatone",
         "stats": {
             "attack": 55,
@@ -32018,6 +32620,7 @@
         "weight": 1680
     },
     "Luvdisc": {
+        "evolutions": [],
         "id": 370,
         "moves": [
             "Tackle",
@@ -32073,6 +32676,7 @@
             "Scald",
             "Heal Pulse"
         ],
+        "prevolutions": [],
         "species": "Luvdisc",
         "stats": {
             "attack": 30,
@@ -32449,6 +33053,10 @@
         "weight": 705
     },
     "Machop": {
+        "evolutions": [
+            67,
+            68
+        ],
         "id": 66,
         "moves": [
             "Karate Chop",
@@ -32543,6 +33151,7 @@
             "Work Up",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Machop",
         "stats": {
             "attack": 80,
@@ -32558,6 +33167,10 @@
         "weight": 195
     },
     "Magby": {
+        "evolutions": [
+            126,
+            467
+        ],
         "id": 240,
         "moves": [
             "Karate Chop",
@@ -32630,6 +33243,7 @@
             "Clear Smog",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Magby",
         "stats": {
             "attack": 75,
@@ -32735,6 +33349,9 @@
         "weight": 550
     },
     "Magikarp": {
+        "evolutions": [
+            130
+        ],
         "id": 129,
         "moves": [
             "Tackle",
@@ -32742,6 +33359,7 @@
             "Flail",
             "Bounce"
         ],
+        "prevolutions": [],
         "species": "Magikarp",
         "stats": {
             "attack": 10,
@@ -32944,6 +33562,10 @@
         "weight": 680
     },
     "Magnemite": {
+        "evolutions": [
+            82,
+            462
+        ],
         "id": 81,
         "moves": [
             "Tackle",
@@ -33008,6 +33630,7 @@
             "Wild Charge",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Magnemite",
         "stats": {
             "attack": 35,
@@ -33196,6 +33819,9 @@
         "weight": 1800
     },
     "Makuhita": {
+        "evolutions": [
+            297
+        ],
         "id": 296,
         "moves": [
             "Whirlwind",
@@ -33282,6 +33908,7 @@
             "Bulldoze",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Makuhita",
         "stats": {
             "attack": 60,
@@ -33382,6 +34009,7 @@
         "weight": 2910
     },
     "Manaphy": {
+        "evolutions": [],
         "id": 490,
         "moves": [
             "Supersonic",
@@ -33448,6 +34076,7 @@
             "Scald",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Manaphy",
         "stats": {
             "attack": 100,
@@ -33623,6 +34252,9 @@
         "weight": 402
     },
     "Mankey": {
+        "evolutions": [
+            57
+        ],
         "id": 56,
         "moves": [
             "Karate Chop",
@@ -33731,6 +34363,7 @@
             "Work Up",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Mankey",
         "stats": {
             "attack": 80,
@@ -33847,6 +34480,9 @@
         "weight": 2200
     },
     "Mantyke": {
+        "evolutions": [
+            226
+        ],
         "id": 458,
         "moves": [
             "Wing Attack",
@@ -33911,6 +34547,7 @@
             "Bulldoze",
             "Air Slash"
         ],
+        "prevolutions": [],
         "species": "Mantyke",
         "stats": {
             "attack": 20,
@@ -33927,6 +34564,7 @@
         "weight": 650
     },
     "Maractus": {
+        "evolutions": [],
         "id": 556,
         "moves": [
             "Pin Missile",
@@ -33981,6 +34619,7 @@
             "Hyper Voice",
             "Drain Punch"
         ],
+        "prevolutions": [],
         "species": "Maractus",
         "stats": {
             "attack": 86,
@@ -33996,6 +34635,10 @@
         "weight": 280
     },
     "Mareep": {
+        "evolutions": [
+            180,
+            181
+        ],
         "id": 179,
         "moves": [
             "Headbutt",
@@ -34058,6 +34701,7 @@
             "Cotton Guard",
             "Confuse Ray"
         ],
+        "prevolutions": [],
         "species": "Mareep",
         "stats": {
             "attack": 40,
@@ -34469,6 +35113,7 @@
         "weight": 36
     },
     "Mawile": {
+        "evolutions": [],
         "id": 303,
         "moves": [
             "ViceGrip",
@@ -34567,6 +35212,7 @@
             "Stealth Rock",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Mawile",
         "stats": {
             "attack": 85,
@@ -34691,6 +35337,9 @@
         "weight": 315
     },
     "Meditite": {
+        "evolutions": [
+            308
+        ],
         "id": 307,
         "moves": [
             "Fire Punch",
@@ -34784,6 +35433,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Meditite",
         "stats": {
             "attack": 40,
@@ -34888,6 +35538,7 @@
         "weight": 1005
     },
     "Meloetta (aria)": {
+        "evolutions": [],
         "id": 648,
         "moves": [
             "Sing",
@@ -34974,6 +35625,7 @@
             "Magic Room",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Meloetta",
         "stats": {
             "attack": 77,
@@ -34990,6 +35642,7 @@
         "weight": 65
     },
     "Meloetta (pirouette)": {
+        "evolutions": [],
         "id": 723,
         "moves": [
             "Sing",
@@ -35076,6 +35729,7 @@
             "Magic Room",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Meloetta",
         "stats": {
             "attack": 128,
@@ -35092,6 +35746,9 @@
         "weight": 65
     },
     "Meowth": {
+        "evolutions": [
+            53
+        ],
         "id": 52,
         "moves": [
             "Pay Day",
@@ -35187,6 +35844,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Meowth",
         "stats": {
             "attack": 45,
@@ -35202,6 +35860,7 @@
         "weight": 42
     },
     "Mesprit": {
+        "evolutions": [],
         "id": 481,
         "moves": [
             "Ice Beam",
@@ -35278,6 +35937,7 @@
             "Wonder Room",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Mesprit",
         "stats": {
             "attack": 105,
@@ -35524,6 +36184,7 @@
         "weight": 99
     },
     "Mew": {
+        "evolutions": [],
         "id": 151,
         "moves": [
             "Pound",
@@ -35764,6 +36425,7 @@
             "Drill Run",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Mew",
         "stats": {
             "attack": 100,
@@ -35779,6 +36441,7 @@
         "weight": 40
     },
     "Mewtwo": {
+        "evolutions": [],
         "id": 150,
         "moves": [
             "Mega Punch",
@@ -35913,6 +36576,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Mewtwo",
         "stats": {
             "attack": 110,
@@ -35928,6 +36592,9 @@
         "weight": 1220
     },
     "Mienfoo": {
+        "evolutions": [
+            620
+        ],
         "id": 619,
         "moves": [
             "Pound",
@@ -35996,6 +36663,7 @@
             "Role Play",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Mienfoo",
         "stats": {
             "attack": 85,
@@ -36255,6 +36923,7 @@
         "weight": 1620
     },
     "Miltank": {
+        "evolutions": [],
         "id": 241,
         "moves": [
             "Fire Punch",
@@ -36347,6 +37016,7 @@
             "Heart Stamp",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Miltank",
         "stats": {
             "attack": 80,
@@ -36362,6 +37032,9 @@
         "weight": 755
     },
     "Mime-Jr": {
+        "evolutions": [
+            122
+        ],
         "id": 439,
         "moves": [
             "DoubleSlap",
@@ -36446,6 +37119,7 @@
             "Covet",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Mime-Jr",
         "stats": {
             "attack": 25,
@@ -36461,6 +37135,9 @@
         "weight": 130
     },
     "Minccino": {
+        "evolutions": [
+            573
+        ],
         "id": 572,
         "moves": [
             "Pound",
@@ -36520,6 +37197,7 @@
             "Seed Bomb",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Minccino",
         "stats": {
             "attack": 50,
@@ -36535,6 +37213,7 @@
         "weight": 58
     },
     "Minun": {
+        "evolutions": [],
         "id": 312,
         "moves": [
             "Growl",
@@ -36609,6 +37288,7 @@
             "Volt Switch",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Minun",
         "stats": {
             "attack": 40,
@@ -36624,6 +37304,9 @@
         "weight": 42
     },
     "Misdreavus": {
+        "evolutions": [
+            429
+        ],
         "id": 200,
         "moves": [
             "Headbutt",
@@ -36708,6 +37391,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Misdreavus",
         "stats": {
             "attack": 60,
@@ -36812,6 +37496,7 @@
         "weight": 44
     },
     "Moltres": {
+        "evolutions": [],
         "id": 146,
         "moves": [
             "Razor Wind",
@@ -36881,6 +37566,7 @@
             "Incinerate",
             "Hurricane"
         ],
+        "prevolutions": [],
         "species": "Moltres",
         "stats": {
             "attack": 100,
@@ -37218,6 +37904,10 @@
         "weight": 545
     },
     "Mudkip": {
+        "evolutions": [
+            259,
+            260
+        ],
         "id": 258,
         "moves": [
             "Stomp",
@@ -37293,6 +37983,7 @@
             "Scald",
             "Water Pledge"
         ],
+        "prevolutions": [],
         "species": "Mudkip",
         "stats": {
             "attack": 70,
@@ -37405,6 +38096,9 @@
         "weight": 300
     },
     "Munchlax": {
+        "evolutions": [
+            143
+        ],
         "id": 446,
         "moves": [
             "Whirlwind",
@@ -37491,6 +38185,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Munchlax",
         "stats": {
             "attack": 85,
@@ -37506,6 +38201,9 @@
         "weight": 1050
     },
     "Munna": {
+        "evolutions": [
+            518
+        ],
         "id": 517,
         "moves": [
             "SonicBoom",
@@ -37573,6 +38271,7 @@
             "Wonder Room",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Munna",
         "stats": {
             "attack": 25,
@@ -37588,6 +38287,9 @@
         "weight": 233
     },
     "Murkrow": {
+        "evolutions": [
+            430
+        ],
         "id": 198,
         "moves": [
             "Wing Attack",
@@ -37670,6 +38372,7 @@
             "Retaliate",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Murkrow",
         "stats": {
             "attack": 85,
@@ -37760,6 +38463,9 @@
         "weight": 605
     },
     "Natu": {
+        "evolutions": [
+            178
+        ],
         "id": 177,
         "moves": [
             "Leer",
@@ -37847,6 +38553,7 @@
             "Sky Attack",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Natu",
         "stats": {
             "attack": 50,
@@ -38135,6 +38842,10 @@
         "weight": 600
     },
     "Nidoran-F": {
+        "evolutions": [
+            30,
+            31
+        ],
         "id": 29,
         "moves": [
             "Scratch",
@@ -38212,6 +38923,7 @@
             "Round",
             "Chip Away"
         ],
+        "prevolutions": [],
         "species": "Nidoran-F",
         "stats": {
             "attack": 47,
@@ -38227,6 +38939,10 @@
         "weight": 70
     },
     "Nidoran-M": {
+        "evolutions": [
+            33,
+            34
+        ],
         "id": 32,
         "moves": [
             "Double Kick",
@@ -38305,6 +39021,7 @@
             "Chip Away",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Nidoran-M",
         "stats": {
             "attack": 57,
@@ -38507,6 +39224,9 @@
         "weight": 195
     },
     "Nincada": {
+        "evolutions": [
+            292
+        ],
         "id": 290,
         "moves": [
             "Scratch",
@@ -38559,6 +39279,7 @@
             "Final Gambit",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Nincada",
         "stats": {
             "attack": 45,
@@ -38834,6 +39555,9 @@
         "weight": 408
     },
     "Nosepass": {
+        "evolutions": [
+            476
+        ],
         "id": 299,
         "moves": [
             "Tackle",
@@ -38906,6 +39630,7 @@
             "Spark",
             "Rock Blast"
         ],
+        "prevolutions": [],
         "species": "Nosepass",
         "stats": {
             "attack": 45,
@@ -38921,6 +39646,9 @@
         "weight": 970
     },
     "Numel": {
+        "evolutions": [
+            323
+        ],
         "id": 322,
         "moves": [
             "Stomp",
@@ -38989,6 +39717,7 @@
             "Curse",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Numel",
         "stats": {
             "attack": 60,
@@ -39195,6 +39924,10 @@
         "weight": 285
     },
     "Oddish": {
+        "evolutions": [
+            44,
+            182
+        ],
         "id": 43,
         "moves": [
             "Swords Dance",
@@ -39256,6 +39989,7 @@
             "After You",
             "Round"
         ],
+        "prevolutions": [],
         "species": "Oddish",
         "stats": {
             "attack": 50,
@@ -39272,6 +40006,9 @@
         "weight": 54
     },
     "Omanyte": {
+        "evolutions": [
+            139
+        ],
         "id": 138,
         "moves": [
             "Horn Attack",
@@ -39350,6 +40087,7 @@
             "Shell Smash",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Omanyte",
         "stats": {
             "attack": 40,
@@ -39464,6 +40202,9 @@
         "weight": 350
     },
     "Onix": {
+        "evolutions": [
+            208
+        ],
         "id": 95,
         "moves": [
             "Bind",
@@ -39541,6 +40282,7 @@
             "Bulldoze",
             "Dragon Tail"
         ],
+        "prevolutions": [],
         "species": "Onix",
         "stats": {
             "attack": 45,
@@ -39557,6 +40299,10 @@
         "weight": 2100
     },
     "Oshawott": {
+        "evolutions": [
+            502,
+            503
+        ],
         "id": 501,
         "moves": [
             "Swords Dance",
@@ -39619,6 +40365,7 @@
             "Helping Hand",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Oshawott",
         "stats": {
             "attack": 55,
@@ -39634,6 +40381,7 @@
         "weight": 59
     },
     "Pachirisu": {
+        "evolutions": [],
         "id": 417,
         "moves": [
             "Cut",
@@ -39702,6 +40450,7 @@
             "Bestow",
             "Volt Switch"
         ],
+        "prevolutions": [],
         "species": "Pachirisu",
         "stats": {
             "attack": 45,
@@ -39717,6 +40466,7 @@
         "weight": 39
     },
     "Palkia": {
+        "evolutions": [],
         "id": 484,
         "moves": [
             "Cut",
@@ -39801,6 +40551,7 @@
             "Dragon Tail",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Palkia",
         "stats": {
             "attack": 120,
@@ -39882,6 +40633,9 @@
         "weight": 170
     },
     "Panpour": {
+        "evolutions": [
+            516
+        ],
         "id": 515,
         "moves": [
             "Scratch",
@@ -39951,6 +40705,7 @@
             "Endeavor",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Panpour",
         "stats": {
             "attack": 53,
@@ -39966,6 +40721,9 @@
         "weight": 135
     },
     "Pansage": {
+        "evolutions": [
+            512
+        ],
         "id": 511,
         "moves": [
             "Scratch",
@@ -40032,6 +40790,7 @@
             "Worry Seed",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Pansage",
         "stats": {
             "attack": 53,
@@ -40047,6 +40806,9 @@
         "weight": 105
     },
     "Pansear": {
+        "evolutions": [
+            514
+        ],
         "id": 513,
         "moves": [
             "Fire Punch",
@@ -40113,6 +40875,7 @@
             "Endeavor",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Pansear",
         "stats": {
             "attack": 53,
@@ -40128,6 +40891,9 @@
         "weight": 110
     },
     "Paras": {
+        "evolutions": [
+            47
+        ],
         "id": 46,
         "moves": [
             "Scratch",
@@ -40207,6 +40973,7 @@
             "Struggle Bug",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Paras",
         "stats": {
             "attack": 70,
@@ -40317,6 +41084,9 @@
         "weight": 295
     },
     "Patrat": {
+        "evolutions": [
+            505
+        ],
         "id": 504,
         "moves": [
             "Swords Dance",
@@ -40375,6 +41145,7 @@
             "Zen Headbutt",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Patrat",
         "stats": {
             "attack": 55,
@@ -40390,6 +41161,9 @@
         "weight": 116
     },
     "Pawniard": {
+        "evolutions": [
+            625
+        ],
         "id": 624,
         "moves": [
             "Scratch",
@@ -40462,6 +41236,7 @@
             "Foul Play",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Pawniard",
         "stats": {
             "attack": 85,
@@ -40681,6 +41456,9 @@
         "weight": 320
     },
     "Petilil": {
+        "evolutions": [
+            549
+        ],
         "id": 548,
         "moves": [
             "Cut",
@@ -40732,6 +41510,7 @@
             "Covet",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Petilil",
         "stats": {
             "attack": 35,
@@ -40747,6 +41526,9 @@
         "weight": 66
     },
     "Phanpy": {
+        "evolutions": [
+            232
+        ],
         "id": 231,
         "moves": [
             "Headbutt",
@@ -40811,6 +41593,7 @@
             "Bulldoze",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Phanpy",
         "stats": {
             "attack": 60,
@@ -40826,6 +41609,7 @@
         "weight": 335
     },
     "Phione": {
+        "evolutions": [],
         "id": 489,
         "moves": [
             "Supersonic",
@@ -40880,6 +41664,7 @@
             "Scald",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Phione",
         "stats": {
             "attack": 80,
@@ -40895,6 +41680,10 @@
         "weight": 31
     },
     "Pichu": {
+        "evolutions": [
+            25,
+            26
+        ],
         "id": 714,
         "moves": [
             "DoubleSlap",
@@ -40969,6 +41758,7 @@
             "Wild Charge",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Pichu",
         "stats": {
             "attack": 40,
@@ -40984,6 +41774,10 @@
         "weight": 20
     },
     "Pichu (spiky-eared)": {
+        "evolutions": [
+            25,
+            26
+        ],
         "id": 714,
         "moves": [
             "DoubleSlap",
@@ -41058,6 +41852,7 @@
             "Wild Charge",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Pichu",
         "stats": {
             "attack": 40,
@@ -41240,6 +42035,10 @@
         "weight": 300
     },
     "Pidgey": {
+        "evolutions": [
+            17,
+            18
+        ],
         "id": 16,
         "moves": [
             "Razor Wind",
@@ -41305,6 +42104,7 @@
             "Work Up",
             "Hurricane"
         ],
+        "prevolutions": [],
         "species": "Pidgey",
         "stats": {
             "attack": 45,
@@ -41321,6 +42121,10 @@
         "weight": 18
     },
     "Pidove": {
+        "evolutions": [
+            520,
+            521
+        ],
         "id": 519,
         "moves": [
             "Razor Wind",
@@ -41367,6 +42171,7 @@
             "Sleep Talk",
             "Heat Wave"
         ],
+        "prevolutions": [],
         "species": "Pidove",
         "stats": {
             "attack": 55,
@@ -41659,6 +42464,9 @@
         "weight": 558
     },
     "Pineco": {
+        "evolutions": [
+            205
+        ],
         "id": 204,
         "moves": [
             "Headbutt",
@@ -41727,6 +42535,7 @@
             "Bulldoze",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Pineco",
         "stats": {
             "attack": 65,
@@ -41742,6 +42551,7 @@
         "weight": 72
     },
     "Pinsir": {
+        "evolutions": [],
         "id": 127,
         "moves": [
             "ViceGrip",
@@ -41822,6 +42632,7 @@
             "Bulldoze",
             "Storm Throw"
         ],
+        "prevolutions": [],
         "species": "Pinsir",
         "stats": {
             "attack": 125,
@@ -41837,6 +42648,10 @@
         "weight": 550
     },
     "Piplup": {
+        "evolutions": [
+            394,
+            395
+        ],
         "id": 393,
         "moves": [
             "Pound",
@@ -41906,6 +42721,7 @@
             "Water Pledge",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Piplup",
         "stats": {
             "attack": 51,
@@ -41921,6 +42737,7 @@
         "weight": 52
     },
     "Plusle": {
+        "evolutions": [],
         "id": 311,
         "moves": [
             "Growl",
@@ -41993,6 +42810,7 @@
             "Volt Switch",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Plusle",
         "stats": {
             "attack": 50,
@@ -42099,6 +42917,10 @@
         "weight": 339
     },
     "Poliwag": {
+        "evolutions": [
+            61,
+            186
+        ],
         "id": 60,
         "moves": [
             "DoubleSlap",
@@ -42166,6 +42988,7 @@
             "Round",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Poliwag",
         "stats": {
             "attack": 50,
@@ -42384,6 +43207,9 @@
         "weight": 540
     },
     "Ponyta": {
+        "evolutions": [
+            78
+        ],
         "id": 77,
         "moves": [
             "Stomp",
@@ -42448,6 +43274,7 @@
             "Inferno",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Ponyta",
         "stats": {
             "attack": 85,
@@ -42463,6 +43290,9 @@
         "weight": 300
     },
     "Poochyena": {
+        "evolutions": [
+            262
+        ],
         "id": 261,
         "moves": [
             "Sand-Attack",
@@ -42532,6 +43362,7 @@
             "Hyper Voice",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Poochyena",
         "stats": {
             "attack": 55,
@@ -42547,6 +43378,10 @@
         "weight": 136
     },
     "Porygon": {
+        "evolutions": [
+            233,
+            474
+        ],
         "id": 137,
         "moves": [
             "Tackle",
@@ -42624,6 +43459,7 @@
             "Foul Play",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Porygon",
         "stats": {
             "attack": 60,
@@ -43116,6 +43952,9 @@
         "weight": 3400
     },
     "Psyduck": {
+        "evolutions": [
+            55
+        ],
         "id": 54,
         "moves": [
             "Mega Punch",
@@ -43214,6 +44053,7 @@
             "Round",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Psyduck",
         "stats": {
             "attack": 52,
@@ -43316,6 +44156,9 @@
         "weight": 1520
     },
     "Purrloin": {
+        "evolutions": [
+            510
+        ],
         "id": 509,
         "moves": [
             "Pay Day",
@@ -43383,6 +44226,7 @@
             "Seed Bomb",
             "Gunk Shot"
         ],
+        "prevolutions": [],
         "species": "Purrloin",
         "stats": {
             "attack": 50,
@@ -43673,6 +44517,7 @@
         "weight": 190
     },
     "Qwilfish": {
+        "evolutions": [],
         "id": 211,
         "moves": [
             "Headbutt",
@@ -43751,6 +44596,7 @@
             "Scald",
             "Selfdestruct"
         ],
+        "prevolutions": [],
         "species": "Qwilfish",
         "stats": {
             "attack": 95,
@@ -43864,6 +44710,7 @@
         "weight": 300
     },
     "Raikou": {
+        "evolutions": [],
         "id": 243,
         "moves": [
             "Cut",
@@ -43932,6 +44779,7 @@
             "Wild Charge",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Raikou",
         "stats": {
             "attack": 85,
@@ -43947,6 +44795,10 @@
         "weight": 1780
     },
     "Ralts": {
+        "evolutions": [
+            281,
+            475
+        ],
         "id": 280,
         "moves": [
             "Growl",
@@ -44038,6 +44890,7 @@
             "Wonder Room",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Ralts",
         "stats": {
             "attack": 25,
@@ -44340,6 +45193,9 @@
         "weight": 185
     },
     "Rattata": {
+        "evolutions": [
+            20
+        ],
         "id": 19,
         "moves": [
             "Tackle",
@@ -44422,6 +45278,7 @@
             "Wild Charge",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Rattata",
         "stats": {
             "attack": 56,
@@ -44437,6 +45294,7 @@
         "weight": 35
     },
     "Rayquaza": {
+        "evolutions": [],
         "id": 384,
         "moves": [
             "Fly",
@@ -44528,6 +45386,7 @@
             "Dragon Tail",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Rayquaza",
         "stats": {
             "attack": 150,
@@ -44544,6 +45403,7 @@
         "weight": 2065
     },
     "Regice": {
+        "evolutions": [],
         "id": 378,
         "moves": [
             "Ice Beam",
@@ -44620,6 +45480,7 @@
             "Frost Breath",
             "Selfdestruct"
         ],
+        "prevolutions": [],
         "species": "Regice",
         "stats": {
             "attack": 50,
@@ -44635,6 +45496,7 @@
         "weight": 1750
     },
     "Regigigas": {
+        "evolutions": [],
         "id": 486,
         "moves": [
             "Mega Punch",
@@ -44704,6 +45566,7 @@
             "Retaliate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Regigigas",
         "stats": {
             "attack": 160,
@@ -44719,6 +45582,7 @@
         "weight": 4200
     },
     "Regirock": {
+        "evolutions": [],
         "id": 377,
         "moves": [
             "Hyper Beam",
@@ -44796,6 +45660,7 @@
             "Bulldoze",
             "Selfdestruct"
         ],
+        "prevolutions": [],
         "species": "Regirock",
         "stats": {
             "attack": 100,
@@ -44811,6 +45676,7 @@
         "weight": 2300
     },
     "Registeel": {
+        "evolutions": [],
         "id": 379,
         "moves": [
             "Hyper Beam",
@@ -44889,6 +45755,7 @@
             "Bulldoze",
             "Selfdestruct"
         ],
+        "prevolutions": [],
         "species": "Registeel",
         "stats": {
             "attack": 75,
@@ -44904,6 +45771,7 @@
         "weight": 2050
     },
     "Relicanth": {
+        "evolutions": [],
         "id": 369,
         "moves": [
             "Tackle",
@@ -44976,6 +45844,7 @@
             "Scald",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Relicanth",
         "stats": {
             "attack": 90,
@@ -44992,6 +45861,9 @@
         "weight": 234
     },
     "Remoraid": {
+        "evolutions": [
+            224
+        ],
         "id": 223,
         "moves": [
             "Supersonic",
@@ -45063,6 +45935,7 @@
             "Incinerate",
             "Hydro Pump"
         ],
+        "prevolutions": [],
         "species": "Remoraid",
         "stats": {
             "attack": 65,
@@ -45078,6 +45951,7 @@
         "weight": 120
     },
     "Reshiram": {
+        "evolutions": [],
         "id": 643,
         "moves": [
             "Cut",
@@ -45143,6 +46017,7 @@
             "Earth Power",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Reshiram",
         "stats": {
             "attack": 120,
@@ -45384,6 +46259,10 @@
         "weight": 1200
     },
     "Rhyhorn": {
+        "evolutions": [
+            112,
+            464
+        ],
         "id": 111,
         "moves": [
             "Stomp",
@@ -45477,6 +46356,7 @@
             "Bulldoze",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Rhyhorn",
         "stats": {
             "attack": 85,
@@ -45609,6 +46489,9 @@
         "weight": 2828
     },
     "Riolu": {
+        "evolutions": [
+            448
+        ],
         "id": 447,
         "moves": [
             "Swords Dance",
@@ -45690,6 +46573,7 @@
             "Work Up",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Riolu",
         "stats": {
             "attack": 70,
@@ -45705,6 +46589,10 @@
         "weight": 202
     },
     "Roggenrola": {
+        "evolutions": [
+            525,
+            526
+        ],
         "id": 524,
         "moves": [
             "Sand-Attack",
@@ -45751,6 +46639,7 @@
             "Block",
             "Earth Power"
         ],
+        "prevolutions": [],
         "species": "Roggenrola",
         "stats": {
             "attack": 75,
@@ -45926,6 +46815,7 @@
         "weight": 145
     },
     "Rotom": {
+        "evolutions": [],
         "id": 479,
         "moves": [
             "ThunderShock",
@@ -45981,6 +46871,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 50,
@@ -45997,6 +46888,7 @@
         "weight": 3
     },
     "Rotom (fan)": {
+        "evolutions": [],
         "id": 710,
         "moves": [
             "ThunderShock",
@@ -46053,6 +46945,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 65,
@@ -46069,6 +46962,7 @@
         "weight": 3
     },
     "Rotom (frost)": {
+        "evolutions": [],
         "id": 709,
         "moves": [
             "Blizzard",
@@ -46125,6 +47019,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 65,
@@ -46141,6 +47036,7 @@
         "weight": 3
     },
     "Rotom (heat)": {
+        "evolutions": [],
         "id": 707,
         "moves": [
             "ThunderShock",
@@ -46197,6 +47093,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 65,
@@ -46213,6 +47110,7 @@
         "weight": 3
     },
     "Rotom (mow)": {
+        "evolutions": [],
         "id": 711,
         "moves": [
             "ThunderShock",
@@ -46269,6 +47167,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 65,
@@ -46285,6 +47184,7 @@
         "weight": 3
     },
     "Rotom (wash)": {
+        "evolutions": [],
         "id": 708,
         "moves": [
             "Hydro Pump",
@@ -46341,6 +47241,7 @@
             "Volt Switch",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Rotom",
         "stats": {
             "attack": 65,
@@ -46357,6 +47258,9 @@
         "weight": 3
     },
     "Rufflet": {
+        "evolutions": [
+            628
+        ],
         "id": 627,
         "moves": [
             "Cut",
@@ -46407,6 +47311,7 @@
             "Superpower",
             "Roost"
         ],
+        "prevolutions": [],
         "species": "Rufflet",
         "stats": {
             "attack": 83,
@@ -46423,6 +47328,7 @@
         "weight": 105
     },
     "Sableye": {
+        "evolutions": [],
         "id": 302,
         "moves": [
             "Scratch",
@@ -46529,6 +47435,7 @@
             "Nightmare",
             "Wonder Room"
         ],
+        "prevolutions": [],
         "species": "Sableye",
         "stats": {
             "attack": 75,
@@ -46728,6 +47635,10 @@
         "weight": 946
     },
     "Sandile": {
+        "evolutions": [
+            552,
+            553
+        ],
         "id": 551,
         "moves": [
             "Cut",
@@ -46792,6 +47703,7 @@
             "Earth Power",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Sandile",
         "stats": {
             "attack": 72,
@@ -46808,6 +47720,9 @@
         "weight": 152
     },
     "Sandshrew": {
+        "evolutions": [
+            28
+        ],
         "id": 27,
         "moves": [
             "Scratch",
@@ -46892,6 +47807,7 @@
             "Magnitude",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Sandshrew",
         "stats": {
             "attack": 75,
@@ -47009,6 +47925,7 @@
         "weight": 295
     },
     "Sawk": {
+        "evolutions": [],
         "id": 539,
         "moves": [
             "Karate Chop",
@@ -47068,6 +47985,7 @@
             "Block",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Sawk",
         "stats": {
             "attack": 125,
@@ -47767,6 +48685,9 @@
         "weight": 300
     },
     "Scraggy": {
+        "evolutions": [
+            560
+        ],
         "id": 559,
         "moves": [
             "Fire Punch",
@@ -47844,6 +48765,7 @@
             "Foul Play",
             "Dual Chop"
         ],
+        "prevolutions": [],
         "species": "Scraggy",
         "stats": {
             "attack": 75,
@@ -47860,6 +48782,9 @@
         "weight": 118
     },
     "Scyther": {
+        "evolutions": [
+            212
+        ],
         "id": 123,
         "moves": [
             "Swords Dance",
@@ -47933,6 +48858,7 @@
             "Round",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Scyther",
         "stats": {
             "attack": 110,
@@ -48194,6 +49120,10 @@
         "weight": 876
     },
     "Seedot": {
+        "evolutions": [
+            274,
+            275
+        ],
         "id": 273,
         "moves": [
             "Razor Wind",
@@ -48254,6 +49184,7 @@
             "Retaliate",
             "Selfdestruct"
         ],
+        "prevolutions": [],
         "species": "Seedot",
         "stats": {
             "attack": 40,
@@ -48269,6 +49200,9 @@
         "weight": 40
     },
     "Seel": {
+        "evolutions": [
+            87
+        ],
         "id": 86,
         "moves": [
             "Pay Day",
@@ -48340,6 +49274,7 @@
             "Echoed Voice",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Seel",
         "stats": {
             "attack": 45,
@@ -48438,6 +49373,9 @@
         "weight": 620
     },
     "Sentret": {
+        "evolutions": [
+            162
+        ],
         "id": 161,
         "moves": [
             "Fire Punch",
@@ -48526,6 +49464,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Sentret",
         "stats": {
             "attack": 46,
@@ -48700,6 +49639,7 @@
         "weight": 160
     },
     "Seviper": {
+        "evolutions": [],
         "id": 336,
         "moves": [
             "Body Slam",
@@ -48775,6 +49715,7 @@
             "Bind",
             "Gastro Acid"
         ],
+        "prevolutions": [],
         "species": "Seviper",
         "stats": {
             "attack": 100,
@@ -48790,6 +49731,10 @@
         "weight": 525
     },
     "Sewaddle": {
+        "evolutions": [
+            541,
+            542
+        ],
         "id": 540,
         "moves": [
             "Razor Wind",
@@ -48843,6 +49788,7 @@
             "Seed Bomb",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Sewaddle",
         "stats": {
             "attack": 53,
@@ -48955,6 +49901,7 @@
         "weight": 888
     },
     "Shaymin (land)": {
+        "evolutions": [],
         "id": 492,
         "moves": [
             "Swords Dance",
@@ -49009,6 +49956,7 @@
             "Round",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Shaymin",
         "stats": {
             "attack": 100,
@@ -49024,6 +49972,7 @@
         "weight": 21
     },
     "Shaymin (sky)": {
+        "evolutions": [],
         "id": 713,
         "moves": [
             "Swords Dance",
@@ -49077,6 +50026,7 @@
             "Round",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Shaymin",
         "stats": {
             "attack": 103,
@@ -49253,6 +50203,9 @@
         "weight": 1105
     },
     "Shellder": {
+        "evolutions": [
+            91
+        ],
         "id": 90,
         "moves": [
             "Tackle",
@@ -49319,6 +50272,7 @@
             "Shell Smash",
             "Razor Shell"
         ],
+        "prevolutions": [],
         "species": "Shellder",
         "stats": {
             "attack": 65,
@@ -49334,6 +50288,9 @@
         "weight": 40
     },
     "Shellos (east)": {
+        "evolutions": [
+            423
+        ],
         "id": 688,
         "moves": [
             "Body Slam",
@@ -49392,6 +50349,7 @@
             "Clear Smog",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Shellos",
         "stats": {
             "attack": 48,
@@ -49407,6 +50365,9 @@
         "weight": 63
     },
     "Shellos (west)": {
+        "evolutions": [
+            423
+        ],
         "id": 688,
         "moves": [
             "Body Slam",
@@ -49465,6 +50426,7 @@
             "Clear Smog",
             "Scald"
         ],
+        "prevolutions": [],
         "species": "Shellos",
         "stats": {
             "attack": 48,
@@ -49480,6 +50442,9 @@
         "weight": 63
     },
     "Shelmet": {
+        "evolutions": [
+            617
+        ],
         "id": 616,
         "moves": [
             "Body Slam",
@@ -49528,6 +50493,7 @@
             "Gastro Acid",
             "Bug Bite"
         ],
+        "prevolutions": [],
         "species": "Shelmet",
         "stats": {
             "attack": 40,
@@ -49543,6 +50509,9 @@
         "weight": 77
     },
     "Shieldon": {
+        "evolutions": [
+            411
+        ],
         "id": 410,
         "moves": [
             "Headbutt",
@@ -49613,6 +50582,7 @@
             "Incinerate",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Shieldon",
         "stats": {
             "attack": 42,
@@ -49741,6 +50711,10 @@
         "weight": 596
     },
     "Shinx": {
+        "evolutions": [
+            404,
+            405
+        ],
         "id": 403,
         "moves": [
             "Tackle",
@@ -49800,6 +50774,7 @@
             "Wild Charge",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Shinx",
         "stats": {
             "attack": 65,
@@ -49815,6 +50790,9 @@
         "weight": 95
     },
     "Shroomish": {
+        "evolutions": [
+            286
+        ],
         "id": 285,
         "moves": [
             "Headbutt",
@@ -49870,6 +50848,7 @@
             "Venoshock",
             "Round"
         ],
+        "prevolutions": [],
         "species": "Shroomish",
         "stats": {
             "attack": 40,
@@ -49885,6 +50864,7 @@
         "weight": 45
     },
     "Shuckle": {
+        "evolutions": [],
         "id": 213,
         "moves": [
             "Headbutt",
@@ -49959,6 +50939,7 @@
             "After You",
             "Shell Smash"
         ],
+        "prevolutions": [],
         "species": "Shuckle",
         "stats": {
             "attack": 10,
@@ -49975,6 +50956,9 @@
         "weight": 205
     },
     "Shuppet": {
+        "evolutions": [
+            354
+        ],
         "id": 353,
         "moves": [
             "Disable",
@@ -50051,6 +51035,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Shuppet",
         "stats": {
             "attack": 75,
@@ -50066,6 +51051,7 @@
         "weight": 23
     },
     "Sigilyph": {
+        "evolutions": [],
         "id": 561,
         "moves": [
             "Gust",
@@ -50136,6 +51122,7 @@
             "Zen Headbutt",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Sigilyph",
         "stats": {
             "attack": 58,
@@ -50421,6 +51408,7 @@
         "weight": 280
     },
     "Skarmory": {
+        "evolutions": [],
         "id": 227,
         "moves": [
             "Cut",
@@ -50500,6 +51488,7 @@
             "Sky Drop",
             "Iron Head"
         ],
+        "prevolutions": [],
         "species": "Skarmory",
         "stats": {
             "attack": 80,
@@ -50595,6 +51584,9 @@
         "weight": 10
     },
     "Skitty": {
+        "evolutions": [
+            301
+        ],
         "id": 300,
         "moves": [
             "DoubleSlap",
@@ -50676,6 +51668,7 @@
             "Wild Charge",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Skitty",
         "stats": {
             "attack": 45,
@@ -50691,6 +51684,9 @@
         "weight": 110
     },
     "Skorupi": {
+        "evolutions": [
+            452
+        ],
         "id": 451,
         "moves": [
             "Swords Dance",
@@ -50765,6 +51761,7 @@
             "Round",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Skorupi",
         "stats": {
             "attack": 50,
@@ -50977,6 +51974,10 @@
         "weight": 1305
     },
     "Slakoth": {
+        "evolutions": [
+            288,
+            289
+        ],
         "id": 287,
         "moves": [
             "Scratch",
@@ -51059,6 +52060,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Slakoth",
         "stats": {
             "attack": 60,
@@ -51333,6 +52335,9 @@
         "weight": 795
     },
     "Slowpoke": {
+        "evolutions": [
+            199
+        ],
         "id": 79,
         "moves": [
             "Pay Day",
@@ -51432,6 +52437,7 @@
             "Bulldoze",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Slowpoke",
         "stats": {
             "attack": 65,
@@ -51448,6 +52454,9 @@
         "weight": 360
     },
     "Slugma": {
+        "evolutions": [
+            219
+        ],
         "id": 218,
         "moves": [
             "Body Slam",
@@ -51511,6 +52520,7 @@
             "Selfdestruct",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Slugma",
         "stats": {
             "attack": 40,
@@ -51526,10 +52536,12 @@
         "weight": 350
     },
     "Smeargle": {
+        "evolutions": [],
         "id": 235,
         "moves": [
             "Sketch"
         ],
+        "prevolutions": [],
         "species": "Smeargle",
         "stats": {
             "attack": 20,
@@ -51545,6 +52557,9 @@
         "weight": 580
     },
     "Smoochum": {
+        "evolutions": [
+            124
+        ],
         "id": 238,
         "moves": [
             "Pound",
@@ -51634,6 +52649,7 @@
             "Covet",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Smoochum",
         "stats": {
             "attack": 30,
@@ -51650,6 +52666,9 @@
         "weight": 60
     },
     "Sneasel": {
+        "evolutions": [
+            461
+        ],
         "id": 215,
         "moves": [
             "Ice Punch",
@@ -51747,6 +52766,7 @@
             "Snarl",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Sneasel",
         "stats": {
             "attack": 95,
@@ -51763,6 +52783,10 @@
         "weight": 280
     },
     "Snivy": {
+        "evolutions": [
+            496,
+            497
+        ],
         "id": 495,
         "moves": [
             "Swords Dance",
@@ -51827,6 +52851,7 @@
             "Aqua Tail",
             "Seed Bomb"
         ],
+        "prevolutions": [],
         "species": "Snivy",
         "stats": {
             "attack": 45,
@@ -51972,6 +52997,9 @@
         "weight": 4600
     },
     "Snorunt": {
+        "evolutions": [
+            478
+        ],
         "id": 361,
         "moves": [
             "Headbutt",
@@ -52024,6 +53052,7 @@
             "Hex",
             "Frost Breath"
         ],
+        "prevolutions": [],
         "species": "Snorunt",
         "stats": {
             "attack": 50,
@@ -52039,6 +53068,9 @@
         "weight": 168
     },
     "Snover": {
+        "evolutions": [
+            460
+        ],
         "id": 459,
         "moves": [
             "Swords Dance",
@@ -52101,6 +53133,7 @@
             "Round",
             "Frost Breath"
         ],
+        "prevolutions": [],
         "species": "Snover",
         "stats": {
             "attack": 62,
@@ -52117,6 +53150,9 @@
         "weight": 505
     },
     "Snubbull": {
+        "evolutions": [
+            210
+        ],
         "id": 209,
         "moves": [
             "Fire Punch",
@@ -52213,6 +53249,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Snubbull",
         "stats": {
             "attack": 80,
@@ -52228,6 +53265,10 @@
         "weight": 78
     },
     "Solosis": {
+        "evolutions": [
+            578,
+            579
+        ],
         "id": 577,
         "moves": [
             "Thunder Wave",
@@ -52291,6 +53332,7 @@
             "Zen Headbutt",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Solosis",
         "stats": {
             "attack": 30,
@@ -52306,6 +53348,7 @@
         "weight": 10
     },
     "Solrock": {
+        "evolutions": [],
         "id": 338,
         "moves": [
             "Tackle",
@@ -52390,6 +53433,7 @@
             "Selfdestruct",
             "Heat Wave"
         ],
+        "prevolutions": [],
         "species": "Solrock",
         "stats": {
             "attack": 95,
@@ -52406,6 +53450,9 @@
         "weight": 1540
     },
     "Spearow": {
+        "evolutions": [
+            22
+        ],
         "id": 21,
         "moves": [
             "Razor Wind",
@@ -52474,6 +53521,7 @@
             "Work Up",
             "Drill Run"
         ],
+        "prevolutions": [],
         "species": "Spearow",
         "stats": {
             "attack": 60,
@@ -52490,6 +53538,10 @@
         "weight": 20
     },
     "Spheal": {
+        "evolutions": [
+            364,
+            365
+        ],
         "id": 363,
         "moves": [
             "Body Slam",
@@ -52556,6 +53608,7 @@
             "Bulldoze",
             "Frost Breath"
         ],
+        "prevolutions": [],
         "species": "Spheal",
         "stats": {
             "attack": 40,
@@ -52572,6 +53625,9 @@
         "weight": 395
     },
     "Spinarak": {
+        "evolutions": [
+            168
+        ],
         "id": 167,
         "moves": [
             "Poison Sting",
@@ -52638,6 +53694,7 @@
             "X-Scissor",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Spinarak",
         "stats": {
             "attack": 60,
@@ -52654,6 +53711,7 @@
         "weight": 85
     },
     "Spinda": {
+        "evolutions": [],
         "id": 327,
         "moves": [
             "Tackle",
@@ -52751,6 +53809,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Spinda",
         "stats": {
             "attack": 60,
@@ -52766,6 +53825,7 @@
         "weight": 50
     },
     "Spiritomb": {
+        "evolutions": [],
         "id": 442,
         "moves": [
             "Hyper Beam",
@@ -52834,6 +53894,7 @@
             "Wonder Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Spiritomb",
         "stats": {
             "attack": 92,
@@ -52850,6 +53911,9 @@
         "weight": 1080
     },
     "Spoink": {
+        "evolutions": [
+            326
+        ],
         "id": 325,
         "moves": [
             "Psybeam",
@@ -52922,6 +53986,7 @@
             "Round",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Spoink",
         "stats": {
             "attack": 25,
@@ -52937,6 +54002,10 @@
         "weight": 306
     },
     "Squirtle": {
+        "evolutions": [
+            8,
+            9
+        ],
         "id": 7,
         "moves": [
             "Mega Punch",
@@ -53026,6 +54095,7 @@
             "Scald",
             "Water Pledge"
         ],
+        "prevolutions": [],
         "species": "Squirtle",
         "stats": {
             "attack": 48,
@@ -53041,6 +54111,7 @@
         "weight": 90
     },
     "Stantler": {
+        "evolutions": [],
         "id": 234,
         "moves": [
             "Stomp",
@@ -53129,6 +54200,7 @@
             "Wild Charge",
             "Magic Room"
         ],
+        "prevolutions": [],
         "species": "Stantler",
         "stats": {
             "attack": 95,
@@ -53293,6 +54365,10 @@
         "weight": 155
     },
     "Starly": {
+        "evolutions": [
+            397,
+            398
+        ],
         "id": 396,
         "moves": [
             "Wing Attack",
@@ -53353,6 +54429,7 @@
             "Final Gambit",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Starly",
         "stats": {
             "attack": 55,
@@ -53469,6 +54546,9 @@
         "weight": 800
     },
     "Staryu": {
+        "evolutions": [
+            121
+        ],
         "id": 120,
         "moves": [
             "Tackle",
@@ -53545,6 +54625,7 @@
             "Scald",
             "Reflect Type"
         ],
+        "prevolutions": [],
         "species": "Staryu",
         "stats": {
             "attack": 45,
@@ -53734,6 +54815,7 @@
         "weight": 610
     },
     "Stunfisk": {
+        "evolutions": [],
         "id": 618,
         "moves": [
             "Surf",
@@ -53797,6 +54879,7 @@
             "Foul Play",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Stunfisk",
         "stats": {
             "attack": 66,
@@ -53813,6 +54896,9 @@
         "weight": 110
     },
     "Stunky": {
+        "evolutions": [
+            435
+        ],
         "id": 434,
         "moves": [
             "Scratch",
@@ -53885,6 +54971,7 @@
             "Incinerate",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Stunky",
         "stats": {
             "attack": 63,
@@ -53998,6 +55085,7 @@
         "weight": 380
     },
     "Suicune": {
+        "evolutions": [],
         "id": 245,
         "moves": [
             "Cut",
@@ -54070,6 +55158,7 @@
             "Bulldoze",
             "Snarl"
         ],
+        "prevolutions": [],
         "species": "Suicune",
         "stats": {
             "attack": 75,
@@ -54161,6 +55250,9 @@
         "weight": 85
     },
     "Sunkern": {
+        "evolutions": [
+            192
+        ],
         "id": 191,
         "moves": [
             "Cut",
@@ -54217,6 +55309,7 @@
             "Round",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Sunkern",
         "stats": {
             "attack": 30,
@@ -54232,6 +55325,9 @@
         "weight": 18
     },
     "Surskit": {
+        "evolutions": [
+            284
+        ],
         "id": 283,
         "moves": [
             "Mist",
@@ -54289,6 +55385,7 @@
             "Scald",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Surskit",
         "stats": {
             "attack": 30,
@@ -54305,6 +55402,9 @@
         "weight": 17
     },
     "Swablu": {
+        "evolutions": [
+            334
+        ],
         "id": 333,
         "moves": [
             "Fly",
@@ -54374,6 +55474,7 @@
             "Cotton Guard",
             "Sky Attack"
         ],
+        "prevolutions": [],
         "species": "Swablu",
         "stats": {
             "attack": 40,
@@ -54791,6 +55892,10 @@
         "weight": 198
     },
     "Swinub": {
+        "evolutions": [
+            221,
+            473
+        ],
         "id": 220,
         "moves": [
             "Headbutt",
@@ -54857,6 +55962,7 @@
             "Icicle Crash",
             "Flail"
         ],
+        "prevolutions": [],
         "species": "Swinub",
         "stats": {
             "attack": 50,
@@ -54964,6 +56070,9 @@
         "weight": 105
     },
     "Taillow": {
+        "evolutions": [
+            277
+        ],
         "id": 276,
         "moves": [
             "Wing Attack",
@@ -55023,6 +56132,7 @@
             "Echoed Voice",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Taillow",
         "stats": {
             "attack": 55,
@@ -55039,6 +56149,9 @@
         "weight": 23
     },
     "Tangela": {
+        "evolutions": [
+            465
+        ],
         "id": 114,
         "moves": [
             "Swords Dance",
@@ -55116,6 +56229,7 @@
             "Rage Powder",
             "Round"
         ],
+        "prevolutions": [],
         "species": "Tangela",
         "stats": {
             "attack": 55,
@@ -55223,6 +56337,7 @@
         "weight": 1286
     },
     "Tauros": {
+        "evolutions": [],
         "id": 128,
         "moves": [
             "Stomp",
@@ -55303,6 +56418,7 @@
             "Work Up",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Tauros",
         "stats": {
             "attack": 100,
@@ -55318,6 +56434,9 @@
         "weight": 884
     },
     "Teddiursa": {
+        "evolutions": [
+            217
+        ],
         "id": 216,
         "moves": [
             "Fire Punch",
@@ -55410,6 +56529,7 @@
             "Work Up",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Teddiursa",
         "stats": {
             "attack": 80,
@@ -55425,6 +56545,9 @@
         "weight": 88
     },
     "Tentacool": {
+        "evolutions": [
+            73
+        ],
         "id": 72,
         "moves": [
             "Swords Dance",
@@ -55504,6 +56627,7 @@
             "Hex",
             "Bind"
         ],
+        "prevolutions": [],
         "species": "Tentacool",
         "stats": {
             "attack": 40,
@@ -55611,6 +56735,10 @@
         "weight": 550
     },
     "Tepig": {
+        "evolutions": [
+            499,
+            500
+        ],
         "id": 498,
         "moves": [
             "Tackle",
@@ -55670,6 +56798,7 @@
             "Heat Wave",
             "Helping Hand"
         ],
+        "prevolutions": [],
         "species": "Tepig",
         "stats": {
             "attack": 63,
@@ -55685,6 +56814,7 @@
         "weight": 99
     },
     "Terrakion": {
+        "evolutions": [],
         "id": 639,
         "moves": [
             "Swords Dance",
@@ -55742,6 +56872,7 @@
             "Iron Head",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Terrakion",
         "stats": {
             "attack": 129,
@@ -55758,6 +56889,7 @@
         "weight": 2600
     },
     "Throh": {
+        "evolutions": [],
         "id": 538,
         "moves": [
             "Bind",
@@ -55819,6 +56951,7 @@
             "Knock Off",
             "Block"
         ],
+        "prevolutions": [],
         "species": "Throh",
         "stats": {
             "attack": 100,
@@ -55834,6 +56967,7 @@
         "weight": 555
     },
     "Thundurus (incarnate)": {
+        "evolutions": [],
         "id": 642,
         "moves": [
             "Fly",
@@ -55902,6 +57036,7 @@
             "Knock Off",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Thundurus",
         "stats": {
             "attack": 115,
@@ -55918,6 +57053,7 @@
         "weight": 610
     },
     "Thundurus (therian)": {
+        "evolutions": [],
         "id": 729,
         "moves": [
             "ThunderPunch",
@@ -55986,6 +57122,7 @@
             "Volt Switch",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Thundurus",
         "stats": {
             "attack": 105,
@@ -56002,6 +57139,10 @@
         "weight": 610
     },
     "Timburr": {
+        "evolutions": [
+            533,
+            534
+        ],
         "id": 532,
         "moves": [
             "Pound",
@@ -56069,6 +57210,7 @@
             "Knock Off",
             "Block"
         ],
+        "prevolutions": [],
         "species": "Timburr",
         "stats": {
             "attack": 80,
@@ -56084,6 +57226,9 @@
         "weight": 125
     },
     "Tirtouga": {
+        "evolutions": [
+            565
+        ],
         "id": 564,
         "moves": [
             "Slam",
@@ -56146,6 +57291,7 @@
             "Earth Power",
             "Stealth Rock"
         ],
+        "prevolutions": [],
         "species": "Tirtouga",
         "stats": {
             "attack": 78,
@@ -56264,6 +57410,10 @@
         "weight": 380
     },
     "Togepi": {
+        "evolutions": [
+            176,
+            468
+        ],
         "id": 175,
         "moves": [
             "Headbutt",
@@ -56358,6 +57508,7 @@
             "Hyper Voice",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Togepi",
         "stats": {
             "attack": 20,
@@ -56496,6 +57647,10 @@
         "weight": 32
     },
     "Torchic": {
+        "evolutions": [
+            256,
+            257
+        ],
         "id": 255,
         "moves": [
             "Scratch",
@@ -56571,6 +57726,7 @@
             "Incinerate",
             "Fire Pledge"
         ],
+        "prevolutions": [],
         "species": "Torchic",
         "stats": {
             "attack": 60,
@@ -56586,6 +57742,7 @@
         "weight": 25
     },
     "Torkoal": {
+        "evolutions": [],
         "id": 324,
         "moves": [
             "Body Slam",
@@ -56658,6 +57815,7 @@
             "Selfdestruct",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Torkoal",
         "stats": {
             "attack": 85,
@@ -56673,6 +57831,7 @@
         "weight": 804
     },
     "Tornadus (incarnate)": {
+        "evolutions": [],
         "id": 641,
         "moves": [
             "Gust",
@@ -56737,6 +57896,7 @@
             "Knock Off",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Tornadus",
         "stats": {
             "attack": 115,
@@ -56752,6 +57912,7 @@
         "weight": 630
     },
     "Tornadus (therian)": {
+        "evolutions": [],
         "id": 728,
         "moves": [
             "Gust",
@@ -56816,6 +57977,7 @@
             "Acrobatics",
             "Hurricane"
         ],
+        "prevolutions": [],
         "species": "Tornadus",
         "stats": {
             "attack": 100,
@@ -56923,6 +58085,10 @@
         "weight": 3100
     },
     "Totodile": {
+        "evolutions": [
+            159,
+            160
+        ],
         "id": 158,
         "moves": [
             "Ice Punch",
@@ -57010,6 +58176,7 @@
             "Scald",
             "Water Pledge"
         ],
+        "prevolutions": [],
         "species": "Totodile",
         "stats": {
             "attack": 65,
@@ -57191,6 +58358,10 @@
         "weight": 150
     },
     "Trapinch": {
+        "evolutions": [
+            329,
+            330
+        ],
         "id": 328,
         "moves": [
             "Gust",
@@ -57248,6 +58419,7 @@
             "Bide",
             "Superpower"
         ],
+        "prevolutions": [],
         "species": "Trapinch",
         "stats": {
             "attack": 100,
@@ -57263,6 +58435,10 @@
         "weight": 150
     },
     "Treecko": {
+        "evolutions": [
+            253,
+            254
+        ],
         "id": 252,
         "moves": [
             "Pound",
@@ -57345,6 +58521,7 @@
             "Acrobatics",
             "Grass Pledge"
         ],
+        "prevolutions": [],
         "species": "Treecko",
         "stats": {
             "attack": 45,
@@ -57360,6 +58537,7 @@
         "weight": 50
     },
     "Tropius": {
+        "evolutions": [],
         "id": 357,
         "moves": [
             "Razor Wind",
@@ -57438,6 +58616,7 @@
             "Seed Bomb",
             "Dragon Pulse"
         ],
+        "prevolutions": [],
         "species": "Tropius",
         "stats": {
             "attack": 68,
@@ -57454,6 +58633,9 @@
         "weight": 1000
     },
     "Trubbish": {
+        "evolutions": [
+            569
+        ],
         "id": 568,
         "moves": [
             "Pound",
@@ -57506,6 +58688,7 @@
             "Seed Bomb",
             "Drain Punch"
         ],
+        "prevolutions": [],
         "species": "Trubbish",
         "stats": {
             "attack": 50,
@@ -57521,6 +58704,10 @@
         "weight": 310
     },
     "Turtwig": {
+        "evolutions": [
+            388,
+            389
+        ],
         "id": 387,
         "moves": [
             "Swords Dance",
@@ -57588,6 +58775,7 @@
             "Round",
             "Grass Pledge"
         ],
+        "prevolutions": [],
         "species": "Turtwig",
         "stats": {
             "attack": 68,
@@ -57603,6 +58791,10 @@
         "weight": 102
     },
     "Tympole": {
+        "evolutions": [
+            536,
+            537
+        ],
         "id": 535,
         "moves": [
             "Growl",
@@ -57647,6 +58839,7 @@
             "Endeavor",
             "Bounce"
         ],
+        "prevolutions": [],
         "species": "Tympole",
         "stats": {
             "attack": 50,
@@ -57662,6 +58855,10 @@
         "weight": 45
     },
     "Tynamo": {
+        "evolutions": [
+            603,
+            604
+        ],
         "id": 602,
         "moves": [
             "Tackle",
@@ -57670,6 +58867,7 @@
             "Charge Beam",
             "Magnet Rise"
         ],
+        "prevolutions": [],
         "species": "Tynamo",
         "stats": {
             "attack": 55,
@@ -57918,6 +59116,9 @@
         "weight": 2020
     },
     "Tyrogue": {
+        "evolutions": [
+            237
+        ],
         "id": 236,
         "moves": [
             "Headbutt",
@@ -57979,6 +59180,7 @@
             "Work Up",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Tyrogue",
         "stats": {
             "attack": 35,
@@ -58150,10 +59352,12 @@
         "weight": 290
     },
     "Unown (a)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58169,10 +59373,12 @@
         "weight": 50
     },
     "Unown (b)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58188,10 +59394,12 @@
         "weight": 50
     },
     "Unown (c)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58207,10 +59415,12 @@
         "weight": 50
     },
     "Unown (d)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58226,10 +59436,12 @@
         "weight": 50
     },
     "Unown (e)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58245,10 +59457,12 @@
         "weight": 50
     },
     "Unown (exclamation)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58264,10 +59478,12 @@
         "weight": 50
     },
     "Unown (f)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58283,10 +59499,12 @@
         "weight": 50
     },
     "Unown (g)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58302,10 +59520,12 @@
         "weight": 50
     },
     "Unown (h)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58321,10 +59541,12 @@
         "weight": 50
     },
     "Unown (i)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58340,10 +59562,12 @@
         "weight": 50
     },
     "Unown (j)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58359,10 +59583,12 @@
         "weight": 50
     },
     "Unown (k)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58378,10 +59604,12 @@
         "weight": 50
     },
     "Unown (l)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58397,10 +59625,12 @@
         "weight": 50
     },
     "Unown (m)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58416,10 +59646,12 @@
         "weight": 50
     },
     "Unown (n)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58435,10 +59667,12 @@
         "weight": 50
     },
     "Unown (o)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58454,10 +59688,12 @@
         "weight": 50
     },
     "Unown (p)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58473,10 +59709,12 @@
         "weight": 50
     },
     "Unown (q)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58492,10 +59730,12 @@
         "weight": 50
     },
     "Unown (question)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58511,10 +59751,12 @@
         "weight": 50
     },
     "Unown (r)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58530,10 +59772,12 @@
         "weight": 50
     },
     "Unown (s)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58549,10 +59793,12 @@
         "weight": 50
     },
     "Unown (t)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58568,10 +59814,12 @@
         "weight": 50
     },
     "Unown (u)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58587,10 +59835,12 @@
         "weight": 50
     },
     "Unown (v)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58606,10 +59856,12 @@
         "weight": 50
     },
     "Unown (w)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58625,10 +59877,12 @@
         "weight": 50
     },
     "Unown (x)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58644,10 +59898,12 @@
         "weight": 50
     },
     "Unown (y)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58663,10 +59919,12 @@
         "weight": 50
     },
     "Unown (z)": {
+        "evolutions": [],
         "id": 676,
         "moves": [
             "Hidden Power"
         ],
+        "prevolutions": [],
         "species": "Unown",
         "stats": {
             "attack": 72,
@@ -58793,6 +60051,7 @@
         "weight": 1258
     },
     "Uxie": {
+        "evolutions": [],
         "id": 480,
         "moves": [
             "Hyper Beam",
@@ -58871,6 +60130,7 @@
             "Magic Room",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Uxie",
         "stats": {
             "attack": 75,
@@ -58948,6 +60208,10 @@
         "weight": 410
     },
     "Vanillite": {
+        "evolutions": [
+            583,
+            584
+        ],
         "id": 582,
         "moves": [
             "Mist",
@@ -58995,6 +60259,7 @@
             "Magic Coat",
             "Signal Beam"
         ],
+        "prevolutions": [],
         "species": "Vanillite",
         "stats": {
             "attack": 50,
@@ -59172,6 +60437,10 @@
         "weight": 290
     },
     "Venipede": {
+        "evolutions": [
+            544,
+            545
+        ],
         "id": 543,
         "moves": [
             "Take Down",
@@ -59216,6 +60485,7 @@
             "Endeavor",
             "Iron Defense"
         ],
+        "prevolutions": [],
         "species": "Venipede",
         "stats": {
             "attack": 45,
@@ -59328,6 +60598,9 @@
         "weight": 125
     },
     "Venonat": {
+        "evolutions": [
+            49
+        ],
         "id": 48,
         "moves": [
             "Tackle",
@@ -59391,6 +60664,7 @@
             "Round",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Venonat",
         "stats": {
             "attack": 55,
@@ -59679,6 +60953,7 @@
         "weight": 153
     },
     "Victini": {
+        "evolutions": [],
         "id": 494,
         "moves": [
             "Headbutt",
@@ -59755,6 +61030,7 @@
             "Bounce",
             "Last Resort"
         ],
+        "prevolutions": [],
         "species": "Victini",
         "stats": {
             "attack": 100,
@@ -60041,6 +61317,7 @@
         "weight": 186
     },
     "Virizion": {
+        "evolutions": [],
         "id": 640,
         "moves": [
             "Swords Dance",
@@ -60100,6 +61377,7 @@
             "Seed Bomb",
             "Zen Headbutt"
         ],
+        "prevolutions": [],
         "species": "Virizion",
         "stats": {
             "attack": 90,
@@ -60116,6 +61394,7 @@
         "weight": 2000
     },
     "Volbeat": {
+        "evolutions": [],
         "id": 313,
         "moves": [
             "Tackle",
@@ -60192,6 +61471,7 @@
             "Acrobatics",
             "Struggle Bug"
         ],
+        "prevolutions": [],
         "species": "Volbeat",
         "stats": {
             "attack": 73,
@@ -60284,6 +61564,9 @@
         "weight": 460
     },
     "Voltorb": {
+        "evolutions": [
+            101
+        ],
         "id": 100,
         "moves": [
             "Tackle",
@@ -60342,6 +61625,7 @@
             "Wild Charge",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Voltorb",
         "stats": {
             "attack": 30,
@@ -60357,6 +61641,9 @@
         "weight": 104
     },
     "Vullaby": {
+        "evolutions": [
+            630
+        ],
         "id": 629,
         "moves": [
             "Cut",
@@ -60418,6 +61705,7 @@
             "Block",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Vullaby",
         "stats": {
             "attack": 55,
@@ -60434,6 +61722,9 @@
         "weight": 90
     },
     "Vulpix": {
+        "evolutions": [
+            38
+        ],
         "id": 37,
         "moves": [
             "Body Slam",
@@ -60508,6 +61799,7 @@
             "Covet",
             "Foul Play"
         ],
+        "prevolutions": [],
         "species": "Vulpix",
         "stats": {
             "attack": 41,
@@ -60523,6 +61815,9 @@
         "weight": 99
     },
     "Wailmer": {
+        "evolutions": [
+            321
+        ],
         "id": 320,
         "moves": [
             "Thrash",
@@ -60589,6 +61884,7 @@
             "Selfdestruct",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Wailmer",
         "stats": {
             "attack": 70,
@@ -61064,6 +62360,10 @@
         "weight": 340
     },
     "Weedle": {
+        "evolutions": [
+            14,
+            15
+        ],
         "id": 13,
         "moves": [
             "Poison Sting",
@@ -61071,6 +62371,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Weedle",
         "stats": {
             "attack": 35,
@@ -61459,6 +62760,10 @@
         "weight": 236
     },
     "Whismur": {
+        "evolutions": [
+            294,
+            295
+        ],
         "id": 293,
         "moves": [
             "Pound",
@@ -61531,6 +62836,7 @@
             "Retaliate",
             "Work Up"
         ],
+        "prevolutions": [],
         "species": "Whismur",
         "stats": {
             "attack": 51,
@@ -61673,6 +62979,9 @@
         "weight": 120
     },
     "Wingull": {
+        "evolutions": [
+            279
+        ],
         "id": 278,
         "moves": [
             "Gust",
@@ -61736,6 +63045,7 @@
             "Hurricane",
             "Sky Attack"
         ],
+        "prevolutions": [],
         "species": "Wingull",
         "stats": {
             "attack": 30,
@@ -61778,6 +63088,9 @@
         "weight": 285
     },
     "Woobat": {
+        "evolutions": [
+            528
+        ],
         "id": 527,
         "moves": [
             "Gust",
@@ -61852,6 +63165,7 @@
             "Zen Headbutt",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Woobat",
         "stats": {
             "attack": 45,
@@ -61868,6 +63182,9 @@
         "weight": 21
     },
     "Wooper": {
+        "evolutions": [
+            195
+        ],
         "id": 194,
         "moves": [
             "Ice Punch",
@@ -61943,6 +63260,7 @@
             "Scald",
             "Bulldoze"
         ],
+        "prevolutions": [],
         "species": "Wooper",
         "stats": {
             "attack": 45,
@@ -62036,6 +63354,7 @@
         "weight": 65
     },
     "Wormadam (sandy)": {
+        "evolutions": [],
         "id": 685,
         "moves": [
             "Tackle",
@@ -62094,6 +63413,7 @@
             "Stealth Rock",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Wormadam",
         "stats": {
             "attack": 79,
@@ -62110,6 +63430,7 @@
         "weight": 65
     },
     "Wormadam (trash)": {
+        "evolutions": [],
         "id": 686,
         "moves": [
             "Tackle",
@@ -62165,6 +63486,7 @@
             "Struggle Bug",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Wormadam",
         "stats": {
             "attack": 69,
@@ -62181,6 +63503,10 @@
         "weight": 65
     },
     "Wurmple": {
+        "evolutions": [
+            268,
+            269
+        ],
         "id": 265,
         "moves": [
             "Tackle",
@@ -62190,6 +63516,7 @@
             "Bug Bite",
             "Electroweb"
         ],
+        "prevolutions": [],
         "species": "Wurmple",
         "stats": {
             "attack": 45,
@@ -62205,6 +63532,9 @@
         "weight": 36
     },
     "Wynaut": {
+        "evolutions": [
+            202
+        ],
         "id": 360,
         "moves": [
             "Counter",
@@ -62215,6 +63545,7 @@
             "Encore",
             "Mirror Coat"
         ],
+        "prevolutions": [],
         "species": "Wynaut",
         "stats": {
             "attack": 23,
@@ -62335,6 +63666,9 @@
         "weight": 150
     },
     "Yamask": {
+        "evolutions": [
+            563
+        ],
         "id": 562,
         "moves": [
             "Disable",
@@ -62399,6 +63733,7 @@
             "Wonder Room",
             "After You"
         ],
+        "prevolutions": [],
         "species": "Yamask",
         "stats": {
             "attack": 30,
@@ -62414,6 +63749,9 @@
         "weight": 15
     },
     "Yanma": {
+        "evolutions": [
+            469
+        ],
         "id": 193,
         "moves": [
             "Whirlwind",
@@ -62479,6 +63817,7 @@
             "Bug Bite",
             "Round"
         ],
+        "prevolutions": [],
         "species": "Yanma",
         "stats": {
             "attack": 65,
@@ -62578,6 +63917,7 @@
         "weight": 515
     },
     "Zangoose": {
+        "evolutions": [],
         "id": 335,
         "moves": [
             "Scratch",
@@ -62681,6 +64021,7 @@
             "Work Up",
             "Revenge"
         ],
+        "prevolutions": [],
         "species": "Zangoose",
         "stats": {
             "attack": 115,
@@ -62696,6 +64037,7 @@
         "weight": 403
     },
     "Zapdos": {
+        "evolutions": [],
         "id": 145,
         "moves": [
             "Razor Wind",
@@ -62766,6 +64108,7 @@
             "Volt Switch",
             "Wild Charge"
         ],
+        "prevolutions": [],
         "species": "Zapdos",
         "stats": {
             "attack": 90,
@@ -62845,6 +64188,7 @@
         "weight": 795
     },
     "Zekrom": {
+        "evolutions": [],
         "id": 644,
         "moves": [
             "Cut",
@@ -62912,6 +64256,7 @@
             "Dragon Pulse",
             "Earth Power"
         ],
+        "prevolutions": [],
         "species": "Zekrom",
         "stats": {
             "attack": 150,
@@ -62928,6 +64273,9 @@
         "weight": 3450
     },
     "Zigzagoon": {
+        "evolutions": [
+            264
+        ],
         "id": 263,
         "moves": [
             "Cut",
@@ -63006,6 +64354,7 @@
             "Work Up",
             "Hyper Voice"
         ],
+        "prevolutions": [],
         "species": "Zigzagoon",
         "stats": {
             "attack": 30,
@@ -63109,6 +64458,9 @@
         "weight": 811
     },
     "Zorua": {
+        "evolutions": [
+            571
+        ],
         "id": 570,
         "moves": [
             "Scratch",
@@ -63176,6 +64528,7 @@
             "Bounce",
             "Covet"
         ],
+        "prevolutions": [],
         "species": "Zorua",
         "stats": {
             "attack": 65,
@@ -63191,6 +64544,10 @@
         "weight": 125
     },
     "Zubat": {
+        "evolutions": [
+            42,
+            169
+        ],
         "id": 41,
         "moves": [
             "Razor Wind",
@@ -63267,6 +64624,7 @@
             "Round",
             "Acrobatics"
         ],
+        "prevolutions": [],
         "species": "Zubat",
         "stats": {
             "attack": 45,
