@@ -10,6 +10,26 @@ describe 'BattleQueue', ->
       queue.add({}, {})
       queue.queue.should.have.length 1
 
+    it 'queues two players', ->
+      queue = new BattleQueue()
+      queue.add({}, {})
+      queue.add({}, {})
+      queue.queue.should.have.length 2
+
+    it 'cannot queue the same player twice', ->
+      queue = new BattleQueue()
+      reference = {}
+      queue.add(reference, {})
+      queue.add(reference, {})
+      queue.queue.should.have.length 1
+
+    it 'cannot queue falsy references', ->
+      queue = new BattleQueue()
+      queue.add(null, {})
+      queue.add(false, {})
+      queue.add(undefined, {})
+      queue.queue.should.have.length 0
+
   describe '#remove', ->
     it 'can dequeue old players', ->
       queue = new BattleQueue()

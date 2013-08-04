@@ -56,14 +56,14 @@ class @Team
     attachment
 
   switch: (player, a, b, options = {}) ->
-    @battle.message "#{player.username} withdrew #{@at(a).name}!"
+    @battle.message "#{player.id} withdrew #{@at(a).name}!"
     p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
     @switchOut(@at(a))
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     p.tell(2, player.index, a, b)  for p in @battle.players
 
-    @battle.message "#{player.username} sent out #{@at(a).name}!"
+    @battle.message "#{player.id} sent out #{@at(a).name}!"
     @switchIn(@at(a))  unless options.silent == true
     @at(a).turnsActive = 0
 

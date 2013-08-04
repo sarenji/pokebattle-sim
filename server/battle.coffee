@@ -176,18 +176,7 @@ class @Battle
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) ->
-    @buffer.push(string)
-
-  clearMessages: ->
-    while @buffer.length > 0
-      @buffer.pop()
-
-  # Sends to each player the battle messages that have been queued up
-  # TODO: It should be sent to spectators as well
-  sendMessages: ->
-    for player in @players
-      player.updateChat('SERVER', @buffer.join("<br>"))
-    @clearMessages()
+    player.tell(6, string)  for player in @players
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
@@ -261,6 +250,8 @@ class @Battle
     @turn++
     @priorityQueue = null
 
+    p.tell(5, @turn)  for p in @players
+
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     team.beginTurn()  for team in @getTeams()
     pokemon.beginTurn() for pokemon in @getActivePokemon()
@@ -320,7 +311,6 @@ class @Battle
     team.endTurn()  for team in @getTeams()
     pokemon.endTurn()  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
-    @sendMessages()
 
   attach: (klass, options = {}) ->
     options = _.clone(options)
@@ -340,9 +330,8 @@ class @Battle
   endBattle: ->
     winner = @getWinner()
     for player in @players
-      @message "#{winner.username} won!"
+      @message "#{winner.id} won!"
       @message "END BATTLE."
-    @sendMessages()
 
   getWinner: ->
     winner = null
@@ -418,7 +407,7 @@ class @Battle
 
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
-    player.tell(4, player.index, validActions)
+    player.tell(4, validActions)
     return true
 
   # Returns true if all requests have been completed. False otherwise.
@@ -518,7 +507,7 @@ class @Battle
     struggle = @getMove('Struggle')
 
     @message "#{pokemon.name} has no moves left!"  if move == struggle
-    @message "#{player.username}'s #{pokemon.name} used #{move.name}!"
+    @message "#{player.id}'s #{pokemon.name} used #{move.name}!"
 
     if pokemon.pp(move) <= 0
       @message "But there was no PP left for the move!"

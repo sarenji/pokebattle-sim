@@ -71,7 +71,7 @@ makeFlavorHealingBerry = (name, stat) ->
   extendItem name, ->
     @eat = (battle, owner) ->
       # TODO: Replace with the real battle message.
-      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      battle.message "#{owner.id}'s #{name} restored its HP a little!"
       owner.damage(-Math.floor(owner.stat('hp') / 8))
       if owner.natureBoost(stat) < 1.0
         # TODO: Replace with the real battle message.
@@ -87,7 +87,7 @@ makeHealingBerry = (name, func) ->
   extendItem name, ->
     @eat = (battle, owner) ->
       # TODO: Replace with the real battle message.
-      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      battle.message "#{owner.id}'s #{name} restored its HP a little!"
       owner.damage(-func(owner))
 
     @update = (battle, owner) ->

@@ -70,6 +70,10 @@ class @BattleView extends Backbone.View
   disableButtons: =>
     @renderActions()
 
+  # TODO: Move to model
+  addLog: (message) =>
+    BattleTower.chatView.updateChat(message)
+
   makeMove: (e) =>
     moveName = @getText(e.target)
     if @isDisabled()

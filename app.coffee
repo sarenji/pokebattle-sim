@@ -1,8 +1,11 @@
 http = require 'http'
 express = require 'express'
 require 'express-namespace'
+require 'sugar'
 
-{BattleServer, ConnectionServer} = require './server'
+request = require 'request'
+
+{BattleServer, ConnectionServer, User} = require './server'
 
 server = new BattleServer()
 app = express()
@@ -15,6 +18,9 @@ app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
 app.use(require('connect-assets')(src: "client"))
+
+PORT = process.env.PORT || 8000
+PERSONA_AUDIENCE = "http://localhost:#{PORT}"
 
 # Routing
 app.get '/', (req, res) ->
@@ -33,44 +39,77 @@ userList = []
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
-  'login': (socket, username) ->
-    console.log "Received user #{username}"
-    userHash = {id:  socket.id, name: username}
-    userList.push(userHash)
-    socket.username = username
+  'send chat': (user, message) ->
+    user.broadcast 'update chat', user.toJSON(), message
 
-    socket.send 'login result', socket.id, socket.username, userList
-    connections.broadcast 'join chatroom', userHash
+  # TODO: Dequeue player
+  'close': (user) ->
+    userList.remove(user)
+    user.broadcast 'leave chatroom', user.toJSON()
 
+  ###########
+  # BATTLES #
+  ###########
+
+  'find battle': (user) ->
     # TODO: Take team from player.
     # TODO: Validate team.
     team = defaultTeam
-    server.queuePlayer(socket, team)
-    if server.queuedPlayers().length == 2
+    server.queuePlayer(user, team)
+    if server.queuedPlayers().length >= 2
       server.beginBattles()
-  
-  'sendchat': (socket, message) ->
-    connections.broadcast 'updatechat', socket.username, message
-  
-  'send move': (socket, battleId, moveName) ->
+
+  'send move': (user, battleId, moveName) ->
     battle = server.findBattle(battleId)
     if !battle
-      @send 'error', 'ERROR: Battle does not exist'
+      user.send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeMove(socket, moveName)
+    battle.makeMove(user, moveName)
   
-  'send switch': (socket, battleId, toSlot) ->
+  'send switch': (user, battleId, toSlot) ->
     battle = server.findBattle(battleId)
     if !battle
-      socket.send 'error', 'ERROR: Battle does not exist'
+      user.send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeSwitch(socket, toSlot)
+    battle.makeSwitch(user, toSlot)
+
+  ##################
+  # AUTHENTICATION #
+  ##################
+  'assert login': (user, assertion) ->
+    console.log "verifying with persona"
+    url = 'https://verifier.login.persona.org/verify'
+    audience = PERSONA_AUDIENCE
+    json = {assertion, audience}
+    params = {url, json}
+    callback = (error, response, body) ->
+      if error
+        user.send('login fail', "Could not connect to the login server.")
+        return
+      if body.status != 'okay'
+        user.send('login fail', body.reason)
+        return
+      user._id = body.email
+      user.id = generateUsername()
+      userList.push(user)
+      user.send 'login success', user.toJSON()
+      user.send 'list chatroom', userList.map((u) -> u.toJSON())
+      user.broadcast 'join chatroom', user.toJSON()
+    request.post(params, callback)
+
   # TODO: socket.off after disconnection
-  # Dequeue player in socket off
 
-httpServer.listen(process.env.PORT || 8000)
+httpServer.listen(PORT)
+
+generateUsername = ->
+  {PokemonData} = require './data/bw'
+  randomName = (name  for name of PokemonData)
+  randomName = randomName[Math.floor(Math.random() * randomName.length)]
+  randomName = randomName.split(/\s+/)[0]
+  randomName += "Fan" + Math.floor(Math.random() * 10000)
+  randomName
 
 
 # TODO: Implement team builder!

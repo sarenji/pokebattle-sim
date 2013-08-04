@@ -1,10 +1,8 @@
 class @Player
-  constructor: (@socket) ->
-    {@id, @username} = @socket
+  constructor: (@user) ->
+    @id = @user.name || @user.id
+    @name = @user.name
     @queue = []
-
-  updateChat: (username, message) ->
-    @send 'updatechat', username, message
 
   tell: (args...) ->
     @queue.push(args)
@@ -27,4 +25,4 @@ class @Player
     false
 
   send: (args...) ->
-    @socket.send? args...
+    @user.send? args...

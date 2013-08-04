@@ -1,6 +1,7 @@
 !!!
 html
   head
+    meta(http-equiv="X-UA-Compatible", content="IE=Edge")
     != css('main')
     != js('vendor')
     != js('client')
@@ -13,12 +14,24 @@ html
       ul.nav
         li.active.fake_link Chat
         li.fake_link Teambuilder
+        li.login.fake_link Login
     #content
       .clearfix
-        .chat.left.half_width
-        .battle.right.half_width
+        .chat.half_width
+        .battle.half_width
+        .main_nav.half_width
+          .section
+            .team
+            .button.big.find_battle
+              span.glyphicon.glyphicon-globe
+              |  Find battle
+          .section
+            .button.teambuilder
+              span.glyphicon.glyphicon-pencil
+              |  Teambuilder
       .builder
     script(type="text/javascript").
       var PokemonData = !{JSON.stringify(PokemonData)}
       var MoveData = !{JSON.stringify(MoveData)}
       var ItemData = !{JSON.stringify(ItemData)}
+    script(src="https://login.persona.org/include.js")

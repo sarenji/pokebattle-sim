@@ -788,7 +788,7 @@ extendMove 'lucky-chant', ->
   @afterSuccessfulHit = (battle, user, target) ->
     player = battle.getOwner(target)
     if player.team.attach(Attachment.LuckyChant)
-      battle.message "The Lucky Chant shielded #{player.username}'s " +
+      battle.message "The Lucky Chant shielded #{player.id}'s " +
                      "team from critical hits!"
     else
       @fail(battle)
@@ -1777,7 +1777,7 @@ extendMove 'rapid-spin', ->
         hazardRemoved = true
 
     if hazardRemoved
-      battle.message "#{owner.username}'s side of the field is cleared of entry hazards."
+      battle.message "#{owner.id}'s side of the field is cleared of entry hazards."
 
     # Remove trapping moves like fire-spin
     trap = user.unattach(Attachment.Trap)
@@ -1816,7 +1816,7 @@ extendMove 'spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.Spikes)
-        battle.message "#{@name} were scattered all around #{opponent.username}'s team's feet!"
+        battle.message "#{@name} were scattered all around #{opponent.id}'s team's feet!"
       else
         @fail(battle)
 
@@ -1834,7 +1834,7 @@ extendMove 'stealth-rock', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.StealthRock)
-        battle.message "Pointed stones float in the air around #{opponent.username}'s team!"
+        battle.message "Pointed stones float in the air around #{opponent.id}'s team!"
       else
         @fail(battle)
 
@@ -1929,7 +1929,7 @@ extendMove 'toxic-spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.ToxicSpikes)
-        battle.message "Poison spikes were scattered all around #{opponent.username}'s team's feet!"
+        battle.message "Poison spikes were scattered all around #{opponent.id}'s team's feet!"
       else
         @fail(battle)
 

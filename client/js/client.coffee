@@ -3,6 +3,7 @@
 #= require_tree models
 #= require_tree collections
 #= require_tree views
+#= require_tree concerns
 
 # A wrapper around the sockjs socket to support a higher level of abstraction
 # Todo: Move this somewhere else
@@ -39,8 +40,8 @@ class @Socket
     @socket.send(JSON.stringify(messageType: type, data: data))
 
 @BattleTower = BattleTower = {}
-socket = null
-chatView = null
+BattleTower.socket = null
+BattleTower.chatView = null
 
 $ ->
   #$builder = $('.builder')
@@ -48,33 +49,29 @@ $ ->
   #builderView = new TeamBuilderView(el: $builder, collection: pokemon)
   #builderView.render()
 
-  socket = new Socket(new SockJS('/socket'))
-  socket.addEvents
-    'connect': ->
-      randomName = (name  for name of PokemonData)
-      randomName = randomName[Math.floor(Math.random() * randomName.length)]
-      randomName = randomName.split(/\s+/)[0]
-      randomName += "Fan" + Math.floor(Math.random() * 10000)
-      socket.send 'login', randomName
-
-    'login result': (socket, id, username, userList) ->
-      socket.id = id
-      BattleTower.userList = new UserList(userList)
-      chatView = new ChatView(
+  BattleTower.socket = new Socket(new SockJS('/socket'))
+  BattleTower.socket.addEvents
+    'connect': (socket) ->
+      BattleTower.userList = new UserList()
+      BattleTower.chatView = new ChatView(
         el: $('.chat')
         collection: BattleTower.userList
-        socket: socket
       )
-      chatView.render()
+      BattleTower.chatView.render()
 
-    'updatechat': (socket, username, data) ->
-      chatView.updateChat("<b>#{username}:</b> #{data}")
+    'list chatroom': (socket, users) ->
+      BattleTower.userList.reset(users)
 
-    'join chatroom': (socket, userHash) ->
-      BattleTower.userList.add(userHash)
-      chatView.updateChat("#{userHash.name} joined BattleTower!")
+    'update chat': (socket, user, data) ->
+      BattleTower.chatView.userMessage(user.id, data)
+
+    'join chatroom': (socket, user) ->
+      BattleTower.userList.add(user)
+
+    'leave chatroom': (socket, user) ->
+      BattleTower.userList.remove(user)
 
     'error': (socket, message) ->
       alert(message)
 
-  new BattleCollection([], socket: socket) # todo: move this elsewhere
+  new BattleCollection([]) # todo: move this elsewhere

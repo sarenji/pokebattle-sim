@@ -391,7 +391,7 @@ makeAbility 'Forewarn', ->
     possibles = moves.filter((m) -> consider(m) == maxPower)
     finalMove = @battle.rng.choice(possibles, "forewarn")
     owner = opponents.find((p) -> finalMove in p.moves)
-    @battle.message "It was alerted to #{owner.name}'s #{finalMove.name}!"
+    @battle.message "It was alerted to #{owner.id}'s #{finalMove.name}!"
 
 makeAbility 'Friend Guard', ->
   this::modifyDamageTarget = (move, user) ->

@@ -383,7 +383,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   switchIn: (pokemon) ->
     if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
-      name = @battle.getOwner(pokemon).username
+      name = @team.player.id
       @battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
       @team.unattach(@constructor)
 
@@ -934,9 +934,9 @@ class @Attachment.LuckyChant extends @TeamAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      # TODO: Less hacky way of getting username
-      {username} = (p for p in @battle.players when p.team == @team)[0]
-      @battle.message "#{username}'s team's Lucky Chant wore off!"
+      # TODO: Less hacky way of getting id
+      {id} = (p for p in @battle.players when p.team == @team)[0]
+      @battle.message "#{id}'s team's Lucky Chant wore off!"
       @team.unattach(@constructor)
 
 class @Attachment.LunarDance extends @TeamAttachment

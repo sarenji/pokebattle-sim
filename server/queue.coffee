@@ -1,11 +1,14 @@
+require 'sugar'
+
 # A queue of users waiting for a battle
 class @BattleQueue
   constructor: ->
     @queue = []
 
   add: (player, team) ->
-    # TODO: Do not queue players that are already in the queue
+    return false  if !player || @queue.some((o) -> o.player == player)
     @queue.push({player, team})
+    return true
 
   remove: (player) ->
     players = @queue.map (object) -> object.player
