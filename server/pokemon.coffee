@@ -29,7 +29,7 @@ class @Pokemon
     @currentHP = @stat('hp')
 
     @moves = attributes.moves?.map (move) ->
-      Moves[move.toLowerCase().replace(/\s+/g, '-')]
+      Moves[move]
     @used = {}
     @resetAllPP()
     @types = attributes.types || [] # TODO: Get from species.

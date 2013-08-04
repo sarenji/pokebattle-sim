@@ -27,7 +27,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       mock = @sandbox.mock(move)
       mock.expects('afterMiss').once()
-      @controller.makeMove(@player1, 'hi-jump-kick')
+      @controller.makeMove(@player1, 'Hi Jump Kick')
       @controller.makeMove(@player2, 'Splash')
       mock.verify()
 
@@ -106,7 +106,7 @@ describe 'Mechanics', ->
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
       defender = @p2
-      @controller.makeMove(@player1, 'flamethrower')
+      @controller.makeMove(@player1, 'Flamethrower')
       @controller.makeMove(@player2, 'Splash')
       defender.has(Status.Burn).should.be.true
 
@@ -209,9 +209,8 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Hitmonchan', evs: { speed: 4 })]
-      spy = @sandbox.spy(@battle, 'determineTurnOrder')
-      @battle.recordMove(@id1, @battle.getMove('Thunderpunch'))
-      @battle.recordMove(@id2, @battle.getMove('Thunderpunch'))
+      @battle.recordMove(@id1, @battle.getMove('ThunderPunch'))
+      @battle.recordMove(@id2, @battle.getMove('ThunderPunch'))
       @battle.determineTurnOrder().should.eql [
         {id: @id2, pokemon: @p2, priority: 0}
         {id: @id1, pokemon: @p1, priority: 0}

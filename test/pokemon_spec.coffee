@@ -21,8 +21,8 @@ describe 'Pokemon', ->
 
   it 'has pp for each move', ->
     pokemon = new Pokemon(moves: ["Tackle", "Splash"])
-    pokemon.pp(Moves['tackle']).should.equal 35 * 8/5
-    pokemon.pp(Moves['splash']).should.equal 40 * 8/5
+    pokemon.pp(Moves['Tackle']).should.equal 35 * 8/5
+    pokemon.pp(Moves['Splash']).should.equal 40 * 8/5
 
   describe '#iv', ->
     it 'has default iv of 31', ->
@@ -110,9 +110,9 @@ describe 'Pokemon', ->
 
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(Moves['earthquake'])
+      pokemon.blockMove(Moves['Earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['Earthquake']).should.be.false
 
     it 'removes volatile attachments', ->
       pokemon = new Pokemon()
@@ -123,9 +123,9 @@ describe 'Pokemon', ->
   describe '#endTurn', ->
     it 'removes blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(Moves['earthquake'])
+      pokemon.blockMove(Moves['Earthquake'])
       pokemon.switchOut()
-      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['Earthquake']).should.be.false
 
   describe '#attach', ->
     it 'adds an attachment to a list of attachments', ->
@@ -143,35 +143,35 @@ describe 'Pokemon', ->
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(Moves['earthquake'])
-      pokemon.blockedMoves.should.include Moves['earthquake']
+      pokemon.blockMove(Moves['Earthquake'])
+      pokemon.blockedMoves.should.include Moves['Earthquake']
 
   describe '#isMoveBlocked', ->
     it 'returns true if the move is blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.blockMove(Moves['earthquake'])
-      pokemon.isMoveBlocked(Moves['earthquake']).should.be.true
+      pokemon.blockMove(Moves['Earthquake'])
+      pokemon.isMoveBlocked(Moves['Earthquake']).should.be.true
 
     it 'returns false if the move is not blocked', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
-      pokemon.isMoveBlocked(Moves['earthquake']).should.be.false
+      pokemon.isMoveBlocked(Moves['Earthquake']).should.be.false
 
   describe '#validMoves', ->
     it 'returns moves without blocked moves', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      pokemon.blockMove(Moves['earthquake'])
-      _(pokemon.validMoves()).isEqual([Moves['splash']]).should.be.true
+      pokemon.blockMove(Moves['Earthquake'])
+      _(pokemon.validMoves()).isEqual([Moves['Splash']]).should.be.true
 
   describe '#reducePP', ->
     it 'reduces PP of a move by 1', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = Moves['splash']
+      move = Moves['Splash']
       pokemon.reducePP(move)
       pokemon.pp(move).should.equal pokemon.maxPP(move) - 1
 
     it 'does not go below 0', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = Moves['splash']
+      move = Moves['Splash']
       for x in [0..pokemon.maxPP(move)]
         pokemon.reducePP(move)
       pokemon.pp(move).should.equal 0
@@ -179,19 +179,19 @@ describe 'Pokemon', ->
   describe '#setPP', ->
     it "sets the PP of a move", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = Moves['splash']
+      move = Moves['Splash']
       pokemon.setPP(move, 1)
       pokemon.pp(move).should.equal 1
 
     it "cannot go below 0", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = Moves['splash']
+      move = Moves['Splash']
       pokemon.setPP(move, -1)
       pokemon.pp(move).should.equal 0
 
     it "cannot go above the max PP possible", ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
-      move = Moves['splash']
+      move = Moves['Splash']
       pokemon.setPP(move, pokemon.maxPP(move) + 1)
       pokemon.pp(move).should.equal pokemon.maxPP(move)
 

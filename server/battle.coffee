@@ -57,7 +57,7 @@ class @Battle
     @priorityQueue = null
 
     # Stores the confusion recoil move as it may be different cross-generations
-    @confusionMove = Moves['confusion-recoil']
+    @confusionMove = Moves['Confusion Recoil']
 
     # Stores attachments on the battle itself.
     @attachments = new Attachments()
@@ -563,7 +563,7 @@ class @Battle
         throw new Error("Unimplemented target: #{move.target}.")
 
   getMove = (moveName) ->
-    moveName = moveName.toLowerCase().replace(/\s+/g, '-')
+    throw new Error("#{moveName} does not exist.")  if moveName not of Moves
     Moves[moveName]
 
   @getMove: getMove

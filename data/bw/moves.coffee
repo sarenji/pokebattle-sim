@@ -22,7 +22,7 @@ for name, attributes of @MoveData
 #
 # Example:
 #
-#   extendMove 'substitute', (attributes) ->
+#   extendMove 'Substitute', (attributes) ->
 #     @initialize -> # blah
 #     @afterMove -> # blah
 #
@@ -56,7 +56,7 @@ extendWithPrimaryStatus = (name, status) ->
 #
 # Example:
 #
-#   extendWithSecondaryEffect 'iron-head', .3, Attachment.Flinch
+#   extendWithSecondaryEffect 'Iron Head', .3, Attachment.Flinch
 #
 extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
   extendMove name, ->
@@ -310,9 +310,9 @@ makeRampageMove = (moveName) ->
     @afterSuccessfulHit = (battle, user, target) ->
       user.attach(Attachment.Rampage, move: this)
 
-makeRampageMove("outrage")
-makeRampageMove("petal-dance")
-makeRampageMove("thrash")
+makeRampageMove("Outrage")
+makeRampageMove("Petal Dance")
+makeRampageMove("Thrash")
 
 # TODO: Does it fail if using twice, but on a different target?
 # From PokemonLab:
@@ -357,20 +357,20 @@ makeChargeMove = (name, args...) ->
       data.move = this
       user.attach(Attachment.Charging, data)
 
-makeChargeMove 'skull-bash', "$1 tucked in its head!"
-makeChargeMove 'razor-wind', "$1 whipped up a whirlwind!"
-makeChargeMove 'sky-attack', "$1 became cloaked in a harsh light!"
-makeChargeMove 'shadow-force', [], "$1 vanished instantly!"
-makeChargeMove 'ice-burn', [], "$1 became cloaked in freezing air!"
-makeChargeMove 'freeze-shock', [], "$1 became cloaked in a freezing light!"
-makeChargeMove 'fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 flew up high!"
-makeChargeMove 'bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 sprang up!"
-makeChargeMove 'dig', ["Earthquake", "Magnitude"], "$1 burrowed its way under the ground!"
-makeChargeMove 'dive', ["Surf", "Whirlpool"], "$1 hid underwater!"
-makeChargeMove 'solarbeam', "$1 absorbed light!", (battle) ->
+makeChargeMove 'Skull Bash', "$1 tucked in its head!"
+makeChargeMove 'Razor Wind', "$1 whipped up a whirlwind!"
+makeChargeMove 'Sky Attack', "$1 became cloaked in a harsh light!"
+makeChargeMove 'Shadow Force', [], "$1 vanished instantly!"
+makeChargeMove 'Ice Burn', [], "$1 became cloaked in freezing air!"
+makeChargeMove 'Freeze Shock', [], "$1 became cloaked in a freezing light!"
+makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 flew up high!"
+makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 sprang up!"
+makeChargeMove 'Dig', ["Earthquake", "Magnitude"], "$1 burrowed its way under the ground!"
+makeChargeMove 'Dive', ["Surf", "Whirlpool"], "$1 hid underwater!"
+makeChargeMove 'SolarBeam', "$1 absorbed light!", (battle) ->
   battle.hasWeather(Weather.SUN)
 
-extendMove 'solarbeam', ->
+extendMove 'SolarBeam', ->
   @basePower = (battle, user, target) ->
     if battle.hasWeather(Weather.RAIN) || battle.hasWeather(Weather.SAND) ||
         battle.hasWeather(Weather.HAIL)
@@ -480,18 +480,18 @@ makeTrappingMove = (name) ->
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
         user.attach(Attachment.TrapLeash, {target})
 
-extendWithDrain 'absorb'
-extendWithSecondaryBoost 'acid', 'target', .1, specialDefense: -1
-makeBoostMove 'acid-armor', 'self', defense: 2
-makeBoostMove 'acid-spray', 'target', specialDefense: -2
-makeBoostMove 'agility', 'self', speed: 2
-makeBoostMove 'amnesia', 'self', specialDefense: 2
-extendWithSecondaryBoost 'ancientpower', 'self', .1, {
+extendWithDrain 'Absorb'
+extendWithSecondaryBoost 'Acid', 'target', .1, specialDefense: -1
+makeBoostMove 'Acid Armor', 'self', defense: 2
+makeBoostMove 'Acid Spray', 'target', specialDefense: -2
+makeBoostMove 'Agility', 'self', speed: 2
+makeBoostMove 'Amnesia', 'self', specialDefense: 2
+extendWithSecondaryBoost 'AncientPower', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
-makeStatusCureMove 'aromatherapy', 'A soothing aroma wafted through the area!'
+makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
-extendMove 'attract', ->
+extendMove 'Attract', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.has(Attachment.Attract) ||
         (!(user.gender == 'M' && target.gender == 'F') &&
@@ -500,11 +500,11 @@ extendMove 'attract', ->
       return
     target.attach(Attachment.Attract, source: user)
 
-extendWithSecondaryBoost 'aurora-beam', 'target', .1, attack: -1
-makeBoostMove 'autotomize', 'self', speed: 2
-makeBoostMove 'barrier', 'self', defense: 2
+extendWithSecondaryBoost 'Aurora Beam', 'target', .1, attack: -1
+makeBoostMove 'Autotomize', 'self', speed: 2
+makeBoostMove 'Barrier', 'self', defense: 2
 
-extendMove 'baton-pass', ->
+extendMove 'Baton Pass', ->
   @execute = (battle, user, targets) ->
     {team} = battle.getOwner(user)
     slot = team.indexOf(user)
@@ -521,30 +521,30 @@ extendMove 'baton-pass', ->
       user.unattach(attachment)
     team.attach(Attachment.BatonPass, {slot, stages, attachments})
 
-makeTrappingMove "bind"
-makeRechargeMove 'blast-burn'
-extendWithSecondaryStatus 'blaze-kick', .1, Status.Burn
-extendWithSecondaryStatus 'blizzard', .1, Status.Freeze
-makeMeanLookMove 'block'
-extendWithSecondaryStatus 'blue-flare', .2, Status.Burn
-extendWithSecondaryStatus 'body-slam', .3, Status.Paralyze
-extendWithSecondaryStatus 'bolt-strike', .2, Status.Paralyze
-extendWithSecondaryEffect 'bone-club', .1, Attachment.Flinch
-extendWithSecondaryStatus 'bounce', .3, Status.Paralyze
-extendWithSecondaryBoost 'bubble', 'target', .1, speed: -1
-extendWithSecondaryBoost 'bubblebeam', 'target', .1, speed: -1
-extendWithSecondaryBoost 'bug-buzz', 'target', .1, specialDefense: -1
-makeBoostMove 'bulk-up', 'self', attack: 1, defense: 1
-extendWithBoost 'bulldoze', 'target', speed: -1
-makeBoostMove 'calm-mind', 'self', specialAttack: 1, specialDefense: 1
+makeTrappingMove "Bind"
+makeRechargeMove 'Blast Burn'
+extendWithSecondaryStatus 'Blaze Kick', .1, Status.Burn
+extendWithSecondaryStatus 'Blizzard', .1, Status.Freeze
+makeMeanLookMove 'Block'
+extendWithSecondaryStatus 'Blue Flare', .2, Status.Burn
+extendWithSecondaryStatus 'Body Slam', .3, Status.Paralyze
+extendWithSecondaryStatus 'Bolt Strike', .2, Status.Paralyze
+extendWithSecondaryEffect 'Bone Club', .1, Attachment.Flinch
+extendWithSecondaryStatus 'Bounce', .3, Status.Paralyze
+extendWithSecondaryBoost 'Bubble', 'target', .1, speed: -1
+extendWithSecondaryBoost 'BubbleBeam', 'target', .1, speed: -1
+extendWithSecondaryBoost 'Bug Buzz', 'target', .1, specialDefense: -1
+makeBoostMove 'Bulk Up', 'self', attack: 1, defense: 1
+extendWithBoost 'Bulldoze', 'target', speed: -1
+makeBoostMove 'Calm Mind', 'self', specialAttack: 1, specialDefense: 1
 
-extendMove 'camouflage', ->
+extendMove 'Camouflage', ->
   @use = (battle, user, target) ->
     # Camouflage changes type based on terrain
     # In Wi-Fi battles, the terrain always results in Ground type.
     target.types = [ "Ground" ]
 
-extendMove 'captivate', ->
+extendMove 'Captivate', ->
   applyBoosts = boostExtension('target', specialAttack: -2)
   oldUse = @use
   @use = (battle, user, target) ->
@@ -554,8 +554,8 @@ extendMove 'captivate', ->
     else
       applyBoosts(battle, user, target)
 
-makeBoostMove 'charge', 'self', specialDefense: 1
-extendMove 'charge', ->
+makeBoostMove 'Charge', 'self', specialDefense: 1
+extendMove 'Charge', ->
   oldUse = @use
   @use = (battle, user, target) ->
     user.unattach(Attachment.Charge)  # Charge can be used twice in a row
@@ -563,32 +563,32 @@ extendMove 'charge', ->
     battle.message "#{user.name} began charging power!"
     oldUse.call(this, battle, user, target)
 
-makeBoostMove 'charm', 'target', attack: -2
-extendWithSecondaryEffect 'chatter', 1, Attachment.Confusion
-extendWithSecondaryBoost 'charge-beam', 'self', .7, specialAttack: 1
+makeBoostMove 'Charm', 'target', attack: -2
+extendWithSecondaryEffect 'Chatter', 1, Attachment.Confusion
+extendWithSecondaryBoost 'Charge Beam', 'self', .7, specialAttack: 1
 
-extendMove 'chip-away', ->
+extendMove 'Chip Away', ->
   oldExecute = @execute
   @execute = (battle, user, targets) ->
     target.attach(Attachment.ChipAway)  for target in targets
     oldExecute.call(this, battle, user, targets)
     target.unattach(Attachment.ChipAway)  for target in targets
 
-makeRandomSwitchMove "circle-throw"
-makeTrappingMove "clamp"
+makeRandomSwitchMove "Circle Throw"
+makeTrappingMove "Clamp"
 
-extendMove 'clear-smog', ->
+extendMove 'Clear Smog', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.resetBoosts()
     battle.message "#{target.name}'s stat changes were removed!"
 
-extendWithBoost 'close-combat', 'self', defense: -1, specialDefense: -1
-makeBoostMove 'coil', 'self', attack: 1, defense: 1, accuracy: 1
-extendWithPrimaryEffect 'confuse-ray', Attachment.Confusion
-extendWithSecondaryEffect 'confusion', .1, Attachment.Confusion
-extendWithSecondaryBoost 'constrict', 'target', .1, speed: -1
+extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
+makeBoostMove 'Coil', 'self', attack: 1, defense: 1, accuracy: 1
+extendWithPrimaryEffect 'Confuse Ray', Attachment.Confusion
+extendWithSecondaryEffect 'Confusion', .1, Attachment.Confusion
+extendWithSecondaryBoost 'Constrict', 'target', .1, speed: -1
 
-extendMove 'conversion', ->
+extendMove 'Conversion', ->
   @use = (battle, user, target) ->
     {types, moves} = target
     moves = _.without(moves, battle.getMove(@name))
@@ -601,7 +601,7 @@ extendMove 'conversion', ->
       return false
     target.types = [ type ]
 
-extendMove 'conversion-2', ->
+extendMove 'Conversion 2', ->
   @use = (battle, user, target) ->
     {lastMove} = target
     if !lastMove?
@@ -614,52 +614,52 @@ extendMove 'conversion-2', ->
       possibles.push(type)  if util.typeEffectiveness(moveType, [ type ]) < 1
     user.types = [ battle.rng.choice(possibles, "conversion 2") ]
 
-makeBoostMove 'cosmic-power', 'self', defense: 1, specialDefense: 1
-makeBoostMove 'cotton-guard', 'self', defense: 3
-makeBoostMove 'cotton-spore', 'target', speed: -2
-makeThiefMove 'covet'
-extendWithSecondaryBoost 'crunch', 'target', .2, defense: -1
-extendWithSecondaryBoost 'crush-claw', 'target', .5, defense: -1
-extendWithSecondaryEffect 'dark-pulse', .2, Attachment.Flinch
-extendWithPrimaryStatus 'dark-void', Status.Sleep
-makeBoostMove 'defend-order', 'self', defense: 1, specialDefense: 1
-makeBoostMove 'defense-curl', 'self', defense: 1
+makeBoostMove 'Cosmic Power', 'self', defense: 1, specialDefense: 1
+makeBoostMove 'Cotton Guard', 'self', defense: 3
+makeBoostMove 'Cotton Spore', 'target', speed: -2
+makeThiefMove 'Covet'
+extendWithSecondaryBoost 'Crunch', 'target', .2, defense: -1
+extendWithSecondaryBoost 'Crush Claw', 'target', .5, defense: -1
+extendWithSecondaryEffect 'Dark Pulse', .2, Attachment.Flinch
+extendWithPrimaryStatus 'Dark Void', Status.Sleep
+makeBoostMove 'Defend Order', 'self', defense: 1, specialDefense: 1
+makeBoostMove 'Defense Curl', 'self', defense: 1
 
-extendMove 'defense-curl', ->
+extendMove 'Defense Curl', ->
   oldUse = @use
   @use = (battle, user, target) ->
     oldUse.call(this, battle, user, target)
     target.attach(Attachment.DefenseCurl)
 
-makeProtectMove 'detect'
-extendWithSecondaryStatus 'discharge', .3, Status.Paralyze
-extendWithSecondaryEffect 'dizzy-punch', .2, Attachment.Confusion
-makeBoostMove 'double-team', 'self', evasion: 1
-makeBoostMove 'dragon-dance', 'self', attack: 1, speed: 1
-extendWithSecondaryEffect 'dragon-rush', .2, Attachment.Flinch
-extendWithSecondaryStatus 'dragonbreath', .3, Status.Paralyze
-extendWithDrain 'drain-punch'
-extendWithDrain 'dream-eater'
-extendWithBoost 'draco-meteor', 'self', specialAttack: -2
-makeRandomSwitchMove "dragon-tail"
-extendWithSecondaryEffect 'dynamicpunch', 1, Attachment.Confusion
-extendWithSecondaryBoost 'earth-power', 'target', .1, specialDefense: -1
-extendWithBoost 'electroweb', 'target', speed: -1
-extendWithSecondaryBoost 'energy-ball', 'target', .1, specialDefense: -1
+makeProtectMove 'Detect'
+extendWithSecondaryStatus 'Discharge', .3, Status.Paralyze
+extendWithSecondaryEffect 'Dizzy Punch', .2, Attachment.Confusion
+makeBoostMove 'Double Team', 'self', evasion: 1
+makeBoostMove 'Dragon Dance', 'self', attack: 1, speed: 1
+extendWithSecondaryEffect 'Dragon Rush', .2, Attachment.Flinch
+extendWithSecondaryStatus 'DragonBreath', .3, Status.Paralyze
+extendWithDrain 'Drain Punch'
+extendWithDrain 'Dream Eater'
+extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
+makeRandomSwitchMove "Dragon Tail"
+extendWithSecondaryEffect 'DynamicPunch', 1, Attachment.Confusion
+extendWithSecondaryBoost 'Earth Power', 'target', .1, specialDefense: -1
+extendWithBoost 'Electroweb', 'target', speed: -1
+extendWithSecondaryBoost 'Energy Ball', 'target', .1, specialDefense: -1
 
-extendMove 'embargo', ->
+extendMove 'Embargo', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     target.attach(Attachment.Embargo)
     battle.message "#{target.name} can't use items anymore!"
 
-extendWithSecondaryStatus 'ember', .1, Status.Burn
-makeEruptionMove 'eruption'
-makeExplosionMove 'explosion'
-extendWithSecondaryEffect 'extrasensory', .1, Attachment.Flinch
-makeBoostMove 'fake-tears', 'target', specialDefense: -2
-extendWithSecondaryEffect 'fake-out', 1, Attachment.Flinch
+extendWithSecondaryStatus 'Ember', .1, Status.Burn
+makeEruptionMove 'Eruption'
+makeExplosionMove 'Explosion'
+extendWithSecondaryEffect 'Extrasensory', .1, Attachment.Flinch
+makeBoostMove 'Fake Tears', 'target', specialDefense: -2
+extendWithSecondaryEffect 'Fake Out', 1, Attachment.Flinch
 
-extendMove 'fake-out', ->
+extendMove 'Fake Out', ->
   oldUse = @use
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
@@ -667,33 +667,33 @@ extendMove 'fake-out', ->
       @fail(battle)
       return false
 
-makeBoostMove 'featherdance', 'target', attack: -2
+makeBoostMove 'FeatherDance', 'target', attack: -2
 
-extendMove 'feint', ->
+extendMove 'Feint', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # TODO: Wide Guard
     if target.has(Attachment.Protect)
       target.unattach(Attachment.Protect)
       battle.message "#{target.name} fell for the feint!"
 
-extendWithSecondaryBoost 'fiery-dance', 'self', .5, specialAttack: 1
-extendWithSecondaryStatus 'fire-blast', .1, Status.Burn
-extendWithFangEffect 'fire-fang', .1, Status.Burn
-extendWithSecondaryStatus 'fire-punch', .1, Status.Burn
-makeTrappingMove "fire-spin"
-makeOneHitKOMove 'fissure'
-makeReversalMove 'flail'
-extendWithBoost 'flame-charge', 'self', speed: 1
-extendMove 'flame-wheel', -> @thawsUser = true
-extendWithSecondaryStatus 'flame-wheel', .1, Status.Burn
-extendWithSecondaryStatus 'flamethrower', .1, Status.Burn
-extendMove 'flare-blitz', -> @thawsUser = true
-extendWithSecondaryStatus 'flare-blitz', .1, Status.Burn
-extendWithSecondaryBoost 'flash-cannon', 'target', .1, specialDefense: -1
-extendWithSecondaryStatus 'force-palm', .3, Status.Paralyze
-extendWithSecondaryBoost 'focus-blast', 'target', .1, specialDefense: -1
+extendWithSecondaryBoost 'Fiery Dance', 'self', .5, specialAttack: 1
+extendWithSecondaryStatus 'Fire Blast', .1, Status.Burn
+extendWithFangEffect 'Fire Fang', .1, Status.Burn
+extendWithSecondaryStatus 'Fire Punch', .1, Status.Burn
+makeTrappingMove "Fire Spin"
+makeOneHitKOMove 'Fissure'
+makeReversalMove 'Flail'
+extendWithBoost 'Flame Charge', 'self', speed: 1
+extendMove 'Flame Wheel', -> @thawsUser = true
+extendWithSecondaryStatus 'Flame Wheel', .1, Status.Burn
+extendWithSecondaryStatus 'Flamethrower', .1, Status.Burn
+extendMove 'Flare Blitz', -> @thawsUser = true
+extendWithSecondaryStatus 'Flare Blitz', .1, Status.Burn
+extendWithSecondaryBoost 'Flash Cannon', 'target', .1, specialDefense: -1
+extendWithSecondaryStatus 'Force Palm', .3, Status.Paralyze
+extendWithSecondaryBoost 'Focus Blast', 'target', .1, specialDefense: -1
 
-extendMove 'focus-energy', ->
+extendMove 'Focus Energy', ->
   @use = (battle, user, target) ->
     if user.attach(Attachment.FocusEnergy)
       # TODO: Real message
@@ -702,69 +702,69 @@ extendMove 'focus-energy', ->
       @fail(battle)
       false
 
-extendMove 'focus-punch', ->
+extendMove 'Focus Punch', ->
   @beforeTurn = (battle, user) ->
     user.attach(Attachment.FocusPunch)
 
-makeIdentifyMove("foresight", "Normal")
-makePickAttackMove 'foul-play'
-extendWithSecondaryStatus 'freeze-shock', .3, Status.Paralyze
-makeRechargeMove 'frenzy-plant'
-extendMove 'fusion-flare', -> @thawsUser = true
-extendWithDrain 'giga-drain'
-makeRechargeMove 'giga-impact'
-extendWithBoost 'glaciate', 'target', speed: -1
-makeWeightBased 'grass-knot'
-extendWithPrimaryStatus 'grasswhistle', Status.Sleep
-makeBoostMove 'growl', 'target', attack: -1
-makeBoostMove 'growth', 'self', attack: 1, specialAttack: 1
+makeIdentifyMove("Foresight", "Normal")
+makePickAttackMove 'Foul Play'
+extendWithSecondaryStatus 'Freeze Shock', .3, Status.Paralyze
+makeRechargeMove 'Frenzy Plant'
+extendMove 'Fusion Flare', -> @thawsUser = true
+extendWithDrain 'Giga Drain'
+makeRechargeMove 'Giga Impact'
+extendWithBoost 'Glaciate', 'target', speed: -1
+makeWeightBased 'Grass Knot'
+extendWithPrimaryStatus 'GrassWhistle', Status.Sleep
+makeBoostMove 'Growl', 'target', attack: -1
+makeBoostMove 'Growth', 'self', attack: 1, specialAttack: 1
 
-extendMove 'grudge', ->
+extendMove 'Grudge', ->
   @execute = (battle, user, targets) ->
     user.attach(Attachment.Grudge)
     battle.message "#{user.name} wants its target to bear a grudge!"
 
-makeOneHitKOMove 'guillotine'
-extendWithSecondaryStatus 'gunk-shot', .3, Status.Poison
-extendWithBoost 'hammer-arm', 'self', speed: -1
-makeBoostMove 'harden', 'self', defense: 1
-extendWithSecondaryEffect 'headbutt', .3, Attachment.Flinch
-makeStatusCureMove 'heal-bell', 'A bell chimed!'
-makeRecoveryMove 'heal-order'
-makeRecoveryMove 'heal-pulse'
-extendWithSecondaryEffect 'heart-stamp', .3, Attachment.Flinch
-makeWeightRatioBased 'heat-crash'
-extendWithSecondaryStatus 'heat-wave', .1, Status.Burn
-makeWeightRatioBased 'heavy-slam'
-makeJumpKick 'hi-jump-kick'
-makeBoostMove 'hone-claws', 'self', attack: 1, accuracy: 1
-makeOneHitKOMove 'horn-drill'
-extendWithDrain 'horn-leech'
-makeBoostMove 'howl', 'self', attack: 1
-makeRechargeMove 'hydro-cannon'
-makeRechargeMove 'hyper-beam'
-extendWithPrimaryStatus 'hypnosis', Status.Sleep
-makeMomentumMove 'ice-ball'
-extendWithBoost 'icy-wind', 'target', speed: -1
-makeBoostMove 'iron-defense', 'self', defense: 2
-extendWithSecondaryBoost 'iron-tail', 'target', .1, defense: -1
-makeWeatherMove 'hail', Weather.HAIL
-extendWithSecondaryEffect 'hurricane', .3, Attachment.Confusion
-extendWithSecondaryEffect 'hyper-fang', .1, Attachment.Flinch
-extendWithSecondaryStatus 'ice-beam', .1, Status.Freeze
-extendWithSecondaryStatus 'ice-burn', .3, Status.Burn
-extendWithFangEffect 'ice-fang', .1, Status.Freeze
-extendWithSecondaryStatus 'ice-punch', .3, Status.Freeze
-extendWithSecondaryEffect 'icicle-crash', .3, Attachment.Flinch
-extendWithSecondaryEffect 'iron-head', .3, Attachment.Flinch
-makeJumpKick 'jump-kick'
-extendWithSecondaryStatus 'lava-plume', .3, Status.Burn
-extendWithBoost 'leaf-storm', 'self', specialAttack: -2
-extendWithSecondaryBoost 'leaf-tornado', 'target', .3, accuracy: -1
-makeBoostMove 'leer', 'target', defense: -1
-extendWithDrain 'leech-life'
+makeOneHitKOMove 'Guillotine'
+extendWithSecondaryStatus 'Gunk Shot', .3, Status.Poison
+extendWithBoost 'Hammer Arm', 'self', speed: -1
+makeBoostMove 'Harden', 'self', defense: 1
+extendWithSecondaryEffect 'Headbutt', .3, Attachment.Flinch
+makeStatusCureMove 'Heal Bell', 'A bell chimed!'
+makeRecoveryMove 'Heal Order'
+makeRecoveryMove 'Heal Pulse'
+extendWithSecondaryEffect 'Heart Stamp', .3, Attachment.Flinch
+makeWeightRatioBased 'Heat Crash'
+extendWithSecondaryStatus 'Heat Wave', .1, Status.Burn
+makeWeightRatioBased 'Heavy Slam'
+makeJumpKick 'Hi Jump Kick'
+makeBoostMove 'Hone Claws', 'self', attack: 1, accuracy: 1
+makeOneHitKOMove 'Horn Drill'
+extendWithDrain 'Horn Leech'
+makeBoostMove 'Howl', 'self', attack: 1
+makeRechargeMove 'Hydro Cannon'
+makeRechargeMove 'Hyper Beam'
+extendWithPrimaryStatus 'Hypnosis', Status.Sleep
+makeMomentumMove 'Ice Ball'
+extendWithBoost 'Icy Wind', 'target', speed: -1
+makeBoostMove 'Iron Defense', 'self', defense: 2
+extendWithSecondaryBoost 'Iron Tail', 'target', .1, defense: -1
+makeWeatherMove 'Hail', Weather.HAIL
+extendWithSecondaryEffect 'Hurricane', .3, Attachment.Confusion
+extendWithSecondaryEffect 'Hyper Fang', .1, Attachment.Flinch
+extendWithSecondaryStatus 'Ice Beam', .1, Status.Freeze
+extendWithSecondaryStatus 'Ice Burn', .3, Status.Burn
+extendWithFangEffect 'Ice Fang', .1, Status.Freeze
+extendWithSecondaryStatus 'Ice Punch', .3, Status.Freeze
+extendWithSecondaryEffect 'Icicle Crash', .3, Attachment.Flinch
+extendWithSecondaryEffect 'Iron Head', .3, Attachment.Flinch
+makeJumpKick 'Jump Kick'
+extendWithSecondaryStatus 'Lava Plume', .3, Status.Burn
+extendWithBoost 'Leaf Storm', 'self', specialAttack: -2
+extendWithSecondaryBoost 'Leaf Tornado', 'target', .3, accuracy: -1
+makeBoostMove 'Leer', 'target', defense: -1
+extendWithDrain 'Leech Life'
 
-extendMove 'leech-seed', ->
+extendMove 'Leech Seed', ->
   oldWillMiss = @willMiss
   @willMiss = (battle, user, target) ->
     if target.hasType("Grass")
@@ -778,13 +778,13 @@ extendMove 'leech-seed', ->
     target.attach(Attachment.LeechSeed, {team, slot})
     battle.message "#{target.name} was seeded!"
 
-extendWithSecondaryStatus 'lick', .3, Status.Paralyze
-makeLockOnMove 'lock-on'
-makeWeightBased 'low-kick'
-extendWithBoost 'low-sweep', 'target', speed: -1
-extendWithPrimaryStatus 'lovely-kiss', Status.Sleep
+extendWithSecondaryStatus 'Lick', .3, Status.Paralyze
+makeLockOnMove 'Lock-On'
+makeWeightBased 'Low Kick'
+extendWithBoost 'Low Sweep', 'target', speed: -1
+extendWithPrimaryStatus 'Lovely Kiss', Status.Sleep
 
-extendMove 'lucky-chant', ->
+extendMove 'Lucky Chant', ->
   @afterSuccessfulHit = (battle, user, target) ->
     player = battle.getOwner(target)
     if player.team.attach(Attachment.LuckyChant)
@@ -793,24 +793,24 @@ extendMove 'lucky-chant', ->
     else
       @fail(battle)
 
-makeTrappingMove "magma-storm"
-makeMeanLookMove 'mean-look'
-makeBoostMove 'meditate', 'self', attack: 1
-extendWithDrain 'mega-drain'
-extendWithSecondaryBoost 'metal-claw', 'self', .1, attack: 1
-makeBoostMove 'metal-sound', 'target', specialDefense: -2
-makeRecoveryMove 'milk-drink'
-makeLockOnMove 'mind-reader'
+makeTrappingMove "Magma Storm"
+makeMeanLookMove 'Mean Look'
+makeBoostMove 'Meditate', 'self', attack: 1
+extendWithDrain 'Mega Drain'
+extendWithSecondaryBoost 'Metal Claw', 'self', .1, attack: 1
+makeBoostMove 'Metal Sound', 'target', specialDefense: -2
+makeRecoveryMove 'Milk Drink'
+makeLockOnMove 'Mind Reader'
 
-extendMove 'minimize', ->
+extendMove 'Minimize', ->
   applyBoosts = boostExtension('target', evasion: 2)
   @use = (battle, user, target) ->
     applyBoosts(battle, user, target)
     target.attach(Attachment.Minimize)
 
-makeIdentifyMove("miracle-eye", "Psychic")
+makeIdentifyMove("Miracle Eye", "Psychic")
 
-extendMove 'mirror-move', ->
+extendMove 'Mirror Move', ->
   @execute = (battle, user, targets) ->
     target = targets[0]
     move = target.lastMove
@@ -819,102 +819,102 @@ extendMove 'mirror-move', ->
       return false
     move.execute(battle, user, targets)
 
-extendWithSecondaryBoost 'mirror-shot', 'target', .3, accuracy: -1
-extendWithSecondaryBoost 'mist-ball', 'target', .5, specialAttack: -1
-makeWeatherRecoveryMove 'moonlight'
-makeWeatherRecoveryMove 'morning-sun'
-extendWithSecondaryBoost 'mud-bomb', 'target', .3, accuracy: -1
-extendWithBoost 'mud-shot', 'target', speed: -1
-extendWithBoost 'mud-slap', 'target', accuracy: -1
-extendWithSecondaryBoost 'muddy-water', 'target', .3, accuracy: -1
-makeBoostMove 'nasty-plot', 'self', specialAttack: 2
-extendWithSecondaryEffect 'needle-arm', .3, Attachment.Flinch
-extendWithSecondaryBoost 'night-daze', 'target', .4, accuracy: -1
-makeLevelAsDamageMove 'night-shade'
-extendWithSecondaryBoost 'octazooka', 'target', .5, accuracy: -1
-makeIdentifyMove("odor-sleuth", "Normal")
-extendWithSecondaryBoost 'ominous-wind', 'self', .1, {
+extendWithSecondaryBoost 'Mirror Shot', 'target', .3, accuracy: -1
+extendWithSecondaryBoost 'Mist Ball', 'target', .5, specialAttack: -1
+makeWeatherRecoveryMove 'Moonlight'
+makeWeatherRecoveryMove 'Morning Sun'
+extendWithSecondaryBoost 'Mud Bomb', 'target', .3, accuracy: -1
+extendWithBoost 'Mud Shot', 'target', speed: -1
+extendWithBoost 'Mud-Slap', 'target', accuracy: -1
+extendWithSecondaryBoost 'Muddy Water', 'target', .3, accuracy: -1
+makeBoostMove 'Nasty Plot', 'self', specialAttack: 2
+extendWithSecondaryEffect 'Needle Arm', .3, Attachment.Flinch
+extendWithSecondaryBoost 'Night Daze', 'target', .4, accuracy: -1
+makeLevelAsDamageMove 'Night Shade'
+extendWithSecondaryBoost 'Octazooka', 'target', .5, accuracy: -1
+makeIdentifyMove("Odor Sleuth", "Normal")
+extendWithSecondaryBoost 'Ominous Wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
-extendWithBoost 'overheat', 'self', specialAttack: -2
-extendWithSecondaryStatus 'poison-fang', .3, Status.Toxic
-extendWithPrimaryStatus 'poison-gas', Status.Poison
-extendWithSecondaryStatus 'poison-jab', .3, Status.Poison
-extendWithPrimaryStatus 'poisonpowder', Status.Poison
-extendWithSecondaryStatus 'poison-sting', .3, Status.Poison
-extendWithSecondaryStatus 'poison-tail', .1, Status.Poison
-extendWithSecondaryStatus 'powder-snow', .1, Status.Freeze
-makeProtectMove 'protect'
-extendWithSecondaryEffect 'psybeam', .1, Attachment.Confusion
-extendWithSecondaryBoost 'psychic', 'target', .1, specialDefense: -1
-extendWithBoost 'psycho-boost', 'self', specialAttack: -2
-makePickDefenseMove 'psyshock'
-makePickDefenseMove 'psystrike'
-makeBasePowerBoostMove 'punishment', 60, 200, 'target'
-makeBoostMove 'quiver-dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
-makeWeatherMove 'rain-dance', Weather.RAIN
-extendWithSecondaryBoost 'razor-shell', 'target', .5, defense: -1
-makeRecoveryMove 'recover'
-extendWithSecondaryStatus 'relic-song', .1, Status.Sleep
-makeRevengeMove 'revenge'
-makeReversalMove 'reversal'
-makeRandomSwitchMove "roar"
-makeRechargeMove 'roar-of-time'
-extendWithSecondaryEffect 'rock-climb', .2, Attachment.Confusion
-makeBoostMove 'rock-polish', 'self', speed: 2
-extendWithSecondaryBoost 'rock-smash', 'target', .5, defense: -1
-extendWithBoost 'rock-tomb', 'target', speed: -1
-extendWithSecondaryEffect 'rock-slide', .3, Attachment.Flinch
-makeRechargeMove 'rock-wrecker'
-extendWithSecondaryEffect 'rolling-kick', .3, Attachment.Flinch
-makeMomentumMove 'rollout'
-makeRecoveryMove 'roost'
-extendMove 'roost', ->
+extendWithBoost 'Overheat', 'self', specialAttack: -2
+extendWithSecondaryStatus 'Poison Fang', .3, Status.Toxic
+extendWithPrimaryStatus 'Poison Gas', Status.Poison
+extendWithSecondaryStatus 'Poison Jab', .3, Status.Poison
+extendWithPrimaryStatus 'PoisonPowder', Status.Poison
+extendWithSecondaryStatus 'Poison Sting', .3, Status.Poison
+extendWithSecondaryStatus 'Poison Tail', .1, Status.Poison
+extendWithSecondaryStatus 'Powder Snow', .1, Status.Freeze
+makeProtectMove 'Protect'
+extendWithSecondaryEffect 'Psybeam', .1, Attachment.Confusion
+extendWithSecondaryBoost 'Psychic', 'target', .1, specialDefense: -1
+extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
+makePickDefenseMove 'Psyshock'
+makePickDefenseMove 'Psystrike'
+makeBasePowerBoostMove 'Punishment', 60, 200, 'target'
+makeBoostMove 'Quiver Dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
+makeWeatherMove 'Rain Dance', Weather.RAIN
+extendWithSecondaryBoost 'Razor Shell', 'target', .5, defense: -1
+makeRecoveryMove 'Recover'
+extendWithSecondaryStatus 'Relic Song', .1, Status.Sleep
+makeRevengeMove 'Revenge'
+makeReversalMove 'Reversal'
+makeRandomSwitchMove "Roar"
+makeRechargeMove 'Roar of Time'
+extendWithSecondaryEffect 'Rock Climb', .2, Attachment.Confusion
+makeBoostMove 'Rock Polish', 'self', speed: 2
+extendWithSecondaryBoost 'Rock Smash', 'target', .5, defense: -1
+extendWithBoost 'Rock Tomb', 'target', speed: -1
+extendWithSecondaryEffect 'Rock Slide', .3, Attachment.Flinch
+makeRechargeMove 'Rock Wrecker'
+extendWithSecondaryEffect 'Rolling Kick', .3, Attachment.Flinch
+makeMomentumMove 'Rollout'
+makeRecoveryMove 'Roost'
+extendMove 'Roost', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     user.attach(Attachment.Roost)
 
-extendWithBoost 'sand-attack', 'target', accuracy: -1
-extendMove 'sacred-fire', -> @thawsUser = true
-extendWithSecondaryStatus 'sacred-fire', .5, Status.Burn
-makeWeatherMove 'sandstorm', Weather.SAND
-makeTrappingMove "sand-tomb"
-extendMove 'scald', -> @thawsUser = true
-extendWithSecondaryStatus 'scald', .3, Status.Burn
-makeBoostMove 'scary-face', 'target', speed: -2
-makeBoostMove 'screech', 'target', defense: -2
-extendWithSecondaryStatus 'searing-shot', .3, Status.Burn
-makePickDefenseMove 'secret-sword'
-extendWithSecondaryBoost 'seed-flare', 'target', .4, specialDefense: -2
-makeExplosionMove 'selfdestruct'
-makeLevelAsDamageMove 'seismic-toss'
-extendWithSecondaryBoost 'shadow-ball', 'target', .2, specialDefense: -1
-makeBoostMove 'sharpen', 'self', attack: 1
-makeOneHitKOMove 'sheer-cold'
-makeBoostMove 'shell-smash', 'self', {
+extendWithBoost 'Sand-Attack', 'target', accuracy: -1
+extendMove 'Sacred Fire', -> @thawsUser = true
+extendWithSecondaryStatus 'Sacred Fire', .5, Status.Burn
+makeWeatherMove 'Sandstorm', Weather.SAND
+makeTrappingMove "Sand Tomb"
+extendMove 'Scald', -> @thawsUser = true
+extendWithSecondaryStatus 'Scald', .3, Status.Burn
+makeBoostMove 'Scary Face', 'target', speed: -2
+makeBoostMove 'Screech', 'target', defense: -2
+extendWithSecondaryStatus 'Searing Shot', .3, Status.Burn
+makePickDefenseMove 'Secret Sword'
+extendWithSecondaryBoost 'Seed Flare', 'target', .4, specialDefense: -2
+makeExplosionMove 'Selfdestruct'
+makeLevelAsDamageMove 'Seismic Toss'
+extendWithSecondaryBoost 'Shadow Ball', 'target', .2, specialDefense: -1
+makeBoostMove 'Sharpen', 'self', attack: 1
+makeOneHitKOMove 'Sheer Cold'
+makeBoostMove 'Shell Smash', 'self', {
   attack: 2, specialAttack: 2, speed: 2, defense: -1, specialDefense: -1
 }
-makeBoostMove 'shift-gear', 'self', speed: 2, attack: 1
-extendWithSecondaryEffect 'signal-beam', .1, Attachment.Confusion
-extendWithSecondaryBoost 'silver-wind', 'self', .1, {
+makeBoostMove 'Shift Gear', 'self', speed: 2, attack: 1
+extendWithSecondaryEffect 'Signal Beam', .1, Attachment.Confusion
+extendWithSecondaryBoost 'Silver Wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
-extendWithPrimaryStatus 'sing', Status.Sleep
-makeBoostMove 'skull-bash', 'self', defense: 1
-extendWithSecondaryEffect 'sky-attack', .3, Attachment.Flinch
-makeRecoveryMove 'slack-off'
-extendWithPrimaryStatus 'sleep-powder', Status.Sleep
-extendWithSecondaryStatus 'sludge', .3, Status.Poison
-extendWithSecondaryStatus 'sludge-bomb', .3, Status.Poison
-extendWithSecondaryStatus 'sludge-wave', .1, Status.Poison
-extendWithSecondaryStatus 'smog', .4, Status.Poison
-makeBoostMove 'smokescreen', 'target', accuracy: -1
-extendWithBoost 'snarl', 'target', specialAttack: -1
-extendWithSecondaryEffect 'snore', .3, Attachment.Flinch
-makeRecoveryMove 'softboiled'
-extendWithSecondaryStatus 'spark', .3, Status.Paralyze
-makeMeanLookMove 'spider-web'
+extendWithPrimaryStatus 'Sing', Status.Sleep
+makeBoostMove 'Skull Bash', 'self', defense: 1
+extendWithSecondaryEffect 'Sky Attack', .3, Attachment.Flinch
+makeRecoveryMove 'Slack Off'
+extendWithPrimaryStatus 'Sleep Powder', Status.Sleep
+extendWithSecondaryStatus 'Sludge', .3, Status.Poison
+extendWithSecondaryStatus 'Sludge Bomb', .3, Status.Poison
+extendWithSecondaryStatus 'Sludge Wave', .1, Status.Poison
+extendWithSecondaryStatus 'Smog', .4, Status.Poison
+makeBoostMove 'SmokeScreen', 'target', accuracy: -1
+extendWithBoost 'Snarl', 'target', specialAttack: -1
+extendWithSecondaryEffect 'Snore', .3, Attachment.Flinch
+makeRecoveryMove 'Softboiled'
+extendWithSecondaryStatus 'Spark', .3, Status.Paralyze
+makeMeanLookMove 'Spider Web'
 
-extendMove 'spit-up', ->
+extendMove 'Spit Up', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.has(Attachment.Stockpile)
@@ -937,12 +937,12 @@ extendMove 'spit-up', ->
     applyBoosts(battle, user)
     user.unattach(Attachment.Stockpile)
 
-extendWithPrimaryStatus 'spore', Status.Sleep
-extendWithSecondaryEffect 'steamroller', .3, Attachment.Flinch
-makeStompMove 'steamroller'
-extendWithSecondaryBoost 'steel-wing', 'self', .1, defense: 1
+extendWithPrimaryStatus 'Spore', Status.Sleep
+extendWithSecondaryEffect 'Steamroller', .3, Attachment.Flinch
+makeStompMove 'Steamroller'
+extendWithSecondaryBoost 'Steel Wing', 'self', .1, defense: 1
 
-extendMove 'stockpile', ->
+extendMove 'Stockpile', ->
   applyBoosts = boostExtension('self', defense: 1, specialDefense: 1)
   @afterSuccessfulHit = (battle, user, target) ->
     if user.attach(Attachment.Stockpile)
@@ -950,17 +950,17 @@ extendMove 'stockpile', ->
     else
       @fail(battle)
 
-extendWithSecondaryEffect 'stomp', .3, Attachment.Flinch
-makeStompMove 'stomp'
-makeBasePowerBoostMove 'stored-power', 20, 860, 'user'
-makeBoostMove 'string-shot', 'target', speed: -1
-extendWithBoost 'struggle-bug', 'target', specialAttack: -1
-extendWithPrimaryStatus 'stun-spore', Status.Paralyze
-makeWeatherMove 'sunny-day', Weather.SUN
-extendWithBoost 'superpower', 'self', attack: -1, defense: -1
-extendWithPrimaryEffect 'supersonic', Attachment.Confusion
+extendWithSecondaryEffect 'Stomp', .3, Attachment.Flinch
+makeStompMove 'Stomp'
+makeBasePowerBoostMove 'Stored Power', 20, 860, 'user'
+makeBoostMove 'String Shot', 'target', speed: -1
+extendWithBoost 'Struggle Bug', 'target', specialAttack: -1
+extendWithPrimaryStatus 'Stun Spore', Status.Paralyze
+makeWeatherMove 'Sunny Day', Weather.SUN
+extendWithBoost 'Superpower', 'self', attack: -1, defense: -1
+extendWithPrimaryEffect 'Supersonic', Attachment.Confusion
 
-extendMove 'swallow', ->
+extendMove 'Swallow', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.has(Attachment.Stockpile)
@@ -985,30 +985,30 @@ extendMove 'swallow', ->
       applyBoosts(battle, target)
       target.unattach(Attachment.Stockpile)
 
-extendWithPrimaryEffect 'sweet-kiss', Attachment.Confusion
-makeBoostMove 'sweet-scent', 'target', evasion: -1
-makeTrickMove 'switcheroo'
-makeBoostMove 'swords-dance', 'self', attack: 2
-extendMove 'super-fang', ->
+extendWithPrimaryEffect 'Sweet Kiss', Attachment.Confusion
+makeBoostMove 'Sweet Scent', 'target', evasion: -1
+makeTrickMove 'Switcheroo'
+makeBoostMove 'Swords Dance', 'self', attack: 2
+extendMove 'Super Fang', ->
   @calculateDamage = (battle, user, target) ->
     halfHP = Math.floor(target.currentHP / 2)
     Math.max(1, halfHP)
-makeWeatherRecoveryMove 'synthesis'
-makeBoostMove 'tail-glow', 'self', attack: 3
-makeBoostMove 'tail-whip', 'target', defense: -1
-extendWithPrimaryEffect 'teeter-dance', Attachment.Confusion
-extendMove 'teleport', (battle) ->
+makeWeatherRecoveryMove 'Synthesis'
+makeBoostMove 'Tail Glow', 'self', attack: 3
+makeBoostMove 'Tail Whip', 'target', defense: -1
+extendWithPrimaryEffect 'Teeter Dance', Attachment.Confusion
+extendMove 'Teleport', (battle) ->
   @execute = -> @fail(battle)
-makeThiefMove 'thief'
-extendWithSecondaryStatus 'thunder', .3, Status.Paralyze
-extendWithFangEffect 'thunder-fang', .1, Status.Paralyze
-extendWithPrimaryStatus 'thunder-wave', Status.Paralyze
-extendWithSecondaryStatus 'thunderbolt', .1, Status.Paralyze
-extendWithSecondaryStatus 'thunderpunch', .1, Status.Paralyze
-extendWithSecondaryStatus 'thundershock', .1, Status.Paralyze
-makeBoostMove 'tickle', 'target', attack: -1, defense: -1
-extendWithPrimaryStatus 'toxic', Status.Toxic
-extendMove 'tri-attack', ->
+makeThiefMove 'Thief'
+extendWithSecondaryStatus 'Thunder', .3, Status.Paralyze
+extendWithFangEffect 'Thunder Fang', .1, Status.Paralyze
+extendWithPrimaryStatus 'Thunder Wave', Status.Paralyze
+extendWithSecondaryStatus 'Thunderbolt', .1, Status.Paralyze
+extendWithSecondaryStatus 'ThunderPunch', .1, Status.Paralyze
+extendWithSecondaryStatus 'ThunderShock', .1, Status.Paralyze
+makeBoostMove 'Tickle', 'target', attack: -1, defense: -1
+extendWithPrimaryStatus 'Toxic', Status.Toxic
+extendMove 'Tri Attack', ->
   oldFunc = @afterSuccessfulHit
   @afterSuccessfulHit = (battle, user, target, damage) ->
     oldFunc.call(this, battle, user, target, damage)
@@ -1018,55 +1018,55 @@ extendMove 'tri-attack', ->
       when 1 then target.attach(Status.Burn)
       when 2 then target.attach(Status.Freeze)
 
-makeTrickMove 'trick'
+makeTrickMove 'Trick'
 # extendWithSecondaryEffect 'twineedle', .2, Status.Poison
-extendWithSecondaryEffect 'twister', .2, Attachment.Flinch
-extendWithSecondaryBoost 'v-create', 'self', defense: -1, specialDefense: -1, speed: -1
-extendWithSecondaryStatus 'volt-tackle', .1, Status.Paralyze
-extendWithSecondaryEffect 'water-pulse', .2, Attachment.Confusion
-makeEruptionMove 'water-spout'
-extendWithSecondaryEffect 'waterfall', .2, Attachment.Flinch
-makeRandomSwitchMove "whirlwind"
-extendWithPrimaryStatus 'will-o-wisp', Status.Burn
-makeBoostMove 'withdraw', 'user', defense: 1
-makeBoostMove 'work-up', 'user', attack: 1, specialAttack: 1
-makeTrappingMove "wrap"
-extendWithSecondaryEffect 'zen-headbutt', .2, Attachment.Flinch
-extendWithSecondaryStatus 'zap-cannon', 1, Status.Paralyze
+extendWithSecondaryEffect 'Twister', .2, Attachment.Flinch
+extendWithSecondaryBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
+extendWithSecondaryStatus 'Volt Tackle', .1, Status.Paralyze
+extendWithSecondaryEffect 'Water Pulse', .2, Attachment.Confusion
+makeEruptionMove 'Water Spout'
+extendWithSecondaryEffect 'Waterfall', .2, Attachment.Flinch
+makeRandomSwitchMove "Whirlwind"
+extendWithPrimaryStatus 'Will-O-Wisp', Status.Burn
+makeBoostMove 'Withdraw', 'user', defense: 1
+makeBoostMove 'Work Up', 'user', attack: 1, specialAttack: 1
+makeTrappingMove "Wrap"
+extendWithSecondaryEffect 'Zen Headbutt', .2, Attachment.Flinch
+extendWithSecondaryStatus 'Zap Cannon', 1, Status.Paralyze
 
-extendMove 'assist', ->
+extendMove 'Assist', ->
   bannedMoves =
-    "assist":       true
-    "bestow":       true
-    "chatter":      true
-    "circle-throw": true
-    'copycat':      true
-    "counter":      true
-    "covet":        true
-    "destiny-bond": true
-    "detect":       true
-    "dragon-tail":  true
-    "endure":       true
-    "feint":        true
-    "focus-punch":  true
-    "follow-me":    true
-    "helping-hand": true
-    "me-first":     true
-    "metronome":    true
-    "mimic":        true
-    "mirror-coat":  true
-    "mirror-move":  true
-    "nature-power": true
-    "protect":      true
-    "rage-powder":  true
-    "sketch":       true
-    "sleep-talk":   true
-    "snatch":       true
-    "struggle":     true
-    "switcheroo":   true
-    "thief":        true
-    "transform":    true
-    "trick":        true
+    "Assist":       true
+    "Bestow":       true
+    "Chatter":      true
+    "Circle Throw": true
+    'Copycat':      true
+    "Counter":      true
+    "Covet":        true
+    "Destiny Bond": true
+    "Detect":       true
+    "Dragon Tail":  true
+    "Endure":       true
+    "Feint":        true
+    "Focus Punch":  true
+    "Follow Me":    true
+    "Helping Hand": true
+    "Me First":     true
+    "Metronome":    true
+    "Mimic":        true
+    "Mirror Coat":  true
+    "Mirror Move":  true
+    "Nature Power": true
+    "Protect":      true
+    "Rage Powder":  true
+    "Sketch":       true
+    "Sleep Talk":   true
+    "Snatch":       true
+    "Struggle":     true
+    "Switcheroo":   true
+    "Thief":        true
+    "Transform":    true
+    "Trick":        true
   @execute = (battle, user, targets) ->
     {team}  = battle.getOwner(user)
     pokemon = _.without(team.pokemon, user)
@@ -1084,12 +1084,12 @@ extendMove 'assist', ->
         targets = battle.getTargets(move, user)
       move.execute(battle, user, targets)
 
-extendMove 'aqua-ring', ->
+extendMove 'Aqua Ring', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.AquaRing)
     battle.message "#{target.name} surrounded itself with a veil of water!"
 
-extendMove 'assurance', ->
+extendMove 'Assurance', ->
   @basePower = (battle, user, target) ->
     hit = user.lastHitBy
     if hit?.turn == battle.turn && !hit.move.isNonDamaging()
@@ -1097,17 +1097,17 @@ extendMove 'assurance', ->
     else
       @power
 
-extendMove 'autotomize', ->
+extendMove 'Autotomize', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Autotomize)
 
-makeRevengeMove 'avalanche'
+makeRevengeMove 'Avalanche'
 
-extendMove 'acrobatics', ->
+extendMove 'Acrobatics', ->
   @basePower = (battle, user, target) ->
     if !user.hasItem() then 2 * @power else @power
 
-extendMove 'acupressure', ->
+extendMove 'Acupressure', ->
   @use = (battle, user, target) ->
     stats = (stat  for stat, num of target.stages when num < 6)
     if stats.length > 0
@@ -1123,7 +1123,7 @@ extendMove 'acupressure', ->
 # All Beat Up hits are boosted if the user of the move has an Attack-raising
 # item such as Choice Band, but the attack ignores all stat changes from
 # moves such as Swords Dance.
-extendMove 'beat-up', ->
+extendMove 'Beat Up', ->
   oldExecute = @execute
   @execute = (battle, user, targets) ->
     target.attach(Attachment.BeatUp)  for target in targets
@@ -1151,7 +1151,7 @@ extendMove 'beat-up', ->
     {baseStats} = team.at(attachment.index)
     5 + Math.floor(baseStats.attack / 10)
 
-extendMove 'belly-drum', ->
+extendMove 'Belly Drum', ->
   @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)
     if user.currentHP > halfHP
@@ -1162,7 +1162,7 @@ extendMove 'belly-drum', ->
       @fail(battle)
       return false
 
-extendMove 'brick-break', ->
+extendMove 'Brick Break', ->
   oldUse = @use
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
@@ -1170,21 +1170,21 @@ extendMove 'brick-break', ->
     team.unattach(Attachment.Reflect)
     team.unattach(Attachment.LightScreen)
 
-extendMove 'brine', ->
+extendMove 'Brine', ->
   @basePower = (battle, user, target) ->
     if target.currentHP <= Math.floor(target.stat('hp') / 2)
       2 * @power
     else
       @power
 
-extendMove 'bug-bite', ->
+extendMove 'Bug Bite', ->
   @afterSuccessfulHit = (battle, user, target) ->
     item = target.getItem()
     if target.isAlive() && item?.type == 'berries'
       item.eat(battle, user)
       target.removeItem()
 
-extendMove 'copycat', ->
+extendMove 'Copycat', ->
   @execute = (battle, user, targets) ->
     move = battle.lastMove
     if move? && move != battle.getMove('Copycat')
@@ -1194,15 +1194,15 @@ extendMove 'copycat', ->
       @fail(battle)
 
 
-makeCounterMove('counter', 2, (move) -> move.isPhysical())
-makeCounterMove('mirror-coat', 2, (move) -> move.isSpecial())
-makeCounterMove('metal-burst', 1.5, (move) -> move.isPhysical() || move.isSpecial())
+makeCounterMove('Counter', 2, (move) -> move.isPhysical())
+makeCounterMove('Mirror Coat', 2, (move) -> move.isSpecial())
+makeCounterMove('Metal Burst', 1.5, (move) -> move.isPhysical() || move.isSpecial())
 
-extendMove 'crush-grip', ->
+extendMove 'Crush Grip', ->
   @basePower = (battle, user, target) ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
 
-extendMove 'curse', ->
+extendMove 'Curse', ->
   applyBoosts = boostExtension('self', attack: 1, defense: 1, speed: -1)
 
   @getTargets = (battle, user) ->
@@ -1219,12 +1219,12 @@ extendMove 'curse', ->
       target.attach(Attachment.Curse)
       battle.message "#{user.name} cut its own HP and laid a curse on #{target.name}!"
 
-extendMove 'destiny-bond', ->
+extendMove 'Destiny Bond', ->
   @execute = (battle, user, targets) ->
     user.attach(Attachment.DestinyBond)
     battle.message "#{user.name} is trying to take its foe down with it!"
 
-extendMove 'disable', ->
+extendMove 'Disable', ->
   # TODO: Does it only reduce duration if the disabled pokemon successfully
   #       goes through with a move?
   oldUse = @use
@@ -1243,13 +1243,13 @@ extendMove 'disable', ->
     target.attach(Attachment.Disable, {move})
     battle.message "#{target.name}'s #{move.name} was disabled!"
 
-makeDelayedAttackMove("doom-desire", "$1 chose Doom Desire as its destiny!")
+makeDelayedAttackMove("Doom Desire", "$1 chose Doom Desire as its destiny!")
 
-extendMove 'dragon-rage', ->
+extendMove 'Dragon Rage', ->
   @calculateDamage = (battle, user, target) ->
     40
 
-extendMove 'dream-eater', ->
+extendMove 'Dream Eater', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !target.has(Status.Sleep)
@@ -1257,7 +1257,7 @@ extendMove 'dream-eater', ->
       return false
     oldUse.call(this, battle, user, target)
 
-extendMove 'echoed-voice', ->
+extendMove 'Echoed Voice', ->
   @basePower = (battle, user, target) ->
     layers = battle.get(Attachment.EchoedVoice)?.layers || 0
     @power * (layers + 1)
@@ -1267,14 +1267,14 @@ extendMove 'echoed-voice', ->
     attachment = battle.get(Attachment.EchoedVoice)
     attachment.turns = 2
 
-extendMove 'encore', ->
+extendMove 'Encore', ->
   bannedMoves =
-    'encore': true
-    'mimic': true
-    'mirror-move': true
-    'sketch': true
-    'struggle': true
-    'transform': true
+    'Encore': true
+    'Mimic': true
+    'Mirror Move': true
+    'Sketch': true
+    'Struggle': true
+    'Transform': true
   @afterSuccessfulHit = (battle, user, target) ->
     if !target.lastMove?
       @fail(battle)
@@ -1288,7 +1288,7 @@ extendMove 'encore', ->
     else
       @fail(battle)
 
-extendMove 'endeavor', ->
+extendMove 'Endeavor', ->
   oldUse = @use
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
@@ -1299,26 +1299,25 @@ extendMove 'endeavor', ->
   @calculateDamage = (battle, user, target) ->
     target.currentHP - user.currentHP
 
-extendMove 'endure', ->
-  makeProtectCounterMove 'endure', (battle, user, targets) ->
-    battle.message "#{user.name} braced itself!"
-    user.attach(Attachment.Endure)
+makeProtectCounterMove 'Endure', (battle, user, targets) ->
+  battle.message "#{user.name} braced itself!"
+  user.attach(Attachment.Endure)
 
-extendMove 'facade', ->
+extendMove 'Facade', ->
   @basePower = (battle, user, target) ->
     if user.hasStatus()
       2 * @power
     else
       @power
 
-extendMove 'final-gambit', ->
+extendMove 'Final Gambit', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.faint()
 
   @calculateDamage = (battle, user, target) ->
     user.currentHP
 
-extendMove 'flatter', ->
+extendMove 'Flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
 
@@ -1326,7 +1325,7 @@ extendMove 'flatter', ->
     boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
-extendMove 'fling', ->
+extendMove 'Fling', ->
   @beforeTurn = (battle, user) ->
     user.attach(Attachment.Fling)
 
@@ -1361,10 +1360,10 @@ extendMove 'fling', ->
     fling = user.get(Attachment.Fling)
     fling.item.flingPower
 
-extendMove 'frustration', ->
+extendMove 'Frustration', ->
   @basePower = -> 102
 
-extendMove 'fury-cutter', ->
+extendMove 'Fury Cutter', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     user.attach(Attachment.FuryCutter, move: this)
 
@@ -1373,9 +1372,9 @@ extendMove 'fury-cutter', ->
     layers = attachment?.layers || 0
     @power * Math.pow(2, layers)
 
-makeDelayedAttackMove("future-sight", "$1 foresaw an attack!")
+makeDelayedAttackMove("Future Sight", "$1 foresaw an attack!")
 
-extendMove 'gravity', ->
+extendMove 'Gravity', ->
   @execute = (battle, user, targets) ->
     if !battle.attach(Attachment.Gravity)
       @fail(battle)
@@ -1388,36 +1387,36 @@ extendMove 'gravity', ->
       charging = target.get(Attachment.Charging)
       target.unattach(Attachment.Charging)  if charging?.move.hasFlag("gravity")
 
-extendMove 'guard-swap', ->
+extendMove 'Guard Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     for stat in [ 'defense', 'specialDefense' ]
       stats = [ target.stages[stat], user.stages[stat] ]
       [ user.stages[stat], target.stages[stat] ] = stats
 
-extendMove 'gyro-ball', ->
+extendMove 'Gyro Ball', ->
   @basePower = (battle, user, target) ->
     power = 1 + Math.floor(25 * target.stat('speed') / user.stat('speed'))
     Math.min(150, power)
 
-extendMove 'haze', ->
+extendMove 'Haze', ->
   @execute = (battle, user, targets) ->
     user.resetBoosts()
     for target in targets
       target.resetBoosts()
     battle.message "All stat changes were eliminated!"
 
-extendMove 'heart-swap', ->
+extendMove 'Heart Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     [user.stages, target.stages] = [target.stages, user.stages]
 
-extendMove 'hex', ->
+extendMove 'Hex', ->
   @basePower = (battle, user, target) ->
     if target.hasStatus()
       2 * @power
     else
       @power
 
-extendMove 'hidden-power', ->
+extendMove 'Hidden Power', ->
   hpTypes = [
     'Fighting', 'Flying', 'Poison', 'Ground', 'Rock', 'Bug', 'Ghost',
     'Steel', 'Fire', 'Water', 'Grass', 'Electric', 'Psychic', 'Ice',
@@ -1446,7 +1445,7 @@ extendMove 'hidden-power', ->
 
     hpTypes[Math.floor(value * 15 / 63)]
 
-extendMove 'imprison', ->
+extendMove 'Imprison', ->
   @execute = (battle, user, targets) ->
     # There is only one target for Imprison.
     target = targets[0]
@@ -1456,28 +1455,28 @@ extendMove 'imprison', ->
     else
       @fail(battle)
 
-extendMove 'incinerate', ->
+extendMove 'Incinerate', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.hasItem() && target.getItem().type == 'berries'
       battle.message "#{target.name}'s #{target.getItem().name} was burnt up!"
       target.removeItem()
 
-extendMove 'ingrain', ->
+extendMove 'Ingrain', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Ingrain)
     battle.message "#{target.name} planted its roots!"
 
-extendMove 'judgment', ->
+extendMove 'Judgment', ->
   @getType = (battle, user, target) ->
     user.getItem()?.plate || @type
 
-extendMove 'knock-off', ->
+extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.hasItem()
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().name}!"
       target.removeItem()
 
-extendMove 'last-resort', ->
+extendMove 'Last Resort', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if this not in user.moves || user.moves.length <= 1
@@ -1489,7 +1488,7 @@ extendMove 'last-resort', ->
         return false
     oldUse.call(this, battle, user, target)
 
-extendMove 'light-screen', ->
+extendMove 'Light Screen', ->
   @execute = (battle, user, opponents) ->
     {team} = battle.getOwner(user)
     if team.attach(Attachment.LightScreen, {user})
@@ -1497,7 +1496,7 @@ extendMove 'light-screen', ->
     else
       @fail(battle)
 
-extendMove 'healing-wish', ->
+extendMove 'Healing Wish', ->
   @afterSuccessfulHit = (battle, user, target) ->
     {team} = battle.getOwner(target)
     if team.getAliveBenchedPokemon().length > 0
@@ -1506,7 +1505,7 @@ extendMove 'healing-wish', ->
     else
       @fail(battle)
 
-extendMove 'lunar-dance', ->
+extendMove 'Lunar Dance', ->
   @afterSuccessfulHit = (battle, user, target) ->
     {team} = battle.getOwner(target)
     if team.getAliveBenchedPokemon().length > 0
@@ -1515,11 +1514,11 @@ extendMove 'lunar-dance', ->
     else
       @fail(battle)
 
-extendMove 'magic-coat', ->
+extendMove 'Magic Coat', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.MagicCoat)
 
-extendMove 'magnet-rise', ->
+extendMove 'Magnet Rise', ->
   @use = (battle, user, target) ->
     if target.attach(Attachment.MagnetRise)
       battle.message "#{target.name} is now floating in the air!"
@@ -1527,7 +1526,7 @@ extendMove 'magnet-rise', ->
       @fail(battle)
       return false
 
-extendMove 'magnitude', ->
+extendMove 'Magnitude', ->
   @basePower = (battle, user, target) ->
     rand = battle.rng.randInt(0, 99, "magnitude")
     magnitude = 0
@@ -1557,17 +1556,17 @@ extendMove 'magnitude', ->
     battle.message "Magnitude #{magnitude}!"
     power
 
-extendMove 'me-first', ->
+extendMove 'Me First', ->
   bannedMoves = {
-    "chatter"    : true
-    "counter"    : true
-    "covet"      : true
-    "focus-punch": true
-    "me-first"   : true
-    "metal-burst": true
-    "mirror-coat": true
-    "struggle"   : true
-    "thief"      : true
+    "Chatter"    : true
+    "Counter"    : true
+    "Covet"      : true
+    "Focus Punch": true
+    "Me First"   : true
+    "Metal Burst": true
+    "Mirror Coat": true
+    "Struggle"   : true
+    "Thief"      : true
   }
   @execute = (battle, user, targets) ->
     target = targets[0]  # Me First is a single-target move
@@ -1578,7 +1577,7 @@ extendMove 'me-first', ->
     user.attach(Attachment.MeFirst)
     m.execute(battle, user, targets)
 
-extendMove 'memento', ->
+extendMove 'Memento', ->
   oldExecute = @execute
   @execute = (battle, user, targets) ->
     user.faint()
@@ -1589,48 +1588,48 @@ extendMove 'memento', ->
     boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
-extendMove 'metronome', ->
+extendMove 'Metronome', ->
   impossibleMoves =
-    "after-you": true
-    "assist": true
-    "bestow": true
-    'chatter': true
-    "copycat": true
-    "counter": true
-    "covet": true
-    "destiny-bond": true
-    "detect": true
-    "endure": true
-    "feint": true
-    "focus-punch": true
-    "follow-me": true
-    "freeze-shock": true
-    "helping-hand": true
-    "ice-burn": true
-    "me-first": true
-    "mimic": true
-    "mirror-coat": true
-    "mirror-move": true
-    "nature-power": true
-    "protect": true
-    "quash": true
-    "quick-guard": true
-    "rage-powder": true
-    "relic-song": true
-    "secret-sword": true
-    "sketch": true
-    "sleep-talk": true
-    "snatch": true
-    "snarl": true
-    "snore": true
-    "struggle": true
-    "switcheroo": true
-    "techno-blast": true
-    "thief": true
-    "transform": true
-    "trick": true
-    "v-create": true
-    "wide-guard": true
+    "After You": true
+    "Assist": true
+    "Bestow": true
+    'Chatter': true
+    "Copycat": true
+    "Counter": true
+    "Covet": true
+    "Destiny Bond": true
+    "Detect": true
+    "Endure": true
+    "Feint": true
+    "Focus Punch": true
+    "Follow Me": true
+    "Freeze Shock": true
+    "Helping Hand": true
+    "Ice Burn": true
+    "Me First": true
+    "Mimic": true
+    "Mirror Coat": true
+    "Mirror Move": true
+    "Nature Power": true
+    "Protect": true
+    "Quash": true
+    "Quick Guard": true
+    "Rage Powder": true
+    "Relic Song": true
+    "Secret Sword": true
+    "Sketch": true
+    "Sleep Talk": true
+    "Snatch": true
+    "Snarl": true
+    "Snore": true
+    "Struggle": true
+    "Switcheroo": true
+    "Techno Blast": true
+    "Thief": true
+    "Transform": true
+    "Trick": true
+    "V-create": true
+    "Wide Guard": true
 
   for move of impossibleMoves
     if move not of Moves
@@ -1651,7 +1650,7 @@ extendMove 'metronome', ->
       targets = battle.getTargets(move, user)
     move.execute(battle, user, targets)
 
-extendMove 'nature-power', ->
+extendMove 'Nature Power', ->
   @execute = (battle, user, targets) ->
     # In Wi-Fi battles, Earthquake is always chosen.
     battle.message "#{@name} turned into Earthquake!"
@@ -1662,38 +1661,38 @@ extendMove 'nature-power', ->
     earthquake = battle.getMove('Earthquake')
     battle.getTargets(earthquake, user)
 
-extendMove 'nightmare', ->
+extendMove 'Nightmare', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.has(Status.Sleep) && target.attach(Attachment.Nightmare)
       battle.message "#{target.name} began having a nightmare!"
     else
       @fail(battle)
 
-extendMove 'pain-split', ->
+extendMove 'Pain Split', ->
   @use = (battle, user, target) ->
     averageHP = Math.floor((user.currentHP + target.currentHP) / 2)
     user.setHP(averageHP)
     target.setHP(averageHP)
     battle.message "The battlers shared their pain!"
 
-extendMove 'pay-day', ->
+extendMove 'Pay Day', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.message "Coins were scattered everywhere!"
 
-extendMove 'payback', ->
+extendMove 'Payback', ->
   @basePower = (battle, user, target) ->
     if !target.lastMove? || battle.willMove(target)
       @power
     else
       2 * @power
 
-extendMove 'power-swap', ->
+extendMove 'Power Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     for stat in [ 'attack', 'specialAttack' ]
       stats = [ target.stages[stat], user.stages[stat] ]
       [ user.stages[stat], target.stages[stat] ] = stats
 
-extendMove 'present', ->
+extendMove 'Present', ->
   @basePower = (battle, user, target) ->
     user.get(Attachment.Present).power
 
@@ -1716,12 +1715,12 @@ extendMove 'present', ->
     user.attach(Attachment.Present, {power})
     oldExecute.call(this, battle, user, targets)
 
-extendMove 'psywave', ->
+extendMove 'Psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15, "psywave") / 10
     Math.floor(user.level * fraction)
 
-extendMove 'perish-song', ->
+extendMove 'Perish Song', ->
   oldExecute = @execute
   @execute = (battle, user, targets) ->
     oldExecute.call(this, battle, user, targets)
@@ -1730,13 +1729,13 @@ extendMove 'perish-song', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.PerishSong)
 
-extendMove 'psych-up', ->
+extendMove 'Psych Up', ->
   @use = (battle, user, target) ->
     for stage, value of target.stages
       user.stages[stage] = value
     battle.message "#{user.name} copied #{target.name}'s stat changes!"
 
-extendMove 'psycho-shift', ->
+extendMove 'Psycho Shift', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !user.hasStatus() || target.hasStatus()
       @fail(battle)
@@ -1745,7 +1744,7 @@ extendMove 'psycho-shift', ->
     user.cureStatus()
     target.attach(status)
 
-extendMove 'pursuit', ->
+extendMove 'Pursuit', ->
   @beforeTurn = (battle, user) ->
     user.attach(Attachment.Pursuit)
 
@@ -1755,11 +1754,11 @@ extendMove 'pursuit', ->
     else
       @power
 
-extendMove 'rage', ->
+extendMove 'Rage', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.attach(Attachment.Rage)
 
-extendMove 'rapid-spin', ->
+extendMove 'Rapid Spin', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # Do not remove anything if the user is fainted.
     if user.isFainted()
@@ -1787,7 +1786,7 @@ extendMove 'rapid-spin', ->
     leechSeed = user.unattach(Attachment.LeechSeed)
     battle.message "#{user.name} was freed from Leech Seed!"  if leechSeed
 
-extendMove 'reflect', ->
+extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
     {team} = battle.getOwner(user)
     if team.attach(Attachment.Reflect, {user})
@@ -1795,10 +1794,10 @@ extendMove 'reflect', ->
     else
       @fail(battle)
 
-extendMove 'return', ->
+extendMove 'Return', ->
   @basePower = -> 102
 
-extendMove 'smack-down', ->
+extendMove 'Smack Down', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.SmackDown)
     target.unattach(Attachment.MagnetRise)
@@ -1806,13 +1805,13 @@ extendMove 'smack-down', ->
     # Smack Down will miss on charge moves it cannot hit.
     target.unattach(Attachment.Charging)
 
-makeStatusCureAttackMove 'smellingsalt', Status.Paralyze
+makeStatusCureAttackMove 'SmellingSalt', Status.Paralyze
 
-extendMove 'sonicboom', ->
+extendMove 'SonicBoom', ->
   @calculateDamage = (battle, user, target) ->
     20
 
-extendMove 'spikes', ->
+extendMove 'Spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.Spikes)
@@ -1820,7 +1819,7 @@ extendMove 'spikes', ->
       else
         @fail(battle)
 
-extendMove 'spite', ->
+extendMove 'Spite', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       move = opponent.lastMove
@@ -1830,7 +1829,7 @@ extendMove 'spite', ->
       opponent.reducePP(move, 4)
       battle.message "It reduced the PP of #{opponent.name}!"
 
-extendMove 'stealth-rock', ->
+extendMove 'Stealth Rock', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.StealthRock)
@@ -1838,7 +1837,7 @@ extendMove 'stealth-rock', ->
       else
         @fail(battle)
 
-extendMove 'struggle', ->
+extendMove 'Struggle', ->
   @type = '???'
 
   @typeEffectiveness = -> 1
@@ -1846,11 +1845,11 @@ extendMove 'struggle', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.damage(user.stat('hp') >> 2)
 
-extendMove 'splash', ->
+extendMove 'Splash', ->
   @execute = (battle, user, target) ->
     battle.message "But nothing happened!"
 
-extendMove 'substitute', ->
+extendMove 'Substitute', ->
   @execute = (battle, user, target) ->
     dmg = user.stat('hp') >> 2
     if dmg >= user.currentHP || dmg == 0
@@ -1868,7 +1867,7 @@ extendMove 'substitute', ->
 
   @fail = (battle) ->
 
-extendMove 'sucker-punch', ->
+extendMove 'Sucker Punch', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !battle.willMove(target)
@@ -1877,14 +1876,14 @@ extendMove 'sucker-punch', ->
     else
       oldUse.call(this, battle, user, target)
 
-extendMove 'swagger', ->
+extendMove 'Swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
     boosts = {attack: -2}
     boostedStats = target.boost(boosts, user)
     util.printBoostMessage(battle, target, boostedStats, boosts)
 
-extendMove 'synchronoise', ->
+extendMove 'Synchronoise', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if _.every(user.types, (type) -> type not in target.types)
@@ -1892,14 +1891,14 @@ extendMove 'synchronoise', ->
       return false
     return oldUse.call(this, battle, user, target)
 
-extendMove 'taunt', ->
+extendMove 'Taunt', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Taunt, battle)
       battle.message "#{target.name} fell for the taunt!"
     else
       @fail(battle)
 
-extendMove 'techno-blast', ->
+extendMove 'Techno Blast', ->
   @getType = (battle, user, target) ->
     switch user.getItem()?.name
       when "Burn Drive"
@@ -1911,21 +1910,21 @@ extendMove 'techno-blast', ->
       else
         "Normal"
 
-extendMove 'telekinesis', ->
+extendMove 'Telekinesis', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Telekinesis)
       battle.message "#{target.name} was hurled into the air!"
     else
       @fail(battle)
 
-extendMove 'torment', ->
+extendMove 'Torment', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Torment)
       battle.message "#{target.name} was subjected to torment!"
     else
       @fail(battle)
 
-extendMove 'toxic-spikes', ->
+extendMove 'Toxic Spikes', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       if opponent.attachToTeam(Attachment.ToxicSpikes)
@@ -1933,14 +1932,14 @@ extendMove 'toxic-spikes', ->
       else
         @fail(battle)
 
-extendMove 'transform', ->
+extendMove 'Transform', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !user.attach(Attachment.Transform, {target})
       @fail(battle)
       return false
     battle.message "#{user.name} tranformed into #{target.name}!"
 
-extendMove 'trick-room', ->
+extendMove 'Trick Room', ->
   @execute = (battle, user, targets) ->
     if battle.attach(Attachment.TrickRoom)
       battle.message "#{user.name} twisted the dimensions!"
@@ -1948,7 +1947,7 @@ extendMove 'trick-room', ->
       battle.message "The twisted dimensions returned to normal!"
       battle.unattach(Attachment.TrickRoom)
 
-extendMove 'trump-card', ->
+extendMove 'Trump Card', ->
   @basePower = (battle, user, target) ->
     switch user.pp(this)
       when 3
@@ -1962,24 +1961,24 @@ extendMove 'trump-card', ->
       else
         40
 
-extendMove 'u-turn', ->
+extendMove 'U-turn', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
 
-extendMove 'venoshock', ->
+extendMove 'Venoshock', ->
   @basePower = (battle, user, target) ->
     if target.has(Status.Toxic) || target.has(Status.Poison)
       2 * @power
     else
       @power
 
-extendMove 'volt-switch', ->
+extendMove 'Volt Switch', ->
   @afterSuccessfulHit = (battle, user, target) ->
     battle.forceSwitch(user)
 
-makeStatusCureAttackMove 'wake-up-slap', Status.Sleep
+makeStatusCureAttackMove 'Wake-Up Slap', Status.Sleep
 
-extendMove 'weather-ball', ->
+extendMove 'Weather Ball', ->
   @getType = (battle, user, target) ->
     if      battle.hasWeather(Weather.SUN)  then 'Fire'
     else if battle.hasWeather(Weather.RAIN) then 'Water'
@@ -1991,17 +1990,17 @@ extendMove 'weather-ball', ->
     if battle.hasWeather(Weather.NONE) then 50 else 100
 
 
-extendMove 'wish', ->
+extendMove 'Wish', ->
   @execute = (battle, user, targets) ->
     team = battle.getOwner(user).team
     @fail(battle)  unless team.attach(Attachment.Wish, {user})
 
-extendMove 'wring-out', ->
+extendMove 'Wring Out', ->
   @basePower = (battle, user, target) ->
     power = Math.floor(120 * user.currentHP / user.stat('hp'))
     Math.max(1, power)
 
-extendMove 'yawn', ->
+extendMove 'Yawn', ->
   # TODO: Fail if safeguard is activate
   # NOTE: Insomnia and Vital Spirit guard against the sleep effect
   # but not yawn itself.
@@ -2013,7 +2012,7 @@ extendMove 'yawn', ->
 
 # Keep this at the bottom or look up how it affects Metronome.
 # TODO: Figure out a better solution
-Moves['confusion-recoil'] = new Move "Confusion recoil",
+Moves['Confusion Recoil'] = new Move "Confusion recoil",
   "accuracy": 0,
   "damage": "physical",
   "power": 40,
@@ -2021,10 +2020,10 @@ Moves['confusion-recoil'] = new Move "Confusion recoil",
   "type": "???"
 
 # Confusion never crits
-extendMove 'confusion-recoil', ->
+extendMove 'Confusion Recoil', ->
   @isCriticalHit = -> false
 
-Moves['recharge'] = new Move("Recharge", target: "user")
+Moves['Recharge'] = new Move("Recharge", target: "user")
 
 # After everything to ensure that basePower is overridden last.
 makeVulnerable = (moveName, byMove) ->
@@ -2037,11 +2036,11 @@ makeVulnerable = (moveName, byMove) ->
 
       if charging.move == battle.getMove(moveName) then 2 * power else power
 
-makeVulnerable('fly', 'gust')
-makeVulnerable('fly', 'twister')
-makeVulnerable('bounce', 'gust')
-makeVulnerable('bounce', 'twister')
-makeVulnerable('dig', 'earthquake')
-makeVulnerable('dig', 'magnitude')
-makeVulnerable('dive', 'surf')
-makeVulnerable('dive', 'whirlpool')
+makeVulnerable('Fly', 'Gust')
+makeVulnerable('Fly', 'Twister')
+makeVulnerable('Bounce', 'Gust')
+makeVulnerable('Bounce', 'Twister')
+makeVulnerable('Dig', 'Earthquake')
+makeVulnerable('Dig', 'Magnitude')
+makeVulnerable('Dive', 'Surf')
+makeVulnerable('Dive', 'Whirlpool')

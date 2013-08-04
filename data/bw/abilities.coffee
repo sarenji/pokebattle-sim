@@ -348,29 +348,29 @@ makeAbility 'Forecast'
 
 makeAbility 'Forewarn', ->
   VariablePowerMoves =
-    'crush-grip'   : true
-    'dragon-rage'  : true
-    'endeavor'     : true
-    'flail'        : true
-    'frustration'  : true 
-    'grass-knot'   : true
-    'gyro-ball'    : true
-    'sonicboom'    : true
-    'hidden-power' : true
-    'low-kick'     : true
-    'natural-gift' : true
-    'night-shade'  : true
-    'psywave'      : true
-    'return'       : true
-    'reversal'     : true
-    'seismic-toss' : true
-    'trump-card'   : true
-    'wring-out'    : true
+    'Crush Grip'   : true
+    'Dragon Rage'  : true
+    'Endeavor'     : true
+    'Flail'        : true
+    'Frustration'  : true
+    'Grass Knot'   : true
+    'Gyro Ball'    : true
+    'SonicBoom'    : true
+    'Hidden Power' : true
+    'Low Kick'     : true
+    'Natural Gift' : true
+    'Night Shade'  : true
+    'Psywave'      : true
+    'Return'       : true
+    'Reversal'     : true
+    'Seismic Toss' : true
+    'Trump Card'   : true
+    'Wring Out'    : true
 
   CounterMoves =
-    "counter"     : true
-    "mirror-coat" : true
-    "metal-burst" : true
+    "Counter"     : true
+    "Mirror Coat" : true
+    "Metal Burst" : true
 
   @consider = consider = (move) ->
     if move.hasFlag('ohko')

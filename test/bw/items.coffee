@@ -1359,7 +1359,7 @@ describe "Metronome", ->
     shared.create.call this,
       team1: [Factory("Magikarp", item: "Metronome")]
     tackle = @battle.getMove('Tackle')
-    splash = @battle.getMove('splash')
+    splash = @battle.getMove('Splash')
 
     @battle.performMove(@id1, tackle)
     @battle.performMove(@id1, splash)

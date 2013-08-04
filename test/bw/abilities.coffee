@@ -580,7 +580,7 @@ describe "BW Abilities:", ->
       consider(@battle.getMove("Return")).should.equal(80)
       consider(@battle.getMove("Reversal")).should.equal(80)
       consider(@battle.getMove("Seismic Toss")).should.equal(80)
-      consider(@battle.getMove("Sonicboom")).should.equal(80)
+      consider(@battle.getMove("SonicBoom")).should.equal(80)
       consider(@battle.getMove("Trump Card")).should.equal(80)
       consider(@battle.getMove("Wring Out")).should.equal(80)
 
@@ -588,7 +588,7 @@ describe "BW Abilities:", ->
       shared.build(this, team1: [Factory("Magikarp", ability: "Forewarn")])
       spy = @sandbox.spy(@battle, 'message')
       @controller.beginBattle()
-      spy.calledWithMatch('tackle').should.be.true
+      spy.calledWithMatch('Tackle').should.be.true
 
   describe "Friend Guard", ->
     it "weakens attacks from allies by 25%", ->
@@ -1681,7 +1681,7 @@ describe "BW Abilities:", ->
     it "doubles evasion rate when confused", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Tangled Feet")]
-      tackle = @battle.getMove('tackle')
+      tackle = @battle.getMove("Tackle")
       tackle.chanceToHit(@battle, @p2, @p1).should.equal(100)
       @p1.attach(Attachment.Confusion)
       tackle.chanceToHit(@battle, @p2, @p1).should.equal(50)

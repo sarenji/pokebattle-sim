@@ -44,7 +44,7 @@ describe 'Battle', ->
     it "records a player's move", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.playerActions.should.have.property @id1
-      @battle.playerActions[@id1].move.name.should.equal 'tackle'
+      @battle.playerActions[@id1].move.should.equal @battle.getMove('Tackle')
 
   describe '#recordSwitch', ->
     it "records a player's switch", ->

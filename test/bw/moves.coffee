@@ -9,7 +9,7 @@ shared = require '../shared'
 require '../helpers'
 require 'sugar'
 
-describe 'splash', ->
+describe "Splash", ->
   shared.shouldDoNoDamage('Splash')
 
 describe 'jump kick attacks', ->
@@ -103,7 +103,7 @@ describe 'a pokemon using a move with a secondary boosting effect', ->
     shared.biasRNG.call(this, "next", 'secondary boost', 0)  # 100% chance
     attack = @p1.stat('attack')
     speed  = @p1.stat('speed')
-    @battle.performMove(@id1, @battle.getMove('Ancientpower'))
+    @battle.performMove(@id1, @battle.getMove('AncientPower'))
     @p1.stages.should.include {
       attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
     }
@@ -1185,20 +1185,20 @@ describe 'weather ball', ->
     move.getType(@battle, @p1, @p2).should.equal 'Rock'
     move.basePower(@battle, @p1, @p2).should.equal 100
 
-describe 'autotomize', ->
+describe 'Autotomize', ->
   it 'changes your weight on success', ->
     shared.create.call(this)
     weight = @p1.calculateWeight()
-    @controller.makeMove(@player1, 'autotomize')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Autotomize')
+    @controller.makeMove(@player2, "Splash")
 
     weight.should.not.equal @p1.calculateWeight()
 
   it 'cannot go below .1kg', ->
     # Magikarp weighs 100kg.
     shared.create.call this, team1: [ Factory('Magikarp')]
-    @controller.makeMove(@player1, 'autotomize')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Autotomize')
+    @controller.makeMove(@player2, "Splash")
 
     @p1.calculateWeight().should.not.be.lessThan .1
 
@@ -1207,10 +1207,10 @@ describe 'autotomize', ->
     # Magikarp weighs 1355kg.
     shared.create.call this, team1: [ Factory('Abomasnow')]
 
-    @controller.makeMove(@player1, 'autotomize')
-    @controller.makeMove(@player2, 'splash')
-    @controller.makeMove(@player1, 'autotomize')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Autotomize')
+    @controller.makeMove(@player2, "Splash")
+    @controller.makeMove(@player1, 'Autotomize')
+    @controller.makeMove(@player2, "Splash")
 
     @p1.calculateWeight().should.equal 1155
 
@@ -1222,13 +1222,13 @@ describe 'heart swap', ->
     @p1.stages.attack = 2
     @p2.stages.speed = -2
 
-    @controller.makeMove(@player1, 'heart-swap')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Heart Swap')
+    @controller.makeMove(@player2, "Splash")
 
     @p1.stages.should.include speed: -2
     @p2.stages.should.include attack: 2
 
-describe 'nightmare', ->
+describe 'Nightmare', ->
   shared.shouldDoNoDamage('Nightmare')
 
   it 'fails if the pokemon is awake', ->
@@ -1237,8 +1237,8 @@ describe 'nightmare', ->
     mock = @sandbox.mock(@battle.getMove('Nightmare'))
     mock.expects('fail').once()
 
-    @controller.makeMove(@player1, 'nightmare')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Nightmare')
+    @controller.makeMove(@player2, "Splash")
 
     mock.verify()
 
@@ -1261,13 +1261,13 @@ describe 'nightmare', ->
     hp = @p2.currentHP
     quarter = Math.floor(hp / 4)
 
-    @controller.makeMove(@player1, 'nightmare')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Nightmare')
+    @controller.makeMove(@player2, "Splash")
 
     @p2.currentHP.should.equal(hp - quarter)
 
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, "Splash")
+    @controller.makeMove(@player2, "Splash")
 
     @p2.currentHP.should.equal(hp - 2*quarter)
 
@@ -1276,23 +1276,23 @@ describe 'nightmare', ->
     shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
     @p2.attach(Status.Sleep)
 
-    @controller.makeMove(@player1, 'nightmare')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Nightmare')
+    @controller.makeMove(@player2, "Splash")
 
     @p2.cureStatus()
 
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, "Splash")
+    @controller.makeMove(@player2, "Splash")
 
     @p2.has(Attachment.Nightmare).should.be.false
 
-describe 'incinerate', ->
+describe 'Incinerate', ->
   it 'destroys the berry of the target', ->
     shared.create.call this,
       team2: [ Factory('Magikarp', item: 'Bluk Berry') ]
 
-    @controller.makeMove(@player1, 'incinerate')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Incinerate')
+    @controller.makeMove(@player2, "Splash")
 
     should.not.exist @p2.item
 
@@ -1300,8 +1300,8 @@ describe 'incinerate', ->
     shared.create.call this,
       team2: [ Factory('Magikarp', item: 'Leftovers') ]
 
-    @controller.makeMove(@player1, 'incinerate')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Incinerate')
+    @controller.makeMove(@player2, "Splash")
 
     should.exist @p2.item
 
@@ -1324,45 +1324,39 @@ describe 'taunt', ->
   it 'prevents the target from using a non-attacking move that turn', ->
     shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
     move = @battle.getMove('Calm Mind')
+    taunt = @battle.getMove('Taunt')
     mock = @sandbox.mock(move)
     mock.expects('execute').never()
 
-    @controller.makeMove(@player1, 'taunt')
-    @controller.makeMove(@player2, 'calm-mind')
+    @battle.performMove(@id1, taunt)
+    @battle.performMove(@id2, move)
 
     mock.verify()
 
   it 'lasts three turns', ->
     shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
 
-    @controller.makeMove(@player1, 'taunt')
-    @controller.makeMove(@player2, 'calm-mind')
-
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'tackle')
-
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'tackle')
+    @battle.performMove(@id1, @battle.getMove('Taunt'))
+    @battle.endTurn()
+    @battle.endTurn()
+    @battle.endTurn()
 
     @p2.has(Attachment.Taunt).should.be.false
 
   it 'prevents the target from selecting that move the next turn', ->
     shared.create.call(this)
 
-    @controller.makeMove(@player1, 'taunt')
-    @controller.makeMove(@player2, 'calm-mind')
-
+    @battle.performMove(@id1, @battle.getMove('Taunt'))
+    @battle.beginTurn()
     requestedMoves = @battle.requests[@player2.id].moves
     requestedMoves.should.not.include 'Splash'
 
 describe 'u-turn', ->
   it 'forces the owner to switch', ->
     shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
-    @controller.makeMove(@player1, 'u-turn')
-    @controller.makeMove(@player2, 'splash')
+    @battle.performMove(@id1, @battle.getMove('U-turn'))
 
     @battle.requests.should.have.property @player1.id
-    @battle.turn.should.equal 1
 
 describe 'venoshock', ->
   it 'doubles the base power if target is poisoned', ->
@@ -1387,45 +1381,43 @@ describe 'Wish', ->
     shared.create.call(this)
     hp = @p1.currentHP
     @p1.currentHP = 1
-    @controller.makeMove(@player1, 'wish')
-    @controller.makeMove(@player2, 'splash')
+    @battle.performMove(@id1, @battle.getMove('Wish'))
+    @battle.endTurn()
 
     @p1.currentHP.should.equal 1
 
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
+    @battle.endTurn()
 
     @p1.currentHP.should.equal(Math.round(hp / 2) + 1)
 
   it "restores the same total amount of HP to an ally", ->
     shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
     hp = @p1.currentHP
-    @controller.makeMove(@player1, 'wish')
-    @controller.makeMove(@player2, 'splash')
+    @battle.performMove(@id1, @battle.getMove('Wish'))
+    @battle.endTurn()
     receiver = @team1.at(1)
 
     receiver.currentHP = 1
-    @controller.makeSwitch(@player1, 1)
-    @controller.makeMove(@player2, 'splash')
+    @battle.performSwitch(@id1, 1)
+    @battle.endTurn()
 
     receiver.currentHP.should.equal(Math.round(hp / 2) + 1)
 
   it "fails if the pokemon faints", ->
     shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
-    @controller.makeMove(@player1, 'wish')
-    @controller.makeMove(@player2, 'splash')
+    @battle.performMove(@id1, @battle.getMove('Wish'))
+    @battle.endTurn()
 
     @p1.currentHP = 1
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'tackle')
-
+    @battle.performMove(@id2, @battle.getMove("Tackle"))
+    @battle.endTurn()
     @team1.has(Attachment.Wish).should.be.false
 
 describe "counter", ->
   it "returns double the damage if attacked by a physical move", ->
     shared.create.call(this)
-    @controller.makeMove(@player1, 'counter')
-    @controller.makeMove(@player2, 'tackle')
+    @controller.makeMove(@player1, 'Counter')
+    @controller.makeMove(@player2, "Tackle")
 
     dhp1 = @p1.stat('hp') - @p1.currentHP
     dhp2 = @p2.stat('hp') - @p2.currentHP
@@ -1435,8 +1427,8 @@ describe "counter", ->
     shared.create.call(this)
     mock = @sandbox.mock(@battle.getMove('Counter'))
     mock.expects('fail').once()
-    @controller.makeMove(@player1, 'counter')
-    @controller.makeMove(@player2, 'thundershock')
+    @controller.makeMove(@player1, 'Counter')
+    @controller.makeMove(@player2, 'ThunderShock')
 
     mock.verify()
 
@@ -1444,19 +1436,19 @@ describe "counter", ->
     shared.create.call(this)
     mock = @sandbox.mock(@battle.getMove('Counter'))
     mock.expects('fail').once()
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'tackle')
+    @controller.makeMove(@player1, "Splash")
+    @controller.makeMove(@player2, "Tackle")
 
-    @controller.makeMove(@player1, 'counter')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Counter')
+    @controller.makeMove(@player2, "Splash")
 
     mock.verify()
 
 describe "Perish Song", ->
   it "attaches to every pokemon in the field", ->
     shared.create.call(this)
-    @controller.makeMove(@player1, 'perish-song')
-    @controller.makeMove(@player2, 'splash')
+    @controller.makeMove(@player1, 'Perish Song')
+    @controller.makeMove(@player2, "Splash")
 
     result = _.all @battle.getActivePokemon(), (pokemon) ->
       pokemon.has(Attachment.PerishSong)
@@ -1464,21 +1456,16 @@ describe "Perish Song", ->
 
   it "faints pokemon at the end of 4 turns", ->
     shared.create.call(this)
-    @controller.makeMove(@player1, 'perish-song')
-    @controller.makeMove(@player2, 'splash')
-
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
-
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
+    @battle.performMove(@id1, @battle.getMove('Perish Song'))
+    @battle.endTurn()
+    @battle.endTurn()
+    @battle.endTurn()
 
     result = _.all @battle.getActivePokemon(), (pokemon) ->
       !pokemon.isFainted()
     result.should.be.true
 
-    @controller.makeMove(@player1, 'splash')
-    @controller.makeMove(@player2, 'splash')
+    @battle.endTurn()
 
     result = _.all @battle.getActivePokemon(), (pokemon) ->
       pokemon.isFainted()
@@ -1528,9 +1515,7 @@ describe "Synchronoise", ->
     mock = @sandbox.mock(move)
     mock.expects('fail').once()
 
-    @controller.makeMove(@player1, "Synchronoise")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, move)
     mock.verify()
 
   it "works on Pokemon that share one type with the user", ->
@@ -1539,10 +1524,7 @@ describe "Synchronoise", ->
       team2: [Factory("Celebi")]
 
     hp = @p2.currentHP
-
-    @controller.makeMove(@player1, "Synchronoise")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove('Synchronoise'))
     @p2.currentHP.should.be.lessThan hp
 
 describe "Roost", ->
@@ -1552,65 +1534,40 @@ describe "Roost", ->
     shared.create.call this,
       team1: [Factory("Gliscor")]
 
-    newTypes = []
-    oldAttach = @p1.attach
-    @p1.attach = (args...) =>
-      ret = oldAttach.apply(@p1, args)
-      newTypes = @p1.types
-      ret
-
     @p1.currentHP = 1
-    @controller.makeMove(@player1, "Roost")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id1, @battle.getMove("Roost"))
 
-    ('Flying' in newTypes).should.be.false
-    newTypes.should.eql ['Ground']
+    ('Flying' in @p1.types).should.be.false
+    @p1.types.should.eql ['Ground']
 
   it "turns pure-Flying pokemon into Normal pokemon", ->
     shared.create.call this,
       team1: [Factory("Tornadus (incarnate)")]
 
-    newTypes = []
-    oldAttach = @p1.attach
-    @p1.attach = (args...) =>
-      ret = oldAttach.apply(@p1, args)
-      newTypes = @p1.types
-      ret
-
     @p1.currentHP = 1
-    @controller.makeMove(@player1, "Roost")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id1, @battle.getMove("Roost"))
 
-    ('Flying' in newTypes).should.be.false
-    newTypes.should.eql ['Normal']
+    ('Flying' in @p1.types).should.be.false
+    @p1.types.should.eql ['Normal']
 
   it "keeps the user's types the same if non-Flying", ->
     shared.create.call this,
       team1: [Factory("Celebi")]
 
     oldTypes = @p1.types
-    newTypes = []
-    oldAttach = @p1.attach
-    @p1.attach = (args...) =>
-      ret = oldAttach.apply(@p1, args)
-      newTypes = @p1.types
-      ret
-
     @p1.currentHP = 1
-    @controller.makeMove(@player1, "Roost")
-    @controller.makeMove(@player2, "Splash")
-
-    newTypes.should.eql oldTypes
+    @battle.performMove(@id1, @battle.getMove("Roost"))
+    @p1.types.should.eql oldTypes
 
   it "restores the user's old types after the turn", ->
     shared.create.call this,
       team1: [Factory("Gliscor")]
 
     @p1.currentHP = 1
-    @controller.makeMove(@player1, "Roost")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Roost"))
+    @battle.endTurn()
     ('Flying' in @p1.types).should.be.true
+    ('Ground' in @p1.types).should.be.true
 
 describe 'Encore', ->
   shared.shouldDoNoDamage('Encore')
@@ -1618,144 +1575,107 @@ describe 'Encore', ->
   it "fails if the target has not yet used a move", ->
     shared.create.call this,
       team1: [Factory("Magikarp", evs: {speed: 4})]
+    encore = @battle.getMove('Encore')
+    mock = @sandbox.mock(encore).expects('fail').once()
 
-    move = @battle.getMove('Encore')
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, encore)
     mock.verify()
 
   it "forces the target to repeat its last used move", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
+    shared.create.call(this)
 
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
 
+    @battle.beginTurn()
     @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
 
   it "changes the target's decision if it has not moved yet", ->
-    shared.create.call this,
-      team1: [Factory("Magikarp", evs: {speed: 4})]
+    shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
 
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Tackle")
-
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.recordMove(@id1, @battle.getMove('Encore'))
+    @battle.recordMove(@id2, @battle.getMove('Tackle'))
+    @battle.continueTurn()
     @p2.lastMove.should.equal @battle.getMove('Splash')
 
   it "lasts 3 turns", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
+    shared.create.call(this)
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
 
     @p2.has(Attachment.Encore).should.be.true
 
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeMove(@player2, "Splash")
+    @battle.endTurn()
+    @battle.endTurn()
+    @battle.endTurn()
 
     @p2.has(Attachment.Encore).should.be.false
 
   it "fails on certain moves like mimic", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
+    shared.create.call(this)
+    encore = @battle.getMove('Encore')
+    mock = @sandbox.mock(encore).expects('fail').once()
 
-    move = @battle.getMove('Encore')
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Mimic")
-
+    @battle.performMove(@id2, @battle.getMove('Mimic'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
     mock.verify()
 
   it "fails if the pokemon is already encored", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
+    shared.create.call(this)
+    encore = @battle.getMove('Encore')
+    mock = @sandbox.mock(encore).expects('fail').once()
 
-    move = @battle.getMove('Encore')
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
     mock.verify()
 
   it "fails if the move has 0 PP", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
-
-    move = @battle.getMove('Encore')
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
+    shared.create.call(this)
+    encore = @battle.getMove('Encore')
+    mock = @sandbox.mock(encore).expects('fail').once()
 
     @p2.setPP(@battle.getMove('Splash'), 1)
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
     mock.verify()
 
   it "removes itself if the pokemon's move reaches 0 PP", ->
-    shared.create.call this,
-      team2: [Factory("Magikarp", evs: {speed: 4})]
+    shared.create.call(this)
 
     @p2.setPP(@battle.getMove('Splash'), 2)
-    @controller.makeMove(@player1, "Encore")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.performMove(@id1, @battle.getMove('Encore'))
+    @battle.endTurn()
 
     @p2.has(Attachment.Encore).should.be.true
 
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @battle.endTurn()
 
     @p2.has(Attachment.Encore).should.be.false
 
 describe "Swagger", ->
   it "confuses the target", ->
     shared.create.call(this)
-
-    @controller.makeMove(@player1, "Swagger")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Swagger"))
     @p2.has(Attachment.Confusion).should.be.true
 
   it "boosts the target's attack by two stages", ->
     shared.create.call(this)
-
-    @controller.makeMove(@player1, "Swagger")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Swagger"))
     @p2.stages.attack.should.equal -2
 
 describe "Flatter", ->
   it "confuses the target", ->
     shared.create.call(this)
-
-    @controller.makeMove(@player1, "Flatter")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Flatter"))
     @p2.has(Attachment.Confusion).should.be.true
 
   it "boosts the target's special attack by two stages", ->
     shared.create.call(this)
-
-    @controller.makeMove(@player1, "Flatter")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Flatter"))
     @p2.stages.specialAttack.should.equal -2
 
 describe "Torment", ->
@@ -1765,22 +1685,21 @@ describe "Torment", ->
   it "prevents the target from using its last move", ->
     shared.create.call(this)
 
-    @controller.makeMove(@player1, "Torment")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Torment"))
+    @battle.performMove(@id2, @battle.getMove("Splash"))
+    @battle.beginTurn()
     @p2.validMoves().should.eql [ @battle.getMove('Tackle') ]
 
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeMove(@player2, "Tackle")
-
+    @battle.performMove(@id2, @battle.getMove("Tackle"))
+    @battle.beginTurn()
     @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
 
   it "still works even if a new pokemon has just switched in", ->
     shared.create.call(this, team2: [Factory("Magikarp"), Factory("Magikarp")])
 
-    @controller.makeMove(@player1, "Torment")
-    @controller.makeSwitch(@player2, 1)
-
+    @battle.performSwitch(@id2, 1)
+    @battle.performMove(@id1, @battle.getMove("Torment"))
+    @battle.beginTurn()
     @p2.validMoves().should.eql [ @battle.getMove('Splash'), @battle.getMove('Tackle') ]
 
   xit "does not force the Outrage user to struggle", ->
@@ -1795,8 +1714,7 @@ describe "Psych Up", ->
     @p2.stages.attack = 6
     @p2.stages.defense = -2
     @p2.stages.speed = -1
-    @controller.makeMove(@player1, "Psych Up")
-    @controller.makeMove(@player2, "Splash")
+    @battle.performMove(@id1, @battle.getMove("Psych Up"))
     @p1.stages.should.eql {
       attack: 6, defense: -2, specialAttack: 0, specialDefense: 0,
       speed: -1, accuracy: 0, evasion: 0
@@ -1807,21 +1725,16 @@ describe "Spikes", ->
     shared.create.call(this)
 
     @team2.has(Attachment.Spikes).should.be.false
-
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
     @team2.has(Attachment.Spikes).should.be.true
 
   it "fails if there are 3 layers", ->
     shared.create.call(this)
 
-    mock = @sandbox.mock(@battle.getMove('Spikes'))
-    mock.expects('fail').once()
+    mock = @sandbox.mock(@battle.getMove('Spikes')).expects('fail').once()
 
     for i in [1..4]
-      @controller.makeMove(@player1, "Spikes")
-      @controller.makeMove(@player2, "Splash")
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
 
     mock.verify()
 
@@ -1830,23 +1743,20 @@ describe "Spikes", ->
       team2: [Factory("Magikarp"), Factory("Magikarp")]
 
     hp = @team2.first().stat('hp')
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeSwitch(@player2, 1)
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
+    @battle.performSwitch(@id2, 1)
 
     (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
     @team2.first().currentHP = hp
 
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeSwitch(@player2, 1)
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
+    @battle.performSwitch(@id2, 1)
 
     (hp - @team2.first().currentHP).should.equal Math.floor(hp / 6)
     @team2.first().currentHP = hp
 
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeSwitch(@player2, 1)
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
+    @battle.performSwitch(@id2, 1)
 
     (hp - @team2.first().currentHP).should.equal Math.floor(hp / 4)
 
@@ -1854,11 +1764,8 @@ describe "Spikes", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Magikarp", item: "Air Balloon")]
 
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Spikes")
-    @controller.makeSwitch(@player2, 1)
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
+    @battle.performSwitch(@id2, 1)
 
     @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
@@ -1870,32 +1777,23 @@ describe "Stealth Rock", ->
     shared.create.call(this)
 
     @team2.has(Attachment.StealthRock).should.be.false
-
-    @controller.makeMove(@player1, "Stealth Rock")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
     @team2.has(Attachment.StealthRock).should.be.true
 
   it "does damage to pokemon switching in according to type", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Moltres")]
 
-    @controller.makeMove(@player1, "Stealth Rock")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeSwitch(@player2, 1)
+    @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+    @battle.performSwitch(@id2, 1)
 
     pokemon = @team2.first()
 
     hp = pokemon.stat('hp')
     (hp - pokemon.currentHP).should.equal Math.floor(hp / 2)
 
-    @controller.makeMove(@player1, "Splash")
-    @controller.makeSwitch(@player2, 1)
-
+    @battle.performSwitch(@id2, 1)
     pokemon = @team2.first()
-
     hp = pokemon.stat('hp')
     (hp - pokemon.currentHP).should.equal Math.floor(hp / 8)
 
@@ -1904,10 +1802,7 @@ describe "Toxic Spikes", ->
     shared.create.call(this)
 
     @team2.has(Attachment.ToxicSpikes).should.be.false
-
-    @controller.makeMove(@player1, "Toxic Spikes")
-    @controller.makeMove(@player2, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
     @team2.has(Attachment.ToxicSpikes).should.be.true
 
   it "fails if there are 2 layers", ->
@@ -1917,8 +1812,7 @@ describe "Toxic Spikes", ->
     mock.expects('fail').once()
 
     for i in [1..3]
-      @controller.makeMove(@player1, "Toxic Spikes")
-      @controller.makeMove(@player2, "Splash")
+      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
 
     mock.verify()
 
@@ -1926,53 +1820,36 @@ describe "Toxic Spikes", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-    @controller.makeMove(@player1, "Toxic Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeSwitch(@player2, 1)
-    @controller.makeMove(@player1, "Toxic Spikes")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
     @team2.first().has(Status.Poison).should.be.true
 
-    @controller.makeSwitch(@player2, 1)
-    @controller.makeMove(@player1, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
     @team2.first().has(Status.Toxic).should.be.true
 
   it "does not affect the pokemon if it's immune", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Ferrothorn")]
 
-    @controller.makeMove(@player1, "Toxic Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeSwitch(@player2, 1)
-    @controller.makeMove(@player1, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
     @team2.first().has(Status.Poison).should.be.false
 
   it "disappears if the pokemon switching in is a grounded Poison", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Drapion")]
 
-    @controller.makeMove(@player1, "Toxic Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeSwitch(@player2, 1)
-    @controller.makeMove(@player1, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
     @team2.has(Attachment.ToxicSpikes).should.be.false
 
   it "doesn't disappear if the pokemon switching in is a flying Poison", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Drapion", item: "Air Balloon")]
 
-    @controller.makeMove(@player1, "Toxic Spikes")
-    @controller.makeMove(@player2, "Splash")
-
-    @controller.makeSwitch(@player2, 1)
-    @controller.makeMove(@player1, "Splash")
-
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
     @team2.has(Attachment.ToxicSpikes).should.be.true
 
 testWeatherMove = (moveName, weather, item) ->
@@ -1980,21 +1857,17 @@ testWeatherMove = (moveName, weather, item) ->
     it "changes the weather to #{weather.toLowerCase()} for 5 turns", ->
       shared.create.call(this)
 
-      @controller.makeMove(@player1, moveName)
-      @controller.makeMove(@player2, "Splash")
-
+      @battle.performMove(@id1, @battle.getMove(moveName))
       @battle.weather.should.equal(weather)
-      @battle.weatherDuration.should.equal 4
+      @battle.weatherDuration.should.equal 5
 
     it "changes the weather to #{weather.toLowerCase()} for 8 turns if user holds a #{item}", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: item)]
 
-      @controller.makeMove(@player1, moveName)
-      @controller.makeMove(@player2, "Splash")
-
+      @battle.performMove(@id1, @battle.getMove(moveName))
       @battle.weather.should.equal(weather)
-      @battle.weatherDuration.should.equal 7
+      @battle.weatherDuration.should.equal 8
 
 testWeatherMove("Rain Dance", Weather.RAIN, "Damp Rock")
 testWeatherMove("Sunny Day",  Weather.SUN,  "Heat Rock")
@@ -2319,7 +2192,7 @@ describe "Reflect", ->
 
   it "does not halve non-physical damage", ->
     shared.create.call(this)
-    thundershock = @battle.getMove('Thundershock')
+    thundershock = @battle.getMove('ThunderShock')
     thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.Reflect)
@@ -2355,7 +2228,7 @@ describe "Reflect", ->
 describe "Light Screen", ->
   it "halves special damage", ->
     shared.create.call(this)
-    thundershock = @battle.getMove('Thundershock')
+    thundershock = @battle.getMove('ThunderShock')
     thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
 
     @team2.attach(Attachment.LightScreen)
@@ -2391,7 +2264,7 @@ describe "Light Screen", ->
 
   it "does not halve on critical hits", ->
     shared.create.call(this)
-    thundershock = @battle.getMove('Thundershock')
+    thundershock = @battle.getMove('ThunderShock')
     @team2.attach(Attachment.LightScreen)
     @p1.crit = true
     thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
@@ -4136,7 +4009,7 @@ testStatusCureAttackMove = (moveName, status) ->
       @p2.hasStatus().should.be.false
 
 testStatusCureAttackMove("Wake-Up Slap", Status.Sleep)
-testStatusCureAttackMove("Smellingsalt", Status.Paralyze)
+testStatusCureAttackMove("SmellingSalt", Status.Paralyze)
 
 describe 'Aqua Ring', ->
   it "restores 1/16 max HP at the end of each turn", ->
@@ -4185,7 +4058,7 @@ describe 'Ingrain', ->
   it "lets self be switched out if using self-switching moves", ->
     shared.create.call(this)
     ingrain = @battle.getMove('Ingrain')
-    uTurn = @battle.getMove('U-Turn')
+    uTurn = @battle.getMove('U-turn')
 
     @battle.performMove(@id1, ingrain)
 
@@ -4196,7 +4069,7 @@ describe 'Ingrain', ->
   it "makes self vulnerable to Ground moves", ->
     shared.create.call(this, team1: [ Factory("Gyarados") ])
     ingrain = @battle.getMove('Ingrain')
-    uTurn = @battle.getMove('U-Turn')
+    uTurn = @battle.getMove('U-turn')
 
     @p1.isImmune('Ground').should.be.true
     @battle.performMove(@id1, ingrain)

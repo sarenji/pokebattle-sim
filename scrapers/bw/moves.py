@@ -11,8 +11,10 @@ move_meta = {}
 flag_names = {}
 flags = {}
 ailments = {}
+move_names = {}
 
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/moves.csv'
+move_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_names.csv'
 type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/types.csv'
 damage_types_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_damage_classes.csv'
 meta_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_meta.csv'
@@ -94,6 +96,15 @@ for line in lines:
   ailment_id, ailment_name = line.split(',')
   ailments[ailment_id] = ailment_name
 
+# Parse names
+lines = requests.get(move_names_url).text.splitlines()
+lines.pop(0) # get rid of info
+
+for line in lines:
+  move_id, language_id, move_name = line.split(',')
+  if language_id != '9': continue
+  move_names[move_id] = move_name
+
 
 # Parse moves
 lines = requests.get(moves_url).text.splitlines()
@@ -105,7 +116,8 @@ for line in lines:
   # moves after 10000 are shadow moves 
   if int(data.id) > 10000: continue
   
-  move = moves[data.identifier] = {
+  name = move_names[data.id]
+  move = moves[name] = {
     'type'     : types[data.type_id],
     'power'    : int(data.power),
     'pp'       : data.pp and int(data.pp),

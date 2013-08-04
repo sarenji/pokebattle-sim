@@ -1,5 +1,5 @@
 {
-    "absorb": {
+    "Absorb": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -18,7 +18,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "acid": {
+    "Acid": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -37,7 +37,7 @@
         "target": "all-opponents", 
         "type": "Poison"
     }, 
-    "acid-armor": {
+    "Acid Armor": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -55,7 +55,7 @@
         "target": "user", 
         "type": "Poison"
     }, 
-    "acid-spray": {
+    "Acid Spray": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -74,7 +74,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "acrobatics": {
+    "Acrobatics": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -95,7 +95,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "acupressure": {
+    "Acupressure": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -111,7 +111,7 @@
         "target": "user-or-ally", 
         "type": "Normal"
     }, 
-    "aerial-ace": {
+    "Aerial Ace": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -132,7 +132,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "aeroblast": {
+    "Aeroblast": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -153,7 +153,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "after-you": {
+    "After You": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -171,7 +171,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "agility": {
+    "Agility": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -189,7 +189,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "air-cutter": {
+    "Air Cutter": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -209,7 +209,7 @@
         "target": "all-opponents", 
         "type": "Flying"
     }, 
-    "air-slash": {
+    "Air Slash": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -229,7 +229,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "ally-switch": {
+    "Ally Switch": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -245,7 +245,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "amnesia": {
+    "Amnesia": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -263,7 +263,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "ancientpower": {
+    "AncientPower": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -282,7 +282,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "aqua-jet": {
+    "Aqua Jet": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -302,7 +302,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "aqua-ring": {
+    "Aqua Ring": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -320,7 +320,7 @@
         "target": "user", 
         "type": "Water"
     }, 
-    "aqua-tail": {
+    "Aqua Tail": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -340,7 +340,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "arm-thrust": {
+    "Arm Thrust": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -360,7 +360,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "aromatherapy": {
+    "Aromatherapy": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -378,7 +378,7 @@
         "target": "users-field", 
         "type": "Grass"
     }, 
-    "assist": {
+    "Assist": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -394,7 +394,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "assurance": {
+    "Assurance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -414,7 +414,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "astonish": {
+    "Astonish": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -434,7 +434,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "attack-order": {
+    "Attack Order": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -454,7 +454,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "attract": {
+    "Attract": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "infatuation", 
@@ -475,7 +475,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "aura-sphere": {
+    "Aura Sphere": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -495,7 +495,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "aurora-beam": {
+    "Aurora Beam": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -514,7 +514,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "autotomize": {
+    "Autotomize": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -532,7 +532,7 @@
         "target": "user", 
         "type": "Steel"
     }, 
-    "avalanche": {
+    "Avalanche": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -552,7 +552,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "barrage": {
+    "Barrage": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -571,7 +571,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "barrier": {
+    "Barrier": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -589,7 +589,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "baton-pass": {
+    "Baton Pass": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -605,7 +605,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "beat-up": {
+    "Beat Up": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -624,7 +624,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "belly-drum": {
+    "Belly Drum": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -642,7 +642,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "bestow": {
+    "Bestow": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -661,7 +661,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "bide": {
+    "Bide": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -680,7 +680,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "bind": {
+    "Bind": {
         "accuracy": 85, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -700,7 +700,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "bite": {
+    "Bite": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -720,7 +720,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "blast-burn": {
+    "Blast Burn": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -740,7 +740,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "blaze-kick": {
+    "Blaze Kick": {
         "accuracy": 90, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -761,7 +761,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "blizzard": {
+    "Blizzard": {
         "accuracy": 70, 
         "ailmentChance": 10, 
         "ailmentId": "freeze", 
@@ -780,7 +780,7 @@
         "target": "all-opponents", 
         "type": "Ice"
     }, 
-    "block": {
+    "Block": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -800,7 +800,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "blue-flare": {
+    "Blue Flare": {
         "accuracy": 85, 
         "ailmentChance": 20, 
         "ailmentId": "burn", 
@@ -819,7 +819,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "body-slam": {
+    "Body Slam": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -839,7 +839,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "bolt-strike": {
+    "Bolt Strike": {
         "accuracy": 85, 
         "ailmentChance": 20, 
         "ailmentId": "paralysis", 
@@ -859,7 +859,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "bone-club": {
+    "Bone Club": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -878,7 +878,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "bone-rush": {
+    "Bone Rush": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -897,7 +897,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "bonemerang": {
+    "Bonemerang": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -916,7 +916,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "bounce": {
+    "Bounce": {
         "accuracy": 85, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -939,7 +939,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "brave-bird": {
+    "Brave Bird": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -960,7 +960,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "brick-break": {
+    "Brick Break": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -980,7 +980,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "brine": {
+    "Brine": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -999,7 +999,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "bubble": {
+    "Bubble": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1018,7 +1018,7 @@
         "target": "all-opponents", 
         "type": "Water"
     }, 
-    "bubblebeam": {
+    "BubbleBeam": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1037,7 +1037,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "bug-bite": {
+    "Bug Bite": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1057,7 +1057,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "bug-buzz": {
+    "Bug Buzz": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1077,7 +1077,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "bulk-up": {
+    "Bulk Up": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1095,7 +1095,7 @@
         "target": "user", 
         "type": "Fighting"
     }, 
-    "bulldoze": {
+    "Bulldoze": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1114,7 +1114,7 @@
         "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
-    "bullet-punch": {
+    "Bullet Punch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1135,7 +1135,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "bullet-seed": {
+    "Bullet Seed": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1154,7 +1154,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "calm-mind": {
+    "Calm Mind": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1172,7 +1172,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "camouflage": {
+    "Camouflage": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1190,7 +1190,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "captivate": {
+    "Captivate": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1210,7 +1210,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "charge": {
+    "Charge": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1228,7 +1228,7 @@
         "target": "user", 
         "type": "Electric"
     }, 
-    "charge-beam": {
+    "Charge Beam": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1247,7 +1247,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "charm": {
+    "Charm": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1267,7 +1267,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "chatter": {
+    "Chatter": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -1287,7 +1287,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "chip-away": {
+    "Chip Away": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1307,7 +1307,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "circle-throw": {
+    "Circle Throw": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1327,7 +1327,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "clamp": {
+    "Clamp": {
         "accuracy": 85, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -1347,7 +1347,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "clear-smog": {
+    "Clear Smog": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1366,7 +1366,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "close-combat": {
+    "Close Combat": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1386,7 +1386,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "coil": {
+    "Coil": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1404,7 +1404,7 @@
         "target": "user", 
         "type": "Poison"
     }, 
-    "comet-punch": {
+    "Comet Punch": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1425,7 +1425,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "confuse-ray": {
+    "Confuse Ray": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -1445,7 +1445,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "confusion": {
+    "Confusion": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "confusion", 
@@ -1464,7 +1464,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "constrict": {
+    "Constrict": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1484,7 +1484,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "conversion": {
+    "Conversion": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1502,7 +1502,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "conversion-2": {
+    "Conversion 2": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1520,7 +1520,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "copycat": {
+    "Copycat": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1536,7 +1536,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "cosmic-power": {
+    "Cosmic Power": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1554,7 +1554,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "cotton-guard": {
+    "Cotton Guard": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1572,7 +1572,7 @@
         "target": "user", 
         "type": "Grass"
     }, 
-    "cotton-spore": {
+    "Cotton Spore": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1592,7 +1592,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "counter": {
+    "Counter": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1611,7 +1611,7 @@
         "target": "specific-move", 
         "type": "Fighting"
     }, 
-    "covet": {
+    "Covet": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1631,7 +1631,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "crabhammer": {
+    "Crabhammer": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1652,7 +1652,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "cross-chop": {
+    "Cross Chop": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1673,7 +1673,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "cross-poison": {
+    "Cross Poison": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "poison", 
@@ -1694,7 +1694,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "crunch": {
+    "Crunch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1714,7 +1714,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "crush-claw": {
+    "Crush Claw": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1734,7 +1734,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "crush-grip": {
+    "Crush Grip": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1754,7 +1754,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "curse": {
+    "Curse": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1772,7 +1772,7 @@
         "target": "specific-move", 
         "type": "Ghost"
     }, 
-    "cut": {
+    "Cut": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1792,7 +1792,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "dark-pulse": {
+    "Dark Pulse": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1812,7 +1812,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "dark-void": {
+    "Dark Void": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -1832,7 +1832,7 @@
         "target": "all-opponents", 
         "type": "Dark"
     }, 
-    "defend-order": {
+    "Defend Order": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1850,7 +1850,7 @@
         "target": "user", 
         "type": "Bug"
     }, 
-    "defense-curl": {
+    "Defense Curl": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1868,7 +1868,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "defog": {
+    "Defog": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1889,7 +1889,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "destiny-bond": {
+    "Destiny Bond": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1907,7 +1907,7 @@
         "target": "user", 
         "type": "Ghost"
     }, 
-    "detect": {
+    "Detect": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1923,7 +1923,7 @@
         "target": "user", 
         "type": "Fighting"
     }, 
-    "dig": {
+    "Dig": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -1944,7 +1944,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "disable": {
+    "Disable": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "disable", 
@@ -1965,7 +1965,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "discharge": {
+    "Discharge": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -1984,7 +1984,7 @@
         "target": "all-other-pokemon", 
         "type": "Electric"
     }, 
-    "dive": {
+    "Dive": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2005,7 +2005,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "dizzy-punch": {
+    "Dizzy Punch": {
         "accuracy": 100, 
         "ailmentChance": 20, 
         "ailmentId": "confusion", 
@@ -2026,7 +2026,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "doom-desire": {
+    "Doom Desire": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2042,27 +2042,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "double-edge": {
-        "accuracy": 100, 
-        "ailmentChance": 0, 
-        "ailmentId": "none", 
-        "damage": "physical", 
-        "flags": [
-            "contact", 
-            "protect", 
-            "mirror"
-        ], 
-        "flinchChance": 0, 
-        "maxHits": 1, 
-        "minHits": 1, 
-        "power": 120, 
-        "pp": 15, 
-        "priority": 0, 
-        "recoil": -33, 
-        "target": "selected-pokemon", 
-        "type": "Normal"
-    }, 
-    "double-hit": {
+    "Double Hit": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2082,7 +2062,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "double-kick": {
+    "Double Kick": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2102,7 +2082,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "double-team": {
+    "Double Team": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2120,7 +2100,27 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "doubleslap": {
+    "Double-Edge": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 120, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": -33, 
+        "target": "selected-pokemon", 
+        "type": "Normal"
+    }, 
+    "DoubleSlap": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2140,7 +2140,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "draco-meteor": {
+    "Draco Meteor": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2159,7 +2159,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragon-claw": {
+    "Dragon Claw": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2179,7 +2179,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragon-dance": {
+    "Dragon Dance": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2197,7 +2197,7 @@
         "target": "user", 
         "type": "Dragon"
     }, 
-    "dragon-pulse": {
+    "Dragon Pulse": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2217,7 +2217,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragon-rage": {
+    "Dragon Rage": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2236,7 +2236,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragon-rush": {
+    "Dragon Rush": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2256,7 +2256,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragon-tail": {
+    "Dragon Tail": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2276,7 +2276,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dragonbreath": {
+    "DragonBreath": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -2295,7 +2295,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "drain-punch": {
+    "Drain Punch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2316,7 +2316,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "dream-eater": {
+    "Dream Eater": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2335,7 +2335,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "drill-peck": {
+    "Drill Peck": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2356,7 +2356,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "drill-run": {
+    "Drill Run": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2377,7 +2377,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "dual-chop": {
+    "Dual Chop": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2397,7 +2397,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "dynamicpunch": {
+    "DynamicPunch": {
         "accuracy": 50, 
         "ailmentChance": 100, 
         "ailmentId": "confusion", 
@@ -2418,7 +2418,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "earth-power": {
+    "Earth Power": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2437,7 +2437,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "earthquake": {
+    "Earthquake": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2456,7 +2456,7 @@
         "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
-    "echoed-voice": {
+    "Echoed Voice": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2476,7 +2476,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "egg-bomb": {
+    "Egg Bomb": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2495,7 +2495,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "electro-ball": {
+    "Electro Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2514,7 +2514,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "electroweb": {
+    "Electroweb": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2533,7 +2533,7 @@
         "target": "all-opponents", 
         "type": "Electric"
     }, 
-    "embargo": {
+    "Embargo": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "embargo", 
@@ -2553,7 +2553,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "ember": {
+    "Ember": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -2572,7 +2572,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "encore": {
+    "Encore": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2593,7 +2593,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "endeavor": {
+    "Endeavor": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2613,7 +2613,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "endure": {
+    "Endure": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2629,7 +2629,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "energy-ball": {
+    "Energy Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2648,7 +2648,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "entrainment": {
+    "Entrainment": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2668,7 +2668,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "eruption": {
+    "Eruption": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2687,7 +2687,7 @@
         "target": "all-opponents", 
         "type": "Fire"
     }, 
-    "explosion": {
+    "Explosion": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2706,7 +2706,7 @@
         "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
-    "extrasensory": {
+    "Extrasensory": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2725,7 +2725,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "extremespeed": {
+    "ExtremeSpeed": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2745,7 +2745,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "facade": {
+    "Facade": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2765,7 +2765,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "faint-attack": {
+    "Faint Attack": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2785,7 +2785,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "fake-out": {
+    "Fake Out": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2805,7 +2805,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "fake-tears": {
+    "Fake Tears": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2825,7 +2825,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "false-swipe": {
+    "False Swipe": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2845,7 +2845,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "featherdance": {
+    "FeatherDance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2865,7 +2865,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "feint": {
+    "Feint": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2881,7 +2881,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "fiery-dance": {
+    "Fiery Dance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2900,7 +2900,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "final-gambit": {
+    "Final Gambit": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2919,7 +2919,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "fire-blast": {
+    "Fire Blast": {
         "accuracy": 85, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -2938,7 +2938,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "fire-fang": {
+    "Fire Fang": {
         "accuracy": 95, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -2958,7 +2958,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "fire-pledge": {
+    "Fire Pledge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -2977,7 +2977,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "fire-punch": {
+    "Fire Punch": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -2998,7 +2998,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "fire-spin": {
+    "Fire Spin": {
         "accuracy": 85, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -3017,7 +3017,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "fissure": {
+    "Fissure": {
         "accuracy": 30, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3036,7 +3036,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "flail": {
+    "Flail": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3056,7 +3056,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "flame-burst": {
+    "Flame Burst": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3075,7 +3075,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "flame-charge": {
+    "Flame Charge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3095,7 +3095,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "flame-wheel": {
+    "Flame Wheel": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -3116,7 +3116,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "flamethrower": {
+    "Flamethrower": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -3135,7 +3135,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "flare-blitz": {
+    "Flare Blitz": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -3156,7 +3156,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "flash": {
+    "Flash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3176,7 +3176,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "flash-cannon": {
+    "Flash Cannon": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3195,7 +3195,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "flatter": {
+    "Flatter": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -3215,7 +3215,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "fling": {
+    "Fling": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3234,7 +3234,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "fly": {
+    "Fly": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3257,7 +3257,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "focus-blast": {
+    "Focus Blast": {
         "accuracy": 70, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3276,7 +3276,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "focus-energy": {
+    "Focus Energy": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3294,7 +3294,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "focus-punch": {
+    "Focus Punch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3314,7 +3314,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "follow-me": {
+    "Follow Me": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3330,7 +3330,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "force-palm": {
+    "Force Palm": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -3350,7 +3350,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "foresight": {
+    "Foresight": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "no-type-immunity", 
@@ -3371,7 +3371,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "foul-play": {
+    "Foul Play": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3391,7 +3391,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "freeze-shock": {
+    "Freeze Shock": {
         "accuracy": 90, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -3411,7 +3411,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "frenzy-plant": {
+    "Frenzy Plant": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3431,7 +3431,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "frost-breath": {
+    "Frost Breath": {
         "accuracy": 90, 
         "ailmentChance": 100, 
         "ailmentId": "none", 
@@ -3451,7 +3451,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "frustration": {
+    "Frustration": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3471,7 +3471,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "fury-attack": {
+    "Fury Attack": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3491,7 +3491,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "fury-cutter": {
+    "Fury Cutter": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3511,7 +3511,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "fury-swipes": {
+    "Fury Swipes": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3531,7 +3531,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "fusion-bolt": {
+    "Fusion Bolt": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3550,7 +3550,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "fusion-flare": {
+    "Fusion Flare": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3570,7 +3570,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "future-sight": {
+    "Future Sight": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3586,7 +3586,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "gastro-acid": {
+    "Gastro Acid": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3606,7 +3606,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "gear-grind": {
+    "Gear Grind": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3626,7 +3626,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "giga-drain": {
+    "Giga Drain": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3645,7 +3645,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "giga-impact": {
+    "Giga Impact": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3666,7 +3666,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "glaciate": {
+    "Glaciate": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3685,7 +3685,7 @@
         "target": "all-opponents", 
         "type": "Ice"
     }, 
-    "glare": {
+    "Glare": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "paralysis", 
@@ -3705,7 +3705,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "grass-knot": {
+    "Grass Knot": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3725,7 +3725,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "grass-pledge": {
+    "Grass Pledge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3744,7 +3744,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "grasswhistle": {
+    "GrassWhistle": {
         "accuracy": 55, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -3765,7 +3765,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "gravity": {
+    "Gravity": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3781,7 +3781,7 @@
         "target": "entire-field", 
         "type": "Psychic"
     }, 
-    "growl": {
+    "Growl": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3802,7 +3802,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "growth": {
+    "Growth": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3820,7 +3820,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "grudge": {
+    "Grudge": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3838,7 +3838,7 @@
         "target": "user", 
         "type": "Ghost"
     }, 
-    "guard-split": {
+    "Guard Split": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3856,7 +3856,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "guard-swap": {
+    "Guard Swap": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3876,7 +3876,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "guillotine": {
+    "Guillotine": {
         "accuracy": 30, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3896,7 +3896,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "gunk-shot": {
+    "Gunk Shot": {
         "accuracy": 70, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -3915,7 +3915,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "gust": {
+    "Gust": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3935,7 +3935,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "gyro-ball": {
+    "Gyro Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3955,7 +3955,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "hail": {
+    "Hail": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3971,7 +3971,7 @@
         "target": "entire-field", 
         "type": "Ice"
     }, 
-    "hammer-arm": {
+    "Hammer Arm": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -3992,7 +3992,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "harden": {
+    "Harden": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4010,7 +4010,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "haze": {
+    "Haze": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4026,7 +4026,7 @@
         "target": "entire-field", 
         "type": "Ice"
     }, 
-    "head-charge": {
+    "Head Charge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4046,7 +4046,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "head-smash": {
+    "Head Smash": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4066,7 +4066,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "headbutt": {
+    "Headbutt": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4086,7 +4086,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "heal-bell": {
+    "Heal Bell": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4105,7 +4105,7 @@
         "target": "users-field", 
         "type": "Normal"
     }, 
-    "heal-block": {
+    "Heal Block": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "heal-block", 
@@ -4125,7 +4125,7 @@
         "target": "all-opponents", 
         "type": "Psychic"
     }, 
-    "heal-order": {
+    "Heal Order": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4144,7 +4144,7 @@
         "target": "user", 
         "type": "Bug"
     }, 
-    "heal-pulse": {
+    "Heal Pulse": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4165,7 +4165,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "healing-wish": {
+    "Healing Wish": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4184,7 +4184,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "heart-stamp": {
+    "Heart Stamp": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4204,7 +4204,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "heart-swap": {
+    "Heart Swap": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4224,7 +4224,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "heat-crash": {
+    "Heat Crash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4244,7 +4244,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "heat-wave": {
+    "Heat Wave": {
         "accuracy": 90, 
         "ailmentChance": 10, 
         "ailmentId": "burn", 
@@ -4263,7 +4263,7 @@
         "target": "all-opponents", 
         "type": "Fire"
     }, 
-    "heavy-slam": {
+    "Heavy Slam": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4283,7 +4283,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "helping-hand": {
+    "Helping Hand": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4301,7 +4301,7 @@
         "target": "ally", 
         "type": "Normal"
     }, 
-    "hex": {
+    "Hex": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4320,7 +4320,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "hi-jump-kick": {
+    "Hi Jump Kick": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4341,7 +4341,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "hidden-power": {
+    "Hidden Power": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4360,7 +4360,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "hone-claws": {
+    "Hone Claws": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4378,7 +4378,7 @@
         "target": "user", 
         "type": "Dark"
     }, 
-    "horn-attack": {
+    "Horn Attack": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4398,7 +4398,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "horn-drill": {
+    "Horn Drill": {
         "accuracy": 30, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4418,7 +4418,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "horn-leech": {
+    "Horn Leech": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4438,7 +4438,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "howl": {
+    "Howl": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4456,7 +4456,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "hurricane": {
+    "Hurricane": {
         "accuracy": 70, 
         "ailmentChance": 30, 
         "ailmentId": "confusion", 
@@ -4476,7 +4476,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "hydro-cannon": {
+    "Hydro Cannon": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4496,7 +4496,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "hydro-pump": {
+    "Hydro Pump": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4515,7 +4515,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "hyper-beam": {
+    "Hyper Beam": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4535,7 +4535,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "hyper-fang": {
+    "Hyper Fang": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4555,7 +4555,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "hyper-voice": {
+    "Hyper Voice": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4575,7 +4575,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "hypnosis": {
+    "Hypnosis": {
         "accuracy": 60, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -4595,7 +4595,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "ice-ball": {
+    "Ice Ball": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4615,7 +4615,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "ice-beam": {
+    "Ice Beam": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "freeze", 
@@ -4634,7 +4634,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "ice-burn": {
+    "Ice Burn": {
         "accuracy": 90, 
         "ailmentChance": 30, 
         "ailmentId": "burn", 
@@ -4654,7 +4654,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "ice-fang": {
+    "Ice Fang": {
         "accuracy": 95, 
         "ailmentChance": 10, 
         "ailmentId": "freeze", 
@@ -4674,7 +4674,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "ice-punch": {
+    "Ice Punch": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "freeze", 
@@ -4695,7 +4695,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "ice-shard": {
+    "Ice Shard": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4714,7 +4714,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "icicle-crash": {
+    "Icicle Crash": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4733,7 +4733,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "icicle-spear": {
+    "Icicle Spear": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4752,7 +4752,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "icy-wind": {
+    "Icy Wind": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4771,7 +4771,7 @@
         "target": "all-opponents", 
         "type": "Ice"
     }, 
-    "imprison": {
+    "Imprison": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4790,7 +4790,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "incinerate": {
+    "Incinerate": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4809,7 +4809,7 @@
         "target": "all-opponents", 
         "type": "Fire"
     }, 
-    "inferno": {
+    "Inferno": {
         "accuracy": 50, 
         "ailmentChance": 100, 
         "ailmentId": "burn", 
@@ -4828,7 +4828,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "ingrain": {
+    "Ingrain": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "ingrain", 
@@ -4846,7 +4846,7 @@
         "target": "user", 
         "type": "Grass"
     }, 
-    "iron-defense": {
+    "Iron Defense": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4864,7 +4864,7 @@
         "target": "user", 
         "type": "Steel"
     }, 
-    "iron-head": {
+    "Iron Head": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4884,7 +4884,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "iron-tail": {
+    "Iron Tail": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4904,7 +4904,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "judgment": {
+    "Judgment": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4923,7 +4923,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "jump-kick": {
+    "Jump Kick": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4944,7 +4944,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "karate-chop": {
+    "Karate Chop": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4965,7 +4965,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "kinesis": {
+    "Kinesis": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -4985,7 +4985,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "knock-off": {
+    "Knock Off": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5005,7 +5005,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "last-resort": {
+    "Last Resort": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5025,7 +5025,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "lava-plume": {
+    "Lava Plume": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "burn", 
@@ -5044,7 +5044,7 @@
         "target": "all-other-pokemon", 
         "type": "Fire"
     }, 
-    "leaf-blade": {
+    "Leaf Blade": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5065,7 +5065,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "leaf-storm": {
+    "Leaf Storm": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5084,7 +5084,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "leaf-tornado": {
+    "Leaf Tornado": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5103,7 +5103,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "leech-life": {
+    "Leech Life": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5123,7 +5123,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "leech-seed": {
+    "Leech Seed": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "leech-seed", 
@@ -5143,7 +5143,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "leer": {
+    "Leer": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5163,7 +5163,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "lick": {
+    "Lick": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -5183,7 +5183,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "light-screen": {
+    "Light Screen": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5201,7 +5201,7 @@
         "target": "users-field", 
         "type": "Psychic"
     }, 
-    "lock-on": {
+    "Lock-On": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5220,7 +5220,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "lovely-kiss": {
+    "Lovely Kiss": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -5240,7 +5240,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "low-kick": {
+    "Low Kick": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5260,7 +5260,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "low-sweep": {
+    "Low Sweep": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5280,7 +5280,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "lucky-chant": {
+    "Lucky Chant": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5298,7 +5298,7 @@
         "target": "users-field", 
         "type": "Normal"
     }, 
-    "lunar-dance": {
+    "Lunar Dance": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5317,7 +5317,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "luster-purge": {
+    "Luster Purge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5336,7 +5336,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "mach-punch": {
+    "Mach Punch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5357,7 +5357,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "magic-coat": {
+    "Magic Coat": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5373,7 +5373,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "magic-room": {
+    "Magic Room": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5391,7 +5391,7 @@
         "target": "entire-field", 
         "type": "Psychic"
     }, 
-    "magical-leaf": {
+    "Magical Leaf": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5410,7 +5410,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "magma-storm": {
+    "Magma Storm": {
         "accuracy": 75, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -5429,7 +5429,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "magnet-bomb": {
+    "Magnet Bomb": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5448,7 +5448,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "magnet-rise": {
+    "Magnet Rise": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5467,7 +5467,7 @@
         "target": "user", 
         "type": "Electric"
     }, 
-    "magnitude": {
+    "Magnitude": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5486,7 +5486,7 @@
         "target": "all-other-pokemon", 
         "type": "Ground"
     }, 
-    "me-first": {
+    "Me First": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5505,7 +5505,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "mean-look": {
+    "Mean Look": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5525,7 +5525,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "meditate": {
+    "Meditate": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5543,7 +5543,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "mega-drain": {
+    "Mega Drain": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5562,7 +5562,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "mega-kick": {
+    "Mega Kick": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5582,7 +5582,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "mega-punch": {
+    "Mega Punch": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5603,7 +5603,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "megahorn": {
+    "Megahorn": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5623,7 +5623,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "memento": {
+    "Memento": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5642,7 +5642,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "metal-burst": {
+    "Metal Burst": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5661,7 +5661,7 @@
         "target": "specific-move", 
         "type": "Steel"
     }, 
-    "metal-claw": {
+    "Metal Claw": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5681,7 +5681,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "metal-sound": {
+    "Metal Sound": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5702,7 +5702,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "meteor-mash": {
+    "Meteor Mash": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5723,7 +5723,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "metronome": {
+    "Metronome": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5739,7 +5739,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "milk-drink": {
+    "Milk Drink": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5758,7 +5758,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "mimic": {
+    "Mimic": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5777,7 +5777,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "mind-reader": {
+    "Mind Reader": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5796,7 +5796,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "minimize": {
+    "Minimize": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5814,7 +5814,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "miracle-eye": {
+    "Miracle Eye": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "no-type-immunity", 
@@ -5835,7 +5835,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "mirror-coat": {
+    "Mirror Coat": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5853,7 +5853,7 @@
         "target": "specific-move", 
         "type": "Psychic"
     }, 
-    "mirror-move": {
+    "Mirror Move": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5869,7 +5869,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "mirror-shot": {
+    "Mirror Shot": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5888,7 +5888,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "mist": {
+    "Mist": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5906,7 +5906,7 @@
         "target": "users-field", 
         "type": "Ice"
     }, 
-    "mist-ball": {
+    "Mist Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5925,7 +5925,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "moonlight": {
+    "Moonlight": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5944,7 +5944,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "morning-sun": {
+    "Morning Sun": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5963,7 +5963,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "mud-bomb": {
+    "Mud Bomb": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -5982,7 +5982,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "mud-shot": {
+    "Mud Shot": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6001,7 +6001,23 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "mud-slap": {
+    "Mud Sport": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Ground"
+    }, 
+    "Mud-Slap": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6020,23 +6036,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "mud-sport": {
-        "accuracy": 0, 
-        "ailmentChance": 0, 
-        "ailmentId": "none", 
-        "damage": "non-damaging", 
-        "flags": [], 
-        "flinchChance": 0, 
-        "maxHits": 1, 
-        "minHits": 1, 
-        "power": 0, 
-        "pp": 15, 
-        "priority": 0, 
-        "recoil": 0, 
-        "target": "entire-field", 
-        "type": "Ground"
-    }, 
-    "muddy-water": {
+    "Muddy Water": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6055,7 +6055,7 @@
         "target": "all-opponents", 
         "type": "Water"
     }, 
-    "nasty-plot": {
+    "Nasty Plot": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6073,7 +6073,7 @@
         "target": "user", 
         "type": "Dark"
     }, 
-    "natural-gift": {
+    "Natural Gift": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6092,7 +6092,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "nature-power": {
+    "Nature Power": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6108,7 +6108,7 @@
         "target": "specific-move", 
         "type": "Normal"
     }, 
-    "needle-arm": {
+    "Needle Arm": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6128,7 +6128,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "night-daze": {
+    "Night Daze": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6147,7 +6147,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "night-shade": {
+    "Night Shade": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6166,7 +6166,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "night-slash": {
+    "Night Slash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6187,7 +6187,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "nightmare": {
+    "Nightmare": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "nightmare", 
@@ -6206,7 +6206,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "octazooka": {
+    "Octazooka": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6225,7 +6225,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "odor-sleuth": {
+    "Odor Sleuth": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "no-type-immunity", 
@@ -6246,7 +6246,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "ominous-wind": {
+    "Ominous Wind": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "none", 
@@ -6265,7 +6265,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "outrage": {
+    "Outrage": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6285,7 +6285,7 @@
         "target": "random-opponent", 
         "type": "Dragon"
     }, 
-    "overheat": {
+    "Overheat": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6304,7 +6304,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "pain-split": {
+    "Pain Split": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6323,7 +6323,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "pay-day": {
+    "Pay Day": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6342,7 +6342,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "payback": {
+    "Payback": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6362,7 +6362,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "peck": {
+    "Peck": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6383,7 +6383,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "perish-song": {
+    "Perish Song": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "perish-song", 
@@ -6403,7 +6403,7 @@
         "target": "entire-field", 
         "type": "Normal"
     }, 
-    "petal-dance": {
+    "Petal Dance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6423,7 +6423,7 @@
         "target": "random-opponent", 
         "type": "Grass"
     }, 
-    "pin-missile": {
+    "Pin Missile": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6442,7 +6442,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "pluck": {
+    "Pluck": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6463,7 +6463,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "poison-fang": {
+    "Poison Fang": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -6483,7 +6483,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "poison-gas": {
+    "Poison Gas": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "poison", 
@@ -6503,7 +6503,7 @@
         "target": "all-opponents", 
         "type": "Poison"
     }, 
-    "poison-jab": {
+    "Poison Jab": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -6523,7 +6523,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "poison-sting": {
+    "Poison Sting": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -6542,7 +6542,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "poison-tail": {
+    "Poison Tail": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "poison", 
@@ -6563,7 +6563,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "poisonpowder": {
+    "PoisonPowder": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "poison", 
@@ -6583,7 +6583,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "pound": {
+    "Pound": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6603,7 +6603,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "powder-snow": {
+    "Powder Snow": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "freeze", 
@@ -6622,7 +6622,7 @@
         "target": "all-opponents", 
         "type": "Ice"
     }, 
-    "power-gem": {
+    "Power Gem": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6641,7 +6641,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "power-split": {
+    "Power Split": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6659,7 +6659,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "power-swap": {
+    "Power Swap": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6679,7 +6679,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "power-trick": {
+    "Power Trick": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6697,7 +6697,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "power-whip": {
+    "Power Whip": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6717,7 +6717,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "present": {
+    "Present": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6736,7 +6736,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "protect": {
+    "Protect": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6752,7 +6752,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "psybeam": {
+    "Psybeam": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "confusion", 
@@ -6771,7 +6771,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psych-up": {
+    "Psych Up": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6789,7 +6789,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "psychic": {
+    "Psychic": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6808,7 +6808,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psycho-boost": {
+    "Psycho Boost": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6827,7 +6827,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psycho-cut": {
+    "Psycho Cut": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6847,7 +6847,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psycho-shift": {
+    "Psycho Shift": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6866,7 +6866,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psyshock": {
+    "Psyshock": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6885,7 +6885,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psystrike": {
+    "Psystrike": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6904,7 +6904,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "psywave": {
+    "Psywave": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6923,7 +6923,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "punishment": {
+    "Punishment": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6943,7 +6943,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "pursuit": {
+    "Pursuit": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6963,7 +6963,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "quash": {
+    "Quash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -6982,7 +6982,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "quick-attack": {
+    "Quick Attack": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7002,7 +7002,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "quick-guard": {
+    "Quick Guard": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7020,7 +7020,7 @@
         "target": "users-field", 
         "type": "Fighting"
     }, 
-    "quiver-dance": {
+    "Quiver Dance": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7038,7 +7038,7 @@
         "target": "user", 
         "type": "Bug"
     }, 
-    "rage": {
+    "Rage": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7058,7 +7058,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "rage-powder": {
+    "Rage Powder": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7074,7 +7074,7 @@
         "target": "user", 
         "type": "Bug"
     }, 
-    "rain-dance": {
+    "Rain Dance": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7090,7 +7090,7 @@
         "target": "entire-field", 
         "type": "Water"
     }, 
-    "rapid-spin": {
+    "Rapid Spin": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7110,7 +7110,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "razor-leaf": {
+    "Razor Leaf": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7130,7 +7130,7 @@
         "target": "all-opponents", 
         "type": "Grass"
     }, 
-    "razor-shell": {
+    "Razor Shell": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7150,7 +7150,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "razor-wind": {
+    "Razor Wind": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7171,7 +7171,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "recover": {
+    "Recover": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7190,7 +7190,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "recycle": {
+    "Recycle": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7208,7 +7208,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "reflect": {
+    "Reflect": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7226,7 +7226,7 @@
         "target": "users-field", 
         "type": "Psychic"
     }, 
-    "reflect-type": {
+    "Reflect Type": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7245,7 +7245,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "refresh": {
+    "Refresh": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7263,7 +7263,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "relic-song": {
+    "Relic Song": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "sleep", 
@@ -7283,7 +7283,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "rest": {
+    "Rest": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7302,7 +7302,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "retaliate": {
+    "Retaliate": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7322,7 +7322,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "return": {
+    "Return": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7342,7 +7342,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "revenge": {
+    "Revenge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7362,7 +7362,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "reversal": {
+    "Reversal": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7382,7 +7382,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "roar": {
+    "Roar": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7404,7 +7404,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "roar-of-time": {
+    "Roar of Time": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7424,7 +7424,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "rock-blast": {
+    "Rock Blast": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7443,7 +7443,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "rock-climb": {
+    "Rock Climb": {
         "accuracy": 85, 
         "ailmentChance": 20, 
         "ailmentId": "confusion", 
@@ -7463,7 +7463,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "rock-polish": {
+    "Rock Polish": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7481,7 +7481,7 @@
         "target": "user", 
         "type": "Rock"
     }, 
-    "rock-slide": {
+    "Rock Slide": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7500,7 +7500,7 @@
         "target": "all-opponents", 
         "type": "Rock"
     }, 
-    "rock-smash": {
+    "Rock Smash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7520,7 +7520,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "rock-throw": {
+    "Rock Throw": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7539,7 +7539,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "rock-tomb": {
+    "Rock Tomb": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7558,7 +7558,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "rock-wrecker": {
+    "Rock Wrecker": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7578,7 +7578,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "role-play": {
+    "Role Play": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7596,7 +7596,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "rolling-kick": {
+    "Rolling Kick": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7616,7 +7616,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "rollout": {
+    "Rollout": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7636,7 +7636,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "roost": {
+    "Roost": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7655,7 +7655,7 @@
         "target": "user", 
         "type": "Flying"
     }, 
-    "round": {
+    "Round": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7675,7 +7675,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sacred-fire": {
+    "Sacred Fire": {
         "accuracy": 95, 
         "ailmentChance": 50, 
         "ailmentId": "burn", 
@@ -7695,7 +7695,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "sacred-sword": {
+    "Sacred Sword": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7715,7 +7715,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "safeguard": {
+    "Safeguard": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7733,7 +7733,26 @@
         "target": "users-field", 
         "type": "Normal"
     }, 
-    "sand-attack": {
+    "Sand Tomb": {
+        "accuracy": 85, 
+        "ailmentChance": 100, 
+        "ailmentId": "trap", 
+        "damage": "physical", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 35, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Ground"
+    }, 
+    "Sand-Attack": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7753,26 +7772,7 @@
         "target": "selected-pokemon", 
         "type": "Ground"
     }, 
-    "sand-tomb": {
-        "accuracy": 85, 
-        "ailmentChance": 100, 
-        "ailmentId": "trap", 
-        "damage": "physical", 
-        "flags": [
-            "protect", 
-            "mirror"
-        ], 
-        "flinchChance": 0, 
-        "maxHits": 1, 
-        "minHits": 1, 
-        "power": 35, 
-        "pp": 15, 
-        "priority": 0, 
-        "recoil": 0, 
-        "target": "selected-pokemon", 
-        "type": "Ground"
-    }, 
-    "sandstorm": {
+    "Sandstorm": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7788,7 +7788,7 @@
         "target": "entire-field", 
         "type": "Rock"
     }, 
-    "scald": {
+    "Scald": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "burn", 
@@ -7808,7 +7808,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "scary-face": {
+    "Scary Face": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7828,7 +7828,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "scratch": {
+    "Scratch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7848,7 +7848,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "screech": {
+    "Screech": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7869,7 +7869,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "searing-shot": {
+    "Searing Shot": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "burn", 
@@ -7888,7 +7888,7 @@
         "target": "all-other-pokemon", 
         "type": "Fire"
     }, 
-    "secret-power": {
+    "Secret Power": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "none", 
@@ -7907,7 +7907,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "secret-sword": {
+    "Secret Sword": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7926,7 +7926,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "seed-bomb": {
+    "Seed Bomb": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7945,7 +7945,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "seed-flare": {
+    "Seed Flare": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7964,7 +7964,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "seismic-toss": {
+    "Seismic Toss": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -7984,7 +7984,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "selfdestruct": {
+    "Selfdestruct": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8003,7 +8003,7 @@
         "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
-    "shadow-ball": {
+    "Shadow Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8022,7 +8022,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "shadow-claw": {
+    "Shadow Claw": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8043,7 +8043,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "shadow-force": {
+    "Shadow Force": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8063,7 +8063,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "shadow-punch": {
+    "Shadow Punch": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8084,7 +8084,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "shadow-sneak": {
+    "Shadow Sneak": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8104,7 +8104,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "sharpen": {
+    "Sharpen": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8122,7 +8122,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "sheer-cold": {
+    "Sheer Cold": {
         "accuracy": 30, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8141,7 +8141,7 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
-    "shell-smash": {
+    "Shell Smash": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8159,7 +8159,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "shift-gear": {
+    "Shift Gear": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8177,7 +8177,7 @@
         "target": "user", 
         "type": "Steel"
     }, 
-    "shock-wave": {
+    "Shock Wave": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8196,7 +8196,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "signal-beam": {
+    "Signal Beam": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "confusion", 
@@ -8215,7 +8215,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "silver-wind": {
+    "Silver Wind": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8234,7 +8234,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "simple-beam": {
+    "Simple Beam": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8254,7 +8254,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sing": {
+    "Sing": {
         "accuracy": 55, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -8275,7 +8275,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sketch": {
+    "Sketch": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8293,7 +8293,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "skill-swap": {
+    "Skill Swap": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8313,7 +8313,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "skull-bash": {
+    "Skull Bash": {
         "accuracy": 100, 
         "ailmentChance": 100, 
         "ailmentId": "none", 
@@ -8334,7 +8334,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sky-attack": {
+    "Sky Attack": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8356,7 +8356,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "sky-drop": {
+    "Sky Drop": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8379,7 +8379,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "sky-uppercut": {
+    "Sky Uppercut": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8400,7 +8400,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "slack-off": {
+    "Slack Off": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8419,7 +8419,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "slam": {
+    "Slam": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8439,7 +8439,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "slash": {
+    "Slash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8460,7 +8460,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sleep-powder": {
+    "Sleep Powder": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -8480,7 +8480,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "sleep-talk": {
+    "Sleep Talk": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8496,7 +8496,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "sludge": {
+    "Sludge": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -8515,7 +8515,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "sludge-bomb": {
+    "Sludge Bomb": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "poison", 
@@ -8534,7 +8534,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "sludge-wave": {
+    "Sludge Wave": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "poison", 
@@ -8553,7 +8553,7 @@
         "target": "all-other-pokemon", 
         "type": "Poison"
     }, 
-    "smack-down": {
+    "Smack Down": {
         "accuracy": 100, 
         "ailmentChance": 100, 
         "ailmentId": "unknown", 
@@ -8572,7 +8572,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "smellingsalt": {
+    "SmellingSalt": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8592,7 +8592,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "smog": {
+    "Smog": {
         "accuracy": 70, 
         "ailmentChance": 40, 
         "ailmentId": "poison", 
@@ -8611,7 +8611,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "smokescreen": {
+    "SmokeScreen": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8631,7 +8631,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "snarl": {
+    "Snarl": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8651,7 +8651,7 @@
         "target": "all-opponents", 
         "type": "Dark"
     }, 
-    "snatch": {
+    "Snatch": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8669,7 +8669,7 @@
         "target": "user", 
         "type": "Dark"
     }, 
-    "snore": {
+    "Snore": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8689,7 +8689,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "soak": {
+    "Soak": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8709,7 +8709,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "softboiled": {
+    "Softboiled": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8728,7 +8728,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "solarbeam": {
+    "SolarBeam": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8748,7 +8748,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "sonicboom": {
+    "SonicBoom": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8767,7 +8767,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "spacial-rend": {
+    "Spacial Rend": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8787,7 +8787,7 @@
         "target": "selected-pokemon", 
         "type": "Dragon"
     }, 
-    "spark": {
+    "Spark": {
         "accuracy": 100, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -8807,7 +8807,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "spider-web": {
+    "Spider Web": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8827,7 +8827,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "spike-cannon": {
+    "Spike Cannon": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8846,7 +8846,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "spikes": {
+    "Spikes": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8864,7 +8864,7 @@
         "target": "opponents-field", 
         "type": "Ground"
     }, 
-    "spit-up": {
+    "Spit Up": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8882,7 +8882,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "spite": {
+    "Spite": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8903,7 +8903,7 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
-    "splash": {
+    "Splash": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8921,7 +8921,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "spore": {
+    "Spore": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "sleep", 
@@ -8941,7 +8941,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "stealth-rock": {
+    "Stealth Rock": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8959,7 +8959,7 @@
         "target": "opponents-field", 
         "type": "Rock"
     }, 
-    "steamroller": {
+    "Steamroller": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8979,7 +8979,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "steel-wing": {
+    "Steel Wing": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -8999,7 +8999,7 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
-    "stockpile": {
+    "Stockpile": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9017,7 +9017,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "stomp": {
+    "Stomp": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9037,7 +9037,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "stone-edge": {
+    "Stone Edge": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9057,7 +9057,7 @@
         "target": "selected-pokemon", 
         "type": "Rock"
     }, 
-    "stored-power": {
+    "Stored Power": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9076,7 +9076,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "storm-throw": {
+    "Storm Throw": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9097,7 +9097,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "strength": {
+    "Strength": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9117,7 +9117,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "string-shot": {
+    "String Shot": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9137,7 +9137,7 @@
         "target": "all-opponents", 
         "type": "Bug"
     }, 
-    "struggle": {
+    "Struggle": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9156,7 +9156,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "struggle-bug": {
+    "Struggle Bug": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9175,7 +9175,7 @@
         "target": "all-opponents", 
         "type": "Bug"
     }, 
-    "stun-spore": {
+    "Stun Spore": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "paralysis", 
@@ -9195,7 +9195,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "submission": {
+    "Submission": {
         "accuracy": 80, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9215,7 +9215,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "substitute": {
+    "Substitute": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9233,7 +9233,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "sucker-punch": {
+    "Sucker Punch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9253,7 +9253,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "sunny-day": {
+    "Sunny Day": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9269,7 +9269,7 @@
         "target": "entire-field", 
         "type": "Fire"
     }, 
-    "super-fang": {
+    "Super Fang": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9289,7 +9289,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "superpower": {
+    "Superpower": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9309,7 +9309,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "supersonic": {
+    "Supersonic": {
         "accuracy": 55, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -9330,7 +9330,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "surf": {
+    "Surf": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9349,7 +9349,7 @@
         "target": "all-other-pokemon", 
         "type": "Water"
     }, 
-    "swagger": {
+    "Swagger": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -9369,7 +9369,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "swallow": {
+    "Swallow": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9388,7 +9388,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "sweet-kiss": {
+    "Sweet Kiss": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -9408,7 +9408,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "sweet-scent": {
+    "Sweet Scent": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9428,7 +9428,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "swift": {
+    "Swift": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9447,7 +9447,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "switcheroo": {
+    "Switcheroo": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9466,7 +9466,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "swords-dance": {
+    "Swords Dance": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9484,7 +9484,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "synchronoise": {
+    "Synchronoise": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9503,7 +9503,7 @@
         "target": "all-other-pokemon", 
         "type": "Psychic"
     }, 
-    "synthesis": {
+    "Synthesis": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9522,7 +9522,7 @@
         "target": "user", 
         "type": "Grass"
     }, 
-    "tackle": {
+    "Tackle": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9542,7 +9542,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "tail-glow": {
+    "Tail Glow": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9560,7 +9560,7 @@
         "target": "user", 
         "type": "Bug"
     }, 
-    "tail-slap": {
+    "Tail Slap": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9580,7 +9580,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "tail-whip": {
+    "Tail Whip": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9600,7 +9600,7 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
-    "tailwind": {
+    "Tailwind": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9618,7 +9618,7 @@
         "target": "users-field", 
         "type": "Flying"
     }, 
-    "take-down": {
+    "Take Down": {
         "accuracy": 85, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9638,7 +9638,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "taunt": {
+    "Taunt": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9659,7 +9659,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "techno-blast": {
+    "Techno Blast": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9678,7 +9678,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "teeter-dance": {
+    "Teeter Dance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "confusion", 
@@ -9697,7 +9697,7 @@
         "target": "all-other-pokemon", 
         "type": "Normal"
     }, 
-    "telekinesis": {
+    "Telekinesis": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "unknown", 
@@ -9718,7 +9718,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "teleport": {
+    "Teleport": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9734,7 +9734,7 @@
         "target": "user", 
         "type": "Psychic"
     }, 
-    "thief": {
+    "Thief": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9754,7 +9754,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "thrash": {
+    "Thrash": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9774,7 +9774,7 @@
         "target": "random-opponent", 
         "type": "Normal"
     }, 
-    "thunder": {
+    "Thunder": {
         "accuracy": 70, 
         "ailmentChance": 30, 
         "ailmentId": "paralysis", 
@@ -9793,7 +9793,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "thunder-fang": {
+    "Thunder Fang": {
         "accuracy": 95, 
         "ailmentChance": 10, 
         "ailmentId": "paralysis", 
@@ -9813,7 +9813,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "thunder-wave": {
+    "Thunder Wave": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "paralysis", 
@@ -9833,26 +9833,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "thunderbolt": {
-        "accuracy": 100, 
-        "ailmentChance": 10, 
-        "ailmentId": "paralysis", 
-        "damage": "special", 
-        "flags": [
-            "protect", 
-            "mirror"
-        ], 
-        "flinchChance": 0, 
-        "maxHits": 1, 
-        "minHits": 1, 
-        "power": 95, 
-        "pp": 15, 
-        "priority": 0, 
-        "recoil": 0, 
-        "target": "selected-pokemon", 
-        "type": "Electric"
-    }, 
-    "thunderpunch": {
+    "ThunderPunch": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "paralysis", 
@@ -9873,7 +9854,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "thundershock": {
+    "ThunderShock": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "paralysis", 
@@ -9892,7 +9873,26 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "tickle": {
+    "Thunderbolt": {
+        "accuracy": 100, 
+        "ailmentChance": 10, 
+        "ailmentId": "paralysis", 
+        "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 95, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Electric"
+    }, 
+    "Tickle": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9912,7 +9912,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "torment": {
+    "Torment": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "torment", 
@@ -9933,7 +9933,7 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
-    "toxic": {
+    "Toxic": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "poison", 
@@ -9953,7 +9953,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "toxic-spikes": {
+    "Toxic Spikes": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9971,7 +9971,7 @@
         "target": "opponents-field", 
         "type": "Poison"
     }, 
-    "transform": {
+    "Transform": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -9987,7 +9987,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "tri-attack": {
+    "Tri Attack": {
         "accuracy": 100, 
         "ailmentChance": 20, 
         "ailmentId": "unknown", 
@@ -10006,7 +10006,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "trick": {
+    "Trick": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10025,7 +10025,7 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
-    "trick-room": {
+    "Trick Room": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10043,7 +10043,7 @@
         "target": "entire-field", 
         "type": "Psychic"
     }, 
-    "triple-kick": {
+    "Triple Kick": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10063,7 +10063,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "trump-card": {
+    "Trump Card": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10083,7 +10083,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "twineedle": {
+    "Twineedle": {
         "accuracy": 100, 
         "ailmentChance": 20, 
         "ailmentId": "poison", 
@@ -10102,7 +10102,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "twister": {
+    "Twister": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10121,7 +10121,7 @@
         "target": "all-opponents", 
         "type": "Dragon"
     }, 
-    "u-turn": {
+    "U-turn": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10141,7 +10141,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "uproar": {
+    "Uproar": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10161,7 +10161,7 @@
         "target": "random-opponent", 
         "type": "Normal"
     }, 
-    "v-create": {
+    "V-create": {
         "accuracy": 95, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10181,7 +10181,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "vacuum-wave": {
+    "Vacuum Wave": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10200,7 +10200,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "venoshock": {
+    "Venoshock": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10219,7 +10219,7 @@
         "target": "selected-pokemon", 
         "type": "Poison"
     }, 
-    "vicegrip": {
+    "ViceGrip": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10239,7 +10239,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "vine-whip": {
+    "Vine Whip": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10259,7 +10259,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "vital-throw": {
+    "Vital Throw": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10279,7 +10279,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "volt-switch": {
+    "Volt Switch": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10298,7 +10298,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "volt-tackle": {
+    "Volt Tackle": {
         "accuracy": 100, 
         "ailmentChance": 10, 
         "ailmentId": "paralysis", 
@@ -10318,7 +10318,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "wake-up-slap": {
+    "Wake-Up Slap": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10338,7 +10338,7 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
-    "water-gun": {
+    "Water Gun": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10357,7 +10357,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "water-pledge": {
+    "Water Pledge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10376,7 +10376,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "water-pulse": {
+    "Water Pulse": {
         "accuracy": 100, 
         "ailmentChance": 20, 
         "ailmentId": "confusion", 
@@ -10396,7 +10396,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "water-sport": {
+    "Water Sport": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10412,7 +10412,7 @@
         "target": "entire-field", 
         "type": "Water"
     }, 
-    "water-spout": {
+    "Water Spout": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10431,7 +10431,7 @@
         "target": "all-opponents", 
         "type": "Water"
     }, 
-    "waterfall": {
+    "Waterfall": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10451,7 +10451,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "weather-ball": {
+    "Weather Ball": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10470,7 +10470,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "whirlpool": {
+    "Whirlpool": {
         "accuracy": 85, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -10489,7 +10489,7 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
-    "whirlwind": {
+    "Whirlwind": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10510,7 +10510,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "wide-guard": {
+    "Wide Guard": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10528,7 +10528,7 @@
         "target": "users-field", 
         "type": "Rock"
     }, 
-    "wild-charge": {
+    "Wild Charge": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10548,7 +10548,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "will-o-wisp": {
+    "Will-O-Wisp": {
         "accuracy": 75, 
         "ailmentChance": 0, 
         "ailmentId": "burn", 
@@ -10568,7 +10568,7 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
-    "wing-attack": {
+    "Wing Attack": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10589,7 +10589,7 @@
         "target": "selected-pokemon", 
         "type": "Flying"
     }, 
-    "wish": {
+    "Wish": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10608,7 +10608,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "withdraw": {
+    "Withdraw": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10626,7 +10626,7 @@
         "target": "user", 
         "type": "Water"
     }, 
-    "wonder-room": {
+    "Wonder Room": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10644,7 +10644,7 @@
         "target": "entire-field", 
         "type": "Psychic"
     }, 
-    "wood-hammer": {
+    "Wood Hammer": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10664,7 +10664,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "work-up": {
+    "Work Up": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10682,7 +10682,7 @@
         "target": "user", 
         "type": "Normal"
     }, 
-    "worry-seed": {
+    "Worry Seed": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10702,7 +10702,7 @@
         "target": "selected-pokemon", 
         "type": "Grass"
     }, 
-    "wrap": {
+    "Wrap": {
         "accuracy": 90, 
         "ailmentChance": 100, 
         "ailmentId": "trap", 
@@ -10722,7 +10722,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "wring-out": {
+    "Wring Out": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10742,7 +10742,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "x-scissor": {
+    "X-Scissor": {
         "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
@@ -10762,7 +10762,7 @@
         "target": "selected-pokemon", 
         "type": "Bug"
     }, 
-    "yawn": {
+    "Yawn": {
         "accuracy": 0, 
         "ailmentChance": 0, 
         "ailmentId": "yawn", 
@@ -10782,7 +10782,7 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
-    "zap-cannon": {
+    "Zap Cannon": {
         "accuracy": 50, 
         "ailmentChance": 100, 
         "ailmentId": "paralysis", 
@@ -10801,7 +10801,7 @@
         "target": "selected-pokemon", 
         "type": "Electric"
     }, 
-    "zen-headbutt": {
+    "Zen Headbutt": {
         "accuracy": 90, 
         "ailmentChance": 0, 
         "ailmentId": "none", 

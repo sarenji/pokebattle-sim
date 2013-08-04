@@ -12,7 +12,7 @@ JST['battle_actions'] = thermos.template (locals) ->
       maxPPs = locals.team[0].maxPP
       templ = (i) =>
         [move, moveType, pp, maxPP] = [moves[i], moveTypes[i], pps[i], maxPPs[i]]
-        isEnabled = move.toLowerCase().replace(/\s+/g, '-') in actionMoves
+        isEnabled = move in actionMoves
         disabledClass = (if !isEnabled then '.disabled' else '')
         moveType = moveType.toLowerCase()
         @div ".move.button.#{moveType}#{disabledClass}", ->
