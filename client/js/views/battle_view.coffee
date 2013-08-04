@@ -40,7 +40,8 @@ class @BattleView extends Backbone.View
       addPokemonImage($this, url, scale: scale)
 
   changeHP: (player, slot) =>
-    $info = @$el.find(".info#{player}-#{slot}")
+    $pokemon = @$el.find(".pokemon#{player}-#{slot}")
+    $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
     $allHP = $info.find('.hp, .hp-red')
     pokemon = @model.getPokemon(player, slot)
@@ -52,6 +53,11 @@ class @BattleView extends Backbone.View
     else
       $hp.css(backgroundColor: "#0f0")
     $allHP.width(percent + "%")
+
+  faint: (player, slot) =>
+    $pokemon = @$el.find(".pokemon#{player}-#{slot}")
+    $image = $pokemon.find('.sprite img')
+    $image.css(top: "100%", opacity: 0)
 
   getText: (el) =>
     $el = $(el)

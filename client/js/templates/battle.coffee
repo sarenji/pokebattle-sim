@@ -10,15 +10,16 @@ JST['battle'] = thermos.template (locals) ->
         color = (if percent <= 25 then "#f00" else if percent <= 50 then "#ff0" else "#0f0")
         style = "width: #{percent}%"
         greenStyle = "#{style}; background-color: #{color}"
-        @div ".preload#{spriteClass}", data: { name: pokemon.name }
-        @div ".pokemon-info#{infoClass}.info#{i}-#{j}", ->
-          @div '.pokemon-name', pokemon.name
-          @div '.pokemon-meta', ->
-            if pokemon.gender == 'F'
-              @span '.gender.gender_female', "&#9792;"
-            else if pokemon.gender == 'M'
-              @span '.gender.gender_male', "&#9794;"
-            @span '.pokemon-level', ' Lv.'
-            @text pokemon.level
-          @div '.hp-red', style: style
-          @div '.hp', style: greenStyle
+        @div ".pokemon#{i}-#{j}", ->
+          @div ".sprite.preload#{spriteClass}", data: { name: pokemon.name }
+          @div ".pokemon-info#{infoClass}", ->
+            @div '.pokemon-name', pokemon.name
+            @div '.pokemon-meta', ->
+              if pokemon.gender == 'F'
+                @span '.gender.gender_female', "&#9792;"
+              else if pokemon.gender == 'M'
+                @span '.gender.gender_male', "&#9794;"
+              @span '.pokemon-level', ' Lv.'
+              @text pokemon.level
+            @div '.hp-red', style: style
+            @div '.hp', style: greenStyle

@@ -537,6 +537,9 @@ class @Battle
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
       @message "#{pokemon.name} fainted!"
+      args = [ 7, pokemon.player.index, pokemon.team.indexOf(pokemon) ]
+      p.tell(args...)  for p in @players
+      s.tell(args...)  for s in @spectators
       pokemon.afterFaint()
 
   getTargets: (move, user) ->

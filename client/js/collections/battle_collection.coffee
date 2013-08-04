@@ -5,6 +5,7 @@ Protocol =
   REQUEST_ACTION : 4
   START_TURN     : 5
   RAW_MESSAGE    : 6
+  FAINT          : 7
 
 class @BattleCollection extends Backbone.Collection
   model: Battle
@@ -58,6 +59,9 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.RAW_MESSAGE
           [message] = rest
           view.addLog("#{message}<br>")
+        when Protocol.FAINT
+          [player, slot] = rest
+          view.faint(player, slot)
     if wasAtBottom then BattleTower.chatView.scrollToBottom()
 
   spectateBattle: (socket, id, numActive, teams) =>
