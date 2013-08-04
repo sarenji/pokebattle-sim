@@ -20,7 +20,11 @@ app.use(express.static(__dirname + "/public"))
 app.use(require('connect-assets')(src: "client"))
 
 PORT = process.env.PORT || 8000
-PERSONA_AUDIENCE = "http://localhost:#{PORT}"
+PERSONA_AUDIENCE = switch process.env.NODE_ENV
+  when "production"
+    "http://battletower.aws.af.cm:80"
+  else
+    "http://localhost:#{PORT}"
 
 # Routing
 app.get '/', (req, res) ->
