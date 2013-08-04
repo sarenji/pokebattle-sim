@@ -12,11 +12,11 @@ html
     #header
       h1 pokebattle
       ul.nav
-        li.active.fake_link Chat
-        li.fake_link Teambuilder
+        li.active.tab.fake_link(data-tab-for="#main-section") Chat
+        li.tab.fake_link(data-tab-for="#teambuilder-section") Teambuilder
         li.login.fake_link Login
     #content
-      .clearfix
+      #main-section.clearfix
         .chat.half_width
         .battle.half_width
         .main_nav.half_width
@@ -29,7 +29,7 @@ html
             .button.teambuilder
               span.glyphicon.glyphicon-pencil
               |  Teambuilder
-      .builder
+      #teambuilder-section
     script(type="text/javascript").
       var PokemonData = !{JSON.stringify(PokemonData)}
       var MoveData = !{JSON.stringify(MoveData)}
