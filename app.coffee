@@ -48,7 +48,7 @@ connections.addEvents
 
   # TODO: Dequeue player
   'close': (user) ->
-    userList.remove(user)
+    userList.remove((u) -> u == user)
     user.broadcast 'leave chatroom', user.toJSON()
 
   ###########
