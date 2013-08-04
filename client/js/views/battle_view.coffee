@@ -32,7 +32,7 @@ class @BattleView extends Backbone.View
   addImages: =>
     @$el.find('.preload').each ->
       $this = $(this)
-      front = $this.hasClass('front')
+      front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
       {id}  = PokemonData[name]
       url   = imageUrl(id, front: front)

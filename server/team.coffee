@@ -117,4 +117,5 @@ class @Team
 
   toJSON: -> {
     "pokemon": @pokemon.map (p) -> p.toJSON()
+    "owner": @player.id
   }

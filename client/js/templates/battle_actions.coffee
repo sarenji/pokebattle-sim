@@ -2,14 +2,15 @@ JST['battle_actions'] = thermos.template (locals) ->
   actions = locals.validActions
   actionMoves = actions.moves || []
   actionSwitches = actions.switches || []
+  team = locals.team.pokemon
   @div '.moves.span8', ->
     @h2 "Moves"
     # TODO: if locals.team[0].isAlive()
     @div '.clearfix', ->
-      moves = locals.team[0].moves
-      moveTypes = locals.team[0].moveTypes
-      pps = locals.team[0].pp
-      maxPPs = locals.team[0].maxPP
+      moves = team[0].moves
+      moveTypes = team[0].moveTypes
+      pps = team[0].pp
+      maxPPs = team[0].maxPP
       templ = (i) =>
         [move, moveType, pp, maxPP] = [moves[i], moveTypes[i], pps[i], maxPPs[i]]
         isEnabled = move in actionMoves
@@ -29,10 +30,10 @@ JST['battle_actions'] = thermos.template (locals) ->
 
   @div '.switches.span4', ->
     @h2 "Pokemon"
-    for j in [0...locals.team.length] by 3
+    for j in [0...team.length] by 3
       @div '.row-fluid', ->
         for i in [j...(j + 3)]
-          pokemon = locals.team[i]
+          pokemon = team[i]
           isEnabled = (i in actionSwitches)
           disabledClass = (if !isEnabled then '.disabled' else '')
           data = {slot: i}

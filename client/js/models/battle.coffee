@@ -13,11 +13,11 @@ class @Battle extends Backbone.Model
     [you[fromIndex], you[toIndex]] = [you[toIndex], you[fromIndex]]
 
   getTeam: (playerIndex = @index) =>
-    @teams[playerIndex].pokemon
+    @teams[playerIndex]
 
   getOpponentTeam: (playerIndex = @index) =>
     for team, i in @teams
-      return team.pokemon  if i != playerIndex
+      return team  if i != playerIndex
     return null
 
   getPokemon: (playerIndex, slot) =>
