@@ -49,6 +49,8 @@ All contributions to the simulator logic must come with tests. If a
 contribution does not come with a test that fails before your contribution and
 passes after, your contribution will be rejected.
 
+Other contributions (e.g. to the client) are much less strict!
+
 ## Issues
 
 Report issues in GitHub's [issue
