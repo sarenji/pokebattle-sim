@@ -429,6 +429,8 @@ class @Pokemon
   toJSON: ->
     "name"      : @name
     "hp"        : @currentHP
+    "level"     : @level
+    "gender"    : @gender
     "maxHP"     : @stat('hp')
     "boosts"    : @stages
     "moves"     : @moves.map (m) -> m.name

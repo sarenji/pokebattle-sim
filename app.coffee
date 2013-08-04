@@ -123,12 +123,14 @@ defaultTeam = [
     moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
     item: "Light Ball"
     ability: "Lightningrod"
+    gender: "F"
   }
   {
     name: "Hitmonchan"
     moves: ["Close Combat", "Mach Punch", "Ice Punch", "ThunderPunch"]
     item: "Life Orb"
     ability: "Iron Fist"
+    gender: "M"
   }
   {
     name: "Charizard"

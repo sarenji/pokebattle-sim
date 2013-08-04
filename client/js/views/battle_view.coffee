@@ -40,9 +40,9 @@ class @BattleView extends Backbone.View
       addPokemonImage($this, url, scale: scale)
 
   changeHP: (player, slot) =>
-    $meta = @$el.find(".hp#{player}-#{slot}")
-    $hp = $meta.find('.hp')
-    $allHP = $meta.find('.hp, .hp-red')
+    $info = @$el.find(".info#{player}-#{slot}")
+    $hp = $info.find('.hp')
+    $allHP = $info.find('.hp, .hp-red')
     pokemon = @model.getPokemon(player, slot)
     percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
     if percent <= 25

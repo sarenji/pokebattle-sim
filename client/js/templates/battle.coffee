@@ -1,7 +1,7 @@
 JST['battle'] = thermos.template (locals) ->
   @div '.battle_pane.clearfix', ->
     for i in [0...2]
-      hpClass = (if i == locals.yourIndex then ".bottom" else ".top")
+      infoClass = (if i == locals.yourIndex then ".bottom" else ".top")
       spriteClass = (if i == locals.yourIndex then ".back" else ".front")
       team = (if i == locals.yourIndex then locals.team else locals.opponent)
       for j in [0...locals.numActive]
@@ -11,6 +11,14 @@ JST['battle'] = thermos.template (locals) ->
         style = "width: #{percent}%"
         greenStyle = "#{style}; background-color: #{color}"
         @div ".preload#{spriteClass}", data: { name: pokemon.name }
-        @div ".hp_bar#{hpClass}.hp#{i}-#{j}", ->
+        @div ".pokemon-info#{infoClass}.info#{i}-#{j}", ->
+          @div '.pokemon-name', pokemon.name
+          @div '.pokemon-meta', ->
+            if pokemon.gender == 'F'
+              @span '.gender.gender_female', "&#9792;"
+            else if pokemon.gender == 'M'
+              @span '.gender.gender_male', "&#9794;"
+            @span '.pokemon-level', ' Lv.'
+            @text pokemon.level
           @div '.hp-red', style: style
           @div '.hp', style: greenStyle

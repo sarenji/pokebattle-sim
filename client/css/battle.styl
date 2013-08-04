@@ -35,7 +35,7 @@ button-bg(clr)
     width         400px
     height        300px
     background    #333
-    .hp_bar
+    .pokemon-info
       position      absolute
       width         144px
       height        3px
@@ -60,6 +60,19 @@ button-bg(clr)
         transition  .4s linear 1s
       .hp
         background  #0f0
+      .pokemon-name, .pokemon-meta
+        position absolute
+        bottom 100%
+        color #fff
+        text-shadow 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, -1px 1px #000
+      .pokemon-name
+        left 0
+        font-weight 700
+      .pokemon-meta
+        right 0
+        font-size 75%
+      .pokemon-level
+        color #EFA532
     .back
       img
         image-rendering         -moz-crisp-edges
@@ -163,3 +176,9 @@ button-bg(clr)
   .button
     display block
     float none
+
+.gender
+  &.gender_female
+    color #EA597A
+  &.gender_male
+    color #62CBB0
