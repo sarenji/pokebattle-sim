@@ -154,3 +154,29 @@ describe 'Battle', ->
       @battle.endTurn()
       @p1.currentHP.should.be.lessThan @p1.stat('hp')
       @p2.currentHP.should.not.be.lessThan @p2.stat('hp')
+
+  describe "#addSpectator", ->
+    it "adds the spectator to an internal array", ->
+      spectator = {send: ->}
+      @battle.addSpectator(spectator)
+      @battle.spectators.should.have.length(1)
+      @battle.spectators.should.includeEql(spectator)
+
+    it "gives the spectator battle information", ->
+      spectator = {send: ->}
+      spy = @sandbox.spy(spectator, 'send')
+      @battle.addSpectator(spectator)
+      t = @battle.getTeams().map((team) -> team.toJSON())
+      {id, numActive} = @battle
+      spy.calledWithMatch("spectate battle", id, numActive, t).should.be.true
+
+    it "does not add a spectator twice", ->
+      spectator = {send: ->}
+      @battle.addSpectator(spectator)
+      @battle.addSpectator(spectator)
+      @battle.spectators.should.have.length(1)
+
+    it "does not add a player as a spectator", ->
+      @battle.addSpectator(@battle.players[0])
+      @battle.addSpectator(@battle.players[1])
+      @battle.spectators.should.have.length(0)

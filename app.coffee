@@ -61,7 +61,12 @@ connections.addEvents
     team = defaultTeam
     server.queuePlayer(user, team)
     if server.queuedPlayers().length >= 2
-      server.beginBattles()
+      battles = server.beginBattles()
+      for battle in battles
+        [ first, second, id ] = battle
+        message = """#{first.id} vs. #{second.id}!
+        <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
+        connections.broadcast('raw message', message)
 
   'send move': (user, battleId, moveName) ->
     battle = server.findBattle(battleId)
@@ -78,6 +83,14 @@ connections.addEvents
       return
 
     battle.makeSwitch(user, toSlot)
+
+  'spectate battle': (user, battleId) ->
+    battle = server.findBattle(battleId)
+    if !battle
+      user.send 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.addSpectator(user)
 
   ##################
   # AUTHENTICATION #

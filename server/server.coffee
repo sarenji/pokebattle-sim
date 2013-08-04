@@ -18,11 +18,17 @@ class @BattleServer
 
   beginBattles: ->
     pairs = @queue.pairPlayers()
+    battles = []
 
     # Create a battle for each pair
     for pair in pairs
       id = @createBattle(pair...)
       @beginBattle(id)
+      battle = pair.map((o) -> o.player)
+      battle.push(id)
+      battles.push(battle)
+
+    battles
 
   # Creates a battle and returns its battleId
   createBattle: (objects...) ->

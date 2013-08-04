@@ -34,3 +34,6 @@ class @ConnectionServer
 
   addEvents: (events) ->
     @on(type, callback) for type, callback of events
+
+  broadcast: (args...) ->
+    user.send(args...)  for user in @users

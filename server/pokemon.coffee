@@ -272,6 +272,8 @@ class @Pokemon
       # TODO: Send percentages
       for player in @battle.players
         player.tell(1, @player.index, 0, @currentHP)
+      for spectator in @battle.spectators
+        spectator.tell(1, @player.index, 0, @currentHP)
     @currentHP
 
   recordMove: (move) ->

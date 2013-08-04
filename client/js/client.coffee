@@ -65,6 +65,9 @@ $ ->
     'update chat': (socket, user, data) ->
       BattleTower.chatView.userMessage(user.id, data)
 
+    'raw message': (socket, message) ->
+      BattleTower.chatView.updateChat(message)
+
     'join chatroom': (socket, user) ->
       BattleTower.userList.add(user)
 

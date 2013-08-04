@@ -47,6 +47,9 @@ class @Battle
     # Array of players partaking in the battle.
     @players = []
 
+    # Array of spectators scouting these fine, upstanding players.
+    @spectators = []
+
     # Stores last move used
     @lastMove = null
 
@@ -177,6 +180,8 @@ class @Battle
   # Add `string` to a buffer that will be sent to each client.
   message: (string) ->
     player.tell(6, string)  for player in @players
+    spectator.tell(6, string)  for spectator in @spectators
+    true
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
@@ -251,6 +256,7 @@ class @Battle
     @priorityQueue = null
 
     p.tell(5, @turn)  for p in @players
+    s.tell(5, @turn)  for s in @spectators
 
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     team.beginTurn()  for team in @getTeams()
@@ -571,6 +577,16 @@ class @Battle
 
   getMoveList: ->
     MoveList
+
+  addSpectator: (spectator) ->
+    return  if spectator in @spectators
+    return  if spectator in @players
+    @spectators.push(spectator)
+    teams = @getTeams().map((team) -> team.toJSON())
+    spectator.send('spectate battle', @id, @numActive, teams)
+
+  removeSpectator: (spectator) ->
+    @spectators.remove(spectator)
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

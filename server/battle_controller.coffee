@@ -85,3 +85,10 @@ class @BattleController
       continue  if player.queue.length == 0
       player.send('update battle', @battle.id, player.queue)
       player.queue = []
+    for spectator in @battle.spectators
+      continue  if spectator.queue.length == 0
+      spectator.send('update battle', @battle.id, spectator.queue)
+      spectator.queue = []
+
+  addSpectator: (spectator) ->
+    @battle.addSpectator(spectator)

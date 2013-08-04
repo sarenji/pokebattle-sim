@@ -13,6 +13,7 @@ class @BattleCollection extends Backbone.Collection
     BattleTower.socket.addEvents
       'start battle': @startBattle
       'update battle': @updateBattle
+      'spectate battle': @spectateBattle
 
   startBattle: (socket, id, numActive, index, teams) =>
     console.log "BATTLE STARTED."
@@ -58,3 +59,14 @@ class @BattleCollection extends Backbone.Collection
           [message] = rest
           view.addLog("#{message}<br>")
     if wasAtBottom then BattleTower.chatView.scrollToBottom()
+
+  spectateBattle: (socket, id, numActive, teams) =>
+    console.log "SPECTATING BATTLE #{id}."
+    # Pick a random index; it doesn't matter too much.
+    index = Math.round(Math.random())
+    # TODO: Handle hiding better.
+    $mainNav = $('.main_nav').addClass('hidden')
+    $battle = $('.battle')
+    battle = new Battle({id, numActive, socket, index, teams})
+    battle.view = new BattleView(el: $battle, model: battle)
+    @add(battle)

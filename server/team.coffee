@@ -62,6 +62,7 @@ class @Team
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     p.tell(2, player.index, a, b)  for p in @battle.players
+    s.tell(2, player.index, a, b)  for s in @battle.spectators
 
     @battle.message "#{player.id} sent out #{@at(a).name}!"
     @switchIn(@at(a))  unless options.silent == true
