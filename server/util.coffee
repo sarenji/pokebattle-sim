@@ -1,7 +1,17 @@
 @roundHalfDown = (number) ->
   Math.ceil(number - .5)
 
+cleanStats =
+  attack: "Attack"
+  defense: "Defense"
+  speed: "Speed"
+  specialAttack: "Special Attack"
+  specialDefense: "Special Defense"
+  accuracy: "Accuracy"
+  evasion: "Evasion"
+
 makeBoostMessage = (pokemon, stat, amount, wasBoosted) ->
+  stat = cleanStats[stat]
   if wasBoosted && amount > 0
     adverb = ""              if amount == 1
     adverb = " sharply"      if amount == 2

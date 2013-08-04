@@ -137,6 +137,7 @@ class @Pokemon
       @stages[stat] = Math.max(-6, @stages[stat])
       @stages[stat] = Math.min(6, @stages[stat])
       boosted[stat] = (@stages[stat] != previous)
+    if @battle then util.printBoostMessage(@battle, this, boosted, boosts)
     boosted
 
   positiveBoostCount: ->

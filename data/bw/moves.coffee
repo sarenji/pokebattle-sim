@@ -408,9 +408,10 @@ makeRevengeMove = (moveName) ->
         @power
 
 makeBoostMove = (name, boostTarget, boosts) ->
-  applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
-    @use = applyBoosts
+    @use = (battle, user, target) ->
+      pokemon = (if boostTarget == 'self' then user else target)
+      pokemon.boost(boosts)
 
 makeWeatherMove = (name, weatherType) ->
   extendMove name, ->
@@ -420,29 +421,17 @@ makeWeatherMove = (name, weatherType) ->
       battle.setWeather(weatherType, length)
 
 extendWithBoost = (name, boostTarget, boosts) ->
-  applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      applyBoosts(battle, user, target)
+      user.boost(boosts)
 
 extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
-  applyBoosts = boostExtension(boostTarget, boosts)
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       if battle.rng.next('secondary boost') >= chance
         return
-      applyBoosts(battle, user, target)
-
-boostExtension = (boostTarget, boosts) ->
-  (battle, user, target) ->
-    boostedStats = if boostTarget == 'self'
-      user.boost(boosts)
-    else if boostTarget == 'target'
-      target.boost(boosts, user)
-    else throw new Error("I don't know what target #{boostTarget} is.")
-
-    pokemon = (if boostTarget == 'self' then user else target)
-    util.printBoostMessage(battle, pokemon, boostedStats, boosts)
+      pokemon = (if boostTarget == 'self' then user else target)
+      pokemon.boost(boosts)
 
 makeCounterMove = (name, multiplier, applies) ->
   extendMove name, ->
@@ -545,14 +534,13 @@ extendMove 'Camouflage', ->
     target.types = [ "Ground" ]
 
 extendMove 'Captivate', ->
-  applyBoosts = boostExtension('target', specialAttack: -2)
   oldUse = @use
   @use = (battle, user, target) ->
     if (!(user.gender == 'M' && target.gender == 'F') &&
         !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
     else
-      applyBoosts(battle, user, target)
+      target.boost(specialAttack: -2)
 
 makeBoostMove 'Charge', 'self', specialDefense: 1
 extendMove 'Charge', ->
@@ -803,10 +791,9 @@ makeRecoveryMove 'Milk Drink'
 makeLockOnMove 'Mind Reader'
 
 extendMove 'Minimize', ->
-  applyBoosts = boostExtension('target', evasion: 2)
   @use = (battle, user, target) ->
-    applyBoosts(battle, user, target)
     target.attach(Attachment.Minimize)
+    target.boost(evasion: 2)
 
 makeIdentifyMove("Miracle Eye", "Psychic")
 
@@ -933,9 +920,8 @@ extendMove 'Spit Up', ->
     attachment = user.get(Attachment.Stockpile)
     return  if !attachment?
     num = -attachment.layers
-    applyBoosts = boostExtension('self', defense: num, specialDefense: num)
-    applyBoosts(battle, user)
     user.unattach(Attachment.Stockpile)
+    user.boost(defense: num, specialDefense: num)
 
 extendWithPrimaryStatus 'Spore', Status.Sleep
 extendWithSecondaryEffect 'Steamroller', .3, Attachment.Flinch
@@ -943,10 +929,9 @@ makeStompMove 'Steamroller'
 extendWithSecondaryBoost 'Steel Wing', 'self', .1, defense: 1
 
 extendMove 'Stockpile', ->
-  applyBoosts = boostExtension('self', defense: 1, specialDefense: 1)
   @afterSuccessfulHit = (battle, user, target) ->
     if user.attach(Attachment.Stockpile)
-      applyBoosts(battle, user, target)
+      user.boost(defense: 1, specialDefense: 1)
     else
       @fail(battle)
 
@@ -981,9 +966,8 @@ extendMove 'Swallow', ->
       attachment = target.get(Attachment.Stockpile)
       return  if !attachment?
       num = -attachment.layers
-      applyBoosts = boostExtension('self', defense: num, specialDefense: num)
-      applyBoosts(battle, target)
       target.unattach(Attachment.Stockpile)
+      user.boost(defense: num, specialDefense: num)
 
 extendWithPrimaryEffect 'Sweet Kiss', Attachment.Confusion
 makeBoostMove 'Sweet Scent', 'target', evasion: -1
@@ -1114,7 +1098,7 @@ extendMove 'Acupressure', ->
       randomStat = battle.rng.choice(stats)
       hash = {}
       hash[randomStat] = 2
-      boostExtension('target', hash)(battle, user, target)
+      target.boost(hash)
     else
       @fail(battle)
       return false
@@ -1203,15 +1187,13 @@ extendMove 'Crush Grip', ->
     1 + Math.floor(120 * target.currentHP / target.stat('hp'))
 
 extendMove 'Curse', ->
-  applyBoosts = boostExtension('self', attack: 1, defense: 1, speed: -1)
-
   @getTargets = (battle, user) ->
     pokemon = battle.getOpponents(user)
     [ battle.rng.choice(pokemon, "random opponent") ]
 
   @execute = (battle, user, targets) ->
     if !user.hasType("Ghost")
-      applyBoosts(battle, user)
+      user.boost(attack: 1, defense: 1, speed: -1)
       return
 
     user.damage Math.floor(user.stat('hp') / 2)
@@ -1320,10 +1302,7 @@ extendMove 'Final Gambit', ->
 extendMove 'Flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
-
-    boosts = {specialAttack: -2}
-    boostedStats = target.boost(boosts, user)
-    util.printBoostMessage(battle, target, boostedStats, boosts)
+    target.boost(specialAttack: -2, user)
 
 extendMove 'Fling', ->
   @beforeTurn = (battle, user) ->
@@ -1584,9 +1563,7 @@ extendMove 'Memento', ->
     oldExecute.call(this, battle, user, targets)
 
   @afterSuccessfulHit = (battle, user, target) ->
-    boosts = {attack: -2, specialAttack: -2}
-    boostedStats = target.boost(boosts, user)
-    util.printBoostMessage(battle, target, boostedStats, boosts)
+    target.boost(attack: -2, specialAttack: -2, user)
 
 extendMove 'Metronome', ->
   impossibleMoves =
@@ -1879,9 +1856,7 @@ extendMove 'Sucker Punch', ->
 extendMove 'Swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
-    boosts = {attack: -2}
-    boostedStats = target.boost(boosts, user)
-    util.printBoostMessage(battle, target, boostedStats, boosts)
+    target.boost(attack: -2, user)
 
 extendMove 'Synchronoise', ->
   oldUse = @use
