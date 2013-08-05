@@ -13,5 +13,7 @@ $(window).load ->
       # TODO: Hide login button, ask username, etc.
       BattleTower.username = user.id
 
-    'login fail': (socket) ->
+    'login fail': (socket, reason) ->
+      console.log "Could not login!"
+      console.log reason
       navigator.id.logout()
