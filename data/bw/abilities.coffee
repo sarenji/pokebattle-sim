@@ -643,7 +643,7 @@ makeAbility 'Rivalry', ->
 
 makeAbility 'Regenerator', ->
   this::switchOut = ->
-    amount = util.roundHalfDown(@pokemon.stat('hp') / 3)
+    amount = Math.floor(@pokemon.stat('hp') / 3)
     @pokemon.damage(-amount)
 
 # Hardcoded in move.coffee

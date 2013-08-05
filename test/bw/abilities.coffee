@@ -1356,7 +1356,7 @@ describe "BW Abilities:", ->
       team1: [Factory("Magikarp", ability: "Regenerator")]
     @p1.currentHP = 1
     @p1.switchOut(@battle)
-    hp = util.roundHalfDown(@p1.stat('hp') / 3)
+    hp = Math.floor(@p1.stat('hp') / 3)
     @p1.currentHP.should.equal(1 + hp)
 
   describe "Rivalry", ->
