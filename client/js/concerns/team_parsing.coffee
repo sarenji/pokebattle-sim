@@ -1,3 +1,6 @@
+# Ported from Pokemon Showdown:
+# https://github.com/Zarel/Pokemon-Showdown-Client/blob/8beb563042cac1acb64ec88c552ef21fb28f0f39/js/client-teambuilder.js#L1236-L1352
+
 @BattleTower ?= {}
 @BattleTower.parseTeam = (teamString) ->
   text = teamString.split('\n')
