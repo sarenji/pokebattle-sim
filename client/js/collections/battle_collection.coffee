@@ -40,7 +40,7 @@ class @BattleCollection extends Backbone.Collection
           view.changeHP(player, slot)
         when Protocol.SWITCH
           [player, toSlot, fromSlot] = rest
-          team = view.model.getTeam(player)
+          team = view.model.getTeam(player).pokemon
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
           view.renderBattle()
