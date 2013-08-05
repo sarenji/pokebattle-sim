@@ -31,12 +31,16 @@ class @Attachments
 
   unattachAll: (condition) ->
     condition ||= -> true
-    for i in [0...@attachments.length]
+    length = @attachments.length
+    i = 0
+    while i < length
       attachment = @attachments[i]
       if condition(attachment)
         attachment.unattach()
         @attachments.splice(i, 1)
-        i--
+        length--
+      else
+        i++
 
   # Returns a list of attachments that can be passed to another Pokemon.
   getPassable: ->

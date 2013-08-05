@@ -1,5 +1,6 @@
 {Attachments, Attachment, BaseAttachment} = require '../server/attachment'
 should = require 'should'
+require './helpers'
 
 describe "An Attachment list", ->
   class TestAttachment extends BaseAttachment
@@ -28,6 +29,16 @@ describe "An Attachment list", ->
       @attachments.unattach(OtherAttachment)
       @attachments.attachments.should.have.length(1)
       @attachments.attachments[0].should.be.instanceOf(TestAttachment)
+
+  describe '#unattachAll', ->
+    it 'is never passed an undefined attachment', ->
+      stub = @sandbox.stub().returns(true)
+      @attachments.push(TestAttachment)
+      @attachments.push(OtherAttachment)
+      (=> @attachments.unattachAll(stub)).should.not.throw()
+      stub.calledWithMatch(undefined).should.be.false
+      stub.calledWithMatch(null).should.be.false
+      @attachments.attachments.should.be.empty
 
   describe '#getPassable', ->
     beforeEach ->
