@@ -1,7 +1,6 @@
 class @Player
   constructor: (@user) ->
-    @id = @user.name || @user.id
-    @name = @user.name
+    @id = @user.id
     @queue = []
 
   tell: (args...) ->

@@ -1,6 +1,21 @@
 sockjs = require 'sockjs'
-{User} = require './user'
 require 'sugar'
+
+class User
+  constructor: (@socket, @connections) ->
+
+  isLoggedIn: ->
+    !!@id
+
+  toJSON: -> {
+    'id': @id
+  }
+
+  send: (type, data...) ->
+    @socket.write(JSON.stringify(messageType: type, data: data))
+
+  broadcast: (args...) ->
+    user.send(args...)  for user in @connections.users when this != user
 
 # A wrapper for sockjs which manages multiple connections with a higher level of abstraction.
 # Todo: Don't use array parameters and use object parameters instead
@@ -21,7 +36,7 @@ class @ConnectionServer
           callback.apply(user, [user, data.data...])
 
       socket.on 'close', =>
-        @users.remove(socket)
+        @users.remove(user)
         for callback in @callbacks['close']
           callback.call(user, user)
         delete user.connections

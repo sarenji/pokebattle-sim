@@ -3,6 +3,7 @@ npm-debug.log
 server-cov
 coverage.html
 venv/
+pokebattle-db
 
 *.sublime-project
 *.sublime-workspace

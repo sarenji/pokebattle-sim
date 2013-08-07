@@ -9,4 +9,3 @@
 {@Status} = require './status'
 {@Weather} = require './weather'
 {@ConnectionServer} = require './connections'
-{@User} = require './user'

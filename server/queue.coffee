@@ -6,20 +6,21 @@ class @BattleQueue
     @queue = []
 
   add: (player, team) ->
-    return false  if !player || @queue.some((o) -> o.player == player)
+    return false  if !player?.id?
+    return false  if @queue.some((o) -> o.player.id == player.id)
     @queue.push({player, team})
     return true
 
   remove: (player) ->
-    players = @queue.map (object) -> object.player
+    players = @queuedPlayers()
     index = players.indexOf(player)
     @queue.splice(index, 1)  if index != -1
 
   queuedPlayers: ->
-    cloned = []
-    for object in @queue
-      cloned.push(object.player)
-    cloned
+    @queue.map((o) -> o.player)
+
+  size: ->
+    @queue.length
 
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.

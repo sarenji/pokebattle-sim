@@ -1,11 +1,12 @@
 http = require 'http'
 express = require 'express'
+levelup = require 'level'
 require 'express-namespace'
 require 'sugar'
 
 request = require 'request'
 
-{BattleServer, ConnectionServer, User} = require './server'
+{BattleServer, ConnectionServer} = require './server'
 
 server = new BattleServer()
 app = express()
@@ -13,6 +14,8 @@ httpServer = http.createServer(app)
 
 # Configuration
 app.set("views", "client")
+app.use(express.logger())
+app.use(express.compress())  # gzip
 app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(app.router)
@@ -25,6 +28,9 @@ PERSONA_AUDIENCE = switch process.env.NODE_ENV
     "http://battletower.aws.af.cm:80"
   else
     "http://localhost:#{PORT}"
+
+# User store
+db = levelup('./pokebattle-db', valueEncoding: 'json')
 
 # Routing
 app.get '/', (req, res) ->
@@ -101,20 +107,30 @@ connections.addEvents
     audience = PERSONA_AUDIENCE
     json = {assertion, audience}
     params = {url, json}
-    callback = (error, response, body) ->
-      if error
+    request.post params, (err, response, body) ->
+      if err
         user.send('login fail', "Could not connect to the login server.")
         return
       if body.status != 'okay'
         user.send('login fail', body.reason)
         return
-      user._id = body.email
-      user.id = generateUsername()
-      userList.push(user)
-      user.send 'login success', user.toJSON()
-      user.send 'list chatroom', userList.map((u) -> u.toJSON())
-      user.broadcast 'join chatroom', user.toJSON()
-    request.post(params, callback)
+      email = body.email
+      db.get email, (err, properties) ->
+        if err?.name == 'NotFoundError'
+          console.log "Could not find user: #{email}"
+          db.put email, email: email, (err) ->
+            if err
+              user.send('login fail', "#{err.name}: #{err.message}")
+              return
+        else if err
+          user.send('login fail', "#{err.name}: #{err.message}")
+          return
+        user.id = generateUsername()
+        user.email = email
+        userList.push(user)
+        user.send 'login success', user.toJSON()
+        user.send 'list chatroom', userList.map((u) -> u.toJSON())
+        user.broadcast 'join chatroom', user.toJSON()
 
   # TODO: socket.off after disconnection
 
