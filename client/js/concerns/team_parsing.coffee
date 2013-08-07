@@ -23,7 +23,7 @@
         gender = null
       pokemon = {}
       # Ignore nicknames for now
-      if pokemonLine.match(/(.*?)\s*\(.*\)/)
+      if pokemonLine.match(/.*?\s*\((.*)\)/)
         pokemonLine = RegExp.$1
       pokemon.name = pokemonLine
       pokemon.gender = gender  if gender

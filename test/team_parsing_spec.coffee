@@ -16,7 +16,7 @@ Relaxed Nature
 - Earthquake
 - Protect
 
-Blissey (F) @ Leftovers
+Poop (Blissey) (F) @ Leftovers
 Trait: Natural Cure
 Shiny: Yes
 EVs: 176 HP / 252 Def / 80 SDef
