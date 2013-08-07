@@ -4,13 +4,17 @@ $(window).load ->
 
   navigator.id.watch
     onlogin: (assertion) ->
+      console.log "Attempting to login."
       BattleTower.socket.send('assert login', assertion)
     onlogout: ->
+      console.log "Logging out."
       BattleTower.socket.send('logout')
 
   BattleTower.socket.addEvents
     'login success': (socket, user) ->
-      # TODO: Hide login button, ask username, etc.
+      $('.login').hide()
+      $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
+      # TODO: ask for username, don't randomly generate from server
       BattleTower.username = user.id
 
     'login fail': (socket, reason) ->
