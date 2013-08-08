@@ -40,7 +40,6 @@ class @BattleController
   transitionToNextState: ->
     if @battle.areAllRequestsCompleted()
       if @battle.replacing
-        debugger
         @battle.performReplacements()
         @beginTurn()
       else
