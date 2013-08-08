@@ -245,13 +245,10 @@ class @Battle
     _.any @getActivePokemon(), (pokemon) ->
       pokemon.ability?.preventsWeather
 
-  # Begins the turn. Replacements are performed and actions are requested
-  # from each player. If no pokemon can move, then the battle engine
-  # progresses to continueTurn. Otherwise, the battle waits for
-  # user responses.
+  # Begins the turn. Actions are requested from each player. If no pokemon can
+  # move, then the battle engine progresses to continueTurn. Otherwise, the
+  # battle waits for user responses.
   beginTurn: ->
-    @performReplacements()
-
     @turn++
     @priorityQueue = null
 
@@ -494,6 +491,7 @@ class @Battle
 
   # Executed by @beginTurn
   performReplacements: ->
+    @replacing = false
     switched = []
     for id of @playerActions
       team = @getTeam(id)

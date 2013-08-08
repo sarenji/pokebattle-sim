@@ -25,9 +25,7 @@ class @BattleController
     # TODO: Fail if move not in player pokemon's moves
     return  if !move?
     @battle.recordMove(player.id, move)
-
-    # Automatically continue the turn if each player has moved.
-    @continueTurn()  if @battle.areAllRequestsCompleted()
+    @transitionToNextState()
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
@@ -36,10 +34,14 @@ class @BattleController
     # TODO: Send error messages back on invalid indices (such as fainted poke
     #       or activePokemon)
     @battle.recordSwitch(player.id, toPosition)
+    @transitionToNextState()
 
-    # Continue or begin a new turn if each player has made an action.
+  # Continue or begin a new turn if each player has made an action.
+  transitionToNextState: ->
     if @battle.areAllRequestsCompleted()
       if @battle.replacing
+        debugger
+        @battle.performReplacements()
         @beginTurn()
       else
         @continueTurn()
