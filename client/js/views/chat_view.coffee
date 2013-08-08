@@ -22,6 +22,7 @@ class @ChatView extends Backbone.View
   sendChat: =>
     $this = $('.chat_input')
     message = $this.val()
+    return  unless BattleTower.username && message?.replace(/\s+$/).length > 0
     @userMessage(BattleTower.username, message)
     BattleTower.socket.send('send chat', message)
     $this.val('')

@@ -50,6 +50,7 @@ connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
   'send chat': (user, message) ->
+    return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
     user.broadcast 'update chat', user.toJSON(), message
 
   # TODO: Dequeue player
