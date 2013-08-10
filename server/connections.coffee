@@ -36,7 +36,7 @@ class @ConnectionServer
           callback.apply(user, [user, data.data...])
 
       socket.on 'close', =>
-        @users.remove(user)
+        @users.remove((u) -> u == user)
         for callback in @callbacks['close']
           callback.call(user, user)
         delete user.connections
