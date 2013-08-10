@@ -83,4 +83,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
+  grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
