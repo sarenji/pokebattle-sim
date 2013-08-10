@@ -1,6 +1,7 @@
 {_} = require 'underscore'
 {Pokemon} = require './pokemon'
 {Attachments} = require './attachment'
+{Protocol} = require '../shared/protocol'
 
 class @Team
   {Species} = require '../data/bw'
@@ -61,8 +62,8 @@ class @Team
     @switchOut(@at(a))
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    p.tell(2, player.index, a, b)  for p in @battle.players
-    s.tell(2, player.index, a, b)  for s in @battle.spectators
+    p.tell(Protocol.SWITCH, player.index, a, b)  for p in @battle.players
+    s.tell(Protocol.SWITCH, player.index, a, b)  for s in @battle.spectators
 
     @battle.message "#{player.id} sent out #{@at(a).name}!"
     @switchIn(@at(a))  unless options.silent == true

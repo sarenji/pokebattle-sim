@@ -5,6 +5,7 @@
 {Team} = require './team'
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
+{Protocol} = require '../shared/protocol'
 
 require 'sugar'
 
@@ -179,8 +180,8 @@ class @Battle
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) ->
-    player.tell(6, string)  for player in @players
-    spectator.tell(6, string)  for spectator in @spectators
+    player.tell(Protocol.RAW_MESSAGE, string)  for player in @players
+    spectator.tell(Protocol.RAW_MESSAGE, string)  for spectator in @spectators
     true
 
   # Passing -1 to turns makes the weather last forever.
@@ -252,8 +253,8 @@ class @Battle
     @turn++
     @priorityQueue = null
 
-    p.tell(5, @turn)  for p in @players
-    s.tell(5, @turn)  for s in @spectators
+    p.tell(Protocol.START_TURN, @turn)  for p in @players
+    s.tell(Protocol.START_TURN, @turn)  for s in @spectators
 
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     team.beginTurn()  for team in @getTeams()
@@ -410,7 +411,7 @@ class @Battle
 
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
-    player.tell(4, validActions)
+    player.tell(Protocol.REQUEST_ACTION, validActions)
     return true
 
   # Returns true if all requests have been completed. False otherwise.
@@ -513,8 +514,8 @@ class @Battle
 
     @message "#{pokemon.name} has no moves left!"  if move == struggle
     # TODO: Send move id instead
-    p.tell(8, player.index, slot, move.name)  for p in @players
-    s.tell(8, player.index, slot, move.name)  for s in @spectators
+    p.tell(Protocol.MAKE_MOVE, player.index, slot, move.name)  for p in @players
+    s.tell(Protocol.MAKE_MOVE, player.index, slot, move.name)  for s in @spectators
 
     if pokemon.pp(move) <= 0
       @message "But there was no PP left for the move!"
@@ -538,7 +539,7 @@ class @Battle
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
       @message "#{pokemon.name} fainted!"
-      args = [ 7, pokemon.player.index, pokemon.team.indexOf(pokemon) ]
+      args = [ Protocol.FAINT, pokemon.player.index, pokemon.team.indexOf(pokemon) ]
       p.tell(args...)  for p in @players
       s.tell(args...)  for s in @spectators
       pokemon.afterFaint()

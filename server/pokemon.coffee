@@ -3,6 +3,7 @@
 {Status, StatusAttachment} = require './status'
 {Attachment, Attachments} = require './attachment'
 {Weather} = require './weather'
+{Protocol} = require '../shared/protocol'
 util = require './util'
 floor = Math.floor
 
@@ -72,7 +73,7 @@ class @Pokemon
     pp = Math.max(pp, 0)
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
-    @player?.tell(3, @player.index,
+    @player?.tell(Protocol.CHANGE_PP, @player.index,
                   @team.pokemon.indexOf(this),
                   @moves.indexOf(move), pp)
     pp
@@ -271,9 +272,9 @@ class @Pokemon
     if @battle?.players
       # TODO: Send percentages
       for player in @battle.players
-        player.tell(1, @player.index, 0, @currentHP)
+        player.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
       for spectator in @battle.spectators
-        spectator.tell(1, @player.index, 0, @currentHP)
+        spectator.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
     @currentHP
 
   recordMove: (move) ->
