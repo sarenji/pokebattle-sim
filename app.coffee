@@ -24,7 +24,7 @@ app.use(express.static(__dirname + "/public"))
 PORT = process.env.PORT || 8000
 PERSONA_AUDIENCE = switch process.env.NODE_ENV
   when "production"
-    "http://battletower.aws.af.cm:80"
+    "http://battletower.herokuapp.com:80"
   else
     "http://localhost:#{PORT}"
 
