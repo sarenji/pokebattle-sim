@@ -1,17 +1,18 @@
 mixin moveButton(forPokemon, i)
   - var validMoves = validActions.moves || []
-  - var move       = forPokemon.moves[i]
+  - var moveName   = forPokemon.moves[i]
+  - var origName   = moveName
   - var moveType   = forPokemon.moveTypes[i].toLowerCase()
   - var pp         = forPokemon.pp[i]
   - var maxPP      = forPokemon.maxPP[i]
-  - var isEnabled  = validMoves.indexOf(move) !== -1
+  - var isEnabled  = validMoves.indexOf(moveName) !== -1
   - var disabledClass = (!isEnabled ? ' disabled' : '')
-  if move === 'Hidden Power'
+  if moveName === 'Hidden Power'
     - moveType = window.hiddenPower.BW.type(forPokemon.ivs)
-    - move += ' (' + moveType + ')'
+    - moveName += ' (' + moveType + ')'
     - moveType = moveType.toLowerCase()
-  .move.button(class = moveType + disabledClass)
-    .main_text= move
+  .move.button(class = moveType + disabledClass, data-move-id = origName)
+    .main_text= moveName
     .meta_info
       = pp
       small /#{maxPP}

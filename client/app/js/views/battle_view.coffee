@@ -58,11 +58,10 @@ class @BattleView extends Backbone.View
     $image = $pokemon.find('.sprite img')
     $image.css(top: "100%", opacity: 0)
 
-  getText: (el) =>
+  getMoveName: (el) =>
     $el = $(el)
     $el = $el.closest('.button')  if !$el.hasClass('button')
-    $el = $el.find(".main_text")  if !$el.hasClass('main_text')
-    $el.text()
+    $el.data('move-id')
 
   isDisabled: (el) =>
     $el = $(el)
@@ -82,7 +81,7 @@ class @BattleView extends Backbone.View
     @$('.battle_chat').append("<h2>Turn #{turn}</h2>")
 
   makeMove: (e) =>
-    moveName = @getText(e.target)
+    moveName = @getMoveName(e.target)
     if @isDisabled()
       console.log "Cannot use #{moveName}."
       return
