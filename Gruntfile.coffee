@@ -50,7 +50,7 @@ module.exports = (grunt) ->
         files: ['client/**/*.styl']
         tasks: 'stylus'
       js:
-        files: ['client/app/**/*.coffee']
+        files: ['client/app/**/*.coffee', 'shared/**/*.coffee']
         tasks: 'coffee'
       vendor:
         files: ['client/vendor/**/*.js']
