@@ -68,6 +68,7 @@ class @BattleView extends Backbone.View
     $pokemon = @$(".pokemon#{player}-#{slot}")
     $image = $pokemon.find('.sprite img')
     $image.css(top: "100%", opacity: 0)
+    @renderUserInfo()
 
   getMoveName: (el) =>
     $el = $(el)

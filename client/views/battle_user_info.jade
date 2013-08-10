@@ -7,4 +7,6 @@ each team in [ yourTeam, opponentTeam ]
       .row-fluid
         - for (var i = j; i < j + 3; i++)
           .span4
-            .pokemon_icon(style = window.PokemonIconBackground(team[i].name))
+            - var faintClass = (team[i].hp <= 0) ? 'fainted' : ''
+            - var style = window.PokemonIconBackground(team[i].name)
+            .pokemon_icon(class = faintClass, style = style)
