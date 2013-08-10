@@ -1,4 +1,4 @@
-{BattleTower} = require '../client/js/concerns/team_parsing'
+{BattleTower} = require '../client/app/js/concerns/team_parsing'
 
 require 'sugar'
 require './helpers'
