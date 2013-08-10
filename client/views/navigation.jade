@@ -2,7 +2,7 @@ p.logo pb
 h2 Chat
 ul.nav
   li.fake_link(data-tab-for="#main-section") Lobby
-if battles
+if battles.length > 0
   h2 Battles
   ul.nav
     - battles.each(function(battle) {
