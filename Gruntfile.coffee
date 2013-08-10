@@ -22,7 +22,7 @@ module.exports = (grunt) ->
       compile:
         use: [ require('nib') ]
         files:
-          "public/css/main.css": "client/app/css/**/*.styl"
+          "public/css/main.css": "client/app/css/main.styl"
     coffee:
       compile:
         files:
@@ -43,17 +43,18 @@ module.exports = (grunt) ->
           "client/vendor/js/*.js"
         ]
     watch:
+      # Note: These actually take subdirectories into account.
       templates:
-        files: ['client/**/*.jade']
+        files: ['client/views/*.jade']
         tasks: 'jade'
       css:
-        files: ['client/**/*.styl']
+        files: ['client/*.styl']
         tasks: 'stylus'
       js:
-        files: ['client/app/**/*.coffee', 'shared/**/*.coffee']
+        files: ['client/app/*.coffee', 'shared/*.coffee']
         tasks: 'coffee'
       vendor:
-        files: ['client/vendor/**/*.js']
+        files: ['client/vendor/*.js']
         tasks: 'concat'
     nodemon:
       development:
