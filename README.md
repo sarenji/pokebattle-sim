@@ -12,15 +12,13 @@ npm install
 
 ## Run server
 
-```bash
-npm start
-```
-
-Or if you have `nodemon`:
+We use [Grunt](http://gruntjs.com/) to handle our development. First, you must `npm install -g grunt-cli` to get the grunt runner. Then you can type
 
 ```bash
-nodemon app.coffee
+grunt
 ```
+
+to automatically compile all client-side files and run nodemon for you.
 
 ## Run tests
 
