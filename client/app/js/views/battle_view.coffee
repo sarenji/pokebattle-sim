@@ -1,5 +1,6 @@
 class @BattleView extends Backbone.View
   battle_template: JST['battle']
+  overlay_template: JST['battle_overlay']
   action_template: JST['battle_actions']
 
   events:
@@ -17,7 +18,8 @@ class @BattleView extends Backbone.View
       numActive    : @model.numActive
       yourIndex    : @model.index
       window       : window
-    @$('.battle_container').html @battle_template(locals)
+    @$('.battle_pane').html @battle_template(locals)
+    @renderUserInfo()
     @addImages()
     this
 
@@ -27,6 +29,15 @@ class @BattleView extends Backbone.View
       validActions : validActions
       window       : window
     @$('.battle_actions').html @action_template(locals)
+
+  renderUserInfo: =>
+    locals =
+      yourTeam     : @model.getTeam()
+      opponentTeam : @model.getOpponentTeam()
+      numActive    : @model.numActive
+      yourIndex    : @model.index
+      window       : window
+    @$('.battle_overlay').html @overlay_template(locals)
 
   addImages: =>
     @$('.preload').each ->
