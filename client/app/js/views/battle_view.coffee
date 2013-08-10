@@ -15,18 +15,20 @@ class @BattleView extends Backbone.View
 
   renderBattle: =>
     locals =
-      team         : @model.getTeam()
-      opponent     : @model.getOpponentTeam()
+      yourTeam     : @model.getTeam()
+      opponentTeam : @model.getOpponentTeam()
       numActive    : @model.numActive
       yourIndex    : @model.index
+      window       : window
     @$el.find('.battle_container').html @battle_template(locals)
     @addImages()
     this
 
   renderActions: (validActions = {}) =>
     locals =
-      team         : @model.getTeam()
+      yourTeam     : @model.getTeam()
       validActions : validActions
+      window       : window
     @$el.find('.battle_actions').html @action_template(locals)
 
   addImages: =>

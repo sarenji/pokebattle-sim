@@ -3,7 +3,10 @@ npm-debug.log
 server-cov
 coverage.html
 venv/
+public/css/
+public/js/
 pokebattle-db
+.nodemonignore
 
 *.sublime-project
 *.sublime-workspace

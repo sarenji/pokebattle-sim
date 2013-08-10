@@ -1,10 +1,3 @@
-#= require templates/index
-#= require_tree templates
-#= require_tree models
-#= require_tree collections
-#= require_tree views
-#= require_tree concerns
-
 # A wrapper around the sockjs socket to support a higher level of abstraction
 # Todo: Move this somewhere else
 class @Socket

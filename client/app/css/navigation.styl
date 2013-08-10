@@ -1,0 +1,48 @@
+h1
+  narrow-font(36px)
+  font-weight    700
+  line-height    50px
+  text-transform lowercase
+  margin         0 $body_wrapper
+  float          left
+
+#navigation
+  $clr = #44484e
+  position absolute
+  top 0
+  left 0
+  bottom 0
+  width $nav_size
+  background $clr
+  padding-top $header_size
+  font-size .875em
+  .nav
+    a, .fake_link
+      display block
+      padding 4px 16px
+      color #ccd
+      border none
+      background none
+      float none
+      margin 0
+      border-radius 0
+      &:hover
+        background lighten($clr, 10%)
+        color #fff
+  h2
+    text-transform uppercase
+    color lighten($clr, 60%)
+    background darken($clr, 20%)
+    text-shadow 0 1px 0 rgba(0, 0, 0, .3)
+    color #777
+    margin 1em 0 0 0
+    font-size .929em
+    padding 4px 16px
+    letter-spacing 1px
+    text-transform uppercase
+    border-bottom 1px solid #555
+    border-top 1px solid #111
+
+.user-info
+  float right
+  margin 0 16px

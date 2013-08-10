@@ -2,25 +2,24 @@
 html
   head
     meta(http-equiv="X-UA-Compatible", content="IE=Edge")
-    != css('main')
-    != js('vendor')
-    != js('client')
+    link(rel="stylesheet", href="/css/main.css")
+    script(src='/js/vendor.js')
+    script(src='/js/templates.js')
+    script(src='/js/app.js')
     link(href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=PT+Sans', rel='stylesheet', type='text/css')
   body
-    #header
-      h1 pokebattle
-      .user-info
-        .login.fake_link Login
-        .greetings
-      ul.nav
-        li.active.tab.fake_link(data-tab-for="#main-section") Chat
-        li.tab.fake_link(data-tab-for="#teambuilder-section") Teambuilder
+    #navigation
     #content
+      #header
+        h1 pokebattle
+        .user-info
+          .login.fake_link Login
+          .greetings
       #main-section.clearfix
         .chat.half_width
         .battle.half_width
-        .main_nav.half_width
+        .main_buttons.half_width
           .section
             .team
             .button.big.find_battle

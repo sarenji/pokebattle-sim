@@ -20,7 +20,6 @@ app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
-app.use(require('connect-assets')(src: "client"))
 
 PORT = process.env.PORT || 8000
 PERSONA_AUDIENCE = switch process.env.NODE_ENV

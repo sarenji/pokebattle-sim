@@ -1,0 +1,35 @@
+.battle_overlay
+  each team in [ yourTeam, opponentTeam ]
+    - var leftOrRight = (team === yourTeam ? 'left' : 'right')
+    div(class = leftOrRight)
+      = team.owner
+      - var team = team.pokemon
+      - for (var j = 0; j < team.length; j += 3)
+        .row-fluid
+          - for (var i = j; i < j + 3; i++)
+            .span4
+              .pokemon_icon(style = window.PokemonIconBackground(team[i].name))
+.battle_pane.clearfix
+  - for (var i = 0; i < 2; i++)
+    - var pokemonClass = (i === yourIndex ? " bottom" : " top")
+    - var team = (i === yourIndex ? yourTeam : opponentTeam)
+    - var team = team.pokemon
+    - for (var j = 0; j < numActive; j++)
+      - var pokemon = team[j]
+      - var percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
+      - var color = ((percent <= 25) ? "#f00" : (percent <= 50) ? "#ff0" : "#0f0")
+      - var style = "width: " + percent + "%"
+      - var greenStyle = style + "; background-color: " + color
+      .pokemon(class = "pokemon" + i + "-" + j + pokemonClass)
+        .sprite.preload(data-name = pokemon.name)
+        .pokemon-info
+          .pokemon-name= pokemon.name
+          .pokemon-meta
+            if pokemon.gender === 'F'
+              span.gender.gender_female &#9792;
+            else if pokemon.gender === 'M'
+              span.gender.gender_male &#9794;
+            span.pokemon-level  Lv.
+            = pokemon.level
+          .hp-red(style = style)
+          .hp(style = greenStyle)

@@ -2,6 +2,8 @@ narrow-font(size=16px)
   font size "PT Sans Narrow", "Helvetica Neue", sans-serif
 
 $body_wrapper = 30px
+$nav_size = 150px
+$header_size = 50px
 
 html, body
   color   #333
@@ -12,7 +14,19 @@ html, body
 
 #content
   position absolute
-  top 50px
+  top 0
+  left $nav_size
+  right 0
+  bottom 0
+  box-shadow 0 0 10px #000
+
+#header
+  height $header_size
+  line-height @height
+
+#main-section
+  position absolute
+  top $header_size
   left 0
   right 0
   bottom 0
@@ -20,8 +34,8 @@ html, body
 a, .fake_link
   color #F27405
   text-decoration none
+  cursor pointer
   &:hover
-    cursor pointer
     color #BD4F00
 
 .nav

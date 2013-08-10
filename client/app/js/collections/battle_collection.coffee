@@ -19,7 +19,7 @@ class @BattleCollection extends Backbone.Collection
   startBattle: (socket, id, numActive, index, teams) =>
     console.log "BATTLE STARTED."
     # TODO: Handle hiding better.
-    $mainNav = $('.main_nav').addClass('hidden')
+    $mainNav = $('.main_buttons').addClass('hidden')
     $battle = $('.battle')
     battle = new Battle({id, numActive, socket, index, teams})
     battle.view = new BattleView(el: $battle, model: battle)
@@ -69,7 +69,7 @@ class @BattleCollection extends Backbone.Collection
     # Pick a random index; it doesn't matter too much.
     index = Math.round(Math.random())
     # TODO: Handle hiding better.
-    $mainNav = $('.main_nav').addClass('hidden')
+    $mainNav = $('.main_buttons').addClass('hidden')
     $battle = $('.battle')
     battle = new Battle({id, numActive, socket, index, teams})
     battle.view = new BattleView(el: $battle, model: battle)
