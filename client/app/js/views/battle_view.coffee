@@ -1,6 +1,6 @@
 class @BattleView extends Backbone.View
   battle_template: JST['battle']
-  overlay_template: JST['battle_overlay']
+  user_info_template: JST['battle_user_info']
   action_template: JST['battle_actions']
 
   events:
@@ -37,7 +37,7 @@ class @BattleView extends Backbone.View
       numActive    : @model.numActive
       yourIndex    : @model.index
       window       : window
-    @$('.battle_overlay').html @overlay_template(locals)
+    @$('.battle_user_info').html @user_info_template(locals)
 
   addImages: =>
     @$('.preload').each ->

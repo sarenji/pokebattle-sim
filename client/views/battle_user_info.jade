@@ -1,0 +1,10 @@
+each team in [ yourTeam, opponentTeam ]
+  - var leftOrRight = (team === yourTeam ? 'left' : 'right')
+  div(class = leftOrRight)
+    = team.owner
+    - var team = team.pokemon
+    - for (var j = 0; j < team.length; j += 3)
+      .row-fluid
+        - for (var i = j; i < j + 3; i++)
+          .span4
+            .pokemon_icon(style = window.PokemonIconBackground(team[i].name))
