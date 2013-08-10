@@ -1,4 +1,11 @@
-$(window).load ->
+@BattleTower ?= {}
+
+@BattleTower.initializeAuth ?= ->
+  if BattleTower.local
+    console.log "Mocking login..."
+    BattleTower.socket.send('assert login', "mocked assertion")
+    return
+
   $(document).on('click', '.login',  -> navigator.id.request())
   $(document).on('click', '.logout', -> navigator.id.logout())
 
@@ -10,6 +17,7 @@ $(window).load ->
       console.log "Logging out."
       BattleTower.socket.send('logout')
 
+$(window).load ->
   BattleTower.socket.addEvents
     'login success': (socket, user) ->
       $('.login').hide()

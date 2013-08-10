@@ -21,6 +21,8 @@ app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
 
+process.env.NODE_ENV ||= "development"
+
 PORT = process.env.PORT || 8000
 PERSONA_AUDIENCE = switch process.env.NODE_ENV
   when "production"
@@ -34,7 +36,8 @@ db = levelup('./pokebattle-db', valueEncoding: 'json')
 # Routing
 app.get '/', (req, res) ->
   {PokemonData, MoveData, ItemData} = require './data/bw'
-  res.render 'index.jade', {PokemonData, MoveData, ItemData}
+  local = process.env.NODE_ENV in [ 'development', 'test' ]
+  res.render 'index.jade', {local, PokemonData, MoveData, ItemData}
 
 # API
 app.namespace "/v1/api", ->
@@ -102,6 +105,22 @@ connections.addEvents
   # AUTHENTICATION #
   ##################
   'assert login': (user, assertion) ->
+    assertLogin(user, assertion)
+
+  # TODO: socket.off after disconnection
+
+httpServer.listen(PORT)
+
+generateUsername = ->
+  {PokemonData} = require './data/bw'
+  randomName = (name  for name of PokemonData)
+  randomName = randomName[Math.floor(Math.random() * randomName.length)]
+  randomName = randomName.split(/\s+/)[0]
+  randomName += "Fan" + Math.floor(Math.random() * 10000)
+  randomName
+
+assertLogin = (user, assertion) ->
+  if process.env.NODE_ENV not in [ 'development', 'test' ]
     console.log "verifying with persona"
     url = 'https://verifier.login.persona.org/verify'
     audience = PERSONA_AUDIENCE
@@ -131,19 +150,14 @@ connections.addEvents
         user.send 'login success', user.toJSON()
         user.send 'list chatroom', userList.map((u) -> u.toJSON())
         user.broadcast 'join chatroom', user.toJSON()
-
-  # TODO: socket.off after disconnection
-
-httpServer.listen(PORT)
-
-generateUsername = ->
-  {PokemonData} = require './data/bw'
-  randomName = (name  for name of PokemonData)
-  randomName = randomName[Math.floor(Math.random() * randomName.length)]
-  randomName = randomName.split(/\s+/)[0]
-  randomName += "Fan" + Math.floor(Math.random() * 10000)
-  randomName
-
+  else
+    console.log "mocking login"
+    user.id = generateUsername()
+    user.email = "test@pokebattle.com"
+    userList.push(user)
+    user.send 'login success', user.toJSON()
+    user.send 'list chatroom', userList.map((u) -> u.toJSON())
+    user.broadcast 'join chatroom', user.toJSON()
 
 # TODO: Implement team builder!
 defaultTeam = [

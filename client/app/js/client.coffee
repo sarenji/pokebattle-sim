@@ -52,6 +52,7 @@ $ ->
         collection: BattleTower.userList
       )
       BattleTower.chatView.render()
+      BattleTower.initializeAuth()
 
     'list chatroom': (socket, users) ->
       BattleTower.userList.reset(users)
