@@ -505,13 +505,16 @@ class @Battle
   # Executed by @continueTurn
   performMove: (id, move) ->
     player = @getPlayer(id)
-    pokemon = @getTeam(id).at(0)
+    slot = 0
+    pokemon = @getTeam(id).at(slot)
     targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
     struggle = @getMove('Struggle')
 
     @message "#{pokemon.name} has no moves left!"  if move == struggle
-    @message "#{player.id}'s #{pokemon.name} used #{move.name}!"
+    # TODO: Send move id instead
+    p.tell(8, player.index, slot, move.name)  for p in @players
+    s.tell(8, player.index, slot, move.name)  for s in @spectators
 
     if pokemon.pp(move) <= 0
       @message "But there was no PP left for the move!"

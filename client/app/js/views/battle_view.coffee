@@ -64,6 +64,11 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#0f0")
     $allHP.width(percent + "%")
 
+  logMove: (player, slot, moveName) =>
+    {owner} = @model.getTeam(player)
+    pokemon = @model.getPokemon(player, slot)
+    @addLog("#{owner}'s #{pokemon.name} used <strong>#{moveName}</strong>!")
+
   faint: (player, slot) =>
     $pokemon = @$(".pokemon#{player}-#{slot}")
     $image = $pokemon.find('.sprite img')
