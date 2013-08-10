@@ -439,6 +439,13 @@ class @Pokemon
     "moveTypes" : @moves.map (m) -> m.type
     "pp"        : @moves.map (m) => @pp(m)
     "maxPP"     : @moves.map (m) => @maxPP(m)
+    "ivs"       :
+      hp: @iv('hp')
+      attack: @iv('attack')
+      defense: @iv('defense')
+      speed: @iv('speed')
+      specialAttack: @iv('specialAttack')
+      specialDefense: @iv('specialDefense')
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

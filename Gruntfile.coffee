@@ -32,6 +32,7 @@ module.exports = (grunt) ->
             "client/app/js/views/**/*.coffee"
             "client/app/js/concerns/**/*.coffee"
             "client/app/js/**/*.coffee"
+            "shared/**/*.coffee"
           ]
     concat:
       dist:

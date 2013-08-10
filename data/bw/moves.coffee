@@ -5,6 +5,7 @@
 {Attachment} = require('../../server/attachment')
 {_} = require 'underscore'
 util = require '../../server/util'
+hiddenPower = require '../../shared/hidden_power'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -1396,33 +1397,25 @@ extendMove 'Hex', ->
       @power
 
 extendMove 'Hidden Power', ->
-  hpTypes = [
-    'Fighting', 'Flying', 'Poison', 'Ground', 'Rock', 'Bug', 'Ghost',
-    'Steel', 'Fire', 'Water', 'Grass', 'Electric', 'Psychic', 'Ice',
-    'Dragon', 'Dark'
-  ]
-
   @basePower = (battle, user, target) ->
-    base = 0
-    base += 1   if user.iv('hp') % 4 > 1
-    base += 2   if user.iv('attack') % 4 > 1
-    base += 4   if user.iv('defense') % 4 > 1
-    base += 8   if user.iv('speed') % 4 > 1
-    base += 16  if user.iv('specialAttack') % 4 > 1
-    base += 32  if user.iv('specialDefense') % 4 > 1
-
-    Math.floor(base * (40 / 63) + 30)
+    ivs =
+      hp: user.iv('hp')
+      attack: user.iv('attack')
+      defense: user.iv('defense')
+      speed: user.iv('speed')
+      specialAttack: user.iv('specialAttack')
+      specialDefense: user.iv('specialDefense')
+    hiddenPower.BW.basePower(ivs)
 
   @getType = (battle, user, target) ->
-    value = 0
-    value += 1   if user.iv('hp') % 2 == 1
-    value += 2   if user.iv('attack') % 2 == 1
-    value += 4   if user.iv('defense') % 2 == 1
-    value += 8   if user.iv('speed') % 2 == 1
-    value += 16  if user.iv('specialAttack') % 2 == 1
-    value += 32  if user.iv('specialDefense') % 2 == 1
-
-    hpTypes[Math.floor(value * 15 / 63)]
+    ivs =
+      hp: user.iv('hp')
+      attack: user.iv('attack')
+      defense: user.iv('defense')
+      speed: user.iv('speed')
+      specialAttack: user.iv('specialAttack')
+      specialDefense: user.iv('specialDefense')
+    hiddenPower.BW.type(ivs)
 
 extendMove 'Imprison', ->
   @execute = (battle, user, targets) ->

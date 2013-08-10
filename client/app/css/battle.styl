@@ -45,7 +45,7 @@ $pane-width = $battle-width + $padding + $padding
     width $battle-width
     height 300px
     background url("/images/battle_bg.jpg")
-    narrow-font(16px)
+    narrow-font()
   .battle_overlay
     background rgba(0, 20, 64, .5)
     position absolute
@@ -170,10 +170,9 @@ $pane-width = $battle-width + $padding + $padding
   text-shadow   0 -1px 0 rgba(255, 255, 255, .25)
   box-shadow    inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25)
   .main_text
-    font-size   16px
+    narrow-font()
     font-weight 700
     float       left
-    margin-right 10px
   .meta_info
     font-size   12px
     float       right

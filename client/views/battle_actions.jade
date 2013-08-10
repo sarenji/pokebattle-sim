@@ -6,6 +6,10 @@ mixin moveButton(forPokemon, i)
   - var maxPP      = forPokemon.maxPP[i]
   - var isEnabled  = validMoves.indexOf(move) !== -1
   - var disabledClass = (!isEnabled ? ' disabled' : '')
+  if move === 'Hidden Power'
+    - moveType = window.hiddenPower.BW.type(forPokemon.ivs)
+    - move += ' (' + moveType + ')'
+    - moveType = moveType.toLowerCase()
   .move.button(class = moveType + disabledClass)
     .main_text= move
     .meta_info
