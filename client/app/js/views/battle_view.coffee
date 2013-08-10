@@ -1,5 +1,4 @@
 class @BattleView extends Backbone.View
-  template: JST['battle_container']
   battle_template: JST['battle']
   action_template: JST['battle_actions']
 
@@ -9,8 +8,6 @@ class @BattleView extends Backbone.View
 
   initialize: =>
     @selected = null
-    # @listenTo(@model, 'change:hp', @changeHP)
-    @$el.html @template()
     @renderBattle()
 
   renderBattle: =>
@@ -20,7 +17,7 @@ class @BattleView extends Backbone.View
       numActive    : @model.numActive
       yourIndex    : @model.index
       window       : window
-    @$el.find('.battle_container').html @battle_template(locals)
+    @$('.battle_container').html @battle_template(locals)
     @addImages()
     this
 
@@ -29,10 +26,10 @@ class @BattleView extends Backbone.View
       yourTeam     : @model.getTeam()
       validActions : validActions
       window       : window
-    @$el.find('.battle_actions').html @action_template(locals)
+    @$('.battle_actions').html @action_template(locals)
 
   addImages: =>
-    @$el.find('.preload').each ->
+    @$('.preload').each ->
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
@@ -42,7 +39,7 @@ class @BattleView extends Backbone.View
       addPokemonImage($this, url, scale: scale)
 
   changeHP: (player, slot) =>
-    $pokemon = @$el.find(".pokemon#{player}-#{slot}")
+    $pokemon = @$(".pokemon#{player}-#{slot}")
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
     $allHP = $info.find('.hp, .hp-red')
@@ -57,7 +54,7 @@ class @BattleView extends Backbone.View
     $allHP.width(percent + "%")
 
   faint: (player, slot) =>
-    $pokemon = @$el.find(".pokemon#{player}-#{slot}")
+    $pokemon = @$(".pokemon#{player}-#{slot}")
     $image = $pokemon.find('.sprite img')
     $image.css(top: "100%", opacity: 0)
 
@@ -78,9 +75,11 @@ class @BattleView extends Backbone.View
   disableButtons: =>
     @renderActions()
 
-  # TODO: Move to model
   addLog: (message) =>
-    BattleTower.chatView.updateChat(message)
+    @$(".battle_chat").append("<p>#{message}</p>")
+
+  beginTurn: (turn) =>
+    @$('.battle_chat').append("<h2>Turn #{turn}</h2>")
 
   makeMove: (e) =>
     moveName = @getText(e.target)

@@ -32,9 +32,10 @@ class @Socket
   send: (type, data...) ->
     @socket.send(JSON.stringify(messageType: type, data: data))
 
-@BattleTower = BattleTower = {}
+@BattleTower ?= {}
 BattleTower.socket = null
 BattleTower.chatView = null
+BattleTower.battles = null
 
 $ ->
   #$builder = $('.builder')
@@ -47,7 +48,7 @@ $ ->
     'connect': (socket) ->
       BattleTower.userList = new UserList()
       BattleTower.chatView = new ChatView(
-        el: $('.chat')
+        el: $('.chat_window')
         collection: BattleTower.userList
       )
       BattleTower.chatView.render()
@@ -70,4 +71,5 @@ $ ->
     'error': (socket, message) ->
       alert(message)
 
-  new BattleCollection([]) # todo: move this elsewhere
+  BattleTower.battles = new BattleCollection([])
+  new SidebarView(el: $('#navigation'))

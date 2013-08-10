@@ -17,18 +17,18 @@ html
           .login.fake_link Login
           .greetings
       #main-section.clearfix
-        .chat.half_width
-        .battle.half_width
-        .main_buttons.half_width
-          .section
-            .team
-            .button.big.find_battle
-              span.glyphicon.glyphicon-globe
-              |  Find battle
-          .section
-            .button.teambuilder
-              span.glyphicon.glyphicon-pencil
-              |  Teambuilder
+        .window.chat_window
+          .chat.half_width
+          .main_buttons.half_width
+            .section
+              .team
+              .button.big.find_battle
+                span.glyphicon.glyphicon-globe
+                |  Find battle
+            .section
+              .button.teambuilder
+                span.glyphicon.glyphicon-pencil
+                |  Teambuilder
       #teambuilder-section
     script(type="text/javascript").
       var PokemonData = !{JSON.stringify(PokemonData)}

@@ -13,7 +13,7 @@ class @ChatView extends Backbone.View
     @listenTo(@collection, 'remove', @userLeave)
 
   render: =>
-    @$el.html @template()
+    @$('.chat').html @template()
 
   renderUserList: =>
     @$('.user_count').text "Users (#{BattleTower.userList.length})"

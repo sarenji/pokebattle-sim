@@ -4,8 +4,9 @@ ul.nav
 if battles
   h2 Battles
   ul.nav
-  each battle in battles
-    li.fake_link(data-battle-id=battle.id) #{battle.name}
+    - battles.each(function(battle) {
+      li.fake_link(data-battle-id=battle.id)= battle.id
+    - })
 h2 Other links
 ul.nav
   li.tab.fake_link(data-tab-for="#teambuilder-section") Teambuilder

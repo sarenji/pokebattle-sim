@@ -22,12 +22,19 @@ button-bg(clr)
     color darken(btn-clr, 20%)
     text-shadow   0 -1px 0 rgba(255, 255, 255, .10)
 
+$padding = 10px
+$battle-width = 600px
+$pane-width = $battle-width + $padding + $padding
+
 .battle
   position absolute
   top 0
   left 0
   bottom 0
+  width $pane-width
+  box-sizing border-box
   background $body-color
+  padding $padding
   h2
     font-size      0.6875em
     text-transform uppercase
@@ -35,7 +42,7 @@ button-bg(clr)
     border-bottom  1px solid rgba(0, 0, 0, .10)
   .battle_container
     position relative
-    width 600px
+    width $battle-width
     height 300px
     background url("/images/battle_bg.jpg")
     narrow-font(16px)
@@ -131,14 +138,22 @@ button-bg(clr)
       overflow hidden
     .sprite img
       transition top .25s ease-in, opacity .25s ease-in
-  .wrapper
-    margin 10px
   .pokemon
     position absolute
     width 100%
     height 100%
     top 0
     left 0
+
+.battle_chat
+  position absolute
+  top 0
+  left $pane-width
+  right 0
+  bottom 0
+  padding $padding
+  p
+    margin 0
 
 .button
   clearfix()

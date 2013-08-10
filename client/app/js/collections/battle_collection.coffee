@@ -18,12 +18,8 @@ class @BattleCollection extends Backbone.Collection
 
   startBattle: (socket, id, numActive, index, teams) =>
     console.log "BATTLE STARTED."
-    # TODO: Handle hiding better.
-    $mainNav = $('.main_buttons').addClass('hidden')
-    $battle = $('.battle')
     battle = new Battle({id, numActive, socket, index, teams})
-    battle.view = new BattleView(el: $battle, model: battle)
-    @add(battle)
+    createBattleWindow(this, battle)
 
   updateBattle: (socket, battleId, actions) =>
     view = @get(battleId).view
@@ -55,7 +51,7 @@ class @BattleCollection extends Backbone.Collection
           view.enableButtons(validActions)
         when Protocol.START_TURN
           [turn] = rest
-          view.addLog("<h2>Turn #{turn}</h2>")
+          view.beginTurn(turn)
         when Protocol.RAW_MESSAGE
           [message] = rest
           view.addLog("#{message}<br>")
@@ -68,9 +64,12 @@ class @BattleCollection extends Backbone.Collection
     console.log "SPECTATING BATTLE #{id}."
     # Pick a random index; it doesn't matter too much.
     index = Math.round(Math.random())
-    # TODO: Handle hiding better.
-    $mainNav = $('.main_buttons').addClass('hidden')
-    $battle = $('.battle')
     battle = new Battle({id, numActive, socket, index, teams})
-    battle.view = new BattleView(el: $battle, model: battle)
-    @add(battle)
+    createBattleWindow(this, battle)
+
+createBattleWindow = (collection, battle) ->
+  $battle = $(JST['battle_window'](battle: battle))
+  $battle.appendTo $('#main-section')
+  battle.view = new BattleView(el: $battle, model: battle)
+  collection.add(battle)
+  BattleTower.changeWindowTo $battle
