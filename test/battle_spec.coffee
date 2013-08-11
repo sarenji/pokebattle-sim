@@ -7,16 +7,18 @@ describe 'Battle', ->
   beforeEach ->
     @id1 = 'abcde'
     @id2 = 'fghij'
-    @player1 = {id: @id1, send: ->}
-    @player2 = {id: @id2, send: ->}
+    player1 = {id: @id1, send: ->}
+    player2 = {id: @id2, send: ->}
     team1   = [Factory('Hitmonchan'), Factory('Heracross')]
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
-    players = [{player: @player1, team: team1},
-               {player: @player2, team: team2}]
+    players = [{player: player1, team: team1},
+               {player: player2, team: team2}]
     @battle = new Battle('id', players: players)
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
+    @player1 = @team1.player
+    @player2 = @team2.player
     @p1     = @team1.first()
     @p2     = @team2.first()
 
@@ -180,3 +182,15 @@ describe 'Battle', ->
       @battle.addSpectator(@battle.players[0])
       @battle.addSpectator(@battle.players[1])
       @battle.spectators.should.have.length(0)
+
+  describe "#getWinner", ->
+    it "returns null if there is no winner yet", ->
+      should.not.exist @battle.getWinner()
+
+    it "returns player 1 if player 2's team has all fainted", ->
+      pokemon.faint()  for pokemon in @team2.pokemon
+      @battle.getWinner().should.equal(@player1)
+
+    it "returns player 2 if player 1's team has all fainted", ->
+      pokemon.faint()  for pokemon in @team1.pokemon
+      @battle.getWinner().should.equal(@player2)

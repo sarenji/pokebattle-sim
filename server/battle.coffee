@@ -339,13 +339,15 @@ class @Battle
 
   getWinner: ->
     winner = null
+    if @players.all((player) -> player.team.getAlivePokemon().length > 0)
+      return winner
     length = 0
     for player in @players
       newLength = player.team.getAlivePokemon().length
       if newLength > length
         length = newLength
         winner = player
-    player
+    winner
 
   isOver: ->
     @players.any((player) -> player.team.getAlivePokemon().length == 0)
