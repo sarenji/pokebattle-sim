@@ -108,12 +108,18 @@ class @Move
     damage = damage * 2  if user.crit
     damage = Math.floor(((100 - battle.rng.randInt(0, 15, "damage roll")) * damage) / 100)
     damage = @modify(damage, @stabModifier(battle, user, target))
-    damage = Math.floor(@typeEffectiveness(battle, user, target) * damage)
+    effectiveness = @typeEffectiveness(battle, user, target)
+    damage = Math.floor(effectiveness * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, @modifyDamage(battle, user, target))
     damage = target.editDamage(this, damage)
     damage = Math.min(target.currentHP, damage)
+
+    if effectiveness < 1
+      battle.message "It's not very effective..."
+    else if effectiveness > 1
+      battle.message "It's super effective!"
 
     if user.crit
       battle.message "A critical hit!"
