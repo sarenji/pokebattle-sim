@@ -5,26 +5,34 @@ class @ChatView extends Backbone.View
   events:
     'keyup .chat_input': 'sendChatIfEnter'
     'click .chat_input_send': 'sendChat'
+    'scroll_to_bottom': 'scrollToBottom'
 
   # Takes a `collection`, which is a UserList instance.
   initialize: (options) =>
+    {@chatEvent, @chatArgs} = options
+    @chatEvent ||= "send chat"
+    @chatArgs ||= []
     @listenTo(@collection, 'add remove reset', @renderUserList)
     @listenTo(@collection, 'add', @userJoin)
     @listenTo(@collection, 'remove', @userLeave)
 
   render: =>
-    @$('.chat').html @template()
+    @$el.html @template()
+    this
 
   renderUserList: =>
     @$('.user_count').text "Users (#{@collection.length})"
     @$('.users').html @userListTemplate(userList: @collection)
+    this
 
   sendChat: =>
-    $this = $('.chat_input')
+    $this = @$('.chat_input')
     message = $this.val()
     return  unless BattleTower.username && message?.replace(/\s+$/).length > 0
     @userMessage(BattleTower.username, message)
-    BattleTower.socket.send('send chat', message)
+    args = _.clone(@chatArgs)
+    args.push(message)
+    BattleTower.socket.send(@chatEvent, args...)
     $this.val('')
 
   sendChatIfEnter: (e) =>
@@ -34,19 +42,26 @@ class @ChatView extends Backbone.View
     @updateChat("<b>#{username}:</b> #{message}")
 
   userJoin: (user) =>
-    BattleTower.chatView.updateChat("#{user.id} joined BattleTower!")
+    @updateChat("#{user.id} joined BattleTower!")
 
   userLeave: (user) =>
-    BattleTower.chatView.updateChat("#{user.id} left BattleTower!")
+    @updateChat("#{user.id} left BattleTower!")
 
   updateChat: (message) =>
-    @$('.messages').append("<p>#{message}</p>")
+    wasAtBottom = @isAtBottom()
+    @print("<p>#{message}</p>")
+    if wasAtBottom then @scrollToBottom()
+
+  print: (message) =>
+    @$('.messages').append(message)
 
   # Returns true if the chat is scrolled to the bottom of the screen.
+  # This also returns true if the messages are hidden.
   isAtBottom: =>
     $el = @$('.messages')
-    ($el.scrollTop() + $el.innerHeight()) >= $el[0].scrollHeight
+    ($el[0].scrollHeight - $el.scrollTop() == $el.outerHeight())
 
   scrollToBottom: =>
     messages = @$('.messages')[0]
     messages.scrollTop = messages.scrollHeight
+    false

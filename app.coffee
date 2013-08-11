@@ -55,6 +55,15 @@ connections.addEvents
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
     user.broadcast 'update chat', user.toJSON(), message
 
+  'send battle chat': (user, battleId, message) ->
+    return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
+    battle = server.findBattle(battleId)
+    if !battle
+      user.send 'error', 'ERROR: Battle does not exist'
+      return
+
+    user.broadcast 'update battle chat', battleId, user.toJSON(), message
+
   # TODO: Dequeue player
   'close': (user) ->
     userList.remove((u) -> u == user)

@@ -83,6 +83,7 @@ class @SidebarView extends Backbone.View
     $mainContent.children().hide()
     @currentWindow = $toSelector.first()
     @currentWindow.show()
+    @currentWindow.find('.chat').trigger('scroll_to_bottom')
 
     # Add .active to navigation, remove from others
     @$('.nav_item').removeClass('active')

@@ -48,7 +48,7 @@ $ ->
     'connect': (socket) ->
       BattleTower.userList = new UserList()
       BattleTower.chatView = new ChatView(
-        el: $('.chat_window')
+        el: $('.chat_window .chat')
         collection: BattleTower.userList
       )
       BattleTower.chatView.render()
@@ -59,6 +59,10 @@ $ ->
 
     'update chat': (socket, user, data) ->
       BattleTower.chatView.userMessage(user.id, data)
+
+    'update battle chat': (socket, battleId, user, data) ->
+      chatView = BattleTower.battles.get(battleId).view.chatView
+      chatView.userMessage(user.id, data)
 
     'raw message': (socket, message) ->
       BattleTower.chatView.updateChat(message)

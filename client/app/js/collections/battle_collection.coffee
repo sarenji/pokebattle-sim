@@ -18,7 +18,7 @@ class @BattleCollection extends Backbone.Collection
       console.log "Received events for #{battleId}, but no longer in battle!"
       return
     view = battle.view
-    wasAtBottom = BattleTower.chatView.isAtBottom()
+    wasAtBottom = view.chatView.isAtBottom()
     for action in actions
       [ type, rest... ] = action
       protocol = (key  for key, value of Protocol when value == type)[0]
@@ -63,7 +63,7 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.FORFEIT_BATTLE
           [forfeiter] = rest
           view.announceForfeit(forfeiter)
-    if wasAtBottom then BattleTower.chatView.scrollToBottom()
+    if wasAtBottom then view.chatView.scrollToBottom()
     view.notify()
 
   spectateBattle: (socket, id, numActive, teams) =>
@@ -75,7 +75,7 @@ class @BattleCollection extends Backbone.Collection
     createBattleWindow(this, battle)
 
 createBattleWindow = (collection, battle) ->
-  $battle = $(JST['battle_window'](battle: battle))
+  $battle = $(JST['battle_window'](battle: battle, window: window))
   $battle.appendTo $('#main-section')
   battle.view = new BattleView(el: $battle, model: battle)
   collection.add(battle)

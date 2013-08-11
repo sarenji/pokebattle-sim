@@ -26,6 +26,9 @@ $padding = 10px
 $battle-width = 600px
 $pane-width = $battle-width + $padding + $padding
 
+.battle_window .chat
+  left $pane-width
+
 .battle
   position absolute
   top 0
@@ -145,16 +148,6 @@ $pane-width = $battle-width + $padding + $padding
     height 100%
     top 0
     left 0
-
-.battle_chat
-  position absolute
-  top 0
-  left $pane-width
-  right 0
-  bottom 0
-  padding $padding
-  p
-    margin 0
 
 .button
   clearfix()

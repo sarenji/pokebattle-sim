@@ -9,7 +9,10 @@ class @BattleView extends Backbone.View
 
   initialize: =>
     @selected = null
+    @chatView = null
+    @spectators = new UserList([])
     @renderBattle()
+    @renderChat()
 
   renderBattle: =>
     locals =
@@ -23,12 +26,22 @@ class @BattleView extends Backbone.View
     @addImages()
     this
 
+  renderChat: =>
+    @chatView = new ChatView(
+      el: @$('.chat')
+      collection: @spectators
+      chatEvent: 'send battle chat'
+      chatArgs: [ @model.id ]
+    ).render()
+    this
+
   renderActions: (validActions = {}) =>
     locals =
       yourTeam     : @model.getTeam()
       validActions : validActions
       window       : window
     @$('.battle_actions').html @action_template(locals)
+    this
 
   renderUserInfo: =>
     locals =
@@ -38,6 +51,7 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       window       : window
     @$('.battle_user_info').html @user_info_template(locals)
+    this
 
   addImages: =>
     @$('.preload').each ->
@@ -71,12 +85,12 @@ class @BattleView extends Backbone.View
 
   announceWinner: (player) =>
     {owner} = @model.getTeam(player)
-    @$(".battle_chat").append("<h3>#{owner} won!</h3>")
+    @$(".chat").append("<h3>#{owner} won!</h3>")
     @model.set('finished', true)
 
   announceForfeit: (player) =>
     {owner} = @model.getTeam(player)
-    @$(".battle_chat").append("<h3>#{owner} has forfeited!</h3>")
+    @$(".chat").append("<h3>#{owner} has forfeited!</h3>")
     @model.set('finished', true)
 
   faint: (player, slot) =>
@@ -102,10 +116,10 @@ class @BattleView extends Backbone.View
     @renderActions()
 
   addLog: (message) =>
-    @$(".battle_chat").append("<p>#{message}</p>")
+    @chatView.print("<p>#{message}</p>")
 
   beginTurn: (turn) =>
-    @$('.battle_chat').append("<h2>Turn #{turn}</h2>")
+    @chatView.print("<h2>Turn #{turn}</h2>")
 
   makeMove: (e) =>
     moveName = @getMoveName(e.target)
