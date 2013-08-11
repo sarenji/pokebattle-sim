@@ -27,6 +27,7 @@ h1
     height $header_size
     line-height $header_size
   .nav
+    margin-bottom 1em
     a, .fake_link
       display block
       padding 4px 16px
@@ -41,15 +42,14 @@ h1
         color #fff
   h2
     text-transform uppercase
-    color lighten($clr, 60%)
-    background darken($clr, 20%)
-    text-shadow 0 1px 0 rgba(0, 0, 0, .3)
-    color #777
     margin 0
     font-size .929em
     padding 4px 16px
     letter-spacing 1px
-    text-transform uppercase
+    color lighten($clr, 60%)
+    background darken($clr, 20%)
+    text-shadow 0 1px 0 rgba(0, 0, 0, .3)
+    color #777
     border-bottom 1px solid #555
     border-top 1px solid #111
   .nav_item
@@ -66,6 +66,10 @@ h1
       padding 2px 6px
     &:hover .notifications
       background #b41
+    &.active, &.active:hover
+      background #a58a61
+      color #fff
+      cursor default
 
 .user-info
   float right

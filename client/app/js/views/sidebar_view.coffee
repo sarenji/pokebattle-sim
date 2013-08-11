@@ -31,7 +31,7 @@ class @SidebarView extends Backbone.View
     $notifications.removeClass('hidden')
 
   addBattle: (battle) =>
-    @$(".header_battles").show()
+    @$(".header_battles, .nav_battles").show()
     $li = $("""<li class="nav_item fake_link" data-battle-id="#{battle.id}">
       <div class="notifications hidden">0</div>#{battle.id}</li>""")
     $li.appendTo(@$('.nav_battles'))
@@ -39,7 +39,8 @@ class @SidebarView extends Backbone.View
 
   removeBattle: (battle) =>
     @$(".nav_battles [data-battle-id='#{battle.id}']").remove()
-    if BattleTower.battles.size() == 0 then @$(".header_battles").hide()
+    if BattleTower.battles.size() == 0
+      @$(".header_battles, .nav_battles").hide()
     # TODO: if active, refocus window to previous battle, or the lobby
 
   resetBattles: (battles) =>
@@ -52,17 +53,22 @@ class @SidebarView extends Backbone.View
     console.log "Switching to battle #{battleId}"
     $this.find('.notifications').addClass('hidden')
     $battle = $(""".battle_window[data-battle-id='#{battleId}']""")
-    @changeWindowTo $battle
+    @changeWindowTo($battle, $this)
 
   focusRoom: (e) =>
     $this = $(e.currentTarget)
     $this.find('.notifications').addClass('hidden')
     # TODO: Remove hardcoding
     $room = $('.chat_window')
-    @changeWindowTo $room
+    @changeWindowTo($room, $this)
 
-  changeWindowTo: ($toSelector) =>
+  changeWindowTo: ($toSelector, $navItem) =>
+    # Show window, hide others
     $mainContent = $('#main-section')
     $mainContent.children().hide()
     @currentWindow = $toSelector.first()
     @currentWindow.show()
+
+    # Add .active to navigation, remove from others
+    @$('.nav_item').removeClass('active')
+    $navItem.addClass('active')

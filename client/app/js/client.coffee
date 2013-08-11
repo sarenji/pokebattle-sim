@@ -73,4 +73,6 @@ $ ->
       alert(message)
 
   BattleTower.battles = new BattleCollection([])
-  new SidebarView(el: $('#navigation'))
+  $navigation = $('#navigation')
+  navigationView = new SidebarView(el: $navigation)
+  $navigation.find('.nav_item').first().click()
