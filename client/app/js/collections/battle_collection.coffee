@@ -54,6 +54,7 @@ class @BattleCollection extends Backbone.Collection
           [player, slot, moveName] = rest
           view.logMove(player, slot, moveName)
     if wasAtBottom then BattleTower.chatView.scrollToBottom()
+    view.notify()
 
   spectateBattle: (socket, id, numActive, teams) =>
     console.log "SPECTATING BATTLE #{id}."
@@ -67,4 +68,3 @@ createBattleWindow = (collection, battle) ->
   $battle.appendTo $('#main-section')
   battle.view = new BattleView(el: $battle, model: battle)
   collection.add(battle)
-  BattleTower.changeWindowTo $battle

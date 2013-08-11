@@ -116,6 +116,9 @@ class @BattleView extends Backbone.View
     @model.makeSwitch(toSlot)
     @disableButtons()
 
+  notify: =>
+    @model.set('notifications', @model.get('notifications') + 1)
+
 imageUrl = (id, options = {}) ->
   kind = if options.front then 'i' else 'b'
   id   = "000#{id}".substr(-3)

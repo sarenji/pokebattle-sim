@@ -1,6 +1,7 @@
 class @Battle extends Backbone.Model
   initialize: (attributes) =>
     {@socket, @numActive, @index, @teams} = attributes
+    @set('notifications', 0)
 
   makeMove: (moveName) =>
     @socket.send 'send move', @id, moveName
