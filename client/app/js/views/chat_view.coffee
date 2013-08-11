@@ -16,8 +16,8 @@ class @ChatView extends Backbone.View
     @$('.chat').html @template()
 
   renderUserList: =>
-    @$('.user_count').text "Users (#{BattleTower.userList.length})"
-    @$('.users').html @userListTemplate(userList: BattleTower.userList)
+    @$('.user_count').text "Users (#{@collection.length})"
+    @$('.users').html @userListTemplate(userList: @collection)
 
   sendChat: =>
     $this = $('.chat_input')

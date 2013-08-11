@@ -54,22 +54,32 @@ h1
     border-top 1px solid #111
   .nav_item
     position relative
-    .notifications
-      position absolute
-      right 10px
-      border-radius 4px
-      background #a30
-      color #fff
-      font-size .714em
-      height 14px
-      line-height @height
-      padding 2px 6px
-    &:hover .notifications
-      background #b41
     &.active, &.active:hover
       background #a58a61
       color #fff
       cursor default
+    .nav_meta
+      position absolute
+      right 0
+      font-size .714em
+    .notifications, .close
+      padding 2px 6px
+      height 14px
+      line-height @height
+      margin-right 10px
+    .notifications
+      border-radius 4px
+      background #a30
+      color #fff
+    &:hover .notifications
+      background #b41
+    .close
+      background #333
+      border-radius 1em
+      color #fff
+      cursor pointer
+      &:hover
+        background #555
 
 .user-info
   float right

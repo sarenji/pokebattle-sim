@@ -69,6 +69,16 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(player, slot)
     @addLog("#{owner}'s #{pokemon.name} used <strong>#{moveName}</strong>!")
 
+  announceWinner: (player) =>
+    {owner} = @model.getTeam(player)
+    @$(".battle_chat").append("<h3>#{owner} won!</h3>")
+    @model.set('finished', true)
+
+  announceForfeit: (player) =>
+    {owner} = @model.getTeam(player)
+    @$(".battle_chat").append("<h3>#{owner} has forfeited!</h3>")
+    @model.set('finished', true)
+
   faint: (player, slot) =>
     $pokemon = @$(".pokemon#{player}-#{slot}")
     $image = $pokemon.find('.sprite img')

@@ -101,6 +101,14 @@ connections.addEvents
 
     battle.addSpectator(user)
 
+  'forfeit': (user, battleId) ->
+    battle = server.findBattle(battleId)
+    if !battle
+      user.send 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.forfeit(user)
+
   ##################
   # AUTHENTICATION #
   ##################

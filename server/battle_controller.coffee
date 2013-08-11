@@ -80,6 +80,10 @@ class @BattleController
   endBattle: ->
     @battle.endBattle()
 
+  forfeit: (user) ->
+    @battle.forfeit(user)
+    @sendUpdates()
+
   # Sends battle updates to players.
   sendUpdates: ->
     for player in @battle.players

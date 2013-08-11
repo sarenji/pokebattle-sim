@@ -13,7 +13,11 @@ class @BattleCollection extends Backbone.Collection
     createBattleWindow(this, battle)
 
   updateBattle: (socket, battleId, actions) =>
-    view = @get(battleId).view
+    battle = @get(battleId)
+    if !battle
+      console.log "Received events for #{battleId}, but no longer in battle!"
+      return
+    view = battle.view
     wasAtBottom = BattleTower.chatView.isAtBottom()
     for action in actions
       [ type, rest... ] = action
@@ -53,6 +57,12 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Send move id instead
           [player, slot, moveName] = rest
           view.logMove(player, slot, moveName)
+        when Protocol.END_BATTLE
+          [winner] = rest
+          view.announceWinner(winner)
+        when Protocol.FORFEIT_BATTLE
+          [forfeiter] = rest
+          view.announceForfeit(forfeiter)
     if wasAtBottom then BattleTower.chatView.scrollToBottom()
     view.notify()
 
@@ -61,6 +71,7 @@ class @BattleCollection extends Backbone.Collection
     # Pick a random index; it doesn't matter too much.
     index = Math.round(Math.random())
     battle = new Battle({id, numActive, socket, index, teams})
+    battle.set('spectating', true)
     createBattleWindow(this, battle)
 
 createBattleWindow = (collection, battle) ->

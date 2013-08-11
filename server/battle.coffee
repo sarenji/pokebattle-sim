@@ -333,9 +333,7 @@ class @Battle
 
   endBattle: ->
     winner = @getWinner()
-    for player in @players
-      @message "#{winner.id} won!"
-      @message "END BATTLE."
+    player.tell(Protocol.END_BATTLE, winner.index)  for player in @players
 
   getWinner: ->
     winner = null
@@ -587,13 +585,19 @@ class @Battle
 
   addSpectator: (spectator) ->
     return  if spectator in @spectators
-    return  if spectator in @players
+    return  if spectator in @players.map((player) -> player.user)
     @spectators.push(spectator)
     teams = @getTeams().map((team) -> team.toJSON())
     spectator.send('spectate battle', @id, @numActive, teams)
 
   removeSpectator: (spectator) ->
     @spectators.remove(spectator)
+
+  forfeit: (user) ->
+    player = @players.find((p) -> p.user == user)
+    return  unless player
+    p.tell(Protocol.FORFEIT_BATTLE, player.index)  for p in @players
+    s.tell(Protocol.FORFEIT_BATTLE, player.index)  for s in @spectators
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

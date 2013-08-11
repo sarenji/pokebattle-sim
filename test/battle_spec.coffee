@@ -1,5 +1,6 @@
 {Battle, BattleController, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
+{Protocol} = require '../shared/protocol'
 should = require 'should'
 require './helpers'
 
@@ -7,12 +8,12 @@ describe 'Battle', ->
   beforeEach ->
     @id1 = 'abcde'
     @id2 = 'fghij'
-    player1 = {id: @id1, send: ->}
-    player2 = {id: @id2, send: ->}
+    @socket1 = {id: @id1, send: ->}
+    @socket2 = {id: @id2, send: ->}
     team1   = [Factory('Hitmonchan'), Factory('Heracross')]
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
-    players = [{player: player1, team: team1},
-               {player: player2, team: team2}]
+    players = [{player: @socket1, team: team1},
+               {player: @socket2, team: team2}]
     @battle = new Battle('id', players: players)
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
@@ -179,8 +180,8 @@ describe 'Battle', ->
       @battle.spectators.should.have.length(1)
 
     it "does not add a player as a spectator", ->
-      @battle.addSpectator(@battle.players[0])
-      @battle.addSpectator(@battle.players[1])
+      @battle.addSpectator(@socket1)
+      @battle.addSpectator(@socket2)
       @battle.spectators.should.have.length(0)
 
   describe "#getWinner", ->
@@ -194,3 +195,21 @@ describe 'Battle', ->
     it "returns player 2 if player 1's team has all fainted", ->
       pokemon.faint()  for pokemon in @team1.pokemon
       @battle.getWinner().should.equal(@player2)
+
+  describe "#forfeit", ->
+    it "prematurely ends the battle", ->
+      mocks = []
+      for player in [ @player1, @player2 ]
+        mock = @sandbox.mock(player).expects('tell').once()
+        mock.withArgs Protocol.FORFEIT_BATTLE, @battle.players.indexOf(@player1)
+        mocks.push(mock)
+      @battle.forfeit(@socket1)
+      mock.verify()  for mock in mocks
+
+    it "does not forfeit if the player given is invalid", ->
+      mocks = []
+      for player in [ @player1, @player2 ]
+        mock = @sandbox.mock(player).expects('tell').never()
+        mocks.push(mock)
+      @battle.forfeit({})
+      mock.verify()  for mock in mocks

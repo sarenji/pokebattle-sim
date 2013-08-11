@@ -7,3 +7,5 @@
   RAW_MESSAGE    : 6
   FAINT          : 7
   MAKE_MOVE      : 8
+  END_BATTLE     : 9
+  FORFEIT_BATTLE : 10

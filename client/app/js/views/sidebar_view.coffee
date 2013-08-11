@@ -4,6 +4,7 @@ class @SidebarView extends Backbone.View
   events:
     "click .nav_battles li" : 'focusBattle'
     "click .nav_rooms li"   : 'focusRoom'
+    "click .nav_battles .close" : 'leaveBattle'
 
   initialize: (attributes) =>
     @currentWindow = null
@@ -33,7 +34,10 @@ class @SidebarView extends Backbone.View
   addBattle: (battle) =>
     @$(".header_battles, .nav_battles").show()
     $li = $("""<li class="nav_item fake_link" data-battle-id="#{battle.id}">
-      <div class="notifications hidden">0</div>#{battle.id}</li>""")
+      <div class="nav_meta">
+        <div class="notifications hidden">0</div>
+        <div class="close">x</div>
+      </div>#{battle.id}</li>""")
     $li.appendTo(@$('.nav_battles'))
     $li.click()
 
@@ -46,6 +50,17 @@ class @SidebarView extends Backbone.View
   resetBattles: (battles) =>
     for battle in battles
       @addBattle(battle)
+
+  leaveBattle: (e) =>
+    $navItem = $(e.currentTarget).closest('.nav_item')
+    battleId = $navItem.data('battle-id')
+    battle   = BattleTower.battles.get(battleId)
+    # If player is not a spectator and battle is not done, prompt
+    if !battle.get('finished') && !battle.get('spectating')
+      if !confirm("Are you sure you want to forfeit this battle?") then return
+    BattleTower.battles.remove(battle)
+    BattleTower.socket.send('forfeit', battleId)  if !battle.get('spectating')
+    false
 
   focusBattle: (e) =>
     $this = $(e.currentTarget)
