@@ -85,12 +85,12 @@ class @BattleView extends Backbone.View
 
   announceWinner: (player) =>
     {owner} = @model.getTeam(player)
-    @$(".chat").append("<h3>#{owner} won!</h3>")
+    @chatView.print("<h3>#{owner} won!</h3>")
     @model.set('finished', true)
 
   announceForfeit: (player) =>
     {owner} = @model.getTeam(player)
-    @$(".chat").append("<h3>#{owner} has forfeited!</h3>")
+    @chatView.print("<h3>#{owner} has forfeited!</h3>")
     @model.set('finished', true)
 
   faint: (player, slot) =>
