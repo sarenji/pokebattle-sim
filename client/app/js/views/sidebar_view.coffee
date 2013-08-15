@@ -42,10 +42,14 @@ class @SidebarView extends Backbone.View
     $li.click()
 
   removeBattle: (battle) =>
-    @$(".nav_battles [data-battle-id='#{battle.id}']").remove()
+    $navItems = @$(".nav_item")
+    $battle = @$(".nav_item[data-battle-id='#{battle.id}']")
+    index = $navItems.index($battle)
+    $battle.remove()
     if BattleTower.battles.size() == 0
       @$(".header_battles, .nav_battles").hide()
-    # TODO: if active, refocus window to previous battle, or the lobby
+    $next = $navItems.eq(index - 1)
+    $next.click()
 
   resetBattles: (battles) =>
     for battle in battles
