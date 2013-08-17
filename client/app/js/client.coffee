@@ -78,5 +78,6 @@ $ ->
 
   BattleTower.battles = new BattleCollection([])
   $navigation = $('#navigation')
-  navigationView = new SidebarView(el: $navigation)
+  BattleTower.navigation = new SidebarView(el: $navigation)
   $navigation.find('.nav_item').first().click()
+  BattleTower.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), collection: new Team())

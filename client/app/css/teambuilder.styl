@@ -1,25 +1,36 @@
-box(size=96px)
-  width      size
-  height     size
-  float      left
-  cursor     pointer
-  &:hover
-    background-color #ccc
-  &.selected
-    background-color #999
-    &:hover
-      background-color #aaa
+.teambuilder
+  position: absolute
+  top 0
+  bottom 0
+  left 0
+  right 0
 
-.builder_pokemon
-  box()
-  // 31 per row
-  background url('http://veekun.com/static/pokedex/downloads/black-white.png')
+.teambuilder .navigation
+  position absolute
+  top 0
+  bottom 0
+  background-color $body-color
+  width: 150px
 
-.builder_add_pokemon
-  box()
-  text-align  center
-  line-height 96px
-  font-size   32px
+  ul
+    list-style-type none
+    padding 0
+    margin 0
 
-.builder_detail
-  clear       both
+  li, div
+    display block
+    padding 14px 0 14px 24px
+    background-color rgba(0, 0, 0, 0.05)
+    border-bottom rgba(0, 0, 0, 0.1)
+
+  li:hover, div:hover
+    cursor pointer
+    background-color rgba(0, 0, 0, 0.1)
+
+.teambuilder .pokemon_edit
+  position absolute
+  left 150px
+  top 0
+  bottom 0
+  right 0
+  background white
