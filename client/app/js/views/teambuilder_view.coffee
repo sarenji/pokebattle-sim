@@ -21,7 +21,7 @@ class @TeambuilderView extends Backbone.View
     pokemon = @collection.at(index)
     @selected = index
     @$el.find(".pokemon_edit").children().hide()
-    @$el.find("div[data-cid=" + pokemon.cid + "]").show()
+    @$el.find("div[data-cid=#{pokemon.cid}]").show()
 
   render: =>
     @$el.html @template(pokemon: @collection, selected: @selected)
@@ -39,7 +39,7 @@ class @TeambuilderView extends Backbone.View
       pokemon_list.append(list_item)
 
   renderPokemon: (pokemon) =>
-    view = @$el.find("div[data-cid=" + pokemon.cid + "]")
+    view = @$el.find("div[data-cid=#{pokemon.cid}]")
     if view.length == 0
       view = $("<div/>").attr("data-cid", pokemon.cid).hide()
       @$el.find(".pokemon_edit").append(view)

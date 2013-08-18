@@ -1,2 +1,20 @@
 h1= pokemon.get("name")
-h1 Hello
+.stats fill this in later
+table.move_table
+  thead
+    tr
+      th Name
+      th Type
+      th Power
+      th Accuracy
+      th PP
+      th Description
+  tbody
+    each move in pokemon.getMovepool()
+      tr
+        td= move.name
+        td= move.type
+        td= (move.power == 0) ? "-" : move.power
+        td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
+        td= move.pp
+        td Description
