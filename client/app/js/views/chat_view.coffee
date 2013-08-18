@@ -59,7 +59,7 @@ class @ChatView extends Backbone.View
   # This also returns true if the messages are hidden.
   isAtBottom: =>
     $el = @$('.messages')
-    ($el[0].scrollHeight - $el.scrollTop() == $el.outerHeight())
+    ($el[0].scrollHeight - $el.scrollTop() <= $el.outerHeight())
 
   scrollToBottom: =>
     messages = @$('.messages')[0]
