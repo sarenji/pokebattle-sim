@@ -120,9 +120,14 @@ class @BattleView extends Backbone.View
         $pokemon = @$pokemon(player, slot)
         $sprite = $pokemon.find('.sprite')
         $sprite.removeClass('fade')
-        $substitute = $pokemon.find('.substitute')
-        move($substitute).set('opacity', 0).set('top', '100%')
-          .then(-> $substitute.remove()).end()
+        hideSub = ->
+          $substitute = $pokemon.find('.substitute')
+          if $substitute.length == 0
+            setTimeout(hideSub, 20)
+            return
+          move($substitute).set('opacity', 0).y(100)
+            .then(-> $substitute.remove()).end()
+        hideSub()
 
   announceWinner: (player) =>
     {owner} = @model.getTeam(player)
