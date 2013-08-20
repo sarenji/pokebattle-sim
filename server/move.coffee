@@ -101,7 +101,7 @@ class @Move
     throw new Error("Move #{@name} has not implemented getTargets.")
 
   calculateDamage: (battle, user, target) ->
-    return 0  if @power == 0
+    return 0  if @basePower(battle, user, target) == 0
 
     user.crit = @isCriticalHit(battle, user, target)
     damage = @baseDamage(battle, user, target)
@@ -116,7 +116,6 @@ class @Move
     damage = Math.max(damage, 1)
     damage = @modify(damage, @modifyDamage(battle, user, target))
     damage = target.editDamage(this, damage)
-    damage = Math.min(target.currentHP, damage)
 
     if effectiveness < 1
       battle.message "It's not very effective..."

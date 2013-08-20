@@ -4417,7 +4417,7 @@ describe "Present", ->
     spy = @sandbox.spy(present, 'basePower')
     @battle.performMove(@id1, present)
     spy.alwaysReturned(0).should.be.true
-    @p2.currentHP.should.equal(1 + @p2.stat('hp') >> 2)
+    @p2.currentHP.should.equal(1 + (@p2.stat('hp') >> 2))
 
 describe "Final Gambit", ->
   it "faints the user", ->
