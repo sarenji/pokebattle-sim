@@ -34,7 +34,7 @@ class @BattleCollection extends Backbone.Collection
           team = view.model.getTeam(player).pokemon
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
-          view.renderBattle()
+          view.renderSwitch(player, toSlot)
         when Protocol.CHANGE_PP
           [player, slot, moveIndex, newPP] = rest
           pokemon = view.model.getPokemon(player, slot)

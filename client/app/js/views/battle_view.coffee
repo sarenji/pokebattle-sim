@@ -1,5 +1,6 @@
 class @BattleView extends Backbone.View
   battle_template: JST['battle']
+  pokemon_template: JST['battle_pokemon']
   user_info_template: JST['battle_user_info']
   action_template: JST['battle_actions']
 
@@ -23,6 +24,13 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       window       : window
     @$('.battle_pane').html @battle_template(locals)
+    @renderUserInfo()
+    @addImages()
+    this
+
+  renderSwitch: (player, slot) =>
+    pokemon = @model.getPokemon(player, slot)
+    @$pokemon(player, slot).html @pokemon_template(pokemon: pokemon)
     @renderUserInfo()
     @addImages()
     this
