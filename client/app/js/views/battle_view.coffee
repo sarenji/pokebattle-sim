@@ -121,11 +121,11 @@ class @BattleView extends Backbone.View
         $sprite = $pokemon.find('.sprite')
         $sprite.removeClass('fade')
         hideSub = ->
-          $substitute = $pokemon.find('.substitute')
+          $substitute = $pokemon.find('.substitute').first()
           if $substitute.length == 0
             setTimeout(hideSub, 20)
             return
-          move($substitute).set('opacity', 0).y(100)
+          move($substitute).set('opacity', 0).y(300)
             .then(-> $substitute.remove()).end()
         hideSub()
 
