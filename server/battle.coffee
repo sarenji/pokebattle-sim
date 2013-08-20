@@ -180,8 +180,12 @@ class @Battle
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) ->
-    player.tell(Protocol.RAW_MESSAGE, string)  for player in @players
-    spectator.tell(Protocol.RAW_MESSAGE, string)  for spectator in @spectators
+    @tell(Protocol.RAW_MESSAGE, string)
+
+  # Tells every spectator something.
+  tell: (args...) ->
+    player.tell(args...)  for player in @players
+    spectator.tell(args...)  for spectator in @spectators
     true
 
   # Passing -1 to turns makes the weather last forever.
@@ -523,7 +527,7 @@ class @Battle
       pokemon.reducePP(move)
       for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
         pokemon.reducePP(move)
-      damage = move.execute(this, pokemon, targets)
+      move.execute(this, pokemon, targets)
       # TODO: Execute any after move events
 
       # TODO: If move is interrupted, do we record?

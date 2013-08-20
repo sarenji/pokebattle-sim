@@ -9,3 +9,5 @@
   MAKE_MOVE      : 8
   END_BATTLE     : 9
   FORFEIT_BATTLE : 10
+  MOVE_SUCCESS   : 11
+  EFFECT_END     : 12

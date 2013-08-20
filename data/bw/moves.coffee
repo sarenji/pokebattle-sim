@@ -3,6 +3,7 @@
 {Move} = require('../../server/move')
 {Status} = require('../../server/status')
 {Attachment} = require('../../server/attachment')
+{Protocol} = require('../../shared/protocol')
 {_} = require 'underscore'
 util = require '../../server/util'
 hiddenPower = require '../../shared/hidden_power'
@@ -1820,7 +1821,7 @@ extendMove 'Splash', ->
     battle.message "But nothing happened!"
 
 extendMove 'Substitute', ->
-  @execute = (battle, user, target) ->
+  @execute = (battle, user, targets) ->
     dmg = user.stat('hp') >> 2
     if dmg >= user.currentHP || dmg == 0
       battle.message "It was too weak to make a substitute!"
@@ -1834,6 +1835,7 @@ extendMove 'Substitute', ->
 
     user.damage(dmg)
     battle.message "#{user.name} put in a substitute!"
+    user.tell(Protocol.MOVE_SUCCESS, user.team.indexOf(user))
 
   @fail = (battle) ->
 

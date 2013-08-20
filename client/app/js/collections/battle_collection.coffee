@@ -63,6 +63,12 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.FORFEIT_BATTLE
           [forfeiter] = rest
           view.announceForfeit(forfeiter)
+        when Protocol.MOVE_SUCCESS
+          [player, slot, targetSlot] = rest
+          view.moveSuccess(player, slot, targetSlot)
+        when Protocol.EFFECT_END
+          [player, slot, effect] = rest
+          view.endEffect(player, slot, effect)
     if wasAtBottom then view.chatView.scrollToBottom()
     view.notify()
 

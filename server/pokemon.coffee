@@ -418,6 +418,10 @@ class @Pokemon
     for move in @validMoves()
       @blockMove(move)  if move != moveToLock
 
+  tell: (protocol, args...) ->
+    args = [ @player.index, @team.indexOf(this), args... ]
+    @battle.tell(protocol, args...)
+
   # Returns whether this Pokemon has this move in its moveset.
   knows: (move) ->
     move in @moves

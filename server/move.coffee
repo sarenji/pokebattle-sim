@@ -1,6 +1,7 @@
 {finalModifier, basePowerModifier, attackStatModifier} = require './modifiers'
 {Status} = require './status'
 {Attachment} = require './attachment'
+{Protocol} = require '../shared/protocol'
 util = require './util'
 
 # A single Move in the Pokemon engine. Move objects are constructed in
@@ -65,6 +66,7 @@ class @Move
 
   # Actually deals damage and runs hooks after hit.
   hit: (battle, user, target) ->
+    user.tell(Protocol.MOVE_SUCCESS, target.team.indexOf(target))
     damage = @calculateDamage(battle, user, target)
     if damage > 0
       # TODO: Print out opponent's name alongside the pokemon.

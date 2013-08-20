@@ -10,6 +10,7 @@ class @BattleView extends Backbone.View
   initialize: =>
     @selected = null
     @chatView = null
+    @lastMove = null
     @spectators = new UserList([])
     @renderBattle()
     @renderChat()
@@ -64,7 +65,7 @@ class @BattleView extends Backbone.View
       addPokemonImage($this, url, scale: scale)
 
   changeHP: (player, slot) =>
-    $pokemon = @$(".pokemon#{player}-#{slot}")
+    $pokemon = @$pokemon(player, slot)
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
     $allHP = $info.find('.hp, .hp-red')
@@ -82,6 +83,46 @@ class @BattleView extends Backbone.View
     {owner} = @model.getTeam(player)
     pokemon = @model.getPokemon(player, slot)
     @addLog("#{owner}'s #{pokemon.name} used <strong>#{moveName}</strong>!")
+    @lastMove = moveName
+
+  moveSuccess: (player, slot, targetSlot) =>
+    switch @lastMove
+      when 'Substitute'
+        $pokemon = @$pokemon(player, slot)
+        $sprite = $pokemon.find('.sprite')
+        spriteWidth = $sprite.width()
+        spriteHeight = $sprite.height()
+        $sprite.addClass('fade')
+        position = $sprite.position()
+        substituteUrl = (if @isFront(player) then "substitute" else "subback")
+        substituteUrl = "http://sprites.pokecheck.org/o/#{substituteUrl}.gif"
+        addPokemonImage $pokemon, substituteUrl, callback: ($image) ->
+          $image.addClass('substitute')
+          width = $image.width()
+          height = $image.height()
+          x = position.left + ((spriteWidth - width) >> 1)
+          y = position.top + ((spriteHeight - height) >> 1)
+          yOffset = 200
+          $image.remove()
+          $image.css(left: x, top: y - yOffset)
+          $image.appendTo($pokemon)
+          setTimeout ->
+            move($image)
+              .y( yOffset).ease('ease-in-quad').duration('.2s').then()
+              .y(-yOffset >> 3).ease('ease-out-quad').duration('.1s').then()
+              .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
+              .pop().pop().pop().end()
+          , 0
+
+  endEffect: (player, slot, effect) =>
+    switch effect
+      when 'SubstituteAttachment'
+        $pokemon = @$pokemon(player, slot)
+        $sprite = $pokemon.find('.sprite')
+        $sprite.removeClass('fade')
+        $substitute = $pokemon.find('.substitute')
+        move($substitute).set('opacity', 0).set('top', '100%')
+          .then(-> $substitute.remove()).end()
 
   announceWinner: (player) =>
     {owner} = @model.getTeam(player)
@@ -93,8 +134,14 @@ class @BattleView extends Backbone.View
     @chatView.print("<h3>#{owner} has forfeited!</h3>")
     @model.set('finished', true)
 
+  $pokemon: (player, slot) =>
+    @$(".pokemon#{player}-#{slot}")
+
+  isFront: (player) =>
+    @model.index != player
+
   faint: (player, slot) =>
-    $pokemon = @$(".pokemon#{player}-#{slot}")
+    $pokemon = @$pokemon(player, slot)
     $image = $pokemon.find('.sprite img')
     $image.css(top: "100%", opacity: 0)
     @renderUserInfo()
@@ -163,4 +210,5 @@ addPokemonImage = ($div, url, options = {}) ->
     left = ($div.width() - width) >> 1
     $image.css(position: 'absolute', top: top, left: left)
     $image.appendTo($div)
+    options.callback?($image, left, top)  # $image, x, y
   image.src = url
