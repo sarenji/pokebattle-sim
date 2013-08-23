@@ -4,9 +4,13 @@ class @TeambuilderView extends Backbone.View
 
   events:
     'click .add_pokemon': 'addEmptyPokemon'
+    'change .iv-entry': 'changeIv'
+    'change .ev-entry': 'changeEv'
 
   initialize: =>
     @listenTo(@collection, 'add', @renderPokemon)
+    @listenTo(@collection, 'change:ivs', @renderStats)
+    @listenTo(@collection, 'change:evs', @renderStats)
 
     @addEmptyPokemon()
     @selected = 0
@@ -22,6 +26,31 @@ class @TeambuilderView extends Backbone.View
     @selected = index
     @$el.find(".pokemon_edit").children().hide()
     @$el.find("div[data-cid=#{pokemon.cid}]").show()
+
+  getSelectedPokemon: =>
+    @collection.at(@selected)
+
+  changeIv: (ev) =>
+    # todo: make changeIv and changeEv DRY
+    $input = $(ev.target)
+    stat = $input.data("stat")
+    value = parseInt($input.val())
+    if isNaN(value) || value > 31 || value < 0
+      value = 31
+
+    @getSelectedPokemon().setIv(stat, value)
+    @renderStats()
+
+  changeEv: (ev) =>
+    # todo: make changeIv and changeEv DRY
+    $input = $(ev.target)
+    stat = $input.data("stat")
+    value = parseInt($input.val())
+    if isNaN(value) || value > 255 || value < 0
+      value = 255 # todo: get highest possible ev
+
+    @getSelectedPokemon().setEv(stat, value)
+    @renderStats()
 
   render: =>
     @$el.html @template(pokemon: @collection, selected: @selected)
@@ -45,3 +74,19 @@ class @TeambuilderView extends Backbone.View
       @$el.find(".pokemon_edit").append(view)
 
     view.html @editTemplate(pokemon: pokemon)
+    @renderStats()
+
+  renderStats: =>
+    pokemon = @getSelectedPokemon()
+    $(".iv-entry").each ->
+      $input = $(this)
+      stat = $input.data("stat")
+      $input.val(pokemon.iv(stat))
+
+    $(".ev-entry").each ->
+      $input = $(this)
+      stat = $input.data("stat")
+      $input.val(pokemon.ev(stat))
+
+    # todo: render totals
+

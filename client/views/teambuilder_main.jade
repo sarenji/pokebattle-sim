@@ -1,5 +1,55 @@
 h1= pokemon.get("name")
-.stats fill this in later
+
+table.stats
+  thead
+    th
+    th IV
+    th EV
+    th Stat
+  tbody
+    tr
+      th HP
+      td
+        input(type=text, class="iv-entry", data-stat="hp")
+      td
+        input(type=text, class="ev-entry", data-stat="hp")
+      td 500
+    tr
+      th Attack
+      td
+        input(type=text, class="iv-entry", data-stat="attack")
+      td
+        input(type=text, class="ev-entry", data-stat="attack")
+      td 500
+    tr
+      th Defense
+      td
+        input(type=text, class="iv-entry", data-stat="defense")
+      td
+        input(type=text, class="ev-entry", data-stat="defense")
+      td 500
+    tr
+      th Special Attack
+      td
+        input(type=text, class="iv-entry", data-stat="specialAttack")
+      td
+        input(type=text, class="ev-entry", data-stat="specialAttack")
+      td 500
+    tr
+      th Special Defense
+      td
+        input(type=text, class="iv-entry", data-stat="specialDefense")
+      td
+        input(type=text, class="ev-entry", data-stat="specialDefense")
+      td 500
+    tr
+      th Speed
+      td
+        input(type=text, class="iv-entry", data-stat="speed")
+      td
+        input(type=text, class="ev-entry", data-stat="speed")
+      td 500
+
 table.move_table
   thead
     tr
