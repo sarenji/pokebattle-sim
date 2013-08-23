@@ -1,5 +1,5 @@
 class @Pokemon extends Backbone.Model
-  defaults:
+  defaults: =>
     ivs:
       hp: 31
       attack: 31
