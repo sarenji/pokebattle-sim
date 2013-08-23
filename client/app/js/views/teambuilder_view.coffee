@@ -3,6 +3,7 @@ class @TeambuilderView extends Backbone.View
   editTemplate: JST['teambuilder_main']
 
   events:
+    'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addEmptyPokemon'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
@@ -17,6 +18,11 @@ class @TeambuilderView extends Backbone.View
 
     @render()
 
+  clickPokemon: (ev) =>
+    $listItem = $(ev.target)
+    index = $('.pokemon_list li').index($listItem)
+    @setSelectedIndex(index)
+
   addEmptyPokemon: =>
     @collection.add(new Pokemon(speciesId: 1, name: "Bulbasaur"))
     @renderPokemonList()
@@ -24,8 +30,8 @@ class @TeambuilderView extends Backbone.View
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
     @selected = index
-    @$el.find(".pokemon_edit").children().hide()
-    @$el.find("div[data-cid=#{pokemon.cid}]").show()
+    @$el.find(".pokemon_edit").children().hide().removeClass("active")
+    @$el.find("div[data-cid=#{pokemon.cid}]").show().addClass("active")
 
   getSelectedPokemon: =>
     @collection.at(@selected)
@@ -38,8 +44,9 @@ class @TeambuilderView extends Backbone.View
     if isNaN(value) || value > 31 || value < 0
       value = 31
 
-    @getSelectedPokemon().setIv(stat, value)
-    @renderStats()
+    pokemon = @getSelectedPokemon()
+    pokemon.setIv(stat, value)
+    @renderStats(pokemon)
 
   changeEv: (ev) =>
     # todo: make changeIv and changeEv DRY
@@ -49,8 +56,9 @@ class @TeambuilderView extends Backbone.View
     if isNaN(value) || value > 255 || value < 0
       value = 255 # todo: get highest possible ev
 
-    @getSelectedPokemon().setEv(stat, value)
-    @renderStats()
+    pokemon = @getSelectedPokemon()
+    pokemon.setEv(stat, value)
+    @renderStats(pokemon)
 
   render: =>
     @$el.html @template(pokemon: @collection, selected: @selected)
@@ -74,16 +82,17 @@ class @TeambuilderView extends Backbone.View
       @$el.find(".pokemon_edit").append(view)
 
     view.html @editTemplate(pokemon: pokemon)
-    @renderStats()
+    @renderStats(pokemon)
 
-  renderStats: =>
-    pokemon = @getSelectedPokemon()
-    $(".iv-entry").each ->
+  renderStats: (pokemon) =>
+    $div = @$el.find("div[data-cid=#{pokemon.cid}]")
+
+    $div.find(".iv-entry").each ->
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.iv(stat))
 
-    $(".ev-entry").each ->
+    $div.find(".ev-entry").each ->
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.ev(stat))
