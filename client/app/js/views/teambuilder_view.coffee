@@ -63,7 +63,7 @@ class @TeambuilderView extends Backbone.View
   render: =>
     @$el.html @template(pokemon: @collection, selected: @selected)
     @renderPokemonList()
-    @renderPokemon(pokemon) for pokemon in @collection.models
+    @renderPokemon(pokemon)  for pokemon in @collection.models
     @setSelectedIndex(@selected)
     this
 
