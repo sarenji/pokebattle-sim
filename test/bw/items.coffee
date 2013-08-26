@@ -1,5 +1,4 @@
 {Item} = require('../../data/bw')
-{basePowerModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
 {Attachment} = require '../../server/attachment'
@@ -429,6 +428,13 @@ describe "Life Orb", ->
     @controller.makeMove(@player2, 'Splash')
 
     @p1.currentHP.should.equal @p1.stat('hp')
+
+  it "adds a x1.3 modifier to attacks", ->
+    shared.create.call this,
+      team1: [Factory("Magikarp", item: "Life Orb")]
+
+    tackle = @battle.getMove("Tackle")
+    tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x14CC)
 
 describe "Salac berry", ->
   it "raises the Pokemon's Speed when HP falls at 25% or less", ->
@@ -1424,3 +1430,13 @@ describe "Eviolite", ->
     @p1.setItem(Item.Eviolite)
     @p1.stat('defense').should.equal(defense)
     @p1.stat('specialDefense').should.equal(defense)
+
+describe "Expert Belt", ->
+  it "boosts attacks by x1.2 if super-effective, x1.0 otherwise", ->
+    shared.create.call this,
+      team1: [Factory("Magikarp", item: "Expert Belt")]
+      team2: [Factory("Magikarp")]
+    tackle = @battle.getMove("Tackle")
+    thunder = @battle.getMove("Thunder")
+    tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
+    thunder.modifyAttack(@battle, @p1, @p2).should.equal(0x1333)

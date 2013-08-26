@@ -1,4 +1,3 @@
-{finalModifier, basePowerModifier} = require './modifiers'
 {Status} = require './status'
 {Attachment} = require './attachment'
 {Protocol} = require '../shared/protocol'
@@ -236,16 +235,12 @@ class @Move
   modifyBasePower: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyBasePower', this, user, target)
     modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', this, user))
-    # TODO: Deprecate
-    modify = @modify(modify, basePowerModifier.run(this, battle, user, target))
 
   modifyDamage: (battle, user, target) ->
     {team} = battle.getOwner(target)
     modify = team.attachments.queryModifiers('modifyDamageTarget', this, user)
     modify = @modify(modify, user.attachments.queryModifiers('modifyDamage', this, target))
     modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', this, user))
-    # TODO: Deprecate
-    modify = @modify(modify, finalModifier.run(this, battle, user, target))
 
   modifyAttack: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyAttack', this, target)

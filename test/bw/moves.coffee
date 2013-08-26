@@ -1,6 +1,5 @@
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
-{basePowerModifier, finalModifier} = require '../../server/modifiers'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -2832,8 +2831,7 @@ describe "Me First", ->
     @battle.bump @p1
     @battle.performMove(@id1, @battle.getMove("Me First"))
 
-    modifier = basePowerModifier.run(move, @battle, @p1, @p2)
-    modifier.should.equal 0x1800
+    move.modifyAttack(@battle, @p1, @p2).should.equal 0x1800
 
   for moveName in [ "Chatter", "Counter", "Covet", "Focus Punch", "Me First",
                     "Metal Burst", "Mirror Coat", "Struggle", "Thief" ]
@@ -2918,21 +2916,17 @@ describe "Charge", ->
     shared.create.call(this)
     move = @battle.getMove("Thunderbolt")
 
-    modifier = basePowerModifier.run(move, @battle, @p1, @p2)
-    modifier.should.equal 0x1000
+    move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
     @battle.performMove(@id1, @battle.getMove("Charge"))
-    modifier = basePowerModifier.run(move, @battle, @p1, @p2)
-    modifier.should.equal 0x2000
+    move.modifyAttack(@battle, @p1, @p2).should.equal 0x2000
 
   it "doesn't double the next move if it is non-electric type", ->
     shared.create.call(this)
     move = @battle.getMove("Flamethrower")
 
-    modifier = basePowerModifier.run(move, @battle, @p1, @p2)
-    modifier.should.equal 0x1000
+    move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
     @battle.performMove(@id1, @battle.getMove("Charge"))
-    modifier = basePowerModifier.run(move, @battle, @p1, @p2)
-    modifier.should.equal 0x1000
+    move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
 
   it "can be used twice in a row", ->
     shared.create.call(this)

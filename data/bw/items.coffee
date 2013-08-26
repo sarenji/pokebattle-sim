@@ -306,6 +306,12 @@ makeItem 'Eviolite', ->
     return Math.floor(1.5 * defense)  if @pokemon.nfe
     return defense
 
+makeItem 'Expert Belt', ->
+  this::modifyAttack = (move, target) ->
+    effectiveness = move.typeEffectiveness(@battle, @pokemon, target)
+    return 0x1333  if effectiveness > 1
+    return 0x1000
+
 makeGemItem 'Fighting Gem', 'Fighting'
 makeFlavorHealingBerry 'Figy Berry', "attack"
 makeGemItem 'Fire Gem', 'Fire'
@@ -373,6 +379,9 @@ makeItem 'Leftovers', ->
 
 makeStatBoostBerry 'Liechi Berry', attack: 1
 makeItem 'Life Orb', ->
+  this::modifyAttack = ->
+    0x14CC
+
   this::afterSuccessfulHit = (move, user, target, damage) ->
     return  if move.isNonDamaging()
     user.damage(Math.floor(user.stat('hp') / 10))

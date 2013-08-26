@@ -583,6 +583,9 @@ class @Attachment.Momentum extends @VolatileAttachment
 class @Attachment.MeFirst extends @VolatileAttachment
   name: "MeFirstAttachment"
 
+  modifyAttack: ->
+    0x1800
+
   endTurn: ->
     @pokemon.unattach(@constructor)
 
@@ -591,6 +594,10 @@ class @Attachment.Charge extends @VolatileAttachment
 
   initialize: ->
     @turns = 2
+
+  modifyAttack: (move, target) ->
+    return 0x2000  if move.getType(@battle, @pokemon, target) == 'Electric'
+    return 0x1000
 
   endTurn: ->
     @turns -= 1
