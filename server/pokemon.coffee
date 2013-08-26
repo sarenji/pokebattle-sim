@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Ability, Items, Moves} = require '../data/bw'
+{Ability, Item, Moves} = require '../data/bw'
 {Status, StatusAttachment} = require './status'
 {Attachment, Attachments} = require './attachment'
 {Weather} = require './weather'
@@ -34,7 +34,7 @@ class @Pokemon
     @used = {}
     @resetAllPP()
     @types = attributes.types || [] # TODO: Get from species.
-    @item = Items[attributes.item]
+    @item = Item[attributes.item?.replace(/\s+/g, '')]
     @ability = Ability[attributes.ability?.replace(/\s+/g, '')]
     @status = null
 
@@ -98,7 +98,6 @@ class @Pokemon
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
-    total = @item["edit#{capitalized}"]?(total, this) || total  if !@isItemBlocked()
     total = @attachments.queryChain("edit#{capitalized}", total)
     total = @statBoost(key, total)  if key != 'hp'
     total
@@ -168,7 +167,7 @@ class @Pokemon
 
   hasItem: (itemName) ->
     if itemName?
-      @item?.name == itemName
+      @item?._name == itemName
     else
       @item?
 
@@ -196,7 +195,8 @@ class @Pokemon
   setItem: (item) ->
     if @hasItem() then @removeItem()
     @item = item
-    @item.initialize(@battle, this)
+    attachment = @attach(@item)
+    attachment.switchIn()  if !@isItemBlocked()
 
   getItem: ->
     @item
@@ -208,7 +208,8 @@ class @Pokemon
 
   removeItem: ->
     @attach(Attachment.Unburden)  if @hasAbility("Unburden")
-    @item.deactivate(this)
+    @get(@item).switchOut()
+    @unattach(@item)
     @lastItem = null
     @item = null
 
@@ -217,9 +218,9 @@ class @Pokemon
     return false  if @item.type == 'mail'
     return false  if @item.type == 'key'
     return false  if @hasAbility("Sticky Hold")
-    return false  if @hasAbility("Multitype") && @item.plate?
+    return false  if @hasAbility("Multitype") && @item.plate
     return false  if @name == 'Giratina (origin)'
-    return false  if @name == 'Genesect' && /Drive$/.test(@item.name)
+    return false  if @name == 'Genesect' && /Drive$/.test(@item._name)
     true
 
   isAlive: ->
@@ -245,27 +246,25 @@ class @Pokemon
     @damage(-amount)
 
   transformHealthChange: (damage) ->
-    damage = @attachments.queryChain('transformHealthChange', damage)
-    damage
+    @attachments.queryChain('transformHealthChange', damage)
 
   editDamage: (move, damage) ->
-    damage = @attachments.queryChain('editDamage', damage, move, this)
-    damage = @item.editDamage(@battle, this, move, damage)  if !@isItemBlocked()
-    damage
+    @attachments.queryChain('editDamage', damage, move, this)
 
   editBoosts: ->
-    stages = _.clone(@stages)
-    stages = @attachments.queryChain('editBoosts', stages)
-    stages
+    @attachments.queryChain('editBoosts', _.clone(@stages))
 
-  editAccuracy: (accuracy, move) ->
-    accuracy = @item.editAccuracy?(accuracy, move) || accuracy  if !@isItemBlocked()
-    accuracy = @attachments.queryChain('editAccuracy', accuracy, move)
-    accuracy
+  editAccuracy: (accuracy, move, target) ->
+    @attachments.queryChain('editAccuracy', accuracy, move, target)
 
-  editEvasion: (accuracy, move) ->
-    accuracy = @attachments.queryChain('editEvasion', accuracy, move)
-    accuracy
+  editEvasion: (accuracy, move, user) ->
+    @attachments.queryChain('editEvasion', accuracy, move, user)
+
+  calculateWeight: ->
+    @attachments.queryChain('calculateWeight', @weight)
+
+  criticalModifier: ->
+    @attachments.queryChain('criticalModifier', 0)
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
@@ -300,25 +299,17 @@ class @Pokemon
                      @hasType("Rock") || @hasType("Steel"))
     return @battle?.hasWeatherCancelAbilityOnField() || false
 
-  calculateWeight: ->
-    weight = @weight
-    weight = @item.calculateWeight(weight)  if !@isItemBlocked()
-    weight = @attachments.queryChain('calculateWeight', weight)
-    weight
-
   switchIn: ->
     @turnsActive = 1
-    @attach(@ability).switchIn()  if @ability
-    @item.initialize(@battle, this)  if !@isItemBlocked()
+    @attach(@ability)  if @ability
+    @attach(@item)   if @item
+    @attachments.query('switchIn')
 
   switchOut: ->
     @resetBoosts()
     @resetBlocks()
     delete @lastMove
     @used = {}
-    if @ability
-      @get(@ability).switchOut()
-      @unattach(@ability)
     @attachments.query('switchOut')
     @attachments.unattachAll((a) -> a.volatile)
 
@@ -347,23 +338,22 @@ class @Pokemon
     @attachments.queryUntilTrue('shouldBlockExecution', move, user)
 
   update: ->
-    @item.update(@battle, this)  if !@isItemBlocked()
-    @attachments.query('update', this)
+    @attachments.query('update')
+
+  afterTurnOrder: ->
+    @attachments.query('afterTurnOrder')
 
   resetRecords: ->
     @lastHitBy = null
 
   # Hook for when the Pokemon gets hit by a move
   afterBeingHit: (move, user, target, damage) ->
-    @item.afterBeingHit(@battle, move, user, target, damage)  if !@isItemBlocked()
     @attachments.query('afterBeingHit', move, user, target, damage)
 
   afterSuccessfulHit: (move, user, target, damage) ->
-    @item.afterSuccessfulHit(@battle, move, user, target, damage)  if !@isItemBlocked()
     @attachments.query('afterSuccessfulHit', move, user, target, damage)
 
   endTurn: ->
-    @item.endTurn(@battle, this)  if !@isItemBlocked()
     @attachments.query('endTurn')
     @turnsActive += 1
 
@@ -374,12 +364,9 @@ class @Pokemon
 
   # Removes an attachment from the list of attachment
   unattach: (klass) ->
-    attachment = @attachments.unattach(klass)
-    if attachment
-      delete attachment.pokemon
-      delete attachment.team
-      delete attachment.battle
-    attachment
+    # TODO: Do we need to remove circular dependencies?
+    # Removing them here will result in some unanticipated consequenes.
+    @attachments.unattach(klass)
 
   # Blocks a move for a single turn
   blockMove: (move) ->

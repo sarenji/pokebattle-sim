@@ -409,7 +409,7 @@ makeAbility "Frisk", ->
     opponent  = @battle.rng.choice(opponents, "frisk")
     if opponent.hasItem()
       item = opponent.getItem()
-      @battle.message "#{@pokemon.name} frisked its target and found one #{item.name}!"
+      @battle.message "#{@pokemon.name} frisked its target and found one #{item._name}!"
 
 # Implemented in items.coffee; makePinchBerry
 makeAbility "Gluttony"
@@ -425,7 +425,7 @@ makeAbility 'Harvest', ->
     shouldHarvest = @battle.hasWeather(Weather.SUN)
     shouldHarvest ||= @battle.rng.randInt(0, 1, "harvest") == 1
     if shouldHarvest
-      @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.name}!"
+      @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem._name}!"
       @pokemon.setItem(@pokemon.lastItem)
 
 makeAbility 'Healer', ->

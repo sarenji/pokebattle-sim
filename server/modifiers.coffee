@@ -150,15 +150,15 @@ basePowerModifier.add 110, (move, battle, user, target) ->
   return 0x1000
 
 # Various item modifiers
-basePowerModifier.add 120, (move, battle, user, target) ->
-  if user.item?
-    return user.item.basePowerModifier(move, battle, user, target)
-  return 0x1000
+# basePowerModifier.add 120, (move, battle, user, target) ->
+#   if user.item?
+#     return user.item.basePowerModifier(move, battle, user, target)
+#   return 0x1000
 
-basePowerModifier.add 130, (move, battle, user, target) ->
-  if target.item?
-    return target.item.basePowerModifierTarget(move, battle, user, target)
-  return 0x1000
+# basePowerModifier.add 130, (move, battle, user, target) ->
+#   if target.item?
+#     return target.item.basePowerModifierTarget(move, battle, user, target)
+#   return 0x1000
 
 basePowerModifier.add 140, (move, battle, user, target) ->
   if user.has(Attachment.MeFirst)

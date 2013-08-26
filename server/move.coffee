@@ -136,11 +136,8 @@ class @Move
     accuracy = @accuracy
     accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
-    accuracy = user.editAccuracy(accuracy, this)
-    accuracy = target.editEvasion(accuracy, this)
-    if user.hasItem("Zoom Lens") && battle.willMove(target)
-      accuracy = Math.floor(accuracy * 1.2)
-    # TODO: Accuracy/evasion ability modifiers
+    accuracy = user.editAccuracy(accuracy, this, target)
+    accuracy = target.editEvasion(accuracy, this, user)
     accuracy
 
   weatherModifier: (battle, user, target) ->
@@ -206,7 +203,7 @@ class @Move
     stage = @chLevel
     stage += 1  if attacker.hasAbility('Super Luck')
     stage += 2  if attacker.has(Attachment.FocusEnergy)
-    stage += attacker.item?.criticalModifier(battle, attacker) || 0
+    stage += attacker.criticalModifier()
     stage
 
   modify: (number, modifier) ->

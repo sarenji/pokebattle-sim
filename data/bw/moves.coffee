@@ -264,8 +264,8 @@ makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       return  if user.hasItem() || !target.hasTakeableItem()
-      battle.message "#{user.name} stole #{target.name}'s #{target.getItem().name}!"
-      user.setItem(target.getItem())
+      battle.message "#{user.name} stole #{target.name}'s #{target.item._name}!"
+      user.setItem(target.item)
       target.removeItem()
 
 makeStatusCureMove = (name, message) ->
@@ -1321,7 +1321,7 @@ extendMove 'Fling', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     {item} = user.get(Attachment.Fling)
-    switch item.name
+    switch item._name
       when "Poison Barb"
         target.attach(Status.Poison)
       when "Light Ball"
@@ -1335,7 +1335,7 @@ extendMove 'Fling', ->
       when "Mental Herb", "White Herb"
         item.activate(battle, target)
       else
-        item.eat?(battle, target)  if item.type == "berries"
+        item.eat(battle, target)  if item.type == "berries"
 
   @basePower = (battle, user, target) ->
     fling = user.get(Attachment.Fling)
@@ -1870,7 +1870,7 @@ extendMove 'Taunt', ->
 
 extendMove 'Techno Blast', ->
   @getType = (battle, user, target) ->
-    switch user.getItem()?.name
+    switch user.getItem()?._name
       when "Burn Drive"
         "Fire"
       when "Douse Drive"

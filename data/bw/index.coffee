@@ -1,4 +1,4 @@
 {@Moves, @MoveData, @MoveList} = require './moves'
 {@Ability} = require './abilities'
-{@Items, @ItemData} = require './items'
+{@Item, @ItemData} = require './items'
 {@Species, @PokemonData} = require './pokemon'

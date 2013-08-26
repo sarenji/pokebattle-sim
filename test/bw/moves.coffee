@@ -4091,7 +4091,7 @@ describe "Embargo", ->
     shared.create.call this,
       team2: [ Factory("Magikarp", item: "Leftovers") ]
     embargo = @battle.getMove('Embargo')
-    mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+    mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
 
     @battle.performMove(@id1, embargo)
     @battle.endTurn()
@@ -4101,7 +4101,7 @@ describe "Embargo", ->
     shared.create.call this,
       team2: [ Factory("Magikarp", item: "Leftovers") ]
     embargo = @battle.getMove('Embargo')
-    mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+    mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
     @battle.performMove(@id1, embargo)
 
     for i in [0...5]
@@ -4113,7 +4113,7 @@ describe "Embargo", ->
     shared.create.call this,
       team2: [ Factory("Magikarp", item: "Leftovers") ]
     embargo = @battle.getMove('Embargo')
-    mock = @sandbox.mock(@p2.item).expects('endTurn').never()
+    mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
     @battle.performMove(@id1, embargo)
     
     for i in [0...5]

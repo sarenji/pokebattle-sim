@@ -1,4 +1,4 @@
-{Items} = require('../../data/bw')
+{Item} = require('../../data/bw')
 {basePowerModifier, attackStatModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
@@ -45,22 +45,22 @@ describe "muscle band", ->
   it "increases base power of physical moves by 0x1199", ->
     shared.create.call(this)
     move = @battle.getMove('Tackle')
-    modifier = Items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.MuscleBand::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1199
 
     move = @battle.getMove('Shadow Ball')
-    modifier = Items['Muscle Band'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.MuscleBand::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1000
 
 describe "Wise Glasses", ->
   it "increases base power of special moves by 0x1199", ->
     shared.create.call(this)
     move = @battle.getMove('Tackle')
-    modifier = Items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.WiseGlasses::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1000
 
     move = @battle.getMove('Shadow Ball')
-    modifier = Items['Wise Glasses'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.WiseGlasses::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1199
 
 describe "An Orb item", ->
@@ -68,37 +68,37 @@ describe "An Orb item", ->
     shared.create.call this,
       team1: [Factory('Giratina (origin)')]
     move = @battle.getMove('Outrage')
-    modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1333
 
     move = @battle.getMove('Shadow Ball')
-    modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1333
 
     move = @battle.getMove('Tackle')
-    modifier = Items['Griseous Orb'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1000
 
 describe "A type-boosting miscellaneous item", ->
   it "increases base power of certain typed moves by 0x1333", ->
     shared.create.call(this)
     move = @battle.getMove('Outrage')
-    modifier = Items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.OddIncense::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1000
 
     move = @battle.getMove('Psychic')
-    modifier = Items['Odd Incense'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.OddIncense::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1333
 
 describe "A typed Gem", ->
   it "increases base power of certain typed moves by 0x1800", ->
     shared.create.call(this)
     move = @battle.getMove('Acrobatics')
-    modifier = Items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.FlyingGem::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1800
 
     move = @battle.getMove('Psychic')
-    modifier = Items['Flying Gem'].basePowerModifier(move, @battle, @p1, @p2)
+    modifier = Item.FlyingGem::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1000
 
   it "is removed after use", ->
@@ -119,7 +119,7 @@ describe "A typed Gem", ->
 
 describe "A typed plate", ->
   it "has the plate attribute set", ->
-    item = Items['Draco Plate']
+    item = Item.DracoPlate
     item.should.have.property('plate')
 
   it "changes the Arceus type"
@@ -219,9 +219,9 @@ describe "Focus Sash", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Focus Sash")]
 
-    item = Items['Focus Sash']
-    damage = item.editDamage(@battle, @p2, @battle.getMove('Ember'), 99999)
-    damage.should.equal @p2.currentHP - 1
+    tackle = @battle.getMove('Tackle')
+    @sandbox.stub(tackle, 'baseDamage', -> 99999)
+    tackle.calculateDamage(@battle, @p1, @p2).should.equal(@p2.stat('hp') - 1)
 
   it "fails to protect from multihit moves", ->
     shared.create.call this,
@@ -248,11 +248,10 @@ describe "Focus Sash", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Focus Sash")]
 
-    @p1.currentHP--
-
-    item = Items['Focus Sash']
-    damage = item.editDamage(@battle, @p1, @battle.getMove('Ember'), 99999)
-    damage.should.equal 99999
+    @p2.currentHP -= 1
+    tackle = @battle.getMove('Tackle')
+    @sandbox.stub(tackle, 'baseDamage', -> 99999)
+    tackle.calculateDamage(@battle, @p1, @p2).should.equal(99999)
 
   it "disappears after activation", ->
     shared.create.call this,
@@ -306,7 +305,7 @@ describe "Choice Scarf", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(Items['Choice Scarf'])
+    @p1.setItem(Item.ChoiceScarf)
     @p1.stat('speed').should.equal Math.floor(speed * 1.5)
 
 describe "Flame Orb", ->
@@ -397,8 +396,8 @@ describe "Air Balloon", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Trick')
 
-    @p1.has(Attachment.AirBalloon).should.be.false
-    @p2.has(Attachment.AirBalloon).should.be.true
+    @p1.has(Item.AirBalloon).should.be.false
+    @p2.has(Item.AirBalloon).should.be.true
 
 describe "White Herb", ->
   it "negates negative status boosts", ->
@@ -599,8 +598,7 @@ describe "a type-resist berry", ->
       team2: [Factory("Blaziken", item: "Shuca Berry")]
 
     move = @battle.getMove('Earthquake')
-    mod = basePowerModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x800
+    move.modifyBasePower(@battle, @p1, @p2).should.equal(0x800)
 
   it "is consumed after use", ->
     shared.create.call this,
@@ -625,24 +623,21 @@ describe "a type-resist berry", ->
       team2: [Factory("Blaziken", item: "Shuca Berry")]
 
     move = @battle.getMove('Surf')
-    mod = basePowerModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
   it "does not halve if the move is not super-effective", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Shuca Berry")]
 
     move = @battle.getMove('Earthquake')
-    mod = basePowerModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x1000
+    move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
   it "halves nevertheless, if it's the normal-resist berry", ->
     shared.create.call this,
       team2: [Factory("Magikarp", item: "Chilan Berry")]
 
     move = @battle.getMove('Double-Edge')
-    mod = basePowerModifier.run(move, @battle, @p1, @p2)
-    mod.should.equal 0x800
+    move.modifyBasePower(@battle, @p1, @p2).should.equal(0x800)
 
 describe "a feedback damage berry", ->
   it "damages the attacker by 12.5% if move class matches", ->
@@ -759,7 +754,7 @@ testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
         stats = (stat  for stat of statsHash)
         pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-        @p1.setItem(Items[itemName])
+        @p1.setItem(Item[itemName.replace(/\s+/g, '')])
 
         for stat, i in stats
           amount = @p1.stat(stat)
@@ -772,7 +767,7 @@ testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
         stats = (stat  for stat of statsHash)
         pokemonStats = (@p1.stat(stat)  for stat in stats)
 
-        @p1.setItem(Items[itemName])
+        @p1.setItem(Item[itemName.replace(/\s+/g, '')])
 
         for stat, i in stats
           amount = @p1.stat(stat)
@@ -794,7 +789,7 @@ describe "Iron Ball", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(Items["Iron Ball"])
+    @p1.setItem(Item.IronBall)
     @p1.stat('speed').should.equal Math.floor(speed / 2)
 
   it "removes the immunity to ground-type moves", ->
@@ -1135,7 +1130,7 @@ describe "Macho Brace", ->
     shared.create.call(this)
 
     speed = @p1.stat('speed')
-    @p1.setItem(Items["Macho Brace"])
+    @p1.setItem(Item.MachoBrace)
     @p1.stat('speed').should.equal Math.floor(speed / 2)
 
 describe "Eject Button", ->
@@ -1319,8 +1314,7 @@ describe "Metronome", ->
     shared.create.call this,
       team1: [Factory("Magikarp", item: "Metronome")]
 
-    modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
-      @battle, @p1, @p2)
+    modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
     modifier.should.equal 0x1000
 
   it "has a base power of x1.2 the second time a Pokemon uses a move", ->
@@ -1329,8 +1323,7 @@ describe "Metronome", ->
 
     @battle.performMove(@id1, @battle.getMove('Tackle'))
 
-    modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
-      @battle, @p1, @p2)
+    modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
     modifier.should.equal 0x1333
 
   it "has a base power of x2.0 the sixth time a Pokemon uses a move", ->
@@ -1340,8 +1333,7 @@ describe "Metronome", ->
     for i in [1..5]
       @battle.performMove(@id1, @battle.getMove('Tackle'))
 
-    modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
-      @battle, @p1, @p2)
+    modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
     modifier.should.equal 0x1FFF
 
   it "has a base power of x2.0 further times a Pokemon uses a move", ->
@@ -1351,8 +1343,7 @@ describe "Metronome", ->
     for i in [1..6]
       @battle.performMove(@id1, @battle.getMove('Tackle'))
 
-    modifier = Items['Metronome'].basePowerModifier(@battle.getMove('Tackle'),
-      @battle, @p1, @p2)
+    modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
     modifier.should.equal 0x1FFF
 
   it "resets base power multiplier to x1.0 on a different move", ->
@@ -1364,7 +1355,7 @@ describe "Metronome", ->
     @battle.performMove(@id1, tackle)
     @battle.performMove(@id1, splash)
 
-    modifier = Items['Metronome'].basePowerModifier(splash, @battle, @p1, @p2)
+    modifier = Item.Metronome::modifyBasePower(splash, @p1, @p2)
     modifier.should.equal 0x1000
 
 describe "Shed Shell", ->
@@ -1386,7 +1377,18 @@ describe "Big Root", ->
     amount = util.roundHalfDown(Math.floor(damage / 2) * 1.3)
     (@p1.currentHP - startHP).should.equal(amount)
 
-  it "boosts Leech Seed recovery"
+  it "boosts Leech Seed recovery, but not damage", ->
+    shared.create.call this,
+      team1: [Factory('Magikarp', item: "Big Root")]
+    @p1.currentHP = startHP = 1
+    targetAmount = (@p2.stat('hp') >> 3)
+    userAmount = util.roundHalfDown(targetAmount * 1.3)
+
+    @battle.performMove(@id1, @battle.getMove('Leech Seed'))
+    @battle.endTurn()
+    (@p1.currentHP - startHP).should.equal(userAmount)
+    (@p2.stat('hp') - @p2.currentHP).should.equal(targetAmount)
+
   it "boosts Ingrain recovery", ->
     shared.create.call this,
       team1: [Factory('Magikarp', item: "Big Root")]
@@ -1423,13 +1425,13 @@ describe "Eviolite", ->
     shared.create.call(this, team1: [Factory('Magikarp')])
     defense = @p1.stat('defense')
     specialDefense = @p1.stat('specialDefense')
-    @p1.setItem(Items['Eviolite'])
+    @p1.setItem(Item.Eviolite)
     @p1.stat('defense').should.equal Math.floor(1.5 * defense)
     @p1.stat('specialDefense').should.equal Math.floor(1.5 * specialDefense)
 
   it "boosts nothing if holder cannot evolve", ->
     shared.create.call(this, team1: [Factory('Mew')])
     defense = @p1.stat('defense')
-    @p1.setItem(Items['Eviolite'])
+    @p1.setItem(Item.Eviolite)
     @p1.stat('defense').should.equal(defense)
     @p1.stat('specialDefense').should.equal(defense)

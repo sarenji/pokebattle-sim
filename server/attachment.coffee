@@ -60,7 +60,10 @@ class @Attachments
   queryUntil: (funcName, conditional, args...) ->
     for attachment in _.clone(@attachments)
       continue  if !attachment.attached
-      result = attachment[funcName](args...)  if funcName of attachment
+      pokemon = attachment.pokemon
+      continue  if attachment.item && pokemon.item && pokemon.isItemBlocked()
+      if funcName of attachment
+        result = attachment[funcName].apply(attachment, args)
       break  if conditional(result)
     result
 
@@ -81,7 +84,7 @@ class @Attachments
 
   queryChain: (funcName, result, args...) ->
     for attachment in _.clone(@attachments)
-      result = attachment[funcName](result, args...)  if funcName of attachment
+      result = attachment[funcName].call(attachment, result, args...)  if funcName of attachment
     result
 
   queryModifiers: (funcName, args...) ->
@@ -114,7 +117,7 @@ class @BaseAttachment
   beforeMove: (move, user, targets) ->
   isImmune: (type) ->
   switchOut: ->
-  switchIn: (pokemon) ->
+  switchIn: ->
   beginTurn: ->
   endTurn: ->
   update: (owner) ->
@@ -329,39 +332,6 @@ class @Attachment.Torment extends @VolatileAttachment
   beginTurn: ->
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
 
-class @Attachment.ChoiceLock extends @VolatileAttachment
-  name: "ChoiceLockAttachment"
-
-  initialize: ->
-    @move = null
-
-  beforeMove: (move, user, targets) ->
-    @move = move
-    true
-
-  beginTurn: ->
-    @pokemon.lockMove(@move)  if @move?
-
-  unattach: ->
-    delete @move
-
-class @Attachment.IronBall extends @VolatileAttachment
-  name: "IronBallAttachment"
-
-  isImmune: (type) ->
-    return false  if type == 'Ground'
-
-class @Attachment.AirBalloon extends @VolatileAttachment
-  name: "AirBalloonAttachment"
-
-  afterBeingHit: (move, user, target, damage) ->
-    return  if move.isNonDamaging()
-    @battle.message "#{target.name}'s #{target.getItem().name} popped!"
-    target.removeItem()
-
-  isImmune: (type) ->
-    return true  if type == 'Ground'
-
 class @Attachment.Spikes extends @TeamAttachment
   name: "SpikesAttachment"
 
@@ -475,15 +445,6 @@ class @Attachment.MicleBerry extends @VolatileAttachment
       @pokemon.unattach(@constructor)
     else
       @turns--
-
-class @Attachment.EvasionItem extends @VolatileAttachment
-  name: "EvasionItemAttachment"
-
-  initialize: (attributes) ->
-    @ratio = attributes.ratio || 0.9
-
-  editEvasion: (accuracy) ->
-    Math.floor(accuracy * @ratio)
 
 class @Attachment.Metronome extends @VolatileAttachment
   name: "MetronomeAttachment"
