@@ -1,4 +1,4 @@
-{finalModifier, basePowerModifier, attackStatModifier} = require './modifiers'
+{finalModifier, basePowerModifier} = require './modifiers'
 {Status} = require './status'
 {Attachment} = require './attachment'
 {Protocol} = require '../shared/protocol'
@@ -250,8 +250,6 @@ class @Move
   modifyAttack: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyAttack', this, target)
     modify = @modify(modify, target.attachments.queryModifiers('modifyAttackTarget', this, user))
-    # TODO: Deprecate
-    modify = @modify(modify, attackStatModifier.run(this, battle, user, target))
 
   getType: (battle, user, target) ->
     @type

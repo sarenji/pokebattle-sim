@@ -140,7 +140,7 @@ makeGemItem = (name, type) ->
         @battle.message "The #{@name} strengthened #{move.name}'s power!"
         user.item = null
 
-makeChoiceItem = (name) ->
+makeChoiceItem = (name, func) ->
   makeItem name, ->
     this::initialize = ->
       @move = null
@@ -152,6 +152,8 @@ makeChoiceItem = (name) ->
     this::beginTurn = ->
       @pokemon.lockMove(@move)  if @move?
 
+    func.call(this)
+
 makeWeatherItem = (name, weather) ->
   makeItem name, ->
     @lengthensWeather = weather
@@ -160,6 +162,7 @@ makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
   makeItem name, ->
     for stat, boost of statsHash
       capitalizedStat = stat[0].toUpperCase() + stat.substr(1)
+      # TODO: Use modifiers
       this::["edit#{capitalizedStat}"] = (stat) ->
         if @pokemon.species in speciesArray
           Math.floor(stat * boost)
@@ -252,11 +255,15 @@ makeTypeResistBerry 'Charti Berry', 'Rock'
 makeStatusCureBerry 'Cheri Berry', Status.Paralyze
 makeStatusCureBerry 'Chesto Berry', Status.Sleep
 makeTypeResistBerry 'Chilan Berry', 'Normal'
-makeChoiceItem 'Choice Band'
-makeChoiceItem 'Choice Specs'
-makeChoiceItem 'Choice Scarf'
+makeChoiceItem 'Choice Band', ->
+  this::modifyAttack = (move) ->
+    if move.isPhysical() then 0x1800 else 0x1000
 
-makeItem 'Choice Scarf', ->
+makeChoiceItem 'Choice Specs', ->
+  this::modifyAttack = (move) ->
+    if move.isSpecial() then 0x1800 else 0x1000
+
+makeChoiceItem 'Choice Scarf', ->
   this::editSpeed = (stat) ->
     Math.floor(stat * 1.5)
 

@@ -1,5 +1,5 @@
 {Item} = require('../../data/bw')
-{basePowerModifier, attackStatModifier} = require '../../server/modifiers'
+{basePowerModifier} = require '../../server/modifiers'
 {Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
 {Attachment} = require '../../server/attachment'
@@ -123,25 +123,6 @@ describe "A typed plate", ->
     item.should.have.property('plate')
 
   it "changes the Arceus type"
-
-describe "DeepSeaTooth", ->
-  it "doubles Clamperl's special attack", ->
-    shared.create.call this,
-      team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
-    modifier = attackStatModifier.run(@battle.getMove('Surf'), @battle, @p1, @p2)
-    modifier.should.equal 0x2000
-
-  it "doesn't double Clamperl's attack", ->
-    shared.create.call this,
-      team1: [Factory('Clamperl', item: 'DeepSeaTooth')]
-    modifier = attackStatModifier.run(@battle.getMove('Tackle'), @battle, @p1, @p2)
-    modifier.should.equal 0x1000
-
-  it "doesn't double non-Clamperl special attack", ->
-    shared.create.call this,
-      team1: [Factory('Magikarp', item: 'DeepSeaTooth')]
-    modifier = attackStatModifier.run(@battle.getMove('Surf'), @battle, @p1, @p2)
-    modifier.should.equal 0x1000
 
 describe "Rocky Helmet", ->
   it "deals 1/6 of the attacker's total HP on a contact move", ->
@@ -297,6 +278,14 @@ describe "Choice items", ->
 
     requestedMoves = @battle.requests[@player1.id].moves
     requestedMoves.should.eql [ @battle.getMove('Splash').name, @battle.getMove('Tackle').name ]
+
+  it "increases the respective stat by 1.5", ->
+    shared.create.call this,
+      team1: [Factory("Magikarp", item: "Choice Band")]
+    tackle = @battle.getMove("Tackle")
+    thunder = @battle.getMove("Thunder")
+    tackle.modifyAttack(@battle, @p1, @p2).should.equal(0x1800)
+    thunder.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
 
   xit "relocks the pokemon after Magic Room"
 
