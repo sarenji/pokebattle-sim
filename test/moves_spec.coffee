@@ -1,6 +1,8 @@
 {Battle, Move, Pokemon, Status, Attachment} = require('../').server
 {Factory} = require './factory'
 shared = require('./shared')
+should = require('should')
+require './helpers'
 
 describe 'Move', ->
   it 'takes the name as the first parameter', ->
@@ -189,3 +191,14 @@ describe 'Move', ->
 
       move.execute(@battle, @p1, [@p2], true)
       mock.verify()
+
+  describe "#use", ->
+    it "returns false if the target's type is immune", ->
+      move = new Move("attacking", damage: "special", type: "Normal")
+      @p2.types = [ "Ghost" ]
+      move.use(@battle, @p1, @p2).should.be.false
+
+    it "returns true if target is immune but move is non-damaging", ->
+      move = new Move("attacking", damage: "non-damaging", type: "Normal")
+      @p2.types = [ "Ghost" ]
+      should.not.exist move.use(@battle, @p1, @p2)

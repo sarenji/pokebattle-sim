@@ -58,8 +58,7 @@ class @Move
       @afterMiss(battle, user, target, damage)
       return false
 
-    type = @getType(battle, user, target)
-    if target.isImmune(type, this)
+    if !@isNonDamaging() && target.isImmune(@getType(battle, user, target), this)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 
