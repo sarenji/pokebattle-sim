@@ -5,6 +5,7 @@ class @TeambuilderView extends Backbone.View
   events:
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addEmptyPokemon'
+    'click .save_team': 'saveTeam'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
 
@@ -24,8 +25,12 @@ class @TeambuilderView extends Backbone.View
     @setSelectedIndex(index)
 
   addEmptyPokemon: =>
-    @collection.add(new Pokemon(speciesId: 1, name: "Bulbasaur"))
+    @collection.add(new Pokemon())
     @renderPokemonList()
+
+  saveTeam: =>
+    teamJson = @collection.toJSON()
+    BattleTower.socket.send('save team', teamJson)
 
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)

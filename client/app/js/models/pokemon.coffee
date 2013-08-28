@@ -1,5 +1,6 @@
 class @Pokemon extends Backbone.Model
   defaults: =>
+    name: 'Bulbasaur'
     ivs:
       hp: 31
       attack: 31
@@ -16,7 +17,7 @@ class @Pokemon extends Backbone.Model
       speed: 0
 
   initialize: (attributes) =>
-    @species = PokemonData[attributes.name]
+    @species = PokemonData[@get('name')]
 
   getMovepool: ->
     # todo: cache this
