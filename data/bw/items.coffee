@@ -241,10 +241,10 @@ makeItem 'Black Sludge', ->
     amount = 1  if amount == 0
     if @pokemon.hasType('Poison')
       return  if maxHP == @pokemon.currentHP
-      @battle.message "#{@pokemon.name} restored a little HP using its #{@name}!"
+      @battle.message "#{@pokemon.name} restored a little HP using its #{@_name}!"
       @pokemon.damage(-amount)
     else
-      @battle.message "#{@pokemon.name} is hurt by its #{@name}!"
+      @battle.message "#{@pokemon.name} is hurt by its #{@_name}!"
       @pokemon.damage(amount)
 
 makeEvasionItem 'BrightPowder', 0.9
@@ -326,7 +326,7 @@ makeGemItem 'Flying Gem', 'Flying'
 makeItem 'Focus Band', ->
   this::editDamage = (damage, move) ->
     if damage >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
-      @battle.message "#{@pokemon.name} hung on using its #{@name}!"
+      @battle.message "#{@pokemon.name} hung on using its #{@_name}!"
       @pokemon.useItem()
       return @pokemon.currentHP - 1
     return damage
@@ -335,7 +335,7 @@ makeItem 'Focus Sash', ->
   this::editDamage = (damage, move) ->
     maxHP = @pokemon.stat('hp')
     if @pokemon.currentHP == maxHP && damage >= maxHP
-      @battle.message "#{@pokemon.name} hung on using its #{@name}!"
+      @battle.message "#{@pokemon.name} hung on using its #{@_name}!"
       @pokemon.useItem()
       return maxHP - 1
     return damage
@@ -372,7 +372,7 @@ makeItem 'Leftovers', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
     return  if maxHP == @pokemon.currentHP
-    @battle.message "#{@pokemon.name} restored a little HP using its #{@name}!"
+    @battle.message "#{@pokemon.name} restored a little HP using its #{@_name}!"
     amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     @pokemon.damage(-amount)
@@ -491,7 +491,7 @@ makeItem 'Shell Bell', ->
     # TODO: Does Shell Bell display a message if the Pokemon is at full HP?
     return  if damage == 0
     user.damage -Math.floor(damage / 8)
-    @battle.message "#{user.name} restored some of its HP using its #{@name}!"
+    @battle.message "#{user.name} restored some of its HP using its #{@_name}!"
 
 makeTypeResistBerry 'Shuca Berry', 'Ground'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
@@ -542,7 +542,7 @@ makeItem 'White Herb', ->
     triggered = false
     for stat, boost of pokemon.stages
       if boost < 0
-        battle.message "#{pokemon.name} restored its status using its #{@name}!"
+        battle.message "#{pokemon.name} restored its status using its #{@_name}!"
         triggered = true
         pokemon.stages[stat] = 0
     return triggered
