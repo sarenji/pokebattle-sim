@@ -287,6 +287,10 @@ class @Pokemon
     b = @attachments.queryUntilNotNull('isImmune', type, move)
     if b? then return b
 
+    # Non-damaging moves are not affected by type.
+    # Thunder Wave is the only exception.
+    return false  if move?.isNonDamaging()
+
     multiplier = util.typeEffectiveness(type, @types)
     return multiplier == 0
 
