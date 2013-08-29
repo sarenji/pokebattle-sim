@@ -22,6 +22,22 @@ class @StatusAttachment extends BaseAttachment
     pokemon.status = @name
     return true
 
+  initialize: ->
+    wasStatused = switch @constructor
+      when Status.Paralyze
+        "was paralyzed"
+      when Status.Freeze
+        "was frozen"
+      when Status.Poison
+        "was poisoned"
+      when Status.Toxic
+        "was badly poisoned"
+      when Status.Sleep
+        "fell asleep"
+      when Status.Burn
+        "was burned"
+    @battle?.message "#{@pokemon.name} #{wasStatused}!"
+
   unattach: ->
     @pokemon.status = null
 
@@ -64,6 +80,7 @@ class @Status.Toxic extends @StatusAttachment
   name: "Toxic"
 
   initialize: ->
+    super()
     @counter = 0
 
   switchOut: ->
@@ -79,6 +96,7 @@ class @Status.Sleep extends @StatusAttachment
   name: "Sleep"
 
   initialize: ->
+    super()
     @counter = 0
 
   switchOut: ->

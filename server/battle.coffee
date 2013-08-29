@@ -257,8 +257,7 @@ class @Battle
     @turn++
     @priorityQueue = null
 
-    p.tell(Protocol.START_TURN, @turn)  for p in @players
-    s.tell(Protocol.START_TURN, @turn)  for s in @spectators
+    @tell(Protocol.START_TURN, @turn)
 
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     team.beginTurn()  for team in @getTeams()
@@ -334,7 +333,7 @@ class @Battle
 
   endBattle: ->
     winner = @getWinner()
-    player.tell(Protocol.END_BATTLE, winner.index)  for player in @players
+    @tell(Protocol.END_BATTLE, winner.index)
 
   getWinner: ->
     winner = null
@@ -514,13 +513,14 @@ class @Battle
     struggle = @getMove('Struggle')
 
     @message "#{pokemon.name} has no moves left!"  if move == struggle
-    # TODO: Send move id instead
-    p.tell(Protocol.MAKE_MOVE, player.index, slot, move.name)  for p in @players
-    s.tell(Protocol.MAKE_MOVE, player.index, slot, move.name)  for s in @spectators
 
     if pokemon.pp(move) <= 0
+      # TODO: Send move id instead
+      @tell(Protocol.MAKE_MOVE, player.index, slot, move.name)
       @message "But there was no PP left for the move!"
     else if pokemon.beforeMove(move, pokemon, targets) != false
+      # TODO: Send move id instead
+      @tell(Protocol.MAKE_MOVE, player.index, slot, move.name)
       pokemon.reducePP(move)
       for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
         pokemon.reducePP(move)
@@ -540,9 +540,7 @@ class @Battle
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
       @message "#{pokemon.name} fainted!"
-      args = [ Protocol.FAINT, pokemon.player.index, pokemon.team.indexOf(pokemon) ]
-      p.tell(args...)  for p in @players
-      s.tell(args...)  for s in @spectators
+      @tell(Protocol.FAINT, pokemon.player.index, pokemon.team.indexOf(pokemon))
       pokemon.afterFaint()
 
   getTargets: (move, user) ->
@@ -597,8 +595,7 @@ class @Battle
   forfeit: (user) ->
     player = @players.find((p) -> p.user == user)
     return  unless player
-    p.tell(Protocol.FORFEIT_BATTLE, player.index)  for p in @players
-    s.tell(Protocol.FORFEIT_BATTLE, player.index)  for s in @spectators
+    @tell(Protocol.FORFEIT_BATTLE, player.index)
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"
