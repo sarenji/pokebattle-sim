@@ -53,6 +53,13 @@ table.stats
         input(type=text, class="ev-entry", data-stat="speed")
       td 500
 
+div.selected_moves
+  span Moves:
+  input(value=pokemon.get("moves")[0])
+  input(value=pokemon.get("moves")[1])
+  input(value=pokemon.get("moves")[2])
+  input(value=pokemon.get("moves")[3])
+
 table.move_table
   thead
     tr

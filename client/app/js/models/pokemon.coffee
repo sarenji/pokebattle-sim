@@ -1,6 +1,7 @@
 class @Pokemon extends Backbone.Model
   defaults: =>
     name: 'Bulbasaur'
+    moves: []
     ivs:
       hp: 31
       attack: 31

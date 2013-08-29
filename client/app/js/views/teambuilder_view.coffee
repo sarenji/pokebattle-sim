@@ -9,6 +9,7 @@ class @TeambuilderView extends Backbone.View
     'change .species_list': 'changeSpecies'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
+    'change .selected_moves input': 'changeMoves'
 
   initialize: =>
     # TODO: Save this to something more global
@@ -50,7 +51,7 @@ class @TeambuilderView extends Backbone.View
     pokemon = @collection.at(index)
     @selected = index
     @$(".pokemon_edit").children().hide().removeClass("active")
-    @$("div[data-cid=#{pokemon.cid}]").show().addClass("active")
+    @getPokemonView(pokemon).show().addClass("active")
 
   getSelectedPokemon: =>
     @collection.at(@selected)
@@ -79,6 +80,21 @@ class @TeambuilderView extends Backbone.View
     pokemon.setEv(stat, value)
     @renderStats(pokemon)
 
+  changeMoves: (ev) =>
+    pokemon = @getSelectedPokemon()
+    movesArray = []
+    @getPokemonView(pokemon).find(".selected_moves input").each ->
+      moveName = $(this).val().trim()
+      if moveName != ""
+        movesArray.push(moveName)
+    pokemon.set("moves", movesArray)
+
+  getActivePokemonView: =>
+    @getPokemonView(@getSelectedPokemon())
+
+  getPokemonView: (pokemon) =>
+    @$("div[data-cid=#{pokemon.cid}]")
+
   render: =>
     @$el.html @template(pokemon: @collection, selected: @selected)
     @renderPokemonList()
@@ -95,7 +111,7 @@ class @TeambuilderView extends Backbone.View
       pokemon_list.append(list_item)
 
   renderPokemon: (pokemon) =>
-    view = @$("div[data-cid=#{pokemon.cid}]")
+    view = @getPokemonView(pokemon)
     if view.length == 0
       view = $("<div/>").attr("data-cid", pokemon.cid).hide()
       @$(".pokemon_edit").append(view)
@@ -104,7 +120,7 @@ class @TeambuilderView extends Backbone.View
     @renderStats(pokemon)
 
   renderStats: (pokemon) =>
-    $div = @$("div[data-cid=#{pokemon.cid}]")
+    $div = @getPokemonView(pokemon)
 
     $div.find(".iv-entry").each ->
       $input = $(this)
