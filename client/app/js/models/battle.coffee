@@ -31,3 +31,6 @@ class @Battle extends Backbone.Model
 
   emit: (args...) =>
     @socket(args...)
+
+  notify: =>
+    @set('notifications', @get('notifications') + 1)

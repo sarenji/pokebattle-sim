@@ -498,7 +498,7 @@ class @Battle
     for id of @playerActions
       team = @getTeam(id)
       pokemon = team.at(0)
-      @performSwitch(id, @popAction(pokemon).to, silent: true)
+      @performSwitch(id, @popAction(pokemon).to, replacing: true)
       switched.push team.at(0)
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched

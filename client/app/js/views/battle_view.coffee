@@ -28,13 +28,6 @@ class @BattleView extends Backbone.View
     @addImages()
     this
 
-  renderSwitch: (player, slot) =>
-    pokemon = @model.getPokemon(player, slot)
-    @$pokemon(player, slot).html @pokemon_template(pokemon: pokemon)
-    @renderUserInfo()
-    @addImages()
-    this
-
   renderChat: =>
     @chatView = new ChatView(
       el: @$('.chat')
@@ -62,8 +55,9 @@ class @BattleView extends Backbone.View
     @$('.battle_user_info').html @user_info_template(locals)
     this
 
-  addImages: =>
-    @$('.preload').each ->
+  addImages: ($images) =>
+    $images ||= @$('.preload')
+    $images.each ->
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
@@ -87,6 +81,71 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#0f0")
     $allHP.width(percent + "%")
 
+  switchIn: (player, slot) =>
+    $oldPokemon = @$pokemon(player, slot)
+    pokemon = @model.getPokemon(player, slot)
+    pokemonClass = "pokemon#{player}-#{slot}"
+    position = (if player == @model.index then "bottom" else "top")
+    @renderUserInfo()
+
+    # Prepare old/new pokemon
+    $oldPokemon.removeClass(pokemonClass)
+    $newPokemon = $("""<div class="pokemon #{pokemonClass} #{position}">
+      #{@pokemon_template(pokemon: pokemon)}
+    </div>""")
+    $newPokemon.css(opacity: 0)
+    $newSprite = $newPokemon.find('.sprite')
+
+    # Add Pokemon
+    $newPokemon.appendTo(@$(".battle_pane"))
+    @addImages($newPokemon.find('.preload'))
+
+    # Create and position pokeball
+    pos = $newSprite.position()
+    x = pos.left + $newSprite.width() / 2 - 11
+    y = pos.top + $newSprite.height() / 3
+    $pokeball = @makePokeball(x, y)
+    $pokeball.css(opacity: 0)
+    $pokeball.appendTo(@$(".battle_pane"))
+
+    # Start animations
+    $pokeball.css(opacity: 1)
+    releasePokemon = =>
+      $pokeball.css(opacity: 0)
+      move($newSprite)
+        .y(-15).scale(.1).duration(0).then()
+        .scale(10).duration('.25s').then()
+        .y(15).duration('.25s').ease('ease-out').pop().pop().end =>
+          @removePokeball($pokeball)
+      move($newPokemon).set('opacity', 1).end()
+    setTimeout(releasePokemon, 250)
+
+  switchOut: (player, slot) =>
+    $pokemon = @$pokemon(player, slot)
+    $sprite = $pokemon.find('.sprite')
+    width = $sprite.width()
+    height = $sprite.height()
+    move($sprite).scale(0.1).x(width / 2).y(height).duration('.15s').end()
+    move($pokemon).set('opacity', 0).duration('.25s').end(-> $pokemon.remove())
+
+  makePokeball: (x, y) =>
+    $pokeball = $("""<div class="pokeball"/>""")
+    $pokeball.css(top: y, left: x)
+    size = 22
+    $pokeball.width(size).height(size)
+    func = ->
+      $pokeball.css(backgroundPositionY: -10 - func.counter * 40)
+      func.counter = (func.counter + 1) % 8
+    func.counter = 1
+    id = setInterval(func, 40)
+    $pokeball.data('animation-id', id)
+    $pokeball
+
+  removePokeball: ($pokeball) =>
+    id = $pokeball.data('animation-id')
+    clearTimeout(id)
+    $pokeball.remove()
+
   logMove: (player, slot, moveName) =>
     {owner} = @model.getTeam(player)
     pokemon = @model.getPokemon(player, slot)
@@ -97,7 +156,7 @@ class @BattleView extends Backbone.View
     switch @lastMove
       when 'Substitute'
         $pokemon = @$pokemon(player, slot)
-        $sprite = $pokemon.find('.sprite')
+        $sprite = @$sprite(player, slot)
         spriteWidth = $sprite.width()
         spriteHeight = $sprite.height()
         $sprite.addClass('fade')
@@ -126,7 +185,7 @@ class @BattleView extends Backbone.View
     switch effect
       when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
-        $sprite = $pokemon.find('.sprite')
+        $sprite = @$sprite(player, slot)
         $sprite.removeClass('fade')
         hideSub = ->
           $substitute = $pokemon.find('.substitute').first()
@@ -150,13 +209,17 @@ class @BattleView extends Backbone.View
   $pokemon: (player, slot) =>
     @$(".pokemon#{player}-#{slot}")
 
+  $sprite: (player, slot) =>
+    @$pokemon(player, slot).find('.sprite')
+
   isFront: (player) =>
     @model.index != player
 
   faint: (player, slot) =>
     $pokemon = @$pokemon(player, slot)
     $image = $pokemon.find('.sprite img')
-    $image.css(top: "100%", opacity: 0)
+    move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
+    move($pokemon).set('opacity', 0).end(-> $pokemon.remove())
     @renderUserInfo()
 
   getMoveName: (el) =>
@@ -199,9 +262,6 @@ class @BattleView extends Backbone.View
     toSlot = parseInt(toSlot, 10)
     @model.makeSwitch(toSlot)
     @disableButtons()
-
-  notify: =>
-    @model.set('notifications', @model.get('notifications') + 1)
 
 imageUrl = (id, options = {}) ->
   kind = if options.front then 'i' else 'b'

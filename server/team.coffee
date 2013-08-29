@@ -57,16 +57,21 @@ class @Team
     attachment
 
   switch: (player, a, b, options = {}) ->
-    @battle.message "#{player.id} withdrew #{@at(a).name}!"
-    p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
+    unless options.replacing
+      @battle.message "#{player.id} withdrew #{@at(a).name}!"
+      p.tell(Protocol.SWITCH_OUT, player.index, a)  for p in @battle.players
+      s.tell(Protocol.SWITCH_OUT, player.index, a)  for s in @battle.spectators
+      p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
     @switchOut(@at(a))
 
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    p.tell(Protocol.SWITCH, player.index, a, b)  for p in @battle.players
-    s.tell(Protocol.SWITCH, player.index, a, b)  for s in @battle.spectators
+    p.tell(Protocol.SWITCH_IN, player.index, a, b)  for p in @battle.players
+    s.tell(Protocol.SWITCH_IN, player.index, a, b)  for s in @battle.spectators
 
     @battle.message "#{player.id} sent out #{@at(a).name}!"
-    @switchIn(@at(a))  unless options.silent == true
+    # Switches call switch-in events immediately; replacements wait until all
+    # replacements have finished switching in.
+    @switchIn(@at(a))  unless options.replacing
     @at(a).turnsActive = 0
 
   beginTurn: ->
