@@ -744,7 +744,7 @@ extendWithSecondaryEffect 'Hyper Fang', .1, Attachment.Flinch
 extendWithSecondaryStatus 'Ice Beam', .1, Status.Freeze
 extendWithSecondaryStatus 'Ice Burn', .3, Status.Burn
 extendWithFangEffect 'Ice Fang', .1, Status.Freeze
-extendWithSecondaryStatus 'Ice Punch', .3, Status.Freeze
+extendWithSecondaryStatus 'Ice Punch', .1, Status.Freeze
 extendWithSecondaryEffect 'Icicle Crash', .3, Attachment.Flinch
 extendWithSecondaryEffect 'Iron Head', .3, Attachment.Flinch
 makeJumpKick 'Jump Kick'
