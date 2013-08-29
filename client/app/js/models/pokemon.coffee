@@ -16,12 +16,12 @@ class @Pokemon extends Backbone.Model
       specialDefense: 0
       speed: 0
 
-  initialize: (attributes) =>
-    @species = PokemonData[@get('name')]
+  getSpecies: ->
+    PokemonData[@get('name')]
 
   getMovepool: ->
     # todo: cache this
-    return _(@species.moves).map (moveName) ->
+    return _(@getSpecies().moves).map (moveName) ->
       move = MoveData[moveName]
       move['name'] = moveName
       move

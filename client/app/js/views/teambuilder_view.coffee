@@ -6,13 +6,23 @@ class @TeambuilderView extends Backbone.View
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addEmptyPokemon'
     'click .save_team': 'saveTeam'
+    'change .species_list': 'changeSpecies'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
 
   initialize: =>
+    # TODO: Save this to something more global
+    @speciesList = (name for name, data of PokemonData)
+
     @listenTo(@collection, 'add', @renderPokemon)
     @listenTo(@collection, 'change:ivs', @renderStats)
     @listenTo(@collection, 'change:evs', @renderStats)
+
+    # Todo: Make this perform better
+    @listenTo(@collection, 'change:name', (pokemon) =>
+      @renderPokemonList()
+      @renderPokemon(pokemon)
+    )
 
     @addEmptyPokemon()
     @selected = 0
@@ -31,6 +41,10 @@ class @TeambuilderView extends Backbone.View
   saveTeam: =>
     teamJson = @collection.toJSON()
     BattleTower.socket.send('save team', teamJson)
+
+  changeSpecies: (ev) =>
+    $list = $(ev.target)
+    @getSelectedPokemon().set("name", $list.val())
 
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
@@ -86,7 +100,7 @@ class @TeambuilderView extends Backbone.View
       view = $("<div/>").attr("data-cid", pokemon.cid).hide()
       @$(".pokemon_edit").append(view)
 
-    view.html @editTemplate(pokemon: pokemon)
+    view.html @editTemplate(speciesList: @speciesList, pokemon: pokemon)
     @renderStats(pokemon)
 
   renderStats: (pokemon) =>

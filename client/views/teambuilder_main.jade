@@ -1,4 +1,7 @@
-h1= pokemon.get("name")
+select.species_list
+  each species in speciesList
+    - var selected = (species == pokemon.get("name"))
+    option(value=species, selected=selected)= species
 
 table.stats
   thead
