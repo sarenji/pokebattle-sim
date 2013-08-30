@@ -417,12 +417,15 @@ class @Attachment.Attract extends @VolatileAttachment
   name: "AttractAttachment"
 
   initialize: (attributes) ->
-    {source} = attributes
-    if @pokemon.hasItem("Destiny Knot") && !source.has(Attachment.Attract)
-      source.attach(Attachment.Attract, {source})
+    {@source} = attributes
+    if @pokemon.hasItem("Destiny Knot") && !@source.has(Attachment.Attract)
+      @source.attach(Attachment.Attract, {@source})
       @pokemon.removeItem()
 
   beforeMove: (move, user, targets) ->
+    if @source not in @battle.getOpponents(@pokemon)
+      @pokemon.unattach(@constructor)
+      return
     if @battle.rng.next('attract chance') < .5
       @battle.message "#{@pokemon.name} is immobilized by love!"
       return false

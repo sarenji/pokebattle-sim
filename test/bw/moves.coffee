@@ -2180,6 +2180,17 @@ describe "Attract", ->
 
     mock.verify()
 
+  it "disappears if the source is no longer active", ->
+    shared.create.call this,
+      team1: (Factory("Magikarp", gender: "M")  for x in [1..2])
+      team2: [Factory("Magikarp", gender: "F")]
+    @battle.performMove(@id1, @battle.getMove('Attract'))
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @p2.has(Attachment.Attract).should.be.true
+    @battle.performSwitch(@id1, 1)
+    @battle.performMove(@id2, @battle.getMove('Splash'))
+    @p2.has(Attachment.Attract).should.be.false
+
 describe "Reflect", ->
   it "halves physical damage", ->
     shared.create.call(this)
