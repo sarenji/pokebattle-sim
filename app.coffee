@@ -32,7 +32,7 @@ PORT = process.env.PORT || 8000
 if process.env.REDIS_DB_URL
   parts = require("url").parse(process.env.REDIS_DB_URL)
   db = redis.createClient(parts.port, parts.hostname)
-  redis.auth(parts.auth.split(":")[1])  if parts.auth
+  db.auth(parts.auth.split(":")[1])  if parts.auth
 else
   db = redis.createClient()
 
