@@ -8,14 +8,14 @@ class @SidebarView extends Backbone.View
 
   initialize: (attributes) =>
     @currentWindow = null
-    @listenTo(BattleTower.battles, 'add', @addBattle)
-    @listenTo(BattleTower.battles, 'remove', @removeBattle)
-    @listenTo(BattleTower.battles, 'reset', @resetBattles)
-    @listenTo(BattleTower.battles, 'change:notifications', @renderNotifications)
+    @listenTo(PokeBattle.battles, 'add', @addBattle)
+    @listenTo(PokeBattle.battles, 'remove', @removeBattle)
+    @listenTo(PokeBattle.battles, 'reset', @resetBattles)
+    @listenTo(PokeBattle.battles, 'change:notifications', @renderNotifications)
     @render()
 
   render: =>
-    @$el.html @template(battles: BattleTower.battles)
+    @$el.html @template(battles: PokeBattle.battles)
 
   renderNotifications: (battle) =>
     $notifications = @$("[data-battle-id='#{battle.id}'] .notifications")
@@ -46,7 +46,7 @@ class @SidebarView extends Backbone.View
     $battle = @$(".nav_item[data-battle-id='#{battle.id}']")
     index = $navItems.index($battle)
     $battle.remove()
-    if BattleTower.battles.size() == 0
+    if PokeBattle.battles.size() == 0
       @$(".header_battles, .nav_battles").hide()
     $next = $navItems.eq(index - 1)
     $next.click()
@@ -58,12 +58,12 @@ class @SidebarView extends Backbone.View
   leaveBattle: (e) =>
     $navItem = $(e.currentTarget).closest('.nav_item')
     battleId = $navItem.data('battle-id')
-    battle   = BattleTower.battles.get(battleId)
+    battle   = PokeBattle.battles.get(battleId)
     # If player is not a spectator and battle is not done, prompt
     if !battle.get('finished') && !battle.get('spectating')
       if !confirm("Are you sure you want to forfeit this battle?") then return
-    BattleTower.battles.remove(battle)
-    BattleTower.socket.send('forfeit', battleId)  if !battle.get('spectating')
+    PokeBattle.battles.remove(battle)
+    PokeBattle.socket.send('forfeit', battleId)  if !battle.get('spectating')
     false
 
   focusBattle: (e) =>

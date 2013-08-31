@@ -141,7 +141,7 @@ for line in lines:
   move['maxHits'] = int(meta.max_hits or "1")
 
   # Veekun crit rates are 0 indexed and 6 means always crits
-  # Battletower is 1 indexed and -1 means always crits
+  # PokeBattle is 1 indexed and -1 means always crits
   if meta.crit_rate == '6':
     move['criticalHitLevel'] = -1
   elif meta.crit_rate != '0':

@@ -27,7 +27,7 @@ $ ->
       key   = $input.data('key')
       value = $input.val()
       params[key] = value
-    BattleTower.socket.send(serverEvent, params)
+    PokeBattle.socket.send(serverEvent, params)
 
   $('input').keypress ->
     $this = $(this)
@@ -38,7 +38,7 @@ $ ->
     $this.next('.help-inline').text('')
 
 $(window).load ->
-  BattleTower.socket.addEvents
+  PokeBattle.socket.addEvents
     'register success' : (socket) ->
       $('.modal').modal('hide')
 
@@ -51,7 +51,7 @@ $(window).load ->
       $('.modal').modal('hide')
       $('.login-links').hide()
       $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
-      BattleTower.username = user.id
+      PokeBattle.username = user.id
 
     'login fail' : (socket, reason) ->
       $('#login-modal .form-errors').text(reason).removeClass('hidden')

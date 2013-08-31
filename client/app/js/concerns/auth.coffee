@@ -1,7 +1,7 @@
-@BattleTower ?= {}
+@PokeBattle ?= {}
 
-@BattleTower.initializeAuth ?= ->
-  if BattleTower.local
+@PokeBattle.initializeAuth ?= ->
+  if PokeBattle.local
     console.log "Mocking login..."
-    BattleTower.socket.send('login')
+    PokeBattle.socket.send('login')
     return

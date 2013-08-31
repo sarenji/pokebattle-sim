@@ -28,11 +28,11 @@ class @ChatView extends Backbone.View
   sendChat: =>
     $this = @$('.chat_input')
     message = $this.val()
-    return  unless BattleTower.username && message?.replace(/\s+$/).length > 0
-    @userMessage(BattleTower.username, message)
+    return  unless PokeBattle.username && message?.replace(/\s+$/).length > 0
+    @userMessage(PokeBattle.username, message)
     args = _.clone(@chatArgs)
     args.push(message)
-    BattleTower.socket.send(@chatEvent, args...)
+    PokeBattle.socket.send(@chatEvent, args...)
     $this.val('')
 
   sendChatIfEnter: (e) =>
@@ -42,10 +42,10 @@ class @ChatView extends Backbone.View
     @updateChat("<b>#{username}:</b> #{message}")
 
   userJoin: (user) =>
-    @updateChat("#{user.id} joined BattleTower!")
+    @updateChat("#{user.id} joined PokeBattle!")
 
   userLeave: (user) =>
-    @updateChat("#{user.id} left BattleTower!")
+    @updateChat("#{user.id} left PokeBattle!")
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()

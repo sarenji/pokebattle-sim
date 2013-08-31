@@ -2,6 +2,7 @@
 html
   head
     meta(http-equiv="X-UA-Compatible", content="IE=Edge")
+    title PokeBattle
     link(rel="stylesheet", href="/css/vendor.min.css")
     link(rel="stylesheet", href="/css/main.css")
     script(src='/js/vendor.js')
@@ -37,7 +38,7 @@ html
     #login-modal.modal.hide(aria-hidden="true", data-server-event="login")
       .modal-header
         button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
-        h3 Login to Pokebattle
+        h3 Login to PokeBattle
       .modal-body
         .form-errors.alert.alert-error.hidden
         form.form-horizontal
@@ -57,7 +58,7 @@ html
     #register-modal.modal.hide(aria-hidden="true", data-server-event="register")
       .modal-header
         button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
-        h3 Register for Pokebattle
+        h3 Register for PokeBattle
       .modal-body
         .form-errors.alert.alert-error.hidden
         form.form-horizontal
@@ -90,5 +91,5 @@ html
       var ItemData = !{JSON.stringify(ItemData)}
     if local
       :coffeescript
-        @BattleTower ?= {}
-        @BattleTower.local = true
+        @PokeBattle ?= {}
+        @PokeBattle.local = true

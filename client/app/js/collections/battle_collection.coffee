@@ -2,7 +2,7 @@ class @BattleCollection extends Backbone.Collection
   model: Battle
 
   initialize: (models, options) =>
-    BattleTower.socket.addEvents
+    PokeBattle.socket.addEvents
       'start battle': @startBattle
       'update battle': @updateBattle
       'spectate battle': @spectateBattle

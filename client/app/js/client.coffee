@@ -32,10 +32,10 @@ class @Socket
   send: (type, data...) ->
     @socket.send(JSON.stringify(messageType: type, data: data))
 
-@BattleTower ?= {}
-BattleTower.socket = null
-BattleTower.chatView = null
-BattleTower.battles = null
+@PokeBattle ?= {}
+PokeBattle.socket = null
+PokeBattle.chatView = null
+PokeBattle.battles = null
 
 $ ->
   #$builder = $('.builder')
@@ -43,40 +43,40 @@ $ ->
   #builderView = new TeamBuilderView(el: $builder, collection: pokemon)
   #builderView.render()
 
-  BattleTower.socket = new Socket(new SockJS('/socket'))
-  BattleTower.socket.addEvents
+  PokeBattle.socket = new Socket(new SockJS('/socket'))
+  PokeBattle.socket.addEvents
     'connect': (socket) ->
-      BattleTower.userList = new UserList()
-      BattleTower.chatView = new ChatView(
+      PokeBattle.userList = new UserList()
+      PokeBattle.chatView = new ChatView(
         el: $('.chat_window .chat')
-        collection: BattleTower.userList
+        collection: PokeBattle.userList
       )
-      BattleTower.chatView.render()
-      BattleTower.initializeAuth()
+      PokeBattle.chatView.render()
+      PokeBattle.initializeAuth()
 
     'list chatroom': (socket, users) ->
-      BattleTower.userList.reset(users)
+      PokeBattle.userList.reset(users)
 
     'update chat': (socket, user, data) ->
-      BattleTower.chatView.userMessage(user.id, data)
+      PokeBattle.chatView.userMessage(user.id, data)
 
     'update battle chat': (socket, battleId, user, data) ->
-      chatView = BattleTower.battles.get(battleId).view.chatView
+      chatView = PokeBattle.battles.get(battleId).view.chatView
       chatView.userMessage(user.id, data)
 
     'raw message': (socket, message) ->
-      BattleTower.chatView.updateChat(message)
+      PokeBattle.chatView.updateChat(message)
 
     'join chatroom': (socket, user) ->
-      BattleTower.userList.add(user)
+      PokeBattle.userList.add(user)
 
     'leave chatroom': (socket, user) ->
-      BattleTower.userList.remove(user)
+      PokeBattle.userList.remove(user)
 
     'error': (socket, message) ->
       alert(message)
 
-  BattleTower.battles = new BattleCollection([])
+  PokeBattle.battles = new BattleCollection([])
   $navigation = $('#navigation')
   navigationView = new SidebarView(el: $navigation)
   $navigation.find('.nav_item').first().click()

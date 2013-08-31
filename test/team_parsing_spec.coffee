@@ -1,4 +1,4 @@
-{BattleTower} = require '../client/app/js/concerns/team_parsing'
+{PokeBattle} = require '../client/app/js/concerns/team_parsing'
 
 require 'sugar'
 require './helpers'
@@ -38,7 +38,7 @@ IVs: 30 HP / 29 Def
 
 """
     it "converts a team to an array readable by this simulator", ->
-      team = BattleTower.parseTeam(@teamString)
+      team = PokeBattle.parseTeam(@teamString)
       team.should.have.length(5)
 
       pokemon = team[0]
