@@ -51,7 +51,6 @@ $(window).load ->
       $('.modal').modal('hide')
       $('.login-links').hide()
       $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
-      # TODO: ask for username, don't randomly generate from server
       BattleTower.username = user.id
 
     'login fail' : (socket, reason) ->

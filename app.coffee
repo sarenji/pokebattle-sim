@@ -165,14 +165,17 @@ connections.addEvents
           console.err(err)
           user.send('register error', 'Oops, something on our end went wrong! Let us know.')
           return
-        db.set "users:#{email}:password", hashedPassword, (err) ->
-          if err
-            console.err(err)
-            user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-            return
-          # Automatically login.
-          login(user, email, password)
-          user.send('register success')
+        db.multi()
+          .set("users:#{email}:password", hashedPassword)
+          .rpush("users:#{email}:names", username)
+          .exec (err) ->
+            if err
+              console.err(err)
+              user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+              return
+            # Automatically login.
+            login(user, email, password)
+            user.send('register success')
 
   # TODO: socket.off after disconnection
 
@@ -205,12 +208,18 @@ login = (user, email, password) ->
 
       bcrypt.compare password, hashedPassword, (err, res) ->
         if res
-          loginSuccess(user, email)
+          db.lindex "users:#{email}:names", 0, (err, username) ->
+            if err
+              console.err(err)
+              user.send('login fail', "Something went wrong. Try again.")
+              return
+            user.id = username
+            loginSuccess(user, email)
         else
           user.send('login fail', "You entered the wrong username or password.")
 
 loginSuccess = (user, email) ->
-  user.id = generateUsername()
+  user.id ||= generateUsername()
   user.email = email
   userList.push(user)
   user.send 'login success', user.toJSON()
