@@ -2,5 +2,6 @@
 
 @BattleTower.initializeAuth ?= ->
   if BattleTower.local
-    console.log "TODO: Mock login..."
+    console.log "Mocking login..."
+    BattleTower.socket.send('login')
     return

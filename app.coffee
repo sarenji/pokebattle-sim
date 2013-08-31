@@ -26,14 +26,15 @@ app.use(express.static(__dirname + "/public"))
 process.env.NODE_ENV ||= "development"
 
 PORT = process.env.PORT || 8000
-PERSONA_AUDIENCE = switch process.env.NODE_ENV
-  when "production"
-    "http://battletower.herokuapp.com:80"
-  else
-    "http://localhost:#{PORT}"
+
 
 # User store
-db = redis.createClient()
+if process.env.REDIS_DB_URL
+  parts = require("url").parse(process.env.REDIS_DB_URL)
+  db = redis.createClient(parts.port, parts.hostname)
+  redis.auth(parts.auth.split(":")[1])  if parts.auth
+else
+  db = redis.createClient()
 
 # Routing
 app.get '/', (req, res) ->
@@ -129,7 +130,7 @@ connections.addEvents
   ##################
   # AUTHENTICATION #
   ##################
-  'login': (user, params) ->
+  'login': (user, params = {}) ->
     {email, password} = params
     login(user, email, password)
 
@@ -214,14 +215,8 @@ generateUsername = ->
 
 login = (user, email, password) ->
   if process.env.NODE_ENV in [ 'development', 'test' ]
-  #   console.log "mocking login"
-  #   user.id = generateUsername()
-  #   user.email = "test@pokebattle.com"
-  #   userList.push(user)
-  #   user.send 'login success', user.toJSON()
-  #   user.send 'list chatroom', userList.map((u) -> u.toJSON())
-  #   user.broadcast 'join chatroom', user.toJSON()
-  # else
+    loginSuccess(user, "test@pokebattle.com")
+  else
     email = email.toLowerCase().replace(/:/g, '')
     db.get "users:#{email}:password", (err, hashedPassword) ->
       if err
