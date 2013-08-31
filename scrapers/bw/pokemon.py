@@ -12,6 +12,8 @@ type_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/
 pokemon_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon.csv'
 moves_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_moves.csv'
 move_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/move_names.csv'
+ability_names_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/ability_names.csv'
+abilities_url = 'https://raw.github.com/veekun/pokedex/master/pokedex/data/csv/pokemon_abilities.csv'
 
 int_to_stat = {
   1: 'hp',
@@ -44,6 +46,13 @@ class PokemonInfo:
     types = self.info.setdefault('types', [])
     types.append(t)
 
+  def add_ability(self, ability_name, is_hidden):
+    if is_hidden:
+      self.info['hiddenAbility'] = ability_name
+    else:
+      array = self.info.setdefault('abilities', [])
+      array.append(ability_name)
+
   def add_move(self, move):
     moves = self.info.setdefault('moves', [])
     if move not in moves:
@@ -58,6 +67,7 @@ species = {} # Maps species_id to species names.
 formes = {}  # Maps pokemon stat/type data.
 evolution = {} # Maps evolution data.
 devolution = {} # Maps devolution data.
+abilities = {} # Maps ability id to name.
 
 def map_species_names():
   lines = requests.get(species_url).text.splitlines()
@@ -96,6 +106,16 @@ def map_evolution_line():
 
     formes[species_id].info["evolutions"] = evolves_into
     formes[species_id].info["prevolutions"] = evolved_from
+
+def map_abilities():
+  lines = requests.get(ability_names_url).text.splitlines()
+  lines.pop(0) # get rid of info
+
+  while len(lines) > 0:
+    line = lines.pop(0)
+    ability_id, local_language_id, name = line.split(',')
+    if local_language_id != '9': continue
+    abilities[ability_id] = name
 
 def create_formes():
   lines = requests.get(pokemon_url).text.splitlines()
@@ -139,6 +159,15 @@ def add_types():
     forme_id, type_id, slot = line.split(',')
     formes[forme_id].add_type(type_dict[type_id])
 
+def add_abilities():
+  lines = requests.get(abilities_url).text.splitlines()
+  lines.pop(0) # get rid of info
+
+  while len(lines) > 0:
+    line = lines.pop(0)
+    forme_id, ability_id, is_hidden, slot = line.split(',')
+    formes[forme_id].add_ability(abilities[ability_id], bool(int(is_hidden)))
+
 def add_moves():
   move_dict = {}
 
@@ -173,8 +202,10 @@ def create_pokemon():
 map_species_names()
 create_formes()
 map_evolution_line()
+map_abilities()
 add_stats()
 add_types()
+add_abilities()
 add_moves()
 create_pokemon()
 
