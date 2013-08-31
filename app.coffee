@@ -2,6 +2,7 @@ http = require 'http'
 express = require 'express'
 redis = require 'redis'
 bcrypt = require 'bcrypt'
+async = require 'async'
 require 'express-namespace'
 require 'sugar'
 
@@ -149,33 +150,53 @@ connections.addEvents
       user.send('register error', errors)
       return
 
-    # Save to global database of users
-    db.sadd "users", email, (err, added) ->
+    async.series
+      emailExists: (done) ->
+        db.sismember("users", email, done)
+      usernameExists: (done) ->
+        db.sismember("names", username, done)
+    , (err, results) ->
       if err
         console.err(err)
         user.send('register error', 'Oops, something on our end went wrong! Let us know.')
         return
-      else if !added
-        user.send('register error', 'This email is already in use.')
+
+      # Notify user if the email or username already exists.
+      {emailExists, usernameExists} = results
+      if usernameExists || emailExists
+        errors = []
+        errors.push('This username is already in use.')  if usernameExists
+        errors.push('This email is already in use.')  if emailExists
+        user.send('register error', errors)
         return
 
-      # Hash password and store it in users:{email}:password
-      bcrypt.hash password, 8, (err, hashedPassword) ->
-        if err
-          console.err(err)
-          user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-          return
-        db.multi()
-          .set("users:#{email}:password", hashedPassword)
-          .rpush("users:#{email}:names", username)
-          .exec (err) ->
+      # Save to global database of users (emails) and names (usernames)
+      db.multi()
+        .sadd("users", email)
+        .sadd("names", username)
+        .exec (err) ->
+          if err
+            console.err(err)
+            user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+            return
+
+          # Hash password and store it in users:{email}:password
+          bcrypt.hash password, 8, (err, hashedPassword) ->
             if err
               console.err(err)
               user.send('register error', 'Oops, something on our end went wrong! Let us know.')
               return
-            # Automatically login.
-            login(user, email, password)
-            user.send('register success')
+            db.multi()
+              .set("users:#{email}:password", hashedPassword)
+              .rpush("users:#{email}:names", username)
+              .exec (err) ->
+                if err
+                  console.err(err)
+                  user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+                  return
+                # Automatically login.
+                login(user, email, password)
+                user.send('register success')
 
   # TODO: socket.off after disconnection
 
