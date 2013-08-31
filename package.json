@@ -21,7 +21,8 @@
     "grunt-contrib-stylus": "~0.7.0",
     "grunt-contrib-watch": "~0.5.1",
     "grunt-concurrent": "~0.3.0",
-    "grunt-nodemon": "0.0.9"
+    "grunt-nodemon": "0.0.9",
+    "grunt-contrib-cssmin": "~0.6.1"
   },
   "devDependencies": {
     "should": "~1.2.x",

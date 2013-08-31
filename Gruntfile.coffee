@@ -2,7 +2,7 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     concurrent:
-      compile: ["jade", "stylus", "coffee", "concat"]
+      compile: ["jade", "stylus", "coffee", "concat", "cssmin"]
       server:
         tasks: ["nodemon", "watch"]
         options:
@@ -34,6 +34,12 @@ module.exports = (grunt) ->
             "client/app/js/**/*.coffee"
             "shared/**/*.coffee"
           ]
+    cssmin:
+      combine:
+        files:
+          'public/css/vendor.min.css' : [
+            'client/vendor/css/**/*.css'
+          ]
     concat:
       dist:
         dest: 'public/js/vendor.js'
@@ -53,8 +59,11 @@ module.exports = (grunt) ->
         files: ['client/app/**/*.coffee', 'shared/**/*.coffee']
         tasks: 'coffee'
       vendor:
-        files: ['client/vendor/**/*.js']
+        files: ['client/vendor/js/**/*.js']
         tasks: 'concat'
+      vendor_css:
+        files: ['client/vendor/css/**/*.css']
+        tasks: 'cssmin'
     nodemon:
       development:
         options:
@@ -77,6 +86,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-stylus')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-contrib-cssmin')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
