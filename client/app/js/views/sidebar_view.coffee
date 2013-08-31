@@ -32,7 +32,7 @@ class @SidebarView extends Backbone.View
     $notifications.removeClass('hidden')
 
   addBattle: (battle) =>
-    @$(".header_battles, .nav_battles").show()
+    @$(".header_battles, .nav_battles").removeClass("hidden")
     $li = $("""<li class="nav_item fake_link" data-battle-id="#{battle.id}">
       <div class="nav_meta">
         <div class="notifications hidden">0</div>
