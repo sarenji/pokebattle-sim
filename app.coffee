@@ -1,6 +1,7 @@
 http = require 'http'
 express = require 'express'
-levelup = require 'level'
+redis = require 'redis'
+bcrypt = require 'bcrypt'
 require 'express-namespace'
 require 'sugar'
 
@@ -31,7 +32,7 @@ PERSONA_AUDIENCE = switch process.env.NODE_ENV
     "http://localhost:#{PORT}"
 
 # User store
-db = levelup('./pokebattle-db', valueEncoding: 'json')
+db = redis.createClient()
 
 # Routing
 app.get '/', (req, res) ->
@@ -127,8 +128,51 @@ connections.addEvents
   ##################
   # AUTHENTICATION #
   ##################
-  'assert login': (user, assertion) ->
-    assertLogin(user, assertion)
+  'login': (user, params) ->
+    {email, password} = params
+    login(user, email, password)
+
+  'register': (user, params) ->
+    {username, email, password} = params
+    email = email.toLowerCase()
+    errors = []
+    if !username || username.length < 6
+      errors.push 'Your username must be at least 6 characters.'
+    if !email || !/\@/.test(email)
+      errors.push 'Invalid email address.'
+    if /\:/.test(email)
+      errors.push 'Email addresses cannot include colon characters.'
+    if !password || password.length < 8
+      errors.push 'Your password must be at least 8 characters.'
+
+    if errors.length > 0
+      user.send('register error', errors)
+      return
+
+    # Save to global database of users
+    db.sadd "users", email, (err, added) ->
+      if err
+        console.err(err)
+        user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+        return
+      else if !added
+        user.send('register error', 'This email is already in use.')
+        return
+
+      # Hash password and store it in users:{email}:password
+      bcrypt.hash password, 8, (err, hashedPassword) ->
+        if err
+          console.err(err)
+          user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+          return
+        db.set "users:#{email}:password", hashedPassword, (err) ->
+          if err
+            console.err(err)
+            user.send('register error', 'Oops, something on our end went wrong! Let us know.')
+            return
+          # Automatically login.
+          login(user, email, password)
+          user.send('register success')
 
   # TODO: socket.off after disconnection
 
@@ -142,45 +186,36 @@ generateUsername = ->
   randomName += "Fan" + Math.floor(Math.random() * 10000)
   randomName
 
-assertLogin = (user, assertion) ->
-  if process.env.NODE_ENV not in [ 'development', 'test' ]
-    console.log "verifying with persona"
-    url = 'https://verifier.login.persona.org/verify'
-    audience = PERSONA_AUDIENCE
-    json = {assertion, audience}
-    params = {url, json}
-    request.post params, (err, response, body) ->
+login = (user, email, password) ->
+  if process.env.NODE_ENV in [ 'development', 'test' ]
+  #   console.log "mocking login"
+  #   user.id = generateUsername()
+  #   user.email = "test@pokebattle.com"
+  #   userList.push(user)
+  #   user.send 'login success', user.toJSON()
+  #   user.send 'list chatroom', userList.map((u) -> u.toJSON())
+  #   user.broadcast 'join chatroom', user.toJSON()
+  # else
+    email = email.toLowerCase().replace(/:/g, '')
+    db.get "users:#{email}:password", (err, hashedPassword) ->
       if err
-        user.send('login fail', "Could not connect to the login server.")
+        console.err(err)
+        user.send('login fail', "You entered the wrong username or password.")
         return
-      if body.status != 'okay'
-        user.send('login fail', body.reason)
-        return
-      email = body.email
-      db.get email, (err, properties) ->
-        if err?.name == 'NotFoundError'
-          console.log "Could not find user: #{email}"
-          db.put email, email: email, (err) ->
-            if err
-              user.send('login fail', "#{err.name}: #{err.message}")
-              return
-        else if err
-          user.send('login fail', "#{err.name}: #{err.message}")
-          return
-        user.id = generateUsername()
-        user.email = email
-        userList.push(user)
-        user.send 'login success', user.toJSON()
-        user.send 'list chatroom', userList.map((u) -> u.toJSON())
-        user.broadcast 'join chatroom', user.toJSON()
-  else
-    console.log "mocking login"
-    user.id = generateUsername()
-    user.email = "test@pokebattle.com"
-    userList.push(user)
-    user.send 'login success', user.toJSON()
-    user.send 'list chatroom', userList.map((u) -> u.toJSON())
-    user.broadcast 'join chatroom', user.toJSON()
+
+      bcrypt.compare password, hashedPassword, (err, res) ->
+        if res
+          loginSuccess(user, email)
+        else
+          user.send('login fail', "You entered the wrong username or password.")
+
+loginSuccess = (user, email) ->
+  user.id = generateUsername()
+  user.email = email
+  userList.push(user)
+  user.send 'login success', user.toJSON()
+  user.send 'list chatroom', userList.map((u) -> u.toJSON())
+  user.broadcast 'join chatroom', user.toJSON()
 
 # TODO: Implement team builder!
 defaultTeam = [

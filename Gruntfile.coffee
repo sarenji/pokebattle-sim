@@ -48,6 +48,8 @@ module.exports = (grunt) ->
           "client/vendor/js/underscore.js"
           "client/vendor/js/*.js"
         ]
+    external_daemon:
+      cmd: "redis-server"
     watch:
       templates:
         files: ['client/views/**/*.jade']
@@ -90,5 +92,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
+  grunt.loadNpmTasks('grunt-external-daemon')
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
