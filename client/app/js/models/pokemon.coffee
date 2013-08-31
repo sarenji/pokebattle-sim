@@ -20,6 +20,9 @@ class @Pokemon extends Backbone.Model
   getSpecies: ->
     PokemonData[@get('name')]
 
+  getAbilities: ->
+    ["Static", "Swift Swim"]
+
   getMovepool: ->
     # todo: cache this
     return _(@getSpecies().moves).map (moveName) ->
