@@ -149,11 +149,22 @@ $pane-width = $battle-width + $padding + $padding
         top 7px
         color #fff
         .pokemon-effect
+          font-size .625em
           float left
           border-radius 3px
           background #333
           color #fff
           padding 0 4px
+          &.sleep
+            background #535
+          &.burn
+            background #c33
+          &.freeze
+            background #38b
+          &.paralyze
+            background #b93
+          &.poison, &.toxic
+            background #b3b
     .sprite
       position absolute
       overflow hidden
