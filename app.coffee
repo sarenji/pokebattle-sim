@@ -152,7 +152,7 @@ connections.addEvents
       user.send('register error', errors)
       return
 
-    async.series
+    async.parallel
       emailExists: (done) ->
         db.sismember("users", email, done)
       usernameExists: (done) ->
