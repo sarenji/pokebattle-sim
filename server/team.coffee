@@ -49,7 +49,9 @@ class @Team
 
   attach: (attachment, options={}) ->
     options = _.clone(options)
-    @attachments.push(attachment, options, battle: @battle, team: this)
+    attachment = @attachments.push(attachment, options, battle: @battle, team: this)
+    if attachment then @battle?.tell(Protocol.TEAM_ATTACH, @player.index, attachment.name)
+    attachment
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)

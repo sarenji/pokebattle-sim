@@ -158,8 +158,11 @@ class @BattleView extends Backbone.View
     done()
 
   moveSuccess: (player, slot, targetSlot, done) =>
-    switch @lastMove
-      when 'Substitute'
+    done()
+
+  attachPokemon: (player, slot, attachment, done) =>
+    switch attachment
+      when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
         $sprite = @$sprite(player, slot)
         spriteWidth = $sprite.width()
@@ -185,8 +188,38 @@ class @BattleView extends Backbone.View
               .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
               .pop().pop().pop().end(done)
           , 0
+      when 'Paralyze'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect paralyze">PAR</div>""")
+      when 'Burn'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect burn">BRN</div>""")
+      when 'Poison'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect poison">PSN</div>""")
+      when 'Toxic'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect Toxic">TOX</div>""")
+      when 'Freeze'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect freeze">FRZ</div>""")
+      when 'Sleep'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effects')
+        $effects.append("""<div class="pokemon-effect sleep">SLP</div>""")
       else
         done()
+
+  attachTeam: (player, attachment, done) =>
+    done()
+
+  attachBattle: (attachment, done) =>
+    done()
 
   endEffect: (player, slot, effect, done) =>
     switch effect

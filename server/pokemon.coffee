@@ -364,7 +364,9 @@ class @Pokemon
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->
     options = _.clone(options)
-    @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
+    attachment = @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
+    if attachment then @battle?.tell(Protocol.POKEMON_ATTACH, @player.index, @team.indexOf(this), attachment.name)
+    attachment
 
   # Removes an attachment from the list of attachment
   unattach: (klass) ->

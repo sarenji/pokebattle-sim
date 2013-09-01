@@ -86,6 +86,17 @@ class @BattleCollection extends Backbone.Collection
       when Protocol.EFFECT_END
         [player, slot, effect] = rest
         view.endEffect(player, slot, effect, done)
+      when Protocol.POKEMON_ATTACH
+        [player, slot, attachment] = rest
+        view.attachPokemon(player, slot, attachment, done)
+      when Protocol.TEAM_ATTACH
+        [player, attachment] = rest
+        view.attachTeam(player, attachment, done)
+      when Protocol.BATTLE_ATTACH
+        [attachment] = rest
+        view.attachBattle(attachment, done)
+      else
+        done()
 
   spectateBattle: (socket, id, numActive, teams) =>
     console.log "SPECTATING BATTLE #{id}."

@@ -318,7 +318,9 @@ class @Battle
 
   attach: (klass, options = {}) ->
     options = _.clone(options)
-    @attachments.push(klass, options, battle: this)
+    attachment = @attachments.push(klass, options, battle: this)
+    if attachment then @tell(Protocol.BATTLE_ATTACH, attachment.name)
+    attachment
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)

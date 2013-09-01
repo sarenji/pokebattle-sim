@@ -144,6 +144,16 @@ $pane-width = $battle-width + $padding + $padding
         font-size 75%
       .pokemon-level
         color #EFA532
+      .pokemon-effects
+        position absolute
+        top 7px
+        color #fff
+        .pokemon-effect
+          float left
+          border-radius 3px
+          background #333
+          color #fff
+          padding 0 4px
     .sprite
       position absolute
       overflow hidden
@@ -184,39 +194,39 @@ $pane-width = $battle-width + $padding + $padding
     float       right
     font-family "Helvetica Neue", sans-serif
   &.normal
-    button-bg(#A9A57A)
+    button-bg($normal)
   &.fire
-    button-bg(#E28544)
+    button-bg($fire)
   &.water
-    button-bg(#6A97ED)
+    button-bg($water)
   &.electric
-    button-bg(#F0C944)
+    button-bg($electric)
   &.grass
-    button-bg(#8FC052)
+    button-bg($grass)
   &.ice
-    button-bg(#A2CFD0)
+    button-bg($ice)
   &.fighting
-    button-bg(#B04137)
+    button-bg($fighting)
   &.poison
-    button-bg(#9253A0)
+    button-bg($poison)
   &.ground
-    button-bg(#DCBE6F)
+    button-bg($ground)
   &.flying
-    button-bg(#A09AEE)
+    button-bg($flying)
   &.psychic
-    button-bg(#E0698B)
+    button-bg($psychic)
   &.bug
-    button-bg(#AEB22D)
+    button-bg($bug)
   &.rock
-    button-bg(#B69D42)
+    button-bg($rock)
   &.ghost
-    button-bg(#6A5F97)
+    button-bg($ghost)
   &.dragon
-    button-bg(#5C59F1)
+    button-bg($dragon)
   &.dark
-    button-bg(#685447)
+    button-bg($dark)
   &.steel
-    button-bg(#B7BACF)
+    button-bg($steel)
   &.disabled, &.disabled:hover
     background  #444
     border-color #8A8171
