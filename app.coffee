@@ -14,6 +14,18 @@ server = new BattleServer()
 app = express()
 httpServer = http.createServer(app)
 
+# Variables
+process.env.NODE_ENV ||= "development"
+PORT = process.env.PORT || 8000
+
+# Connect to redis
+if process.env.REDIS_DB_URL
+  parts = require("url").parse(process.env.REDIS_DB_URL)
+  db = redis.createClient(parts.port, parts.hostname)
+  db.auth(parts.auth.split(":")[1])  if parts.auth
+else
+  db = redis.createClient()
+
 # Configuration
 app.set("views", "client")
 app.use(express.logger())
@@ -22,19 +34,6 @@ app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
-
-process.env.NODE_ENV ||= "development"
-
-PORT = process.env.PORT || 8000
-
-
-# User store
-if process.env.REDIS_DB_URL
-  parts = require("url").parse(process.env.REDIS_DB_URL)
-  db = redis.createClient(parts.port, parts.hostname)
-  db.auth(parts.auth.split(":")[1])  if parts.auth
-else
-  db = redis.createClient()
 
 # Routing
 app.get '/', (req, res) ->
