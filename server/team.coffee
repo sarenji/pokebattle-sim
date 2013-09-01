@@ -55,7 +55,7 @@ class @Team
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
-    delete attachment.team  if attachment?
+    if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, @player.index, attachment.name)
     attachment
 
   switch: (player, a, b, options = {}) ->

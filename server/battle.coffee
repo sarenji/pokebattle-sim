@@ -324,7 +324,7 @@ class @Battle
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
-    delete attachment.battle  if attachment?
+    if attachment then @tell(Protocol.BATTLE_UNATTACH, attachment.name)
     attachment
 
   get: (attachment) ->

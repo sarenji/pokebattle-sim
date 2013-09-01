@@ -372,7 +372,9 @@ class @Pokemon
   unattach: (klass) ->
     # TODO: Do we need to remove circular dependencies?
     # Removing them here will result in some unanticipated consequenes.
-    @attachments.unattach(klass)
+    attachment = @attachments.unattach(klass)
+    if attachment then @battle?.tell(Protocol.POKEMON_UNATTACH, @player.index, @team.indexOf(this), attachment.name)
+    attachment
 
   # Blocks a move for a single turn
   blockMove: (move) ->

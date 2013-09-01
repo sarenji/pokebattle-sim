@@ -95,6 +95,15 @@ class @BattleCollection extends Backbone.Collection
       when Protocol.BATTLE_ATTACH
         [attachment] = rest
         view.attachBattle(attachment, done)
+      when Protocol.POKEMON_UNATTACH
+        [player, slot, attachment] = rest
+        view.unattachPokemon(player, slot, attachment, done)
+      when Protocol.TEAM_UNATTACH
+        [player, attachment] = rest
+        view.unattachTeam(player, attachment, done)
+      when Protocol.BATTLE_UNATTACH
+        [attachment] = rest
+        view.unattachBattle(attachment, done)
       else
         done()
 

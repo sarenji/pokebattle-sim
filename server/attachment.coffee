@@ -726,7 +726,6 @@ class @Attachment.Substitute extends @VolatileAttachment
   transformHealthChange: (damage) ->
     @hp -= damage
     if @hp <= 0
-      @pokemon.tell(Protocol.EFFECT_END, @name)
       @battle.message "#{@pokemon.name}'s substitute faded!"
       @pokemon.unattach(@constructor)
     else

@@ -192,26 +192,32 @@ class @BattleView extends Backbone.View
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
         $effects.append("""<div class="pokemon-effect paralyze">PAR</div>""")
+        done()
       when 'Burn'
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
         $effects.append("""<div class="pokemon-effect burn">BRN</div>""")
+        done()
       when 'Poison'
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
         $effects.append("""<div class="pokemon-effect poison">PSN</div>""")
+        done()
       when 'Toxic'
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect Toxic">TOX</div>""")
+        $effects.append("""<div class="pokemon-effect toxic">TOX</div>""")
+        done()
       when 'Freeze'
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
         $effects.append("""<div class="pokemon-effect freeze">FRZ</div>""")
+        done()
       when 'Sleep'
         $pokemon = @$pokemon(player, slot)
         $effects = $pokemon.find('.pokemon-effects')
         $effects.append("""<div class="pokemon-effect sleep">SLP</div>""")
+        done()
       else
         done()
 
@@ -221,7 +227,7 @@ class @BattleView extends Backbone.View
   attachBattle: (attachment, done) =>
     done()
 
-  endEffect: (player, slot, effect, done) =>
+  unattachPokemon: (player, slot, effect, done) =>
     switch effect
       when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
@@ -235,8 +241,38 @@ class @BattleView extends Backbone.View
           move($substitute).set('opacity', 0).y(300)
             .then(-> $substitute.remove()).end(done)
         hideSub()
+      when 'Paralyze'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.paralyze').remove()
+        done()
+      when 'Burn'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.burn').remove()
+        done()
+      when 'Poison'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.poison').remove()
+        done()
+      when 'Toxic'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.toxic').remove()
+        done()
+      when 'Freeze'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.freeze').remove()
+        done()
+      when 'Sleep'
+        $pokemon = @$pokemon(player, slot)
+        $effects = $pokemon.find('.pokemon-effect.sleep').remove()
+        done()
       else
         done()
+
+  unattachTeam: (player, slot, effect, done) =>
+    done()
+
+  unattachBattle: (player, slot, effect, done) =>
+    done()
 
   announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
