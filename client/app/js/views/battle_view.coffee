@@ -66,7 +66,7 @@ class @BattleView extends Backbone.View
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
 
-  changeHP: (player, slot) =>
+  changeHP: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
@@ -80,8 +80,9 @@ class @BattleView extends Backbone.View
     else
       $hp.css(backgroundColor: "#0f0")
     $allHP.width(percent + "%")
+    done()
 
-  switchIn: (player, slot) =>
+  switchIn: (player, slot, done) =>
     $oldPokemon = @$pokemon(player, slot)
     pokemon = @model.getPokemon(player, slot)
     pokemonClass = "pokemon#{player}-#{slot}"
@@ -117,16 +118,19 @@ class @BattleView extends Backbone.View
         .scale(10).duration('.25s').then()
         .y(15).duration('.25s').ease('ease-out').pop().pop().end =>
           @removePokeball($pokeball)
+          done()
       move($newPokemon).set('opacity', 1).end()
     setTimeout(releasePokemon, 250)
 
-  switchOut: (player, slot) =>
+  switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
     $sprite = $pokemon.find('.sprite')
     width = $sprite.width()
     height = $sprite.height()
     move($sprite).scale(0.1).x(width / 2).y(height).duration('.15s').end()
-    move($pokemon).set('opacity', 0).duration('.25s').end(-> $pokemon.remove())
+    move($pokemon).set('opacity', 0).duration('.25s').end ->
+      $pokemon.remove()
+      done()
 
   makePokeball: (x, y) =>
     $pokeball = $("""<div class="pokeball"/>""")
@@ -146,13 +150,14 @@ class @BattleView extends Backbone.View
     clearTimeout(id)
     $pokeball.remove()
 
-  logMove: (player, slot, moveName) =>
+  logMove: (player, slot, moveName, done) =>
     {owner} = @model.getTeam(player)
     pokemon = @model.getPokemon(player, slot)
     @addLog("#{owner}'s #{pokemon.name} used <strong>#{moveName}</strong>!")
     @lastMove = moveName
+    done()
 
-  moveSuccess: (player, slot, targetSlot) =>
+  moveSuccess: (player, slot, targetSlot, done) =>
     switch @lastMove
       when 'Substitute'
         $pokemon = @$pokemon(player, slot)
@@ -178,10 +183,12 @@ class @BattleView extends Backbone.View
               .y( yOffset).ease('ease-in-quad').duration('.2s').then()
               .y(-yOffset >> 3).ease('ease-out-quad').duration('.1s').then()
               .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
-              .pop().pop().pop().end()
+              .pop().pop().pop().end(done)
           , 0
+      else
+        done()
 
-  endEffect: (player, slot, effect) =>
+  endEffect: (player, slot, effect, done) =>
     switch effect
       when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
@@ -193,18 +200,22 @@ class @BattleView extends Backbone.View
             setTimeout(hideSub, 20)
             return
           move($substitute).set('opacity', 0).y(300)
-            .then(-> $substitute.remove()).end()
+            .then(-> $substitute.remove()).end(done)
         hideSub()
+      else
+        done()
 
-  announceWinner: (player) =>
+  announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
     @chatView.print("<h3>#{owner} won!</h3>")
     @model.set('finished', true)
+    done()
 
-  announceForfeit: (player) =>
+  announceForfeit: (player, done) =>
     {owner} = @model.getTeam(player)
     @chatView.print("<h3>#{owner} has forfeited!</h3>")
     @model.set('finished', true)
+    done()
 
   $pokemon: (player, slot) =>
     @$(".pokemon#{player}-#{slot}")
@@ -215,11 +226,13 @@ class @BattleView extends Backbone.View
   isFront: (player) =>
     @model.index != player
 
-  faint: (player, slot) =>
+  faint: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
     $image = $pokemon.find('.sprite img')
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
-    move($pokemon).set('opacity', 0).end(-> $pokemon.remove())
+    move($pokemon).set('opacity', 0).end ->
+      $pokemon.remove()
+      done()
     @renderUserInfo()
 
   getMoveName: (el) =>
@@ -241,8 +254,9 @@ class @BattleView extends Backbone.View
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
 
-  beginTurn: (turn) =>
+  beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
+    done()
 
   makeMove: (e) =>
     moveName = @getMoveName(e.target)
