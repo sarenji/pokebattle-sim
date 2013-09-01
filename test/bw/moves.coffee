@@ -5664,3 +5664,11 @@ describe "Baton Pass", ->
     @battle.performMove(@id1, batonPass)
     @battle.performSwitch(@id1, 1)
     @team1.first().stages.should.include(attack: 1, evasion: -3)
+
+describe "Thunder Wave", ->
+  it "is affected by immunities", ->
+    shared.create.call(this)
+    thunderWave = @battle.getMove("Thunder Wave")
+    @p2.types = [ 'Ground' ]
+    @battle.performMove(@id1, thunderWave)
+    @p2.has(Status.Paralyze).should.be.false

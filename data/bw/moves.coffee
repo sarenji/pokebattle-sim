@@ -989,6 +989,8 @@ makeThiefMove 'Thief'
 extendWithSecondaryStatus 'Thunder', .3, Status.Paralyze
 extendWithFangEffect 'Thunder Fang', .1, Status.Paralyze
 extendWithPrimaryStatus 'Thunder Wave', Status.Paralyze
+extendMove 'Thunder Wave', ->
+  @ignoresImmunities = -> false
 extendWithSecondaryStatus 'Thunderbolt', .1, Status.Paralyze
 extendWithSecondaryStatus 'ThunderPunch', .1, Status.Paralyze
 extendWithSecondaryStatus 'ThunderShock', .1, Status.Paralyze

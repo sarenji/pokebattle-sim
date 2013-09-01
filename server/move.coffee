@@ -159,6 +159,9 @@ class @Move
       return 0x1800
     return 0x1000
 
+  ignoresImmunities: ->
+    @isNonDamaging()
+
   typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
     options = {ignoreImmunities: user.hasAbility("Scrappy")}
