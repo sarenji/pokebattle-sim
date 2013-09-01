@@ -4,6 +4,45 @@
 class @BattleController
   constructor: (@battle) ->
 
+  # Tells the player to execute a certain move by name. The move is added
+  # to the list of player actions, which are executed once the turn continues.
+  makeMove: (player, moveName) ->
+    return  if @battle.isOver()
+    move = @battle.getMove(moveName)
+    # TODO: Fail if move not in moves
+    # TODO: Fail if move not in player pokemon's moves
+    return  if !move?
+    @battle.recordMove(player.id, move)
+    @transitionToNextState()
+
+  # Tells the player to switch with a certain pokemon specified by position.
+  # The switch is added to the list of player actions, which are executed
+  # once the turn continues.
+  makeSwitch: (player, toPosition) ->
+    return  if @battle.isOver()
+    # TODO: Send error messages back on invalid indices (such as fainted poke
+    #       or activePokemon)
+    @battle.recordSwitch(player.id, toPosition)
+    @transitionToNextState()
+
+  # Makes a player forfeit.
+  forfeit: (player) ->
+    return  if @battle.isOver()
+    @battle.forfeit(player)
+    @sendUpdates()
+
+  addSpectator: (spectator) ->
+    @battle.addSpectator(spectator)
+
+  # Continue or begin a new turn if each player has made an action.
+  transitionToNextState: ->
+    if @battle.areAllRequestsCompleted()
+      if @battle.replacing
+        @battle.performReplacements()
+        @beginTurn()
+      else
+        @continueTurn()
+
   # Officially starts the battle.
   beginBattle: ->
     for you, i in @battle.players
@@ -16,34 +55,6 @@ class @BattleController
     pokemon = @battle.getActivePokemon()
     for p in pokemon
       p.switchIn(@battle)
-
-  # Tells the player to execute a certain move by name. The move is added
-  # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName) ->
-    move = @battle.getMove(moveName)
-    # TODO: Fail if move not in moves
-    # TODO: Fail if move not in player pokemon's moves
-    return  if !move?
-    @battle.recordMove(player.id, move)
-    @transitionToNextState()
-
-  # Tells the player to switch with a certain pokemon specified by position.
-  # The switch is added to the list of player actions, which are executed
-  # once the turn continues.
-  makeSwitch: (player, toPosition) ->
-    # TODO: Send error messages back on invalid indices (such as fainted poke
-    #       or activePokemon)
-    @battle.recordSwitch(player.id, toPosition)
-    @transitionToNextState()
-
-  # Continue or begin a new turn if each player has made an action.
-  transitionToNextState: ->
-    if @battle.areAllRequestsCompleted()
-      if @battle.replacing
-        @battle.performReplacements()
-        @beginTurn()
-      else
-        @continueTurn()
 
   beginTurn: ->
     @battle.beginTurn()
@@ -80,10 +91,6 @@ class @BattleController
   endBattle: ->
     @battle.endBattle()
 
-  forfeit: (user) ->
-    @battle.forfeit(user)
-    @sendUpdates()
-
   # Sends battle updates to players.
   sendUpdates: ->
     for player in @battle.players
@@ -94,6 +101,3 @@ class @BattleController
       continue  if spectator.queue.length == 0
       spectator.send('update battle', @battle.id, spectator.queue)
       spectator.queue = []
-
-  addSpectator: (spectator) ->
-    @battle.addSpectator(spectator)
