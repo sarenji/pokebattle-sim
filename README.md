@@ -10,6 +10,12 @@ cd battletower
 npm install
 ```
 
+You also need to install redis. On Mac OS X with homebrew, you can do:
+
+```bash
+brew install redis
+```
+
 ## Run server
 
 We use [Grunt](http://gruntjs.com/) to handle our development. First, you must `npm install -g grunt-cli` to get the grunt runner. Then you can type
