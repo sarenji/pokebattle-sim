@@ -29,6 +29,23 @@ int_to_stat = {
   6: 'speed',
 }
 
+version_to_generation = {
+  1: 1,   # rb
+  2: 1,   # yellow
+  3: 2,   # gs
+  4: 2,   # crystal
+  5: 3,   # rs
+  6: 3,   # emerald
+  7: 3,   # frlg
+  8: 4,   # dp
+  9: 4,   # platinum
+  10: 4,  # hgss
+  11: 5,  # black & white
+  12: 3,  # colloseum
+  13: 3,  # XD
+  14: 5,  # bw-2
+}
+
 class Species:
   def __init__(self, species_id, name):
     self.id = int(species_id)
@@ -96,10 +113,13 @@ class Forme:
       self.abilities = self.__dict__.setdefault('abilities', [])
       self.abilities.append(ability_name)
 
-  def add_move(self, move):
-    moves = self.__dict__.setdefault('moves', [])
-    if move not in moves:
-      moves.append(move)
+  def add_move(self, move, version, method, level):
+    version = "generation-%i" % version_to_generation[int(version)]
+    learnset = self.__dict__.setdefault('learnset', {})
+    version = learnset.setdefault(version, {})
+    moves_by_method = version.setdefault(method, {})
+    if move not in moves_by_method:
+      moves_by_method[move] = int(level)
 
   def add_weight(self, weight):
     self.weight = int(weight)
@@ -111,7 +131,7 @@ class Forme:
     h = {
       'stats'         : self.stats,
       'abilities'     : self.abilities,
-      'moves'         : sorted(self.moves),
+      'learnset'      : self.learnset,
       'types'         : self.types,
       'weight'        : self.weight,
       'isBattleOnly'  : self.is_battle_only,
@@ -273,7 +293,7 @@ def add_moves():
   while len(lines) > 0:
     line = lines.pop(0)
     forme_id, version, move_id, method_id, level, order = line.split(',')
-    formes[forme_id].add_move(move_dict[move_id])
+    formes[forme_id].add_move(move_dict[move_id], version, learn_methods[method_id], level)
 
 def map_egg_groups():
   lines = requests.get(egg_groups_url).text.splitlines()

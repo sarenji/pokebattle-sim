@@ -1,3 +1,5 @@
+{exec} = require('child_process')
+
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -95,3 +97,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-external-daemon')
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
+
+  grunt.registerTask 'scrape:pokemon', 'Scrape pokemon data from Veekun', ->
+    cmd = ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
+    exec(cmd, this.async())
