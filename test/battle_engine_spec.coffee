@@ -135,7 +135,7 @@ describe 'Mechanics', ->
     it "increases damage if the move has bp <= 60", ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
-        team2: [Factory('Shaymin (land)')]
+        team2: [Factory('Shaymin')]
       @controller.makeMove(@player1, 'Bullet Punch')
       hp = @p2.currentHP
       @controller.makeMove(@player2, 'Splash')

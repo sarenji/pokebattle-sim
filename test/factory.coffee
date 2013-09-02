@@ -92,7 +92,7 @@ Factory.register 'Drapion',
 Factory.register 'Alakazam',
   moves: ['Trick']
 
-Factory.register 'Gastrodon (east)',
+Factory.register 'Gastrodon',
   moves: ['Recover']
   ability: 'Sticky Hold'
 
@@ -118,7 +118,7 @@ Factory.register 'Dugtrio',
 Factory.register 'Regirock',
   moves: ['Rock Slide']
 
-Factory.register 'Shaymin (land)',
+Factory.register 'Shaymin',
   moves: ['Seed Flare']
 
 Factory.register 'Ditto',

@@ -575,7 +575,7 @@ describe 'trick and switcheroo', ->
   it "fails if the user has Sticky Hold", ->
     shared.create.call this,
       team1: [Factory('Alakazam', ability: "Sticky Hold", item: 'Stick')]
-      team2: [Factory('Gastrodon (east)', item: "Leftovers")]
+      team2: [Factory('Gastrodon', item: "Leftovers")]
     trick = @battle.getMove('Trick')
     mock = @sandbox.mock(trick).expects('fail').once()
     @battle.performMove(@id1, trick)
