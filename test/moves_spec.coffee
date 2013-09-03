@@ -46,14 +46,14 @@ describe 'Move', ->
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
       battle = new Battle('1', players: [])
-      attacker = new Pokemon(name: "Farfetch'd", species: "Farfetch'd", item: 'Stick')
+      attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
       defender = new Pokemon()
       attacker.switchIn()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Chansey with a Lucky Punch", ->
       battle = new Battle('1', players: [])
-      attacker = new Pokemon(name: "Chansey", species: "Chansey", item: 'Lucky Punch')
+      attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
       defender = new Pokemon()
       attacker.switchIn()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
@@ -107,7 +107,8 @@ describe 'Move', ->
     testTypeEffectiveness = (type, defense, expected) ->
       battle = new Battle('1', players: [])
       attacker = new Pokemon()
-      defender = new Pokemon(types: defense)
+      defender = new Pokemon()
+      defender.types = defense
       move = new Move(null, type: type)
       move.typeEffectiveness(battle, attacker, defender).should.equal expected
 

@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Ability, Item, Moves} = require '../data/bw'
+{Ability, Item, Moves, SpeciesData, FormeData} = require '../data/bw'
 {Status, StatusAttachment} = require './status'
 {Attachment, Attachments} = require './attachment'
 {Weather} = require './weather'
@@ -16,24 +16,25 @@ class @Pokemon
     @player = attributes.player
 
     @name = attributes.name || 'Missingno'
-    @species = attributes.species
+    @species = SpeciesData[@name]
     @level = attributes.level || 100
-    @baseStats = attributes.stats || {}
-    @weight = attributes.weight  # in kg
     @gender = attributes.gender || "Genderless"
-    @nfe = attributes.nfe
+    @nfe = (@species?.evolutions.length > 0)
     @attachments = new Attachments()
+
+    @baseStats = {}
+    @weight = 20  # in kg
+    @types = []
+    @changeForme(attributes.forme || "default")
 
     @nature = attributes.nature
     @evs = attributes.evs || {}
     @ivs = attributes.ivs || {}
     @currentHP = @stat('hp')
 
-    @moves = attributes.moves?.map (move) ->
-      Moves[move]
+    @moves = (attributes.moves || []).map (move) -> Moves[move]
     @used = {}
     @resetAllPP()
-    @types = attributes.types || [] # TODO: Get from species.
     @item = Item[attributes.item?.replace(/\s+/g, '')]
     @ability = Ability[attributes.ability?.replace(/\s+/g, '')]
     @status = null
@@ -59,6 +60,17 @@ class @Pokemon
     # a record of the last item used by this pokemon.
     # if the item is removed by someone else, it is not recorded.
     @lastItem = null
+
+  changeForme: (newForme) ->
+    return  if newForme == @forme
+    availableFormes = FormeData[@name] || {}
+    forme = availableFormes[newForme]
+    return  if !forme
+    @forme     = newForme
+    @baseStats = _.clone(forme.stats)
+    @types     = _.clone(forme.types)
+    @weight    = forme.weight
+    newForme
 
   iv: (stat) -> (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) -> (if stat of @evs then @evs[stat] else 0)

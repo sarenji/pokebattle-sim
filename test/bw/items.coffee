@@ -65,7 +65,7 @@ describe "Wise Glasses", ->
 describe "An Orb item", ->
   it "increases base power of moves matching the user's type by 0x1333", ->
     shared.create.call this,
-      team1: [Factory('Giratina (origin)')]
+      team1: [Factory('Giratina')]
     move = @battle.getMove('Outrage')
     modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
     modifier.should.equal 0x1333

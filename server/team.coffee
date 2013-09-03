@@ -4,25 +4,17 @@
 {Protocol} = require '../shared/protocol'
 
 class @Team
-  {Species} = require '../data/bw'
+  {SpeciesData} = require '../data/bw'
 
   constructor: (battle, player, pokemon, @numActive) ->
     # Inject battle dependency
     @battle = battle
     @player = player
     @pokemon = pokemon.map (attributes) =>
-      specimen = Species[attributes.name]
-      # TODO: Make nicer.
+      # TODO: Is there a nicer way of doing these injections?
       attributes.battle = battle
       attributes.team = this
       attributes.player = player
-      attributes.weight = specimen.weight
-      attributes.stats = _.clone(specimen.stats || {})
-      pokemon_moves = attributes.moves || []
-      attributes.moves = pokemon_moves.filter((m) -> m in specimen.moves)
-      attributes.types = (type  for type in specimen.types || [])
-      attributes.species = specimen.species
-      attributes.nfe = (specimen.evolutions.length > 0)
       new Pokemon(attributes)
     @attachments = new Attachments()
 

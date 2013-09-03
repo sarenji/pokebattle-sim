@@ -1,7 +1,10 @@
 {_} = require 'underscore'
 {Battle, Weather, Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
-{Moves} = require('../data/bw')
+{Moves, SpeciesData} = require('../data/bw')
+{Protocol} = require '../shared/protocol'
 should = require 'should'
+
+require './helpers'
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->
@@ -50,7 +53,8 @@ describe 'Pokemon', ->
       # todo: test other numbers later
 
     it 'calculates 1 base HP correctly', ->
-      pokemon = new Pokemon(level: 100, stats: { hp: 1 }, evs: { hp: 255 })
+      pokemon = new Pokemon(level: 100, evs: { hp: 255 })
+      pokemon.baseStats.hp = 1
       pokemon.stat('hp').should.equal 1
 
     it 'calculates other stats correctly', ->
@@ -99,7 +103,9 @@ describe 'Pokemon', ->
       new Pokemon().hasType('Grass').should.be.false
 
     it 'returns true if the pokemon has that type', ->
-      new Pokemon(types: ['Dark', 'Grass']).hasType('Grass').should.be.true
+      pokemon = new Pokemon()
+      pokemon.types = ['Dark', 'Grass']
+      pokemon.hasType('Grass').should.be.true
 
   describe '#switchOut', ->
     it 'resets stat boosts', ->
@@ -225,19 +231,22 @@ describe 'Pokemon', ->
         pokemon.has(status).should.be.true
 
     it "doesn't poison Poison types", ->
-      pokemon = new Pokemon(types: ["Poison"])
+      pokemon = new Pokemon()
+      pokemon.types = ["Poison"]
       pokemon.attach(Status.Poison)
       pokemon.attach(Status.Toxic)
       pokemon.has(Status.Poison).should.be.false
       pokemon.has(Status.Toxic).should.be.false
 
     it "doesn't burn Fire types", ->
-      pokemon = new Pokemon(types: ["Fire"])
+      pokemon = new Pokemon()
+      pokemon.types = ["Fire"]
       pokemon.attach(Status.Burn)
       pokemon.has(Status.Burn).should.be.false
 
     it "doesn't freeze Ice types", ->
-      pokemon = new Pokemon(types: ["Ice"])
+      pokemon = new Pokemon()
+      pokemon.types = ["Ice"]
       pokemon.attach(Status.Freeze)
       pokemon.has(Status.Freeze).should.be.false
 
@@ -298,23 +307,28 @@ describe 'Pokemon', ->
 
   describe "#isWeatherDamageImmune", ->
     it "returns true if it's hailing and the Pokemon is Ice type", ->
-      pokemon = new Pokemon(types: [ "Ice" ])
+      pokemon = new Pokemon()
+      pokemon.types = [ "Ice" ]
       pokemon.isWeatherDamageImmune(Weather.HAIL).should.be.true
 
     it "returns true if it's sandstorming and the Pokemon is Rock type", ->
-      pokemon = new Pokemon(types: [ "Rock" ])
+      pokemon = new Pokemon()
+      pokemon.types = [ "Rock" ]
       pokemon.isWeatherDamageImmune(Weather.SAND).should.be.true
 
     it "returns true if it's sandstorming and the Pokemon is Steel type", ->
-      pokemon = new Pokemon(types: [ "Steel" ])
+      pokemon = new Pokemon()
+      pokemon.types = [ "Steel" ]
       pokemon.isWeatherDamageImmune(Weather.SAND).should.be.true
 
     it "returns true if it's sandstorming and the Pokemon is Ground type", ->
-      pokemon = new Pokemon(types: [ "Ground" ])
+      pokemon = new Pokemon()
+      pokemon.types = [ "Ground" ]
       pokemon.isWeatherDamageImmune(Weather.SAND).should.be.true
 
     it "returns false otherwise", ->
-      pokemon = new Pokemon(types: [ "Grass" ])
+      pokemon = new Pokemon()
+      pokemon.types = [ "Grass" ]
       pokemon.isWeatherDamageImmune(Weather.SAND).should.be.false
       pokemon.isWeatherDamageImmune(Weather.HAIL).should.be.false
 
@@ -348,3 +362,38 @@ describe 'Pokemon', ->
       pokemon.setItem(fake.getItem())
       pokemon.removeItem()
       should.not.exist pokemon.lastItem
+
+  describe '#changeForme', ->
+    it "changes the Pokemon's forme from one to another", ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon.forme.should.equal('default')
+      pokemon.changeForme('sky')
+      pokemon.forme.should.equal('sky')
+
+    it 'changes base stats if applicable', ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon.baseStats.should.eql(
+        attack: 100, defense: 100, hp: 100,
+        specialAttack: 100, specialDefense: 100, speed: 100)
+      pokemon.changeForme('sky')
+      pokemon.baseStats.should.eql(
+        attack: 103, defense: 75, hp: 100,
+        specialAttack: 120, specialDefense: 75, speed: 127)
+
+    it 'changes weight if applicable', ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon.weight.should.equal(21)
+      pokemon.changeForme('sky')
+      pokemon.weight.should.equal(52)
+
+    it 'changes type if applicable', ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon.types.should.eql([ 'Grass' ])
+      pokemon.changeForme('sky')
+      pokemon.types.should.eql([ 'Grass', 'Flying' ])
+
+    it 'does nothing if the new forme is an invalid forme', ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon.forme.should.equal('default')
+      pokemon.changeForme('batman')
+      pokemon.forme.should.equal('default')

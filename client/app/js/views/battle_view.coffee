@@ -61,7 +61,7 @@ class @BattleView extends Backbone.View
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
-      {id}  = PokemonData[name]
+      {id}  = SpeciesData[name]
       url   = imageUrl(id, front: front)
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
