@@ -12,9 +12,10 @@ makeItem = (name, func) ->
     throw new Error("Cannot extend Item '#{name}' because it does not exist.")
   condensed = name.replace(/\s+/g, '')
   class Item[condensed] extends VolatileAttachment
-    @_name = name
+    @displayName: name
+    displayName: name
+    item: true
     (this[property] = value  for property, value of ItemData[name])
-    this::item = true
     func?.call(this)
 
 makePinchBerry = (name, hookName, func) ->
@@ -246,10 +247,10 @@ makeItem 'Black Sludge', ->
     amount = 1  if amount == 0
     if @pokemon.hasType('Poison')
       return  if maxHP == @pokemon.currentHP
-      @battle.message "#{@pokemon.name} restored a little HP using its #{@_name}!"
+      @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
       @pokemon.damage(-amount)
     else
-      @battle.message "#{@pokemon.name} is hurt by its #{@_name}!"
+      @battle.message "#{@pokemon.name} is hurt by its #{@displayName}!"
       @pokemon.damage(amount)
 
 makeEvasionItem 'BrightPowder', 0.9
@@ -331,7 +332,7 @@ makeGemItem 'Flying Gem', 'Flying'
 makeItem 'Focus Band', ->
   this::editDamage = (damage, move) ->
     if damage >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
-      @battle.message "#{@pokemon.name} hung on using its #{@_name}!"
+      @battle.message "#{@pokemon.name} hung on using its #{@displayName}!"
       @pokemon.useItem()
       return @pokemon.currentHP - 1
     return damage
@@ -340,7 +341,7 @@ makeItem 'Focus Sash', ->
   this::editDamage = (damage, move) ->
     maxHP = @pokemon.stat('hp')
     if @pokemon.currentHP == maxHP && damage >= maxHP
-      @battle.message "#{@pokemon.name} hung on using its #{@_name}!"
+      @battle.message "#{@pokemon.name} hung on using its #{@displayName}!"
       @pokemon.useItem()
       return maxHP - 1
     return damage
@@ -377,7 +378,7 @@ makeItem 'Leftovers', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
     return  if maxHP == @pokemon.currentHP
-    @battle.message "#{@pokemon.name} restored a little HP using its #{@_name}!"
+    @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
     amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     @pokemon.damage(-amount)
@@ -496,7 +497,7 @@ makeItem 'Shell Bell', ->
     # TODO: Does Shell Bell display a message if the Pokemon is at full HP?
     return  if damage == 0
     user.damage -Math.floor(damage / 8)
-    @battle.message "#{user.name} restored some of its HP using its #{@_name}!"
+    @battle.message "#{user.name} restored some of its HP using its #{@displayName}!"
 
 makeTypeResistBerry 'Shuca Berry', 'Ground'
 makeTypeBoostItem 'Silk Scarf', 'Normal'
@@ -547,7 +548,7 @@ makeItem 'White Herb', ->
     triggered = false
     for stat, boost of pokemon.stages
       if boost < 0
-        battle.message "#{pokemon.name} restored its status using its #{@_name}!"
+        battle.message "#{pokemon.name} restored its status using its #{@displayName}!"
         triggered = true
         pokemon.stages[stat] = 0
     return triggered

@@ -11,7 +11,8 @@ makeAbility = (name, extension, func) ->
     [extension, func] = [VolatileAttachment, extension]
   condensed = name.replace(/\s+/g, '')
   class Ability[condensed] extends extension
-    name: name
+    @displayName: name
+    displayName: name
     func?.call(this)
 
 makeAbility 'Reckless'
@@ -409,7 +410,7 @@ makeAbility "Frisk", ->
     opponent  = @battle.rng.choice(opponents, "frisk")
     if opponent.hasItem()
       item = opponent.getItem()
-      @battle.message "#{@pokemon.name} frisked its target and found one #{item._name}!"
+      @battle.message "#{@pokemon.name} frisked its target and found one #{item.displayName}!"
 
 # Implemented in items.coffee; makePinchBerry
 makeAbility "Gluttony"
@@ -425,7 +426,7 @@ makeAbility 'Harvest', ->
     shouldHarvest = @battle.hasWeather(Weather.SUN)
     shouldHarvest ||= @battle.rng.randInt(0, 1, "harvest") == 1
     if shouldHarvest
-      @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem._name}!"
+      @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.displayName}!"
       @pokemon.setItem(@pokemon.lastItem)
 
 makeAbility 'Healer', ->
@@ -824,7 +825,7 @@ makeAbility 'Trace', ->
     opponents = opponents.filter((p) -> p.isAlive())
     abilities = (opponent.ability  for opponent in opponents).compact()
     ability   = @battle.rng.choice(abilities, "trace")
-    if ability && ability::name not of bannedAbilities
+    if ability && ability.displayName not of bannedAbilities
       @pokemon.copyAbility(ability)
 
 makeAbility 'Truant', ->

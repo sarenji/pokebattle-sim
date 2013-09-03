@@ -173,13 +173,13 @@ class @Pokemon
   hasAbility: (ability) ->
     return false  unless @ability
     if typeof ability == 'string'
-      @ability::name == ability
+      @ability.displayName == ability
     else
       @ability == ability
 
   hasItem: (itemName) ->
     if itemName?
-      @item?._name == itemName
+      @item?.displayName == itemName
     else
       @item?
 
@@ -232,7 +232,7 @@ class @Pokemon
     return false  if @hasAbility("Sticky Hold")
     return false  if @hasAbility("Multitype") && @item.plate
     return false  if @name == 'Giratina (origin)'
-    return false  if @name == 'Genesect' && /Drive$/.test(@item._name)
+    return false  if @name == 'Genesect' && /Drive$/.test(@item.displayName)
     true
 
   isAlive: ->

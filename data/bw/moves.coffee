@@ -264,7 +264,7 @@ makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       return  if user.hasItem() || !target.hasTakeableItem()
-      battle.message "#{user.name} stole #{target.name}'s #{target.item._name}!"
+      battle.message "#{user.name} stole #{target.name}'s #{target.item.displayName}!"
       user.setItem(target.item)
       target.removeItem()
 
@@ -1323,7 +1323,7 @@ extendMove 'Fling', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     {item} = user.get(Attachment.Fling)
-    switch item._name
+    switch item.displayName
       when "Poison Barb"
         target.attach(Status.Poison)
       when "Light Ball"
@@ -1872,7 +1872,7 @@ extendMove 'Taunt', ->
 
 extendMove 'Techno Blast', ->
   @getType = (battle, user, target) ->
-    switch user.getItem()?._name
+    switch user.getItem()?.displayName
       when "Burn Drive"
         "Fire"
       when "Douse Drive"

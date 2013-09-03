@@ -338,7 +338,7 @@ describe 'Pokemon', ->
       pokemon.switchIn()
       pokemon.useItem()
       should.exist pokemon.lastItem
-      pokemon.lastItem._name.should.equal("Leftovers")
+      pokemon.lastItem.displayName.should.equal("Leftovers")
 
     it "removes the item", ->
       pokemon = new Pokemon(item: "Leftovers")
