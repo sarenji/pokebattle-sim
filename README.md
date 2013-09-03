@@ -26,6 +26,8 @@ grunt
 
 to automatically compile all client-side files and run nodemon for you.
 
+### Vagrant
+
 We use Vagrant to create a consistent development environment. First, you must 
 install [Vagrant](http://www.vagrantup.com/) and 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads). Next, run this in the 
@@ -39,7 +41,11 @@ cd /vagrant
 grunt
 ```
 
-From there, everything is as normal.
+From there, everything is as normal. To destroy the Vagrant VM:
+
+```bash
+vagrant destroy
+```
 
 ## Run tests
 
