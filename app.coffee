@@ -72,6 +72,9 @@ connections.addEvents
       continue  if spectator == user
       spectator.send('update battle chat', battleId, user.toJSON(), message)
 
+  'save team': (user, team) ->
+    console.log(team) # todo: implement this
+
   # TODO: Dequeue player
   'close': (user) ->
     userList.remove((u) -> u == user)

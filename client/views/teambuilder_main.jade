@@ -1,0 +1,94 @@
+select.species_list
+  each species in speciesList
+    - var selected = (species == pokemon.get("name"))
+    option(value=species, selected=selected)= species
+
+.clearfix
+  .nature_ability_item
+    div
+      span Nature:
+      input
+    div
+      span Ability:
+      select
+        each ability in pokemon.getAbilities()
+          option(value=ability)= ability
+    div
+      span Item:
+      input
+
+  table.stats
+    thead
+      th
+      th IV
+      th EV
+      th Stat
+    tbody
+      tr
+        th HP
+        td
+          input(type=text, class="iv-entry", data-stat="hp")
+        td
+          input(type=text, class="ev-entry", data-stat="hp")
+        td 500
+      tr
+        th Attack
+        td
+          input(type=text, class="iv-entry", data-stat="attack")
+        td
+          input(type=text, class="ev-entry", data-stat="attack")
+        td 500
+      tr
+        th Defense
+        td
+          input(type=text, class="iv-entry", data-stat="defense")
+        td
+          input(type=text, class="ev-entry", data-stat="defense")
+        td 500
+      tr
+        th Special Attack
+        td
+          input(type=text, class="iv-entry", data-stat="specialAttack")
+        td
+          input(type=text, class="ev-entry", data-stat="specialAttack")
+        td 500
+      tr
+        th Special Defense
+        td
+          input(type=text, class="iv-entry", data-stat="specialDefense")
+        td
+          input(type=text, class="ev-entry", data-stat="specialDefense")
+        td 500
+      tr
+        th Speed
+        td
+          input(type=text, class="iv-entry", data-stat="speed")
+        td
+          input(type=text, class="ev-entry", data-stat="speed")
+        td 500
+
+div.selected_moves
+  span Moves:
+  input(value=pokemon.get("moves")[0])
+  input(value=pokemon.get("moves")[1])
+  input(value=pokemon.get("moves")[2])
+  input(value=pokemon.get("moves")[3])
+
+table.move_table
+  thead
+    tr
+      th Name
+      th Type
+      th Power
+      th Accuracy
+      th PP
+      th Description
+  tbody
+    each move in pokemon.getMovepool()
+      tr
+        td= move.name
+        td= move.type
+        td= (move.power == 0) ? "-" : move.power
+        td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
+        td= move.pp
+        td Description
