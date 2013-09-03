@@ -93,9 +93,22 @@ describe "Learnsets:", ->
       @pokemon.forme = "wash"
       @checkMoveset(4, [ "Hydro Pump" ]).should.be.true
 
+    it "must know Blizzard in its frost forme", ->
+      @pokemon.forme = "frost"
+      @checkMoveset(4, [ "Thunderbolt" ]).should.be.false
+
     it "cannot learn Blizzard in its heat forme", ->
       @pokemon.forme = "heat"
-      @checkMoveset(4, [ "Blizzard" ]).should.be.false
+      @checkMoveset(4, [ "Blizzard", "Overheat" ]).should.be.false
+
+  testLearnset "Deoxys", ->
+    it "learns alternate forme moves due to freely switching formes", ->
+      @pokemon.forme = "attack"
+      @checkMoveset(4, [ "Spikes" ]).should.be.true
+
+  testLearnset "Shaymin", ->
+    it "learns alternate forme moves due to freely switching formes", ->
+      @checkMoveset(4, [ "Air Slash" ]).should.be.true
 
   testLearnset "Roserade", ->
     xit "cannot learn Spikes and Sleep Powder", ->
