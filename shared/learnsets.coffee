@@ -10,8 +10,12 @@ getMinimumGeneration = (generation) ->
   minGeneration = Math.min(unportableGenerations...)
   throw new Error("Gen. '#{generation}' must be greater than #{minGeneration}.")
 
-# Loop through the learnsets for this pokemon and all prevolutions.
-# This takes all available generations into count.
+# A helper method to loop through the learnsets for this pokemon and all
+# prevolutions, and then runs an iterator function (that you give) on those
+# learnsets. The iterator function takes one parameter, `learnset`, the learnset
+# for a given generation for the Pokemon's current forme.
+#
+# All generations that can be used are taken into consideration.
 loopLearnsets = (SpeciesData, FormeData, pokemon, forGeneration, iterator) ->
   minimumGeneration = getMinimumGeneration(forGeneration)
   [name, formeName] = [pokemon.name, pokemon.forme]
@@ -30,6 +34,10 @@ loopLearnsets = (SpeciesData, FormeData, pokemon, forGeneration, iterator) ->
 # Returns an array of moves that this Pokemon can learn for a given generation.
 self.learnableMoves = (pokemon, forGeneration) ->
 
+# Checks the moveset of a given Pokemon for a given generation, with the given
+# species and forme data for all Pokemon.
+#
+# Returns true if the moveset is valid, false otherwise.
 self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
   looper = loopLearnsets.bind(null, SpeciesData, FormeData, pokemon, generation)
 
@@ -37,25 +45,27 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
   # through level-up, tutoring, machines, or Sketch.
   leftoverMoves = (m  for m in moves when !checkMove(looper, pokemon, m))
 
+  # TODO: form-change learnsets should actually be considered part of the normal
+  # moveset, but only for that forme.
+
   # If there are no leftover moves, then we're done, the moveset is valid.
   return true  if leftoverMoves.length == 0
 
+  # Each Pokemon has certain learnset groups. Standard ones are listed below.
   standardGroups = [ "level-up", "tutor", "machine", "egg" ]
 
-  # There are certain ways specific Pokemon can learn a move.
   # Check non-standard groups:
   # "form-change", "light-ball-egg", "stadium-surfing-pikachu"
   return true  if looper (learnset) ->
-    # Check to see if special moves can completely overlap these moves
-    learnsetGroups = (g  for g of learnset when g not in standardGroups)
-    for groupName in learnsetGroups
-      total = 0
-      for move in leftoverMoves
-        total += (if move of learnset[groupName] then 1 else 0)
-
-      # If one group completely overlaps the leftover moves, we're good.
+    nonstandardGroups = (g  for g of learnset when g not in standardGroups)
+    # If a non-standard group completely overlaps the leftover moves, the
+    # moveset is valid.
+    for group in nonstandardGroups
+      total = (m  for m in leftoverMoves when m of learnset[group]).length
       return true  if total == leftoverMoves.length
 
+  # This makes it so if the remaining moves are all egg moves, the moveset is
+  # valid. That's false, but it's permissive. Later, factor in chain-breeding.
   # TODO: Check chain-breeding.
   eggMoves = []
   looper (learnset) ->
@@ -67,6 +77,8 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
 
   return false
 
+# Checks a single move to see if the Pokemon can learn it through level-up,
+# tutors, machines, Sketch, or pre-evolutions.
 checkMove = (looper, pokemon, move) ->
   {level} = pokemon
   valid = false
