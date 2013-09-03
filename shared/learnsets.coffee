@@ -9,6 +9,15 @@ switchableFormes = [
   "Shaymin"
 ]
 
+mustLearn =
+  "Mamoswine"  : "AncientPower"
+  "Yanmega"    : "AncientPower"
+  "Tangrowth"  : "AncientPower"
+  "Mr. Mime"   : "Mimic"
+  "Sudowoodo"  : "Mimic"  # Note: Only 6 egg moves exist; 4 can be learned.
+  "Ambipom"    : "Double Hit"
+  "Lickilicky" : "Rollout"
+
 getMinimumGeneration = (generation) ->
   for unportableGen in unportableGenerations
     if unportableGen <= generation
@@ -92,6 +101,8 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
     for moveName of learnset['egg']
       continue  if moveName in eggMoves || moveName not in leftoverMoves
       eggMoves.push(moveName)
+
+  return false  if eggMoves.length == moves.length && mustLearn[pokemon.name]
   return true  if eggMoves.length == leftoverMoves.length
 
   return false

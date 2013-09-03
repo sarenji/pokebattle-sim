@@ -113,6 +113,36 @@ describe "Learnsets:", ->
     it "learns alternate forme moves due to freely switching formes", ->
       @checkMoveset(4, [ "Air Slash" ]).should.be.true
 
+  testLearnset "Mamoswine", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Bite", "Fissure", "Curse", "Icicle Spear" ]
+      @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Yanmega", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Faint Attack", "Leech Life", "Whirlwind", "Reversal" ]
+      @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Tangrowth", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Amnesia", "Endeavor", "Leaf Storm", "Power Swap" ]
+      @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Mr. Mime", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Charm", "Healing Wish", "Fake Out", "Teeter Dance" ]
+      @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Ambipom", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Slam", "Covet", "Beat Up", "Pursuit" ]
+      @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Lickilicky", ->
+    it "cannot know 4 egg moves", ->
+      moveset = [ "Amnesia", "Curse", "Belly Drum", "Magnitude" ]
+      @checkMoveset(4, moveset).should.be.false
+
   testLearnset "Roserade", ->
     xit "cannot learn Spikes and Sleep Powder", ->
       @checkMoveset(4, [ "Spikes", "Sleep Powder" ]).should.be.false
