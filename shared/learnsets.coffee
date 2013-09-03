@@ -9,7 +9,7 @@ switchableFormes = [
   "Shaymin"
 ]
 
-mustLearn =
+mustLearnMove =
   "Mamoswine"  : "AncientPower"
   "Yanmega"    : "AncientPower"
   "Tangrowth"  : "AncientPower"
@@ -102,7 +102,10 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
       continue  if moveName in eggMoves || moveName not in leftoverMoves
       eggMoves.push(moveName)
 
-  return false  if eggMoves.length == moves.length && mustLearn[pokemon.name]
+  # If the Pokemon has to know a certain move to evolve, check the egg moves
+  # since you cannot have a moveset made completely of pure egg moves.
+  # A magic constant of 4 is used to imitate the game's maximum of 4 moves.
+  return false  if eggMoves.length == 4 && mustLearnMove[pokemon.name]
   return true  if eggMoves.length == leftoverMoves.length
 
   return false
