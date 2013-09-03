@@ -26,6 +26,21 @@ grunt
 
 to automatically compile all client-side files and run nodemon for you.
 
+We use Vagrant to create a consistent development environment. First, you must 
+install [Vagrant](http://www.vagrantup.com/) and 
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads). Next, run this in the 
+terminal, inside the project directory:
+
+```bash
+vagrant up
+# a whole bunch of stuff
+vagrant ssh
+cd /vagrant
+grunt
+```
+
+From there, everything is as normal.
+
 ## Run tests
 
 ```bash
