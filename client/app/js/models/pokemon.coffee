@@ -21,7 +21,10 @@ class @Pokemon extends Backbone.Model
     PokemonData[@get('name')]
 
   getAbilities: ->
-    ["Static", "Swift Swim"]
+    species = @getSpecies()
+    abilities = _.clone(species.abilities)
+    abilities.push(species.hiddenAbility)
+    abilities
 
   getMovepool: ->
     # todo: cache this
