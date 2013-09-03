@@ -19,7 +19,7 @@ class @Pokemon
     @species = SpeciesData[@name]
     @level = attributes.level || 100
     @gender = attributes.gender || "Genderless"
-    @nfe = (@species?.evolvesInto?)
+    @nfe = (@species?.evolvesInto?.length > 0)
     @attachments = new Attachments()
 
     @baseStats = {}

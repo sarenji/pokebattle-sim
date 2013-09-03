@@ -13,7 +13,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Kadabra",
+        "evolvesInto": [
+            "Kadabra"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 63
@@ -56,7 +58,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Ambipom",
+        "evolvesInto": [
+            "Ambipom"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 190
@@ -121,7 +125,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Armaldo",
+        "evolvesInto": [
+            "Armaldo"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 347
@@ -158,7 +164,9 @@
             "flying",
             "water3"
         ],
-        "evolvesInto": "Archeops",
+        "evolvesInto": [
+            "Archeops"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 566
@@ -195,7 +203,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Lairon",
+        "evolvesInto": [
+            "Lairon"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 304
@@ -221,7 +231,9 @@
             "monster",
             "dragon"
         ],
-        "evolvesInto": "Fraxure",
+        "evolvesInto": [
+            "Fraxure"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 610
@@ -248,7 +260,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Marill",
+        "evolvesInto": [
+            "Marill"
+        ],
         "genderRatio": 6,
         "generation": 3,
         "id": 298
@@ -257,7 +271,9 @@
         "eggGroups": [
             "dragon"
         ],
-        "evolvesInto": "Shelgon",
+        "evolvesInto": [
+            "Shelgon"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 371
@@ -266,7 +282,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Claydol",
+        "evolvesInto": [
+            "Claydol"
+        ],
         "genderRatio": -1,
         "generation": 3,
         "id": 343
@@ -284,7 +302,9 @@
         "eggGroups": [
             "water2"
         ],
-        "evolvesInto": "Whiscash",
+        "evolvesInto": [
+            "Whiscash"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 339
@@ -312,7 +332,9 @@
             "plant"
         ],
         "evolvedFrom": "Chikorita",
-        "evolvesInto": "Meganium",
+        "evolvesInto": [
+            "Meganium"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 153
@@ -357,7 +379,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Metang",
+        "evolvesInto": [
+            "Metang"
+        ],
         "genderRatio": -1,
         "generation": 3,
         "id": 374
@@ -375,7 +399,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Weepinbell",
+        "evolvesInto": [
+            "Weepinbell"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 69
@@ -395,7 +421,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Bibarel",
+        "evolvesInto": [
+            "Bibarel"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 399
@@ -441,7 +469,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Zebstrika",
+        "evolvesInto": [
+            "Zebstrika"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 522
@@ -451,7 +481,9 @@
             "mineral"
         ],
         "evolvedFrom": "Roggenrola",
-        "evolvesInto": "Gigalith",
+        "evolvesInto": [
+            "Gigalith"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 525
@@ -460,7 +492,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Sudowoodo",
+        "evolvesInto": [
+            "Sudowoodo"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 438
@@ -505,7 +539,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Bronzong",
+        "evolvesInto": [
+            "Bronzong"
+        ],
         "genderRatio": -1,
         "generation": 4,
         "id": 436
@@ -514,7 +550,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Roselia",
+        "evolvesInto": [
+            "Roselia"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 406
@@ -524,7 +562,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Floatzel",
+        "evolvesInto": [
+            "Floatzel"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 418
@@ -534,7 +574,9 @@
             "monster",
             "plant"
         ],
-        "evolvesInto": "Ivysaur",
+        "evolvesInto": [
+            "Ivysaur"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 1
@@ -544,7 +586,9 @@
             "ground",
             "humanshape"
         ],
-        "evolvesInto": "Lopunny",
+        "evolvesInto": [
+            "Lopunny"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 427
@@ -553,7 +597,10 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Mothim",
+        "evolvesInto": [
+            "Wormadam",
+            "Mothim"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 412
@@ -572,7 +619,9 @@
             "plant",
             "humanshape"
         ],
-        "evolvesInto": "Cacturne",
+        "evolvesInto": [
+            "Cacturne"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 331
@@ -618,7 +667,9 @@
         "eggGroups": [
             "water2"
         ],
-        "evolvesInto": "Sharpedo",
+        "evolvesInto": [
+            "Sharpedo"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 318
@@ -628,7 +679,9 @@
             "bug"
         ],
         "evolvedFrom": "Wurmple",
-        "evolvesInto": "Dustox",
+        "evolvesInto": [
+            "Dustox"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 268
@@ -646,7 +699,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Metapod",
+        "evolvesInto": [
+            "Metapod"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 10
@@ -673,7 +728,9 @@
             "fairy"
         ],
         "evolvedFrom": "Happiny",
-        "evolvesInto": "Blissey",
+        "evolvesInto": [
+            "Blissey"
+        ],
         "genderRatio": 8,
         "generation": 1,
         "id": 113
@@ -693,7 +750,9 @@
             "monster",
             "dragon"
         ],
-        "evolvesInto": "Charmeleon",
+        "evolvesInto": [
+            "Charmeleon"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 4
@@ -704,7 +763,9 @@
             "dragon"
         ],
         "evolvedFrom": "Charmander",
-        "evolvesInto": "Charizard",
+        "evolvesInto": [
+            "Charizard"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 5
@@ -732,7 +793,9 @@
             "fairy",
             "plant"
         ],
-        "evolvesInto": "Cherrim",
+        "evolvesInto": [
+            "Cherrim"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 420
@@ -742,7 +805,9 @@
             "monster",
             "plant"
         ],
-        "evolvesInto": "Bayleef",
+        "evolvesInto": [
+            "Bayleef"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 152
@@ -752,7 +817,9 @@
             "ground",
             "humanshape"
         ],
-        "evolvesInto": "Monferno",
+        "evolvesInto": [
+            "Monferno"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 390
@@ -770,7 +837,9 @@
         "eggGroups": [
             "water2"
         ],
-        "evolvesInto": "Lanturn",
+        "evolvesInto": [
+            "Lanturn"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 170
@@ -779,7 +848,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Chimecho",
+        "evolvesInto": [
+            "Chimecho"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 433
@@ -797,7 +868,10 @@
         "eggGroups": [
             "water1"
         ],
-        "evolvesInto": "Gorebyss",
+        "evolvesInto": [
+            "Huntail",
+            "Gorebyss"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 366
@@ -825,7 +899,9 @@
             "fairy"
         ],
         "evolvedFrom": "Cleffa",
-        "evolvesInto": "Clefable",
+        "evolvesInto": [
+            "Clefable"
+        ],
         "genderRatio": 6,
         "generation": 1,
         "id": 35
@@ -834,7 +910,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Clefairy",
+        "evolvesInto": [
+            "Clefairy"
+        ],
         "genderRatio": 6,
         "generation": 2,
         "id": 173
@@ -870,7 +948,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Vespiquen",
+        "evolvesInto": [
+            "Vespiquen"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 415
@@ -880,7 +960,9 @@
             "ground"
         ],
         "evolvedFrom": "Torchic",
-        "evolvesInto": "Blaziken",
+        "evolvesInto": [
+            "Blaziken"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 256
@@ -899,7 +981,9 @@
             "water1",
             "water3"
         ],
-        "evolvesInto": "Crawdaunt",
+        "evolvesInto": [
+            "Crawdaunt"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 341
@@ -918,7 +1002,9 @@
             "fairy",
             "plant"
         ],
-        "evolvesInto": "Whimsicott",
+        "evolvesInto": [
+            "Whimsicott"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 546
@@ -936,7 +1022,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Rampardos",
+        "evolvesInto": [
+            "Rampardos"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 408
@@ -963,7 +1051,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Toxicroak",
+        "evolvesInto": [
+            "Toxicroak"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 453
@@ -983,7 +1073,9 @@
             "water1"
         ],
         "evolvedFrom": "Totodile",
-        "evolvesInto": "Feraligatr",
+        "evolvesInto": [
+            "Feraligatr"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 159
@@ -1010,7 +1102,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Beartic",
+        "evolvesInto": [
+            "Beartic"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 613
@@ -1019,7 +1113,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Marowak",
+        "evolvesInto": [
+            "Marowak"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 104
@@ -1028,7 +1124,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Quilava",
+        "evolvesInto": [
+            "Quilava"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 155
@@ -1054,7 +1152,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Darmanitan",
+        "evolvesInto": [
+            "Darmanitan"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 554
@@ -1063,7 +1163,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Sawsbuck",
+        "evolvesInto": [
+            "Sawsbuck"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 585
@@ -1072,7 +1174,9 @@
         "eggGroups": [
             "dragon"
         ],
-        "evolvesInto": "Zweilous",
+        "evolvesInto": [
+            "Zweilous"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 633
@@ -1119,7 +1223,9 @@
             "ground"
         ],
         "evolvedFrom": "Oshawott",
-        "evolvesInto": "Samurott",
+        "evolvesInto": [
+            "Samurott"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 502
@@ -1136,7 +1242,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Dugtrio",
+        "evolvesInto": [
+            "Dugtrio"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 50
@@ -1162,7 +1270,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Dodrio",
+        "evolvesInto": [
+            "Dodrio"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 84
@@ -1182,7 +1292,9 @@
             "dragon"
         ],
         "evolvedFrom": "Dratini",
-        "evolvesInto": "Dragonite",
+        "evolvesInto": [
+            "Dragonite"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 148
@@ -1212,7 +1324,9 @@
             "water1",
             "dragon"
         ],
-        "evolvesInto": "Dragonair",
+        "evolvesInto": [
+            "Dragonair"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 147
@@ -1230,7 +1344,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Drifblim",
+        "evolvesInto": [
+            "Drifblim"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 425
@@ -1239,7 +1355,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Excadrill",
+        "evolvesInto": [
+            "Excadrill"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 529
@@ -1248,7 +1366,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Hypno",
+        "evolvesInto": [
+            "Hypno"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 96
@@ -1267,7 +1387,9 @@
             "water1",
             "flying"
         ],
-        "evolvesInto": "Swanna",
+        "evolvesInto": [
+            "Swanna"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 580
@@ -1294,7 +1416,9 @@
             "indeterminate"
         ],
         "evolvedFrom": "Solosis",
-        "evolvesInto": "Reuniclus",
+        "evolvesInto": [
+            "Reuniclus"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 578
@@ -1312,7 +1436,9 @@
             "indeterminate"
         ],
         "evolvedFrom": "Duskull",
-        "evolvesInto": "Dusknoir",
+        "evolvesInto": [
+            "Dusknoir"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 356
@@ -1330,7 +1456,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Dusclops",
+        "evolvesInto": [
+            "Dusclops"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 355
@@ -1349,7 +1477,9 @@
             "bug",
             "mineral"
         ],
-        "evolvesInto": "Crustle",
+        "evolvesInto": [
+            "Crustle"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 557
@@ -1359,7 +1489,9 @@
             "indeterminate"
         ],
         "evolvedFrom": "Tynamo",
-        "evolvesInto": "Eelektross",
+        "evolvesInto": [
+            "Eelektross"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 603
@@ -1377,7 +1509,15 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Glaceon",
+        "evolvesInto": [
+            "Vaporeon",
+            "Jolteon",
+            "Flareon",
+            "Espeon",
+            "Umbreon",
+            "Leafeon",
+            "Glaceon"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 133
@@ -1387,7 +1527,9 @@
             "ground",
             "dragon"
         ],
-        "evolvesInto": "Arbok",
+        "evolvesInto": [
+            "Arbok"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 23
@@ -1397,7 +1539,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Elekid",
-        "evolvesInto": "Electivire",
+        "evolvesInto": [
+            "Electivire"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 125
@@ -1415,7 +1559,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Manectric",
+        "evolvesInto": [
+            "Manectric"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 309
@@ -1433,7 +1579,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Electabuzz",
+        "evolvesInto": [
+            "Electabuzz"
+        ],
         "genderRatio": 2,
         "generation": 2,
         "id": 239
@@ -1442,7 +1590,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Beheeyem",
+        "evolvesInto": [
+            "Beheeyem"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 605
@@ -1513,7 +1663,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Exeggutor",
+        "evolvesInto": [
+            "Exeggutor"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 102
@@ -1560,7 +1712,9 @@
             "water1",
             "dragon"
         ],
-        "evolvesInto": "Milotic",
+        "evolvesInto": [
+            "Milotic"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 349
@@ -1580,7 +1734,9 @@
             "plant",
             "mineral"
         ],
-        "evolvesInto": "Ferrothorn",
+        "evolvesInto": [
+            "Ferrothorn"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 597
@@ -1599,7 +1755,9 @@
         "eggGroups": [
             "water2"
         ],
-        "evolvesInto": "Lumineon",
+        "evolvesInto": [
+            "Lumineon"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 456
@@ -1610,7 +1768,9 @@
             "ground"
         ],
         "evolvedFrom": "Mareep",
-        "evolvesInto": "Ampharos",
+        "evolvesInto": [
+            "Ampharos"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 180
@@ -1647,7 +1807,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Amoonguss",
+        "evolvesInto": [
+            "Amoonguss"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 590
@@ -1667,7 +1829,9 @@
             "dragon"
         ],
         "evolvedFrom": "Axew",
-        "evolvesInto": "Haxorus",
+        "evolvesInto": [
+            "Haxorus"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 611
@@ -1676,7 +1840,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Jellicent",
+        "evolvesInto": [
+            "Jellicent"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 592
@@ -1706,7 +1872,9 @@
             "dragon"
         ],
         "evolvedFrom": "Gible",
-        "evolvesInto": "Garchomp",
+        "evolvesInto": [
+            "Garchomp"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 444
@@ -1761,7 +1929,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Haunter",
+        "evolvesInto": [
+            "Haunter"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 92
@@ -1797,7 +1967,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Graveler",
+        "evolvesInto": [
+            "Graveler"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 74
@@ -1807,7 +1979,9 @@
             "monster",
             "dragon"
         ],
-        "evolvesInto": "Gabite",
+        "evolvesInto": [
+            "Gabite"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 443
@@ -1860,7 +2034,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Purugly",
+        "evolvesInto": [
+            "Purugly"
+        ],
         "genderRatio": 6,
         "generation": 4,
         "id": 431
@@ -1869,7 +2045,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Gliscor",
+        "evolvesInto": [
+            "Gliscor"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 207
@@ -1888,7 +2066,10 @@
             "plant"
         ],
         "evolvedFrom": "Oddish",
-        "evolvesInto": "Bellossom",
+        "evolvesInto": [
+            "Vileplume",
+            "Bellossom"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 44
@@ -1898,7 +2079,9 @@
             "flying"
         ],
         "evolvedFrom": "Zubat",
-        "evolvesInto": "Crobat",
+        "evolvesInto": [
+            "Crobat"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 42
@@ -1907,7 +2090,9 @@
         "eggGroups": [
             "water2"
         ],
-        "evolvesInto": "Seaking",
+        "evolvesInto": [
+            "Seaking"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 118
@@ -1935,7 +2120,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Golurk",
+        "evolvesInto": [
+            "Golurk"
+        ],
         "genderRatio": -1,
         "generation": 5,
         "id": 622
@@ -1962,7 +2149,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Gothorita",
+        "evolvesInto": [
+            "Gothorita"
+        ],
         "genderRatio": 6,
         "generation": 5,
         "id": 574
@@ -1981,7 +2170,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Gothita",
-        "evolvesInto": "Gothitelle",
+        "evolvesInto": [
+            "Gothitelle"
+        ],
         "genderRatio": 6,
         "generation": 5,
         "id": 575
@@ -2001,7 +2192,9 @@
             "mineral"
         ],
         "evolvedFrom": "Geodude",
-        "evolvesInto": "Golem",
+        "evolvesInto": [
+            "Golem"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 75
@@ -2010,7 +2203,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Muk",
+        "evolvesInto": [
+            "Muk"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 88
@@ -2021,7 +2216,9 @@
             "plant"
         ],
         "evolvedFrom": "Turtwig",
-        "evolvesInto": "Torterra",
+        "evolvesInto": [
+            "Torterra"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 388
@@ -2040,7 +2237,9 @@
             "dragon"
         ],
         "evolvedFrom": "Treecko",
-        "evolvesInto": "Sceptile",
+        "evolvesInto": [
+            "Sceptile"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 253
@@ -2049,7 +2248,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Arcanine",
+        "evolvesInto": [
+            "Arcanine"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 58
@@ -2067,7 +2268,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Swalot",
+        "evolvesInto": [
+            "Swalot"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 316
@@ -2077,7 +2280,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Timburr",
-        "evolvesInto": "Conkeldurr",
+        "evolvesInto": [
+            "Conkeldurr"
+        ],
         "genderRatio": 2,
         "generation": 5,
         "id": 533
@@ -2096,7 +2301,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Chansey",
+        "evolvesInto": [
+            "Chansey"
+        ],
         "genderRatio": 8,
         "generation": 4,
         "id": 440
@@ -2115,7 +2322,9 @@
             "indeterminate"
         ],
         "evolvedFrom": "Gastly",
-        "evolvesInto": "Gengar",
+        "evolvesInto": [
+            "Gengar"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 93
@@ -2159,7 +2368,9 @@
             "ground"
         ],
         "evolvedFrom": "Lillipup",
-        "evolvesInto": "Stoutland",
+        "evolvesInto": [
+            "Stoutland"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 507
@@ -2168,7 +2379,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Hippowdon",
+        "evolvesInto": [
+            "Hippowdon"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 449
@@ -2230,7 +2443,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Noctowl",
+        "evolvesInto": [
+            "Noctowl"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 163
@@ -2240,7 +2455,9 @@
             "fairy",
             "plant"
         ],
-        "evolvesInto": "Skiploom",
+        "evolvesInto": [
+            "Skiploom"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 187
@@ -2250,7 +2467,9 @@
             "water1",
             "dragon"
         ],
-        "evolvesInto": "Seadra",
+        "evolvesInto": [
+            "Seadra"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 116
@@ -2268,7 +2487,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Houndoom",
+        "evolvesInto": [
+            "Houndoom"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 228
@@ -2304,7 +2525,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Jigglypuff",
+        "evolvesInto": [
+            "Jigglypuff"
+        ],
         "genderRatio": 6,
         "generation": 2,
         "id": 174
@@ -2334,7 +2557,9 @@
             "plant"
         ],
         "evolvedFrom": "Bulbasaur",
-        "evolvesInto": "Venusaur",
+        "evolvesInto": [
+            "Venusaur"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 2
@@ -2353,7 +2578,9 @@
             "fairy"
         ],
         "evolvedFrom": "Igglybuff",
-        "evolvesInto": "Wigglytuff",
+        "evolvesInto": [
+            "Wigglytuff"
+        ],
         "genderRatio": 6,
         "generation": 1,
         "id": 39
@@ -2379,7 +2606,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Galvantula",
+        "evolvesInto": [
+            "Galvantula"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 595
@@ -2408,7 +2637,9 @@
             "water1",
             "water3"
         ],
-        "evolvesInto": "Kabutops",
+        "evolvesInto": [
+            "Kabutops"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 140
@@ -2428,7 +2659,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Abra",
-        "evolvesInto": "Alakazam",
+        "evolvesInto": [
+            "Alakazam"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 64
@@ -2438,7 +2671,9 @@
             "bug"
         ],
         "evolvedFrom": "Weedle",
-        "evolvesInto": "Beedrill",
+        "evolvesInto": [
+            "Beedrill"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 14
@@ -2455,7 +2690,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Escavalier",
+        "evolvesInto": [
+            "Escavalier"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 588
@@ -2500,7 +2737,10 @@
             "indeterminate"
         ],
         "evolvedFrom": "Ralts",
-        "evolvesInto": "Gallade",
+        "evolvesInto": [
+            "Gardevoir",
+            "Gallade"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 281
@@ -2510,7 +2750,9 @@
             "mineral"
         ],
         "evolvedFrom": "Klink",
-        "evolvesInto": "Klinklang",
+        "evolvesInto": [
+            "Klinklang"
+        ],
         "genderRatio": -1,
         "generation": 5,
         "id": 600
@@ -2519,7 +2761,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Klang",
+        "evolvesInto": [
+            "Klang"
+        ],
         "genderRatio": -1,
         "generation": 5,
         "id": 599
@@ -2537,7 +2781,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Weezing",
+        "evolvesInto": [
+            "Weezing"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 109
@@ -2546,7 +2792,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Kingler",
+        "evolvesInto": [
+            "Kingler"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 98
@@ -2555,7 +2803,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Kricketune",
+        "evolvesInto": [
+            "Kricketune"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 401
@@ -2574,7 +2824,9 @@
             "ground"
         ],
         "evolvedFrom": "Sandile",
-        "evolvesInto": "Krookodile",
+        "evolvesInto": [
+            "Krookodile"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 552
@@ -2609,7 +2861,9 @@
             "monster"
         ],
         "evolvedFrom": "Aron",
-        "evolvesInto": "Aggron",
+        "evolvesInto": [
+            "Aggron"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 305
@@ -2619,7 +2873,9 @@
             "indeterminate"
         ],
         "evolvedFrom": "Litwick",
-        "evolvesInto": "Chandelure",
+        "evolvesInto": [
+            "Chandelure"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 608
@@ -2654,7 +2910,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Volcarona",
+        "evolvesInto": [
+            "Volcarona"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 636
@@ -2663,7 +2921,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Pupitar",
+        "evolvesInto": [
+            "Pupitar"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 246
@@ -2715,7 +2975,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Ledian",
+        "evolvesInto": [
+            "Ledian"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 165
@@ -2733,7 +2995,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Lickilicky",
+        "evolvesInto": [
+            "Lickilicky"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 108
@@ -2751,7 +3015,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Cradily",
+        "evolvesInto": [
+            "Cradily"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 345
@@ -2769,7 +3035,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Herdier",
+        "evolvesInto": [
+            "Herdier"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 506
@@ -2787,7 +3055,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Lampent",
+        "evolvesInto": [
+            "Lampent"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 607
@@ -2798,7 +3068,9 @@
             "plant"
         ],
         "evolvedFrom": "Lotad",
-        "evolvesInto": "Ludicolo",
+        "evolvesInto": [
+            "Ludicolo"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 271
@@ -2818,7 +3090,9 @@
             "water1",
             "plant"
         ],
-        "evolvesInto": "Lombre",
+        "evolvesInto": [
+            "Lombre"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 270
@@ -2829,7 +3103,9 @@
             "ground"
         ],
         "evolvedFrom": "Whismur",
-        "evolvesInto": "Exploud",
+        "evolvesInto": [
+            "Exploud"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 294
@@ -2892,7 +3168,9 @@
             "ground"
         ],
         "evolvedFrom": "Shinx",
-        "evolvesInto": "Luxray",
+        "evolvesInto": [
+            "Luxray"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 404
@@ -2920,7 +3198,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Machop",
-        "evolvesInto": "Machamp",
+        "evolvesInto": [
+            "Machamp"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 67
@@ -2929,7 +3209,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Machoke",
+        "evolvesInto": [
+            "Machoke"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 66
@@ -2938,7 +3220,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Magmar",
+        "evolvesInto": [
+            "Magmar"
+        ],
         "genderRatio": 2,
         "generation": 2,
         "id": 240
@@ -2957,7 +3241,9 @@
             "water2",
             "dragon"
         ],
-        "evolvesInto": "Gyarados",
+        "evolvesInto": [
+            "Gyarados"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 129
@@ -2967,7 +3253,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Magby",
-        "evolvesInto": "Magmortar",
+        "evolvesInto": [
+            "Magmortar"
+        ],
         "genderRatio": 2,
         "generation": 1,
         "id": 126
@@ -2985,7 +3273,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Magneton",
+        "evolvesInto": [
+            "Magneton"
+        ],
         "genderRatio": -1,
         "generation": 1,
         "id": 81
@@ -2995,7 +3285,9 @@
             "mineral"
         ],
         "evolvedFrom": "Magnemite",
-        "evolvesInto": "Magnezone",
+        "evolvesInto": [
+            "Magnezone"
+        ],
         "genderRatio": -1,
         "generation": 1,
         "id": 82
@@ -3013,7 +3305,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Hariyama",
+        "evolvesInto": [
+            "Hariyama"
+        ],
         "genderRatio": 2,
         "generation": 3,
         "id": 296
@@ -3058,7 +3352,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Primeape",
+        "evolvesInto": [
+            "Primeape"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 56
@@ -3076,7 +3372,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Mantine",
+        "evolvesInto": [
+            "Mantine"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 458
@@ -3094,7 +3392,9 @@
             "monster",
             "ground"
         ],
-        "evolvesInto": "Flaaffy",
+        "evolvesInto": [
+            "Flaaffy"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 179
@@ -3105,7 +3405,9 @@
             "fairy"
         ],
         "evolvedFrom": "Azurill",
-        "evolvesInto": "Azumarill",
+        "evolvesInto": [
+            "Azumarill"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 183
@@ -3125,7 +3427,9 @@
             "water1"
         ],
         "evolvedFrom": "Mudkip",
-        "evolvesInto": "Swampert",
+        "evolvesInto": [
+            "Swampert"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 259
@@ -3162,7 +3466,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Medicham",
+        "evolvesInto": [
+            "Medicham"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 307
@@ -3189,7 +3495,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Persian",
+        "evolvesInto": [
+            "Persian"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 52
@@ -3216,7 +3524,9 @@
             "mineral"
         ],
         "evolvedFrom": "Beldum",
-        "evolvesInto": "Metagross",
+        "evolvesInto": [
+            "Metagross"
+        ],
         "genderRatio": -1,
         "generation": 3,
         "id": 375
@@ -3226,7 +3536,9 @@
             "bug"
         ],
         "evolvedFrom": "Caterpie",
-        "evolvesInto": "Butterfree",
+        "evolvesInto": [
+            "Butterfree"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 11
@@ -3252,7 +3564,9 @@
             "ground",
             "humanshape"
         ],
-        "evolvesInto": "Mienshao",
+        "evolvesInto": [
+            "Mienshao"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 619
@@ -3298,7 +3612,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Mr. Mime",
+        "evolvesInto": [
+            "Mr. Mime"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 439
@@ -3307,7 +3623,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Cinccino",
+        "evolvesInto": [
+            "Cinccino"
+        ],
         "genderRatio": 6,
         "generation": 5,
         "id": 572
@@ -3324,7 +3642,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Mismagius",
+        "evolvesInto": [
+            "Mismagius"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 200
@@ -3352,7 +3672,9 @@
             "humanshape"
         ],
         "evolvedFrom": "Chimchar",
-        "evolvesInto": "Infernape",
+        "evolvesInto": [
+            "Infernape"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 391
@@ -3380,7 +3702,9 @@
             "monster",
             "water1"
         ],
-        "evolvesInto": "Marshtomp",
+        "evolvesInto": [
+            "Marshtomp"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 258
@@ -3398,7 +3722,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Snorlax",
+        "evolvesInto": [
+            "Snorlax"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 446
@@ -3407,7 +3733,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Musharna",
+        "evolvesInto": [
+            "Musharna"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 517
@@ -3416,7 +3744,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Honchkrow",
+        "evolvesInto": [
+            "Honchkrow"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 198
@@ -3434,7 +3764,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Xatu",
+        "evolvesInto": [
+            "Xatu"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 177
@@ -3463,7 +3795,9 @@
             "monster",
             "ground"
         ],
-        "evolvesInto": "Nidorina",
+        "evolvesInto": [
+            "Nidorina"
+        ],
         "genderRatio": 8,
         "generation": 1,
         "id": 29
@@ -3473,7 +3807,9 @@
             "monster",
             "ground"
         ],
-        "evolvesInto": "Nidorino",
+        "evolvesInto": [
+            "Nidorino"
+        ],
         "genderRatio": 0,
         "generation": 1,
         "id": 32
@@ -3483,7 +3819,9 @@
             "no-eggs"
         ],
         "evolvedFrom": "Nidoran\u2640",
-        "evolvesInto": "Nidoqueen",
+        "evolvesInto": [
+            "Nidoqueen"
+        ],
         "genderRatio": 8,
         "generation": 1,
         "id": 30
@@ -3494,7 +3832,9 @@
             "ground"
         ],
         "evolvedFrom": "Nidoran\u2642",
-        "evolvesInto": "Nidoking",
+        "evolvesInto": [
+            "Nidoking"
+        ],
         "genderRatio": 0,
         "generation": 1,
         "id": 33
@@ -3503,7 +3843,10 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Shedinja",
+        "evolvesInto": [
+            "Ninjask",
+            "Shedinja"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 290
@@ -3539,7 +3882,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Probopass",
+        "evolvesInto": [
+            "Probopass"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 299
@@ -3548,7 +3893,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Camerupt",
+        "evolvesInto": [
+            "Camerupt"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 322
@@ -3559,7 +3906,9 @@
             "plant"
         ],
         "evolvedFrom": "Seedot",
-        "evolvesInto": "Shiftry",
+        "evolvesInto": [
+            "Shiftry"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 274
@@ -3578,7 +3927,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Gloom",
+        "evolvesInto": [
+            "Gloom"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 43
@@ -3588,7 +3939,9 @@
             "water1",
             "water3"
         ],
-        "evolvesInto": "Omastar",
+        "evolvesInto": [
+            "Omastar"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 138
@@ -3607,7 +3960,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Steelix",
+        "evolvesInto": [
+            "Steelix"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 95
@@ -3616,7 +3971,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Dewott",
+        "evolvesInto": [
+            "Dewott"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 501
@@ -3643,7 +4000,9 @@
             "water1"
         ],
         "evolvedFrom": "Tympole",
-        "evolvesInto": "Seismitoad",
+        "evolvesInto": [
+            "Seismitoad"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 536
@@ -3652,7 +4011,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Simipour",
+        "evolvesInto": [
+            "Simipour"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 515
@@ -3661,7 +4022,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Simisage",
+        "evolvesInto": [
+            "Simisage"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 511
@@ -3670,7 +4033,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Simisear",
+        "evolvesInto": [
+            "Simisear"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 513
@@ -3680,7 +4045,9 @@
             "bug",
             "plant"
         ],
-        "evolvesInto": "Parasect",
+        "evolvesInto": [
+            "Parasect"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 46
@@ -3699,7 +4066,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Watchog",
+        "evolvesInto": [
+            "Watchog"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 504
@@ -3708,7 +4077,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Bisharp",
+        "evolvesInto": [
+            "Bisharp"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 624
@@ -3736,7 +4107,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Lilligant",
+        "evolvesInto": [
+            "Lilligant"
+        ],
         "genderRatio": 8,
         "generation": 5,
         "id": 548
@@ -3745,7 +4118,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Donphan",
+        "evolvesInto": [
+            "Donphan"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 231
@@ -3763,7 +4138,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Pikachu",
+        "evolvesInto": [
+            "Pikachu"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 172
@@ -3782,7 +4159,9 @@
             "flying"
         ],
         "evolvedFrom": "Pidgey",
-        "evolvesInto": "Pidgeot",
+        "evolvesInto": [
+            "Pidgeot"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 17
@@ -3791,7 +4170,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Pidgeotto",
+        "evolvesInto": [
+            "Pidgeotto"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 16
@@ -3800,7 +4181,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Tranquill",
+        "evolvesInto": [
+            "Tranquill"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 519
@@ -3810,7 +4193,9 @@
             "ground"
         ],
         "evolvedFrom": "Tepig",
-        "evolvesInto": "Emboar",
+        "evolvesInto": [
+            "Emboar"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 499
@@ -3821,7 +4206,9 @@
             "fairy"
         ],
         "evolvedFrom": "Pichu",
-        "evolvesInto": "Raichu",
+        "evolvesInto": [
+            "Raichu"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 25
@@ -3831,7 +4218,9 @@
             "ground"
         ],
         "evolvedFrom": "Swinub",
-        "evolvesInto": "Mamoswine",
+        "evolvesInto": [
+            "Mamoswine"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 221
@@ -3840,7 +4229,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Forretress",
+        "evolvesInto": [
+            "Forretress"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 204
@@ -3858,7 +4249,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Prinplup",
+        "evolvesInto": [
+            "Prinplup"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 393
@@ -3884,7 +4277,9 @@
         "eggGroups": [
             "water1"
         ],
-        "evolvesInto": "Poliwhirl",
+        "evolvesInto": [
+            "Poliwhirl"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 60
@@ -3894,7 +4289,10 @@
             "water1"
         ],
         "evolvedFrom": "Poliwag",
-        "evolvesInto": "Politoed",
+        "evolvesInto": [
+            "Poliwrath",
+            "Politoed"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 61
@@ -3912,7 +4310,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Rapidash",
+        "evolvesInto": [
+            "Rapidash"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 77
@@ -3921,7 +4321,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Mightyena",
+        "evolvesInto": [
+            "Mightyena"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 261
@@ -3930,7 +4332,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Porygon2",
+        "evolvesInto": [
+            "Porygon2"
+        ],
         "genderRatio": -1,
         "generation": 1,
         "id": 137
@@ -3949,7 +4353,9 @@
             "mineral"
         ],
         "evolvedFrom": "Porygon",
-        "evolvesInto": "Porygon-Z",
+        "evolvesInto": [
+            "Porygon-Z"
+        ],
         "genderRatio": -1,
         "generation": 2,
         "id": 233
@@ -3969,7 +4375,9 @@
             "ground"
         ],
         "evolvedFrom": "Piplup",
-        "evolvesInto": "Empoleon",
+        "evolvesInto": [
+            "Empoleon"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 394
@@ -3988,7 +4396,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Golduck",
+        "evolvesInto": [
+            "Golduck"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 54
@@ -3998,7 +4408,9 @@
             "monster"
         ],
         "evolvedFrom": "Larvitar",
-        "evolvesInto": "Tyranitar",
+        "evolvesInto": [
+            "Tyranitar"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 247
@@ -4007,7 +4419,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Liepard",
+        "evolvesInto": [
+            "Liepard"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 509
@@ -4036,7 +4450,9 @@
             "ground"
         ],
         "evolvedFrom": "Cyndaquil",
-        "evolvesInto": "Typhlosion",
+        "evolvesInto": [
+            "Typhlosion"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 156
@@ -4071,7 +4487,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Kirlia",
+        "evolvesInto": [
+            "Kirlia"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 280
@@ -4107,7 +4525,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Raticate",
+        "evolvesInto": [
+            "Raticate"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 19
@@ -4166,7 +4586,9 @@
             "water1",
             "water2"
         ],
-        "evolvesInto": "Octillery",
+        "evolvesInto": [
+            "Octillery"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 223
@@ -4194,7 +4616,9 @@
             "ground"
         ],
         "evolvedFrom": "Rhyhorn",
-        "evolvesInto": "Rhyperior",
+        "evolvesInto": [
+            "Rhyperior"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 112
@@ -4204,7 +4628,9 @@
             "monster",
             "ground"
         ],
-        "evolvesInto": "Rhydon",
+        "evolvesInto": [
+            "Rhydon"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 111
@@ -4223,7 +4649,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Lucario",
+        "evolvesInto": [
+            "Lucario"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 447
@@ -4232,7 +4660,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Boldore",
+        "evolvesInto": [
+            "Boldore"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 524
@@ -4243,7 +4673,9 @@
             "plant"
         ],
         "evolvedFrom": "Budew",
-        "evolvesInto": "Roserade",
+        "evolvesInto": [
+            "Roserade"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 315
@@ -4270,7 +4702,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Braviary",
+        "evolvesInto": [
+            "Braviary"
+        ],
         "genderRatio": 0,
         "generation": 5,
         "id": 627
@@ -4305,7 +4739,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Krokorok",
+        "evolvesInto": [
+            "Krokorok"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 551
@@ -4314,7 +4750,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Sandslash",
+        "evolvesInto": [
+            "Sandslash"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 27
@@ -4388,7 +4826,9 @@
             "ground",
             "dragon"
         ],
-        "evolvesInto": "Scrafty",
+        "evolvesInto": [
+            "Scrafty"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 559
@@ -4397,7 +4837,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Scizor",
+        "evolvesInto": [
+            "Scizor"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 123
@@ -4408,7 +4850,9 @@
             "dragon"
         ],
         "evolvedFrom": "Horsea",
-        "evolvesInto": "Kingdra",
+        "evolvesInto": [
+            "Kingdra"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 117
@@ -4428,7 +4872,9 @@
             "ground"
         ],
         "evolvedFrom": "Spheal",
-        "evolvesInto": "Walrein",
+        "evolvesInto": [
+            "Walrein"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 364
@@ -4438,7 +4884,9 @@
             "ground",
             "plant"
         ],
-        "evolvesInto": "Nuzleaf",
+        "evolvesInto": [
+            "Nuzleaf"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 273
@@ -4448,7 +4896,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Dewgong",
+        "evolvesInto": [
+            "Dewgong"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 86
@@ -4466,7 +4916,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Furret",
+        "evolvesInto": [
+            "Furret"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 161
@@ -4487,7 +4939,9 @@
             "plant"
         ],
         "evolvedFrom": "Snivy",
-        "evolvesInto": "Serperior",
+        "evolvesInto": [
+            "Serperior"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 496
@@ -4505,7 +4959,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Swadloon",
+        "evolvesInto": [
+            "Swadloon"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 540
@@ -4541,7 +4997,9 @@
             "dragon"
         ],
         "evolvedFrom": "Bagon",
-        "evolvesInto": "Salamence",
+        "evolvesInto": [
+            "Salamence"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 372
@@ -4550,7 +5008,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Cloyster",
+        "evolvesInto": [
+            "Cloyster"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 90
@@ -4560,7 +5020,9 @@
             "water1",
             "indeterminate"
         ],
-        "evolvesInto": "Gastrodon",
+        "evolvesInto": [
+            "Gastrodon"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 422
@@ -4569,7 +5031,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Accelgor",
+        "evolvesInto": [
+            "Accelgor"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 616
@@ -4578,7 +5042,9 @@
         "eggGroups": [
             "monster"
         ],
-        "evolvesInto": "Bastiodon",
+        "evolvesInto": [
+            "Bastiodon"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 410
@@ -4597,7 +5063,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Luxio",
+        "evolvesInto": [
+            "Luxio"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 403
@@ -4607,7 +5075,9 @@
             "fairy",
             "plant"
         ],
-        "evolvesInto": "Breloom",
+        "evolvesInto": [
+            "Breloom"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 285
@@ -4624,7 +5094,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Banette",
+        "evolvesInto": [
+            "Banette"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 353
@@ -4642,7 +5114,9 @@
             "bug"
         ],
         "evolvedFrom": "Wurmple",
-        "evolvesInto": "Beautifly",
+        "evolvesInto": [
+            "Beautifly"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 266
@@ -4688,7 +5162,9 @@
             "plant"
         ],
         "evolvedFrom": "Hoppip",
-        "evolvesInto": "Jumpluff",
+        "evolvesInto": [
+            "Jumpluff"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 188
@@ -4698,7 +5174,9 @@
             "ground",
             "fairy"
         ],
-        "evolvesInto": "Delcatty",
+        "evolvesInto": [
+            "Delcatty"
+        ],
         "genderRatio": 6,
         "generation": 3,
         "id": 300
@@ -4708,7 +5186,9 @@
             "bug",
             "water3"
         ],
-        "evolvesInto": "Drapion",
+        "evolvesInto": [
+            "Drapion"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 451
@@ -4735,7 +5215,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Vigoroth",
+        "evolvesInto": [
+            "Vigoroth"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 287
@@ -4765,7 +5247,10 @@
             "monster",
             "water1"
         ],
-        "evolvesInto": "Slowking",
+        "evolvesInto": [
+            "Slowbro",
+            "Slowking"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 79
@@ -4774,7 +5259,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Magcargo",
+        "evolvesInto": [
+            "Magcargo"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 218
@@ -4791,7 +5278,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Jynx",
+        "evolvesInto": [
+            "Jynx"
+        ],
         "genderRatio": 8,
         "generation": 2,
         "id": 238
@@ -4800,7 +5289,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Weavile",
+        "evolvesInto": [
+            "Weavile"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 215
@@ -4810,7 +5301,9 @@
             "ground",
             "plant"
         ],
-        "evolvesInto": "Servine",
+        "evolvesInto": [
+            "Servine"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 495
@@ -4829,7 +5322,10 @@
             "fairy",
             "mineral"
         ],
-        "evolvesInto": "Froslass",
+        "evolvesInto": [
+            "Glalie",
+            "Froslass"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 361
@@ -4839,7 +5335,9 @@
             "monster",
             "plant"
         ],
-        "evolvesInto": "Abomasnow",
+        "evolvesInto": [
+            "Abomasnow"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 459
@@ -4849,7 +5347,9 @@
             "ground",
             "fairy"
         ],
-        "evolvesInto": "Granbull",
+        "evolvesInto": [
+            "Granbull"
+        ],
         "genderRatio": 6,
         "generation": 2,
         "id": 209
@@ -4858,7 +5358,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Duosion",
+        "evolvesInto": [
+            "Duosion"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 577
@@ -4875,7 +5377,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Fearow",
+        "evolvesInto": [
+            "Fearow"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 21
@@ -4885,7 +5389,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Sealeo",
+        "evolvesInto": [
+            "Sealeo"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 363
@@ -4894,7 +5400,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Ariados",
+        "evolvesInto": [
+            "Ariados"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 167
@@ -4920,7 +5428,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Grumpig",
+        "evolvesInto": [
+            "Grumpig"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 325
@@ -4930,7 +5440,9 @@
             "monster",
             "water1"
         ],
-        "evolvesInto": "Wartortle",
+        "evolvesInto": [
+            "Wartortle"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 7
@@ -4957,7 +5469,9 @@
             "flying"
         ],
         "evolvedFrom": "Starly",
-        "evolvesInto": "Staraptor",
+        "evolvesInto": [
+            "Staraptor"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 397
@@ -4966,7 +5480,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Staravia",
+        "evolvesInto": [
+            "Staravia"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 396
@@ -4984,7 +5500,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Starmie",
+        "evolvesInto": [
+            "Starmie"
+        ],
         "genderRatio": -1,
         "generation": 1,
         "id": 120
@@ -5020,7 +5538,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Skuntank",
+        "evolvesInto": [
+            "Skuntank"
+        ],
         "genderRatio": 4,
         "generation": 4,
         "id": 434
@@ -5055,7 +5575,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Sunflora",
+        "evolvesInto": [
+            "Sunflora"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 191
@@ -5065,7 +5587,9 @@
             "water1",
             "bug"
         ],
-        "evolvesInto": "Masquerain",
+        "evolvesInto": [
+            "Masquerain"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 283
@@ -5075,7 +5599,9 @@
             "flying",
             "dragon"
         ],
-        "evolvesInto": "Altaria",
+        "evolvesInto": [
+            "Altaria"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 333
@@ -5085,7 +5611,9 @@
             "bug"
         ],
         "evolvedFrom": "Sewaddle",
-        "evolvesInto": "Leavanny",
+        "evolvesInto": [
+            "Leavanny"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 541
@@ -5132,7 +5660,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Piloswine",
+        "evolvesInto": [
+            "Piloswine"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 220
@@ -5151,7 +5681,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Swellow",
+        "evolvesInto": [
+            "Swellow"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 276
@@ -5160,7 +5692,9 @@
         "eggGroups": [
             "plant"
         ],
-        "evolvesInto": "Tangrowth",
+        "evolvesInto": [
+            "Tangrowth"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 114
@@ -5186,7 +5720,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Ursaring",
+        "evolvesInto": [
+            "Ursaring"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 216
@@ -5195,7 +5731,9 @@
         "eggGroups": [
             "water3"
         ],
-        "evolvesInto": "Tentacruel",
+        "evolvesInto": [
+            "Tentacruel"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 72
@@ -5213,7 +5751,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Pignite",
+        "evolvesInto": [
+            "Pignite"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 498
@@ -5246,7 +5786,9 @@
         "eggGroups": [
             "humanshape"
         ],
-        "evolvesInto": "Gurdurr",
+        "evolvesInto": [
+            "Gurdurr"
+        ],
         "genderRatio": 2,
         "generation": 5,
         "id": 532
@@ -5256,7 +5798,9 @@
             "water1",
             "water3"
         ],
-        "evolvesInto": "Carracosta",
+        "evolvesInto": [
+            "Carracosta"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 564
@@ -5275,7 +5819,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Togetic",
+        "evolvesInto": [
+            "Togetic"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 175
@@ -5286,7 +5832,9 @@
             "fairy"
         ],
         "evolvedFrom": "Togepi",
-        "evolvesInto": "Togekiss",
+        "evolvesInto": [
+            "Togekiss"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 176
@@ -5295,7 +5843,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Combusken",
+        "evolvesInto": [
+            "Combusken"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 255
@@ -5331,7 +5881,9 @@
             "monster",
             "water1"
         ],
-        "evolvesInto": "Croconaw",
+        "evolvesInto": [
+            "Croconaw"
+        ],
         "genderRatio": 1,
         "generation": 2,
         "id": 158
@@ -5350,7 +5902,9 @@
             "flying"
         ],
         "evolvedFrom": "Pidove",
-        "evolvesInto": "Unfezant",
+        "evolvesInto": [
+            "Unfezant"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 520
@@ -5359,7 +5913,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Vibrava",
+        "evolvesInto": [
+            "Vibrava"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 328
@@ -5369,7 +5925,9 @@
             "monster",
             "dragon"
         ],
-        "evolvesInto": "Grovyle",
+        "evolvesInto": [
+            "Grovyle"
+        ],
         "genderRatio": 1,
         "generation": 3,
         "id": 252
@@ -5387,7 +5945,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Garbodor",
+        "evolvesInto": [
+            "Garbodor"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 568
@@ -5397,7 +5957,9 @@
             "monster",
             "plant"
         ],
-        "evolvesInto": "Grotle",
+        "evolvesInto": [
+            "Grotle"
+        ],
         "genderRatio": 1,
         "generation": 4,
         "id": 387
@@ -5406,7 +5968,9 @@
         "eggGroups": [
             "water1"
         ],
-        "evolvesInto": "Palpitoad",
+        "evolvesInto": [
+            "Palpitoad"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 535
@@ -5415,7 +5979,9 @@
         "eggGroups": [
             "indeterminate"
         ],
-        "evolvesInto": "Eelektrik",
+        "evolvesInto": [
+            "Eelektrik"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 602
@@ -5442,7 +6008,11 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Hitmontop",
+        "evolvesInto": [
+            "Hitmonlee",
+            "Hitmonchan",
+            "Hitmontop"
+        ],
         "genderRatio": 0,
         "generation": 2,
         "id": 236
@@ -5495,7 +6065,9 @@
             "mineral"
         ],
         "evolvedFrom": "Vanillite",
-        "evolvesInto": "Vanilluxe",
+        "evolvesInto": [
+            "Vanilluxe"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 583
@@ -5504,7 +6076,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Vanillish",
+        "evolvesInto": [
+            "Vanillish"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 582
@@ -5531,7 +6105,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Whirlipede",
+        "evolvesInto": [
+            "Whirlipede"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 543
@@ -5549,7 +6125,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Venomoth",
+        "evolvesInto": [
+            "Venomoth"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 48
@@ -5578,7 +6156,9 @@
             "bug"
         ],
         "evolvedFrom": "Trapinch",
-        "evolvesInto": "Flygon",
+        "evolvesInto": [
+            "Flygon"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 329
@@ -5605,7 +6185,9 @@
             "ground"
         ],
         "evolvedFrom": "Slakoth",
-        "evolvesInto": "Slaking",
+        "evolvesInto": [
+            "Slaking"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 288
@@ -5649,7 +6231,9 @@
         "eggGroups": [
             "mineral"
         ],
-        "evolvesInto": "Electrode",
+        "evolvesInto": [
+            "Electrode"
+        ],
         "genderRatio": -1,
         "generation": 1,
         "id": 100
@@ -5658,7 +6242,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Mandibuzz",
+        "evolvesInto": [
+            "Mandibuzz"
+        ],
         "genderRatio": 8,
         "generation": 5,
         "id": 629
@@ -5667,7 +6253,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Ninetales",
+        "evolvesInto": [
+            "Ninetales"
+        ],
         "genderRatio": 6,
         "generation": 1,
         "id": 37
@@ -5677,7 +6265,9 @@
             "ground",
             "water2"
         ],
-        "evolvesInto": "Wailord",
+        "evolvesInto": [
+            "Wailord"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 320
@@ -5708,7 +6298,9 @@
             "water1"
         ],
         "evolvedFrom": "Squirtle",
-        "evolvesInto": "Blastoise",
+        "evolvesInto": [
+            "Blastoise"
+        ],
         "genderRatio": 1,
         "generation": 1,
         "id": 8
@@ -5735,7 +6327,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Kakuna",
+        "evolvesInto": [
+            "Kakuna"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 13
@@ -5745,7 +6339,9 @@
             "plant"
         ],
         "evolvedFrom": "Bellsprout",
-        "evolvesInto": "Victreebel",
+        "evolvesInto": [
+            "Victreebel"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 70
@@ -5774,7 +6370,9 @@
             "bug"
         ],
         "evolvedFrom": "Venipede",
-        "evolvesInto": "Scolipede",
+        "evolvesInto": [
+            "Scolipede"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 544
@@ -5793,7 +6391,9 @@
             "monster",
             "ground"
         ],
-        "evolvesInto": "Loudred",
+        "evolvesInto": [
+            "Loudred"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 293
@@ -5812,7 +6412,9 @@
             "water1",
             "flying"
         ],
-        "evolvesInto": "Pelipper",
+        "evolvesInto": [
+            "Pelipper"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 278
@@ -5831,7 +6433,9 @@
             "flying",
             "ground"
         ],
-        "evolvesInto": "Swoobat",
+        "evolvesInto": [
+            "Swoobat"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 527
@@ -5841,7 +6445,9 @@
             "water1",
             "ground"
         ],
-        "evolvesInto": "Quagsire",
+        "evolvesInto": [
+            "Quagsire"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 194
@@ -5859,7 +6465,10 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Cascoon",
+        "evolvesInto": [
+            "Silcoon",
+            "Cascoon"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 265
@@ -5868,7 +6477,9 @@
         "eggGroups": [
             "no-eggs"
         ],
-        "evolvesInto": "Wobbuffet",
+        "evolvesInto": [
+            "Wobbuffet"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 360
@@ -5887,7 +6498,9 @@
             "mineral",
             "indeterminate"
         ],
-        "evolvesInto": "Cofagrigus",
+        "evolvesInto": [
+            "Cofagrigus"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 562
@@ -5896,7 +6509,9 @@
         "eggGroups": [
             "bug"
         ],
-        "evolvesInto": "Yanmega",
+        "evolvesInto": [
+            "Yanmega"
+        ],
         "genderRatio": 4,
         "generation": 2,
         "id": 193
@@ -5947,7 +6562,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Linoone",
+        "evolvesInto": [
+            "Linoone"
+        ],
         "genderRatio": 4,
         "generation": 3,
         "id": 263
@@ -5965,7 +6582,9 @@
         "eggGroups": [
             "ground"
         ],
-        "evolvesInto": "Zoroark",
+        "evolvesInto": [
+            "Zoroark"
+        ],
         "genderRatio": 1,
         "generation": 5,
         "id": 570
@@ -5974,7 +6593,9 @@
         "eggGroups": [
             "flying"
         ],
-        "evolvesInto": "Golbat",
+        "evolvesInto": [
+            "Golbat"
+        ],
         "genderRatio": 4,
         "generation": 1,
         "id": 41
@@ -5984,7 +6605,9 @@
             "dragon"
         ],
         "evolvedFrom": "Deino",
-        "evolvesInto": "Hydreigon",
+        "evolvesInto": [
+            "Hydreigon"
+        ],
         "genderRatio": 4,
         "generation": 5,
         "id": 634

@@ -73,7 +73,7 @@ class Species:
       'generation'   : self.generation,
     }
     if self.evolves_into is not None:
-      h['evolvesInto'] = species[self.evolves_into].name
+      h['evolvesInto'] = list(map(lambda s: species[s].name, self.evolves_into))
     if self.evolved_from is not None:
       h['evolvedFrom'] = species[self.evolved_from].name
     return h
@@ -185,7 +185,8 @@ def map_evolution_line():
     species_id, name, generation_id, evolves_from_id, *tail = line.split(',')
     if len(evolves_from_id) == 0: continue
     evolution[species_id] = evolves_from_id
-    devolution[evolves_from_id] = species_id
+    pre_evos = devolution.setdefault(evolves_from_id, [])
+    pre_evos.append(species_id)
 
   for species_id in species:
     evolved_from = evolution.get(species_id, None)
