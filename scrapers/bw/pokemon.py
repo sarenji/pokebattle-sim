@@ -54,9 +54,9 @@ class Species:
   def add_gender_ratio(self, gender_ratio):
     self.gender_ratio = int(gender_ratio)
 
-  def add_evolution_lines(self, evolutions, prevolutions):
-    self.evolutions = evolutions
-    self.prevolutions = prevolutions
+  def add_evolution_lines(self, evolution, prevolution):
+    self.evolves_into = evolution
+    self.evolved_from = prevolution
 
   def add_egg_group(self, egg_group):
     self.egg_groups = self.__dict__.setdefault('egg_group', [])
@@ -66,14 +66,17 @@ class Species:
     self.generation = int(generation)
 
   def to_json(self):
-    return {
+    h = {
       'id'           : self.id,
       'genderRatio'  : self.gender_ratio,
       'eggGroups'    : self.egg_groups,
-      'evolutions'   : self.evolutions,
-      'prevolutions' : self.prevolutions,
       'generation'   : self.generation,
     }
+    if self.evolves_into is not None:
+      h['evolvesInto'] = species[self.evolves_into].name
+    if self.evolved_from is not None:
+      h['evolvedFrom'] = species[self.evolved_from].name
+    return h
 
 class Forme:
   def __init__(self, species):
@@ -185,19 +188,8 @@ def map_evolution_line():
     devolution[evolves_from_id] = species_id
 
   for species_id in species:
-    evolved_from = []
-    evolves_into = []
-    pokemon = species_id
-    while True:
-      pokemon = evolution.get(pokemon, None)
-      if pokemon is None: break
-      evolved_from.append(int(pokemon))
-
-    pokemon = species_id
-    while True:
-      pokemon = devolution.get(pokemon, None)
-      if pokemon is None: break
-      evolves_into.append(int(pokemon))
+    evolved_from = evolution.get(species_id, None)
+    evolves_into = devolution.get(species_id, None)
 
     species[species_id].add_evolution_lines(evolves_into, evolved_from)
 
