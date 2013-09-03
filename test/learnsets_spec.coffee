@@ -68,6 +68,35 @@ describe "Learnsets:", ->
       it "cannot learn Volt Tackle and Encore", ->
         @checkMoveset(3, [ "Volt Tackle", "Encore" ]).should.be.false
 
+  testLearnset "Rotom", ->
+    it "learns Overheat in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(4, [ "Overheat" ]).should.be.true
+
+    it "learns Overheat and a standard move in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(4, [ "Overheat", "Thunderbolt" ]).should.be.true
+
+    it "learns Air Slash in its fan forme", ->
+      @pokemon.forme = "fan"
+      @checkMoveset(4, [ "Air Slash" ]).should.be.true
+
+    it "learns Blizzard in its frost forme", ->
+      @pokemon.forme = "frost"
+      @checkMoveset(4, [ "Blizzard" ]).should.be.true
+
+    it "learns Leaf Storm in its mow forme", ->
+      @pokemon.forme = "mow"
+      @checkMoveset(4, [ "Leaf Storm" ]).should.be.true
+
+    it "learns Hydro Pump in its wash forme", ->
+      @pokemon.forme = "wash"
+      @checkMoveset(4, [ "Hydro Pump" ]).should.be.true
+
+    it "cannot learn Blizzard in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(4, [ "Blizzard" ]).should.be.false
+
   testLearnset "Roserade", ->
     xit "cannot learn Spikes and Sleep Powder", ->
       @checkMoveset(4, [ "Spikes", "Sleep Powder" ]).should.be.false
