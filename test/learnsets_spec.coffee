@@ -97,6 +97,9 @@ describe "Learnsets:", ->
       @pokemon.forme = "frost"
       @checkMoveset(4, [ "Thunderbolt" ]).should.be.false
 
+    it "cannot learn Blizzard in its default forme", ->
+      @checkMoveset(4, [ "Blizzard" ]).should.be.false
+
     it "cannot learn Blizzard in its heat forme", ->
       @pokemon.forme = "heat"
       @checkMoveset(4, [ "Blizzard", "Overheat" ]).should.be.false
