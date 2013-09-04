@@ -68,40 +68,75 @@ describe "Learnsets:", ->
         @checkMoveset(3, [ "Volt Tackle", "Encore" ]).should.be.false
 
   testLearnset "Rotom", ->
-    it "learns Overheat in its heat forme", ->
+    it "Gen 4: learns Overheat in its heat forme", ->
       @pokemon.forme = "heat"
       @checkMoveset(4, [ "Overheat" ]).should.be.true
 
-    it "learns Overheat and a standard move in its heat forme", ->
+    it "Gen 5: learns Overheat in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(5, [ "Overheat" ]).should.be.true
+
+    it "Gen 4: learns Overheat and a standard move in its heat forme", ->
       @pokemon.forme = "heat"
       @checkMoveset(4, [ "Overheat", "Thunderbolt" ]).should.be.true
 
-    it "learns Air Slash in its fan forme", ->
+    it "Gen 5: learns Overheat and a standard move in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(5, [ "Overheat", "Thunderbolt" ]).should.be.true
+
+    it "Gen 4: learns Air Slash in its fan forme", ->
       @pokemon.forme = "fan"
       @checkMoveset(4, [ "Air Slash" ]).should.be.true
 
-    it "learns Blizzard in its frost forme", ->
+    it "Gen 5: learns Air Slash in its fan forme", ->
+      @pokemon.forme = "fan"
+      @checkMoveset(5, [ "Air Slash" ]).should.be.true
+
+    it "Gen 4: learns Blizzard in its frost forme", ->
       @pokemon.forme = "frost"
       @checkMoveset(4, [ "Blizzard" ]).should.be.true
 
-    it "learns Leaf Storm in its mow forme", ->
+    it "Gen 5: learns Blizzard in its frost forme", ->
+      @pokemon.forme = "frost"
+      @checkMoveset(5, [ "Blizzard" ]).should.be.true
+
+    it "Gen 4: learns Leaf Storm in its mow forme", ->
       @pokemon.forme = "mow"
       @checkMoveset(4, [ "Leaf Storm" ]).should.be.true
 
-    it "learns Hydro Pump in its wash forme", ->
+    it "Gen 5: learns Leaf Storm in its mow forme", ->
+      @pokemon.forme = "mow"
+      @checkMoveset(5, [ "Leaf Storm" ]).should.be.true
+
+    it "Gen 4: learns Hydro Pump in its wash forme", ->
       @pokemon.forme = "wash"
       @checkMoveset(4, [ "Hydro Pump" ]).should.be.true
 
-    it "must know Blizzard in its frost forme", ->
+    it "Gen 5: learns Hydro Pump in its wash forme", ->
+      @pokemon.forme = "wash"
+      @checkMoveset(5, [ "Hydro Pump" ]).should.be.true
+
+    it "Gen 4: cannot learn Blizzard in its default forme", ->
+      @checkMoveset(4, [ "Blizzard" ]).should.be.false
+
+    it "Gen 5: cannot learn Blizzard in its default forme", ->
+      @checkMoveset(5, [ "Blizzard" ]).should.be.false
+
+    it "Gen 4: cannot learn Blizzard in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(4, [ "Blizzard", "Overheat" ]).should.be.false
+
+    it "Gen 5: cannot learn Blizzard in its heat forme", ->
+      @pokemon.forme = "heat"
+      @checkMoveset(5, [ "Blizzard", "Overheat" ]).should.be.false
+
+    it "Gen 4: must know Blizzard in its frost forme", ->
       @pokemon.forme = "frost"
       @checkMoveset(4, [ "Thunderbolt" ]).should.be.false
 
-    it "cannot learn Blizzard in its default forme", ->
-      @checkMoveset(4, [ "Blizzard" ]).should.be.false
-
-    it "cannot learn Blizzard in its heat forme", ->
-      @pokemon.forme = "heat"
-      @checkMoveset(4, [ "Blizzard", "Overheat" ]).should.be.false
+    it "Gen 5: doesn't need to know Blizzard in its frost forme", ->
+      @pokemon.forme = "frost"
+      @checkMoveset(5, [ "Thunderbolt" ]).should.be.true
 
   testLearnset "Deoxys", ->
     it "learns alternate forme moves due to freely switching formes", ->

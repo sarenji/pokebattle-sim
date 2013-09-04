@@ -65,31 +65,35 @@ self.learnableMoves = (pokemon, forGeneration) ->
 # Returns true if the moveset is valid, false otherwise.
 self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
   looper = loopLearnsets.bind(null, SpeciesData, FormeData, pokemon, generation)
-
-  # If the moveset does not contain all the moves inside the `form-change`
-  # learnset for the given generation, the moveset is invalid.
   forme = FormeData[pokemon.name][pokemon.forme || "default"]
-  learnset = forme.learnset["generation-#{generation}"]?['form-change']
-  for move, level of learnset
-    return false  if move not in moves || (pokemon.level || 100) < level
+  pokemonLevel = (pokemon.level || 100)
+
+  # In gen 4, pokemon must know *all* moves inside the `form-change` learnset.
+  if generation == 4
+    learnset = forme.learnset["generation-4"]?['form-change'] || {}
+    for move, level of learnset
+      return false  if move not in moves || pokemonLevel < level
 
   # Get a list of all moves that the Pokemon can't learn
   # through level-up, tutoring, machines, or Sketch.
   leftoverMoves = (m  for m in moves when !checkMove(looper, pokemon, m))
 
+  # Continuing the `forme-change` learnset group.
+  # Get rid of leftover moves if this pokemon can learn it in this generation.
+  learnset = forme.learnset["generation-#{generation}"]?['form-change'] || {}
+  for move, level of learnset
+    index = leftoverMoves.indexOf(move)
+    leftoverMoves.splice(index, 1)  if index != -1 && pokemonLevel >= level
+
   # If there are no leftover moves, then we're done, the moveset is valid.
   return true  if leftoverMoves.length == 0
 
-  # Each Pokemon has certain learnset groups. Standard ones are listed below.
-  standardGroups = [ "level-up", "tutor", "machine", "egg" ]
-
-  # Check non-standard groups:
-  # "form-change", "light-ball-egg", "stadium-surfing-pikachu"
+  # These learnset groups are non-standard but can be used. If a non-standard
+  # group completely overlaps the leftover moves, the moveset is valid.
+  nonstandardGroups = [ "light-ball-egg", "stadium-surfing-pikachu" ]
   return true  if looper (learnset) ->
-    nonstandardGroups = (g  for g of learnset when g not in standardGroups)
-    # If a non-standard group completely overlaps the leftover moves, the
-    # moveset is valid.
     for group in nonstandardGroups
+      continue  if !learnset[group]
       total = (m  for m in leftoverMoves when m of learnset[group]).length
       return true  if total == leftoverMoves.length
 
