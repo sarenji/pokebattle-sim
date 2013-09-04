@@ -223,7 +223,10 @@ makeExplosionMove = (name) ->
         user.faint()
         oldExecute.call(this, battle, user, targets)
       else
-        battle.message "#{user.name} cannot use #{@name}!"
+        @fail(battle)
+
+    @fail = (battle) ->
+      battle.message "#{user.name} cannot use #{@name}!"
 
 makeProtectCounterMove = (name, callback) ->
   extendMove name, ->

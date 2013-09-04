@@ -6,12 +6,11 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName) ->
+  makeMove: (player, moveName, options = {}) ->
     return  if @battle.isOver()
+    pokemonMoves = @battle.getTeam(player.id).at(0).moves.map((m) -> m.name)
+    return  if moveName not in pokemonMoves && !options.force
     move = @battle.getMove(moveName)
-    # TODO: Fail if move not in moves
-    # TODO: Fail if move not in player pokemon's moves
-    return  if !move?
     @battle.recordMove(player.id, move)
     @transitionToNextState()
 
@@ -20,8 +19,7 @@ class @BattleController
   # once the turn continues.
   makeSwitch: (player, toPosition) ->
     return  if @battle.isOver()
-    # TODO: Send error messages back on invalid indices (such as fainted poke
-    #       or activePokemon)
+    return  unless @battle.numActive <= toPosition < player.team.pokemon.length
     @battle.recordSwitch(player.id, toPosition)
     @transitionToNextState()
 

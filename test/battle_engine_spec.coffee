@@ -2,6 +2,7 @@
 {Factory} = require './factory'
 should = require 'should'
 shared = require './shared'
+{Protocol} = require '../shared/protocol'
 
 require './helpers'
 
@@ -11,36 +12,30 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Magikarp')]
-      move = @battle.getMove('Leaf Storm')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      defender = @p2
-      originalHP = defender.currentHP
-      @controller.makeMove(@player1, 'Leaf Storm')
-      @controller.makeMove(@player2, 'Splash')
-      defender.currentHP.should.equal originalHP
+      move = @battle.getMove('Leaf Storm')
+      originalHP = @p2.currentHP
+      @battle.performMove(@id1, @battle.getMove('Leaf Storm'))
+      @p2.currentHP.should.equal(originalHP)
 
     it 'triggers effects dependent on the move missing', ->
       shared.create.call this,
         team1: [Factory('Hitmonlee')]
         team2: [Factory('Magikarp')]
-      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      mock = @sandbox.mock(move)
-      mock.expects('afterMiss').once()
-      @controller.makeMove(@player1, 'Hi Jump Kick')
-      @controller.makeMove(@player2, 'Splash')
+      hiJumpKick = @battle.getMove('Hi Jump Kick')
+      mock = @sandbox.mock(hiJumpKick).expects('afterMiss').once()
+      @battle.performMove(@id1, hiJumpKick)
       mock.verify()
 
     it 'does not trigger effects dependent on the move hitting', ->
       shared.create.call this,
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
-      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
-      mock = @sandbox.mock(move)
-      mock.expects('afterSuccessfulHit').never()
-      @controller.makeMove(@player1, 'Hi Jump Kick')
-      @controller.makeMove(@player2, 'Splash')
+      hiJumpKick = @battle.getMove('Hi Jump Kick')
+      mock = @sandbox.mock(hiJumpKick).expects('afterSuccessfulHit').never()
+      @battle.performMove(@id1, hiJumpKick)
       mock.verify()
 
   describe 'fainting', ->
@@ -48,11 +43,11 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
-      @p2.currentHP = 1
       spy = @sandbox.spy(@player2, 'tell')
+      @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
-      spy.calledWith(4).should.be.true
+      spy.calledWith(Protocol.REQUEST_ACTION).should.be.true
 
     it 'does not increment the turn count', ->
       shared.create.call this,
@@ -91,12 +86,9 @@ describe 'Mechanics', ->
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
-      defender = @p2
-      spy = @sandbox.spy(defender, 'attach')
+      spy = @sandbox.spy(@p2, 'attach')
 
-      @controller.makeMove(@player1, 'Iron Head')
-      @controller.makeMove(@player2, 'Splash')
-
+      @battle.performMove(@id1, @battle.getMove('Iron Head'))
       spy.args[0][0].should.eql Attachment.Flinch
 
   describe 'secondary status attacks', ->
@@ -105,10 +97,8 @@ describe 'Mechanics', ->
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
-      defender = @p2
-      @controller.makeMove(@player1, 'Flamethrower')
-      @controller.makeMove(@player2, 'Splash')
-      defender.has(Status.Burn).should.be.true
+      @battle.performMove(@id1, @battle.getMove('Flamethrower'))
+      @p2.has(Status.Burn).should.be.true
 
   describe 'the fang attacks', ->
     it 'can inflict two effects at the same time', ->
@@ -127,18 +117,16 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      @controller.makeMove(@player1, 'Ice Punch')
       hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, @battle.getMove('Ice Punch'))
       (hp - @p2.currentHP).should.equal 84
 
     it "increases damage if the move has bp <= 60", ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Shaymin')]
-      @controller.makeMove(@player1, 'Bullet Punch')
       hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash')
+      @battle.performMove(@id1, @battle.getMove('Bullet Punch'))
       (hp - @p2.currentHP).should.equal 67
 
   describe 'STAB', ->
@@ -148,7 +136,7 @@ describe 'Mechanics', ->
         team2: [Factory('Regirock')]
       @controller.makeMove(@player1, 'Megahorn')
       hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player2, 'Splash', force: true)
       (hp - @p2.currentHP).should.equal 123
 
     it "doesn't get applied if the move and user are of different types", ->
@@ -157,7 +145,7 @@ describe 'Mechanics', ->
         team2: [Factory('Mew')]
       @controller.makeMove(@player1, 'Ice Punch')
       hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@player2, 'Splash', force: true)
       (hp - @p2.currentHP).should.equal 84
 
   describe 'turn order', ->
@@ -341,9 +329,7 @@ describe 'Mechanics', ->
         @p1.attach(Status.Freeze)
         shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
-        @controller.makeMove(@player1, moveName)
-        @controller.makeMove(@player2, 'Splash')
-
+        @battle.performMove(@id1, @battle.getMove(moveName))
         @p1.has(Status.Freeze).should.be.false
 
   describe "a paralyzed pokemon", ->
