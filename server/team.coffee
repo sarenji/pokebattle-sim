@@ -111,10 +111,6 @@ class @Team
   getAliveBenchedPokemon: ->
     @getBenchedPokemon().filter((pokemon) -> !pokemon.isFainted())
 
-  validate: ->
-    # TODO
-    true
-
   toJSON: -> {
     "pokemon": @pokemon.map (p) -> p.toJSON()
     "owner": @player.id

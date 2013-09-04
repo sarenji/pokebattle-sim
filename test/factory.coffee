@@ -13,8 +13,13 @@ Factory.register = (name, attributes={}) ->
   _.defaults(cloned, name: name)
   factories[name] = cloned
 
-Factory.register 'Hitmonchan',
+Factory.register 'Hitmontop',
   ability: 'Technician'
+  moves: ['Rapid Spin', 'Mach Punch', 'Bullet Punch', 'Close Combat' ]
+  evs: {attack: 252}
+
+Factory.register 'Hitmonchan',
+  ability: 'Iron Fist'
   moves: ['Ice Punch', 'Mach Punch', 'Bullet Punch', 'ThunderPunch' ]
   evs: {attack: 252}
 
@@ -123,3 +128,12 @@ Factory.register 'Shaymin',
 
 Factory.register 'Ditto',
   moves: ['Transform']
+
+Factory.register 'Metagross',
+  moves: ['Meteor Mash']
+
+Factory.register 'Gallade',
+  moves: ['Close Combat']
+
+Factory.register 'Cloyster',
+  moves: ['Shell Smash']

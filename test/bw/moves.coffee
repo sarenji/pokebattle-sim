@@ -603,7 +603,7 @@ describe 'trick and switcheroo', ->
 
   it "fails if the user is Giratina-O", ->
     shared.create.call this,
-      team1: [Factory('Giratina (origin)')]
+      team1: [Factory('Giratina', forme: "origin")]
     trick = @battle.getMove('Trick')
     mock = @sandbox.mock(trick).expects('fail').once()
     @battle.performMove(@id1, trick)
@@ -611,7 +611,7 @@ describe 'trick and switcheroo', ->
 
   it "fails if the target is Giratina-O", ->
     shared.create.call this,
-      team2: [Factory('Giratina (origin)')]
+      team2: [Factory('Giratina', forme: "origin")]
     trick = @battle.getMove('Trick')
     mock = @sandbox.mock(trick).expects('fail').once()
     @battle.performMove(@id1, trick)
@@ -903,7 +903,7 @@ describe 'a thief move', ->
   it "should not steal the target's item if target is Giratina-O", ->
     shared.create.call this,
       team1: [Factory('Magikarp')]
-      team2: [Factory('Giratina (origin)', item: "Griseous Orb")]
+      team2: [Factory('Giratina', forme: "origin", item: "Griseous Orb")]
     item2 = @p2.item
     @battle.performMove(@id1, @battle.getMove('Thief'))
     should.not.exist @p1.item
@@ -1143,8 +1143,7 @@ describe 'Autotomize', ->
     @p1.calculateWeight().should.not.be.lessThan .1
 
   it 'stacks weight changes', ->
-    it 'cannot go below .1kg', ->
-    # Magikarp weighs 1355kg.
+    # Abomasnow weighs 1355kg.
     shared.create.call this, team1: [ Factory('Abomasnow')]
 
     @battle.performMove(@id1, @battle.getMove('Autotomize'))
@@ -1460,7 +1459,7 @@ describe "Roost", ->
 
   it "turns pure-Flying pokemon into Normal pokemon", ->
     shared.create.call this,
-      team1: [Factory("Tornadus (incarnate)")]
+      team1: [Factory("Tornadus")]
 
     @p1.currentHP = 1
     @battle.performMove(@id1, @battle.getMove("Roost"))

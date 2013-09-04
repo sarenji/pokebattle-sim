@@ -11,7 +11,9 @@ require 'sugar'
 
 class @Battle
   # TODO: let Battle serialize these.
-  {Ability, Moves, MoveData, MoveList} = require '../data/bw'
+  {Ability, Moves, MoveData, MoveList, SpeciesData, FormeData} = require '../data/bw'
+  @SpeciesData: SpeciesData
+  @FormeData: FormeData
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field

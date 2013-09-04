@@ -92,14 +92,13 @@ describe 'Battle', ->
   describe "move PP", ->
     it "goes down after a pokemon uses a move", ->
       pokemon = @p1
-      move = pokemon.moves[0]
+      move = @p1.moves[0]
       @battle.performMove(@id1, move)
-      pokemon.pp(move).should.equal(pokemon.maxPP(move) - 1)
+      @p1.pp(move).should.equal(@p1.maxPP(move) - 1)
 
   describe "#performMove", ->
     it "records this move as the battle's last move", ->
-      pokemon = @p1
-      move = pokemon.moves[0]
+      move = @p1.moves[0]
       @battle.performMove(@id1, move)
 
       should.exist @battle.lastMove

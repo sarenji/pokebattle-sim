@@ -5,8 +5,7 @@ describe "Learnsets:", ->
   testLearnset = (pokemon, func) ->
     describe pokemon, ->
       beforeEach ->
-        @formeName = "default"
-        @pokemon = {name: pokemon, forme: @formeName, level: 100}
+        @pokemon = {name: pokemon}
         @checkMoveset = learnsets.checkMoveset.bind(
           learnsets, SpeciesData, FormeData, @pokemon)
 

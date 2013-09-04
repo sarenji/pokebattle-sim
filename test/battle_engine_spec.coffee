@@ -115,38 +115,32 @@ describe 'Mechanics', ->
   describe 'a pokemon with technician', ->
     it "doesn't increase damage if the move has bp > 60", ->
       shared.create.call this,
-        team1: [Factory('Hitmonchan')]
+        team1: [Factory('Hitmontop')]
         team2: [Factory('Mew')]
-      hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Ice Punch'))
-      (hp - @p2.currentHP).should.equal 84
+      icePunch = @battle.getMove('Ice Punch')
+      icePunch.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
     it "increases damage if the move has bp <= 60", ->
       shared.create.call this,
-        team1: [Factory('Hitmonchan')]
+        team1: [Factory('Hitmontop')]
         team2: [Factory('Shaymin')]
-      hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Bullet Punch'))
-      (hp - @p2.currentHP).should.equal 67
+      bulletPunch = @battle.getMove('Bullet Punch')
+      bulletPunch.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
 
   describe 'STAB', ->
     it "gets applied if the move and user share a type", ->
       shared.create.call this,
         team1: [Factory('Heracross')]
         team2: [Factory('Regirock')]
-      @controller.makeMove(@player1, 'Megahorn')
-      hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash', force: true)
-      (hp - @p2.currentHP).should.equal 123
+      megahorn = @battle.getMove("Megahorn")
+      megahorn.stabModifier(@battle, @p1, @p2).should.equal(0x1800)
 
     it "doesn't get applied if the move and user are of different types", ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      @controller.makeMove(@player1, 'Ice Punch')
-      hp = @p2.currentHP
-      @controller.makeMove(@player2, 'Splash', force: true)
-      (hp - @p2.currentHP).should.equal 84
+      icePunch = @battle.getMove("Ice Punch")
+      icePunch.stabModifier(@battle, @p1, @p2).should.equal(0x1000)
 
   describe 'turn order', ->
     it 'randomly decides winner if pokemon have the same speed and priority', ->

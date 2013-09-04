@@ -231,7 +231,7 @@ class @Pokemon
     return false  if @item.type == 'key'
     return false  if @hasAbility("Sticky Hold")
     return false  if @hasAbility("Multitype") && @item.plate
-    return false  if @name == 'Giratina (origin)'
+    return false  if @name == 'Giratina' && @forme == 'origin'
     return false  if @name == 'Genesect' && /Drive$/.test(@item.displayName)
     true
 

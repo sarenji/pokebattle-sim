@@ -298,7 +298,7 @@ describe 'Pokemon', ->
       pokemon.hasTakeableItem().should.be.false
 
     it "returns false if the pokemon is Giratina-O", ->
-      pokemon = new Pokemon(name: "Giratina (origin)", item: "Griseous Orb")
+      pokemon = new Pokemon(name: "Giratina", forme: "origin", item: "Griseous Orb")
       pokemon.hasTakeableItem().should.be.false
 
     it "returns false if the pokemon is Genesect with a Drive item", ->
