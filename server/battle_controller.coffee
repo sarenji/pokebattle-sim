@@ -19,7 +19,8 @@ class @BattleController
   # once the turn continues.
   makeSwitch: (player, toPosition) ->
     return  if @battle.isOver()
-    return  unless @battle.numActive <= toPosition < player.team.pokemon.length
+    return  if toPosition < @battle.numActive
+    return  if toPosition >= @battle.getTeam(player.id).pokemon.length
     @battle.recordSwitch(player.id, toPosition)
     @transitionToNextState()
 
