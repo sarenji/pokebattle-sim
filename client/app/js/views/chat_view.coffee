@@ -39,7 +39,8 @@ class @ChatView extends Backbone.View
     if e.which == 13 then @sendChat()
 
   userMessage: (username, message) =>
-    @updateChat("<b>#{username}:</b> #{message}")
+    sanitizedMessage = $('<div/>').text(message).html()
+    @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
 
   userJoin: (user) =>
     @updateChat("#{user.id} joined PokeBattle!")
