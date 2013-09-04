@@ -83,8 +83,10 @@ connections.addEvents
 
   'find battle': (user) ->
     # TODO: Take team from player.
-    # TODO: Validate team.
-    team = defaultTeam
+    team = defaultTeam.clone()
+    if !server.validateTeam(team)
+      user.send("error", "Your team is invalid!")
+      return
     server.queuePlayer(user, team)
     if server.queuedPlayers().length >= 2
       battles = server.beginBattles()
@@ -278,7 +280,7 @@ defaultTeam = [
     ability: "Cute Charm"
   }
   {
-    name: "Haunter"
+    name: "Gengar"
     item: "Leftovers"
     moves: ["Substitute", "Disable", "Shadow Ball", "Focus Blast"]
     ability: "Levitate"
