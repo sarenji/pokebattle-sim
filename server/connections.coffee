@@ -29,8 +29,11 @@ class @ConnectionServer
       user = new User(socket, this)
 
       socket.on 'data', (data) =>
-        # todo: error handling.
-        data = JSON.parse(data)
+        try
+          data = JSON.parse(data)
+        catch e
+          # Invalid JSON. Discard.
+          return
         messageType = data.messageType
         for callback in (@callbacks[messageType] || [])
           callback.apply(user, [user, data.data...])
