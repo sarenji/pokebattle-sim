@@ -13,7 +13,7 @@ class @TeambuilderView extends Backbone.View
 
   initialize: =>
     # TODO: Save this to something more global
-    @speciesList = (name for name, data of PokemonData)
+    @speciesList = (name for name, data of SpeciesData)
 
     @listenTo(@collection, 'add', @renderPokemon)
     @listenTo(@collection, 'change:ivs', @renderStats)

@@ -18,7 +18,7 @@ class @Pokemon extends Backbone.Model
       speed: 0
 
   getSpecies: ->
-    PokemonData[@get('name')]
+    FormeData[@get('name')].default
 
   getAbilities: ->
     species = @getSpecies()
@@ -28,8 +28,21 @@ class @Pokemon extends Backbone.Model
 
   getMovepool: ->
     # todo: cache this
-    return _(@getSpecies().moves).map (moveName) ->
-      move = MoveData[moveName]
+    species = @getSpecies()
+    
+    # only generations 3 to 5 for now
+
+    learnset = []
+    for generation in [3, 4, 5] 
+      generation_move_methods = species.learnset["generation-#{generation}"] || []
+      for method, moves of generation_move_methods
+        learnset.push(moveName) for moveName, level of moves
+
+    learnset = _.chain(learnset).sort().unique(true)
+
+    # Map each move name to a move object
+    return _(learnset).map (moveName) ->
+      move = _(MoveData[moveName]).clone()
       move['name'] = moveName
       move
 
