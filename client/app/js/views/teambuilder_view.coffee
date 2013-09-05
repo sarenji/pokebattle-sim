@@ -7,13 +7,16 @@ class @TeambuilderView extends Backbone.View
     'click .add_pokemon': 'addEmptyPokemon'
     'click .save_team': 'saveTeam'
     'change .species_list': 'changeSpecies'
+    'change .selected_ability': 'changeAbility'
+    'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
     'change .selected_moves input': 'changeMoves'
 
   initialize: =>
-    # TODO: Save this to something more global
+    # TODO: Save these to something more global
     @speciesList = (name for name, data of SpeciesData)
+    @itemList = _(name for name, data of ItemData).sort() # todo: filter irrelevant items
 
     @listenTo(@collection, 'add', @renderPokemon)
     @listenTo(@collection, 'change:ivs', @renderStats)
@@ -47,14 +50,13 @@ class @TeambuilderView extends Backbone.View
     $list = $(ev.target)
     @getSelectedPokemon().set("name", $list.val())
 
-  setSelectedIndex: (index) =>
-    pokemon = @collection.at(index)
-    @selected = index
-    @$(".pokemon_edit").children().hide().removeClass("active")
-    @getPokemonView(pokemon).show().addClass("active")
+  changeAbility: (ev) =>
+    $list = $(ev.target)
+    @getSelectedPokemon().set("ability", $list.val())
 
-  getSelectedPokemon: =>
-    @collection.at(@selected)
+  changeItem: (ev) =>
+    $list = $(ev.target)
+    @getSelectedPokemon().set("item", $list.val())
 
   changeIv: (ev) =>
     # todo: make changeIv and changeEv DRY
@@ -89,6 +91,15 @@ class @TeambuilderView extends Backbone.View
         movesArray.push(moveName)
     pokemon.set("moves", movesArray)
 
+  setSelectedIndex: (index) =>
+    pokemon = @collection.at(index)
+    @selected = index
+    @$(".pokemon_edit").children().hide().removeClass("active")
+    @getPokemonView(pokemon).show().addClass("active")
+
+  getSelectedPokemon: =>
+    @collection.at(@selected)
+
   getActivePokemonView: =>
     @getPokemonView(@getSelectedPokemon())
 
@@ -116,7 +127,7 @@ class @TeambuilderView extends Backbone.View
       view = $("<div/>").attr("data-cid", pokemon.cid).hide()
       @$(".pokemon_edit").append(view)
 
-    view.html @editTemplate(speciesList: @speciesList, pokemon: pokemon)
+    view.html @editTemplate(speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
 
   renderStats: (pokemon) =>

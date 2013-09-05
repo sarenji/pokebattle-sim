@@ -10,12 +10,17 @@ select.species_list
       input
     div
       span Ability:
-      select
+      select.selected_ability
         each ability in pokemon.getAbilities()
-          option(value=ability)= ability
+          - var selected = (ability == pokemon.get("ability"))
+          option(value=ability, selected=selected)= ability
     div
       span Item:
-      input
+      select.selected_item
+        option(value="")
+        each itemName in itemList
+          - var selected = (itemName == pokemon.get("item"))
+          option(value=itemName, selected=selected)= itemName
 
   table.stats
     thead
