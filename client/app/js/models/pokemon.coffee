@@ -1,6 +1,7 @@
 class @Pokemon extends Backbone.Model
   defaults: =>
     name: 'Bulbasaur'
+    item: ""
     moves: []
     ivs:
       hp: 31
@@ -16,6 +17,13 @@ class @Pokemon extends Backbone.Model
       specialAttack: 0
       specialDefense: 0
       speed: 0
+
+  initialize: (attributes={}) ->
+    # Set to default ability when the species changes
+    @on 'change:name', =>
+      @set('ability', @getAbilities()[0])
+
+    @set('ability', @getAbilities()[0])  unless attributes.ability
 
   getSpecies: ->
     FormeData[@get('name')].default
