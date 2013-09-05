@@ -34,11 +34,11 @@ class @Pokemon extends Backbone.Model
 
     learnset = []
     for generation in [3, 4, 5] 
-      generation_move_methods = species.learnset["generation-#{generation}"] || []
-      for method, moves of generation_move_methods
-        learnset.push(moveName) for moveName, level of moves
+      generationMoveMethods = species.learnset["generation-#{generation}"] || []
+      for method, moves of generationMoveMethods
+        learnset.push(moveName)  for moveName, level of moves
 
-    learnset = _.chain(learnset).sort().unique(true)
+    learnset = _.chain(learnset).sort().unique(true).value()
 
     # Map each move name to a move object
     return _(learnset).map (moveName) ->
