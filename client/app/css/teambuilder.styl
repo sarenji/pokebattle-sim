@@ -5,6 +5,9 @@
   left 0
   right 0
 
+  select, input
+    margin-bottom 0!important
+
 .teambuilder .navigation
   position absolute
   top 0
@@ -28,13 +31,27 @@
     background-color rgba(0, 0, 0, 0.1)
 
 .teambuilder .nature_ability_item
-  display: table
+  display table
+  margin 1.5em 0
 
   div
-    display: table-row
+    display table-row
+    line-height 1.5em
     
   span, input, select
     display: table-cell
+
+.teambuilder .stats
+  margin-bottom 1.5em
+
+  td, th
+    text-align left
+    padding-right 10px
+    white-space nowrap
+
+  input
+    width 100%!important
+    box-sizing border-box
 
 .teambuilder .pokemon_edit
   position absolute
@@ -44,7 +61,13 @@
   bottom 0
   right 0
   background white
-  padding: 15px
+  padding 15px
+
+.teambuilder .selected_moves
+  margin-bottom 1.5em
+
+  span, input
+    margin-right 10px
 
 .teambuilder .move_table
   width 100%

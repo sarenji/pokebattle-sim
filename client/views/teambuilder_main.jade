@@ -3,8 +3,8 @@ select.species_list
     - var selected = (species == pokemon.get("name"))
     option(value=species, selected=selected)= species
 
-.clearfix
-  .nature_ability_item
+.row-fluid
+  .nature_ability_item.span6
     div
       span Nature:
       input
@@ -22,55 +22,56 @@ select.species_list
           - var selected = (itemName == pokemon.get("item"))
           option(value=itemName, selected=selected)= itemName
 
-  table.stats
-    thead
-      th
-      th IV
-      th EV
-      th Stat
-    tbody
-      tr
-        th HP
-        td
-          input(type=text, class="iv-entry", data-stat="hp")
-        td
-          input(type=text, class="ev-entry", data-stat="hp")
-        td 500
-      tr
-        th Attack
-        td
-          input(type=text, class="iv-entry", data-stat="attack")
-        td
-          input(type=text, class="ev-entry", data-stat="attack")
-        td 500
-      tr
-        th Defense
-        td
-          input(type=text, class="iv-entry", data-stat="defense")
-        td
-          input(type=text, class="ev-entry", data-stat="defense")
-        td 500
-      tr
-        th Special Attack
-        td
-          input(type=text, class="iv-entry", data-stat="specialAttack")
-        td
-          input(type=text, class="ev-entry", data-stat="specialAttack")
-        td 500
-      tr
-        th Special Defense
-        td
-          input(type=text, class="iv-entry", data-stat="specialDefense")
-        td
-          input(type=text, class="ev-entry", data-stat="specialDefense")
-        td 500
-      tr
-        th Speed
-        td
-          input(type=text, class="iv-entry", data-stat="speed")
-        td
-          input(type=text, class="ev-entry", data-stat="speed")
-        td 500
+  .span6
+    table.stats
+      thead
+        th
+        th IV
+        th EV
+        th Stat
+      tbody
+        tr
+          th HP
+          td
+            input(type=text, class="iv-entry", data-stat="hp")
+          td
+            input(type=text, class="ev-entry", data-stat="hp")
+          td 500
+        tr
+          th Attack
+          td
+            input(type=text, class="iv-entry", data-stat="attack")
+          td
+            input(type=text, class="ev-entry", data-stat="attack")
+          td 500
+        tr
+          th Defense
+          td
+            input(type=text, class="iv-entry", data-stat="defense")
+          td
+            input(type=text, class="ev-entry", data-stat="defense")
+          td 500
+        tr
+          th Special Attack
+          td
+            input(type=text, class="iv-entry", data-stat="specialAttack")
+          td
+            input(type=text, class="ev-entry", data-stat="specialAttack")
+          td 500
+        tr
+          th Special Defense
+          td
+            input(type=text, class="iv-entry", data-stat="specialDefense")
+          td
+            input(type=text, class="ev-entry", data-stat="specialDefense")
+          td 500
+        tr
+          th Speed
+          td
+            input(type=text, class="iv-entry", data-stat="speed")
+          td
+            input(type=text, class="ev-entry", data-stat="speed")
+          td 500
 
 div.selected_moves
   span Moves:
