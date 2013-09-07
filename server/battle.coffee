@@ -19,14 +19,17 @@ class @Battle
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
+    # An array of conditions like clauses or team preview that this battle has.
+    @conditions = attributes.conditions || []
+
     # Stores the current turn of the battle
     @turn = 0
 
     # Stores the actions each player is about to make
     # Keyed by player.id
-    @playerActions = {}
+    @pokemonActions = []
 
-    # Stores the current requests for moves. Keyed by player.id
+    # Stores the current requests for action.
     @requests = {}
 
     # Stores queue of players that need to move.
@@ -76,8 +79,20 @@ class @Battle
       player.team = team  # TODO: Deprecate
       @players.push(player)
 
-    # if replacing = true, continueTurn won't execute end of turn effects
     @replacing = false
+
+  begin: ->
+    @tell(Protocol.BEGIN_BATTLE, (player.team.toJSON()  for player in @players))
+    # TODO: Merge this with performReplacements?
+    for player in @players
+      for slot in [0...@numActive]
+        continue  if !player.team.at(slot)
+        @performReplacement(player.id, slot, slot)
+    # TODO: Switch-in events are ordered by speed
+    for pokemon in @getActivePokemon()
+      pokemon.switchIn()
+      # TODO: This is not part of the regular performReplacements
+      pokemon.turnsActive = 1
 
   getPlayer: (id) ->
     @players.find((p) -> p.id == id)
@@ -86,10 +101,7 @@ class @Battle
     @getPlayer(id).team
 
   getTeams: ->
-    teams = []
-    for player in @players
-      teams.push(player.team)
-    teams
+    (player.team  for player in @players)
 
   # Returns all opposing pokemon of a given pokemon.
   getOpponents: (pokemon) ->
@@ -124,26 +136,29 @@ class @Battle
     for player in @players
       return player  if pokemon in player.team.pokemon
 
+  getSlotNumber: (pokemon) ->
+    pokemon.team.indexOf(pokemon)
+
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) ->
     player = @getOwner(pokemon)
     switches = player.team.getAliveBenchedPokemon().map((p) -> p.name)
-    @requestAction(player, switches: switches)
+    slot = @getSlotNumber(pokemon)
+    @requestActions(player, [ {switches, slot} ])
 
   # Returns true if the Pokemon has yet to move.
   willMove: (pokemon) ->
-    player = @getOwner(pokemon)
-    (player.id of @playerActions) && @playerActions[player.id].type == 'move'
+    action = @getAction(pokemon)
+    action?.type == 'move'
 
   # Returns the move associated with a Pokemon.
   peekMove: (pokemon) ->
-    player = @getOwner(pokemon)
-    @playerActions[player.id]?.move
+    @getAction(pokemon)?.move
 
   changeMove: (pokemon, move) ->
-    player = @getOwner(pokemon)
-    if @playerActions[player.id]?.type == 'move'
-      @playerActions[player.id].move = move
+    action = @getAction(pokemon)
+    if action?.type == 'move'
+      action.move = move
 
   # Bumps a Pokemon to the front of a priority bracket.
   # If no bracket is provided, the Pokemon's current priority bracket is used.
@@ -256,6 +271,8 @@ class @Battle
   # move, then the battle engine progresses to continueTurn. Otherwise, the
   # battle waits for user responses.
   beginTurn: ->
+    @performReplacements()  if @replacing
+
     @turn++
     @priorityQueue = null
 
@@ -270,13 +287,16 @@ class @Battle
     # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
     # TODO: Struggle if no moves are usable
     for player in @players
-      pokemon = player.team.at(0)
-      continue  if @getAction(pokemon)
-      pokeMoves = pokemon.validMoves()
-      switches = player.team.getAliveBenchedPokemon()
-      switches = []  if pokemon.isSwitchBlocked()
-      canAct = pokeMoves.length > 0 || switches.length > 0
-      @requestAction(player, moves: pokeMoves, switches: switches)  if canAct
+      actions = []
+      for slot in [0...@numActive]
+        pokemon = player.team.at(slot)
+        continue  if !pokemon || @getAction(pokemon)
+        moves = pokemon.validMoves()
+        switches = player.team.getAliveBenchedPokemon()
+        switches = []  if pokemon.isSwitchBlocked()
+        canAct = (moves.length > 0 || switches.length > 0)
+        actions.push({moves, switches, slot})  if canAct
+      @requestActions(player, actions)
 
   # A callback done after turn order is calculated for the first time.
   # Use this callback to edit the turn order after players have selected
@@ -299,8 +319,8 @@ class @Battle
 
       action = @popAction(pokemon)
       switch action.type
-        when 'switch' then @performSwitch(id, action.to)
-        when 'move'   then @performMove(id, action.move)
+        when 'switch' then @performSwitch(id, action.to, action.slot)
+        when 'move'   then @performMove(id, action.move, action.slot)
 
       # Update Pokemon itself.
       # TODO: Is this the right place?
@@ -356,43 +376,60 @@ class @Battle
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  # TODO: Make this compatible with double battles by using the slot.
   #
   # player - the player object that will execute the move
   # moveName - the name of the move to execute
   #
-  recordMove: (playerId, move) ->
-    # Store the move that this player wants to make.
-    @playerActions[playerId] =
-      type: 'move'
-      move: move
-
-    delete @requests[playerId]
+  recordMove: (playerId, move, forSlot = 0) ->
+    action = {type: 'move', id: playerId, move: move, slot: forSlot}
+    @pokemonActions.push(action)
+    @removeRequest(playerId, forSlot)
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  # TODO: Make this compatible with double battles by using the slot.
   #
   # player - the player object that will execute the move
   # toPosition - the index of the pokemon to switch to
   #
-  recordSwitch: (playerId, toPosition) ->
-    # Record the switch
-    @playerActions[playerId] =
-      type: 'switch'
-      to: toPosition
+  recordSwitch: (playerId, toPosition, forSlot = 0) ->
+    action = {type: 'switch', id: playerId, to: toPosition, slot: forSlot}
+    @pokemonActions.push(action)
+    @removeRequest(playerId, forSlot)
 
-    delete @requests[playerId]
+  removeRequest: (playerId, forSlot) ->
+    for id, actions of @requests
+      continue  if id != playerId
+      for {slot}, i in actions
+        if slot == forSlot
+          actions.splice(i, 1)
+          delete @requests[id]  if actions.length == 0
+          break
+
+  requestFor: (pokemon) ->
+    playerId = pokemon.player.id
+    forSlot = pokemon.team.indexOf(pokemon)
+    for id, actions of @requests
+      continue  if id != playerId
+      for action in actions
+        if action.slot == forSlot
+          return action
+    return null
 
   getAction: (pokemon) ->
-    {id} = @getOwner(pokemon)
-    @playerActions[id]
+    owner = pokemon.player
+    slot = @getSlotNumber(pokemon)
+    for action in @pokemonActions
+      return action  if action.id == owner.id && action.slot == slot
+    return null
 
   popAction: (pokemon) ->
     action = @getAction(pokemon)
-    {id}   = @getOwner(pokemon)
-    delete @playerActions[id]
+    return  if !action
+    {id}   = pokemon.player
+    slot   = @getSlotNumber(pokemon)
+    index  = @pokemonActions.indexOf(action)
+    @pokemonActions.splice(index, 1)
     action
 
   cancelAction: (pokemon) ->
@@ -400,36 +437,35 @@ class @Battle
     index = @priorityQueue.map((o) -> o.pokemon).indexOf(pokemon)
     @priorityQueue.splice(index, 1)  if index >= 0
 
-  requestAction: (player, validActions) ->
+  requestActions: (player, validActions) ->
     # Normalize actions for the client
-    {switches, moves} = validActions
+    # TODO: Should not need to do this here.
     total = 0
-    if switches?
-      validActions.switches = switches.map((p) -> player.team.indexOf(p))
-      total += validActions.switches.length
-    if moves?
-      validActions.moves = moves.map((m) -> m.name)
-      total += validActions.moves.length
+    for action in validActions
+      {switches, moves} = action
+      if switches?
+        action.switches = switches.map((p) -> player.team.indexOf(p))
+        total += action.switches.length
+      if moves?
+        action.moves = moves.map((m) -> m.name)
+        total += action.moves.length
 
     return false  if total == 0
 
     # TODO: Delegate this kind of logic to the Player class.
     @requests[player.id] = validActions
-    player.tell(Protocol.REQUEST_ACTION, validActions)
+    player.tell(Protocol.REQUEST_ACTIONS, validActions)
     return true
 
   # Returns true if all requests have been completed. False otherwise.
   areAllRequestsCompleted: ->
-    requests = 0
-    requests += 1  for id of @requests
-    requests == 0
+    total = 0
+    total += (request  for request of @requests).length
+    total == 0
 
   # Returns true if any player's active Pokemon are fainted.
   areReplacementsNeeded: ->
-    for player in @players
-      if player.team.getActiveFaintedPokemon().length > 0
-        return true
-    return false
+    @getActiveFaintedPokemon().length > 0
 
   # Force people to replace fainted Pokemon.
   requestFaintedReplacements: ->
@@ -437,15 +473,16 @@ class @Battle
     for player in @players
       team = player.team
       fainted = team.getActiveFaintedPokemon()
-      if fainted.length > 0
-        validActions = {switches: team.getAliveBenchedPokemon()}
-        @requestAction(player, validActions)
+      size = fainted.length
+      if size > 0
+        benched = team.getAliveBenchedPokemon()
+        validActions = ({switches: benched, slot: x}  for x in [0...size])
+        @requestActions(player, validActions)
 
   determineTurnOrder: ->
-    ids = (id  for id of @playerActions)
     pq = []
-    for id in ids
-      pokemon = @getTeam(id).at(0)
+    for {id, slot} in @pokemonActions
+      pokemon = @getTeam(id).at(slot)
       action = @getAction(pokemon)
       priority = @actionPriority(action, pokemon)
       pq.push({id, priority, pokemon})
@@ -488,21 +525,26 @@ class @Battle
     @priorityQueue?.length > 0
 
   # Executed by @continueTurn
-  performSwitch: (id, toPosition, options) ->
+  performSwitch: (id, toPosition, forSlot = 0) ->
     player = @getPlayer(id)
     team = @getTeam(id)
+    team.switch(player, forSlot, toPosition)
 
-    team.switch(player, 0, toPosition, options)
+  performReplacement: (id, toPosition, forSlot = 0) ->
+    player = @getPlayer(id)
+    team = @getTeam(id)
+    team.replace(player, forSlot, toPosition)
 
   # Executed by @beginTurn
   performReplacements: ->
     @replacing = false
     switched = []
-    for id of @playerActions
+    while @pokemonActions.length > 0
+      {id, slot, to} = @pokemonActions.pop()
       team = @getTeam(id)
-      pokemon = team.at(0)
-      @performSwitch(id, @popAction(pokemon).to, replacing: true)
-      switched.push team.at(0)
+      pokemon = team.at(slot)
+      @performReplacement(id, to, slot)
+      switched.push team.at(slot)
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched
       pokemon.switchIn()
@@ -544,7 +586,9 @@ class @Battle
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
       @message "#{pokemon.name} fainted!"
-      @tell(Protocol.FAINT, pokemon.player.index, pokemon.team.indexOf(pokemon))
+      @tell(Protocol.FAINT, pokemon.player.index, @getSlotNumber(pokemon))
+      # Remove pending actions they had.
+      @popAction(pokemon)
       pokemon.afterFaint()
 
   getTargets: (move, user) ->
@@ -595,6 +639,9 @@ class @Battle
 
   removeSpectator: (spectator) ->
     @spectators.remove(spectator)
+
+  hasCondition: (condition) ->
+    condition in @conditions
 
   forfeit: (user) ->
     player = @players.find((p) -> p.user == user)

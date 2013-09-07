@@ -12,9 +12,9 @@ describe 'Battle', ->
     @socket2 = {id: @id2, send: ->}
     team1   = [Factory('Hitmonchan'), Factory('Heracross')]
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
-    players = [{player: @socket1, team: team1},
+    @players = [{player: @socket1, team: team1},
                {player: @socket2, team: team2}]
-    @battle = new Battle('id', players: players)
+    @battle = new Battle('id', players: @players)
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
@@ -46,14 +46,18 @@ describe 'Battle', ->
   describe '#recordMove', ->
     it "records a player's move", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
-      @battle.playerActions.should.have.property @id1
-      @battle.playerActions[@id1].move.should.equal @battle.getMove('Tackle')
+      action = @battle.pokemonActions.find((a) => a.id == @id1)
+      should.exist(action)
+      action.should.have.property("move")
+      action.move.should.equal @battle.getMove('Tackle')
 
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
-      @battle.playerActions.should.have.property @id1
-      @battle.playerActions[@id1].to.should.equal 1
+      action = @battle.pokemonActions.find((a) => a.id == @id1)
+      should.exist(action)
+      action.should.have.property("to")
+      action.to.should.equal 1
 
   describe '#performSwitch', ->
     it "swaps pokemon positions of a player's team", ->

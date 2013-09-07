@@ -112,6 +112,14 @@ connections.addEvents
 
     battle.makeSwitch(user, toSlot)
 
+  'arrange team': (user, battleId, arrangement) ->
+    battle = server.findBattle(battleId)
+    if !battle
+      user.send 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.arrangeTeam(user, arrangement)
+
   'spectate battle': (user, battleId) ->
     battle = server.findBattle(battleId)
     if !battle

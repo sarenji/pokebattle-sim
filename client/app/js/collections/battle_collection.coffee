@@ -3,14 +3,23 @@ class @BattleCollection extends Backbone.Collection
 
   initialize: (models, options) =>
     PokeBattle.socket.addEvents
-      'start battle': @startBattle
+      'initialize battle': @initializeBattle
+      'team preview': @teamPreview
       'update battle': @updateBattle
       'spectate battle': @spectateBattle
 
-  startBattle: (socket, id, numActive, index, teams) =>
+  initializeBattle: (socket, id, numActive, index) =>
     console.log "BATTLE STARTED."
-    battle = new Battle({id, numActive, socket, index, teams})
+    battle = new Battle({id, numActive, socket, index})
     createBattleWindow(this, battle)
+
+  teamPreview: (socket, battleId, teams) =>
+    battle = @get(battleId)
+    if !battle
+      console.log "Received events for #{battleId}, but no longer in battle!"
+      return
+    battle.notify()
+    battle.trigger('team preview', teams)
 
   updateBattle: (socket, battleId, actions) =>
     battle = @get(battleId)
@@ -54,9 +63,9 @@ class @BattleCollection extends Backbone.Collection
         pokemon = battle.getPokemon(player, slot)
         pokemon.pp[moveIndex] = newPP
         done()
-      when Protocol.REQUEST_ACTION
+      when Protocol.REQUEST_ACTIONS
         [validActions] = rest
-        console.log "ACTION REQUESTED:"
+        console.log "ACTIONS REQUESTED:"
         console.log validActions
         view.enableButtons(validActions)
         done()
@@ -104,6 +113,12 @@ class @BattleCollection extends Backbone.Collection
       when Protocol.BATTLE_UNATTACH
         [attachment] = rest
         view.unattachBattle(attachment, done)
+      when Protocol.BEGIN_BATTLE
+        # TODO: This should be unnecessary later; the opponent's team should be
+        # completely dark.
+        [teams] = rest
+        battle.receiveTeams(teams)
+        done()
       else
         done()
 

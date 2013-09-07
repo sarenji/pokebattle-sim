@@ -3,18 +3,20 @@ class @BattleView extends Backbone.View
   pokemon_template: JST['battle_pokemon']
   user_info_template: JST['battle_user_info']
   action_template: JST['battle_actions']
+  team_preview_template: JST['battle_team_preview']
 
   events:
     'click .move': 'makeMove'
     'click .switch': 'switchPokemon'
+    'click .submit_arrangement': 'submitTeamPreview'
 
   initialize: =>
     @selected = null
     @chatView = null
     @lastMove = null
     @spectators = new UserList([])
-    @renderBattle()
     @renderChat()
+    @listenTo(@model, 'team preview', @renderTeamPreview)
 
   renderBattle: =>
     locals =
@@ -24,7 +26,6 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       window       : window
     @$('.battle_pane').html @battle_template(locals)
-    @renderUserInfo()
     @addImages()
     this
 
@@ -37,10 +38,11 @@ class @BattleView extends Backbone.View
     ).render()
     this
 
-  renderActions: (validActions = {}) =>
+  # TODO: Support 2v2
+  renderActions: (validActions = []) =>
     locals =
       yourTeam     : @model.getTeam()
-      validActions : validActions
+      validActions : validActions[0] || {}
       window       : window
     @$('.battle_actions').html @action_template(locals)
     this
@@ -54,6 +56,27 @@ class @BattleView extends Backbone.View
       window       : window
     @$('.battle_user_info').html @user_info_template(locals)
     this
+
+  renderTeamPreview: (teams) =>
+    locals =
+      teams        : teams
+      numActive    : @model.numActive
+      yourIndex    : @model.index
+      window       : window
+    @$('.battle_pane').html @team_preview_template(locals)
+    @$('.arrange_team').sortable()
+
+  submitTeamPreview: (e) =>
+    $currentTarget = $(e.currentTarget)
+    return  if $currentTarget.hasClass('disabled')
+    $currentTarget.addClass('disabled')
+    $teamPreview = @$('.battle_teams')
+    indices = for element in @$('.arrange_team .pokemon_icon')
+      $(element).data('index')
+    @model.arrangeTeam(indices)
+    move($teamPreview)
+      .set('opacity', 0).duration('.25s')
+      .end(-> $teamPreview.remove())
 
   addImages: ($images) =>
     $images ||= @$('.preload')

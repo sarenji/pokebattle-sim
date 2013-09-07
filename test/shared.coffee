@@ -29,10 +29,11 @@ build = (context, opts={}) ->
   player2 = opts.player2 || {id: context.id2}
   team1   = opts.team1 || [Factory('Magikarp')]
   team2   = opts.team2 || [Factory('Magikarp')]
+  conditions = opts.conditions
   players = [{player: player1, team: team1},
              {player: player2, team: team2}]
   numActive = opts.numActive || 1
-  context.battle = new Battle('id', {players, numActive})
+  context.battle = new Battle('id', {players, numActive, conditions})
   context.controller = new BattleController(context.battle)
   context.player1 = context.battle.players.find((p) -> p.id == player1.id)
   context.player2 = context.battle.players.find((p) -> p.id == player2.id)

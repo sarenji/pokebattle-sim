@@ -18,6 +18,9 @@ class @Team
       new Pokemon(attributes)
     @attachments = new Attachments()
 
+  arrange: (arrangement) ->
+    @pokemon = (@pokemon[index]  for index in arrangement)
+
   at: (index) ->
     @pokemon[index]
 
@@ -50,23 +53,18 @@ class @Team
     if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, @player.index, attachment.name)
     attachment
 
-  switch: (player, a, b, options = {}) ->
-    unless options.replacing
-      @battle.message "#{player.id} withdrew #{@at(a).name}!"
-      p.tell(Protocol.SWITCH_OUT, player.index, a)  for p in @battle.players
-      s.tell(Protocol.SWITCH_OUT, player.index, a)  for s in @battle.spectators
-      p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
+  switch: (player, a, b) ->
+    @battle.message "#{player.id} withdrew #{@at(a).name}!"
+    @battle.tell(Protocol.SWITCH_OUT, player.index, a)
+    p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
     @switchOut(@at(a))
+    @replace(player, a, b)
+    @switchIn(@at(a))
 
+  replace: (player, a, b) ->
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    p.tell(Protocol.SWITCH_IN, player.index, a, b)  for p in @battle.players
-    s.tell(Protocol.SWITCH_IN, player.index, a, b)  for s in @battle.spectators
-
     @battle.message "#{player.id} sent out #{@at(a).name}!"
-    # Switches call switch-in events immediately; replacements wait until all
-    # replacements have finished switching in.
-    @switchIn(@at(a))  unless options.replacing
-    @at(a).turnsActive = 0
+    @battle.tell(Protocol.SWITCH_IN, player.index, a, b)
 
   beginTurn: ->
     @attachments.query('beginTurn')
@@ -111,7 +109,10 @@ class @Team
   getAliveBenchedPokemon: ->
     @getBenchedPokemon().filter((pokemon) -> !pokemon.isFainted())
 
-  toJSON: -> {
-    "pokemon": @pokemon.map (p) -> p.toJSON()
+  size: ->
+    @pokemon.length
+
+  toJSON: (options = {}) -> {
+    "pokemon": @pokemon.map (p) -> p.toJSON(options)
     "owner": @player.id
   }

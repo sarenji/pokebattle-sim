@@ -4,6 +4,7 @@
 {BattleQueue} = require './queue'
 {Battle} = require './battle'
 {BattleController} = require './battle_controller'
+{Conditions} = require './conditions'
 learnsets = require '../shared/learnsets'
 
 class @BattleServer
@@ -35,7 +36,9 @@ class @BattleServer
   createBattle: (objects...) ->
     players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
-    @battles[battleId] = new BattleController(new Battle(battleId, players: objects))
+    conditions = [ Conditions.TEAM_PREVIEW, Conditions.SLEEP_CLAUSE ]
+    battle = new Battle(battleId, players: objects, conditions: conditions)
+    @battles[battleId] = new BattleController(battle)
     battleId
 
   beginBattle: (battleId) ->

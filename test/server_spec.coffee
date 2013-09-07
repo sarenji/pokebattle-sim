@@ -9,7 +9,7 @@ describe 'BattleServer', ->
     battleId = server.createBattle()
     server.battles.should.have.ownProperty battleId
 
-  it "sends the 'start battle' event for each matched player", ->
+  it "sends the 'initialize battle' event for each matched player", ->
     players = [{id: 'abc', send: ->}, {id: 'def', send: ->}]
     spies = []
     for player in players
@@ -22,7 +22,7 @@ describe 'BattleServer', ->
     server.beginBattles()
 
     for spy in spies
-      spy.calledWith('start battle').should.be.true
+      spy.calledWith('initialize battle').should.be.true
 
   describe "#queuePlayer", ->
     it "queues players", ->

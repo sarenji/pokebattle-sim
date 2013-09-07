@@ -238,7 +238,7 @@ describe "Choice items", ->
     @controller.makeMove(@player1, 'Splash')
     @controller.makeMove(@player2, 'Splash')
 
-    requestedMoves = @battle.requests[@player1.id].moves
+    requestedMoves = @battle.requestFor(@p1).moves
     requestedMoves.should.eql [ @battle.getMove('Splash').name ]
 
   it "locks the user if it gains the item after an attack", ->
@@ -249,7 +249,7 @@ describe "Choice items", ->
     @battle.performMove(@id1, @battle.getMove('Trick'))
     @battle.performMove(@id2, @battle.getMove('Splash'))
     @battle.beginTurn()
-    requestedMoves = @battle.requests[@player2.id].moves
+    requestedMoves = @battle.requestFor(@p2).moves
     requestedMoves.should.eql [ @battle.getMove('Splash').name ]
 
   it "does not automatically lock the user when it switches back in", ->
@@ -262,8 +262,12 @@ describe "Choice items", ->
     @controller.makeSwitch(@player1, 1)
     @controller.makeMove(@player2, 'Splash')
 
-    requestedMoves = @battle.requests[@player1.id].moves
-    requestedMoves.should.eql [ @battle.getMove('Splash').name, @battle.getMove('Tackle').name ]
+    @controller.makeSwitch(@player1, 1)
+    @controller.makeMove(@player2, 'Splash')
+
+    request = @battle.requestFor(@p1)
+    should.exist(request)
+    request.moves.should.eql [ @battle.getMove('Splash').name, @battle.getMove('Tackle').name ]
 
   it "increases the respective stat by 1.5", ->
     shared.create.call this,
@@ -1082,9 +1086,10 @@ describe "Eject Button", ->
     @battle.recordMove(@id2, @battle.getMove('Tackle'))
     @battle.performMove(@id2, @battle.getMove('Tackle'))
 
-    @battle.requests.should.have.property @id1
-    @battle.requests[@id1].should.have.property "switches"
-    @battle.requests[@id1].switches.should.eql bench.map((p) => @team1.indexOf(p))
+    request = @battle.requestFor(@p1)
+    should.exist(request)
+    request.should.have.property("switches")
+    request.switches.should.eql bench.map((p) => @team1.indexOf(p))
 
   it "destroys the Eject Button after use", ->
     shared.create.call this,
@@ -1114,7 +1119,7 @@ describe "Eject Button", ->
     @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
 
     @p1.hasItem().should.be.true
-    @battle.requests.should.not.have.property @id1
+    should.not.exist @battle.requestFor(@p1)
 
 describe "Mental Herb", ->
   for effectName in ['Attract','Taunt','Encore','Torment','Disable']

@@ -1268,7 +1268,7 @@ describe 'Taunt', ->
 
     @battle.performMove(@id1, @battle.getMove('Taunt'))
     @battle.beginTurn()
-    requestedMoves = @battle.requests[@player2.id].moves
+    requestedMoves = @battle.requestFor(@p2).moves
     requestedMoves.should.not.include 'Splash'
 
 describe 'u-turn', ->
@@ -2598,8 +2598,10 @@ testRechargeMove = (moveName) ->
       @battle.beginTurn()
 
       @battle.requests.should.not.have.property @id1
-      @battle.playerActions.should.have.property @id1
-      @battle.playerActions[@id1].move.should.equal(specialMove)
+      action = @battle.getAction(@p1)
+      should.exist(action)
+      action.should.have.property("move")
+      action.move.should.equal(specialMove)
 
     it "prevents the user from moving the next turn", ->
       shared.create.call(this)
@@ -3974,7 +3976,7 @@ describe 'Ingrain', ->
 
     @battle.performMove(@id1, ingrain)
 
-    mock = @sandbox.mock(@battle).expects('requestAction').once()
+    mock = @sandbox.mock(@battle).expects('requestActions').once()
     @battle.performMove(@id1, uTurn)
     mock.verify()
 
@@ -4045,7 +4047,7 @@ testChargeMove = (moveName, vulnerable) ->
       @battle.endTurn()
       @battle.beginTurn()
       @battle.requests.should.not.have.property(@id1)
-      @battle.playerActions.should.have.property(@id1)
+      should.exist(@battle.getAction(@p1))
 
     it "only spends 1 PP for the entire attack", ->
       shared.create.call(this)

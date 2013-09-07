@@ -1,13 +1,19 @@
 class @Battle extends Backbone.Model
   initialize: (attributes) =>
-    {@socket, @numActive, @index, @teams} = attributes
+    {@socket, @numActive, @index} = attributes
     @set('notifications', 0)
+
+  receiveTeams: (teams) =>
+    @teams = teams
 
   makeMove: (moveName) =>
     @socket.send 'send move', @id, moveName
 
   makeSwitch: (toSlot) =>
     @socket.send 'send switch', @id, toSlot
+
+  arrangeTeam: (arrangement) =>
+    @socket.send 'arrange team', @id, arrangement
 
   switch: (fromIndex, toIndex) =>
     you = @getTeam().pokemon

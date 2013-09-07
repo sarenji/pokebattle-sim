@@ -1,27 +1,30 @@
+{Conditions} = require './conditions'
+
 # Abstracts out sending messages from player to battle.
 # Makes the Battle smoothly go into the next turn
 # Necessary to separate out making commands and executing commands.
 class @BattleController
   constructor: (@battle) ->
+    @arranged = []
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName, options = {}) ->
+  makeMove: (player, moveName, forSlot) ->
     return  if @battle.isOver()
     pokemonMoves = @battle.getTeam(player.id).at(0).moves.map((m) -> m.name)
-    return  if moveName not in pokemonMoves && !options.force
+    return  if moveName not in pokemonMoves
     move = @battle.getMove(moveName)
-    @battle.recordMove(player.id, move)
+    @battle.recordMove(player.id, move, forSlot)
     @transitionToNextState()
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  makeSwitch: (player, toPosition) ->
+  makeSwitch: (player, toPosition, forSlot) ->
     return  if @battle.isOver()
     return  if toPosition < @battle.numActive
     return  if toPosition >= @battle.getTeam(player.id).pokemon.length
-    @battle.recordSwitch(player.id, toPosition)
+    @battle.recordSwitch(player.id, toPosition, forSlot)
     @transitionToNextState()
 
   # Makes a player forfeit.
@@ -37,7 +40,6 @@ class @BattleController
   transitionToNextState: ->
     if @battle.areAllRequestsCompleted()
       if @battle.replacing
-        @battle.performReplacements()
         @beginTurn()
       else
         @continueTurn()
@@ -48,12 +50,33 @@ class @BattleController
       opponents = (p  for p in @battle.players when you.id != p.id)
       # TODO: Conceal opponent teams!
       teams = @battle.players.map((p) -> p.team.toJSON())
-      you.send? 'start battle', @battle.id, @battle.numActive, i, teams
-    @beginTurn()
+      you.send? 'initialize battle', @battle.id, @battle.numActive, you.index
 
-    pokemon = @battle.getActivePokemon()
-    for p in pokemon
-      p.switchIn(@battle)
+    # Team Preview asks for order before starting the battle.
+    if @battle.hasCondition(Conditions.TEAM_PREVIEW)
+      teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
+      for you, i in @battle.players
+        you.send? 'team preview', @battle.id, teams
+    else
+      @_beginBattle()
+
+  arrangeTeam: (player, arrangement) ->
+    return false  if arrangement not instanceof Array
+    team = @battle.getTeam(player.id)
+    return false  if arrangement.length != team.size()
+    for index, i in arrangement
+      return false  if isNaN(index)
+      return false  if !team.pokemon[index]
+      return false  if arrangement.indexOf(index, i + 1) != -1
+
+    team.arrange(arrangement)
+    @arranged.push(player.id)
+    @_beginBattle()  if @battle.players.all((player) => player.id in @arranged)
+    return true
+
+  _beginBattle: ->
+    @battle.begin()
+    @beginTurn()
 
   beginTurn: ->
     @battle.beginTurn()

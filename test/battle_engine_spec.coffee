@@ -47,7 +47,7 @@ describe 'Mechanics', ->
       @p2.currentHP = 1
       @controller.makeMove(@player1, 'Psychic')
       @controller.makeMove(@player2, 'Mach Punch')
-      spy.calledWith(Protocol.REQUEST_ACTION).should.be.true
+      spy.calledWith(Protocol.REQUEST_ACTIONS).should.be.true
 
     it 'does not increment the turn count', ->
       shared.create.call this,
@@ -69,6 +69,8 @@ describe 'Mechanics', ->
       @controller.makeMove(@player2, 'Mach Punch')
       @p1.currentHP.should.be.below 1
       @p2.currentHP.should.equal 1
+      action = @battle.getAction(@p1)
+      should.not.exist(action)
 
     it 'lets the player switch in a new pokemon', ->
       shared.create.call this,
@@ -157,6 +159,7 @@ describe 'Mechanics', ->
       ]
 
       @battle.priorityQueue = null
+      @battle.pokemonActions = []
 
       shared.biasRNG.call(this, "next", "turn order", .4)
       @battle.recordMove(@id1, @battle.getMove('Psychic'))
@@ -179,6 +182,7 @@ describe 'Mechanics', ->
       ]
 
       @battle.priorityQueue = null
+      @battle.pokemonActions = []
 
       @battle.recordMove(@id1, @battle.getMove('Psychic'))
       @battle.recordMove(@id2, @battle.getMove('Mach Punch'))

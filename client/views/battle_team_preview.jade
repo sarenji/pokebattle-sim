@@ -1,0 +1,33 @@
+mixin displayTeam(team, klass)
+  .row-fluid(class = klass)
+    each pokemon in team.pokemon
+      .span2.button
+        .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
+
+.battle_teams
+  - var theirTeam = teams[1 - yourIndex]
+  - var yourTeam = teams[yourIndex]
+  section.battle_team_preview
+    p Your opponent's team:
+    ul.row-fluid.unstyled
+      each pokemon in theirTeam.pokemon
+        li.span2.team_pokemon
+          .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
+
+  section.battle_team_preview
+    p Drag and rearrange your team:
+    ul.row-fluid.unstyled
+      - for (var i = 0; i < numActive; i++)
+        li.span2.lead_text
+          if numActive > 1
+            | Lead #{i + 1}
+          else
+            | Lead
+    ul.arrange_team.row-fluid.unstyled
+      each pokemon, i in yourTeam.pokemon
+        li.span2.img-polaroid
+          .team_pokemon
+            - var style = window.PokemonIconBackground(pokemon.name)
+            .pokemon_icon(data-index = i, style = style)
+
+    .button.submit_arrangement Start battle

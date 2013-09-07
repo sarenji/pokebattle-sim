@@ -291,9 +291,10 @@ makePlateItem 'Earth Plate', 'Ground'
 makeItem 'Eject Button', ->
   this::afterBeingHit = (move, user, target, damage) ->
     return  if move.isNonDamaging()
-    self = @battle.getOwner(target)
-    switches = self.team.getAliveBenchedPokemon()
-    @battle.requestAction(self, switches: switches)
+    owner = @battle.getOwner(target)
+    switches = owner.team.getAliveBenchedPokemon()
+    slot = owner.team.indexOf(target)
+    @battle.requestActions(owner, [ {switches, slot} ])
     target.useItem()
 
 makeGemItem 'Electric Gem', 'Electric'

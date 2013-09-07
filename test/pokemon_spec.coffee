@@ -397,3 +397,26 @@ describe 'Pokemon', ->
       pokemon.forme.should.equal('default')
       pokemon.changeForme('batman')
       pokemon.forme.should.equal('default')
+
+  describe "#toJSON", ->
+    it "can hide information", ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      json = pokemon.toJSON(hidden: true)
+      json.should.not.have.property("hp")
+      json.should.not.have.property("maxHP")
+      json.should.not.have.property("moves")
+      json.should.not.have.property("moveTypes")
+      json.should.not.have.property("pp")
+      json.should.not.have.property("maxPP")
+      json.should.not.have.property("ivs")
+
+    it "shows all information otherwise", ->
+      pokemon = new Pokemon(name: 'Shaymin')
+      json = pokemon.toJSON()
+      json.should.have.property("hp")
+      json.should.have.property("maxHP")
+      json.should.have.property("moves")
+      json.should.have.property("moveTypes")
+      json.should.have.property("pp")
+      json.should.have.property("maxPP")
+      json.should.have.property("ivs")

@@ -314,7 +314,7 @@ class @Pokemon
     return @battle?.hasWeatherCancelAbilityOnField() || false
 
   switchIn: ->
-    @turnsActive = 1
+    @turnsActive = 0
     @attach(@ability)  if @ability
     @attach(@item)   if @item
     @attachments.query('switchIn')
@@ -438,24 +438,27 @@ class @Pokemon
   toString: ->
     "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
 
-  toJSON: ->
-    "name"      : @name
-    "hp"        : @currentHP
-    "level"     : @level
-    "gender"    : @gender
-    "maxHP"     : @stat('hp')
-    "boosts"    : @stages
-    "moves"     : @moves.map (m) -> m.name
-    "moveTypes" : @moves.map (m) -> m.type
-    "pp"        : @moves.map (m) => @pp(m)
-    "maxPP"     : @moves.map (m) => @maxPP(m)
-    "ivs"       :
-      hp: @iv('hp')
-      attack: @iv('attack')
-      defense: @iv('defense')
-      speed: @iv('speed')
-      specialAttack: @iv('specialAttack')
-      specialDefense: @iv('specialDefense')
+  toJSON: (options = {}) ->
+    base =
+      "name"      : @name
+      "level"     : @level
+      "gender"    : @gender
+      "boosts"    : @stages
+    return base  if options.hidden
+    Object.merge base,
+      "hp"        : @currentHP
+      "maxHP"     : @stat('hp')
+      "moves"     : @moves.map (m) -> m.name
+      "moveTypes" : @moves.map (m) -> m.type
+      "pp"        : @moves.map (m) => @pp(m)
+      "maxPP"     : @moves.map (m) => @maxPP(m)
+      "ivs"       :
+        hp: @iv('hp')
+        attack: @iv('attack')
+        defense: @iv('defense')
+        speed: @iv('speed')
+        specialAttack: @iv('specialAttack')
+        specialDefense: @iv('specialDefense')
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

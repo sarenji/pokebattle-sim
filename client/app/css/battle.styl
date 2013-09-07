@@ -185,12 +185,11 @@ $pane-width = $battle-width + $padding + $padding
 .button
   clearfix()
   button-bg(#eee)
+  display       inline-block
   height        32px
   line-height   @height
   border-radius 4px
-  float         left
-  margin-right  5px
-  margin-bottom @margin-right
+  margin-bottom 6px
   padding       0 10px
   cursor        pointer
   color         #333
@@ -273,3 +272,51 @@ $pane-width = $battle-width + $padding + $padding
   background url("http://i.imgur.com/UUGozoG.png") top left
   &.fainted
     opacity 0.5
+
+.battle_teams
+  text-align center
+  width 80%
+  margin 0 auto
+
+.battle_team_preview
+  background #eee
+  padding 10px
+  border-radius 4px
+  margin 10px 0
+  border 1px solid #aaa
+
+  .submit_arrangement
+    margin 10px 0 0
+
+  .team_pokemon
+    position relative
+    width 32px
+    height @width
+
+  .arrange_team
+    user-select none
+    overflow hidden
+    .team_pokemon
+      cursor move
+
+  .lead_text
+    font-size .8125em
+    min-height 0
+
+  .pokemon_icon
+    top 0
+    left 0
+
+  .sortable-placeholder
+    border 1px dashed #ccc
+    background none
+    float left
+    // TODO: This should have the span2 style attached
+    width 41.296875px
+    height 40px
+    margin-left 2.564102564102564%
+    &:first-child
+      margin-left 0
+
+  .unstyled
+    margin 0
