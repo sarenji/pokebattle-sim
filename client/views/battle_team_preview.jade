@@ -4,7 +4,7 @@ mixin displayTeam(team, klass)
       .span2.button
         .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
 
-mixin displayPokemon(pokemon)
+mixin displayPokemon(pokemon, i)
   .team_pokemon
     - var style = window.PokemonIconBackground(pokemon.name)
     .pokemon_icon(data-index = i, style = style)
@@ -37,6 +37,6 @@ mixin displayPokemon(pokemon)
     ul.arrange_team.row-fluid.unstyled
       each pokemon, i in yourTeam.pokemon
         li.span2.img-polaroid
-          +displayPokemon(pokemon)
+          +displayPokemon(pokemon, i)
 
     .button.submit_arrangement Start battle

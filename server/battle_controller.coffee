@@ -9,10 +9,13 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName, forSlot) ->
+  makeMove: (player, moveName, forSlot = 0) ->
     return  if @battle.isOver()
-    pokemonMoves = @battle.getTeam(player.id).at(0).moves.map((m) -> m.name)
-    return  if moveName not in pokemonMoves
+    pokemon = @battle.getTeam(player.id).at(forSlot)
+    return  if !pokemon
+    request = @battle.requestFor(pokemon)
+    return  if !request
+    return  if moveName not in (request.moves || [])
     move = @battle.getMove(moveName)
     @battle.recordMove(player.id, move, forSlot)
     @transitionToNextState()

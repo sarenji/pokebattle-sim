@@ -68,6 +68,9 @@ class @Battle
     # Stores the confusion recoil move as it may be different cross-generations
     @confusionMove = Moves['Confusion Recoil']
 
+    # Stores the Struggle move as it is different cross-generation
+    @struggleMove = @getMove('Struggle')
+
     # Stores attachments on the battle itself.
     @attachments = new Attachments()
 
@@ -284,8 +287,6 @@ class @Battle
     @attachments.query('beginTurn')
 
     # Send appropriate requests to players
-    # TODO: If no Pokemon can move, request no actions and skip to continueTurn.
-    # TODO: Struggle if no moves are usable
     for player in @players
       actions = []
       for slot in [0...@numActive]
@@ -294,8 +295,9 @@ class @Battle
         moves = pokemon.validMoves()
         switches = player.team.getAliveBenchedPokemon()
         switches = []  if pokemon.isSwitchBlocked()
-        canAct = (moves.length > 0 || switches.length > 0)
-        actions.push({moves, switches, slot})  if canAct
+        # This guarantees the user always has a move to pick.
+        moves.push(@struggleMove)  if moves.length == 0
+        actions.push({moves, switches, slot})
       @requestActions(player, actions)
 
   # A callback done after turn order is calculated for the first time.
@@ -397,7 +399,7 @@ class @Battle
     @pokemonActions.push(action)
     @removeRequest(playerId, forSlot)
 
-  removeRequest: (playerId, forSlot) ->
+  removeRequest: (playerId, forSlot = 0) ->
     for id, actions of @requests
       continue  if id != playerId
       for {slot}, i in actions
@@ -556,9 +558,8 @@ class @Battle
     pokemon = @getTeam(id).at(slot)
     targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
-    struggle = @getMove('Struggle')
 
-    @message "#{pokemon.name} has no moves left!"  if move == struggle
+    @message "#{pokemon.name} has no moves left!"  if move == @struggleMove
 
     if pokemon.pp(move) <= 0
       # TODO: Send move id instead

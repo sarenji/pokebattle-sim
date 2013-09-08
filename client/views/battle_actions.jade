@@ -1,5 +1,4 @@
 mixin moveButton(forPokemon, i)
-  - var validMoves = validActions.moves || []
   - var moveName   = forPokemon.moves[i]
   - var origName   = moveName
   - var moveType   = forPokemon.moveTypes[i].toLowerCase()
@@ -7,31 +6,44 @@ mixin moveButton(forPokemon, i)
   - var maxPP      = forPokemon.maxPP[i]
   - var isEnabled  = validMoves.indexOf(moveName) !== -1
   - var disabledClass = (!isEnabled ? ' disabled' : '')
+  - var bigClass   = (validMoves.length === 1 ? ' big' : '')
+  - var spanClass  = (validMoves.length === 1 ? 'span12' : 'span6')
   if moveName === 'Hidden Power'
     - moveType = window.hiddenPower.BW.type(forPokemon.ivs)
     - moveName += ' (' + moveType + ')'
     - moveType = moveType.toLowerCase()
-  .move.button(class = moveType + disabledClass, data-move-id = origName)
-    .main_text= moveName
-    .meta_info
-      = pp
-      small /#{maxPP}
+  - var moveClass  = moveType + disabledClass + bigClass
+  div(class = spanClass)
+    .move.button(class = moveClass, data-move-id = origName)
+      .main_text= moveName
+      .meta_info
+        = pp
+        small /#{maxPP}
 
-- var actionSwitches = validActions.switches || []
+- var validMoves = validActions.moves || []
+- var validSwitches = validActions.switches || []
 - var team = yourTeam.pokemon
 .moves.span8
   h2 Moves
-  // TODO: if locals.team[0].isAlive()
-  .clearfix
-    - var pokemon = team[0]
-    - var numMoves = pokemon.moves.length
+  - var pokemon = team[0]
+  - var numMoves = pokemon.moves.length
+  if validMoves.length === 1
+    //- Display any moves not part of the Pokemon's moveset specially. This
+    //- includes no PP and automatically considered normal-type, e.g. Struggle.
+    - var moveIndex = pokemon.moves.indexOf(validMoves[0])
+    .row-fluid
+      if moveIndex === -1
+        .span12
+          .move.button.normal.big(data-move-id = validMoves[0])
+            .main_text= validMoves[0]
+      else
+        +moveButton(pokemon, moveIndex)
+  else
     - for (var i = 0; i < numMoves; i += 2)
       .row-fluid
-        .span6
-          +moveButton(pokemon, i)
+        +moveButton(pokemon, i)
         if i + 1 < numMoves
-          .span6
-            +moveButton(pokemon, i + 1)
+          +moveButton(pokemon, i + 1)
 
 .switches.span4
   h2 Pokemon
@@ -39,7 +51,7 @@ mixin moveButton(forPokemon, i)
     .row-fluid
       - for (var i = j; i < j + 3; i++)
         - var pokemon = team[i]
-        - var isEnabled = actionSwitches.indexOf(i) !== -1
+        - var isEnabled = validSwitches.indexOf(i) !== -1
         - var disabledClass = (!isEnabled ? 'disabled' : '')
         .span4
           .switch.button(class = disabledClass, data-slot = i)

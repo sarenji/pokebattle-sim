@@ -483,3 +483,20 @@ describe 'Mechanics', ->
       @sandbox.mock(move).expects('execute').never()
       @sandbox.mock(@p1).expects('beforeMove').never()
       @battle.performMove(@id1, move)
+
+  describe "A pokemon with no available moves", ->
+    it "can struggle", ->
+      shared.create.call(this)
+      @battle.removeRequest(@id1)
+
+      # Next turn, @p1 will have no available moves.
+      for move in @p1.moves
+        @p1.blockMove(move)
+      @p1.resetBlocks = ->
+
+      @p1.validMoves().should.be.empty
+      @battle.beginTurn()
+      request = @battle.requestFor(@p1)
+      should.exist(request)
+      request.should.have.property('moves')
+      request.moves.should.eql(["Struggle"])

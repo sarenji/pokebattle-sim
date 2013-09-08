@@ -2650,8 +2650,8 @@ testMomentumMove = (moveName) ->
         team1: [ Factory("Shuckle") ]
 
       momentumMove = @battle.getMove(moveName)
-      @p1.moves = [ momentumMove,
-                               @battle.getMove("Rest") ]
+      @p1.moves = [ momentumMove, @battle.getMove("Rest") ]
+      @p1.resetAllPP()
 
       @battle.performMove(@id1, momentumMove)
       @battle.endTurn()
@@ -4256,6 +4256,8 @@ describe "Imprison", ->
     splash = @battle.getMove("Splash")
     @p1.moves = [ imprison, tackle, splash ]
     @p2.moves = [ furyCutter, tackle, splash ]
+    @p1.resetAllPP()
+    @p2.resetAllPP()
 
     @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
     @battle.performMove(@id1, imprison)
@@ -4270,6 +4272,8 @@ describe "Imprison", ->
     splash = @battle.getMove("Splash")
     @p1.moves = [ imprison, tackle, splash ]
     @p2.moves = [ furyCutter, tackle, splash ]
+    @p1.resetAllPP()
+    @p2.resetAllPP()
 
     @battle.performMove(@id1, imprison)
     mock = @sandbox.mock(tackle).expects('execute').never()
@@ -4285,6 +4289,8 @@ describe "Imprison", ->
     splash = @battle.getMove("Splash")
     @p1.moves = [ imprison, tackle, splash ]
     @p2.moves = [ furyCutter, tackle, splash ]
+    @p1.resetAllPP()
+    @p2.resetAllPP()
 
     @battle.performMove(@id1, imprison)
     @battle.beginTurn()
@@ -4914,6 +4920,7 @@ testRampageMove = (moveName) ->
       rampageMove = @battle.getMove(moveName)
       splash = @battle.getMove("Splash")
       @p1.moves = [ rampageMove, splash ]
+      @p1.resetAllPP()
 
       @battle.performMove(@id1, rampageMove)
       @p2.currentHP = @p2.stat('hp')

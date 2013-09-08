@@ -418,7 +418,6 @@ class @Pokemon
     @blockedMoves = []
     @switchBlocked = false
     @itemBlocked = false
-    @crit = false
 
   # Locks the Pokemon into a single move. Does not limit switches.
   lockMove: (moveToLock) ->

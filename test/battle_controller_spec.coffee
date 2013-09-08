@@ -57,11 +57,36 @@ describe 'BattleController', ->
       mock.verify()
 
   describe "move validations", ->
-    it "rejects moves not part of the pokemon's move", ->
+    it "rejects moves not part of the pokemon's valid moves", ->
       shared.create.call this,
         team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
-        mock = @sandbox.mock(@battle).expects('recordMove').never()
+      mock = @sandbox.mock(@battle).expects('recordMove').never()
       @controller.makeMove(@player1, "EXTERMINATE")
+      mock.verify()
+
+    it "accepts Struggle", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
+      @p1.blockMove(move)  for move in @p1.moves
+      @p1.resetBlocks = ->
+      @battle.removeRequest(@id1)
+      @battle.beginTurn()
+
+      mock = @sandbox.mock(@battle).expects('recordMove').once()
+      @controller.makeMove(@player1, "Struggle")
+      mock.verify()
+
+    it "rejects moves that cannot be selected", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
+      move = @p1.moves[0]
+      @p1.blockMove(move)
+      @p1.resetBlocks = ->
+      @battle.removeRequest(@id1)
+      @battle.beginTurn()
+
+      mock = @sandbox.mock(@battle).expects('recordMove').never()
+      @controller.makeMove(@player1, move.name)
       mock.verify()
 
   describe "conditions:", ->
