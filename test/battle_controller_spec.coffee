@@ -56,6 +56,17 @@ describe 'BattleController', ->
       @controller.makeSwitch(@player1, 2)
       mock.verify()
 
+    it "rejects switches that are not part of the request action", ->
+      shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
+      @p1.blockSwitch()
+      @p1.resetBlocks = ->
+      @battle.removeRequest(@id1)
+      @battle.beginTurn()
+
+      mock = @sandbox.mock(@battle).expects('recordSwitch').never()
+      @controller.makeSwitch(@player1, 2)
+      mock.verify()
+
   describe "move validations", ->
     it "rejects moves not part of the pokemon's valid moves", ->
       shared.create.call this,

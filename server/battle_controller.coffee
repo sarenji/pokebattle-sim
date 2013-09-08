@@ -23,10 +23,13 @@ class @BattleController
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  makeSwitch: (player, toPosition, forSlot) ->
+  makeSwitch: (player, toPosition, forSlot = 0) ->
     return  if @battle.isOver()
-    return  if toPosition < @battle.numActive
-    return  if toPosition >= @battle.getTeam(player.id).pokemon.length
+    pokemon = @battle.getTeam(player.id).at(forSlot)
+    return  if !pokemon
+    request = @battle.requestFor(pokemon)
+    return  if !request
+    return  if toPosition not in (request.switches || [])
     @battle.recordSwitch(player.id, toPosition, forSlot)
     @transitionToNextState()
 
