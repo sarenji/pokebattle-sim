@@ -23,12 +23,13 @@
   li, div
     display block
     padding 14px 0 14px 24px
-    background-color rgba(0, 0, 0, 0.05)
-    border-bottom rgba(0, 0, 0, 0.1)
 
   li:hover, div:hover
     cursor pointer
     background-color rgba(0, 0, 0, 0.1)
+
+  li.active
+    background-color rgba(200, 210, 255, 0.5)
 
 .teambuilder .nature_ability_item
   display table
@@ -48,6 +49,8 @@
     text-align left
     padding-right 10px
     white-space nowrap
+    line-height 1.5em
+    height 1.5em
 
   input
     width 100%!important

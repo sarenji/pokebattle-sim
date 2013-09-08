@@ -94,8 +94,14 @@ class @TeambuilderView extends Backbone.View
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
     @selected = index
+    
+    # Set the correct pokemon view to active
     @$(".pokemon_edit").children().hide().removeClass("active")
     @getPokemonView(pokemon).show().addClass("active")
+
+    # Set the correct list item to active
+    @$(".navigation li").removeClass("active")
+    $(@$(".navigation li").get(index)).addClass("active")
 
   getSelectedPokemon: =>
     @collection.at(@selected)
