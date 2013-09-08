@@ -67,6 +67,7 @@ class @BattleController
       @_beginBattle()
 
   arrangeTeam: (player, arrangement) ->
+    return false  if @battle.hasStarted()
     return false  if arrangement not instanceof Array
     team = @battle.getTeam(player.id)
     return false  if arrangement.length != team.size()
