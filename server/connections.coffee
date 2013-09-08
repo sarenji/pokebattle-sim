@@ -38,7 +38,17 @@ class @ConnectionServer
         for callback in (@callbacks[messageType] || [])
           callback.apply(user, [user, data.data...])
 
+      # Hack for Heroku:
+      # https://github.com/sockjs/sockjs-node/issues/57#issuecomment-5242187
+      if process.env.USING_HEROKU
+        intervalId = setInterval ->
+          try
+            socket._session.recv.didClose()
+          catch x
+        , 15000
+
       socket.on 'close', =>
+        if intervalId then clearTimeout(intervalId)
         @users.remove((u) -> u == user)
         for callback in @callbacks['close']
           callback.call(user, user)
