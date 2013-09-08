@@ -9,7 +9,7 @@ $ ->
       $('#register-confirm-password').addClass('hidden').val('')
 
   # Pressing submit button on the modals
-  $(".modal-submit").on 'click', ->
+  submitModal = ->
     params = {}
     $modal = $(this).closest('.modal')
     serverEvent = $modal.data('server-event')
@@ -28,6 +28,11 @@ $ ->
       value = $input.val()
       params[key] = value
     PokeBattle.socket.send(serverEvent, params)
+
+  $(".modal-submit").on('click', submitModal)
+  $(".modal").on 'keyup', 'input', (e) ->
+    if e.which == 13
+      submitModal.call(this)
 
   $('input').keypress ->
     $this = $(this)

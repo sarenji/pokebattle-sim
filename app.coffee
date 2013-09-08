@@ -46,9 +46,9 @@ app.get '/', (req, res) ->
   res.render 'index.jade', {local, SpeciesData, FormeData, MoveData, ItemData}
 
 app.get '/splash', (req, res) ->
-  {SpeciesData, FormeData, MoveData, ItemData} = require './data/bw'
-  local = process.env.NODE_ENV in [ 'development', 'test' ]
-  res.render('splash.jade', messages: req.flash('info'), errors: req.flash('error'))
+  res.render 'splash.jade',
+    messages: req.flash('info')
+    errors: req.flash('error')
 
 app.post '/subscribe', (req, res) ->
   email = req.body.email
