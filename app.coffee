@@ -3,6 +3,7 @@ express = require 'express'
 redis = require 'redis'
 bcrypt = require 'bcrypt'
 async = require 'async'
+flash = require 'connect-flash'
 require 'express-namespace'
 require 'sugar'
 
@@ -31,6 +32,9 @@ app.set("views", "client")
 app.use(express.logger())
 app.use(express.compress())  # gzip
 app.use(express.bodyParser())
+app.use(express.cookieParser(process.env.SECRET_KEY || 'very secure key'))
+app.use(express.session(cookie: { maxAge: 60000 }))
+app.use(flash())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
@@ -40,6 +44,32 @@ app.get '/', (req, res) ->
   {SpeciesData, FormeData, MoveData, ItemData} = require './data/bw'
   local = process.env.NODE_ENV in [ 'development', 'test' ]
   res.render 'index.jade', {local, SpeciesData, FormeData, MoveData, ItemData}
+
+app.get '/splash', (req, res) ->
+  {SpeciesData, FormeData, MoveData, ItemData} = require './data/bw'
+  local = process.env.NODE_ENV in [ 'development', 'test' ]
+  res.render('splash.jade', messages: req.flash('info'), errors: req.flash('error'))
+
+app.post '/subscribe', (req, res) ->
+  email = req.body.email
+  console.log req.body
+
+  # Validate email
+  if not /@/.test(email)
+    req.flash('error', 'You did not enter a valid email!')
+    res.redirect('/splash')
+    return
+
+  # Add to subscriptions
+  db.sadd "subscriptions", email, (err, added) ->
+    if err
+      console.error(err)
+      req.flash('error', 'Something went wrong! Try again?')
+    else if added
+      req.flash('info', 'You will now be notified when PokeBattle is released!')
+    else
+      req.flash('info', 'You are already signed up!')
+    res.redirect('/splash')
 
 # API
 app.namespace "/v1/api", ->

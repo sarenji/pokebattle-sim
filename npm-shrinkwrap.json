@@ -1030,6 +1030,11 @@
       "version": "0.2.9",
       "from": "async@"
     },
+    "connect-flash": {
+      "version": "0.1.1",
+      "from": "connect-flash@",
+      "resolved": "https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz"
+    },
     "should": {
       "version": "1.2.2",
       "from": "should@~1.2.x"

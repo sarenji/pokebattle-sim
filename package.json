@@ -26,7 +26,8 @@
     "grunt-external-daemon": "~1.1.0",
     "bcrypt": "~0.7.6",
     "grunt-contrib-cssmin": "~0.6.1",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "connect-flash": "~0.1.1"
   },
   "devDependencies": {
     "should": "~1.2.x",
