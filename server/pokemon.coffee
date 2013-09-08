@@ -111,7 +111,7 @@ class @Pokemon
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
     total = @attachments.queryChain("edit#{capitalized}", total)
-    total = @statBoost(key, total)  if key != 'hp' && !options.ignoreBoosts
+    total = @statBoost(key, total, options)  if key != 'hp'
     total
 
   # Returns 1.1, 1.0, or 0.9 according to whether a Pokemon's nature corresponds
@@ -123,9 +123,11 @@ class @Pokemon
     else
       1
 
-  statBoost: (statName, total) ->
+  statBoost: (statName, total, options = {}) ->
     stages = @editBoosts()
     boost  = stages[statName]
+    boost  = 0 if options.ignorePositiveBoosts && boost > 0
+    boost  = 0 if options.ignoreNegativeBoosts && boost < 0
     if boost >= 0
       Math.floor((2 + boost) * total / 2)
     else

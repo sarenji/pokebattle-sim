@@ -90,11 +90,23 @@ describe 'Move:', ->
       specialDefense = @p2.stat('specialDefense')
 
       @p1.crit = true
-      @p2.boost(defense: -1, specialDefense: -2)
+      @p2.boost(defense: 1, specialDefense: 2)
       move = new Move(null, damage: 'physical')
       move.pickDefenseStat(@p1, @p2).should.equal(defense)
       move = new Move(null, damage: 'special')
       move.pickDefenseStat(@p1, @p2).should.equal(specialDefense)
+
+    it "does not ignore opponent defensive drops", ->
+      shared.create.call(this)
+      defense = @p2.stat('defense')
+      specialDefense = @p2.stat('specialDefense')
+
+      @p1.crit = true
+      @p2.boost(defense: -1, specialDefense: -2)
+      move = new Move(null, damage: 'physical')
+      move.pickDefenseStat(@p1, @p2).should.equal Math.floor(2 / 3 * defense)
+      move = new Move(null, damage: 'special')
+      move.pickDefenseStat(@p1, @p2).should.equal(specialDefense >> 1)
 
     it "ignores user stat drops", ->
       shared.create.call(this)
@@ -107,6 +119,18 @@ describe 'Move:', ->
       move.pickAttackStat(@p1, @p2).should.equal(attack)
       move = new Move(null, damage: 'special')
       move.pickAttackStat(@p1, @p2).should.equal(specialAttack)
+
+    it "does not ignore user stat boosts", ->
+      shared.create.call(this)
+      attack = @p1.stat('attack')
+      specialAttack = @p1.stat('specialAttack')
+
+      @p1.crit = true
+      @p1.boost(attack: 1, specialAttack: 2)
+      move = new Move(null, damage: 'physical')
+      move.pickAttackStat(@p1, @p2).should.equal Math.floor(1.5 * attack)
+      move = new Move(null, damage: 'special')
+      move.pickAttackStat(@p1, @p2).should.equal(2 * specialAttack)
 
     it "does not carry over in multihit moves", ->
       shared.create.call(this)

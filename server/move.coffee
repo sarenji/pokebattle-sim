@@ -253,11 +253,11 @@ class @Move
 
   pickAttackStat: (user, target) ->
     stat = (if @isPhysical() then 'attack' else 'specialAttack')
-    user.stat(stat, ignoreBoosts: user.crit)
+    user.stat(stat, ignoreNegativeBoosts: user.crit)
 
   pickDefenseStat: (user, target) ->
     stat = (if @isPhysical() then 'defense' else 'specialDefense')
-    target.stat(stat, ignoreBoosts: user.crit)
+    target.stat(stat, ignorePositiveBoosts: user.crit)
 
   toString: ->
     "[Move name:#{@name}]"
