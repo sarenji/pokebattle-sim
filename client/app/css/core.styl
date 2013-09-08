@@ -1,6 +1,9 @@
 narrow-font()
   font-family "PT Sans Narrow", "Helvetica Neue", sans-serif
 
+normal-font()
+  font-family "PT Sans", "Helvetica Neue", sans-serif
+
 $body_wrapper = 30px
 $nav_size = 150px
 $header_size = 50px
@@ -9,7 +12,8 @@ html, body
   color   #333
   padding 0
   margin  0
-  font    100% "PT Sans", "Helvetica Neue", sans-serif
+  font-size 100%
+  normal-font()
   background $background-color url(/images/cream.png)
 
 #content

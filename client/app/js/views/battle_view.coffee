@@ -64,7 +64,13 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       window       : window
     @$('.battle_pane').html @team_preview_template(locals)
-    @$('.arrange_team').sortable()
+    $arrangeTeam = @$('.arrange_team')
+    $arrangeTeam.sortable()
+    $arrangeTeam.on 'sortupdateplaceholder', (e, $placeholder) ->
+      $visible = $arrangeTeam.children(":visible")
+      $first = $visible.first()
+      $first.addClass('first-child')
+      $visible.not($first).removeClass('first-child')
 
   submitTeamPreview: (e) =>
     $currentTarget = $(e.currentTarget)

@@ -4,6 +4,17 @@ mixin displayTeam(team, klass)
       .span2.button
         .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
 
+mixin displayPokemon(pokemon)
+  .team_pokemon
+    - var style = window.PokemonIconBackground(pokemon.name)
+    .pokemon_icon(data-index = i, style = style)
+  if pokemon.gender === 'F'
+    .gender.gender_female &#9792;
+  else if pokemon.gender === 'M'
+    .gender.gender_male &#9794;
+  if pokemon.level != 100
+    .level Lv.#{pokemon.level}
+
 .battle_teams
   - var theirTeam = teams[1 - yourIndex]
   - var yourTeam = teams[yourIndex]
@@ -11,8 +22,8 @@ mixin displayTeam(team, klass)
     p Your opponent's team:
     ul.row-fluid.unstyled
       each pokemon in theirTeam.pokemon
-        li.span2.team_pokemon
-          .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
+        li.span2
+          +displayPokemon(pokemon)
 
   section.battle_team_preview
     p Drag and rearrange your team:
@@ -26,8 +37,6 @@ mixin displayTeam(team, klass)
     ul.arrange_team.row-fluid.unstyled
       each pokemon, i in yourTeam.pokemon
         li.span2.img-polaroid
-          .team_pokemon
-            - var style = window.PokemonIconBackground(pokemon.name)
-            .pokemon_icon(data-index = i, style = style)
+          +displayPokemon(pokemon)
 
     .button.submit_arrangement Start battle

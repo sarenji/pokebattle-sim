@@ -1,5 +1,6 @@
 outline-text(clr = #000)
-  text-shadow 1px 1px 0 clr, 1px -1px 0 clr, -1px -1px 0 clr, -1px 1px clr
+  text-shadow 0 1px 0 clr, 0 -1px 0 clr,
+              -1px 0 0 clr, 1px 0 0 clr
 
 divide(a, b)
   a / b
@@ -277,6 +278,23 @@ $pane-width = $battle-width + $padding + $padding
   text-align center
   width 80%
   margin 0 auto
+  normal-font()
+  li
+    position relative
+  .gender
+    position absolute
+    top 0
+    right 2px
+    font-size .75em
+    text-shadow 0 1px 0 #333
+  .level
+    position absolute
+    bottom 0
+    right 2px
+    font-size .75em
+    line-height @font-size
+    outline-text(#fff)
+    narrow-font()
 
 .battle_team_preview
   background #eee
@@ -292,11 +310,12 @@ $pane-width = $battle-width + $padding + $padding
     position relative
     width 32px
     height @width
+    margin 0 auto
 
   .arrange_team
     user-select none
     overflow hidden
-    .team_pokemon
+    li
       cursor move
 
   .lead_text
@@ -315,8 +334,10 @@ $pane-width = $battle-width + $padding + $padding
     width 41.296875px
     height 40px
     margin-left 2.564102564102564%
-    &:first-child
-      margin-left 0
+
+  // :first-child pseudo-classes don't work well with jquery.sortable
+  .first-child
+    margin-left 0
 
   .unstyled
     margin 0
