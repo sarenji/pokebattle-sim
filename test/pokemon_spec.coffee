@@ -166,7 +166,14 @@ describe 'Pokemon', ->
     it 'returns moves without blocked moves', ->
       pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
       pokemon.blockMove(Moves['Earthquake'])
-      _(pokemon.validMoves()).isEqual([Moves['Splash']]).should.be.true
+      pokemon.validMoves().should.eql([ Moves['Splash'] ])
+
+    it 'excludes moves with 0 PP', ->
+      pokemon = new Pokemon(moves: ['Splash', 'Earthquake'])
+      move = pokemon.moves[0]
+      otherMoves = pokemon.moves.filter((m) -> m != move)
+      pokemon.setPP(move, 0)
+      pokemon.validMoves().should.eql(otherMoves)
 
   describe '#reducePP', ->
     it 'reduces PP of a move by 1', ->

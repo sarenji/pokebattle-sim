@@ -435,7 +435,9 @@ class @Pokemon
 
   # A list of moves that this pokemon can use freely
   validMoves: ->
-    _(@moves).difference(@blockedMoves)
+    moves = _(@moves).difference(@blockedMoves)
+    moves = moves.filter((move) => @pp(move) > 0)
+    moves
 
   toString: ->
     "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
