@@ -67,6 +67,13 @@ describe 'BattleController', ->
       @controller.makeSwitch(@player1, 2)
       mock.verify()
 
+    it "rejects switches if the battle has not started yet", ->
+      shared.build(this, team1: (Factory("Magikarp")  for x in [0..2]))
+
+      mock = @sandbox.mock(@battle).expects('recordSwitch').never()
+      @controller.makeSwitch(@player1, 2)
+      mock.verify()
+
   describe "move validations", ->
     it "rejects moves not part of the pokemon's valid moves", ->
       shared.create.call this,
@@ -100,25 +107,33 @@ describe 'BattleController', ->
       @controller.makeMove(@player1, move.name)
       mock.verify()
 
+    it "rejects moves if the battle has not started yet", ->
+      shared.build this,
+        team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
+
+      mock = @sandbox.mock(@battle).expects('recordMove').never()
+      @controller.makeMove(@player1, @p1.moves[0].name)
+      mock.verify()
+
   describe "conditions:", ->
     describe "Team Preview", ->
       it "starts the battle by passing team info and requesting team order", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         shared.build(this, {conditions})
-        mock = @sandbox.mock(@controller).expects('beginTurn').never()
+        mock = @sandbox.mock(@battle).expects('begin').never()
         @controller.beginBattle()
         mock.verify()
 
       it "waits until all players have arranged their teams before starting", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         shared.build(this, {conditions})
-        mock = @sandbox.mock(@controller).expects('beginTurn').never()
+        mock = @sandbox.mock(@battle).expects('begin').never()
         @controller.beginBattle()
         @controller.arrangeTeam(@player1, [ 0 ])
         mock.verify()
-        @controller.beginTurn.restore()
+        @battle.begin.restore()
 
-        mock = @sandbox.mock(@controller).expects('beginTurn').once()
+        mock = @sandbox.mock(@battle).expects('begin').once()
         @controller.arrangeTeam(@player2, [ 0 ])
         mock.verify()
 

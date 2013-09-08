@@ -216,3 +216,17 @@ describe 'Battle', ->
         mocks.push(mock)
       @battle.forfeit({})
       mock.verify()  for mock in mocks
+
+    it "marks the battle as over", ->
+      @battle.forfeit(@socket1)
+      @battle.isOver().should.be.true
+
+  describe "#hasStarted", ->
+    it "returns false if the battle has not started", ->
+      battle = new Battle('id', players: @players)
+      battle.hasStarted().should.be.false
+
+    it "returns true if the battle has started", ->
+      battle = new Battle('id', players: @players)
+      battle.begin()
+      battle.hasStarted().should.be.true

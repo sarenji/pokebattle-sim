@@ -83,6 +83,7 @@ class @Battle
       @players.push(player)
 
     @replacing = false
+    @finished = false
 
   begin: ->
     @tell(Protocol.BEGIN_BATTLE, (player.team.toJSON()  for player in @players))
@@ -96,6 +97,7 @@ class @Battle
       pokemon.switchIn()
       # TODO: This is not part of the regular performReplacements
       pokemon.turnsActive = 1
+    @beginTurn()
 
   getPlayer: (id) ->
     @players.find((p) -> p.id == id)
@@ -374,7 +376,10 @@ class @Battle
     winner
 
   isOver: ->
-    @players.any((player) -> player.team.getAlivePokemon().length == 0)
+    @finished || @players.any((player) -> player.team.getAlivePokemon().length == 0)
+
+  hasStarted: ->
+    @turn >= 1
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
@@ -648,6 +653,7 @@ class @Battle
     player = @players.find((p) -> p.user == user)
     return  unless player
     @tell(Protocol.FORFEIT_BATTLE, player.index)
+    @finished = true
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

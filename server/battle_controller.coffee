@@ -82,7 +82,7 @@ class @BattleController
 
   _beginBattle: ->
     @battle.begin()
-    @beginTurn()
+    @sendUpdates()
 
   beginTurn: ->
     @battle.beginTurn()
