@@ -1,25 +1,86 @@
-box(size=96px)
-  width      size
-  height     size
-  float      left
-  cursor     pointer
-  &:hover
-    background-color #ccc
-  &.selected
-    background-color #999
-    &:hover
-      background-color #aaa
+.teambuilder
+  position: absolute
+  top 0
+  bottom 0
+  left 0
+  right 0
 
-.builder_pokemon
-  box()
-  // 31 per row
-  background url('http://veekun.com/static/pokedex/downloads/black-white.png')
+  select, input
+    margin-bottom 0!important
 
-.builder_add_pokemon
-  box()
-  text-align  center
-  line-height 96px
-  font-size   32px
+.teambuilder .navigation
+  position absolute
+  top 0
+  bottom 0
+  background-color $body-color
+  width: 150px
 
-.builder_detail
-  clear       both
+  ul
+    list-style-type none
+    padding 0
+    margin 0
+
+  li, div
+    display block
+    padding 14px 0 14px 24px
+
+  li:hover, div:hover
+    cursor pointer
+    background-color rgba(0, 0, 0, 0.1)
+
+  li.active
+    background-color rgba(200, 210, 255, 0.5)
+
+.teambuilder .nature_ability_item
+  display table
+  margin 1.5em 0
+
+  div
+    display table-row
+    line-height 1.5em
+    
+  span, input, select
+    display: table-cell
+
+.teambuilder .stats
+  margin-bottom 1.5em
+
+  td, th
+    text-align left
+    padding-right 10px
+    white-space nowrap
+    line-height 1.5em
+    height 1.5em
+
+  input
+    width 100%!important
+    box-sizing border-box
+
+.teambuilder .pokemon_edit
+  position absolute
+  overflow: auto
+  left 150px
+  top 0
+  bottom 0
+  right 0
+  background white
+  padding 15px
+
+.teambuilder .selected_moves
+  margin-bottom 1.5em
+
+  span, input
+    margin-right 10px
+
+.teambuilder .move_table
+  width 100%
+  border-collapse collapse
+
+  td, th
+    text-align left
+    line-height 1.5em
+    border 1px solid #888
+    padding 0 5px
+
+  th
+    background-color $body-color

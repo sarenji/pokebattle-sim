@@ -5,6 +5,7 @@ class @SidebarView extends Backbone.View
     "click .nav_battles li" : 'focusBattle'
     "click .nav_rooms li"   : 'focusRoom'
     "click .nav_battles .close" : 'leaveBattle'
+    "click .nav_teambuilder": 'showTeambuilder'
 
   initialize: (attributes) =>
     @currentWindow = null
@@ -13,6 +14,9 @@ class @SidebarView extends Backbone.View
     @listenTo(PokeBattle.battles, 'reset', @resetBattles)
     @listenTo(PokeBattle.battles, 'change:notifications', @renderNotifications)
     @render()
+
+  showTeambuilder: =>
+    @changeWindowTo($("#teambuilder-section"), $(".nav_teambuilder"))
 
   render: =>
     @$el.html @template(battles: PokeBattle.battles)

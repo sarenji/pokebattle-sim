@@ -78,5 +78,6 @@ $ ->
 
   PokeBattle.battles = new BattleCollection([])
   $navigation = $('#navigation')
-  navigationView = new SidebarView(el: $navigation)
+  PokeBattle.navigation = new SidebarView(el: $navigation)
   $navigation.find('.nav_item').first().click()
+  PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), collection: new Team())
