@@ -4,7 +4,7 @@ shared = require('./shared')
 should = require('should')
 require './helpers'
 
-describe 'Move', ->
+describe 'Move:', ->
   it 'takes the name as the first parameter', ->
     new Move('Smooth Move').name.should.equal 'Smooth Move'
 
@@ -67,7 +67,7 @@ describe 'Move', ->
           attacker.switchIn()
           new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
 
-  describe "critical hit", ->
+  describe "a critical hit", ->
     it "occurs when the RNG output < the critical hit level", ->
       battle = new Battle('1', players: [])
       attacker = new Pokemon()
@@ -83,6 +83,43 @@ describe 'Move', ->
       defender = new Pokemon()
       @sandbox.stub(battle.rng, 'next', -> 0.0700)
       new Move().isCriticalHit(battle, attacker, defender).should.be.false
+
+    it "ignores opponent defensive boosts", ->
+      shared.create.call(this)
+      defense = @p2.stat('defense')
+      specialDefense = @p2.stat('specialDefense')
+
+      @p1.crit = true
+      @p2.boost(defense: -1, specialDefense: -2)
+      move = new Move(null, damage: 'physical')
+      move.pickDefenseStat(@p1, @p2).should.equal(defense)
+      move = new Move(null, damage: 'special')
+      move.pickDefenseStat(@p1, @p2).should.equal(specialDefense)
+
+    it "ignores user stat drops", ->
+      shared.create.call(this)
+      attack = @p1.stat('attack')
+      specialAttack = @p1.stat('specialAttack')
+
+      @p1.crit = true
+      @p1.boost(attack: -1, specialAttack: -2)
+      move = new Move(null, damage: 'physical')
+      move.pickAttackStat(@p1, @p2).should.equal(attack)
+      move = new Move(null, damage: 'special')
+      move.pickAttackStat(@p1, @p2).should.equal(specialAttack)
+
+    it "does not carry over in multihit moves", ->
+      shared.create.call(this)
+      move = new Move("multihit", minHits: 4, maxHits: 4, power: 20)
+
+      # Crit only once
+      move.isCriticalHit = ->
+        move.isCriticalHit = -> false
+        true
+
+      mock = @sandbox.mock(@p2).expects('informCriticalHit').once()
+      move.execute(@battle, @p1, [ @p2 ])
+      mock.verify()
 
     describe "-1 crit ratios", ->
       beforeEach ->

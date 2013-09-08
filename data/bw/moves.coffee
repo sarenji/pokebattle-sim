@@ -281,12 +281,12 @@ makeStatusCureMove = (name, message) ->
 makePickAttackMove = (name) ->
   extendMove name, ->
     @pickAttackStat = (user, target) ->
-      target.stat('attack')
+      target.stat('attack', ignoreBoosts: user.crit)
 
 makePickDefenseMove = (name) ->
   extendMove name, ->
     @pickDefenseStat = (user, target) ->
-      target.stat('defense')
+      target.stat('defense', ignoreBoosts: user.crit)
 
 makeDelayedAttackMove = (name, message) ->
   extendMove name, ->

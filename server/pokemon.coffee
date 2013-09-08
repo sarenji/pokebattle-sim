@@ -100,7 +100,7 @@ class @Pokemon
   # Gets the stat indexed by key.
   # Ex: pokemon.stat('hp')
   # TODO: Precalculate the stats in the constructor
-  stat: (key) ->
+  stat: (key, options = {}) ->
     base = @baseStats[key] || 100
     return 1  if base == 1  # For Shedinja. key doesn't have to be hp.
     iv = @iv(key)
@@ -111,7 +111,7 @@ class @Pokemon
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
     total = @attachments.queryChain("edit#{capitalized}", total)
-    total = @statBoost(key, total)  if key != 'hp'
+    total = @statBoost(key, total)  if key != 'hp' && !options.ignoreBoosts
     total
 
   # Returns 1.1, 1.0, or 0.9 according to whether a Pokemon's nature corresponds
