@@ -52,7 +52,6 @@ app.get '/splash', (req, res) ->
 
 app.post '/subscribe', (req, res) ->
   email = req.body.email
-  console.log req.body
 
   # Validate email
   if not /@/.test(email)
