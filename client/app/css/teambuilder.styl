@@ -7,6 +7,14 @@
 
   select, input
     margin-bottom 0!important
+    width 100%
+
+.teambuilder .species
+  float left
+  width 120px
+
+.teambuilder .meta-info
+  margin-left 140px
 
 .teambuilder .navigation
   position absolute
@@ -42,6 +50,7 @@
 .teambuilder .nature_ability_item
   display table
   margin 1.5em 0
+  width 100%
 
   div
     display table-row
@@ -61,18 +70,25 @@
     height 1.5em
 
   input
-    width 100%!important
-    box-sizing border-box
+    width auto
 
 .teambuilder .pokemon_edit
   position absolute
-  overflow: auto
+  overflow auto
   left 150px
   top 0
   bottom 0
   right 0
   background white
   padding 15px
+
+.teambuilder .forme-sprite-box
+  width 120px
+  height @width
+  line-height @height
+  text-align center
+  .forme-sprite
+    display inline-block
 
 .teambuilder .selected_moves
   .move-button, input
