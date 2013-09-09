@@ -84,8 +84,7 @@ class @TeambuilderView extends Backbone.View
     $input = $(ev.target)
     stat = $input.data("stat")
     value = parseInt($input.val())
-    if isNaN(value) || value > 255 || value < 0
-      value = 255 # todo: get highest possible ev
+    value = 252  if isNaN(value) || value > 252 || value < 0
 
     pokemon = @getSelectedPokemon()
     pokemon.setEv(stat, value)
