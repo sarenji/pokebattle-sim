@@ -19,6 +19,7 @@ class @Pokemon extends Backbone.Model
       speed: 0
 
   initialize: (attributes={}) ->
+    @set('forme', 'default')  unless attributes.forme
     # Set to default ability when the species changes
     @on 'change:name', =>
       @set('ability', @getAbilities()[0])
@@ -26,23 +27,26 @@ class @Pokemon extends Backbone.Model
     @set('ability', @getAbilities()[0])  unless attributes.ability
 
   getSpecies: ->
-    FormeData[@get('name')].default
+    SpeciesData[@get('name')]
+
+  getForme: (forme) ->
+    forme ||= @get('forme')
+    FormeData[@get('name')][forme]
 
   getAbilities: ->
-    species = @getSpecies()
-    abilities = _.clone(species.abilities)
-    abilities.push(species.hiddenAbility)
+    forme = @getForme()
+    abilities = _.clone(forme.abilities)
+    abilities.push(forme.hiddenAbility)
     abilities
 
   getMovepool: ->
-    # todo: cache this
-    species = @getSpecies()
-    
-    # only generations 3 to 5 for now
+    forme = @getForme()
 
+    # TODO: Use shared function for getting a movepool
+    # only generations 3 to 5 for now
     learnset = []
     for generation in [3, 4, 5] 
-      generationMoveMethods = species.learnset["generation-#{generation}"] || []
+      generationMoveMethods = forme.learnset["generation-#{generation}"] || []
       for method, moves of generationMoveMethods
         learnset.push(moveName)  for moveName, level of moves
 
@@ -70,5 +74,52 @@ class @Pokemon extends Backbone.Model
   ev: (stat) ->
     @get("evs")[stat]
 
-  stat: (stat) ->
-    return 500 # todo: calculate this
+  natureBoost: (stat) ->
+    nature = @get('nature')?.toLowerCase()
+    if nature of natures
+      natures[nature][stat] || 1
+    else
+      1
+
+  stat: (key) ->
+    forme = @getForme()
+    base = forme["stats"][key]
+    return 1  if base == 1  # For Shedinja. key doesn't have to be hp.
+    level = @get('level') || 100
+    iv = @iv(key)
+    ev = Math.floor(@ev(key) / 4)
+    total = if key == 'hp'
+      Math.floor((2 * base + iv + ev) * (level / 100) + level + 10)
+    else
+      Math.floor(((2 * base + iv + ev) * (level / 100) + 5) * @natureBoost(key))
+
+  getNatures: ->
+    (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
+
+# A hash that keys a nature with the stats that it boosts.
+# Neutral natures are ignored.
+# TODO: .yml-ify these.
+PLUS  = 1.1
+MINUS = 0.9
+natures =
+  lonely:  {attack: PLUS, defense: MINUS}
+  brave:   {attack: PLUS, speed: MINUS}
+  adamant: {attack: PLUS, specialAttack: MINUS}
+  naughty: {attack: PLUS, specialDefense: MINUS}
+  bold:    {defense: PLUS, attack: MINUS}
+  relaxed: {defense: PLUS, speed: MINUS}
+  impish:  {defense: PLUS, specialAttack: MINUS}
+  lax:     {defense: PLUS, specialDefense: MINUS}
+  timid:   {speed: PLUS, attack: MINUS}
+  hasty:   {speed: PLUS, defense: MINUS}
+  jolly:   {speed: PLUS, specialAttack: MINUS}
+  naive:   {speed: PLUS, specialDefense: MINUS}
+  modest:  {specialAttack: PLUS, attack: MINUS}
+  mild:    {specialAttack: PLUS, defense: MINUS}
+  quiet:   {specialAttack: PLUS, speed: MINUS}
+  rash:    {specialAttack: PLUS, specialDefense: MINUS}
+  calm:    {specialDefense: PLUS, attack: MINUS}
+  gentle:  {specialDefense: PLUS, defense: MINUS}
+  sassy:   {specialDefense: PLUS, speed: MINUS}
+  careful: {specialDefense: PLUS, specialAttack: MINUS}
+

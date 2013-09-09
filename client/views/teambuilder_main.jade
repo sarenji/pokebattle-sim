@@ -1,3 +1,12 @@
+mixin printStat(statName, keyName)
+  tr
+    td
+      strong= statName
+    td
+      input(type="text", class="ev-entry", data-stat=keyName)
+    td
+      input(type="text", class="iv-entry", data-stat=keyName)
+    td.stat-total(data-stat=keyName)= pokemon.stat(keyName)
 select.species_list
   each species in speciesList
     - var selected = (species == pokemon.get("name"))
@@ -7,7 +16,10 @@ select.species_list
   .nature_ability_item.span6
     div
       span Nature:
-      input
+      select.selected_nature
+        each nature in pokemon.getNatures()
+          - var selected = (nature == pokemon.get("nature"))
+          option(value=nature, selected=selected)= nature
     div
       span Ability:
       select.selected_ability
@@ -26,61 +38,30 @@ select.species_list
     table.stats
       thead
         th
-        th IV
         th EV
+        th IV
         th Stat
       tbody
-        tr
-          th HP
-          td
-            input(type=text, class="iv-entry", data-stat="hp")
-          td
-            input(type=text, class="ev-entry", data-stat="hp")
-          td 500
-        tr
-          th Attack
-          td
-            input(type=text, class="iv-entry", data-stat="attack")
-          td
-            input(type=text, class="ev-entry", data-stat="attack")
-          td 500
-        tr
-          th Defense
-          td
-            input(type=text, class="iv-entry", data-stat="defense")
-          td
-            input(type=text, class="ev-entry", data-stat="defense")
-          td 500
-        tr
-          th Special Attack
-          td
-            input(type=text, class="iv-entry", data-stat="specialAttack")
-          td
-            input(type=text, class="ev-entry", data-stat="specialAttack")
-          td 500
-        tr
-          th Special Defense
-          td
-            input(type=text, class="iv-entry", data-stat="specialDefense")
-          td
-            input(type=text, class="ev-entry", data-stat="specialDefense")
-          td 500
-        tr
-          th Speed
-          td
-            input(type=text, class="iv-entry", data-stat="speed")
-          td
-            input(type=text, class="ev-entry", data-stat="speed")
-          td 500
+        +printStat("HP", "hp")
+        +printStat("Attack", "attack")
+        +printStat("Defense", "defense")
+        +printStat("Special Attack", "specialAttack")
+        +printStat("Special Defense", "specialDefense")
+        +printStat("Speed", "speed")
 
-div.selected_moves
-  span Moves:
-  input(value=pokemon.get("moves")[0])
-  input(value=pokemon.get("moves")[1])
-  input(value=pokemon.get("moves")[2])
-  input(value=pokemon.get("moves")[3])
+.selected_moves
+  h2 Moves:
+  .row-fluid
+    .span3
+      input(type="text", value=pokemon.get("moves")[0])
+    .span3
+      input(type="text", value=pokemon.get("moves")[1])
+    .span3
+      input(type="text", value=pokemon.get("moves")[2])
+    .span3
+      input(type="text", value=pokemon.get("moves")[3])
 
-table.move_table
+table.table.table-hover
   thead
     tr
       th Name

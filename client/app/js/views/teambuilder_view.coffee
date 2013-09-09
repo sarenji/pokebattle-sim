@@ -7,6 +7,7 @@ class @TeambuilderView extends Backbone.View
     'click .add_pokemon': 'addEmptyPokemon'
     'click .save_team': 'saveTeam'
     'change .species_list': 'changeSpecies'
+    'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
@@ -21,6 +22,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'add', @renderPokemon)
     @listenTo(@collection, 'change:ivs', @renderStats)
     @listenTo(@collection, 'change:evs', @renderStats)
+    @listenTo(@collection, 'change:nature', @renderStats)
 
     # Todo: Make this perform better
     @listenTo(@collection, 'change:name', (pokemon) =>
@@ -49,6 +51,10 @@ class @TeambuilderView extends Backbone.View
   changeSpecies: (ev) =>
     $list = $(ev.target)
     @getSelectedPokemon().set("name", $list.val())
+
+  changeNature: (e) =>
+    $list = $(e.currentTarget)
+    @getSelectedPokemon().set("nature", $list.val())
 
   changeAbility: (ev) =>
     $list = $(ev.target)
@@ -149,5 +155,7 @@ class @TeambuilderView extends Backbone.View
       stat = $input.data("stat")
       $input.val(pokemon.ev(stat))
 
-    # todo: render totals
-
+    $div.find('.stat-total').each ->
+      $this = $(this)
+      stat = $this.data("stat")
+      $this.text(pokemon.stat(stat))
