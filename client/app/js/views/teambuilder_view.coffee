@@ -139,9 +139,10 @@ class @TeambuilderView extends Backbone.View
   selectMove: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
+    type = MoveData[moveName].type.toLowerCase()
     $moves = @$('.selected_moves')
     $input = $moves.find('input').first()
-    $input.replaceWith("""<div class="button move-button">#{moveName}</div>""")
+    $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
     $moves.find('input').first().focus()
 
     # Record moves
