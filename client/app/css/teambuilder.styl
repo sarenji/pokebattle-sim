@@ -47,7 +47,7 @@
     margin 0
     vertical-align middle
 
-.teambuilder .nature_ability_item
+.teambuilder .meta-info .non-stats
   display table
   margin 1.5em 0
   width 100%
@@ -57,7 +57,14 @@
     line-height 1.5em
     
   span, input, select
-    display: table-cell
+    display table-cell
+    box-sizing border-box
+    height 2em
+    margin 0
+
+  span
+    text-align right
+    padding-right 10px
 
 .teambuilder .stats
   margin-bottom 1.5em
@@ -68,6 +75,9 @@
     white-space nowrap
     line-height 1.5em
     height 1.5em
+
+  td:first-child
+    text-align right
 
   input
     width auto

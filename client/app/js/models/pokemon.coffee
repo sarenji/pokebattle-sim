@@ -27,6 +27,8 @@ class @Pokemon extends Backbone.Model
       @set('ability', @getAbilities()[0])
 
     @set('ability', @getAbilities()[0])  unless attributes.ability
+    @set('level', 100)  unless attributes.level
+    @set('happiness', 0)  unless attributes.happiness
 
   getSpecies: ->
     SpeciesData[@get('name')]
@@ -40,6 +42,20 @@ class @Pokemon extends Backbone.Model
     abilities = _.clone(forme.abilities)
     abilities.push(forme.hiddenAbility)  if forme.hiddenAbility
     abilities
+
+  getGenders: ->
+    species = @getSpecies()
+    genders = []
+    switch species.genderRatio
+      when -1
+        genders.push("Genderless")
+      when 0
+        genders.push("M")
+      when 8
+        genders.push("F")
+      else
+        genders.push("M", "F")
+    genders
 
   getMovepool: ->
     forme = @getForme()
