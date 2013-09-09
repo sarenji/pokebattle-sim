@@ -6,6 +6,9 @@ $ ->
     PokeBattle.socket.send('find battle')
     $this.addClass('disabled')
 
+  $mainButtons.on 'click', '.teambuilder_button', (e) ->
+    PokeBattle.navigation.showTeambuilder()
+
 # Depresss Find Battle once one is found
 $(window).load ->
   $mainButtons = $('.main_buttons')

@@ -38,11 +38,6 @@ PokeBattle.chatView = null
 PokeBattle.battles = null
 
 $ ->
-  #$builder = $('.builder')
-  #pokemon = new Team(({name: "Bulbasaur"}  for x in [0...6]))
-  #builderView = new TeamBuilderView(el: $builder, collection: pokemon)
-  #builderView.render()
-
   PokeBattle.socket = new Socket(new SockJS('/socket'))
   PokeBattle.socket.addEvents
     'connect': (socket) ->
