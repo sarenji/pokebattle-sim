@@ -92,8 +92,8 @@ class @TeambuilderView extends Backbone.View
     @renderStats(pokemon)
 
   filterMoves: (e) =>
-    # If we're pressing Enter, we're selecting the first move.
-    if e.which == 13
+    # If we're pressing Tab/Enter, we're selecting the first move.
+    if e.which in [ 9, 13 ]
       $table = @$('.table-moves')
       $allMoves = $table.find('tbody tr')
       $firstMove = $allMoves.filter(":visible").first()
