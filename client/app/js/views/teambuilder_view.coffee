@@ -33,6 +33,8 @@ class @TeambuilderView extends Backbone.View
       @renderPokemon(pokemon)
     )
 
+    @listenTo(@collection, 'add remove', @renderPokemonList)
+
     @addEmptyPokemon()
     @selected = 0
 
@@ -45,7 +47,6 @@ class @TeambuilderView extends Backbone.View
 
   addEmptyPokemon: =>
     @collection.add(new Pokemon())
-    @renderPokemonList()
 
   saveTeam: =>
     teamJson = @collection.toJSON()

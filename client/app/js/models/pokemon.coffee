@@ -19,11 +19,9 @@ class @Pokemon extends Backbone.Model
       speed: 0
 
   initialize: (attributes={}) ->
-    @set('id', @getSpecies().id)
     @set('forme', 'default')  unless attributes.forme
     # Set to default ability when the species changes
     @on 'change:name', =>
-      @set('id', @getSpecies().id)
       @set('ability', @getAbilities()[0])
 
     @set('ability', @getAbilities()[0])  unless attributes.ability
