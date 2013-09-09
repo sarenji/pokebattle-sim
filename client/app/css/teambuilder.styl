@@ -14,7 +14,7 @@
   width 120px
 
 .teambuilder .meta-info
-  margin-left 140px
+  margin-left 135px
 
 .teambuilder .navigation
   position absolute
@@ -98,5 +98,21 @@
     height 32px
 
 .teambuilder .table-moves
+  border-collapse separate
   tbody tr
     cursor pointer
+    td
+      border 1px solid transparent
+      &:first-child
+        border-radius 1em 0 0 1em
+      &:last-child
+        border-radius 0 1em 1em 0
+    &.active
+      td
+        border-top 1px solid #dddde7
+        border-bottom @border-top
+        background #f0f0f9
+        &:first-child
+          border-left @border-top
+        &:last-child
+          border-right @border-top

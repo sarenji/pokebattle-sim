@@ -12,8 +12,8 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
-    'keyup .selected_moves input': 'filterMoves'
-    'focus .selected_moves input': 'filterMoves'
+    'keyup .selected_moves input': 'keyupMoves'
+    'focus .selected_moves input': 'keyupMoves'
     'click .table-moves tbody tr': 'selectMove'
     'click .move-button': 'deselectMove'
 
@@ -90,14 +90,27 @@ class @TeambuilderView extends Backbone.View
     pokemon.setEv(stat, value)
     @renderStats(pokemon)
 
-  filterMoves: (e) =>
-    # If we're pressing Tab/Enter, we're selecting the first move.
-    if e.which in [ 9, 13 ]
-      $table = @$('.table-moves')
-      $allMoves = $table.find('tbody tr')
-      $firstMove = $allMoves.filter(":visible").first()
-      $firstMove.click()
-      return
+  keyupMoves: (e) =>
+    # If we're pressing Tab/Enter, we're selecting the active move.
+    $table = @$('.table-moves')
+    $allMoves = $table.find('tbody tr')
+    switch e.which
+      when 9, 13
+        $activeMove = $allMoves.filter('.active').first()
+        $activeMove.click()
+        return
+      when 38  # [Up arrow]
+        $activeMove = $allMoves.filter('.active').first()
+        $prevMove = $activeMove.prevAll(":visible").first()
+        $activeMove.removeClass('active')
+        $prevMove.addClass('active')
+        return
+      when 40  # [Down arrow]
+        $activeMove = $allMoves.filter('.active').first()
+        $nextMove = $activeMove.nextAll(":visible").first()
+        $activeMove.removeClass('active')
+        $nextMove.addClass('active')
+        return
 
     # Otherwise we're filtering moves
     $this = $(e.currentTarget)
@@ -115,6 +128,8 @@ class @TeambuilderView extends Backbone.View
     $table.addClass('hidden')
     $moves.removeClass('hidden')
     $allMoves.not($moves).addClass('hidden')
+    $allMoves.removeClass('active')
+    $moves.first().addClass('active')
     $table.removeClass('hidden')
 
   hideMoves: =>
