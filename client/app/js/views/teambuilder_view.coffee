@@ -12,7 +12,10 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
-    'change .selected_moves input': 'changeMoves'
+    'keyup .selected_moves input': 'filterMoves'
+    'focus .selected_moves input': 'filterMoves'
+    'click .table-moves tbody tr': 'selectMove'
+    'click .move-button': 'deselectMove'
 
   initialize: =>
     # TODO: Save these to something more global
@@ -88,14 +91,61 @@ class @TeambuilderView extends Backbone.View
     pokemon.setEv(stat, value)
     @renderStats(pokemon)
 
-  changeMoves: (ev) =>
+  filterMoves: (e) =>
+    # If we're pressing Enter, we're selecting the first move.
+    if e.which == 13
+      $table = @$('.table-moves')
+      $allMoves = $table.find('tbody tr')
+      $firstMove = $allMoves.filter(":visible").first()
+      $firstMove.click()
+      return
+
+    # Otherwise we're filtering moves
+    $this = $(e.currentTarget)
+    moveName = $this.val()
+    @filterMovesBy(moveName)
+
+  filterMovesBy: (moveName) =>
+    $table = @$('.table-moves')
+    $allMoves = $table.find('tbody tr')
+
+    # Otherwise, filter by move
     pokemon = @getSelectedPokemon()
+    moveRegex = new RegExp(moveName, "i")
+    $moves = $allMoves.filter ->
+      $move = $(this)
+      moveName = $move.data('move-id')
+      moveRegex.test(moveName)
+    $table.addClass('hidden')
+    $moves.removeClass('hidden')
+    $allMoves.not($moves).addClass('hidden')
+    $table.removeClass('hidden')
+
+  hideMoves: =>
+    $table = @$('.table-moves')
+    $table.addClass('hidden')
+
+  selectMove: (e) =>
+    $this = $(e.currentTarget)
+    moveName = $this.data('move-id')
+    $moves = @$('.selected_moves')
+    $input = $moves.find('input').first()
+    $input.replaceWith("""<div class="button move-button">#{moveName}</div>""")
+    $moves.find('input').first().focus()
+
+    # Record moves
     movesArray = []
-    @getPokemonView(pokemon).find(".selected_moves input").each ->
-      moveName = $(this).val().trim()
+    $moves.find('.move-button').each ->
+      moveName = $(this).text().trim()
       if moveName != ""
         movesArray.push(moveName)
-    pokemon.set("moves", movesArray)
+    @getSelectedPokemon().set("moves", movesArray)
+
+  deselectMove: (e) =>
+    $this = $(e.currentTarget)
+    $input = $("<input type='text' value='#{$this.text()}'/>")
+    $this.replaceWith($input)
+    $input.focus()
 
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
