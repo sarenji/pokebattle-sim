@@ -12,8 +12,8 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
-    'keyup .selected_moves input': 'keyupMoves'
-    'focus .selected_moves input': 'keyupMoves'
+    'keydown .selected_moves input': 'keydownMoves'
+    'focus .selected_moves input': 'keydownMoves'
     'click .table-moves tbody tr': 'selectMove'
     'click .move-button': 'deselectMove'
 
@@ -90,32 +90,30 @@ class @TeambuilderView extends Backbone.View
     pokemon.setEv(stat, value)
     @renderStats(pokemon)
 
-  keyupMoves: (e) =>
-    # If we're pressing Tab/Enter, we're selecting the active move.
+  keydownMoves: (e) =>
     $table = @$('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
-      when 9, 13
+      when 9, 13  # [Tab]/[Enter]; we're selecting the active move.
         $activeMove = $allMoves.filter('.active').first()
         $activeMove.click()
-        return
-      when 38  # [Up arrow]
+      when 38  # [Up arrow]; selects move above
         $activeMove = $allMoves.filter('.active').first()
         $prevMove = $activeMove.prevAll(":visible").first()
-        $activeMove.removeClass('active')
-        $prevMove.addClass('active')
-        return
-      when 40  # [Down arrow]
+        if $prevMove.length > 0
+          $activeMove.removeClass('active')
+          $prevMove.addClass('active')
+      when 40  # [Down arrow]; selects move below
         $activeMove = $allMoves.filter('.active').first()
         $nextMove = $activeMove.nextAll(":visible").first()
-        $activeMove.removeClass('active')
-        $nextMove.addClass('active')
-        return
-
-    # Otherwise we're filtering moves
-    $this = $(e.currentTarget)
-    moveName = $this.val()
-    @filterMovesBy(moveName)
+        if $nextMove.length > 0
+          $activeMove.removeClass('active')
+          $nextMove.addClass('active')
+      else
+        # Otherwise we're filtering moves
+        $this = $(e.currentTarget)
+        moveName = $this.val()
+        @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
     $table = @$('.table-moves')
