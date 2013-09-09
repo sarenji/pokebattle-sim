@@ -108,9 +108,6 @@ class @TeambuilderView extends Backbone.View
   filterMovesBy: (moveName) =>
     $table = @$('.table-moves')
     $allMoves = $table.find('tbody tr')
-
-    # Otherwise, filter by move
-    pokemon = @getSelectedPokemon()
     moveRegex = new RegExp(moveName, "i")
     $moves = $allMoves.filter ->
       $move = $(this)
@@ -179,9 +176,12 @@ class @TeambuilderView extends Backbone.View
     pokemon_list = @$(".pokemon_list")
     pokemon_list.empty()
     for pokemon, i in @collection.models
-      list_item = $("<li/>").data("pokemon-index", i).text(pokemon.get("name"))
-      list_item.addClass("active")  if @selected == i
-      pokemon_list.append(list_item)
+      $listItem = $("<li/>").data("pokemon-index", i)
+      $listItem.text(pokemon.get("name"))
+      $listItem.prepend($("<div/>").addClass("pokemon_icon")
+        .attr("style", PokemonIconBackground(pokemon.get('name'))))
+      $listItem.addClass("active")  if @selected == i
+      pokemon_list.append($listItem)
 
   renderPokemon: (pokemon) =>
     view = @getPokemonView(pokemon)

@@ -20,16 +20,24 @@
     padding 0
     margin 0
 
-  li, div
+  li, .nav-button
     display block
-    padding 14px 0 14px 24px
+    padding 6px 0 6px 1em
+    height 32px
+    line-height @height
 
-  li:hover, div:hover
+  li:hover, .nav-button:hover
     cursor pointer
     background-color rgba(0, 0, 0, 0.1)
 
   li.active
     background-color rgba(200, 210, 255, 0.5)
+
+  .pokemon_icon
+    float none
+    display inline-block
+    margin 0
+    vertical-align middle
 
 .teambuilder .nature_ability_item
   display table
