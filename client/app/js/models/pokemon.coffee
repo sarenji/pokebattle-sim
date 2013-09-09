@@ -22,7 +22,18 @@ class @Pokemon extends Backbone.Model
     @set('forme', 'default')  unless attributes.forme
     # Set to default ability when the species changes
     @on 'change:name', =>
-      @set('ability', @getAbilities()[0])
+      @set('ability', @getAbilities()[0], silent: true)
+
+    @on 'change:ivs', (model, ivs)=>
+      type = hiddenPower.BW.type(ivs).toLowerCase()
+      @set("hiddenPowerType", type, silent: true)
+
+    @on 'change:hiddenPowerType', (model, type) =>
+      hpIVs = hiddenPower.BW.ivs[type.toLowerCase()]
+      ivs = @get('ivs')
+      for stat, iv of ivs
+        ivs[stat] = hpIVs[stat] || 31
+      @set('ivs', ivs, silent: true)
 
     @set('ability', @getAbilities()[0])  unless attributes.ability
     @set('level', 100)  unless attributes.level
@@ -74,15 +85,21 @@ class @Pokemon extends Backbone.Model
       move['name'] = moveName
       move
 
+  getTotalEVs: ->
+    total = 0
+    for stat, value of @get("evs")
+      total += value
+    total
+
   setIv: (stat, value) ->
-    ivs = @get("ivs")
+    ivs = _.clone(@get("ivs"))
     ivs[stat] = value
-    @set("ivs", ivs) # trigger change event
+    @set("ivs", ivs)  # trigger change event
 
   setEv: (stat, value) ->
-    evs = @get("evs")
+    evs = _.clone(@get("evs"))
     evs[stat] = value
-    @set("evs", evs) # trigger change event
+    @set("evs", evs)  # trigger change event
 
   iv: (stat) ->
     @get("ivs")[stat]
@@ -111,6 +128,10 @@ class @Pokemon extends Backbone.Model
 
   getNatures: ->
     (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
+
+  toJSON: ->
+    attributes = _.clone(model.attributes)
+    delete attributes.hiddenPowerType
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.

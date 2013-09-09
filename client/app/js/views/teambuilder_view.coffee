@@ -12,8 +12,9 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
-    'keydown .selected_moves input': 'keydownMoves'
-    'focus .selected_moves input': 'keydownMoves'
+    'change .select-hidden-power': 'changeHiddenPower'
+    'keyup .selected_moves input': 'keyupMoves'
+    'focus .selected_moves input': 'keyupMoves'
     'click .table-moves tbody tr': 'selectMove'
     'click .move-button': 'deselectMove'
 
@@ -26,6 +27,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'change:ivs', @renderStats)
     @listenTo(@collection, 'change:evs', @renderStats)
     @listenTo(@collection, 'change:nature', @renderStats)
+    @listenTo(@collection, 'change:hiddenPowerType', @renderStats)
 
     # Todo: Make this perform better
     @listenTo(@collection, 'change:name', (pokemon) =>
@@ -78,7 +80,6 @@ class @TeambuilderView extends Backbone.View
 
     pokemon = @getSelectedPokemon()
     pokemon.setIv(stat, value)
-    @renderStats(pokemon)
 
   changeEv: (ev) =>
     # todo: make changeIv and changeEv DRY
@@ -89,9 +90,14 @@ class @TeambuilderView extends Backbone.View
 
     pokemon = @getSelectedPokemon()
     pokemon.setEv(stat, value)
-    @renderStats(pokemon)
 
-  keydownMoves: (e) =>
+  changeHiddenPower: (e) =>
+    $input = $(e.currentTarget)
+    type = $input.val()
+    pokemon = @getSelectedPokemon()
+    pokemon.set('hiddenPowerType', type.toLowerCase())
+
+  keyupMoves: (e) =>
     $table = @$('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
@@ -168,7 +174,7 @@ class @TeambuilderView extends Backbone.View
 
     # Set the correct list item to active
     @$(".navigation li").removeClass("active")
-    $(@$(".navigation li").get(index)).addClass("active")
+    @$(".navigation li").eq(index).addClass("active")
 
   getSelectedPokemon: =>
     @collection.at(@selected)
@@ -203,7 +209,7 @@ class @TeambuilderView extends Backbone.View
       view = $("<div/>").attr("data-cid", pokemon.cid).hide()
       @$(".pokemon_edit").append(view)
 
-    view.html @editTemplate(speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
+    view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
 
   renderStats: (pokemon) =>
@@ -223,3 +229,6 @@ class @TeambuilderView extends Backbone.View
       $this = $(this)
       stat = $this.data("stat")
       $this.text(pokemon.stat(stat))
+
+    $div.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
+    $div.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))

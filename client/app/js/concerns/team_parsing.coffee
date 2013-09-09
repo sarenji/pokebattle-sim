@@ -1,6 +1,8 @@
 # Ported from Pokemon Showdown:
 # https://github.com/Zarel/Pokemon-Showdown-Client/blob/8beb563042cac1acb64ec88c552ef21fb28f0f39/js/client-teambuilder.js#L1236-L1352
 
+hiddenPower = (if module? then require('../../../../shared/hidden_power') else window.hiddenPower = {})
+
 @PokeBattle ?= {}
 @PokeBattle.parseTeam = (teamString) ->
   text = teamString.split('\n')
@@ -60,7 +62,7 @@
         if !pokemon.ivs
           moveName.match(/Hidden Power \[\s*(.*)\s*\]/)
           hiddenPowerType = RegExp.$1.toLowerCase()
-          pokemon.ivs = hiddenPowerIVs[hiddenPowerType] || {}
+          pokemon.ivs = hiddenPower.BW.ivs[hiddenPowerType] || {}
         moveName = 'Hidden Power'
       pokemon.moves ?= []
       pokemon.moves.push(moveName)
@@ -79,58 +81,3 @@ statsHash =
   'SAtk' : 'specialAttack'
   'SDef' : 'specialDefense'
   'Spe'  : 'speed'
-
-hiddenPowerIVs =
-  bug:
-    attack: 30
-    defense: 30
-    specialDefense: 30
-  dark: {}
-  dragon:
-    attack: 30
-  electric:
-    specialAttack: 30
-  fighting:
-    defense: 30
-    specialAttack: 30
-    specialDefense: 30
-    speed: 30
-  fire:
-    attack: 30
-    specialAttack: 30
-    speed: 30
-  flying:
-    hp: 30
-    attack: 30
-    defense: 30
-    specialAttack: 30
-    specialDefense: 30
-  ghost:
-    defense: 30
-    specialDefense: 30
-  grass:
-    attack: 30
-    specialAttack: 30
-  ground:
-    specialAttack: 30
-    specialDefense: 30
-  ice:
-    attack: 30
-    defense: 30
-  poison:
-    defense: 30
-    specialAttack: 30
-    specialDefense: 30
-  psychic:
-    attack: 30
-    speed: 30
-  rock:
-    defense: 30
-    specialDefense: 30
-    speed: 30
-  steel:
-    specialDefense: 30
-  water:
-    attack: 30
-    defense: 30
-    specialAttack: 30

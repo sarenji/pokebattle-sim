@@ -76,6 +76,17 @@ mixin printStat(statName, keyName)
             +printStat("Special Attack", "specialAttack")
             +printStat("Special Defense", "specialDefense")
             +printStat("Speed", "speed")
+            tr
+              td
+              td.total-evs
+              td(colspan="2")
+                | Hidden Power: 
+                select.select-hidden-power
+                  - var hpType = window.hiddenPower.BW.type(pokemon.get('ivs'))
+                  each value, type in window.hiddenPower.BW.ivs
+                    - var displayType = type[0].toUpperCase() + type.substr(1)
+                    - var selected = (displayType === hpType)
+                    option(value=type, selected=selected)= displayType
 
 .selected_moves
   h2 Moves:
