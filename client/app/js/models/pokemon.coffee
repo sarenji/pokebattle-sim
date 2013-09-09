@@ -36,7 +36,7 @@ class @Pokemon extends Backbone.Model
   getAbilities: ->
     forme = @getForme()
     abilities = _.clone(forme.abilities)
-    abilities.push(forme.hiddenAbility)
+    abilities.push(forme.hiddenAbility)  if forme.hiddenAbility
     abilities
 
   getMovepool: ->
