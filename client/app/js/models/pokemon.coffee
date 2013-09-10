@@ -47,6 +47,9 @@ class @Pokemon extends Backbone.Model
     forme ||= @get('forme')
     FormeData[@get('name')][forme]
 
+  getFormes: ->
+    (forme  for forme of FormeData[@get('name')])
+
   getAbilities: ->
     forme = @getForme()
     abilities = _.clone(forme.abilities)

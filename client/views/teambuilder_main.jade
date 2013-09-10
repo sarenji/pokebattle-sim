@@ -16,8 +16,18 @@ mixin printStat(statName, keyName)
         option(value=species, selected=selected)= species
     .forme-sprite-box
       - var id = ("000" + pokemon.getSpecies().id).substr(-3)
+      if pokemon.get('forme') && pokemon.get('forme') != 'default'
+        - id += '-' + pokemon.get('forme')
       - var url = "http://sprites.pokecheck.org/i/" + id + ".gif"
       img.forme-sprite(src=url, alt="")
+    - var formes = pokemon.getFormes()
+    if formes.length > 1
+      div Forme:
+      select.selected-forme
+        each forme in formes
+          - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
+          - var selected = (forme === pokemon.get('forme'))
+          option(value=forme, selected=selected)= displayedForme
   .meta-info
     .row-fluid
       .span4

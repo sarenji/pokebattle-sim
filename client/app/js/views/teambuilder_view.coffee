@@ -9,6 +9,7 @@ class @TeambuilderView extends Backbone.View
     'click .save_team': 'saveTeam'
     'click .import_team': 'renderModal'
     'change .species_list': 'changeSpecies'
+    'change .selected-forme': 'changeForme'
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
@@ -31,6 +32,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'change:evs', @renderStats)
     @listenTo(@collection, 'change:nature', @renderStats)
     @listenTo(@collection, 'change:hiddenPowerType', @renderStats)
+    @listenTo(@collection, 'change:forme', @renderPokemon)
 
     # Todo: Make this perform better
     @listenTo(@collection, 'change:name', (pokemon) =>
@@ -72,6 +74,10 @@ class @TeambuilderView extends Backbone.View
   changeSpecies: (e) =>
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("name", $list.val())
+
+  changeForme: (e) =>
+    $forme = $(e.currentTarget)
+    @getSelectedPokemon().set('forme', $forme.val())
 
   changeNature: (e) =>
     $list = $(e.currentTarget)
