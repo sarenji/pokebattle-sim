@@ -1,12 +1,12 @@
-# battle tower [![Build Status](https://secure.travis-ci.org/sarenji/battletower.png?branch=master)](http://travis-ci.org/sarenji/battletower)
+# pokebattle-sim [![Build Status](https://secure.travis-ci.org/sarenji/pokebattle-sim.png?branch=master)](http://travis-ci.org/sarenji/pokebattle-sim)
 
 A competitive Pokemon battle simulator playable in the browser.
 
 ## Set up
 
 ```bash
-git clone git://github.com/sarenji/battletower.git
-cd battletower
+git clone git://github.com/sarenji/pokebattle-sim.git
+cd pokebattle-sim
 npm install
 ```
 
@@ -57,7 +57,7 @@ npm test
 
 ## Guide
 
-battletower is a one-page app. The server serves the client.
+pokebattle-sim is a one-page app. The server serves the client.
 
 ```
 assets/          Main client code. Contains JS and CSS.
