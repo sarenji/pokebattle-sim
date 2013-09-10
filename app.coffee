@@ -113,9 +113,9 @@ connections.addEvents
   # BATTLES #
   ###########
 
-  'find battle': (user) ->
+  'find battle': (user, team) ->
     # TODO: Take team from player.
-    team = defaultTeam.clone()
+    team ||= defaultTeam.clone()
     if !server.validateTeam(team)
       user.send("error", "Your team is invalid!")
       return

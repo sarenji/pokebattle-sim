@@ -37,7 +37,7 @@ class @TeambuilderView extends Backbone.View
 
     @listenTo(@collection, 'add remove', @renderPokemonList)
 
-    @addEmptyPokemon()
+    @loadTeam()
     @selected = 0
 
     @render()
@@ -47,12 +47,21 @@ class @TeambuilderView extends Backbone.View
     index = $('.pokemon_list li').index($listItem)
     @setSelectedIndex(index)
 
+  loadTeam: =>
+    teamJSON = window.localStorage.getItem("team")
+    if teamJSON
+      teamJSON = JSON.parse(teamJSON)
+      @collection.reset(teamJSON)
+    else
+      @addEmptyPokemon()
+
   addEmptyPokemon: =>
     @collection.add(new Pokemon())
 
   saveTeam: =>
-    teamJson = @collection.toJSON()
-    PokeBattle.socket.send('save team', teamJson)
+    teamJSON = @collection.toJSON()
+    # PokeBattle.socket.send('save team', teamJson)
+    window.localStorage.setItem('team', JSON.stringify(teamJSON))
 
   changeSpecies: (ev) =>
     $list = $(ev.target)

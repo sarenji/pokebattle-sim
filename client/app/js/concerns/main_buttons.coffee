@@ -3,7 +3,8 @@ $ ->
   $mainButtons.on 'click', '.find_battle', ->
     $this = $(this)
     return  if $this.hasClass('disabled')
-    PokeBattle.socket.send('find battle')
+    teamJSON = JSON.parse(window.localStorage.getItem('team'))
+    PokeBattle.socket.send('find battle', teamJSON)
     $this.addClass('disabled')
 
   $mainButtons.on 'click', '.teambuilder_button', (e) ->
