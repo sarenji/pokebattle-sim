@@ -37,6 +37,9 @@ Articuno
 IVs: 30 HP / 29 Def
 - Hidden Power [Fire]
 
+Claydol
+EVs: 252 SpA / 176 SpD
+
 """
     it "converts a team to an array readable by this simulator", ->
       team = PokeBattle.parseTeam(@teamString)
@@ -106,6 +109,10 @@ IVs: 30 HP / 29 Def
       pokemon.ivs.should.eql(hp: 30, defense: 29)
       pokemon.should.not.have.property('evs')
       pokemon.moves.should.eql(['Hidden Power'])
+
+      pokemon = team[5]
+      pokemon.name.should.equal("Claydol")
+      pokemon.evs.should.eql(specialAttack: 252, specialDefense: 176)
 
   describe "parsing formes", ->
     it "takes into account differing styles of formes", ->
