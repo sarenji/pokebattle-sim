@@ -297,10 +297,10 @@ class @BattleView extends Backbone.View
       else
         done()
 
-  unattachTeam: (player, slot, effect, done) =>
+  unattachTeam: (slot, effect, done) =>
     done()
 
-  unattachBattle: (player, slot, effect, done) =>
+  unattachBattle: (effect, done) =>
     done()
 
   announceWinner: (player, done) =>
