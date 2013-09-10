@@ -103,10 +103,10 @@ class @Pokemon extends Backbone.Model
     @set("evs", evs)  # trigger change event
 
   iv: (stat) ->
-    @get("ivs")[stat]
+    @get("ivs")[stat] || 31
 
   ev: (stat) ->
-    @get("evs")[stat]
+    @get("evs")[stat] || 0
 
   natureBoost: (stat) ->
     nature = @get('nature')?.toLowerCase()
