@@ -66,7 +66,7 @@ scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
 server/          Battle logic, move logic, Pokemon logic, etc.
 test/            Automated tests for server and client.
 views/           All views that are rendered server-side go here.
-app.coffee       The main entry point of battletower.
+app.coffee       The main entry point of pokebattle-sim.
                  The API and socket.io listeners are hosted here. This will probably change.
 ```
 
@@ -81,4 +81,4 @@ Other contributions (e.g. to the client) are much less strict!
 ## Issues
 
 Report issues in GitHub's [issue
-tracker](https://github.com/sarenji/battletower/issues).
+tracker](https://github.com/sarenji/pokebattle-sim/issues).
