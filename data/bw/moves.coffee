@@ -522,6 +522,12 @@ makeTrappingMove "Bind"
 makeRechargeMove 'Blast Burn'
 extendWithSecondaryStatus 'Blaze Kick', .1, Status.Burn
 extendWithSecondaryStatus 'Blizzard', .1, Status.Freeze
+
+extendMove 'Blizzard', ->
+  @getAccuracy = (battle, user, target) ->
+    return 0  if battle.hasWeather(Weather.HAIL)
+    return @accuracy
+
 makeMeanLookMove 'Block'
 extendWithSecondaryStatus 'Blue Flare', .2, Status.Burn
 extendWithSecondaryStatus 'Body Slam', .3, Status.Paralyze
@@ -746,6 +752,13 @@ makeBoostMove 'Iron Defense', 'self', defense: 2
 extendWithSecondaryBoost 'Iron Tail', 'target', .1, defense: -1
 makeWeatherMove 'Hail', Weather.HAIL
 extendWithSecondaryEffect 'Hurricane', .3, Attachment.Confusion
+
+extendMove 'Hurricane', ->
+  @getAccuracy = (battle, user, target) ->
+    return 50  if battle.hasWeather(Weather.SUN)
+    return 0   if battle.hasWeather(Weather.RAIN)
+    return @accuracy
+
 extendWithSecondaryEffect 'Hyper Fang', .1, Attachment.Flinch
 extendWithSecondaryStatus 'Ice Beam', .1, Status.Freeze
 extendWithSecondaryStatus 'Ice Burn', .3, Status.Burn
@@ -993,6 +1006,13 @@ extendMove 'Teleport', (battle) ->
   @execute = -> @fail(battle)
 makeThiefMove 'Thief'
 extendWithSecondaryStatus 'Thunder', .3, Status.Paralyze
+
+extendMove 'Thunder', ->
+  @getAccuracy = (battle, user, target) ->
+    return 50  if battle.hasWeather(Weather.SUN)
+    return 0   if battle.hasWeather(Weather.RAIN)
+    return @accuracy
+
 extendWithFangEffect 'Thunder Fang', .1, Status.Paralyze
 extendWithPrimaryStatus 'Thunder Wave', Status.Paralyze
 extendMove 'Thunder Wave', ->

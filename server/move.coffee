@@ -131,12 +131,15 @@ class @Move
     battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) ->
-    accuracy = @accuracy
+    accuracy = @getAccuracy(battle, user, target)
     accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
     accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
     accuracy = user.editAccuracy(accuracy, this, target)
     accuracy = target.editEvasion(accuracy, this, user)
     accuracy
+
+  getAccuracy: (battle, user, target) ->
+    @accuracy
 
   weatherModifier: (battle, user, target) ->
     # TODO: This is wrong.

@@ -5596,3 +5596,53 @@ describe "Thunder Wave", ->
     @p2.types = [ 'Ground' ]
     @battle.performMove(@id1, thunderWave)
     @p2.has(Status.Paralyze).should.be.false
+
+ describe "Thunder", ->
+  it "has 50% accuracy in Sun", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.SUN)
+    thunder = @battle.getMove("Thunder")
+    thunder.chanceToHit(@battle, @p1, @p2).should.equal(50)
+
+  it "has perfect accuracy in Rain", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.RAIN)
+    thunder = @battle.getMove("Thunder")
+    thunder.chanceToHit(@battle, @p1, @p2).should.equal(0)
+
+  it "has normal accuracy otherwise", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.HAIL)
+    thunder = @battle.getMove("Thunder")
+    thunder.chanceToHit(@battle, @p1, @p2).should.equal(70)
+
+ describe "Hurricane", ->
+  it "has 50% accuracy in Sun", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.SUN)
+    hurricane = @battle.getMove("Hurricane")
+    hurricane.chanceToHit(@battle, @p1, @p2).should.equal(50)
+
+  it "has perfect accuracy in Rain", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.RAIN)
+    hurricane = @battle.getMove("Hurricane")
+    hurricane.chanceToHit(@battle, @p1, @p2).should.equal(0)
+
+  it "has normal accuracy otherwise", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.HAIL)
+    hurricane = @battle.getMove("Hurricane")
+    hurricane.chanceToHit(@battle, @p1, @p2).should.equal(70)
+
+ describe "Blizzard", ->
+  it "has perfect accuracy in Hail", ->
+    shared.create.call(this)
+    @battle.setWeather(Weather.HAIL)
+    blizzard = @battle.getMove("Blizzard")
+    blizzard.chanceToHit(@battle, @p1, @p2).should.equal(0)
+
+  it "has normal accuracy otherwise", ->
+    shared.create.call(this)
+    blizzard = @battle.getMove("Blizzard")
+    blizzard.chanceToHit(@battle, @p1, @p2).should.equal(70)
