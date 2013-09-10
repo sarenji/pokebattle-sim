@@ -130,8 +130,9 @@ class @Pokemon extends Backbone.Model
     (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
 
   toJSON: ->
-    attributes = _.clone(model.attributes)
+    attributes = _.clone(@attributes)
     delete attributes.hiddenPowerType
+    attributes
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
