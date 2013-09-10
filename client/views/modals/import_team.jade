@@ -1,0 +1,12 @@
+#import-team-modal.modal.hide
+  .modal-header
+    button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+    h3 Import a team from PS/PO
+  .modal-body
+    .form-errors.alert.alert-error.hidden
+    form.form-horizontal
+      .control-group
+        textarea.imported-team
+  .modal-footer
+    button.btn.btn-primary.import-team-submit Import
+    button.btn(data-dismiss="modal", aria-hidden="true") Close

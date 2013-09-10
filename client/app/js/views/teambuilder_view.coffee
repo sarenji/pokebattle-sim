@@ -1,11 +1,13 @@
 class @TeambuilderView extends Backbone.View
   template: JST['teambuilder']
   editTemplate: JST['teambuilder_main']
+  importTemplate: JST['modals/import_team']
 
   events:
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addNewPokemon'
     'click .save_team': 'saveTeam'
+    'click .import_team': 'renderModal'
     'change .species_list': 'changeSpecies'
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
@@ -224,6 +226,19 @@ class @TeambuilderView extends Backbone.View
 
     view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
+
+  renderModal: =>
+    if $('#import-team-modal').length == 0
+      $('body').append(@importTemplate())
+    $modal = $('#import-team-modal')
+    $modal.on 'click', '.import-team-submit', (e) =>
+      teamString = $modal.find('.imported-team').val()
+      teamJSON = PokeBattle.parseTeam(teamString)
+      @collection.reset(teamJSON)
+      @render()
+      $modal.modal('hide')
+      return false
+    $modal.modal('show')
 
   renderStats: (pokemon) =>
     $div = @getPokemonView(pokemon)

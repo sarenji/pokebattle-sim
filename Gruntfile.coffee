@@ -15,11 +15,12 @@ module.exports = (grunt) ->
           client: true
           compileDebug: false
           processName: (fileName) ->
-            index = fileName.lastIndexOf('/')
-            fileName = fileName.substr(index + 1)
+            path = 'client/views/'
+            index = fileName.lastIndexOf(path) + path.length
+            fileName = fileName.substr(index)
             fileName.substr(0, fileName.indexOf('.'))
         files:
-          "public/js/templates.js": "client/views/*.jade"
+          "public/js/templates.js": "client/views/**/*.jade"
     stylus:
       compile:
         use: [ require('nib') ]
