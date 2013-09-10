@@ -54,7 +54,7 @@ class @Pokemon extends Backbone.Model
     forme = @getForme()
     abilities = _.clone(forme.abilities)
     abilities.push(forme.hiddenAbility)  if forme.hiddenAbility
-    abilities
+    _.unique(abilities)
 
   getGenders: ->
     species = @getSpecies()
