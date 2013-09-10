@@ -102,7 +102,8 @@ extendWithDrain = (name, drainPercent=.5) ->
 
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
-    @afterMiss = (battle, user, target, damage) ->
+    @afterMiss = (battle, user, target) ->
+      damage = @calculateDamage(battle, user, target)
       amount = Math.floor(damage * recoilPercent)
       user.damage(amount)
       battle.message("#{user.name} kept going and crashed!")

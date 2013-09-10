@@ -54,8 +54,7 @@ class @Move
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
   use: (battle, user, target) ->
     if @willMiss(battle, user, target)
-      damage = @calculateDamage(battle, user, target)
-      @afterMiss(battle, user, target, damage)
+      @afterMiss(battle, user, target)
       return false
 
     if target.isImmune(@getType(battle, user, target), this)
@@ -87,7 +86,7 @@ class @Move
 
   # A hook that executes after a pokemon misses an attack. If execute is
   # overriden, this will not execute.
-  afterMiss: (battle, user, target, damage) ->
+  afterMiss: (battle, user, target) ->
     battle.message "#{target.name} avoided the attack!"
 
   # A hook that executes once a move fails.
