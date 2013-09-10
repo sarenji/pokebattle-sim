@@ -17,7 +17,7 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
 
       # Ignore nicknames for now
       pokemonLine    = RegExp.$1  if pokemonLine.match(/.*?\s*\((.*)\)/)
-      pokemon.name   = pokemonLine.trim()
+      convertNameToSpeciesAndForme(pokemon, pokemonLine.trim())
       pokemon.gender = gender[1]  if gender  # (M) and (F)
       pokemon.item   = item    if item
     else if line.match(/^(?:Trait|Ability):\s+(.*)$/i)
@@ -63,3 +63,18 @@ statsHash =
   'SAtk' : 'specialAttack'
   'SDef' : 'specialDefense'
   'Spe'  : 'speed'
+
+convertNameToSpeciesAndForme = (pokemon, name) ->
+  if name.match(/(.*)-T(herian)?/i)
+    pokemon.name = RegExp.$1
+    pokemon.forme = 'therian'
+  else if name.match(/Shaymin-S(ky)?/i)
+    pokemon.name = "Shaymin"
+    pokemon.forme = 'sky'
+  else if name.match(/Giratina-O(rigin)?/i)
+    pokemon.name = "Giratina"
+    pokemon.forme = 'origin'
+  else if name.match(/Arceus(\-.*)?/)
+    pokemon.name = "Arceus"
+  else
+    pokemon.name = name

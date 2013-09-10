@@ -4,7 +4,7 @@ require 'sugar'
 require './helpers'
 
 describe "Client", ->
-  describe "parsing Pokemon Showdown teams", ->
+  describe "parsing teams", ->
     beforeEach ->
       @teamString = """
 Swampert @ Leftovers
@@ -36,10 +36,25 @@ Articuno
 IVs: 30 HP / 29 Def
 - Hidden Power [Fire]
 
+Thundurus-Therian
+
+Thundurus-T
+
+Shaymin-Sky
+
+Shaymin-S
+
+Giratina-O
+
+Giratina-Origin
+
+Arceus-Dark
+
+Arceus
+
 """
     it "converts a team to an array readable by this simulator", ->
       team = PokeBattle.parseTeam(@teamString)
-      team.should.have.length(5)
 
       pokemon = team[0]
       pokemon.name.should.equal("Swampert")
@@ -106,3 +121,35 @@ IVs: 30 HP / 29 Def
       pokemon.ivs.should.eql(hp: 30, defense: 29)
       pokemon.should.not.have.property('evs')
       pokemon.moves.should.eql(['Hidden Power'])
+
+      pokemon = team[5]
+      pokemon.name.should.equal("Thundurus")
+      pokemon.forme.should.equal("therian")
+
+      pokemon = team[6]
+      pokemon.name.should.equal("Thundurus")
+      pokemon.forme.should.equal("therian")
+
+      pokemon = team[7]
+      pokemon.name.should.equal("Shaymin")
+      pokemon.forme.should.equal("sky")
+
+      pokemon = team[8]
+      pokemon.name.should.equal("Shaymin")
+      pokemon.forme.should.equal("sky")
+
+      pokemon = team[9]
+      pokemon.name.should.equal("Giratina")
+      pokemon.forme.should.equal("origin")
+
+      pokemon = team[10]
+      pokemon.name.should.equal("Giratina")
+      pokemon.forme.should.equal("origin")
+
+      pokemon = team[11]
+      pokemon.name.should.equal("Arceus")
+      pokemon.should.not.have.property('forme')
+
+      pokemon = team[12]
+      pokemon.name.should.equal("Arceus")
+      pokemon.should.not.have.property('forme')
