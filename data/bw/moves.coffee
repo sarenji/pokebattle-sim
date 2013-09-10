@@ -215,8 +215,8 @@ makeTrickMove = (name) ->
       user.setItem(tItem)
       target.setItem(uItem)
       battle.message "#{user.name} switched items with its target!"
-      battle.message "#{user.name} obtained one #{tItem.name}!"
-      battle.message "#{target.name} obtained one #{uItem.name}!"
+      battle.message "#{user.name} obtained one #{tItem.displayName}!"
+      battle.message "#{target.name} obtained one #{uItem.displayName}!"
 
 makeExplosionMove = (name) ->
   extendMove name, ->
@@ -1454,7 +1454,7 @@ extendMove 'Judgment', ->
 extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     if target.hasItem()
-      battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().name}!"
+      battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
 
 extendMove 'Last Resort', ->

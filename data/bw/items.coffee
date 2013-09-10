@@ -140,7 +140,7 @@ makeGemItem = (name, type) ->
 
     this::afterSuccessfulHit = (move, user, target, damage) ->
       if move.type == type
-        @battle.message "The #{@name} strengthened #{move.name}'s power!"
+        @battle.message "The #{@displayName} strengthened #{move.name}'s power!"
         user.item = null
 
 makeChoiceItem = (name, func) ->
@@ -212,7 +212,7 @@ makeBoostOnTypeItem = (name, type, boosts) ->
   makeItem name, ->
     this::afterBeingHit = (move, user, target, damage) ->
       if move.type == type
-        @battle.message "#{user.name}'s #{@name} made its #{stats} rise!"
+        @battle.message "#{user.name}'s #{@displayName} made its #{stats} rise!"
         target.boost(boosts)
         target.useItem()
 
@@ -223,11 +223,11 @@ makeFlavorHealingBerry 'Aguav Berry', "specialDefense"
 
 makeItem 'Air Balloon', ->
   this::initialize = ->
-    @battle.message "#{@pokemon.name} floats in the air with its #{@name}!"
+    @battle.message "#{@pokemon.name} floats in the air with its #{@displayName}!"
 
   this::afterBeingHit = (move, user, target, damage) ->
     return  if move.isNonDamaging()
-    @battle.message "#{target.name}'s #{target.getItem().name} popped!"
+    @battle.message "#{target.name}'s #{@displayName} popped!"
     target.removeItem()
 
   this::isImmune = (type) ->
@@ -482,7 +482,7 @@ makeGemItem 'Rock Gem', 'Rock'
 makeItem 'Rocky Helmet', ->
   this::afterBeingHit = (move, user, target, damage) ->
     if move.hasFlag("contact")
-      @battle.message "#{user.name} was hurt by the #{@name}!"
+      @battle.message "#{user.name} was hurt by the #{@displayName}!"
       amount = Math.floor(user.stat('hp') / 6)
       user.damage(amount)
 
@@ -624,7 +624,7 @@ for berry in "Belue Berry, Bluk Berry, Cornn Berry, Durin Berry, Grepa Berry,
 # Ensure we aren't purposefully missing berries that need an `eat` function.
 for name, item of Item
   if item.type == 'berries' && 'eat' not of item
-    console.warn "Note: Item '#{item.name}' does not have `eat` implemented."
+    console.warn "Note: Item '#{item.displayName}' does not have `eat` implemented."
 
 # Make all leftover items
 for itemName of ItemData
