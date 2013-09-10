@@ -22,6 +22,7 @@ class @TeambuilderView extends Backbone.View
     # TODO: Save these to something more global
     @speciesList = (name for name, data of SpeciesData)
     @itemList = _(name for name, data of ItemData).sort() # todo: filter irrelevant items
+    @selected = 0
 
     @listenTo(@collection, 'add', @renderPokemon)
     @listenTo(@collection, 'change:ivs', @renderStats)
@@ -41,8 +42,8 @@ class @TeambuilderView extends Backbone.View
 
     @render()
 
-  clickPokemon: (ev) =>
-    $listItem = $(ev.target)
+  clickPokemon: (e) =>
+    $listItem = $(e.currentTarget)
     index = @$('.pokemon_list li').index($listItem)
     @setSelectedIndex(index)
 
@@ -66,25 +67,25 @@ class @TeambuilderView extends Backbone.View
     # PokeBattle.socket.send('save team', teamJson)
     window.localStorage.setItem('team', JSON.stringify(teamJSON))
 
-  changeSpecies: (ev) =>
-    $list = $(ev.target)
+  changeSpecies: (e) =>
+    $list = $(e.currentTarget)
     @getSelectedPokemon().set("name", $list.val())
 
   changeNature: (e) =>
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("nature", $list.val())
 
-  changeAbility: (ev) =>
-    $list = $(ev.target)
+  changeAbility: (e) =>
+    $list = $(e.currentTarget)
     @getSelectedPokemon().set("ability", $list.val())
 
-  changeItem: (ev) =>
-    $list = $(ev.target)
+  changeItem: (e) =>
+    $list = $(e.currentTarget)
     @getSelectedPokemon().set("item", $list.val())
 
-  changeIv: (ev) =>
+  changeIv: (e) =>
     # todo: make changeIv and changeEv DRY
-    $input = $(ev.target)
+    $input = $(e.currentTarget)
     stat = $input.data("stat")
     value = parseInt($input.val())
     if isNaN(value) || value > 31 || value < 0
@@ -93,9 +94,9 @@ class @TeambuilderView extends Backbone.View
     pokemon = @getSelectedPokemon()
     pokemon.setIv(stat, value)
 
-  changeEv: (ev) =>
+  changeEv: (e) =>
     # todo: make changeIv and changeEv DRY
-    $input = $(ev.target)
+    $input = $(e.currentTarget)
     stat = $input.data("stat")
     value = parseInt($input.val())
     value = 252  if isNaN(value) || value > 252 || value < 0
