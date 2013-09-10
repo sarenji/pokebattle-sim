@@ -1,6 +1,7 @@
 {PokeBattle} = require '../client/app/js/concerns/team_parsing'
 
 require 'sugar'
+should = require 'should'
 require './helpers'
 
 describe "Client", ->
@@ -35,22 +36,6 @@ EVs: 252 HP / 80 Def / 176 SDef
 Articuno
 IVs: 30 HP / 29 Def
 - Hidden Power [Fire]
-
-Thundurus-Therian
-
-Thundurus-T
-
-Shaymin-Sky
-
-Shaymin-S
-
-Giratina-O
-
-Giratina-Origin
-
-Arceus-Dark
-
-Arceus
 
 """
     it "converts a team to an array readable by this simulator", ->
@@ -122,34 +107,63 @@ Arceus
       pokemon.should.not.have.property('evs')
       pokemon.moves.should.eql(['Hidden Power'])
 
-      pokemon = team[5]
-      pokemon.name.should.equal("Thundurus")
-      pokemon.forme.should.equal("therian")
+  describe "parsing formes", ->
+    it "takes into account differing styles of formes", ->
+      formes =
+        "Thundurus-Therian": ["Thundurus", "therian"]
+        "Thundurus-T": ["Thundurus", "therian"]
+        "Thundurus": ["Thundurus", null]
 
-      pokemon = team[6]
-      pokemon.name.should.equal("Thundurus")
-      pokemon.forme.should.equal("therian")
+        "Shaymin-Sky": ["Shaymin", "sky"]
+        "Shaymin-S": ["Shaymin", "sky"]
+        "Shaymin": ["Shaymin", null]
 
-      pokemon = team[7]
-      pokemon.name.should.equal("Shaymin")
-      pokemon.forme.should.equal("sky")
+        "Giratina-Origin": ["Giratina", "origin"]
+        "Giratina-O": ["Giratina", "origin"]
+        "Giratina": ["Giratina", null]
 
-      pokemon = team[8]
-      pokemon.name.should.equal("Shaymin")
-      pokemon.forme.should.equal("sky")
+        "Arceus-Dark": ["Arceus", null]
+        "Arceus": ["Arceus", null]
 
-      pokemon = team[9]
-      pokemon.name.should.equal("Giratina")
-      pokemon.forme.should.equal("origin")
+        "Kyurem-Black": ["Kyurem", "black"]
+        "Kyurem-B": ["Kyurem", "black"]
+        "Kyurem-White": ["Kyurem", "white"]
+        "Kyurem-W": ["Kyurem", "white"]
+        "Kyurem": ["Kyurem", null]
 
-      pokemon = team[10]
-      pokemon.name.should.equal("Giratina")
-      pokemon.forme.should.equal("origin")
+        "Rotom-Wash": ["Rotom", "wash"]
+        "Rotom-W": ["Rotom", "wash"]
+        "Rotom-Fan": ["Rotom", "fan"]
+        "Rotom-S": ["Rotom", "fan"]
+        "Rotom-Heat": ["Rotom", "heat"]
+        "Rotom-H": ["Rotom", "heat"]
+        "Rotom-Frost": ["Rotom", "frost"]
+        "Rotom-F": ["Rotom", "frost"]
+        "Rotom-Mow": ["Rotom", "mow"]
+        "Rotom-C": ["Rotom", "mow"]
+        "Rotom": ["Rotom", null]
 
-      pokemon = team[11]
-      pokemon.name.should.equal("Arceus")
-      pokemon.should.not.have.property('forme')
+        "Deoxys-Attack": ["Deoxys", "attack"]
+        "Deoxys-A": ["Deoxys", "attack"]
+        "Deoxys-Defense": ["Deoxys", "defense"]
+        "Deoxys-D": ["Deoxys", "defense"]
+        "Deoxys-Speed": ["Deoxys", "speed"]
+        "Deoxys-S": ["Deoxys", "speed"]
+        "Deoxys": ["Deoxys", null]
 
-      pokemon = team[12]
-      pokemon.name.should.equal("Arceus")
-      pokemon.should.not.have.property('forme')
+      teamArray = (pokemonName  for pokemonName of formes)
+      teamFormes = (forme  for forme in teamArray)
+
+      teamArray.unshift('')
+      teamArray.push('')
+      teamString = teamArray.join('\n\n')
+      team = PokeBattle.parseTeam(teamString)
+
+      for member, i in team
+        [species, forme] = formes[teamFormes[i]]
+        should.exist(member)
+        member.should.have.property('name')
+        member.name.should.equal(species)
+        if forme
+          member.should.have.property('forme')
+          member.forme.should.equal(forme)

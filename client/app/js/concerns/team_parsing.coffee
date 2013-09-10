@@ -76,5 +76,35 @@ convertNameToSpeciesAndForme = (pokemon, name) ->
     pokemon.forme = 'origin'
   else if name.match(/Arceus(\-.*)?/)
     pokemon.name = "Arceus"
+  else if name.match(/Kyurem-B(lack)?/)
+    pokemon.name = "Kyurem"
+    pokemon.forme = "black"
+  else if name.match(/Kyurem-W(hite)?/)
+    pokemon.name = "Kyurem"
+    pokemon.forme = "white"
+  else if name.match(/Rotom-W|Rotom-Wash/)
+    pokemon.name = "Rotom"
+    pokemon.forme = "wash"
+  else if name.match(/Rotom-S|Rotom-Fan/)
+    pokemon.name = "Rotom"
+    pokemon.forme = "fan"
+  else if name.match(/Rotom-H|Rotom-Heat/)
+    pokemon.name = "Rotom"
+    pokemon.forme = "heat"
+  else if name.match(/Rotom-F|Rotom-Frost/)
+    pokemon.name = "Rotom"
+    pokemon.forme = "frost"
+  else if name.match(/Rotom-C|Rotom-Mow/)
+    pokemon.name = "Rotom"
+    pokemon.forme = "mow"
+  else if name.match(/Deoxys-A|Deoxys-Attack/)
+    pokemon.name = "Deoxys"
+    pokemon.forme = "attack"
+  else if name.match(/Deoxys-D|Deoxys-Defense/)
+    pokemon.name = "Deoxys"
+    pokemon.forme = "defense"
+  else if name.match(/Deoxys-S|Deoxys-Speed/)
+    pokemon.name = "Deoxys"
+    pokemon.forme = "speed"
   else
     pokemon.name = name
