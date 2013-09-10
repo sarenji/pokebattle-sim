@@ -1271,12 +1271,20 @@ describe 'Taunt', ->
     requestedMoves = @battle.requestFor(@p2).moves
     requestedMoves.should.not.include 'Splash'
 
-describe 'u-turn', ->
-  it 'forces the owner to switch', ->
-    shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
-    @battle.performMove(@id1, @battle.getMove('U-turn'))
+for moveName in [ "U-turn", "Volt Switch" ]
+  do (moveName) ->
+    describe moveName, ->
+      it 'forces the owner to switch', ->
+        shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
+        @battle.performMove(@id1, @battle.getMove(moveName))
 
-    @battle.requests.should.have.property @player1.id
+        @battle.requests.should.have.property @player1.id
+
+      it "makes a request containing all the possible switches", ->
+        shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..3]))
+        @battle.performMove(@id1, @battle.getMove(moveName))
+        request = @battle.requestFor(@p1)
+        request.switches.should.eql([ 1, 2 ])
 
 describe 'venoshock', ->
   it 'doubles the base power if target is poisoned', ->

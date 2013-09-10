@@ -147,7 +147,7 @@ class @Battle
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) ->
     player = @getOwner(pokemon)
-    switches = player.team.getAliveBenchedPokemon().map((p) -> p.name)
+    switches = player.team.getAliveBenchedPokemon()
     slot = @getSlotNumber(pokemon)
     @requestActions(player, [ {switches, slot} ])
 
