@@ -4,7 +4,7 @@ class @TeambuilderView extends Backbone.View
 
   events:
     'click .pokemon_list li': 'clickPokemon'
-    'click .add_pokemon': 'addEmptyPokemon'
+    'click .add_pokemon': 'addNewPokemon'
     'click .save_team': 'saveTeam'
     'change .species_list': 'changeSpecies'
     'change .selected_nature': 'changeNature'
@@ -38,13 +38,12 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'add remove', @renderPokemonList)
 
     @loadTeam()
-    @selected = 0
 
     @render()
 
   clickPokemon: (ev) =>
     $listItem = $(ev.target)
-    index = $('.pokemon_list li').index($listItem)
+    index = @$('.pokemon_list li').index($listItem)
     @setSelectedIndex(index)
 
   loadTeam: =>
@@ -53,10 +52,14 @@ class @TeambuilderView extends Backbone.View
       teamJSON = JSON.parse(teamJSON)
       @collection.reset(teamJSON)
     else
-      @addEmptyPokemon()
+      @addNewPokemon()
 
   addEmptyPokemon: =>
     @collection.add(new Pokemon())
+
+  addNewPokemon: =>
+    @addEmptyPokemon()
+    @$('.pokemon_list li').last().click()
 
   saveTeam: =>
     teamJSON = @collection.toJSON()
@@ -107,7 +110,7 @@ class @TeambuilderView extends Backbone.View
     pokemon.set('hiddenPowerType', type.toLowerCase())
 
   keyupMoves: (e) =>
-    $table = @$('.table-moves')
+    $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
       when 9, 13  # [Tab]/[Enter]; we're selecting the active move.
@@ -132,7 +135,7 @@ class @TeambuilderView extends Backbone.View
         @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
-    $table = @$('.table-moves')
+    $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     moveRegex = new RegExp(moveName, "i")
     $moves = $allMoves.filter ->
@@ -147,14 +150,14 @@ class @TeambuilderView extends Backbone.View
     $table.removeClass('hidden')
 
   hideMoves: =>
-    $table = @$('.table-moves')
+    $table = @getActivePokemonView().find('.table-moves')
     $table.addClass('hidden')
 
   selectMove: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
     type = MoveData[moveName].type.toLowerCase()
-    $moves = @$('.selected_moves')
+    $moves = @getActivePokemonView().find('.selected_moves')
     $input = $moves.find('input').first()
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
     $moves.find('input').first().focus()
