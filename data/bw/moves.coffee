@@ -214,6 +214,9 @@ makeTrickMove = (name) ->
       tItem = target.getItem()
       user.setItem(tItem)
       target.setItem(uItem)
+      battle.message "#{user.name} switched items with its target!"
+      battle.message "#{user.name} obtained one #{tItem.name}!"
+      battle.message "#{target.name} obtained one #{uItem.name}!"
 
 makeExplosionMove = (name) ->
   extendMove name, ->
