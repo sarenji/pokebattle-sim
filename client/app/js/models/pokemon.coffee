@@ -26,11 +26,11 @@ class @Pokemon extends Backbone.Model
       @set('ability', @getAbilities()[0], silent: true)
 
     @on 'change:ivs', (model, ivs)=>
-      type = hiddenPower.BW.type(ivs).toLowerCase()
+      type = HiddenPower.BW.type(ivs).toLowerCase()
       @set("hiddenPowerType", type, silent: true)
 
     @on 'change:hiddenPowerType', (model, type) =>
-      hpIVs = hiddenPower.BW.ivs[type.toLowerCase()]
+      hpIVs = HiddenPower.BW.ivs[type.toLowerCase()]
       ivs = @get('ivs')
       for stat, iv of ivs
         ivs[stat] = hpIVs[stat] || 31

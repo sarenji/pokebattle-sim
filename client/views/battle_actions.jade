@@ -9,7 +9,7 @@ mixin moveButton(forPokemon, i)
   - var bigClass   = (validMoves.length === 1 ? ' big' : '')
   - var spanClass  = (validMoves.length === 1 ? 'span12' : 'span6')
   if moveName === 'Hidden Power'
-    - moveType = window.hiddenPower.BW.type(forPokemon.ivs)
+    - moveType = window.HiddenPower.BW.type(forPokemon.ivs)
     - moveName += ' (' + moveType + ')'
     - moveType = moveType.toLowerCase()
   - var moveClass  = moveType + disabledClass + bigClass

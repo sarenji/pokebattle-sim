@@ -6,7 +6,7 @@
 {Protocol} = require('../../shared/protocol')
 {_} = require 'underscore'
 util = require '../../server/util'
-hiddenPower = require '../../shared/hidden_power'
+HiddenPower = require '../../shared/hidden_power'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.
@@ -1411,7 +1411,7 @@ extendMove 'Hidden Power', ->
       speed: user.iv('speed')
       specialAttack: user.iv('specialAttack')
       specialDefense: user.iv('specialDefense')
-    hiddenPower.BW.basePower(ivs)
+    HiddenPower.BW.basePower(ivs)
 
   @getType = (battle, user, target) ->
     ivs =
@@ -1421,7 +1421,7 @@ extendMove 'Hidden Power', ->
       speed: user.iv('speed')
       specialAttack: user.iv('specialAttack')
       specialDefense: user.iv('specialDefense')
-    hiddenPower.BW.type(ivs)
+    HiddenPower.BW.type(ivs)
 
 extendMove 'Imprison', ->
   @execute = (battle, user, targets) ->

@@ -82,8 +82,8 @@ mixin printStat(statName, keyName)
               td(colspan="2")
                 | Hidden Power: 
                 select.select-hidden-power
-                  - var hpType = window.hiddenPower.BW.type(pokemon.get('ivs'))
-                  each value, type in window.hiddenPower.BW.ivs
+                  - var hpType = window.HiddenPower.BW.type(pokemon.get('ivs'))
+                  each value, type in window.HiddenPower.BW.ivs
                     - var displayType = type[0].toUpperCase() + type.substr(1)
                     - var selected = (displayType === hpType)
                     option(value=type, selected=selected)= displayType

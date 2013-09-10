@@ -1,7 +1,7 @@
 # Ported from Pokemon Showdown:
 # https://github.com/Zarel/Pokemon-Showdown-Client/blob/8beb563042cac1acb64ec88c552ef21fb28f0f39/js/client-teambuilder.js#L1236-L1352
 
-hiddenPower = (if module? then require('../../../../shared/hidden_power') else window.hiddenPower = {})
+HiddenPower = (if module? then require('../../../../shared/hidden_power') else window.HiddenPower ?= {})
 
 @PokeBattle ?= {}
 @PokeBattle.parseTeam = (teamString) ->
@@ -62,7 +62,7 @@ hiddenPower = (if module? then require('../../../../shared/hidden_power') else w
         if !pokemon.ivs
           moveName.match(/Hidden Power \[\s*(.*)\s*\]/)
           hiddenPowerType = RegExp.$1.toLowerCase()
-          pokemon.ivs = hiddenPower.BW.ivs[hiddenPowerType] || {}
+          pokemon.ivs = HiddenPower.BW.ivs[hiddenPowerType] || {}
         moveName = 'Hidden Power'
       pokemon.moves ?= []
       pokemon.moves.push(moveName)

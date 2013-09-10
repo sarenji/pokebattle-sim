@@ -1,4 +1,4 @@
-self = (if module? then module.exports else window.hiddenPower = {})
+self = (if module? then module.exports else window.HiddenPower ?= {})
 
 self.BW ?= {}
 
