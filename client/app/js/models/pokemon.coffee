@@ -17,6 +17,7 @@ class @Pokemon extends Backbone.Model
       specialAttack: 0
       specialDefense: 0
       speed: 0
+    hiddenPowerType: 'dark'
 
   initialize: (attributes={}) ->
     @set('forme', 'default')  unless attributes.forme
