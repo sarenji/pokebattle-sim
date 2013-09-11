@@ -490,8 +490,7 @@ makeAbility 'Intimidate', ->
     # TODO: Make getOpponents return only alive pokemon
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
-      boostedStats = opponent.boost(attack: -1, @pokemon)
-      util.printBoostMessage(@battle, @pokemon, boostedStats, attack: -1)
+      opponent.boost(attack: -1, @pokemon)
 
 makeAbility 'Iron Fist', ->
   this::modifyBasePower = (move) ->
@@ -563,8 +562,7 @@ makeAbility 'Moody', ->
     boosts = {}
     boosts[raiseStat] = 2   if raiseStat
     boosts[lowerStat] = -1  if lowerStat
-    boostedStats = @pokemon.boost(boosts)
-    util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
+    @pokemon.boost(boosts)
 
 makeAbility 'Multiscale', ->
   this::modifyDamageTarget = ->
@@ -627,8 +625,7 @@ makeAbility 'Rattled', ->
     type = move.getType(@battle, user, @pokemon)
     if type in [ "Bug", "Ghost", "Dark" ]
       boosts = {speed: 1}
-      boostedStats = @pokemon.boost(boosts)
-      util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
+      @pokemon.boost(boosts)
 
 makeAbility 'Reckless', ->
   this::modifyBasePower = (move, user, target) ->
@@ -755,8 +752,7 @@ makeAbility 'Speed Boost', ->
   this::endTurn = ->
     return  if @pokemon.turnsActive <= 0
     boosts = {speed: 1}
-    boostedStats = @pokemon.boost(boosts)
-    util.printBoostMessage(@battle, @pokemon, boostedStats, boosts)
+    @pokemon.boost(boosts)
 
 makeAbility 'Stall', ->
   this::afterTurnOrder = ->
