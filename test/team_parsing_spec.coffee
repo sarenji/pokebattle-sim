@@ -35,7 +35,7 @@ EVs: 252 HP / 80 Def / 176 SDef
 
 Articuno
 IVs: 30 HP / 29 Def
-- Hidden Power [Fire]
+- Hidden Power Fire
 
 Claydol
 EVs: 252 SpA / 176 SpD
