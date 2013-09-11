@@ -15,9 +15,12 @@ makeAbility = (name, extension, func) ->
     displayName: name
     func?.call(this)
 
-makeAbility 'Reckless'
+# TODO: Implement.
 makeAbility 'Sheer Force'
-makeAbility 'Sniper'
+makeAbility 'Mold Breaker'
+makeAbility 'Pickup'
+makeAbility 'Moxie'
+makeAbility 'Serene Grace'
 
 # Ability templates
 

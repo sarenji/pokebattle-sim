@@ -1,5 +1,10 @@
 self = (module?.exports || window)
 
+if module?.exports
+  EventPokemon = require('./event_pokemon')
+else
+  window.EventPokemon ?= {}
+
 unportableGenerations = [ 1, 3 ]
 unportableGenerations.sort((a, b) -> b - a)  # numeric, descending
 
@@ -81,12 +86,17 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
   # Continuing the `forme-change` learnset group.
   # Get rid of leftover moves if this pokemon can learn it in this generation.
   learnset = forme.learnset["generation-#{generation}"]?['form-change'] || {}
-  for move, level of learnset
-    index = leftoverMoves.indexOf(move)
-    leftoverMoves.splice(index, 1)  if index != -1 && pokemonLevel >= level
+  lsetLeftovers = leftoverMoves.filter((move) -> pokemonLevel >= learnset[move])
+  return true  if lsetLeftovers.length == leftoverMoves.length
 
-  # If there are no leftover moves, then we're done, the moveset is valid.
-  return true  if leftoverMoves.length == 0
+  # Check against event Pokemon
+  # TODO: Event Pokemon require more stringent checks, e.g. gender/ability etc.
+  events = EventPokemon[pokemon.name] || []
+  events = events.filter((event) -> event.forme == pokemon.forme || "default")
+  for event in events
+    lsetLeftovers = leftoverMoves.filter (move) ->
+      move in event.moves && pokemonLevel >= event.level
+    return true  if lsetLeftovers.length == leftoverMoves.length
 
   # These learnset groups are non-standard but can be used. If a non-standard
   # group completely overlaps the leftover moves, the moveset is valid.

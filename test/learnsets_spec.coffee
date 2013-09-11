@@ -180,3 +180,13 @@ describe "Learnsets:", ->
   testLearnset "Roserade", ->
     xit "cannot learn Spikes and Sleep Powder", ->
       @checkMoveset(4, [ "Spikes", "Sleep Powder" ]).should.be.false
+
+  testLearnset "Celebi", ->
+    it "can learn Nasty Plot", ->
+      moveset = [ "Nasty Plot" ]
+      @checkMoveset(4, moveset).should.be.true
+
+  testLearnset "Banette", ->
+    it "can learn an event move but not an egg move", ->
+      moveset = [ "Cotton Guard", "Pursuit" ]
+      @checkMoveset(4, moveset).should.be.false

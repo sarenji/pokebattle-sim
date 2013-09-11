@@ -1,0 +1,8025 @@
+{
+	"Absol": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Spite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 35,
+			"moves": [
+				"Razor Wind",
+				"Bite",
+				"Swords Dance",
+				"Spite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Double Team",
+				"Slash",
+				"Future Sight",
+				"Perish Song"
+			],
+			"forme": "default"
+		}
+	],
+	"Aerodactyl": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Pressure"
+			],
+			"moves": [
+				"Steel Wing",
+				"Ice Fang",
+				"Fire Fang",
+				"Thunder Fang"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Aggron": [
+		{
+			"generation": 3,
+			"level": 100,
+			"moves": [
+				"Iron Tail",
+				"Protect",
+				"Metal Sound",
+				"Double-Edge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Take Down",
+				"Iron Tail",
+				"Protect",
+				"Metal Sound"
+			],
+			"forme": "default"
+		}
+	],
+	"Aipom": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Tail Whip",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Alakazam": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Future Sight",
+				"Calm Mind",
+				"Psychic",
+				"Trick"
+			],
+			"forme": "default"
+		}
+	],
+	"Altaria": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Take Down",
+				"DragonBreath",
+				"Dragon Dance",
+				"Refresh"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 36,
+			"moves": [
+				"Heal Bell",
+				"DragonBreath",
+				"SolarBeam",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 35,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Take Down",
+				"Natural Gift",
+				"DragonBreath",
+				"False Swipe"
+			],
+			"forme": "default"
+		}
+	],
+	"Anorith": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Harden",
+				"Mud Sport",
+				"Water Gun",
+				"Cross Poison"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Arbok": [
+		{
+			"generation": 3,
+			"level": 33,
+			"moves": [
+				"Refresh",
+				"Sludge Bomb",
+				"Glare",
+				"Bite"
+			],
+			"forme": "default"
+		}
+	],
+	"Arceus": [
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Judgment",
+				"Roar of Time",
+				"Spacial Rend",
+				"Shadow Force"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Recover",
+				"Hyper Beam",
+				"Perish Song",
+				"Judgment"
+			],
+			"forme": "default"
+		}
+	],
+	"Archen": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"moves": [
+				"Head Smash",
+				"Wing Attack",
+				"Double Team",
+				"Scary Face"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Articuno": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Agility",
+				"Mind Reader",
+				"Ice Beam",
+				"Reflect"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Ice Beam",
+				"Heal Bell",
+				"Extrasensory",
+				"Haze"
+			],
+			"forme": "default"
+		}
+	],
+	"Audino": [
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "F",
+			"nature": "Calm",
+			"isDW": false,
+			"abilities": [
+				"Healer"
+			],
+			"moves": [
+				"Heal Pulse",
+				"Helping Hand",
+				"Refresh",
+				"DoubleSlap"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "F",
+			"nature": "Serious",
+			"isDW": false,
+			"abilities": [
+				"Healer"
+			],
+			"moves": [
+				"Heal Pulse",
+				"Helping Hand",
+				"Refresh",
+				"Present"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Axew": [
+		{
+			"generation": 5,
+			"level": 1,
+			"gender": "M",
+			"nature": "Naive",
+			"isDW": false,
+			"abilities": [
+				"Mold Breaker"
+			],
+			"moves": [
+				"Scratch",
+				"Dragon Rage"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "F",
+			"isDW": false,
+			"abilities": [
+				"Mold Breaker"
+			],
+			"moves": [
+				"Dragon Rage",
+				"Return",
+				"Endure",
+				"Dragon Claw"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "M",
+			"nature": "Naive",
+			"isDW": false,
+			"abilities": [
+				"Rivalry"
+			],
+			"moves": [
+				"Dragon Rage",
+				"Scratch",
+				"Outrage",
+				"Giga Impact"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Bagon": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Rage",
+				"Bite",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Rage",
+				"Bite",
+				"Iron Defense"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"isDW": false,
+			"moves": [
+				"Rage"
+			],
+			"forme": "default"
+		}
+	],
+	"Baltoy": [
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Refresh",
+				"Rock Tomb",
+				"Mud-Slap",
+				"Psybeam"
+			],
+			"forme": "default"
+		}
+	],
+	"Banette": [
+		{
+			"generation": 3,
+			"level": 37,
+			"moves": [
+				"Helping Hand",
+				"Faint Attack",
+				"Shadow Ball",
+				"Curse"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 37,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Faint Attack",
+				"Hex",
+				"Shadow Ball",
+				"Cotton Guard"
+			],
+			"forme": "default"
+		}
+	],
+	"Beedrill": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Baton Pass",
+				"Sludge Bomb",
+				"Twineedle",
+				"Swords Dance"
+			],
+			"forme": "default"
+		}
+	],
+	"Bellsprout": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Vine Whip",
+				"Teeter Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Vine Whip",
+				"Growth"
+			],
+			"forme": "default"
+		}
+	],
+	"Bidoof": [
+		{
+			"generation": 4,
+			"level": 1,
+			"gender": "M",
+			"nature": "Lonely",
+			"abilities": [
+				"Simple"
+			],
+			"moves": [
+				"Tackle"
+			],
+			"forme": "default"
+		}
+	],
+	"Blastoise": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Protect",
+				"Rain Dance",
+				"Skull Bash",
+				"Hydro Pump"
+			],
+			"forme": "default"
+		}
+	],
+	"Blaziken": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Blaze Kick",
+				"Slash",
+				"Mirror Move",
+				"Sky Uppercut"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Flare Blitz",
+				"Hi Jump Kick",
+				"ThunderPunch",
+				"Stone Edge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Blissey": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Pound",
+				"Growl",
+				"Tail Whip",
+				"Refresh"
+			],
+			"forme": "default"
+		}
+	],
+	"Braviary": [
+		{
+			"generation": 5,
+			"level": 25,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Wing Attack",
+				"Hone Claws",
+				"Scary Face",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		}
+	],
+	"Bulbasaur": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Sweet Scent",
+				"Growth",
+				"SolarBeam",
+				"Synthesis"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Leech Seed",
+				"Vine Whip"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Leech Seed",
+				"Vine Whip"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 1,
+			"isDW": false,
+			"moves": [
+				"False Swipe",
+				"Block",
+				"Frenzy Plant",
+				"Weather Ball"
+			],
+			"forme": "default"
+		}
+	],
+	"Butterfree": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Morning Sun",
+				"Psychic",
+				"Sleep Powder",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		}
+	],
+	"Cacnea": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Poison Sting",
+				"Leer",
+				"Absorb",
+				"Encore"
+			],
+			"forme": "default"
+		}
+	],
+	"Cacturne": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Ingrain",
+				"Faint Attack",
+				"Spikes",
+				"Needle Arm"
+			],
+			"forme": "default"
+		}
+	],
+	"Carvanha": [
+		{
+			"generation": 3,
+			"level": 15,
+			"moves": [
+				"Refresh",
+				"Water Pulse",
+				"Bite",
+				"Scary Face"
+			],
+			"forme": "default"
+		}
+	],
+	"Celebi": [
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Confusion",
+				"Recover",
+				"Heal Bell",
+				"Safeguard"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"AncientPower",
+				"Future Sight",
+				"Baton Pass",
+				"Perish Song"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Leech Seed",
+				"Recover",
+				"Heal Bell",
+				"Safeguard"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Heal Bell",
+				"Safeguard",
+				"AncientPower",
+				"Future Sight"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Leaf Storm",
+				"Recover",
+				"Nasty Plot",
+				"Healing Wish"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Chandelure": [
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"nature": "Modest",
+			"isDW": false,
+			"abilities": [
+				"Flash Fire"
+			],
+			"moves": [
+				"Heat Wave",
+				"Shadow Ball",
+				"Energy Ball",
+				"Psychic"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Chansey": [
+		{
+			"generation": 3,
+			"level": 5,
+			"gender": "F",
+			"moves": [
+				"Sweet Scent",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "F",
+			"moves": [
+				"Pound",
+				"Growl",
+				"Tail Whip",
+				"Refresh"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 39,
+			"gender": "F",
+			"moves": [
+				"Sweet Kiss",
+				"Thunderbolt",
+				"Softboiled",
+				"Skill Swap"
+			],
+			"forme": "default"
+		}
+	],
+	"Charizard": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Wing Attack",
+				"Slash",
+				"Dragon Rage",
+				"Fire Spin"
+			],
+			"forme": "default"
+		}
+	],
+	"Charmander": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Ember"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Mild",
+			"moves": [
+				"Return",
+				"Hidden Power",
+				"Quick Attack",
+				"Howl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Naive",
+			"moves": [
+				"Return",
+				"Hidden Power",
+				"Quick Attack",
+				"Howl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Naughty",
+			"moves": [
+				"Return",
+				"Hidden Power",
+				"Quick Attack",
+				"Howl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Ember",
+				"SmokeScreen"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Hardy",
+			"moves": [
+				"Return",
+				"Hidden Power",
+				"Quick Attack",
+				"Howl"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 1,
+			"isDW": false,
+			"moves": [
+				"False Swipe",
+				"Block",
+				"Blast Burn",
+				"Acrobatics"
+			],
+			"forme": "default"
+		}
+	],
+	"Chatot": [
+		{
+			"generation": 4,
+			"level": 25,
+			"gender": "M",
+			"nature": "Jolly",
+			"abilities": [
+				"Keen Eye"
+			],
+			"moves": [
+				"Mirror Move",
+				"Fury Attack",
+				"Chatter",
+				"Taunt"
+			],
+			"forme": "default"
+		}
+	],
+	"Chikorita": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Razor Leaf"
+			],
+			"forme": "default"
+		}
+	],
+	"Chimchar": [
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Mild",
+			"moves": [
+				"Flamethrower",
+				"ThunderPunch",
+				"Grass Knot",
+				"Helping Hand"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Ember",
+				"Taunt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Hardy",
+			"moves": [
+				"Flamethrower",
+				"ThunderPunch",
+				"Grass Knot",
+				"Helping Hand"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Leer",
+				"Ember",
+				"Taunt",
+				"Fake Out"
+			],
+			"forme": "default"
+		}
+	],
+	"Chimecho": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Wrap",
+				"Growl",
+				"Astonish"
+			],
+			"forme": "default"
+		}
+	],
+	"Cloyster": [
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "M",
+			"nature": "Naughty",
+			"isDW": false,
+			"abilities": [
+				"Skill Link"
+			],
+			"moves": [
+				"Icicle Spear",
+				"Rock Blast",
+				"Hidden Power",
+				"Razor Shell"
+			],
+			"forme": "default"
+		}
+	],
+	"Corphish": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Bubble",
+				"Water Sport"
+			],
+			"forme": "default"
+		}
+	],
+	"Corsola": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Tackle",
+				"Mud Sport"
+			],
+			"forme": "default"
+		}
+	],
+	"Cranidos": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Pursuit",
+				"Take Down",
+				"Crunch",
+				"Headbutt"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Crawdaunt": [
+		{
+			"generation": 3,
+			"level": 100,
+			"moves": [
+				"Taunt",
+				"Crabhammer",
+				"Swords Dance",
+				"Guillotine"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Knock Off",
+				"Taunt",
+				"Crabhammer",
+				"Swords Dance"
+			],
+			"forme": "default"
+		}
+	],
+	"Croagunk": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Astonish",
+				"Mud-Slap",
+				"Poison Sting",
+				"Taunt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Mud-Slap",
+				"Poison Sting",
+				"Taunt",
+				"Poison Jab"
+			],
+			"forme": "default"
+		}
+	],
+	"Crobat": [
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Timid",
+			"moves": [
+				"Heat Wave",
+				"Air Slash",
+				"Sludge Bomb",
+				"Super Fang"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Cubchoo": [
+		{
+			"generation": 5,
+			"level": 15,
+			"isDW": false,
+			"moves": [
+				"Powder Snow",
+				"Growl",
+				"Bide",
+				"Icy Wind"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Cyndaquil": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Leer",
+				"SmokeScreen"
+			],
+			"forme": "default"
+		}
+	],
+	"Darkrai": [
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Roar of Time",
+				"Spacial Rend",
+				"Nightmare",
+				"Hypnosis"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Dark Void",
+				"Dark Pulse",
+				"Shadow Ball",
+				"Double Team"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Nightmare",
+				"Hypnosis",
+				"Roar of Time",
+				"Spacial Rend"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Double Team",
+				"Nightmare",
+				"Faint Attack",
+				"Hypnosis"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Dark Void",
+				"Ominous Wind",
+				"Faint Attack",
+				"Nightmare"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Darmanitan": [
+		{
+			"generation": 5,
+			"level": 35,
+			"isDW": true,
+			"moves": [
+				"Thrash",
+				"Belly Drum",
+				"Flare Blitz",
+				"Hammer Arm"
+			],
+			"forme": "default"
+		}
+	],
+	"Deerling": [
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Faint Attack",
+				"Take Down",
+				"Jump Kick",
+				"Aromatherapy"
+			],
+			"forme": "default"
+		}
+	],
+	"Deino": [
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"moves": [
+				"Tackle",
+				"Dragon Rage"
+			],
+			"forme": "default"
+		}
+	],
+	"Delcatty": [
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Sweet Kiss",
+				"Secret Power",
+				"Attract",
+				"Shock Wave"
+			],
+			"forme": "default"
+		}
+	],
+	"Delibird": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Present"
+			],
+			"forme": "default"
+		}
+	],
+	"Deoxys": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Snatch",
+				"Psychic",
+				"Spikes",
+				"Knock Off"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Superpower",
+				"Psychic",
+				"Pursuit",
+				"Taunt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Swift",
+				"Psychic",
+				"Pursuit",
+				"Knock Off"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Cosmic Power",
+				"Recover",
+				"Psycho Boost",
+				"Hyper Beam"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Zap Cannon",
+				"Iron Defense",
+				"ExtremeSpeed"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Swift",
+				"Double Team",
+				"ExtremeSpeed"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Detect",
+				"Counter",
+				"Mirror Coat"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Meteor Mash",
+				"Superpower",
+				"Hyper Beam"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Leer",
+				"Wrap",
+				"Night Shade"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Nasty Plot",
+				"Dark Pulse",
+				"Recover",
+				"Psycho Boost"
+			],
+			"pokeball": "Dusk Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Snatch",
+				"Psychic",
+				"Spikes",
+				"Knock Off"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Superpower",
+				"Psychic",
+				"Pursuit",
+				"Taunt"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Swift",
+				"Psychic",
+				"Pursuit",
+				"Knock Off"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Cosmic Power",
+				"Recover",
+				"Psycho Boost",
+				"Hyper Beam"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Zap Cannon",
+				"Iron Defense",
+				"ExtremeSpeed"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "attack"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Swift",
+				"Double Team",
+				"ExtremeSpeed"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Detect",
+				"Counter",
+				"Mirror Coat"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Meteor Mash",
+				"Superpower",
+				"Hyper Beam"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Leer",
+				"Wrap",
+				"Night Shade"
+			],
+			"forme": "attack"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Nasty Plot",
+				"Dark Pulse",
+				"Recover",
+				"Psycho Boost"
+			],
+			"pokeball": "Dusk Ball",
+			"forme": "attack"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Snatch",
+				"Psychic",
+				"Spikes",
+				"Knock Off"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Superpower",
+				"Psychic",
+				"Pursuit",
+				"Taunt"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Swift",
+				"Psychic",
+				"Pursuit",
+				"Knock Off"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Cosmic Power",
+				"Recover",
+				"Psycho Boost",
+				"Hyper Beam"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Zap Cannon",
+				"Iron Defense",
+				"ExtremeSpeed"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "defense"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Swift",
+				"Double Team",
+				"ExtremeSpeed"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Detect",
+				"Counter",
+				"Mirror Coat"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Meteor Mash",
+				"Superpower",
+				"Hyper Beam"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Leer",
+				"Wrap",
+				"Night Shade"
+			],
+			"forme": "defense"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Nasty Plot",
+				"Dark Pulse",
+				"Recover",
+				"Psycho Boost"
+			],
+			"pokeball": "Dusk Ball",
+			"forme": "defense"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Snatch",
+				"Psychic",
+				"Spikes",
+				"Knock Off"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Superpower",
+				"Psychic",
+				"Pursuit",
+				"Taunt"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Swift",
+				"Psychic",
+				"Pursuit",
+				"Knock Off"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Cosmic Power",
+				"Recover",
+				"Psycho Boost",
+				"Hyper Beam"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Zap Cannon",
+				"Iron Defense",
+				"ExtremeSpeed"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "speed"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Swift",
+				"Double Team",
+				"ExtremeSpeed"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Detect",
+				"Counter",
+				"Mirror Coat"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Meteor Mash",
+				"Superpower",
+				"Hyper Beam"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Leer",
+				"Wrap",
+				"Night Shade"
+			],
+			"forme": "speed"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Nasty Plot",
+				"Dark Pulse",
+				"Recover",
+				"Psycho Boost"
+			],
+			"pokeball": "Dusk Ball",
+			"forme": "speed"
+		}
+	],
+	"Dodrio": [
+		{
+			"generation": 3,
+			"level": 34,
+			"moves": [
+				"Baton Pass",
+				"Drill Peck",
+				"Agility",
+				"Tri Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Dragonite": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Agility",
+				"Safeguard",
+				"Wing Attack",
+				"Outrage"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 55,
+			"moves": [
+				"Heal Bell",
+				"Hyper Beam",
+				"Dragon Dance",
+				"Earthquake"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Mild",
+			"moves": [
+				"Draco Meteor",
+				"Thunderbolt",
+				"Outrage",
+				"Dragon Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"ExtremeSpeed",
+				"Fire Punch",
+				"Dragon Dance",
+				"Outrage"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 55,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Dragon Rush",
+				"Safeguard",
+				"Wing Attack",
+				"ThunderPunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 55,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Dragon Rush",
+				"Safeguard",
+				"Wing Attack",
+				"ExtremeSpeed"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Brave",
+			"isDW": false,
+			"abilities": [
+				"Inner Focus"
+			],
+			"moves": [
+				"Fire Blast",
+				"Safeguard",
+				"Outrage",
+				"Hyper Beam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Drowzee": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Belly Drum",
+				"Wish"
+			],
+			"forme": "default"
+		}
+	],
+	"Druddigon": [
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"isDW": false,
+			"moves": [
+				"Leer",
+				"Scratch"
+			],
+			"forme": "default"
+		}
+	],
+	"Dugtrio": [
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Charm",
+				"Earthquake",
+				"Sandstorm",
+				"Tri Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Duskull": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Pursuit",
+				"Curse",
+				"Will-O-Wisp",
+				"Mean Look"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 19,
+			"moves": [
+				"Helping Hand",
+				"Shadow Ball",
+				"Astonish",
+				"Confuse Ray"
+			],
+			"forme": "default"
+		}
+	],
+	"Eevee": [
+		{
+			"generation": 4,
+			"level": 10,
+			"gender": "F",
+			"nature": "Lonely",
+			"abilities": [
+				"Adaptability"
+			],
+			"moves": [
+				"Covet",
+				"Bite",
+				"Helping Hand",
+				"Attract"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"shiny": true,
+			"gender": "M",
+			"nature": "Hardy",
+			"abilities": [
+				"Adaptability"
+			],
+			"moves": [
+				"Iron Tail",
+				"Trump Card",
+				"Flail",
+				"Quick Attack"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"nature": "Hardy",
+			"isDW": false,
+			"abilities": [
+				"Adaptability"
+			],
+			"moves": [
+				"Sing",
+				"Return",
+				"Echoed Voice",
+				"Attract"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Ekans": [
+		{
+			"generation": 3,
+			"level": 14,
+			"abilities": [
+				"Shed Skin"
+			],
+			"moves": [
+				"Leer",
+				"Wrap",
+				"Poison Sting",
+				"Bite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Wrap",
+				"Leer",
+				"Poison Sting"
+			],
+			"forme": "default"
+		}
+	],
+	"Electabuzz": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Quick Attack",
+				"Leer",
+				"ThunderPunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 43,
+			"moves": [
+				"Follow Me",
+				"Cross Chop",
+				"Thunder Wave",
+				"Thunderbolt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Naughty",
+			"moves": [
+				"Low Kick",
+				"Shock Wave",
+				"Light Screen",
+				"ThunderPunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Low Kick",
+				"Swift",
+				"Shock Wave",
+				"Light Screen"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Electivire": [
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Adamant",
+			"moves": [
+				"ThunderPunch",
+				"Ice Punch",
+				"Cross Chop",
+				"Earthquake"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Serious",
+			"moves": [
+				"Light Screen",
+				"ThunderPunch",
+				"Discharge",
+				"Thunderbolt"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Elekid": [
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"Ice Punch",
+				"Fire Punch",
+				"ThunderPunch",
+				"Cross Chop"
+			],
+			"forme": "default"
+		}
+	],
+	"Emboar": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Flare Blitz",
+				"Hammer Arm",
+				"Wild Charge",
+				"Head Smash"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Empoleon": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Hydro Pump",
+				"Ice Beam",
+				"Aqua Jet",
+				"Grass Knot"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Entei": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Fire Spin",
+				"Stomp",
+				"Flamethrower",
+				"Swagger"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"shiny": true,
+			"nature": "Adamant",
+			"moves": [
+				"Flare Blitz",
+				"Howl",
+				"ExtremeSpeed",
+				"Crush Claw"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Espeon": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Psybeam",
+				"Psych Up",
+				"Psychic",
+				"Morning Sun"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Exeggcute": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Sweet Scent",
+				"Wish"
+			],
+			"forme": "default"
+		}
+	],
+	"Exeggutor": [
+		{
+			"generation": 3,
+			"level": 46,
+			"moves": [
+				"Refresh",
+				"Psychic",
+				"Hypnosis",
+				"AncientPower"
+			],
+			"forme": "default"
+		}
+	],
+	"Exploud": [
+		{
+			"generation": 3,
+			"level": 100,
+			"moves": [
+				"Roar",
+				"Rest",
+				"Sleep Talk",
+				"Hyper Voice"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Stomp",
+				"Screech",
+				"Hyper Beam",
+				"Roar"
+			],
+			"forme": "default"
+		}
+	],
+	"Farfetch'd": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Yawn",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 36,
+			"moves": [
+				"Baton Pass",
+				"Slash",
+				"Swords Dance",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		}
+	],
+	"Flareon": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Flygon": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Sand Tomb",
+				"Crunch",
+				"DragonBreath",
+				"Screech"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Naive",
+			"moves": [
+				"Draco Meteor",
+				"U-turn",
+				"Earthquake",
+				"Dragon Claw"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Garchomp": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Outrage",
+				"Earthquake",
+				"Swords Dance",
+				"Stone Edge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 48,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Dragon Claw",
+				"Dig",
+				"Crunch",
+				"Outrage"
+			],
+			"forme": "default"
+		}
+	],
+	"Gardevoir": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"abilities": [
+				"Trace"
+			],
+			"moves": [
+				"Hypnosis",
+				"Thunderbolt",
+				"Focus Blast",
+				"Psychic"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Genesect": [
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Techno Blast",
+				"Magnet Bomb",
+				"SolarBeam",
+				"Signal Beam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 15,
+			"moves": [
+				"Techno Blast",
+				"Magnet Bomb",
+				"SolarBeam",
+				"Signal Beam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"shiny": true,
+			"nature": "Hasty",
+			"moves": [
+				"ExtremeSpeed",
+				"Techno Blast",
+				"Blaze Kick",
+				"Shift Gear"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Glaceon": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Gligar": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Poison Sting",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Gloom": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Sleep Powder",
+				"Acid",
+				"Moonlight",
+				"Petal Dance"
+			],
+			"forme": "default"
+		}
+	],
+	"Golduck": [
+		{
+			"generation": 3,
+			"level": 33,
+			"moves": [
+				"Charm",
+				"Waterfall",
+				"Psych Up",
+				"Brick Break"
+			],
+			"forme": "default"
+		}
+	],
+	"Golurk": [
+		{
+			"generation": 5,
+			"level": 70,
+			"shiny": true,
+			"isDW": false,
+			"abilities": [
+				"Iron Fist"
+			],
+			"moves": [
+				"Shadow Punch",
+				"Hyper Beam",
+				"Gyro Ball",
+				"Hammer Arm"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Gothorita": [
+		{
+			"generation": 5,
+			"level": 32,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Psyshock",
+				"Flatter",
+				"Future Sight",
+				"Mirror Coat"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 32,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Psyshock",
+				"Flatter",
+				"Future Sight",
+				"Imprison"
+			],
+			"forme": "default"
+		}
+	],
+	"Grimer": [
+		{
+			"generation": 3,
+			"level": 23,
+			"moves": [
+				"Helping Hand",
+				"Sludge Bomb",
+				"Shadow Punch",
+				"Minimize"
+			],
+			"forme": "default"
+		}
+	],
+	"Groudon": [
+		{
+			"generation": 5,
+			"level": 80,
+			"moves": [
+				"Earthquake",
+				"AncientPower",
+				"Eruption",
+				"SolarBeam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Eruption",
+				"Hammer Arm",
+				"Earth Power",
+				"SolarBeam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Growlithe": [
+		{
+			"generation": 3,
+			"level": 32,
+			"abilities": [
+				"Intimidate"
+			],
+			"moves": [
+				"Leer",
+				"Odor Sleuth",
+				"Take Down",
+				"Flame Wheel"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Bite",
+				"Roar",
+				"Ember"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 28,
+			"moves": [
+				"Charm",
+				"Flamethrower",
+				"Bite",
+				"Take Down"
+			],
+			"forme": "default"
+		}
+	],
+	"Gulpin": [
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Sing",
+				"Shock Wave",
+				"Sludge",
+				"Toxic"
+			],
+			"forme": "default"
+		}
+	],
+	"Haunter": [
+		{
+			"generation": 3,
+			"level": 23,
+			"moves": [
+				"Spite",
+				"Curse",
+				"Night Shade",
+				"Confuse Ray"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"moves": [
+				"Confuse Ray",
+				"Sucker Punch",
+				"Shadow Punch",
+				"Payback"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Haxorus": [
+		{
+			"generation": 5,
+			"level": 59,
+			"gender": "F",
+			"nature": "Naive",
+			"isDW": false,
+			"abilities": [
+				"Mold Breaker"
+			],
+			"moves": [
+				"Earthquake",
+				"Dual Chop",
+				"X-Scissor",
+				"Dragon Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Heatran": [
+		{
+			"generation": 4,
+			"level": 50,
+			"nature": "Quiet",
+			"moves": [
+				"Eruption",
+				"Magma Storm",
+				"Earth Power",
+				"AncientPower"
+			],
+			"forme": "default"
+		}
+	],
+	"Hitmonchan": [
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Helping Hand",
+				"Sky Uppercut",
+				"Mind Reader",
+				"Mega Punch"
+			],
+			"forme": "default"
+		}
+	],
+	"Hitmonlee": [
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Refresh",
+				"Hi Jump Kick",
+				"Mind Reader",
+				"Mega Kick"
+			],
+			"forme": "default"
+		}
+	],
+	"Ho-Oh": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Swift",
+				"Sunny Day",
+				"Fire Blast",
+				"Recover"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Recover",
+				"Fire Blast",
+				"Sunny Day",
+				"Swift"
+			],
+			"forme": "default"
+		}
+	],
+	"Hoothoot": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Foresight"
+			],
+			"forme": "default"
+		}
+	],
+	"Horsea": [
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"isDW": false,
+			"moves": [
+				"Bubble"
+			],
+			"forme": "default"
+		}
+	],
+	"Houndour": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Leer",
+				"Ember",
+				"Howl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Charm",
+				"Faint Attack",
+				"Ember",
+				"Roar"
+			],
+			"forme": "default"
+		}
+	],
+	"Hydreigon": [
+		{
+			"generation": 5,
+			"level": 70,
+			"shiny": true,
+			"gender": "M",
+			"moves": [
+				"Hyper Voice",
+				"DragonBreath",
+				"Flamethrower",
+				"Focus Blast"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Hypno": [
+		{
+			"generation": 3,
+			"level": 34,
+			"moves": [
+				"Baton Pass",
+				"Psychic",
+				"Meditate",
+				"Shadow Ball"
+			],
+			"forme": "default"
+		}
+	],
+	"Igglybuff": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Sing",
+				"Charm",
+				"Defense Curl",
+				"Tickle"
+			],
+			"forme": "default"
+		}
+	],
+	"Infernape": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Fire Blast",
+				"Close Combat",
+				"U-turn",
+				"Grass Knot"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Jellicent": [
+		{
+			"generation": 5,
+			"level": 40,
+			"isDW": true,
+			"moves": [
+				"Water Pulse",
+				"Ominous Wind",
+				"Brine",
+				"Rain Dance"
+			],
+			"forme": "default"
+		}
+	],
+	"Jirachi": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Wish",
+				"Confusion",
+				"Rest"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Helping Hand",
+				"Psychic",
+				"Refresh",
+				"Rest"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 5,
+			"moves": [
+				"Wish",
+				"Confusion",
+				"Rest"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 5,
+			"moves": [
+				"Wish",
+				"Confusion",
+				"Rest",
+				"Draco Meteor"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Healing Wish",
+				"Psychic",
+				"Swift",
+				"Meteor Mash"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Draco Meteor",
+				"Meteor Mash",
+				"Wish",
+				"Follow Me"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Jolteon": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Jumpluff": [
+		{
+			"generation": 5,
+			"level": 27,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"False Swipe",
+				"Sleep Powder",
+				"Bullet Seed",
+				"Leech Seed"
+			],
+			"forme": "default"
+		}
+	],
+	"Kabuto": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Battle Armor"
+			],
+			"moves": [
+				"Confuse Ray",
+				"Dig",
+				"Scratch",
+				"Harden"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Kangaskhan": [
+		{
+			"generation": 3,
+			"level": 5,
+			"gender": "F",
+			"moves": [
+				"Yawn",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "F",
+			"moves": [
+				"Comet Punch",
+				"Leer",
+				"Bite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 36,
+			"gender": "F",
+			"moves": [
+				"Sing",
+				"Earthquake",
+				"Tail Whip",
+				"Dizzy Punch"
+			],
+			"forme": "default"
+		}
+	],
+	"Karrablast": [
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Fury Attack",
+				"Headbutt",
+				"False Swipe",
+				"Bug Buzz"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Megahorn",
+				"Take Down",
+				"X-Scissor",
+				"Flail"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Keldeo": [
+		{
+			"generation": 5,
+			"level": 15,
+			"moves": [
+				"Aqua Jet",
+				"Leer",
+				"Double Kick",
+				"BubbleBeam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Sacred Sword",
+				"Hydro Pump",
+				"Aqua Jet",
+				"Swords Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 15,
+			"moves": [
+				"Aqua Jet",
+				"Leer",
+				"Double Kick",
+				"BubbleBeam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "resolute"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Sacred Sword",
+				"Hydro Pump",
+				"Aqua Jet",
+				"Swords Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "resolute"
+		}
+	],
+	"Kingdra": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Leer",
+				"Water Gun",
+				"Twister",
+				"Agility"
+			],
+			"forme": "default"
+		}
+	],
+	"Kyogre": [
+		{
+			"generation": 5,
+			"level": 80,
+			"moves": [
+				"Ice Beam",
+				"AncientPower",
+				"Water Spout",
+				"Thunder"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Water Spout",
+				"Thunder",
+				"Ice Beam",
+				"Sheer Cold"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Lapras": [
+		{
+			"generation": 3,
+			"level": 44,
+			"moves": [
+				"Hydro Pump",
+				"Rain Dance",
+				"Blizzard",
+				"Heal Bell"
+			],
+			"forme": "default"
+		}
+	],
+	"Larvitar": [
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"Sandstorm",
+				"Dragon Dance",
+				"Bite",
+				"Outrage"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 5,
+			"shiny": true,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Bite",
+				"Leer",
+				"Sandstorm",
+				"Superpower"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Latias": [
+		{
+			"generation": 3,
+			"level": 50,
+			"gender": "F",
+			"moves": [
+				"Charm",
+				"Recover",
+				"Psychic",
+				"Mist Ball"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"gender": "F",
+			"moves": [
+				"Mist Ball",
+				"Psychic",
+				"Recover",
+				"Charm"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "F",
+			"moves": [
+				"Water Sport",
+				"Refresh",
+				"Mist Ball",
+				"Zen Headbutt"
+			],
+			"forme": "default"
+		}
+	],
+	"Latios": [
+		{
+			"generation": 3,
+			"level": 50,
+			"gender": "M",
+			"moves": [
+				"Dragon Dance",
+				"Recover",
+				"Psychic",
+				"Luster Purge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"gender": "M",
+			"moves": [
+				"Luster Purge",
+				"Psychic",
+				"Recover",
+				"Dragon Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"moves": [
+				"Protect",
+				"Refresh",
+				"Luster Purge",
+				"Zen Headbutt"
+			],
+			"forme": "default"
+		}
+	],
+	"Leafeon": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Ledyba": [
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Refresh",
+				"Psybeam",
+				"Aerial Ace",
+				"Supersonic"
+			],
+			"forme": "default"
+		}
+	],
+	"Lickitung": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Heal Bell",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Helping Hand",
+				"Double-Edge",
+				"Defense Curl",
+				"Rollout"
+			],
+			"forme": "default"
+		}
+	],
+	"Lileep": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Recover",
+				"Rock Slide",
+				"Constrict",
+				"Acid"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Lotad": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Astonish",
+				"Growl",
+				"Absorb"
+			],
+			"forme": "default"
+		}
+	],
+	"Lucario": [
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Modest",
+			"abilities": [
+				"Steadfast"
+			],
+			"moves": [
+				"Aura Sphere",
+				"Dark Pulse",
+				"Dragon Pulse",
+				"Water Pulse"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Adamant",
+			"abilities": [
+				"Inner Focus"
+			],
+			"moves": [
+				"Force Palm",
+				"Bone Rush",
+				"Sunny Day",
+				"Blaze Kick"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Detect",
+				"Metal Claw",
+				"Counter",
+				"Bullet Punch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Naughty",
+			"isDW": true,
+			"moves": [
+				"Bullet Punch",
+				"Close Combat",
+				"Stone Edge",
+				"Shadow Claw"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Ludicolo": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"abilities": [
+				"Swift Swim"
+			],
+			"moves": [
+				"Fake Out",
+				"Hydro Pump",
+				"Ice Beam",
+				"Giga Drain"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "M",
+			"nature": "Calm",
+			"isDW": false,
+			"abilities": [
+				"Swift Swim"
+			],
+			"moves": [
+				"Scald",
+				"Giga Drain",
+				"Ice Beam",
+				"Sunny Day"
+			],
+			"forme": "default"
+		}
+	],
+	"Lugia": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Swift",
+				"Rain Dance",
+				"Hydro Pump",
+				"Recover"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Recover",
+				"Hydro Pump",
+				"Rain Dance",
+				"Swift"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Psycho Boost",
+				"Recover",
+				"Hydro Pump",
+				"FeatherDance"
+			],
+			"forme": "default"
+		}
+	],
+	"Lunatone": [
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Tackle",
+				"Harden",
+				"Confusion"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 25,
+			"moves": [
+				"Baton Pass",
+				"Psychic",
+				"Rain Dance",
+				"Rock Tomb"
+			],
+			"forme": "default"
+		}
+	],
+	"Machoke": [
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Seismic Toss",
+				"Foresight",
+				"Revenge",
+				"Vital Throw"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Low Sweep",
+				"Foresight",
+				"Seismic Toss",
+				"Revenge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Magcargo": [
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Refresh",
+				"Heat Wave",
+				"Earthquake",
+				"Flamethrower"
+			],
+			"forme": "default"
+		}
+	],
+	"Magikarp": [
+		{
+			"generation": 4,
+			"level": 5,
+			"gender": "M",
+			"nature": "Relaxed",
+			"moves": [
+				"Splash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 6,
+			"gender": "F",
+			"nature": "Rash",
+			"moves": [
+				"Splash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 7,
+			"gender": "F",
+			"nature": "Hardy",
+			"moves": [
+				"Splash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 5,
+			"gender": "F",
+			"nature": "Lonely",
+			"moves": [
+				"Splash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 4,
+			"gender": "M",
+			"nature": "Modest",
+			"moves": [
+				"Splash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 99,
+			"shiny": true,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Flail",
+				"Hydro Pump",
+				"Bounce",
+				"Splash"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Magmar": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Leer",
+				"Smog",
+				"Fire Punch",
+				"Leer"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 36,
+			"moves": [
+				"Follow Me",
+				"Fire Blast",
+				"Cross Chop",
+				"ThunderPunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Quiet",
+			"moves": [
+				"SmokeScreen",
+				"Fire Spin",
+				"Confuse Ray",
+				"Fire Punch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"SmokeScreen",
+				"Faint Attack",
+				"Fire Spin",
+				"Confuse Ray"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Magmortar": [
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "F",
+			"nature": "Modest",
+			"moves": [
+				"Flamethrower",
+				"Psychic",
+				"Hyper Beam",
+				"SolarBeam"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Hardy",
+			"moves": [
+				"Confuse Ray",
+				"Fire Punch",
+				"Lava Plume",
+				"Flamethrower"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Magneton": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Refresh",
+				"Double-Edge",
+				"Rain Dance",
+				"Thunder"
+			],
+			"forme": "default"
+		}
+	],
+	"Makuhita": [
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Refresh",
+				"Brick Break",
+				"Arm Thrust",
+				"Rock Tomb"
+			],
+			"forme": "default"
+		}
+	],
+	"Mamoswine": [
+		{
+			"generation": 5,
+			"level": 34,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Hail",
+				"Ice Fang",
+				"Take Down",
+				"Double Hit"
+			],
+			"forme": "default"
+		}
+	],
+	"Manaphy": [
+		{
+			"generation": 4,
+			"level": 5,
+			"moves": [
+				"Tail Glow",
+				"Bubble",
+				"Water Sport"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 1,
+			"moves": [
+				"Tail Glow",
+				"Bubble",
+				"Water Sport"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Acid Armor",
+				"Whirlpool",
+				"Water Pulse",
+				"Heart Swap"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Heart Swap",
+				"Water Pulse",
+				"Whirlpool",
+				"Acid Armor"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Heart Swap",
+				"Whirlpool",
+				"Water Pulse",
+				"Acid Armor"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"nature": "Impish",
+			"moves": [
+				"Aqua Ring",
+				"Water Pulse",
+				"Water Sport",
+				"Heart Swap"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Mandibuzz": [
+		{
+			"generation": 5,
+			"level": 25,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Pluck",
+				"Nasty Plot",
+				"Flatter",
+				"Faint Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Manectric": [
+		{
+			"generation": 3,
+			"level": 44,
+			"moves": [
+				"Refresh",
+				"Thunder",
+				"Rain Dance",
+				"Bite"
+			],
+			"forme": "default"
+		}
+	],
+	"Mantine": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Bubble",
+				"Supersonic"
+			],
+			"forme": "default"
+		}
+	],
+	"Mareep": [
+		{
+			"generation": 3,
+			"level": 37,
+			"gender": "F",
+			"moves": [
+				"Thunder",
+				"ThunderShock",
+				"Thunder Wave",
+				"Cotton Spore"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Growl",
+				"ThunderShock"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Heal Bell",
+				"ThunderShock",
+				"Thunder Wave",
+				"Body Slam"
+			],
+			"forme": "default"
+		}
+	],
+	"Marowak": [
+		{
+			"generation": 3,
+			"level": 44,
+			"moves": [
+				"Sing",
+				"Earthquake",
+				"Swords Dance",
+				"Rock Slide"
+			],
+			"forme": "default"
+		}
+	],
+	"Mawile": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Astonish",
+				"Fake Tears"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Sing",
+				"False Swipe",
+				"ViceGrip",
+				"Iron Defense"
+			],
+			"forme": "default"
+		}
+	],
+	"Meditite": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Bide",
+				"Meditate",
+				"Confusion"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"DynamicPunch",
+				"Confusion",
+				"Shadow Ball",
+				"Detect"
+			],
+			"forme": "default"
+		}
+	],
+	"Meloetta": [
+		{
+			"generation": 5,
+			"level": 15,
+			"moves": [
+				"Quick Attack",
+				"Confusion",
+				"Round"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Round",
+				"Teeter Dance",
+				"Psychic",
+				"Close Combat"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Meowth": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Petal Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Scratch",
+				"Growl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Bite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Sing",
+				"Slash",
+				"Pay Day",
+				"Bite"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 21,
+			"gender": "F",
+			"nature": "Jolly",
+			"abilities": [
+				"Pickup"
+			],
+			"moves": [
+				"Bite",
+				"Fake Out",
+				"Fury Swipes",
+				"Screech"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 10,
+			"gender": "M",
+			"nature": "Jolly",
+			"abilities": [
+				"Pickup"
+			],
+			"moves": [
+				"Fake Out",
+				"Pay Day",
+				"Assist",
+				"Scratch"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Pickup"
+			],
+			"moves": [
+				"Fury Swipes",
+				"Sing",
+				"Nasty Plot",
+				"Snatch"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Metagross": [
+		{
+			"generation": 4,
+			"level": 62,
+			"nature": "Brave",
+			"moves": [
+				"Bullet Punch",
+				"Meteor Mash",
+				"Hammer Arm",
+				"Zen Headbutt"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Meteor Mash",
+				"Earthquake",
+				"Bullet Punch",
+				"Hammer Arm"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"isDW": false,
+			"moves": [
+				"Bullet Punch",
+				"Zen Headbutt",
+				"Hammer Arm",
+				"Ice Punch"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 45,
+			"isDW": false,
+			"moves": [
+				"Earthquake",
+				"Zen Headbutt",
+				"Protect",
+				"Meteor Mash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 45,
+			"isDW": true,
+			"moves": [
+				"Iron Defense",
+				"Agility",
+				"Hammer Arm",
+				"Double-Edge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 45,
+			"isDW": true,
+			"moves": [
+				"Psychic",
+				"Meteor Mash",
+				"Hammer Arm",
+				"Double-Edge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 58,
+			"nature": "Serious",
+			"isDW": false,
+			"moves": [
+				"Earthquake",
+				"Hyper Beam",
+				"Psychic",
+				"Meteor Mash"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Metang": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Take Down",
+				"Confusion",
+				"Metal Claw",
+				"Refresh"
+			],
+			"forme": "default"
+		}
+	],
+	"Mew": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Pound",
+				"Transform",
+				"Mega Punch",
+				"Metronome"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Pound",
+				"Transform"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"AncientPower",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Barrier",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Mega Punch",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Amnesia",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Transform",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Psychic",
+				"Metronome",
+				"Teleport",
+				"Aura Sphere"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Synthesis",
+				"Return",
+				"Hypnosis",
+				"Teleport"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 5,
+			"moves": [
+				"Pound"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Mewtwo": [
+		{
+			"generation": 5,
+			"level": 70,
+			"isDW": false,
+			"moves": [
+				"Psystrike",
+				"Shadow Ball",
+				"Aura Sphere",
+				"Electro Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"nature": "Timid",
+			"isDW": true,
+			"moves": [
+				"Psystrike",
+				"Ice Beam",
+				"Heal Pulse",
+				"Hurricane"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Milotic": [
+		{
+			"generation": 3,
+			"level": 35,
+			"moves": [
+				"Water Pulse",
+				"Twister",
+				"Recover",
+				"Rain Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "F",
+			"nature": "Bold",
+			"moves": [
+				"Recover",
+				"Rain Dance",
+				"Ice Beam",
+				"Hydro Pump"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"shiny": true,
+			"gender": "M",
+			"nature": "Timid",
+			"moves": [
+				"Rain Dance",
+				"Recover",
+				"Hydro Pump",
+				"Icy Wind"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Recover",
+				"Hydro Pump",
+				"Ice Beam",
+				"Mirror Coat"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 58,
+			"gender": "M",
+			"nature": "Lax",
+			"isDW": false,
+			"moves": [
+				"Recover",
+				"Surf",
+				"Ice Beam",
+				"Toxic"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Minun": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Growl",
+				"Thunder Wave",
+				"Mud Sport"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Growl",
+				"Thunder Wave",
+				"Quick Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Misdreavus": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Growl",
+				"Psywave",
+				"Spite"
+			],
+			"forme": "default"
+		}
+	],
+	"Moltres": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Agility",
+				"Endure",
+				"Flamethrower",
+				"Safeguard"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Extrasensory",
+				"Morning Sun",
+				"Will-O-Wisp",
+				"Flamethrower"
+			],
+			"forme": "default"
+		}
+	],
+	"Mr. Mime": [
+		{
+			"generation": 3,
+			"level": 42,
+			"moves": [
+				"Follow Me",
+				"Psychic",
+				"Encore",
+				"ThunderPunch"
+			],
+			"forme": "default"
+		}
+	],
+	"Mudkip": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Mud-Slap",
+				"Water Gun"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Mud-Slap",
+				"Water Gun"
+			],
+			"forme": "default"
+		}
+	],
+	"Murkrow": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Peck",
+				"Astonish"
+			],
+			"forme": "default"
+		}
+	],
+	"Musharna": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": true,
+			"moves": [
+				"Defense Curl",
+				"Lucky Chant",
+				"Psybeam",
+				"Hypnosis"
+			],
+			"forme": "default"
+		}
+	],
+	"Natu": [
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Baton Pass",
+				"Future Sight",
+				"Night Shade",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		}
+	],
+	"Ninetales": [
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Bold",
+			"isDW": true,
+			"moves": [
+				"Heat Wave",
+				"SolarBeam",
+				"Psyshock",
+				"Will-O-Wisp"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Nosepass": [
+		{
+			"generation": 3,
+			"level": 26,
+			"moves": [
+				"Helping Hand",
+				"Thunderbolt",
+				"Thunder Wave",
+				"Rock Slide"
+			],
+			"forme": "default"
+		}
+	],
+	"Numel": [
+		{
+			"generation": 3,
+			"level": 14,
+			"moves": [
+				"Charm",
+				"Take Down",
+				"Dig",
+				"Ember"
+			],
+			"forme": "default"
+		}
+	],
+	"Octillery": [
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "F",
+			"nature": "Serious",
+			"abilities": [
+				"Suction Cups"
+			],
+			"moves": [
+				"Octazooka",
+				"Ice Beam",
+				"Signal Beam",
+				"Hyper Beam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Oddish": [
+		{
+			"generation": 3,
+			"level": 26,
+			"moves": [
+				"PoisonPowder",
+				"Stun Spore",
+				"Sleep Powder",
+				"Acid"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Absorb",
+				"Leech Seed"
+			],
+			"forme": "default"
+		}
+	],
+	"Omanyte": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Swift Swim"
+			],
+			"moves": [
+				"BubbleBeam",
+				"Supersonic",
+				"Withdraw",
+				"Bite"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Panpour": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Leer",
+				"Lick",
+				"Water Gun",
+				"Hydro Pump"
+			],
+			"forme": "default"
+		}
+	],
+	"Pansage": [
+		{
+			"generation": 5,
+			"level": 1,
+			"gender": "M",
+			"nature": "Brave",
+			"isDW": false,
+			"moves": [
+				"Bullet Seed",
+				"Bite",
+				"SolarBeam",
+				"Dig"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Leer",
+				"Lick",
+				"Vine Whip",
+				"Leaf Storm"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "M",
+			"nature": "Serious",
+			"isDW": false,
+			"moves": [
+				"Seed Bomb",
+				"SolarBeam",
+				"Rock Tomb",
+				"Dig"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Pansear": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Leer",
+				"Lick",
+				"Incinerate",
+				"Heat Wave"
+			],
+			"forme": "default"
+		}
+	],
+	"Paras": [
+		{
+			"generation": 3,
+			"level": 28,
+			"moves": [
+				"Refresh",
+				"Spore",
+				"Slash",
+				"False Swipe"
+			],
+			"forme": "default"
+		}
+	],
+	"Phione": [
+		{
+			"generation": 4,
+			"level": 50,
+			"abilities": [
+				"Hydration"
+			],
+			"moves": [
+				"Grass Knot",
+				"Rain Dance",
+				"Rest",
+				"Surf"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Pichu": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"ThunderShock",
+				"Charm",
+				"Surf"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"ThunderShock",
+				"Charm",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"ThunderShock",
+				"Charm",
+				"Teeter Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"ThunderShock",
+				"Charm",
+				"Follow Me"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 1,
+			"moves": [
+				"Volt Tackle",
+				"Thunderbolt",
+				"Grass Knot",
+				"Return"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"shiny": true,
+			"gender": "M",
+			"nature": "Jolly",
+			"moves": [
+				"Charge",
+				"Volt Tackle",
+				"Endeavor",
+				"Endure"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"shiny": true,
+			"gender": "M",
+			"nature": "Jolly",
+			"moves": [
+				"Volt Tackle",
+				"Charge",
+				"Endeavor",
+				"Endure"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "F",
+			"nature": "Naughty",
+			"moves": [
+				"Helping Hand",
+				"Volt Tackle",
+				"Swagger",
+				"Pain Split"
+			],
+			"forme": "default"
+		}
+	],
+	"Pidgeot": [
+		{
+			"generation": 5,
+			"level": 61,
+			"gender": "M",
+			"nature": "Naughty",
+			"isDW": false,
+			"abilities": [
+				"Keen Eye"
+			],
+			"moves": [
+				"Whirlwind",
+				"Wing Attack",
+				"Sky Attack",
+				"Mirror Move"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Pidgeotto": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Refresh",
+				"Wing Attack",
+				"Steel Wing",
+				"FeatherDance"
+			],
+			"forme": "default"
+		}
+	],
+	"Pidove": [
+		{
+			"generation": 5,
+			"level": 1,
+			"gender": "F",
+			"nature": "Hardy",
+			"isDW": false,
+			"abilities": [
+				"Super Luck"
+			],
+			"moves": [
+				"Gust",
+				"Quick Attack",
+				"Air Cutter"
+			],
+			"forme": "default"
+		}
+	],
+	"Pikachu": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Thunderbolt",
+				"Agility",
+				"Thunder",
+				"Light Screen"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"ThunderShock",
+				"Growl",
+				"Tail Whip",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Fly",
+				"Tail Whip",
+				"Growl",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Surf",
+				"Growl",
+				"Tail Whip",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Fly",
+				"Growl",
+				"Tail Whip",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"ThunderShock",
+				"Growl",
+				"Thunder Wave",
+				"Surf"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Thunderbolt",
+				"Thunder",
+				"Light Screen",
+				"Fly"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Thunderbolt",
+				"Thunder",
+				"Light Screen",
+				"Surf"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Thunderbolt",
+				"Thunder",
+				"Light Screen",
+				"Agility"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 10,
+			"gender": "F",
+			"nature": "Hardy",
+			"moves": [
+				"Surf",
+				"Volt Tackle",
+				"Tail Whip",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"ThunderShock",
+				"Growl",
+				"Tail Whip",
+				"Thunder Wave"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Hardy",
+			"moves": [
+				"Surf",
+				"Thunderbolt",
+				"Light Screen",
+				"Quick Attack"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "F",
+			"nature": "Bashful",
+			"moves": [
+				"Present",
+				"Quick Attack",
+				"ThunderShock",
+				"Tail Whip"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "M",
+			"nature": "Jolly",
+			"moves": [
+				"Grass Knot",
+				"Thunderbolt",
+				"Flash",
+				"Double Team"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Modest",
+			"moves": [
+				"Surf",
+				"Thunder",
+				"Protect"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "F",
+			"nature": "Bashful",
+			"moves": [
+				"Quick Attack",
+				"ThunderShock",
+				"Tail Whip",
+				"Present"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 40,
+			"gender": "M",
+			"nature": "Mild",
+			"moves": [
+				"Surf",
+				"Thunder",
+				"Protect"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "F",
+			"nature": "Bashful",
+			"moves": [
+				"Present",
+				"Quick Attack",
+				"Thunder Wave",
+				"Tail Whip"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"moves": [
+				"Last Resort",
+				"Present",
+				"Thunderbolt",
+				"Quick Attack"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Relaxed",
+			"moves": [
+				"Rest",
+				"Sleep Talk",
+				"Yawn",
+				"Snore"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "M",
+			"nature": "Docile",
+			"moves": [
+				"Present",
+				"Quick Attack",
+				"ThunderShock",
+				"Tail Whip"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Naughty",
+			"moves": [
+				"Volt Tackle",
+				"Iron Tail",
+				"Quick Attack",
+				"Thunderbolt"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 20,
+			"gender": "M",
+			"nature": "Bashful",
+			"moves": [
+				"Present",
+				"Quick Attack",
+				"ThunderShock",
+				"Tail Whip"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Sing",
+				"Teeter Dance",
+				"Encore",
+				"Electro Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Fly",
+				"Iron Tail",
+				"Electro Ball",
+				"Quick Attack"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "F",
+			"isDW": false,
+			"moves": [
+				"Thunder",
+				"Volt Tackle",
+				"Grass Knot",
+				"Quick Attack"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"isDW": false,
+			"moves": [
+				"ExtremeSpeed",
+				"Thunderbolt",
+				"Grass Knot",
+				"Brick Break"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"isDW": true,
+			"moves": [
+				"Fly",
+				"Thunderbolt",
+				"Grass Knot",
+				"Protect"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"ThunderShock",
+				"Tail Whip",
+				"Thunder Wave",
+				"Headbutt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Volt Tackle",
+				"Quick Attack",
+				"Feint",
+				"Volt Switch"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Brave",
+			"isDW": false,
+			"moves": [
+				"Thunderbolt",
+				"Quick Attack",
+				"Iron Tail",
+				"Electro Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Pineco": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Protect",
+				"Selfdestruct"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Refresh",
+				"Pin Missile",
+				"Spikes",
+				"Counter"
+			],
+			"forme": "default"
+		}
+	],
+	"Pinsir": [
+		{
+			"generation": 3,
+			"level": 35,
+			"moves": [
+				"Helping Hand",
+				"Guillotine",
+				"False Swipe",
+				"Submission"
+			],
+			"forme": "default"
+		}
+	],
+	"Piplup": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Pound",
+				"Growl",
+				"Bubble"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 15,
+			"isDW": false,
+			"moves": [
+				"Hydro Pump",
+				"FeatherDance",
+				"Water Sport",
+				"Peck"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Sing",
+				"Round",
+				"FeatherDance",
+				"Peck"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Pound",
+				"Growl",
+				"Bubble",
+				"FeatherDance"
+			],
+			"forme": "default"
+		}
+	],
+	"Plusle": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Growl",
+				"Thunder Wave",
+				"Water Sport"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Growl",
+				"Thunder Wave",
+				"Quick Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Poliwag": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Bubble",
+				"Sweet Kiss"
+			],
+			"forme": "default"
+		}
+	],
+	"Poliwrath": [
+		{
+			"generation": 3,
+			"level": 42,
+			"moves": [
+				"Helping Hand",
+				"Hydro Pump",
+				"Rain Dance",
+				"Brick Break"
+			],
+			"forme": "default"
+		}
+	],
+	"Poochyena": [
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Heal Bell",
+				"Dig",
+				"Poison Fang",
+				"Growl"
+			],
+			"forme": "default"
+		}
+	],
+	"Porygon2": [
+		{
+			"generation": 5,
+			"level": 10,
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Conversion 2",
+				"Sharpen",
+				"Psybeam"
+			],
+			"forme": "default"
+		}
+	],
+	"Primeape": [
+		{
+			"generation": 3,
+			"level": 34,
+			"moves": [
+				"Helping Hand",
+				"Cross Chop",
+				"Focus Energy",
+				"Reversal"
+			],
+			"forme": "default"
+		}
+	],
+	"Psyduck": [
+		{
+			"generation": 3,
+			"level": 27,
+			"abilities": [
+				"Damp"
+			],
+			"moves": [
+				"Tail Whip",
+				"Confusion",
+				"Disable"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Water Sport",
+				"Scratch",
+				"Tail Whip",
+				"Mud Sport"
+			],
+			"forme": "default"
+		}
+	],
+	"Qwilfish": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Poison Sting",
+				"Harden",
+				"Minimize"
+			],
+			"forme": "default"
+		}
+	],
+	"Raikou": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Quick Attack",
+				"Spark",
+				"Reflect",
+				"Crunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"shiny": true,
+			"nature": "Rash",
+			"moves": [
+				"Zap Cannon",
+				"Aura Sphere",
+				"ExtremeSpeed",
+				"Weather Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Ralts": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Growl",
+				"Wish"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Growl",
+				"Charm"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"Sing",
+				"Shock Wave",
+				"Reflect",
+				"Confusion"
+			],
+			"forme": "default"
+		}
+	],
+	"Rapidash": [
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Baton Pass",
+				"SolarBeam",
+				"Sunny Day",
+				"Flamethrower"
+			],
+			"forme": "default"
+		}
+	],
+	"Raticate": [
+		{
+			"generation": 3,
+			"level": 34,
+			"moves": [
+				"Refresh",
+				"Super Fang",
+				"Scary Face",
+				"Hyper Fang"
+			],
+			"forme": "default"
+		}
+	],
+	"Rayquaza": [
+		{
+			"generation": 5,
+			"level": 70,
+			"shiny": true,
+			"moves": [
+				"Dragon Pulse",
+				"AncientPower",
+				"Outrage",
+				"Dragon Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"ExtremeSpeed",
+				"Hyper Beam",
+				"Dragon Pulse",
+				"V-create"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Regice": [
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Curse",
+				"Superpower",
+				"AncientPower",
+				"Hyper Beam"
+			],
+			"forme": "default"
+		}
+	],
+	"Regigigas": [
+		{
+			"generation": 4,
+			"level": 100,
+			"moves": [
+				"Iron Head",
+				"Rock Slide",
+				"Icy Wind",
+				"Crush Grip"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Regirock": [
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Curse",
+				"Superpower",
+				"AncientPower",
+				"Hyper Beam"
+			],
+			"forme": "default"
+		}
+	],
+	"Registeel": [
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Curse",
+				"Superpower",
+				"AncientPower",
+				"Hyper Beam"
+			],
+			"forme": "default"
+		}
+	],
+	"Reshiram": [
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Blue Flare",
+				"Fusion Flare",
+				"Mist",
+				"Draco Meteor"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Rhydon": [
+		{
+			"generation": 3,
+			"level": 46,
+			"moves": [
+				"Helping Hand",
+				"Megahorn",
+				"Scary Face",
+				"Earthquake"
+			],
+			"forme": "default"
+		}
+	],
+	"Riolu": [
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Serious",
+			"abilities": [
+				"Steadfast"
+			],
+			"moves": [
+				"Aura Sphere",
+				"Shadow Claw",
+				"Bullet Punch",
+				"Drain Punch"
+			],
+			"forme": "default"
+		}
+	],
+	"Roselia": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Absorb",
+				"Growth",
+				"Poison Sting"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Sweet Kiss",
+				"Magical Leaf",
+				"Leech Seed",
+				"GrassWhistle"
+			],
+			"forme": "default"
+		}
+	],
+	"Rotom": [
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "fan"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "frost"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "heat"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "mow"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"nature": "Naughty",
+			"moves": [
+				"Uproar",
+				"Astonish",
+				"Trick",
+				"ThunderShock"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "wash"
+		}
+	],
+	"Sableye": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Leer",
+				"Scratch",
+				"Foresight",
+				"Night Shade"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 33,
+			"moves": [
+				"Helping Hand",
+				"Shadow Ball",
+				"Faint Attack",
+				"Recover"
+			],
+			"forme": "default"
+		}
+	],
+	"Salamence": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Protect",
+				"DragonBreath",
+				"Scary Face",
+				"Fly"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Refresh",
+				"Dragon Claw",
+				"Dragon Dance",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Naughty",
+			"moves": [
+				"Hydro Pump",
+				"Stone Edge",
+				"Fire Blast",
+				"Dragon Claw"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Dragon Dance",
+				"Dragon Claw",
+				"Outrage",
+				"Aerial Ace"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Samurott": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Hydro Pump",
+				"Ice Beam",
+				"Megahorn",
+				"Superpower"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Sandshrew": [
+		{
+			"generation": 3,
+			"level": 12,
+			"moves": [
+				"Scratch",
+				"Defense Curl",
+				"Sand-Attack",
+				"Poison Sting"
+			],
+			"forme": "default"
+		}
+	],
+	"Sceptile": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Leaf Storm",
+				"Dragon Pulse",
+				"Focus Blast",
+				"Rock Slide"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Scizor": [
+		{
+			"generation": 3,
+			"level": 50,
+			"gender": "M",
+			"moves": [
+				"Fury Cutter",
+				"Metal Claw",
+				"Swords Dance",
+				"Slash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Adamant",
+			"abilities": [
+				"Swarm"
+			],
+			"moves": [
+				"X-Scissor",
+				"Swords Dance",
+				"Iron Defense",
+				"Agility"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Technician"
+			],
+			"moves": [
+				"Bullet Punch",
+				"Bug Bite",
+				"Roost",
+				"Swords Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Leer",
+				"Focus Energy",
+				"Pursuit",
+				"Steel Wing"
+			],
+			"forme": "default"
+		}
+	],
+	"Scrafty": [
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Brave",
+			"isDW": false,
+			"abilities": [
+				"Moxie"
+			],
+			"moves": [
+				"Fire Punch",
+				"Payback",
+				"Drain Punch",
+				"Substitute"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Scraggy": [
+		{
+			"generation": 5,
+			"level": 1,
+			"gender": "M",
+			"nature": "Adamant",
+			"isDW": false,
+			"abilities": [
+				"Moxie"
+			],
+			"moves": [
+				"Headbutt",
+				"Leer",
+				"Hi Jump Kick",
+				"Low Kick"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Scyther": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Quick Attack",
+				"Leer",
+				"Focus Energy"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 40,
+			"moves": [
+				"Morning Sun",
+				"Razor Wind",
+				"Silver Wind",
+				"Slash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Agility",
+				"Wing Attack",
+				"Fury Cutter",
+				"Slash"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Seadra": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Leer",
+				"Water Gun",
+				"Twister",
+				"Agility"
+			],
+			"forme": "default"
+		}
+	],
+	"Seedot": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Bide",
+				"Harden",
+				"Growth"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Refresh",
+				"Giga Drain",
+				"Bullet Seed",
+				"Secret Power"
+			],
+			"forme": "default"
+		}
+	],
+	"Seel": [
+		{
+			"generation": 3,
+			"level": 23,
+			"moves": [
+				"Helping Hand",
+				"Surf",
+				"Safeguard",
+				"Ice Beam"
+			],
+			"forme": "default"
+		}
+	],
+	"Serperior": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Leaf Storm",
+				"Substitute",
+				"Giga Drain",
+				"Leech Seed"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Seviper": [
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Wrap",
+				"Lick",
+				"Bite",
+				"Poison Tail"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Poison Tail",
+				"Screech",
+				"Glare",
+				"Crunch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Wrap",
+				"Lick",
+				"Bite"
+			],
+			"forme": "default"
+		}
+	],
+	"Shaymin": [
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Seed Flare",
+				"Aromatherapy",
+				"Substitute",
+				"Energy Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"moves": [
+				"Synthesis",
+				"Leech Seed",
+				"Magical Leaf",
+				"Growth"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"moves": [
+				"Growth",
+				"Magical Leaf",
+				"Leech Seed",
+				"Synthesis"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Seed Flare",
+				"Leech Seed",
+				"Synthesis",
+				"Sweet Scent"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 50,
+			"moves": [
+				"Seed Flare",
+				"Aromatherapy",
+				"Substitute",
+				"Energy Ball"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "sky"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"moves": [
+				"Synthesis",
+				"Leech Seed",
+				"Magical Leaf",
+				"Growth"
+			],
+			"forme": "sky"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"moves": [
+				"Growth",
+				"Magical Leaf",
+				"Leech Seed",
+				"Synthesis"
+			],
+			"forme": "sky"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"Seed Flare",
+				"Leech Seed",
+				"Synthesis",
+				"Sweet Scent"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "sky"
+		}
+	],
+	"Shedinja": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Spite",
+				"Confuse Ray",
+				"Shadow Ball",
+				"Grudge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"Double Team",
+				"Fury Cutter",
+				"Screech"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 25,
+			"moves": [
+				"Swords Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 31,
+			"moves": [
+				"Slash"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 38,
+			"moves": [
+				"Agility"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Baton Pass"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 52,
+			"moves": [
+				"X-Scissor"
+			],
+			"forme": "default"
+		}
+	],
+	"Shellder": [
+		{
+			"generation": 3,
+			"level": 24,
+			"moves": [
+				"Withdraw",
+				"Icicle Spear",
+				"Supersonic",
+				"Aurora Beam"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Withdraw",
+				"Icicle Spear"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 29,
+			"moves": [
+				"Refresh",
+				"Take Down",
+				"Surf",
+				"Aurora Beam"
+			],
+			"forme": "default"
+		}
+	],
+	"Shelmet": [
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Struggle Bug",
+				"Mega Drain",
+				"Yawn",
+				"Protect"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Encore",
+				"Giga Drain",
+				"Body Slam",
+				"Bug Buzz"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Shieldon": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Metal Sound",
+				"Take Down",
+				"Body Slam",
+				"Protect"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Shroomish": [
+		{
+			"generation": 3,
+			"level": 15,
+			"moves": [
+				"Refresh",
+				"False Swipe",
+				"Mega Drain",
+				"Stun Spore"
+			],
+			"forme": "default"
+		}
+	],
+	"Shuckle": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Constrict",
+				"Withdraw",
+				"Wrap"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 20,
+			"moves": [
+				"Substitute",
+				"Toxic",
+				"Sludge Bomb",
+				"Encore"
+			],
+			"forme": "default"
+		}
+	],
+	"Shuppet": [
+		{
+			"generation": 3,
+			"level": 45,
+			"moves": [
+				"Spite",
+				"Will-O-Wisp",
+				"Faint Attack",
+				"Shadow Ball"
+			],
+			"forme": "default"
+		}
+	],
+	"Skitty": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Tail Whip",
+				"Pay Day"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Growl",
+				"Tackle",
+				"Tail Whip",
+				"Rollout"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Growl",
+				"Tackle",
+				"Tail Whip",
+				"Attract"
+			],
+			"forme": "default"
+		}
+	],
+	"Slaking": [
+		{
+			"generation": 4,
+			"level": 50,
+			"gender": "M",
+			"nature": "Adamant",
+			"moves": [
+				"Giga Impact",
+				"Return",
+				"Shadow Claw",
+				"Aerial Ace"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Slowpoke": [
+		{
+			"generation": 3,
+			"level": 31,
+			"abilities": [
+				"Oblivious"
+			],
+			"moves": [
+				"Water Gun",
+				"Confusion",
+				"Disable",
+				"Headbutt"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Curse",
+				"Yawn",
+				"Tackle",
+				"Growl"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 30,
+			"isDW": false,
+			"moves": [
+				"Confusion",
+				"Disable",
+				"Headbutt",
+				"Water Pulse"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Smeargle": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Sketch"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"nature": "Jolly",
+			"abilities": [
+				"Technician"
+			],
+			"moves": [
+				"False Swipe",
+				"Spore",
+				"Odor Sleuth",
+				"Mean Look"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Sneasel": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Taunt",
+				"Quick Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Snivy": [
+		{
+			"generation": 5,
+			"level": 5,
+			"gender": "M",
+			"nature": "Hardy",
+			"isDW": false,
+			"moves": [
+				"Growth",
+				"Synthesis",
+				"Energy Ball",
+				"Aromatherapy"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Snorlax": [
+		{
+			"generation": 3,
+			"level": 43,
+			"moves": [
+				"Refresh",
+				"Fissure",
+				"Curse",
+				"Body Slam"
+			],
+			"forme": "default"
+		}
+	],
+	"Snorunt": [
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Sing",
+				"Water Pulse",
+				"Bite",
+				"Icy Wind"
+			],
+			"forme": "default"
+		}
+	],
+	"Snubbull": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Scary Face",
+				"Tail Whip",
+				"Charm"
+			],
+			"forme": "default"
+		}
+	],
+	"Solrock": [
+		{
+			"generation": 3,
+			"level": 10,
+			"moves": [
+				"Tackle",
+				"Harden",
+				"Confusion"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 41,
+			"moves": [
+				"Baton Pass",
+				"Psychic",
+				"Sunny Day",
+				"Cosmic Power"
+			],
+			"forme": "default"
+		}
+	],
+	"Spearow": [
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Baton Pass",
+				"False Swipe",
+				"Leer",
+				"Aerial Ace"
+			],
+			"forme": "default"
+		}
+	],
+	"Spheal": [
+		{
+			"generation": 3,
+			"level": 17,
+			"moves": [
+				"Charm",
+				"Aurora Beam",
+				"Water Gun",
+				"Mud-Slap"
+			],
+			"forme": "default"
+		}
+	],
+	"Spinarak": [
+		{
+			"generation": 3,
+			"level": 14,
+			"moves": [
+				"Refresh",
+				"Dig",
+				"Signal Beam",
+				"Night Shade"
+			],
+			"forme": "default"
+		}
+	],
+	"Spinda": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Tackle",
+				"Uproar",
+				"Sing"
+			],
+			"forme": "default"
+		}
+	],
+	"Spiritomb": [
+		{
+			"generation": 5,
+			"level": 61,
+			"gender": "F",
+			"nature": "Quiet",
+			"isDW": false,
+			"moves": [
+				"Dark Pulse",
+				"Psychic",
+				"Silver Wind",
+				"Embargo"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Spoink": [
+		{
+			"generation": 3,
+			"level": 5,
+			"abilities": [
+				"Own Tempo"
+			],
+			"moves": [
+				"Splash",
+				"Uproar"
+			],
+			"forme": "default"
+		}
+	],
+	"Squirtle": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Tail Whip",
+				"Bubble",
+				"Withdraw"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Tail Whip",
+				"Bubble",
+				"Withdraw"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 1,
+			"isDW": false,
+			"moves": [
+				"False Swipe",
+				"Block",
+				"Hydro Cannon",
+				"Follow Me"
+			],
+			"forme": "default"
+		}
+	],
+	"Stantler": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Leer"
+			],
+			"forme": "default"
+		}
+	],
+	"Starly": [
+		{
+			"generation": 4,
+			"level": 1,
+			"gender": "M",
+			"nature": "Mild",
+			"moves": [
+				"Tackle",
+				"Growl"
+			],
+			"forme": "default"
+		}
+	],
+	"Starmie": [
+		{
+			"generation": 3,
+			"level": 41,
+			"moves": [
+				"Refresh",
+				"Waterfall",
+				"Ice Beam",
+				"Recover"
+			],
+			"forme": "default"
+		}
+	],
+	"Staryu": [
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Minimize",
+				"Light Screen",
+				"Cosmic Power",
+				"Hydro Pump"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 18,
+			"abilities": [
+				"Illuminate"
+			],
+			"moves": [
+				"Tackle",
+				"Water Gun",
+				"Rapid Spin",
+				"Recover"
+			],
+			"forme": "default"
+		}
+	],
+	"Suicune": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Gust",
+				"Aurora Beam",
+				"Mist",
+				"Mirror Coat"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 4,
+			"level": 30,
+			"shiny": true,
+			"nature": "Relaxed",
+			"moves": [
+				"Sheer Cold",
+				"Air Slash",
+				"ExtremeSpeed",
+				"Aqua Ring"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Sunkern": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Absorb",
+				"Growth"
+			],
+			"forme": "default"
+		}
+	],
+	"Surskit": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Bubble",
+				"Mud Sport"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Bubble",
+				"Quick Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Swablu": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Peck",
+				"Growl",
+				"False Swipe"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"isDW": false,
+			"moves": [
+				"Peck",
+				"Growl"
+			],
+			"forme": "default"
+		}
+	],
+	"Swampert": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"moves": [
+				"Earthquake",
+				"Ice Beam",
+				"Hydro Pump",
+				"Hammer Arm"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Swellow": [
+		{
+			"generation": 3,
+			"level": 43,
+			"moves": [
+				"Baton Pass",
+				"Sky Attack",
+				"Agility",
+				"Facade"
+			],
+			"forme": "default"
+		}
+	],
+	"Swinub": [
+		{
+			"generation": 3,
+			"level": 22,
+			"moves": [
+				"Charm",
+				"AncientPower",
+				"Mist",
+				"Mud Shot"
+			],
+			"forme": "default"
+		}
+	],
+	"Taillow": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Peck",
+				"Growl",
+				"Focus Energy",
+				"FeatherDance"
+			],
+			"forme": "default"
+		}
+	],
+	"Tangela": [
+		{
+			"generation": 3,
+			"level": 30,
+			"moves": [
+				"Morning Sun",
+				"SolarBeam",
+				"Sunny Day",
+				"Ingrain"
+			],
+			"forme": "default"
+		}
+	],
+	"Tauros": [
+		{
+			"generation": 3,
+			"level": 25,
+			"gender": "M",
+			"moves": [
+				"Rage",
+				"Horn Attack",
+				"Scary Face",
+				"Pursuit"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Tackle",
+				"Tail Whip",
+				"Rage",
+				"Horn Attack"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 46,
+			"gender": "M",
+			"moves": [
+				"Refresh",
+				"Earthquake",
+				"Tail Whip",
+				"Body Slam"
+			],
+			"forme": "default"
+		}
+	],
+	"Teddiursa": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Lick"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 11,
+			"moves": [
+				"Refresh",
+				"Metal Claw",
+				"Leer",
+				"Return"
+			],
+			"forme": "default"
+		}
+	],
+	"Thundurus": [
+		{
+			"generation": 5,
+			"level": 70,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Thunder",
+				"Hammer Arm",
+				"Focus Blast",
+				"Wild Charge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 70,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Thunder",
+				"Hammer Arm",
+				"Focus Blast",
+				"Wild Charge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "therian"
+		}
+	],
+	"Tirtouga": [
+		{
+			"generation": 5,
+			"level": 15,
+			"gender": "M",
+			"isDW": false,
+			"abilities": [
+				"Sturdy"
+			],
+			"moves": [
+				"Bite",
+				"Protect",
+				"Aqua Jet",
+				"Body Slam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Togekiss": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"ExtremeSpeed",
+				"Aura Sphere",
+				"Air Slash",
+				"Present"
+			],
+			"forme": "default"
+		}
+	],
+	"Togepi": [
+		{
+			"generation": 3,
+			"level": 20,
+			"gender": "F",
+			"abilities": [
+				"Serene Grace"
+			],
+			"moves": [
+				"Metronome",
+				"Charm",
+				"Sweet Kiss",
+				"Yawn"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 25,
+			"moves": [
+				"Tri Attack",
+				"Follow Me",
+				"AncientPower",
+				"Helping Hand"
+			],
+			"forme": "default"
+		}
+	],
+	"Torchic": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Focus Energy",
+				"Ember"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Scratch",
+				"Growl",
+				"Focus Energy",
+				"Ember"
+			],
+			"forme": "default"
+		}
+	],
+	"Tornadus": [
+		{
+			"generation": 5,
+			"level": 70,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Hurricane",
+				"Hammer Arm",
+				"Air Slash",
+				"Hidden Power"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 70,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Hurricane",
+				"Hammer Arm",
+				"Air Slash",
+				"Hidden Power"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "therian"
+		}
+	],
+	"Torterra": [
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Wood Hammer",
+				"Earthquake",
+				"Outrage",
+				"Stone Edge"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Totodile": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Rage"
+			],
+			"forme": "default"
+		}
+	],
+	"Trapinch": [
+		{
+			"generation": 5,
+			"level": 1,
+			"shiny": true,
+			"isDW": false,
+			"moves": [
+				"Bite"
+			],
+			"forme": "default"
+		}
+	],
+	"Treecko": [
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Pound",
+				"Leer",
+				"Absorb"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Pound",
+				"Leer",
+				"Absorb"
+			],
+			"forme": "default"
+		}
+	],
+	"Tropius": [
+		{
+			"generation": 4,
+			"level": 53,
+			"gender": "F",
+			"nature": "Jolly",
+			"abilities": [
+				"Chlorophyll"
+			],
+			"moves": [
+				"Air Slash",
+				"Synthesis",
+				"Sunny Day",
+				"SolarBeam"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Turtwig": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Withdraw",
+				"Absorb"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tackle",
+				"Withdraw",
+				"Absorb",
+				"Stockpile"
+			],
+			"forme": "default"
+		}
+	],
+	"Typhlosion": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Quick Attack",
+				"Flame Wheel",
+				"Swift",
+				"Flamethrower"
+			],
+			"forme": "default"
+		}
+	],
+	"Tyranitar": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Thrash",
+				"Scary Face",
+				"Crunch",
+				"Earthquake"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"gender": "M",
+			"isDW": false,
+			"moves": [
+				"Fire Blast",
+				"Ice Beam",
+				"Stone Edge",
+				"Crunch"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 55,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Payback",
+				"Crunch",
+				"Earthquake",
+				"Seismic Toss"
+			],
+			"forme": "default"
+		}
+	],
+	"Umbreon": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Faint Attack",
+				"Mean Look",
+				"Screech",
+				"Moonlight"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Vaporeon": [
+		{
+			"generation": 5,
+			"level": 10,
+			"gender": "M",
+			"isDW": true,
+			"moves": [
+				"Tail Whip",
+				"Tackle",
+				"Helping Hand",
+				"Sand-Attack"
+			],
+			"forme": "default"
+		}
+	],
+	"Venomoth": [
+		{
+			"generation": 3,
+			"level": 32,
+			"moves": [
+				"Refresh",
+				"Silver Wind",
+				"Substitute",
+				"Psychic"
+			],
+			"forme": "default"
+		}
+	],
+	"Victini": [
+		{
+			"generation": 5,
+			"level": 15,
+			"moves": [
+				"Incinerate",
+				"Quick Attack",
+				"Endure",
+				"Confusion"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 50,
+			"moves": [
+				"V-create",
+				"Fusion Flare",
+				"Fusion Bolt",
+				"Searing Shot"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"V-create",
+				"Blue Flare",
+				"Bolt Strike",
+				"Glaciate"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Volcarona": [
+		{
+			"generation": 5,
+			"level": 35,
+			"isDW": false,
+			"moves": [
+				"String Shot",
+				"Leech Life",
+				"Gust",
+				"Fire Spin"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 5,
+			"level": 77,
+			"gender": "M",
+			"nature": "Calm",
+			"isDW": false,
+			"moves": [
+				"Bug Buzz",
+				"Overheat",
+				"Hyper Beam",
+				"Quiver Dance"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Voltorb": [
+		{
+			"generation": 3,
+			"level": 19,
+			"moves": [
+				"Refresh",
+				"Mirror Coat",
+				"Spark",
+				"Swift"
+			],
+			"forme": "default"
+		}
+	],
+	"Vulpix": [
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Tail Whip",
+				"Roar",
+				"Quick Attack",
+				"Will-O-Wisp"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Charm",
+				"Heat Wave",
+				"Ember",
+				"Dig"
+			],
+			"forme": "default"
+		}
+	],
+	"Wailord": [
+		{
+			"generation": 3,
+			"level": 100,
+			"moves": [
+				"Rest",
+				"Water Spout",
+				"Amnesia",
+				"Hydro Pump"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Water Pulse",
+				"Mist",
+				"Rest",
+				"Water Spout"
+			],
+			"forme": "default"
+		}
+	],
+	"Walrein": [
+		{
+			"generation": 5,
+			"level": 50,
+			"isDW": false,
+			"abilities": [
+				"Thick Fat"
+			],
+			"moves": [
+				"Ice Beam",
+				"Surf",
+				"Hail",
+				"Sheer Cold"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Weavile": [
+		{
+			"generation": 4,
+			"level": 30,
+			"gender": "M",
+			"nature": "Jolly",
+			"moves": [
+				"Fake Out",
+				"Ice Shard",
+				"Night Slash",
+				"Brick Break"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Weepinbell": [
+		{
+			"generation": 3,
+			"level": 32,
+			"moves": [
+				"Morning Sun",
+				"Magical Leaf",
+				"Sludge Bomb",
+				"Sweet Scent"
+			],
+			"forme": "default"
+		}
+	],
+	"Whimsicott": [
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "F",
+			"nature": "Timid",
+			"isDW": false,
+			"abilities": [
+				"Prankster"
+			],
+			"moves": [
+				"Swagger",
+				"Giga Drain",
+				"Beat Up",
+				"Helping Hand"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Whiscash": [
+		{
+			"generation": 4,
+			"level": 51,
+			"gender": "F",
+			"nature": "Gentle",
+			"abilities": [
+				"Oblivious"
+			],
+			"moves": [
+				"Earthquake",
+				"Aqua Tail",
+				"Zen Headbutt",
+				"Giga Impact"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Whismur": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Pound",
+				"Uproar",
+				"Teeter Dance"
+			],
+			"forme": "default"
+		}
+	],
+	"Wobbuffet": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Counter",
+				"Mirror Coat",
+				"Safeguard",
+				"Destiny Bond"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Counter",
+				"Mirror Coat",
+				"Safeguard",
+				"Destiny Bond"
+			],
+			"forme": "default"
+		}
+	],
+	"Wynaut": [
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Splash",
+				"Charm",
+				"Encore",
+				"Tickle"
+			],
+			"forme": "default"
+		}
+	],
+	"Zangoose": [
+		{
+			"generation": 3,
+			"level": 18,
+			"moves": [
+				"Leer",
+				"Quick Attack",
+				"Swords Dance",
+				"Fury Cutter"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 10,
+			"gender": "M",
+			"moves": [
+				"Scratch",
+				"Leer",
+				"Quick Attack",
+				"Swords Dance"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 28,
+			"moves": [
+				"Refresh",
+				"Brick Break",
+				"Counter",
+				"Crush Claw"
+			],
+			"forme": "default"
+		}
+	],
+	"Zapdos": [
+		{
+			"generation": 3,
+			"level": 70,
+			"moves": [
+				"Agility",
+				"Detect",
+				"Drill Peck",
+				"Charge"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 50,
+			"moves": [
+				"Thunderbolt",
+				"Extrasensory",
+				"Baton Pass",
+				"Metal Sound"
+			],
+			"forme": "default"
+		}
+	],
+	"Zekrom": [
+		{
+			"generation": 5,
+			"level": 100,
+			"moves": [
+				"Bolt Strike",
+				"Fusion Bolt",
+				"Haze",
+				"Outrage"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	],
+	"Zigzagoon": [
+		{
+			"generation": 3,
+			"level": 5,
+			"shiny": true,
+			"moves": [
+				"Tackle",
+				"Growl",
+				"Tail Whip"
+			],
+			"forme": "default"
+		},
+		{
+			"generation": 3,
+			"level": 5,
+			"moves": [
+				"Tackle",
+				"Growl",
+				"ExtremeSpeed"
+			],
+			"forme": "default"
+		}
+	],
+	"Zoroark": [
+		{
+			"generation": 5,
+			"level": 50,
+			"gender": "M",
+			"nature": "Quirky",
+			"moves": [
+				"Agility",
+				"Embargo",
+				"Punishment",
+				"Snarl"
+			],
+			"pokeball": "Cherish Ball",
+			"forme": "default"
+		}
+	]
+}
