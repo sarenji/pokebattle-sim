@@ -190,3 +190,8 @@ describe "Learnsets:", ->
     it "can learn an event move but not an egg move", ->
       moveset = [ "Cotton Guard", "Pursuit" ]
       @checkMoveset(4, moveset).should.be.false
+
+  testLearnset "Gothitelle", ->
+    it "can inherit event moves from its pre-evos", ->
+      moveset = [ "Imprison" ]
+      @checkMoveset(5, moveset).should.be.true

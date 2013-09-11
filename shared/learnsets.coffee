@@ -58,7 +58,7 @@ loopLearnsets = (SpeciesData, FormeData, pokemon, forGeneration, iterator) ->
         learnset = forme.learnset["generation-#{generation}"]
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
-        if iterator(learnset) == true then return true
+        if iterator(learnset, name, formeName) == true then return true
   return false
 
 # Returns an array of moves that this Pokemon can learn for a given generation.
@@ -91,12 +91,13 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
 
   # Check against event Pokemon
   # TODO: Event Pokemon require more stringent checks, e.g. gender/ability etc.
-  events = EventPokemon[pokemon.name] || []
-  events = events.filter((event) -> event.forme == pokemon.forme || "default")
-  for event in events
-    lsetLeftovers = leftoverMoves.filter (move) ->
-      move in event.moves && pokemonLevel >= event.level
-    return true  if lsetLeftovers.length == leftoverMoves.length
+  return true  if looper (learnset, pokemonName, formeName) ->
+    events = EventPokemon[pokemonName] || []
+    events = events.filter((event) -> event.forme == formeName)
+    for event in events
+      lsetLeftovers = leftoverMoves.filter (move) ->
+        move in event.moves && pokemonLevel >= event.level
+      return true  if lsetLeftovers.length == leftoverMoves.length
 
   # These learnset groups are non-standard but can be used. If a non-standard
   # group completely overlaps the leftover moves, the moveset is valid.
