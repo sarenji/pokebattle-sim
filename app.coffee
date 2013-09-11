@@ -116,8 +116,9 @@ connections.addEvents
   'find battle': (user, team) ->
     # TODO: Take team from player.
     team ||= defaultTeam.clone()
-    if !server.validateTeam(team)
-      user.send("error", "Your team is invalid!")
+    errors = server.validateTeam(team)
+    if errors.length > 0
+      user.send("error", errors)
       return
     server.queuePlayer(user, team)
     if server.queuedPlayers().length >= 2
