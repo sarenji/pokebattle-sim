@@ -42,6 +42,11 @@ class @BattleController
   addSpectator: (spectator) ->
     @battle.addSpectator(spectator)
 
+  messageSpectators: (user, message) ->
+    for spectator in @battle.spectators
+      continue  if spectator == user
+      spectator.send('update battle chat', battleId, user.toJSON(), message)
+
   # Continue or begin a new turn if each player has made an action.
   transitionToNextState: ->
     if @battle.areAllRequestsCompleted()
@@ -52,12 +57,6 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
-    for you, i in @battle.players
-      opponents = (p  for p in @battle.players when you.id != p.id)
-      # TODO: Conceal opponent teams!
-      teams = @battle.players.map((p) -> p.team.toJSON())
-      you.send? 'initialize battle', @battle.id, @battle.numActive, you.index
-
     # Team Preview asks for order before starting the battle.
     if @battle.hasCondition(Conditions.TEAM_PREVIEW)
       teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
@@ -122,10 +121,6 @@ class @BattleController
 
   # Sends battle updates to players.
   sendUpdates: ->
-    for player in @battle.players
-      continue  if player.queue.length == 0
-      player.send('update battle', @battle.id, player.queue)
-      player.queue = []
     for spectator in @battle.spectators
       continue  if spectator.queue.length == 0
       spectator.send('update battle', @battle.id, spectator.queue)

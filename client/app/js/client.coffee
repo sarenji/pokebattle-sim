@@ -37,40 +37,41 @@ PokeBattle.socket = null
 PokeBattle.chatView = null
 PokeBattle.battles = null
 
-$ ->
-  PokeBattle.socket = new Socket(new SockJS('/socket'))
-  PokeBattle.socket.addEvents
-    'connect': (socket) ->
-      PokeBattle.userList = new UserList()
-      PokeBattle.chatView = new ChatView(
-        el: $('.chat_window .chat')
-        collection: PokeBattle.userList
-      )
-      PokeBattle.chatView.render()
+PokeBattle.socket = new Socket(new SockJS('/socket'))
+PokeBattle.socket.addEvents
+  'connect': (socket) ->
+    PokeBattle.userList = new UserList()
+    PokeBattle.chatView = new ChatView(
+      el: $('.chat_window .chat')
+      collection: PokeBattle.userList
+    )
+    PokeBattle.chatView.render()
+    $(window).load ->
       PokeBattle.initializeAuth()
 
-    'list chatroom': (socket, users) ->
-      PokeBattle.userList.reset(users)
+  'list chatroom': (socket, users) ->
+    PokeBattle.userList.reset(users)
 
-    'update chat': (socket, user, data) ->
-      PokeBattle.chatView.userMessage(user.id, data)
+  'update chat': (socket, user, data) ->
+    PokeBattle.chatView.userMessage(user.id, data)
 
-    'update battle chat': (socket, battleId, user, data) ->
-      chatView = PokeBattle.battles.get(battleId).view.chatView
-      chatView.userMessage(user.id, data)
+  'update battle chat': (socket, battleId, user, data) ->
+    chatView = PokeBattle.battles.get(battleId).view.chatView
+    chatView.userMessage(user.id, data)
 
-    'raw message': (socket, message) ->
-      PokeBattle.chatView.updateChat(message)
+  'raw message': (socket, message) ->
+    PokeBattle.chatView.updateChat(message)
 
-    'join chatroom': (socket, user) ->
-      PokeBattle.userList.add(user)
+  'join chatroom': (socket, user) ->
+    PokeBattle.userList.add(user)
 
-    'leave chatroom': (socket, user) ->
-      PokeBattle.userList.remove(user)
+  'leave chatroom': (socket, user) ->
+    PokeBattle.userList.remove(user)
 
-    'error': (socket, message) ->
-      alert(message)
+  'error': (socket, message) ->
+    alert(message)
 
+$ ->
   PokeBattle.battles = new BattleCollection([])
   $navigation = $('#navigation')
   PokeBattle.navigation = new SidebarView(el: $navigation)

@@ -1,7 +1,9 @@
 {Battle, BattleController, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
+{Player} = require('../server/player')
 {Protocol} = require '../shared/protocol'
 should = require 'should'
+sinon = require 'sinon'
 require './helpers'
 
 describe 'Battle', ->
@@ -164,28 +166,32 @@ describe 'Battle', ->
   describe "#addSpectator", ->
     it "adds the spectator to an internal array", ->
       spectator = {send: ->}
+      length = @battle.spectators.length
       @battle.addSpectator(spectator)
-      @battle.spectators.should.have.length(1)
-      @battle.spectators.should.includeEql(spectator)
+      @battle.spectators.should.have.length(length + 1)
+      @battle.spectators.map((s) -> s.user).should.includeEql(spectator)
 
     it "gives the spectator battle information", ->
       spectator = {send: ->}
       spy = @sandbox.spy(spectator, 'send')
       @battle.addSpectator(spectator)
-      t = @battle.getTeams().map((team) -> team.toJSON())
+      teams = @battle.getTeams().map((team) -> team.toJSON())
       {id, numActive} = @battle
-      spy.calledWithMatch("spectate battle", id, numActive, t).should.be.true
+      spy.calledWithMatch("spectate battle", id, numActive, sinon.match.number, teams).should.be.true
 
     it "does not add a spectator twice", ->
       spectator = {send: ->}
+      length = @battle.spectators.length
       @battle.addSpectator(spectator)
       @battle.addSpectator(spectator)
-      @battle.spectators.should.have.length(1)
+      @battle.spectators.should.have.length(length + 1)
 
-    it "does not add a player as a spectator", ->
-      @battle.addSpectator(@socket1)
-      @battle.addSpectator(@socket2)
-      @battle.spectators.should.have.length(0)
+    it "takes raw Players as well as other hashes", ->
+      spectator = new Player(id: "scouter")
+      length = @battle.spectators.length
+      @battle.addSpectator(spectator)
+      @battle.spectators.should.have.length(length + 1)
+      @battle.spectators.should.includeEql(spectator)
 
   describe "#getWinner", ->
     it "returns null if there is no winner yet", ->

@@ -42,24 +42,23 @@ $ ->
     $this.closest('.control-group').removeClass('error')
     $this.next('.help-inline').text('')
 
-$(window).load ->
-  PokeBattle.socket.addEvents
-    'register success' : (socket) ->
-      $('.modal').modal('hide')
+PokeBattle.socket.addEvents
+  'register success' : (socket) ->
+    $('.modal').modal('hide')
 
-    'register error' : (socket, errors) ->
-      errors = Array(errors)  if errors not instanceof Array
-      errorText = ("<p>#{error}</p>"  for error in errors).join('')
-      $('#register-modal .form-errors').html(errorText).removeClass('hidden')
+  'register error' : (socket, errors) ->
+    errors = Array(errors)  if errors not instanceof Array
+    errorText = ("<p>#{error}</p>"  for error in errors).join('')
+    $('#register-modal .form-errors').html(errorText).removeClass('hidden')
 
-    'login success' : (socket, user) ->
-      $('.modal').modal('hide')
-      $('.login-links').hide()
-      $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
-      PokeBattle.username = user.id
+  'login success' : (socket, user) ->
+    $('.modal').modal('hide')
+    $('.login-links').hide()
+    $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
+    PokeBattle.username = user.id
 
-    'login fail' : (socket, reason) ->
-      $('#login-modal .form-errors').text(reason).removeClass('hidden')
+  'login fail' : (socket, reason) ->
+    $('#login-modal .form-errors').text(reason).removeClass('hidden')
 
 doPasswordsMatch = (passwords) ->
   return true  if passwords.length == 0

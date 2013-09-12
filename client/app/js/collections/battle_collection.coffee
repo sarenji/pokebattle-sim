@@ -3,15 +3,9 @@ class @BattleCollection extends Backbone.Collection
 
   initialize: (models, options) =>
     PokeBattle.socket.addEvents
-      'initialize battle': @initializeBattle
       'team preview': @teamPreview
       'update battle': @updateBattle
       'spectate battle': @spectateBattle
-
-  initializeBattle: (socket, id, numActive, index) =>
-    console.log "BATTLE STARTED."
-    battle = new Battle({id, numActive, socket, index})
-    createBattleWindow(this, battle)
 
   teamPreview: (socket, battleId, teams) =>
     battle = @get(battleId)
@@ -19,7 +13,7 @@ class @BattleCollection extends Backbone.Collection
       console.log "Received events for #{battleId}, but no longer in battle!"
       return
     battle.notify()
-    battle.trigger('team preview', teams)
+    battle.trigger('team_preview', teams)
 
   updateBattle: (socket, battleId, actions) =>
     battle = @get(battleId)
@@ -122,12 +116,14 @@ class @BattleCollection extends Backbone.Collection
       else
         done()
 
-  spectateBattle: (socket, id, numActive, teams) =>
+  spectateBattle: (socket, id, numActive, index, teams) =>
     console.log "SPECTATING BATTLE #{id}."
-    # Pick a random index; it doesn't matter too much.
-    index = Math.round(Math.random())
+    isSpectating = (if index? then false else true)
+    # If not playing, pick a random index; it doesn't matter.
+    index ?= Math.floor(2 * Math.random())
     battle = new Battle({id, numActive, socket, index, teams})
-    battle.set('spectating', true)
+    # TODO: Figure out if player is spectating or not
+    battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
 
 createBattleWindow = (collection, battle) ->

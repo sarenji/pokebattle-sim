@@ -93,13 +93,7 @@ connections.addEvents
       user.send 'error', 'ERROR: Battle does not exist'
       return
 
-    # TODO: Make nicer interface
-    for player in battle.battle.players
-      continue  if player.user == user
-      player.send('update battle chat', battleId, user.toJSON(), message)
-    for spectator in battle.battle.spectators
-      continue  if spectator == user
-      spectator.send('update battle chat', battleId, user.toJSON(), message)
+    battle.messageSpectators(user, message)
 
   'save team': (user, team) ->
     console.log(team) # todo: implement this

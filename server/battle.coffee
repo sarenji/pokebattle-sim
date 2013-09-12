@@ -78,6 +78,7 @@ class @Battle
       team = new Team(this, player, team, @numActive)
       player.team = team  # TODO: Deprecate
       @players.push(player)
+      @addSpectator(player)
 
     @replacing = false
     @finished = false
@@ -203,7 +204,6 @@ class @Battle
 
   # Tells every spectator something.
   tell: (args...) ->
-    player.tell(args...)  for player in @players
     spectator.tell(args...)  for spectator in @spectators
     true
 
@@ -639,11 +639,12 @@ class @Battle
     MoveList
 
   addSpectator: (spectator) ->
-    return  if spectator in @spectators
-    return  if spectator in @players.map((player) -> player.user)
+    return  if spectator.id in @spectators.map((s) -> s.id)
+    spectator = new Player(spectator)  if spectator not instanceof Player
     @spectators.push(spectator)
     teams = @getTeams().map((team) -> team.toJSON())
-    spectator.send('spectate battle', @id, @numActive, teams)
+    index = spectator.index
+    spectator.send('spectate battle', @id, @numActive, index, teams)
 
   removeSpectator: (spectator) ->
     @spectators.remove(spectator)

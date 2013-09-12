@@ -16,7 +16,7 @@ class @BattleView extends Backbone.View
     @lastMove = null
     @spectators = new UserList([])
     @renderChat()
-    @listenTo(@model, 'team preview', @renderTeamPreview)
+    @listenTo(@model, 'team_preview', @renderTeamPreview)
 
   renderBattle: =>
     locals =
