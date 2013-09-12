@@ -736,7 +736,7 @@ class @Attachment.Substitute extends @VolatileAttachment
     return 0
 
   shouldBlockExecution: (move, user) ->
-    if move.isNonDamaging() && !move.hasFlag('authentic')
+    if move.isNonDamaging() && !move.hasFlag('authentic') && @pokemon != user
       move.fail(@battle)
       return true
 

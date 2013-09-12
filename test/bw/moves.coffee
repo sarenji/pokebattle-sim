@@ -71,8 +71,6 @@ describe 'a pokemon using a primary boosting move', ->
     shared.create.call this,
       team1: [Factory('Gyarados')]
       team2: [Factory('Hitmonchan')]
-    attack = @p1.stat('attack')
-    speed  = @p1.stat('speed')
     @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
     @p1.stages.should.include attack: 1, speed: 1
 
@@ -83,7 +81,11 @@ describe 'a pokemon using a primary boosting move', ->
     @battle.performMove(@id1, @battle.getMove('Growl'))
     @p2.stages.attack.should.equal -1
 
-  it "has the boosts removed on switch"
+  it "has the boosts removed on switch", ->
+    shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
+    @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
+    @battle.performSwitch(@id1, 1)
+    @p1.stages.should.include(attack: 0, speed: 0)
 
 describe 'a pokemon using a damaging move that also boosts stats on hit', ->
   it "deals damage and boosts stats", ->
@@ -3590,6 +3592,18 @@ describe "Substitute", ->
 
     mock = @sandbox.mock(hypnosis).expects('fail').once()
     @battle.performMove(@id2, hypnosis)
+    mock.verify()
+
+  it "does not fail stat-up moves", ->
+    shared.create.call(this)
+    dragonDance = @battle.getMove('Dragon Dance')
+    sub         = @battle.getMove('Substitute')
+
+    @battle.performMove(@id1, sub)
+    @p1.has(Attachment.Substitute).should.be.true
+
+    mock = @sandbox.mock(dragonDance).expects('fail').never()
+    @battle.performMove(@id1, dragonDance)
     mock.verify()
 
   it "does not fail non-damaging moves with an authentic flag", ->
