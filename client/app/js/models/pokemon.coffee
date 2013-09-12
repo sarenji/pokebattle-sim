@@ -17,10 +17,12 @@ class @Pokemon extends Backbone.Model
       specialAttack: 0
       specialDefense: 0
       speed: 0
-    hiddenPowerType: 'dark'
 
   initialize: (attributes={}) ->
     @set('forme', 'default')  unless attributes.forme
+    @normalizeStats(@get('ivs'), 31)
+    @normalizeStats(@get('evs'), 0)
+
     # Set to default ability when the species changes
     @on 'change:name', =>
       @set('ability', @getAbilities()[0], silent: true)
@@ -39,6 +41,14 @@ class @Pokemon extends Backbone.Model
     @set('ability', @getAbilities()[0])  unless attributes.ability
     @set('level', 100)  unless attributes.level
     @set('happiness', 0)  unless attributes.happiness
+    hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
+    @set('hiddenPowerType', hiddenPowerType, silent: true)
+
+  normalizeStats: (hash, defaultValue) ->
+    stats = [ "hp", "attack", "defense", "specialAttack",
+              "specialDefense", "speed"]
+    for stat in stats
+      hash[stat] ?= defaultValue
 
   getSpecies: ->
     SpeciesData[@get('name')]
@@ -106,10 +116,10 @@ class @Pokemon extends Backbone.Model
     @set("evs", evs)  # trigger change event
 
   iv: (stat) ->
-    @get("ivs")[stat] || 31
+    @get("ivs")[stat] ? 31
 
   ev: (stat) ->
-    @get("evs")[stat] || 0
+    @get("evs")[stat] ? 0
 
   natureBoost: (stat) ->
     nature = @get('nature')?.toLowerCase()
