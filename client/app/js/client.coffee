@@ -46,8 +46,7 @@ PokeBattle.socket.addEvents
       collection: PokeBattle.userList
     )
     PokeBattle.chatView.render()
-    $(window).load ->
-      PokeBattle.initializeAuth()
+    PokeBattle.initializeAuth()
 
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
