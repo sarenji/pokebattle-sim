@@ -92,7 +92,6 @@ $pane-width = $battle-width + $padding + $padding
             image-rendering         -o-crisp-edges
             image-rendering         -webkit-optimize-contrast
             -ms-interpolation-mode  nearest-neighbor
-            max-width none
           bottom   0
           left     0
           width    188px
@@ -112,6 +111,8 @@ $pane-width = $battle-width + $padding + $padding
           &.fade
             right   @right - 20px
             opacity .3
+          img
+            max-width none
 
     .pokemon-info
       position      absolute
