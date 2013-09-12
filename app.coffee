@@ -174,8 +174,8 @@ connections.addEvents
     {username, email, password} = params
     email = email.toLowerCase()
     errors = []
-    if !username || username.length < 6
-      errors.push 'Your username must be at least 6 characters.'
+    if !username || username.length < 2
+      errors.push 'Your username must be at least 2 characters.'
     if username && /[^a-zA-Z0-9\-_]/.test(username)
       errors.push 'Your username cannot include non-alphanumeric characters.'
     if !email || !/\@/.test(email)
