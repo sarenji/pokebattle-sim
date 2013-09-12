@@ -47,9 +47,6 @@ class @Battle
     # Current turn duration for the weather. -1 means infinity.
     @weatherDuration = -1
 
-    # Buffer of messages to send to each client.
-    @buffer = []
-
     # Array of players partaking in the battle.
     @players = []
 
@@ -557,9 +554,8 @@ class @Battle
       pokemon.switchIn()
 
   # Executed by @continueTurn
-  performMove: (id, move) ->
+  performMove: (id, move, slot = 0) ->
     player = @getPlayer(id)
-    slot = 0
     pokemon = @getTeam(id).at(slot)
     targets = @getTargets(move, pokemon)
     targets = targets.filter((p) -> !p.isFainted())
@@ -570,23 +566,13 @@ class @Battle
       # TODO: Send move id instead
       @tell(Protocol.MAKE_MOVE, player.index, slot, move.name)
       @message "But there was no PP left for the move!"
+      # TODO: Is this the right place...?
+      pokemon.resetRecords()
     else if pokemon.beforeMove(move, pokemon, targets) != false
-      # TODO: Send move id instead
-      @tell(Protocol.MAKE_MOVE, player.index, slot, move.name)
       pokemon.reducePP(move)
       for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
         pokemon.reducePP(move)
-      move.execute(this, pokemon, targets)
-      # TODO: Execute any after move events
-
-      # TODO: If move is interrupted, do we record?
-      # Record last move.
-      @lastMove = move
-      @lastPokemon = pokemon
-      pokemon.recordMove(move)
-
-    # TODO: Is this the right place...?
-    pokemon.resetRecords()
+      @executeMove(move, pokemon, targets)
 
     # Execute afterFaint events
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
@@ -596,6 +582,22 @@ class @Battle
       # Remove pending actions they had.
       @popAction(pokemon)
       pokemon.afterFaint()
+
+  executeMove: (move, pokemon, targets) ->
+    slot = pokemon.team.indexOf(pokemon)
+    player = pokemon.player
+    # TODO: Send move id instead
+    @tell(Protocol.MAKE_MOVE, player.index, slot, move.name)
+    move.execute(this, pokemon, targets)
+    # TODO: Execute any after move events
+
+    # Record last move.
+    @lastMove = move
+    @lastPokemon = pokemon
+    pokemon.recordMove(move)
+
+    # TODO: Is this the right place...?
+    pokemon.resetRecords()
 
   getTargets: (move, user) ->
     player = @getOwner(user)

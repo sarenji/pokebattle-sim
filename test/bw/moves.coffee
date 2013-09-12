@@ -1,5 +1,6 @@
 {Attachment, Battle, Pokemon, Status, VolatileStatus, Weather} = require('../../').server
 util = require '../../server/util'
+{Protocol} = require '../../shared/protocol'
 {Factory} = require '../factory'
 should = require 'should'
 {_} = require 'underscore'
@@ -3384,6 +3385,30 @@ describe "Pursuit", ->
     @battle.recordSwitch(@id2, 1)  # battle.forceSwitch makes a request
     @battle.continueTurn()
     spy.alwaysReturned(pursuit.power).should.be.true
+
+  it "emits the move name when target switches", ->
+    shared.create.call this,
+      team1: [ Factory("Magikarp") ]
+      team2: [ Factory("Magikarp", evs: {speed: 4}), Factory("Magikarp") ]
+    pursuit = @battle.getMove("Pursuit")
+    spy = @sandbox.spy(@battle, 'tell')
+
+    @battle.recordMove(@id1, pursuit)
+    @battle.recordSwitch(@id2, 1)
+    @battle.continueTurn()
+    spy.calledWith(Protocol.MAKE_MOVE).should.be.true
+
+  it "records the move when target switches", ->
+    shared.create.call this,
+      team1: [ Factory("Magikarp") ]
+      team2: [ Factory("Magikarp", evs: {speed: 4}), Factory("Magikarp") ]
+    pursuit = @battle.getMove("Pursuit")
+    mock = @sandbox.mock(@p1).expects('recordMove').once()
+
+    @battle.recordMove(@id1, pursuit)
+    @battle.recordSwitch(@id2, 1)
+    @battle.continueTurn()
+    mock.verify()
 
   it "does not trigger on team members"
 
