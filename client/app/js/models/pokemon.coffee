@@ -99,10 +99,10 @@ class @Pokemon extends Backbone.Model
       move['name'] = moveName
       move
 
-  getTotalEVs: ->
+  getTotalEVs: (options = {}) ->
     total = 0
     for stat, value of @get("evs")
-      total += value
+      total += value  if stat != options.exclude
     total
 
   setIv: (stat, value) ->
@@ -112,8 +112,12 @@ class @Pokemon extends Backbone.Model
 
   setEv: (stat, value) ->
     evs = _.clone(@get("evs"))
+    total = @getTotalEVs(exclude: stat)
+    value = Math.max(Math.min(value, 510 - total), 0)
+    value = value - (value % 4)
     evs[stat] = value
     @set("evs", evs)  # trigger change event
+    value
 
   iv: (stat) ->
     @get("ivs")[stat] ? 31

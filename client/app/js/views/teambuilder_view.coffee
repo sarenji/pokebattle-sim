@@ -110,7 +110,8 @@ class @TeambuilderView extends Backbone.View
     value = 252  if isNaN(value) || value > 252 || value < 0
 
     pokemon = @getSelectedPokemon()
-    pokemon.setEv(stat, value)
+    value = pokemon.setEv(stat, value)
+    $input.val(value)
 
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
