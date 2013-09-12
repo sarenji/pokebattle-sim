@@ -13,6 +13,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
+    'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
     'change .select-hidden-power': 'changeHiddenPower'
@@ -32,6 +33,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'change:evs', @renderStats)
     @listenTo(@collection, 'change:nature', @renderStats)
     @listenTo(@collection, 'change:hiddenPowerType', @renderStats)
+    @listenTo(@collection, 'change:shiny', @renderPokemon)
 
     # Todo: Make this perform better
     @listenTo(@collection, 'change:name change:forme', (pokemon) =>
@@ -89,6 +91,10 @@ class @TeambuilderView extends Backbone.View
   changeItem: (e) =>
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("item", $list.val())
+
+  changeShiny: (e) =>
+    $checkbox = $(e.currentTarget)
+    @getSelectedPokemon().set("shiny", $checkbox.is(":checked"))
 
   changeIv: (e) =>
     # todo: make changeIv and changeEv DRY

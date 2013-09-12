@@ -15,7 +15,7 @@ mixin printStat(statName, keyName)
         - var selected = (species === pokemon.get("name"))
         option(value=species, selected=selected)= species
     .forme-sprite-box
-      - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'))
+      - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'), {shiny: pokemon.get('shiny')})
       img.forme-sprite(src=url, alt="")
     - var formes = pokemon.getFormes()
     if formes.length > 1
@@ -67,7 +67,7 @@ mixin printStat(statName, keyName)
             input.selected_happiness(type="text", value=pokemon.get('happiness'))
           div
             span Shiny?
-            input.selected_shininess(type="checkbox", value=pokemon.get('shiny'))
+            input.selected_shininess(type="checkbox", checked=pokemon.get('shiny'))
 
       .span8
         table.stats

@@ -2,7 +2,7 @@
 - var color = ((percent <= 25) ? "#f00" : (percent <= 50) ? "#ff0" : "#0f0")
 - var style = "width: " + percent + "%"
 - var greenStyle = style + "; background-color: " + color
-.sprite.preload(data-name = pokemon.name, data-forme = pokemon.forme)
+.sprite.preload(data-name = pokemon.name, data-forme = pokemon.forme, data-shiny = (pokemon.shiny ? "true" : "false"))
 .pokemon-info
   .pokemon-name= pokemon.name
   .pokemon-meta

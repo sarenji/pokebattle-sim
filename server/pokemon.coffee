@@ -19,6 +19,7 @@ class @Pokemon
     @species = SpeciesData[@name]
     @level = attributes.level || 100
     @gender = attributes.gender || "Genderless"
+    @shiny = attributes.shiny
     @nfe = (@species?.evolvesInto?.length > 0)
     @attachments = new Attachments()
 
@@ -448,6 +449,7 @@ class @Pokemon
       "gender"    : @gender
       "boosts"    : @stages
       "forme"     : @forme
+      "shiny"     : @shiny == true
     return base  if options.hidden
     Object.merge base,
       "hp"        : @currentHP

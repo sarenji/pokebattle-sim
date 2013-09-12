@@ -6,7 +6,8 @@
 
 @PokemonSprite = (id, forme, options = {}) ->
   front = options.front ? true
-  kind  = (if front then 'i' else 'b')
+  shiny = options.shiny ? false
+  kind  = if shiny && front  then 's' else if shiny && !front then 'bs' else if !shiny && front then 'i' else 'b'
   id    = "000#{id}".substr(-3)
   if forme && forme != 'default' then id += "-#{forme}"
   "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
