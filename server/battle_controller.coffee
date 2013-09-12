@@ -6,6 +6,7 @@
 class @BattleController
   constructor: (@battle) ->
     @arranged = []
+    @arranging = false
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
@@ -41,6 +42,9 @@ class @BattleController
 
   addSpectator: (spectator) ->
     @battle.addSpectator(spectator)
+    if @arranging && spectator not in @battle.players
+      teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
+      spectator.send? 'team preview', @battle.id, teams
 
   messageSpectators: (user, message) ->
     for spectator in @battle.spectators
@@ -59,8 +63,9 @@ class @BattleController
   beginBattle: ->
     # Team Preview asks for order before starting the battle.
     if @battle.hasCondition(Conditions.TEAM_PREVIEW)
+      @arranging = true
       teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
-      for you, i in @battle.players
+      for you, i in @battle.spectators
         you.send? 'team preview', @battle.id, teams
     else
       @_beginBattle()
@@ -81,6 +86,7 @@ class @BattleController
     return true
 
   _beginBattle: ->
+    @arranging = false
     @battle.begin()
     @sendUpdates()
 

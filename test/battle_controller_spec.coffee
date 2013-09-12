@@ -1,5 +1,6 @@
 {moves} = require('../data/bw')
 {Battle, Pokemon, Status, VolatileStatus, Attachment} = require('../').server
+{Player} = require('../server/player')
 {Conditions} = require '../server/conditions'
 {Factory} = require './factory'
 should = require 'should'
@@ -213,3 +214,22 @@ describe 'BattleController', ->
         @team2.at(0).name.should.equal("Celebi")
         @team2.at(1).name.should.equal("Magikarp")
         @team2.at(2).name.should.equal("Gyarados")
+
+      it "shows the team preview for new spectators", ->
+        conditions = [ Conditions.TEAM_PREVIEW ]
+        shared.create.call(this, {conditions})
+        spectator = new Player(id: "scouter")
+        length = @battle.spectators.length
+        spy = @sandbox.spy(spectator, 'send')
+        @controller.addSpectator(spectator)
+        spy.calledWith('team preview').should.be.true
+
+      it "does not show the team preview if the battle is done arranging", ->
+        conditions = [ Conditions.TEAM_PREVIEW ]
+        shared.create.call(this, {conditions})
+        @controller._beginBattle()
+        spectator = new Player(id: "scouter")
+        length = @battle.spectators.length
+        spy = @sandbox.spy(spectator, 'send')
+        @controller.addSpectator(spectator)
+        spy.calledWith('team preview').should.be.false

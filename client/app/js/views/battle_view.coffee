@@ -62,6 +62,7 @@ class @BattleView extends Backbone.View
       teams        : teams
       numActive    : @model.numActive
       yourIndex    : @model.index
+      isSpectating : @model.get('spectating')
       window       : window
     @$('.battle_pane').html @team_preview_template(locals)
     $arrangeTeam = @$('.arrange_team')

@@ -1,8 +1,27 @@
-mixin displayTeam(team, klass)
-  .row-fluid(class = klass)
-    each pokemon in team.pokemon
-      .span2.button
-        .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
+mixin displayOtherTeam(team, text)
+  section.battle_team_preview
+    p= text
+    ul.row-fluid.unstyled
+      each pokemon in team.pokemon
+        li.span2
+          +displayPokemon(pokemon)
+
+mixin displayYourTeam(team, text)
+  section.battle_team_preview
+    p= text
+    ul.row-fluid.unstyled
+      - for (var i = 0; i < numActive; i++)
+        li.span2.lead_text
+          if numActive > 1
+            | Lead #{i + 1}
+          else
+            | Lead
+    ul.arrange_team.row-fluid.unstyled
+      each pokemon, i in yourTeam.pokemon
+        li.span2.img-polaroid
+          +displayPokemon(pokemon, i)
+
+    .button.submit_arrangement Start battle
 
 mixin displayPokemon(pokemon, i)
   .team_pokemon
@@ -18,25 +37,9 @@ mixin displayPokemon(pokemon, i)
 .battle_teams
   - var theirTeam = teams[1 - yourIndex]
   - var yourTeam = teams[yourIndex]
-  section.battle_team_preview
-    p Your opponent's team:
-    ul.row-fluid.unstyled
-      each pokemon in theirTeam.pokemon
-        li.span2
-          +displayPokemon(pokemon)
-
-  section.battle_team_preview
-    p Drag and rearrange your team:
-    ul.row-fluid.unstyled
-      - for (var i = 0; i < numActive; i++)
-        li.span2.lead_text
-          if numActive > 1
-            | Lead #{i + 1}
-          else
-            | Lead
-    ul.arrange_team.row-fluid.unstyled
-      each pokemon, i in yourTeam.pokemon
-        li.span2.img-polaroid
-          +displayPokemon(pokemon, i)
-
-    .button.submit_arrangement Start battle
+  if !isSpectating
+    +displayOtherTeam(theirTeam, "Your opponent's team:")
+    +displayYourTeam(yourTeam, "Drag and rearrange your team:")
+  else
+    +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
+    +displayOtherTeam(yourTeam, yourTeam.owner + "'s team:")
