@@ -55,4 +55,4 @@ mixin moveButton(forPokemon, i)
         - var disabledClass = (!isEnabled ? 'disabled' : '')
         .span4
           .switch.button(class = disabledClass, data-slot = i)
-            .pokemon_icon(style = window.PokemonIconBackground(pokemon.name))
+            .pokemon_icon(style = window.PokemonIconBackground(pokemon.name, pokemon.forme))

@@ -32,10 +32,9 @@ class @TeambuilderView extends Backbone.View
     @listenTo(@collection, 'change:evs', @renderStats)
     @listenTo(@collection, 'change:nature', @renderStats)
     @listenTo(@collection, 'change:hiddenPowerType', @renderStats)
-    @listenTo(@collection, 'change:forme', @renderPokemon)
 
     # Todo: Make this perform better
-    @listenTo(@collection, 'change:name', (pokemon) =>
+    @listenTo(@collection, 'change:name change:forme', (pokemon) =>
       @renderPokemonList()
       @renderPokemon(pokemon)
     )
@@ -221,7 +220,8 @@ class @TeambuilderView extends Backbone.View
       $listItem = $("<li/>").data("pokemon-index", i)
       $listItem.text(pokemon.get("name"))
       $listItem.prepend($("<div/>").addClass("pokemon_icon")
-        .attr("style", PokemonIconBackground(pokemon.get('name'))))
+        .attr("style", PokemonIconBackground(pokemon.get('name'),
+                                             pokemon.get('forme'))))
       $listItem.addClass("active")  if @selected == i
       pokemon_list.append($listItem)
 

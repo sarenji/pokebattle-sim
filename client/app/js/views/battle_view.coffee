@@ -91,8 +91,9 @@ class @BattleView extends Backbone.View
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
+      forme = $this.data('forme')
       {id}  = SpeciesData[name]
-      url   = imageUrl(id, front: front)
+      url   = PokemonSprite(id, forme, front: front)
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
 
@@ -375,11 +376,6 @@ class @BattleView extends Backbone.View
     toSlot = parseInt(toSlot, 10)
     @model.makeSwitch(toSlot)
     @disableButtons()
-
-imageUrl = (id, options = {}) ->
-  kind = if options.front then 'i' else 'b'
-  id   = "000#{id}".substr(-3)
-  "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
 
 addPokemonImage = ($div, url, options = {}) ->
   scale = options.scale || 1

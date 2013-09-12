@@ -447,6 +447,7 @@ class @Pokemon
       "level"     : @level
       "gender"    : @gender
       "boosts"    : @stages
+      "forme"     : @forme
     return base  if options.hidden
     Object.merge base,
       "hp"        : @currentHP
