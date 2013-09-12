@@ -48,8 +48,8 @@ class @BattleController
 
   messageSpectators: (user, message) ->
     for spectator in @battle.spectators
-      continue  if spectator == user
-      spectator.send('update battle chat', battleId, user.toJSON(), message)
+      continue  if spectator.id == user.id
+      spectator.send('update battle chat', @battle.id, user.toJSON(), message)
 
   # Continue or begin a new turn if each player has made an action.
   transitionToNextState: ->
