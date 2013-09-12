@@ -342,6 +342,7 @@ class @Attachment.Spikes extends @TeamAttachment
     fraction = (10 - 2 * @layers)
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp / fraction)
+    @battle.message("#{pokemon.name} is hurt by the spikes!")
 
 class @Attachment.StealthRock extends @TeamAttachment
   name: "StealthRockAttachment"
@@ -350,6 +351,7 @@ class @Attachment.StealthRock extends @TeamAttachment
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
     pokemon.damage Math.floor(hp * multiplier / 8)
+    @battle.message("Pointed stones dug into #{pokemon.name}!")
 
 class @Attachment.ToxicSpikes extends @TeamAttachment
   name: "ToxicSpikesAttachment"
