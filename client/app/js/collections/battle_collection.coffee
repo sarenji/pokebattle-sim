@@ -25,6 +25,9 @@ class @BattleCollection extends Backbone.Collection
 
   _updateBattle: (battle, actions, wasAtBottom) =>
     view = battle.view
+    # TODO: Kind of hacky
+    $teamPreview = view.$('.battle_teams')
+    $teamPreview.remove()
     if actions.length == 0
       if wasAtBottom then view.chatView.scrollToBottom()
       return
