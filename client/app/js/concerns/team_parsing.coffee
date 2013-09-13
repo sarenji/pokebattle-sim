@@ -34,7 +34,6 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       for ev in evs
         ev = ev.trim()
         [ numberString, rawStat ] = ev.split(/\s+/)
-        rawStat = rawStat.toLowerCase()
         pokemon.evs[statsHash[rawStat]] = Number(numberString) || 0
     else if line.match(/^IVs: (.*)$/i)
       ivs = RegExp.$1.split(/\//g)
@@ -42,7 +41,6 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       for iv in ivs
         iv = iv.trim()
         [ numberString, rawStat ] = iv.split(/\s+/)
-        rawStat = rawStat.toLowerCase()
         pokemon.ivs[statsHash[rawStat]] = Number(numberString) || 0
     else if line.match(/^([A-Za-z]+) nature/i)
       pokemon.nature = RegExp.$1
@@ -60,13 +58,15 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
 
 statsHash =
   'hp'   : 'hp'
-  'atk'  : 'attack'
-  'def'  : 'defense'
-  'satk' : 'specialAttack'
-  'spa'  : 'specialAttack'
-  'sdef' : 'specialDefense'
-  'spd'  : 'specialDefense'
-  'spe'  : 'speed'
+  'HP'   : 'hp'
+  'Atk'  : 'attack'
+  'Def'  : 'defense'
+  'SAtk' : 'specialAttack'
+  'SpA'  : 'specialAttack'
+  'SDef' : 'specialDefense'
+  'SpD'  : 'specialDefense'
+  'Spe'  : 'speed'
+  'Spd'  : 'speed'
 
 convertNameToSpeciesAndForme = (pokemon, name) ->
   if name.match(/(.*)-T(herian)?/i)
