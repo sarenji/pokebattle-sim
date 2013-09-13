@@ -51,7 +51,7 @@ class @SidebarView extends Backbone.View
     index = $navItems.index($battle)
     $battle.remove()
     if PokeBattle.battles.size() == 0
-      @$(".header_battles, .nav_battles").hide()
+      @$(".header_battles, .nav_battles").addClass('hidden')
     $next = $navItems.eq(index - 1)
     $next.click()
 
