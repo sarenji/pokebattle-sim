@@ -363,7 +363,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
       @battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
       @team.unattach(@constructor)
 
-    return  if pokemon.isImmune("Poison")
+    return  if pokemon.isImmune("Poison") || pokemon.isImmune("Ground")
 
     if @layers == 1
       pokemon.attach(Status.Poison)

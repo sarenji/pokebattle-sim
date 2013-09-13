@@ -1784,9 +1784,17 @@ describe "Toxic Spikes", ->
     @battle.performSwitch(@id2, 1)
     @team2.first().has(Status.Toxic).should.be.true
 
-  it "does not affect the pokemon if it's immune", ->
+  it "does not affect the pokemon if it's immune to Poison", ->
     shared.create.call this,
       team2: [Factory("Magikarp"), Factory("Ferrothorn")]
+
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.performSwitch(@id2, 1)
+    @team2.first().has(Status.Poison).should.be.false
+
+  it "does not affect the pokemon if it's immune to Ground", ->
+    shared.create.call this,
+      team2: [Factory("Magikarp"), Factory("Gyarados")]
 
     @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
     @battle.performSwitch(@id2, 1)
