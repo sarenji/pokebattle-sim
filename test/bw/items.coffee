@@ -1,7 +1,6 @@
 {Item} = require('../../data/bw')
-{Status} = require '../../server/status'
 {Pokemon} = require '../../server/pokemon'
-{Attachment} = require '../../server/attachment'
+{Attachment, Status} = require '../../server/attachment'
 {Move} = require '../../server/move'
 {Factory} = require '../factory'
 util = require '../../server/util'

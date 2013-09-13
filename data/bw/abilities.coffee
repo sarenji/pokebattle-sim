@@ -1,5 +1,4 @@
-{Attachment, VolatileAttachment} = require '../../server/attachment'
-{Status} = require '../../server/status'
+{Attachment, Status, VolatileAttachment} = require '../../server/attachment'
 {Weather} = require '../../server/weather'
 util = require '../../server/util'
 require 'sugar'

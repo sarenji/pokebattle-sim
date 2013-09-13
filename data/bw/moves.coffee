@@ -1,8 +1,7 @@
 @MoveData = require('./data_moves.json')
 {Weather} = require('../../server/weather')
 {Move} = require('../../server/move')
-{Status} = require('../../server/status')
-{Attachment} = require('../../server/attachment')
+{Attachment, Status} = require('../../server/attachment')
 {Protocol} = require('../../shared/protocol')
 {_} = require 'underscore'
 util = require '../../server/util'

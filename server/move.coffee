@@ -1,5 +1,4 @@
-{Status} = require './status'
-{Attachment} = require './attachment'
+{Attachment, Status} = require './attachment'
 {Protocol} = require '../shared/protocol'
 util = require './util'
 
