@@ -118,6 +118,8 @@ class @BattleCollection extends Backbone.Collection
         done()
       else
         done()
+    if wasAtBottom && !view.chatView.isAtBottom()
+      view.chatView.scrollToBottom()
 
   spectateBattle: (socket, id, numActive, index, teams) =>
     console.log "SPECTATING BATTLE #{id}."
