@@ -431,7 +431,8 @@ makeWeatherMove = (name, weatherType) ->
 extendWithBoost = (name, boostTarget, boosts) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      user.boost(boosts)
+      pokemon = (if boostTarget == 'self' then user else target)
+      pokemon.boost(boosts)
 
 extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
   extendMove name, ->

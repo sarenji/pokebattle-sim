@@ -97,6 +97,12 @@ describe 'a pokemon using a damaging move that also boosts stats on hit', ->
     @p1.stages.specialAttack.should.equal -2
     (hp - @p2.currentHP).should.equal 178
 
+describe 'Low Sweep', ->
+  it "lowers the target's speed by 1", ->
+    shared.create.call(this)
+    @battle.performMove(@id1, @battle.getMove('Low Sweep'))
+    @p2.stages.speed.should.equal(-1)
+
 describe 'a pokemon using a move with a secondary boosting effect', ->
   it "has a chance to activate", ->
     shared.create.call this,
