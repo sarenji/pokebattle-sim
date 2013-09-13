@@ -339,16 +339,6 @@ class @BattleView extends Backbone.View
       done()
     @renderUserInfo()
 
-  getMoveName: (el) =>
-    $el = $(el)
-    $el = $el.closest('.button')  if !$el.hasClass('button')
-    $el.data('move-id')
-
-  isDisabled: (el) =>
-    $el = $(el)
-    $el = $el.closest('.button')  if !$el.hasClass('button')
-    $el.hasClass('disabled')
-
   enableButtons: (validActions) =>
     @renderActions(validActions)
 
@@ -364,8 +354,9 @@ class @BattleView extends Backbone.View
     done()
 
   makeMove: (e) =>
-    moveName = @getMoveName(e.target)
-    if @isDisabled()
+    $target = $(e.currentTarget)
+    moveName = $target.data('move-id')
+    if $target.hasClass('disabled')
       console.log "Cannot use #{moveName}."
       return
     console.log "Making move #{moveName}"
@@ -373,8 +364,9 @@ class @BattleView extends Backbone.View
     @disableButtons()
 
   switchPokemon: (e) =>
-    toSlot = $(e.currentTarget).data('slot')
-    if @isDisabled()
+    $target = $(e.currentTarget)
+    toSlot = $target.data('slot')
+    if $target.hasClass('disabled')
       console.log "Cannot switch to #{toSlot}."
       return
     console.log "Switching to #{toSlot}"
