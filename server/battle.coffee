@@ -551,7 +551,7 @@ class @Battle
       switched.push team.at(slot)
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched
-      pokemon.switchIn()
+      pokemon.team.switchIn(pokemon)
 
   # Executed by @continueTurn
   performMove: (id, move, slot = 0) ->

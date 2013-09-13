@@ -1697,6 +1697,17 @@ describe "Spikes", ->
 
     @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
+  it "affects replacements", ->
+    shared.create.call this,
+      team2: [Factory("Magikarp"), Factory("Magikarp")]
+
+    @battle.performMove(@id1, @battle.getMove("Spikes"))
+    @battle.recordSwitch(@id2, 1)
+    @battle.performReplacements()
+
+    hp = @team2.first().stat('hp')
+    (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
+
 describe "Stealth Rock", ->
   shared.shouldDoNoDamage("Stealth Rock")
   shared.shouldFailIfUsedTwice("Stealth Rock")
@@ -1724,6 +1735,17 @@ describe "Stealth Rock", ->
     pokemon = @team2.first()
     hp = pokemon.stat('hp')
     (hp - pokemon.currentHP).should.equal Math.floor(hp / 8)
+
+  it "affects replacements", ->
+    shared.create.call this,
+      team2: [Factory("Magikarp"), Factory("Magikarp")]
+
+    @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+    @battle.recordSwitch(@id2, 1)
+    @battle.performReplacements()
+
+    hp = @team2.first().stat('hp')
+    (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
 
 describe "Toxic Spikes", ->
   it "puts a layer of toxic spikes on the opponents' field", ->
@@ -1779,6 +1801,16 @@ describe "Toxic Spikes", ->
     @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
     @battle.performSwitch(@id2, 1)
     @team2.has(Attachment.ToxicSpikes).should.be.true
+
+  it "affects replacements", ->
+    shared.create.call this,
+      team2: [Factory("Magikarp"), Factory("Magikarp")]
+
+    @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+    @battle.recordSwitch(@id2, 1)
+    @battle.performReplacements()
+
+    @team2.first().hasStatus(Status.POISON).should.be.true
 
 testWeatherMove = (moveName, weather, item) ->
   describe moveName, ->
