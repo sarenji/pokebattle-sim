@@ -115,23 +115,38 @@ $pane-width = $battle-width + $padding + $padding
     .pokemon-info
       position      absolute
       width         144px
-      height        3px
+      height        6px
       border        1px solid #fff
       border-radius 2px
       box-shadow    0 0 0 1px #000
       background    rgba(0, 8, 32, .5)
-      .hp, .hp-red
-        position    absolute
-        top         0
-        left        0
-        bottom      0
+      .hp, .hp-red, .hp-gradient
+        position absolute
+        top 0
+        left 0
+        bottom 0
         width       100%
         transition  width .4s cubic-bezier(0, 1, .5, 1)
+      .hp-gradient
+        background linear-gradient(top, transparent 40%, rgba(0,32,64,0.3) 60%)
       .hp-red
         background  #C00
         transition  width .4s linear 1s
       .hp
         background  #0f0
+      .hp-text
+        position absolute
+        top -1px
+        bottom @top
+        left 100%
+        background #333
+        color #fff
+        font-size 8px
+        line-height @font-size
+        padding 0 4px
+        border-radius 0 2px 2px 0
+        box-shadow 0 0 0 1px #222
+        font-family Verdana, sans-serif
       .pokemon-name, .pokemon-meta
         position absolute
         bottom 100%

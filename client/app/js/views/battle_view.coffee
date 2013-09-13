@@ -103,6 +103,7 @@ class @BattleView extends Backbone.View
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
     $allHP = $info.find('.hp, .hp-red')
+    $hpText = $info.find('.hp-text')
     pokemon = @model.getPokemon(player, slot)
     percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
     if percent <= 25
@@ -111,7 +112,8 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#ff0")
     else
       $hp.css(backgroundColor: "#0f0")
-    $allHP.width(percent + "%")
+    $allHP.width("#{percent}%")
+    $hpText.text("#{percent}%")
     done()
 
   switchIn: (player, slot, done) =>
