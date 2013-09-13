@@ -106,6 +106,7 @@ class @BattleView extends Backbone.View
     $hpText = $info.find('.hp-text')
     pokemon = @model.getPokemon(player, slot)
     percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
+    percent = Math.max(percent, 0)
     if percent <= 25
       $hp.css(backgroundColor: "#f00")
     else if percent <= 50
