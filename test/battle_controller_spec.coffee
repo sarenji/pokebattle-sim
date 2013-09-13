@@ -75,6 +75,13 @@ describe 'BattleController', ->
       @controller.makeSwitch(@player1, 2)
       mock.verify()
 
+    it "rejects switches not for a specific turn", ->
+      shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
+
+      mock = @sandbox.mock(@battle).expects('recordMove').never()
+      @controller.makeSwitch(@player1, 2)
+      mock.verify()
+
   describe "move validations", ->
     it "rejects moves not part of the pokemon's valid moves", ->
       shared.create.call this,
@@ -114,6 +121,14 @@ describe 'BattleController', ->
 
       mock = @sandbox.mock(@battle).expects('recordMove').never()
       @controller.makeMove(@player1, @p1.moves[0].name)
+      mock.verify()
+
+    it "rejects moves not for a specific turn", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
+
+      mock = @sandbox.mock(@battle).expects('recordMove').never()
+      @controller.makeMove(@player1, @p1.moves[0].name, null, @battle.turn - 1)
       mock.verify()
 
   describe "conditions:", ->

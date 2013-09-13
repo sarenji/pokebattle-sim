@@ -10,8 +10,9 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName, forSlot = 0) ->
+  makeMove: (player, moveName, forSlot = 0, forTurn = @battle.turn) ->
     return  if @battle.isOver()
+    return  if forTurn != @battle.turn
     pokemon = @battle.getTeam(player.id).at(forSlot)
     return  if !pokemon
     request = @battle.requestFor(pokemon)
@@ -24,8 +25,9 @@ class @BattleController
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  makeSwitch: (player, toPosition, forSlot = 0) ->
+  makeSwitch: (player, toPosition, forSlot = 0, forTurn = @battle.turn) ->
     return  if @battle.isOver()
+    return  if forTurn != @battle.turn
     pokemon = @battle.getTeam(player.id).at(forSlot)
     return  if !pokemon
     request = @battle.requestFor(pokemon)

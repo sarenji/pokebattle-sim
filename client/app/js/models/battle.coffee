@@ -2,15 +2,16 @@ class @Battle extends Backbone.Model
   initialize: (attributes) =>
     {@socket, @numActive, @index} = attributes
     @set('notifications', 0)
+    @set('turn', 0)
 
   receiveTeams: (teams) =>
     @teams = teams
 
-  makeMove: (moveName) =>
-    @socket.send 'send move', @id, moveName
+  makeMove: (moveName, forSlot) =>
+    @socket.send('send move', @id, moveName, forSlot, @get('turn'))
 
-  makeSwitch: (toSlot) =>
-    @socket.send 'send switch', @id, toSlot
+  makeSwitch: (toSlot, forSlot) =>
+    @socket.send('send switch', @id, toSlot, forSlot, @get('turn'))
 
   arrangeTeam: (arrangement) =>
     @socket.send 'arrange team', @id, arrangement

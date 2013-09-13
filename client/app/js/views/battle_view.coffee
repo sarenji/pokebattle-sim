@@ -360,6 +360,7 @@ class @BattleView extends Backbone.View
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
+    @model.set('turn', turn)
     done()
 
   makeMove: (e) =>

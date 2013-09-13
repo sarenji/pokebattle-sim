@@ -386,7 +386,7 @@ class @Battle
   #
   recordMove: (playerId, move, forSlot = 0) ->
     action = {type: 'move', id: playerId, move: move, slot: forSlot}
-    @pokemonActions.push(action)
+    @pokemonActions.push(action)  unless @getAction(playerId, forSlot)
     @removeRequest(playerId, forSlot)
 
   # Tells the player to switch with a certain pokemon specified by position.
@@ -398,7 +398,7 @@ class @Battle
   #
   recordSwitch: (playerId, toPosition, forSlot = 0) ->
     action = {type: 'switch', id: playerId, to: toPosition, slot: forSlot}
-    @pokemonActions.push(action)
+    @pokemonActions.push(action)  unless @getAction(playerId, forSlot)
     @removeRequest(playerId, forSlot)
 
   removeRequest: (playerId, forSlot = 0) ->
@@ -420,11 +420,13 @@ class @Battle
           return action
     return null
 
-  getAction: (pokemon) ->
-    owner = pokemon.player
-    slot = @getSlotNumber(pokemon)
+  getAction: (playerId, slot) ->
+    if playerId instanceof Pokemon
+      pokemon = playerId
+      playerId = pokemon.player.id
+      slot = @getSlotNumber(pokemon)
     for action in @pokemonActions
-      return action  if action.id == owner.id && action.slot == slot
+      return action  if action.id == playerId && action.slot == slot
     return null
 
   popAction: (pokemon) ->

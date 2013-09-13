@@ -53,6 +53,12 @@ describe 'Battle', ->
       action.should.have.property("move")
       action.move.should.equal @battle.getMove('Tackle')
 
+    it "does not record a move if player has already made an action", ->
+      length = @battle.pokemonActions.length
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.pokemonActions.length.should.equal(1 + length)
+
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
@@ -60,6 +66,12 @@ describe 'Battle', ->
       should.exist(action)
       action.should.have.property("to")
       action.to.should.equal 1
+
+    it "does not record a switch if player has already made an action", ->
+      length = @battle.pokemonActions.length
+      @battle.recordSwitch(@id1, 1)
+      @battle.recordSwitch(@id1, 1)
+      @battle.pokemonActions.length.should.equal(1 + length)
 
   describe '#performSwitch', ->
     it "swaps pokemon positions of a player's team", ->
