@@ -61,6 +61,9 @@ class @Pokemon
     # if the item is removed by someone else, it is not recorded.
     @lastItem = null
 
+    # a record of whether the pokemon has officially fainted or not.
+    @fainted = false
+
   changeForme: (newForme) ->
     return  if newForme == @forme
     availableFormes = FormeData[@name] || {}
@@ -244,9 +247,14 @@ class @Pokemon
     @currentHP <= 0
 
   faint: ->
+    if @battle
+      @battle.message "#{@name} fainted!"
+      @battle.tell(Protocol.FAINT, @player.index, @battle.getSlotNumber(this))
+      # Remove pending actions they had.
+      @battle.popAction(this)
     @currentHP = 0
-
-  afterFaint: ->
+    @fainted = true
+    # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     @attachments.query('afterFaint')
 
   damage: (amount) ->

@@ -323,6 +323,8 @@ class @Battle
         when 'switch' then @performSwitch(id, action.to, action.slot)
         when 'move'   then @performMove(id, action.move, action.slot)
 
+      @performFaints()
+
       # Update Pokemon itself.
       # TODO: Is this the right place?
       for active in @getActiveAlivePokemon()
@@ -338,6 +340,7 @@ class @Battle
     team.endTurn()  for team in @getTeams()
     pokemon.endTurn()  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
+    @performFaints()
 
   attach: (klass, options = {}) ->
     options = _.clone(options)
@@ -576,14 +579,13 @@ class @Battle
         pokemon.reducePP(move)
       @executeMove(move, pokemon, targets)
 
+  # TODO: Put in priority queue
+  performFaints: ->
     # Execute afterFaint events
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     for pokemon in @getActiveFaintedPokemon()
-      @message "#{pokemon.name} fainted!"
-      @tell(Protocol.FAINT, pokemon.player.index, @getSlotNumber(pokemon))
-      # Remove pending actions they had.
-      @popAction(pokemon)
-      pokemon.afterFaint()
+      continue  if pokemon.fainted
+      pokemon.faint()
 
   executeMove: (move, pokemon, targets) ->
     slot = pokemon.team.indexOf(pokemon)

@@ -3322,6 +3322,7 @@ describe "Destiny Bond", ->
     @p1.currentHP = 1
     @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
     @battle.performMove(@id2, @battle.getMove("Tackle"))
+    @battle.performFaints()
     @p2.isFainted().should.be.true
 
   it "causes the attacker to faint any time before the user moves again", ->
@@ -3333,6 +3334,7 @@ describe "Destiny Bond", ->
     @battle.endTurn()
     @battle.beginTurn()
     @battle.performMove(@id2, @battle.getMove("Tackle"))
+    @battle.performFaints()
     @p2.isFainted().should.be.true
 
   it "does not cause attacker to faint after user moves again", ->
@@ -3342,6 +3344,7 @@ describe "Destiny Bond", ->
     @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
     @battle.performMove(@id1, @battle.getMove("Splash"))
     @battle.performMove(@id2, @battle.getMove("Tackle"))
+    @battle.performFaints()
     @p2.isFainted().should.be.false
 
   it "does not faint attacker if pokemon fainted naturally", ->
@@ -3735,6 +3738,7 @@ describe 'Grudge', ->
     @p1.currentHP = 1
     @battle.performMove(@id1, grudge)
     @battle.performMove(@id2, tackle)
+    @battle.performFaints()
     @p1.isFainted().should.be.true
     @p2.pp(tackle).should.equal 0
 
@@ -3750,6 +3754,7 @@ describe 'Grudge', ->
     @battle.beginTurn()
 
     @battle.performMove(@id2, tackle)
+    @battle.performFaints()
     @p2.pp(tackle).should.equal 0
 
   it "does not cause attacker to lose PP after user moves again", ->
@@ -3763,12 +3768,22 @@ describe 'Grudge', ->
     @battle.performMove(@id1, grudge)
     @battle.performMove(@id1, splash)
     @battle.performMove(@id2, tackle)
+    @battle.performFaints()
     @p2.pp(tackle).should.not.equal 0
 
-  # TODO: Currently, there is no way for Grudge to trigger from natural causes
-  # as the afterFaint callback is only called in performMove. However, this
-  # may change in the future, so this test is pending for now.
-  it "does not trigger from natural causes"
+  it "does not trigger from natural causes", ->
+    shared.create.call(this)
+    grudge = @battle.getMove("Grudge")
+    splash = @battle.getMove('Splash')
+    leechSeed = @battle.getMove('Leech Seed')
+    @p2.moves = [ leechSeed ]
+    @p2.resetAllPP()
+
+    @p1.currentHP = 1
+    @battle.performMove(@id1, grudge)
+    @battle.performMove(@id2, leechSeed)
+    @battle.endTurn()
+    @p2.pp(leechSeed).should.equal(@p2.maxPP(leechSeed) - 1)
 
 describe "Stockpile", ->
   it "raises def and spdef", ->

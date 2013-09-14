@@ -82,6 +82,30 @@ describe 'Mechanics', ->
       @controller.makeSwitch(@player2, 1)
       @team2.first().name.should.equal 'Heracross'
 
+    it "occurs when a pokemon faints from passive damage", ->
+      shared.create.call(this)
+      @p2.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      spy = @sandbox.spy(@p2, 'faint')
+      @battle.endTurn()
+      spy.calledOnce.should.be.true
+
+    it "occurs when a pokemon faints normally", ->
+      shared.create.call(this)
+      @p2.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      spy = @sandbox.spy(@p2, 'faint')
+      @battle.endTurn()
+      spy.calledOnce.should.be.true
+
+    it "occurs once for each pokemon", ->
+      shared.create.call(this, team2: (Factory("Magikarp")  for x in [1..2]))
+      spy = @sandbox.spy(@team2.at(1), 'faint')
+      @team2.at(1).currentHP = 1
+      @controller.makeMove(@player1, "Tackle")
+      @controller.makeSwitch(@player2, 1)
+      spy.calledOnce.should.be.true
+
   describe 'secondary effect attacks', ->
     it 'can inflict effect on successful hit', ->
       shared.create.call this,

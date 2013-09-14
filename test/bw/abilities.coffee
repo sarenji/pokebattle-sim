@@ -28,6 +28,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Aftermath")]
       @p1.currentHP = 1
       @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performFaints()
       (@p2.stat('hp') - @p2.currentHP).should.equal(@p2.stat('hp') >> 2)
 
     it "does not deal damage for non-contact moves", ->
@@ -35,14 +36,17 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Aftermath")]
       @p1.currentHP = 1
       @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+      @battle.performFaints()
       @p2.currentHP.should.equal(@p2.stat('hp'))
 
-    # TODO: When can a Pokemon faint??
     it "does not deal damage if pokemon died of natural causes", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Aftermath")]
-      @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
-      @p1.faint()
+      thunderbolt = @battle.getMove("Thunderbolt")
+      @p1.currentHP = 2
+      @p1.attach(Status.Burn)
+      @sandbox.stub(thunderbolt, 'calculateDamage', -> 1)
+      @battle.performMove(@id2, thunderbolt)
       @battle.endTurn()
       @p2.currentHP.should.equal(@p2.stat('hp'))
 
