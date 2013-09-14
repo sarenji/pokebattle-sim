@@ -69,9 +69,9 @@ class @Move
       battle.message "#{target.name} took #{damage} damage!"
       realDamage = target.transformHealthChange(damage)
       target.damage(realDamage)
-    target.afterBeingHit(this, user, target, damage)
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
+    target.afterBeingHit(this, user, target, damage)
     if @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(-damage * @recoil / 100)
       recoil = Math.max(1, recoil)

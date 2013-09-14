@@ -724,12 +724,13 @@ class @Attachment.Substitute extends @VolatileAttachment
 
   initialize: (attributes) ->
     {@hp} = attributes
+    @faded = false
 
   transformHealthChange: (damage) ->
     @hp -= damage
     if @hp <= 0
       @battle.message "#{@pokemon.name}'s substitute faded!"
-      @pokemon.unattach(@constructor)
+      @faded = true
     else
       @battle.message "The substitute took damage for #{@pokemon.name}!"
     return 0
@@ -738,6 +739,9 @@ class @Attachment.Substitute extends @VolatileAttachment
     if move.isNonDamaging() && !move.hasFlag('authentic') && @pokemon != user
       move.fail(@battle)
       return true
+
+  afterBeingHit: (move, user, target, damage) ->
+    @pokemon.unattach(@constructor)  if @faded
 
 class @Attachment.Stockpile extends @VolatileAttachment
   name: "StockpileAttachment"

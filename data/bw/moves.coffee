@@ -64,8 +64,8 @@ extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
     oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
       oldFunc.call(this, battle, user, target, damage)
-      if battle.rng.next("secondary effect") >= chance
-        return
+      return  if target.has(Attachment.Substitute)
+      return  if battle.rng.next("secondary effect") >= chance
 
       target.attach(Klass, options)
 
@@ -74,8 +74,8 @@ extendWithSecondaryStatus = (name, chance, status) ->
     oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
       oldFunc.call(this, battle, user, target, damage)
-      if battle.rng.next("secondary status") >= chance
-        return
+      return  if target.has(Attachment.Substitute)
+      return  if battle.rng.next("secondary status") >= chance
 
       target.attach(status)
 

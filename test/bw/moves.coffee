@@ -3677,6 +3677,32 @@ describe "Substitute", ->
     spy.calledWith(0).should.be.false
     @p1.lastHitBy.damage.should.be.greaterThan 0
 
+  it "blocks secondary effects", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, "next", "secondary status", 0)  # always burn
+    flamethrower = @battle.getMove('Flamethrower')
+    sub          = @battle.getMove('Substitute')
+
+    @battle.performMove(@id1, sub)
+    @p1.has(Attachment.Substitute).should.be.true
+
+    @sandbox.stub(flamethrower, 'baseDamage', -> 1)
+    @battle.performMove(@id2, flamethrower)
+    @p1.has(Status.Burn).should.be.false
+
+  it "blocks secondary effects even if sub fades", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, "next", "secondary status", 0)  # always burn
+    flamethrower = @battle.getMove('Flamethrower')
+    sub          = @battle.getMove('Substitute')
+
+    @battle.performMove(@id1, sub)
+    @p1.has(Attachment.Substitute).should.be.true
+
+    @sandbox.stub(flamethrower, 'baseDamage', -> 9999)
+    @battle.performMove(@id2, flamethrower)
+    @p1.has(Status.Burn).should.be.false
+
   it "is baton-passable"
 
 describe "Sucker Punch", ->
