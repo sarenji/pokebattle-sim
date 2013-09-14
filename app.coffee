@@ -155,6 +155,14 @@ connections.addEvents
 
     battle.addSpectator(user)
 
+  'leave battle': (user, battleId) ->
+    battle = server.findBattle(battleId)
+    if !battle
+      user.send 'error', 'ERROR: Battle does not exist'
+      return
+
+    battle.removeSpectator(user)
+
   'forfeit': (user, battleId) ->
     battle = server.findBattle(battleId)
     if !battle

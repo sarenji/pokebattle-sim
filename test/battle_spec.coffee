@@ -205,6 +205,14 @@ describe 'Battle', ->
       @battle.spectators.should.have.length(length + 1)
       @battle.spectators.should.includeEql(spectator)
 
+  describe "#removeSpectator", ->
+    it "removes the spectator from the array", ->
+      spectator = {id: "guy", send: ->}
+      length = @battle.spectators.length
+      @battle.addSpectator(spectator)
+      @battle.removeSpectator(spectator)
+      @battle.spectators.should.have.length(length)
+
   describe "#getWinner", ->
     it "returns null if there is no winner yet", ->
       should.not.exist @battle.getWinner()

@@ -48,6 +48,9 @@ class @BattleController
       teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
       spectator.send? 'team preview', @battle.id, teams
 
+  removeSpectator: (spectator) ->
+    @battle.removeSpectator(spectator)
+
   messageSpectators: (user, message) ->
     for spectator in @battle.spectators
       continue  if spectator.id == user.id

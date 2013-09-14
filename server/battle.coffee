@@ -649,7 +649,10 @@ class @Battle
     spectator.send('spectate battle', @id, @numActive, index, teams)
 
   removeSpectator: (spectator) ->
-    @spectators.remove(spectator)
+    for s, i in @spectators
+      if s.id == spectator.id
+        @spectators.splice(i, 1)
+        break
 
   hasCondition: (condition) ->
     condition in @conditions

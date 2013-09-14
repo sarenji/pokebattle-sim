@@ -6,6 +6,8 @@ class @BattleCollection extends Backbone.Collection
       'team preview': @teamPreview
       'update battle': @updateBattle
       'spectate battle': @spectateBattle
+    @on 'remove', (model) ->
+      PokeBattle.socket.send('leave battle', model.id)
 
   teamPreview: (socket, battleId, teams) =>
     battle = @get(battleId)
