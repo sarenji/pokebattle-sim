@@ -290,12 +290,8 @@ class @Pokemon
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
-    if @battle?.players
-      # TODO: Send percentages
-      for player in @battle.players
-        player.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
-      for spectator in @battle.spectators
-        spectator.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
+    # TODO: Send percentages
+    @battle?.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
     @currentHP
 
   recordMove: (move) ->

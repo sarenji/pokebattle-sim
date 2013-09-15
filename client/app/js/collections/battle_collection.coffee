@@ -43,9 +43,11 @@ class @BattleCollection extends Backbone.Collection
     switch type
       when Protocol.CHANGE_HP
         [player, slot, newHP] = rest
-        battle.getPokemon(player, slot).hp = newHP
+        pokemon = battle.getPokemon(player, slot)
+        oldHP = pokemon.hp
+        pokemon.hp = newHP
         # TODO: Have this be called automatically.
-        view.changeHP(player, slot, done)
+        view.changeHP(player, slot, oldHP, done)
       when Protocol.SWITCH_OUT
         [player, slot] = rest
         view.switchOut(player, slot, done)

@@ -98,7 +98,7 @@ class @BattleView extends Backbone.View
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
 
-  changeHP: (player, slot, done) =>
+  changeHP: (player, slot, oldHP, done) =>
     $pokemon = @$pokemon(player, slot)
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
@@ -115,7 +115,21 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#0f0")
     $allHP.width("#{percent}%")
     $hpText.text("#{percent}%")
+    deltaPercent = Math.floor((pokemon.hp - oldHP) * 100 / pokemon.maxHP)
+    @floatPercent(player, slot, deltaPercent)
     done()
+
+  floatPercent: (player, slot, percent) =>
+    $sprite = @$pokemon(player, slot).find('.sprite')
+    kind = (if percent >= 0 then "success" else "important")
+    $hp = $('<span/>').addClass("label label-#{kind}").text("#{percent}%")
+    $hp.hide().appendTo($sprite)
+    x = $sprite.width() / 2 - $hp.width()
+    y = $sprite.height() / 3
+    $hp.css(position: 'absolute', top: y, left: x).show()
+    move($hp).y(-30).ease('ease-out').duration('1s')
+      .then().delay('3s').set('opacity', 0).pop()
+      .end(-> $hp.remove())
 
   switchIn: (player, slot, done) =>
     $oldPokemon = @$pokemon(player, slot)
