@@ -20,7 +20,8 @@ class @Socket
       data = JSON.parse(data.data)
       handleEvent(data.messageType, data.data)
 
-    @socket.onclose = => # nothing yet
+    @socket.onclose = =>
+      handleEvent('close')
 
   on: (type, callback) ->
     @callbacks[type] ?= []
