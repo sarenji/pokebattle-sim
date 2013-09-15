@@ -171,10 +171,9 @@ class @TeambuilderView extends Backbone.View
   selectMove: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
-    type = MoveData[moveName].type.toLowerCase()
     $moves = @getActivePokemonView().find('.selected_moves')
     $input = $moves.find('input').first()
-    $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
+    @buttonify($input, moveName)
     $moves.find('input').first().focus()
 
     # Record moves
@@ -190,6 +189,10 @@ class @TeambuilderView extends Backbone.View
     $input = $("<input type='text' value='#{$this.text()}'/>")
     $this.replaceWith($input)
     $input.focus()
+
+  buttonify: ($input, moveName) =>
+    type = MoveData[moveName].type.toLowerCase()
+    $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
 
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
@@ -239,6 +242,11 @@ class @TeambuilderView extends Backbone.View
 
     view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
+
+    @$('.selected_moves input').each (i, el) =>
+      $this = $(el)
+      moveName = $this.val()
+      @buttonify($this, moveName)
 
   renderModal: =>
     if $('#import-team-modal').length == 0
