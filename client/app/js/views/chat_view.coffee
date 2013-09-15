@@ -43,10 +43,10 @@ class @ChatView extends Backbone.View
     @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
 
   userJoin: (user) =>
-    @updateChat("#{user.id} joined PokeBattle!")
+    @updateChat("#{user.id} joined!")
 
   userLeave: (user) =>
-    @updateChat("#{user.id} left PokeBattle!")
+    @updateChat("#{user.id} left!")
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()

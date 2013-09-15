@@ -25,3 +25,6 @@ class @Player
 
   send: (args...) ->
     @user.send? args...
+
+  toJSON: ->
+    @user.toJSON()

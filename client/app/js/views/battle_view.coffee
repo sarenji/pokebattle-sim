@@ -14,7 +14,6 @@ class @BattleView extends Backbone.View
     @selected = null
     @chatView = null
     @lastMove = null
-    @spectators = new UserList([])
     @renderChat()
     @listenTo(@model, 'team_preview', @renderTeamPreview)
 
@@ -32,10 +31,10 @@ class @BattleView extends Backbone.View
   renderChat: =>
     @chatView = new ChatView(
       el: @$('.chat')
-      collection: @spectators
+      collection: @model.spectators
       chatEvent: 'send battle chat'
       chatArgs: [ @model.id ]
-    ).render()
+    ).render().renderUserList()
     this
 
   # TODO: Support 2v2

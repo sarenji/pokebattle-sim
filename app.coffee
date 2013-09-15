@@ -98,10 +98,11 @@ connections.addEvents
   'save team': (user, team) ->
     console.log(team) # todo: implement this
 
-  # TODO: Dequeue player
   'close': (user) ->
     userList.remove((u) -> u == user)
     user.broadcast 'leave chatroom', user.toJSON()
+    # TODO: Remove from battles as well
+    # TODO: Dequeue player from finding battles
 
   ###########
   # BATTLES #

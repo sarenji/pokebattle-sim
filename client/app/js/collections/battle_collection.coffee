@@ -6,6 +6,8 @@ class @BattleCollection extends Backbone.Collection
       'team preview': @teamPreview
       'update battle': @updateBattle
       'spectate battle': @spectateBattle
+      'join battle': @joinBattle
+      'leave battle': @leaveBattle
     @on 'remove', (model) ->
       PokeBattle.socket.send('leave battle', model.id)
 
@@ -125,14 +127,28 @@ class @BattleCollection extends Backbone.Collection
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
-  spectateBattle: (socket, id, numActive, index, teams) =>
+  spectateBattle: (socket, id, numActive, index, teams, spectators) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
-    battle = new Battle({id, numActive, socket, index, teams})
+    battle = new Battle({id, numActive, socket, index, teams, spectators})
     battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
+
+  joinBattle: (socket, id, user) =>
+    battle = @get(id)
+    if !battle
+      console.log "Received events for #{id}, but no longer in battle!"
+      return
+    battle.spectators.add(user)
+
+  leaveBattle: (socket, id, user) =>
+    battle = @get(id)
+    if !battle
+      console.log "Received events for #{id}, but no longer in battle!"
+      return
+    battle.spectators.remove(user)
 
 createBattleWindow = (collection, battle) ->
   $battle = $(JST['battle_window'](battle: battle, window: window))

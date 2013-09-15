@@ -1,6 +1,7 @@
 class @Battle extends Backbone.Model
   initialize: (attributes) =>
-    {@socket, @numActive, @index} = attributes
+    {@socket, @numActive, @index, spectators} = attributes
+    @spectators = new UserList(spectators || [])
     @set('notifications', 0)
     @set('turn', 0)
 

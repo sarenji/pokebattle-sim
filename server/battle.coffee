@@ -648,12 +648,17 @@ class @Battle
     @spectators.push(spectator)
     teams = @getTeams().map((team) -> team.toJSON())
     index = spectator.index
-    spectator.send('spectate battle', @id, @numActive, index, teams)
+    spectators = @spectators.map((s) -> s.toJSON())
+    spectator.send('spectate battle', @id, @numActive, index, teams, spectators)
+    spectatorJSON = spectator.toJSON()
+    s.send('join battle', @id, spectatorJSON)  for s in @spectators
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
+        spectatorJSON = spectator.toJSON()
+        s.send('leave battle', @id, spectatorJSON)  for s in @spectators
         break
 
   hasCondition: (condition) ->
