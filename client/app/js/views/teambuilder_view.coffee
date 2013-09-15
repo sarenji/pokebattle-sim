@@ -58,7 +58,7 @@ class @TeambuilderView extends Backbone.View
       teamJSON = JSON.parse(teamJSON)
       @collection.reset(teamJSON)
     else
-      @addNewPokemon()
+      @addNewPokemon()  for i in [1..6]
 
   addEmptyPokemon: =>
     @collection.add(new Pokemon())
@@ -249,6 +249,12 @@ class @TeambuilderView extends Backbone.View
                                              pokemon.get('forme'))))
       $listItem.addClass("active")  if @selected == i
       pokemon_list.append($listItem)
+
+    # Hide add pokemon if there's 6 pokemon
+    if @collection.length < 6
+      @$(".add_pokemon").show()
+    else
+      @$(".add_pokemon").hide()
 
   renderPokemon: (pokemon) =>
     view = @getPokemonView(pokemon)
