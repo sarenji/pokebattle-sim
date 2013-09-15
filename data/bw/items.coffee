@@ -71,7 +71,7 @@ makeTypeResistBerry = (name, type) ->
   makeItem name, ->
     this.eat = ->
     this::modifyBasePowerTarget = (move, user) ->
-      return 0x1000  if move.type != type
+      return 0x1000  if move.getType(@battle, user, @pokemon) != type
       return 0x1000  if util.typeEffectiveness(type, @pokemon.types) <= 1 && type != 'Normal'
       @battle.message "The #{name} weakened the damage to #{@pokemon.name}!"
       @pokemon.useItem()

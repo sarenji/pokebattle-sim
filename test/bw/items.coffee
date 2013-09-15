@@ -613,6 +613,14 @@ describe "a type-resist berry", ->
     move = @battle.getMove('Double-Edge')
     move.modifyBasePower(@battle, @p1, @p2).should.equal(0x800)
 
+  it "halves base power of moves even if they aren't naturally that type", ->
+    shared.create.call this,
+      team2: [Factory("Blaziken", item: "Shuca Berry")]
+
+    move = @battle.getMove('Tackle')
+    @sandbox.stub(move, 'getType', -> 'Ground')
+    move.modifyBasePower(@battle, @p1, @p2).should.equal(0x800)
+
 describe "a feedback damage berry", ->
   it "damages the attacker by 12.5% if move class matches", ->
     shared.create.call this,
