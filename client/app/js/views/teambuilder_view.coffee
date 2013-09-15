@@ -191,6 +191,7 @@ class @TeambuilderView extends Backbone.View
     $input.focus()
 
   buttonify: ($input, moveName) =>
+    return  if moveName not of MoveData
     type = MoveData[moveName].type.toLowerCase()
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
 
