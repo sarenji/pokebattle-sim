@@ -18,9 +18,9 @@ class @TeambuilderView extends Backbone.View
     'change .ev-entry': 'changeEv'
     'change .select-hidden-power': 'changeHiddenPower'
     'keyup .selected_moves input': 'keyupMoves'
-    'focus .selected_moves input': 'keyupMoves'
-    'click .table-moves tbody tr': 'selectMove'
-    'click .move-button': 'deselectMove'
+    'blur .selected_moves input': 'blurMoves'
+    'click .table-moves tbody tr': 'clickMoveName'
+    'click .move-button': 'clickSelectedMove'
 
   initialize: =>
     # TODO: Save these to something more global
@@ -130,8 +130,8 @@ class @TeambuilderView extends Backbone.View
     $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
-      when 9, 13  # [Tab]/[Enter]; we're selecting the active move.
-        $activeMove = $allMoves.filter('.active').first()
+      when 13  # [Enter]; we're selecting the active move.
+        $activeMove = @$selectedMove()
         $activeMove.click()
       when 38  # [Up arrow]; selects move above
         $activeMove = $allMoves.filter('.active').first()
@@ -147,8 +147,7 @@ class @TeambuilderView extends Backbone.View
           $nextMove.addClass('active')
       else
         # Otherwise we're filtering moves
-        $this = $(e.currentTarget)
-        moveName = $this.val()
+        moveName = $input.val()
         @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
@@ -166,16 +165,24 @@ class @TeambuilderView extends Backbone.View
     $moves.first().addClass('active')
     $table.removeClass('hidden')
 
-  hideMoves: =>
-    $table = @getActivePokemonView().find('.table-moves')
-    $table.addClass('hidden')
+  blurMoves: (e) =>
+    $input = $(e.currentTarget)
+    return  if $input.val().length == 0
+    moveName = @$selectedMove().data('move-id')
+    @insertMove($input, moveName)
 
-  selectMove: (e) =>
+  clickMoveName: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
     $moves = @getActivePokemonView().find('.selected_moves')
-    $input = $moves.find('input').first()
-    @buttonify($input, moveName)
+    $input = $moves.find('input:focus').first()
+    $input ||= $moves.find('input').first()
+    return  if $input.length == 0
+    @insertMove($input, moveName)
+
+  insertMove: ($input, moveName) =>
+    return  if !@buttonify($input, moveName)
+    $moves = @getActivePokemonView().find('.selected_moves')
     $moves.find('input').first().focus()
 
     # Record moves
@@ -186,16 +193,22 @@ class @TeambuilderView extends Backbone.View
         movesArray.push(moveName)
     @getSelectedPokemon().set("moves", movesArray)
 
-  deselectMove: (e) =>
+  $selectedMove: =>
+    $table = @getActivePokemonView().find('.table-moves')
+    $allMoves = $table.find('tbody tr')
+    $allMoves.filter('.active').first()
+
+  clickSelectedMove: (e) =>
     $this = $(e.currentTarget)
     $input = $("<input type='text' value='#{$this.text()}'/>")
     $this.replaceWith($input)
     $input.focus()
 
   buttonify: ($input, moveName) =>
-    return  if moveName not of MoveData
+    return false  if moveName not of MoveData
     type = MoveData[moveName].type.toLowerCase()
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
+    return true
 
   setSelectedIndex: (index) =>
     pokemon = @collection.at(index)
@@ -250,6 +263,7 @@ class @TeambuilderView extends Backbone.View
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
+    this
 
   renderModal: =>
     if $('#import-team-modal').length == 0
