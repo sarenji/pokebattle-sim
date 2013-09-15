@@ -27,4 +27,7 @@ class @Player
     @user.send? args...
 
   toJSON: ->
-    @user.toJSON()
+    if @user.toJSON
+      @user.toJSON()
+    else
+      {@id}

@@ -657,7 +657,7 @@ class @Battle
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
-        spectatorJSON = spectator.toJSON()
+        spectatorJSON = s.toJSON()
         s.send('leave battle', @id, spectatorJSON)  for s in @spectators
         break
 
