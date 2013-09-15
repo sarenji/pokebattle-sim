@@ -39,13 +39,18 @@ class @BattleView extends Backbone.View
     this
 
   # TODO: Support 2v2
-  renderActions: (validActions = []) =>
+  renderActions: (validActions) =>
     locals =
       yourTeam     : @model.getTeam()
       validActions : validActions[0] || {}
       window       : window
     @$('.battle_actions').html @action_template(locals)
     this
+
+  renderWaiting: =>
+    @$('.battle_actions').html """
+    <div class="well well-battle-actions">Waiting for opponent...</div>
+    """
 
   renderUserInfo: =>
     locals =
@@ -357,7 +362,7 @@ class @BattleView extends Backbone.View
     @renderActions(validActions)
 
   disableButtons: =>
-    @renderActions()
+    @renderWaiting()
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
