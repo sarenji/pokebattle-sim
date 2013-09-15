@@ -2,26 +2,34 @@
 # Todo: Move this somewhere else
 class @Socket
   constructor: (socket) ->
-    @socket = socket
+    @closed = true
     @callbacks = {}
+    @reconnect(socket)
+    @connectionAttempts = 0
 
-    handleEvent = (type, data) =>
-      console.log "Received event #{type}"
-
-      data ?= []
-      for callback in (@callbacks[type] || [])
-        callback.apply(this, [this, data...])
-
+  reconnect: (socket) =>
+    return  if !@closed
+    @closed = false
+    @socket = socket
     @socket.onopen = =>
-      handleEvent('connect')
+      @handleEvent('connect')
+      @connectionAttempts = 0
 
     @socket.onmessage = (data) =>
       # todo: error handling. If there's a syntax error here, its because of Json.parse
       data = JSON.parse(data.data)
-      handleEvent(data.messageType, data.data)
+      @handleEvent(data.messageType, data.data)
 
     @socket.onclose = =>
-      handleEvent('close')
+      @handleEvent('close')
+      @closed = true
+
+  handleEvent: (type, data) =>
+    console.log "Received event #{type}"
+
+    data ?= []
+    for callback in (@callbacks[type] || [])
+      callback.apply(this, [this, data...])
 
   on: (type, callback) ->
     @callbacks[type] ?= []

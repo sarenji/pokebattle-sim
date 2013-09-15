@@ -129,7 +129,6 @@ class @BattleCollection extends Backbone.Collection
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
     battle = new Battle({id, numActive, socket, index, teams})
-    # TODO: Figure out if player is spectating or not
     battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
 
