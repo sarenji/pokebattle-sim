@@ -125,6 +125,8 @@ class @TeambuilderView extends Backbone.View
     pokemon.set('hiddenPowerType', type.toLowerCase())
 
   keyupMoves: (e) =>
+    $input = $(e.currentTarget)
+    return  if $input.val().length == 0
     $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
