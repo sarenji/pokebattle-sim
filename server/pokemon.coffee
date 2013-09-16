@@ -456,15 +456,13 @@ class @Pokemon
       "forme"     : @forme
       "shiny"     : @shiny == true
     return base  if options.hidden
-    Object.merge base,
+    base = Object.merge base,
       "hp"        : @currentHP
       "maxHP"     : @stat('hp')
       "moves"     : @moves.map (m) -> m.name
       "moveTypes" : @moves.map (m) -> m.type
       "pp"        : @moves.map (m) => @pp(m)
       "maxPP"     : @moves.map (m) => @maxPP(m)
-      "ability"   : @ability.displayName
-      "item"      : @item.displayName
       "ivs"       :
         hp: @iv('hp')
         attack: @iv('attack')
@@ -472,6 +470,9 @@ class @Pokemon
         speed: @iv('speed')
         specialAttack: @iv('specialAttack')
         specialDefense: @iv('specialDefense')
+    base["item"] = @item.displayName  if @item
+    base["ability"] = @ability.displayName  if @ability
+    base
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
