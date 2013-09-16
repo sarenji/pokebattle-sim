@@ -100,7 +100,11 @@ class @BattleView extends Backbone.View
     @model.arrangeTeam(indices)
     move($teamPreview)
       .set('opacity', 0).duration('.25s')
-      .end(-> $teamPreview.remove())
+      .end(=> @removeTeamPreview())
+
+  removeTeamPreview: =>
+    $teamPreview = @$('.battle_teams')
+    $teamPreview.remove()
 
   addImages: ($images) =>
     $images ||= @$('.preload')

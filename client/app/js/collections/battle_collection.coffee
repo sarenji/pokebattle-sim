@@ -29,9 +29,6 @@ class @BattleCollection extends Backbone.Collection
 
   _updateBattle: (battle, actions, wasAtBottom) =>
     view = battle.view
-    # TODO: Kind of hacky
-    $teamPreview = view.$('.battle_teams')
-    $teamPreview.remove()
     if actions.length == 0
       if wasAtBottom then view.chatView.scrollToBottom()
       return
@@ -117,6 +114,7 @@ class @BattleCollection extends Backbone.Collection
         [attachment] = rest
         view.unattachBattle(attachment, done)
       when Protocol.BEGIN_BATTLE
+        view.removeTeamPreview()
         # TODO: This should be unnecessary later; the opponent's team should be
         # completely dark.
         [teams] = rest
