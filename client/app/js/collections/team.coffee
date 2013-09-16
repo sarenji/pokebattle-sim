@@ -1,4 +1,5 @@
 class @Team extends Backbone.Collection
   model: Pokemon
 
-  initialize: =>
+  initialize: (models, attributes = {}) =>
+    {@owner} = attributes

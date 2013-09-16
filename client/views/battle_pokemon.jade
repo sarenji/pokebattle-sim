@@ -1,17 +1,17 @@
-- var percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
+- var percent = pokemon.getPercentHP()
 - var color = ((percent <= 25) ? "#f00" : (percent <= 50) ? "#ff0" : "#0f0")
 - var style = "width: " + percent + "%"
 - var greenStyle = style + "; background-color: " + color
-.sprite.preload(data-name = pokemon.name, data-forme = pokemon.forme, data-shiny = (pokemon.shiny ? "true" : "false"))
+.sprite.preload(data-name = pokemon.get('name'), data-forme = pokemon.get('forme'), data-shiny = (pokemon.get('shiny') ? "true" : "false"))
 .pokemon-info
-  .pokemon-name= pokemon.name
+  .pokemon-name= pokemon.get('name')
   .pokemon-meta
-    if pokemon.gender === 'F'
+    if pokemon.get('gender') === 'F'
       span.gender.gender_female &#9792;
-    else if pokemon.gender === 'M'
+    else if pokemon.get('gender') === 'M'
       span.gender.gender_male &#9794;
     span.pokemon-level  Lv.
-    = pokemon.level
+    = pokemon.get('level')
   .hp-text #{percent}%
   .hp-red(style = style)
   .hp(style = greenStyle)

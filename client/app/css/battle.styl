@@ -184,6 +184,7 @@ $pane-width = $battle-width + $padding + $padding
     .sprite
       position absolute
       transition .5s ease-out
+      pointer-events visible
       img
         max-width none
   .pokemon
@@ -192,12 +193,20 @@ $pane-width = $battle-width + $padding + $padding
     height 100%
     top 0
     left 0
+    pointer-events none
     overflow hidden
 
   .pokeball
     position absolute
     background url("http://i.imgur.com/AdbmXdf.jpg") -133px -10px
     transition opacity .25s ease-in
+
+  .popover
+    normal-font()
+    font-size 1em
+    text-shadow none
+    width 300px
+    color #333
 
 .button
   clearfix()

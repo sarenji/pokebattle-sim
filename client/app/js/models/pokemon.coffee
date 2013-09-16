@@ -147,6 +147,17 @@ class @Pokemon extends Backbone.Model
   getNatures: ->
     (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
 
+  setPP: (moveIndex, newPP) ->
+    array = _.clone(@get('pp'))
+    array[moveIndex] = newPP
+    @set('pp', array)
+
+  getPercentHP: ->
+    Math.floor(100 * @get('hp') / @get('maxHP'))
+
+  isFainted: ->
+    @get('hp') <= 0
+
   toJSON: ->
     attributes = _.clone(@attributes)
     delete attributes.hiddenPowerType

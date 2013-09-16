@@ -46,8 +46,8 @@ class @BattleCollection extends Backbone.Collection
       when Protocol.CHANGE_HP
         [player, slot, newHP] = rest
         pokemon = battle.getPokemon(player, slot)
-        oldHP = pokemon.hp
-        pokemon.hp = newHP
+        oldHP = pokemon.get('hp')
+        pokemon.set('hp', newHP)
         # TODO: Have this be called automatically.
         view.changeHP(player, slot, oldHP, done)
       when Protocol.SWITCH_OUT
@@ -57,14 +57,14 @@ class @BattleCollection extends Backbone.Collection
         # TODO: Get Pokemon data, infer which Pokemon it is.
         # Currently, it cheats with `fromSlot`.
         [player, toSlot, fromSlot] = rest
-        team = battle.getTeam(player).pokemon
+        team = battle.getTeam(player).models
         [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
         # TODO: Again, automatic.
-        view.switchIn(player, toSlot, done)
+        view.switchIn(player, toSlot, fromSlot, done)
       when Protocol.CHANGE_PP
         [player, slot, moveIndex, newPP] = rest
         pokemon = battle.getPokemon(player, slot)
-        pokemon.pp[moveIndex] = newPP
+        pokemon.setPP(moveIndex, newPP)
         done()
       when Protocol.REQUEST_ACTIONS
         [validActions] = rest
@@ -121,6 +121,7 @@ class @BattleCollection extends Backbone.Collection
         # completely dark.
         [teams] = rest
         battle.receiveTeams(teams)
+        view.renderBattle()
         done()
       else
         done()

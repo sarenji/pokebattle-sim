@@ -6,7 +6,11 @@ class @Battle extends Backbone.Model
     @set('turn', 0)
 
   receiveTeams: (teams) =>
-    @teams = teams
+    @teams = []
+    for team in teams
+      pokemon = team.pokemon
+      delete team.pokemon
+      @teams.push(new Team(pokemon, team))
 
   makeMove: (moveName, forSlot) =>
     @socket.send('send move', @id, moveName, forSlot, @get('turn'))
@@ -25,13 +29,11 @@ class @Battle extends Backbone.Model
     @teams[playerIndex]
 
   getOpponentTeam: (playerIndex = @index) =>
-    for team, i in @teams
-      return team  if i != playerIndex
-    return null
+    @teams[1 - playerIndex]
 
   getPokemon: (playerIndex, slot) =>
     team = @getTeam(playerIndex)
-    team.pokemon[slot]
+    team.at(slot)
 
   # TODO: Opponent switch. Use some logic to determine whether the switch is
   # to a previously seen Pokemon or a new Pokemon. In the latter case, we

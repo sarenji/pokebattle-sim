@@ -58,7 +58,20 @@ class @BattleView extends Backbone.View
       numActive    : @model.numActive
       yourIndex    : @model.index
       window       : window
-    @$('.battle_user_info').html @user_info_template(locals)
+    $userInfo = @$('.battle_user_info')
+    $userInfo.html @user_info_template(locals)
+    $userInfo.find('.pokemon_icon').each (i, el) =>
+      $this = $(el)
+      team = $this.data('team')
+      slot = $this.data('slot')
+      pokemon = @model.getPokemon(team, slot)
+      $this.popover
+        title: pokemon.get('name')
+        html: true
+        content: JST['battle_hover_info']({window, pokemon})
+        trigger: 'hover'
+        placement: (if team == @model.index then 'top' else 'bottom')
+        animation: false
     this
 
   renderTeamPreview: (teams) =>
@@ -109,7 +122,7 @@ class @BattleView extends Backbone.View
     $allHP = $info.find('.hp, .hp-red')
     $hpText = $info.find('.hp-text')
     pokemon = @model.getPokemon(player, slot)
-    percent = Math.floor(pokemon.hp * 100 / pokemon.maxHP)
+    percent = pokemon.getPercentHP()
     percent = Math.max(percent, 0)
     if percent <= 25
       $hp.css(backgroundColor: "#f00")
@@ -119,7 +132,7 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#0f0")
     $allHP.width("#{percent}%")
     $hpText.text("#{percent}%")
-    deltaPercent = Math.floor((pokemon.hp - oldHP) * 100 / pokemon.maxHP)
+    deltaPercent = Math.floor((pokemon.get('hp') - oldHP) * 100 / pokemon.get('maxHP'))
     @floatPercent(player, slot, deltaPercent)
     done()
 
@@ -135,24 +148,17 @@ class @BattleView extends Backbone.View
       .then().delay('3s').set('opacity', 0).pop()
       .end(-> $hp.remove())
 
-  switchIn: (player, slot, done) =>
+  switchIn: (player, slot, fromSlot, done) =>
     $oldPokemon = @$pokemon(player, slot)
+    $newPokemon = @$pokemon(player, fromSlot)
     pokemon = @model.getPokemon(player, slot)
-    pokemonClass = "pokemon#{player}-#{slot}"
-    position = (if player == @model.index then "bottom" else "top")
     @renderUserInfo()
 
     # Prepare old/new pokemon
-    $oldPokemon.removeClass(pokemonClass)
-    $newPokemon = $("""<div class="pokemon #{pokemonClass} #{position}">
-      #{@pokemon_template(pokemon: pokemon)}
-    </div>""")
-    $newPokemon.css(opacity: 0)
+    $oldPokemon.attr('data-slot', fromSlot)
+    $newPokemon.attr('data-slot', slot)
+    $newPokemon.css(opacity: 0).removeClass('hidden')
     $newSprite = $newPokemon.find('.sprite')
-
-    # Add Pokemon
-    $newPokemon.appendTo(@$(".battle_pane"))
-    @addImages($newPokemon.find('.preload'))
 
     # Create and position pokeball
     pos = $newSprite.position()
@@ -182,7 +188,7 @@ class @BattleView extends Backbone.View
     height = $sprite.height()
     move($sprite).scale(0.1).x(width / 2).y(height).duration('.15s').end()
     move($pokemon).set('opacity', 0).duration('.25s').end ->
-      $pokemon.remove()
+      $pokemon.addClass('hidden').css(opacity: 1)
       done()
 
   makePokeball: (x, y) =>
@@ -206,7 +212,7 @@ class @BattleView extends Backbone.View
   logMove: (player, slot, moveName, done) =>
     {owner} = @model.getTeam(player)
     pokemon = @model.getPokemon(player, slot)
-    @addLog("#{owner}'s #{pokemon.name} used <strong>#{moveName}</strong>!")
+    @addLog("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!")
     @lastMove = moveName
     done()
 
@@ -340,7 +346,7 @@ class @BattleView extends Backbone.View
     done()
 
   $pokemon: (player, slot) =>
-    @$(".pokemon#{player}-#{slot}")
+    @$(".pokemon[data-team='#{player}'][data-slot='#{slot}']")
 
   $sprite: (player, slot) =>
     @$pokemon(player, slot).find('.sprite')
@@ -353,7 +359,7 @@ class @BattleView extends Backbone.View
     $image = $pokemon.find('.sprite img')
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
     move($pokemon).set('opacity', 0).end ->
-      $pokemon.remove()
+      $pokemon.addClass('hidden').css(opacity: 1)
       done()
     @renderUserInfo()
 
