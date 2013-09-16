@@ -290,8 +290,7 @@ class @Pokemon
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
-    pixels = Math.floor(48 * @currentHP / @stat('hp'))
-    pixels = 1  if pixels == 0 && @isAlive()
+    pixels = Math.ceil(48 * @currentHP / @stat('hp'))
     @battle?.tell(Protocol.CHANGE_HP, @player.index, @team.indexOf(this), pixels)
     @player?.tell(Protocol.CHANGE_EXACT_HP, @player.index, @team.indexOf(this), @currentHP)
     @currentHP
