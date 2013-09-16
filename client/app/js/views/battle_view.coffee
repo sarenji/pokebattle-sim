@@ -60,6 +60,7 @@ class @BattleView extends Backbone.View
       window       : window
     $userInfo = @$('.battle_user_info')
     $userInfo.html @user_info_template(locals)
+    $('.popover').remove()
     $userInfo.find('.pokemon_icon').each (i, el) =>
       $this = $(el)
       team = $this.data('team')
