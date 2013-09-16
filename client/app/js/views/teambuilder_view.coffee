@@ -56,6 +56,7 @@ class @TeambuilderView extends Backbone.View
     teamJSON = window.localStorage.getItem("team")
     if teamJSON
       teamJSON = JSON.parse(teamJSON)
+      pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON
       @collection.reset(teamJSON)
     else
       @addNewPokemon()  for i in [1..6]
