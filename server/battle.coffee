@@ -84,7 +84,10 @@ class @Battle
     @finished = false
 
   begin: ->
-    @tell(Protocol.BEGIN_BATTLE, (player.team.toJSON()  for player in @players))
+    teams = (player.team.toJSON(hidden: true)  for player in @players)
+    @tell(Protocol.BEGIN_BATTLE, teams)
+    for player in @players
+      player.tell(Protocol.RECEIVE_TEAM, player.team.toJSON())
     # TODO: Merge this with performReplacements?
     for player in @players
       for slot in [0...@numActive]

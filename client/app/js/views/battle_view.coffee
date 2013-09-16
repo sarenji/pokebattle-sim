@@ -70,8 +70,8 @@ class @BattleView extends Backbone.View
         html: true
         content: JST['battle_hover_info']({window, pokemon})
         trigger: 'hover'
-        placement: (if team == @model.index then 'top' else 'bottom')
         animation: false
+        container: "body"
     this
 
   renderTeamPreview: (teams) =>
@@ -119,7 +119,7 @@ class @BattleView extends Backbone.View
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)
 
-  changeHP: (player, slot, oldHP, done) =>
+  changeHP: (player, slot, oldPixels, done) =>
     $pokemon = @$pokemon(player, slot)
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
@@ -136,7 +136,7 @@ class @BattleView extends Backbone.View
       $hp.css(backgroundColor: "#0f0")
     $allHP.width("#{percent}%")
     $hpText.text("#{percent}%")
-    deltaPercent = Math.floor((pokemon.get('hp') - oldHP) * 100 / pokemon.get('maxHP'))
+    deltaPercent = Math.floor(100 * (pokemon.get('pixels') - oldPixels) / 48)
     @floatPercent(player, slot, deltaPercent)
     done()
 

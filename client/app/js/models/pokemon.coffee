@@ -3,6 +3,7 @@ class @Pokemon extends Backbone.Model
     name: 'Bulbasaur'
     item: ""
     moves: []
+    pixels: 48
     ivs:
       hp: 31
       attack: 31
@@ -22,6 +23,9 @@ class @Pokemon extends Backbone.Model
     @set('forme', 'default')  unless attributes.forme
     @normalizeStats(@get('ivs'), 31)
     @normalizeStats(@get('evs'), 0)
+
+    # Skip teambuilder-specific properties.
+    return  if @get('teambuilder') != true
 
     # Set to default ability when the species changes
     @on 'change:name', =>
@@ -153,10 +157,10 @@ class @Pokemon extends Backbone.Model
     @set('pp', array)
 
   getPercentHP: ->
-    Math.floor(100 * @get('hp') / @get('maxHP'))
+    Math.floor(100 * @get('pixels') / 48)
 
   isFainted: ->
-    @get('hp') <= 0
+    @get('pixels') <= 0
 
   toJSON: ->
     attributes = _.clone(@attributes)

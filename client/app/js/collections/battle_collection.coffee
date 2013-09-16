@@ -31,6 +31,7 @@ class @BattleCollection extends Backbone.Collection
     view = battle.view
     if actions.length == 0
       if wasAtBottom then view.chatView.scrollToBottom()
+      view.renderUserInfo()
       return
     wasAtBottom ||= view.chatView.isAtBottom()
     action = actions.shift()
@@ -41,12 +42,17 @@ class @BattleCollection extends Backbone.Collection
     done = @_updateBattle.bind(this, battle, actions, wasAtBottom)
     switch type
       when Protocol.CHANGE_HP
+        [player, slot, newPixels] = rest
+        pokemon = battle.getPokemon(player, slot)
+        oldPixels = pokemon.get('pixels')
+        pokemon.set('pixels', newPixels)
+        # TODO: Have this be called automatically.
+        view.changeHP(player, slot, oldPixels, done)
+      when Protocol.CHANGE_EXACT_HP
         [player, slot, newHP] = rest
         pokemon = battle.getPokemon(player, slot)
-        oldHP = pokemon.get('hp')
         pokemon.set('hp', newHP)
-        # TODO: Have this be called automatically.
-        view.changeHP(player, slot, oldHP, done)
+        done()
       when Protocol.SWITCH_OUT
         [player, slot] = rest
         view.switchOut(player, slot, done)
@@ -120,6 +126,10 @@ class @BattleCollection extends Backbone.Collection
         [teams] = rest
         battle.receiveTeams(teams)
         view.renderBattle()
+        done()
+      when Protocol.RECEIVE_TEAM
+        [team] = rest
+        battle.receiveTeam(team)
         done()
       else
         done()

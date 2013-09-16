@@ -61,7 +61,7 @@ class @TeambuilderView extends Backbone.View
       @addNewPokemon()  for i in [1..6]
 
   addEmptyPokemon: =>
-    @collection.add(new Pokemon())
+    @collection.add(new Pokemon(teambuilder: true))
 
   addNewPokemon: =>
     @addEmptyPokemon()

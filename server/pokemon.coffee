@@ -290,8 +290,10 @@ class @Pokemon
 
   setHP: (hp) ->
     @currentHP = Math.min(@stat('hp'), hp)
-    # TODO: Send percentages
-    @battle?.tell(Protocol.CHANGE_HP, @player.index, 0, @currentHP)
+    pixels = Math.floor(48 * @currentHP / @stat('hp'))
+    pixels = 1  if pixels == 0 && @isAlive()
+    @battle?.tell(Protocol.CHANGE_HP, @player.index, @team.indexOf(this), pixels)
+    @player?.tell(Protocol.CHANGE_EXACT_HP, @player.index, @team.indexOf(this), @currentHP)
     @currentHP
 
   recordMove: (move) ->
@@ -461,6 +463,8 @@ class @Pokemon
       "moveTypes" : @moves.map (m) -> m.type
       "pp"        : @moves.map (m) => @pp(m)
       "maxPP"     : @moves.map (m) => @maxPP(m)
+      "ability"   : @ability.displayName
+      "item"      : @item.displayName
       "ivs"       :
         hp: @iv('hp')
         attack: @iv('attack')

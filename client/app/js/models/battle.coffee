@@ -8,9 +8,15 @@ class @Battle extends Backbone.Model
   receiveTeams: (teams) =>
     @teams = []
     for team in teams
-      pokemon = team.pokemon
-      delete team.pokemon
-      @teams.push(new Team(pokemon, team))
+      @teams.push @makeTeamFromJSON(team)
+
+  receiveTeam: (team) =>
+    @teams[@index] = @makeTeamFromJSON(team)
+
+  makeTeamFromJSON: (json) =>
+    pokemon = json.pokemon
+    delete json.pokemon
+    new Team(pokemon, json)
 
   makeMove: (moveName, forSlot) =>
     @socket.send('send move', @id, moveName, forSlot, @get('turn'))
