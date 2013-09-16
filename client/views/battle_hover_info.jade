@@ -1,0 +1,17 @@
+p
+  each type in pokemon.getForme().types
+    | [#{type}]
+
+if pokemon.get('hp')
+  p
+    | HP: #{pokemon.getPercentHP()}%
+    if pokemon.get('hp')
+      |  (#{pokemon.get('hp')}/#{pokemon.get('maxHP')})
+
+if pokemon.get('item')
+  p Item: #{pokemon.get('item')}
+
+if pokemon.get('ability')
+  p Ability: #{pokemon.get('ability')}
+else
+  p Possible abilities: #{pokemon.getAbilities().join(', ')}
