@@ -157,7 +157,7 @@ class @Pokemon extends Backbone.Model
     @set('pp', array)
 
   getPercentHP: ->
-    Math.ceil(100 * @get('pixels') / 48)
+    Math.floor(100 * @get('pixels') / 48)
 
   isFainted: ->
     @get('pixels') <= 0
