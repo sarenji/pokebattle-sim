@@ -42,10 +42,9 @@ class @TeambuilderView extends Backbone.View
     )
 
     @listenTo(@collection, 'add remove', @renderPokemonList)
+    @listenTo(@collection, 'reset', @render)
 
     @loadTeam()
-
-    @render()
 
   clickPokemon: (e) =>
     $listItem = $(e.currentTarget)
@@ -60,6 +59,7 @@ class @TeambuilderView extends Backbone.View
       @collection.reset(teamJSON)
     else
       @addNewPokemon()  for i in [1..6]
+      @render()
 
   addEmptyPokemon: =>
     @collection.add(new Pokemon(teambuilder: true))
@@ -279,8 +279,8 @@ class @TeambuilderView extends Backbone.View
     $modal.on 'click', '.import-team-submit', (e) =>
       teamString = $modal.find('.imported-team').val()
       teamJSON = PokeBattle.parseTeam(teamString)
+      pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON
       @collection.reset(teamJSON)
-      @render()
       $modal.modal('hide')
       return false
     $modal.modal('show')
