@@ -11,12 +11,17 @@ class @Battle extends Backbone.Model
       @teams.push @makeTeamFromJSON(team)
 
   receiveTeam: (team) =>
+    @teams[@index].off('all', @_teamEvents)  if @teams[@index]
     @teams[@index] = @makeTeamFromJSON(team)
 
   makeTeamFromJSON: (json) =>
     pokemon = json.pokemon
     delete json.pokemon
-    new Team(pokemon, json)
+    team = new Team(pokemon, json)
+    team.on('all', @_teamEvents)
+
+  _teamEvents: =>
+    @trigger.apply(this, arguments)
 
   makeMove: (moveName, forSlot) =>
     @socket.send('send move', @id, moveName, forSlot, @get('turn'))

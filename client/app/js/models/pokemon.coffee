@@ -162,6 +162,13 @@ class @Pokemon extends Backbone.Model
   isFainted: ->
     @get('pixels') <= 0
 
+  getStatus: ->
+    status = @get('status')
+    if status
+      "#{status[0].toUpperCase()}#{status.substr(1)}"
+    else
+      "Healthy"
+
   toJSON: ->
     attributes = _.clone(@attributes)
     delete attributes.hiddenPowerType

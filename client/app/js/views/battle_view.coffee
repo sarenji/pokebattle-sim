@@ -16,6 +16,7 @@ class @BattleView extends Backbone.View
     @lastMove = null
     @renderChat()
     @listenTo(@model, 'team_preview', @renderTeamPreview)
+    @listenTo(@model, 'change:status', @handleStatus)
 
   renderBattle: =>
     locals =
@@ -234,6 +235,7 @@ class @BattleView extends Backbone.View
     done()
 
   attachPokemon: (player, slot, attachment, done) =>
+    pokemon = @model.getPokemon(player, slot)
     switch attachment
       when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
@@ -262,34 +264,22 @@ class @BattleView extends Backbone.View
               .pop().pop().pop().end(done)
           , 0
       when 'Paralyze'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect paralyze">PAR</div>""")
+        pokemon.set('status', 'paralyze')
         done()
       when 'Burn'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect burn">BRN</div>""")
+        pokemon.set('status', 'burn')
         done()
       when 'Poison'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect poison">PSN</div>""")
+        pokemon.set('status', 'poison')
         done()
       when 'Toxic'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect toxic">TOX</div>""")
+        pokemon.set('status', 'toxic')
         done()
       when 'Freeze'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect freeze">FRZ</div>""")
+        pokemon.set('status', 'freeze')
         done()
       when 'Sleep'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effects')
-        $effects.append("""<div class="pokemon-effect sleep">SLP</div>""")
+        pokemon.set('status', 'sleep')
         done()
       else
         done()
@@ -301,6 +291,7 @@ class @BattleView extends Backbone.View
     done()
 
   unattachPokemon: (player, slot, effect, done) =>
+    pokemon = @model.getPokemon(player, slot)
     switch effect
       when 'SubstituteAttachment'
         $pokemon = @$pokemon(player, slot)
@@ -315,31 +306,43 @@ class @BattleView extends Backbone.View
             .then(-> $substitute.remove()).end(done)
         hideSub()
       when 'Paralyze'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.paralyze').remove()
+        pokemon.set('status', null)
         done()
       when 'Burn'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.burn').remove()
+        pokemon.set('status', null)
         done()
       when 'Poison'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.poison').remove()
+        pokemon.set('status', null)
         done()
       when 'Toxic'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.toxic').remove()
+        pokemon.set('status', null)
         done()
       when 'Freeze'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.freeze').remove()
+        pokemon.set('status', null)
         done()
       when 'Sleep'
-        $pokemon = @$pokemon(player, slot)
-        $effects = $pokemon.find('.pokemon-effect.sleep').remove()
+        pokemon.set('status', null)
         done()
       else
         done()
+
+  handleStatus: (pokemon, status) =>
+    $pokemon = @$pokemon(pokemon)
+    if status?
+      $effects = $pokemon.find('.pokemon-effects')
+      display = @mapStatusForDisplay(status)
+      $effects.append("""<div class="pokemon-effect #{status}">#{display}</div>""")
+    else
+      $pokemon.find(".pokemon-effect.#{status}").remove()
+
+  mapStatusForDisplay: (status) =>
+    switch status
+      when "burn" then "BRN"
+      when "paralyze" then "PAR"
+      when "poison" then "PSN"
+      when "toxic" then "TOX"
+      when "freeze" then "FRZ"
+      when "sleep" then "SLP"
 
   unattachTeam: (slot, effect, done) =>
     done()
@@ -360,6 +363,14 @@ class @BattleView extends Backbone.View
     done()
 
   $pokemon: (player, slot) =>
+    if arguments.length == 1
+      pokemon = player
+      for team, i in @model.teams
+        index = team.indexOf(pokemon)
+        if index != -1
+          player = i
+          slot = index
+          break
     @$(".pokemon[data-team='#{player}'][data-slot='#{slot}']")
 
   $sprite: (player, slot) =>
