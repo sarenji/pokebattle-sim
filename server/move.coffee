@@ -72,7 +72,7 @@ class @Move
         target.damage(damage)
         # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
-        battle.message "#{target.name} took #{percent} damage!"
+        battle.message "#{target.name} took #{percent}% damage!"
       else
         currentHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
         damage = previousHP - Math.max(0, currentHP)
