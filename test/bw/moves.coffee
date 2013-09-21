@@ -32,7 +32,7 @@ describe 'a drain attack', ->
     hp = @p2.currentHP
     @battle.performMove(@id1, @battle.getMove('Drain Punch'))
     damage = (hp - @p2.currentHP)
-    (@p1.currentHP - startHP).should.equal Math.floor(damage / 2)
+    (@p1.currentHP - startHP).should.equal Math.ceil(damage / 2)
 
   it 'cannot recover to over 100% HP', ->
     shared.create.call this,

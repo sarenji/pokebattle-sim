@@ -93,7 +93,7 @@ extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
     oldFunc = @afterSuccessfulHit
     @afterSuccessfulHit = (battle, user, target, damage) ->
-      amount = Math.floor(damage * drainPercent)
+      amount = Math.ceil(damage * drainPercent)
       user.drain(amount, target)
       # TODO: Message after drain
       battle.message "#{user.name} absorbed some HP!"
