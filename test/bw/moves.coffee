@@ -22,7 +22,7 @@ describe 'jump kick attacks', ->
     damage = move.calculateDamage(@battle, @p1, @p2)
     (originalHP - @p1.currentHP).should.equal Math.floor(damage / 2)
 
-describe 'drain attacks', ->
+describe 'a drain attack', ->
   it 'recovers a percentage of the damage dealt, rounded down', ->
     shared.create.call this,
       team1: [Factory('Conkeldurr')]
@@ -41,6 +41,16 @@ describe 'drain attacks', ->
     hp = @p1.currentHP = @p1.stat('hp')
     @battle.performMove(@id1, @battle.getMove('Drain Punch'))
     (@p1.currentHP - hp).should.equal 0
+
+  it "does not recover more than the damage dealt", ->
+    shared.create.call(this)
+    drainPunch = @battle.getMove('Drain Punch')
+    @sandbox.stub(drainPunch, 'baseDamage', -> 9999)
+    @p2.currentHP = 2
+    @p1.currentHP = 1
+    @battle.performMove(@id1, drainPunch)
+    @p2.currentHP.should.be.lessThan(1)
+    @p1.currentHP.should.equal(2)
 
 describe 'weight-based attacks', ->
   it 'has 80 base power if the pokemon is 50.2kg', ->
@@ -138,9 +148,7 @@ describe 'a pokemon using Acrobatics', ->
 testRecoilMove = (moveName) ->
   describe "a pokemon using #{moveName}", ->
     it 'receives a percentage of the damage rounded half up', ->
-      shared.create.call this,
-        team1: [Factory('Blaziken')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       startHP = @p1.currentHP
       hp = @p2.currentHP
 
@@ -152,9 +160,7 @@ testRecoilMove = (moveName) ->
       (startHP - @p1.currentHP).should.equal Math.round(damage * recoil)
 
     it 'receives a minimum of 1 HP of recoil', ->
-      shared.create.call this,
-        team1: [Factory('Blaziken')]
-        team2: [Factory('Magikarp')]
+      shared.create.call(this)
       startHP = @p1.currentHP
       hp = @p2.currentHP
 

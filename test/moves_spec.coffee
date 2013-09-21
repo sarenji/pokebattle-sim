@@ -247,7 +247,7 @@ describe 'Move:', ->
 
   describe '#execute', ->
     it 'calls use multiple times for multihit moves', ->
-      shared.create.call this
+      shared.create.call(this)
       move = new Move("multihit", minHits: 4, maxHits: 4)
       mock = @sandbox.mock(move).expects('use').exactly(4)
 
@@ -256,11 +256,31 @@ describe 'Move:', ->
 
   describe "#use", ->
     it "returns false if the target's type is immune", ->
+      shared.create.call(this)
       move = new Move("attacking", damage: "special", type: "Normal")
       @p2.types = [ "Ghost" ]
       move.use(@battle, @p1, @p2).should.be.false
 
     it "returns true if target is immune but move is non-damaging", ->
+      shared.create.call(this)
       move = new Move("attacking", damage: "non-damaging", type: "Normal")
       @p2.types = [ "Ghost" ]
       should.not.exist move.use(@battle, @p1, @p2)
+
+  describe '#hit', ->
+    it "deals damage no higher than the pokemon's remaining HP", ->
+      shared.create.call(this)
+      mock = @sandbox.mock(@p2).expects('damage').withArgs(1)
+
+      @p2.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      mock.verify()
+
+    it "deals normal damage if the Pokemon has a substitute", ->
+      shared.create.call(this)
+      spy = @sandbox.spy(@p2, 'damage')
+
+      @p2.currentHP = (@p2.currentHP >> 2) + 1
+      @battle.performMove(@id2, @battle.getMove("Substitute"))
+      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      spy.returned(1).should.be.false

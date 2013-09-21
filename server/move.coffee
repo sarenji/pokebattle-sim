@@ -65,10 +65,17 @@ class @Move
     user.tell(Protocol.MOVE_SUCCESS, target.team.indexOf(target))
     damage = @calculateDamage(battle, user, target)
     if damage > 0
-      # TODO: Print out opponent's name alongside the pokemon.
-      battle.message "#{target.name} took #{damage} damage!"
+      previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
       realDamage = target.transformHealthChange(damage)
-      target.damage(realDamage)
+      if realDamage > 0
+        damage = Math.min(realDamage, target.currentHP)
+        target.damage(damage)
+        # TODO: Print out opponent's name alongside the pokemon.
+        percent = Math.floor(100 * damage / target.stat('hp'))
+        battle.message "#{target.name} took #{percent} damage!"
+      else
+        currentHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
+        damage = previousHP - Math.max(0, currentHP)
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
     target.afterBeingHit(this, user, target, damage)
