@@ -43,7 +43,13 @@ class @BattleView extends Backbone.View
       yourTeam     : @model.getTeam()
       validActions : validActions[0] || {}
       window       : window
-    @$('.battle_actions').html @action_template(locals)
+    $actions = @$('.battle_actions')
+    $actions.html @action_template(locals)
+    $actions.find('.switch.button').each (i, el) =>
+      $this = $(el)
+      slot = $this.data('slot')
+      pokemon = @model.getPokemon(@model.index, slot)
+      @popover($this, pokemon)
     this
 
   renderWaiting: =>
@@ -59,21 +65,24 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       window       : window
     $userInfo = @$('.battle_user_info')
+    $userInfo.find('.pokemon_icon').popover('destroy')
     $userInfo.html @user_info_template(locals)
-    $('.popover').remove()
     $userInfo.find('.pokemon_icon').each (i, el) =>
       $this = $(el)
       team = $this.data('team')
       slot = $this.data('slot')
       pokemon = @model.getPokemon(team, slot)
-      $this.popover
-        title: pokemon.get('name')
-        html: true
-        content: JST['battle_hover_info']({window, pokemon})
-        trigger: 'hover'
-        animation: false
-        container: "body"
+      @popover($this, pokemon)
     this
+
+  popover: ($this, pokemon) =>
+    $this.popover
+      title: pokemon.get('name')
+      html: true
+      content: JST['battle_hover_info']({window, pokemon})
+      trigger: 'hover'
+      animation: false
+      container: "body"
 
   renderTeamPreview: (teams) =>
     locals =
@@ -372,6 +381,7 @@ class @BattleView extends Backbone.View
     @renderActions(validActions)
 
   disableButtons: =>
+    @$('.battle_actions .switch.button').popover('destroy')
     @renderWaiting()
 
   addLog: (message) =>
