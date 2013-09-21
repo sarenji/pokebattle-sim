@@ -179,7 +179,8 @@ makeRecoveryMove = (name) ->
         @fail(battle)
         return false
       amount = Math.round(hpStat / 2)
-      battle.message "#{target.name} recovered #{amount} HP!"
+      percent = Math.floor(amount / target.stat('hp'))
+      battle.message "#{target.name} recovered #{percent} HP!"
       target.damage(-amount)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
@@ -199,7 +200,8 @@ makeWeatherRecoveryMove = (name) ->
         util.roundHalfDown(target.stat('hp') * 2 / 3)
       else
         util.roundHalfDown(target.stat('hp') / 4)
-      battle.message "#{target.name} recovered #{amount} HP!"
+      percent = Math.floor(amount / target.stat('hp'))
+      battle.message "#{target.name} recovered #{percent} HP!"
       target.damage(-amount)
 
 makeTrickMove = (name) ->
