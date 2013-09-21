@@ -926,17 +926,19 @@ class @Attachment.LunarDance extends @TeamAttachment
 
   switchIn: (pokemon) ->
     @battle.message "#{pokemon.name} became cloaked in mystical moonlight!"
-    pokemon.currentHP = pokemon.stat('hp')
+    pokemon.setHP(pokemon.stat('hp'))
     pokemon.cureStatus()
     pokemon.resetAllPP()
+    @team.unattach(@constructor)
 
 class @Attachment.HealingWish extends @TeamAttachment
   name: "HealingWishAttachment"
 
   switchIn: (pokemon) ->
     @battle.message "The healing wish came true for #{pokemon.name}!"
-    pokemon.currentHP = pokemon.stat('hp')
+    pokemon.setHP(pokemon.stat('hp'))
     pokemon.cureStatus()
+    @team.unattach(@constructor)
 
 class @Attachment.MagicCoat extends @VolatileAttachment
   name: "MagicCoatAttachment"

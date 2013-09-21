@@ -4548,6 +4548,16 @@ describe "Lunar Dance", ->
     for move in benched.moves
       benched.pp(move).should.equal(benched.maxPP(move))
 
+  it "disappears afterward", ->
+    shared.create.call this,
+      team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+    lunarDance = @battle.getMove("Lunar Dance")
+
+    @battle.performMove(@id1, lunarDance)
+    @team1.has(Attachment.LunarDance).should.be.true
+    @battle.performSwitch(@id1, 1)
+    @team1.has(Attachment.LunarDance).should.be.false
+
   it "works for 2v2"
 
 describe "Healing Wish", ->
@@ -4581,6 +4591,16 @@ describe "Healing Wish", ->
     @battle.performSwitch(@id1, 1)
     benched.currentHP.should.equal(benched.stat('hp'))
     benched.hasStatus().should.be.false
+
+  it "disappears afterward", ->
+    shared.create.call this,
+      team1: [ Factory("Magikarp"), Factory("Magikarp") ]
+    healingWish = @battle.getMove("Healing Wish")
+
+    @battle.performMove(@id1, healingWish)
+    @team1.has(Attachment.HealingWish).should.be.true
+    @battle.performSwitch(@id1, 1)
+    @team1.has(Attachment.HealingWish).should.be.false
 
   it "works for 2v2"
 
