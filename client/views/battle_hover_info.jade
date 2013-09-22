@@ -17,3 +17,9 @@ else
   p Possible abilities: #{pokemon.getAbilities().join(', ')}
 
 p Status: #{pokemon.getStatus()}
+
+if pokemon.has('moves')
+  p
+    each moveName in pokemon.get('moves')
+      | - #{moveName}
+      br
