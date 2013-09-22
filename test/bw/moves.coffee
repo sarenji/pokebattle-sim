@@ -5749,7 +5749,7 @@ describe "Thunder Wave", ->
     @battle.performMove(@id1, thunderWave)
     @p2.has(Status.Paralyze).should.be.false
 
- describe "Thunder", ->
+describe "Thunder", ->
   it "has 50% accuracy in Sun", ->
     shared.create.call(this)
     @battle.setWeather(Weather.SUN)
@@ -5768,7 +5768,7 @@ describe "Thunder Wave", ->
     thunder = @battle.getMove("Thunder")
     thunder.chanceToHit(@battle, @p1, @p2).should.equal(70)
 
- describe "Hurricane", ->
+describe "Hurricane", ->
   it "has 50% accuracy in Sun", ->
     shared.create.call(this)
     @battle.setWeather(Weather.SUN)
@@ -5787,7 +5787,7 @@ describe "Thunder Wave", ->
     hurricane = @battle.getMove("Hurricane")
     hurricane.chanceToHit(@battle, @p1, @p2).should.equal(70)
 
- describe "Blizzard", ->
+describe "Blizzard", ->
   it "has perfect accuracy in Hail", ->
     shared.create.call(this)
     @battle.setWeather(Weather.HAIL)
@@ -5798,3 +5798,47 @@ describe "Thunder Wave", ->
     shared.create.call(this)
     blizzard = @battle.getMove("Blizzard")
     blizzard.chanceToHit(@battle, @p1, @p2).should.equal(70)
+
+describe "Sleep Talk", ->
+  it "fails if the pokemon is awake", ->
+    shared.create.call(this)
+    sleepTalk = @battle.getMove("Sleep Talk")
+    mock = @sandbox.mock(sleepTalk).expects('fail').once()
+    @battle.performMove(@id1, sleepTalk)
+    mock.verify()
+
+  it "performs a random move when the pokemon is asleep", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, 'randInt', 'sleep talk', 0)
+    tackle = @battle.getMove("Tackle")
+    sleepTalk = @battle.getMove("Sleep Talk")
+    @p1.moves = [ tackle, sleepTalk ]
+    @p1.resetAllPP()
+    @p1.attach(Status.Sleep)
+    spy = @sandbox.spy(@battle, 'executeMove')
+    @battle.performMove(@id1, sleepTalk)
+    spy.calledWith(tackle).should.be.true
+
+  it "does not choose sleep talk or other moves", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, 'randInt', 'sleep talk', 0)
+    tackle = @battle.getMove("Tackle")
+    sleepTalk = @battle.getMove("Sleep Talk")
+    assist = @battle.getMove("Assist")
+    @p1.moves = [ sleepTalk, assist, tackle ]
+    @p1.resetAllPP()
+    @p1.attach(Status.Sleep)
+    spy = @sandbox.spy(@battle, 'executeMove')
+    @battle.performMove(@id1, sleepTalk)
+    spy.calledWith(tackle).should.be.true
+
+  it "fails if there are no viable moves", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, 'randInt', 'sleep talk', 0)
+    sleepTalk = @battle.getMove("Sleep Talk")
+    @p1.moves = [ sleepTalk ]
+    @p1.resetAllPP()
+    @p1.attach(Status.Sleep)
+    mock = @sandbox.mock(sleepTalk).expects('fail').once()
+    @battle.performMove(@id1, sleepTalk)
+    mock.verify()

@@ -828,7 +828,7 @@ extendMove 'Mirror Move', ->
     if !move? || !move.hasFlag("mirror")
       @fail(battle)
       return false
-    move.execute(battle, user, targets)
+    battle.executeMove(move, user, targets)
 
 extendWithSecondaryBoost 'Mirror Shot', 'target', .3, accuracy: -1
 extendWithSecondaryBoost 'Mist Ball', 'target', .5, specialAttack: -1
@@ -1099,7 +1099,7 @@ extendMove 'Assist', ->
         targets = [ battle.rng.choice(pokemon) ]
       else
         targets = battle.getTargets(move, user)
-      move.execute(battle, user, targets)
+      battle.executeMove(move, user, targets)
 
 extendMove 'Aqua Ring', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1205,8 +1205,7 @@ extendMove 'Copycat', ->
   @execute = (battle, user, targets) ->
     move = battle.lastMove
     if move? && move != battle.getMove('Copycat')
-      battle.message "#{user.name} used #{move.name}!"
-      move.execute(battle, user, targets)
+      battle.executeMove(move, user, targets)
     else
       @fail(battle)
 
@@ -1579,7 +1578,7 @@ extendMove 'Me First', ->
       @fail(battle)
       return false
     user.attach(Attachment.MeFirst)
-    m.execute(battle, user, targets)
+    battle.executeMove(m, user, targets)
 
 extendMove 'Memento', ->
   oldExecute = @execute
@@ -1650,14 +1649,14 @@ extendMove 'Metronome', ->
       targets = [ battle.rng.choice(pokemon) ]
     else
       targets = battle.getTargets(move, user)
-    move.execute(battle, user, targets)
+    battle.executeMove(move, user, targets)
 
 extendMove 'Nature Power', ->
   @execute = (battle, user, targets) ->
     # In Wi-Fi battles, Earthquake is always chosen.
     battle.message "#{@name} turned into Earthquake!"
     earthquake = battle.getMove('Earthquake')
-    earthquake.execute(battle, user, targets)
+    battle.executeMove(earthquake, user, targets)
 
   @getTargets = (battle, user) ->
     earthquake = battle.getMove('Earthquake')
@@ -1798,6 +1797,32 @@ extendMove 'Reflect', ->
 
 extendMove 'Return', ->
   @basePower = -> 102
+
+extendMove 'Sleep Talk', ->
+  bannedMoves = [
+    "Assist"
+    "Bide"
+    "Chatter"
+    "Copycat"
+    "Focus Punch"
+    "Me First"
+    "Metronome"
+    "Mimic"
+    "Mirror Move"
+    "Nature Power"
+    "Sketch"
+    "Sleep Talk"
+    "Uproar"
+  ]
+  @usableWhileAsleep = true
+  @execute = (battle, user, targets) ->
+    viableMoves = user.moves.filter((move) -> move.name not in bannedMoves)
+    if viableMoves.length == 0 || !user.has(Status.Sleep)
+      @fail(battle)
+      return
+    moveIndex = battle.rng.randInt(0, viableMoves.length - 1, "sleep talk")
+    move = viableMoves[moveIndex]
+    battle.executeMove(move, user, targets)
 
 extendMove 'Smack Down', ->
   @afterSuccessfulHit = (battle, user, target) ->
