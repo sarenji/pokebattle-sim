@@ -252,7 +252,7 @@ class @Pokemon
       @battle.tell(Protocol.FAINT, @player.index, @battle.getSlotNumber(this))
       # Remove pending actions they had.
       @battle.popAction(this)
-    @currentHP = 0
+    @setHP(0)  if !@isFainted()
     @fainted = true
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     @attachments.query('afterFaint')
