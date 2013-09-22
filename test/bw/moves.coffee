@@ -2983,6 +2983,8 @@ describe "Mirror Move", ->
   it "fails if the pokemon was unable to move the previous turn"
 
 describe "Leech Seed", ->
+  shared.shouldFailIfUsedTwice("Leech Seed")
+
   it "saps 1/8 of the target's max HP each turn", ->
     shared.create.call(this)
     move = @battle.getMove("Leech Seed")

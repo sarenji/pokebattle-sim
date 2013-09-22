@@ -785,10 +785,12 @@ extendMove 'Leech Seed', ->
       oldWillMiss.call(this, battle, user, target)
 
   @afterSuccessfulHit = (battle, user, target, damage) ->
-    {team} = battle.getOwner(user)
-    slot   = team.indexOf(user)
-    target.attach(Attachment.LeechSeed, {team, slot})
-    battle.message "#{target.name} was seeded!"
+    team = user.team
+    slot = team.indexOf(user)
+    if target.attach(Attachment.LeechSeed, {team, slot})
+      battle.message "#{target.name} was seeded!"
+    else
+      @fail(battle)
 
 extendWithSecondaryStatus 'Lick', .3, Status.Paralyze
 makeLockOnMove 'Lock-On'
