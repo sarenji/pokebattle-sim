@@ -1287,10 +1287,9 @@ class @Status.Sleep extends @StatusAttachment
       @battle.message "#{@pokemon.name} woke up!"
       @pokemon.cureStatus()
     else
-      @counter += 1
-      return  if move.usableWhileAsleep
       @battle.message "#{@pokemon.name} is fast asleep."
-      return false
+      @counter += 1
+      return false  unless move.usableWhileAsleep
 
 class @Status.Burn extends @StatusAttachment
   name: "Burn"
