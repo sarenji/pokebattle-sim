@@ -315,3 +315,28 @@ describe 'Move:', ->
       @battle.setWeather(Weather.SAND)
       move = new Move(null, type: "Fire")
       move.weatherModifier(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "#baseDamage", ->
+    it "reduces damage by ~1.5 if the weather is sandstorm", ->
+      shared.create.call(this)
+      @p2.types = [ "Rock" ]
+      move = new Move(null, power: 50, type: "Fire", damage: 'special')
+      damage = move.baseDamage(@battle, @p1, @p2)
+      @battle.setWeather(Weather.SAND)
+      move.baseDamage(@battle, @p1, @p2).should.be.lessThan(damage)
+
+    it "doesn't apply the sandstorm effect if target isn't Rock-type", ->
+      shared.create.call(this)
+      @p2.types = [ "Ground" ]
+      move = new Move(null, power: 50, type: "Fire", damage: 'special')
+      damage = move.baseDamage(@battle, @p1, @p2)
+      @battle.setWeather(Weather.SAND)
+      move.baseDamage(@battle, @p1, @p2).should.equal(damage)
+
+    it "doesn't apply the sandstorm effect if move is non-special", ->
+      shared.create.call(this)
+      @p2.types = [ "Rock" ]
+      move = new Move(null, power: 50, type: "Fire", damage: 'physical')
+      damage = move.baseDamage(@battle, @p1, @p2)
+      @battle.setWeather(Weather.SAND)
+      move.baseDamage(@battle, @p1, @p2).should.equal(damage)

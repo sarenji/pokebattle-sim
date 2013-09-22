@@ -223,6 +223,8 @@ class @Move
     floor = Math.floor
     uStat = @pickAttackStat(user, target)
     tStat = @pickDefenseStat(user, target)
+    if battle.hasWeather(Weather.SAND) && target.hasType("Rock") && @isSpecial()
+      tStat = @modify(tStat, 0x1800)
     damage = floor((2 * user.level) / 5 + 2)
     damage *= @basePower(battle, user, target)
     damage = @modify(damage, @modifyBasePower(battle, user, target))
