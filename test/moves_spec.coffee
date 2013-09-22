@@ -1,4 +1,4 @@
-{Battle, Move, Pokemon, Status, Attachment} = require('../').server
+{Battle, Move, Pokemon, Status, Attachment, Weather} = require('../').server
 {Factory} = require './factory'
 shared = require('./shared')
 should = require('should')
@@ -284,3 +284,34 @@ describe 'Move:', ->
       @battle.performMove(@id2, @battle.getMove("Substitute"))
       @battle.performMove(@id1, @battle.getMove("Tackle"))
       spy.returned(1).should.be.false
+
+  describe '#weatherModifier', ->
+    it "is 0x1800 when the move is Fire-type and the weather is sunny", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SUN)
+      move = new Move(null, type: "Fire")
+      move.weatherModifier(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "is 0x800 when the move is Fire-type and the weather is rainy", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.RAIN)
+      move = new Move(null, type: "Fire")
+      move.weatherModifier(@battle, @p1, @p2).should.equal(0x800)
+
+    it "is 0x1800 when the move is Water-type and the weather is rainy", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.RAIN)
+      move = new Move(null, type: "Water")
+      move.weatherModifier(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "is 0x1800 when the move is Water-type and the weather is sunny", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SUN)
+      move = new Move(null, type: "Water")
+      move.weatherModifier(@battle, @p1, @p2).should.equal(0x800)
+
+    it "is 0x1000 otherwise", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SAND)
+      move = new Move(null, type: "Fire")
+      move.weatherModifier(@battle, @p1, @p2).should.equal(0x1000)

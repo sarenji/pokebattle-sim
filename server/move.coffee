@@ -1,4 +1,5 @@
 {Attachment, Status} = require './attachment'
+{Weather} = require './weather'
 {Protocol} = require '../shared/protocol'
 util = require './util'
 
@@ -148,15 +149,15 @@ class @Move
 
   weatherModifier: (battle, user, target) ->
     # TODO: This is wrong.
-    type = @getType(battle, user, target).toUpperCase()
-    if type == 'Fire' and battle.hasWeather('Sunny')
+    type = @getType(battle, user, target)
+    if type == 'Fire' && battle.hasWeather(Weather.SUN)
       0x1800
-    else if type == 'Fire' and battle.hasWeather('Rainy')
-      0x0800
-    else if type == 'Water' and battle.hasWeather('Rainy')
+    else if type == 'Fire' && battle.hasWeather(Weather.RAIN)
+      0x800
+    else if type == 'Water' && battle.hasWeather(Weather.RAIN)
       0x1800
-    else if type == 'Water' and battle.hasWeather('Sunny')
-      0x0800
+    else if type == 'Water' && battle.hasWeather(Weather.SUN)
+      0x800
     else
       0x1000
 
