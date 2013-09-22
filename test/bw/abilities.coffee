@@ -1146,8 +1146,14 @@ describe "BW Abilities:", ->
   testTypeImmuneAbility("Sap Sipper", "Grass", "attack")
 
   describe "Moxie", ->
-    it "increases attack every time it faints another target"
-    it "does not increase attack if someone faints another pokemon"
+    it "increases attack every time it faints another target", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Moxie")]
+      tackle = @battle.getMove("Tackle")
+      @p2.currentHP = 1
+      @p1.stages.should.include(attack: 0)
+      @battle.performMove(@id1, tackle)
+      @p1.stages.should.include(attack: 1)
 
   describe "Multiscale", ->
     it "takes half damage at full HP", ->

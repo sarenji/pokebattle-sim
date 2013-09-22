@@ -18,7 +18,6 @@ makeAbility = (name, extension, func) ->
 makeAbility 'Sheer Force'
 makeAbility 'Mold Breaker'
 makeAbility 'Pickup'
-makeAbility 'Moxie'
 makeAbility 'Serene Grace'
 
 # Ability templates
@@ -562,6 +561,10 @@ makeAbility 'Moody', ->
     boosts[raiseStat] = 2   if raiseStat
     boosts[lowerStat] = -1  if lowerStat
     @pokemon.boost(boosts)
+
+makeAbility 'Moxie', ->
+  this::afterSuccessfulHit = (move, user, target, damage) ->
+    if target.isFainted() then @pokemon.boost(attack: 1)
 
 makeAbility 'Multiscale', ->
   this::modifyDamageTarget = ->
