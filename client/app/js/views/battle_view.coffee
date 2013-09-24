@@ -333,7 +333,7 @@ class @BattleView extends Backbone.View
       display = @mapStatusForDisplay(status)
       $effects.append("""<div class="pokemon-effect #{status}">#{display}</div>""")
     else
-      $pokemon.find(".pokemon-effect.#{status}").remove()
+      $pokemon.find(".pokemon-effect.#{pokemon.previous('status')}").remove()
 
   mapStatusForDisplay: (status) =>
     switch status
