@@ -18,4 +18,4 @@ npm install -g coffee-script grunt-cli
 
 # Rebuild 
 cd /vagrant
-npm rebuild
+npm install --no-bin-links
