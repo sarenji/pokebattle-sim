@@ -14,7 +14,7 @@ source $HOME/.profile
 nvm install 0.10
 nvm alias default 0.10
 
-npm install -g coffee-script grunt-cli
+npm install -g coffee-script grunt-cli mocha
 
 # Rebuild 
 cd /vagrant
