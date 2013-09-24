@@ -82,6 +82,9 @@ userList = []
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
+  'connection': (user) ->
+    user.send 'list chatroom', userList.map((u) -> u.toJSON())
+
   'send chat': (user, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
     user.broadcast 'update chat', user.toJSON(), message
@@ -286,10 +289,8 @@ loginSuccess = (user, email) ->
   user.email = email
   userList.push(user)
   user.send 'login success', user.toJSON()
-  user.send 'list chatroom', userList.map((u) -> u.toJSON())
-  user.broadcast 'join chatroom', user.toJSON()
+  connections.broadcast 'join chatroom', user.toJSON()
 
-# TODO: Implement team builder!
 defaultTeam = [
   {
     name: "Pikachu"

@@ -34,9 +34,7 @@ class @ConnectionServer
         catch e
           # Invalid JSON. Discard.
           return
-        messageType = data.messageType
-        for callback in (@callbacks[messageType] || [])
-          callback.apply(user, [user, data.data...])
+        @trigger(user, data.messageType, data.data...)
 
       # Hack for Heroku:
       # https://github.com/sockjs/sockjs-node/issues/57#issuecomment-5242187
@@ -55,10 +53,15 @@ class @ConnectionServer
         delete user.connections
 
       @users.push(user)
+      @trigger(user, 'connection')
 
   on: (type, callback) ->
     @callbacks[type] ?= []
     @callbacks[type].push(callback)
+
+  trigger: (user, eventName, args...) ->
+    for callback in (@callbacks[eventName] || [])
+      callback.apply(user, [user, args...])
 
   addEvents: (events) ->
     @on(type, callback) for type, callback of events
