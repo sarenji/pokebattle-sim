@@ -1830,7 +1830,7 @@ describe "Toxic Spikes", ->
     @battle.recordSwitch(@id2, 1)
     @battle.performReplacements()
 
-    @team2.first().hasStatus(Status.POISON).should.be.true
+    @team2.first().has(Status.Poison).should.be.true
 
 testWeatherMove = (moveName, weather, item) ->
   describe moveName, ->
@@ -1877,7 +1877,7 @@ testStatusMove = (moveName, status) ->
       @battle.performMove(@id1, move)
 
       @p2.has(status).should.be.false
-      @p2.hasStatus(oldStatus).should.be.true
+      @p2.has(oldStatus).should.be.true
 
 testStatusMove("Dark Void", Status.Sleep)
 testStatusMove("GrassWhistle", Status.Sleep)
@@ -5843,4 +5843,64 @@ describe "Sleep Talk", ->
     @p1.attach(Status.Sleep)
     mock = @sandbox.mock(sleepTalk).expects('fail').once()
     @battle.performMove(@id1, sleepTalk)
+    mock.verify()
+
+describe "Rest", ->
+  it "fails if the pokemon is at full HP", ->
+    shared.create.call(this)
+    rest = @battle.getMove("Rest")
+    mock = @sandbox.mock(rest).expects('fail').once()
+
+    @p1.setHP(@p1.stat('hp'))
+    @battle.performMove(@id1, rest)
+    mock.verify()
+
+  it "restores the pokemon to full HP otherwise", ->
+    shared.create.call(this)
+    rest = @battle.getMove("Rest")
+
+    @p1.setHP(1)
+    @battle.performMove(@id1, rest)
+    @p1.currentHP.should.equal @p1.stat('hp')
+
+  it "sleeps the pokemon", ->
+    shared.create.call(this)
+    rest = @battle.getMove("Rest")
+
+    @p1.setHP(1)
+    @p1.has(Status.Sleep).should.be.false
+    @battle.performMove(@id1, rest)
+    @p1.has(Status.Sleep).should.be.true
+
+  it "cures the pokemon of adverse status effects", ->
+    shared.create.call(this)
+    rest = @battle.getMove("Rest")
+
+    @p1.setHP(1)
+    @p1.attach(Status.Paralyze)
+    @p1.has(Status.Paralyze).should.be.true
+    @battle.performMove(@id1, rest)
+    @p1.has(Status.Sleep).should.be.true
+    @p1.has(Status.Paralyze).should.be.false
+
+  it "always forces sleep turns to be 2", ->
+    shared.create.call(this)
+    shared.biasRNG.call(this, "randInt", "sleep turns", 3)
+    rest = @battle.getMove("Rest")
+
+    @p1.setHP(1)
+    @battle.performMove(@id1, rest)
+    attachment = @p1.get(Status.Sleep)
+    should.exist(attachment)
+    attachment.should.have.property("turns")
+    attachment.turns.should.equal(2)
+
+  it "fails if the Pokemon cannot be slept", ->
+    shared.create.call this,
+      team1: [Factory("Magikarp", ability: "Vital Spirit")]
+    rest = @battle.getMove("Rest")
+    mock = @sandbox.mock(rest).expects('fail').once()
+
+    @p1.setHP(1)
+    @battle.performMove(@id1, rest)
     mock.verify()

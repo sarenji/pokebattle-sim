@@ -225,6 +225,13 @@ describe 'Pokemon', ->
       pokemon.attach(Status.Freeze)
       should.not.exist pokemon.attach(Status.Paralyze)
 
+    it "does not override statuses", ->
+      pokemon = new Pokemon()
+      pokemon.attach(Status.Freeze)
+      pokemon.attach(Status.Paralyze)
+      pokemon.has(Status.Freeze).should.be.true
+      pokemon.has(Status.Paralyze).should.be.false
+
     it "sets the status of the pokemon", ->
       for name, status of Status
         pokemon = new Pokemon()

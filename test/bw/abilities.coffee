@@ -425,7 +425,7 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
       @p1.attach(Status.Sleep)
       @battle.performMove(@id1, @battle.getMove('Tackle'))
-      @p1.hasStatus(Status.Sleep).should.be.false
+      @p1.has(Status.Sleep).should.be.false
 
   describe "Effect Spore", ->
     it "has a 30% chance to inflict poison, paralysis, or sleep on hit", ->

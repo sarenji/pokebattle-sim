@@ -1184,18 +1184,22 @@ class @StatusAttachment extends @BaseAttachment
 
   @preattach: (options, attributes) ->
     {battle, pokemon} = attributes
-    {source} = options
-    return false  if pokemon.hasStatus()
-    return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
-    return false  if this == Status.Burn && pokemon.hasType("Fire")
-    return false  if this == Status.Toxic && pokemon.hasType("Poison")
-    return false  if this == Status.Poison && pokemon.hasType("Poison")
-    return false  if this == Status.Freeze &&
-      (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
-    if source && pokemon.hasAbility("Synchronize")
-      return false  if source == pokemon
-      source.attach(this)  # Do not attach source
-      battle.message "#{pokemon.name} synchronized its status with #{source.name}!"
+    {source, force} = options
+    force ?= false
+    if !force
+      return false  if pokemon.hasStatus()
+      return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
+      return false  if this == Status.Burn && pokemon.hasType("Fire")
+      return false  if this == Status.Toxic && pokemon.hasType("Poison")
+      return false  if this == Status.Poison && pokemon.hasType("Poison")
+      return false  if this == Status.Freeze &&
+        (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
+      if source && pokemon.hasAbility("Synchronize")
+        return false  if source == pokemon
+        source.attach(this)  # Do not attach source
+        battle.message "#{pokemon.name} synchronized its status with #{source.name}!"
+    else
+      pokemon.cureStatus()
     pokemon.status = @name
     return true
 
@@ -1272,17 +1276,18 @@ class @Status.Toxic extends @StatusAttachment
 class @Status.Sleep extends @StatusAttachment
   name: "Sleep"
 
-  initialize: ->
+  initialize: (attributes) ->
     super()
     @counter = 0
+    {@turns} = attributes
+    if !@turns && @battle?
+      @turns = @battle.rng.randInt(1, 3, "sleep turns")
+      @turns >>= 1  if @pokemon.hasAbility("Early Bird")
 
   switchOut: ->
     @counter = 0
 
   beforeMove: (move, user, targets) ->
-    if !@turns
-      @turns = @battle.rng.randInt(1, 3, "sleep turns")
-      @turns >>= 1  if @pokemon.hasAbility("Early Bird")
     if @counter == @turns
       @battle.message "#{@pokemon.name} woke up!"
       @pokemon.cureStatus()

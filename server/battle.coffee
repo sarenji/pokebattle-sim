@@ -554,7 +554,6 @@ class @Battle
     while @pokemonActions.length > 0
       {id, slot, to} = @pokemonActions.pop()
       team = @getTeam(id)
-      pokemon = team.at(slot)
       @performReplacement(id, to, slot)
       switched.push team.at(slot)
     # TODO: Switch-in events are ordered by speed
