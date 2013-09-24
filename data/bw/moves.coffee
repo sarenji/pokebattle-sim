@@ -483,7 +483,7 @@ makeTrappingMove = (name) ->
 extendWithDrain 'Absorb'
 extendWithSecondaryBoost 'Acid', 'target', .1, specialDefense: -1
 makeBoostMove 'Acid Armor', 'self', defense: 2
-makeBoostMove 'Acid Spray', 'target', specialDefense: -2
+extendWithSecondaryBoost 'Acid Spray', 'target', 1, specialDefense: -2
 makeBoostMove 'Agility', 'self', speed: 2
 makeBoostMove 'Amnesia', 'self', specialDefense: 2
 extendWithSecondaryBoost 'AncientPower', 'self', .1, {
@@ -541,7 +541,7 @@ extendWithSecondaryBoost 'Bubble', 'target', .1, speed: -1
 extendWithSecondaryBoost 'BubbleBeam', 'target', .1, speed: -1
 extendWithSecondaryBoost 'Bug Buzz', 'target', .1, specialDefense: -1
 makeBoostMove 'Bulk Up', 'self', attack: 1, defense: 1
-extendWithBoost 'Bulldoze', 'target', speed: -1
+extendWithSecondaryBoost 'Bulldoze', 'target', 1, speed: -1
 makeBoostMove 'Calm Mind', 'self', specialAttack: 1, specialDefense: 1
 
 extendMove 'Camouflage', ->
@@ -569,7 +569,7 @@ extendMove 'Charge', ->
     oldUse.call(this, battle, user, target)
 
 makeBoostMove 'Charm', 'target', attack: -2
-extendWithSecondaryEffect 'Chatter', 1, Attachment.Confusion
+extendWithSecondaryEffect 'Chatter', .1, Attachment.Confusion
 extendWithSecondaryBoost 'Charge Beam', 'self', .7, specialAttack: 1
 
 extendMove 'Chip Away', ->
@@ -649,7 +649,7 @@ extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
 extendWithSecondaryEffect 'DynamicPunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'Earth Power', 'target', .1, specialDefense: -1
-extendWithBoost 'Electroweb', 'target', speed: -1
+extendWithSecondaryBoost 'Electroweb', 'target', 1, speed: -1
 extendWithSecondaryBoost 'Energy Ball', 'target', .1, specialDefense: -1
 
 extendMove 'Embargo', ->
@@ -688,7 +688,7 @@ extendWithSecondaryStatus 'Fire Punch', .1, Status.Burn
 makeTrappingMove "Fire Spin"
 makeOneHitKOMove 'Fissure'
 makeReversalMove 'Flail'
-extendWithBoost 'Flame Charge', 'self', speed: 1
+extendWithSecondaryBoost 'Flame Charge', 'self', 1, speed: 1
 extendMove 'Flame Wheel', -> @thawsUser = true
 extendWithSecondaryStatus 'Flame Wheel', .1, Status.Burn
 extendWithSecondaryStatus 'Flamethrower', .1, Status.Burn
@@ -718,7 +718,7 @@ makeRechargeMove 'Frenzy Plant'
 extendMove 'Fusion Flare', -> @thawsUser = true
 extendWithDrain 'Giga Drain'
 makeRechargeMove 'Giga Impact'
-extendWithBoost 'Glaciate', 'target', speed: -1
+extendWithSecondaryBoost 'Glaciate', 'target', 1, speed: -1
 makeWeightBased 'Grass Knot'
 extendWithPrimaryStatus 'GrassWhistle', Status.Sleep
 makeBoostMove 'Growl', 'target', attack: -1
@@ -750,7 +750,7 @@ makeRechargeMove 'Hydro Cannon'
 makeRechargeMove 'Hyper Beam'
 extendWithPrimaryStatus 'Hypnosis', Status.Sleep
 makeMomentumMove 'Ice Ball'
-extendWithBoost 'Icy Wind', 'target', speed: -1
+extendWithSecondaryBoost 'Icy Wind', 'target', 1, speed: -1
 makeBoostMove 'Iron Defense', 'self', defense: 2
 extendWithSecondaryBoost 'Iron Tail', 'target', .1, defense: -1
 makeWeatherMove 'Hail', Weather.HAIL
@@ -772,7 +772,7 @@ extendWithSecondaryEffect 'Iron Head', .3, Attachment.Flinch
 makeJumpKick 'Jump Kick'
 extendWithSecondaryStatus 'Lava Plume', .3, Status.Burn
 extendWithBoost 'Leaf Storm', 'self', specialAttack: -2
-extendWithSecondaryBoost 'Leaf Tornado', 'target', .3, accuracy: -1
+extendWithSecondaryBoost 'Leaf Tornado', 'target', .5, accuracy: -1
 makeBoostMove 'Leer', 'target', defense: -1
 extendWithDrain 'Leech Life'
 
@@ -795,7 +795,7 @@ extendMove 'Leech Seed', ->
 extendWithSecondaryStatus 'Lick', .3, Status.Paralyze
 makeLockOnMove 'Lock-On'
 makeWeightBased 'Low Kick'
-extendWithBoost 'Low Sweep', 'target', speed: -1
+extendWithSecondaryBoost 'Low Sweep', 'target', 1, speed: -1
 extendWithPrimaryStatus 'Lovely Kiss', Status.Sleep
 
 extendMove 'Lucky Chant', ->
@@ -837,8 +837,8 @@ extendWithSecondaryBoost 'Mist Ball', 'target', .5, specialAttack: -1
 makeWeatherRecoveryMove 'Moonlight'
 makeWeatherRecoveryMove 'Morning Sun'
 extendWithSecondaryBoost 'Mud Bomb', 'target', .3, accuracy: -1
-extendWithBoost 'Mud Shot', 'target', speed: -1
-extendWithBoost 'Mud-Slap', 'target', accuracy: -1
+extendWithSecondaryBoost 'Mud Shot', 'target', 1, speed: -1
+extendWithSecondaryBoost 'Mud-Slap', 'target', 1, accuracy: -1
 extendWithSecondaryBoost 'Muddy Water', 'target', .3, accuracy: -1
 makeBoostMove 'Nasty Plot', 'self', specialAttack: 2
 extendWithSecondaryEffect 'Needle Arm', .3, Attachment.Flinch
@@ -876,7 +876,7 @@ makeRechargeMove 'Roar of Time'
 extendWithSecondaryEffect 'Rock Climb', .2, Attachment.Confusion
 makeBoostMove 'Rock Polish', 'self', speed: 2
 extendWithSecondaryBoost 'Rock Smash', 'target', .5, defense: -1
-extendWithBoost 'Rock Tomb', 'target', speed: -1
+extendWithSecondaryBoost 'Rock Tomb', 'target', 1, speed: -1
 extendWithSecondaryEffect 'Rock Slide', .3, Attachment.Flinch
 makeRechargeMove 'Rock Wrecker'
 extendWithSecondaryEffect 'Rolling Kick', .3, Attachment.Flinch
@@ -886,7 +886,7 @@ extendMove 'Roost', ->
   @afterSuccessfulHit = (battle, user, target, damage) ->
     user.attach(Attachment.Roost)
 
-extendWithBoost 'Sand-Attack', 'target', accuracy: -1
+makeBoostMove 'Sand-Attack', 'target', accuracy: -1
 extendMove 'Sacred Fire', -> @thawsUser = true
 extendWithSecondaryStatus 'Sacred Fire', .5, Status.Burn
 makeWeatherMove 'Sandstorm', Weather.SAND
@@ -921,7 +921,7 @@ extendWithSecondaryStatus 'Sludge Bomb', .3, Status.Poison
 extendWithSecondaryStatus 'Sludge Wave', .1, Status.Poison
 extendWithSecondaryStatus 'Smog', .4, Status.Poison
 makeBoostMove 'SmokeScreen', 'target', accuracy: -1
-extendWithBoost 'Snarl', 'target', specialAttack: -1
+extendWithSecondaryBoost 'Snarl', 'target', 1, specialAttack: -1
 extendWithSecondaryEffect 'Snore', .3, Attachment.Flinch
 makeRecoveryMove 'Softboiled'
 extendWithSecondaryStatus 'Spark', .3, Status.Paralyze
@@ -965,7 +965,7 @@ extendWithSecondaryEffect 'Stomp', .3, Attachment.Flinch
 makeStompMove 'Stomp'
 makeBasePowerBoostMove 'Stored Power', 20, 860, 'user'
 makeBoostMove 'String Shot', 'target', speed: -1
-extendWithBoost 'Struggle Bug', 'target', specialAttack: -1
+extendWithSecondaryBoost 'Struggle Bug', 'target', 1, specialAttack: -1
 extendWithPrimaryStatus 'Stun Spore', Status.Paralyze
 makeWeatherMove 'Sunny Day', Weather.SUN
 extendWithBoost 'Superpower', 'self', attack: -1, defense: -1
@@ -1004,7 +1004,7 @@ extendMove 'Super Fang', ->
     halfHP = Math.floor(target.currentHP / 2)
     Math.max(1, halfHP)
 makeWeatherRecoveryMove 'Synthesis'
-makeBoostMove 'Tail Glow', 'self', attack: 3
+makeBoostMove 'Tail Glow', 'self', specialAttack: 3
 makeBoostMove 'Tail Whip', 'target', defense: -1
 extendWithPrimaryEffect 'Teeter Dance', Attachment.Confusion
 extendMove 'Teleport', (battle) ->
