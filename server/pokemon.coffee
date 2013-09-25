@@ -224,11 +224,14 @@ class @Pokemon
     @lastItem = item
 
   removeItem: ->
+    return  unless @item
     @attach(Attachment.Unburden)  if @hasAbility("Unburden")
     @get(@item).switchOut()
     @unattach(@item)
     @lastItem = null
+    oldItem = @item
     @item = null
+    oldItem
 
   hasTakeableItem: ->
     return false  if !@item?

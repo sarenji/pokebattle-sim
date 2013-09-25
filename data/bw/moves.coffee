@@ -209,16 +209,20 @@ makeTrickMove = (name) ->
     @use = ->
 
     @afterSuccessfulHit = (battle, user, target) ->
-      if !user.hasTakeableItem() || !target.hasTakeableItem()
+      if (user.hasItem() && !user.hasTakeableItem()) ||
+          (target.hasItem() && !target.hasTakeableItem()) ||
+          (!target.hasItem() && !user.hasItem())
         @fail(battle)
         return false
-      uItem = user.getItem()
-      tItem = target.getItem()
-      user.setItem(tItem)
-      target.setItem(uItem)
+      uItem = user.removeItem()
+      tItem = target.removeItem()
       battle.message "#{user.name} switched items with its target!"
-      battle.message "#{user.name} obtained one #{tItem.displayName}!"
-      battle.message "#{target.name} obtained one #{uItem.displayName}!"
+      if tItem
+        battle.message "#{user.name} obtained one #{tItem.displayName}!"
+        user.setItem(tItem)
+      if uItem
+        battle.message "#{target.name} obtained one #{uItem.displayName}!"
+        target.setItem(uItem)
 
 makeExplosionMove = (name) ->
   extendMove name, ->

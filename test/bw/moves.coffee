@@ -580,19 +580,20 @@ describe 'trick and switcheroo', ->
     @battle.performMove(@id1, trick)
     mock.verify()
 
-  it "fails if the target has no item", ->
+  it "succeeds if only one pokemon has an item", ->
     shared.create.call this,
       team1: [Factory('Alakazam', item: 'Stick')]
       team2: [Factory('Magikarp')]
     trick = @battle.getMove('Trick')
-    mock = @sandbox.mock(trick).expects('fail').once()
+    item1 = @p1.item
     @battle.performMove(@id1, trick)
-    mock.verify()
+    should.not.exist(@p1.item)
+    @p2.item.should.equal(item1)
 
-  it "fails if the user has no item", ->
+  it "fails if neither the user nor the target has an item", ->
     shared.create.call this,
       team1: [Factory('Alakazam')]
-      team2: [Factory('Magikarp', item: 'Leftovers')]
+      team2: [Factory('Magikarp')]
     trick = @battle.getMove('Trick')
     mock = @sandbox.mock(trick).expects('fail').once()
     @battle.performMove(@id1, trick)
@@ -5877,11 +5878,11 @@ describe "Rest", ->
     rest = @battle.getMove("Rest")
 
     @p1.setHP(1)
-    @p1.attach(Status.Paralyze)
-    @p1.has(Status.Paralyze).should.be.true
+    @p1.attach(Status.Burn)
+    @p1.has(Status.Burn).should.be.true
     @battle.performMove(@id1, rest)
     @p1.has(Status.Sleep).should.be.true
-    @p1.has(Status.Paralyze).should.be.false
+    @p1.has(Status.Burn).should.be.false
 
   it "always forces sleep turns to be 2", ->
     shared.create.call(this)
