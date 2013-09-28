@@ -725,6 +725,7 @@ class @Attachment.Substitute extends @VolatileAttachment
 
   initialize: (attributes) ->
     {@hp} = attributes
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   transformHealthChange: (damage) ->
     @hp -= damage
@@ -742,6 +743,9 @@ class @Attachment.Substitute extends @VolatileAttachment
 
   afterBeingHit: (move, user, target, damage) ->
     @pokemon.unattach(@constructor)  if @hp <= 0
+
+  unattach: ->
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
 
 class @Attachment.Stockpile extends @VolatileAttachment
   name: "StockpileAttachment"
@@ -1218,8 +1222,10 @@ class @StatusAttachment extends @BaseAttachment
       when Status.Burn
         "was burned"
     @battle?.message "#{@pokemon.name} #{wasStatused}!"
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   unattach: ->
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
     @pokemon.status = null
 
 class @Status.Paralyze extends @StatusAttachment

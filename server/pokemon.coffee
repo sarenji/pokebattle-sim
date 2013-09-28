@@ -385,17 +385,13 @@ class @Pokemon
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->
     options = _.clone(options)
-    attachment = @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
-    if attachment then @battle?.tell(Protocol.POKEMON_ATTACH, @player.index, @team.indexOf(this), attachment.name)
-    attachment
+    @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
 
   # Removes an attachment from the list of attachment
   unattach: (klass) ->
     # TODO: Do we need to remove circular dependencies?
     # Removing them here will result in some unanticipated consequenes.
-    attachment = @attachments.unattach(klass)
-    if attachment then @battle?.tell(Protocol.POKEMON_UNATTACH, @player.index, @team.indexOf(this), attachment.name)
-    attachment
+    @attachments.unattach(klass)
 
   # Blocks a move for a single turn
   blockMove: (move) ->
@@ -434,6 +430,7 @@ class @Pokemon
       @blockMove(move)  if move != moveToLock
 
   tell: (protocol, args...) ->
+    return  unless @battle
     args = [ @player.index, @team.indexOf(this), args... ]
     @battle.tell(protocol, args...)
 
