@@ -69,9 +69,6 @@ class @Team
   beginTurn: ->
     @attachments.query('beginTurn')
 
-  endTurn: ->
-    @attachments.query('endTurn')
-
   switchOut: (pokemon) ->
     @attachments.query('switchOut', pokemon)
     pokemon.switchOut()

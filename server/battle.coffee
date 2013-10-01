@@ -6,6 +6,7 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../shared/protocol'
+Priority = require './priorities'
 
 require 'sugar'
 
@@ -339,10 +340,10 @@ class @Battle
 
   # Performs end turn effects.
   endTurn: ->
-    @attachments.query('endTurn')
-    team.endTurn()  for team in @getTeams()
-    pokemon.endTurn()  for pokemon in @getActiveAlivePokemon()
     @weatherUpkeep()
+    @queryAttachments("endTurn")
+    for pokemon in @getActivePokemon()
+      pokemon.turnsActive += 1
     @performFaints()
 
   attach: (klass, options = {}) ->
@@ -383,6 +384,21 @@ class @Battle
 
   hasStarted: ->
     @turn >= 1
+
+  getAllAttachments: ->
+    array = @attachments.all()
+    array.push(@getTeams().map((t) -> t.attachments.all()))
+    array.push(@getActivePokemon().map((p) -> p.attachments.all()))
+    _.flatten(array)
+
+  orderAttachments: (attachments, eventName) ->
+    Priority.orderByPriority(attachments, eventName)
+
+  queryAttachments: (eventName) ->
+    attachments = @orderAttachments(@getAllAttachments(), eventName)
+    attachments = (a  for a in attachments when a.valid())
+    for attachment in attachments
+      attachment[eventName]?.call(attachment)
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.

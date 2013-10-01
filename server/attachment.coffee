@@ -20,7 +20,7 @@ class @Attachments
       for attribute, value of attributes
         attachment[attribute] = value
       @attachments.push(attachment)
-      attachment.initialize(options)
+      attachment.initialize?(options)
 
     return null  if attachment.layers == attachment.maxLayers
     attachment.layers++
@@ -30,7 +30,7 @@ class @Attachments
     index = @indexOf(klass)
     if index >= 0
       attachment = @attachments.splice(index, 1)[0]
-      attachment.unattach()
+      attachment.unattach?()
       attachment.attached = false
       attachment
 
@@ -41,7 +41,7 @@ class @Attachments
     while i < length
       attachment = @attachments[i]
       if condition(attachment)
-        attachment.unattach()
+        attachment.unattach?()
         @attachments.splice(i, 1)
         length--
       else
@@ -63,9 +63,7 @@ class @Attachments
 
   queryUntil: (funcName, conditional, args...) ->
     for attachment in _.clone(@attachments)
-      continue  if !attachment.attached
-      pokemon = attachment.pokemon
-      continue  if attachment.item && pokemon.item && pokemon.isItemBlocked()
+      continue  if !attachment.valid()
       if funcName of attachment
         result = attachment[funcName].apply(attachment, args)
       break  if conditional(result)
@@ -99,6 +97,9 @@ class @Attachments
       result = Math.floor((result * modifier + 0x800) / 0x1000)
     result
 
+  all: ->
+    _.clone(@attachments)
+
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.
 # Attachments are "attached" with Pokemon.attach(), and after
@@ -112,19 +113,24 @@ class @BaseAttachment
     @layers = 0
     @attached = true
 
-  initialize: ->
+  valid: ->
+    return false  if !@attached
+    return false  if @item && @pokemon?.item && @pokemon?.isItemBlocked()
+    return false  if @pokemon && !@pokemon.isAlive()
+    return true
 
-  unattach: ->
-  calculateWeight: (weight) -> weight
-  afterBeingHit: (move, user, target, damage) ->
-  afterSuccessfulHit: (move, user, target, damage) ->
-  beforeMove: (move, user, targets) ->
-  isImmune: (type) ->
-  switchOut: ->
-  switchIn: ->
-  beginTurn: ->
-  endTurn: ->
-  update: (owner) ->
+  # initialize: ->
+  # unattach: ->
+  # calculateWeight: (weight) -> weight
+  # afterBeingHit: (move, user, target, damage) ->
+  # afterSuccessfulHit: (move, user, target, damage) ->
+  # beforeMove: (move, user, targets) ->
+  # isImmune: (type) ->
+  # switchOut: ->
+  # switchIn: ->
+  # beginTurn: ->
+  # endTurn: ->
+  # update: (owner) ->
   # editBoosts: (stages) ->
   # editDamage: (damage, move, user) ->
   # afterFaint: ->
@@ -725,7 +731,7 @@ class @Attachment.Substitute extends @VolatileAttachment
 
   initialize: (attributes) ->
     {@hp} = attributes
-    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
+    @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
 
   transformHealthChange: (damage) ->
     @hp -= damage

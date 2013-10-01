@@ -204,16 +204,16 @@ class @Pokemon
   # TODO: really ugly copying of ability
   copyAbility: (ability) ->
     if @ability
-      @get(@ability).switchOut()
+      @get(@ability).switchOut?()
       @unattach(@ability)
     @ability = ability
-    @attach(@ability).switchIn()  if @ability
+    @attach(@ability).switchIn?()  if @ability
 
   setItem: (item) ->
     if @hasItem() then @removeItem()
     @item = item
     attachment = @attach(@item)
-    attachment.switchIn()  if !@isItemBlocked()
+    attachment.switchIn?()  if !@isItemBlocked()
 
   getItem: ->
     @item
@@ -226,7 +226,7 @@ class @Pokemon
   removeItem: ->
     return  unless @item
     @attach(Attachment.Unburden)  if @hasAbility("Unburden")
-    @get(@item).switchOut()
+    @get(@item).switchOut?()
     @unattach(@item)
     @lastItem = null
     oldItem = @item
@@ -377,10 +377,6 @@ class @Pokemon
 
   afterSuccessfulHit: (move, user, target, damage) ->
     @attachments.query('afterSuccessfulHit', move, user, target, damage)
-
-  endTurn: ->
-    @attachments.query('endTurn')
-    @turnsActive += 1
 
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->

@@ -49,6 +49,7 @@ describe "BW: Integration:", ->
       spy = @sandbox.spy(@battle, 'performReplacements')
 
       @battle.turn.should.equal(1)
+      @sandbox.stub(@battle.getMove("Thunderbolt"), "baseDamage", -> 9999)
       @controller.makeMove(@player1, "Thunderbolt")
       @controller.makeSwitch(@player2, 4)
 

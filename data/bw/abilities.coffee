@@ -523,7 +523,7 @@ makeAbility 'Magic Bounce', Attachment.MagicCoat, ->
   this::beginTurn = ->
     @bounced = false
 
-  this::endTurn = ->
+  this::endTurn = undefined
 
 makeAbility 'Magnet Pull', ->
   this::beginTurn = this::switchIn = ->

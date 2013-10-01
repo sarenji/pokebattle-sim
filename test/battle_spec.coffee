@@ -1,6 +1,7 @@
 {Battle, BattleController, Pokemon, Weather} = require('../').server
 {Factory} = require('./factory')
 {Player} = require('../server/player')
+{Attachment} = require('../server/attachment')
 {Protocol} = require '../shared/protocol'
 should = require 'should'
 sinon = require 'sinon'
@@ -256,3 +257,43 @@ describe 'Battle', ->
       battle = new Battle('id', players: @players)
       battle.begin()
       battle.hasStarted().should.be.true
+
+  describe "#getAllAttachments", ->
+    it "returns a list of attachments for all pokemon, teams, and battles", ->
+      @battle.attach(Attachment.TrickRoom)
+      @team2.attach(Attachment.Reflect)
+      @p1.attach(Attachment.Ingrain)
+      attachments = @battle.getAllAttachments()
+      should.exist(attachments)
+      attachments = attachments.map((a) -> a.constructor)
+      attachments.length.should.be.greaterThan(2)
+      attachments.should.include(Attachment.TrickRoom)
+      attachments.should.include(Attachment.Reflect)
+      attachments.should.include(Attachment.Ingrain)
+
+  describe "#orderAttachments", ->
+    it "returns a list of attachments in order", ->
+      @battle.attach(Attachment.TrickRoom)
+      @team2.attach(Attachment.Reflect)
+      @p1.attach(Attachment.Ingrain)
+      attachments = @battle.orderAttachments(@battle.getAllAttachments(), "endTurn")
+      attachments = attachments.map((a) -> a.constructor)
+      trIndex = attachments.indexOf(Attachment.TrickRoom)
+      rIndex = attachments.indexOf(Attachment.Reflect)
+      iIndex = attachments.indexOf(Attachment.Ingrain)
+
+      iIndex.should.be.lessThan(rIndex)
+      rIndex.should.be.lessThan(trIndex)
+
+  describe "#queryAttachments", ->
+    it "queries all attachments attached to a specific event", ->
+      @battle.attach(Attachment.TrickRoom)
+      @team2.attach(Attachment.Reflect)
+      @p1.attach(Attachment.Ingrain)
+      mocks = []
+      mocks.push @sandbox.mock(Attachment.TrickRoom.prototype)
+      mocks.push @sandbox.mock(Attachment.Reflect.prototype)
+      mocks.push @sandbox.mock(Attachment.Ingrain.prototype)
+      mock.expects("endTurn").once()  for mock in mocks
+      attachments = @battle.queryAttachments("endTurn")
+      mock.verify()  for mock in mocks
