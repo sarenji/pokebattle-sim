@@ -189,8 +189,8 @@ describe 'Battle', ->
       spy = @sandbox.spy(spectator, 'send')
       @battle.addSpectator(spectator)
       teams = @battle.getTeams().map((team) -> team.toJSON())
-      {id, numActive} = @battle
-      spy.calledWithMatch("spectate battle", id, numActive, undefined, teams).should.be.true
+      {id, numActive, log} = @battle
+      spy.calledWithMatch("spectate battle", id, numActive, undefined, teams, log).should.be.true
 
     it "does not add a spectator twice", ->
       spectator = {send: ->}

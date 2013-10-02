@@ -30,8 +30,9 @@ class @BattleCollection extends Backbone.Collection
   _updateBattle: (battle, actions, wasAtBottom) =>
     view = battle.view
     if actions.length == 0
-      if wasAtBottom then view.chatView.scrollToBottom()
       view.renderUserInfo()
+      if wasAtBottom || view.skip? then view.chatView.scrollToBottom()
+      if view.skip?                then delete view.skip
       return
     wasAtBottom ||= view.chatView.isAtBottom()
     action = actions.shift()
@@ -136,7 +137,7 @@ class @BattleCollection extends Backbone.Collection
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
-  spectateBattle: (socket, id, numActive, index, teams, spectators) =>
+  spectateBattle: (socket, id, numActive, index, teams, spectators, log) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
     # If not playing, pick a random index; it doesn't matter.
@@ -144,6 +145,9 @@ class @BattleCollection extends Backbone.Collection
     battle = new Battle({id, numActive, socket, index, teams, spectators})
     battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
+    if log.length > 0
+      battle.view.skip = 0
+      @_updateBattle(battle, log, false)
 
   joinBattle: (socket, id, user) =>
     battle = @get(id)

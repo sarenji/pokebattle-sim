@@ -1906,7 +1906,6 @@ extendMove 'Substitute', ->
 
     user.damage(dmg)
     battle.message "#{user.name} put in a substitute!"
-    user.tell(Protocol.MOVE_SUCCESS, user.team.indexOf(user))
 
   @fail = (battle) ->
 

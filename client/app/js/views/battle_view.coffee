@@ -14,6 +14,7 @@ class @BattleView extends Backbone.View
     @selected = null
     @chatView = null
     @lastMove = null
+    @skip     = null
     @renderChat()
     @listenTo(@model, 'team_preview', @renderTeamPreview)
     @listenTo(@model, 'change:status', @handleStatus)
@@ -152,6 +153,7 @@ class @BattleView extends Backbone.View
     done()
 
   floatPercent: (player, slot, percent) =>
+    return  if @skip?
     $sprite = @$pokemon(player, slot).find('.sprite')
     kind = (if percent >= 0 then "success" else "important")
     $hp = $('<span/>').addClass("label label-#{kind}").text("#{percent}%")
@@ -172,8 +174,12 @@ class @BattleView extends Backbone.View
     # Prepare old/new pokemon
     $oldPokemon.attr('data-slot', fromSlot)
     $newPokemon.attr('data-slot', slot)
-    $newPokemon.css(opacity: 0).removeClass('hidden')
+    $newPokemon.removeClass('hidden')
     $newSprite = $newPokemon.find('.sprite')
+
+    if @skip?
+      done()
+      return
 
     # Create and position pokeball
     pos = $newSprite.position()
@@ -184,6 +190,7 @@ class @BattleView extends Backbone.View
     $pokeball.appendTo(@$(".battle_pane"))
 
     # Start animations
+    $newPokemon.css(opacity: 0)
     $pokeball.css(opacity: 1)
     releasePokemon = =>
       $pokeball.css(opacity: 0)
@@ -198,6 +205,12 @@ class @BattleView extends Backbone.View
 
   switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
+
+    if @skip?
+      $pokemon.addClass('hidden')
+      done()
+      return
+
     $sprite = $pokemon.find('.sprite')
     width = $sprite.width()
     height = $sprite.height()
@@ -258,9 +271,9 @@ class @BattleView extends Backbone.View
           $image.appendTo($pokemon)
           setTimeout ->
             move($image)
-              .y( yOffset).ease('ease-in-quad').duration('.2s').then()
-              .y(-yOffset >> 3).ease('ease-out-quad').duration('.1s').then()
-              .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
+              .y( yOffset).ease('ease-in-quad').duration(@skip ? '.2s').then()
+              .y(-yOffset >> 3).ease('ease-out-quad').duration(@skip ? '.1s').then()
+              .y( yOffset >> 3).ease('ease-in-quad').duration(@skip ? '.1s').then()
               .pop().pop().pop().end(done)
           , 0
       when 'Paralyze'
@@ -297,14 +310,14 @@ class @BattleView extends Backbone.View
         $pokemon = @$pokemon(player, slot)
         $sprite = @$sprite(player, slot)
         $sprite.removeClass('fade')
-        hideSub = ->
-          $substitute = $pokemon.find('.substitute').first()
-          if $substitute.length == 0
-            setTimeout(hideSub, 20)
-            return
+        $substitute = $pokemon.find('.substitute').first()
+
+        if @skip?
+          $substitute.remove()
+          done()
+        else
           move($substitute).set('opacity', 0).y(300)
             .then(-> $substitute.remove()).end(done)
-        hideSub()
       when 'Paralyze'
         pokemon.set('status', null)
         done()
@@ -381,6 +394,12 @@ class @BattleView extends Backbone.View
 
   faint: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
+
+    if @skip?
+      $pokemon.addClass('hidden')
+      done()
+      return
+
     $image = $pokemon.find('.sprite img')
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
     move($pokemon).set('opacity', 0).end ->

@@ -63,7 +63,6 @@ class @Move
 
   # Actually deals damage and runs hooks after hit.
   hit: (battle, user, target) ->
-    user.tell(Protocol.MOVE_SUCCESS, target.team.indexOf(target))
     damage = @calculateDamage(battle, user, target)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP

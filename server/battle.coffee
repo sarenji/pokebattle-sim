@@ -84,6 +84,9 @@ class @Battle
     @replacing = false
     @finished = false
 
+    # Stores an ongoing log of the battle
+    @log = []
+
   begin: ->
     teams = (player.team.toJSON(hidden: true)  for player in @players)
     @tell(Protocol.BEGIN_BATTLE, teams)
@@ -209,6 +212,7 @@ class @Battle
   # Tells every spectator something.
   tell: (args...) ->
     spectator.tell(args...)  for spectator in @spectators
+    @log.push(args)
     true
 
   # Passing -1 to turns makes the weather last forever.
@@ -667,7 +671,7 @@ class @Battle
     teams = @getTeams().map((team) -> team.toJSON())
     index = spectator.index
     spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectate battle', @id, @numActive, index, teams, spectators)
+    spectator.send('spectate battle', @id, @numActive, index, teams, spectators, @log)
     spectatorJSON = spectator.toJSON()
     s.send('join battle', @id, spectatorJSON)  for s in @spectators
 
