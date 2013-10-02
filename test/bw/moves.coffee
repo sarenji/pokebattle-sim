@@ -1606,7 +1606,7 @@ describe "Swagger", ->
   it "boosts the target's attack by two stages", ->
     shared.create.call(this)
     @battle.performMove(@id1, @battle.getMove("Swagger"))
-    @p2.stages.attack.should.equal -2
+    @p2.stages.attack.should.equal 2
 
 describe "Flatter", ->
   it "confuses the target", ->
@@ -1614,10 +1614,10 @@ describe "Flatter", ->
     @battle.performMove(@id1, @battle.getMove("Flatter"))
     @p2.has(Attachment.Confusion).should.be.true
 
-  it "boosts the target's special attack by two stages", ->
+  it "boosts the target's special attack by one stage", ->
     shared.create.call(this)
     @battle.performMove(@id1, @battle.getMove("Flatter"))
-    @p2.stages.specialAttack.should.equal -2
+    @p2.stages.specialAttack.should.equal 1
 
 describe "Torment", ->
   shared.shouldDoNoDamage("Torment")

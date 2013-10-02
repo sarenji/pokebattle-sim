@@ -1341,7 +1341,7 @@ extendMove 'Final Gambit', ->
 extendMove 'Flatter', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
-    target.boost(specialAttack: -2, user)
+    target.boost(specialAttack: 1, user)
 
 extendMove 'Fling', ->
   @beforeTurn = (battle, user) ->
@@ -1922,7 +1922,7 @@ extendMove 'Sucker Punch', ->
 extendMove 'Swagger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Confusion, {battle})
-    target.boost(attack: -2, user)
+    target.boost(attack: 2, user)
 
 extendMove 'Synchronoise', ->
   oldUse = @use
