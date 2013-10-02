@@ -41,11 +41,6 @@ class @Socket
   send: (type, data...) ->
     @socket.send(JSON.stringify(messageType: type, data: data))
 
-@PokeBattle ?= {}
-PokeBattle.socket = null
-PokeBattle.chatView = null
-PokeBattle.battles = null
-
 PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
@@ -55,7 +50,7 @@ PokeBattle.socket.addEvents
       collection: PokeBattle.userList
     )
     PokeBattle.chatView.render()
-    PokeBattle.initializeAuth()
+    PokeBattle.events.trigger("connect")
 
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
@@ -81,7 +76,5 @@ PokeBattle.socket.addEvents
 
 $ ->
   PokeBattle.battles = new BattleCollection([])
-  $navigation = $('#navigation')
-  PokeBattle.navigation = new SidebarView(el: $navigation)
-  $navigation.find('.nav_item').first().click()
+  PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), collection: new Team([]))

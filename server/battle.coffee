@@ -72,6 +72,9 @@ class @Battle
     # Stores attachments on the battle itself.
     @attachments = new Attachments()
 
+    # Stores an ongoing log of the battle
+    @log = []
+
     for object, i in attributes.players
       {player, team} = object
       player = new Player(player)
@@ -83,9 +86,6 @@ class @Battle
 
     @replacing = false
     @finished = false
-
-    # Stores an ongoing log of the battle
-    @log = []
 
   begin: ->
     teams = (player.team.toJSON(hidden: true)  for player in @players)

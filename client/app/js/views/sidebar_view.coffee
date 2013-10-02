@@ -74,9 +74,7 @@ class @SidebarView extends Backbone.View
     $this = $(e.currentTarget)
     battleId = $this.data('battle-id')
     console.log "Switching to battle #{battleId}"
-    $this.find('.notifications').addClass('hidden')
-    $battle = $(""".battle_window[data-battle-id='#{battleId}']""")
-    @changeWindowTo($battle, $this)
+    @changeWindowToBattle(battleId)
 
   focusRoom: (e) =>
     $this = $(e.currentTarget)
@@ -84,6 +82,7 @@ class @SidebarView extends Backbone.View
     # TODO: Remove hardcoding
     $room = $('.chat_window')
     @changeWindowTo($room, $this)
+    PokeBattle.router.navigate("")
 
   changeWindowTo: ($toSelector, $navItem) =>
     # Show window, hide others
@@ -96,3 +95,9 @@ class @SidebarView extends Backbone.View
     # Add .active to navigation, remove from others
     @$('.nav_item').removeClass('active')
     $navItem.addClass('active')
+
+  changeWindowToBattle: (battleId) =>
+    $battle = $(""".battle_window[data-battle-id='#{battleId}']""")
+    $navItem = @$("[data-battle-id='#{battleId}']")
+    @changeWindowTo($battle, $navItem)
+    PokeBattle.router.navigate("battles/#{battleId}")

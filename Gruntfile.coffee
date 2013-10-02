@@ -30,6 +30,7 @@ module.exports = (grunt) ->
       compile:
         files:
           'public/js/app.js': [
+            "client/app/js/init.coffee"
             "client/app/js/models/**/*.coffee"
             "client/app/js/collections/**/*.coffee"
             "client/app/js/views/**/*.coffee"

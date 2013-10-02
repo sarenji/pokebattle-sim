@@ -40,10 +40,13 @@ app.use(app.router)
 app.use(express.static(__dirname + "/public"))
 
 # Routing
-app.get '/', (req, res) ->
+renderHomepage = (req, res) ->
   {SpeciesData, FormeData, MoveData, ItemData} = require './data/bw'
   local = process.env.NODE_ENV in [ 'development', 'test' ]
   res.render 'index.jade', {local, SpeciesData, FormeData, MoveData, ItemData}
+
+app.get("/", renderHomepage)
+app.get("/battles/:id", renderHomepage)
 
 app.get '/splash', (req, res) ->
   res.render 'splash.jade',
