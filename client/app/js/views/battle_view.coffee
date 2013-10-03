@@ -9,6 +9,7 @@ class @BattleView extends Backbone.View
     'click .move': 'makeMove'
     'click .switch': 'switchPokemon'
     'click .submit_arrangement': 'submitTeamPreview'
+    'click .save-log': 'saveLog'
 
   initialize: =>
     @selected = null
@@ -18,6 +19,7 @@ class @BattleView extends Backbone.View
     @renderChat()
     @listenTo(@model, 'team_preview', @renderTeamPreview)
     @listenTo(@model, 'change:status', @handleStatus)
+    @listenTo(@model, 'change:finished', @handleEnd)
 
   renderBattle: =>
     locals =
@@ -374,6 +376,27 @@ class @BattleView extends Backbone.View
     @chatView.print("<h3>#{owner} has forfeited!</h3>")
     @model.set('finished', true)
     done()
+
+  handleEnd: (battle, end) =>
+    @disableButtons()
+    @$('.battle_actions').html """
+    <div class="button big save-log">Save Log</div>
+    """
+
+  saveLog: =>
+    log = []
+    $children = @$('.messages').children()
+    $children.each ->
+      $this = $(this)
+      isHeader = /H\d/i.test(@tagName)
+      log.push ""  if isHeader
+      log.push $this.text()
+      log.push ""  if isHeader
+    log = log.join('\n')
+    fileName = (team.owner  for team in @model.teams).join(" vs ")
+    fileName += ".txt"
+    blob = new Blob([ log ], type: "text/plain;charset=utf-8")
+    saveAs(blob, fileName)
 
   $pokemon: (player, slot) =>
     if arguments.length == 1
