@@ -69,6 +69,9 @@ class @Team
   beginTurn: ->
     @attachments.query('beginTurn')
 
+  shouldBlockFieldExecution: (move, user) ->
+    @attachments.queryUntilTrue('shouldBlockFieldExecution', move, user)
+
   switchOut: (pokemon) ->
     @attachments.query('switchOut', pokemon)
     pokemon.switchOut()

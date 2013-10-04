@@ -259,6 +259,13 @@ makeProtectCounterMove = (name, callback) ->
       # Success!
       callback.call(this, battle, user, targets)
 
+makeOpponentFieldMove = (name, func) ->
+  extendMove name, ->
+    @execute = (battle, user, opponents) ->
+      for opponent in opponents
+        continue  if opponent.shouldBlockFieldExecution(this, user.player)
+        func.call(this, battle, user, opponent)
+
 makeProtectMove = (name) ->
   makeProtectCounterMove name, (battle, user, targets) ->
     user.attach(Attachment.Protect)
@@ -430,7 +437,7 @@ makeBoostMove = (name, boostTarget, boosts) ->
 
 makeWeatherMove = (name, weatherType) ->
   extendMove name, ->
-    @execute = (battle, user) ->
+    @hit = (battle, user) ->
       length = 5
       length = 8  if weatherType == user.getItem()?.lengthensWeather
       battle.setWeather(weatherType, length)
@@ -1241,7 +1248,7 @@ extendMove 'Curse', ->
       battle.message "#{user.name} cut its own HP and laid a curse on #{target.name}!"
 
 extendMove 'Destiny Bond', ->
-  @execute = (battle, user, targets) ->
+  @hit = (battle, user) ->
     user.attach(Attachment.DestinyBond)
     battle.message "#{user.name} is trying to take its foe down with it!"
 
@@ -1456,9 +1463,7 @@ extendMove 'Hidden Power', ->
     HiddenPower.BW.type(ivs)
 
 extendMove 'Imprison', ->
-  @execute = (battle, user, targets) ->
-    # There is only one target for Imprison.
-    target = targets[0]
+  @hit = (battle, user, target) ->
     {moves} = target
     if target.attach(Attachment.Imprison, {battle, moves})
       battle.message "#{target.name} sealed the opponent's moves!"
@@ -1527,6 +1532,7 @@ extendMove 'Lunar Dance', ->
 extendMove 'Magic Coat', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.MagicCoat)
+    target.team.attach(Attachment.MagicCoat)
 
 extendMove 'Magnet Rise', ->
   @use = (battle, user, target) ->
@@ -1853,13 +1859,11 @@ extendMove 'SonicBoom', ->
   @calculateDamage = (battle, user, target) ->
     20
 
-extendMove 'Spikes', ->
-  @execute = (battle, user, opponents) ->
-    for opponent in opponents
-      if opponent.attachToTeam(Attachment.Spikes)
-        battle.message "#{@name} were scattered all around #{opponent.id}'s team's feet!"
-      else
-        @fail(battle)
+makeOpponentFieldMove 'Spikes', (battle, user, opponent) ->
+  if opponent.attachToTeam(Attachment.Spikes)
+    battle.message "#{@name} were scattered all around #{opponent.id}'s team's feet!"
+  else
+    @fail(battle)
 
 extendMove 'Spite', ->
   @execute = (battle, user, opponents) ->
@@ -1871,13 +1875,11 @@ extendMove 'Spite', ->
       opponent.reducePP(move, 4)
       battle.message "It reduced the PP of #{opponent.name}!"
 
-extendMove 'Stealth Rock', ->
-  @execute = (battle, user, opponents) ->
-    for opponent in opponents
-      if opponent.attachToTeam(Attachment.StealthRock)
-        battle.message "Pointed stones float in the air around #{opponent.id}'s team!"
-      else
-        @fail(battle)
+makeOpponentFieldMove 'Stealth Rock', (battle, user, opponent) ->
+  if opponent.attachToTeam(Attachment.StealthRock)
+    battle.message "Pointed stones float in the air around #{opponent.id}'s team!"
+  else
+    @fail(battle)
 
 extendMove 'Struggle', ->
   @type = '???'
@@ -1964,13 +1966,11 @@ extendMove 'Torment', ->
     else
       @fail(battle)
 
-extendMove 'Toxic Spikes', ->
-  @execute = (battle, user, opponents) ->
-    for opponent in opponents
-      if opponent.attachToTeam(Attachment.ToxicSpikes)
-        battle.message "Poison spikes were scattered all around #{opponent.id}'s team's feet!"
-      else
-        @fail(battle)
+makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponent) ->
+  if opponent.attachToTeam(Attachment.ToxicSpikes)
+    battle.message "Poison spikes were scattered all around #{opponent.id}'s team's feet!"
+  else
+    @fail(battle)
 
 extendMove 'Transform', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -2031,7 +2031,7 @@ extendMove 'Weather Ball', ->
 
 
 extendMove 'Wish', ->
-  @execute = (battle, user, targets) ->
+  @hit = (battle, user) ->
     team = battle.getOwner(user).team
     @fail(battle)  unless team.attach(Attachment.Wish, {user})
 

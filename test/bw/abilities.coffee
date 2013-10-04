@@ -1016,16 +1016,12 @@ describe "BW Abilities:", ->
     it "still has the magic coat effect next turn", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Bounce")]
+      @p1.has(Attachment.MagicCoat).should.be.true
       @battle.endTurn()
+      @p1.has(Attachment.MagicCoat).should.be.false
       @p1.has(Ability.MagicBounce).should.be.true
-
-    it "@bounced is reset each turn", ->
-      shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Magic Bounce")]
-      @battle.endTurn()
-      @p1.get(Ability.MagicBounce).bounced = true
       @battle.beginTurn()
-      @p1.get(Ability.MagicBounce).bounced.should.be.false
+      @p1.has(Attachment.MagicCoat).should.be.true
 
   describe "Magic Guard", ->
     it "takes no damage from anything non-direct"

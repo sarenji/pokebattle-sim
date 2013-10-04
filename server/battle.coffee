@@ -585,7 +585,6 @@ class @Battle
     player = @getPlayer(id)
     pokemon = @getTeam(id).at(slot)
     targets = @getTargets(move, pokemon)
-    targets = targets.filter((p) -> !p.isFainted())
 
     @message "#{pokemon.name} has no moves left!"  if move == @struggleMove
 
@@ -620,6 +619,7 @@ class @Battle
     # Record last move.
     @lastMove = move
     @lastPokemon = pokemon
+    # TODO: Only record if none exists yet for this turn.
     pokemon.recordMove(move)
 
     # TODO: Is this the right place...?
@@ -628,7 +628,7 @@ class @Battle
   getTargets: (move, user) ->
     player = @getOwner(user)
     {id, team} = player
-    switch move.target
+    targets = switch move.target
       when 'user'
         [ user ]
       when 'user-or-ally'
@@ -653,6 +653,9 @@ class @Battle
         @getOpponentOwners(user)
       else
         throw new Error("Unimplemented target: #{move.target}.")
+    if move.target != 'opponents-field'
+      targets = targets.filter((p) -> !p.isFainted())
+    return targets
 
   getMove = (moveName) ->
     throw new Error("#{moveName} does not exist.")  if moveName not of Moves

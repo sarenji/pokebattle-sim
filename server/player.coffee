@@ -9,6 +9,9 @@ class @Player
   attachToTeam: (attachment) ->
     @team.attach(attachment, team: @team)
 
+  shouldBlockFieldExecution: (move, user) ->
+    @team.shouldBlockFieldExecution(move, user)
+
   has: (attachment) ->
     @team.has(attachment)
 
@@ -17,11 +20,6 @@ class @Player
 
   switch: (index1, index2) ->
     @team.switch(this, index1, index2)
-
-  # Used in battle#performMove
-  # TODO: Maybe handle this better.
-  isFainted: ->
-    false
 
   send: (args...) ->
     @user.send? args...

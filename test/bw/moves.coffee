@@ -4783,6 +4783,31 @@ describe "Magic Coat", ->
       battle == @battle && user == @p1 && targets[0] == @p2
     ).should.be.true
 
+  it "bounces back spikes", ->
+    shared.create.call(this)
+    spikes = @battle.getMove("Spikes")
+    magicCoat = @battle.getMove("Magic Coat")
+
+    spy = @sandbox.spy(spikes, 'execute')
+    @battle.performMove(@id1, magicCoat)
+    @battle.performMove(@id2, spikes)
+    spy.args.some((array) =>
+      [battle, user, targets] = array
+      battle == @battle && user == @p1 && targets[0] == @player2
+    ).should.be.true
+
+  it "cannot bounce spikes more than once", ->
+    shared.create.call(this)
+    spikes = @battle.getMove("Spikes")
+    magicCoat = @battle.getMove("Magic Coat")
+
+    @battle.performMove(@id1, magicCoat)
+    @battle.performMove(@id2, magicCoat)
+
+    (=>
+      @battle.performMove(@id2, spikes)
+    ).should.not.throw(/Maximum call stack size exceeded/)
+
   it "does not bounce certain moves back", ->
     shared.create.call(this)
     tackle = @battle.getMove("Tackle")

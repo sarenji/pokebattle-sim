@@ -5,11 +5,9 @@ require 'sugar'
 
 @Ability = Ability = {}
 
-makeAbility = (name, extension, func) ->
-  if arguments.length < 3
-    [extension, func] = [VolatileAttachment, extension]
+makeAbility = (name, func) ->
   condensed = name.replace(/\s+/g, '')
-  class Ability[condensed] extends extension
+  class Ability[condensed] extends VolatileAttachment
     @displayName: name
     displayName: name
     func?.call(this)
@@ -519,11 +517,10 @@ makeAbility 'Light Metal', ->
 # Implemented in Pokemon#drain
 makeAbility 'Liquid Ooze'
 
-makeAbility 'Magic Bounce', Attachment.MagicCoat, ->
-  this::beginTurn = ->
-    @bounced = false
-
-  this::endTurn = undefined
+makeAbility 'Magic Bounce', ->
+  this::beginTurn = this::switchIn = ->
+    @pokemon.attach(Attachment.MagicCoat)
+    @team.attach(Attachment.MagicCoat)
 
 makeAbility 'Magnet Pull', ->
   this::beginTurn = this::switchIn = ->

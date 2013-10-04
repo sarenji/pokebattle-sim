@@ -965,8 +965,23 @@ class @Attachment.MagicCoat extends @VolatileAttachment
     move.execute(@battle, @pokemon, [ user ])
     return true
 
+  shouldBlockFieldExecution: (move, user) ->
+    return  unless move.hasFlag("reflectable")
+    return  if @bounced
+    for p in user.team.getActiveAlivePokemon()
+      return  if p.get(Attachment.MagicCoat)?.bounced
+    for p in @team.getActiveAlivePokemon()
+      continue  unless p.has(Attachment.MagicCoat)
+      @bounced = true
+      @battle.message "#{p.name} bounced the #{move.name} back!"
+      @battle.executeMove(move, p, [ user ])
+      return true
+
   endTurn: ->
-    @pokemon.unattach(@constructor)
+    if @pokemon?
+      @pokemon.unattach(@constructor)
+    else if @team?
+      @team.unattach(@constructor)
 
 class @Attachment.Telekinesis extends @VolatileAttachment
   name: "TelekinesisAttachment"
