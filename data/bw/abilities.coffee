@@ -211,6 +211,8 @@ makeTypeAbsorbMove("Volt Absorb", "Electric")
 makeAbility "Adaptability"
 
 makeAbility "Aftermath", ->
+  this::isAliveCheck = -> true
+
   this::afterFaint = ->
     {pokemon, damage, move, turn} = @pokemon.lastHitBy
     if move.hasFlag('contact')

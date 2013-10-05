@@ -116,8 +116,11 @@ class @BaseAttachment
   valid: ->
     return false  if !@attached
     return false  if @item && @pokemon?.item && @pokemon?.isItemBlocked()
-    return false  if @pokemon && !@pokemon.isAlive()
+    return false  if @isAliveCheck() == false
     return true
+
+  isAliveCheck: ->
+    @pokemon && @pokemon.isAlive()
 
   # initialize: ->
   # unattach: ->
@@ -676,6 +679,8 @@ class @Attachment.Curse extends @VolatileAttachment
 class @Attachment.DestinyBond extends @VolatileAttachment
   name: "DestinyBondAttachment"
 
+  isAliveCheck: -> true
+
   afterFaint: ->
     pokemon = @battle.lastPokemon
     if pokemon? && pokemon.isAlive()
@@ -687,6 +692,8 @@ class @Attachment.DestinyBond extends @VolatileAttachment
 
 class @Attachment.Grudge extends @VolatileAttachment
   name: "GrudgeAttachment"
+
+  isAliveCheck: -> true
 
   afterFaint: ->
     hit = @pokemon.lastHitBy
