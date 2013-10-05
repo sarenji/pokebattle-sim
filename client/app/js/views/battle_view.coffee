@@ -392,10 +392,10 @@ class @BattleView extends Backbone.View
       log.push ""  if isHeader
       log.push $this.text()
       log.push ""  if isHeader
-    log = log.join('\n')
+    log = [ log.join('\n') ]
     fileName = (team.owner  for team in @model.teams).join(" vs ")
     fileName += ".txt"
-    blob = new Blob([ log ], type: "text/plain;charset=utf-8")
+    blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
 
   $pokemon: (player, slot) =>
