@@ -23,10 +23,13 @@ html
           .chat.half_width
           .main_buttons.half_width
             .section
-              .team
               .button.big.find_battle
                 span.glyphicon.glyphicon-globe
                 |  Find battle
+              .dropdown
+                .select-team(data-toggle = "dropdown")
+                  .well Your team
+                ul.dropdown-menu.team-dropdown(role = "menu")
             .section
               .button.teambuilder_button
                 span.glyphicon.glyphicon-pencil

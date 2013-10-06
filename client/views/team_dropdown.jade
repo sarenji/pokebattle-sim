@@ -1,0 +1,9 @@
+if teams
+  each team, i in teams
+    li
+      a.select-team-dropdown-item(data-slot = i)
+        div= team.name
+        != window.JST['team']({team: team.pokemon, window: window})
+else
+  div= team.name
+  != window.JST['team']({team: team.pokemon, window: window})
