@@ -5,24 +5,6 @@ outline-text(clr = #000)
 divide(a, b)
   a / b
 
-button-bg(clr)
-  clr          = lighten(clr, 50%)
-  dark         = darken(clr, 10%)
-  darker-dark  = darken(dark, 20%)
-  dark-clr     = darken(clr, 20%)
-  darker-clr   = darken(clr, 50%)
-  darkest-clr  = darken(darker-clr, 20%)
-  btn-clr      = darken(darkest-clr, 30%)
-  background   linear-gradient(top, clr, dark-clr)
-  border       1px solid darker-clr
-  border-color rgba(0, 0, 0, .1), rgba(0, 0, 0, .2), rgba(0, 0, 0, .3)
-  color        btn-clr
-  &:hover
-    background linear-gradient(top, dark, darker-dark)
-    border-color darkest-clr
-    color darken(btn-clr, 20%)
-    text-shadow   0 -1px 0 rgba(255, 255, 255, .10)
-
 $padding = 10px
 $battle-width = 600px
 $pane-width = $battle-width + $padding + $padding
@@ -200,86 +182,6 @@ $pane-width = $battle-width + $padding + $padding
     position absolute
     background url("http://i.imgur.com/AdbmXdf.jpg") -133px -10px
     transition opacity .25s ease-in
-
-.button
-  clearfix()
-  button-bg(#eee)
-  display       inline-block
-  height        32px
-  line-height   @height
-  border-radius 4px
-  margin-bottom 6px
-  padding       0 10px
-  cursor        pointer
-  color         #333
-  text-shadow   0 -1px 0 rgba(255, 255, 255, .25)
-  box-shadow    inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25)
-  position      relative
-  .main_text
-    narrow-font()
-    font-weight 700
-    float       left
-  .meta_info
-    font-size   12px
-    float       right
-    font-family "Helvetica Neue", sans-serif
-  &.big
-    font-size 1.5em
-    height 3em
-    line-height @height
-    text-align center
-    .main_text
-      float none
-    .meta_info
-      position absolute
-      top 0
-      right 1em
-  &.button-primary
-    background linear-gradient(top, #0066cc, #0044cc)
-    text-shadow 0 -1px rgba(0, 0, 0, .3)
-    color #fff
-    &:hover
-      background linear-gradient(top, #0088cc, #0066cc)
-  &.normal
-    button-bg($normal)
-  &.fire
-    button-bg($fire)
-  &.water
-    button-bg($water)
-  &.electric
-    button-bg($electric)
-  &.grass
-    button-bg($grass)
-  &.ice
-    button-bg($ice)
-  &.fighting
-    button-bg($fighting)
-  &.poison
-    button-bg($poison)
-  &.ground
-    button-bg($ground)
-  &.flying
-    button-bg($flying)
-  &.psychic
-    button-bg($psychic)
-  &.bug
-    button-bg($bug)
-  &.rock
-    button-bg($rock)
-  &.ghost
-    button-bg($ghost)
-  &.dragon
-    button-bg($dragon)
-  &.dark
-    button-bg($dark)
-  &.steel
-    button-bg($steel)
-  &.disabled, &.disabled:hover
-    background  #444
-    border-color #8A8171
-    cursor      default
-    color       #888
-    text-shadow none
 
 .moves
   .button
