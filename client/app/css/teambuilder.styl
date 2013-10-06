@@ -1,3 +1,5 @@
+$header = 50px
+
 .teambuilder
   position absolute
   top 0
@@ -18,7 +20,7 @@
 
 .teambuilder .navigation
   position absolute
-  top 0
+  top $header
   bottom 0
   background-color $body-color
   width: 150px
@@ -46,6 +48,29 @@
     display inline-block
     margin 0
     vertical-align middle
+
+.teambuilder .team_meta
+  position absolute
+  top 0
+  left 0
+  right 0
+  height $header
+  line-height @height
+  .team_name, .team_input
+    font-weight 700
+    font-size 1.5em
+    height $header
+    line-height @height
+    float left
+    margin 0
+    width auto
+    box-sizing border-box
+
+  .team_meta_buttons
+    float right
+    .button
+      float left
+      margin-right 10px
 
 .teambuilder .meta-info .non-stats
   display table
@@ -89,7 +114,7 @@
   position absolute
   overflow auto
   left 150px
-  top 0
+  top $header
   bottom 0
   right 0
   background white
@@ -129,3 +154,13 @@
           border-left @border-top
         &:last-child
           border-right @border-top
+
+.teambuilder .display_teams
+  position absolute
+  top 0
+  left 0
+  bottom 0
+  right 0
+
+  .select-team
+    cursor pointer

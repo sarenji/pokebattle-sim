@@ -1,0 +1,7 @@
+.row-fluid
+  each pokemon, i in team
+    .span2
+      - var name = pokemon.name || pokemon.get('name')
+      - var forme = pokemon.forme || pokemon.get('forme')
+      - var style = window.PokemonIconBackground(name, forme)
+      .pokemon_icon(data-index = i, style = style)

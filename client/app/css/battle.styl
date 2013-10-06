@@ -234,6 +234,12 @@ $pane-width = $battle-width + $padding + $padding
       position absolute
       top 0
       right 1em
+  &.button-primary
+    background linear-gradient(top, #0066cc, #0044cc)
+    text-shadow 0 -1px rgba(0, 0, 0, .3)
+    color #fff
+    &:hover
+      background linear-gradient(top, #0088cc, #0066cc)
   &.normal
     button-bg($normal)
   &.fire

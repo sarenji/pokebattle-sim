@@ -1,12 +1,23 @@
 class @TeambuilderView extends Backbone.View
   template: JST['teambuilder']
-  editTemplate: JST['teambuilder_main']
+  teamsTemplate: JST['teambuilder_teams']
+  editTemplate: JST['teambuilder_pokemon']
   importTemplate: JST['modals/import_team']
+  teamTemplate: JST['team']
 
   events:
+    # Team view
+    'click .select-team': 'clickTeam'
+    'click .add-new-team': 'addNewTeam'
+
+    # Pokemon view
+    'click .team_name': 'editTeamName'
+    'blur .team_input': 'blurTeamInput'
+    'keyup .team_input': 'keyupTeamInput'
+    'click .go_back': 'goBackToOverview'
     'click .pokemon_list li': 'clickPokemon'
-    'click .add_pokemon': 'addNewPokemon'
-    'click .save_team': 'saveTeam'
+    'click .add_pokemon': 'addNewPokemonEvent'
+    'click .save_team': 'saveTeams'
     'click .import_team': 'renderModal'
     'change .species_list': 'changeSpecies'
     'change .selected-forme': 'changeForme'
@@ -22,56 +33,86 @@ class @TeambuilderView extends Backbone.View
     'click .table-moves tbody tr': 'clickMoveName'
     'click .move-button': 'clickSelectedMove'
 
-  initialize: =>
+  initialize: (attributes) =>
+    {@teams} = attributes
+
     # TODO: Save these to something more global
     @speciesList = (name for name, data of SpeciesData)
     @itemList = _(name for name, data of ItemData).sort() # todo: filter irrelevant items
-    @selected = 0
+    @selectedPokemon = 0
+    @selectedTeam = 0
 
-    @listenTo(@collection, 'add', @renderPokemon)
-    @listenTo(@collection, 'change:ivs', @renderStats)
-    @listenTo(@collection, 'change:evs', @renderStats)
-    @listenTo(@collection, 'change:nature', @renderStats)
-    @listenTo(@collection, 'change:hiddenPowerType', @renderStats)
-    @listenTo(@collection, 'change:shiny', @renderPokemon)
+    @loadTeams()
 
-    # Todo: Make this perform better
-    @listenTo(@collection, 'change:name change:forme', (pokemon) =>
-      @renderPokemonList()
-      @renderPokemon(pokemon)
-    )
-
-    @listenTo(@collection, 'add remove', @renderPokemonList)
-    @listenTo(@collection, 'reset', @render)
-
-    @loadTeam()
+  clickTeam: (e) =>
+    $team = $(e.currentTarget)
+    index = $team.index()
+    @selectedPokemon = 0
+    @setSelectedTeamIndex(index)
 
   clickPokemon: (e) =>
     $listItem = $(e.currentTarget)
     index = @$('.pokemon_list li').index($listItem)
-    @setSelectedIndex(index)
+    @setSelectedPokemonIndex(index)
 
-  loadTeam: =>
-    teamJSON = window.localStorage.getItem("team")
-    if teamJSON
-      teamJSON = JSON.parse(teamJSON)
-      pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON
-      @collection.reset(teamJSON)
+  attachEventsToTeam: (team) =>
+    @listenTo(team, 'add', @renderPokemon)
+    @listenTo(team, 'change:ivs', @renderStats)
+    @listenTo(team, 'change:evs', @renderStats)
+    @listenTo(team, 'change:nature', @renderStats)
+    @listenTo(team, 'change:hiddenPowerType', @renderStats)
+    @listenTo(team, 'change:shiny', @renderPokemon)
+    @listenTo(team, 'change reset add remove', @dirty)
+
+    # Todo: Make this perform better
+    @listenTo(team, 'change:name change:forme', (pokemon) =>
+      @renderPokemonList()
+      @renderPokemon(pokemon)
+    )
+
+    @listenTo(team, 'add remove', @renderPokemonList)
+    @listenTo(team, 'reset', @renderTeam)
+
+  loadTeams: =>
+    teamsJSON = window.localStorage.getItem("teams")
+    if teamsJSON
+      teamsJSON = JSON.parse(teamsJSON)
+      for teamJSON in teamsJSON
+        pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON.pokemon
+      @teams = teamsJSON.map (json) =>
+        {pokemon} = json
+        attributes = _.clone(json)
+        delete attributes.pokemon
+        team = new Team(pokemon, attributes)
+        @attachEventsToTeam(team)
+        team
     else
-      @addNewPokemon()  for i in [1..6]
-      @render()
+      @addNewTeam()
+    @render()
 
-  addEmptyPokemon: =>
-    @collection.add(new Pokemon(teambuilder: true))
+  addEmptyPokemon: (team) =>
+    team.add(new Pokemon(teambuilder: true))
 
-  addNewPokemon: =>
-    @addEmptyPokemon()
+  addNewTeam: =>
+    team = new Team()
+    @teams.push(team)
+    @addNewPokemon(team)  for i in [1..6]
+    @attachEventsToTeam(team)
+    @saveTeams()
+    @renderTeams()
+
+  addNewPokemonEvent: =>
+    @addNewPokemon(@teams[@selectedTeam])
+
+  addNewPokemon: (team) =>
+    @addEmptyPokemon(team)
     @$('.pokemon_list li').last().click()
 
-  saveTeam: =>
-    teamJSON = @collection.toJSON()
+  saveTeams: =>
+    teamJSON = @teams.map((team) -> team.toJSON())
     # PokeBattle.socket.send('save team', teamJson)
-    window.localStorage.setItem('team', JSON.stringify(teamJSON))
+    window.localStorage.setItem('teams', JSON.stringify(teamJSON))
+    @resetHeaderButtons()
 
   changeSpecies: (e) =>
     $list = $(e.currentTarget)
@@ -211,9 +252,9 @@ class @TeambuilderView extends Backbone.View
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
     return true
 
-  setSelectedIndex: (index) =>
-    pokemon = @collection.at(index)
-    @selected = index
+  setSelectedPokemonIndex: (index) =>
+    pokemon = @getSelectedTeam().at(index)
+    @selectedPokemon = index
     
     # Set the correct pokemon view to active
     @$(".pokemon_edit").children().hide().removeClass("active")
@@ -224,7 +265,14 @@ class @TeambuilderView extends Backbone.View
     @$(".navigation li").eq(index).addClass("active")
 
   getSelectedPokemon: =>
-    @collection.at(@selected)
+    @getSelectedTeam().at(@selectedPokemon)
+
+  setSelectedTeamIndex: (index) =>
+    @selectedTeam = index
+    @renderTeam()
+
+  getSelectedTeam: =>
+    @teams[@selectedTeam]
 
   getActivePokemonView: =>
     @getPokemonView(@getSelectedPokemon())
@@ -232,27 +280,77 @@ class @TeambuilderView extends Backbone.View
   getPokemonView: (pokemon) =>
     @$("div[data-cid=#{pokemon.cid}]")
 
+  editTeamName: =>
+    $teamName = @$('.team_name')
+    $teamInput = @$('.team_input')
+    teamName = @$('.team_name').text()
+    $teamInput.val(teamName)
+    $teamName.addClass('hidden')
+    $teamInput.removeClass('hidden').focus().select()
+
+  blurTeamInput: =>
+    $teamName = @$('.team_name')
+    $teamInput = @$('.team_input')
+    teamName = $teamInput.val()
+    @getSelectedTeam().name = teamName
+    $teamName.text(teamName)
+    $teamName.removeClass('hidden')
+    $teamInput.addClass('hidden')
+    @dirty()
+
+  keyupTeamInput: (e) =>
+    if e.which == 13  # [Enter]
+      @blurTeamInput()
+
+  goBackToOverview: =>
+    if @_dirty
+      @loadTeams()
+      @resetHeaderButtons()
+    @render()
+
+  dirty: =>
+    @$('.go_back').text('Discard changes')
+    @$('.save_team').removeClass('disabled')
+    @_dirty = true
+
+  resetHeaderButtons: =>
+    @$('.go_back').text('Back')
+    @$('.save_team').addClass('disabled')
+
   render: =>
-    @$el.html @template(pokemon: @collection, selected: @selected)
-    @renderPokemonList()
-    @renderPokemon(pokemon)  for pokemon in @collection.models
-    @setSelectedIndex(@selected)
+    @$el.html @template(pokemon: @getSelectedTeam(), selected: @selectedPokemon)
+    @renderTeams()
     this
 
-  renderPokemonList: => 
+  renderTeams: =>
+    @$('.display_teams').html @teamsTemplate(teams: @teams, window: window)
+    @$('.display_teams').removeClass('hidden')
+    @$('.display_pokemon').addClass('hidden')
+
+  renderTeam: =>
+    team = @getSelectedTeam()
+    @renderPokemonList(team)
+    @renderPokemon(pokemon)  for pokemon in team.models
+    @setSelectedPokemonIndex(@selectedPokemon)
+    @$('.team_name').text(team.getName())
+    @$('.display_teams').addClass('hidden')
+    @$('.display_pokemon').removeClass('hidden')
+
+  renderPokemonList: =>
+    team = @getSelectedTeam()
     pokemon_list = @$(".pokemon_list")
     pokemon_list.empty()
-    for pokemon, i in @collection.models
+    for pokemon, i in team.models
       $listItem = $("<li/>").data("pokemon-index", i)
       $listItem.text(pokemon.get("name"))
       $listItem.prepend($("<div/>").addClass("pokemon_icon")
         .attr("style", PokemonIconBackground(pokemon.get('name'),
                                              pokemon.get('forme'))))
-      $listItem.addClass("active")  if @selected == i
+      $listItem.addClass("active")  if @selectedPokemon == i
       pokemon_list.append($listItem)
 
     # Hide add pokemon if there's 6 pokemon
-    if @collection.length < 6
+    if team.length < 6
       @$(".add_pokemon").show()
     else
       @$(".add_pokemon").hide()
@@ -280,7 +378,7 @@ class @TeambuilderView extends Backbone.View
       teamString = $modal.find('.imported-team').val()
       teamJSON = PokeBattle.parseTeam(teamString)
       pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON
-      @collection.reset(teamJSON)
+      @getSelectedTeam().reset(teamJSON)
       $modal.modal('hide')
       return false
     $modal.modal('show')

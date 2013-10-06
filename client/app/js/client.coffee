@@ -77,4 +77,4 @@ PokeBattle.socket.addEvents
 $ ->
   PokeBattle.battles = new BattleCollection([])
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
-  PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), collection: new Team([]))
+  PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
