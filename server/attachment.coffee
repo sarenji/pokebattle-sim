@@ -191,7 +191,7 @@ class @Attachment.Confusion extends @VolatileAttachment
     else if @battle.rng.next('confusion') < 0.5
       @battle.message "#{@pokemon.name} hurt itself in confusion!"
       damage = @battle.confusionMove.calculateDamage(@battle, user, user)
-      user.damage(damage)
+      user.damage(damage, source: "move")
       return false
 
 class @Attachment.Disable extends @VolatileAttachment
@@ -242,7 +242,7 @@ class @Attachment.Nightmare extends @VolatileAttachment
   endTurn: ->
     if @pokemon.has(Status.Sleep)
       @battle.message "#{@pokemon.name} is locked in a nightmare!"
-      @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
+      @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
     else
       @pokemon.unattach(@constructor)
 
@@ -287,7 +287,7 @@ class @Attachment.Wish extends @TeamAttachment
       pokemon = @team.at(@slot)
       if !pokemon.isFainted()
         @battle.message "#{@wisherName}'s wish came true!"
-        pokemon.damage(-@amount)
+        pokemon.heal(@amount)
       @team.unattach(@constructor)
 
 class @Attachment.PerishSong extends @VolatileAttachment
@@ -349,8 +349,8 @@ class @Attachment.Spikes extends @TeamAttachment
     return  if pokemon.isImmune("Ground")
     fraction = (10 - 2 * @layers)
     hp = pokemon.stat('hp')
-    pokemon.damage Math.floor(hp / fraction)
-    @battle.message("#{pokemon.name} is hurt by the spikes!")
+    if pokemon.damage(Math.floor(hp / fraction))
+      @battle.message("#{pokemon.name} is hurt by the spikes!")
 
 class @Attachment.StealthRock extends @TeamAttachment
   name: "StealthRockAttachment"
@@ -358,8 +358,8 @@ class @Attachment.StealthRock extends @TeamAttachment
   switchIn: (pokemon) ->
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
-    pokemon.damage Math.floor(hp * multiplier / 8)
-    @battle.message("Pointed stones dug into #{pokemon.name}!")
+    if pokemon.damage(Math.floor(hp * multiplier / 8))
+      @battle.message("Pointed stones dug into #{pokemon.name}!")
 
 class @Attachment.ToxicSpikes extends @TeamAttachment
   name: "ToxicSpikesAttachment"
@@ -397,7 +397,7 @@ class @Attachment.Trap extends @VolatileAttachment
       @pokemon.unattach(@constructor)
     else
       @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
-      @pokemon.damage Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
+      @pokemon.damage(Math.floor(@pokemon.stat('hp') / @getDamagePerTurn()))
       @turns -= 1
 
   getDamagePerTurn: ->
@@ -628,9 +628,9 @@ class @Attachment.LeechSeed extends @VolatileAttachment
     return  if user.isFainted() || @pokemon.isFainted()
     hp = @pokemon.stat('hp')
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
-    @pokemon.damage(damage)
-    user.drain(damage, @pokemon)
-    @battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
+    if @pokemon.damage(damage)
+      user.drain(damage, @pokemon)
+      @battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
   name: "ProtectCounterAttachment"
@@ -673,7 +673,7 @@ class @Attachment.Curse extends @VolatileAttachment
   passable: true
 
   endTurn: ->
-    @pokemon.damage Math.floor(@pokemon.stat('hp') / 4)
+    @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
     @battle.message "#{@pokemon.name} was afflicted by the curse!"
 
 class @Attachment.DestinyBond extends @VolatileAttachment
@@ -740,7 +740,11 @@ class @Attachment.Substitute extends @VolatileAttachment
     {@hp} = attributes
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
 
-  transformHealthChange: (damage) ->
+  transformHealthChange: (damage, options) ->
+    if options.direct
+      # Substitute does not trigger on direct damage
+      return damage
+
     @hp -= damage
     if @hp <= 0
       @battle.message "#{@pokemon.name}'s substitute faded!"
@@ -754,7 +758,7 @@ class @Attachment.Substitute extends @VolatileAttachment
       move.fail(@battle)
       return true
 
-  afterBeingHit: (move, user, target, damage) ->
+  afterBeingHit: (move, user, target) ->
     @pokemon.unattach(@constructor)  if @hp <= 0
 
   unattach: ->
@@ -771,7 +775,7 @@ class @Attachment.Rage extends @VolatileAttachment
   beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
 
-  afterBeingHit: (move, user, target, damage) ->
+  afterBeingHit: (move, user, target) ->
     return  if move.isNonDamaging()
     target.boost(attack: 1)
     @battle.message "#{target.name}'s rage is building!"
@@ -1278,7 +1282,7 @@ class @Status.Freeze extends @StatusAttachment
       @battle.message "#{@pokemon.name} is frozen solid!"
       return false
 
-  afterBeingHit: (move, user, target, damage) ->
+  afterBeingHit: (move, user, target) ->
     if !move.isNonDamaging() && move.type == 'Fire'
       @battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
@@ -1288,8 +1292,8 @@ class @Status.Poison extends @StatusAttachment
 
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    @battle.message "#{@pokemon.name} was hurt by poison!"
-    @pokemon.damage(@pokemon.stat('hp') >> 3)
+    if @pokemon.damage(@pokemon.stat('hp') >> 3)
+      @battle.message "#{@pokemon.name} was hurt by poison!"
 
 class @Status.Toxic extends @StatusAttachment
   name: "Toxic"
@@ -1303,9 +1307,9 @@ class @Status.Toxic extends @StatusAttachment
 
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    @battle.message "#{@pokemon.name} was hurt by poison!"
     @counter = Math.min(@counter + 1, 15)
-    @pokemon.damage Math.floor(@pokemon.stat('hp') * @counter / 16)
+    if @pokemon.damage(Math.floor(@pokemon.stat('hp') * @counter / 16))
+      @battle.message "#{@pokemon.name} was hurt by poison!"
 
 class @Status.Sleep extends @StatusAttachment
   name: "Sleep"
@@ -1334,5 +1338,5 @@ class @Status.Burn extends @StatusAttachment
   name: "Burn"
 
   endTurn: ->
-    @battle.message "#{@pokemon.name} was hurt by its burn!"
-    @pokemon.damage(@pokemon.stat('hp') >> 3)
+    if @pokemon.damage(@pokemon.stat('hp') >> 3)
+      @battle.message "#{@pokemon.name} was hurt by its burn!"

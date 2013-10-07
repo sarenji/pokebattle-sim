@@ -270,11 +270,9 @@ describe 'Move:', ->
   describe '#hit', ->
     it "deals damage no higher than the pokemon's remaining HP", ->
       shared.create.call(this)
-      mock = @sandbox.mock(@p2).expects('damage').withArgs(1)
-
       @p2.currentHP = 1
       @battle.performMove(@id1, @battle.getMove("Tackle"))
-      mock.verify()
+      @p2.currentHP.should.equal(0)
 
     it "deals normal damage if the Pokemon has a substitute", ->
       shared.create.call(this)

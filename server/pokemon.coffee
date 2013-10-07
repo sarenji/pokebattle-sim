@@ -260,18 +260,21 @@ class @Pokemon
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     @attachments.query('afterFaint')
 
-  damage: (amount) ->
+  damage: (amount, options = {}) ->
+    amount = @transformHealthChange(amount, options)
     @setHP(@currentHP - amount)
-    amount
+
+  heal: (amount) ->
+    @setHP(@currentHP + amount)
 
   drain: (amount, source) ->
     if @hasItem("Big Root") && !@isItemBlocked()
       amount = util.roundHalfDown(amount * 1.3)
     amount *= -1  if source != this && source?.hasAbility("Liquid Ooze")
-    @damage(-amount)
+    @heal(amount)
 
-  transformHealthChange: (damage) ->
-    @attachments.queryChain('transformHealthChange', damage)
+  transformHealthChange: (damage, options) ->
+    @attachments.queryChain('transformHealthChange', damage, options)
 
   editDamage: (move, damage) ->
     @attachments.queryChain('editDamage', damage, move, this)
@@ -292,12 +295,16 @@ class @Pokemon
     @attachments.queryChain('criticalModifier', 0)
 
   setHP: (hp) ->
+    oldHP = @currentHP
     @currentHP = Math.min(@stat('hp'), hp)
-    pixels = Math.floor(48 * @currentHP / @stat('hp'))
-    pixels = 1  if pixels == 0 && @isAlive()
-    @battle?.tell(Protocol.CHANGE_HP, @player.index, @team.indexOf(this), pixels)
-    @player?.tell(Protocol.CHANGE_EXACT_HP, @player.index, @team.indexOf(this), @currentHP)
-    @currentHP
+    @currentHP = Math.max(@currentHP, 0)
+    delta = oldHP - @currentHP
+    if delta != 0
+      pixels = Math.floor(48 * @currentHP / @stat('hp'))
+      pixels = 1  if pixels == 0 && @isAlive()
+      @battle?.tell(Protocol.CHANGE_HP, @player.index, @team.indexOf(this), pixels)
+      @player?.tell(Protocol.CHANGE_EXACT_HP, @player.index, @team.indexOf(this), @currentHP)
+    delta
 
   recordMove: (move) ->
     @lastMove = move

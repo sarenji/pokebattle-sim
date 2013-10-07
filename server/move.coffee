@@ -44,7 +44,7 @@ class @Move
       return
 
     for target in targets
-      continue  if target.shouldBlockExecution(this, user)
+      continue  if target.shouldBlockExecution(this, user) == true
       numHits = @calculateNumberOfHits(battle, user, target)
       for i in [1..numHits]
         if @use(battle, user, target) != false
@@ -66,10 +66,8 @@ class @Move
     damage = @calculateDamage(battle, user, target)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
-      realDamage = target.transformHealthChange(damage)
-      if realDamage > 0
-        damage = Math.min(realDamage, target.currentHP)
-        target.damage(damage)
+      damage = target.damage(damage, direct: false, source: "move")
+      if damage != 0
         # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
         battle.message "#{target.name} took #{percent}% damage!"

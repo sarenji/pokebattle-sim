@@ -1024,8 +1024,79 @@ describe "BW Abilities:", ->
       @p1.has(Attachment.MagicCoat).should.be.true
 
   describe "Magic Guard", ->
-    it "takes no damage from anything non-direct"
-    it "takes damage from direct moves"
+    it "takes no damage from anything that isn't a move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @p1.attach(Status.Burn)
+      @p1.currentHP.should.equal(@p1.stat('hp'))
+      @battle.endTurn()
+      @p1.currentHP.should.equal(@p1.stat('hp'))
+
+    it "takes damage from moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from Struggle", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @battle.performMove(@id1, @battle.getMove('Struggle'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from Belly Drum", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @battle.performMove(@id1, @battle.getMove('Belly Drum'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from confusion", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      shared.biasRNG.call(this, 'next', 'confusion', 0)
+      @p1.attach(Attachment.Confusion)
+      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from using Curse", ->
+      shared.create.call this,
+        team1: [Factory("Gengar", ability: "Magic Guard")]
+      @battle.performMove(@id1, @battle.getMove('Curse'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from Substitute", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @battle.performMove(@id1, @battle.getMove('Substitute'))
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "takes damage from Pain Split", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @p1.currentHP = 1
+      @battle.performMove(@id1, @battle.getMove('Pain Split'))
+      @p1.currentHP.should.be.greaterThan(1)
+
+    it "takes damage from Counter", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard", moves: ["Counter"])]
+      @controller.makeMove(@player1, "Counter")
+      @controller.makeMove(@player2, "Tackle")
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
+
+    it "restores health from Leftovers", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard", item: "Leftovers")]
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.be.greaterThan(1)
+
+    it "receives no damage from Rocky Helmet", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Magic Guard")]
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1)
 
   describe "Magnet Pull", ->
     it "prevents Steel-type Pokemon from switching", ->

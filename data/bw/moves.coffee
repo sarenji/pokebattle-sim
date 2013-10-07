@@ -36,7 +36,7 @@ extendMove = (name, callback) ->
 
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       if target.has(Klass)
         # TODO: Placeholder
         @fail(battle)
@@ -46,7 +46,7 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
 
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       target.attach(status)
 
 # Extends a move in the move list as an attack with a secondary effect.
@@ -82,7 +82,7 @@ extendWithSecondaryStatus = (name, chance, status) ->
 # The fang moves have an additional 10% chance to flinch.
 extendWithFangEffect = (name, chance, status, options) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       if battle.rng.next("fang status") < chance
         target.attach(status)
 
@@ -181,7 +181,7 @@ makeRecoveryMove = (name) ->
       amount = Math.round(hpStat / 2)
       percent = Math.floor(100 * amount / hpStat)
       battle.message "#{target.name} recovered #{percent}% HP!"
-      target.damage(-amount)
+      target.heal(amount)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
   extendMove name, ->
@@ -203,7 +203,7 @@ makeWeatherRecoveryMove = (name) ->
         util.roundHalfDown(hpStat / 4)
       percent = Math.floor(100 * amount / hpStat)
       battle.message "#{target.name} recovered #{percent}% HP!"
-      target.damage(-amount)
+      target.heal(amount)
 
 makeTrickMove = (name) ->
   extendMove name, ->
@@ -282,7 +282,7 @@ makeIdentifyMove = (name, type) ->
 
 makeThiefMove = (name) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       return  if user.hasItem() || !target.hasTakeableItem()
       battle.message "#{user.name} stole #{target.name}'s #{target.item.displayName}!"
       user.setItem(target.item)
@@ -318,7 +318,7 @@ makeDelayedAttackMove = (name, message) ->
 
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       return  if target.shouldPhase(battle, user) == false
       opponent = battle.getOwner(target)
       benched  = opponent.team.getAliveBenchedPokemon()
@@ -450,7 +450,7 @@ extendWithBoost = (name, boostTarget, boosts) ->
 
 extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       if battle.rng.next('secondary boost') >= chance
         return
       pokemon = (if boostTarget == 'self' then user else target)
@@ -476,13 +476,13 @@ makeCounterMove = (name, multiplier, applies) ->
     @afterSuccessfulHit = (battle, user, target) ->
       hit = user.lastHitBy
       if hit? && applies(hit.move) && hit.turn == battle.turn
-        target.damage(multiplier * hit.damage)
+        target.damage(multiplier * hit.damage, direct: false, source: "move")
       else
         @fail(battle)
 
 makeTrappingMove = (name) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target, damage) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       unless target.has(Attachment.Trap)
         turns = if !user.hasItem("Grip Claw")
           battle.rng.randInt(4, 5, "trapping move")
@@ -665,7 +665,7 @@ extendWithSecondaryBoost 'Electroweb', 'target', 1, speed: -1
 extendWithSecondaryBoost 'Energy Ball', 'target', .1, specialDefense: -1
 
 extendMove 'Embargo', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Embargo)
     battle.message "#{target.name} can't use items anymore!"
 
@@ -687,7 +687,7 @@ extendMove 'Fake Out', ->
 makeBoostMove 'FeatherDance', 'target', attack: -2
 
 extendMove 'Feint', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     # TODO: Wide Guard
     if target.has(Attachment.Protect)
       target.unattach(Attachment.Protect)
@@ -796,7 +796,7 @@ extendMove 'Leech Seed', ->
     else
       oldWillMiss.call(this, battle, user, target)
 
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     team = user.team
     slot = team.indexOf(user)
     if target.attach(Attachment.LeechSeed, {team, slot})
@@ -895,7 +895,7 @@ extendWithSecondaryEffect 'Rolling Kick', .3, Attachment.Flinch
 makeMomentumMove 'Rollout'
 makeRecoveryMove 'Roost'
 extendMove 'Roost', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     user.attach(Attachment.Roost)
 
 makeBoostMove 'Sand-Attack', 'target', accuracy: -1
@@ -995,7 +995,7 @@ extendMove 'Swallow', ->
     {layers} = target.get(Attachment.Stockpile)
     amount = util.roundHalfDown(target.stat('hp') / Math.pow(2, 3 - layers))
     # Swallow is not a draining move, so it is not affected by Big Root.
-    target.damage(-amount)
+    target.heal(amount)
 
   oldExecute = @execute
   @execute = (battle, user, targets) ->
@@ -1186,7 +1186,7 @@ extendMove 'Belly Drum', ->
   @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)
     if user.currentHP > halfHP
-      user.damage(halfHP)
+      user.damage(halfHP, source: "move")
       user.boost(attack: 12)
       battle.message "#{user.name} cut its own HP and maximized its Attack!"
     else
@@ -1242,7 +1242,7 @@ extendMove 'Curse', ->
       user.boost(attack: 1, defense: 1, speed: -1)
       return
 
-    user.damage Math.floor(user.stat('hp') / 2)
+    user.damage(Math.floor(user.stat('hp') / 2), source: "move")
     for target in targets
       target.attach(Attachment.Curse)
       battle.message "#{user.name} cut its own HP and laid a curse on #{target.name}!"
@@ -1389,7 +1389,7 @@ extendMove 'Frustration', ->
   @basePower = -> 102
 
 extendMove 'Fury Cutter', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     user.attach(Attachment.FuryCutter, move: this)
 
   @basePower = (battle, user, target) ->
@@ -1471,7 +1471,7 @@ extendMove 'Imprison', ->
       @fail(battle)
 
 extendMove 'Incinerate', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.hasItem() && target.getItem().type == 'berries'
       battle.message "#{target.name}'s #{target.getItem().name} was burnt up!"
       target.removeItem()
@@ -1486,7 +1486,7 @@ extendMove 'Judgment', ->
     user.getItem()?.plate || @type
 
 extendMove 'Knock Off', ->
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     if target.hasItem()
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
@@ -1713,7 +1713,7 @@ extendMove 'Present', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if user.get(Attachment.Present).power == 0
       amount = target.stat('hp') >> 2
-      target.damage(-amount)
+      target.heal(amount)
 
   oldExecute = @execute
   @execute = (battle, user, targets) ->
@@ -1887,7 +1887,7 @@ extendMove 'Struggle', ->
   @typeEffectiveness = -> 1
 
   @afterSuccessfulHit = (battle, user, target) ->
-    user.damage(user.stat('hp') >> 2)
+    user.damage(user.stat('hp') >> 2, source: "move")
 
 extendMove 'Splash', ->
   @execute = (battle, user, target) ->
@@ -1901,12 +1901,13 @@ extendMove 'Substitute', ->
       @fail(battle)
       return
 
-    if !user.attach(Attachment.Substitute, hp: dmg, battle: battle)
+    if user.has(Attachment.Substitute)
       battle.message "#{user.name} already has a substitute!"
       @fail(battle)
       return
 
-    user.damage(dmg)
+    user.damage(dmg, source: "move")
+    user.attach(Attachment.Substitute, hp: dmg, battle: battle)
     battle.message "#{user.name} put in a substitute!"
 
   @fail = (battle) ->

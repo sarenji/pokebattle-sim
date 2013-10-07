@@ -201,7 +201,8 @@ makeTypeAbsorbMove = (name, type) ->
       return  if move.getType(@battle, user, @pokemon) != type
       @battle.message "#{@pokemon.name} restored its HP a little."
       amount = @pokemon.stat('hp') >> 2
-      @pokemon.damage(-amount)
+      @pokemon.heal(amount)
+      return true
 
 makeTypeAbsorbMove("Water Absorb", "Water")
 makeTypeAbsorbMove("Volt Absorb", "Electric")
@@ -313,12 +314,12 @@ makeAbility 'Dry Skin', ->
       @pokemon.damage(@pokemon.stat('hp') >> 3)
       @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
     else if @battle.hasWeather(Weather.RAIN)
-      @pokemon.damage(-(@pokemon.stat('hp') >> 3))
+      @pokemon.heal((@pokemon.stat('hp') >> 3))
       @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
 
   this::shouldBlockExecution = (move, user) ->
     return  if move.getType(@battle, user, @pokemon) != 'Water'
-    @pokemon.damage(-(@pokemon.stat('hp') >> 2))
+    @pokemon.heal((@pokemon.stat('hp') >> 2))
     @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
     return true
 
@@ -467,7 +468,7 @@ makeAbility 'Ice Body', ->
     if @battle.hasWeather(Weather.HAIL)
       @battle.message "#{@pokemon.name}'s Ice Body restored its HP a little."
       amount = @pokemon.stat('hp') >> 4
-      @pokemon.damage(-amount)
+      @pokemon.heal(amount)
 
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.HAIL
@@ -524,6 +525,12 @@ makeAbility 'Magic Bounce', ->
     @pokemon.attach(Attachment.MagicCoat)
     @team.attach(Attachment.MagicCoat)
 
+makeAbility 'Magic Guard', ->
+  this::transformHealthChange = (damage, options) ->
+    switch options.source
+      when 'move' then return damage
+      else return 0
+
 makeAbility 'Magnet Pull', ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
@@ -562,7 +569,7 @@ makeAbility 'Moody', ->
     @pokemon.boost(boosts)
 
 makeAbility 'Moxie', ->
-  this::afterSuccessfulHit = (move, user, target, damage) ->
+  this::afterSuccessfulHit = (move, user, target) ->
     if target.isFainted() then @pokemon.boost(attack: 1)
 
 makeAbility 'Multiscale', ->
@@ -599,7 +606,7 @@ makeAbility 'Poison Heal', ->
   this::endTurn = ->
     if @pokemon.has(Status.Poison) || @pokemon.has(Status.Toxic)
       amount = @pokemon.stat('hp') >> 3
-      @pokemon.damage(-amount)
+      @pokemon.heal(amount)
 
 # Hardcoded in Battle#actionPriority
 makeAbility 'Prankster'
@@ -619,7 +626,7 @@ makeAbility 'Rain Dish', ->
     return  unless @battle.hasWeather(Weather.RAIN)
     @battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
     amount = @pokemon.stat('hp') >> 4
-    @pokemon.damage(-amount)
+    @pokemon.heal(amount)
 
 makeAbility 'Rattled', ->
   this::afterBeingHit = (move, user) ->
@@ -646,7 +653,7 @@ makeAbility 'Rivalry', ->
 makeAbility 'Regenerator', ->
   this::switchOut = ->
     amount = Math.floor(@pokemon.stat('hp') / 3)
-    @pokemon.damage(-amount)
+    @pokemon.heal(amount)
 
 # Hardcoded in move.coffee
 makeAbility 'Rock Head'
