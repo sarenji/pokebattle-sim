@@ -69,7 +69,7 @@ statsHash =
   'Spd'  : 'speed'
 
 convertNameToSpeciesAndForme = (pokemon, name) ->
-  if name.match(/(.*)-T(herian)?/i)
+  if name.match(/(Thundurus|Landorus|Tornadus)\-T(herian)?/i)
     pokemon.name = RegExp.$1
     pokemon.forme = 'therian'
   else if name.match(/Shaymin-S(ky)?/i)
@@ -110,5 +110,37 @@ convertNameToSpeciesAndForme = (pokemon, name) ->
   else if name.match(/Deoxys-S|Deoxys-Speed/)
     pokemon.name = "Deoxys"
     pokemon.forme = "speed"
+  else if name.match(/Basculin-Blue-Striped|Basculin-A/)
+    pokemon.name = "Basculin"
+    pokemon.forme = "blue-striped"
+  else if name.match(/Keldeo-Resolute|Keldeo-R/)
+    pokemon.name = "Keldeo"
+    pokemon.forme = "resolute"
+  else if name.match(/Shellos-East/)
+    pokemon.name = "Shellos"
+    # TODO: Read east forme
+    pokemon.forme = "default"
+  else if name.match(/Gastrodon-East/)
+    pokemon.name = "Gastrodon"
+    # TODO: Read east forme
+    pokemon.forme = "default"
+  else if name.match(/Wormadam-Sandy|Wormadam-G/)
+    pokemon.name = "Wormadam"
+    pokemon.forme = "sandy"
+  else if name.match(/Wormadam-Trash|Wormadam-S/)
+    pokemon.name = "Wormadam"
+    pokemon.forme = "trash"
+  else if name.match(/Deerling-.*/)
+    pokemon.name = "Deerling"
+    # TODO: Read other formes
+    pokemon.forme = null
+  else if name.match(/Sawsbuck-.*/)
+    pokemon.name = "Sawsbuck"
+    # TODO: Read other formes
+    pokemon.forme = null
+  else if name.match(/Unown-.*/)
+    pokemon.name = "Unown"
+    # TODO: Read other formes
+    pokemon.forme = null
   else
     pokemon.name = name

@@ -121,6 +121,14 @@ EVs: 252 SpA / 176 SpD
         "Thundurus-T": ["Thundurus", "therian"]
         "Thundurus": ["Thundurus", null]
 
+        "Landorus-Therian": ["Landorus", "therian"]
+        "Landorus-T": ["Landorus", "therian"]
+        "Landorus": ["Landorus", null]
+
+        "Tornadus-Therian": ["Tornadus", "therian"]
+        "Tornadus-T": ["Tornadus", "therian"]
+        "Tornadus": ["Tornadus", null]
+
         "Shaymin-Sky": ["Shaymin", "sky"]
         "Shaymin-S": ["Shaymin", "sky"]
         "Shaymin": ["Shaymin", null]
@@ -157,6 +165,42 @@ EVs: 252 SpA / 176 SpD
         "Deoxys-Speed": ["Deoxys", "speed"]
         "Deoxys-S": ["Deoxys", "speed"]
         "Deoxys": ["Deoxys", null]
+
+        "Basculin-Blue-Striped": ["Basculin", "blue-striped"]
+        "Basculin-A": ["Basculin", "blue-striped"]
+        "Basculin": ["Basculin", null]
+
+        "Keldeo-Resolute": ["Keldeo", "resolute"]
+        "Keldeo-R": ["Keldeo", "resolute"]
+        "Keldeo": ["Keldeo", null]
+
+        # TODO: "Shellos-East": ["Shellos", "east"]
+        "Shellos-East": ["Shellos", "default"]
+        "Shellos": ["Shellos", null]
+
+        # TODO: "Gastrodon-East": ["Gastrodon", "east"]
+        "Gastrodon-East": ["Gastrodon", "default"]
+        "Gastrodon": ["Gastrodon", null]
+
+        "Wormadam-G": ["Wormadam", "sandy"]
+        "Wormadam-Sandy": ["Wormadam", "sandy"]
+        "Wormadam-S": ["Wormadam", "trash"]
+        "Wormadam-Trash": ["Wormadam", "trash"]
+        "Wormadam": ["Wormadam", null]
+
+        # TODO: fix these
+        "Deerling-Summer": ["Deerling", null]
+        "Deerling-Autumn": ["Deerling", null]
+        "Deerling-Spring": ["Deerling", null]
+        "Deerling": ["Deerling", null]
+
+        "Sawsbuck-Summer": ["Sawsbuck", null]
+        "Sawsbuck-Autumn": ["Sawsbuck", null]
+        "Sawsbuck-Spring": ["Sawsbuck", null]
+        "Sawsbuck": ["Sawsbuck", null]
+
+        "Unown-A": ["Unown", null]
+        "Unown": ["Unown", null]
 
       teamArray = (pokemonName  for pokemonName of formes)
       teamFormes = (forme  for forme in teamArray)
