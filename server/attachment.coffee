@@ -241,8 +241,8 @@ class @Attachment.Nightmare extends @VolatileAttachment
 
   endTurn: ->
     if @pokemon.has(Status.Sleep)
-      @battle.message "#{@pokemon.name} is locked in a nightmare!"
-      @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
+      if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
+        @battle.message "#{@pokemon.name} is locked in a nightmare!"
     else
       @pokemon.unattach(@constructor)
 
@@ -396,8 +396,8 @@ class @Attachment.Trap extends @VolatileAttachment
       @battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @pokemon.unattach(@constructor)
     else
-      @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
-      @pokemon.damage(Math.floor(@pokemon.stat('hp') / @getDamagePerTurn()))
+      if @pokemon.damage(Math.floor(@pokemon.stat('hp') / @getDamagePerTurn()))
+        @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @turns -= 1
 
   getDamagePerTurn: ->
@@ -673,8 +673,8 @@ class @Attachment.Curse extends @VolatileAttachment
   passable: true
 
   endTurn: ->
-    @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
-    @battle.message "#{@pokemon.name} was afflicted by the curse!"
+    if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
+      @battle.message "#{@pokemon.name} was afflicted by the curse!"
 
 class @Attachment.DestinyBond extends @VolatileAttachment
   name: "DestinyBondAttachment"

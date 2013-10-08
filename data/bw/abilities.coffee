@@ -163,9 +163,9 @@ makeContactHurtAbility = (name) ->
   makeAbility name, ->
     this::afterBeingHit = (move, user, target, damage) ->
       return  unless move.hasFlag('contact')
-      @battle.message "#{user.name} was hurt!"
       amount = user.stat('hp') >> 3
-      user.damage(amount)
+      if user.damage(amount)
+        @battle.message "#{user.name} was hurt!"
 
 makeContactHurtAbility("Iron Barbs")
 makeContactHurtAbility("Rough Skin")
@@ -217,8 +217,8 @@ makeAbility "Aftermath", ->
   this::afterFaint = ->
     {pokemon, damage, move, turn} = @pokemon.lastHitBy
     if move.hasFlag('contact')
-      pokemon.damage(pokemon.stat('hp') >> 2)
-      @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
+      if pokemon.damage(pokemon.stat('hp') >> 2)
+        @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
 
 makeAbility 'Analytic', ->
   this::modifyBasePower = ->
@@ -256,9 +256,9 @@ makeAbility "Bad Dreams", ->
     opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       continue  unless opponent.has(Status.Sleep)
-      @battle.message "#{opponent.name} is tormented!"
       amount = opponent.stat('hp') >> 3
-      opponent.damage(amount)
+      if opponent.damage(amount)
+        @battle.message "#{opponent.name} is tormented!"
 
 makeAbility "Color Change", ->
   this::afterBeingHit = (move, user, target, damage) ->
@@ -311,8 +311,8 @@ makeAbility 'Dry Skin', ->
   this::endTurn = ->
     # TODO: Real message
     if @battle.hasWeather(Weather.SUN)
-      @pokemon.damage(@pokemon.stat('hp') >> 3)
-      @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
+      if @pokemon.damage(@pokemon.stat('hp') >> 3)
+        @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
     else if @battle.hasWeather(Weather.RAIN)
       @pokemon.heal((@pokemon.stat('hp') >> 3))
       @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
@@ -750,7 +750,9 @@ makeAbility 'Solar Power', ->
 
   this::endTurn = ->
     if @battle.hasWeather(Weather.SUN)
-      @pokemon.damage(@pokemon.stat('hp') >> 3)
+      if @pokemon.damage(@pokemon.stat('hp') >> 3)
+        # TODO: Real message
+        @battle.message "#{@pokemon.name} was hurt under the sun!"
 
 makeAbility 'Soundproof', ->
   this::isImmune = (type, move) ->

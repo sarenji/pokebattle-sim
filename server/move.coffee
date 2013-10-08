@@ -80,8 +80,8 @@ class @Move
     if @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(-damage * @recoil / 100)
       recoil = Math.max(1, recoil)
-      user.damage(recoil)
-      battle.message("#{user.name} was hit by recoil!")
+      if user.damage(recoil)
+        battle.message("#{user.name} was hit by recoil!")
     target.recordHit(user, damage, this, battle.turn)
 
   # A hook that executes after a pokemon has been successfully damaged by

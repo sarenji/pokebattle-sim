@@ -83,9 +83,9 @@ makeFeedbackDamageBerry = (name, klass) ->
     this::afterBeingHit = (move, user, target) ->
       return  if !move[klass]()
       return  if target.isFainted()
-      # TODO: Real message.
-      @battle.message "The #{name} hurt #{user.name}!"
-      user.damage(Math.floor(user.stat('hp') / 8))
+      if user.damage(Math.floor(user.stat('hp') / 8))
+        # TODO: Real message.
+        @battle.message "The #{name} hurt #{user.name}!"
       target.useItem()
 
 makeStatusCureBerry = (name, statuses...) ->
@@ -249,8 +249,8 @@ makeItem 'Black Sludge', ->
       @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
       @pokemon.heal(amount)
     else
-      @battle.message "#{@pokemon.name} is hurt by its #{@displayName}!"
-      @pokemon.damage(amount)
+      if @pokemon.damage(amount)
+        @battle.message "#{@pokemon.name} is hurt by its #{@displayName}!"
 
 makeEvasionItem 'BrightPowder', 0.9
 makeGemItem 'Bug Gem', 'Bug'
@@ -390,8 +390,8 @@ makeItem 'Life Orb', ->
 
   this::afterSuccessfulHit = (move, user, target) ->
     return  if move.isNonDamaging()
-    user.damage(Math.floor(user.stat('hp') / 10))
-    @battle.message "#{@pokemon.name} hurt itself with its Life Orb."
+    if user.damage(Math.floor(user.stat('hp') / 10))
+      @battle.message "#{@pokemon.name} hurt itself with its Life Orb."
 
 makeItem 'Light Clay' # Hardcoded in Attachment.Screen
 
@@ -481,9 +481,9 @@ makeGemItem 'Rock Gem', 'Rock'
 makeItem 'Rocky Helmet', ->
   this::afterBeingHit = (move, user, target) ->
     if move.hasFlag("contact")
-      @battle.message "#{user.name} was hurt by the #{@displayName}!"
       amount = Math.floor(user.stat('hp') / 6)
-      user.damage(amount)
+      if user.damage(amount)
+        @battle.message "#{user.name} was hurt by the #{@displayName}!"
 
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
