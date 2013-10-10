@@ -1,4 +1,5 @@
-{BattleServer, Player} = require('../').server
+{BattleServer} = require('../server/server')
+{Player} = require('../server/player')
 {Factory} = require './factory'
 
 require './helpers'

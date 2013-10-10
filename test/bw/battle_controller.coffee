@@ -1,12 +1,12 @@
-{moves} = require('../data/bw')
-{Battle, Pokemon, Status, VolatileStatus, Attachment} = require('../').server
-{Player} = require('../server/player')
-{Conditions} = require '../server/conditions'
-{Factory} = require './factory'
+{Battle} = require('../../server/bw/battle')
+{Pokemon} = require('../../server/bw/pokemon')
+{Status, VolatileStatus, Attachment} = require('../../server/bw/attachment')
+{Player} = require('../../server/player')
+{Conditions} = require '../../server/conditions'
+{Factory} = require '../factory'
 should = require 'should'
-shared = require './shared'
-
-require './helpers'
+shared = require '../shared'
+require '../helpers'
 
 describe 'BattleController', ->
   it "automatically ends the turn if all players move", ->

@@ -1,4 +1,5 @@
-{Battle, BattleController} = require('../').server
+{Battle} = require('../server/bw/battle')
+{BattleController} = require('../server/bw/battle_controller')
 {Factory} = require './factory'
 
 require 'sugar'

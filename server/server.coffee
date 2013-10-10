@@ -2,8 +2,8 @@
 {_} = require 'underscore'
 
 {BattleQueue} = require './queue'
-{Battle} = require './battle'
-{BattleController} = require './battle_controller'
+{Battle} = require './bw/battle'
+{BattleController} = require './bw/battle_controller'
 {Conditions} = require './conditions'
 learnsets = require '../shared/learnsets'
 

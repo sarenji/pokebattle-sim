@@ -1,5 +1,7 @@
 learnsets = require('../shared/learnsets')
-{SpeciesData, FormeData} = require('../data/bw')
+
+# We'll use BW data for tests.
+{SpeciesData, FormeData} = require('../server/bw/data')
 
 describe "Learnsets:", ->
   testLearnset = (pokemon, func) ->

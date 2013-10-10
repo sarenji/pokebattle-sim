@@ -1,18 +1,18 @@
 {_} = require 'underscore'
+{Player} = require '../player'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
-{Player} = require './player'
 {Team} = require './team'
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
-{Protocol} = require '../shared/protocol'
+{Protocol} = require '../../shared/protocol'
 Priority = require './priorities'
 
 require 'sugar'
 
 class @Battle
   # TODO: let Battle serialize these.
-  {Ability, Moves, MoveData, MoveList, SpeciesData, FormeData} = require '../data/bw'
+  {Moves, MoveList, SpeciesData, FormeData} = require './data'
   @SpeciesData: SpeciesData
   @FormeData: FormeData
 

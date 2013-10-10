@@ -1,4 +1,4 @@
-{BattleQueue} = require('../').server
+{BattleQueue} = require('../server/queue')
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->

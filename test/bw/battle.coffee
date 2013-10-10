@@ -1,11 +1,14 @@
-{Battle, BattleController, Pokemon, Weather} = require('../').server
-{Factory} = require('./factory')
-{Player} = require('../server/player')
-{Attachment} = require('../server/attachment')
-{Protocol} = require '../shared/protocol'
+{Attachment} = require('../../server/bw/attachment')
+{Battle} = require('../../server/bw/battle')
+{BattleController} = require('../../server/bw/battle_controller')
+{Pokemon} = require('../../server/bw/pokemon')
+{Weather} = require('../../server/bw/weather')
+{Factory} = require('../factory')
+{Player} = require('../../server/player')
+{Protocol} = require '../../shared/protocol'
 should = require 'should'
 sinon = require 'sinon'
-require './helpers'
+require '../helpers'
 
 describe 'Battle', ->
   beforeEach ->

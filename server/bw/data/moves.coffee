@@ -1,11 +1,11 @@
 @MoveData = require('./data_moves.json')
-{Weather} = require('../../server/weather')
-{Move} = require('../../server/move')
-{Attachment, Status} = require('../../server/attachment')
-{Protocol} = require('../../shared/protocol')
+{Weather} = require('../weather')
+{Move} = require('../move')
+{Attachment, Status} = require('../attachment')
+{Protocol} = require('../../../shared/protocol')
 {_} = require 'underscore'
-util = require '../../server/util'
-HiddenPower = require '../../shared/hidden_power'
+util = require '../util'
+HiddenPower = require '../../../shared/hidden_power'
 
 # Generate the initial versions of every single move.
 # Many will be overwritten later.

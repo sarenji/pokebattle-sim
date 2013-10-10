@@ -1,10 +1,12 @@
-{_} = require 'underscore'
-{Battle, Weather, Pokemon, Status, Attachment, BaseAttachment, VolatileAttachment} = require('../').server
-{Moves, SpeciesData} = require('../data/bw')
-{Protocol} = require '../shared/protocol'
+{Battle} = require('../../server/bw/battle')
+{Weather} = require('../../server/bw/weather')
+{Pokemon} = require('../../server/bw/pokemon')
+{Status, Attachment, BaseAttachment, VolatileAttachment} = require('../../server/bw/attachment')
+{Moves, SpeciesData} = require('../../server/bw/data')
+{Protocol} = require '../../shared/protocol'
 should = require 'should'
 
-require './helpers'
+require '../helpers'
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->

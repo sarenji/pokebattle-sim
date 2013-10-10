@@ -1,6 +1,9 @@
-{Attachment, Battle, Pokemon, Status, Weather} = require('../../').server
-{Ability} = require '../../data/bw/abilities'
-util = require '../../server/util'
+{Attachment, Status} = require('../../server/bw/attachment')
+{Battle} = require('../../server/bw/battle')
+{Pokemon} = require('../../server/bw/pokemon')
+{Weather} = require('../../server/bw/weather')
+{Ability} = require '../../server/bw/data/abilities'
+util = require '../../server/bw/util'
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'

@@ -1,10 +1,12 @@
-{Battle, Pokemon, Status, Attachment} = require('../').server
-{Factory} = require './factory'
+{Battle} = require('../../server/bw/battle')
+{Pokemon} = require('../../server/bw/pokemon')
+{Status, Attachment} = require('../../server/bw/attachment')
+{Factory} = require '../factory'
 should = require 'should'
-shared = require './shared'
-{Protocol} = require '../shared/protocol'
+shared = require '../shared'
+{Protocol} = require '../../shared/protocol'
 
-require './helpers'
+require '../helpers'
 
 describe 'Mechanics', ->
   describe 'an attack missing', ->

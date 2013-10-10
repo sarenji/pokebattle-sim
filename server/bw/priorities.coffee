@@ -1,5 +1,5 @@
-{Ability} = require('../data/bw/abilities')
-{Item} = require('../data/bw/items')
+{Ability} = require('./data/abilities')
+{Item} = require('./data/items')
 {Attachment, Status} = require('./attachment')
 
 Priorities =

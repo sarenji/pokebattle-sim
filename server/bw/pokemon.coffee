@@ -1,8 +1,8 @@
 {_} = require 'underscore'
-{Ability, Item, Moves, SpeciesData, FormeData} = require '../data/bw'
+{Ability, Item, Moves, SpeciesData, FormeData} = require './data'
 {Attachment, Status, Attachments} = require './attachment'
 {Weather} = require './weather'
-{Protocol} = require '../shared/protocol'
+{Protocol} = require '../../shared/protocol'
 util = require './util'
 floor = Math.floor
 

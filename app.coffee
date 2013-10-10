@@ -9,7 +9,8 @@ require 'sugar'
 
 request = require 'request'
 
-{BattleServer, ConnectionServer} = require './server'
+{BattleServer} = require './server/server'
+{ConnectionServer} = require './server/connections'
 
 server = new BattleServer()
 app = express()

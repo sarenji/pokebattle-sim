@@ -1,4 +1,4 @@
-{Protocol} = require '../shared/protocol'
+{Protocol} = require '../../shared/protocol'
 {Weather} = require './weather'
 util = require './util'
 {_} = require 'underscore'

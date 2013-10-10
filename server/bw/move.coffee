@@ -1,6 +1,6 @@
 {Attachment, Status} = require './attachment'
 {Weather} = require './weather'
-{Protocol} = require '../shared/protocol'
+{Protocol} = require '../../shared/protocol'
 util = require './util'
 
 # A single Move in the Pokemon engine. Move objects are constructed in

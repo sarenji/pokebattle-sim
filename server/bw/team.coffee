@@ -1,11 +1,9 @@
 {_} = require 'underscore'
 {Pokemon} = require './pokemon'
 {Attachments} = require './attachment'
-{Protocol} = require '../shared/protocol'
+{Protocol} = require '../../shared/protocol'
 
 class @Team
-  {SpeciesData} = require '../data/bw'
-
   constructor: (battle, player, pokemon, @numActive) ->
     # Inject battle dependency
     @battle = battle

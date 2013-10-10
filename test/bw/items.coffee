@@ -1,9 +1,9 @@
-{Item} = require('../../data/bw')
-{Pokemon} = require '../../server/pokemon'
-{Attachment, Status} = require '../../server/attachment'
-{Move} = require '../../server/move'
+{Item} = require('../../server/bw/data/items')
+{Pokemon} = require '../../server/bw/pokemon'
+{Attachment, Status} = require '../../server/bw/attachment'
+{Move} = require '../../server/bw/move'
 {Factory} = require '../factory'
-util = require '../../server/util'
+util = require '../../server/bw/util'
 should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
