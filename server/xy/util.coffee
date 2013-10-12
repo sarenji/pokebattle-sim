@@ -2,36 +2,8 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../bw/util.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
-@typeEffectiveness = (userType, againstTypes, options = {}) ->
-  userType = Type[userType.toUpperCase()]
-  effectiveness = 1
-  for subtype in againstTypes
-    targetType = Type[subtype.toUpperCase()]
-    multiplier = typeChart[userType][targetType]
-    multiplier = 1  if multiplier == 0 && options.ignoreImmunities
-    effectiveness *= multiplier
-  effectiveness
-
-@Type = Type =
-  NORMAL   : 0
-  FIRE     : 1
-  WATER    : 2
-  ELECTRIC : 3
-  GRASS    : 4
-  ICE      : 5
-  FIGHTING : 6
-  POISON   : 7
-  GROUND   : 8
-  FLYING   : 9
-  PSYCHIC  : 10
-  BUG      : 11
-  ROCK     : 12
-  GHOST    : 13
-  DRAGON   : 14
-  DARK     : 15
-  STEEL    : 16
-  FAIRY    : 17
-  "???"    : 18
+@Type.FAIRY  = Type.FAIRY  = 17
+@Type["???"] = Type["???"] = 18
 
 typeChart = [
   # Nor Fir Wat Ele Gra Ice Fig Poi Gro Fly Psy Bug Roc Gho Dra Dar Ste Fai, ???
