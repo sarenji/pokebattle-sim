@@ -67,7 +67,7 @@ class @BattleServer
   # Returns an empty array if the given Pokemon is valid, an array of errors
   # otherwise.
   validatePokemon: (pokemon, slot) ->
-    {SpeciesData, FormeData} = Battle
+    {SpeciesData, FormeData} = Battle.prototype
     errors = []
     if !pokemon.name
       errors.push("No species given.")
@@ -120,9 +120,9 @@ class @BattleServer
   # Assumes that the Pokemon is a real Pokemon (i.e. its name is valid)
   normalizePokemon: (pokemon) ->
     pokemon.forme   ?= "default"
-    pokemon.ability ?= Battle.FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
+    pokemon.ability ?= Battle::FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
     if !pokemon.gender?
-      {genderRatio} = Battle.SpeciesData[pokemon.name]
+      {genderRatio} = Battle::SpeciesData[pokemon.name]
       if genderRatio == -1 then pokemon.gender = "Genderless"
       else if Math.random() < (genderRatio / 8) then pokemon.gender = "F"
       else pokemon.gender = "M"

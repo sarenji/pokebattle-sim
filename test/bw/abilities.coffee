@@ -220,7 +220,7 @@ describe "BW Abilities:", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
         @p1.currentHP = Math.floor(@p1.stat('hp') / 3)
-        move = @battle.getMoveList().find (m) ->
+        move = @battle.MoveList.find (m) ->
           m.type == type && !m.isNonDamaging()
         move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
 
@@ -228,7 +228,7 @@ describe "BW Abilities:", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
         @p1.currentHP = Math.floor(@p1.stat('hp') / 3)
-        move = @battle.getMoveList().find (m) ->
+        move = @battle.MoveList.find (m) ->
           m.type != type && !m.isNonDamaging()
         move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
@@ -236,7 +236,7 @@ describe "BW Abilities:", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
         @p1.currentHP = Math.floor(@p1.stat('hp') / 3) + 1
-        move = @battle.getMoveList().find (m) ->
+        move = @battle.MoveList.find (m) ->
           m.type == type && !m.isNonDamaging()
         move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
@@ -467,13 +467,13 @@ describe "BW Abilities:", ->
     describe name, ->
       it "reduces the impact of super-effective moves by 25%", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        seMove = @battle.getMoveList().find (m) =>
+        seMove = @battle.MoveList.find (m) =>
           !m.isNonDamaging() && util.typeEffectiveness(m.type, @p1.types) > 1
         seMove.modifyDamage(@battle, @p2, @p1).should.equal(0xC00)
 
       it "keeps non-super-effective moves as normal", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        seMove = @battle.getMoveList().find (m) =>
+        seMove = @battle.MoveList.find (m) =>
           !m.isNonDamaging() && util.typeEffectiveness(m.type, @p1.types) <= 1
         seMove.modifyDamage(@battle, @p2, @p1).should.equal(0x1000)
 
@@ -510,7 +510,7 @@ describe "BW Abilities:", ->
     describe name, ->
       it "increases #{spectra} moves by 1.5 if has #{statusNames}", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        move = @battle.getMoveList().find (m) ->
+        move = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.spectra == spectra
 
         for status in statuses
@@ -520,7 +520,7 @@ describe "BW Abilities:", ->
 
       it "does not increase non-#{spectra} moves", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        move = @battle.getMoveList().find (m) ->
+        move = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.spectra != spectra
 
         for status in statuses
@@ -966,7 +966,7 @@ describe "BW Abilities:", ->
       it "makes user immune to #{type}", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
         @battle.performMove(@id2, typedMove)
@@ -975,7 +975,7 @@ describe "BW Abilities:", ->
       it "boosts special attack on #{type}-type moves", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @battle.performMove(@id2, typedMove)
         @p1.stages.should.include(specialAttack: 1)
@@ -983,7 +983,7 @@ describe "BW Abilities:", ->
       it "does not boost special attack on #{type}-type moves if immune", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @sandbox.stub(@p1, 'isImmune', -> true)
         @battle.performMove(@id2, typedMove)
@@ -1182,7 +1182,7 @@ describe "BW Abilities:", ->
     describe name, ->
       it "makes the user immune to #{type} moves", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
         @battle.performMove(@id2, typedMove)
@@ -1190,14 +1190,14 @@ describe "BW Abilities:", ->
 
       it "increases #{stat} by 1 if hit by a #{type}-type move", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @battle.performMove(@id2, typedMove)
         @p1.stages[stat].should.equal(1)
 
       it "increases #{stat} by only 1 even if move is multi-hit", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @sandbox.stub(typedMove, 'calculateNumberOfHits', -> 2)
         @battle.performMove(@id2, typedMove)
@@ -1205,7 +1205,7 @@ describe "BW Abilities:", ->
 
       it "does nothing otherwise", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type != type
         mock = @sandbox.mock(typedMove).expects('hit').once()
         @battle.performMove(@id2, typedMove)
@@ -1395,7 +1395,7 @@ describe "BW Abilities:", ->
         it "raises speed by 1 when hit by a #{type} move", ->
           shared.create.call this,
             team1: [Factory("Magikarp", ability: "Rattled")]
-          typedMove = @battle.getMoveList().find (m) ->
+          typedMove = @battle.MoveList.find (m) ->
             m.type == type
           @p1.stages.speed.should.equal(0)
           @battle.performMove(@id2, typedMove)
@@ -1405,7 +1405,7 @@ describe "BW Abilities:", ->
     it "gives a 1.2x boost to recoil moves", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Reckless")]
-      recoilMoves = @battle.getMoveList().filter (m) ->
+      recoilMoves = @battle.MoveList.filter (m) ->
         m.recoil < 0
       for move in recoilMoves
         move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1333)
@@ -1910,7 +1910,7 @@ describe "BW Abilities:", ->
       it "is immune to #{type}-type moves", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
         @battle.performMove(@id2, typedMove)
@@ -1919,7 +1919,7 @@ describe "BW Abilities:", ->
       it "heals 25% HP from #{type}-type moves", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
-        typedMove = @battle.getMoveList().find (m) ->
+        typedMove = @battle.MoveList.find (m) ->
           m.type == type
         @p1.currentHP = 1
         @battle.performMove(@id2, typedMove)
@@ -1971,7 +1971,7 @@ describe "BW Abilities:", ->
     it "is not immune to super-effective moves", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Wonder Guard")]
-      typedMove = @battle.getMoveList().find (m) ->
+      typedMove = @battle.MoveList.find (m) ->
         !m.isNonDamaging() && m.type == 'Electric'
       mock = @sandbox.mock(typedMove).expects('hit').once()
       @battle.performMove(@id2, typedMove)

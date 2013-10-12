@@ -9,7 +9,6 @@ util = require './util'
 # engine.
 class @Move
   constructor: (@name, attributes = {}) ->
-    @attributes = attributes
     @accuracy = attributes.accuracy || 0
     @priority = attributes.priority || 0
     @power = attributes.power
@@ -21,6 +20,7 @@ class @Move
     @flinchChance = (attributes.flinchChance || 0) / 100
     @pp = attributes.pp
     @recoil = attributes.recoil
+    {@minHits, @maxHits} = attributes
 
   isPhysical: ->
     @spectra == 'physical'
@@ -232,15 +232,15 @@ class @Move
     damage
 
   calculateNumberOfHits: (battle, user, target) ->
-    if @attributes.minHits == @attributes.maxHits
-      @attributes.maxHits
+    if @minHits == @maxHits
+      @maxHits
     else if user.hasAbility("Skill Link")
-      @attributes.maxHits
-    else if @attributes.minHits == 2 && @attributes.maxHits == 5
+      @maxHits
+    else if @minHits == 2 && @maxHits == 5
       # hard coding moves like fury swipes to have 2-3 hits have a 1/3 chance, and 4-5 have 1/6th
       battle.rng.choice([2, 2, 3, 3, 4, 5], "num hits")
     else
-      battle.rng.randInt(@attributes.minHits, @attributes.maxHits, "num hits")
+      battle.rng.randInt(@minHits, @maxHits, "num hits")
 
   modifyBasePower: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyBasePower', this, user, target)

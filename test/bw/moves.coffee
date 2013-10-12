@@ -5070,7 +5070,7 @@ describe "BW Moves:", ->
       @p1.moves = []
       metronome = @battle.getMove("Metronome")
       tackle = @battle.getMove("Tackle")
-      index = @battle.getMoveList().indexOf(tackle)
+      index = @battle.MoveList.indexOf(tackle)
       shared.biasRNG.call(this, 'randInt', "metronome", index)
 
       mock = @sandbox.mock(tackle).expects('execute').once()
@@ -5082,8 +5082,8 @@ describe "BW Moves:", ->
       metronome = @battle.getMove("Metronome")
       @p1.moves = [ metronome ]
       tackle = @battle.getMove("Tackle")
-      index = @battle.getMoveList().indexOf(metronome)
-      reselectIndex = @battle.getMoveList().indexOf(tackle)
+      index = @battle.MoveList.indexOf(metronome)
+      reselectIndex = @battle.MoveList.indexOf(tackle)
       shared.biasRNG.call(this, 'randInt', "metronome", index)
       shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
 
@@ -5097,8 +5097,8 @@ describe "BW Moves:", ->
       metronome = @battle.getMove("Metronome")
       technoBlast = @battle.getMove("Techno Blast")
       tackle = @battle.getMove("Tackle")
-      index = @battle.getMoveList().indexOf(technoBlast)
-      reselectIndex = @battle.getMoveList().indexOf(tackle)
+      index = @battle.MoveList.indexOf(technoBlast)
+      reselectIndex = @battle.MoveList.indexOf(tackle)
       shared.biasRNG.call(this, 'randInt', "metronome", index)
       shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
 

@@ -11,10 +11,11 @@ Priority = require './priorities'
 require 'sugar'
 
 class @Battle
-  # TODO: let Battle serialize these.
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
-  @SpeciesData: SpeciesData
-  @FormeData: FormeData
+  Moves: Moves
+  MoveList: MoveList
+  SpeciesData: SpeciesData
+  FormeData: FormeData
 
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
@@ -64,7 +65,7 @@ class @Battle
     @priorityQueue = null
 
     # Stores the confusion recoil move as it may be different cross-generations
-    @confusionMove = Moves['Confusion Recoil']
+    @confusionMove = @getMove('Confusion Recoil')
 
     # Stores the Struggle move as it is different cross-generation
     @struggleMove = @getMove('Struggle')
@@ -657,15 +658,9 @@ class @Battle
       targets = targets.filter((p) -> !p.isFainted())
     return targets
 
-  getMove = (moveName) ->
-    throw new Error("#{moveName} does not exist.")  if moveName not of Moves
-    Moves[moveName]
-
-  @getMove: getMove
-  getMove: getMove
-
-  getMoveList: ->
-    MoveList
+  getMove: (moveName) ->
+    throw new Error("#{moveName} does not exist.")  if moveName not of @Moves
+    @Moves[moveName]
 
   addSpectator: (spectator) ->
     return  if spectator.id in @spectators.map((s) -> s.id)
