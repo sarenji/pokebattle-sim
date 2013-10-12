@@ -85,7 +85,7 @@ makeLowHealthAbility("Torrent", "Water")
 makeLowHealthAbility("Overgrow", "Grass")
 makeLowHealthAbility("Swarm", "Bug")
 
-makeWeatherAbility = (name, weather) ->
+makeWeatherAbility = makeWeatherAbility ? (name, weather) ->
   makeAbility name, ->
     this::switchIn = ->
       @battle.setWeather(weather)

@@ -1,6 +1,6 @@
 coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../bw/util.coffee')
-eval(coffee.compile(require('fs').readFileSync(path, 'utf8')))
+eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 @typeEffectiveness = (userType, againstTypes, options = {}) ->
   userType = Type[userType.toUpperCase()]
