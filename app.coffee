@@ -42,7 +42,7 @@ app.use(express.static(__dirname + "/public"))
 
 # Routing
 renderHomepage = (req, res) ->
-  {SpeciesData, FormeData, MoveData, ItemData} = require './data/bw'
+  {SpeciesData, FormeData, MoveData, ItemData} = require './server/bw/data'
   local = process.env.NODE_ENV in [ 'development', 'test' ]
   res.render 'index.jade', {local, SpeciesData, FormeData, MoveData, ItemData}
 
@@ -77,7 +77,7 @@ app.post '/subscribe', (req, res) ->
 # API
 app.namespace "/v1/api", ->
   app.get '/pokemon', (req, res) ->
-    {SpeciesData} = require './data/bw'
+    {SpeciesData} = require './server/bw/data'
     res.json(SpeciesData)
 
 userList = []
@@ -258,7 +258,7 @@ connections.addEvents
 httpServer.listen(PORT)
 
 generateUsername = ->
-  {SpeciesData} = require './data/bw'
+  {SpeciesData} = require './server/bw/data'
   randomName = (name  for name of SpeciesData)
   randomName = randomName[Math.floor(Math.random() * randomName.length)]
   randomName = randomName.split(/\s+/)[0]
