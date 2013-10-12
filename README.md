@@ -55,17 +55,24 @@ vagrant destroy
 npm test
 ```
 
+Or if you're in the Vagrant VM, you can just run
+
+```bash
+mocha
+```
+
 ## Guide
 
 pokebattle-sim is a one-page app. The server serves the client.
 
 ```
 assets/          Main client code. Contains JS and CSS.
-data/            Convert raw data into move/pokemon/etc instances.
+client/          Hosts client scripts
 scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
 server/          Battle logic, move logic, Pokemon logic, etc.
 test/            Automated tests for server and client.
 views/           All views that are rendered server-side go here.
+Gruntfile.coffee Contains all tasks for pokebattle-sim, like compiling.
 app.coffee       The main entry point of pokebattle-sim.
                  The API and socket.io listeners are hosted here. This will probably change.
 ```
