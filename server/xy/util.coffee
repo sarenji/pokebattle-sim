@@ -1,8 +1,8 @@
-{_} = require 'underscore'
-clone = _.clone(require('../bw/util'))
-module.exports = clone
+coffee = require 'coffee-script'
+path = require('path').resolve(__dirname, '../bw/util.coffee')
+eval(coffee.compile(require('fs').readFileSync(path, 'utf8')))
 
-clone.typeEffectiveness = (userType, againstTypes, options = {}) ->
+@typeEffectiveness = (userType, againstTypes, options = {}) ->
   userType = Type[userType.toUpperCase()]
   effectiveness = 1
   for subtype in againstTypes
@@ -12,7 +12,7 @@ clone.typeEffectiveness = (userType, againstTypes, options = {}) ->
     effectiveness *= multiplier
   effectiveness
 
-clone.Type = Type =
+@Type = Type =
   NORMAL   : 0
   FIRE     : 1
   WATER    : 2

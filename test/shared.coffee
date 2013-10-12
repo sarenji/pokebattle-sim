@@ -1,5 +1,3 @@
-{Battle} = require('../server/bw/battle')
-{BattleController} = require('../server/bw/battle_controller')
 {Factory} = require './factory'
 
 require 'sugar'
@@ -24,6 +22,9 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
     mock.verify()
 
 build = (context, opts={}) ->
+  generation = opts.gen ? 'bw'
+  {Battle} = require("../server/#{generation}/battle")
+  {BattleController} = require("../server/#{generation}/battle_controller")
   context.id1 = 'abcde'
   context.id2 = 'fghij'
   player1 = opts.player1 || {id: context.id1}

@@ -1,3 +1,3 @@
-{_} = require 'underscore'
-clone = _.clone(require('../../bw/data/abilities'))
-module.exports = clone
+coffee = require 'coffee-script'
+path = require('path').resolve(__dirname, '../../bw/data/abilities.coffee')
+eval(coffee.compile(require('fs').readFileSync(path, 'utf8')))

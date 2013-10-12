@@ -1,1 +1,2 @@
+require './moves'
 require './util'
