@@ -28,4 +28,3 @@ describe "BW Abilities:", ->
   testWeatherAbility("Drought", Weather.SUN)
   testWeatherAbility("Sand Stream", Weather.SAND)
   testWeatherAbility("Snow Warning", Weather.HAIL)
-  describe "Adaptability", ->
