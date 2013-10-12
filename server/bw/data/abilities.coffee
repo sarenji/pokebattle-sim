@@ -587,8 +587,10 @@ makeAbility 'No Guard', ->
   this::editAccuracy = -> 0  # Never miss
   this::editEvasion  = -> 0  # Never miss
 
-# Hardcoded in move#typeEffectiveness
-makeAbility 'Normalize'
+makeAbility 'Normalize', ->
+  this::editMoveType = (type, target) ->
+    return "Normal"  if @pokemon != target
+    return type
 
 makeAbility 'Overcoat', ->
   this::isWeatherDamageImmune = -> true

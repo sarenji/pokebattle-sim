@@ -9,3 +9,13 @@ makeWeatherAbility = (name, weather) ->
 coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/abilities.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
+
+makeNormalTypeChangeAbility = (name, newType) ->
+  makeAbility name, ->
+    this::editMoveType = (type, target) ->
+      return newType  if type == 'Normal' && @pokemon != target
+      return type
+
+makeNormalTypeChangeAbility("Aerilate", "Flying")
+makeNormalTypeChangeAbility("Pixilate", "Fairy")
+makeNormalTypeChangeAbility("Refrigerate", "Ice")

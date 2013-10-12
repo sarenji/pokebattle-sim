@@ -173,7 +173,7 @@ class @Move
   typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
     options = {ignoreImmunities: user.hasAbility("Scrappy")}
-    type = "Normal"  if user.hasAbility("Normalize") && user != target
+    type = user.editMoveType(type, target)
     util.typeEffectiveness(type, target.types, options)
 
   burnCalculation: (user) ->

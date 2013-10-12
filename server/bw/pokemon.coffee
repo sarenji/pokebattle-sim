@@ -288,6 +288,9 @@ class @Pokemon
   editEvasion: (accuracy, move, user) ->
     @attachments.queryChain('editEvasion', accuracy, move, user)
 
+  editMoveType: (type, target) ->
+    @attachments.queryChain('editMoveType', type, target)
+
   calculateWeight: ->
     @attachments.queryChain('calculateWeight', @weight)
 

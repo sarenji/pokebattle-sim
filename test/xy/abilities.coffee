@@ -27,3 +27,24 @@ describe "BW Abilities:", ->
   testWeatherAbility("Drought", Weather.SUN)
   testWeatherAbility("Sand Stream", Weather.SAND)
   testWeatherAbility("Snow Warning", Weather.HAIL)
+
+  testNormalTypeChangeAbility = (name, type) ->
+    describe name, ->
+      it "changes Normal-type moves used by attacker to #{type}-type", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        spy = @sandbox.spy(@p1, 'editMoveType')
+        tackle = @battle.getMove('Tackle')
+        @battle.performMove(@id1, tackle)
+        spy.returned(type).should.be.true
+
+      it "does not change non-Normal-type moves used by attacker", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        spy = @sandbox.spy(@p1, 'editMoveType')
+        ember = @battle.getMove('Ember')
+        @battle.performMove(@id1, ember)
+        spy.returned(type).should.be.false
+        spy.returned(ember.type).should.be.true
+
+  testNormalTypeChangeAbility("Aerilate", "Flying")
+  testNormalTypeChangeAbility("Pixilate", "Fairy")
+  testNormalTypeChangeAbility("Refrigerate", "Ice")
