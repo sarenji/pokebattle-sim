@@ -21,3 +21,10 @@ describe "XY Moves:", ->
     it "has 85 base power now", ->
       shared.create.call(this, gen: 'xy')
       @battle.getMove('Dragon Pulse').power.should.equal(85)
+
+  describe 'Hidden Power', ->
+    it "always has 60 base power", ->
+      shared.create.call(this, gen: 'xy')
+      hiddenPower = @battle.getMove('Hidden Power')
+      hiddenPower.power.should.equal(60)
+      hiddenPower.basePower(@battle, @p1, @p2).should.equal(60)

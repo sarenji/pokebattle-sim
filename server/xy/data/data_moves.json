@@ -4353,7 +4353,7 @@
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
-        "power": 1, 
+        "power": 60, 
         "pp": 15, 
         "priority": 0, 
         "recoil": 0, 
