@@ -9,7 +9,6 @@ should = require 'should'
 shared = require '../shared'
 
 require '../helpers'
-require 'sugar'
 
 describe "BW Abilities:", ->
   testWeatherAbility = (name, weather) ->
