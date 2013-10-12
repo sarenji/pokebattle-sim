@@ -8,6 +8,8 @@ util = require './util'
 # there is only one Flamethrower). These instances are retrieved by the battle
 # engine.
 class @Move
+  criticalMultiplier: 2
+
   constructor: (@name, attributes = {}) ->
     @accuracy = attributes.accuracy || 0
     @priority = attributes.priority || 0
@@ -108,7 +110,7 @@ class @Move
     damage = @baseDamage(battle, user, target)
     # TODO: Multi-target modifier.
     damage = @modify(damage, @weatherModifier(battle, user, target))
-    damage = damage * 2  if user.crit
+    damage = damage * @criticalMultiplier  if user.crit
     damage = Math.floor(((100 - battle.rng.randInt(0, 15, "damage roll")) * damage) / 100)
     damage = @modify(damage, @stabModifier(battle, user, target))
     effectiveness = @typeEffectiveness(battle, user, target)

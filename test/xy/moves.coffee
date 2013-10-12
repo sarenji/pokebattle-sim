@@ -13,6 +13,10 @@ shared = require '../shared'
 require '../helpers'
 
 describe "XY Moves:", ->
+  describe "a critical hit", ->
+    it "multiplies damage by 1.5x", ->
+      Move::criticalMultiplier.should.equal(1.5)
+
   describe "Dragon Pulse", ->
     it "has 85 base power now", ->
       shared.create.call(this, gen: 'xy')

@@ -13,6 +13,9 @@ shared = require '../shared'
 require '../helpers'
 
 describe 'Move:', ->
+  it "multiplies critical hits by 2x", ->
+    Move::criticalMultiplier.should.equal(2)
+
   it 'takes the name as the first parameter', ->
     new Move('Smooth Move').name.should.equal 'Smooth Move'
 
