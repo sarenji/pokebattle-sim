@@ -66,8 +66,7 @@ mocha
 pokebattle-sim is a one-page app. The server serves the client.
 
 ```
-assets/          Main client code. Contains JS and CSS.
-client/          Hosts client scripts
+client/          Main client code. Contains JS and CSS.
 scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
 server/          Battle logic, move logic, Pokemon logic, etc.
 test/            Automated tests for server and client.
