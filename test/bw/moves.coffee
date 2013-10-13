@@ -3098,6 +3098,7 @@ describe "BW Moves:", ->
           @battle.performMove(@id1, move)
           @battle.endTurn()
           @battle.beginTurn()
+          @p2.currentHP = @p2.stat('hp')
 
       it "doubles base power again if user has defense curl's effect", ->
         shared.create.call(this)
@@ -3112,6 +3113,7 @@ describe "BW Moves:", ->
           @battle.performMove(@id1, move)
           @battle.endTurn()
           @battle.beginTurn()
+          @p2.currentHP = @p2.stat('hp')
 
   testMomentumMove("Rollout")
   testMomentumMove("Ice Ball")

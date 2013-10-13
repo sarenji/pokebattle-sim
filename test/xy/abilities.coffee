@@ -48,3 +48,13 @@ describe "BW Abilities:", ->
   testNormalTypeChangeAbility("Aerilate", "Flying")
   testNormalTypeChangeAbility("Pixilate", "Fairy")
   testNormalTypeChangeAbility("Refrigerate", "Ice")
+
+  describe "Shadow Tag", ->
+    it "does not affect ghosts", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Gengar")]
+        team2: [Factory("Magikarp", ability: "Shadow Tag")]
+      @p1.isSwitchBlocked().should.be.false
+      @battle.beginTurn()
+      @p1.isSwitchBlocked().should.be.false

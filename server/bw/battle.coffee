@@ -118,7 +118,9 @@ class @Battle
   getOpponents: (pokemon) ->
     opponents = @getOpponentOwners(pokemon)
     teams = (opponent.team.slice(0, @numActive)  for opponent in opponents)
-    _.flatten(teams)
+    opponents = _.flatten(teams)
+    opponents = opponents.filter((p) -> p.isAlive())
+    opponents
 
   # Returns all opponent players of a given pokemon. In a 1v1 it returns
   # an array with only one opponent.
@@ -638,7 +640,7 @@ class @Battle
         @getOpponents(user)
       when 'selected-pokemon'
         # TODO: Actually get selected Pokemon from client.
-        [ @getOpponents(user)[0] ]
+        [ @getOpponentOwners(user)[0].team.first() ]
       when 'all-other-pokemon'
         @getActivePokemon().filter((p) -> p != user)
       when 'entire-field'

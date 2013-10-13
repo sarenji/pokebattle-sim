@@ -232,8 +232,6 @@ makeAbility "Anger Point", ->
 makeAbility "Anticipation", ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     moves = (opponent.moves  for opponent in opponents).flatten()
     for move in moves
       effectiveness = util.typeEffectiveness(move.type, @pokemon.types) > 1
@@ -244,16 +242,12 @@ makeAbility "Anticipation", ->
 makeAbility "Arena Trap", ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       opponent.blockSwitch()  unless opponent.isImmune("Ground")
 
 makeAbility "Bad Dreams", ->
   this::endTurn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       continue  unless opponent.has(Status.Sleep)
       amount = opponent.stat('hp') >> 3
@@ -292,8 +286,6 @@ makeAbility 'Defeatist', ->
 makeAbility 'Download', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     totalDef = opponents.reduce(((s, p) -> s + p.stat('defense')), 0)
     totalSpDef = opponents.reduce(((s, p) -> s + p.stat('specialDefense')), 0)
     # TODO: Real message
@@ -387,8 +379,6 @@ makeAbility 'Forewarn', ->
 
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     moves = (opponent.moves  for opponent in opponents).flatten()
     maxPower = Math.max(moves.map((m) -> consider(m))...)
     possibles = moves.filter((m) -> consider(m) == maxPower)
@@ -406,8 +396,6 @@ makeAbility 'Friend Guard', ->
 makeAbility "Frisk", ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     # TODO: Do you select from opponents with items, or all alive opponents?
     opponent  = @battle.rng.choice(opponents, "frisk")
     if opponent.hasItem()
@@ -486,8 +474,6 @@ makeAbility 'Imposter', ->
 makeAbility 'Intimidate', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     for opponent in opponents
       opponent.boost(attack: -1, @pokemon)
 
@@ -534,8 +520,6 @@ makeAbility 'Magic Guard', ->
 makeAbility 'Magnet Pull', ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     opponents = opponents.filter((p) -> p.hasType("Steel"))
     opponent.blockSwitch()  for opponent in opponents
 
@@ -685,10 +669,12 @@ makeAbility 'Sand Veil', ->
 makeAbility 'Scrappy'
 
 makeAbility 'Shadow Tag', ->
-  this::beginTurn = this::switchIn = ->
+  this::getOpponents = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
+    opponents
+
+  this::beginTurn = this::switchIn = ->
+    opponents = @getOpponents()
     for opponent in opponents
       opponent.blockSwitch()
 
@@ -832,8 +818,6 @@ makeAbility 'Trace', ->
 
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     abilities = (opponent.ability  for opponent in opponents).compact()
     ability   = @battle.rng.choice(abilities, "trace")
     if ability && ability.displayName not of bannedAbilities
@@ -855,8 +839,6 @@ makeAbility 'Unburden'
 makeAbility 'Unnerve', ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    # TODO: Make getOpponents return only alive pokemon
-    opponents = opponents.filter((p) -> p.isAlive())
     # TODO: Unnerve likely doesn't last until the end of the turn.
     # More research is needed here.
     for opponent in opponents

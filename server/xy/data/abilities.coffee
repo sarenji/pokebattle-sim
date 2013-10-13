@@ -19,3 +19,8 @@ makeNormalTypeChangeAbility = (name, newType) ->
 makeNormalTypeChangeAbility("Aerilate", "Flying")
 makeNormalTypeChangeAbility("Pixilate", "Fairy")
 makeNormalTypeChangeAbility("Refrigerate", "Ice")
+
+Ability.ShadowTag::getOpponents = ->
+  opponents = @battle.getOpponents(@pokemon)
+  opponents = opponents.filter((p) -> !p.hasType("Ghost"))
+  opponents

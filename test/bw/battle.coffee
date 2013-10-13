@@ -301,3 +301,12 @@ describe 'Battle', ->
       mock.expects("endTurn").once()  for mock in mocks
       attachments = @battle.queryAttachments("endTurn")
       mock.verify()  for mock in mocks
+
+  describe "#getOpponents", ->
+    it "returns all opponents of a particular pokemon as an array", ->
+      @battle.getOpponents(@p1).should.be.an.instanceOf(Array)
+      @battle.getOpponents(@p1).should.have.length(1)
+
+    it "does not include fainted opponents", ->
+      @p2.faint()
+      @battle.getOpponents(@p1).should.have.length(0)
