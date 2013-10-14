@@ -1230,7 +1230,7 @@ class @StatusAttachment extends @BaseAttachment
       return false  if this == Status.Poison && pokemon.hasType("Poison")
       return false  if this == Status.Freeze &&
         (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
-      if source && pokemon.hasAbility("Synchronize")
+      if source && this in [ Status.Toxic, Status.Burn, Status.Poison ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon
         source.attach(this)  # Do not attach source
         battle.message "#{pokemon.name} synchronized its status with #{source.name}!"

@@ -47,7 +47,7 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
 extendWithPrimaryStatus = (name, status) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      target.attach(status)
+      target.attach(status, source: user)
 
 # Extends a move in the move list as an attack with a secondary effect.
 #

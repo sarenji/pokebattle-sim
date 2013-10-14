@@ -1747,15 +1747,33 @@ describe "BW Abilities:", ->
     it "afflicts the source of a status with the same status", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Synchronize")]
-      @p1.attach(Status.Sleep, source: @p2)
-      @p2.has(Status.Sleep).should.be.true
+      @p1.attach(Status.Burn, source: @p2)
+      @p2.has(Status.Burn).should.be.true
 
     it "doesn't attempt to afflict target if target is self", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Synchronize")]
-      spy = @sandbox.spy(Status.Sleep, 'preattach')
-      @p1.attach(Status.Sleep, source: @p1)
+      spy = @sandbox.spy(Status.Burn, 'preattach')
+      @p1.attach(Status.Burn, source: @p1)
       spy.returned(false).should.be.true
+
+    it "activates on primary status moves", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      @battle.performMove(@id2, @battle.getMove("Will-O-Wisp"))
+      @p2.has(Status.Burn).should.be.true
+
+    it "doesn't activate on Sleep", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      @p1.attach(Status.Sleep, source: @p2)
+      @p2.has(Status.Sleep).should.be.false
+
+    it "doesn't activate on Freeze", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      @p1.attach(Status.Freeze, source: @p2)
+      @p2.has(Status.Freeze).should.be.false
 
   describe "Tangled Feet", ->
     it "doubles evasion rate when confused", ->
