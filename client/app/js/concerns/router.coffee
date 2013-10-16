@@ -15,6 +15,7 @@ class PokeBattleRouter extends Backbone.Router
       PokeBattle.socket.send('spectate battle', id)
 
 PokeBattle.events.on "connect", ->
+  return  if Backbone.History.started
   PokeBattle.router = new PokeBattleRouter()
   routed = Backbone.history.start(pushState: true)
   if !routed then @PokeBattle.router.navigate("")
