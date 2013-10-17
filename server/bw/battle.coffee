@@ -664,6 +664,11 @@ class @Battle
     throw new Error("#{moveName} does not exist.")  if moveName not of @Moves
     @Moves[moveName]
 
+  findMove: (condition) ->
+    for move in @MoveList
+      if condition(move) then return move
+    return null
+
   addSpectator: (spectator) ->
     return  if spectator.id in @spectators.map((s) -> s.id)
     spectator = new Player(spectator)  if spectator not instanceof Player

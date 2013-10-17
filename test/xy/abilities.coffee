@@ -58,3 +58,33 @@ describe "BW Abilities:", ->
       @p1.isSwitchBlocked().should.be.false
       @battle.beginTurn()
       @p1.isSwitchBlocked().should.be.false
+
+  testAuraAbility = (name, type) ->
+    describe name, ->
+      it "raises base power of #{type} attacks by x1.2", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: name)]
+        move = @battle.findMove (m) ->
+          m.type == type && !m.isNonDamaging()
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1333)
+
+      it "decreases #{type} attacks by x0.8 if Aura Break is on the field", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp", ability: "Aura Break")]
+        move = @battle.findMove (m) ->
+          m.type == type && !m.isNonDamaging()
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0xCCC)
+
+      it "does nothing to moves not of #{type} type", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: name)]
+        move = @battle.findMove (m) ->
+          m.type != type && !m.isNonDamaging()
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  testAuraAbility("Dark Aura", "Dark")
+  testAuraAbility("Fairy Aura", "Fairy")

@@ -2785,6 +2785,25 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
+    "Fairy Wind": {
+        "accuracy": 100,
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [
+            "protect", 
+            "mirror"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 40, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fairy"
+    },
     "Fake Out": {
         "accuracy": 100, 
         "ailmentChance": 0, 
