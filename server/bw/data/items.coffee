@@ -242,13 +242,15 @@ makeTypeBoostItem 'BlackGlasses', 'Dark'
 makeItem 'Black Sludge', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
-    amount = Math.floor(maxHP / 16)
-    amount = 1  if amount == 0
     if @pokemon.hasType('Poison')
       return  if maxHP == @pokemon.currentHP
+      amount = Math.floor(maxHP / 16)
+      amount = 1  if amount == 0
       @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
       @pokemon.heal(amount)
     else
+      amount = Math.floor(maxHP / 8)
+      amount = 1  if amount == 0
       if @pokemon.damage(amount)
         @battle.message "#{@pokemon.name} is hurt by its #{@displayName}!"
 

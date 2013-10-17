@@ -28,12 +28,12 @@ describe "Black Sludge", ->
     amount = Math.floor(@p1.stat('hp') / 16)
     @p1.currentHP.should.equal(1 + amount)
 
-  it "damages 1/16 of a non-poison pokemon's HP at the end of a turn", ->
+  it "damages 1/8 of a non-poison pokemon's HP at the end of a turn", ->
     shared.create.call this,
       team1: [Factory('Magikarp', item: 'Black Sludge')]
     @battle.endTurn()
     fullHP = @p1.stat('hp')
-    amount = Math.floor(fullHP / 16)
+    amount = Math.floor(fullHP / 8)
     (fullHP - @p1.currentHP).should.equal(amount)
 
 describe "muscle band", ->
