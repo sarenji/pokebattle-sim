@@ -594,8 +594,10 @@ makeAbility 'Poison Heal', ->
       amount = @pokemon.stat('hp') >> 3
       @pokemon.heal(amount)
 
-# Hardcoded in Battle#actionPriority
-makeAbility 'Prankster'
+makeAbility 'Prankster', ->
+  this::editPriority = (priority, move) ->
+    return priority + 1  if move.isNonDamaging()
+    return priority
 
 # PP deduction hardcoded in Battle
 makeAbility 'Pressure', ->

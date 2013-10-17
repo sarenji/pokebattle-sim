@@ -41,6 +41,12 @@ makeAuraAbility("Fairy Aura", "Fairy")
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
 
+makeAbility 'Gale Wind', ->
+  this::editPriority = (priority, move) ->
+    # TODO: Test if Gale Wind works with Hidden Power Flying.
+    return priority + 1  if move.type == 'Flying'
+    return priority
+
 # Retcons
 
 Ability.ShadowTag::getOpponents = ->

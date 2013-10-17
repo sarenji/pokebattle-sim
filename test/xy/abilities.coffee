@@ -88,3 +88,18 @@ describe "BW Abilities:", ->
 
   testAuraAbility("Dark Aura", "Dark")
   testAuraAbility("Fairy Aura", "Fairy")
+
+  describe "Gale Wind", ->
+    it "adds 1 to the priority of the user's Flying moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Gale Wind")]
+      gust = @battle.getMove("Gust")
+      @p1.editPriority(0, gust).should.equal(1)
+
+    it "does not change priority otherwise", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Gale Wind")]
+      tackle = @battle.getMove("Tackle")
+      @p1.editPriority(0, tackle).should.equal(0)

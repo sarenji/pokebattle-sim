@@ -553,8 +553,7 @@ class @Battle
       when 'move'
         {move} = action
         {priority} = move
-        priority++  if move.isNonDamaging() && pokemon.hasAbility("Prankster")
-        priority
+        pokemon.editPriority(priority, move)
 
   hasActionsLeft: ->
     @priorityQueue?.length > 0

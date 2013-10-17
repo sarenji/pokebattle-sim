@@ -276,6 +276,9 @@ class @Pokemon
   transformHealthChange: (damage, options) ->
     @attachments.queryChain('transformHealthChange', damage, options)
 
+  editPriority: (priority, move) ->
+    @attachments.queryChain('editPriority', priority, move)
+
   editDamage: (move, damage) ->
     @attachments.queryChain('editDamage', damage, move, this)
 
