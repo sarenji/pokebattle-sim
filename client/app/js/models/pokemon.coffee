@@ -53,15 +53,19 @@ class @Pokemon extends Backbone.Model
     for stat in stats
       hash[stat] ?= defaultValue
 
+  getGeneration: ->
+    gen = @collection?.generation?.toUpperCase() || Team::defaultGeneration
+    window.Generations[gen]
+
   getSpecies: ->
-    SpeciesData[@get('name')]
+    @getGeneration().SpeciesData[@get('name')]
 
   getForme: (forme) ->
     forme ||= @get('forme')
-    FormeData[@get('name')][forme]
+    @getGeneration().FormeData[@get('name')][forme]
 
   getFormes: ->
-    (forme  for forme of FormeData[@get('name')])
+    (forme  for forme of @getGeneration().FormeData[@get('name')])
 
   getAbilities: ->
     forme = @getForme()
@@ -85,6 +89,7 @@ class @Pokemon extends Backbone.Model
 
   getMovepool: ->
     forme = @getForme()
+    {MoveData} = @getGeneration()
 
     # TODO: Use shared function for getting a movepool
     # only generations 3 to 5 for now

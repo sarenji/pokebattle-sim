@@ -11,6 +11,7 @@ class @TeambuilderView extends Backbone.View
     'click .add-new-team': 'addNewTeam'
 
     # Pokemon view
+    'click .change-gen-dropdown a': 'changeTeamGeneration'
     'click .team_name': 'editTeamName'
     'blur .team_input': 'blurTeamInput'
     'keyup .team_input': 'keyupTeamInput'
@@ -35,10 +36,6 @@ class @TeambuilderView extends Backbone.View
 
   initialize: (attributes) =>
     {@teams} = attributes
-
-    # TODO: Save these to something more global
-    @speciesList = (name for name, data of SpeciesData)
-    @itemList = _(name for name, data of ItemData).sort() # todo: filter irrelevant items
     @selectedPokemon = 0
     @selectedTeam = 0
 
@@ -166,6 +163,23 @@ class @TeambuilderView extends Backbone.View
     pokemon = @getSelectedPokemon()
     pokemon.set('hiddenPowerType', type.toLowerCase())
 
+  changeTeamGeneration: (e) =>
+    $link = $(e.currentTarget)
+    generation = $link.data('generation')
+    oldGeneration = @getSelectedTeam().generation
+    if generation != oldGeneration
+      @getSelectedTeam().generation = generation
+      @renderTeam()
+      @dirty()
+
+  generationChanged: (generation) =>
+    {MoveData, SpeciesData, ItemData} = window.Generations[generation.toUpperCase()]
+    @moveData = MoveData
+    @speciesList = (name for name, data of SpeciesData)
+    # TODO: filter irrelevant items
+    @itemList = _(name for name, data of ItemData).sort()
+    @render()
+
   keyupMoves: (e) =>
     $input = $(e.currentTarget)
     return  if $input.val().length == 0
@@ -247,8 +261,8 @@ class @TeambuilderView extends Backbone.View
     $input.focus()
 
   buttonify: ($input, moveName) =>
-    return false  if moveName not of MoveData
-    type = MoveData[moveName].type.toLowerCase()
+    return false  if moveName not of @moveData
+    type = @moveData[moveName].type.toLowerCase()
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
     return true
 
@@ -329,6 +343,8 @@ class @TeambuilderView extends Backbone.View
 
   renderTeam: =>
     team = @getSelectedTeam()
+    @generationChanged(team.generation || Team::defaultGeneration)
+    @renderGeneration()
     @renderPokemonList(team)
     @renderPokemon(pokemon)  for pokemon in team.models
     @setSelectedPokemonIndex(@selectedPokemon)
@@ -369,6 +385,11 @@ class @TeambuilderView extends Backbone.View
       moveName = $this.val()
       @buttonify($this, moveName)
     this
+
+  renderGeneration: =>
+    generation = @getSelectedTeam().generation || Team::defaultGeneration
+    text = @$(".change-gen-dropdown a[data-generation='#{generation}']").text()
+    @$(".current-generation").text(text)
 
   renderModal: =>
     if $('#import-team-modal').length == 0

@@ -86,10 +86,7 @@ html
         button.btn.btn-primary.modal-submit Register
         button.btn(data-dismiss="modal", aria-hidden="true") Close
     script(type="text/javascript").
-      var SpeciesData = !{JSON.stringify(SpeciesData)}
-      var FormeData = !{JSON.stringify(FormeData)}
-      var MoveData = !{JSON.stringify(MoveData)}
-      var ItemData = !{JSON.stringify(ItemData)}
+      var Generations = !{JSON.stringify(GenerationJSON)}
     if local
       :coffeescript
         @PokeBattle ?= {}

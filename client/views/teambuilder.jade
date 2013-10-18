@@ -4,6 +4,13 @@
       .team_name
       input.team_input.hidden(type = "text")
       .team_meta_buttons
+        .dropdown.change-gen-dropdown.left
+          .current-generation.button.dropdown-toggle(data-toggle="dropdown")
+          ul.dropdown-menu(role="menu")
+            li
+              a(href="#", data-generation="bw") Gen. 5: BW
+            li
+              a(href="#", data-generation="xy") Gen. 6: XY
         .button.button-primary.save_team.disabled Save
         .button.import_team Import
         .button.go_back Back

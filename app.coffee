@@ -40,11 +40,15 @@ app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
 
+GenerationJSON = {}
+for gen in [ 'bw', 'xy' ]
+  {SpeciesData, FormeData, MoveData, ItemData} = require("./server/#{gen}/data")
+  GenerationJSON[gen.toUpperCase()] = {SpeciesData, FormeData, MoveData, ItemData}
+
 # Routing
 renderHomepage = (req, res) ->
-  {SpeciesData, FormeData, MoveData, ItemData} = require './server/bw/data'
   local = process.env.NODE_ENV in [ 'development', 'test' ]
-  res.render 'index.jade', {local, SpeciesData, FormeData, MoveData, ItemData}
+  res.render 'index.jade', {local, GenerationJSON}
 
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)
