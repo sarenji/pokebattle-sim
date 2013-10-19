@@ -1107,6 +1107,10 @@
         "flingPower": 10,
         "type": "berries"
     },
+    "Luminous Moss": {
+        "flingPower": 30,
+        "type": "misc"
+    },
     "Lunar Wing": {
         "flingPower": 0,
         "type": "key"
