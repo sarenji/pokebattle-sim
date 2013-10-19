@@ -1739,6 +1739,10 @@
         "flingPower": 10,
         "type": "misc"
     },
+    "Roseli Berry": {
+        "flingPower": 10,
+        "type": "berries"
+    },
     "Rowap Berry": {
         "flingPower": 10,
         "type": "berries"
