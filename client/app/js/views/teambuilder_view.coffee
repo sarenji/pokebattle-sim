@@ -12,9 +12,8 @@ class @TeambuilderView extends Backbone.View
 
     # Pokemon view
     'click .change-gen-dropdown a': 'changeTeamGeneration'
-    'click .team_name': 'editTeamName'
-    'blur .team_input': 'blurTeamInput'
-    'keyup .team_input': 'keyupTeamInput'
+    'blur .team_name': 'blurTeamName'
+    'keypress .team_name': 'keypressTeamName'
     'click .go_back': 'goBackToOverview'
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addNewPokemonEvent'
@@ -294,27 +293,14 @@ class @TeambuilderView extends Backbone.View
   getPokemonView: (pokemon) =>
     @$("div[data-cid=#{pokemon.cid}]")
 
-  editTeamName: =>
-    $teamName = @$('.team_name')
-    $teamInput = @$('.team_input')
+  blurTeamName: =>
     teamName = @$('.team_name').text()
-    $teamInput.val(teamName)
-    $teamName.addClass('hidden')
-    $teamInput.removeClass('hidden').focus().select()
-
-  blurTeamInput: =>
-    $teamName = @$('.team_name')
-    $teamInput = @$('.team_input')
-    teamName = $teamInput.val()
     @getSelectedTeam().name = teamName
-    $teamName.text(teamName)
-    $teamName.removeClass('hidden')
-    $teamInput.addClass('hidden')
     @dirty()
 
-  keyupTeamInput: (e) =>
+  keypressTeamName: (e) =>
     if e.which == 13  # [Enter]
-      @blurTeamInput()
+      @$('.team_name').blur()
 
   goBackToOverview: =>
     if @_dirty

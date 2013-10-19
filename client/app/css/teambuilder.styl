@@ -56,7 +56,7 @@ $header = 50px
   right 0
   height $header
   line-height @height
-  .team_name, .team_input
+  .team_name
     font-weight 700
     font-size 1.5em
     height $header
@@ -64,7 +64,12 @@ $header = 50px
     float left
     margin 0
     width auto
+    padding 0 (1em/@font-size)
     box-sizing border-box
+
+  .team_name:hover:not(:focus)
+    text-decoration underline
+    cursor pointer
 
   .team_meta_buttons
     float right
