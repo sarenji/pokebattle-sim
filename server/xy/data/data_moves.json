@@ -7407,7 +7407,6 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
-            "protect", 
             "reflectable", 
             "mirror", 
             "sound", 
@@ -10514,7 +10513,6 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
-            "protect", 
             "reflectable", 
             "mirror", 
             "authentic"
