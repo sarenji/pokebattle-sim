@@ -4,3 +4,6 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 extendMove 'Hidden Power', ->
   @basePower = -> @power
+
+extendMove 'Facade', ->
+  @burnCalculation = -> 1

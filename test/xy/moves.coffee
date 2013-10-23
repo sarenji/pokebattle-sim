@@ -28,3 +28,11 @@ describe "XY Moves:", ->
       hiddenPower = @battle.getMove('Hidden Power')
       hiddenPower.power.should.equal(60)
       hiddenPower.basePower(@battle, @p1, @p2).should.equal(60)
+
+  describe "Facade", ->
+    it "does not cut attack in half when burned", ->
+      shared.create.call(this, gen: 'xy')
+      facade = @battle.getMove('Facade')
+      facade.burnCalculation(@p1).should.equal(1)
+      @p1.attach(Status.Burn)
+      facade.burnCalculation(@p1).should.equal(1)
