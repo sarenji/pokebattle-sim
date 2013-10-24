@@ -41,6 +41,10 @@ makeAuraAbility("Fairy Aura", "Fairy")
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
 
+makeAbility 'Bulletproof', ->
+  this::isImmune = (type, move) ->
+    return true  if move?.hasFlag('bullet')
+
 makeAbility 'Gale Wind', ->
   this::editPriority = (priority, move) ->
     # TODO: Test if Gale Wind works with Hidden Power Flying.

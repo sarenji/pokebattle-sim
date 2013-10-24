@@ -103,3 +103,11 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Gale Wind")]
       tackle = @battle.getMove("Tackle")
       @p1.editPriority(0, tackle).should.equal(0)
+
+  describe "Bulletproof", ->
+    it "makes user immune to bullet moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Bulletproof")]
+      shadowBall = @battle.getMove('Shadow Ball')
+      @p1.isImmune(shadowBall.type, shadowBall).should.be.true
