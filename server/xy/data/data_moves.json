@@ -61,6 +61,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -481,6 +482,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror", 
             "distance"
@@ -558,6 +560,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -1141,6 +1144,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -2482,6 +2486,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -2501,6 +2506,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -2635,6 +2641,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -3282,6 +3289,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -3960,6 +3968,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "contact", 
             "protect", 
             "mirror"
@@ -4620,6 +4629,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "contact", 
             "protect", 
             "mirror"
@@ -5454,6 +5464,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -5988,6 +5999,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -6231,6 +6243,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -7950,6 +7963,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -8027,6 +8041,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -8539,6 +8554,7 @@
         "ailmentId": "poison", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -10475,6 +10491,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
