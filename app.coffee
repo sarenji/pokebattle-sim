@@ -53,37 +53,6 @@ renderHomepage = (req, res) ->
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)
 
-app.get '/splash', (req, res) ->
-  res.render 'splash.jade',
-    messages: req.flash('info')
-    errors: req.flash('error')
-
-app.post '/subscribe', (req, res) ->
-  email = req.body.email
-
-  # Validate email
-  if not /@/.test(email)
-    req.flash('error', 'You did not enter a valid email!')
-    res.redirect('/splash')
-    return
-
-  # Add to subscriptions
-  db.sadd "subscriptions", email, (err, added) ->
-    if err
-      console.error(err)
-      req.flash('error', 'Something went wrong! Try again?')
-    else if added
-      req.flash('info', 'You will now be notified when PokeBattle is released!')
-    else
-      req.flash('info', 'You are already signed up!')
-    res.redirect('/splash')
-
-# API
-app.namespace "/v1/api", ->
-  app.get '/pokemon', (req, res) ->
-    {SpeciesData} = require './server/bw/data'
-    res.json(SpeciesData)
-
 userList = []
 
 # Start responding to websocket clients
