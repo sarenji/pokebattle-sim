@@ -45,6 +45,22 @@ describe "BW Abilities:", ->
         spy.returned(type).should.be.false
         spy.returned(ember.type).should.be.true
 
+      it "boosts Normal-type moves by x1.3", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        tackle = @battle.getMove('Tackle')
+        tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+
+      it "does not boost regular #{type}-type moves", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        for move in @battle.MoveList
+          if move.type == type && !move.isNonDamaging() then break
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+      it "does not boost non-#{type}-type moves", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        ember = @battle.getMove('Ember')
+        ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
   testNormalTypeChangeAbility("Aerilate", "Flying")
   testNormalTypeChangeAbility("Pixilate", "Fairy")
   testNormalTypeChangeAbility("Refrigerate", "Ice")

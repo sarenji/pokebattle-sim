@@ -21,6 +21,10 @@ makeNormalTypeChangeAbility = (name, newType) ->
       return newType  if type == 'Normal' && @pokemon != target
       return type
 
+    this::modifyBasePower = (move, user, target) ->
+      return 0x14CD  if move.getType(@battle, user, target) == 'Normal'
+      return 0x1000
+
 makeNormalTypeChangeAbility("Aerilate", "Flying")
 makeNormalTypeChangeAbility("Pixilate", "Fairy")
 makeNormalTypeChangeAbility("Refrigerate", "Ice")
