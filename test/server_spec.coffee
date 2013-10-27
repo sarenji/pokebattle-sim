@@ -1,4 +1,5 @@
 {BattleServer} = require('../server/server')
+ladders = require('../shared/ladders')
 {Player} = require('../server/player')
 {Factory} = require './factory'
 
@@ -19,7 +20,7 @@ describe 'BattleServer', ->
 
     server = new BattleServer()
     for player in players
-      server.queuePlayer(player, [Factory('Hitmonchan')])
+      server.queuePlayer(player, [Factory('Hitmonchan')], ladders.DEFAULT_GENERATION)
     server.beginBattles()
 
     for spy in spies
@@ -29,23 +30,23 @@ describe 'BattleServer', ->
     it "queues players", ->
       server = new BattleServer()
       server.queuePlayer(id: "derp", [])
-      server.queue.size().should.equal(1)
+      server.queues[ladders.DEFAULT_GENERATION].size().should.equal(1)
 
     it "does not queue null players", ->
       server = new BattleServer()
       server.queuePlayer(null, [])
-      server.queue.size().should.equal(0)
+      server.queues[ladders.DEFAULT_GENERATION].size().should.equal(0)
 
     it "does not queue non-logged in players", ->
       server = new BattleServer()
       server.queuePlayer({}, [])
-      server.queue.size().should.equal(0)
+      server.queues[ladders.DEFAULT_GENERATION].size().should.equal(0)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
       server.queuePlayer(id: "derp", [])
       server.queuePlayer(id: "derp", [])
-      server.queue.size().should.equal(1)
+      server.queues[ladders.DEFAULT_GENERATION].size().should.equal(1)
 
     it "does not queue invalid teams"
 

@@ -1,39 +1,43 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
 
+ladders = require('../shared/ladders')
 {BattleQueue} = require './queue'
-{Battle} = require './bw/battle'
-{BattleController} = require './bw/battle_controller'
 {Conditions} = require './conditions'
 learnsets = require '../shared/learnsets'
 
 class @BattleServer
   constructor: ->
-    @queue = new BattleQueue()
+    @queues = {}
+    for generation in ladders.SupportedGenerations
+      @queues[generation] = new BattleQueue()
     @battles = {}
 
-  queuePlayer: (player, team) ->
-    @queue.add(player, team)
+  queuePlayer: (player, team, generation = ladders.DEFAULT_GENERATION) ->
+    @queues[generation].add(player, team)
 
-  queuedPlayers: ->
-    @queue.queuedPlayers()
+  queuedPlayers: (generation = ladders.DEFAULT_GENERATION) ->
+    @queues[generation].queuedPlayers()
 
   beginBattles: ->
-    pairs = @queue.pairPlayers()
     battles = []
+    for generation in ladders.SupportedGenerations
+      pairs = @queues[generation].pairPlayers()
 
-    # Create a battle for each pair
-    for pair in pairs
-      id = @createBattle(pair...)
-      @beginBattle(id)
-      battle = pair.map((o) -> o.player)
-      battle.push(id)
-      battles.push(battle)
+      # Create a battle for each pair
+      for pair in pairs
+        id = @createBattle(generation, pair...)
+        @beginBattle(id)
+        battle = pair.map((o) -> o.player)
+        battle.push(id)
+        battles.push(battle)
 
     battles
 
   # Creates a battle and returns its battleId
-  createBattle: (objects...) ->
+  createBattle: (generation = ladders.DEFAULT_GENERATION, objects...) ->
+    {Battle} = require("../server/#{generation}/battle")
+    {BattleController} = require("../server/#{generation}/battle_controller")
     players = objects.map (object) -> object.player
     battleId = @generateBattleId(players)
     conditions = [ Conditions.TEAM_PREVIEW, Conditions.SLEEP_CLAUSE ]
@@ -59,14 +63,15 @@ class @BattleServer
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
-  validateTeam: (team) ->
+  validateTeam: (team, generation = ladders.DEFAULT_GENERATION) ->
     return [ "Invalid team format." ]  if team not instanceof Array
     return [ "Team must have 1 to 6 Pokemon."]  unless 1 <= team.length <= 6
-    return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1)).flatten()
+    return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
   # otherwise.
-  validatePokemon: (pokemon, slot) ->
+  validatePokemon: (pokemon, slot, generation = ladders.DEFAULT_GENERATION) ->
+    {Battle} = require("../server/#{generation}/battle")
     {SpeciesData, FormeData} = Battle.prototype
     errors = []
     if !pokemon.name
@@ -77,7 +82,7 @@ class @BattleServer
       errors.push("Invalid species.")
       return errors
 
-    @normalizePokemon(pokemon)
+    @normalizePokemon(pokemon, generation)
     forme = FormeData[pokemon.name][pokemon.forme]
     if !forme
       errors.push("Slot #{slot}: Invalid forme.")
@@ -118,7 +123,8 @@ class @BattleServer
 
   # Normalizes a Pokemon by setting default values where applicable.
   # Assumes that the Pokemon is a real Pokemon (i.e. its name is valid)
-  normalizePokemon: (pokemon) ->
+  normalizePokemon: (pokemon, generation = ladders.DEFAULT_GENERATION) ->
+    {Battle} = require("../server/#{generation}/battle")
     pokemon.forme   ?= "default"
     pokemon.ability ?= Battle::FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
     if !pokemon.gender?

@@ -11,6 +11,7 @@ request = require 'request'
 
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
+{GenerationJSON} = require './server/generations'
 
 server = new BattleServer()
 app = express()
@@ -39,11 +40,6 @@ app.use(flash())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
-
-GenerationJSON = {}
-for gen in [ 'bw', 'xy' ]
-  {SpeciesData, FormeData, MoveData, ItemData} = require("./server/#{gen}/data")
-  GenerationJSON[gen.toUpperCase()] = {SpeciesData, FormeData, MoveData, ItemData}
 
 # Routing
 renderHomepage = (req, res) ->
@@ -88,15 +84,22 @@ connections.addEvents
   # BATTLES #
   ###########
 
-  'find battle': (user, team) ->
+  'find battle': (user, team, generation) ->
+    if generation not of ladders
+      user.send("error", [ "Invalid generation: #{generation}" ])
+      return
+
     # TODO: Take team from player.
     team ||= defaultTeam.clone()
-    errors = server.validateTeam(team)
+    errors = server.validateTeam(generation, team)
     if errors.length > 0
       user.send("error", errors)
       return
-    server.queuePlayer(user, team)
-    if server.queuedPlayers().length >= 2
+
+    server.queuePlayer(generation, user, team)
+
+    # TODO: Pair players on an interval.
+    if server.queuedPlayers(generation).length >= 2
       battles = server.beginBattles()
       for battle in battles
         [ first, second, id ] = battle
