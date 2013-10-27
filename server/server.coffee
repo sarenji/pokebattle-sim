@@ -9,7 +9,7 @@ learnsets = require '../shared/learnsets'
 class @BattleServer
   constructor: ->
     @queues = {}
-    for generation in ladders.SupportedGenerations
+    for generation in ladders.SUPPORTED_GENERATIONS
       @queues[generation] = new BattleQueue()
     @battles = {}
 
@@ -21,7 +21,7 @@ class @BattleServer
 
   beginBattles: ->
     battles = []
-    for generation in ladders.SupportedGenerations
+    for generation in ladders.SUPPORTED_GENERATIONS
       pairs = @queues[generation].pairPlayers()
 
       # Create a battle for each pair

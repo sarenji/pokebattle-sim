@@ -1,2 +1,2 @@
-@SupportedGenerations = [ 'bw', 'xy' ]
+@SUPPORTED_GENERATIONS = [ 'bw', 'xy' ]
 @DEFAULT_GENERATION = 'xy'

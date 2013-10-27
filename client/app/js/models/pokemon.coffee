@@ -54,7 +54,7 @@ class @Pokemon extends Backbone.Model
       hash[stat] ?= defaultValue
 
   getGeneration: ->
-    gen = @collection?.generation || Team::defaultGeneration
+    gen = @collection?.generation || DEFAULT_GENERATION
     gen = gen.toUpperCase()
     window.Generations[gen]
 

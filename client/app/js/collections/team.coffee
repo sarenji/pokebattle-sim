@@ -1,10 +1,9 @@
 class @Team extends Backbone.Collection
   model: Pokemon
-  defaultGeneration: 'xy'
 
   initialize: (models, attributes = {}) =>
     {@name, @owner, @generation} = attributes
-    @generation ?= @defaultGeneration
+    @generation ?= DEFAULT_GENERATION
 
   getName: =>
     @name || "Untitled team"

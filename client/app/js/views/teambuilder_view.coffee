@@ -329,7 +329,7 @@ class @TeambuilderView extends Backbone.View
 
   renderTeam: =>
     team = @getSelectedTeam()
-    @generationChanged(team.generation || Team::defaultGeneration)
+    @generationChanged(team.generation || DEFAULT_GENERATION)
     @renderGeneration()
     @renderPokemonList(team)
     @renderPokemon(pokemon)  for pokemon in team.models
@@ -373,7 +373,7 @@ class @TeambuilderView extends Backbone.View
     this
 
   renderGeneration: =>
-    generation = @getSelectedTeam().generation || Team::defaultGeneration
+    generation = @getSelectedTeam().generation || DEFAULT_GENERATION
     text = @$(".change-gen-dropdown a[data-generation='#{generation}']").text()
     @$(".current-generation").text(text)
 

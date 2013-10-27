@@ -122,13 +122,15 @@ class @BattleView extends Backbone.View
 
   addImages: ($images) =>
     $images ||= @$('.preload')
+    battle = @model
     $images.each ->
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
       name  = $this.data('name')
       forme = $this.data('forme')
       shiny = $this.data('shiny')
-      {id}  = SpeciesData[name]
+      gen   = battle.get('generation').toUpperCase()
+      {id}  = window.Generations[gen].SpeciesData[name]
       url   = PokemonSprite(id, forme, front: front, shiny: shiny)
       scale = if front then 1 else 2
       addPokemonImage($this, url, scale: scale)

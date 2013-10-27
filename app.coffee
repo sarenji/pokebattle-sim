@@ -12,6 +12,7 @@ request = require 'request'
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
 {GenerationJSON} = require './server/generations'
+ladders = require './shared/ladders'
 
 server = new BattleServer()
 app = express()
@@ -85,18 +86,18 @@ connections.addEvents
   ###########
 
   'find battle': (user, team, generation) ->
-    if generation not of ladders
+    if generation not in ladders.SUPPORTED_GENERATIONS
       user.send("error", [ "Invalid generation: #{generation}" ])
       return
 
     # TODO: Take team from player.
     team ||= defaultTeam.clone()
-    errors = server.validateTeam(generation, team)
+    errors = server.validateTeam(team, generation)
     if errors.length > 0
       user.send("error", errors)
       return
 
-    server.queuePlayer(generation, user, team)
+    server.queuePlayer(user, team, generation)
 
     # TODO: Pair players on an interval.
     if server.queuedPlayers(generation).length >= 2

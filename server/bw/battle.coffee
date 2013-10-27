@@ -17,6 +17,8 @@ class @Battle
   SpeciesData: SpeciesData
   FormeData: FormeData
 
+  generation: 'bw'
+
   constructor: (@id, attributes = {}) ->
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
@@ -675,7 +677,7 @@ class @Battle
     teams = @getTeams().map((team) -> team.toJSON())
     index = spectator.index
     spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectate battle', @id, @numActive, index, teams, spectators, @log)
+    spectator.send('spectate battle', @id, @generation, @numActive, index, teams, spectators, @log)
     spectatorJSON = spectator.toJSON()
     s.send('join battle', @id, spectatorJSON)  for s in @spectators
 

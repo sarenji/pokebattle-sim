@@ -3,11 +3,13 @@ selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
 
 $ ->
   $mainButtons = $('.main_buttons')
+  $selectFormat = $mainButtons.find(".select-format")
   $mainButtons.on 'click', '.find_battle', ->
     $this = $(this)
     return  if $this.hasClass('disabled')
     teamJSON = allTeams[selectedIndex].pokemon
-    PokeBattle.socket.send('find battle', teamJSON)
+    format = $selectFormat.data('format')
+    PokeBattle.socket.send('find battle', teamJSON, format)
     $this.addClass('disabled')
 
   $mainButtons.on 'click', '.teambuilder_button', (e) ->
@@ -29,6 +31,17 @@ $ ->
     slot = $(e.currentTarget).data('slot')
     selectedIndex = slot
     renderCurrentTeam()
+
+  # Selecting the format changes the dropdown.
+  $mainButtons.on 'click', '.select-format-dropdown-item', (e) ->
+    $target = $(e.currentTarget)
+    format = $target.data('format')
+    $selectFormat.text($target.text())
+    $selectFormat.data('format', format)
+
+  # Auto-select first available format.
+  $mainButtons.find('.format-dropdown').children().first().click()
+
 
 renderCurrentTeam = ->
   $selectTeam = $('.select-team .well')
