@@ -18,7 +18,7 @@ $ ->
   if allTeams?.length > 0
     renderCurrentTeam()
   else
-    $selectTeam = $('.select-team .well')
+    $selectTeam = $('.select-team')
     $selectTeam.html("You have no teams!")
 
   $mainButtons.find('.select-team').click (e) ->
@@ -40,11 +40,11 @@ $ ->
     $selectFormat.data('format', format)
 
   # Auto-select first available format.
-  $mainButtons.find('.format-dropdown').children().first().click()
+  $mainButtons.find('.format-dropdown a').first().click()
 
 
 renderCurrentTeam = ->
-  $selectTeam = $('.select-team .well')
+  $selectTeam = $('.select-team')
   currentTeam = allTeams[selectedIndex] || allTeams[0]
   html = JST['team_dropdown'](window: window, team: currentTeam)
   $selectTeam.html(html)
