@@ -45,9 +45,9 @@ makeAbility 'Bulletproof', ->
   this::isImmune = (type, move) ->
     return true  if move?.hasFlag('bullet')
 
-makeAbility 'Gale Wind', ->
+makeAbility 'Gale Wings', ->
   this::editPriority = (priority, move) ->
-    # TODO: Test if Gale Wind works with Hidden Power Flying.
+    # TODO: Test if Gale Wings works with Hidden Power Flying.
     return priority + 1  if move.type == 'Flying'
     return priority
 
