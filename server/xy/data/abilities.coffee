@@ -35,7 +35,7 @@ makeAuraAbility = (name, type) ->
       return 0x1000  if move.getType(@battle, user, target) != type
       for pokemon in @battle.getActiveAlivePokemon()
         return 0xC00  if pokemon.hasAbility("Aura Break")
-      return 0x14CD
+      return 0x1555
 
 makeAuraAbility("Dark Aura", "Dark")
 makeAuraAbility("Fairy Aura", "Fairy")

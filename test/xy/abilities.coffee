@@ -77,15 +77,15 @@ describe "BW Abilities:", ->
 
   testAuraAbility = (name, type) ->
     describe name, ->
-      it "raises base power of #{type} attacks by x1.3", ->
+      it "raises base power of #{type} attacks by 4/3x", ->
         shared.create.call this,
           gen: 'xy'
           team1: [Factory("Magikarp", ability: name)]
         move = @battle.findMove (m) ->
           m.type == type && !m.isNonDamaging()
-        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1555)
 
-      it "decreases #{type} attacks by x0.75 if Aura Break is on the field", ->
+      it "decreases #{type} attacks by 3/4x if Aura Break is on the field", ->
         shared.create.call this,
           gen: 'xy'
           team1: [Factory("Magikarp", ability: name)]
