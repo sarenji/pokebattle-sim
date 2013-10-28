@@ -88,6 +88,24 @@
                 "Ice"
             ],
             "weight": 1355
+        },
+        "mega": {
+            "types": [
+                "Grass",
+                "Ice"
+            ],
+            "stats": {
+                "attack": 135,
+                "defense": 95,
+                "hp": 90,
+                "specialAttack": 150,
+                "specialDefense": 95,
+                "speed": 30
+            },
+            "abilities": [
+                "Snow Warning"
+            ],
+            "weight": 1850
         }
     },
     "Abra": {
@@ -317,6 +335,23 @@
                 "Dark"
             ],
             "weight": 470
+        },
+        "mega": {
+            "types": [
+                "Dark"
+            ],
+            "stats": {
+                "attack": 150,
+                "defense": 60,
+                "hp": 65,
+                "specialAttack": 115,
+                "specialDefense": 60,
+                "speed": 115
+            },
+            "abilities": [
+                "Magic Bounce"
+            ],
+            "weight": 490
         }
     },
     "Accelgor": {
@@ -501,6 +536,24 @@
                 "Flying"
             ],
             "weight": 590
+        },
+        "mega": {
+            "types": [
+                "Rock",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 135,
+                "defense": 85,
+                "hp": 80,
+                "specialAttack": 70,
+                "specialDefense": 95,
+                "speed": 150
+            },
+            "abilities": [
+                "Tough Claws"
+            ],
+            "weight": 790
         }
     },
     "Aggron": {
@@ -620,6 +673,23 @@
                 "Rock"
             ],
             "weight": 3600
+        },
+        "mega": {
+            "types": [
+                "Steel"
+            ],
+            "stats": {
+                "attack": 140,
+                "defense": 230,
+                "hp": 70,
+                "specialAttack": 60,
+                "specialDefense": 80,
+                "speed": 50
+            },
+            "abilities": [
+                "Filter"
+            ],
+            "weight": 3950
         }
     },
     "Aipom": {
@@ -832,11 +902,28 @@
                 "defense": 45,
                 "hp": 55,
                 "specialAttack": 135,
-                "specialDefense": 85,
+                "specialDefense": 95,
                 "speed": 120
             },
             "types": [
                 "Psychic"
+            ],
+            "weight": 480
+        },
+        "mega": {
+            "types": [
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 65,
+                "hp": 55,
+                "specialAttack": 175,
+                "specialDefense": 95,
+                "speed": 150
+            },
+            "abilities": [
+                "Trace"
             ],
             "weight": 480
         }
@@ -1281,7 +1368,7 @@
             },
             "stats": {
                 "attack": 75,
-                "defense": 75,
+                "defense": 85,
                 "hp": 90,
                 "specialAttack": 115,
                 "specialDefense": 90,
@@ -1289,6 +1376,24 @@
             },
             "types": [
                 "Electric"
+            ],
+            "weight": 615
+        },
+        "mega": {
+            "types": [
+                "Electric",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 95,
+                "defense": 105,
+                "hp": 90,
+                "specialAttack": 165,
+                "specialDefense": 110,
+                "speed": 45
+            },
+            "abilities": [
+                "Mold Breaker"
             ],
             "weight": 615
         }
@@ -2650,12 +2755,13 @@
                 "attack": 50,
                 "defense": 80,
                 "hp": 100,
-                "specialAttack": 50,
+                "specialAttack": 60,
                 "specialDefense": 80,
                 "speed": 50
             },
             "types": [
-                "Water"
+                "Water",
+                "Fairy"
             ],
             "weight": 285
         }
@@ -2738,7 +2844,8 @@
                 "speed": 20
             },
             "types": [
-                "Normal"
+                "Normal",
+                "Fairy"
             ],
             "weight": 20
         }
@@ -3022,6 +3129,23 @@
                 "Ghost"
             ],
             "weight": 125
+        },
+        "mega": {
+            "types": [
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 165,
+                "defense": 75,
+                "hp": 64,
+                "specialAttack": 93,
+                "specialDefense": 83,
+                "speed": 75
+            },
+            "abilities": [
+                "Prankster"
+            ],
+            "weight": 130
         }
     },
     "Barboach": {
@@ -3114,7 +3238,7 @@
     "Basculin": {
         "default": {
             "abilities": [
-                "Rock Head",
+                "Reckless",
                 "Adaptability"
             ],
             "hiddenAbility": "Mold Breaker",
@@ -3692,7 +3816,7 @@
                 }
             },
             "stats": {
-                "attack": 80,
+                "attack": 90,
                 "defense": 40,
                 "hp": 65,
                 "specialAttack": 45,
@@ -3898,7 +4022,7 @@
             },
             "stats": {
                 "attack": 80,
-                "defense": 85,
+                "defense": 95,
                 "hp": 75,
                 "specialAttack": 90,
                 "specialDefense": 100,
@@ -4386,6 +4510,23 @@
                 "Water"
             ],
             "weight": 855
+        },
+        "mega": {
+            "types": [
+                "Water"
+            ],
+            "stats": {
+                "attack": 103,
+                "defense": 120,
+                "hp": 79,
+                "specialAttack": 135,
+                "specialDefense": 115,
+                "speed": 78
+            },
+            "abilities": [
+                "Mega Launcher"
+            ],
+            "weight": 1011
         }
     },
     "Blaziken": {
@@ -4490,6 +4631,24 @@
             "types": [
                 "Fire",
                 "Fighting"
+            ],
+            "weight": 520
+        },
+        "mega": {
+            "types": [
+                "Fire",
+                "Fighting"
+            ],
+            "stats": {
+                "attack": 160,
+                "defense": 80,
+                "hp": 80,
+                "specialAttack": 130,
+                "specialDefense": 80,
+                "speed": 100
+            },
+            "abilities": [
+                "Speed Boost"
             ],
             "weight": 520
         }
@@ -5814,7 +5973,7 @@
                 "attack": 45,
                 "defense": 50,
                 "hp": 60,
-                "specialAttack": 80,
+                "specialAttack": 90,
                 "specialDefense": 80,
                 "speed": 70
             },
@@ -6382,7 +6541,6 @@
             "abilities": [
                 "Shed Skin"
             ],
-            "hiddenAbility": "Shed Skin",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -6888,7 +7046,7 @@
                 "Flash Fire",
                 "Flame Body"
             ],
-            "hiddenAbility": "Shadow Tag",
+            "hiddenAbility": "Infiltrator",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -7189,6 +7347,42 @@
                 "Flying"
             ],
             "weight": 905
+        },
+        "mega-x": {
+            "types": [
+                "Fire",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 130,
+                "defense": 111,
+                "hp": 78,
+                "specialAttack": 130,
+                "specialDefense": 85,
+                "speed": 100
+            },
+            "abilities": [
+                "Tough Claws"
+            ],
+            "weight": 1105
+        },
+        "mega-y": {
+            "types": [
+                "Fire",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 104,
+                "defense": 78,
+                "hp": 78,
+                "specialAttack": 159,
+                "specialDefense": 115,
+                "speed": 100
+            },
+            "abilities": [
+                "Drought"
+            ],
+            "weight": 1005
         }
     },
     "Charmander": {
@@ -8451,12 +8645,12 @@
                 "attack": 70,
                 "defense": 73,
                 "hp": 95,
-                "specialAttack": 85,
+                "specialAttack": 95,
                 "specialDefense": 90,
                 "speed": 60
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 400
         }
@@ -8578,7 +8772,7 @@
                 "speed": 35
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 75
         }
@@ -8682,7 +8876,7 @@
                 "speed": 15
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 30
         }
@@ -11835,7 +12029,6 @@
     "Dewott": {
         "default": {
             "abilities": [
-                "Torrent",
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
@@ -13858,7 +14051,8 @@
             "types": [
                 "Ghost"
             ],
-            "weight": 306
+            "weight": 306,
+            "hiddenAbility": "Frisk"
         }
     },
     "Dusknoir": {
@@ -13962,7 +14156,8 @@
             "types": [
                 "Ghost"
             ],
-            "weight": 1066
+            "weight": 1066,
+            "hiddenAbility": "Frisk"
         }
     },
     "Duskull": {
@@ -14058,7 +14253,8 @@
             "types": [
                 "Ghost"
             ],
-            "weight": 150
+            "weight": 150,
+            "hiddenAbility": "Frisk"
         }
     },
     "Dustox": {
@@ -15144,7 +15340,6 @@
     "Emboar": {
         "default": {
             "abilities": [
-                "Blaze",
                 "Blaze"
             ],
             "hiddenAbility": "Reckless",
@@ -15604,7 +15799,6 @@
     "Espeon": {
         "default": {
             "abilities": [
-                "Synchronize",
                 "Synchronize"
             ],
             "hiddenAbility": "Magic Bounce",
@@ -16053,7 +16247,7 @@
                 "defense": 63,
                 "hp": 104,
                 "specialAttack": 91,
-                "specialDefense": 63,
+                "specialDefense": 73,
                 "speed": 68
             },
             "types": [
@@ -16501,7 +16695,8 @@
                 "Grass",
                 "Steel"
             ],
-            "weight": 188
+            "weight": 188,
+            "hiddenAbility": "Anticipation"
         }
     },
     "Ferrothorn": {
@@ -16595,7 +16790,8 @@
                 "Grass",
                 "Steel"
             ],
-            "weight": 1100
+            "weight": 1100,
+            "hiddenAbility": "Anticipation"
         }
     },
     "Finneon": {
@@ -16770,7 +16966,6 @@
     "Flareon": {
         "default": {
             "abilities": [
-                "Flash Fire",
                 "Flash Fire"
             ],
             "hiddenAbility": "Guts",
@@ -16940,10 +17135,8 @@
     "Flygon": {
         "default": {
             "abilities": [
-                "Levitate",
                 "Levitate"
             ],
-            "hiddenAbility": "Levitate",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -17405,7 +17598,6 @@
     "Froslass": {
         "default": {
             "abilities": [
-                "Snow Cloak",
                 "Snow Cloak"
             ],
             "hiddenAbility": "Cursed Body",
@@ -17676,7 +17868,6 @@
     "Gallade": {
         "default": {
             "abilities": [
-                "Steadfast",
                 "Steadfast"
             ],
             "hiddenAbility": "Justified",
@@ -18063,6 +18254,24 @@
                 "Ground"
             ],
             "weight": 950
+        },
+        "mega": {
+            "types": [
+                "Dragon",
+                "Ground"
+            ],
+            "stats": {
+                "attack": 170,
+                "defense": 115,
+                "hp": 108,
+                "specialAttack": 120,
+                "specialDefense": 95,
+                "speed": 92
+            },
+            "abilities": [
+                "Sand Force"
+            ],
+            "weight": 950
         }
     },
     "Gardevoir": {
@@ -18166,7 +18375,26 @@
                 "speed": 80
             },
             "types": [
-                "Psychic"
+                "Psychic",
+                "Fairy"
+            ],
+            "weight": 484
+        },
+        "mega": {
+            "types": [
+                "Psychic",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 85,
+                "defense": 65,
+                "hp": 68,
+                "specialAttack": 165,
+                "specialDefense": 135,
+                "speed": 100
+            },
+            "abilities": [
+                "Pixilate"
             ],
             "weight": 484
         }
@@ -18562,6 +18790,24 @@
                 "Poison"
             ],
             "weight": 405
+        },
+        "mega": {
+            "types": [
+                "Ghost",
+                "Poison"
+            ],
+            "stats": {
+                "attack": 65,
+                "defense": 80,
+                "hp": 60,
+                "specialAttack": 170,
+                "specialDefense": 95,
+                "speed": 130
+            },
+            "abilities": [
+                "Shadow Tag"
+            ],
+            "weight": 405
         }
     },
     "Geodude": {
@@ -18828,7 +19074,7 @@
                 "defense": 130,
                 "hp": 85,
                 "specialAttack": 60,
-                "specialDefense": 70,
+                "specialDefense": 80,
                 "speed": 25
             },
             "types": [
@@ -19055,7 +19301,6 @@
             "abilities": [
                 "Levitate"
             ],
-            "hiddenAbility": "Levitate",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -19155,7 +19400,6 @@
     "Glaceon": {
         "default": {
             "abilities": [
-                "Snow Cloak",
                 "Snow Cloak"
             ],
             "hiddenAbility": "Ice Body",
@@ -20053,7 +20297,7 @@
                 }
             },
             "stats": {
-                "attack": 110,
+                "attack": 120,
                 "defense": 130,
                 "hp": 80,
                 "specialAttack": 55,
@@ -20342,7 +20586,8 @@
     "Gothita": {
         "default": {
             "abilities": [
-                "Frisk"
+                "Frisk",
+                "Competitive"
             ],
             "hiddenAbility": "Shadow Tag",
             "isBattleOnly": false,
@@ -20450,7 +20695,8 @@
     "Gothitelle": {
         "default": {
             "abilities": [
-                "Frisk"
+                "Frisk",
+                "Competitive"
             ],
             "hiddenAbility": "Shadow Tag",
             "isBattleOnly": false,
@@ -20554,7 +20800,8 @@
     "Gothorita": {
         "default": {
             "abilities": [
-                "Frisk"
+                "Frisk",
+                "Competitive"
             ],
             "hiddenAbility": "Shadow Tag",
             "isBattleOnly": false,
@@ -20754,7 +21001,7 @@
                 "speed": 45
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 487
         }
@@ -21678,6 +21925,24 @@
                 "Flying"
             ],
             "weight": 2350
+        },
+        "mega": {
+            "types": [
+                "Water",
+                "Dark"
+            ],
+            "stats": {
+                "attack": 155,
+                "defense": 109,
+                "hp": 95,
+                "specialAttack": 70,
+                "specialDefense": 130,
+                "speed": 81
+            },
+            "abilities": [
+                "Mold Breaker"
+            ],
+            "weight": 3050
         }
     },
     "Happiny": {
@@ -22356,6 +22621,24 @@
                 "Fighting"
             ],
             "weight": 540
+        },
+        "mega": {
+            "types": [
+                "Bug",
+                "Fighting"
+            ],
+            "stats": {
+                "attack": 185,
+                "defense": 115,
+                "hp": 80,
+                "specialAttack": 40,
+                "specialDefense": 105,
+                "speed": 75
+            },
+            "abilities": [
+                "Skill Link"
+            ],
+            "weight": 625
         }
     },
     "Herdier": {
@@ -23406,6 +23689,24 @@
                 "Fire"
             ],
             "weight": 350
+        },
+        "mega": {
+            "types": [
+                "Dark",
+                "Fire"
+            ],
+            "stats": {
+                "attack": 90,
+                "defense": 90,
+                "hp": 75,
+                "specialAttack": 140,
+                "specialDefense": 90,
+                "speed": 115
+            },
+            "abilities": [
+                "Solar Power"
+            ],
+            "weight": 495
         }
     },
     "Houndour": {
@@ -23797,7 +24098,8 @@
     "Igglybuff": {
         "default": {
             "abilities": [
-                "Cute Charm"
+                "Cute Charm",
+                "Competitive"
             ],
             "hiddenAbility": "Friend Guard",
             "isBattleOnly": false,
@@ -23886,7 +24188,8 @@
                 "speed": 15
             },
             "types": [
-                "Normal"
+                "Normal",
+                "Fairy"
             ],
             "weight": 10
         }
@@ -24265,7 +24568,8 @@
     "Jigglypuff": {
         "default": {
             "abilities": [
-                "Cute Charm"
+                "Cute Charm",
+                "Competitive"
             ],
             "hiddenAbility": "Friend Guard",
             "isBattleOnly": false,
@@ -24364,7 +24668,8 @@
                 "speed": 20
             },
             "types": [
-                "Normal"
+                "Normal",
+                "Fairy"
             ],
             "weight": 55
         }
@@ -24475,7 +24780,6 @@
     "Jolteon": {
         "default": {
             "abilities": [
-                "Volt Absorb",
                 "Volt Absorb"
             ],
             "hiddenAbility": "Quick Feet",
@@ -24721,7 +25025,7 @@
                 "defense": 70,
                 "hp": 75,
                 "specialAttack": 55,
-                "specialDefense": 85,
+                "specialDefense": 95,
                 "speed": 110
             },
             "types": [
@@ -25126,7 +25430,6 @@
             "abilities": [
                 "Shed Skin"
             ],
-            "hiddenAbility": "Shed Skin",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -25273,6 +25576,23 @@
                 "Normal"
             ],
             "weight": 800
+        },
+        "mega": {
+            "types": [
+                "Normal"
+            ],
+            "stats": {
+                "attack": 125,
+                "defense": 100,
+                "hp": 105,
+                "specialAttack": 60,
+                "specialDefense": 100,
+                "speed": 100
+            },
+            "abilities": [
+                "Parental Bond"
+            ],
+            "weight": 1000
         }
     },
     "Karrablast": {
@@ -25478,7 +25798,8 @@
             "types": [
                 "Normal"
             ],
-            "weight": 220
+            "weight": 220,
+            "hiddenAbility": "Protean"
         }
     },
     "Keldeo": {
@@ -25916,7 +26237,8 @@
                 "speed": 50
             },
             "types": [
-                "Psychic"
+                "Psychic",
+                "Fairy"
             ],
             "weight": 202
         }
@@ -26650,7 +26972,7 @@
             },
             "stats": {
                 "attack": 117,
-                "defense": 70,
+                "defense": 80,
                 "hp": 95,
                 "specialAttack": 65,
                 "specialDefense": 70,
@@ -27122,7 +27444,7 @@
                 "Flash Fire",
                 "Flame Body"
             ],
-            "hiddenAbility": "Shadow Tag",
+            "hiddenAbility": "Infiltrator",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -27305,7 +27627,6 @@
             "abilities": [
                 "Intimidate"
             ],
-            "hiddenAbility": "Intimidate",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -28001,7 +28322,6 @@
     "Leafeon": {
         "default": {
             "abilities": [
-                "Leaf Guard",
                 "Leaf Guard"
             ],
             "hiddenAbility": "Chlorophyll",
@@ -28169,7 +28489,7 @@
                 "defense": 80,
                 "hp": 75,
                 "specialAttack": 70,
-                "specialDefense": 70,
+                "specialDefense": 80,
                 "speed": 92
             },
             "types": [
@@ -29024,7 +29344,7 @@
                 "Flash Fire",
                 "Flame Body"
             ],
-            "hiddenAbility": "Shadow Tag",
+            "hiddenAbility": "Infiltrator",
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
@@ -29586,6 +29906,24 @@
                 "Steel"
             ],
             "weight": 540
+        },
+        "mega": {
+            "types": [
+                "Fighting",
+                "Steel"
+            ],
+            "stats": {
+                "attack": 145,
+                "defense": 88,
+                "hp": 70,
+                "specialAttack": 140,
+                "specialDefense": 70,
+                "speed": 112
+            },
+            "abilities": [
+                "Adaptability"
+            ],
+            "weight": 575
         }
     },
     "Ludicolo": {
@@ -31575,6 +31913,23 @@
                 "Electric"
             ],
             "weight": 402
+        },
+        "mega": {
+            "types": [
+                "Electric"
+            ],
+            "stats": {
+                "attack": 75,
+                "defense": 80,
+                "hp": 70,
+                "specialAttack": 135,
+                "specialDefense": 80,
+                "speed": 135
+            },
+            "abilities": [
+                "Intimidate"
+            ],
+            "weight": 440
         }
     },
     "Mankey": {
@@ -32152,7 +32507,8 @@
                 "speed": 40
             },
             "types": [
-                "Water"
+                "Water",
+                "Fairy"
             ],
             "weight": 85
         }
@@ -32532,9 +32888,28 @@
                 "speed": 50
             },
             "types": [
-                "Steel"
+                "Steel",
+                "Fairy"
             ],
             "weight": 115
+        },
+        "mega": {
+            "types": [
+                "Steel",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 105,
+                "defense": 125,
+                "hp": 50,
+                "specialAttack": 55,
+                "specialDefense": 95,
+                "speed": 50
+            },
+            "abilities": [
+                "Huge Power"
+            ],
+            "weight": 235
         }
     },
     "Medicham": {
@@ -32637,6 +33012,24 @@
             "types": [
                 "Fighting",
                 "Psychic"
+            ],
+            "weight": 315
+        },
+        "mega": {
+            "types": [
+                "Fighting",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 85,
+                "hp": 60,
+                "specialAttack": 80,
+                "specialDefense": 85,
+                "speed": 100
+            },
+            "abilities": [
+                "Pure Power"
             ],
             "weight": 315
         }
@@ -33480,7 +33873,6 @@
             "abilities": [
                 "Shed Skin"
             ],
-            "hiddenAbility": "Shed Skin",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -33834,6 +34226,41 @@
                 "Psychic"
             ],
             "weight": 1220
+        },
+        "mega-x": {
+            "types": [
+                "Psychic",
+                "Fighting"
+            ],
+            "stats": {
+                "attack": 190,
+                "defense": 100,
+                "hp": 106,
+                "specialAttack": 154,
+                "specialDefense": 90,
+                "speed": 130
+            },
+            "abilities": [
+                "Steadfast"
+            ],
+            "weight": 1270
+        },
+        "mega-y": {
+            "types": [
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 150,
+                "defense": 70,
+                "hp": 106,
+                "specialAttack": 194,
+                "specialDefense": 120,
+                "speed": 140
+            },
+            "abilities": [
+                "Insomnia"
+            ],
+            "weight": 330
         }
     },
     "Mienfoo": {
@@ -34121,7 +34548,8 @@
     "Milotic": {
         "default": {
             "abilities": [
-                "Marvel Scale"
+                "Marvel Scale",
+                "Competitive"
             ],
             "hiddenAbility": "Cute Charm",
             "isBattleOnly": false,
@@ -34420,7 +34848,8 @@
                 "speed": 60
             },
             "types": [
-                "Psychic"
+                "Psychic",
+                "Fairy"
             ],
             "weight": 130
         }
@@ -34605,7 +35034,8 @@
             "types": [
                 "Electric"
             ],
-            "weight": 42
+            "weight": 42,
+            "hiddenAbility": "Volt Absorb"
         }
     },
     "Misdreavus": {
@@ -35193,7 +35623,8 @@
                 "speed": 90
             },
             "types": [
-                "Psychic"
+                "Psychic",
+                "Fairy"
             ],
             "weight": 545
         }
@@ -35992,7 +36423,7 @@
                 }
             },
             "stats": {
-                "attack": 92,
+                "attack": 102,
                 "defense": 77,
                 "hp": 81,
                 "specialAttack": 85,
@@ -36100,7 +36531,7 @@
                 }
             },
             "stats": {
-                "attack": 82,
+                "attack": 92,
                 "defense": 87,
                 "hp": 90,
                 "specialAttack": 75,
@@ -37521,7 +37952,6 @@
     "Oshawott": {
         "default": {
             "abilities": [
-                "Torrent",
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
@@ -39169,7 +39599,7 @@
                 "hp": 83,
                 "specialAttack": 70,
                 "specialDefense": 70,
-                "speed": 91
+                "speed": 101
             },
             "types": [
                 "Normal",
@@ -39417,7 +39847,6 @@
     "Pignite": {
         "default": {
             "abilities": [
-                "Blaze",
                 "Blaze"
             ],
             "hiddenAbility": "Thick Fat",
@@ -39579,10 +40008,10 @@
             },
             "stats": {
                 "attack": 55,
-                "defense": 30,
+                "defense": 40,
                 "hp": 35,
                 "specialAttack": 50,
-                "specialDefense": 40,
+                "specialDefense": 50,
                 "speed": 90
             },
             "types": [
@@ -39867,6 +40296,24 @@
                 "Bug"
             ],
             "weight": 550
+        },
+        "mega": {
+            "types": [
+                "Bug",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 155,
+                "defense": 120,
+                "hp": 65,
+                "specialAttack": 65,
+                "specialDefense": 90,
+                "speed": 105
+            },
+            "abilities": [
+                "Aerilate"
+            ],
+            "weight": 590
         }
     },
     "Piplup": {
@@ -40045,7 +40492,8 @@
             "types": [
                 "Electric"
             ],
-            "weight": 42
+            "weight": 42,
+            "hiddenAbility": "Lightningrod"
         }
     },
     "Politoed": {
@@ -40360,7 +40808,7 @@
                 }
             },
             "stats": {
-                "attack": 85,
+                "attack": 95,
                 "defense": 95,
                 "hp": 90,
                 "specialAttack": 70,
@@ -41234,7 +41682,6 @@
             "abilities": [
                 "Shed Skin"
             ],
-            "hiddenAbility": "Shed Skin",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -41839,7 +42286,7 @@
                 "hp": 60,
                 "specialAttack": 90,
                 "specialDefense": 80,
-                "speed": 100
+                "speed": 110
             },
             "types": [
                 "Electric"
@@ -42039,7 +42486,8 @@
                 "speed": 40
             },
             "types": [
-                "Psychic"
+                "Psychic",
+                "Fairy"
             ],
             "weight": 66
         }
@@ -43952,7 +44400,7 @@
             },
             "stats": {
                 "attack": 70,
-                "defense": 55,
+                "defense": 65,
                 "hp": 60,
                 "specialAttack": 125,
                 "specialDefense": 105,
@@ -44754,7 +45202,6 @@
     "Samurott": {
         "default": {
             "abilities": [
-                "Torrent",
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
@@ -45504,6 +45951,24 @@
                 "Steel"
             ],
             "weight": 1180
+        },
+        "mega": {
+            "types": [
+                "Bug",
+                "Steel"
+            ],
+            "stats": {
+                "attack": 150,
+                "defense": 140,
+                "hp": 70,
+                "specialAttack": 65,
+                "specialDefense": 100,
+                "speed": 75
+            },
+            "abilities": [
+                "Technician"
+            ],
+            "weight": 1250
         }
     },
     "Scolipede": {
@@ -45512,7 +45977,7 @@
                 "Poison Point",
                 "Swarm"
             ],
-            "hiddenAbility": "Quick Feet",
+            "hiddenAbility": "Speed Boost",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -45580,7 +46045,7 @@
                 }
             },
             "stats": {
-                "attack": 90,
+                "attack": 100,
                 "defense": 89,
                 "hp": 60,
                 "specialAttack": 55,
@@ -46402,7 +46867,7 @@
                 }
             },
             "stats": {
-                "attack": 85,
+                "attack": 95,
                 "defense": 75,
                 "hp": 105,
                 "specialAttack": 85,
@@ -46525,7 +46990,6 @@
     "Serperior": {
         "default": {
             "abilities": [
-                "Overgrow",
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
@@ -46617,7 +47081,6 @@
     "Servine": {
         "default": {
             "abilities": [
-                "Overgrow",
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
@@ -47122,7 +47585,6 @@
             "abilities": [
                 "Wonder Guard"
             ],
-            "hiddenAbility": "Wonder Guard",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -48198,7 +48660,6 @@
             "abilities": [
                 "Shed Skin"
             ],
-            "hiddenAbility": "Shed Skin",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -49843,7 +50304,6 @@
     "Snivy": {
         "default": {
             "abilities": [
-                "Overgrow",
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
@@ -50332,7 +50792,7 @@
                 "speed": 30
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 78
         }
@@ -51392,7 +51852,7 @@
                 "defense": 70,
                 "hp": 85,
                 "specialAttack": 50,
-                "specialDefense": 50,
+                "specialDefense": 60,
                 "speed": 100
             },
             "types": [
@@ -51477,7 +51937,7 @@
             "abilities": [
                 "Keen Eye"
             ],
-            "hiddenAbility": "Keen Eye",
+            "hiddenAbility": "Reckless",
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
@@ -51898,7 +52358,7 @@
                 }
             },
             "stats": {
-                "attack": 100,
+                "attack": 110,
                 "defense": 90,
                 "hp": 85,
                 "specialAttack": 45,
@@ -53894,7 +54354,6 @@
     "Tepig": {
         "default": {
             "abilities": [
-                "Blaze",
                 "Blaze"
             ],
             "hiddenAbility": "Thick Fat",
@@ -54269,7 +54728,6 @@
             "abilities": [
                 "Volt Absorb"
             ],
-            "hiddenAbility": "Volt Absorb",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -54650,7 +55108,7 @@
                 "speed": 80
             },
             "types": [
-                "Normal",
+                "Fairy",
                 "Flying"
             ],
             "weight": 380
@@ -54757,7 +55215,7 @@
                 "speed": 20
             },
             "types": [
-                "Normal"
+                "Fairy"
             ],
             "weight": 15
         }
@@ -54859,7 +55317,7 @@
                 "speed": 40
             },
             "types": [
-                "Normal",
+                "Fairy",
                 "Flying"
             ],
             "weight": 32
@@ -55153,7 +55611,6 @@
             "abilities": [
                 "Regenerator"
             ],
-            "hiddenAbility": "Regenerator",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -56410,6 +56867,24 @@
                 "Dark"
             ],
             "weight": 2020
+        },
+        "mega": {
+            "types": [
+                "Rock",
+                "Dark"
+            ],
+            "stats": {
+                "attack": 164,
+                "defense": 150,
+                "hp": 100,
+                "specialAttack": 95,
+                "specialDefense": 120,
+                "speed": 71
+            },
+            "abilities": [
+                "Sand Stream"
+            ],
+            "weight": 2550
         }
     },
     "Tyrogue": {
@@ -56494,7 +56969,6 @@
     "Umbreon": {
         "default": {
             "abilities": [
-                "Synchronize",
                 "Synchronize"
             ],
             "hiddenAbility": "Inner Focus",
@@ -56641,7 +57115,7 @@
                 }
             },
             "stats": {
-                "attack": 105,
+                "attack": 115,
                 "defense": 80,
                 "hp": 80,
                 "specialAttack": 65,
@@ -57112,7 +57586,6 @@
     "Vaporeon": {
         "default": {
             "abilities": [
-                "Water Absorb",
                 "Water Absorb"
             ],
             "hiddenAbility": "Hydration",
@@ -57202,7 +57675,7 @@
                 "Poison Point",
                 "Swarm"
             ],
-            "hiddenAbility": "Quick Feet",
+            "hiddenAbility": "Speed Boost",
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
@@ -57530,6 +58003,24 @@
                 "Poison"
             ],
             "weight": 1000
+        },
+        "mega": {
+            "types": [
+                "Grass",
+                "Poison"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 123,
+                "hp": 80,
+                "specialAttack": 122,
+                "specialDefense": 120,
+                "speed": 80
+            },
+            "abilities": [
+                "Thick Fat"
+            ],
+            "weight": 1555
         }
     },
     "Vespiquen": {
@@ -57618,10 +58109,8 @@
     "Vibrava": {
         "default": {
             "abilities": [
-                "Levitate",
                 "Levitate"
             ],
-            "hiddenAbility": "Levitate",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -57870,7 +58359,7 @@
                 "defense": 65,
                 "hp": 80,
                 "specialAttack": 100,
-                "specialDefense": 60,
+                "specialDefense": 70,
                 "speed": 70
             },
             "types": [
@@ -58029,7 +58518,7 @@
                 "attack": 80,
                 "defense": 85,
                 "hp": 75,
-                "specialAttack": 100,
+                "specialAttack": 110,
                 "specialDefense": 90,
                 "speed": 50
             },
@@ -59025,7 +59514,6 @@
     "Weavile": {
         "default": {
             "abilities": [
-                "Pressure",
                 "Pressure"
             ],
             "hiddenAbility": "Pickpocket",
@@ -59390,7 +59878,8 @@
                 "speed": 116
             },
             "types": [
-                "Grass"
+                "Grass",
+                "Fairy"
             ],
             "weight": 66
         }
@@ -59401,7 +59890,7 @@
                 "Poison Point",
                 "Swarm"
             ],
-            "hiddenAbility": "Quick Feet",
+            "hiddenAbility": "Speed Boost",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -59642,7 +60131,8 @@
     "Wigglytuff": {
         "default": {
             "abilities": [
-                "Cute Charm"
+                "Cute Charm",
+                "Competitive"
             ],
             "hiddenAbility": "Frisk",
             "isBattleOnly": false,
@@ -59730,12 +60220,13 @@
                 "attack": 70,
                 "defense": 45,
                 "hp": 140,
-                "specialAttack": 75,
+                "specialAttack": 85,
                 "specialDefense": 50,
                 "speed": 45
             },
             "types": [
-                "Normal"
+                "Normal",
+                "Fairy"
             ],
             "weight": 120
         }
@@ -61583,6 +62074,1603 @@
                 "Dragon"
             ],
             "weight": 500
+        }
+    },
+    "Chespin": {
+        "default": {
+            "types": [
+                "Grass"
+            ],
+            "stats": {
+                "attack": 61,
+                "defense": 65,
+                "hp": 56,
+                "specialAttack": 48,
+                "specialDefense": 45,
+                "speed": 38
+            },
+            "abilities": [
+                "Overgrow"
+            ],
+            "hiddenAbility": "Bulletproof",
+            "weight": 90
+        }
+    },
+    "Quilladin": {
+        "default": {
+            "types": [
+                "Grass"
+            ],
+            "stats": {
+                "attack": 78,
+                "defense": 95,
+                "hp": 61,
+                "specialAttack": 56,
+                "specialDefense": 58,
+                "speed": 57
+            },
+            "abilities": [
+                "Overgrow"
+            ],
+            "hiddenAbility": "Bulletproof",
+            "weight": 290
+        }
+    },
+    "Chesnaught": {
+        "default": {
+            "types": [
+                "Grass",
+                "Fighting"
+            ],
+            "stats": {
+                "attack": 107,
+                "defense": 122,
+                "hp": 88,
+                "specialAttack": 74,
+                "specialDefense": 75,
+                "speed": 64
+            },
+            "abilities": [
+                "Overgrow"
+            ],
+            "hiddenAbility": "Bulletproof",
+            "weight": 900
+        }
+    },
+    "Fennekin": {
+        "default": {
+            "types": [
+                "Fire"
+            ],
+            "stats": {
+                "attack": 45,
+                "defense": 40,
+                "hp": 40,
+                "specialAttack": 62,
+                "specialDefense": 60,
+                "speed": 60
+            },
+            "abilities": [
+                "Blaze"
+            ],
+            "hiddenAbility": "Magician",
+            "weight": 94
+        }
+    },
+    "Braixen": {
+        "default": {
+            "types": [
+                "Fire"
+            ],
+            "stats": {
+                "attack": 59,
+                "defense": 58,
+                "hp": 59,
+                "specialAttack": 90,
+                "specialDefense": 70,
+                "speed": 73
+            },
+            "abilities": [
+                "Blaze"
+            ],
+            "hiddenAbility": "Magician",
+            "weight": 145
+        }
+    },
+    "Delphox": {
+        "default": {
+            "types": [
+                "Fire",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 69,
+                "defense": 72,
+                "hp": 75,
+                "specialAttack": 114,
+                "specialDefense": 100,
+                "speed": 104
+            },
+            "abilities": [
+                "Blaze"
+            ],
+            "hiddenAbility": "Magician",
+            "weight": 390
+        }
+    },
+    "Froakie": {
+        "default": {
+            "types": [
+                "Water"
+            ],
+            "stats": {
+                "attack": 56,
+                "defense": 41,
+                "hp": 41,
+                "specialAttack": 62,
+                "specialDefense": 44,
+                "speed": 71
+            },
+            "abilities": [
+                "Torrent"
+            ],
+            "hiddenAbility": "Protean",
+            "weight": 70
+        }
+    },
+    "Frogadier": {
+        "default": {
+            "types": [
+                "Water"
+            ],
+            "stats": {
+                "attack": 63,
+                "defense": 52,
+                "hp": 54,
+                "specialAttack": 83,
+                "specialDefense": 56,
+                "speed": 97
+            },
+            "abilities": [
+                "Torrent"
+            ],
+            "hiddenAbility": "Protean",
+            "weight": 109
+        }
+    },
+    "Greninja": {
+        "default": {
+            "types": [
+                "Water",
+                "Dark"
+            ],
+            "stats": {
+                "attack": 95,
+                "defense": 67,
+                "hp": 72,
+                "specialAttack": 103,
+                "specialDefense": 71,
+                "speed": 122
+            },
+            "abilities": [
+                "Torrent"
+            ],
+            "hiddenAbility": "Protean",
+            "weight": 400
+        }
+    },
+    "Bunnelby": {
+        "default": {
+            "types": [
+                "Normal"
+            ],
+            "stats": {
+                "attack": 36,
+                "defense": 38,
+                "hp": 38,
+                "specialAttack": 32,
+                "specialDefense": 36,
+                "speed": 57
+            },
+            "abilities": [
+                "Pickup",
+                "Cheek Pouch"
+            ],
+            "hiddenAbility": "Huge Power",
+            "weight": 50
+        }
+    },
+    "Diggersby": {
+        "default": {
+            "types": [
+                "Normal",
+                "Ground"
+            ],
+            "stats": {
+                "attack": 56,
+                "defense": 77,
+                "hp": 85,
+                "specialAttack": 50,
+                "specialDefense": 77,
+                "speed": 78
+            },
+            "abilities": [
+                "Pickup",
+                "Cheek Pouch"
+            ],
+            "hiddenAbility": "Huge Power",
+            "weight": 0
+        }
+    },
+    "Fletchling": {
+        "default": {
+            "types": [
+                "Normal",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 43,
+                "hp": 45,
+                "specialAttack": 40,
+                "specialDefense": 38,
+                "speed": 62
+            },
+            "abilities": [
+                "Big Pecks"
+            ],
+            "hiddenAbility": "Gale Wings",
+            "weight": 17
+        }
+    },
+    "Fletchinder": {
+        "default": {
+            "types": [
+                "Fire",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 73,
+                "defense": 55,
+                "hp": 62,
+                "specialAttack": 56,
+                "specialDefense": 52,
+                "speed": 84
+            },
+            "abilities": [
+                "Flame Body"
+            ],
+            "hiddenAbility": "Gale Wings",
+            "weight": 0
+        }
+    },
+    "Talonflame": {
+        "default": {
+            "types": [
+                "Fire",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 81,
+                "defense": 71,
+                "hp": 78,
+                "specialAttack": 74,
+                "specialDefense": 69,
+                "speed": 126
+            },
+            "abilities": [
+                "Flame Body"
+            ],
+            "hiddenAbility": "Gale Wings",
+            "weight": 245
+        }
+    },
+    "Scatterbug": {
+        "default": {
+            "types": [
+                "Bug"
+            ],
+            "stats": {
+                "attack": 35,
+                "defense": 40,
+                "hp": 38,
+                "specialAttack": 27,
+                "specialDefense": 25,
+                "speed": 35
+            },
+            "abilities": [
+                "Shield Dust",
+                "Compoundeyes"
+            ],
+            "hiddenAbility": "Friend Guard",
+            "weight": 25
+        }
+    },
+    "Spewpa": {
+        "default": {
+            "types": [
+                "Bug"
+            ],
+            "stats": {
+                "attack": 22,
+                "defense": 60,
+                "hp": 45,
+                "specialAttack": 27,
+                "specialDefense": 30,
+                "speed": 29
+            },
+            "abilities": [
+                "Shed Skin"
+            ],
+            "hiddenAbility": "Friend Guard",
+            "weight": 84
+        }
+    },
+    "Vivillon": {
+        "default": {
+            "types": [
+                "Bug",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 52,
+                "defense": 50,
+                "hp": 80,
+                "specialAttack": 90,
+                "specialDefense": 50,
+                "speed": 89
+            },
+            "abilities": [
+                "Shield Dust",
+                "Compoundeyes"
+            ],
+            "hiddenAbility": "Friend Guard",
+            "weight": 170
+        }
+    },
+    "Litleo": {
+        "default": {
+            "types": [
+                "Fire",
+                "Normal"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 58,
+                "hp": 62,
+                "specialAttack": 73,
+                "specialDefense": 54,
+                "speed": 72
+            },
+            "abilities": [
+                "Rivalry",
+                "Unnerve"
+            ],
+            "hiddenAbility": "Moxie",
+            "weight": 135
+        }
+    },
+    "Pyroar": {
+        "default": {
+            "types": [
+                "Fire",
+                "Normal"
+            ],
+            "stats": {
+                "attack": 68,
+                "defense": 72,
+                "hp": 86,
+                "specialAttack": 109,
+                "specialDefense": 66,
+                "speed": 106
+            },
+            "abilities": [
+                "Rivalry",
+                "Unnerve"
+            ],
+            "hiddenAbility": "Moxie",
+            "weight": 815
+        }
+    },
+    "Flabebe": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 38,
+                "defense": 39,
+                "hp": 44,
+                "specialAttack": 61,
+                "specialDefense": 79,
+                "speed": 42
+            },
+            "abilities": [
+                "Flower Veil"
+            ],
+            "hiddenAbility": "Symbiosis",
+            "weight": 1
+        }
+    },
+    "Floette": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 45,
+                "defense": 47,
+                "hp": 54,
+                "specialAttack": 75,
+                "specialDefense": 98,
+                "speed": 52
+            },
+            "abilities": [
+                "Flower Veil"
+            ],
+            "hiddenAbility": "Symbiosis",
+            "weight": 9
+        }
+    },
+    "Florges": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 65,
+                "defense": 68,
+                "hp": 78,
+                "specialAttack": 112,
+                "specialDefense": 154,
+                "speed": 75
+            },
+            "abilities": [
+                "Flower Veil"
+            ],
+            "hiddenAbility": "Symbiosis",
+            "weight": 100
+        }
+    },
+    "Skiddo": {
+        "default": {
+            "types": [
+                "Grass"
+            ],
+            "stats": {
+                "attack": 65,
+                "defense": 48,
+                "hp": 66,
+                "specialAttack": 62,
+                "specialDefense": 57,
+                "speed": 52
+            },
+            "abilities": [
+                "Sap Sipper"
+            ],
+            "hiddenAbility": "Grass Pelt",
+            "weight": 310
+        }
+    },
+    "Gogoat": {
+        "default": {
+            "types": [
+                "Grass"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 62,
+                "hp": 123,
+                "specialAttack": 97,
+                "specialDefense": 81,
+                "speed": 68
+            },
+            "abilities": [
+                "Sap Sipper"
+            ],
+            "hiddenAbility": "Grass Pelt",
+            "weight": 910
+        }
+    },
+    "Pancham": {
+        "default": {
+            "types": [
+                "Fighting"
+            ],
+            "stats": {
+                "attack": 82,
+                "defense": 62,
+                "hp": 67,
+                "specialAttack": 46,
+                "specialDefense": 48,
+                "speed": 43
+            },
+            "abilities": [
+                "Iron Fist",
+                "Mold Breaker"
+            ],
+            "hiddenAbility": "Scrappy",
+            "weight": 80
+        }
+    },
+    "Pangoro": {
+        "default": {
+            "types": [
+                "Fighting",
+                "Dark"
+            ],
+            "stats": {
+                "attack": 124,
+                "defense": 78,
+                "hp": 95,
+                "specialAttack": 69,
+                "specialDefense": 71,
+                "speed": 58
+            },
+            "abilities": [
+                "Iron Fist",
+                "Mold Breaker"
+            ],
+            "hiddenAbility": "Scrappy",
+            "weight": 1360
+        }
+    },
+    "Furfrou": {
+        "default": {
+            "types": [
+                "Normal"
+            ],
+            "stats": {
+                "attack": 80,
+                "defense": 60,
+                "hp": 75,
+                "specialAttack": 65,
+                "specialDefense": 90,
+                "speed": 100
+            },
+            "abilities": [
+                "Fur Coat"
+            ],
+            "weight": 280
+        }
+    },
+    "Espurr": {
+        "default": {
+            "types": [
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 48,
+                "defense": 54,
+                "hp": 62,
+                "specialAttack": 63,
+                "specialDefense": 60,
+                "speed": 68
+            },
+            "abilities": [
+                "Keen Eye",
+                "Infiltrator"
+            ],
+            "hiddenAbility": "Own Tempo",
+            "weight": 35
+        }
+    },
+    "Meowstic": {
+        "default": {
+            "types": [
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 48,
+                "defense": 76,
+                "hp": 74,
+                "specialAttack": 83,
+                "specialDefense": 81,
+                "speed": 104
+            },
+            "abilities": [
+                "Keen Eye",
+                "Infiltrator"
+            ],
+            "hiddenAbility": "Prankster",
+            "weight": 85
+        },
+        "f": {
+            "types": [
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 48,
+                "defense": 76,
+                "hp": 74,
+                "specialAttack": 83,
+                "specialDefense": 81,
+                "speed": 104
+            },
+            "abilities": [
+                "Keen Eye",
+                "Infiltrator"
+            ],
+            "hiddenAbility": "Competitive",
+            "weight": 85
+        }
+    },
+    "Honedge": {
+        "default": {
+            "types": [
+                "Steel",
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 80,
+                "defense": 100,
+                "hp": 45,
+                "specialAttack": 35,
+                "specialDefense": 37,
+                "speed": 28
+            },
+            "abilities": [
+                "No Guard"
+            ],
+            "weight": 20
+        }
+    },
+    "Doublade": {
+        "default": {
+            "types": [
+                "Steel",
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 110,
+                "defense": 150,
+                "hp": 59,
+                "specialAttack": 45,
+                "specialDefense": 49,
+                "speed": 35
+            },
+            "abilities": [
+                "No Guard"
+            ],
+            "weight": 45
+        }
+    },
+    "Aegislash": {
+        "default": {
+            "types": [
+                "Steel",
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 150,
+                "hp": 60,
+                "specialAttack": 50,
+                "specialDefense": 150,
+                "speed": 60
+            },
+            "abilities": [
+                "Stance Change"
+            ],
+            "weight": 520
+        },
+        "blade": {
+            "types": [
+                "Steel",
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 150,
+                "defense": 50,
+                "hp": 60,
+                "specialAttack": 150,
+                "specialDefense": 50,
+                "speed": 60
+            },
+            "abilities": [
+                "Stance Change"
+            ],
+            "weight": 0
+        }
+    },
+    "Spritzee": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 52,
+                "defense": 60,
+                "hp": 78,
+                "specialAttack": 63,
+                "specialDefense": 65,
+                "speed": 23
+            },
+            "abilities": [
+                "Healer"
+            ],
+            "hiddenAbility": "Aroma Veil",
+            "weight": 5
+        }
+    },
+    "Aromatisse": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 72,
+                "defense": 72,
+                "hp": 101,
+                "specialAttack": 99,
+                "specialDefense": 89,
+                "speed": 29
+            },
+            "abilities": [
+                "Healer"
+            ],
+            "hiddenAbility": "Aroma Veil",
+            "weight": 155
+        }
+    },
+    "Swirlix": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 48,
+                "defense": 66,
+                "hp": 62,
+                "specialAttack": 59,
+                "specialDefense": 57,
+                "speed": 49
+            },
+            "abilities": [
+                "Sweet Veil"
+            ],
+            "hiddenAbility": "Unburden",
+            "weight": 35
+        }
+    },
+    "Slurpuff": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 80,
+                "defense": 86,
+                "hp": 82,
+                "specialAttack": 85,
+                "specialDefense": 75,
+                "speed": 72
+            },
+            "abilities": [
+                "Sweet Veil"
+            ],
+            "hiddenAbility": "Unburden",
+            "weight": 50
+        }
+    },
+    "Inkay": {
+        "default": {
+            "types": [
+                "Dark",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 54,
+                "defense": 53,
+                "hp": 53,
+                "specialAttack": 37,
+                "specialDefense": 46,
+                "speed": 45
+            },
+            "abilities": [
+                "Contrary",
+                "Suction Cups"
+            ],
+            "hiddenAbility": "Infiltrator",
+            "weight": 35
+        }
+    },
+    "Malamar": {
+        "default": {
+            "types": [
+                "Dark",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 92,
+                "defense": 88,
+                "hp": 86,
+                "specialAttack": 68,
+                "specialDefense": 75,
+                "speed": 73
+            },
+            "abilities": [
+                "Contrary",
+                "Suction Cups"
+            ],
+            "hiddenAbility": "Infiltrator",
+            "weight": 470
+        }
+    },
+    "Binacle": {
+        "default": {
+            "types": [
+                "Rock",
+                "Water"
+            ],
+            "stats": {
+                "attack": 52,
+                "defense": 67,
+                "hp": 42,
+                "specialAttack": 39,
+                "specialDefense": 56,
+                "speed": 50
+            },
+            "abilities": [
+                "Tough Claws",
+                "Sniper"
+            ],
+            "hiddenAbility": "Pickpocket",
+            "weight": 310
+        }
+    },
+    "Barbaracle": {
+        "default": {
+            "types": [
+                "Rock",
+                "Water"
+            ],
+            "stats": {
+                "attack": 105,
+                "defense": 115,
+                "hp": 72,
+                "specialAttack": 54,
+                "specialDefense": 86,
+                "speed": 68
+            },
+            "abilities": [
+                "Tough Claws",
+                "Sniper"
+            ],
+            "hiddenAbility": "Pickpocket",
+            "weight": 960
+        }
+    },
+    "Skrelp": {
+        "default": {
+            "types": [
+                "Poison",
+                "Water"
+            ],
+            "stats": {
+                "attack": 60,
+                "defense": 60,
+                "hp": 50,
+                "specialAttack": 60,
+                "specialDefense": 60,
+                "speed": 30
+            },
+            "abilities": [
+                "Poison Point",
+                "Poison Touch"
+            ],
+            "hiddenAbility": "Adaptability",
+            "weight": 73
+        }
+    },
+    "Dragalge": {
+        "default": {
+            "types": [
+                "Poison",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 75,
+                "defense": 90,
+                "hp": 65,
+                "specialAttack": 97,
+                "specialDefense": 123,
+                "speed": 44
+            },
+            "abilities": [
+                "Poison Point",
+                "Poison Touch"
+            ],
+            "hiddenAbility": "Adaptability",
+            "weight": 815
+        }
+    },
+    "Clauncher": {
+        "default": {
+            "types": [
+                "Water"
+            ],
+            "stats": {
+                "attack": 53,
+                "defense": 62,
+                "hp": 50,
+                "specialAttack": 58,
+                "specialDefense": 63,
+                "speed": 44
+            },
+            "abilities": [
+                "Mega Launcher"
+            ],
+            "weight": 83
+        }
+    },
+    "Clawitzer": {
+        "default": {
+            "types": [
+                "Water"
+            ],
+            "stats": {
+                "attack": 73,
+                "defense": 88,
+                "hp": 71,
+                "specialAttack": 120,
+                "specialDefense": 89,
+                "speed": 63
+            },
+            "abilities": [
+                "Mega Launcher"
+            ],
+            "weight": 353
+        }
+    },
+    "Helioptile": {
+        "default": {
+            "types": [
+                "Electric",
+                "Normal"
+            ],
+            "stats": {
+                "attack": 38,
+                "defense": 33,
+                "hp": 44,
+                "specialAttack": 61,
+                "specialDefense": 43,
+                "speed": 70
+            },
+            "abilities": [
+                "Dry Skin",
+                "Sand Veil"
+            ],
+            "hiddenAbility": "Solar Power",
+            "weight": 60
+        }
+    },
+    "Heliolisk": {
+        "default": {
+            "types": [
+                "Electric",
+                "Normal"
+            ],
+            "stats": {
+                "attack": 55,
+                "defense": 52,
+                "hp": 62,
+                "specialAttack": 109,
+                "specialDefense": 94,
+                "speed": 109
+            },
+            "abilities": [
+                "Dry Skin",
+                "Sand Veil"
+            ],
+            "hiddenAbility": "Solar Power",
+            "weight": 210
+        }
+    },
+    "Tyrunt": {
+        "default": {
+            "types": [
+                "Rock",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 89,
+                "defense": 77,
+                "hp": 58,
+                "specialAttack": 45,
+                "specialDefense": 45,
+                "speed": 48
+            },
+            "abilities": [
+                "Strong Jaw"
+            ],
+            "hiddenAbility": "Rock Head",
+            "weight": 260
+        }
+    },
+    "Tyrantrum": {
+        "default": {
+            "types": [
+                "Rock",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 121,
+                "defense": 119,
+                "hp": 82,
+                "specialAttack": 69,
+                "specialDefense": 59,
+                "speed": 71
+            },
+            "abilities": [
+                "Strong Jaw"
+            ],
+            "hiddenAbility": "Rock Head",
+            "weight": 2700
+        }
+    },
+    "Amaura": {
+        "default": {
+            "types": [
+                "Rock",
+                "Ice"
+            ],
+            "stats": {
+                "attack": 59,
+                "defense": 50,
+                "hp": 77,
+                "specialAttack": 67,
+                "specialDefense": 63,
+                "speed": 46
+            },
+            "abilities": [
+                "Refrigerate"
+            ],
+            "hiddenAbility": "Snow Warning",
+            "weight": 252
+        }
+    },
+    "Aurorus": {
+        "default": {
+            "types": [
+                "Rock",
+                "Ice"
+            ],
+            "stats": {
+                "attack": 77,
+                "defense": 72,
+                "hp": 123,
+                "specialAttack": 99,
+                "specialDefense": 92,
+                "speed": 58
+            },
+            "abilities": [
+                "Refrigerate"
+            ],
+            "hiddenAbility": "Snow Warning",
+            "weight": 2250
+        }
+    },
+    "Sylveon": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 65,
+                "defense": 65,
+                "hp": 95,
+                "specialAttack": 110,
+                "specialDefense": 130,
+                "speed": 60
+            },
+            "abilities": [
+                "Cute Charm"
+            ],
+            "hiddenAbility": "Pixilate",
+            "weight": 235
+        }
+    },
+    "Hawlucha": {
+        "default": {
+            "types": [
+                "Fighting",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 92,
+                "defense": 77,
+                "hp": 78,
+                "specialAttack": 74,
+                "specialDefense": 63,
+                "speed": 118
+            },
+            "abilities": [
+                "Limber",
+                "Unburden"
+            ],
+            "hiddenAbility": "Mold Breaker",
+            "weight": 215
+        }
+    },
+    "Dedenne": {
+        "default": {
+            "types": [
+                "Electric",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 58,
+                "defense": 57,
+                "hp": 67,
+                "specialAttack": 81,
+                "specialDefense": 67,
+                "speed": 101
+            },
+            "abilities": [
+                "Cheek Pouch",
+                "Pickup"
+            ],
+            "hiddenAbility": "Plus",
+            "weight": 22
+        }
+    },
+    "Carbink": {
+        "default": {
+            "types": [
+                "Rock",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 150,
+                "hp": 50,
+                "specialAttack": 50,
+                "specialDefense": 150,
+                "speed": 50
+            },
+            "abilities": [
+                "Clear Body"
+            ],
+            "hiddenAbility": "Sturdy",
+            "weight": 57
+        }
+    },
+    "Goomy": {
+        "default": {
+            "types": [
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 50,
+                "defense": 35,
+                "hp": 45,
+                "specialAttack": 55,
+                "specialDefense": 75,
+                "speed": 40
+            },
+            "abilities": [
+                "Sap Sipper",
+                "Hydration"
+            ],
+            "hiddenAbility": "Gooey",
+            "weight": 28
+        }
+    },
+    "Sliggoo": {
+        "default": {
+            "types": [
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 75,
+                "defense": 53,
+                "hp": 68,
+                "specialAttack": 83,
+                "specialDefense": 113,
+                "speed": 60
+            },
+            "abilities": [
+                "Sap Sipper",
+                "Hydration"
+            ],
+            "hiddenAbility": "Gooey",
+            "weight": 175
+        }
+    },
+    "Goodra": {
+        "default": {
+            "types": [
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 70,
+                "hp": 90,
+                "specialAttack": 110,
+                "specialDefense": 150,
+                "speed": 80
+            },
+            "abilities": [
+                "Sap Sipper",
+                "Hydration"
+            ],
+            "hiddenAbility": "Gooey",
+            "weight": 1505
+        }
+    },
+    "Klefki": {
+        "default": {
+            "types": [
+                "Steel",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 81,
+                "defense": 91,
+                "hp": 58,
+                "specialAttack": 81,
+                "specialDefense": 87,
+                "speed": 76
+            },
+            "abilities": [
+                "Prankster"
+            ],
+            "hiddenAbility": "Magician",
+            "weight": 30
+        }
+    },
+    "Phantump": {
+        "default": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 70,
+                "defense": 48,
+                "hp": 43,
+                "specialAttack": 50,
+                "specialDefense": 60,
+                "speed": 38
+            },
+            "abilities": [
+                "Natural Cure",
+                "Frisk"
+            ],
+            "hiddenAbility": "Harvest",
+            "weight": 70
+        }
+    },
+    "Trevenant": {
+        "default": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 110,
+                "defense": 76,
+                "hp": 85,
+                "specialAttack": 65,
+                "specialDefense": 82,
+                "speed": 56
+            },
+            "abilities": [
+                "Natural Cure",
+                "Frisk"
+            ],
+            "hiddenAbility": "Harvest",
+            "weight": 710
+        }
+    },
+    "Pumpkaboo": {
+        "default": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 66,
+                "defense": 70,
+                "hp": 59,
+                "specialAttack": 44,
+                "specialDefense": 55,
+                "speed": 45
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "small": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 66,
+                "defense": 70,
+                "hp": 44,
+                "specialAttack": 44,
+                "specialDefense": 55,
+                "speed": 56
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "large": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 66,
+                "defense": 70,
+                "hp": 54,
+                "specialAttack": 44,
+                "specialDefense": 55,
+                "speed": 46
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "super": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 66,
+                "defense": 70,
+                "hp": 59,
+                "specialAttack": 44,
+                "specialDefense": 55,
+                "speed": 41
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        }
+    },
+    "Gourgeist": {
+        "default": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 90,
+                "defense": 122,
+                "hp": 65,
+                "specialAttack": 58,
+                "specialDefense": 75,
+                "speed": 84
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "small": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 85,
+                "defense": 122,
+                "hp": 55,
+                "specialAttack": 58,
+                "specialDefense": 75,
+                "speed": 99
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "large": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 95,
+                "defense": 122,
+                "hp": 75,
+                "specialAttack": 58,
+                "specialDefense": 75,
+                "speed": 69
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        },
+        "super": {
+            "types": [
+                "Ghost",
+                "Grass"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 122,
+                "hp": 85,
+                "specialAttack": 58,
+                "specialDefense": 75,
+                "speed": 54
+            },
+            "abilities": [
+                "Pickup",
+                "Frisk"
+            ],
+            "hiddenAbility": "Insomnia",
+            "weight": 0
+        }
+    },
+    "Bergmite": {
+        "default": {
+            "types": [
+                "Ice"
+            ],
+            "stats": {
+                "attack": 69,
+                "defense": 86,
+                "hp": 56,
+                "specialAttack": 32,
+                "specialDefense": 36,
+                "speed": 28
+            },
+            "abilities": [
+                "Own Tempo",
+                "Ice Body"
+            ],
+            "hiddenAbility": "Sturdy",
+            "weight": 995
+        }
+    },
+    "Avalugg": {
+        "default": {
+            "types": [
+                "Ice"
+            ],
+            "stats": {
+                "attack": 117,
+                "defense": 184,
+                "hp": 95,
+                "specialAttack": 44,
+                "specialDefense": 46,
+                "speed": 28
+            },
+            "abilities": [
+                "Own Tempo",
+                "Ice Body"
+            ],
+            "hiddenAbility": "Sturdy",
+            "weight": 5050
+        }
+    },
+    "Noibat": {
+        "default": {
+            "types": [
+                "Flying",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 30,
+                "defense": 35,
+                "hp": 40,
+                "specialAttack": 45,
+                "specialDefense": 40,
+                "speed": 55
+            },
+            "abilities": [
+                "Frisk",
+                "Infiltrator"
+            ],
+            "hiddenAbility": "Telepathy",
+            "weight": 80
+        }
+    },
+    "Noivern": {
+        "default": {
+            "types": [
+                "Flying",
+                "Dragon"
+            ],
+            "stats": {
+                "attack": 70,
+                "defense": 80,
+                "hp": 85,
+                "specialAttack": 97,
+                "specialDefense": 80,
+                "speed": 123
+            },
+            "abilities": [
+                "Frisk",
+                "Infiltrator"
+            ],
+            "hiddenAbility": "Telepathy",
+            "weight": 850
+        }
+    },
+    "Xerneas": {
+        "default": {
+            "types": [
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 131,
+                "defense": 95,
+                "hp": 126,
+                "specialAttack": 131,
+                "specialDefense": 98,
+                "speed": 99
+            },
+            "abilities": [
+                "Fairy Aura"
+            ],
+            "weight": 2150
+        }
+    },
+    "Yveltal": {
+        "default": {
+            "types": [
+                "Dark",
+                "Flying"
+            ],
+            "stats": {
+                "attack": 131,
+                "defense": 95,
+                "hp": 126,
+                "specialAttack": 131,
+                "specialDefense": 98,
+                "speed": 99
+            },
+            "abilities": [
+                "Dark Aura"
+            ],
+            "weight": 2030
+        }
+    },
+    "Zygarde": {
+        "default": {
+            "types": [
+                "Dragon",
+                "Ground"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 121,
+                "hp": 108,
+                "specialAttack": 81,
+                "specialDefense": 95,
+                "speed": 95
+            },
+            "abilities": [
+                "Aura Break"
+            ],
+            "weight": 3050
         }
     }
 }
