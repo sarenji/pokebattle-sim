@@ -12,6 +12,10 @@
   if forme && forme != 'default' then id += "-#{forme}"
   "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
 
+generation = Generations[DEFAULT_GENERATION.toUpperCase()]
+maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
+NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
+
 SpriteIds = {
   "Abomasnow": {
     "default": 460
@@ -223,7 +227,10 @@ SpriteIds = {
     "default": 268
   },
   "Castform": {
-    "default": 351
+    "default": 351,
+    "rainy": 49,
+    "snowy": 50,
+    "sunny": 51
   },
   "Caterpie": {
     "default": 10
@@ -1498,7 +1505,7 @@ SpriteIds = {
     "default": 319
   },
   "Shaymin": {
-    "default": 492
+    "default": 492,
     "sky": 649+58
   },
   "Shedinja": {
@@ -1981,5 +1988,212 @@ SpriteIds = {
   },
   "Zweilous": {
     "default": 634
+  },
+  "Aegislash": {
+    "default": 681
+  },
+  "Amaura": {
+    "default": 698
+  },
+  "Aromatisse": {
+    "default": 683
+  },
+  "Aurorus": {
+    "default": 699
+  },
+  "Avalugg": {
+    "default": 713
+  },
+  "Barbaracle": {
+    "default": 689
+  },
+  "Bergmite": {
+    "default": 712
+  },
+  "Binacle": {
+    "default": 688
+  },
+  "Braixen": {
+    "default": 654
+  },
+  "Bunnelby": {
+    "default": 659
+  },
+  "Carbink": {
+    "default": 703
+  },
+  "Chesnaught": {
+    "default": 652
+  },
+  "Chespin": {
+    "default": 650
+  },
+  "Clawitzer": {
+    "default": 693
+  },
+  "Clauncher": {
+    "default": 692
+  },
+  "Dedenne": {
+    "default": 702
+  },
+  "Delphox": {
+    "default": 655
+  },
+  "Diggersby": {
+    "default": 660
+  },
+  "Doublade": {
+    "default": 680
+  },
+  "Dragalge": {
+    "default": 691
+  },
+  "Espurr": {
+    "default": 677
+  },
+  "Fennekin": {
+    "default": 653
+  },
+  "Flabébé": {
+    "default": 669
+  },
+  "Fletchinder": {
+    "default": 662
+  },
+  "Fletchling": {
+    "default": 661
+  },
+  "Floette": {
+    "default": 670
+  },
+  "Florges": {
+    "default": 671
+  },
+  "Froakie": {
+    "default": 656
+  },
+  "Frogadier": {
+    "default": 657
+  },
+  "Furfrou": {
+    "default": 676
+  },
+  "Gogoat": {
+    "default": 673
+  },
+  "Goodra": {
+    "default": 706
+  },
+  "Goomy": {
+    "default": 704
+  },
+  "Gourgeist": {
+    "default": 711
+  },
+  "Greninja": {
+    "default": 658
+  },
+  "Hawlucha": {
+    "default": 701
+  },
+  "Heliolisk": {
+    "default": 695
+  },
+  "Helioptile": {
+    "default": 694
+  },
+  "Honedge": {
+    "default": 679
+  },
+  "Inkay": {
+    "default": 686
+  },
+  "Klefki": {
+    "default": 707
+  },
+  "Litleo": {
+    "default": 667
+  },
+  "Malamar": {
+    "default": 687
+  },
+  "Meowstic": {
+    "default": 678
+  },
+  "Noibat": {
+    "default": 714
+  },
+  "Noivern": {
+    "default": 715
+  },
+  "Pancham": {
+    "default": 674
+  },
+  "Pangoro": {
+    "default": 675
+  },
+  "Phantump": {
+    "default": 708
+  },
+  "Pumpkaboo": {
+    "default": 710
+  },
+  "Pyroar": {
+    "default": 668
+  },
+  "Quilladin": {
+    "default": 651
+  },
+  "Scatterbug": {
+    "default": 664
+  },
+  "Skiddo": {
+    "default": 672
+  },
+  "Skrelp": {
+    "default": 690
+  },
+  "Sliggoo": {
+    "default": 705
+  },
+  "Slurpuff": {
+    "default": 685
+  },
+  "Spewpa": {
+    "default": 665
+  },
+  "Spritzee": {
+    "default": 682
+  },
+  "Swirlix": {
+    "default": 684
+  },
+  "Sylveon": {
+    "default": 700
+  },
+  "Talonflame": {
+    "default": 663
+  },
+  "Trevenant": {
+    "default": 709
+  },
+  "Tyrantrum": {
+    "default": 697
+  },
+  "Tyrunt": {
+    "default": 696
+  },
+  "Vivillon": {
+    "default": 666
+  },
+  "Xerneas": {
+    "default": 716
+  },
+  "Yveltal": {
+    "default": 717
+  },
+  "Zygarde": {
+    "default": 718
   }
 }

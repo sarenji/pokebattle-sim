@@ -30,6 +30,7 @@ module.exports = (grunt) ->
       compile:
         files:
           'public/js/app.js': [
+            "shared/**/*.coffee"
             "client/app/js/init.coffee"
             "client/app/js/models/**/*.coffee"
             "client/app/js/collections/**/*.coffee"
@@ -37,7 +38,6 @@ module.exports = (grunt) ->
             "client/app/js/client.coffee"
             "client/app/js/concerns/**/*.coffee"
             "client/app/js/**/*.coffee"
-            "shared/**/*.coffee"
           ]
     cssmin:
       combine:
