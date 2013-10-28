@@ -1,0 +1,8291 @@
+{
+	"Abra": {
+		"default": {
+			"abilities": [
+				"Synchronize",
+				"Inner Focus"
+			],
+			"hiddenAbility": "Magic Guard",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Teleport": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 20,
+				"defense": 15,
+				"hp": 25,
+				"specialAttack": 105,
+				"specialDefense": 55,
+				"speed": 90
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 195
+		}
+	},
+	"Aerodactyl": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Pressure"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 1,
+					"Bite": 38,
+					"Hyper Beam": 54,
+					"Supersonic": 33,
+					"Take Down": 45,
+					"Wing Attack": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 65,
+				"hp": 80,
+				"specialAttack": 60,
+				"specialDefense": 75,
+				"speed": 130
+			},
+			"types": [
+				"Rock",
+				"Flying"
+			],
+			"weight": 590
+		}
+	},
+	"Alakazam": {
+		"default": {
+			"abilities": [
+				"Synchronize",
+				"Inner Focus"
+			],
+			"hiddenAbility": "Magic Guard",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 1,
+					"Disable": 1,
+					"Kinesis": 1,
+					"Psybeam": 27,
+					"Psychic": 38,
+					"Recover": 31,
+					"Reflect": 42,
+					"Teleport": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 45,
+				"hp": 55,
+				"specialAttack": 135,
+				"specialDefense": 85,
+				"speed": 120
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 480
+		}
+	},
+	"Arbok": {
+		"default": {
+			"abilities": [
+				"Intimidate",
+				"Shed Skin"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 47,
+					"Bite": 17,
+					"Glare": 27,
+					"Leer": 1,
+					"Poison Sting": 1,
+					"Screech": 36,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 69,
+				"hp": 60,
+				"specialAttack": 65,
+				"specialDefense": 79,
+				"speed": 80
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 650
+		}
+	},
+	"Arcanine": {
+		"default": {
+			"abilities": [
+				"Intimidate",
+				"Flash Fire"
+			],
+			"hiddenAbility": "Justified",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Ember": 1,
+					"Leer": 1,
+					"Roar": 1,
+					"Take Down": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 80,
+				"hp": 90,
+				"specialAttack": 100,
+				"specialDefense": 80,
+				"speed": 95
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 1550
+		}
+	},
+	"Articuno": {
+		"default": {
+			"abilities": [
+				"Pressure"
+			],
+			"hiddenAbility": "Snow Cloak",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 55,
+					"Blizzard": 51,
+					"Ice Beam": 1,
+					"Mist": 60,
+					"Peck": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 100,
+				"hp": 90,
+				"specialAttack": 95,
+				"specialDefense": 125,
+				"speed": 85
+			},
+			"types": [
+				"Ice",
+				"Flying"
+			],
+			"weight": 554
+		}
+	},
+	"Beedrill": {
+		"default": {
+			"abilities": [
+				"Swarm"
+			],
+			"hiddenAbility": "Sniper",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 35,
+					"Focus Energy": 16,
+					"Fury Attack": 1,
+					"Pin Missile": 30,
+					"Rage": 25,
+					"Twineedle": 20
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 40,
+				"hp": 65,
+				"specialAttack": 45,
+				"specialDefense": 80,
+				"speed": 75
+			},
+			"types": [
+				"Bug",
+				"Poison"
+			],
+			"weight": 295
+		}
+	},
+	"Bellsprout": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Gluttony",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 26,
+					"Growth": 1,
+					"PoisonPowder": 15,
+					"Razor Leaf": 33,
+					"Slam": 42,
+					"Sleep Powder": 18,
+					"Stun Spore": 21,
+					"Vine Whip": 1,
+					"Wrap": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 75,
+				"defense": 35,
+				"hp": 50,
+				"specialAttack": 70,
+				"specialDefense": 30,
+				"speed": 40
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 40
+		}
+	},
+	"Blastoise": {
+		"default": {
+			"abilities": [
+				"Torrent"
+			],
+			"hiddenAbility": "Rain Dish",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 24,
+					"Bubble": 1,
+					"Hydro Pump": 52,
+					"Skull Bash": 42,
+					"Tackle": 1,
+					"Tail Whip": 1,
+					"Water Gun": 1,
+					"Withdraw": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 83,
+				"defense": 100,
+				"hp": 79,
+				"specialAttack": 85,
+				"specialDefense": 105,
+				"speed": 78
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 855
+		}
+	},
+	"Bulbasaur": {
+		"default": {
+			"abilities": [
+				"Overgrow"
+			],
+			"hiddenAbility": "Chlorophyll",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growl": 1,
+					"Growth": 34,
+					"Leech Seed": 7,
+					"PoisonPowder": 20,
+					"Razor Leaf": 27,
+					"Sleep Powder": 41,
+					"SolarBeam": 48,
+					"Tackle": 1,
+					"Vine Whip": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 49,
+				"defense": 49,
+				"hp": 45,
+				"specialAttack": 65,
+				"specialDefense": 65,
+				"speed": 45
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 69
+		}
+	},
+	"Butterfree": {
+		"default": {
+			"abilities": [
+				"Compoundeyes"
+			],
+			"hiddenAbility": "Tinted Lens",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 1,
+					"Gust": 28,
+					"PoisonPowder": 15,
+					"Psybeam": 32,
+					"Sleep Powder": 17,
+					"Stun Spore": 16,
+					"Supersonic": 21,
+					"Whirlwind": 26
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 50,
+				"hp": 60,
+				"specialAttack": 80,
+				"specialDefense": 80,
+				"speed": 70
+			},
+			"types": [
+				"Bug",
+				"Flying"
+			],
+			"weight": 320
+		}
+	},
+	"Caterpie": {
+		"default": {
+			"abilities": [
+				"Shield Dust"
+			],
+			"hiddenAbility": "Run Away",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"String Shot": 1,
+					"Tackle": 1
+				}
+			},
+			"stats": {
+				"attack": 30,
+				"defense": 35,
+				"hp": 45,
+				"specialAttack": 20,
+				"specialDefense": 20,
+				"speed": 45
+			},
+			"types": [
+				"Bug"
+			],
+			"weight": 29
+		}
+	},
+	"Chansey": {
+		"default": {
+			"abilities": [
+				"Natural Cure",
+				"Serene Grace"
+			],
+			"hiddenAbility": "Healer",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 44,
+					"Double-Edge": 54,
+					"DoubleSlap": 1,
+					"Growl": 30,
+					"Light Screen": 48,
+					"Minimize": 38,
+					"Pound": 1,
+					"Sing": 24,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Egg Bomb": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Softboiled": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 5,
+				"defense": 5,
+				"hp": 250,
+				"specialAttack": 35,
+				"specialDefense": 105,
+				"speed": 50
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 346
+		}
+	},
+	"Charizard": {
+		"default": {
+			"abilities": [
+				"Blaze"
+			],
+			"hiddenAbility": "Solar Power",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Ember": 1,
+					"Fire Spin": 55,
+					"Flamethrower": 46,
+					"Growl": 1,
+					"Leer": 1,
+					"Rage": 24,
+					"Scratch": 1,
+					"Slash": 36
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 84,
+				"defense": 78,
+				"hp": 78,
+				"specialAttack": 109,
+				"specialDefense": 85,
+				"speed": 100
+			},
+			"types": [
+				"Fire",
+				"Flying"
+			],
+			"weight": 905
+		}
+	},
+	"Charmander": {
+		"default": {
+			"abilities": [
+				"Blaze"
+			],
+			"hiddenAbility": "Solar Power",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Ember": 9,
+					"Fire Spin": 46,
+					"Flamethrower": 38,
+					"Growl": 1,
+					"Leer": 15,
+					"Rage": 22,
+					"Scratch": 1,
+					"Slash": 30
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 52,
+				"defense": 43,
+				"hp": 39,
+				"specialAttack": 60,
+				"specialDefense": 50,
+				"speed": 65
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 85
+		}
+	},
+	"Charmeleon": {
+		"default": {
+			"abilities": [
+				"Blaze"
+			],
+			"hiddenAbility": "Solar Power",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Ember": 1,
+					"Fire Spin": 56,
+					"Flamethrower": 42,
+					"Growl": 1,
+					"Leer": 15,
+					"Rage": 24,
+					"Scratch": 1,
+					"Slash": 33
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 64,
+				"defense": 58,
+				"hp": 58,
+				"specialAttack": 80,
+				"specialDefense": 65,
+				"speed": 80
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 190
+		}
+	},
+	"Clefable": {
+		"default": {
+			"abilities": [
+				"Cute Charm",
+				"Magic Guard"
+			],
+			"hiddenAbility": "Unaware",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"DoubleSlap": 1,
+					"Metronome": 1,
+					"Minimize": 1,
+					"Sing": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 73,
+				"hp": 95,
+				"specialAttack": 85,
+				"specialDefense": 90,
+				"speed": 60
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 400
+		}
+	},
+	"Clefairy": {
+		"default": {
+			"abilities": [
+				"Cute Charm",
+				"Magic Guard"
+			],
+			"hiddenAbility": "Friend Guard",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 39,
+					"DoubleSlap": 18,
+					"Growl": 1,
+					"Light Screen": 48,
+					"Metronome": 31,
+					"Minimize": 24,
+					"Pound": 1,
+					"Sing": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 48,
+				"hp": 70,
+				"specialAttack": 60,
+				"specialDefense": 65,
+				"speed": 35
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 75
+		}
+	},
+	"Cloyster": {
+		"default": {
+			"abilities": [
+				"Shell Armor",
+				"Skill Link"
+			],
+			"hiddenAbility": "Overcoat",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Aurora Beam": 1,
+					"Clamp": 1,
+					"Spike Cannon": 50,
+					"Supersonic": 1,
+					"Withdraw": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Explosion": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 180,
+				"hp": 50,
+				"specialAttack": 85,
+				"specialDefense": 45,
+				"speed": 70
+			},
+			"types": [
+				"Water",
+				"Ice"
+			],
+			"weight": 1325
+		}
+	},
+	"Cubone": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Lightningrod"
+			],
+			"hiddenAbility": "Battle Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bone Club": 1,
+					"Bonemerang": 43,
+					"Focus Energy": 31,
+					"Growl": 1,
+					"Headbutt": 18,
+					"Leer": 25,
+					"Rage": 46,
+					"Tail Whip": 13,
+					"Thrash": 38
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 95,
+				"hp": 50,
+				"specialAttack": 40,
+				"specialDefense": 50,
+				"speed": 35
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 65
+		}
+	},
+	"Dewgong": {
+		"default": {
+			"abilities": [
+				"Thick Fat",
+				"Hydration"
+			],
+			"hiddenAbility": "Ice Body",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Aurora Beam": 1,
+					"Growl": 1,
+					"Headbutt": 1,
+					"Ice Beam": 56,
+					"Rest": 44,
+					"Take Down": 50
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 80,
+				"hp": 90,
+				"specialAttack": 70,
+				"specialDefense": 95,
+				"speed": 70
+			},
+			"types": [
+				"Water",
+				"Ice"
+			],
+			"weight": 1200
+		}
+	},
+	"Diglett": {
+		"default": {
+			"abilities": [
+				"Sand Veil",
+				"Arena Trap"
+			],
+			"hiddenAbility": "Sand Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Dig": 19,
+					"Earthquake": 40,
+					"Growl": 15,
+					"Sand-Attack": 24,
+					"Scratch": 1,
+					"Slash": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 25,
+				"hp": 10,
+				"specialAttack": 35,
+				"specialDefense": 45,
+				"speed": 95
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 8
+		}
+	},
+	"Ditto": {
+		"default": {
+			"abilities": [
+				"Limber"
+			],
+			"hiddenAbility": "Imposter",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Transform": 1
+				}
+			},
+			"stats": {
+				"attack": 48,
+				"defense": 48,
+				"hp": 48,
+				"specialAttack": 48,
+				"specialDefense": 48,
+				"speed": 48
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 40
+		}
+	},
+	"Dodrio": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Early Bird"
+			],
+			"hiddenAbility": "Tangled Feet",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 51,
+					"Drill Peck": 30,
+					"Fury Attack": 1,
+					"Growl": 1,
+					"Peck": 1,
+					"Rage": 39,
+					"Tri Attack": 45
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 70,
+				"hp": 60,
+				"specialAttack": 60,
+				"specialDefense": 60,
+				"speed": 100
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 852
+		}
+	},
+	"Doduo": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Early Bird"
+			],
+			"hiddenAbility": "Tangled Feet",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 44,
+					"Drill Peck": 30,
+					"Fury Attack": 24,
+					"Growl": 20,
+					"Peck": 1,
+					"Rage": 36,
+					"Tri Attack": 40
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 45,
+				"hp": 35,
+				"specialAttack": 35,
+				"specialDefense": 35,
+				"speed": 75
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 392
+		}
+	},
+	"Dragonair": {
+		"default": {
+			"abilities": [
+				"Shed Skin"
+			],
+			"hiddenAbility": "Marvel Scale",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 20,
+					"Dragon Rage": 45,
+					"Hyper Beam": 55,
+					"Leer": 1,
+					"Slam": 35,
+					"Thunder Wave": 1,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Horn Drill": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 84,
+				"defense": 65,
+				"hp": 61,
+				"specialAttack": 70,
+				"specialDefense": 70,
+				"speed": 70
+			},
+			"types": [
+				"Dragon"
+			],
+			"weight": 165
+		}
+	},
+	"Dragonite": {
+		"default": {
+			"abilities": [
+				"Inner Focus"
+			],
+			"hiddenAbility": "Multiscale",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 1,
+					"Dragon Rage": 45,
+					"Hyper Beam": 60,
+					"Leer": 1,
+					"Slam": 35,
+					"Thunder Wave": 1,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 134,
+				"defense": 95,
+				"hp": 91,
+				"specialAttack": 100,
+				"specialDefense": 100,
+				"speed": 80
+			},
+			"types": [
+				"Dragon",
+				"Flying"
+			],
+			"weight": 2100
+		}
+	},
+	"Dratini": {
+		"default": {
+			"abilities": [
+				"Shed Skin"
+			],
+			"hiddenAbility": "Marvel Scale",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 20,
+					"Dragon Rage": 40,
+					"Hyper Beam": 50,
+					"Leer": 1,
+					"Slam": 30,
+					"Thunder Wave": 10,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 64,
+				"defense": 45,
+				"hp": 41,
+				"specialAttack": 50,
+				"specialDefense": 50,
+				"speed": 50
+			},
+			"types": [
+				"Dragon"
+			],
+			"weight": 33
+		}
+	},
+	"Drowzee": {
+		"default": {
+			"abilities": [
+				"Insomnia",
+				"Forewarn"
+			],
+			"hiddenAbility": "Inner Focus",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 17,
+					"Disable": 12,
+					"Headbutt": 24,
+					"Hypnosis": 1,
+					"Meditate": 37,
+					"Poison Gas": 29,
+					"Pound": 1,
+					"Psychic": 32
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dream Eater": 0,
+					"Flash": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 48,
+				"defense": 45,
+				"hp": 60,
+				"specialAttack": 43,
+				"specialDefense": 90,
+				"speed": 42
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 324
+		}
+	},
+	"Dugtrio": {
+		"default": {
+			"abilities": [
+				"Sand Veil",
+				"Arena Trap"
+			],
+			"hiddenAbility": "Sand Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Dig": 1,
+					"Earthquake": 47,
+					"Growl": 1,
+					"Sand-Attack": 24,
+					"Scratch": 1,
+					"Slash": 35
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 50,
+				"hp": 35,
+				"specialAttack": 50,
+				"specialDefense": 70,
+				"speed": 120
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 333
+		}
+	},
+	"Eevee": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Adaptability"
+			],
+			"hiddenAbility": "Anticipation",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 37,
+					"Focus Energy": 36,
+					"Growl": 16,
+					"Quick Attack": 27,
+					"Sand-Attack": 1,
+					"Tackle": 1,
+					"Tail Whip": 31,
+					"Take Down": 45
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 50,
+				"hp": 55,
+				"specialAttack": 45,
+				"specialDefense": 65,
+				"speed": 55
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 65
+		}
+	},
+	"Ekans": {
+		"default": {
+			"abilities": [
+				"Intimidate",
+				"Shed Skin"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 38,
+					"Bite": 17,
+					"Glare": 24,
+					"Leer": 1,
+					"Poison Sting": 10,
+					"Screech": 31,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 44,
+				"hp": 35,
+				"specialAttack": 40,
+				"specialDefense": 54,
+				"speed": 55
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 69
+		}
+	},
+	"Electabuzz": {
+		"default": {
+			"abilities": [
+				"Static"
+			],
+			"hiddenAbility": "Vital Spirit",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Leer": 1,
+					"Light Screen": 49,
+					"Quick Attack": 1,
+					"Screech": 37,
+					"Thunder": 54,
+					"ThunderPunch": 42,
+					"ThunderShock": 34
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 83,
+				"defense": 57,
+				"hp": 65,
+				"specialAttack": 95,
+				"specialDefense": 85,
+				"speed": 105
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 300
+		}
+	},
+	"Electrode": {
+		"default": {
+			"abilities": [
+				"Soundproof",
+				"Static"
+			],
+			"hiddenAbility": "Aftermath",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Explosion": 50,
+					"Light Screen": 29,
+					"Screech": 1,
+					"Selfdestruct": 22,
+					"SonicBoom": 1,
+					"Swift": 40,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 70,
+				"hp": 60,
+				"specialAttack": 80,
+				"specialDefense": 80,
+				"speed": 140
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 666
+		}
+	},
+	"Exeggcute": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Harvest",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Barrage": 1,
+					"Hypnosis": 1,
+					"Leech Seed": 28,
+					"PoisonPowder": 37,
+					"Reflect": 25,
+					"Sleep Powder": 48,
+					"SolarBeam": 42,
+					"Stun Spore": 32
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Egg Bomb": 0,
+					"Explosion": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 40,
+				"defense": 80,
+				"hp": 60,
+				"specialAttack": 60,
+				"specialDefense": 45,
+				"speed": 40
+			},
+			"types": [
+				"Grass",
+				"Psychic"
+			],
+			"weight": 25
+		}
+	},
+	"Exeggutor": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Harvest",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Barrage": 1,
+					"Hypnosis": 1,
+					"Stomp": 28
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Egg Bomb": 0,
+					"Explosion": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 85,
+				"hp": 95,
+				"specialAttack": 125,
+				"specialDefense": 65,
+				"speed": 55
+			},
+			"types": [
+				"Grass",
+				"Psychic"
+			],
+			"weight": 1200
+		}
+	},
+	"Farfetch'd": {
+		"default": {
+			"abilities": [
+				"Keen Eye",
+				"Inner Focus"
+			],
+			"hiddenAbility": "Defiant",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 31,
+					"Fury Attack": 15,
+					"Leer": 7,
+					"Peck": 1,
+					"Sand-Attack": 1,
+					"Slash": 39,
+					"Swords Dance": 23
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 55,
+				"hp": 52,
+				"specialAttack": 58,
+				"specialDefense": 62,
+				"speed": 60
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 150
+		}
+	},
+	"Fearow": {
+		"default": {
+			"abilities": [
+				"Keen Eye"
+			],
+			"hiddenAbility": "Sniper",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 43,
+					"Drill Peck": 34,
+					"Fury Attack": 15,
+					"Growl": 1,
+					"Leer": 1,
+					"Mirror Move": 25,
+					"Peck": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 90,
+				"defense": 65,
+				"hp": 65,
+				"specialAttack": 61,
+				"specialDefense": 61,
+				"speed": 100
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 380
+		}
+	},
+	"Flareon": {
+		"default": {
+			"abilities": [
+				"Flash Fire",
+				"Flash Fire"
+			],
+			"hiddenAbility": "Guts",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 40,
+					"Ember": 1,
+					"Fire Spin": 44,
+					"Flamethrower": 54,
+					"Leer": 42,
+					"Quick Attack": 1,
+					"Rage": 48,
+					"Sand-Attack": 1,
+					"Smog": 42,
+					"Tackle": 1,
+					"Tail Whip": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 130,
+				"defense": 60,
+				"hp": 65,
+				"specialAttack": 95,
+				"specialDefense": 110,
+				"speed": 65
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 250
+		}
+	},
+	"Gastly": {
+		"default": {
+			"abilities": [
+				"Levitate"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confuse Ray": 1,
+					"Dream Eater": 35,
+					"Hypnosis": 27,
+					"Lick": 1,
+					"Night Shade": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Dream Eater": 0,
+					"Explosion": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 35,
+				"defense": 30,
+				"hp": 30,
+				"specialAttack": 100,
+				"specialDefense": 35,
+				"speed": 80
+			},
+			"types": [
+				"Ghost",
+				"Poison"
+			],
+			"weight": 1
+		}
+	},
+	"Gengar": {
+		"default": {
+			"abilities": [
+				"Levitate"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confuse Ray": 1,
+					"Dream Eater": 38,
+					"Hypnosis": 29,
+					"Lick": 1,
+					"Night Shade": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dream Eater": 0,
+					"Explosion": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 60,
+				"hp": 60,
+				"specialAttack": 130,
+				"specialDefense": 75,
+				"speed": 110
+			},
+			"types": [
+				"Ghost",
+				"Poison"
+			],
+			"weight": 405
+		}
+	},
+	"Geodude": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Sturdy"
+			],
+			"hiddenAbility": "Sand Veil",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 11,
+					"Earthquake": 31,
+					"Explosion": 36,
+					"Harden": 26,
+					"Rock Throw": 16,
+					"Selfdestruct": 21,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 100,
+				"hp": 40,
+				"specialAttack": 30,
+				"specialDefense": 30,
+				"speed": 20
+			},
+			"types": [
+				"Rock",
+				"Ground"
+			],
+			"weight": 200
+		}
+	},
+	"Gloom": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Stench",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Absorb": 1,
+					"Acid": 28,
+					"Petal Dance": 38,
+					"PoisonPowder": 1,
+					"Sleep Powder": 19,
+					"SolarBeam": 52,
+					"Stun Spore": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 70,
+				"hp": 60,
+				"specialAttack": 85,
+				"specialDefense": 75,
+				"speed": 40
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 86
+		}
+	},
+	"Golbat": {
+		"default": {
+			"abilities": [
+				"Inner Focus"
+			],
+			"hiddenAbility": "Infiltrator",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 1,
+					"Confuse Ray": 21,
+					"Haze": 43,
+					"Leech Life": 1,
+					"Screech": 1,
+					"Supersonic": 10,
+					"Wing Attack": 32
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 70,
+				"hp": 75,
+				"specialAttack": 65,
+				"specialDefense": 75,
+				"speed": 90
+			},
+			"types": [
+				"Poison",
+				"Flying"
+			],
+			"weight": 550
+		}
+	},
+	"Goldeen": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Water Veil"
+			],
+			"hiddenAbility": "Lightningrod",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 54,
+					"Fury Attack": 30,
+					"Horn Attack": 24,
+					"Horn Drill": 45,
+					"Peck": 1,
+					"Supersonic": 19,
+					"Tail Whip": 1,
+					"Waterfall": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 67,
+				"defense": 60,
+				"hp": 45,
+				"specialAttack": 35,
+				"specialDefense": 50,
+				"speed": 63
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 150
+		}
+	},
+	"Golduck": {
+		"default": {
+			"abilities": [
+				"Damp",
+				"Cloud Nine"
+			],
+			"hiddenAbility": "Swift Swim",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 39,
+					"Disable": 1,
+					"Fury Swipes": 48,
+					"Hydro Pump": 59,
+					"Scratch": 1,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 82,
+				"defense": 78,
+				"hp": 80,
+				"specialAttack": 95,
+				"specialDefense": 80,
+				"speed": 85
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 766
+		}
+	},
+	"Golem": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Sturdy"
+			],
+			"hiddenAbility": "Sand Veil",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 1,
+					"Earthquake": 36,
+					"Explosion": 43,
+					"Harden": 29,
+					"Rock Throw": 16,
+					"Selfdestruct": 21,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 130,
+				"hp": 80,
+				"specialAttack": 55,
+				"specialDefense": 65,
+				"speed": 45
+			},
+			"types": [
+				"Rock",
+				"Ground"
+			],
+			"weight": 3000
+		}
+	},
+	"Graveler": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Sturdy"
+			],
+			"hiddenAbility": "Sand Veil",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 1,
+					"Earthquake": 36,
+					"Explosion": 43,
+					"Harden": 29,
+					"Rock Throw": 16,
+					"Selfdestruct": 21,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 115,
+				"hp": 55,
+				"specialAttack": 45,
+				"specialDefense": 45,
+				"speed": 35
+			},
+			"types": [
+				"Rock",
+				"Ground"
+			],
+			"weight": 1050
+		}
+	},
+	"Grimer": {
+		"default": {
+			"abilities": [
+				"Stench",
+				"Sticky Hold"
+			],
+			"hiddenAbility": "Poison Touch",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid Armor": 55,
+					"Disable": 1,
+					"Harden": 42,
+					"Minimize": 33,
+					"Poison Gas": 30,
+					"Pound": 1,
+					"Screech": 48,
+					"Sludge": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 50,
+				"hp": 80,
+				"specialAttack": 40,
+				"specialDefense": 50,
+				"speed": 25
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 300
+		}
+	},
+	"Growlithe": {
+		"default": {
+			"abilities": [
+				"Intimidate",
+				"Flash Fire"
+			],
+			"hiddenAbility": "Justified",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 39,
+					"Bite": 1,
+					"Ember": 18,
+					"Flamethrower": 50,
+					"Leer": 23,
+					"Roar": 1,
+					"Take Down": 30
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 45,
+				"hp": 55,
+				"specialAttack": 70,
+				"specialDefense": 50,
+				"speed": 60
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 190
+		}
+	},
+	"Gyarados": {
+		"default": {
+			"abilities": [
+				"Intimidate"
+			],
+			"hiddenAbility": "Moxie",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 1,
+					"Dragon Rage": 1,
+					"Hydro Pump": 1,
+					"Hyper Beam": 52,
+					"Leer": 1,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 125,
+				"defense": 79,
+				"hp": 95,
+				"specialAttack": 60,
+				"specialDefense": 100,
+				"speed": 81
+			},
+			"types": [
+				"Water",
+				"Flying"
+			],
+			"weight": 2350
+		}
+	},
+	"Haunter": {
+		"default": {
+			"abilities": [
+				"Levitate"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confuse Ray": 1,
+					"Dream Eater": 38,
+					"Hypnosis": 29,
+					"Lick": 1,
+					"Night Shade": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Dream Eater": 0,
+					"Explosion": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 45,
+				"hp": 45,
+				"specialAttack": 115,
+				"specialDefense": 55,
+				"speed": 95
+			},
+			"types": [
+				"Ghost",
+				"Poison"
+			],
+			"weight": 1
+		}
+	},
+	"Hitmonchan": {
+		"default": {
+			"abilities": [
+				"Keen Eye",
+				"Iron Fist"
+			],
+			"hiddenAbility": "Inner Focus",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 1,
+					"Comet Punch": 1,
+					"Counter": 53,
+					"Fire Punch": 33,
+					"Ice Punch": 38,
+					"Mega Punch": 48,
+					"ThunderPunch": 43
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 79,
+				"hp": 50,
+				"specialAttack": 35,
+				"specialDefense": 110,
+				"speed": 76
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 502
+		}
+	},
+	"Hitmonlee": {
+		"default": {
+			"abilities": [
+				"Limber",
+				"Reckless"
+			],
+			"hiddenAbility": "Unburden",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Double Kick": 1,
+					"Focus Energy": 43,
+					"Hi Jump Kick": 48,
+					"Jump Kick": 38,
+					"Meditate": 1,
+					"Mega Kick": 53,
+					"Rolling Kick": 33
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 120,
+				"defense": 53,
+				"hp": 50,
+				"specialAttack": 35,
+				"specialDefense": 110,
+				"speed": 87
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 498
+		}
+	},
+	"Horsea": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Sniper"
+			],
+			"hiddenAbility": "Damp",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 37,
+					"Bubble": 1,
+					"Hydro Pump": 45,
+					"Leer": 24,
+					"SmokeScreen": 19,
+					"Water Gun": 30
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 40,
+				"defense": 70,
+				"hp": 30,
+				"specialAttack": 70,
+				"specialDefense": 25,
+				"speed": 60
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 80
+		}
+	},
+	"Hypno": {
+		"default": {
+			"abilities": [
+				"Insomnia",
+				"Forewarn"
+			],
+			"hiddenAbility": "Inner Focus",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 1,
+					"Disable": 1,
+					"Headbutt": 24,
+					"Hypnosis": 1,
+					"Meditate": 43,
+					"Poison Gas": 33,
+					"Pound": 1,
+					"Psychic": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dream Eater": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 73,
+				"defense": 70,
+				"hp": 85,
+				"specialAttack": 73,
+				"specialDefense": 115,
+				"speed": 67
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 756
+		}
+	},
+	"Ivysaur": {
+		"default": {
+			"abilities": [
+				"Overgrow"
+			],
+			"hiddenAbility": "Chlorophyll",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growl": 1,
+					"Growth": 38,
+					"Leech Seed": 1,
+					"PoisonPowder": 22,
+					"Razor Leaf": 30,
+					"Sleep Powder": 46,
+					"SolarBeam": 54,
+					"Tackle": 1,
+					"Vine Whip": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 62,
+				"defense": 63,
+				"hp": 60,
+				"specialAttack": 80,
+				"specialDefense": 80,
+				"speed": 60
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 130
+		}
+	},
+	"Jigglypuff": {
+		"default": {
+			"abilities": [
+				"Cute Charm"
+			],
+			"hiddenAbility": "Friend Guard",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Body Slam": 34,
+					"Defense Curl": 19,
+					"Disable": 14,
+					"Double-Edge": 39,
+					"DoubleSlap": 24,
+					"Pound": 9,
+					"Rest": 29,
+					"Sing": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 20,
+				"hp": 115,
+				"specialAttack": 45,
+				"specialDefense": 25,
+				"speed": 20
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 55
+		}
+	},
+	"Jolteon": {
+		"default": {
+			"abilities": [
+				"Volt Absorb",
+				"Volt Absorb"
+			],
+			"hiddenAbility": "Quick Feet",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 44,
+					"Double Kick": 42,
+					"Pin Missile": 48,
+					"Quick Attack": 1,
+					"Sand-Attack": 1,
+					"Tackle": 1,
+					"Tail Whip": 37,
+					"Thunder": 54,
+					"Thunder Wave": 40,
+					"ThunderShock": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 60,
+				"hp": 65,
+				"specialAttack": 110,
+				"specialDefense": 95,
+				"speed": 130
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 245
+		}
+	},
+	"Jynx": {
+		"default": {
+			"abilities": [
+				"Oblivious",
+				"Forewarn"
+			],
+			"hiddenAbility": "Dry Skin",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Blizzard": 58,
+					"Body Slam": 39,
+					"DoubleSlap": 23,
+					"Ice Punch": 31,
+					"Lick": 18,
+					"Lovely Kiss": 1,
+					"Pound": 1,
+					"Thrash": 47
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 35,
+				"hp": 65,
+				"specialAttack": 115,
+				"specialDefense": 95,
+				"speed": 95
+			},
+			"types": [
+				"Ice",
+				"Psychic"
+			],
+			"weight": 406
+		}
+	},
+	"Kabuto": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Battle Armor"
+			],
+			"hiddenAbility": "Weak Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Absorb": 34,
+					"Harden": 1,
+					"Hydro Pump": 49,
+					"Leer": 44,
+					"Scratch": 1,
+					"Slash": 39
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 90,
+				"hp": 30,
+				"specialAttack": 55,
+				"specialDefense": 45,
+				"speed": 55
+			},
+			"types": [
+				"Rock",
+				"Water"
+			],
+			"weight": 115
+		}
+	},
+	"Kabutops": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Battle Armor"
+			],
+			"hiddenAbility": "Weak Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Absorb": 1,
+					"Harden": 1,
+					"Hydro Pump": 53,
+					"Leer": 46,
+					"Scratch": 1,
+					"Slash": 39
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 115,
+				"defense": 105,
+				"hp": 60,
+				"specialAttack": 65,
+				"specialDefense": 70,
+				"speed": 80
+			},
+			"types": [
+				"Rock",
+				"Water"
+			],
+			"weight": 405
+		}
+	},
+	"Kadabra": {
+		"default": {
+			"abilities": [
+				"Synchronize",
+				"Inner Focus"
+			],
+			"hiddenAbility": "Magic Guard",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 1,
+					"Disable": 1,
+					"Kinesis": 1,
+					"Psybeam": 27,
+					"Psychic": 38,
+					"Recover": 31,
+					"Reflect": 42,
+					"Teleport": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 35,
+				"defense": 30,
+				"hp": 40,
+				"specialAttack": 120,
+				"specialDefense": 70,
+				"speed": 105
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 565
+		}
+	},
+	"Kakuna": {
+		"default": {
+			"abilities": [
+				"Shed Skin"
+			],
+			"hiddenAbility": "Shed Skin",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Harden": 1
+				}
+			},
+			"stats": {
+				"attack": 25,
+				"defense": 50,
+				"hp": 45,
+				"specialAttack": 25,
+				"specialDefense": 25,
+				"speed": 35
+			},
+			"types": [
+				"Bug",
+				"Poison"
+			],
+			"weight": 100
+		}
+	},
+	"Kangaskhan": {
+		"default": {
+			"abilities": [
+				"Early Bird",
+				"Scrappy"
+			],
+			"hiddenAbility": "Inner Focus",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 26,
+					"Comet Punch": 1,
+					"Dizzy Punch": 46,
+					"Leer": 41,
+					"Mega Punch": 36,
+					"Rage": 1,
+					"Tail Whip": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 80,
+				"hp": 105,
+				"specialAttack": 40,
+				"specialDefense": 80,
+				"speed": 90
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 800
+		}
+	},
+	"Kingler": {
+		"default": {
+			"abilities": [
+				"Hyper Cutter",
+				"Shell Armor"
+			],
+			"hiddenAbility": "Sheer Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bubble": 1,
+					"Crabhammer": 42,
+					"Guillotine": 25,
+					"Harden": 49,
+					"Leer": 1,
+					"Stomp": 34,
+					"ViceGrip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 130,
+				"defense": 115,
+				"hp": 55,
+				"specialAttack": 50,
+				"specialDefense": 50,
+				"speed": 75
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 600
+		}
+	},
+	"Koffing": {
+		"default": {
+			"abilities": [
+				"Levitate"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Explosion": 48,
+					"Haze": 45,
+					"Selfdestruct": 40,
+					"Sludge": 32,
+					"Smog": 1,
+					"SmokeScreen": 37,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 95,
+				"hp": 40,
+				"specialAttack": 60,
+				"specialDefense": 45,
+				"speed": 35
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 10
+		}
+	},
+	"Krabby": {
+		"default": {
+			"abilities": [
+				"Hyper Cutter",
+				"Shell Armor"
+			],
+			"hiddenAbility": "Sheer Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bubble": 1,
+					"Crabhammer": 35,
+					"Guillotine": 25,
+					"Harden": 40,
+					"Leer": 1,
+					"Stomp": 30,
+					"ViceGrip": 20
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 90,
+				"hp": 30,
+				"specialAttack": 25,
+				"specialDefense": 25,
+				"speed": 50
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 65
+		}
+	},
+	"Lapras": {
+		"default": {
+			"abilities": [
+				"Water Absorb",
+				"Shell Armor"
+			],
+			"hiddenAbility": "Hydration",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Body Slam": 25,
+					"Confuse Ray": 31,
+					"Growl": 1,
+					"Hydro Pump": 46,
+					"Ice Beam": 38,
+					"Mist": 20,
+					"Sing": 16,
+					"Water Gun": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 80,
+				"hp": 130,
+				"specialAttack": 85,
+				"specialDefense": 95,
+				"speed": 60
+			},
+			"types": [
+				"Water",
+				"Ice"
+			],
+			"weight": 2200
+		}
+	},
+	"Lickitung": {
+		"default": {
+			"abilities": [
+				"Own Tempo",
+				"Oblivious"
+			],
+			"hiddenAbility": "Cloud Nine",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 23,
+					"Disable": 15,
+					"Screech": 39,
+					"Slam": 31,
+					"Stomp": 7,
+					"Supersonic": 1,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 75,
+				"hp": 90,
+				"specialAttack": 60,
+				"specialDefense": 75,
+				"speed": 30
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 655
+		}
+	},
+	"Machamp": {
+		"default": {
+			"abilities": [
+				"Guts",
+				"No Guard"
+			],
+			"hiddenAbility": "Steadfast",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 36,
+					"Karate Chop": 1,
+					"Leer": 1,
+					"Low Kick": 1,
+					"Seismic Toss": 44,
+					"Submission": 52
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 130,
+				"defense": 80,
+				"hp": 90,
+				"specialAttack": 65,
+				"specialDefense": 85,
+				"speed": 55
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 1300
+		}
+	},
+	"Machoke": {
+		"default": {
+			"abilities": [
+				"Guts",
+				"No Guard"
+			],
+			"hiddenAbility": "Steadfast",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 36,
+					"Karate Chop": 1,
+					"Leer": 1,
+					"Low Kick": 1,
+					"Seismic Toss": 44,
+					"Submission": 52
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 70,
+				"hp": 80,
+				"specialAttack": 50,
+				"specialDefense": 60,
+				"speed": 45
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 705
+		}
+	},
+	"Machop": {
+		"default": {
+			"abilities": [
+				"Guts",
+				"No Guard"
+			],
+			"hiddenAbility": "Steadfast",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 32,
+					"Karate Chop": 1,
+					"Leer": 25,
+					"Low Kick": 20,
+					"Seismic Toss": 39,
+					"Submission": 46
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 50,
+				"hp": 70,
+				"specialAttack": 35,
+				"specialDefense": 35,
+				"speed": 35
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 195
+		}
+	},
+	"Magikarp": {
+		"default": {
+			"abilities": [
+				"Swift Swim"
+			],
+			"hiddenAbility": "Rattled",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Splash": 1,
+					"Tackle": 15
+				}
+			},
+			"stats": {
+				"attack": 10,
+				"defense": 55,
+				"hp": 20,
+				"specialAttack": 15,
+				"specialDefense": 20,
+				"speed": 80
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 100
+		}
+	},
+	"Magmar": {
+		"default": {
+			"abilities": [
+				"Flame Body"
+			],
+			"hiddenAbility": "Vital Spirit",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confuse Ray": 39,
+					"Ember": 1,
+					"Fire Punch": 43,
+					"Flamethrower": 55,
+					"Leer": 36,
+					"Smog": 52,
+					"SmokeScreen": 48
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 57,
+				"hp": 65,
+				"specialAttack": 100,
+				"specialDefense": 85,
+				"speed": 93
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 445
+		}
+	},
+	"Magnemite": {
+		"default": {
+			"abilities": [
+				"Magnet Pull",
+				"Sturdy"
+			],
+			"hiddenAbility": "Analytic",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Screech": 47,
+					"SonicBoom": 21,
+					"Supersonic": 29,
+					"Swift": 41,
+					"Tackle": 1,
+					"Thunder Wave": 35,
+					"ThunderShock": 25
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 35,
+				"defense": 70,
+				"hp": 25,
+				"specialAttack": 95,
+				"specialDefense": 55,
+				"speed": 45
+			},
+			"types": [
+				"Electric",
+				"Steel"
+			],
+			"weight": 60
+		}
+	},
+	"Magneton": {
+		"default": {
+			"abilities": [
+				"Magnet Pull",
+				"Sturdy"
+			],
+			"hiddenAbility": "Analytic",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Screech": 54,
+					"SonicBoom": 1,
+					"Supersonic": 29,
+					"Swift": 46,
+					"Tackle": 1,
+					"Thunder Wave": 38,
+					"ThunderShock": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 95,
+				"hp": 50,
+				"specialAttack": 120,
+				"specialDefense": 70,
+				"speed": 70
+			},
+			"types": [
+				"Electric",
+				"Steel"
+			],
+			"weight": 600
+		}
+	},
+	"Mankey": {
+		"default": {
+			"abilities": [
+				"Vital Spirit",
+				"Anger Point"
+			],
+			"hiddenAbility": "Defiant",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 27,
+					"Fury Swipes": 21,
+					"Karate Chop": 15,
+					"Leer": 1,
+					"Low Kick": 9,
+					"Scratch": 1,
+					"Screech": 45,
+					"Seismic Toss": 33,
+					"Thrash": 39
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 35,
+				"hp": 40,
+				"specialAttack": 35,
+				"specialDefense": 45,
+				"speed": 70
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 280
+		}
+	},
+	"Marowak": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Lightningrod"
+			],
+			"hiddenAbility": "Battle Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bone Club": 1,
+					"Bonemerang": 48,
+					"Focus Energy": 1,
+					"Growl": 1,
+					"Headbutt": 18,
+					"Leer": 1,
+					"Rage": 55,
+					"Tail Whip": 1,
+					"Thrash": 41
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 110,
+				"hp": 60,
+				"specialAttack": 50,
+				"specialDefense": 80,
+				"speed": 45
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 450
+		}
+	},
+	"Meowth": {
+		"default": {
+			"abilities": [
+				"Pickup",
+				"Technician"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 12,
+					"Fury Swipes": 33,
+					"Growl": 1,
+					"Pay Day": 17,
+					"Scratch": 1,
+					"Screech": 24,
+					"Slash": 44
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 35,
+				"hp": 40,
+				"specialAttack": 40,
+				"specialDefense": 40,
+				"speed": 90
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 42
+		}
+	},
+	"Metapod": {
+		"default": {
+			"abilities": [
+				"Shed Skin"
+			],
+			"hiddenAbility": "Shed Skin",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Harden": 1
+				}
+			},
+			"stats": {
+				"attack": 20,
+				"defense": 55,
+				"hp": 50,
+				"specialAttack": 25,
+				"specialDefense": 25,
+				"speed": 30
+			},
+			"types": [
+				"Bug"
+			],
+			"weight": 99
+		}
+	},
+	"Mew": {
+		"default": {
+			"abilities": [
+				"Synchronize"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Mega Punch": 20,
+					"Metronome": 30,
+					"Pound": 1,
+					"Psychic": 40,
+					"Transform": 10
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Dragon Rage": 0,
+					"Dream Eater": 0,
+					"Earthquake": 0,
+					"Egg Bomb": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Flash": 0,
+					"Fly": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Drain": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"Sky Attack": 0,
+					"Softboiled": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 100,
+				"hp": 100,
+				"specialAttack": 100,
+				"specialDefense": 100,
+				"speed": 100
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 40
+		}
+	},
+	"Mewtwo": {
+		"default": {
+			"abilities": [
+				"Pressure"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 81,
+					"Barrier": 63,
+					"Confusion": 1,
+					"Disable": 1,
+					"Mist": 75,
+					"Psychic": 1,
+					"Recover": 70,
+					"Swift": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 90,
+				"hp": 106,
+				"specialAttack": 154,
+				"specialDefense": 90,
+				"speed": 130
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 1220
+		}
+	},
+	"Moltres": {
+		"default": {
+			"abilities": [
+				"Pressure"
+			],
+			"hiddenAbility": "Flame Body",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 55,
+					"Fire Spin": 1,
+					"Leer": 51,
+					"Peck": 1,
+					"Sky Attack": 60
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 90,
+				"hp": 90,
+				"specialAttack": 125,
+				"specialDefense": 85,
+				"speed": 90
+			},
+			"types": [
+				"Fire",
+				"Flying"
+			],
+			"weight": 600
+		}
+	},
+	"Mr. Mime": {
+		"default": {
+			"abilities": [
+				"Soundproof",
+				"Filter"
+			],
+			"hiddenAbility": "Technician",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Barrier": 1,
+					"Confusion": 1,
+					"DoubleSlap": 31,
+					"Light Screen": 23,
+					"Meditate": 39,
+					"Substitute": 47
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 65,
+				"hp": 40,
+				"specialAttack": 100,
+				"specialDefense": 120,
+				"speed": 90
+			},
+			"types": [
+				"Psychic"
+			],
+			"weight": 545
+		}
+	},
+	"Muk": {
+		"default": {
+			"abilities": [
+				"Stench",
+				"Sticky Hold"
+			],
+			"hiddenAbility": "Poison Touch",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid Armor": 60,
+					"Disable": 1,
+					"Harden": 45,
+					"Minimize": 33,
+					"Poison Gas": 1,
+					"Pound": 1,
+					"Screech": 53,
+					"Sludge": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 75,
+				"hp": 105,
+				"specialAttack": 65,
+				"specialDefense": 100,
+				"speed": 50
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 300
+		}
+	},
+	"Nidoking": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Sheer Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Double Kick": 12,
+					"Horn Attack": 1,
+					"Poison Sting": 1,
+					"Tackle": 1,
+					"Thrash": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 92,
+				"defense": 77,
+				"hp": 81,
+				"specialAttack": 85,
+				"specialDefense": 75,
+				"speed": 85
+			},
+			"types": [
+				"Poison",
+				"Ground"
+			],
+			"weight": 620
+		}
+	},
+	"Nidoqueen": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Sheer Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Body Slam": 1,
+					"Double Kick": 12,
+					"Poison Sting": 14,
+					"Scratch": 1,
+					"Tackle": 1,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 82,
+				"defense": 87,
+				"hp": 90,
+				"specialAttack": 75,
+				"specialDefense": 85,
+				"speed": 76
+			},
+			"types": [
+				"Poison",
+				"Ground"
+			],
+			"weight": 600
+		}
+	},
+	"Nidoran♀": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 29,
+					"Double Kick": 43,
+					"Fury Swipes": 36,
+					"Growl": 1,
+					"Poison Sting": 14,
+					"Scratch": 8,
+					"Tackle": 1,
+					"Tail Whip": 21
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 47,
+				"defense": 52,
+				"hp": 55,
+				"specialAttack": 40,
+				"specialDefense": 40,
+				"speed": 41
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 70
+		}
+	},
+	"Nidoran♂": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Double Kick": 43,
+					"Focus Energy": 21,
+					"Fury Attack": 29,
+					"Horn Attack": 8,
+					"Horn Drill": 36,
+					"Leer": 1,
+					"Poison Sting": 14,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 57,
+				"defense": 40,
+				"hp": 46,
+				"specialAttack": 40,
+				"specialDefense": 40,
+				"speed": 50
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 90
+		}
+	},
+	"Nidorina": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 32,
+					"Double Kick": 50,
+					"Fury Swipes": 41,
+					"Growl": 1,
+					"Poison Sting": 14,
+					"Scratch": 1,
+					"Tackle": 1,
+					"Tail Whip": 23
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 62,
+				"defense": 67,
+				"hp": 70,
+				"specialAttack": 55,
+				"specialDefense": 55,
+				"speed": 56
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 200
+		}
+	},
+	"Nidorino": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Rivalry"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Double Kick": 50,
+					"Focus Energy": 23,
+					"Fury Attack": 32,
+					"Horn Attack": 1,
+					"Horn Drill": 41,
+					"Leer": 1,
+					"Poison Sting": 14,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 72,
+				"defense": 57,
+				"hp": 61,
+				"specialAttack": 55,
+				"specialDefense": 55,
+				"speed": 65
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 195
+		}
+	},
+	"Ninetales": {
+		"default": {
+			"abilities": [
+				"Flash Fire"
+			],
+			"hiddenAbility": "Drought",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Ember": 1,
+					"Quick Attack": 1,
+					"Roar": 1,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 76,
+				"defense": 75,
+				"hp": 73,
+				"specialAttack": 81,
+				"specialDefense": 100,
+				"speed": 100
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 199
+		}
+	},
+	"Oddish": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Run Away",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Absorb": 1,
+					"Acid": 24,
+					"Petal Dance": 33,
+					"PoisonPowder": 15,
+					"Sleep Powder": 19,
+					"SolarBeam": 46,
+					"Stun Spore": 17
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 55,
+				"hp": 45,
+				"specialAttack": 75,
+				"specialDefense": 65,
+				"speed": 30
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 54
+		}
+	},
+	"Omanyte": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Shell Armor"
+			],
+			"hiddenAbility": "Weak Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Horn Attack": 34,
+					"Hydro Pump": 53,
+					"Leer": 39,
+					"Spike Cannon": 46,
+					"Water Gun": 1,
+					"Withdraw": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 40,
+				"defense": 100,
+				"hp": 35,
+				"specialAttack": 90,
+				"specialDefense": 55,
+				"speed": 35
+			},
+			"types": [
+				"Rock",
+				"Water"
+			],
+			"weight": 75
+		}
+	},
+	"Omastar": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Shell Armor"
+			],
+			"hiddenAbility": "Weak Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Horn Attack": 1,
+					"Hydro Pump": 49,
+					"Leer": 39,
+					"Spike Cannon": 44,
+					"Water Gun": 1,
+					"Withdraw": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 125,
+				"hp": 70,
+				"specialAttack": 115,
+				"specialDefense": 70,
+				"speed": 55
+			},
+			"types": [
+				"Rock",
+				"Water"
+			],
+			"weight": 350
+		}
+	},
+	"Onix": {
+		"default": {
+			"abilities": [
+				"Rock Head",
+				"Sturdy"
+			],
+			"hiddenAbility": "Weak Armor",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bind": 15,
+					"Harden": 43,
+					"Rage": 25,
+					"Rock Throw": 19,
+					"Screech": 1,
+					"Slam": 33,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Explosion": 0,
+					"Fissure": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 160,
+				"hp": 35,
+				"specialAttack": 30,
+				"specialDefense": 45,
+				"speed": 70
+			},
+			"types": [
+				"Rock",
+				"Ground"
+			],
+			"weight": 2100
+		}
+	},
+	"Paras": {
+		"default": {
+			"abilities": [
+				"Effect Spore",
+				"Dry Skin"
+			],
+			"hiddenAbility": "Damp",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growth": 41,
+					"Leech Life": 20,
+					"Scratch": 1,
+					"Slash": 34,
+					"Spore": 27,
+					"Stun Spore": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 55,
+				"hp": 35,
+				"specialAttack": 45,
+				"specialDefense": 55,
+				"speed": 25
+			},
+			"types": [
+				"Bug",
+				"Grass"
+			],
+			"weight": 54
+		}
+	},
+	"Parasect": {
+		"default": {
+			"abilities": [
+				"Effect Spore",
+				"Dry Skin"
+			],
+			"hiddenAbility": "Damp",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growth": 48,
+					"Leech Life": 1,
+					"Scratch": 1,
+					"Slash": 39,
+					"Spore": 30,
+					"Stun Spore": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 95,
+				"defense": 80,
+				"hp": 60,
+				"specialAttack": 60,
+				"specialDefense": 80,
+				"speed": 30
+			},
+			"types": [
+				"Bug",
+				"Grass"
+			],
+			"weight": 295
+		}
+	},
+	"Persian": {
+		"default": {
+			"abilities": [
+				"Limber",
+				"Technician"
+			],
+			"hiddenAbility": "Unnerve",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 1,
+					"Fury Swipes": 37,
+					"Growl": 1,
+					"Pay Day": 17,
+					"Scratch": 1,
+					"Screech": 1,
+					"Slash": 51
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 60,
+				"hp": 65,
+				"specialAttack": 65,
+				"specialDefense": 65,
+				"speed": 115
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 320
+		}
+	},
+	"Pidgeot": {
+		"default": {
+			"abilities": [
+				"Keen Eye",
+				"Tangled Feet"
+			],
+			"hiddenAbility": "Big Pecks",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 44,
+					"Gust": 1,
+					"Mirror Move": 54,
+					"Quick Attack": 1,
+					"Sand-Attack": 1,
+					"Whirlwind": 21,
+					"Wing Attack": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 75,
+				"hp": 83,
+				"specialAttack": 70,
+				"specialDefense": 70,
+				"speed": 91
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 395
+		}
+	},
+	"Pidgeotto": {
+		"default": {
+			"abilities": [
+				"Keen Eye",
+				"Tangled Feet"
+			],
+			"hiddenAbility": "Big Pecks",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 40,
+					"Gust": 1,
+					"Mirror Move": 49,
+					"Quick Attack": 12,
+					"Sand-Attack": 1,
+					"Whirlwind": 21,
+					"Wing Attack": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 55,
+				"hp": 63,
+				"specialAttack": 50,
+				"specialDefense": 50,
+				"speed": 71
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 300
+		}
+	},
+	"Pidgey": {
+		"default": {
+			"abilities": [
+				"Keen Eye",
+				"Tangled Feet"
+			],
+			"hiddenAbility": "Big Pecks",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 36,
+					"Gust": 1,
+					"Mirror Move": 44,
+					"Quick Attack": 12,
+					"Sand-Attack": 5,
+					"Whirlwind": 19,
+					"Wing Attack": 28
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 40,
+				"hp": 40,
+				"specialAttack": 35,
+				"specialDefense": 35,
+				"speed": 56
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 18
+		}
+	},
+	"Pikachu": {
+		"default": {
+			"abilities": [
+				"Static"
+			],
+			"hiddenAbility": "Lightningrod",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 33,
+					"Double Team": 15,
+					"Growl": 1,
+					"Light Screen": 50,
+					"Quick Attack": 16,
+					"Slam": 20,
+					"Swift": 26,
+					"Tail Whip": 6,
+					"Thunder": 43,
+					"Thunder Wave": 9,
+					"ThunderShock": 1,
+					"Thunderbolt": 26
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				},
+				"stadium-surfing-pikachu": {
+					"Surf": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 30,
+				"hp": 35,
+				"specialAttack": 50,
+				"specialDefense": 40,
+				"speed": 90
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 60
+		}
+	},
+	"Pinsir": {
+		"default": {
+			"abilities": [
+				"Hyper Cutter",
+				"Mold Breaker"
+			],
+			"hiddenAbility": "Moxie",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bind": 21,
+					"Focus Energy": 36,
+					"Guillotine": 30,
+					"Harden": 43,
+					"Seismic Toss": 25,
+					"Slash": 49,
+					"Swords Dance": 54,
+					"ViceGrip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 125,
+				"defense": 100,
+				"hp": 65,
+				"specialAttack": 55,
+				"specialDefense": 70,
+				"speed": 85
+			},
+			"types": [
+				"Bug"
+			],
+			"weight": 550
+		}
+	},
+	"Poliwag": {
+		"default": {
+			"abilities": [
+				"Water Absorb",
+				"Damp"
+			],
+			"hiddenAbility": "Swift Swim",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 38,
+					"Body Slam": 31,
+					"Bubble": 1,
+					"DoubleSlap": 25,
+					"Hydro Pump": 45,
+					"Hypnosis": 16,
+					"Water Gun": 19
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 50,
+				"defense": 40,
+				"hp": 40,
+				"specialAttack": 40,
+				"specialDefense": 40,
+				"speed": 90
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 124
+		}
+	},
+	"Poliwhirl": {
+		"default": {
+			"abilities": [
+				"Water Absorb",
+				"Damp"
+			],
+			"hiddenAbility": "Swift Swim",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 41,
+					"Body Slam": 33,
+					"Bubble": 1,
+					"DoubleSlap": 26,
+					"Hydro Pump": 49,
+					"Hypnosis": 1,
+					"Water Gun": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 65,
+				"hp": 65,
+				"specialAttack": 50,
+				"specialDefense": 50,
+				"speed": 90
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 200
+		}
+	},
+	"Poliwrath": {
+		"default": {
+			"abilities": [
+				"Water Absorb",
+				"Damp"
+			],
+			"hiddenAbility": "Swift Swim",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Body Slam": 1,
+					"DoubleSlap": 1,
+					"Hypnosis": 1,
+					"Water Gun": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 95,
+				"hp": 90,
+				"specialAttack": 70,
+				"specialDefense": 90,
+				"speed": 70
+			},
+			"types": [
+				"Water",
+				"Fighting"
+			],
+			"weight": 540
+		}
+	},
+	"Ponyta": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Flash Fire"
+			],
+			"hiddenAbility": "Flame Body",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 48,
+					"Ember": 1,
+					"Fire Spin": 39,
+					"Growl": 35,
+					"Stomp": 32,
+					"Tail Whip": 30,
+					"Take Down": 43
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Horn Drill": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 55,
+				"hp": 50,
+				"specialAttack": 65,
+				"specialDefense": 65,
+				"speed": 90
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 300
+		}
+	},
+	"Porygon": {
+		"default": {
+			"abilities": [
+				"Trace",
+				"Download"
+			],
+			"hiddenAbility": "Analytic",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 35,
+					"Conversion": 1,
+					"Psybeam": 23,
+					"Recover": 28,
+					"Sharpen": 1,
+					"Tackle": 1,
+					"Tri Attack": 42
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 70,
+				"hp": 65,
+				"specialAttack": 85,
+				"specialDefense": 75,
+				"speed": 40
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 365
+		}
+	},
+	"Primeape": {
+		"default": {
+			"abilities": [
+				"Vital Spirit",
+				"Anger Point"
+			],
+			"hiddenAbility": "Defiant",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 27,
+					"Fury Swipes": 1,
+					"Karate Chop": 1,
+					"Leer": 1,
+					"Low Kick": 1,
+					"Rage": 28,
+					"Scratch": 1,
+					"Screech": 45,
+					"Seismic Toss": 37,
+					"Thrash": 46
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 60,
+				"hp": 65,
+				"specialAttack": 60,
+				"specialDefense": 70,
+				"speed": 95
+			},
+			"types": [
+				"Fighting"
+			],
+			"weight": 320
+		}
+	},
+	"Psyduck": {
+		"default": {
+			"abilities": [
+				"Damp",
+				"Cloud Nine"
+			],
+			"hiddenAbility": "Swift Swim",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 36,
+					"Disable": 31,
+					"Fury Swipes": 43,
+					"Hydro Pump": 52,
+					"Scratch": 1,
+					"Tail Whip": 28
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 52,
+				"defense": 48,
+				"hp": 50,
+				"specialAttack": 65,
+				"specialDefense": 50,
+				"speed": 55
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 196
+		}
+	},
+	"Raichu": {
+		"default": {
+			"abilities": [
+				"Static"
+			],
+			"hiddenAbility": "Lightningrod",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growl": 1,
+					"Thunder Wave": 1,
+					"ThunderShock": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 90,
+				"defense": 55,
+				"hp": 60,
+				"specialAttack": 90,
+				"specialDefense": 80,
+				"speed": 100
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 300
+		}
+	},
+	"Rapidash": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Flash Fire"
+			],
+			"hiddenAbility": "Flame Body",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 55,
+					"Ember": 1,
+					"Fire Spin": 39,
+					"Growl": 1,
+					"Stomp": 1,
+					"Tail Whip": 1,
+					"Take Down": 47
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 70,
+				"hp": 65,
+				"specialAttack": 80,
+				"specialDefense": 80,
+				"speed": 105
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 950
+		}
+	},
+	"Raticate": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Guts"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 27,
+					"Hyper Fang": 14,
+					"Quick Attack": 1,
+					"Super Fang": 41,
+					"Tackle": 1,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 81,
+				"defense": 60,
+				"hp": 55,
+				"specialAttack": 50,
+				"specialDefense": 70,
+				"speed": 97
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 185
+		}
+	},
+	"Rattata": {
+		"default": {
+			"abilities": [
+				"Run Away",
+				"Guts"
+			],
+			"hiddenAbility": "Hustle",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Focus Energy": 23,
+					"Hyper Fang": 14,
+					"Quick Attack": 7,
+					"Super Fang": 34,
+					"Tackle": 1,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 56,
+				"defense": 35,
+				"hp": 30,
+				"specialAttack": 25,
+				"specialDefense": 35,
+				"speed": 72
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 35
+		}
+	},
+	"Rhydon": {
+		"default": {
+			"abilities": [
+				"Lightningrod",
+				"Rock Head"
+			],
+			"hiddenAbility": "Reckless",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Fury Attack": 1,
+					"Horn Attack": 1,
+					"Horn Drill": 48,
+					"Leer": 55,
+					"Stomp": 1,
+					"Tail Whip": 1,
+					"Take Down": 64
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 130,
+				"defense": 120,
+				"hp": 105,
+				"specialAttack": 45,
+				"specialDefense": 45,
+				"speed": 40
+			},
+			"types": [
+				"Ground",
+				"Rock"
+			],
+			"weight": 1200
+		}
+	},
+	"Rhyhorn": {
+		"default": {
+			"abilities": [
+				"Lightningrod",
+				"Rock Head"
+			],
+			"hiddenAbility": "Reckless",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Fury Attack": 40,
+					"Horn Attack": 1,
+					"Horn Drill": 45,
+					"Leer": 50,
+					"Stomp": 30,
+					"Tail Whip": 35,
+					"Take Down": 55
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Horn Drill": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 85,
+				"defense": 95,
+				"hp": 80,
+				"specialAttack": 30,
+				"specialDefense": 30,
+				"speed": 25
+			},
+			"types": [
+				"Ground",
+				"Rock"
+			],
+			"weight": 1150
+		}
+	},
+	"Sandshrew": {
+		"default": {
+			"abilities": [
+				"Sand Veil"
+			],
+			"hiddenAbility": "Sand Rush",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Fury Swipes": 38,
+					"Poison Sting": 24,
+					"Sand-Attack": 10,
+					"Scratch": 1,
+					"Slash": 17,
+					"Swift": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 75,
+				"defense": 85,
+				"hp": 50,
+				"specialAttack": 20,
+				"specialDefense": 30,
+				"speed": 40
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 120
+		}
+	},
+	"Sandslash": {
+		"default": {
+			"abilities": [
+				"Sand Veil"
+			],
+			"hiddenAbility": "Sand Rush",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Fury Swipes": 47,
+					"Poison Sting": 27,
+					"Sand-Attack": 1,
+					"Scratch": 1,
+					"Slash": 17,
+					"Swift": 36
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 110,
+				"hp": 75,
+				"specialAttack": 45,
+				"specialDefense": 55,
+				"speed": 65
+			},
+			"types": [
+				"Ground"
+			],
+			"weight": 295
+		}
+	},
+	"Scyther": {
+		"default": {
+			"abilities": [
+				"Swarm",
+				"Technician"
+			],
+			"hiddenAbility": "Steadfast",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 42,
+					"Double Team": 24,
+					"Focus Energy": 20,
+					"Leer": 17,
+					"Quick Attack": 1,
+					"Slash": 29,
+					"Swords Dance": 35,
+					"Wing Attack": 50
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 80,
+				"hp": 70,
+				"specialAttack": 55,
+				"specialDefense": 80,
+				"speed": 105
+			},
+			"types": [
+				"Bug",
+				"Flying"
+			],
+			"weight": 560
+		}
+	},
+	"Seadra": {
+		"default": {
+			"abilities": [
+				"Poison Point",
+				"Sniper"
+			],
+			"hiddenAbility": "Damp",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 41,
+					"Bubble": 1,
+					"Hydro Pump": 52,
+					"Leer": 24,
+					"SmokeScreen": 1,
+					"Water Gun": 30
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 95,
+				"hp": 55,
+				"specialAttack": 95,
+				"specialDefense": 45,
+				"speed": 85
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 250
+		}
+	},
+	"Seaking": {
+		"default": {
+			"abilities": [
+				"Swift Swim",
+				"Water Veil"
+			],
+			"hiddenAbility": "Lightningrod",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 54,
+					"Fury Attack": 30,
+					"Horn Attack": 24,
+					"Horn Drill": 48,
+					"Peck": 1,
+					"Supersonic": 1,
+					"Tail Whip": 1,
+					"Waterfall": 39
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 92,
+				"defense": 65,
+				"hp": 80,
+				"specialAttack": 65,
+				"specialDefense": 80,
+				"speed": 68
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 390
+		}
+	},
+	"Seel": {
+		"default": {
+			"abilities": [
+				"Thick Fat",
+				"Hydration"
+			],
+			"hiddenAbility": "Ice Body",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Aurora Beam": 35,
+					"Growl": 30,
+					"Headbutt": 1,
+					"Ice Beam": 50,
+					"Rest": 40,
+					"Take Down": 45
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Horn Drill": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 55,
+				"hp": 65,
+				"specialAttack": 45,
+				"specialDefense": 70,
+				"speed": 45
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 900
+		}
+	},
+	"Shellder": {
+		"default": {
+			"abilities": [
+				"Shell Armor",
+				"Skill Link"
+			],
+			"hiddenAbility": "Overcoat",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Aurora Beam": 30,
+					"Clamp": 23,
+					"Ice Beam": 50,
+					"Leer": 39,
+					"Supersonic": 18,
+					"Tackle": 1,
+					"Withdraw": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Explosion": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 100,
+				"hp": 30,
+				"specialAttack": 45,
+				"specialDefense": 25,
+				"speed": 40
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 40
+		}
+	},
+	"Slowbro": {
+		"default": {
+			"abilities": [
+				"Oblivious",
+				"Own Tempo"
+			],
+			"hiddenAbility": "Regenerator",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 44,
+					"Confusion": 1,
+					"Disable": 1,
+					"Growl": 27,
+					"Headbutt": 1,
+					"Psychic": 55,
+					"Water Gun": 33,
+					"Withdraw": 37
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 75,
+				"defense": 110,
+				"hp": 95,
+				"specialAttack": 100,
+				"specialDefense": 80,
+				"speed": 30
+			},
+			"types": [
+				"Water",
+				"Psychic"
+			],
+			"weight": 785
+		}
+	},
+	"Slowpoke": {
+		"default": {
+			"abilities": [
+				"Oblivious",
+				"Own Tempo"
+			],
+			"hiddenAbility": "Regenerator",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 40,
+					"Confusion": 1,
+					"Disable": 18,
+					"Growl": 27,
+					"Headbutt": 22,
+					"Psychic": 48,
+					"Water Gun": 33
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Flash": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder Wave": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 65,
+				"hp": 90,
+				"specialAttack": 40,
+				"specialDefense": 40,
+				"speed": 15
+			},
+			"types": [
+				"Water",
+				"Psychic"
+			],
+			"weight": 360
+		}
+	},
+	"Snorlax": {
+		"default": {
+			"abilities": [
+				"Immunity",
+				"Thick Fat"
+			],
+			"hiddenAbility": "Gluttony",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Amnesia": 1,
+					"Body Slam": 35,
+					"Double-Edge": 48,
+					"Harden": 41,
+					"Headbutt": 1,
+					"Hyper Beam": 56,
+					"Rest": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Metronome": 0,
+					"Mimic": 0,
+					"Pay Day": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Rock Slide": 0,
+					"Seismic Toss": 0,
+					"Selfdestruct": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 110,
+				"defense": 65,
+				"hp": 160,
+				"specialAttack": 65,
+				"specialDefense": 110,
+				"speed": 30
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 4600
+		}
+	},
+	"Spearow": {
+		"default": {
+			"abilities": [
+				"Keen Eye"
+			],
+			"hiddenAbility": "Sniper",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 36,
+					"Drill Peck": 29,
+					"Fury Attack": 15,
+					"Growl": 1,
+					"Leer": 9,
+					"Mirror Move": 22,
+					"Peck": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fly": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 60,
+				"defense": 30,
+				"hp": 40,
+				"specialAttack": 31,
+				"specialDefense": 31,
+				"speed": 70
+			},
+			"types": [
+				"Normal",
+				"Flying"
+			],
+			"weight": 20
+		}
+	},
+	"Squirtle": {
+		"default": {
+			"abilities": [
+				"Torrent"
+			],
+			"hiddenAbility": "Rain Dish",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 22,
+					"Bubble": 8,
+					"Hydro Pump": 42,
+					"Skull Bash": 35,
+					"Tackle": 1,
+					"Tail Whip": 1,
+					"Water Gun": 15,
+					"Withdraw": 28
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 48,
+				"defense": 65,
+				"hp": 44,
+				"specialAttack": 50,
+				"specialDefense": 64,
+				"speed": 43
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 90
+		}
+	},
+	"Starmie": {
+		"default": {
+			"abilities": [
+				"Illuminate",
+				"Natural Cure"
+			],
+			"hiddenAbility": "Analytic",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Harden": 1,
+					"Tackle": 1,
+					"Water Gun": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 75,
+				"defense": 85,
+				"hp": 60,
+				"specialAttack": 100,
+				"specialDefense": 85,
+				"speed": 115
+			},
+			"types": [
+				"Water",
+				"Psychic"
+			],
+			"weight": 800
+		}
+	},
+	"Staryu": {
+		"default": {
+			"abilities": [
+				"Illuminate",
+				"Natural Cure"
+			],
+			"hiddenAbility": "Analytic",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Harden": 22,
+					"Hydro Pump": 47,
+					"Light Screen": 42,
+					"Minimize": 37,
+					"Recover": 27,
+					"Swift": 32,
+					"Tackle": 1,
+					"Water Gun": 17
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 55,
+				"hp": 30,
+				"specialAttack": 70,
+				"specialDefense": 55,
+				"speed": 85
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 345
+		}
+	},
+	"Tangela": {
+		"default": {
+			"abilities": [
+				"Chlorophyll",
+				"Leaf Guard"
+			],
+			"hiddenAbility": "Regenerator",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Absorb": 29,
+					"Bind": 1,
+					"Constrict": 1,
+					"Growth": 49,
+					"PoisonPowder": 32,
+					"Slam": 45,
+					"Sleep Powder": 39,
+					"Stun Spore": 36,
+					"Vine Whip": 29
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 115,
+				"hp": 65,
+				"specialAttack": 100,
+				"specialDefense": 40,
+				"speed": 60
+			},
+			"types": [
+				"Grass"
+			],
+			"weight": 350
+		}
+	},
+	"Tauros": {
+		"default": {
+			"abilities": [
+				"Intimidate",
+				"Anger Point"
+			],
+			"hiddenAbility": "Sheer Force",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Leer": 35,
+					"Rage": 44,
+					"Stomp": 21,
+					"Tackle": 1,
+					"Tail Whip": 28,
+					"Take Down": 51
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Earthquake": 0,
+					"Fire Blast": 0,
+					"Fissure": 0,
+					"Horn Drill": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 100,
+				"defense": 95,
+				"hp": 75,
+				"specialAttack": 40,
+				"specialDefense": 70,
+				"speed": 110
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 884
+		}
+	},
+	"Tentacool": {
+		"default": {
+			"abilities": [
+				"Clear Body",
+				"Liquid Ooze"
+			],
+			"hiddenAbility": "Rain Dish",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 1,
+					"Barrier": 33,
+					"Constrict": 27,
+					"Hydro Pump": 48,
+					"Poison Sting": 18,
+					"Screech": 40,
+					"Supersonic": 7,
+					"Water Gun": 22,
+					"Wrap": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 40,
+				"defense": 35,
+				"hp": 40,
+				"specialAttack": 50,
+				"specialDefense": 100,
+				"speed": 70
+			},
+			"types": [
+				"Water",
+				"Poison"
+			],
+			"weight": 455
+		}
+	},
+	"Tentacruel": {
+		"default": {
+			"abilities": [
+				"Clear Body",
+				"Liquid Ooze"
+			],
+			"hiddenAbility": "Rain Dish",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 1,
+					"Barrier": 35,
+					"Constrict": 27,
+					"Hydro Pump": 50,
+					"Poison Sting": 18,
+					"Screech": 43,
+					"Supersonic": 1,
+					"Water Gun": 22,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"BubbleBeam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 65,
+				"hp": 80,
+				"specialAttack": 80,
+				"specialDefense": 120,
+				"speed": 100
+			},
+			"types": [
+				"Water",
+				"Poison"
+			],
+			"weight": 550
+		}
+	},
+	"Vaporeon": {
+		"default": {
+			"abilities": [
+				"Water Absorb",
+				"Water Absorb"
+			],
+			"hiddenAbility": "Hydration",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid Armor": 42,
+					"Aurora Beam": 36,
+					"Bite": 40,
+					"Haze": 44,
+					"Hydro Pump": 54,
+					"Mist": 48,
+					"Quick Attack": 1,
+					"Sand-Attack": 1,
+					"Tackle": 1,
+					"Tail Whip": 37,
+					"Water Gun": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 60,
+				"hp": 130,
+				"specialAttack": 110,
+				"specialDefense": 95,
+				"speed": 65
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 290
+		}
+	},
+	"Venomoth": {
+		"default": {
+			"abilities": [
+				"Shield Dust",
+				"Tinted Lens"
+			],
+			"hiddenAbility": "Wonder Skin",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 1,
+					"Disable": 1,
+					"Leech Life": 1,
+					"PoisonPowder": 1,
+					"Psybeam": 38,
+					"Psychic": 50,
+					"Sleep Powder": 43,
+					"Stun Spore": 30,
+					"Supersonic": 1,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 65,
+				"defense": 60,
+				"hp": 70,
+				"specialAttack": 90,
+				"specialDefense": 75,
+				"speed": 90
+			},
+			"types": [
+				"Bug",
+				"Poison"
+			],
+			"weight": 125
+		}
+	},
+	"Venonat": {
+		"default": {
+			"abilities": [
+				"Compoundeyes",
+				"Tinted Lens"
+			],
+			"hiddenAbility": "Run Away",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confusion": 19,
+					"Disable": 1,
+					"Leech Life": 27,
+					"PoisonPowder": 24,
+					"Psybeam": 35,
+					"Psychic": 43,
+					"Sleep Powder": 38,
+					"Stun Spore": 30,
+					"Supersonic": 11,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 55,
+				"defense": 50,
+				"hp": 60,
+				"specialAttack": 40,
+				"specialDefense": 55,
+				"speed": 45
+			},
+			"types": [
+				"Bug",
+				"Poison"
+			],
+			"weight": 300
+		}
+	},
+	"Venusaur": {
+		"default": {
+			"abilities": [
+				"Overgrow"
+			],
+			"hiddenAbility": "Chlorophyll",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Growl": 1,
+					"Growth": 43,
+					"Leech Seed": 1,
+					"PoisonPowder": 22,
+					"Razor Leaf": 30,
+					"Sleep Powder": 55,
+					"SolarBeam": 65,
+					"Tackle": 1,
+					"Vine Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 82,
+				"defense": 83,
+				"hp": 80,
+				"specialAttack": 100,
+				"specialDefense": 100,
+				"speed": 80
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 1000
+		}
+	},
+	"Victreebel": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Gluttony",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 1,
+					"PoisonPowder": 15,
+					"Razor Leaf": 1,
+					"Sleep Powder": 1,
+					"Stun Spore": 1,
+					"Wrap": 13
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 105,
+				"defense": 65,
+				"hp": 80,
+				"specialAttack": 100,
+				"specialDefense": 60,
+				"speed": 70
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 155
+		}
+	},
+	"Vileplume": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Effect Spore",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 1,
+					"Petal Dance": 1,
+					"PoisonPowder": 15,
+					"Sleep Powder": 1,
+					"Stun Spore": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Hyper Beam": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 80,
+				"defense": 85,
+				"hp": 75,
+				"specialAttack": 100,
+				"specialDefense": 90,
+				"speed": 50
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 186
+		}
+	},
+	"Voltorb": {
+		"default": {
+			"abilities": [
+				"Soundproof",
+				"Static"
+			],
+			"hiddenAbility": "Aftermath",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Explosion": 43,
+					"Light Screen": 29,
+					"Screech": 1,
+					"Selfdestruct": 22,
+					"SonicBoom": 17,
+					"Swift": 36,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Flash": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 30,
+				"defense": 50,
+				"hp": 40,
+				"specialAttack": 55,
+				"specialDefense": 55,
+				"speed": 100
+			},
+			"types": [
+				"Electric"
+			],
+			"weight": 104
+		}
+	},
+	"Vulpix": {
+		"default": {
+			"abilities": [
+				"Flash Fire"
+			],
+			"hiddenAbility": "Drought",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Confuse Ray": 28,
+					"Ember": 1,
+					"Fire Spin": 42,
+					"Flamethrower": 35,
+					"Quick Attack": 16,
+					"Roar": 21,
+					"Tail Whip": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Body Slam": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Skull Bash": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 41,
+				"defense": 40,
+				"hp": 38,
+				"specialAttack": 50,
+				"specialDefense": 65,
+				"speed": 65
+			},
+			"types": [
+				"Fire"
+			],
+			"weight": 99
+		}
+	},
+	"Wartortle": {
+		"default": {
+			"abilities": [
+				"Torrent"
+			],
+			"hiddenAbility": "Rain Dish",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 24,
+					"Bubble": 1,
+					"Hydro Pump": 47,
+					"Skull Bash": 39,
+					"Tackle": 1,
+					"Tail Whip": 1,
+					"Water Gun": 15,
+					"Withdraw": 31
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Dig": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Surf": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 63,
+				"defense": 80,
+				"hp": 59,
+				"specialAttack": 65,
+				"specialDefense": 80,
+				"speed": 58
+			},
+			"types": [
+				"Water"
+			],
+			"weight": 225
+		}
+	},
+	"Weedle": {
+		"default": {
+			"abilities": [
+				"Shield Dust"
+			],
+			"hiddenAbility": "Run Away",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Poison Sting": 1,
+					"String Shot": 1
+				}
+			},
+			"stats": {
+				"attack": 35,
+				"defense": 30,
+				"hp": 40,
+				"specialAttack": 20,
+				"specialDefense": 20,
+				"speed": 50
+			},
+			"types": [
+				"Bug",
+				"Poison"
+			],
+			"weight": 32
+		}
+	},
+	"Weepinbell": {
+		"default": {
+			"abilities": [
+				"Chlorophyll"
+			],
+			"hiddenAbility": "Gluttony",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Acid": 29,
+					"Growth": 1,
+					"PoisonPowder": 15,
+					"Razor Leaf": 38,
+					"Slam": 49,
+					"Sleep Powder": 18,
+					"Stun Spore": 23,
+					"Vine Whip": 1,
+					"Wrap": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Cut": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"SolarBeam": 0,
+					"Substitute": 0,
+					"Swords Dance": 0,
+					"Take Down": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 90,
+				"defense": 50,
+				"hp": 65,
+				"specialAttack": 85,
+				"specialDefense": 45,
+				"speed": 55
+			},
+			"types": [
+				"Grass",
+				"Poison"
+			],
+			"weight": 64
+		}
+	},
+	"Weezing": {
+		"default": {
+			"abilities": [
+				"Levitate"
+			],
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Explosion": 53,
+					"Haze": 49,
+					"Selfdestruct": 43,
+					"Sludge": 1,
+					"Smog": 1,
+					"SmokeScreen": 39,
+					"Tackle": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Explosion": 0,
+					"Fire Blast": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Rest": 0,
+					"Selfdestruct": 0,
+					"Substitute": 0,
+					"Thunder": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0
+				}
+			},
+			"stats": {
+				"attack": 90,
+				"defense": 120,
+				"hp": 65,
+				"specialAttack": 85,
+				"specialDefense": 70,
+				"speed": 60
+			},
+			"types": [
+				"Poison"
+			],
+			"weight": 95
+		}
+	},
+	"Wigglytuff": {
+		"default": {
+			"abilities": [
+				"Cute Charm"
+			],
+			"hiddenAbility": "Frisk",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Defense Curl": 1,
+					"Disable": 1,
+					"DoubleSlap": 1,
+					"Sing": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Blizzard": 0,
+					"Body Slam": 0,
+					"BubbleBeam": 0,
+					"Counter": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Fire Blast": 0,
+					"Flash": 0,
+					"Hyper Beam": 0,
+					"Ice Beam": 0,
+					"Mega Kick": 0,
+					"Mega Punch": 0,
+					"Mimic": 0,
+					"Psychic": 0,
+					"Psywave": 0,
+					"Rage": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Seismic Toss": 0,
+					"Skull Bash": 0,
+					"SolarBeam": 0,
+					"Strength": 0,
+					"Submission": 0,
+					"Substitute": 0,
+					"Take Down": 0,
+					"Teleport": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Tri Attack": 0,
+					"Water Gun": 0
+				}
+			},
+			"stats": {
+				"attack": 70,
+				"defense": 45,
+				"hp": 140,
+				"specialAttack": 75,
+				"specialDefense": 50,
+				"speed": 45
+			},
+			"types": [
+				"Normal"
+			],
+			"weight": 120
+		}
+	},
+	"Zapdos": {
+		"default": {
+			"abilities": [
+				"Pressure"
+			],
+			"hiddenAbility": "Lightningrod",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Agility": 55,
+					"Drill Peck": 1,
+					"Light Screen": 60,
+					"Thunder": 51,
+					"ThunderShock": 1
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Flash": 0,
+					"Fly": 0,
+					"Hyper Beam": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Reflect": 0,
+					"Rest": 0,
+					"Sky Attack": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Thunder": 0,
+					"Thunder Wave": 0,
+					"Thunderbolt": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 90,
+				"defense": 85,
+				"hp": 90,
+				"specialAttack": 125,
+				"specialDefense": 90,
+				"speed": 100
+			},
+			"types": [
+				"Electric",
+				"Flying"
+			],
+			"weight": 526
+		}
+	},
+	"Zubat": {
+		"default": {
+			"abilities": [
+				"Inner Focus"
+			],
+			"hiddenAbility": "Infiltrator",
+			"isBattleOnly": false,
+			"learnset": {
+				"level-up": {
+					"Bite": 15,
+					"Confuse Ray": 21,
+					"Haze": 36,
+					"Leech Life": 1,
+					"Supersonic": 10,
+					"Wing Attack": 28
+				},
+				"machine": {
+					"Bide": 0,
+					"Double Team": 0,
+					"Double-Edge": 0,
+					"Mega Drain": 0,
+					"Mimic": 0,
+					"Rage": 0,
+					"Razor Wind": 0,
+					"Rest": 0,
+					"Substitute": 0,
+					"Swift": 0,
+					"Take Down": 0,
+					"Toxic": 0,
+					"Whirlwind": 0
+				}
+			},
+			"stats": {
+				"attack": 45,
+				"defense": 35,
+				"hp": 40,
+				"specialAttack": 30,
+				"specialDefense": 40,
+				"speed": 55
+			},
+			"types": [
+				"Poison",
+				"Flying"
+			],
+			"weight": 75
+		}
+	}
+}

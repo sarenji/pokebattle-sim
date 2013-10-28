@@ -1,4 +1,5 @@
 learnsets = require('../shared/learnsets')
+{GenerationJSON} = require '../server/generations'
 
 # We'll use BW data for tests.
 {SpeciesData, FormeData} = require('../server/bw/data')
@@ -9,7 +10,7 @@ describe "Learnsets:", ->
       beforeEach ->
         @pokemon = {name: pokemon}
         @checkMoveset = learnsets.checkMoveset.bind(
-          learnsets, SpeciesData, FormeData, @pokemon)
+          learnsets, GenerationJSON, SpeciesData, @pokemon)
 
       func.call(this)
 

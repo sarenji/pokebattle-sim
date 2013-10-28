@@ -16,7 +16,7 @@ $ ->
     PokeBattle.navigation.showTeambuilder()
 
   if allTeams?.length > 0
-    renderCurrentTeam()
+    renderCurrentTeam($mainButtons)
   else
     $selectTeam = $('.select-team')
     $selectTeam.html("You have no teams!")
@@ -30,7 +30,7 @@ $ ->
   $mainButtons.on 'click', '.select-team-dropdown-item', (e) ->
     slot = $(e.currentTarget).data('slot')
     selectedIndex = slot
-    renderCurrentTeam()
+    renderCurrentTeam($mainButtons)
 
   # Selecting the format changes the dropdown.
   $mainButtons.on 'click', '.select-format-dropdown-item', (e) ->
@@ -43,8 +43,8 @@ $ ->
   $mainButtons.find('.format-dropdown a').first().click()
 
 
-renderCurrentTeam = ->
-  $selectTeam = $('.select-team')
+renderCurrentTeam = ($context) ->
+  $selectTeam = $context.find('.select-team')
   currentTeam = allTeams[selectedIndex] || allTeams[0]
   html = JST['team_dropdown'](window: window, team: currentTeam)
   $selectTeam.html(html)

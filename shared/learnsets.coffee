@@ -2,6 +2,7 @@ self = (module?.exports || window)
 
 if module?.exports
   EventPokemon = require('./event_pokemon')
+  {INT_TO_GENERATION} = require('./ladders')
 else
   window.EventPokemon ?= {}
 
@@ -30,19 +31,23 @@ getMinimumGeneration = (generation) ->
   minGeneration = Math.min(unportableGenerations...)
   throw new Error("Gen. '#{generation}' must be greater than #{minGeneration}.")
 
+getGenerationFromInt = (generationInteger) ->
+  INT_TO_GENERATION[generationInteger].toUpperCase()
+
 # A helper method to loop through the learnsets for this pokemon and all
 # prevolutions, and then runs an iterator function (that you give) on those
 # learnsets. The iterator function takes one parameter, `learnset`, the learnset
 # for a given generation for the Pokemon's current forme.
 #
 # All generations that can be used are taken into consideration.
-loopLearnsets = (SpeciesData, FormeData, pokemon, forGeneration, iterator) ->
+loopLearnsets = (Generations, SpeciesData, pokemon, forGeneration, iterator) ->
   minimumGeneration = getMinimumGeneration(forGeneration)
   {name, forme} = pokemon
   formeName = forme || "default"
   # Find pre-evolutions and formes
   thePokemon = []
   theFormes = [ formeName ]
+  {FormeData} = Generations[getGenerationFromInt(forGeneration)]
   while name
     thePokemon.push(name)
     if name in switchableFormes && name not in theFormes
@@ -52,10 +57,10 @@ loopLearnsets = (SpeciesData, FormeData, pokemon, forGeneration, iterator) ->
   # Loop through pre-evolutions and formes
   for name in thePokemon
     for formeName in theFormes
-      forme = FormeData[name][formeName]
       # Loop through all available generations
       for generation in [minimumGeneration..forGeneration]
-        learnset = forme.learnset["generation-#{generation}"]
+        {FormeData} = Generations[getGenerationFromInt(generation)]
+        learnset = FormeData[name]?[formeName].learnset
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
         if iterator(learnset, name, formeName) == true then return true
@@ -68,14 +73,18 @@ self.learnableMoves = (pokemon, forGeneration) ->
 # species and forme data for all Pokemon.
 #
 # Returns true if the moveset is valid, false otherwise.
-self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
-  looper = loopLearnsets.bind(null, SpeciesData, FormeData, pokemon, generation)
-  forme = FormeData[pokemon.name][pokemon.forme || "default"]
+self.checkMoveset = (Generations, SpeciesData, pokemon, generation, moves) ->
+  looper = loopLearnsets.bind(null, Generations, SpeciesData, pokemon, generation)
+  pokemonName = pokemon.name
+  pokemonForme = pokemon.forme || "default"
   pokemonLevel = (pokemon.level || 100)
+  {FormeData} = Generations[getGenerationFromInt(generation)]
+  forme = FormeData[pokemonName][pokemonForme]
 
   # In gen 4, pokemon must know *all* moves inside the `form-change` learnset.
   if generation == 4
-    learnset = forme.learnset["generation-4"]?['form-change'] || {}
+    rsForme = Generations.DP.FormeData[pokemonName]?[pokemonForme] || {}
+    learnset = rsForme.learnset?['form-change'] || {}
     for move, level of learnset
       return false  if move not in moves || pokemonLevel < level
 
@@ -85,7 +94,7 @@ self.checkMoveset = (SpeciesData, FormeData, pokemon, generation, moves) ->
 
   # Continuing the `forme-change` learnset group.
   # Get rid of leftover moves if this pokemon can learn it in this generation.
-  learnset = forme.learnset["generation-#{generation}"]?['form-change'] || {}
+  learnset = forme.learnset?['form-change'] || {}
   lsetLeftovers = leftoverMoves.filter((move) -> pokemonLevel >= learnset[move])
   return true  if lsetLeftovers.length == leftoverMoves.length
 

@@ -1,0 +1,1 @@
+{@FormeData, @SpeciesData} = require('./pokemon')

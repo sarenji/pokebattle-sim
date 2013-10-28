@@ -4,6 +4,7 @@
 ladders = require('../shared/ladders')
 {BattleQueue} = require './queue'
 {Conditions} = require './conditions'
+{GenerationJSON} = require './generations'
 learnsets = require '../shared/learnsets'
 
 class @BattleServer
@@ -117,7 +118,7 @@ class @BattleServer
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
       errors.push("Slot #{slot}: Must have 1 to 4 moves.")
-    else if !learnsets.checkMoveset(SpeciesData, FormeData, pokemon, 5, pokemon.moves)
+    else if !learnsets.checkMoveset(GenerationJSON, SpeciesData, pokemon, 5, pokemon.moves)
       errors.push("Slot #{slot}: Invalid moveset.")
     return errors
 

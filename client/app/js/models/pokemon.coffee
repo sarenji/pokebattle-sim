@@ -53,17 +53,17 @@ class @Pokemon extends Backbone.Model
     for stat in stats
       hash[stat] ?= defaultValue
 
-  getGeneration: ->
-    gen = @collection?.generation || DEFAULT_GENERATION
+  getGeneration: (generation) ->
+    gen = generation || @collection?.generation || DEFAULT_GENERATION
     gen = gen.toUpperCase()
     window.Generations[gen]
 
   getSpecies: ->
     @getGeneration().SpeciesData[@get('name')]
 
-  getForme: (forme) ->
+  getForme: (forme, generation) ->
     forme ||= @get('forme')
-    @getGeneration().FormeData[@get('name')][forme]
+    @getGeneration(generation).FormeData[@get('name')]?[forme]
 
   getFormes: ->
     (forme  for forme of @getGeneration().FormeData[@get('name')])
@@ -89,14 +89,14 @@ class @Pokemon extends Backbone.Model
     genders
 
   getMovepool: ->
-    forme = @getForme()
     {MoveData} = @getGeneration()
 
     # TODO: Use shared function for getting a movepool
-    # only generations 3 to 5 for now
+    # only generations 3 to 6 for now
     learnset = []
-    for generation in [3, 4, 5] 
-      generationMoveMethods = forme.learnset["generation-#{generation}"] || []
+    for generation in [ 'rs', 'dp', 'bw', 'xy' ]
+      forme = @getForme(@get('forme'), generation)
+      generationMoveMethods = forme?.learnset || []
       for method, moves of generationMoveMethods
         learnset.push(moveName)  for moveName, level of moves
 
