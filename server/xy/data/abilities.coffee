@@ -34,8 +34,8 @@ makeAuraAbility = (name, type) ->
     this::modifyBasePower = (move, user, target) ->
       return 0x1000  if move.getType(@battle, user, target) != type
       for pokemon in @battle.getActiveAlivePokemon()
-        return 0xCCC  if pokemon.hasAbility("Aura Break")
-      return 0x1333
+        return 0xC00  if pokemon.hasAbility("Aura Break")
+      return 0x14CD
 
 makeAuraAbility("Dark Aura", "Dark")
 makeAuraAbility("Fairy Aura", "Fairy")
