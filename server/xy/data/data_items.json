@@ -1,7 +1,27 @@
 {
+    "Ability Capsule": {
+        "flingPower": 1,
+        "type": "misc"
+    },
     "Ability Urge": {
         "flingPower": 0,
         "type": "battle"
+    },
+    "Abomasite": {
+        "flingPower": 1,
+        "mega": [
+            "Abomasnow",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Absolite": {
+        "flingPower": 1,
+        "mega": [
+            "Absol",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Absorb Bulb": {
         "flingPower": 30,
@@ -15,6 +35,26 @@
         "flingPower": 60,
         "type": "misc"
     },
+    "Adventure Rules": {
+        "flingPower": 0,
+        "type": "key"
+    },
+    "Aerodactylite": {
+        "flingPower": 1,
+        "mega": [
+            "Aerodactyl",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Aggronite": {
+        "flingPower": 1,
+        "mega": [
+            "Aggron",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "Aguav Berry": {
         "flingPower": 10,
         "type": "berries"
@@ -26,6 +66,22 @@
     "Air Mail": {
         "flingPower": 0,
         "type": "mail"
+    },
+    "Alakazite": {
+        "flingPower": 1,
+        "mega": [
+            "Alakazam",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Ampharosite": {
+        "flingPower": 1,
+        "mega": [
+            "Ampharos",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Amulet Coin": {
         "flingPower": 30,
@@ -51,6 +107,10 @@
         "flingPower": 10,
         "type": "berries"
     },
+    "Assault Vest": {
+        "flingPower": 1,
+        "type": "misc"
+    },
     "AuroraTicket": {
         "flingPower": 0,
         "type": "key"
@@ -70,6 +130,14 @@
     "BalmMushroom": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Banettite": {
+        "flingPower": 1,
+        "mega": [
+            "Banette",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Basement Key": {
         "flingPower": 0,
@@ -139,6 +207,22 @@
         "flingPower": 30,
         "type": "misc"
     },
+    "Blastoisinite": {
+        "flingPower": 1,
+        "mega": [
+            "Blastoise",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Blazikenite": {
+        "flingPower": 1,
+        "mega": [
+            "Blaziken",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "Blk Apricorn": {
         "flingPower": 0,
         "type": "key"
@@ -174,6 +258,10 @@
     "Bluk Berry": {
         "flingPower": 10,
         "type": "berries"
+    },
+    "Boost Mulch": {
+        "flingPower": 30,
+        "type": "misc"
     },
     "Brick Mail": {
         "flingPower": 0,
@@ -242,6 +330,22 @@
     "Charcoal": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Charizardite X": {
+        "flingPower": 1,
+        "mega": [
+            "Charizard",
+            "mega-x"
+        ],
+        "type": "megastone"
+    },
+    "Charizardite Y": {
+        "flingPower": 1,
+        "mega": [
+            "Charizard",
+            "mega-y"
+        ],
+        "type": "megastone"
     },
     "Charti Berry": {
         "flingPower": 10,
@@ -583,6 +687,10 @@
         "flingPower": 0,
         "type": "misc"
     },
+    "Elevator Key": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Elixir": {
         "flingPower": 30,
         "type": "medicine"
@@ -739,6 +847,30 @@
         "flingPower": 10,
         "type": "berries"
     },
+    "Garchompite": {
+        "flingPower": 1,
+        "mega": [
+            "Garchomp",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Gardevoirite": {
+        "flingPower": 1,
+        "mega": [
+            "Gardevoir",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Gengarite": {
+        "flingPower": 1,
+        "mega": [
+            "Gengar",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "Genius Wing": {
         "flingPower": 20,
         "type": "medicine"
@@ -835,6 +967,14 @@
         "flingPower": 30,
         "type": "battle"
     },
+    "Gyaradosite": {
+        "flingPower": 1,
+        "mega": [
+            "Gyarados",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "HM01": {
         "flingPower": 0,
         "type": "machines"
@@ -915,6 +1055,18 @@
         "flingPower": 100,
         "type": "misc"
     },
+    "Heracronite": {
+        "flingPower": 1,
+        "mega": [
+            "Heracross",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Holo Caster": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Hondew Berry": {
         "flingPower": 10,
         "type": "berries"
@@ -922,6 +1074,18 @@
     "Honey": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Honor of Kalos": {
+        "flingPower": 0,
+        "type": "key"
+    },
+    "Houndoominite": {
+        "flingPower": 1,
+        "mega": [
+            "Houndoom",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Hyper Potion": {
         "flingPower": 30,
@@ -955,6 +1119,10 @@
         "flingPower": 90,
         "type": "misc"
     },
+    "Intriguing Stone": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Iron": {
         "flingPower": 30,
         "type": "medicine"
@@ -983,15 +1151,31 @@
         "flingPower": 0,
         "type": "key"
     },
+    "Jaw Fossil": {
+        "flingPower": 100,
+        "type": "misc"
+    },
     "Journal": {
         "flingPower": 0,
         "type": "key"
+    },
+    "Kangaskhanite": {
+        "flingPower": 1,
+        "mega": [
+            "Kangaskhan",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Kasib Berry": {
         "flingPower": 10,
         "type": "berries"
     },
     "Kebia Berry": {
+        "flingPower": 10,
+        "type": "berries"
+    },
+    "Kee Berry": {
         "flingPower": 10,
         "type": "berries"
     },
@@ -1030,6 +1214,10 @@
     "Lemonade": {
         "flingPower": 30,
         "type": "medicine"
+    },
+    "Lens Case": {
+        "flingPower": 0,
+        "type": "key"
     },
     "Leppa Berry": {
         "flingPower": 10,
@@ -1079,6 +1267,10 @@
         "flingPower": 0,
         "type": "key"
     },
+    "Looker Ticket": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Loot Sack": {
         "flingPower": 0,
         "type": "key"
@@ -1090,6 +1282,14 @@
     "Love Ball": {
         "flingPower": 0,
         "type": "pokeballs"
+    },
+    "Lucarionite": {
+        "flingPower": 1,
+        "mega": [
+            "Lucario",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Luck Incense": {
         "flingPower": 10,
@@ -1109,6 +1309,10 @@
     },
     "Luminous Moss": {
         "flingPower": 30,
+        "type": "misc"
+    },
+    "Lumiose Galette": {
+        "flingPower": 1,
         "type": "misc"
     },
     "Lunar Wing": {
@@ -1163,9 +1367,29 @@
         "flingPower": 10,
         "type": "berries"
     },
+    "Manectite": {
+        "flingPower": 1,
+        "mega": [
+            "Manectric",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Maranga Berry": {
+        "flingPower": 10,
+        "type": "berries"
+    },
     "Master Ball": {
         "flingPower": 0,
         "type": "pokeballs"
+    },
+    "Mawilite": {
+        "flingPower": 1,
+        "mega": [
+            "Mawile",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Max Elixir": {
         "flingPower": 30,
@@ -1195,6 +1419,10 @@
         "flingPower": 0,
         "type": "mail"
     },
+    "Mega Ring": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Member Card": {
         "flingPower": 0,
         "type": "key"
@@ -1218,6 +1446,22 @@
     "Metronome": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Mewtwonite X": {
+        "flingPower": 1,
+        "mega": [
+            "Mewtwo",
+            "mega-x"
+        ],
+        "type": "megastone"
+    },
+    "Mewtwonite Y": {
+        "flingPower": 1,
+        "mega": [
+            "Mewtwo",
+            "mega-y"
+        ],
+        "type": "megastone"
     },
     "Micle Berry": {
         "flingPower": 10,
@@ -1423,6 +1667,18 @@
         "flingPower": 10,
         "type": "misc"
     },
+    "Pinsirite": {
+        "flingPower": 1,
+        "mega": [
+            "Pinsir",
+            "mega"
+        ],
+        "type": "megastone"
+    },
+    "Pixie Plate": {
+        "flingPower": 90,
+        "type": "misc"
+    },
     "Plume Fossil": {
         "flingPower": 100,
         "type": "misc"
@@ -1507,6 +1763,10 @@
         "flingPower": 70,
         "type": "misc"
     },
+    "Power Plant Pass": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Power Weight": {
         "flingPower": 70,
         "type": "misc"
@@ -1522,6 +1782,10 @@
     "Prism Scale": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Prof's Letter": {
+        "flingPower": 0,
+        "type": "key"
     },
     "Prop Case": {
         "flingPower": 0,
@@ -1699,6 +1963,10 @@
         "flingPower": 30,
         "type": "medicine"
     },
+    "Rich Mulch": {
+        "flingPower": 30,
+        "type": "misc"
+    },
     "Rindo Berry": {
         "flingPower": 10,
         "type": "berries"
@@ -1735,6 +2003,10 @@
         "flingPower": 60,
         "type": "misc"
     },
+    "Roller Skates": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Root Fossil": {
         "flingPower": 100,
         "type": "misc"
@@ -1763,6 +2035,10 @@
         "flingPower": 0,
         "type": "key"
     },
+    "Sachet": {
+        "flingPower": 1,
+        "type": "misc"
+    },
     "Sacred Ash": {
         "flingPower": 30,
         "type": "medicine"
@@ -1770,6 +2046,14 @@
     "Safari Ball": {
         "flingPower": 0,
         "type": "pokeballs"
+    },
+    "Safety Goggles": {
+        "flingPower": 1,
+        "type": "misc"
+    },
+    "Sail Fossil": {
+        "flingPower": 100,
+        "type": "misc"
     },
     "Salac Berry": {
         "flingPower": 10,
@@ -1782,6 +2066,14 @@
     "Scanner": {
         "flingPower": 0,
         "type": "key"
+    },
+    "Scizorite": {
+        "flingPower": 1,
+        "mega": [
+            "Scizor",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Scope Lens": {
         "flingPower": 30,
@@ -1887,6 +2179,10 @@
         "flingPower": 0,
         "type": "mail"
     },
+    "Snowball": {
+        "flingPower": 30,
+        "type": "misc"
+    },
     "Soda Pop": {
         "flingPower": 30,
         "type": "medicine"
@@ -1935,6 +2231,10 @@
         "flingPower": 0,
         "type": "key"
     },
+    "Sprinklotad": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "SquirtBottle": {
         "flingPower": 0,
         "type": "key"
@@ -1979,6 +2279,10 @@
         "flingPower": 0,
         "type": "key"
     },
+    "Strange Souvenir": {
+        "flingPower": 1,
+        "type": "misc"
+    },
     "Suite Key": {
         "flingPower": 0,
         "type": "key"
@@ -1998,6 +2302,10 @@
     "Super Rod": {
         "flingPower": 0,
         "type": "key"
+    },
+    "Surprise Mulch": {
+        "flingPower": 30,
+        "type": "misc"
     },
     "Sweet Heart": {
         "flingPower": 30,
@@ -2391,6 +2699,26 @@
         "flingPower": 0,
         "type": "machines"
     },
+    "TM96": {
+        "flingPower": 0,
+        "type": "machines"
+    },
+    "TM97": {
+        "flingPower": 0,
+        "type": "machines"
+    },
+    "TM98": {
+        "flingPower": 0,
+        "type": "machines"
+    },
+    "TM99": {
+        "flingPower": 0,
+        "type": "machines"
+    },
+    "TM100": {
+        "flingPower": 0,
+        "type": "machines"
+    },
     "Tamato Berry": {
         "flingPower": 10,
         "type": "berries"
@@ -2431,6 +2759,10 @@
         "flingPower": 30,
         "type": "misc"
     },
+    "TMV Pass": {
+        "flingPower": 0,
+        "type": "key"
+    },
     "Town Map": {
         "flingPower": 0,
         "type": "key"
@@ -2459,6 +2791,14 @@
         "flingPower": 30,
         "type": "misc"
     },
+    "Tyranitarite": {
+        "flingPower": 1,
+        "mega": [
+            "Tyranitar",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "Ultra Ball": {
         "flingPower": 0,
         "type": "pokeballs"
@@ -2470,6 +2810,14 @@
     "Up-Grade": {
         "flingPower": 30,
         "type": "misc"
+    },
+    "Venusaurite": {
+        "flingPower": 1,
+        "mega": [
+            "Venusaur",
+            "mega"
+        ],
+        "type": "megastone"
     },
     "Vs. Recorder": {
         "flingPower": 0,
@@ -2507,9 +2855,17 @@
         "flingPower": 0,
         "type": "mail"
     },
+    "Weakness Policy": {
+        "flingPower": 1,
+        "type": "misc"
+    },
     "Wepear Berry": {
         "flingPower": 10,
         "type": "berries"
+    },
+    "Whipped Dream": {
+        "flingPower": 1,
+        "type": "misc"
     },
     "White Flute": {
         "flingPower": 30,
