@@ -379,6 +379,22 @@
         "target": "users-field", 
         "type": "Grass"
     }, 
+    "Aromatic Mist": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "ally", 
+        "type": "Fairy"
+    }, 
     "Assist": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -555,6 +571,22 @@
         "target": "selected-pokemon", 
         "type": "Ice"
     }, 
+    "Baby-Doll Eyes": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 30, 
+        "priority": 1, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fairy"
+    }, 
     "Barrage": {
         "accuracy": 85, 
         "ailmentChance": 0, 
@@ -627,6 +659,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Dark"
+    }, 
+    "Belch": {
+        "accuracy": 90, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 120, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Poison"
     }, 
     "Belly Drum": {
         "accuracy": 0, 
@@ -919,6 +967,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Ground"
+    }, 
+    "Boomburst": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 140, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-other-pokemon", 
+        "type": "Normal"
     }, 
     "Bounce": {
         "accuracy": 85, 
@@ -1430,6 +1494,22 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Confide": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Normal"
+    }, 
     "Confuse Ray": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -1658,6 +1738,22 @@
         "target": "selected-pokemon", 
         "type": "Water"
     }, 
+    "Crafty Shield": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "users-field", 
+        "type": "Fairy"
+    }, 
     "Cross Chop": {
         "accuracy": 80, 
         "ailmentChance": 0, 
@@ -1839,6 +1935,22 @@
         "target": "all-opponents", 
         "type": "Dark"
     }, 
+    "Dazzling Gleam": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 80, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-opponents", 
+        "type": "Fairy"
+    }, 
     "Defend Order": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -1971,6 +2083,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Normal"
+    }, 
+    "Disarming Voice": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 40, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-opponents", 
+        "type": "Fairy"
     }, 
     "Discharge": {
         "accuracy": 100, 
@@ -2324,6 +2452,22 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
+    "Draining Kiss": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 50, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 75, 
+        "target": "selected-pokemon", 
+        "type": "Fairy"
+    }, 
     "Dream Eater": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -2484,6 +2628,22 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Eerie Impulse": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Electric"
+    }, 
     "Egg Bomb": {
         "accuracy": 75, 
         "ailmentChance": 0, 
@@ -2503,6 +2663,38 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Normal"
+    }, 
+    "Electric Terrain": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Electric"
+    }, 
+    "Electrify": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Electric"
     }, 
     "Electro Ball": {
         "accuracy": 100, 
@@ -2796,6 +2988,22 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
+    "Fairy Lock": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Fairy"
+    }, 
     "Fairy Wind": {
         "accuracy": 100,
         "ailmentChance": 0, 
@@ -2809,7 +3017,7 @@
         "maxHits": 1, 
         "minHits": 1, 
         "power": 40, 
-        "pp": 20, 
+        "pp": 30, 
         "priority": 0, 
         "recoil": 0, 
         "target": "selected-pokemon", 
@@ -2910,6 +3118,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Normal"
+    }, 
+    "Fell Stinger": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 30, 
+        "pp": 25, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Bug"
     }, 
     "Fiery Dance": {
         "accuracy": 100, 
@@ -3264,6 +3488,22 @@
         "target": "selected-pokemon", 
         "type": "Dark"
     }, 
+    "Flower Shield": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Fairy"
+    }, 
     "Fly": {
         "accuracy": 95, 
         "ailmentChance": 0, 
@@ -3286,6 +3526,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Flying"
+    }, 
+    "Flying Press": {
+        "accuracy": 95, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 80, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fighting"
     }, 
     "Focus Blast": {
         "accuracy": 70, 
@@ -3402,6 +3658,22 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Forest's Curse": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Grass"
+    }, 
     "Foul Play": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -3437,6 +3709,22 @@
         "minHits": 1, 
         "power": 140, 
         "pp": 5, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Ice"
+    }, 
+    "Freeze-Dry": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 70, 
+        "pp": 20, 
         "priority": 0, 
         "recoil": 0, 
         "target": "selected-pokemon", 
@@ -3657,6 +3945,22 @@
         "target": "selected-pokemon", 
         "type": "Steel"
     }, 
+    "Geomancy": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "user", 
+        "type": "Fairy"
+    }, 
     "Giga Drain": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -3794,6 +4098,22 @@
         "priority": 0, 
         "recoil": 0, 
         "target": "selected-pokemon", 
+        "type": "Grass"
+    }, 
+    "Grassy Terrain": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
         "type": "Grass"
     }, 
     "Gravity": {
@@ -4862,6 +5182,22 @@
         "target": "selected-pokemon", 
         "type": "Fire"
     }, 
+    "Infestation": {
+        "accuracy": 100, 
+        "ailmentChance": 100, 
+        "ailmentId": "trap", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 20, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Bug"
+    }, 
     "Ingrain": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -4879,6 +5215,22 @@
         "recoil": 0, 
         "target": "user", 
         "type": "Grass"
+    }, 
+    "Ion Deluge": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 25, 
+        "priority": 1, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Electric"
     }, 
     "Iron Defense": {
         "accuracy": 0, 
@@ -5019,6 +5371,22 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
+    "King's Shield": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "user", 
+        "type": "Steel"
+    }, 
     "Knock Off": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -5038,6 +5406,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Dark"
+    }, 
+    "Land's Wrath": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 90, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-opponents", 
+        "type": "Ground"
     }, 
     "Last Resort": {
         "accuracy": 100, 
@@ -5502,6 +5886,22 @@
         "target": "user", 
         "type": "Electric"
     }, 
+    "Magnetic Flux": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "users-field", 
+        "type": "Electric"
+    }, 
     "Magnitude": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -5520,6 +5920,22 @@
         "recoil": 0, 
         "target": "all-other-pokemon", 
         "type": "Ground"
+    }, 
+    "Mat Block": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "users-field", 
+        "type": "Fighting"
     }, 
     "Me First": {
         "accuracy": 0, 
@@ -5960,6 +6376,38 @@
         "target": "selected-pokemon", 
         "type": "Psychic"
     }, 
+    "Misty Terrain": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Fairy"
+    }, 
+    "Moonblast": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 95, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fairy"
+    }, 
     "Moonlight": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -6090,6 +6538,22 @@
         "recoil": 0, 
         "target": "all-opponents", 
         "type": "Water"
+    }, 
+    "Mystical Fire": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 65, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fire"
     }, 
     "Nasty Plot": {
         "accuracy": 0, 
@@ -6242,6 +6706,54 @@
         "target": "selected-pokemon", 
         "type": "Ghost"
     }, 
+    "Noble Roar": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 30, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Normal"
+    }, 
+    "Nuzzle": {
+        "accuracy": 100, 
+        "ailmentChance": 100, 
+        "ailmentId": "paralysis", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 20, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Electric"
+    }, 
+    "Oblivion Wing": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 80, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 75, 
+        "target": "selected-pokemon", 
+        "type": "Flying"
+    }, 
     "Octazooka": {
         "accuracy": 85, 
         "ailmentChance": 0, 
@@ -6360,6 +6872,38 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Parabolic Charge": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "special", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 50, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 50, 
+        "target": "all-other-pokemon", 
+        "type": "Electric"
+    }, 
+    "Parting Shot": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Dark"
+    }, 
     "Pay Day": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -6440,6 +6984,22 @@
         "target": "entire-field", 
         "type": "Normal"
     }, 
+    "Petal Blizzard": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 90, 
+        "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-other-pokemon", 
+        "type": "Grass"
+    }, 
     "Petal Dance": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -6460,6 +7020,22 @@
         "target": "random-opponent", 
         "type": "Grass"
     }, 
+    "Phantom Force": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 90, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Ghost"
+    }, 
     "Pin Missile": {
         "accuracy": 95, 
         "ailmentChance": 0, 
@@ -6478,6 +7054,38 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Bug"
+    }, 
+    "Play Nice": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Normal"
+    }, 
+    "Play Rough": {
+        "accuracy": 90, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 90, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fairy"
     }, 
     "Pluck": {
         "accuracy": 100, 
@@ -6641,6 +7249,24 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Powder": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [
+            "powder"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 1, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Bug"
+    }, 
     "Powder Snow": {
         "accuracy": 100, 
         "ailmentChance": 10, 
@@ -6754,6 +7380,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Grass"
+    }, 
+    "Power-Up Punch": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 40, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Fighting"
     }, 
     "Present": {
         "accuracy": 90, 
@@ -7693,6 +8335,22 @@
         "recoil": 0, 
         "target": "user", 
         "type": "Flying"
+    }, 
+    "Rototiller": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "entire-field", 
+        "type": "Ground"
     }, 
     "Round": {
         "accuracy": 100, 
@@ -8907,6 +9565,22 @@
         "target": "opponents-field", 
         "type": "Ground"
     }, 
+    "Spiky Shield": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 10, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "user", 
+        "type": "Grass"
+    }, 
     "Spit Up": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -9042,6 +9716,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Steel"
+    }, 
+    "Sticky Web": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "opponents-field", 
+        "type": "Bug"
     }, 
     "Stockpile": {
         "accuracy": 0, 
@@ -9957,6 +10647,22 @@
         "target": "selected-pokemon", 
         "type": "Normal"
     }, 
+    "Topsy-Turvy": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Dark"
+    }, 
     "Torment": {
         "accuracy": 100, 
         "ailmentChance": 0, 
@@ -10087,6 +10793,22 @@
         "recoil": 0, 
         "target": "entire-field", 
         "type": "Psychic"
+    }, 
+    "Trick-or-Treat": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Ghost"
     }, 
     "Triple Kick": {
         "accuracy": 90, 
@@ -10244,6 +10966,22 @@
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Fighting"
+    }, 
+    "Venom Drench": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 20, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "all-opponents", 
+        "type": "Poison"
     }, 
     "Venoshock": {
         "accuracy": 100, 
@@ -10438,6 +11176,22 @@
         "power": 60, 
         "pp": 20, 
         "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Water"
+    }, 
+    "Water Shuriken": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [], 
+        "flinchChance": 0, 
+        "maxHits": 5, 
+        "minHits": 2, 
+        "power": 15, 
+        "pp": 20, 
+        "priority": 1, 
         "recoil": 0, 
         "target": "selected-pokemon", 
         "type": "Water"
