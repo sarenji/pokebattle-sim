@@ -1582,6 +1582,7 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
+            "powder", 
             "protect", 
             "reflectable", 
             "mirror"
@@ -6601,6 +6602,7 @@
         "ailmentId": "poison", 
         "damage": "non-damaging", 
         "flags": [
+            "powder", 
             "protect", 
             "reflectable", 
             "mirror"
@@ -7095,7 +7097,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "powder"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -8499,6 +8503,7 @@
         "ailmentId": "sleep", 
         "damage": "non-damaging", 
         "flags": [
+            "powder", 
             "protect", 
             "reflectable", 
             "mirror"
@@ -8961,6 +8966,7 @@
         "ailmentId": "sleep", 
         "damage": "non-damaging", 
         "flags": [
+            "powder", 
             "protect", 
             "reflectable", 
             "mirror"
@@ -9215,6 +9221,7 @@
         "ailmentId": "paralysis", 
         "damage": "non-damaging", 
         "flags": [
+            "powder", 
             "protect", 
             "reflectable", 
             "mirror"
