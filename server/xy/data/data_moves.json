@@ -484,6 +484,7 @@
         "flags": [
             "bullet", 
             "protect", 
+            "pulse", 
             "mirror", 
             "distance"
         ], 
@@ -1804,6 +1805,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "pulse", 
             "mirror", 
             "distance"
         ], 
@@ -2209,6 +2211,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "pulse", 
             "mirror", 
             "distance"
         ], 
@@ -4180,6 +4183,7 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
+            "pulse", 
             "reflectable", 
             "distance", 
             "heal"
@@ -10424,6 +10428,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "pulse", 
             "mirror", 
             "distance"
         ], 
