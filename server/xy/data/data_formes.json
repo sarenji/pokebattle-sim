@@ -95,11 +95,11 @@
                 "Ice"
             ],
             "stats": {
-                "attack": 135,
-                "defense": 95,
+                "attack": 132,
+                "defense": 105,
                 "hp": 90,
-                "specialAttack": 150,
-                "specialDefense": 95,
+                "specialAttack": 132,
+                "specialDefense": 105,
                 "speed": 30
             },
             "abilities": [
