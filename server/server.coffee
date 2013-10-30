@@ -118,7 +118,8 @@ class @BattleServer
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
       errors.push("Slot #{slot}: Must have 1 to 4 moves.")
-    else if !learnsets.checkMoveset(GenerationJSON, SpeciesData, pokemon, 5, pokemon.moves)
+    else if !learnsets.checkMoveset(GenerationJSON, SpeciesData, pokemon,
+                        ladders.GENERATION_TO_INT[generation], pokemon.moves)
       errors.push("Slot #{slot}: Invalid moveset.")
     return errors
 
