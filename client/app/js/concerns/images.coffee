@@ -7,10 +7,11 @@
 @PokemonSprite = (id, forme, options = {}) ->
   front = options.front ? true
   shiny = options.shiny ? false
-  kind  = if shiny && front  then 's' else if shiny && !front then 'bs' else if !shiny && front then 'i' else 'b'
+  kind  = (if front then "front" else "back")
+  kind += "-s"  if shiny
   id    = "000#{id}".substr(-3)
   if forme && forme != 'default' then id += "-#{forme}"
-  "http://sprites.pokecheck.org/#{kind}/#{id}.gif"
+  "http://s3.pokebattle.com.s3.amazonaws.com/sprites/#{kind}/#{id}.gif"
 
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
@@ -199,8 +200,8 @@ SpriteIds = {
   },
   "Burmy": {
     "default": 412,
-    "sandy": 649+39,
-    "trash": 649+40
+    "sandy": NON_DEFAULT_FORMES_OFFSET + 9,
+    "trash": NON_DEFAULT_FORMES_OFFSET + 10
   },
   "Butterfree": {
     "default": 12
@@ -363,7 +364,7 @@ SpriteIds = {
   },
   "Darmanitan": {
     "default": 555,
-    "zen": 649+63
+    "zen": NON_DEFAULT_FORMES_OFFSET + 81
   },
   "Darumaka": {
     "default": 554
@@ -382,9 +383,9 @@ SpriteIds = {
   },
   "Deoxys": {
     "default": 386,
-    "attack": 649+34,
-    "defense": 649+35,
-    "speed": 649+37
+    "attack": NON_DEFAULT_FORMES_OFFSET + 52,
+    "defense": NON_DEFAULT_FORMES_OFFSET + 53,
+    "speed": NON_DEFAULT_FORMES_OFFSET + 55
   },
   "Dewgong": {
     "default": 87
@@ -622,7 +623,7 @@ SpriteIds = {
   },
   "Giratina": {
     "default": 487,
-    "origin": 649+56
+    "origin": NON_DEFAULT_FORMES_OFFSET + 74
   },
   "Glaceon": {
     "default": 471
@@ -830,7 +831,7 @@ SpriteIds = {
   },
   "Keldeo": {
     "default": 647,
-    "resolute": 649+92
+    "resolute": NON_DEFAULT_FORMES_OFFSET + 103
   },
   "Kingdra": {
     "default": 230
@@ -873,8 +874,8 @@ SpriteIds = {
   },
   "Kyurem": {
     "default": 646,
-    "black": 649+90,
-    "white": 649+91
+    "black": NON_DEFAULT_FORMES_OFFSET + 101,
+    "white": NON_DEFAULT_FORMES_OFFSET + 102
   },
   "Lairon": {
     "default": 305
@@ -884,7 +885,7 @@ SpriteIds = {
   },
   "Landorus": {
     "default": 645,
-    "therian": 649+89
+    "therian": NON_DEFAULT_FORMES_OFFSET + 100
   },
   "Lanturn": {
     "default": 171
@@ -1065,7 +1066,7 @@ SpriteIds = {
   },
   "Meloetta": {
     "default": 648,
-    "pirouette": 649+75
+    "pirouette": NON_DEFAULT_FORMES_OFFSET + 93
   },
   "Meowth": {
     "default": 52
@@ -1417,11 +1418,11 @@ SpriteIds = {
   },
   "Rotom": {
     "default": 479,
-    "fan": 649+50,
-    "frost": 649+51,
-    "heat": 649+52,
-    "mow": 649+53,
-    "wash": 649+54
+    "fan": NON_DEFAULT_FORMES_OFFSET + 68,
+    "frost": NON_DEFAULT_FORMES_OFFSET + 69,
+    "heat": NON_DEFAULT_FORMES_OFFSET + 70,
+    "mow": NON_DEFAULT_FORMES_OFFSET + 71,
+    "wash": NON_DEFAULT_FORMES_OFFSET + 72
   },
   "Rufflet": {
     "default": 627
@@ -1506,7 +1507,7 @@ SpriteIds = {
   },
   "Shaymin": {
     "default": 492,
-    "sky": 649+58
+    "sky": NON_DEFAULT_FORMES_OFFSET + 76
   },
   "Shedinja": {
     "default": 292
@@ -1741,7 +1742,7 @@ SpriteIds = {
   },
   "Thundurus": {
     "default": 642,
-    "therian": 649+88
+    "therian": NON_DEFAULT_FORMES_OFFSET + 99
   },
   "Timburr": {
     "default": 532
@@ -1766,7 +1767,7 @@ SpriteIds = {
   },
   "Tornadus": {
     "default": 641,
-    "therian": 649+87
+    "therian": NON_DEFAULT_FORMES_OFFSET + 98
   },
   "Torterra": {
     "default": 389
@@ -1941,8 +1942,8 @@ SpriteIds = {
   },
   "Wormadam": {
     "default": 413,
-    "sandy": 649+42,
-    "trash": 649+43
+    "sandy": NON_DEFAULT_FORMES_OFFSET + 60,
+    "trash": NON_DEFAULT_FORMES_OFFSET + 61
   },
   "Wurmple": {
     "default": 265
