@@ -9,7 +9,7 @@
             "learnset": {
                 "level-up": {
                     "Blizzard": 47,
-                    "Grass Whistle": 13,
+                    "GrassWhistle": 13,
                     "Ice Punch": 1,
                     "Ice Shard": 26,
                     "Icy Wind": 9,
@@ -55,7 +55,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Swagger": 0,
@@ -380,7 +380,7 @@
             "learnset": {
                 "level-up": {
                     "Agility": 1,
-                    "Ancient Power": 25,
+                    "AncientPower": 25,
                     "Bite": 1,
                     "Crunch": 33,
                     "Giga Impact": 81,
@@ -552,7 +552,7 @@
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
                     "Smack Down": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Stone Edge": 0,
                     "Strength": 0,
                     "Substitute": 0,
@@ -798,7 +798,7 @@
                     "Aqua Jet": 9,
                     "Aqua Ring": 5,
                     "Brine": 41,
-                    "Double Slap": 13,
+                    "DoubleSlap": 13,
                     "Heal Pulse": 17,
                     "Healing Wish": 57,
                     "Helping Hand": 49,
@@ -927,7 +927,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Steel Wing": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -1039,7 +1039,7 @@
                     "Ingrain": 18,
                     "Mega Drain": 15,
                     "Rage Powder": 54,
-                    "Solar Beam": 49,
+                    "SolarBeam": 49,
                     "Spore": 62,
                     "Sweet Scent": 24,
                     "Synthesis": 35,
@@ -1066,7 +1066,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -1197,7 +1197,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 31,
+                    "AncientPower": 31,
                     "Fury Cutter": 37,
                     "Harden": 1,
                     "Metal Claw": 1,
@@ -1388,7 +1388,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Snarl": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Swagger": 0,
@@ -1443,7 +1443,7 @@
                 "level-up": {
                     "Acrobatics": 28,
                     "Agility": 21,
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Crunch": 35,
                     "Double Team": 1,
                     "Dragon Breath": 31,
@@ -1586,7 +1586,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -1721,7 +1721,7 @@
                     "Head Smash": 0,
                     "Iron Head": 0,
                     "Screech": 0,
-                    "Smelling Salts": 0,
+                    "SmellingSalt": 0,
                     "Stealth Rock": 0,
                     "Stomp": 0,
                     "Superpower": 0
@@ -1752,7 +1752,7 @@
             "learnset": {
                 "level-up": {
                     "Agility": 1,
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Blizzard": 71,
                     "Freeze Dry": 1,
                     "Gust": 1,
@@ -1829,7 +1829,7 @@
                 "level-up": {
                     "After You": 40,
                     "Attract": 15,
-                    "Double Slap": 10,
+                    "DoubleSlap": 10,
                     "Double-Edge": 50,
                     "Entrainment": 25,
                     "Growl": 1,
@@ -1880,7 +1880,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Surf": 0,
@@ -2047,7 +2047,7 @@
                     "Aqua Ring": 31,
                     "Aqua Tail": 21,
                     "Bubble": 1,
-                    "Bubble Beam": 13,
+                    "BubbleBeam": 13,
                     "Defense Curl": 10,
                     "Double-Edge": 25,
                     "Helping Hand": 16,
@@ -2124,7 +2124,7 @@
                 "level-up": {
                     "Bounce": 23,
                     "Bubble": 1,
-                    "Bubble Beam": 13,
+                    "BubbleBeam": 13,
                     "Charm": 10,
                     "Helping Hand": 16,
                     "Slam": 20,
@@ -2655,7 +2655,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Swagger": 0,
@@ -3278,7 +3278,7 @@
                     "Sandstorm": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -3519,7 +3519,7 @@
                     "Safeguard": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Stone Edge": 0,
                     "Strength": 0,
                     "Substitute": 0,
@@ -3599,7 +3599,7 @@
                     "Sandstorm": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Toxic": 0,
@@ -3753,7 +3753,7 @@
                     "Growl": 1,
                     "Growth": 25,
                     "Leech Seed": 1,
-                    "Poison Powder": 13,
+                    "PoisonPowder": 13,
                     "Seed Bomb": 37,
                     "Sleep Powder": 13,
                     "Sweet Scent": 23,
@@ -3785,7 +3785,7 @@
                     "Safeguard": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -3923,7 +3923,7 @@
                     "Confusion": 10,
                     "Gust": 16,
                     "Harden": 7,
-                    "Poison Powder": 12,
+                    "PoisonPowder": 12,
                     "Psybeam": 24,
                     "Quiver Dance": 46,
                     "Rage Powder": 34,
@@ -4002,7 +4002,7 @@
                     "Block": 0,
                     "Counter": 0,
                     "Disable": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "GrassWhistle": 0,
                     "Low Kick": 0,
                     "Magical Leaf": 0,
@@ -4011,7 +4011,7 @@
                     "Switcheroo": 0,
                     "Teeter Dance": 0,
                     "Worry Seed": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -4166,7 +4166,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -4235,7 +4235,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Brine": 0,
                     "Double-Edge": 0,
                     "Hydro Pump": 0,
@@ -4666,7 +4666,7 @@
                 "level-up": {
                     "Bestow": 1,
                     "Defense Curl": 1,
-                    "Double Slap": 1,
+                    "DoubleSlap": 1,
                     "Double-Edge": 1,
                     "Growl": 1,
                     "Minimize": 1,
@@ -4718,7 +4718,7 @@
                     "Sandstorm": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -4915,7 +4915,7 @@
                     "Swords Dance": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Beat Up": 0,
                     "Belly Drum": 0,
                     "Bite": 0,
@@ -5129,7 +5129,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Aromatherapy": 0,
                     "Body Slam": 0,
                     "Counter": 0,
@@ -5248,7 +5248,7 @@
                 "level-up": {
                     "Aqua Ring": 42,
                     "Bubble": 12,
-                    "Bubble Beam": 31,
+                    "BubbleBeam": 31,
                     "Charge": 50,
                     "Confuse Ray": 17,
                     "Discharge": 39,
@@ -5373,7 +5373,7 @@
                     "Baby-Doll Eyes": 1,
                     "Bullet Seed": 1,
                     "Charm": 1,
-                    "Double Slap": 1,
+                    "DoubleSlap": 1,
                     "Encore": 1,
                     "Helping Hand": 1,
                     "Pound": 1,
@@ -5545,7 +5545,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -5585,7 +5585,7 @@
                     "Body Slam": 40,
                     "Cosmic Power": 34,
                     "Defense Curl": 13,
-                    "Double Slap": 10,
+                    "DoubleSlap": 10,
                     "Encore": 1,
                     "Follow Me": 16,
                     "Gravity": 49,
@@ -5639,7 +5639,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -5917,7 +5917,7 @@
                     "Bide": 1,
                     "Bulk Up": 1,
                     "Chip Away": 1,
-                    "Dynamic Punch": 1,
+                    "DynamicPunch": 1,
                     "Focus Energy": 1,
                     "Focus Punch": 1,
                     "Hammer Arm": 1,
@@ -5996,7 +5996,7 @@
             "learnset": {
                 "level-up": {
                     "Bubble": 1,
-                    "Bubblebeam": 1,
+                    "BubbleBeam": 1,
                     "Knock Off": 27,
                     "Leer": 1,
                     "Mud Sport": 1,
@@ -6005,7 +6005,7 @@
                     "Vice Grip": 1
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Body Slam": 0,
                     "Chip Away": 0,
                     "Double-Edge": 0,
@@ -6042,9 +6042,9 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancientpower": 1,
+                    "AncientPower": 1,
                     "Aqua Ring": 38,
-                    "Bubblebeam": 1,
+                    "BubbleBeam": 1,
                     "Earth Power": 47,
                     "Endure": 1,
                     "Flail": 50,
@@ -6153,7 +6153,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 33,
+                    "AncientPower": 33,
                     "Assurance": 24,
                     "Chip Away": 28,
                     "Focus Energy": 6,
@@ -6367,7 +6367,7 @@
                     "Counter": 0,
                     "Cross Chop": 0,
                     "Drain Punch": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "Fake Out": 0,
                     "Feint": 0,
                     "Headbutt": 0,
@@ -6375,7 +6375,7 @@
                     "Meditate": 0,
                     "Vacuum Wave": 0,
                     "Wake-Up Slap": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -6607,7 +6607,7 @@
                     "Toxic": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Belly Drum": 0,
                     "Chip Away": 0,
                     "Detect": 0,
@@ -6961,7 +6961,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -7514,7 +7514,7 @@
                     "Toxic": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Astonish": 0,
                     "Beat Up": 0,
                     "Endure": 0,
@@ -8458,7 +8458,7 @@
                     "Air Slash": 27,
                     "Aqua Ring": 24,
                     "Brave Bird": 41,
-                    "Bubble Beam": 19,
+                    "BubbleBeam": 19,
                     "Defog": 6,
                     "Feather Dance": 21,
                     "Hurricane": 46,
@@ -8601,7 +8601,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 19,
+                    "AncientPower": 19,
                     "Coil": 37,
                     "Defense Curl": 1,
                     "Dig": 31,
@@ -8643,7 +8643,7 @@
                 },
                 "egg": {
                     "Agility": 0,
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Astonish": 0,
                     "Bide": 0,
                     "Bite": 0,
@@ -8952,7 +8952,7 @@
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Swagger": 0,
@@ -9426,7 +9426,7 @@
                 "egg": {
                     "Barrier": 0,
                     "Cross Chop": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "Feint": 0,
                     "Fire Punch": 0,
                     "Focus Punch": 0,
@@ -9776,7 +9776,7 @@
                     "Hypnosis": 1,
                     "Leech Seed": 11,
                     "Natural Gift": 37,
-                    "Poison Powder": 21,
+                    "PoisonPowder": 21,
                     "Reflect": 7,
                     "Sleep Powder": 23,
                     "Solarbeam": 43,
@@ -9809,7 +9809,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -9820,7 +9820,7 @@
                     "Trick Room": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Block": 0,
                     "Curse": 0,
                     "Giga Drain": 0,
@@ -9886,7 +9886,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -9964,7 +9964,7 @@
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
                     "Smack Down": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -10250,7 +10250,7 @@
                     "Rock Smash": 0,
                     "Round": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -10325,7 +10325,7 @@
                     "Sandstorm": 0,
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -10589,7 +10589,7 @@
                     "Round": 0,
                     "Sandstorm": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Steel Wing": 0,
                     "Stone Edge": 0,
                     "Strength": 0,
@@ -10635,7 +10635,7 @@
                     "Ingrain": 18,
                     "Mega Drain": 15,
                     "Rage Powder": 45,
-                    "Solar Beam": 43,
+                    "SolarBeam": 43,
                     "Spore": 50,
                     "Sweet Scent": 24,
                     "Synthesis": 35,
@@ -10660,7 +10660,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -10744,7 +10744,7 @@
                     "Round": 0,
                     "Sandstorm": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
@@ -10904,7 +10904,7 @@
                     "Shadow Ball": 0,
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -11185,7 +11185,7 @@
                     "Sludge Bomb": 0,
                     "Sludge Wave": 0,
                     "Smack Down": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -12397,7 +12397,7 @@
                     "Astonish": 1,
                     "Curse": 40,
                     "Defense Curl": 1,
-                    "Dynamic Punch": 30,
+                    "DynamicPunch": 30,
                     "Earthquake": 45,
                     "Focus Punch": 55,
                     "Hammer Arm": 50,
@@ -12513,7 +12513,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Stone Edge": 0,
                     "Strength": 0,
                     "Substitute": 0,
@@ -12572,7 +12572,7 @@
                 "level-up": {
                     "Charm": 46,
                     "Confusion": 3,
-                    "Double Slap": 14,
+                    "DoubleSlap": 14,
                     "Embargo": 19,
                     "Fake Tears": 10,
                     "Feint Attack": 24,
@@ -12664,7 +12664,7 @@
                 "level-up": {
                     "Charm": 54,
                     "Confusion": 3,
-                    "Double Slap": 14,
+                    "DoubleSlap": 14,
                     "Embargo": 19,
                     "Fake Tears": 10,
                     "Feint Attack": 24,
@@ -12752,7 +12752,7 @@
                 "level-up": {
                     "Charm": 50,
                     "Confusion": 3,
-                    "Double Slap": 14,
+                    "DoubleSlap": 14,
                     "Embargo": 19,
                     "Fake Tears": 10,
                     "Feint Attack": 24,
@@ -13189,7 +13189,7 @@
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
                     "Sludge Wave": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -13234,7 +13234,7 @@
                     "Bide": 8,
                     "Bulk Up": 29,
                     "Chip Away": 24,
-                    "Dynamic Punch": 37,
+                    "DynamicPunch": 37,
                     "Focus Energy": 4,
                     "Focus Punch": 53,
                     "Hammer Arm": 45,
@@ -13449,7 +13449,7 @@
                     "Fake Out": 1,
                     "Force Palm": 32,
                     "Knock Off": 1,
-                    "Smelling Salts": 1,
+                    "SmellingSalt": 1,
                     "Whirlwind": 1
                 },
                 "machine": {
@@ -13674,7 +13674,7 @@
                     "Rock Smash": 0,
                     "Rock Tomb": 0,
                     "Shadow Claw": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Sunny Day": 0,
                     "Toxic": 0
                 },
@@ -14256,7 +14256,7 @@
                     "Leech Seed": 22,
                     "Mega Drain": 25,
                     "Memento": 49,
-                    "Poison Powder": 12,
+                    "PoisonPowder": 12,
                     "Rage Powder": 31,
                     "Sleep Powder": 16,
                     "Splash": 1,
@@ -14388,7 +14388,7 @@
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
                     "Snarl": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -14478,7 +14478,7 @@
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
                     "Snarl": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -14700,7 +14700,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -14786,7 +14786,7 @@
                     "Round": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -14882,7 +14882,7 @@
                     "Safeguard": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -15611,7 +15611,7 @@
             "learnset": {
                 "level-up": {
                     "Bubble": 1,
-                    "Bubblebeam": 1,
+                    "BubbleBeam": 1,
                     "Harden": 1,
                     "Leer": 1,
                     "Mud Shot": 1,
@@ -15863,7 +15863,7 @@
                 "egg": {
                     "Agility": 0,
                     "Amnesia": 0,
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Bide": 0,
                     "Chip Away": 0,
                     "Endure": 0,
@@ -16358,7 +16358,7 @@
             "learnset": {
                 "level-up": {
                     "Aqua Ring": 52,
-                    "Bubble Beam": 35,
+                    "BubbleBeam": 35,
                     "Charge": 64,
                     "Discharge": 47,
                     "Electro Ball": 30,
@@ -16478,7 +16478,7 @@
                     "Waterfall": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Avalanche": 0,
                     "Curse": 0,
                     "Dragon Dance": 0,
@@ -16546,7 +16546,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -16643,7 +16643,7 @@
                     "Toxic": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Assurance": 0,
                     "Curse": 0,
                     "Dragon Dance": 0,
@@ -16754,7 +16754,7 @@
                     "Round": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -16846,7 +16846,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
@@ -16921,7 +16921,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -17026,7 +17026,7 @@
                     "Sandstorm": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -17073,7 +17073,7 @@
                     "Sleep Talk": 0,
                     "Snore": 0,
                     "Zen Headbutt": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -17958,7 +17958,7 @@
                     "Rolling Kick": 0,
                     "Thunder Punch": 0,
                     "Tickle": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -17987,7 +17987,7 @@
                     "Barrier": 0,
                     "Belly Drum": 0,
                     "Cross Chop": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "Flare Blitz": 0,
                     "Focus Energy": 0,
                     "Iron Tail": 0,
@@ -18337,7 +18337,7 @@
                     "Counter": 0,
                     "Cross Chop": 0,
                     "Detect": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "Feint": 0,
                     "Feint Attack": 0,
                     "Focus Punch": 0,
@@ -18530,7 +18530,7 @@
                     "Revenge": 0,
                     "Reversal": 0,
                     "Sleep Talk": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -18909,7 +18909,7 @@
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Stone Edge": 0,
                     "Strength": 0,
                     "Substitute": 0,
@@ -18921,7 +18921,7 @@
                     "Toxic": 0
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Captivate": 0,
                     "Fire Fang": 0,
                     "Guard Swap": 0,
@@ -19021,7 +19021,7 @@
                     "Baton Pass": 0,
                     "Bullet Punch": 0,
                     "Drain Punch": 0,
-                    "Dynamic Punch": 0,
+                    "DynamicPunch": 0,
                     "Fake Out": 0,
                     "Fire Punch": 0,
                     "Foresight": 0,
@@ -19682,7 +19682,7 @@
                     "Low Kick": 0,
                     "Me First": 0,
                     "Vital Throw": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -20101,7 +20101,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Avalanche": 0,
                     "Bite": 0,
                     "Counter": 0,
@@ -20583,7 +20583,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -20694,7 +20694,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Body Slam": 0,
                     "Defense Curl": 0,
                     "Endure": 0,
@@ -21249,7 +21249,7 @@
                     "Round": 0,
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -21334,7 +21334,7 @@
                     "Round": 0,
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -21750,7 +21750,7 @@
                     "Slam": 1
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Body Slam": 0,
                     "Counter": 0,
                     "Endeavor": 0,
@@ -22514,8 +22514,8 @@
             "learnset": {
                 "level-up": {
                     "Bounce": 37,
-                    "Bubblebeam": 1,
-                    "Double Slap": 1,
+                    "BubbleBeam": 1,
+                    "DoubleSlap": 1,
                     "Hyper Voice": 48,
                     "Hypnosis": 1,
                     "Perish Song": 1,
@@ -22577,8 +22577,8 @@
                     "Belly Drum": 31,
                     "Body Slam": 21,
                     "Bubble": 11,
-                    "Bubble Beam": 25,
-                    "Double Slap": 15,
+                    "BubbleBeam": 25,
+                    "DoubleSlap": 15,
                     "Hydro Pump": 38,
                     "Hypnosis": 8,
                     "Mud Bomb": 41,
@@ -22692,7 +22692,7 @@
             "learnset": {
                 "level-up": {
                     "Circle Throw": 53,
-                    "Dynamic Punch": 32,
+                    "DynamicPunch": 32,
                     "Mind Reader": 43
                 }
             },
@@ -23509,7 +23509,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 36,
+                    "AncientPower": 36,
                     "Endeavor": 30,
                     "Head Smash": 58,
                     "Screech": 51,
@@ -23797,7 +23797,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Harden": 1,
                     "Head Smash": 1,
                     "Hydro Pump": 1,
@@ -23886,7 +23886,7 @@
             "learnset": {
                 "level-up": {
                     "Aurora Beam": 14,
-                    "Bubblebeam": 18,
+                    "BubbleBeam": 18,
                     "Focus Energy": 22,
                     "Ice Beam": 34,
                     "Lock-On": 6,
@@ -24435,7 +24435,7 @@
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swords Dance": 0,
@@ -24513,7 +24513,7 @@
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swords Dance": 0,
@@ -25537,7 +25537,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
@@ -26602,7 +26602,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 28,
+                    "AncientPower": 28,
                     "Iron Defense": 1,
                     "Metal Sound": 1,
                     "Protect": 1,
@@ -26740,7 +26740,7 @@
                     "Headbutt": 21,
                     "Leech Seed": 13,
                     "Mega Drain": 17,
-                    "Poison Powder": 25,
+                    "PoisonPowder": 25,
                     "Seed Bomb": 41,
                     "Spore": 45,
                     "Stun Spore": 9,
@@ -26777,7 +26777,7 @@
                     "Safeguard": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -27007,7 +27007,7 @@
                     "Whirlwind": 1
                 },
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Psycho Shift": 0,
                     "Roost": 0,
                     "Skill Swap": 0,
@@ -27270,7 +27270,7 @@
                     "Charm": 25,
                     "Copycat": 18,
                     "Covet": 36,
-                    "Double Slap": 15,
+                    "DoubleSlap": 15,
                     "Double-Edge": 42,
                     "Fake Out": 1,
                     "Feint Attack": 29,
@@ -27325,7 +27325,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -27833,7 +27833,7 @@
             "learnset": {
                 "level-up": {
                     "Amnesia": 32,
-                    "Ancientpower": 28,
+                    "AncientPower": 28,
                     "Body Slam": 46,
                     "Earth Power": 55,
                     "Ember": 5,
@@ -28240,7 +28240,7 @@
             "learnset": {
                 "level-up": {
                     "Blizzard": 41,
-                    "Grass Whistle": 13,
+                    "GrassWhistle": 13,
                     "Ice Shard": 26,
                     "Icy Wind": 9,
                     "Ingrain": 31,
@@ -28396,7 +28396,7 @@
                     "Metronome": 0,
                     "Mimic": 0,
                     "Present": 0,
-                    "Smelling Salts": 0,
+                    "SmellingSalt": 0,
                     "Snore": 0,
                     "Thunder Fang": 0
                 }
@@ -28611,7 +28611,7 @@
                     "Trick": 0,
                     "Water Pulse": 0,
                     "Wish": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -29412,7 +29412,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Avalanche": 0,
                     "Bite": 0,
                     "Body Slam": 0,
@@ -29639,7 +29639,7 @@
                     "Acid": 12,
                     "Acid Spray": 26,
                     "Barrier": 29,
-                    "Bubble Beam": 18,
+                    "BubbleBeam": 18,
                     "Constrict": 8,
                     "Poison Sting": 1,
                     "Supersonic": 5,
@@ -30010,7 +30010,7 @@
                     "Foresight": 0,
                     "Mach Punch": 0,
                     "Reversal": 0,
-                    "Smelling Salts": 0,
+                    "SmellingSalt": 0,
                     "Wide Guard": 0
                 }
             },
@@ -30117,7 +30117,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Steel Wing": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -30152,7 +30152,7 @@
             "learnset": {
                 "level-up": {
                     "After You": 53,
-                    "Ancientpower": 33,
+                    "AncientPower": 33,
                     "Baton Pass": 41,
                     "Double Edge": 45,
                     "Last Resort": 49,
@@ -30188,7 +30188,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
                     "Swagger": 0,
@@ -30234,7 +30234,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Ancientpower": 1,
+                    "AncientPower": 1,
                     "Baton Pass": 1,
                     "Bestow": 1,
                     "Charm": 1,
@@ -30287,7 +30287,7 @@
                     "Safeguard": 0,
                     "Shadow Ball": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Steel Wing": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -30336,7 +30336,7 @@
                     "Low Kick": 0,
                     "Night Slash": 0,
                     "Reversal": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -30536,7 +30536,7 @@
             "isBattleOnly": false,
             "learnset": {
                 "egg": {
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Aqua Jet": 0,
                     "Block": 0,
                     "Crunch": 0,
@@ -31478,7 +31478,7 @@
                 "level-up": {
                     "Petal Blizzard": 50,
                     "Petal Dance": 32,
-                    "Solar Beam": 53,
+                    "SolarBeam": 53,
                     "Synthesis": 45,
                     "Worry Seed": 39
                 },
@@ -31509,7 +31509,7 @@
                     "Safeguard": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -31806,7 +31806,7 @@
                     "Round": 0,
                     "Safeguard": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -32269,7 +32269,7 @@
                     "Round": 0,
                     "Sleep Talk": 0,
                     "Sludge Bomb": 0,
-                    "Solar Beam": 0,
+                    "SolarBeam": 0,
                     "Struggle Bug": 0,
                     "Substitute": 0,
                     "Sunny Day": 0,
@@ -32334,7 +32334,7 @@
                     "SmokeScreen": 0,
                     "Snore": 0,
                     "Take Down": 0,
-                    "smellingsalts": 0
+                    "SmellingSalt": 0
                 }
             },
             "stats": {
@@ -32488,7 +32488,7 @@
                 "egg": {
                     "Acid Spray": 0,
                     "After You": 0,
-                    "Ancient Power": 0,
+                    "AncientPower": 0,
                     "Body Slam": 0,
                     "Counter": 0,
                     "Curse": 0,
@@ -33856,7 +33856,7 @@
                     "Bounce": 35,
                     "Dig": 33,
                     "Double Kick": 20,
-                    "Double Slap": 10,
+                    "DoubleSlap": 10,
                     "Earthquake": 49,
                     "Facade": 47,
                     "Flail": 1,
@@ -34287,7 +34287,7 @@
                     "Gust": 1,
                     "Hurricane": 50,
                     "Light Screen": 1,
-                    "Poison Powder": 1,
+                    "PoisonPowder": 1,
                     "Powder": 55,
                     "Psybeam": 17,
                     "Quiver Dance": 45,
@@ -36056,7 +36056,7 @@
             "weight": 310,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 28,
+                    "AncientPower": 28,
                     "Clamp": 20,
                     "Cross Chop": 49,
                     "Fury Cutter": 37,
@@ -36151,7 +36151,7 @@
             "weight": 960,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Clamp": 1,
                     "Cross Chop": 55,
                     "Fury Cutter": 1,
@@ -36684,7 +36684,7 @@
             "weight": 260,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Bide": 1,
                     "Bite": 1,
                     "Charm": 1,
@@ -36764,7 +36764,7 @@
             "weight": 2700,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 1,
+                    "AncientPower": 1,
                     "Bide": 1,
                     "Bite": 1,
                     "Charm": 1,
@@ -36850,7 +36850,7 @@
             "weight": 252,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 26,
+                    "AncientPower": 26,
                     "Aurora Beam": 20,
                     "Avalanche": 34,
                     "Blizzard": 65,
@@ -36938,7 +36938,7 @@
             "weight": 2250,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 26,
+                    "AncientPower": 26,
                     "Aurora Beam": 20,
                     "Avalanche": 34,
                     "Blizzard": 74,
@@ -37280,7 +37280,7 @@
             "weight": 57,
             "learnset": {
                 "level-up": {
-                    "Ancient Power": 31,
+                    "AncientPower": 31,
                     "Flail": 35,
                     "Guard Split": 1,
                     "Guard Swap": 27,
@@ -37677,7 +37677,6 @@
                     "Shadow Ball": 0,
                     "Shadow Claw": 0,
                     "Sleep Talk": 0,
-                    "Solar Beam": 0,
                     "SolarBeam": 0,
                     "Strength": 0,
                     "Substitute": 0,
