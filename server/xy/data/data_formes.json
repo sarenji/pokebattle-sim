@@ -876,9 +876,9 @@
                 "level-up": {
                     "Astonish": 4,
                     "Cotton Guard": 42,
-                    "DragonBreath": 35,
                     "Dragon Dance": 34,
                     "Dragon Pulse": 48,
+                    "DragonBreath": 35,
                     "Fury Attack": 10,
                     "Growl": 1,
                     "Mist": 15,
@@ -1115,9 +1115,9 @@
                     "Tackle": 1,
                     "Take Down": 20,
                     "Thunder": 62,
+                    "Thunder Wave": 4,
                     "ThunderPunch": 30,
-                    "ThunderShock": 8,
-                    "Thunder Wave": 4
+                    "ThunderShock": 8
                 },
                 "machine": {
                     "Attract": 0,
@@ -1829,8 +1829,8 @@
                 "level-up": {
                     "After You": 40,
                     "Attract": 15,
-                    "DoubleSlap": 10,
                     "Double-Edge": 50,
+                    "DoubleSlap": 10,
                     "Entrainment": 25,
                     "Growl": 1,
                     "Heal Pulse": 35,
@@ -4008,10 +4008,10 @@
                     "Magical Leaf": 0,
                     "Nasty Plot": 0,
                     "Seed Bomb": 0,
+                    "SmellingSalt": 0,
                     "Switcheroo": 0,
                     "Teeter Dance": 0,
-                    "Worry Seed": 0,
-                    "SmellingSalt": 0
+                    "Worry Seed": 0
                 }
             },
             "stats": {
@@ -4666,8 +4666,8 @@
                 "level-up": {
                     "Bestow": 1,
                     "Defense Curl": 1,
-                    "DoubleSlap": 1,
                     "Double-Edge": 1,
+                    "DoubleSlap": 1,
                     "Growl": 1,
                     "Minimize": 1,
                     "Pound": 1,
@@ -6373,9 +6373,9 @@
                     "Headbutt": 0,
                     "Me First": 0,
                     "Meditate": 0,
+                    "SmellingSalt": 0,
                     "Vacuum Wave": 0,
-                    "Wake-Up Slap": 0,
-                    "SmellingSalt": 0
+                    "Wake-Up Slap": 0
                 }
             },
             "stats": {
@@ -7852,8 +7852,8 @@
                     "Roost": 1,
                     "Safeguard": 53,
                     "Slam": 21,
-                    "ThunderPunch": 1,
                     "Thunder Wave": 5,
+                    "ThunderPunch": 1,
                     "Twister": 11,
                     "Wing Attack": 55,
                     "Wrap": 1
@@ -8075,10 +8075,10 @@
                 },
                 "egg": {
                     "Aqua Jet": 0,
-                    "DragonBreath": 0,
                     "Dragon Dance": 0,
                     "Dragon Pulse": 0,
                     "Dragon Rush": 0,
+                    "DragonBreath": 0,
                     "ExtremeSpeed": 0,
                     "Haze": 0,
                     "Iron Tail": 0,
@@ -10162,8 +10162,8 @@
                     "Brine": 0,
                     "Captivate": 0,
                     "Confuse Ray": 0,
-                    "DragonBreath": 0,
                     "Dragon Pulse": 0,
+                    "DragonBreath": 0,
                     "Haze": 0,
                     "Hypnosis": 0,
                     "Iron Tail": 0,
@@ -10940,22 +10940,19 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Sand-Attack": 1,
                     "Dig": 40,
                     "Dragon Claw": 33,
                     "Dragon Rage": 7,
                     "Dragon Rush": 49,
                     "Dual Chop": 24,
-                    "Sand-Attack": 3,
                     "Sand Tomb": 19,
+                    "Sand-Attack": 3,
                     "Sandstorm": 13,
                     "Slash": 28,
                     "Tackle": 1,
                     "Take Down": 15
                 },
                 "machine": {
-                    "Dragon Claw": 0,
-                    "Rock Tomb": 0,
                     "Aerial Ace": 0,
                     "Attract": 0,
                     "Bulldoze": 0,
@@ -10964,6 +10961,7 @@
                     "Dig": 0,
                     "Double Team": 0,
                     "Draco Meteor": 0,
+                    "Dragon Claw": 0,
                     "Earthquake": 0,
                     "Facade": 0,
                     "Fire Blast": 0,
@@ -10979,6 +10977,7 @@
                     "Roar": 0,
                     "Rock Slide": 0,
                     "Rock Smash": 0,
+                    "Rock Tomb": 0,
                     "Round": 0,
                     "Sandstorm": 0,
                     "Shadow Claw": 0,
@@ -11015,13 +11014,13 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Heal Pulse": 25,
                     "Close Combat": 59,
                     "Confusion": 6,
                     "Double Team": 10,
                     "False Swipe": 50,
                     "Feint": 45,
                     "Fury Cutter": 17,
+                    "Heal Pulse": 25,
                     "Helping Hand": 39,
                     "Leaf Blade": 1,
                     "Leer": 1,
@@ -11225,8 +11224,8 @@
                     "Dragon Rush": 55,
                     "Dual Chop": 24,
                     "Fire Fang": 1,
-                    "Sand-Attack": 3,
                     "Sand Tomb": 19,
+                    "Sand-Attack": 3,
                     "Sandstorm": 13,
                     "Slash": 28,
                     "Tackle": 1,
@@ -11727,8 +11726,8 @@
                     "Dragon Claw": 27,
                     "Dragon Rage": 7,
                     "Dragon Rush": 37,
-                    "Sand-Attack": 3,
                     "Sand Tomb": 19,
+                    "Sand-Attack": 3,
                     "Sandstorm": 13,
                     "Slash": 25,
                     "Tackle": 1,
@@ -12574,8 +12573,8 @@
                     "Confusion": 3,
                     "DoubleSlap": 14,
                     "Embargo": 19,
-                    "Fake Tears": 10,
                     "Faint Attack": 24,
+                    "Fake Tears": 10,
                     "Flatter": 28,
                     "Future Sight": 31,
                     "Heal Block": 33,
@@ -12666,8 +12665,8 @@
                     "Confusion": 3,
                     "DoubleSlap": 14,
                     "Embargo": 19,
-                    "Fake Tears": 10,
                     "Faint Attack": 24,
+                    "Fake Tears": 10,
                     "Flatter": 28,
                     "Future Sight": 31,
                     "Heal Block": 34,
@@ -12754,8 +12753,8 @@
                     "Confusion": 3,
                     "DoubleSlap": 14,
                     "Embargo": 19,
-                    "Fake Tears": 10,
                     "Faint Attack": 24,
+                    "Fake Tears": 10,
                     "Flatter": 28,
                     "Future Sight": 31,
                     "Heal Block": 34,
@@ -13845,8 +13844,8 @@
                     "Double-Edge": 44,
                     "Earthquake": 37,
                     "Fissure": 50,
-                    "Sand-Attack": 1,
                     "Sand Tomb": 25,
+                    "Sand-Attack": 1,
                     "Tackle": 1,
                     "Take Down": 19,
                     "Yawn": 13
@@ -14212,8 +14211,8 @@
                 "egg": {
                     "Agility": 0,
                     "Defog": 0,
-                    "FeatherDance": 0,
                     "Faint Attack": 0,
+                    "FeatherDance": 0,
                     "Mirror Move": 0,
                     "Night Shade": 0,
                     "Sky Attack": 0,
@@ -14312,8 +14311,8 @@
                     "Aurora Beam": 0,
                     "Clear Smog": 0,
                     "Disable": 0,
-                    "DragonBreath": 0,
                     "Dragon Rage": 0,
+                    "DragonBreath": 0,
                     "Flail": 0,
                     "Muddy Water": 0,
                     "Octazooka": 0,
@@ -14552,10 +14551,10 @@
                     "Bite": 1,
                     "Body Slam": 1,
                     "Crunch": 1,
-                    "DragonBreath": 1,
                     "Dragon Pulse": 1,
                     "Dragon Rage": 1,
                     "Dragon Rush": 1,
+                    "DragonBreath": 1,
                     "Focus Energy": 1,
                     "Headbutt": 1,
                     "Hyper Voice": 68,
@@ -14711,8 +14710,8 @@
                 "egg": {
                     "Captivate": 0,
                     "Covet": 0,
-                    "Fake Tears": 0,
                     "Faint Attack": 0,
+                    "Fake Tears": 0,
                     "Gravity": 0,
                     "Last Resort": 0,
                     "Perish Song": 0,
@@ -14998,8 +14997,8 @@
                     "Tail Whip": 1,
                     "Thunder": 45,
                     "Thunder Fang": 20,
-                    "ThunderShock": 9,
-                    "Thunder Wave": 33
+                    "Thunder Wave": 33,
+                    "ThunderShock": 9
                 },
                 "machine": {
                     "Attract": 0,
@@ -15955,10 +15954,10 @@
                     "Scary Face": 36
                 },
                 "machine": {
-                    "Confide": 0,
                     "Attract": 0,
                     "Brick Break": 0,
                     "Bulldoze": 0,
+                    "Confide": 0,
                     "Cut": 0,
                     "Dark Pulse": 0,
                     "Dig": 0,
@@ -17071,9 +17070,9 @@
                     "Magnitude": 0,
                     "Muddy Water": 0,
                     "Sleep Talk": 0,
+                    "SmellingSalt": 0,
                     "Snore": 0,
-                    "Zen Headbutt": 0,
-                    "SmellingSalt": 0
+                    "Zen Headbutt": 0
                 }
             },
             "stats": {
@@ -17955,9 +17954,9 @@
                     "Meditate": 0,
                     "Power Trick": 0,
                     "Rolling Kick": 0,
+                    "SmellingSalt": 0,
                     "ThunderPunch": 0,
-                    "Tickle": 0,
-                    "SmellingSalt": 0
+                    "Tickle": 0
                 }
             },
             "stats": {
@@ -18130,8 +18129,8 @@
                     "Spark": 21,
                     "Supersonic": 4,
                     "Tackle": 1,
-                    "ThunderShock": 7,
                     "Thunder Wave": 15,
+                    "ThunderShock": 7,
                     "Zap Cannon": 57
                 },
                 "machine": {
@@ -18337,8 +18336,8 @@
                     "Cross Chop": 0,
                     "Detect": 0,
                     "DynamicPunch": 0,
-                    "Feint": 0,
                     "Faint Attack": 0,
+                    "Feint": 0,
                     "Focus Punch": 0,
                     "Foresight": 0,
                     "Helping Hand": 0,
@@ -18856,9 +18855,9 @@
                     "Baton Pass": 31,
                     "Bite": 11,
                     "Crunch": 36,
+                    "Faint Attack": 26,
                     "Fairy Wind": 1,
                     "Fake Tears": 6,
-                    "Faint Attack": 26,
                     "Growl": 1,
                     "Iron Defense": 41,
                     "Iron Head": 1,
@@ -19680,8 +19679,8 @@
                     "Knock Off": 0,
                     "Low Kick": 0,
                     "Me First": 0,
-                    "Vital Throw": 0,
-                    "SmellingSalt": 0
+                    "SmellingSalt": 0,
+                    "Vital Throw": 0
                 }
             },
             "stats": {
@@ -20241,8 +20240,8 @@
                     "Brave Bird": 0,
                     "Confuse Ray": 0,
                     "Drill Peck": 0,
-                    "FeatherDance": 0,
                     "Faint Attack": 0,
+                    "FeatherDance": 0,
                     "Mirror Move": 0,
                     "Perish Song": 0,
                     "Psycho Shift": 0,
@@ -20302,8 +20301,8 @@
             "learnset": {
                 "egg": {
                     "Drill Peck": 0,
-                    "FeatherDance": 0,
                     "Faint Attack": 0,
+                    "FeatherDance": 0,
                     "Haze": 0,
                     "Quick Attack": 0,
                     "Refresh": 0,
@@ -21814,8 +21813,8 @@
                     "Nasty Plot": 18,
                     "Sweet Kiss": 10,
                     "Tail Whip": 5,
-                    "ThunderShock": 1,
-                    "Thunder Wave": 13
+                    "Thunder Wave": 13,
+                    "ThunderShock": 1
                 },
                 "machine": {
                     "Attract": 0,
@@ -22133,8 +22132,8 @@
                     "Slam": 26,
                     "Tail Whip": 1,
                     "Thunder": 50,
-                    "ThunderShock": 1,
                     "Thunder Wave": 13,
+                    "ThunderShock": 1,
                     "Thunderbolt": 29
                 },
                 "machine": {
@@ -22344,8 +22343,8 @@
                 "egg": {
                     "Bug Bite": 0,
                     "Close Combat": 0,
-                    "Feint": 0,
                     "Faint Attack": 0,
+                    "Feint": 0,
                     "Flail": 0,
                     "Fury Attack": 0,
                     "Me First": 0,
@@ -22584,8 +22583,8 @@
                     "Mud-Slap": 28,
                     "Rain Dance": 18,
                     "Wake-Up Slap": 35,
-                    "Water Sport": 1,
-                    "Water Gun": 5
+                    "Water Gun": 5,
+                    "Water Sport": 1
                 },
                 "egg": {
                     "BubbleBeam": 0,
@@ -23155,8 +23154,8 @@
                     "Charm": 0,
                     "Covet": 0,
                     "Encore": 0,
-                    "Fake Tears": 0,
                     "Faint Attack": 0,
+                    "Fake Tears": 0,
                     "Foul Play": 0,
                     "Pay Day": 0,
                     "Yawn": 0
@@ -24551,8 +24550,8 @@
                     "Ominous Wind": 29,
                     "Shock Wave": 22,
                     "Substitute": 36,
-                    "ThunderShock": 1,
                     "Thunder Wave": 1,
+                    "ThunderShock": 1,
                     "Uproar": 8
                 },
                 "machine": {
@@ -24798,8 +24797,8 @@
                     "Astonish": 11,
                     "Confuse Ray": 46,
                     "Detect": 22,
-                    "Fake Out": 18,
                     "Faint Attack": 32,
+                    "Fake Out": 18,
                     "Foresight": 4,
                     "Foul Play": 50,
                     "Fury Swipes": 15,
@@ -24886,19 +24885,19 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Protect": 30,
                     "Bite": 5,
                     "Crunch": 53,
                     "Double-Edge": 70,
-                    "DragonBreath": 32,
                     "Dragon Claw": 61,
                     "Dragon Tail": 80,
+                    "DragonBreath": 32,
                     "Ember": 25,
                     "Fire Fang": 1,
                     "Fly": 50,
                     "Focus Energy": 20,
                     "Headbutt": 16,
                     "Leer": 10,
+                    "Protect": 30,
                     "Rage": 1,
                     "Scary Face": 43,
                     "Thunder Fang": 1,
@@ -24988,7 +24987,6 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Torment": 10,
                     "Assurance": 16,
                     "Bite": 4,
                     "Crunch": 28,
@@ -24999,12 +24997,13 @@
                     "Leer": 1,
                     "Mud-Slap": 19,
                     "Rage": 1,
-                    "Sand-Attack": 7,
                     "Sand Tomb": 13,
+                    "Sand-Attack": 7,
                     "Sandstorm": 40,
                     "Scary Face": 34,
                     "Swagger": 25,
-                    "Thrash": 46
+                    "Thrash": 46,
+                    "Torment": 10
                 },
                 "egg": {
                     "Beat Up": 0,
@@ -25089,8 +25088,8 @@
                     "Poison Sting": 5,
                     "Rapid Spin": 9,
                     "Rollout": 7,
-                    "Sand-Attack": 3,
                     "Sand Tomb": 23,
+                    "Sand-Attack": 3,
                     "Sandstorm": 42,
                     "Scratch": 1,
                     "Slash": 26,
@@ -25180,8 +25179,8 @@
                     "Poison Sting": 5,
                     "Rapid Spin": 9,
                     "Rollout": 7,
-                    "Sand-Attack": 3,
                     "Sand Tomb": 23,
+                    "Sand-Attack": 3,
                     "Sandstorm": 42,
                     "Scratch": 1,
                     "Slash": 26,
@@ -25596,8 +25595,8 @@
                     "Detect": 0,
                     "Dragon Dance": 0,
                     "Drain Punch": 0,
-                    "Fake Out": 0,
                     "Faint Attack": 0,
+                    "Fake Out": 0,
                     "Fire Punch": 0,
                     "Ice Punch": 0,
                     "ThunderPunch": 0,
@@ -25693,8 +25692,8 @@
                     "Detect": 0,
                     "Dragon Dance": 0,
                     "Drain Punch": 0,
-                    "Fake Out": 0,
                     "Faint Attack": 0,
+                    "Fake Out": 0,
                     "Fire Punch": 0,
                     "Ice Punch": 0,
                     "ThunderPunch": 0,
@@ -27148,7 +27147,6 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
-                    "Sand-Attack": 6,
                     "Agility": 12,
                     "Air Cutter": 23,
                     "Air Slash": 42,
@@ -27159,6 +27157,7 @@
                     "Metal Sound": 31,
                     "Night Slash": 50,
                     "Peck": 1,
+                    "Sand-Attack": 6,
                     "Slash": 45,
                     "Spikes": 28,
                     "Steel Wing": 34,
@@ -27269,10 +27268,10 @@
                     "Charm": 25,
                     "Copycat": 18,
                     "Covet": 36,
-                    "DoubleSlap": 15,
                     "Double-Edge": 42,
-                    "Fake Out": 1,
+                    "DoubleSlap": 15,
                     "Faint Attack": 29,
+                    "Fake Out": 1,
                     "Foresight": 4,
                     "Growl": 1,
                     "Heal Bell": 39,
@@ -28483,8 +28482,8 @@
             "learnset": {
                 "egg": {
                     "Astonish": 0,
-                    "FeatherDance": 0,
                     "Faint Attack": 0,
+                    "FeatherDance": 0,
                     "Quick Attack": 0,
                     "Razor Wind": 0,
                     "Scary Face": 0,
@@ -28607,10 +28606,10 @@
                     "Psycho Cut": 0,
                     "Rapid Spin": 0,
                     "Role Play": 0,
+                    "SmellingSalt": 0,
                     "Trick": 0,
                     "Water Pulse": 0,
-                    "Wish": 0,
-                    "SmellingSalt": 0
+                    "Wish": 0
                 }
             },
             "stats": {
@@ -32330,10 +32329,10 @@
                     "Extrasensory": 0,
                     "Fake Tears": 0,
                     "Hammer Arm": 0,
+                    "SmellingSalt": 0,
                     "SmokeScreen": 0,
                     "Snore": 0,
-                    "Take Down": 0,
-                    "SmellingSalt": 0
+                    "Take Down": 0
                 }
             },
             "stats": {
@@ -32653,7 +32652,60 @@
             ],
             "hiddenAbility": "Magic Bounce",
             "isBattleOnly": false,
-            "learnset": {},
+            "learnset": {
+                "level-up": {
+                    "Confuse Ray": 1,
+                    "Leer": 1,
+                    "Lucky Chant": 1,
+                    "Me First": 1,
+                    "Miracle Eye": 1,
+                    "Night Shade": 1,
+                    "Peck": 1,
+                    "Tailwind": 1,
+                    "Teleport": 1,
+                    "Wish": 1
+                },
+                "machine": {
+                    "Aerial Ace": 0,
+                    "Attract": 0,
+                    "Calm Mind": 0,
+                    "Confide": 0,
+                    "Dazzling Gleam": 0,
+                    "Double Team": 0,
+                    "Dream Eater": 0,
+                    "Facade": 0,
+                    "Flash": 0,
+                    "Fly": 0,
+                    "Frustration": 0,
+                    "Giga Impact": 0,
+                    "Grass Knot": 0,
+                    "Hidden Power": 0,
+                    "Hyper Beam": 0,
+                    "Light Screen": 0,
+                    "Protect": 0,
+                    "Psych Up": 0,
+                    "Psychic": 0,
+                    "Psyshock": 0,
+                    "Rain Dance": 0,
+                    "Reflect": 0,
+                    "Rest": 0,
+                    "Return": 0,
+                    "Roost": 0,
+                    "Round": 0,
+                    "Shadow Ball": 0,
+                    "Sleep Talk": 0,
+                    "SolarBeam": 0,
+                    "Steel Wing": 0,
+                    "Substitute": 0,
+                    "Sunny Day": 0,
+                    "Swagger": 0,
+                    "Thief": 0,
+                    "Thunder Wave": 0,
+                    "Toxic": 0,
+                    "Trick Room": 0,
+                    "U-turn": 0
+                }
+            },
             "stats": {
                 "attack": 75,
                 "defense": 70,
@@ -32712,8 +32764,8 @@
             "learnset": {
                 "egg": {
                     "Double-Edge": 0,
-                    "Feint": 0,
                     "Faint Attack": 0,
+                    "Feint": 0,
                     "Leech Life": 0,
                     "Pursuit": 0,
                     "Reversal": 0,
@@ -33608,6 +33660,7 @@
             "weight": 70,
             "learnset": {
                 "level-up": {
+                    "Bounce": 39,
                     "Bubble": 5,
                     "Double Team": 43,
                     "Fling": 25,
@@ -33616,12 +33669,11 @@
                     "Lick": 10,
                     "Pound": 1,
                     "Quick Attack": 8,
+                    "Round": 21,
                     "Smack Down": 29,
                     "SmokeScreen": 18,
-                    "Water Pulse": 14,
-                    "Bounce": 39,
-                    "Round": 21,
-                    "Substitute": 35
+                    "Substitute": 35,
+                    "Water Pulse": 14
                 },
                 "machine": {
                     "Acrobatics": 0,
@@ -36537,8 +36589,8 @@
                     "Quick Attack": 17,
                     "Razor Wind": 21,
                     "Tail Whip": 1,
-                    "ThunderShock": 6,
                     "Thunder Wave": 31,
+                    "ThunderShock": 6,
                     "Thunderbolt": 49,
                     "Volt Switch": 40
                 },
@@ -37030,7 +37082,7 @@
             "learnset": {
                 "level-up": {
                     "Disarming Voice": 1,
-                    "Draining Kiss": 1,
+                    "Draining Kiss": 20,
                     "Fairy Wind": 1,
                     "Helping Hand": 1,
                     "Last Resort": 1,
@@ -37213,8 +37265,8 @@
                     "Tackle": 1,
                     "Tail Whip": 1,
                     "Thunder": 45,
-                    "ThunderShock": 7,
                     "Thunder Wave": 23,
+                    "ThunderShock": 7,
                     "Volt Switch": 26
                 },
                 "machine": {
@@ -37360,8 +37412,8 @@
                     "Bide": 1,
                     "Body Slam": 1,
                     "Bubble": 1,
-                    "DragonBreath": 1,
                     "Dragon Pulse": 1,
+                    "DragonBreath": 1,
                     "Flail": 1,
                     "Muddy Water": 1,
                     "Protect": 1,
@@ -37486,8 +37538,8 @@
                     "Bide": 1,
                     "Body Slam": 1,
                     "Bubble": 1,
-                    "DragonBreath": 1,
                     "Dragon Pulse": 1,
+                    "DragonBreath": 1,
                     "Feint": 1,
                     "Flail": 1,
                     "Muddy Water": 1,
@@ -38575,9 +38627,9 @@
                     "Coil": 80,
                     "Crunch": 1,
                     "Dig": 1,
-                    "DragonBreath": 1,
                     "Dragon Dance": 72,
                     "Dragon Pulse": 1,
+                    "DragonBreath": 1,
                     "Earthquake": 1,
                     "ExtremeSpeed": 88,
                     "Glare": 1,
