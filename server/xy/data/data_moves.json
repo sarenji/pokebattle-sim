@@ -758,6 +758,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -1802,6 +1803,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -3198,6 +3200,7 @@
         "ailmentId": "burn", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -4894,6 +4897,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -5014,6 +5018,7 @@
         "ailmentId": "freeze", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -7114,6 +7119,7 @@
         "ailmentId": "poison", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
@@ -10534,6 +10540,7 @@
         "ailmentId": "paralysis", 
         "damage": "physical", 
         "flags": [
+            "bite", 
             "contact", 
             "protect", 
             "mirror"
