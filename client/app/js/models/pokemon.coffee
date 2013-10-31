@@ -96,9 +96,21 @@ class @Pokemon extends Backbone.Model
     learnset = []
     for generation in [ 'rs', 'dp', 'bw', 'xy' ]
       forme = @getForme(@get('forme'), generation)
-      generationMoveMethods = forme?.learnset || []
+      continue  unless forme
+      generationMoveMethods = forme.learnset || []
       for method, moves of generationMoveMethods
         learnset.push(moveName)  for moveName, level of moves
+
+      # Add pre-evos. This should also be handled by the shared function.
+      generationObject = @getGeneration(generation)
+      preevo = @getSpecies().evolvedFrom
+      while preevo
+        # TODO: What if the pre-evo forme is a non-battle only forme?
+        generationMoveMethods = generationObject.FormeData[preevo]['default']?.learnset || []
+        for method, moves of generationMoveMethods
+          learnset.push(moveName)  for moveName, level of moves
+        # TODO: Use singular SpeciesData object.
+        preevo = window.Generations[DEFAULT_GENERATION].SpeciesData[preevo].evolvedFrom
 
     learnset = _.chain(learnset).sort().unique(true).value()
 
