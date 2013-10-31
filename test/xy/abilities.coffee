@@ -147,6 +147,17 @@ describe "BW Abilities:", ->
       targets = @battle.getTargets(earthquake, @p1)
       earthquake.calculateNumberOfHits(@battle, @p1, targets).should.equal(1)
 
+    it "hits for half damage the second hit", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      tackle = @battle.getMove('Tackle')
+      spy = @sandbox.spy(tackle, 'modifyDamage')
+      @battle.performMove(@id1, tackle)
+      spy.calledTwice.should.be.true
+      spy.returnValues[0].should.equal(0x1000)
+      spy.returnValues[1].should.equal(0x800)
+
     it "hits the same number otherwise if the move is multi-hit", ->
       shared.create.call this,
         gen: 'xy'
@@ -156,3 +167,16 @@ describe "BW Abilities:", ->
       pinMissile = @battle.getMove('Pin Missile')
       targets = @battle.getTargets(pinMissile, @p1)
       pinMissile.calculateNumberOfHits(@battle, @p1, targets).should.equal(4)
+
+    it "doesn't hit for half damage on the second hit using multi-hit moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      shared.biasRNG.call(this, "choice", 'num hits', 4)
+      shared.biasRNG.call(this, "randInt", 'num hits', 4)
+      pinMissile = @battle.getMove('Pin Missile')
+      spy = @sandbox.spy(pinMissile, 'modifyDamage')
+      @battle.performMove(@id1, pinMissile)
+      spy.callCount.should.equal(4)
+      spy.returnValues[0].should.equal(0x1000)
+      spy.returnValues[1].should.equal(0x1000)

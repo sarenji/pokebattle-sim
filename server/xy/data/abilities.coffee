@@ -61,6 +61,9 @@ makeAbility 'Parental Bond', ->
     return  if move.minHits != 1 || targets.length > 1
     return 2
 
+  this::modifyDamage = (move, target, hitNumber) ->
+    return 0x800  if hitNumber == 2 && move.maxHits == 1
+    return 0x1000
 
 # Retcons
 

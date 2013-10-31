@@ -110,7 +110,7 @@ class @Pokemon extends Backbone.Model
         for method, moves of generationMoveMethods
           learnset.push(moveName)  for moveName, level of moves
         # TODO: Use singular SpeciesData object.
-        preevo = window.Generations[DEFAULT_GENERATION].SpeciesData[preevo].evolvedFrom
+        preevo = window.Generations[DEFAULT_GENERATION.toUpperCase()].SpeciesData[preevo].evolvedFrom
 
     learnset = _.chain(learnset).sort().unique(true).value()
 

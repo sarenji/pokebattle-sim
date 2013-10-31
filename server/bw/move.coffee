@@ -48,13 +48,13 @@ class @Move
     for target in targets
       continue  if target.shouldBlockExecution(this, user) == true
       numHits = @calculateNumberOfHits(battle, user, targets)
-      for i in [1..numHits]
-        if @use(battle, user, target) != false
-          @hit(battle, user, target)
+      for hitNumber in [1..numHits]
+        if @use(battle, user, target, hitNumber) != false
+          @hit(battle, user, target, hitNumber)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
-  use: (battle, user, target) ->
+  use: (battle, user, target, hitNumber) ->
     if @willMiss(battle, user, target)
       @afterMiss(battle, user, target)
       return false
@@ -64,8 +64,8 @@ class @Move
       return false
 
   # Actually deals damage and runs hooks after hit.
-  hit: (battle, user, target) ->
-    damage = @calculateDamage(battle, user, target)
+  hit: (battle, user, target, hitNumber) ->
+    damage = @calculateDamage(battle, user, target, hitNumber)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
       damage = target.damage(damage, direct: false, source: "move")
@@ -103,7 +103,7 @@ class @Move
   getTargets: (battle, user) ->
     throw new Error("Move #{@name} has not implemented getTargets.")
 
-  calculateDamage: (battle, user, target) ->
+  calculateDamage: (battle, user, target, hitNumber) ->
     return 0  if @basePower(battle, user, target) == 0
 
     user.crit = @isCriticalHit(battle, user, target)
@@ -117,7 +117,7 @@ class @Move
     damage = Math.floor(effectiveness * damage)
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
-    damage = @modify(damage, @modifyDamage(battle, user, target))
+    damage = @modify(damage, @modifyDamage(battle, user, target, hitNumber))
     damage = target.editDamage(this, damage)
 
     if effectiveness < 1
@@ -249,11 +249,11 @@ class @Move
     modify = user.attachments.queryModifiers('modifyBasePower', this, user, target)
     modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', this, user))
 
-  modifyDamage: (battle, user, target) ->
+  modifyDamage: (battle, user, target, hitNumber) ->
     {team} = battle.getOwner(target)
-    modify = team.attachments.queryModifiers('modifyDamageTarget', this, user)
-    modify = @modify(modify, user.attachments.queryModifiers('modifyDamage', this, target))
-    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', this, user))
+    modify = team.attachments.queryModifiers('modifyDamageTarget', this, user, hitNumber)
+    modify = @modify(modify, user.attachments.queryModifiers('modifyDamage', this, target, hitNumber))
+    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', this, user, hitNumber))
 
   modifyAttack: (battle, user, target) ->
     modify = user.attachments.queryModifiers('modifyAttack', this, target)
