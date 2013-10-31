@@ -55,6 +55,13 @@ makeAbility 'Gale Wings', ->
     return priority + 1  if move.type == 'Flying'
     return priority
 
+makeAbility 'Parental Bond', ->
+  this::calculateNumberOfHits = (move, targets) ->
+    # Do nothing if this move is a multi-hit move or has multiple targets.
+    return  if move.minHits != 1 || targets.length > 1
+    return 2
+
+
 # Retcons
 
 Ability.ShadowTag::getOpponents = ->

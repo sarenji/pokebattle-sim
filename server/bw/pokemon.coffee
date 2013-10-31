@@ -381,6 +381,9 @@ class @Pokemon
   afterTurnOrder: ->
     @attachments.query('afterTurnOrder')
 
+  calculateNumberOfHits: (move, targets) ->
+    @attachments.queryUntilNotNull("calculateNumberOfHits", move, targets)
+
   resetRecords: ->
     @lastHitBy = null
 

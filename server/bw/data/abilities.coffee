@@ -694,9 +694,9 @@ makeAbility 'Simple', ->
       newBoosts[stat] = 2 * boost
     newBoosts
 
-# Implementation hardcoded in Move#calculateNumberOfHits.
-# Tested in test/bw/moves.coffee.
-makeAbility "Skill Link"
+makeAbility "Skill Link", ->
+  this::calculateNumberOfHits = (move, targets) ->
+    move.maxHits
 
 makeAbility 'Slow Start', ->
   this::initialize = ->

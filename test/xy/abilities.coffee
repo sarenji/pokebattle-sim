@@ -127,3 +127,32 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Bulletproof")]
       shadowBall = @battle.getMove('Shadow Ball')
       @p1.isImmune(shadowBall.type, shadowBall).should.be.true
+
+  describe "Parental Bond", ->
+    it "hits twice if the move has only one target", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      tackle = @battle.getMove('Tackle')
+      targets = @battle.getTargets(tackle, @p1)
+      tackle.calculateNumberOfHits(@battle, @p1, targets).should.equal(2)
+
+    it "hits once if the move has multiple targets", ->
+      shared.create.call this,
+        gen: 'xy'
+        numActive: 2
+        team1: [Factory("Magikarp", ability: "Parental Bond"), Factory("Magikarp")]
+        team2: (Factory("Magikarp")  for x in [0..1])
+      earthquake = @battle.getMove('Earthquake')
+      targets = @battle.getTargets(earthquake, @p1)
+      earthquake.calculateNumberOfHits(@battle, @p1, targets).should.equal(1)
+
+    it "hits the same number otherwise if the move is multi-hit", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      shared.biasRNG.call(this, "choice", 'num hits', 4)
+      shared.biasRNG.call(this, "randInt", 'num hits', 4)
+      pinMissile = @battle.getMove('Pin Missile')
+      targets = @battle.getTargets(pinMissile, @p1)
+      pinMissile.calculateNumberOfHits(@battle, @p1, targets).should.equal(4)

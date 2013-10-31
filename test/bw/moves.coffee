@@ -5538,7 +5538,7 @@ describe "BW Moves:", ->
         shared.biasRNG.call(this, "randInt", 'num hits', 2)
 
         move = @battle.getMove(moveName)
-        move.calculateNumberOfHits(@battle, @p1, @p2).should.equal(5)
+        move.calculateNumberOfHits(@battle, @p1, [ @p2 ]).should.equal(5)
 
   test2To5MulthitMove('Arm Thrust')
   test2To5MulthitMove('Barrage')

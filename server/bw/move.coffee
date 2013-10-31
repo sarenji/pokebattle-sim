@@ -47,7 +47,7 @@ class @Move
 
     for target in targets
       continue  if target.shouldBlockExecution(this, user) == true
-      numHits = @calculateNumberOfHits(battle, user, target)
+      numHits = @calculateNumberOfHits(battle, user, targets)
       for i in [1..numHits]
         if @use(battle, user, target) != false
           @hit(battle, user, target)
@@ -233,10 +233,11 @@ class @Move
     damage += 2
     damage
 
-  calculateNumberOfHits: (battle, user, target) ->
-    if @minHits == @maxHits
-      @maxHits
-    else if user.hasAbility("Skill Link")
+  calculateNumberOfHits: (battle, user, targets) ->
+    numHits = user.calculateNumberOfHits(this, targets)
+    if numHits
+      numHits
+    else if @minHits == @maxHits
       @maxHits
     else if @minHits == 2 && @maxHits == 5
       # hard coding moves like fury swipes to have 2-3 hits have a 1/3 chance, and 4-5 have 1/6th
