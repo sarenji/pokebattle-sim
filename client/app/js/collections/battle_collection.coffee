@@ -137,6 +137,10 @@ class @BattleCollection extends Backbone.Collection
           [team] = rest
           battle.receiveTeam(team)
           done()
+        when Protocol.SPRITE_CHANGE
+          [player, slot, newSpecies, newForme] = rest
+          battle.view.changeSprite(player, slot, newSpecies, newForme)
+          done()
         else
           done()
     catch e

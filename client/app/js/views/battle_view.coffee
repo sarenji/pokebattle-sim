@@ -120,7 +120,7 @@ class @BattleView extends Backbone.View
     $teamPreview = @$('.battle_teams')
     $teamPreview.remove()
 
-  addImages: ($images) =>
+  addImages: ($images, callback) =>
     $images ||= @$('.preload')
     battle = @model
     $images.each ->
@@ -133,7 +133,7 @@ class @BattleView extends Backbone.View
       {id}  = window.Generations[gen].SpeciesData[name]
       url   = PokemonSprite(id, forme, front: front, shiny: shiny)
       scale = if front then 1 else 2
-      addPokemonImage($this, url, scale: scale)
+      addPokemonImage($this, url, scale: scale, callback: callback)
 
   changeHP: (player, slot, oldPixels, done) =>
     $pokemon = @$pokemon(player, slot)
@@ -158,7 +158,7 @@ class @BattleView extends Backbone.View
 
   floatPercent: (player, slot, percent) =>
     return  if @skip?
-    $sprite = @$pokemon(player, slot).find('.sprite')
+    $sprite = @$sprite(player, slot)
     kind = (if percent >= 0 then "success" else "important")
     $hp = $('<span/>').addClass("label label-#{kind}").text("#{percent}%")
     $hp.hide().appendTo($sprite)
@@ -250,6 +250,15 @@ class @BattleView extends Backbone.View
 
   moveSuccess: (player, slot, targetSlot, done) =>
     done()
+
+  changeSprite: (player, slot, species, forme) =>
+    self = this
+    $sprite = @$sprite(player, slot)
+    $sprite.find('img').fadeOut ->
+      $(this).remove()
+      $sprite.data('name', species)
+      $sprite.data('forme', forme)
+      self.addImages($sprite, ($image) -> $image.fadeIn())
 
   attachPokemon: (player, slot, attachment, done) =>
     pokemon = @model.getPokemon(player, slot)

@@ -16,16 +16,14 @@ class @Pokemon
 
     @name = attributes.name || 'Missingno'
     @species = SpeciesData[@name]
+    @forme = attributes.forme || "default"
     @level = attributes.level || 100
     @gender = attributes.gender || "Genderless"
     @shiny = attributes.shiny
     @nfe = (@species?.evolvesInto?.length > 0)
-    @attachments = new Attachments()
 
-    @baseStats = {}
-    @weight = 20  # in kg
-    @types = []
-    @changeForme(attributes.forme || "default")
+    @attachments = new Attachments()
+    @resetForme()
 
     @nature = attributes.nature
     @evs = attributes.evs || {}
@@ -64,16 +62,28 @@ class @Pokemon
     # a record of whether the pokemon has officially fainted or not.
     @fainted = false
 
-  changeForme: (newForme) ->
-    return  if newForme == @forme
+  getForme: ->
     availableFormes = FormeData[@name] || {}
-    forme = availableFormes[newForme]
-    return  if !forme
-    @forme     = newForme
+    availableFormes[@forme]
+
+  isInForme: (forme) ->
+    @forme == forme
+
+  changeForme: (newForme) ->
+    @changeSprite(newForme)
+    @forme = newForme
+    @resetForme()
+
+  resetForme: ->
+    forme      = @getForme()
     @baseStats = _.clone(forme.stats)
     @types     = _.clone(forme.types)
     @weight    = forme.weight
-    newForme
+
+  changeSprite: (newSpecies, newForme) ->
+    if arguments.length == 1
+      [newSpecies, newForme] = [@name, newSpecies]
+    @tell(Protocol.SPRITE_CHANGE, newSpecies, newForme)
 
   iv: (stat) -> (if stat of @ivs then @ivs[stat] else 31)
   ev: (stat) -> (if stat of @evs then @evs[stat] else 0)
@@ -344,12 +354,13 @@ class @Pokemon
     @attachments.query('switchIn')
 
   switchOut: ->
-    @resetBoosts()
-    @resetBlocks()
     delete @lastMove
     @used = {}
     @attachments.query('switchOut')
     @attachments.unattachAll((a) -> a.volatile)
+    @resetForme()
+    @resetBoosts()
+    @resetBlocks()
 
   informSwitch: (switcher) ->
     @attachments.query('informSwitch', switcher)

@@ -49,6 +49,20 @@ makeAbility 'Bulletproof', ->
   this::isImmune = (type, move) ->
     return true  if move?.hasFlag('bullet')
 
+makeAbility 'Stance Change', ->
+  this::beforeMove = (move, user, targets) ->
+    newForme = switch
+      when !move.isNonDamaging() then "blade"
+      when move == @battle.getMove("King's Shield") then "default"
+    if newForme && !@pokemon.isInForme(newForme)
+      @pokemon.changeForme(newForme)
+      humanized = (if newForme == "blade" then "Blade" else "Shield")
+      @battle.message("Changed to #{humanized} Forme!")
+    true
+
+  this::switchOut = ->
+    @pokemon.changeForme("default")  if !@pokemon.isInForme("default")
+
 makeAbility 'Gale Wings', ->
   this::editPriority = (priority, move) ->
     # TODO: Test if Gale Wings works with Hidden Power Flying.

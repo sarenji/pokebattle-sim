@@ -180,3 +180,45 @@ describe "BW Abilities:", ->
       spy.callCount.should.equal(4)
       spy.returnValues[0].should.equal(0x1000)
       spy.returnValues[1].should.equal(0x1000)
+
+  describe "Stance Change", ->
+    it "changes to blade forme when using an attacking move", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Aegislash", ability: "Stance Change")]
+      @p1.forme.should.equal("default")
+      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @p1.forme.should.equal("blade")
+
+    it "changes to shield forme when using King's Shield", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Aegislash", ability: "Stance Change")]
+      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @p1.forme.should.equal("blade")
+      @battle.performMove(@id1, @battle.getMove("King's Shield"))
+      @p1.forme.should.equal("default")
+
+    it "changes to shield forme after switching out and back in", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Aegislash", ability: "Stance Change"), Factory("Magikarp")]
+      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @p1.forme.should.equal("blade")
+      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@id1, 1)
+      @p1.forme.should.equal("default")
+
+    it "does not change formes when using any other move", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Aegislash", ability: "Stance Change")]
+      @battle.performMove(@id1, @battle.getMove("Swords Dance"))
+      @p1.forme.should.equal("default")
+      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @p1.forme.should.equal("blade")
+      @battle.performMove(@id1, @battle.getMove("Swords Dance"))
+      @p1.forme.should.equal("blade")
+
+    it "cannot be skill-swapped"
+    it "cannot be replaced with another ability"
