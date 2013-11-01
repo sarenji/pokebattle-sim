@@ -8,6 +8,8 @@ extendMove 'Hidden Power', ->
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
+Moves["Rapid Spin"].entryHazards.push(Attachment.StickyWeb)
+
 makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
   battle.message "#{user.name} protected itself!"

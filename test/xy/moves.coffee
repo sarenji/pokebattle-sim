@@ -102,3 +102,13 @@ describe "XY Moves:", ->
       @battle.performMove(@id1, stickyWeb)
       @battle.performSwitch(@id2, 1)
       @team2.first().stages.should.include(speed: 0)
+
+  describe "Rapid Spin", ->
+    it "removes Sticky Web", ->
+      shared.create.call(this, gen: 'xy')
+      stickyWeb = @battle.getMove("Sticky Web")
+      rapidSpin = @battle.getMove("Rapid Spin")
+      @battle.performMove(@id1, stickyWeb)
+      @team2.has(Attachment.StickyWeb).should.be.true
+      @battle.performMove(@id2, rapidSpin)
+      @team2.has(Attachment.StickyWeb).should.be.false

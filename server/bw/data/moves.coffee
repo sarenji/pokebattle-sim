@@ -1773,6 +1773,7 @@ extendMove 'Rage', ->
     user.attach(Attachment.Rage)
 
 extendMove 'Rapid Spin', ->
+  @entryHazards = [ Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes ]
   @afterSuccessfulHit = (battle, user, target, damage) ->
     # Do not remove anything if the user is fainted.
     if user.isFainted()
@@ -1781,11 +1782,8 @@ extendMove 'Rapid Spin', ->
     owner = battle.getOwner(user)
     team = owner.team
 
-    # Remove any entry hazards
-    entryHazards = [Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes]
-
     hazardRemoved = false
-    for hazard in entryHazards
+    for hazard in @entryHazards
       if team.unattach(hazard)
         hazardRemoved = true
 
