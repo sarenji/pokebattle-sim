@@ -5387,7 +5387,7 @@
         "minHits": 1, 
         "power": 0, 
         "pp": 10, 
-        "priority": 0, 
+        "priority": 4, 
         "recoil": 0, 
         "target": "user", 
         "type": "Steel"
