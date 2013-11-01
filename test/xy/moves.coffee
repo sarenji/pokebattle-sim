@@ -36,3 +36,52 @@ describe "XY Moves:", ->
       facade.burnCalculation(@p1).should.equal(1)
       @p1.attach(Status.Burn)
       facade.burnCalculation(@p1).should.equal(1)
+
+  describe "King's Shield", ->
+    it "protects against attacks", ->
+      shared.create.call(this, gen: 'xy')
+      kingsShield = @battle.getMove("King's Shield")
+      tackle = @battle.getMove("Tackle")
+      mock = @sandbox.mock(tackle).expects('hit').never()
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@id1, kingsShield)
+      @battle.performMove(@id2, tackle)
+      mock.verify()
+
+    it "does not protect against non-damaging moves", ->
+      shared.create.call(this, gen: 'xy')
+      kingsShield = @battle.getMove("King's Shield")
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      mock = @sandbox.mock(willOWisp).expects('hit').once()
+
+      @battle.recordMove(@id2, willOWisp)
+      @battle.determineTurnOrder()
+      @battle.performMove(@id1, kingsShield)
+      @battle.performMove(@id2, willOWisp)
+      mock.verify()
+
+    it "sharply lowers attacker's Attack if move was a contact move", ->
+      shared.create.call(this, gen: 'xy')
+      kingsShield = @battle.getMove("King's Shield")
+      tackle = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@id1, kingsShield)
+      @p2.stages.attack.should.equal(0)
+      @battle.performMove(@id2, tackle)
+      @p2.stages.attack.should.equal(-2)
+
+    it "does not lower attacker's Attack if move was not a contact move", ->
+      shared.create.call(this, gen: 'xy')
+      kingsShield = @battle.getMove("King's Shield")
+      ember = @battle.getMove("Ember")
+
+      @battle.recordMove(@id2, ember)
+      @battle.determineTurnOrder()
+      @battle.performMove(@id1, kingsShield)
+      @p2.stages.attack.should.equal(0)
+      @battle.performMove(@id2, ember)
+      @p2.stages.attack.should.equal(0)

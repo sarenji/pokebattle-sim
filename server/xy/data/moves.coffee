@@ -7,3 +7,7 @@ extendMove 'Hidden Power', ->
 
 extendMove 'Facade', ->
   @burnCalculation = -> 1
+
+makeProtectCounterMove "King's Shield", (battle, user, targets) ->
+  user.attach(Attachment.KingsShield)
+  battle.message "#{user.name} protected itself!"

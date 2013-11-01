@@ -2,91 +2,92 @@
 {Item} = require('./data/items')
 {Attachment, Status} = require('./attachment')
 
-Priorities =
-  endTurn: [
-    # Non-order-dependent
-    Attachment.Flinch
-    Attachment.Roost
-    Attachment.MicleBerry
-    Attachment.LockOn
-    Attachment.Recharge
-    Attachment.Momentum
-    Attachment.MeFirst
-    Attachment.Charge
-    Attachment.ProtectCounter
-    Attachment.Protect
-    Attachment.Endure
-    Attachment.Pursuit
-    Attachment.Present
-    Attachment.MagicCoat
-    Attachment.EchoedVoice
-    Attachment.Rampage
-    Attachment.Fling
-    Attachment.DelayedAttack
-    Ability.SlowStart
+Priorities = Priorities ? {}
 
-    # Order-dependent
-    Ability.RainDish
-    Ability.DrySkin
-    Ability.SolarPower
-    Ability.IceBody
+Priorities.endTurn ?= [
+  # Non-order-dependent
+  Attachment.Flinch
+  Attachment.Roost
+  Attachment.MicleBerry
+  Attachment.LockOn
+  Attachment.Recharge
+  Attachment.Momentum
+  Attachment.MeFirst
+  Attachment.Charge
+  Attachment.ProtectCounter
+  Attachment.Protect
+  Attachment.Endure
+  Attachment.Pursuit
+  Attachment.Present
+  Attachment.MagicCoat
+  Attachment.EchoedVoice
+  Attachment.Rampage
+  Attachment.Fling
+  Attachment.DelayedAttack
+  Ability.SlowStart
 
-    # Team attachments
-    Attachment.FutureSight
-    Attachment.DoomDesire
-    Attachment.Wish
+  # Order-dependent
+  Ability.RainDish
+  Ability.DrySkin
+  Ability.SolarPower
+  Ability.IceBody
 
-    # TODO: Fire Pledge/Grass Pledge
-    Ability.ShedSkin
-    Ability.Hydration
-    Ability.Healer
-    Item.Leftovers
-    Item.BlackSludge
+  # Team attachments
+  Attachment.FutureSight
+  Attachment.DoomDesire
+  Attachment.Wish
 
-    Attachment.AquaRing
-    Attachment.Ingrain
-    Attachment.LeechSeed
+  # TODO: Fire Pledge/Grass Pledge
+  Ability.ShedSkin
+  Ability.Hydration
+  Ability.Healer
+  Item.Leftovers
+  Item.BlackSludge
 
-    Status.Burn
-    Status.Toxic
-    Status.Poison
-    Ability.PoisonHeal
-    Attachment.Nightmare
+  Attachment.AquaRing
+  Attachment.Ingrain
+  Attachment.LeechSeed
 
-    Attachment.Curse
-    Attachment.Trap
-    Attachment.Taunt
-    Attachment.Encore
-    Attachment.Disable
-    Attachment.MagnetRise
-    Attachment.Telekinesis
-    # TODO: Attachment.HealBlock
-    Attachment.Embargo
-    Attachment.Yawn
-    Attachment.PerishSong
-    Attachment.Reflect
-    Attachment.LightScreen
-    Attachment.Screen
-    # Attachment.Safeguard
-    # Attachment.Mist
-    # Attachment.Tailwind
-    Attachment.LuckyChant
-    # TODO: Pledge moves
-    Attachment.Gravity
-    Attachment.GravityPokemon
-    Attachment.TrickRoom
-    # Attachment.WonderRoom
-    # Attachment.MagicRoom
-    Attachment.Uproar
-    Ability.SpeedBoost
-    Ability.BadDreams
-    Ability.Harvest
-    Ability.Moody
-    Item.ToxicOrb
-    Item.FlameOrb
-    Item.StickyBarb
-    # Ability.ZenMode
-  ]
+  Status.Burn
+  Status.Toxic
+  Status.Poison
+  Ability.PoisonHeal
+  Attachment.Nightmare
+
+  Attachment.Curse
+  Attachment.Trap
+  Attachment.Taunt
+  Attachment.Encore
+  Attachment.Disable
+  Attachment.MagnetRise
+  Attachment.Telekinesis
+  # TODO: Attachment.HealBlock
+  Attachment.Embargo
+  Attachment.Yawn
+  Attachment.PerishSong
+  Attachment.Reflect
+  Attachment.LightScreen
+  Attachment.Screen
+  # Attachment.Safeguard
+  # Attachment.Mist
+  # Attachment.Tailwind
+  Attachment.LuckyChant
+  # TODO: Pledge moves
+  Attachment.Gravity
+  Attachment.GravityPokemon
+  Attachment.TrickRoom
+  # Attachment.WonderRoom
+  # Attachment.MagicRoom
+  Attachment.Uproar
+  Ability.SpeedBoost
+  Ability.BadDreams
+  Ability.Harvest
+  Ability.Moody
+  Item.ToxicOrb
+  Item.FlameOrb
+  Item.StickyBarb
+  # Ability.ZenMode
+]
 
 ensureAttachments = (arrayOfAttachments, eventName) ->
   attachments = (a  for a in arrayOfAttachments when a.prototype[eventName]? && a not in Priorities[eventName])
