@@ -1,4 +1,5 @@
 require './abilities'
 require './attachments'
+require './items'
 require './moves'
 require './util'
