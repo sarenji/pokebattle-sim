@@ -1226,8 +1226,8 @@ class @StatusAttachment extends @BaseAttachment
       return false  if pokemon.hasStatus()
       return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
       return false  if this == Status.Burn && pokemon.hasType("Fire")
-      return false  if this == Status.Toxic && pokemon.hasType("Poison")
-      return false  if this == Status.Poison && pokemon.hasType("Poison")
+      return false  if this == Status.Toxic && (pokemon.hasType("Poison") || pokemon.hasType("Steel"))
+      return false  if this == Status.Poison && (pokemon.hasType("Poison") || pokemon.hasType("Steel"))
       return false  if this == Status.Freeze &&
         (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
       if source && this in [ Status.Toxic, Status.Burn, Status.Poison ] && pokemon.hasAbility("Synchronize")

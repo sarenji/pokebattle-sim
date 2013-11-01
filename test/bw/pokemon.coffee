@@ -254,6 +254,14 @@ describe 'Pokemon', ->
       pokemon.has(Status.Poison).should.be.false
       pokemon.has(Status.Toxic).should.be.false
 
+    it "doesn't poison Steel types", ->
+      pokemon = new Pokemon()
+      pokemon.types = ["Steel"]
+      pokemon.attach(Status.Poison)
+      pokemon.attach(Status.Toxic)
+      pokemon.has(Status.Poison).should.be.false
+      pokemon.has(Status.Toxic).should.be.false
+
     it "doesn't burn Fire types", ->
       pokemon = new Pokemon()
       pokemon.types = ["Fire"]
