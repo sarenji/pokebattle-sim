@@ -85,3 +85,20 @@ describe "XY Moves:", ->
       @p2.stages.attack.should.equal(0)
       @battle.performMove(@id2, ember)
       @p2.stages.attack.should.equal(0)
+
+  describe "Sticky Web", ->
+    shared.shouldFailIfUsedTwice("Sticky Web", gen: 'xy')
+
+    it "lowers a pokemon's speed by 1 when switching in", ->
+      shared.create.call(this, gen: 'xy', team2: (Factory("Magikarp")  for x in [0..1]))
+      stickyWeb = @battle.getMove("Sticky Web")
+      @battle.performMove(@id1, stickyWeb)
+      @battle.performSwitch(@id2, 1)
+      @team2.first().stages.should.include(speed: -1)
+
+    it "doesn't lower a pokemon's speed by 1 if immune to ground", ->
+      shared.create.call(this, gen: 'xy', team2: [ Factory("Magikarp"), Factory("Gyarados") ])
+      stickyWeb = @battle.getMove("Sticky Web")
+      @battle.performMove(@id1, stickyWeb)
+      @battle.performSwitch(@id2, 1)
+      @team2.first().stages.should.include(speed: 0)

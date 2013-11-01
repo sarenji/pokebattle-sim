@@ -11,3 +11,9 @@ extendMove 'Facade', ->
 makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
   battle.message "#{user.name} protected itself!"
+
+makeOpponentFieldMove 'Sticky Web', (battle, user, opponent) ->
+  if opponent.attachToTeam(Attachment.StickyWeb)
+    battle.message "A sticky web spreads out beneath #{opponent.id} team's feet!"
+  else
+    @fail(battle)

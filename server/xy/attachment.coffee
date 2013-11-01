@@ -15,3 +15,11 @@ class @Attachment.KingsShield extends @VolatileAttachment
 
   endTurn: ->
     @pokemon.unattach(@constructor)
+
+class @Attachment.StickyWeb extends @TeamAttachment
+  name: "StickyWebAttachment"
+
+  switchIn: (pokemon) ->
+    if !pokemon.isImmune("Ground")
+      @battle.message "#{pokemon.name} was caught in a sticky web!"
+      pokemon.boost(speed: -1)
