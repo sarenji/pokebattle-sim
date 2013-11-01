@@ -91,7 +91,7 @@ describe 'BattleServer', ->
     it "returns non-empty if a team member has an illegal moveset", ->
       server = new BattleServer()
       pokemon = Factory("Raichu", moves: [ "Volt Tackle", "Encore" ])
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      server.validateTeam([ pokemon ], 'bw').should.not.be.empty
 
     # TODO: 4 is a magic constant
     it "returns non-empty if a pokemon has more than 4 moves", ->
@@ -138,7 +138,7 @@ describe 'BattleServer', ->
 
     it "returns non-empty if a pokemon has a bogus level", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", level: true)
+      pokemon = Factory("Magikarp", level: "hi")
       server.validateTeam([ pokemon ]).should.not.be.empty
 
     # TODO: 100 is a magic constant

@@ -66,7 +66,7 @@ class @BattleServer
   # otherwise.
   validateTeam: (team, generation = ladders.DEFAULT_GENERATION) ->
     return [ "Invalid team format." ]  if team not instanceof Array
-    return [ "Team must have 1 to 6 Pokemon."]  unless 1 <= team.length <= 6
+    return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
     return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
@@ -80,22 +80,23 @@ class @BattleServer
       return errors
     species = SpeciesData[pokemon.name]
     if !species
-      errors.push("Invalid species.")
+      errors.push("Invalid species: #{pokemon.name}.")
       return errors
 
     @normalizePokemon(pokemon, generation)
     forme = FormeData[pokemon.name][pokemon.forme]
     if !forme
-      errors.push("Slot #{slot}: Invalid forme.")
+      errors.push("Slot #{slot}: Invalid forme: #{pokemon.forme}.")
       return errors
 
-    errors.push("Slot #{slot}: Invalid level.")  if isNaN(pokemon.level)
+    if isNaN(pokemon.level)
+      errors.push("Slot #{slot}: Invalid level: #{pokemon.level}.")
     # TODO: 100 is a magic constant
-    unless 1 <= pokemon.level <= 100
+    else if !(1 <= pokemon.level <= 100)
       errors.push("Slot #{slot}: Level must be between 1 and 100.")
 
     if pokemon.gender not in [ "M", "F", "Genderless" ]
-      errors.push("Slot #{slot}: Invalid gender.")
+      errors.push("Slot #{slot}: Invalid gender: #{pokemon.gender}.")
     if species.genderRatio == -1 && pokemon.gender != "Genderless"
       errors.push("Slot #{slot}: Must be genderless.")
     if species.genderRatio == 0 && pokemon.gender != "M"
