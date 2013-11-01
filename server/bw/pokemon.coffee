@@ -62,22 +62,23 @@ class @Pokemon
     # a record of whether the pokemon has officially fainted or not.
     @fainted = false
 
-  getForme: ->
+  getForme: (newForme) ->
     availableFormes = FormeData[@name] || {}
-    availableFormes[@forme]
+    availableFormes[newForme || @forme]
 
   isInForme: (forme) ->
     @forme == forme
 
   changeForme: (newForme) ->
+    return  if !@getForme(newForme)
     @changeSprite(newForme)
     @forme = newForme
     @resetForme()
 
   resetForme: ->
-    forme      = @getForme()
-    @baseStats = _.clone(forme.stats)
-    @types     = _.clone(forme.types)
+    forme      = @getForme() || {}
+    @baseStats = _.clone(forme.stats) || {}
+    @types     = _.clone(forme.types) || []
     @weight    = forme.weight
 
   changeSprite: (newSpecies, newForme) ->
