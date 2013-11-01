@@ -658,7 +658,7 @@ extendMove 'Defog', ->
   ]
 
   @selectPlayers = (battle, user, target) ->
-    target.owner
+    [ target.player ]
 
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(evasion: -1)
