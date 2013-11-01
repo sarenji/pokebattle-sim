@@ -1983,7 +1983,6 @@
                 },
                 "egg": {
                     "Counter": 0,
-                    "Draco Meteor": 0,
                     "Dragon Pulse": 0,
                     "Endeavor": 0,
                     "Endure": 0,
@@ -1993,6 +1992,9 @@
                     "Night Slash": 0,
                     "Razor Wind": 0,
                     "Reversal": 0
+                },
+                "tutor": {
+                    "Draco Meteor": 0
                 }
             },
             "stats": {
@@ -9921,13 +9923,25 @@
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
+                    "Astonish": 11,
+                    "Bite": 20,
+                    "Boomburst": 1,
                     "Crunch": 40,
+                    "Fire Fang": 1,
+                    "Howl": 15,
                     "Hyper Beam": 79,
                     "Hyper Voice": 71,
+                    "Ice Fang": 1,
+                    "Pound": 1,
                     "Rest": 55,
                     "Roar": 45,
+                    "Screech": 37,
                     "Sleep Talk": 63,
-                    "Synchronoise": 55
+                    "Stomp": 29,
+                    "Supersonic": 23,
+                    "Synchronoise": 55,
+                    "Thunder Fang": 1,
+                    "Uproar": 5
                 },
                 "machine": {
                     "Attract": 0,
@@ -10960,7 +10974,6 @@
                     "Cut": 0,
                     "Dig": 0,
                     "Double Team": 0,
-                    "Draco Meteor": 0,
                     "Dragon Claw": 0,
                     "Earthquake": 0,
                     "Facade": 0,
@@ -10988,6 +11001,9 @@
                     "Sunny Day": 0,
                     "Swagger": 0,
                     "Toxic": 0
+                },
+                "tutor": {
+                    "Draco Meteor": 0
                 }
             },
             "stats": {
@@ -17399,7 +17415,63 @@
             ],
             "hiddenAbility": "Scrappy",
             "isBattleOnly": false,
-            "learnset": {},
+            "learnset": {
+                "level-up": {
+                    "Astonish": 11,
+                    "Bite": 20,
+                    "Howl": 15,
+                    "Hyper Voice": 65,
+                    "Pound": 1,
+                    "Rest": 57,
+                    "Screech": 37,
+                    "Sleep Talk": 57,
+                    "Stomp": 29,
+                    "Supersonic": 23,
+                    "Synchronoise": 51,
+                    "Uproar": 5
+                },
+                "machine": {
+                    "Attract": 0,
+                    "Blizzard": 0,
+                    "Brick Break": 0,
+                    "Bulldoze": 0,
+                    "Confide": 0,
+                    "Double Team": 0,
+                    "Earthquake": 0,
+                    "Echoed Voice": 0,
+                    "Facade": 0,
+                    "Fire Blast": 0,
+                    "Flamethrower": 0,
+                    "Fling": 0,
+                    "Frustration": 0,
+                    "Hidden Power": 0,
+                    "Ice Beam": 0,
+                    "Incinerate": 0,
+                    "Overheat": 0,
+                    "Power-Up Punch": 0,
+                    "Protect": 0,
+                    "Rain Dance": 0,
+                    "Rest": 0,
+                    "Retaliate": 0,
+                    "Return": 0,
+                    "Roar": 0,
+                    "Rock Slide": 0,
+                    "Rock Smash": 0,
+                    "Rock Tomb": 0,
+                    "Round": 0,
+                    "Shadow Ball": 0,
+                    "Sleep Talk": 0,
+                    "Smack Down": 0,
+                    "SolarBeam": 0,
+                    "Strength": 0,
+                    "Substitute": 0,
+                    "Sunny Day": 0,
+                    "Swagger": 0,
+                    "Taunt": 0,
+                    "Torment": 0,
+                    "Toxic": 0
+                }
+            },
             "stats": {
                 "attack": 71,
                 "defense": 43,
@@ -32323,6 +32395,49 @@
             "hiddenAbility": "Rattled",
             "isBattleOnly": false,
             "learnset": {
+                "level-up": {
+                    "Astonish": 11,
+                    "Howl": 15,
+                    "Hyper Voice": 50,
+                    "Pound": 1,
+                    "Rest": 45,
+                    "Roar": 35,
+                    "Screech": 31,
+                    "Sleep Talk": 45,
+                    "Stomp": 25,
+                    "Supersonic": 21,
+                    "Synchronoise": 41,
+                    "Uproar": 5
+                },
+                "machine": {
+                    "Attract": 0,
+                    "Blizzard": 0,
+                    "Confide": 0,
+                    "Double Team": 0,
+                    "Echoed Voice": 0,
+                    "Facade": 0,
+                    "Fire Blast": 0,
+                    "Flamethrower": 0,
+                    "Fling": 0,
+                    "Frustration": 0,
+                    "Hidden Power": 0,
+                    "Ice Beam": 0,
+                    "Incinerate": 0,
+                    "Protect": 0,
+                    "Rain Dance": 0,
+                    "Rest": 0,
+                    "Retaliate": 0,
+                    "Return": 0,
+                    "Roar": 0,
+                    "Round": 0,
+                    "Shadow Ball": 0,
+                    "Sleep Talk": 0,
+                    "SolarBeam": 0,
+                    "Substitute": 0,
+                    "Sunny Day": 0,
+                    "Swagger": 0,
+                    "Toxic": 0
+                },
                 "egg": {
                     "Circle Throw": 0,
                     "Endeavor": 0,
@@ -38403,7 +38518,6 @@
                     "Cut": 0,
                     "Dark Pulse": 0,
                     "Double Team": 0,
-                    "Draco Meteor": 0,
                     "Dragon Claw": 0,
                     "Dream Eater": 0,
                     "Echoed Voice": 0,
@@ -38436,6 +38550,9 @@
                     "U-turn": 0,
                     "Wild Charge": 0,
                     "X-Scissor": 0
+                },
+                "tutor": {
+                    "Draco Meteor": 0
                 }
             }
         }
