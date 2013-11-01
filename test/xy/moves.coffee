@@ -112,3 +112,24 @@ describe "XY Moves:", ->
       @team2.has(Attachment.StickyWeb).should.be.true
       @battle.performMove(@id2, rapidSpin)
       @team2.has(Attachment.StickyWeb).should.be.false
+
+  describe "Defog", ->
+    it "removes Sticky Web as well", ->
+      shared.create.call(this, gen: 'xy')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, @battle.getMove("Sticky Web"))
+      @p2.team.has(Attachment.StickyWeb).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.StickyWeb).should.be.false
+
+    it "removes hazards from both sides of the field now", ->
+      shared.create.call(this, gen: 'xy')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, @battle.getMove("Sticky Web"))
+      @battle.performMove(@id2, @battle.getMove("Sticky Web"))
+      @p1.team.has(Attachment.StickyWeb).should.be.true
+      @p2.team.has(Attachment.StickyWeb).should.be.true
+
+      @battle.performMove(@id1, defog)
+      @p1.team.has(Attachment.StickyWeb).should.be.false
+      @p2.team.has(Attachment.StickyWeb).should.be.false

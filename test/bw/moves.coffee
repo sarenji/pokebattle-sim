@@ -6274,3 +6274,53 @@ describe "BW Moves:", ->
       @p1.setHP(1)
       @battle.performMove(@id1, rest)
       mock.verify()
+
+  describe "Defog", ->
+    it "lowers target's evasion by 1", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, defog)
+      @p2.stages.should.include(evasion: -1)
+
+    it "removes Reflect on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id2, @battle.getMove("Reflect"))
+      @p2.team.has(Attachment.Reflect).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.Reflect).should.be.false
+
+    it "removes Light Screen on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id2, @battle.getMove("Light Screen"))
+      @p2.team.has(Attachment.LightScreen).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.LightScreen).should.be.false
+
+    it "removes Spikes on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @p2.team.has(Attachment.Spikes).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.Spikes).should.be.false
+
+    it "removes Stealth Rock on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @p2.team.has(Attachment.StealthRock).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.StealthRock).should.be.false
+
+    it "removes Toxic Spikes on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @p2.team.has(Attachment.ToxicSpikes).should.be.true
+      @battle.performMove(@id1, defog)
+      @p2.team.has(Attachment.ToxicSpikes).should.be.false
+
+    it "removes Safeguard on target's side"
+    it "removes Mist on target's side"

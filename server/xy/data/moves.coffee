@@ -8,6 +8,8 @@ extendMove 'Hidden Power', ->
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
+Moves["Defog"].entryHazards.push(Attachment.StickyWeb)
+Moves["Defog"].selectPlayers = (battle) -> battle.players
 Moves["Rapid Spin"].entryHazards.push(Attachment.StickyWeb)
 
 makeProtectCounterMove "King's Shield", (battle, user, targets) ->

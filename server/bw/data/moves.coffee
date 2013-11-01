@@ -648,6 +648,30 @@ extendMove 'Defense Curl', ->
     oldUse.call(this, battle, user, target)
     target.attach(Attachment.DefenseCurl)
 
+extendMove 'Defog', ->
+  @entryHazards = [
+    Attachment.Reflect
+    Attachment.LightScreen
+    Attachment.Spikes
+    Attachment.StealthRock
+    Attachment.ToxicSpikes
+  ]
+
+  @selectPlayers = (battle, user, target) ->
+    target.owner
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.boost(evasion: -1)
+
+    for opponent in @selectPlayers(battle, user, target)
+      hazardRemoved = false
+      for hazard in @entryHazards
+        if opponent.team.unattach(hazard)
+          hazardRemoved = true
+
+      if hazardRemoved
+        battle.message "#{opponent.id}'s side of the field is cleared of entry hazards."
+
 makeProtectMove 'Detect'
 extendWithSecondaryStatus 'Discharge', .3, Status.Paralyze
 extendWithSecondaryEffect 'Dizzy Punch', .2, Attachment.Confusion
