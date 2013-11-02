@@ -191,7 +191,7 @@ class @Battle
   bump: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
-      bracket = @actionPriority(action, pokemon)
+      bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
     index = @pokemonActions.map((o) -> o.pokemon).indexOf(pokemon)
@@ -199,7 +199,7 @@ class @Battle
 
     # Put segment in proper place in the queue
     for action, i in @pokemonActions
-      continue  if @actionPriority(action, pokemon) != bracket
+      continue  if @actionPriority(action) != bracket
       @pokemonActions.splice(i, 0, segment)
       break
 
@@ -208,7 +208,7 @@ class @Battle
   delay: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
-      bracket = @actionPriority(action, pokemon)
+      bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
     index = @pokemonActions.map((o) -> o.pokemon).indexOf(pokemon)
@@ -217,7 +217,7 @@ class @Battle
     # Put segment in proper place in the queue
     for i in [(@pokemonActions.length - 1)..0] by -1
       action = @pokemonActions[i]
-      continue  if @actionPriority(action, pokemon) != bracket
+      continue  if @actionPriority(action) != bracket
       @pokemonActions.splice(i + 1, 0, segment)
       break
 
@@ -529,7 +529,7 @@ class @Battle
     trickRoomed = @has(Attachment.TrickRoom)
     array = @pokemonActions.map (action) =>
       {pokemon} = action
-      priority = @actionPriority(action, pokemon)
+      priority = @actionPriority(action)
       speed = pokemon.stat('speed')
       speed = 0x2710 - speed  if trickRoomed
       speed &= 8191
@@ -543,7 +543,7 @@ class @Battle
 
     @pokemonActions = array.map (elem) => elem[0]
 
-  actionPriority: (action, pokemon) ->
+  actionPriority: (action) ->
     @actionMap[action.type]["priority"].call(this, action)
 
   hasActionsLeft: ->

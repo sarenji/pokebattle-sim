@@ -1342,10 +1342,10 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Prankster")]
       spore = @battle.getMove("Spore")
       tackle = @battle.getMove("Tackle")
-      action = {type: "move", move: spore}
-      @battle.actionPriority(action, @p1).should.equal(spore.priority + 1)
+      action = {type: "move", move: spore, pokemon: @p1}
+      @battle.actionPriority(action).should.equal(spore.priority + 1)
       action.move = tackle
-      @battle.actionPriority(action, @p1).should.equal(tackle.priority)
+      @battle.actionPriority(action).should.equal(tackle.priority)
 
   describe "Pressure", ->
     it "reduces a move's PP further by 1 if targetted by foe's move", ->
