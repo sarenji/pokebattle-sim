@@ -198,3 +198,17 @@ describe "Learnsets:", ->
     it "can inherit event moves from its pre-evos", ->
       moveset = [ "Imprison" ]
       @checkMoveset(5, moveset).should.be.true
+
+  describe "learnableMoves", ->
+    it "returns all possible learnable moves for a pokemon", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      moves = learnableMoves({name: "Genesect"}, 6)
+      moves.should.include("Shift Gear")
+
+      moves = learnableMoves({name: "Deoxys"}, 6)
+      moves.should.include("Superpower")
+
+    it "also returns dream world and event moves", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      moves = learnableMoves({name: "Gengar"}, 6)
+      moves.should.include("Sludge Wave")

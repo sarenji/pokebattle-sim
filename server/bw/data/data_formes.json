@@ -173,6 +173,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Gravity": 5,
+					"Skill Swap": 5,
+					"Teleport": 5
 				}
 			},
 			"stats": {
@@ -303,6 +308,11 @@
 					"Spite": 0,
 					"Superpower": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Feint": 5,
+					"Megahorn": 5,
+					"Superpower": 5
 				}
 			},
 			"stats": {
@@ -486,6 +496,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Assurance": 5,
+					"Bite": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -721,6 +736,11 @@
 					"Spite": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Fake Out": 5,
+					"Fire Punch": 5,
+					"Scratch": 5
 				}
 			},
 			"stats": {
@@ -914,6 +934,11 @@
 					"Pain Split": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Aqua Ring": 5,
+					"Mirror Coat": 5,
+					"Pain Split": 5
 				}
 			},
 			"stats": {
@@ -1363,6 +1388,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Cross Poison": 5,
+					"Scratch": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -2144,6 +2174,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Endeavor": 5,
+					"Harden": 5,
+					"Head Smash": 5
 				}
 			},
 			"stats": {
@@ -2351,6 +2386,11 @@
 					"ThunderPunch": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Encore": 5,
+					"Helping Hand": 5,
+					"Yawn": 5
 				}
 			},
 			"stats": {
@@ -2451,6 +2491,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Dragon Rage": 5,
+					"Night Slash": 5
 				}
 			},
 			"stats": {
@@ -2815,6 +2860,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Dragon Dance": 5,
+					"Outrage": 5
 				}
 			},
 			"stats": {
@@ -2913,6 +2963,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Gravity": 5,
+					"Rapid Spin": 5,
+					"Zen Headbutt": 5
 				}
 			},
 			"stats": {
@@ -3094,6 +3149,11 @@
 					"Icy Wind": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Mud-Slap": 5,
+					"Sleep Talk": 5,
+					"Spark": 5
 				}
 			},
 			"stats": {
@@ -3182,6 +3242,11 @@
 					"Superpower": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Agility": 5,
+					"Headbutt": 5,
+					"Zen Headbutt": 5
 				}
 			},
 			"stats": {
@@ -3689,6 +3754,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Air Cutter": 5,
+					"Fury Attack": 5,
+					"Fury Cutter": 5
 				}
 			},
 			"stats": {
@@ -3822,6 +3892,11 @@
 					"Iron Defense": 0,
 					"Iron Head": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Iron Head": 5,
+					"Take Down": 5,
+					"Zen Headbutt": 5
 				}
 			},
 			"stats": {
@@ -3983,6 +4058,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Seed Bomb": 5,
+					"Synthesis": 5,
+					"Vine Whip": 5
 				}
 			},
 			"stats": {
@@ -4175,6 +4255,11 @@
 					"Stealth Rock": 0,
 					"Super Fang": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Aqua Tail": 5,
+					"Secret Power": 5,
+					"Tackle": 5
 				}
 			},
 			"stats": {
@@ -4751,6 +4836,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Smack Down": 5,
+					"Curse": 5,
+					"Heavy Slam": 5
 				}
 			},
 			"stats": {
@@ -5312,6 +5402,11 @@
 					"Stealth Rock": 0,
 					"Trick": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Gravity": 5,
+					"Hypnosis": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -5488,6 +5583,12 @@
 					"Iron Tail": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Slash": 5,
+					"Water Gun": 5,
+					"Water Pulse": 5,
+					"Water Sport": 5
 				}
 			},
 			"stats": {
@@ -5691,6 +5792,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Drain Punch": 5,
+					"Fake Out": 5,
+					"Foresight": 5
 				}
 			},
 			"stats": {
@@ -5725,6 +5831,11 @@
 					"Bug Bite": 0,
 					"Electroweb": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Bug Bite": 5,
+					"Protect": 5,
+					"Snore": 5
 				}
 			},
 			"stats": {
@@ -5808,6 +5919,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Air Cutter": 5,
+					"Confusion": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -5908,6 +6024,11 @@
 					"Synthesis": 0,
 					"ThunderPunch": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Absorb": 5,
+					"Teeter Dance": 5,
+					"ThunderPunch": 5
 				}
 			},
 			"stats": {
@@ -6181,6 +6302,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Gastro Acid": 5,
+					"Rage Powder": 5
 				}
 			},
 			"stats": {
@@ -6360,6 +6486,11 @@
 					"Super Fang": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Dark Pulse": 5,
+					"Thrash": 5
 				}
 			},
 			"stats": {
@@ -6479,6 +6610,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Ember": 5,
+					"Ominous Wind": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -7072,6 +7208,11 @@
 					"Stealth Rock": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Growl": 5,
+					"Helping Hand": 5
 				}
 			},
 			"stats": {
@@ -7442,6 +7583,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Mirror Move": 5,
+					"Nasty Plot": 5,
+					"Role Play": 5
 				}
 			},
 			"stats": {
@@ -7591,6 +7737,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Bullet Seed": 5,
+					"Heal Pulse": 5,
+					"Leech Seed": 5
 				}
 			},
 			"stats": {
@@ -7894,6 +8045,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Hyper Voice": 5,
+					"Hypnosis": 5,
+					"Wrap": 5
 				}
 			},
 			"stats": {
@@ -7984,6 +8140,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Amnesia": 5,
+					"Shock Wave": 5,
+					"Thunder Wave": 5
 				}
 			},
 			"stats": {
@@ -8231,6 +8392,11 @@
 					"Iron Defense": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Aqua Ring": 5,
+					"Captivate": 5,
+					"Whirlpool": 5
 				}
 			},
 			"stats": {
@@ -8671,6 +8837,11 @@
 					"Uproar": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Aromatherapy": 5,
+					"Encore": 5,
+					"Sleep Talk": 5
 				}
 			},
 			"stats": {
@@ -8955,6 +9126,11 @@
 					"Endeavor": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Air Cutter": 5,
+					"Gust": 5,
+					"Tailwind": 5
 				}
 			},
 			"stats": {
@@ -9239,6 +9415,11 @@
 					"Snore": 0,
 					"Spite": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Endeavor": 5,
+					"Harden": 5,
+					"Metal Claw": 5
 				}
 			},
 			"stats": {
@@ -9345,6 +9526,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Bubble": 5,
+					"Confuse Ray": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -9433,6 +9619,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Encore": 5,
+					"Leech Seed": 5,
+					"Worry Seed": 5
 				}
 			},
 			"stats": {
@@ -9625,6 +9816,11 @@
 					"ThunderPunch": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Fire Punch": 5,
+					"Headbutt": 5,
+					"Iron Head": 5
 				}
 			},
 			"stats": {
@@ -9924,6 +10120,11 @@
 					"Spite": 0,
 					"Super Fang": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Drain Punch": 5,
+					"Gunk Shot": 5,
+					"Poison Sting": 5
 				}
 			},
 			"stats": {
@@ -10187,6 +10388,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Rock Slide": 5,
+					"Counter": 5,
+					"Night Slash": 5
 				}
 			},
 			"stats": {
@@ -10463,6 +10669,11 @@
 					"Stealth Rock": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Bone Club": 5,
+					"Low Kick": 5,
+					"Perish Song": 5
 				}
 			},
 			"stats": {
@@ -11293,6 +11504,11 @@
 					"Signal Beam": 0,
 					"Sky Attack": 0,
 					"Sleep Talk": 0
+				},
+				"dreamWorld": {
+					"Focus Punch": 5,
+					"Ice Shard": 5,
+					"Present": 5
 				}
 			},
 			"stats": {
@@ -12094,6 +12310,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Beat Up": 5,
+					"Sand-Attack": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -12276,6 +12497,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Flail": 5,
+					"Growl": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -12756,6 +12982,11 @@
 					"Outrage": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"DragonBreath": 5,
+					"Thunder Wave": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -12951,6 +13182,11 @@
 					"Spite": 0,
 					"Tailwind": 0,
 					"Trick": 0
+				},
+				"dreamWorld": {
+					"Hypnosis": 5,
+					"Minimize": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -13043,6 +13279,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Metal Sound": 5,
+					"Rapid Spin": 5,
+					"Rock Climb": 5
 				}
 			},
 			"stats": {
@@ -13153,6 +13394,11 @@
 					"ThunderPunch": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Drain Punch": 5,
+					"Hypnosis": 5,
+					"Psycho Cut": 5
 				}
 			},
 			"stats": {
@@ -13272,6 +13518,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Fire Fang": 5,
+					"Sucker Punch": 5
 				}
 			},
 			"stats": {
@@ -13354,6 +13605,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Brine": 5,
+					"Defog": 5,
+					"Me First": 5
 				}
 			},
 			"stats": {
@@ -13555,6 +13811,11 @@
 					"Spite": 0,
 					"Stealth Rock": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Defense Curl": 5,
+					"Magic Coat": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -13649,6 +13910,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Recover": 5,
+					"Trick": 5,
+					"Imprison": 5
 				}
 			},
 			"stats": {
@@ -13740,6 +14006,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Endure": 5,
+					"Fury Cutter": 5,
+					"Thunder Fang": 5
 				}
 			},
 			"stats": {
@@ -14045,6 +14316,11 @@
 					"Spite": 0,
 					"Trick": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Disable": 5,
+					"Pain Split": 5,
+					"Trick": 5
 				}
 			},
 			"stats": {
@@ -14469,6 +14745,11 @@
 					"Last Resort": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Sand-Attack": 5,
+					"Swift": 5
 				}
 			},
 			"stats": {
@@ -14568,6 +14849,11 @@
 					"Snatch": 0,
 					"Snore": 0,
 					"Spite": 0
+				},
+				"dreamWorld": {
+					"Beat Up": 5,
+					"Dark Pulse": 5,
+					"Poison Sting": 5
 				}
 			},
 			"stats": {
@@ -14843,6 +15129,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Ice Fang": 5,
+					"Signal Beam": 5,
+					"Thunder Wave": 5
 				}
 			},
 			"stats": {
@@ -15016,6 +15307,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Cross Chop": 5,
+					"Magnet Rise": 5,
+					"ThunderShock": 5
 				}
 			},
 			"stats": {
@@ -15125,6 +15421,11 @@
 					"Uproar": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Barrier": 5,
+					"Heal Block": 5,
+					"Nasty Plot": 5
 				}
 			},
 			"stats": {
@@ -15324,6 +15625,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Air Slash": 5,
+					"Charm": 5,
+					"Quick Attack": 5
 				}
 			},
 			"stats": {
@@ -15863,6 +16169,11 @@
 					"Synthesis": 0,
 					"Uproar": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Barrage": 5,
+					"Giga Drain": 5,
+					"Synthesis": 5
 				}
 			},
 			"stats": {
@@ -16149,6 +16460,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Fury Cutter": 5,
+					"Leaf Blade": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -16297,6 +16613,11 @@
 					"Iron Tail": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Captivate": 5,
+					"Mirror Coat": 5,
+					"Splash": 5
 				}
 			},
 			"stats": {
@@ -16671,6 +16992,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Attract": 5,
+					"Sweet Kiss": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -17868,6 +18194,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Electro Ball": 5,
+					"Pursuit": 5,
+					"Disable": 5
 				}
 			},
 			"stats": {
@@ -18260,6 +18591,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Disable": 5,
+					"Hypnosis": 5,
+					"Sludge Wave": 5
 				}
 			},
 			"stats": {
@@ -18645,6 +18981,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Defense Curl": 5,
+					"Rock Climb": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -18741,6 +19082,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Dragon Rage": 5,
+					"Endure": 5,
+					"Outrage": 5
 				}
 			},
 			"stats": {
@@ -18934,6 +19280,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Confusion": 5,
+					"Mirror Coat": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -19399,6 +19750,11 @@
 					"Snatch": 0,
 					"Snore": 0,
 					"Super Fang": 0
+				},
+				"dreamWorld": {
+					"Assurance": 5,
+					"Fake Out": 5,
+					"Secret Power": 5
 				}
 			},
 			"stats": {
@@ -19513,6 +19869,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Feint": 5,
+					"Sand-Attack": 5,
+					"Tailwind": 5
 				}
 			},
 			"stats": {
@@ -19860,6 +20221,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Peck": 5,
+					"Psybeam": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -20144,6 +20510,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Rollout": 5,
+					"ThunderPunch": 5,
+					"Fire Punch": 5
 				}
 			},
 			"stats": {
@@ -20931,6 +21302,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Haze": 5,
+					"Poison Gas": 5,
+					"Shadow Sneak": 5
 				}
 			},
 			"stats": {
@@ -21291,6 +21667,12 @@
 					"Outrage": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Body Slam": 5,
+					"Endure": 5,
+					"Roar": 5
 				}
 			},
 			"stats": {
@@ -21483,6 +21865,11 @@
 					"Snatch": 0,
 					"Snore": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Acid Armor": 5,
+					"Giga Drain": 5,
+					"Poison Gas": 5
 				}
 			},
 			"stats": {
@@ -21572,6 +21959,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Low Kick": 5,
+					"Mach Punch": 5,
+					"Drain Punch": 5
 				}
 			},
 			"stats": {
@@ -22149,6 +22541,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Heat Wave": 5,
+					"Incinerate": 5,
+					"Giga Drain": 5
 				}
 			},
 			"stats": {
@@ -22341,6 +22738,11 @@
 					"Low Kick": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Flail": 5,
+					"Focus Punch": 5,
+					"Horn Attack": 5
 				}
 			},
 			"stats": {
@@ -22502,6 +22904,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Stockpile": 5,
+					"Superpower": 5
 				}
 			},
 			"stats": {
@@ -23119,6 +23526,11 @@
 					"Tailwind": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Foresight": 5,
+					"Night Shade": 5,
+					"Recycle": 5
 				}
 			},
 			"stats": {
@@ -23211,6 +23623,13 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Bounce": 5,
+					"Bullet Seed": 5,
+					"Encore": 5,
+					"Helping Hand": 5,
+					"Synthesis": 5
 				}
 			},
 			"stats": {
@@ -23297,6 +23716,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Brine": 5,
+					"Bubble": 5,
+					"Octazooka": 5
 				}
 			},
 			"stats": {
@@ -23497,6 +23921,11 @@
 					"Spite": 0,
 					"Super Fang": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Dark Pulse": 5,
+					"Feint": 5,
+					"Howl": 5
 				}
 			},
 			"stats": {
@@ -23875,6 +24304,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Fake Tears": 5,
+					"Helping Hand": 5,
+					"Sing": 5
 				}
 			},
 			"stats": {
@@ -23968,6 +24402,11 @@
 					"Tailwind": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Fake Tears": 5,
+					"Tailwind": 5
 				}
 			},
 			"stats": {
@@ -24909,6 +25348,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Absorb": 5,
+					"Flail": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -25259,6 +25703,11 @@
 					"Spite": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Drain Punch": 5,
+					"Fake Out": 5
 				}
 			},
 			"stats": {
@@ -25341,6 +25790,11 @@
 					"Knock Off": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Bug Bite": 5,
+					"Endure": 5,
+					"Megahorn": 5
 				}
 			},
 			"stats": {
@@ -25465,6 +25919,11 @@
 					"ThunderPunch": 0,
 					"Trick": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Faint Attack": 5,
+					"Reflect Type": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -25981,6 +26440,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Charge Beam": 5,
+					"Gravity": 5,
+					"Magnet Rise": 5
 				}
 			},
 			"stats": {
@@ -26227,6 +26691,11 @@
 					"Snore": 0,
 					"Spite": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Dark Pulse": 5,
+					"Sludge Wave": 5,
+					"Smog": 5
 				}
 			},
 			"stats": {
@@ -26323,6 +26792,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Amnesia": 5,
+					"Secret Power": 5,
+					"ViceGrip": 5
 				}
 			},
 			"stats": {
@@ -26358,6 +26832,11 @@
 					"Endeavor": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Endeavor": 5,
+					"Struggle Bug": 5,
+					"Uproar": 5
 				}
 			},
 			"stats": {
@@ -26646,6 +27125,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Crunch": 5,
+					"Counter": 5,
+					"Mean Look": 5
 				}
 			},
 			"stats": {
@@ -27572,6 +28056,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Confuse Ray": 5,
+					"Horn Drill": 5,
+					"Icy Wind": 5
 				}
 			},
 			"stats": {
@@ -27759,6 +28248,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Dark Pulse": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -28344,6 +28838,11 @@
 					"Tailwind": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Bug Bite": 5,
+					"Comet Punch": 5,
+					"ThunderPunch": 5
 				}
 			},
 			"stats": {
@@ -28563,6 +29062,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Lick": 5,
+					"Rock Climb": 5,
+					"Sleep Talk": 5
 				}
 			},
 			"stats": {
@@ -28745,6 +29249,11 @@
 					"Stealth Rock": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Acid": 5,
+					"Giga Drain": 5,
+					"Mirror Coat": 5
 				}
 			},
 			"stats": {
@@ -29375,6 +29884,11 @@
 					"Synthesis": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Absorb": 5,
+					"Leech Seed": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -29946,6 +30460,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Confusion": 5,
+					"Earth Power": 5,
+					"Moonlight": 5
 				}
 			},
 			"stats": {
@@ -30027,6 +30546,11 @@
 					"Icy Wind": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Icy Wind": 5,
+					"Mud Sport": 5
 				}
 			},
 			"stats": {
@@ -30467,6 +30991,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Bullet Punch": 5,
+					"Helping Hand": 5,
+					"Low Kick": 5
 				}
 			},
 			"stats": {
@@ -30558,6 +31087,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Ember": 5,
+					"Heat Wave": 5,
+					"ThunderPunch": 5
 				}
 			},
 			"stats": {
@@ -30679,6 +31213,10 @@
 				},
 				"tutor": {
 					"Bounce": 0
+				},
+				"dreamWorld": {
+					"Bounce": 5,
+					"Splash": 5
 				}
 			},
 			"stats": {
@@ -30935,6 +31473,12 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Gravity": 5,
+					"Metal Sound": 5,
+					"Recycle": 5,
+					"ThunderShock": 5
 				}
 			},
 			"stats": {
@@ -31214,6 +31758,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Arm Thrust": 5,
+					"Helping Hand": 5,
+					"Ice Punch": 5
 				}
 			},
 			"stats": {
@@ -31676,6 +32225,11 @@
 					"Spite": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Low Kick": 5,
+					"Reversal": 5,
+					"ThunderPunch": 5
 				}
 			},
 			"stats": {
@@ -31775,6 +32329,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Air Cutter": 5,
+					"Mirror Coat": 5,
+					"Supersonic": 5
 				}
 			},
 			"stats": {
@@ -31957,6 +32516,11 @@
 					"Synthesis": 0,
 					"Uproar": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Leech Seed": 5,
+					"Pin Missile": 5,
+					"Spikes": 5
 				}
 			},
 			"stats": {
@@ -32042,6 +32606,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Reflect": 5,
+					"Shock Wave": 5,
+					"ThunderShock": 5
 				}
 			},
 			"stats": {
@@ -32141,6 +32710,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Aqua Jet": 5,
+					"Defense Curl": 5,
+					"Ice Punch": 5
 				}
 			},
 			"stats": {
@@ -32521,6 +33095,11 @@
 					"Stealth Rock": 0,
 					"Super Fang": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Fake Tears": 5,
+					"Fire Fang": 5,
+					"Ice Punch": 5
 				}
 			},
 			"stats": {
@@ -32737,6 +33316,11 @@
 					"ThunderPunch": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Drain Punch": 5,
+					"Endure": 5,
+					"Meditate": 5
 				}
 			},
 			"stats": {
@@ -33167,6 +33751,11 @@
 					"Snore": 0,
 					"Spite": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Hypnosis": 5,
+					"Scratch": 5,
+					"Secret Power": 5
 				}
 			},
 			"stats": {
@@ -34292,6 +34881,11 @@
 					"Stealth Rock": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Curse": 5,
+					"Defense Curl": 5,
+					"Iron Tail": 5
 				}
 			},
 			"stats": {
@@ -34592,6 +35186,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Discharge": 5,
+					"Signal Beam": 5,
+					"Thunder Wave": 5
 				}
 			},
 			"stats": {
@@ -34698,6 +35297,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Destiny Bond": 5,
+					"Inferno": 5,
+					"Psywave": 5
 				}
 			},
 			"stats": {
@@ -35182,6 +35786,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Barrier": 5,
+					"Skill Swap": 5,
+					"Teeter Dance": 5
 				}
 			},
 			"stats": {
@@ -35692,6 +36301,11 @@
 					"Spite": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Confuse Ray": 5,
+					"Peck": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -35881,6 +36495,11 @@
 					"Tailwind": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"FeatherDance": 5,
+					"Giga Drain": 5,
+					"Night Shade": 5
 				}
 			},
 			"stats": {
@@ -36190,6 +36809,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Super Fang": 0
+				},
+				"dreamWorld": {
+					"Scratch": 5,
+					"Sucker Punch": 5,
+					"Super Fang": 5
 				}
 			},
 			"stats": {
@@ -36283,6 +36907,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Super Fang": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Peck": 5,
+					"Super Fang": 5
 				}
 			},
 			"stats": {
@@ -36516,6 +37145,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Spite": 0
+				},
+				"dreamWorld": {
+					"Endure": 5,
+					"Leech Life": 5,
+					"Night Slash": 5
 				}
 			},
 			"stats": {
@@ -36857,6 +37491,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"AncientPower": 5,
+					"Stealth Rock": 5,
+					"Tackle": 5
 				}
 			},
 			"stats": {
@@ -36954,6 +37593,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Body Slam": 5,
+					"Ember": 5,
+					"Heat Wave": 5
 				}
 			},
 			"stats": {
@@ -37216,6 +37860,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Giga Drain": 5,
+					"Sweet Scent": 5,
+					"Teeter Dance": 5
 				}
 			},
 			"stats": {
@@ -37312,6 +37961,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Icy Wind": 5,
+					"Muddy Water": 5
 				}
 			},
 			"stats": {
@@ -37501,6 +38155,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Bind": 5,
+					"Rock Climb": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -37692,6 +38351,11 @@
 					"Super Fang": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Covet": 5,
+					"Quick Attack": 5,
+					"Shock Wave": 5
 				}
 			},
 			"stats": {
@@ -38279,6 +38943,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Cross Poison": 5,
+					"Stun Spore": 5,
+					"Synthesis": 5
 				}
 			},
 			"stats": {
@@ -38564,6 +39233,11 @@
 					"Snore": 0,
 					"Spite": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Fury Cutter": 5,
+					"Psycho Cut": 5,
+					"Sucker Punch": 5
 				}
 			},
 			"stats": {
@@ -38839,6 +39513,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Sleep Powder": 5,
+					"Sweet Scent": 5
 				}
 			},
 			"stats": {
@@ -38928,6 +39607,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Flail": 5,
+					"Heavy Slam": 5,
+					"Seed Bomb": 5
 				}
 			},
 			"stats": {
@@ -39314,6 +39998,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Gust": 5,
+					"Secret Power": 5,
+					"Steel Wing": 5
 				}
 			},
 			"stats": {
@@ -39397,6 +40086,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Gust": 5,
+					"Hypnosis": 5,
+					"Morning Sun": 5
 				}
 			},
 			"stats": {
@@ -39754,6 +40448,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Gravity": 5,
+					"Selfdestruct": 5,
+					"Toxic Spikes": 5
 				}
 			},
 			"stats": {
@@ -39853,6 +40552,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Close Combat": 5,
+					"Me First": 5,
+					"ViceGrip": 5
 				}
 			},
 			"stats": {
@@ -40032,6 +40736,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Discharge": 5,
+					"Signal Beam": 5,
+					"Thunder Wave": 5
 				}
 			},
 			"stats": {
@@ -40197,6 +40906,11 @@
 					"Icy Wind": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Hypnosis": 5,
+					"Mist": 5,
+					"Sleep Talk": 5
 				}
 			},
 			"stats": {
@@ -40443,6 +41157,11 @@
 					"Low Kick": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Heat Wave": 5,
+					"Tackle": 5,
+					"Thrash": 5
 				}
 			},
 			"stats": {
@@ -40538,6 +41257,11 @@
 					"Spite": 0,
 					"Super Fang": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Dark Pulse": 5,
+					"Howl": 5,
+					"Poison Fang": 5
 				}
 			},
 			"stats": {
@@ -41213,6 +41937,11 @@
 					"Wonder Room": 0,
 					"Worry Seed": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Brine": 5,
+					"Encore": 5,
+					"Water Sport": 5
 				}
 			},
 			"stats": {
@@ -41756,6 +42485,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Aqua Jet": 5,
+					"Poison Sting": 5,
+					"Secret Power": 5
 				}
 			},
 			"stats": {
@@ -42028,6 +42762,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Confusion": 5,
+					"Destiny Bond": 5,
+					"Helping Hand": 5
 				}
 			},
 			"stats": {
@@ -42400,6 +43139,11 @@
 					"Super Fang": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Iron Tail": 5,
+					"Me First": 5,
+					"Quick Attack": 5
 				}
 			},
 			"stats": {
@@ -42967,6 +43711,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Earth Power": 5,
+					"Sleep Talk": 5,
+					"Water Gun": 5
 				}
 			},
 			"stats": {
@@ -43062,6 +43811,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Brine": 5,
+					"Lock-On": 5,
+					"Rock Blast": 5
 				}
 			},
 			"stats": {
@@ -43485,6 +44239,11 @@
 					"Stealth Rock": 0,
 					"Superpower": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Double-Edge": 5,
+					"Horn Attack": 5
 				}
 			},
 			"stats": {
@@ -43703,6 +44462,11 @@
 					"Snore": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Bullet Punch": 5,
+					"Endure": 5,
+					"Focus Punch": 5
 				}
 			},
 			"stats": {
@@ -43878,6 +44642,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Growth": 5,
+					"Sleep Powder": 5,
+					"Swift": 5
 				}
 			},
 			"stats": {
@@ -44031,6 +44800,11 @@
 					"Spite": 0,
 					"Trick": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Shock Wave": 5,
+					"Signal Beam": 5,
+					"Thunder Wave": 5
 				}
 			},
 			"stats": {
@@ -44640,6 +45414,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Foresight": 5,
+					"Spite": 5,
+					"Sucker Punch": 5
 				}
 			},
 			"stats": {
@@ -45030,6 +45809,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Super Fang": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Sand-Attack": 5,
+					"Super Fang": 5
 				}
 			},
 			"stats": {
@@ -45213,6 +45997,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Rock Smash": 5,
+					"Dual Chop": 5,
+					"ThunderPunch": 5
 				}
 			},
 			"stats": {
@@ -45577,6 +46366,11 @@
 					"Snatch": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Poison Tail": 5,
+					"Superpower": 5,
+					"Toxic Spikes": 5
 				}
 			},
 			"stats": {
@@ -45804,6 +46598,11 @@
 					"Super Fang": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Drain Punch": 5,
+					"Fake Out": 5,
+					"Low Kick": 5
 				}
 			},
 			"stats": {
@@ -45899,6 +46698,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Baton Pass": 5,
+					"Quick Attack": 5,
+					"Tailwind": 5
 				}
 			},
 			"stats": {
@@ -46048,6 +46852,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Endure": 5,
+					"Sleep Talk": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -46210,6 +47019,11 @@
 					"Spite": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Bullet Seed": 5,
+					"Foul Play": 5,
+					"Growth": 5
 				}
 			},
 			"stats": {
@@ -46304,6 +47118,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Headbutt": 5,
+					"Icicle Spear": 5,
+					"Sleep Talk": 5
 				}
 			},
 			"stats": {
@@ -46506,6 +47325,11 @@
 					"ThunderPunch": 0,
 					"Trick": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Covet": 5,
+					"Endure": 5,
+					"Scratch": 5
 				}
 			},
 			"stats": {
@@ -46781,6 +47605,11 @@
 					"Sleep Talk": 0,
 					"Snatch": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Aqua Tail": 5,
+					"Bite": 5,
+					"Body Slam": 5
 				}
 			},
 			"stats": {
@@ -47341,6 +48170,11 @@
 					"Iron Defense": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Barrier": 5,
+					"Icy Wind": 5,
+					"Withdraw": 5
 				}
 			},
 			"stats": {
@@ -47422,6 +48256,11 @@
 					"Pain Split": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Mud-Slap": 5,
+					"Secret Power": 5,
+					"Yawn": 5
 				}
 			},
 			"stats": {
@@ -47502,6 +48341,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Acid": 5,
+					"Baton Pass": 5,
+					"Encore": 5
 				}
 			},
 			"stats": {
@@ -47601,6 +48445,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Counter": 5,
+					"Fissure": 5,
+					"Protect": 5
 				}
 			},
 			"stats": {
@@ -47781,6 +48630,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Charge": 5,
+					"Magnet Rise": 5,
+					"Night Slash": 5
 				}
 			},
 			"stats": {
@@ -47866,6 +48720,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Bullet Seed": 5,
+					"Focus Punch": 5,
+					"Stun Spore": 5
 				}
 			},
 			"stats": {
@@ -47966,6 +48825,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Encore": 5,
+					"Helping Hand": 5,
+					"Shell Smash": 5
 				}
 			},
 			"stats": {
@@ -48069,6 +48933,11 @@
 					"Snatch": 0,
 					"Spite": 0,
 					"Trick": 0
+				},
+				"dreamWorld": {
+					"Destiny Bond": 5,
+					"Night Shade": 5,
+					"Pain Split": 5
 				}
 			},
 			"stats": {
@@ -48176,6 +49045,11 @@
 					"Tailwind": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Hypnosis": 5,
+					"Stored Power": 5,
+					"Heat Wave": 5
 				}
 			},
 			"stats": {
@@ -48569,6 +49443,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Drill Peck": 5,
+					"Peck": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -48757,6 +49636,11 @@
 					"Snore": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Captivate": 5,
+					"Foresight": 5,
+					"Tickle": 5
 				}
 			},
 			"stats": {
@@ -48860,6 +49744,11 @@
 					"Knock Off": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Agility": 5,
+					"Aqua Tail": 5,
+					"Bite": 5
 				}
 			},
 			"stats": {
@@ -49143,6 +50032,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Night Slash": 5,
+					"Sucker Punch": 5,
+					"Yawn": 5
 				}
 			},
 			"stats": {
@@ -49486,6 +50380,11 @@
 					"Trick": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Block": 5,
+					"Brine": 5,
+					"Yawn": 5
 				}
 			},
 			"stats": {
@@ -49575,6 +50474,11 @@
 					"Pain Split": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Ember": 5,
+					"Heat Wave": 5,
+					"Inferno": 5
 				}
 			},
 			"stats": {
@@ -49602,6 +50506,11 @@
 			"learnset": {
 				"level-up": {
 					"Sketch": 1
+				},
+				"dreamWorld": {
+					"Captivate": 5,
+					"Sketch": 5,
+					"Sleep Talk": 5
 				}
 			},
 			"stats": {
@@ -49705,6 +50614,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Captivate": 5,
+					"Skill Swap": 5,
+					"Sweet Kiss": 5
 				}
 			},
 			"stats": {
@@ -49823,6 +50737,11 @@
 					"Snatch": 0,
 					"Snore": 0,
 					"Spite": 0
+				},
+				"dreamWorld": {
+					"Ice Punch": 5,
+					"Low Kick": 5,
+					"Taunt": 5
 				}
 			},
 			"stats": {
@@ -50037,6 +50956,11 @@
 					"Superpower": 0,
 					"ThunderPunch": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Amnesia": 5,
+					"Fire Punch": 5,
+					"Recycle": 5
 				}
 			},
 			"stats": {
@@ -50116,6 +51040,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Spite": 0
+				},
+				"dreamWorld": {
+					"Powder Snow": 5,
+					"Water Pulse": 5,
+					"Weather Ball": 5
 				}
 			},
 			"stats": {
@@ -50205,6 +51134,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Avalanche": 5,
+					"Giga Drain": 5,
+					"Razor Leaf": 5
 				}
 			},
 			"stats": {
@@ -50321,6 +51255,11 @@
 					"Super Fang": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Close Combat": 5,
+					"Double-Edge": 5
 				}
 			},
 			"stats": {
@@ -50530,6 +51469,11 @@
 					"Stealth Rock": 0,
 					"Wonder Room": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Confusion": 5,
+					"Morning Sun": 5,
+					"Zen Headbutt": 5
 				}
 			},
 			"stats": {
@@ -50614,6 +51558,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Faint Attack": 5,
+					"Peck": 5,
+					"Steel Wing": 5
 				}
 			},
 			"stats": {
@@ -50706,6 +51655,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Super Fang": 0
+				},
+				"dreamWorld": {
+					"Aqua Tail": 5,
+					"Fissure": 5,
+					"Powder Snow": 5
 				}
 			},
 			"stats": {
@@ -50796,6 +51750,11 @@
 					"Giga Drain": 0,
 					"Signal Beam": 0,
 					"Sleep Talk": 0
+				},
+				"dreamWorld": {
+					"Bug Bite": 5,
+					"Electroweb": 5,
+					"Poison Sting": 5
 				}
 			},
 			"stats": {
@@ -50908,6 +51867,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Copycat": 5,
+					"Fake Out": 5,
+					"Superpower": 5
 				}
 			},
 			"stats": {
@@ -51003,6 +51967,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Wonder Room": 0
+				},
+				"dreamWorld": {
+					"Icy Wind": 5,
+					"Pain Split": 5,
+					"Spite": 5
 				}
 			},
 			"stats": {
@@ -51108,6 +52077,11 @@
 					"Snore": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Psywave": 5,
+					"Recycle": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -51312,6 +52286,11 @@
 					"Spite": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Disable": 5,
+					"Skill Swap": 5,
+					"Tackle": 5
 				}
 			},
 			"stats": {
@@ -51455,6 +52434,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"FeatherDance": 5,
+					"Tailwind": 5,
+					"Wing Attack": 5
 				}
 			},
 			"stats": {
@@ -51705,6 +52689,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Icy Wind": 5,
+					"Recycle": 5,
+					"Water Gun": 5
 				}
 			},
 			"stats": {
@@ -51993,6 +52982,11 @@
 					"Spite": 0,
 					"Stealth Rock": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Curse": 5,
+					"Mud-Slap": 5,
+					"Yawn": 5
 				}
 			},
 			"stats": {
@@ -52089,6 +53083,11 @@
 					"Sleep Talk": 0,
 					"Snatch": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Foul Play": 5,
+					"Screech": 5,
+					"Sucker Punch": 5
 				}
 			},
 			"stats": {
@@ -52193,6 +53192,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Flail": 5,
+					"Role Play": 5,
+					"Rollout": 5
 				}
 			},
 			"stats": {
@@ -52452,6 +53456,11 @@
 					"Synthesis": 0,
 					"Uproar": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Earth Power": 5,
+					"Mega Drain": 5,
+					"Sweet Scent": 5
 				}
 			},
 			"stats": {
@@ -52530,6 +53539,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Bubble": 5,
+					"Giga Drain": 5,
+					"Hydro Pump": 5
 				}
 			},
 			"stats": {
@@ -52621,6 +53635,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"FeatherDance": 5,
+					"Peck": 5,
+					"Roost": 5
 				}
 			},
 			"stats": {
@@ -53115,6 +54134,11 @@
 					"Snore": 0,
 					"Stealth Rock": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"AncientPower": 5,
+					"Icicle Spear": 5,
+					"Odor Sleuth": 5
 				}
 			},
 			"stats": {
@@ -53298,6 +54322,13 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Tailwind": 0
+				},
+				"dreamWorld": {
+					"Brave Bird": 5,
+					"Endure": 5,
+					"Mirror Move": 5,
+					"Peck": 5,
+					"Tailwind": 5
 				}
 			},
 			"stats": {
@@ -53397,6 +54428,11 @@
 					"Snore": 0,
 					"Synthesis": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Leech Seed": 5,
+					"Seed Bomb": 5,
+					"Sleep Powder": 5
 				}
 			},
 			"stats": {
@@ -53587,6 +54623,11 @@
 					"Spite": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Iron Tail": 5,
+					"Rage": 5,
+					"Rock Climb": 5
 				}
 			},
 			"stats": {
@@ -53694,6 +54735,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Crunch": 5,
+					"Fake Tears": 5,
+					"Focus Punch": 5
 				}
 			},
 			"stats": {
@@ -53789,6 +54835,11 @@
 					"Magic Coat": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Acupressure": 5,
+					"Giga Drain": 5,
+					"Supersonic": 5
 				}
 			},
 			"stats": {
@@ -54151,6 +55202,11 @@
 					"Snore": 0,
 					"Superpower": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Bind": 5,
+					"Superpower": 5,
+					"Ice Punch": 5
 				}
 			},
 			"stats": {
@@ -54547,6 +55603,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Flail": 5,
+					"Iron Defense": 5,
+					"Rollout": 5
 				}
 			},
 			"stats": {
@@ -54746,6 +55807,11 @@
 					"Trick": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Lucky Chant": 5,
+					"Metronome": 5,
+					"Uproar": 5
 				}
 			},
 			"stats": {
@@ -55039,6 +56105,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Stealth Rock": 0
+				},
+				"dreamWorld": {
+					"Ember": 5,
+					"Fissure": 5,
+					"Stealth Rock": 5
 				}
 			},
 			"stats": {
@@ -55695,6 +56766,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Superpower": 0
+				},
+				"dreamWorld": {
+					"Bite": 5,
+					"Giga Drain": 5,
+					"Signal Beam": 5
 				}
 			},
 			"stats": {
@@ -55893,6 +56969,11 @@
 					"Synthesis": 0,
 					"Tailwind": 0,
 					"Worry Seed": 0
+				},
+				"dreamWorld": {
+					"Gust": 5,
+					"Leech Seed": 5,
+					"Silver Wind": 5
 				}
 			},
 			"stats": {
@@ -56154,6 +57235,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Earth Power": 5,
+					"Round": 5,
+					"Water Pulse": 5
 				}
 			},
 			"stats": {
@@ -56475,6 +57561,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Fake Out": 5,
+					"Feint": 5,
+					"Mach Punch": 5
 				}
 			},
 			"stats": {
@@ -56934,6 +58025,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Mirror Shot": 5,
+					"Ice Shard": 5,
+					"Imprison": 5
 				}
 			},
 			"stats": {
@@ -57427,6 +58523,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Baton Pass": 5,
+					"Disable": 5,
+					"Skill Swap": 5
 				}
 			},
 			"stats": {
@@ -58208,6 +59309,11 @@
 					"ThunderPunch": 0,
 					"Trick": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Flash": 5,
+					"Tailwind": 5,
+					"Trick": 5
 				}
 			},
 			"stats": {
@@ -58369,6 +59475,11 @@
 					"Signal Beam": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Charge": 5,
+					"Natural Gift": 5,
+					"Signal Beam": 5
 				}
 			},
 			"stats": {
@@ -58565,6 +59676,11 @@
 					"Snore": 0,
 					"Spite": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Dark Pulse": 5,
+					"Heat Wave": 5,
+					"Roar": 5
 				}
 			},
 			"stats": {
@@ -58658,6 +59774,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Bounce": 5,
+					"Sleep Talk": 5,
+					"Water Gun": 5
 				}
 			},
 			"stats": {
@@ -59623,6 +60744,11 @@
 					"ThunderPunch": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Endeavor": 5,
+					"Uproar": 5,
+					"Zen Headbutt": 5
 				}
 			},
 			"stats": {
@@ -59808,6 +60934,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Shock Wave": 5,
+					"Twister": 5,
+					"Water Gun": 5
 				}
 			},
 			"stats": {
@@ -59838,6 +60969,11 @@
 					"Destiny Bond": 1,
 					"Mirror Coat": 1,
 					"Safeguard": 1
+				},
+				"dreamWorld": {
+					"Charm": 5,
+					"Encore": 5,
+					"Mirror Coat": 5
 				}
 			},
 			"stats": {
@@ -60045,6 +61181,11 @@
 					"Iron Tail": 0,
 					"Sleep Talk": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Aqua Tail": 5,
+					"Body Slam": 5,
+					"Water Gun": 5
 				}
 			},
 			"stats": {
@@ -60325,6 +61466,11 @@
 					"Bug Bite": 0,
 					"Electroweb": 0,
 					"Snore": 0
+				},
+				"dreamWorld": {
+					"Bug Bite": 5,
+					"Poison Sting": 5,
+					"Snore": 5
 				}
 			},
 			"stats": {
@@ -60638,6 +61784,11 @@
 					"Snore": 0,
 					"Tailwind": 0,
 					"Uproar": 0
+				},
+				"dreamWorld": {
+					"Feint": 5,
+					"Giga Drain": 5,
+					"Quick Attack": 5
 				}
 			},
 			"stats": {
@@ -60837,6 +61988,11 @@
 					"Sleep Talk": 0,
 					"Snore": 0,
 					"ThunderPunch": 0
+				},
+				"dreamWorld": {
+					"Double Hit": 5,
+					"Low Kick": 5,
+					"Quick Attack": 5
 				}
 			},
 			"stats": {
@@ -61192,6 +62348,11 @@
 					"Snore": 0,
 					"Super Fang": 0,
 					"Trick": 0
+				},
+				"dreamWorld": {
+					"Last Resort": 5,
+					"Tackle": 5,
+					"Trick": 5
 				}
 			},
 			"stats": {
@@ -61485,6 +62646,11 @@
 					"Tailwind": 0,
 					"Uproar": 0,
 					"Zen Headbutt": 0
+				},
+				"dreamWorld": {
+					"Hypnosis": 5,
+					"Super Fang": 5,
+					"Supersonic": 5
 				}
 			},
 			"stats": {

@@ -3,6 +3,7 @@ self = (module?.exports || window)
 if module?.exports
   EventPokemon = require('./event_pokemon')
   {INT_TO_GENERATION} = require('./ladders')
+  {_} = require('underscore')
 else
   window.EventPokemon ?= {}
 
@@ -67,7 +68,16 @@ loopLearnsets = (Generations, SpeciesData, pokemon, forGeneration, iterator) ->
   return false
 
 # Returns an array of moves that this Pokemon can learn for a given generation.
-self.learnableMoves = (pokemon, forGeneration) ->
+self.learnableMoves = (Generations, SpeciesData, pokemon, forGeneration) ->
+  learnable = []
+  loopLearnsets Generations, SpeciesData, pokemon, forGeneration, (learnset, pokemonName, formeName) ->
+    events = EventPokemon[pokemonName] || []
+    events = events.filter((event) -> event.forme == formeName)
+    for event in events
+      learnable.push(event.moves)
+    for method, moves of learnset
+      learnable.push((moveName  for moveName of moves))
+  _.chain(learnable).flatten().sort().unique().value()
 
 # Checks the moveset of a given Pokemon for a given generation, with the given
 # species and forme data for all Pokemon.
