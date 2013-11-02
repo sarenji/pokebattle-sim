@@ -8,6 +8,7 @@ class @BattleView extends Backbone.View
   events:
     'click .move': 'makeMove'
     'click .switch': 'switchPokemon'
+    'click .mega-evolve': 'megaEvolve'
     'click .submit_arrangement': 'submitTeamPreview'
     'click .save-log': 'saveLog'
 
@@ -49,6 +50,14 @@ class @BattleView extends Backbone.View
       window       : window
     $actions = @$('.battle_actions')
     $actions.html @action_template(locals)
+
+    pokemon = @model.getPokemon(@model.index, 0)
+    if pokemon.getItem()?.type == 'megastone'
+      $button = $actions.find('.mega-evolve')
+      $button.removeClass("hidden")
+      if !pokemon.canMegaEvolve()
+        $button.addClass('disabled')
+
     $actions.find('.switch.button').each (i, el) =>
       $this = $(el)
       slot = $this.data('slot')
@@ -258,7 +267,7 @@ class @BattleView extends Backbone.View
       $(this).remove()
       $sprite.data('name', species)
       $sprite.data('forme', forme)
-      self.addImages($sprite, ($image) -> $image.fadeIn())
+      self.addImages($sprite, ($image) -> $image.hide().fadeIn())
 
   attachPokemon: (player, slot, attachment, done) =>
     pokemon = @model.getPokemon(player, slot)
@@ -477,6 +486,12 @@ class @BattleView extends Backbone.View
     @model.makeSwitch(toSlot)
     @disableButtons()
 
+  megaEvolve: (e) =>
+    $target = $(e.currentTarget)
+    $target.toggleClass('pressed')
+    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon.set('megaEvolve', $target.hasClass("pressed"))
+
 addPokemonImage = ($div, url, options = {}) ->
   scale = options.scale || 1
   image = new Image()
@@ -491,6 +506,6 @@ addPokemonImage = ($div, url, options = {}) ->
     top  = ($div.height() - height) >> 1
     left = ($div.width() - width) >> 1
     $image.css(position: 'absolute', top: top, left: left)
-    $image.appendTo($div)
     options.callback?($image, left, top)  # $image, x, y
   image.src = url
+  $image.appendTo($div)

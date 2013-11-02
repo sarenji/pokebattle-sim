@@ -108,13 +108,13 @@ connections.addEvents
         <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
         connections.broadcast('raw message', message)
 
-  'send move': (user, battleId, moveName, slot, forTurn) ->
+  'send move': (user, battleId, moveName, slot, forTurn, args...) ->
     battle = server.findBattle(battleId)
     if !battle
       user.send 'error', 'ERROR: Battle does not exist'
       return
 
-    battle.makeMove(user, moveName, slot, forTurn)
+    battle.makeMove(user, moveName, slot, forTurn, args...)
   
   'send switch': (user, battleId, toSlot, fromSlot, forTurn) ->
     battle = server.findBattle(battleId)

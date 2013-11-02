@@ -61,6 +61,9 @@ class @Pokemon extends Backbone.Model
   getSpecies: ->
     @getGeneration().SpeciesData[@get('name')]
 
+  getItem: ->
+    @getGeneration().ItemData[@get('item')]
+
   getForme: (forme, generation) ->
     forme ||= @get('forme')
     @getGeneration(generation).FormeData[@get('name')]?[forme]
@@ -185,6 +188,13 @@ class @Pokemon extends Backbone.Model
       "#{status[0].toUpperCase()}#{status.substr(1)}"
     else
       "Healthy"
+
+  canMegaEvolve: ->
+    item = @getItem()
+    return false  if item.type != 'megastone'
+    [ species, forme ] = item.mega
+    return false  if @get('name') != species || @get('forme') != 'default'
+    return true
 
   toJSON: ->
     attributes = _.clone(@attributes)

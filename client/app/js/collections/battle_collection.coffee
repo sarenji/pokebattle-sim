@@ -139,6 +139,9 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.SPRITE_CHANGE
           [player, slot, newSpecies, newForme] = rest
+          pokemon = battle.getPokemon(player, slot)
+          pokemon.set('name', newSpecies)
+          pokemon.set('forme', newForme)
           battle.view.changeSprite(player, slot, newSpecies, newForme)
           done()
         else

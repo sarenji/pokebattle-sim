@@ -15,6 +15,13 @@ button-bg(clr)
     border-color darkest-clr
     color darken(btn-clr, 20%)
     text-shadow   0 -1px 0 rgba(255, 255, 255, .10)
+  &:active, &.pressed
+    color darken(btn-clr, 50%)
+    text-shadow none
+  &.pressed
+    background darker-clr
+  &:active
+    background darkest-clr
 
 .button
   clearfix()

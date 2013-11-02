@@ -547,7 +547,7 @@ class @Battle
     @actionMap[action.type]["priority"].call(this, action)
 
   hasActionsLeft: ->
-    @pokemonActions?.length > 0
+    @pokemonActions.length > 0
 
   # Executed by @continueTurn
   performSwitch: (pokemon, toPosition) ->
@@ -560,8 +560,8 @@ class @Battle
   performReplacements: ->
     @replacing = false
     switched = []
-    while @pokemonActions.length > 0
-      {pokemon, to} = @pokemonActions.pop()
+    while @hasActionsLeft()
+      {pokemon, to} = @pokemonActions.shift()
       switched.push @performReplacement(pokemon, to)
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched

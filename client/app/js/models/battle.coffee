@@ -24,7 +24,9 @@ class @Battle extends Backbone.Model
     @trigger.apply(this, arguments)
 
   makeMove: (moveName, forSlot) =>
-    @socket.send('send move', @id, moveName, forSlot, @get('turn'))
+    pokemon = @getPokemon(@index, forSlot)
+    @socket.send('send move', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
+    pokemon.set('megaEvolve', false)
 
   makeSwitch: (toSlot, forSlot) =>
     @socket.send('send switch', @id, toSlot, forSlot, @get('turn'))
@@ -42,7 +44,7 @@ class @Battle extends Backbone.Model
   getOpponentTeam: (playerIndex = @index) =>
     @teams[1 - playerIndex]
 
-  getPokemon: (playerIndex, slot) =>
+  getPokemon: (playerIndex, slot = 0) =>
     team = @getTeam(playerIndex)
     team.at(slot)
 
