@@ -13,6 +13,8 @@ extendMove "Defog", ->
   @selectPlayers = (battle) ->
     battle.players
 
+extendWithBoost 'Power-Up Punch', 'self', attack: 1
+
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
 
