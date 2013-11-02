@@ -52,7 +52,7 @@ describe 'Battle', ->
   describe '#recordMove', ->
     it "records a player's move", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
-      action = @battle.pokemonActions.find((a) => a.id == @id1)
+      action = @battle.pokemonActions.find((a) => a.pokemon == @p1)
       should.exist(action)
       action.should.have.property("move")
       action.move.should.equal @battle.getMove('Tackle')
@@ -66,7 +66,7 @@ describe 'Battle', ->
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
-      action = @battle.pokemonActions.find((a) => a.id == @id1)
+      action = @battle.pokemonActions.find((a) => a.pokemon == @p1)
       should.exist(action)
       action.should.have.property("to")
       action.to.should.equal 1
@@ -80,14 +80,14 @@ describe 'Battle', ->
   describe '#performSwitch', ->
     it "swaps pokemon positions of a player's team", ->
       [poke1, poke2] = @team1.pokemon
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       @team1.pokemon.slice(0, 2).should.eql [poke2, poke1]
 
     it "calls the pokemon's switchOut() method", ->
       pokemon = @p1
       mock = @sandbox.mock(pokemon)
       mock.expects('switchOut').once()
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       mock.verify()
 
   describe "#setWeather", ->
@@ -115,13 +115,13 @@ describe 'Battle', ->
     it "goes down after a pokemon uses a move", ->
       pokemon = @p1
       move = @p1.moves[0]
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @p1.pp(move).should.equal(@p1.maxPP(move) - 1)
 
   describe "#performMove", ->
     it "records this move as the battle's last move", ->
       move = @p1.moves[0]
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       should.exist @battle.lastMove
       @battle.lastMove.should.equal move
@@ -133,9 +133,9 @@ describe 'Battle', ->
       @battle.determineTurnOrder()
 
       # Get last pokemon to move and bump it up
-      {pokemon} = @battle.priorityQueue[@battle.priorityQueue.length - 1]
+      {pokemon} = @battle.pokemonActions[@battle.pokemonActions.length - 1]
       @battle.bump(pokemon)
-      @battle.priorityQueue[0].pokemon.should.eql pokemon
+      @battle.pokemonActions[0].pokemon.should.eql pokemon
 
     it "bumps a pokemon to the front of a specific priority bracket", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
@@ -152,9 +152,9 @@ describe 'Battle', ->
       @battle.determineTurnOrder()
 
       # Get first pokemon to move and delay it
-      {pokemon} = @battle.priorityQueue[0]
+      {pokemon} = @battle.pokemonActions[0]
       @battle.delay(pokemon)
-      @battle.priorityQueue[1].pokemon.should.eql pokemon
+      @battle.pokemonActions[1].pokemon.should.eql pokemon
 
     it "delays a pokemon to the end of a specific priority bracket", ->
       @battle.recordMove(@id1, @battle.getMove('Mach Punch'))

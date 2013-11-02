@@ -6,7 +6,7 @@ shouldDoNoDamage = (moveName, battleOptions) ->
   it 'does no damage', ->
     create.call(this, battleOptions)
     move = @battle.getMove(moveName)
-    @battle.performMove(@id1, move)
+    @battle.performMove(@p1, move)
     @p2.currentHP.should.equal @p2.stat('hp')
 
 shouldFailIfUsedTwice = (moveName, battleOptions) ->
@@ -16,8 +16,8 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
     mock = @sandbox.mock(move)
     mock.expects('fail').once()
 
-    @battle.performMove(@id1, move)
-    @battle.performMove(@id1, move)
+    @battle.performMove(@p1, move)
+    @battle.performMove(@p1, move)
 
     mock.verify()
 

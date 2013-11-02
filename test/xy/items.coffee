@@ -18,7 +18,7 @@ describe "XY Items:", ->
         team1: [Factory('Magikarp', item: 'Weakness Policy')]
       thunderbolt = @battle.getMove("Thunderbolt")
       @p1.stages.should.include(attack: 0, specialAttack: 0)
-      @battle.performMove(@id2, thunderbolt)
+      @battle.performMove(@p2, thunderbolt)
       @p1.stages.should.include(attack: 2, specialAttack: 2)
 
     it "is consumed after use", ->
@@ -26,7 +26,7 @@ describe "XY Items:", ->
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Weakness Policy')]
       thunderbolt = @battle.getMove("Thunderbolt")
-      @battle.performMove(@id2, thunderbolt)
+      @battle.performMove(@p2, thunderbolt)
       @p1.hasItem().should.be.false
 
     it "is not used if hit by a non-super-effective move", ->
@@ -34,7 +34,7 @@ describe "XY Items:", ->
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Weakness Policy')]
       ember = @battle.getMove("Ember")
-      @battle.performMove(@id2, ember)
+      @battle.performMove(@p2, ember)
       @p1.hasItem().should.be.true
       @p1.stages.should.include(attack: 0, specialAttack: 0)
 
@@ -43,7 +43,7 @@ describe "XY Items:", ->
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Weakness Policy')]
       thunderWave = @battle.getMove("Thunder Wave")
-      @battle.performMove(@id2, thunderWave)
+      @battle.performMove(@p2, thunderWave)
       @p1.hasItem().should.be.true
       @p1.stages.should.include(attack: 0, specialAttack: 0)
 

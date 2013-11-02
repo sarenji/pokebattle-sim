@@ -18,8 +18,8 @@ class @Player
   get: (attachment) ->
     @team.get(attachment)
 
-  switch: (index1, index2) ->
-    @team.switch(this, index1, index2)
+  switch: (pokemon, toIndex) ->
+    @team.switch(pokemon, toIndex)
 
   send: (args...) ->
     @user.send? args...

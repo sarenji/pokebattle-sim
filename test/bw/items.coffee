@@ -100,13 +100,13 @@ describe "BW Items:", ->
     it "is removed after use", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
-      @battle.performMove(@id1, @battle.getMove("Acrobatics"))
+      @battle.performMove(@p1, @battle.getMove("Acrobatics"))
       should.not.exist @p1.item
 
     it "is not removed after use if the move isn't the right type", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
-      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       should.exist @p1.item
 
   describe "A typed plate", ->
@@ -123,7 +123,7 @@ describe "BW Items:", ->
 
       hp = @p1.stat('hp')
       currentHP = @p1.currentHP = Math.floor(hp * 2 / 3)
-      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       @p1.currentHP.should.equal currentHP - Math.floor(hp / 6)
 
     it "doesn't deal damage back to attacker if not a contact move", ->
@@ -132,14 +132,14 @@ describe "BW Items:", ->
 
       hp = @p1.stat('hp')
       currentHP = @p1.currentHP = Math.floor(hp * 2 / 3)
-      @battle.performMove(@id1, @battle.getMove("Earthquake"))
+      @battle.performMove(@p1, @battle.getMove("Earthquake"))
       @p1.currentHP.should.equal currentHP
 
     it "stacks with each hit of multi-hit moves like Triple Kick", ->
       shared.create.call this,
         team2: [Factory('Ferrothorn', item: 'Rocky Helmet')]
 
-      @battle.performMove(@id1, @battle.getMove("Triple Kick"))
+      @battle.performMove(@p1, @battle.getMove("Triple Kick"))
       maxHP = @p1.stat('hp')
       @p1.currentHP.should.equal(maxHP - (Math.floor(maxHP / 6) * 3))
 
@@ -152,7 +152,7 @@ describe "BW Items:", ->
           team2: [Factory("Ferrothorn", item: itemName)]
         move = @battle.MoveList.find (m) ->
             m.type == type && !m.isNonDamaging()
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         @p2.stages[stat].should.equal 1
 
       it "is one-time use", ->
@@ -160,7 +160,7 @@ describe "BW Items:", ->
           team2: [Factory("Ferrothorn", item: itemName)]
         move = @battle.MoveList.find (m) ->
             m.type == type && !m.isNonDamaging()
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         should.not.exist @p2.item
 
       it "doesn't boost target's special attack if not hit by a #{type} move", ->
@@ -168,7 +168,7 @@ describe "BW Items:", ->
           team2: [Factory("Ferrothorn", item: itemName)]
         move = @battle.MoveList.find (m) ->
             m.type != type && !m.isNonDamaging()
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         @p2.stages[stat].should.equal 0
 
   testBoostOnTypeItem("Absorb Bulb", "Water", "specialAttack")
@@ -198,7 +198,7 @@ describe "BW Items:", ->
       overpoweredMultihitMove = new Move(null, minHits: 5, maxHits: 5, target: "selected-pokemon")
       overpoweredMultihitMove.calculateDamage = -> 99999
 
-      @battle.performMove(@id1, overpoweredMultihitMove)
+      @battle.performMove(@p1, overpoweredMultihitMove)
       @p2.isFainted().should.be.true
 
     it "triggers on the first hit of a multihit move if each strike OHKOs", ->
@@ -209,7 +209,7 @@ describe "BW Items:", ->
       overpoweredMultihitMove.calculateDamage = -> 99999
       mock = @sandbox.mock(overpoweredMultihitMove).expects("use").exactly(2)
 
-      @battle.performMove(@id1, overpoweredMultihitMove)
+      @battle.performMove(@p1, overpoweredMultihitMove)
       mock.verify()
 
     it "should not activate at <100% HP", ->
@@ -227,7 +227,7 @@ describe "BW Items:", ->
 
       ember = @battle.getMove('Ember')
       stub = @sandbox.stub(@battle.getMove('Ember'), 'baseDamage', -> 9999)
-      @battle.performMove(@id1, ember)
+      @battle.performMove(@p1, ember)
       @p2.hasItem().should.be.false
 
   describe "Choice items", ->
@@ -246,8 +246,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Choice Band")]
         team2: [Factory("Magikarp", item: "Leftovers")]
 
-      @battle.performMove(@id1, @battle.getMove('Trick'))
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Trick'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
       @battle.beginTurn()
       requestedMoves = @battle.requestFor(@p2).moves
       requestedMoves.should.eql [ @battle.getMove('Splash').name ]
@@ -351,7 +351,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.performMove(@id2, @battle.getMove('Flatter'))
+      @battle.performMove(@p2, @battle.getMove('Flatter'))
       @p1.hasItem().should.be.true
 
     it "no longer makes the pokemon immune when popped", ->
@@ -370,7 +370,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Air Balloon")]
         team2: [Factory("Magikarp", item: "Leftovers")]
 
-      @battle.performMove(@id2, @battle.getMove('Trick'))
+      @battle.performMove(@p2, @battle.getMove('Trick'))
       @p1.has(Item.AirBalloon).should.be.false
       @p2.has(Item.AirBalloon).should.be.true
 
@@ -379,7 +379,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "White Herb")]
 
-      @battle.performMove(@id1, @battle.getMove('Shell Smash'))
+      @battle.performMove(@p1, @battle.getMove('Shell Smash'))
       @p1.update()
       @p1.stages.should.include {
         attack: 2, defense: 0, speed: 2, specialAttack: 2, specialDefense: 0
@@ -401,7 +401,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
-      @battle.performMove(@id1, @battle.getMove("Fury Swipes"))
+      @battle.performMove(@p1, @battle.getMove("Fury Swipes"))
 
       maxHP = @p1.stat('hp')
       (maxHP - @p1.currentHP).should.equal Math.floor(maxHP / 10)
@@ -410,7 +410,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
-      @battle.performMove(@id1, @battle.getMove('Growl'))
+      @battle.performMove(@p1, @battle.getMove('Growl'))
       @p1.currentHP.should.equal @p1.stat('hp')
 
     it "adds a x1.3 modifier to attacks", ->
@@ -583,14 +583,14 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Blaziken", item: "Shuca Berry")]
 
-      @battle.performMove(@id1, @battle.getMove("Earthquake"))
+      @battle.performMove(@p1, @battle.getMove("Earthquake"))
       @p2.hasItem().should.be.false
 
     it "is not triggered by non-damaging moves", ->
       shared.create.call this,
         team2: [Factory("Celebi", item: "Occa Berry")]
 
-      @battle.performMove(@id1, @battle.getMove("Will-O-Wisp"))
+      @battle.performMove(@p1, @battle.getMove("Will-O-Wisp"))
       @p2.hasItem().should.be.true
 
     it "does not halve if the move is not of the required type", ->
@@ -695,14 +695,14 @@ describe "BW Items:", ->
       hp = @p1.stat('hp')
       damage = Math.floor(hp / 2)
       @sandbox.stub(@p1, "editDamage", -> damage)
-      @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+      @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
       @p1.currentHP.should.equal(hp - damage + Math.floor(hp / 4))
 
     it "is consumed after use", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Enigma Berry")]
 
-      @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+      @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
       @p1.hasItem().should.be.false
 
     it "doesn't restore 25% of HP if move isn't super-effective", ->
@@ -712,7 +712,7 @@ describe "BW Items:", ->
       hp = @p1.stat('hp')
       damage = Math.floor(hp / 2)
       @sandbox.stub(@p1, "editDamage", -> damage)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.currentHP.should.equal(hp - damage)
 
   testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->
@@ -845,7 +845,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", evs: {speed: 4}, item: "Binding Band")]
 
-      @battle.performMove(@id1, @battle.getMove("Fire Spin"))
+      @battle.performMove(@p1, @battle.getMove("Fire Spin"))
       maxHP = @p2.stat('hp')
       @p2.currentHP = maxHP
 
@@ -860,7 +860,7 @@ describe "BW Items:", ->
         team2: [Factory("Magikarp"), Factory("Abra")]
 
       target = @team2.at(1)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @team2.first().should.equal target
 
     it "destroys the Red Card after use", ->
@@ -868,7 +868,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Red Card")]
         team2: [Factory("Magikarp"), Factory("Abra")]
 
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.hasItem().should.be.false
 
     # TODO: Find out if these are true or not.
@@ -881,7 +881,7 @@ describe "BW Items:", ->
         team2: [Factory("Magikarp"), Factory("Abra")]
 
       target = @p2
-      @battle.performMove(@id2, @battle.getMove("Will-O-Wisp"))
+      @battle.performMove(@p2, @battle.getMove("Will-O-Wisp"))
       @p1.hasItem().should.be.true
       @p2.should.equal target
 
@@ -891,7 +891,7 @@ describe "BW Items:", ->
 
       @p1.currentHP = startHP = 1
 
-      @battle.performMove(@id1, @battle.getMove("Outrage"))
+      @battle.performMove(@p1, @battle.getMove("Outrage"))
       damage = @p2.stat('hp') - @p2.currentHP
       @p1.currentHP.should.equal(startHP + Math.floor(damage / 8))
 
@@ -908,7 +908,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sticky Barb")]
 
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.hasItem().should.be.false
       @p2.hasItem("Sticky Barb").should.be.true
 
@@ -916,7 +916,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sticky Barb")]
 
-      @battle.performMove(@id2, @battle.getMove("Aura Sphere"))
+      @battle.performMove(@p2, @battle.getMove("Aura Sphere"))
       @p1.hasItem("Sticky Barb").should.be.true
       @p2.hasItem().should.be.false
 
@@ -925,7 +925,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Sticky Barb")]
         team2: [Factory("Magikarp", item: "Leftovers")]
 
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
 
       @p1.hasItem("Sticky Barb").should.be.true
       @p2.hasItem("Leftovers").should.be.true
@@ -936,7 +936,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
         team2: [Factory("Magikarp", gender: "M")]
 
-      @battle.performMove(@id2, @battle.getMove("Attract"))
+      @battle.performMove(@p2, @battle.getMove("Attract"))
       @p1.has(Attachment.Attract).should.be.true
       @p2.has(Attachment.Attract).should.be.true
 
@@ -945,7 +945,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", gender: "F", item: "Destiny Knot")]
         team2: [Factory("Magikarp", gender: "M")]
 
-      @battle.performMove(@id2, @battle.getMove("Attract"))
+      @battle.performMove(@p2, @battle.getMove("Attract"))
       @p1.hasItem().should.be.false
 
     it "what happens if both pokemon have Destiny Knot?"
@@ -963,7 +963,7 @@ describe "BW Items:", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
-      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
       pokemon.should.eql [ @p1, @p2 ]
 
     it "is one-time use", ->
@@ -988,7 +988,7 @@ describe "BW Items:", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
-      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
       pokemon.should.eql [ @p2, @p1 ]
       @p1.hasItem().should.be.true
 
@@ -1069,7 +1069,7 @@ describe "BW Items:", ->
         @battle.recordMove(@id1, @battle.getMove('Tackle'))
         @battle.recordMove(@id2, @battle.getMove('Tackle'))
         @battle.determineTurnOrder()
-        pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+        pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
         pokemon.should.eql [ @p2, @p1 ]
 
   testDelayItem 'Full Incense'
@@ -1092,7 +1092,7 @@ describe "BW Items:", ->
       bench = @team1.getAliveBenchedPokemon()
       @battle.recordMove(@id1, @battle.getMove('Splash'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
 
       request = @battle.requestFor(@p1)
       should.exist(request)
@@ -1124,7 +1124,7 @@ describe "BW Items:", ->
 
       @battle.recordMove(@id1, @battle.getMove('Splash'))
       @battle.recordMove(@id2, @battle.getMove('Will-O-Wisp'))
-      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
+      @battle.performMove(@p2, @battle.getMove('Will-O-Wisp'))
 
       @p1.hasItem().should.be.true
       should.not.exist @battle.requestFor(@p1)
@@ -1177,7 +1177,7 @@ describe "BW Items:", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
-      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
       pokemon.should.eql [ @p1, @p2 ]
 
     it "has a 80% chance to do nothing", ->
@@ -1189,7 +1189,7 @@ describe "BW Items:", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.determineTurnOrder()
-      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
       pokemon.should.eql [ @p2, @p1 ]
 
   testFlinchItem = (itemName) ->
@@ -1199,7 +1199,7 @@ describe "BW Items:", ->
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
-        @battle.performMove(@id1, @battle.getMove('Tackle'))
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
         @p2.has(Attachment.Flinch).should.be.true
 
       it "has a 90% chance to do nothing", ->
@@ -1207,7 +1207,7 @@ describe "BW Items:", ->
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0.1)
-        @battle.performMove(@id1, @battle.getMove('Tackle'))
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
         @p2.has(Attachment.Flinch).should.be.false
 
       it "can't flinch if the move used can already flinch", ->
@@ -1216,7 +1216,7 @@ describe "BW Items:", ->
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
         shared.biasRNG.call(this, "next", 'secondary effect', 1)
-        @battle.performMove(@id1, @battle.getMove('Headbutt'))
+        @battle.performMove(@p1, @battle.getMove('Headbutt'))
         @p2.has(Attachment.Flinch).should.be.false
 
       it "can't flinch if the move is non-damaging", ->
@@ -1224,7 +1224,7 @@ describe "BW Items:", ->
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
-        @battle.performMove(@id1, @battle.getMove('Glare'))
+        @battle.performMove(@p1, @battle.getMove('Glare'))
         @p2.has(Attachment.Flinch).should.be.false
 
   testFlinchItem "King's Rock"
@@ -1272,7 +1272,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
 
-      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
 
       modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
       modifier.should.equal 0x1333
@@ -1282,7 +1282,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Metronome")]
 
       for i in [1..5]
-        @battle.performMove(@id1, @battle.getMove('Tackle'))
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
 
       modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
       modifier.should.equal 0x1FFF
@@ -1292,7 +1292,7 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Metronome")]
 
       for i in [1..6]
-        @battle.performMove(@id1, @battle.getMove('Tackle'))
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
 
       modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
       modifier.should.equal 0x1FFF
@@ -1303,8 +1303,8 @@ describe "BW Items:", ->
       tackle = @battle.getMove('Tackle')
       splash = @battle.getMove('Splash')
 
-      @battle.performMove(@id1, tackle)
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, tackle)
+      @battle.performMove(@p1, splash)
 
       modifier = Item.Metronome::modifyBasePower(splash, @p1, @p2)
       modifier.should.equal 0x1000
@@ -1323,7 +1323,7 @@ describe "BW Items:", ->
       startHP = 1
       @p1.currentHP = startHP
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
+      @battle.performMove(@p1, @battle.getMove('Drain Punch'))
       damage = (hp - @p2.currentHP)
       amount = util.roundHalfDown(Math.floor(damage / 2) * 1.3)
       (@p1.currentHP - startHP).should.equal(amount)
@@ -1335,7 +1335,7 @@ describe "BW Items:", ->
       targetAmount = (@p2.stat('hp') >> 3)
       userAmount = util.roundHalfDown(targetAmount * 1.3)
 
-      @battle.performMove(@id1, @battle.getMove('Leech Seed'))
+      @battle.performMove(@p1, @battle.getMove('Leech Seed'))
       @battle.endTurn()
       (@p1.currentHP - startHP).should.equal(userAmount)
       (@p2.stat('hp') - @p2.currentHP).should.equal(targetAmount)
@@ -1346,7 +1346,7 @@ describe "BW Items:", ->
       @p1.currentHP = startHP = 1
       amount = util.roundHalfDown((@p1.stat('hp') >> 4) * 1.3)
 
-      @battle.performMove(@id1, @battle.getMove('Ingrain'))
+      @battle.performMove(@p1, @battle.getMove('Ingrain'))
       @battle.endTurn()
       (@p1.currentHP - startHP).should.equal(amount)
 
@@ -1356,7 +1356,7 @@ describe "BW Items:", ->
       @p1.currentHP = startHP = 1
       amount = util.roundHalfDown((@p1.stat('hp') >> 4) * 1.3)
 
-      @battle.performMove(@id1, @battle.getMove('Aqua Ring'))
+      @battle.performMove(@p1, @battle.getMove('Aqua Ring'))
       @battle.endTurn()
       (@p1.currentHP - startHP).should.equal(amount)
 
@@ -1364,7 +1364,7 @@ describe "BW Items:", ->
     it "boosts the Reflect/Light Screen turns to 8", ->
       shared.create.call(this, team1: [Factory('Magikarp', item: "Light Clay")])
 
-      @battle.performMove(@id1, @battle.getMove('Reflect'))
+      @battle.performMove(@p1, @battle.getMove('Reflect'))
 
       for i in [1..8]
         @team1.has(Attachment.Reflect).should.be.true

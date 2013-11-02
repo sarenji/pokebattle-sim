@@ -17,7 +17,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       move = @battle.getMove('Leaf Storm')
       originalHP = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Leaf Storm'))
+      @battle.performMove(@p1, @battle.getMove('Leaf Storm'))
       @p2.currentHP.should.equal(originalHP)
 
     it 'triggers effects dependent on the move missing', ->
@@ -27,7 +27,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       hiJumpKick = @battle.getMove('Hi Jump Kick')
       mock = @sandbox.mock(hiJumpKick).expects('afterMiss').once()
-      @battle.performMove(@id1, hiJumpKick)
+      @battle.performMove(@p1, hiJumpKick)
       mock.verify()
 
     it 'does not trigger effects dependent on the move hitting', ->
@@ -37,7 +37,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'randInt', 'miss', 100)
       hiJumpKick = @battle.getMove('Hi Jump Kick')
       mock = @sandbox.mock(hiJumpKick).expects('afterSuccessfulHit').never()
-      @battle.performMove(@id1, hiJumpKick)
+      @battle.performMove(@p1, hiJumpKick)
       mock.verify()
 
   describe 'fainting', ->
@@ -87,7 +87,7 @@ describe 'Mechanics', ->
     it "occurs when a pokemon faints from passive damage", ->
       shared.create.call(this)
       @p2.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p1, @battle.getMove("Leech Seed"))
       spy = @sandbox.spy(@p2, 'faint')
       @battle.endTurn()
       spy.calledOnce.should.be.true
@@ -95,7 +95,7 @@ describe 'Mechanics', ->
     it "occurs when a pokemon faints normally", ->
       shared.create.call(this)
       @p2.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       spy = @sandbox.spy(@p2, 'faint')
       @battle.endTurn()
       spy.calledOnce.should.be.true
@@ -116,7 +116,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
       spy = @sandbox.spy(@p2, 'attach')
 
-      @battle.performMove(@id1, @battle.getMove('Iron Head'))
+      @battle.performMove(@p1, @battle.getMove('Iron Head'))
       spy.args[0][0].should.eql Attachment.Flinch
 
   describe 'secondary status attacks', ->
@@ -125,7 +125,7 @@ describe 'Mechanics', ->
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
-      @battle.performMove(@id1, @battle.getMove('Flamethrower'))
+      @battle.performMove(@p1, @battle.getMove('Flamethrower'))
       @p2.has(Status.Burn).should.be.true
 
   describe 'the fang attacks', ->
@@ -135,7 +135,7 @@ describe 'Mechanics', ->
         team2: [Factory('Gyarados')]
       shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
       shared.biasRNG.call(this, "next", "fang flinch", 0)
-      @battle.performMove(@id1, @battle.getMove("Ice Fang"))
+      @battle.performMove(@p1, @battle.getMove("Ice Fang"))
 
       @p2.has(Attachment.Flinch).should.be.true
       @p2.has(Status.Freeze).should.be.true
@@ -179,21 +179,14 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "next", "turn order", .6)
       @battle.recordMove(@id1, @battle.getMove('Psychic'))
       @battle.recordMove(@id2, @battle.getMove('Psychic'))
-      @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @p2, priority: 0}
-        {id: @id1, pokemon: @p1, priority: 0}
-      ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p2, @p1 ]
 
-      @battle.priorityQueue = null
       @battle.pokemonActions = []
 
       shared.biasRNG.call(this, "next", "turn order", .4)
       @battle.recordMove(@id1, @battle.getMove('Psychic'))
       @battle.recordMove(@id2, @battle.getMove('Psychic'))
-      @battle.determineTurnOrder().should.eql [
-        {id: @id1, pokemon: @p1, priority: 0}
-        {id: @id2, pokemon: @p2, priority: 0}
-      ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p1, @p2 ]
 
     it 'decides winner by highest priority move', ->
       shared.create.call this,
@@ -202,20 +195,13 @@ describe 'Mechanics', ->
       spy = @sandbox.spy(@battle, 'determineTurnOrder')
       @battle.recordMove(@id1, @battle.getMove('Mach Punch'))
       @battle.recordMove(@id2, @battle.getMove('Psychic'))
-      @battle.determineTurnOrder().should.eql [
-        {id: @id1, pokemon: @p1, priority: 1}
-        {id: @id2, pokemon: @p2, priority: 0}
-      ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p1, @p2 ]
 
-      @battle.priorityQueue = null
       @battle.pokemonActions = []
 
       @battle.recordMove(@id1, @battle.getMove('Psychic'))
       @battle.recordMove(@id2, @battle.getMove('Mach Punch'))
-      @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @p2, priority: 1}
-        {id: @id1, pokemon: @p1, priority: 0}
-      ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p2, @p1 ]
 
     it 'decides winner by speed if priority is equal', ->
       shared.create.call this,
@@ -223,10 +209,7 @@ describe 'Mechanics', ->
         team2: [Factory('Hitmonchan', evs: { speed: 4 })]
       @battle.recordMove(@id1, @battle.getMove('ThunderPunch'))
       @battle.recordMove(@id2, @battle.getMove('ThunderPunch'))
-      @battle.determineTurnOrder().should.eql [
-        {id: @id2, pokemon: @p2, priority: 0}
-        {id: @id1, pokemon: @p1, priority: 0}
-      ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p2, @p1 ]
 
   describe 'fainting all the opposing pokemon', ->
     it "doesn't request any more actions from players", ->
@@ -335,7 +318,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
       @p1.attach(Status.Freeze)
 
-      @battle.performMove(@id2, @battle.getMove('Flamethrower'))
+      @battle.performMove(@p2, @battle.getMove('Flamethrower'))
       @p1.has(Status.Freeze).should.be.false
 
     it "does not unfreeze if hit by a non-damaging move", ->
@@ -343,7 +326,7 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
       @p1.attach(Status.Freeze)
 
-      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
+      @battle.performMove(@p2, @battle.getMove('Will-O-Wisp'))
       @p1.has(Status.Freeze).should.be.true
 
     for moveName in ["Sacred Fire", "Flare Blitz", "Flame Wheel", "Fusion Flare", "Scald"]
@@ -353,7 +336,7 @@ describe 'Mechanics', ->
         @p1.attach(Status.Freeze)
         shared.biasRNG.call(this, "next", 'unfreeze chance', 1)  # always stays frozen
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @p1.has(Status.Freeze).should.be.false
 
   describe "a paralyzed pokemon", ->
@@ -400,10 +383,10 @@ describe 'Mechanics', ->
       tackle = @battle.getMove('Tackle')
 
       for i in [0...3]
-        @battle.performMove(@id1, tackle)
+        @battle.performMove(@p1, tackle)
         @p1.has(Status.Sleep).should.be.true
 
-      @battle.performMove(@id1, tackle)
+      @battle.performMove(@p1, tackle)
       @p1.has(Status.Sleep).should.be.false
 
     it "cannot move while asleep", ->
@@ -414,12 +397,12 @@ describe 'Mechanics', ->
 
       mock = @sandbox.mock(tackle).expects('execute').never()
       for i in [0...3]
-        @battle.performMove(@id1, tackle)
+        @battle.performMove(@p1, tackle)
       mock.verify()
       tackle.execute.restore()
 
       mock = @sandbox.mock(tackle).expects('execute').once()
-      @battle.performMove(@id1, tackle)
+      @battle.performMove(@p1, tackle)
       mock.verify()
 
     it "resets its counter when switching out", ->
@@ -429,10 +412,10 @@ describe 'Mechanics', ->
       @p1.attach(Status.Sleep)
       tackle = @battle.getMove('Tackle')
 
-      @battle.performMove(@id1, tackle)
-      @battle.performSwitch(@id1, 1)
-      @battle.performSwitch(@id1, 1)
-      @battle.performMove(@id1, tackle)
+      @battle.performMove(@p1, tackle)
+      @battle.performSwitch(@team1.first(), 1)
+      @battle.performSwitch(@team1.first(), 1)
+      @battle.performMove(@team1.first(), tackle)
       @p1.has(Status.Sleep).should.be.true
 
   describe "a poisoned pokemon", ->
@@ -476,9 +459,9 @@ describe 'Mechanics', ->
       hp = @p1.currentHP
 
       @battle.endTurn()
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.currentHP = hp
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @battle.endTurn()
       (hp - @p1.currentHP).should.equal(hp >> 4)
 
@@ -490,7 +473,7 @@ describe 'Mechanics', ->
     it "is set to 0 when switching", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
       @p1.turnsActive = 4
-      @team1.switch(@player1, 0, 1)
+      @team1.switch(@p1, 0)
       @team1.first().turnsActive.should.equal 0
 
     it "increases by 1 when a turn ends", ->
@@ -508,7 +491,7 @@ describe 'Mechanics', ->
 
       @sandbox.mock(move).expects('execute').never()
       @sandbox.mock(@p1).expects('beforeMove').never()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
   describe "A pokemon with no available moves", ->
     it "can struggle", ->

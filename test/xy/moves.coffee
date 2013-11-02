@@ -46,8 +46,8 @@ describe "XY Moves:", ->
 
       @battle.recordMove(@id2, tackle)
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, kingsShield)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, kingsShield)
+      @battle.performMove(@p2, tackle)
       mock.verify()
 
     it "does not protect against non-damaging moves", ->
@@ -58,8 +58,8 @@ describe "XY Moves:", ->
 
       @battle.recordMove(@id2, willOWisp)
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, kingsShield)
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p1, kingsShield)
+      @battle.performMove(@p2, willOWisp)
       mock.verify()
 
     it "sharply lowers attacker's Attack if move was a contact move", ->
@@ -69,9 +69,9 @@ describe "XY Moves:", ->
 
       @battle.recordMove(@id2, tackle)
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, kingsShield)
+      @battle.performMove(@p1, kingsShield)
       @p2.stages.attack.should.equal(0)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p2.stages.attack.should.equal(-2)
 
     it "does not lower attacker's Attack if move was not a contact move", ->
@@ -81,9 +81,9 @@ describe "XY Moves:", ->
 
       @battle.recordMove(@id2, ember)
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, kingsShield)
+      @battle.performMove(@p1, kingsShield)
       @p2.stages.attack.should.equal(0)
-      @battle.performMove(@id2, ember)
+      @battle.performMove(@p2, ember)
       @p2.stages.attack.should.equal(0)
 
   describe "Sticky Web", ->
@@ -92,15 +92,15 @@ describe "XY Moves:", ->
     it "lowers a pokemon's speed by 1 when switching in", ->
       shared.create.call(this, gen: 'xy', team2: (Factory("Magikarp")  for x in [0..1]))
       stickyWeb = @battle.getMove("Sticky Web")
-      @battle.performMove(@id1, stickyWeb)
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, stickyWeb)
+      @battle.performSwitch(@p2, 1)
       @team2.first().stages.should.include(speed: -1)
 
     it "doesn't lower a pokemon's speed by 1 if immune to ground", ->
       shared.create.call(this, gen: 'xy', team2: [ Factory("Magikarp"), Factory("Gyarados") ])
       stickyWeb = @battle.getMove("Sticky Web")
-      @battle.performMove(@id1, stickyWeb)
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, stickyWeb)
+      @battle.performSwitch(@p2, 1)
       @team2.first().stages.should.include(speed: 0)
 
   describe "Rapid Spin", ->
@@ -108,28 +108,28 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       stickyWeb = @battle.getMove("Sticky Web")
       rapidSpin = @battle.getMove("Rapid Spin")
-      @battle.performMove(@id1, stickyWeb)
+      @battle.performMove(@p1, stickyWeb)
       @team2.has(Attachment.StickyWeb).should.be.true
-      @battle.performMove(@id2, rapidSpin)
+      @battle.performMove(@p2, rapidSpin)
       @team2.has(Attachment.StickyWeb).should.be.false
 
   describe "Defog", ->
     it "removes Sticky Web as well", ->
       shared.create.call(this, gen: 'xy')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, @battle.getMove("Sticky Web"))
+      @battle.performMove(@p1, @battle.getMove("Sticky Web"))
       @p2.team.has(Attachment.StickyWeb).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.StickyWeb).should.be.false
 
     it "removes hazards from both sides of the field now", ->
       shared.create.call(this, gen: 'xy')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, @battle.getMove("Sticky Web"))
-      @battle.performMove(@id2, @battle.getMove("Sticky Web"))
+      @battle.performMove(@p1, @battle.getMove("Sticky Web"))
+      @battle.performMove(@p2, @battle.getMove("Sticky Web"))
       @p1.team.has(Attachment.StickyWeb).should.be.true
       @p2.team.has(Attachment.StickyWeb).should.be.true
 
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p1.team.has(Attachment.StickyWeb).should.be.false
       @p2.team.has(Attachment.StickyWeb).should.be.false

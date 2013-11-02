@@ -282,7 +282,7 @@ describe 'Move:', ->
     it "deals damage no higher than the pokemon's remaining HP", ->
       shared.create.call(this)
       @p2.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       @p2.currentHP.should.equal(0)
 
     it "deals normal damage if the Pokemon has a substitute", ->
@@ -290,8 +290,8 @@ describe 'Move:', ->
       spy = @sandbox.spy(@p2, 'damage')
 
       @p2.currentHP = (@p2.currentHP >> 2) + 1
-      @battle.performMove(@id2, @battle.getMove("Substitute"))
-      @battle.performMove(@id1, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Substitute"))
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       spy.returned(1).should.be.false
 
   describe '#weatherModifier', ->
@@ -360,7 +360,7 @@ describe "BW Moves:", ->
       move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, "randInt", 'miss', 100)
       originalHP = @p1.currentHP
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       damage = move.calculateDamage(@battle, @p1, @p2)
       (originalHP - @p1.currentHP).should.equal Math.floor(damage / 2)
 
@@ -372,7 +372,7 @@ describe "BW Moves:", ->
       startHP = 1
       @p1.currentHP = startHP
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
+      @battle.performMove(@p1, @battle.getMove('Drain Punch'))
       damage = (hp - @p2.currentHP)
       (@p1.currentHP - startHP).should.equal Math.ceil(damage / 2)
 
@@ -381,7 +381,7 @@ describe "BW Moves:", ->
         team1: [Factory('Conkeldurr')]
         team2: [Factory('Hitmonchan')]
       hp = @p1.currentHP = @p1.stat('hp')
-      @battle.performMove(@id1, @battle.getMove('Drain Punch'))
+      @battle.performMove(@p1, @battle.getMove('Drain Punch'))
       (@p1.currentHP - hp).should.equal 0
 
     it "does not recover more than the damage dealt", ->
@@ -390,7 +390,7 @@ describe "BW Moves:", ->
       @sandbox.stub(drainPunch, 'baseDamage', -> 9999)
       @p2.currentHP = 2
       @p1.currentHP = 1
-      @battle.performMove(@id1, drainPunch)
+      @battle.performMove(@p1, drainPunch)
       @p2.currentHP.should.be.lessThan(1)
       @p1.currentHP.should.equal(2)
 
@@ -400,7 +400,7 @@ describe "BW Moves:", ->
         team1: [Factory('Celebi')]
         team2: [Factory('Hitmonchan')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Grass Knot'))
+      @battle.performMove(@p1, @battle.getMove('Grass Knot'))
       (hp - @p2.currentHP).should.equal 94
 
     it 'has 120 base power if the pokemon is >200kg', ->
@@ -408,7 +408,7 @@ describe "BW Moves:", ->
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Grass Knot'))
+      @battle.performMove(@p1, @battle.getMove('Grass Knot'))
       (hp - @p2.currentHP).should.equal 153
 
   describe 'a pokemon using a primary boosting move', ->
@@ -416,27 +416,27 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
-      @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
+      @battle.performMove(@p1, @battle.getMove('Dragon Dance'))
       @p2.currentHP.should.equal @p2.stat('hp')
 
     it "boosts the pokemon's stats", ->
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
-      @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
+      @battle.performMove(@p1, @battle.getMove('Dragon Dance'))
       @p1.stages.should.include attack: 1, speed: 1
 
     it "affects type-immune pokemon", ->
       shared.create.call this,
         team1: [Factory('Audino')]
         team2: [Factory('Gengar')]
-      @battle.performMove(@id1, @battle.getMove('Growl'))
+      @battle.performMove(@p1, @battle.getMove('Growl'))
       @p2.stages.attack.should.equal -1
 
     it "has the boosts removed on switch", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
-      @battle.performMove(@id1, @battle.getMove('Dragon Dance'))
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, @battle.getMove('Dragon Dance'))
+      @battle.performSwitch(@p1, 1)
       @p1.stages.should.include(attack: 0, speed: 0)
 
   describe 'a pokemon using a damaging move that also boosts stats on hit', ->
@@ -445,14 +445,14 @@ describe "BW Moves:", ->
         team1: [Factory('Celebi')]
         team2: [Factory('Gyarados')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Leaf Storm'))
+      @battle.performMove(@p1, @battle.getMove('Leaf Storm'))
       @p1.stages.specialAttack.should.equal -2
       (hp - @p2.currentHP).should.equal 178
 
   describe 'Low Sweep', ->
     it "lowers the target's speed by 1", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove('Low Sweep'))
+      @battle.performMove(@p1, @battle.getMove('Low Sweep'))
       @p2.stages.speed.should.equal(-1)
 
   describe 'a pokemon using a move with a secondary boosting effect', ->
@@ -463,7 +463,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, "next", 'secondary boost', 0)  # 100% chance
       attack = @p1.stat('attack')
       speed  = @p1.stat('speed')
-      @battle.performMove(@id1, @battle.getMove('AncientPower'))
+      @battle.performMove(@p1, @battle.getMove('AncientPower'))
       @p1.stages.should.include {
         attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
       }
@@ -474,7 +474,7 @@ describe "BW Moves:", ->
         team1: [Factory('Gliscor')]
         team2: [Factory('Regirock')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Acrobatics'))
+      @battle.performMove(@p1, @battle.getMove('Acrobatics'))
       damage = (hp - @p2.currentHP)
       damage.should.equal 36
 
@@ -483,7 +483,7 @@ describe "BW Moves:", ->
         team1: [Factory('Gliscor', item: 'Leftovers')]
         team2: [Factory('Regirock')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Acrobatics'))
+      @battle.performMove(@p1, @battle.getMove('Acrobatics'))
       damage = (hp - @p2.currentHP)
       damage.should.equal 18
 
@@ -495,7 +495,7 @@ describe "BW Moves:", ->
         hp = @p2.currentHP
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         recoil = -move.recoil / 100
 
         damage = (hp - @p2.currentHP)
@@ -510,7 +510,7 @@ describe "BW Moves:", ->
         stub = @sandbox.stub(move, 'calculateDamage', -> .6)
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         damage = (hp - @p2.currentHP)
         (startHP - @p1.currentHP).should.equal 1
@@ -536,7 +536,7 @@ describe "BW Moves:", ->
       @p1.stages.evasion = -1
       @p2.stages.defense = -3
       @p2.stages.specialAttack = 4
-      @battle.performMove(@id1, @battle.getMove("Haze"))
+      @battle.performMove(@p1, @battle.getMove("Haze"))
       neutralBoosts = {
         attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
         speed: 0, evasion: 0, accuracy: 0
@@ -550,7 +550,7 @@ describe "BW Moves:", ->
         team1: [Factory('Blissey')]
         team2: [Factory('Mew')]
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Seismic Toss'))
+      @battle.performMove(@p1, @battle.getMove('Seismic Toss'))
       (hp - @p2.currentHP).should.equal 100
 
   describe 'Psywave', ->
@@ -560,7 +560,7 @@ describe "BW Moves:", ->
         team2: [Factory('Mew')]
       shared.biasRNG.call(this, "randInt", 'psywave', 5)
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Psywave'))
+      @battle.performMove(@p1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 50
 
     it 'does user.level * 1.5 damage maximum', ->
@@ -570,7 +570,7 @@ describe "BW Moves:", ->
       move = @battle.getMove('Psywave')
       shared.biasRNG.call(this, "randInt", 'psywave', 15)
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Psywave'))
+      @battle.performMove(@p1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 150
 
     it 'rounds down to the nearest .1 multiplier', ->
@@ -580,7 +580,7 @@ describe "BW Moves:", ->
       move = @battle.getMove('Psywave')
       shared.biasRNG.call(this, "randInt", 'psywave', 6.09)
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Psywave'))
+      @battle.performMove(@p1, @battle.getMove('Psywave'))
       (hp - @p2.currentHP).should.equal 60
 
   describe 'facade', ->
@@ -679,8 +679,8 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
       move = @p2.moves[0]
 
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, disable)
       @p2.has(Attachment.Disable).should.be.true
 
     it "prevents the target's last move from being selected", ->
@@ -688,8 +688,8 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
       move = @p2.moves[0]
 
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, disable)
       @battle.beginTurn()
 
       @p2.validMoves().should.not.include(move)
@@ -700,8 +700,8 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
       move = @p2.moves[0]
 
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, disable)
 
       @battle.endTurn()
       @battle.endTurn()
@@ -715,10 +715,10 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
       move = @p2.moves[0]
 
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, disable)
       mock = @sandbox.mock(move).expects('execute').never()
-      @battle.performMove(@id2, move)
+      @battle.performMove(@p2, move)
       mock.verify()
 
     it 'fails if the target has not moved since it was active', ->
@@ -726,7 +726,7 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
 
       mock = @sandbox.mock(disable).expects('fail').once()
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p1, disable)
       mock.verify()
 
     it 'fails if the target does not know the move it used', ->
@@ -735,8 +735,8 @@ describe "BW Moves:", ->
       struggle = @battle.getMove("Struggle")
 
       mock = @sandbox.mock(disable).expects('fail').once()
-      @battle.performMove(@id2, struggle)
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p2, struggle)
+      @battle.performMove(@p1, disable)
       mock.verify()
 
     it "fails if the target's last move has 0 PP", ->
@@ -744,10 +744,10 @@ describe "BW Moves:", ->
       disable = @battle.getMove("Disable")
       splash = @battle.getMove("Splash")
 
-      @battle.performMove(@id2, splash)
+      @battle.performMove(@p2, splash)
       @p2.setPP(splash, 0)
       mock = @sandbox.mock(disable).expects('fail').once()
-      @battle.performMove(@id1, disable)
+      @battle.performMove(@p1, disable)
       mock.verify()
 
   describe 'hidden power', ->
@@ -803,14 +803,14 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
-      @battle.performMove(@id1, @battle.getMove('Yawn'))
+      @battle.performMove(@p1, @battle.getMove('Yawn'))
       @p2.has(Attachment.Yawn).should.be.true
 
     it 'puts the opponent to sleep at the end of the second turn', ->
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Magikarp')]
-      @battle.performMove(@id1, @battle.getMove('Yawn'))
+      @battle.performMove(@p1, @battle.getMove('Yawn'))
       @battle.endTurn()
       @p2.has(Status.Sleep).should.be.false
       @battle.endTurn()
@@ -822,7 +822,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(yawn).expects('fail').once()
 
       @p2.attach(Status.Paralyze)
-      @battle.performMove(@id1, yawn)
+      @battle.performMove(@p1, yawn)
       mock.verify()
 
   describe 'an OHKO move', ->
@@ -852,7 +852,7 @@ describe "BW Moves:", ->
     it "recovers 50% of the target's HP, rounded half up", ->
       shared.create.call(this)
       hp = @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Softboiled'))
+      @battle.performMove(@p1, @battle.getMove('Softboiled'))
 
       recoverHP = Math.round(@p1.stat('hp') / 2)
       (@p1.currentHP - hp).should.equal recoverHP
@@ -861,20 +861,20 @@ describe "BW Moves:", ->
       shared.create.call(this)
       softboiled = @battle.getMove('Softboiled')
       mock = @sandbox.mock(softboiled).expects('fail').once()
-      @battle.performMove(@id1, softboiled)
+      @battle.performMove(@p1, softboiled)
       mock.verify()
 
   describe 'knock off', ->
     it "deals damage", ->
       shared.create.call this,
         team2: [Factory('Magikarp', item: "Leftovers")]
-      @battle.performMove(@id1, @battle.getMove("Knock Off"))
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
     it "removes the target's item", ->
       shared.create.call this,
         team2: [Factory('Magikarp', item: "Leftovers")]
-      @battle.performMove(@id1, @battle.getMove("Knock Off"))
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
       should.not.exist @p2.item
 
   describe 'trick and switcheroo', ->
@@ -888,7 +888,7 @@ describe "BW Moves:", ->
       item2 = @p2.item
 
       trick = @battle.getMove('Trick')
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       @p2.item.should.equal item1
       @p1.item.should.equal item2
 
@@ -910,7 +910,7 @@ describe "BW Moves:", ->
         team2: [Factory('Gastrodon', item: "Leftovers")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target has Sticky Hold", ->
@@ -919,7 +919,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', ability: "Sticky Hold", item: "Leftovers")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "succeeds if only one pokemon has an item", ->
@@ -928,7 +928,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       item1 = @p1.item
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       should.not.exist(@p1.item)
       @p2.item.should.equal(item1)
 
@@ -938,7 +938,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the user is holding a Mail", ->
@@ -947,7 +947,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target is holding a Mail", ->
@@ -956,7 +956,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', item: 'Air Mail')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the user is Giratina-O", ->
@@ -964,7 +964,7 @@ describe "BW Moves:", ->
         team1: [Factory('Giratina', forme: "origin")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target is Giratina-O", ->
@@ -972,7 +972,7 @@ describe "BW Moves:", ->
         team2: [Factory('Giratina', forme: "origin")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target has a Substitute", ->
@@ -980,8 +980,8 @@ describe "BW Moves:", ->
       trick = @battle.getMove('Trick')
       substitute = @battle.getMove('Substitute')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id2, substitute)
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p2, substitute)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the user has Multitype with a plate item", ->
@@ -990,7 +990,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target has Multitype with a plate item", ->
@@ -999,7 +999,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', ability: "Multitype", item: "Grass Plate")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the target is Genesect with a Drive item", ->
@@ -1008,7 +1008,7 @@ describe "BW Moves:", ->
         team2: [Factory('Genesect', item: "Burn Drive")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
     it "fails if the user is Genesect with a Drive item", ->
@@ -1017,7 +1017,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
-      @battle.performMove(@id1, trick)
+      @battle.performMove(@p1, trick)
       mock.verify()
 
   describe 'memento', ->
@@ -1025,12 +1025,12 @@ describe "BW Moves:", ->
 
     it "faints the user", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Memento"))
+      @battle.performMove(@p1, @battle.getMove("Memento"))
       @p1.isFainted().should.be.true
 
     it "reduces the attack and special attack of the target by two stages", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Memento"))
+      @battle.performMove(@p1, @battle.getMove("Memento"))
       @p2.stages.should.include attack: -2, specialAttack: -2
 
     it "doesn't reduce stats if target is protected, but faints user", ->
@@ -1043,8 +1043,8 @@ describe "BW Moves:", ->
 
     it "doesn't reduce stats if target has a substitute, but faints user", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove("Substitute"))
-      @battle.performMove(@id1, @battle.getMove("Memento"))
+      @battle.performMove(@p2, @battle.getMove("Substitute"))
+      @battle.performMove(@p1, @battle.getMove("Memento"))
       @p2.stages.should.not.include attack: -2, specialAttack: -2
       @p1.isFainted().should.be.true
 
@@ -1160,14 +1160,14 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
-      @battle.performMove(@id1, @battle.getMove('Explosion'))
+      @battle.performMove(@p1, @battle.getMove('Explosion'))
       @p1.isFainted().should.be.true
 
     it 'faints the user even if enemy is immune', ->
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Gengar')]
-      @battle.performMove(@id1, @battle.getMove('Explosion'))
+      @battle.performMove(@p1, @battle.getMove('Explosion'))
       @p1.isFainted().should.be.true
 
     it 'fails if an active Pokemon has Damp', ->
@@ -1176,7 +1176,7 @@ describe "BW Moves:", ->
         team2: [Factory('Politoed', ability: 'Damp')]
       explosion = @battle.getMove('Explosion')
       mock = @sandbox.mock(explosion).expects('fail').once()
-      @battle.performMove(@id1, explosion)
+      @battle.performMove(@p1, explosion)
       mock.verify()
 
   describe 'endeavor', ->
@@ -1184,7 +1184,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       hp = 4
       @p1.currentHP = hp
-      @battle.performMove(@id1, @battle.getMove('Endeavor'))
+      @battle.performMove(@p1, @battle.getMove('Endeavor'))
       @p2.currentHP.should.equal hp
 
     it "fails if the target's hp is less than the user's hp", ->
@@ -1193,7 +1193,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('fail').once()
       @p2.currentHP = hp = 4
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "doesn't hit ghost pokemon", ->
@@ -1201,7 +1201,7 @@ describe "BW Moves:", ->
         team1: [Factory('Politoed')]
         team2: [Factory('Gengar')]
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Endeavor'))
+      @battle.performMove(@p1, @battle.getMove('Endeavor'))
       @p2.currentHP.should.equal @p2.stat('hp')
 
   describe 'a thief move', ->
@@ -1210,7 +1210,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Leftovers")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       @p1.item.should.equal item2
       should.not.exist @p2.item
 
@@ -1219,7 +1219,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp')]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       should.not.exist @p2.item
 
@@ -1229,7 +1229,7 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', item: "Leftovers")]
       item1 = @p1.item
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       @p1.item.should.equal item1
       @p2.item.should.equal item2
 
@@ -1238,7 +1238,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Leftovers", ability: "Sticky Hold")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
@@ -1247,14 +1247,14 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Draco Plate", ability: "Multitype")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
     it "should not steal the target's item if the target has no item", ->
       shared.create.call(this)
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       @p1.hasItem().should.be.false
       @p2.hasItem().should.be.false
 
@@ -1263,7 +1263,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Giratina', forme: "origin", item: "Griseous Orb")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
@@ -1272,7 +1272,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Genesect', item: "Burn Drive")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
@@ -1281,7 +1281,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Air Mail")]
       item2 = @p2.item
-      @battle.performMove(@id1, @battle.getMove('Thief'))
+      @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
@@ -1318,7 +1318,7 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp'), Factory('Magikarp'), Factory('Magikarp')]
       shared.biasRNG.call(this, 'next', 'paralyze chance', 1)  # never pars
       @team1.pokemon.forEach((pokemon) -> pokemon.attach(Status.Paralyze))
-      @battle.performMove(@id1, @battle.getMove('Aromatherapy'))
+      @battle.performMove(@p1, @battle.getMove('Aromatherapy'))
 
       _.all(@team1.pokemon, (pokemon) -> !pokemon.hasStatus()).should.be.true
 
@@ -1331,21 +1331,21 @@ describe "BW Moves:", ->
       @battle.lastMove = @battle.getMove('Tackle')
       mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').once()
-      @battle.performMove(@id1, @battle.getMove('Copycat'))
+      @battle.performMove(@p1, @battle.getMove('Copycat'))
       mock.verify()
 
     it 'fails if no last move was used', ->
       @battle.lastMove = null
       mock = @sandbox.mock(@battle.getMove('Copycat'))
       mock.expects('fail').once()
-      @battle.performMove(@id1, @battle.getMove('Copycat'))
+      @battle.performMove(@p1, @battle.getMove('Copycat'))
       mock.verify()
 
     it 'fails if the last move was copycat', ->
       @battle.lastMove = @battle.getMove('Copycat')
       mock = @sandbox.mock(@battle.getMove('Copycat'))
       mock.expects('fail').once()
-      @battle.performMove(@id1, @battle.getMove('Copycat'))
+      @battle.performMove(@p1, @battle.getMove('Copycat'))
       mock.verify()
 
   describe 'a move that targets a different stat', ->
@@ -1376,7 +1376,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       move = @battle.getMove('Teleport')
       mock = @sandbox.mock(move).expects('fail').once()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
   describe 'Super Fang', ->
@@ -1384,13 +1384,13 @@ describe "BW Moves:", ->
       shared.create.call(this)
       hp = @p2.currentHP
       hp = @p2.currentHP = (hp - (1 - hp % 2))  # Always odd
-      @battle.performMove(@id1, @battle.getMove('Super Fang'))
+      @battle.performMove(@p1, @battle.getMove('Super Fang'))
       @p2.currentHP.should.equal Math.ceil(hp / 2)
 
     it "deals 1 damage minimum", ->
       shared.create.call(this)
       @p2.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Super Fang'))
+      @battle.performMove(@p1, @battle.getMove('Super Fang'))
       @p2.currentHP.should.equal 0
 
   describe 'Avalanche', ->
@@ -1403,7 +1403,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       @battle.setWeather(Weather.NONE)
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Moonlight'))
+      @battle.performMove(@p1, @battle.getMove('Moonlight'))
 
       hp = util.roundHalfDown(@p1.stat('hp') / 2)
       @p1.currentHP.should.equal(1 + hp)
@@ -1412,7 +1412,7 @@ describe "BW Moves:", ->
       shared.create.call(this, team1: [Factory("Shuckle")])
       @battle.setWeather(Weather.SAND)
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Moonlight'))
+      @battle.performMove(@p1, @battle.getMove('Moonlight'))
 
       hp = util.roundHalfDown(@p1.stat('hp') / 4)
       @p1.currentHP.should.equal(1 + hp)
@@ -1421,7 +1421,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       @battle.setWeather(Weather.SUN)
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Moonlight'))
+      @battle.performMove(@p1, @battle.getMove('Moonlight'))
 
       hp = util.roundHalfDown(@p1.stat('hp') * 2 / 3)
       @p1.currentHP.should.equal(1 + hp)
@@ -1433,14 +1433,14 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(@battle.getMove('Splash'))
       mock.expects('execute').never()
 
-      @battle.performMove(@id1, @battle.getMove('Fake Out'))
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Fake Out'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
 
       mock.verify()
 
     it "removes the flinch attachment at the end of the turn", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove('Fake Out'))
+      @battle.performMove(@p1, @battle.getMove('Fake Out'))
       @battle.endTurn()
       @p2.has(Attachment.Flinch).should.be.false
 
@@ -1489,14 +1489,14 @@ describe "BW Moves:", ->
     it 'changes your weight on success', ->
       shared.create.call(this)
       weight = @p1.calculateWeight()
-      @battle.performMove(@id1, @battle.getMove('Autotomize'))
+      @battle.performMove(@p1, @battle.getMove('Autotomize'))
 
       weight.should.not.equal @p1.calculateWeight()
 
     it 'cannot go below .1kg', ->
       # Magikarp weighs 100kg.
       shared.create.call this, team1: [ Factory('Magikarp')]
-      @battle.performMove(@id1, @battle.getMove('Autotomize'))
+      @battle.performMove(@p1, @battle.getMove('Autotomize'))
 
       @p1.calculateWeight().should.not.be.lessThan .1
 
@@ -1504,8 +1504,8 @@ describe "BW Moves:", ->
       # Abomasnow weighs 1355kg.
       shared.create.call this, team1: [ Factory('Abomasnow')]
 
-      @battle.performMove(@id1, @battle.getMove('Autotomize'))
-      @battle.performMove(@id1, @battle.getMove('Autotomize'))
+      @battle.performMove(@p1, @battle.getMove('Autotomize'))
+      @battle.performMove(@p1, @battle.getMove('Autotomize'))
 
       @p1.calculateWeight().should.equal 1155
 
@@ -1517,7 +1517,7 @@ describe "BW Moves:", ->
       @p1.stages.attack = 2
       @p2.stages.speed = -2
 
-      @battle.performMove(@id1, @battle.getMove('Heart Swap'))
+      @battle.performMove(@p1, @battle.getMove('Heart Swap'))
 
       @p1.stages.should.include speed: -2
       @p2.stages.should.include attack: 2
@@ -1528,7 +1528,7 @@ describe "BW Moves:", ->
     it 'fails if the pokemon is awake', ->
       shared.create.call(this)
       mock = @sandbox.mock(@battle.getMove('Nightmare')).expects('fail').once()
-      @battle.performMove(@id1, @battle.getMove('Nightmare'))
+      @battle.performMove(@p1, @battle.getMove('Nightmare'))
       mock.verify()
 
     it 'fails if used twice', ->
@@ -1538,8 +1538,8 @@ describe "BW Moves:", ->
       @p2.attach(Status.Sleep)
 
       mock = @sandbox.mock(nightmare).expects('fail').once()
-      @battle.performMove(@id1, nightmare)
-      @battle.performMove(@id1, nightmare)
+      @battle.performMove(@p1, nightmare)
+      @battle.performMove(@p1, nightmare)
       mock.verify()
 
     it "cuts the target's HP by 25% each turn", ->
@@ -1550,7 +1550,7 @@ describe "BW Moves:", ->
       hp = @p2.currentHP
       quarter = Math.floor(hp / 4)
 
-      @battle.performMove(@id1, @battle.getMove('Nightmare'))
+      @battle.performMove(@p1, @battle.getMove('Nightmare'))
       @battle.endTurn()
       @p2.currentHP.should.equal(hp - quarter)
 
@@ -1562,7 +1562,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
       @p2.attach(Status.Sleep)
 
-      @battle.performMove(@id1, @battle.getMove('Nightmare'))
+      @battle.performMove(@p1, @battle.getMove('Nightmare'))
 
       @p2.cureStatus()
       @battle.endTurn()  # The check is in endTurn()
@@ -1573,14 +1573,14 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [ Factory('Magikarp', item: 'Bluk Berry') ]
 
-      @battle.performMove(@id1, @battle.getMove('Incinerate'))
+      @battle.performMove(@p1, @battle.getMove('Incinerate'))
       should.not.exist @p2.item
 
     it 'does not destroy non-berries', ->
       shared.create.call this,
         team2: [ Factory('Magikarp', item: 'Leftovers') ]
 
-      @battle.performMove(@id1, @battle.getMove('Incinerate'))
+      @battle.performMove(@p1, @battle.getMove('Incinerate'))
       should.exist @p2.item
 
   describe 'Judgment', ->
@@ -1606,15 +1606,15 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move)
       mock.expects('execute').never()
 
-      @battle.performMove(@id1, taunt)
-      @battle.performMove(@id2, move)
+      @battle.performMove(@p1, taunt)
+      @battle.performMove(@p2, move)
 
       mock.verify()
 
     it 'lasts three turns', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
 
-      @battle.performMove(@id1, @battle.getMove('Taunt'))
+      @battle.performMove(@p1, @battle.getMove('Taunt'))
       @battle.endTurn()
       @battle.endTurn()
       @battle.endTurn()
@@ -1624,7 +1624,7 @@ describe "BW Moves:", ->
     it 'prevents the target from selecting that move the next turn', ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, @battle.getMove('Taunt'))
+      @battle.performMove(@p1, @battle.getMove('Taunt'))
       @battle.beginTurn()
       requestedMoves = @battle.requestFor(@p2).moves
       requestedMoves.should.not.include 'Splash'
@@ -1634,13 +1634,13 @@ describe "BW Moves:", ->
       describe moveName, ->
         it 'forces the owner to switch', ->
           shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
-          @battle.performMove(@id1, @battle.getMove(moveName))
+          @battle.performMove(@p1, @battle.getMove(moveName))
 
           @battle.requests.should.have.property @player1.id
 
         it "makes a request containing all the possible switches", ->
           shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..3]))
-          @battle.performMove(@id1, @battle.getMove(moveName))
+          @battle.performMove(@p1, @battle.getMove(moveName))
           request = @battle.requestFor(@p1)
           request.switches.should.eql([ 1, 2 ])
 
@@ -1667,7 +1667,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       hp = @p1.currentHP
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Wish'))
+      @battle.performMove(@p1, @battle.getMove('Wish'))
       @battle.endTurn()
 
       @p1.currentHP.should.equal 1
@@ -1679,31 +1679,31 @@ describe "BW Moves:", ->
     it "restores the same total amount of HP to an ally", ->
       shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
       hp = @p1.currentHP
-      @battle.performMove(@id1, @battle.getMove('Wish'))
+      @battle.performMove(@p1, @battle.getMove('Wish'))
       @battle.endTurn()
       receiver = @team1.at(1)
 
       receiver.currentHP = 1
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       @battle.endTurn()
 
       receiver.currentHP.should.equal(Math.round(hp / 2) + 1)
 
     it "fails if the pokemon faints", ->
       shared.create.call(this, team1: [Factory("Magikarp"), Factory("Celebi")])
-      @battle.performMove(@id1, @battle.getMove('Wish'))
+      @battle.performMove(@p1, @battle.getMove('Wish'))
       @battle.endTurn()
 
       @p1.currentHP = 1
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.endTurn()
       @team1.has(Attachment.Wish).should.be.false
 
   describe "counter", ->
     it "returns double the damage if attacked by a physical move", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
-      @battle.performMove(@id1, @battle.getMove('Counter'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+      @battle.performMove(@p1, @battle.getMove('Counter'))
 
       dhp1 = @p1.stat('hp') - @p1.currentHP
       dhp2 = @p2.stat('hp') - @p2.currentHP
@@ -1713,8 +1713,8 @@ describe "BW Moves:", ->
       shared.create.call(this)
       mock = @sandbox.mock(@battle.getMove('Counter'))
       mock.expects('fail').once()
-      @battle.performMove(@id2, @battle.getMove('ThunderShock'))
-      @battle.performMove(@id1, @battle.getMove('Counter'))
+      @battle.performMove(@p2, @battle.getMove('ThunderShock'))
+      @battle.performMove(@p1, @battle.getMove('Counter'))
 
       mock.verify()
 
@@ -1725,13 +1725,13 @@ describe "BW Moves:", ->
       @controller.makeMove(@player1, "Splash")
       @controller.makeMove(@player2, "Tackle")
 
-      @battle.performMove(@id1, @battle.getMove('Counter'))
+      @battle.performMove(@p1, @battle.getMove('Counter'))
       mock.verify()
 
   describe "Perish Song", ->
     it "attaches to every pokemon in the field", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove('Perish Song'))
+      @battle.performMove(@p1, @battle.getMove('Perish Song'))
 
       result = _.all @battle.getActivePokemon(), (pokemon) ->
         pokemon.has(Attachment.PerishSong)
@@ -1739,7 +1739,7 @@ describe "BW Moves:", ->
 
     it "faints pokemon at the end of 4 turns", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove('Perish Song'))
+      @battle.performMove(@p1, @battle.getMove('Perish Song'))
       @battle.endTurn()
       @battle.endTurn()
       @battle.endTurn()
@@ -1756,7 +1756,7 @@ describe "BW Moves:", ->
 
     it "fails against Pokemon with Soundproof", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Soundproof")])
-      @battle.performMove(@id2, @battle.getMove("Perish Song"))
+      @battle.performMove(@p2, @battle.getMove("Perish Song"))
       @p1.has(Attachment.PerishSong).should.be.false
       @p2.has(Attachment.PerishSong).should.be.true
 
@@ -1798,7 +1798,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "works on Pokemon that share one type with the user", ->
@@ -1807,7 +1807,7 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi")]
 
       hp = @p2.currentHP
-      @battle.performMove(@id1, @battle.getMove('Synchronoise'))
+      @battle.performMove(@p1, @battle.getMove('Synchronoise'))
       @p2.currentHP.should.be.lessThan hp
 
   describe "Roost", ->
@@ -1818,7 +1818,7 @@ describe "BW Moves:", ->
         team1: [Factory("Gliscor")]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Roost"))
+      @battle.performMove(@p1, @battle.getMove("Roost"))
 
       ('Flying' in @p1.types).should.be.false
       @p1.types.should.eql ['Ground']
@@ -1828,7 +1828,7 @@ describe "BW Moves:", ->
         team1: [Factory("Tornadus")]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Roost"))
+      @battle.performMove(@p1, @battle.getMove("Roost"))
 
       ('Flying' in @p1.types).should.be.false
       @p1.types.should.eql ['Normal']
@@ -1839,7 +1839,7 @@ describe "BW Moves:", ->
 
       oldTypes = @p1.types
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Roost"))
+      @battle.performMove(@p1, @battle.getMove("Roost"))
       @p1.types.should.eql oldTypes
 
     it "restores the user's old types after the turn", ->
@@ -1847,7 +1847,7 @@ describe "BW Moves:", ->
         team1: [Factory("Gliscor")]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Roost"))
+      @battle.performMove(@p1, @battle.getMove("Roost"))
       @battle.endTurn()
       ('Flying' in @p1.types).should.be.true
       ('Ground' in @p1.types).should.be.true
@@ -1861,14 +1861,14 @@ describe "BW Moves:", ->
       encore = @battle.getMove('Encore')
       mock = @sandbox.mock(encore).expects('fail').once()
 
-      @battle.performMove(@id1, encore)
+      @battle.performMove(@p1, encore)
       mock.verify()
 
     it "forces the target to repeat its last used move", ->
       shared.create.call(this)
 
-      @battle.performMove(@id2, @battle.getMove('Splash'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
 
       @battle.beginTurn()
       @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
@@ -1876,7 +1876,7 @@ describe "BW Moves:", ->
     it "changes the target's decision if it has not moved yet", ->
       shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
 
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
       @battle.recordMove(@id1, @battle.getMove('Encore'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.continueTurn()
@@ -1884,8 +1884,8 @@ describe "BW Moves:", ->
 
     it "lasts 3 turns", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove('Splash'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
 
       @p2.has(Attachment.Encore).should.be.true
 
@@ -1900,8 +1900,8 @@ describe "BW Moves:", ->
       encore = @battle.getMove('Encore')
       mock = @sandbox.mock(encore).expects('fail').once()
 
-      @battle.performMove(@id2, @battle.getMove('Mimic'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Mimic'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
       mock.verify()
 
     it "fails if the pokemon is already encored", ->
@@ -1909,9 +1909,9 @@ describe "BW Moves:", ->
       encore = @battle.getMove('Encore')
       mock = @sandbox.mock(encore).expects('fail').once()
 
-      @battle.performMove(@id2, @battle.getMove('Splash'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
       mock.verify()
 
     it "fails if the move has 0 PP", ->
@@ -1920,21 +1920,21 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(encore).expects('fail').once()
 
       @p2.setPP(@battle.getMove('Splash'), 1)
-      @battle.performMove(@id2, @battle.getMove('Splash'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
       mock.verify()
 
     it "removes itself if the pokemon's move reaches 0 PP", ->
       shared.create.call(this)
 
       @p2.setPP(@battle.getMove('Splash'), 2)
-      @battle.performMove(@id2, @battle.getMove('Splash'))
-      @battle.performMove(@id1, @battle.getMove('Encore'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Encore'))
       @battle.endTurn()
 
       @p2.has(Attachment.Encore).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
       @battle.endTurn()
 
       @p2.has(Attachment.Encore).should.be.false
@@ -1942,23 +1942,23 @@ describe "BW Moves:", ->
   describe "Swagger", ->
     it "confuses the target", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Swagger"))
+      @battle.performMove(@p1, @battle.getMove("Swagger"))
       @p2.has(Attachment.Confusion).should.be.true
 
     it "boosts the target's attack by two stages", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Swagger"))
+      @battle.performMove(@p1, @battle.getMove("Swagger"))
       @p2.stages.attack.should.equal 2
 
   describe "Flatter", ->
     it "confuses the target", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Flatter"))
+      @battle.performMove(@p1, @battle.getMove("Flatter"))
       @p2.has(Attachment.Confusion).should.be.true
 
     it "boosts the target's special attack by one stage", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Flatter"))
+      @battle.performMove(@p1, @battle.getMove("Flatter"))
       @p2.stages.specialAttack.should.equal 1
 
   describe "Torment", ->
@@ -1968,22 +1968,22 @@ describe "BW Moves:", ->
     it "prevents the target from using its last move", ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, @battle.getMove("Torment"))
-      @battle.performMove(@id2, @battle.getMove("Splash"))
+      @battle.performMove(@p1, @battle.getMove("Torment"))
+      @battle.performMove(@p2, @battle.getMove("Splash"))
       @battle.beginTurn()
       @p2.validMoves().should.eql [ @battle.getMove('Tackle') ]
 
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.beginTurn()
       @p2.validMoves().should.eql [ @battle.getMove('Splash') ]
 
     it "still works even if a new pokemon has just switched in", ->
       shared.create.call(this, team2: [Factory("Magikarp"), Factory("Magikarp")])
 
-      @battle.performSwitch(@id2, 1)
-      @battle.performMove(@id1, @battle.getMove("Torment"))
+      @battle.performSwitch(@p2, 1)
+      @battle.performMove(@p1, @battle.getMove("Torment"))
       @battle.beginTurn()
-      @p2.validMoves().should.eql [ @battle.getMove('Splash'), @battle.getMove('Tackle') ]
+      @team2.first().validMoves().should.eql [ @battle.getMove('Splash'), @battle.getMove('Tackle') ]
 
     xit "does not force the Outrage user to struggle", ->
     xit "does not prevent consecutive use of Struggle", ->
@@ -1997,7 +1997,7 @@ describe "BW Moves:", ->
       @p2.stages.attack = 6
       @p2.stages.defense = -2
       @p2.stages.speed = -1
-      @battle.performMove(@id1, @battle.getMove("Psych Up"))
+      @battle.performMove(@p1, @battle.getMove("Psych Up"))
       @p1.stages.should.eql {
         attack: 6, defense: -2, specialAttack: 0, specialDefense: 0,
         speed: -1, accuracy: 0, evasion: 0
@@ -2008,7 +2008,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @team2.has(Attachment.Spikes).should.be.false
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
       @team2.has(Attachment.Spikes).should.be.true
 
     it "fails if there are 3 layers", ->
@@ -2017,7 +2017,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(@battle.getMove('Spikes')).expects('fail').once()
 
       for i in [1..4]
-        @battle.performMove(@id1, @battle.getMove("Spikes"))
+        @battle.performMove(@p1, @battle.getMove("Spikes"))
 
       mock.verify()
 
@@ -2026,20 +2026,20 @@ describe "BW Moves:", ->
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
       hp = @team2.first().stat('hp')
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performSwitch(@p2, 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 8)
       @team2.first().currentHP = hp
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 6)
       @team2.first().currentHP = hp
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
 
       (hp - @team2.first().currentHP).should.equal Math.floor(hp / 4)
 
@@ -2047,8 +2047,8 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp", item: "Air Balloon")]
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
 
       @team2.first().currentHP.should.equal @team2.first().stat('hp')
 
@@ -2056,7 +2056,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
       @battle.recordSwitch(@id2, 1)
       @battle.performReplacements()
 
@@ -2071,22 +2071,22 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @team2.has(Attachment.StealthRock).should.be.false
-      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
       @team2.has(Attachment.StealthRock).should.be.true
 
     it "does damage to pokemon switching in according to type", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Moltres")]
 
-      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
+      @battle.performSwitch(@team2.first(), 1)
 
       pokemon = @team2.first()
 
       hp = pokemon.stat('hp')
       (hp - pokemon.currentHP).should.equal Math.floor(hp / 2)
 
-      @battle.performSwitch(@id2, 1)
+      @battle.performSwitch(@team2.first(), 1)
       pokemon = @team2.first()
       hp = pokemon.stat('hp')
       (hp - pokemon.currentHP).should.equal Math.floor(hp / 8)
@@ -2095,7 +2095,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
       @battle.recordSwitch(@id2, 1)
       @battle.performReplacements()
 
@@ -2107,7 +2107,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @team2.has(Attachment.ToxicSpikes).should.be.false
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
       @team2.has(Attachment.ToxicSpikes).should.be.true
 
     it "fails if there are 2 layers", ->
@@ -2117,7 +2117,7 @@ describe "BW Moves:", ->
       mock.expects('fail').once()
 
       for i in [1..3]
-        @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+        @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
 
       mock.verify()
 
@@ -2125,51 +2125,51 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.first().has(Status.Poison).should.be.true
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.first().has(Status.Toxic).should.be.true
 
     it "does not affect the pokemon if it's immune to Poison", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Ferrothorn")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.first().has(Status.Poison).should.be.false
 
     it "does not affect the pokemon if it's immune to Ground", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Gyarados")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.first().has(Status.Poison).should.be.false
 
     it "disappears if the pokemon switching in is a grounded Poison", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Drapion")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.has(Attachment.ToxicSpikes).should.be.false
 
     it "doesn't disappear if the pokemon switching in is a flying Poison", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Drapion", item: "Air Balloon")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
-      @battle.performSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
+      @battle.performSwitch(@team2.first(), 1)
       @team2.has(Attachment.ToxicSpikes).should.be.true
 
     it "affects replacements", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
       @battle.recordSwitch(@id2, 1)
       @battle.performReplacements()
 
@@ -2180,7 +2180,7 @@ describe "BW Moves:", ->
       it "changes the weather to #{weather.toLowerCase()} for 5 turns", ->
         shared.create.call(this)
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.weather.should.equal(weather)
         @battle.weatherDuration.should.equal 5
 
@@ -2188,7 +2188,7 @@ describe "BW Moves:", ->
         shared.create.call this,
           team1: [Factory("Magikarp", item: item)]
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.weather.should.equal(weather)
         @battle.weatherDuration.should.equal 8
 
@@ -2203,7 +2203,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         @p2.has(status).should.be.true
 
@@ -2217,7 +2217,7 @@ describe "BW Moves:", ->
         @p2.attach(oldStatus)
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         @p2.has(status).should.be.false
         @p2.has(oldStatus).should.be.true
@@ -2242,7 +2242,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         @p2.has(Effect).should.be.true
 
@@ -2257,7 +2257,7 @@ describe "BW Moves:", ->
         @p2.attach(Effect, {@battle})
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         mock.verify()
 
@@ -2323,7 +2323,7 @@ describe "BW Moves:", ->
 
         target = @team2.at(1)
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         @team2.first().should.equal target
 
@@ -2334,7 +2334,7 @@ describe "BW Moves:", ->
         mock.expects("switch").never()
 
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
 
         mock.verify()
 
@@ -2348,7 +2348,7 @@ describe "BW Moves:", ->
       it "blocks switching", ->
         shared.create.call(this)
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
         @battle.beginTurn()
         @p2.isSwitchBlocked().should.be.true
@@ -2358,7 +2358,7 @@ describe "BW Moves:", ->
       it "deals 1/16 of the pokemon's max hp every turn", ->
         shared.create.call(this, team2: [Factory("Blissey")])
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
         maxHP = @p2.stat('hp')
@@ -2369,7 +2369,7 @@ describe "BW Moves:", ->
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @p2.currentHP = @p2.stat('hp')
 
         # loop for 5 more turns. One of the turns has already passed.
@@ -2387,7 +2387,7 @@ describe "BW Moves:", ->
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
 
         # loop for 5 more turns. One of the turns has already passed.
@@ -2405,10 +2405,10 @@ describe "BW Moves:", ->
         shared.create.call(this, team2: [Factory("Blissey")])
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
 
         # loop for 4 more turns. These moves wear off after numTurns + 1.
@@ -2424,7 +2424,7 @@ describe "BW Moves:", ->
       it "wears off if the user switches", ->
         shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
 
-        @battle.performMove(@id1, @battle.getMove(name))
+        @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
 
         @controller.makeSwitch(@player1, 1)
@@ -2438,8 +2438,8 @@ describe "BW Moves:", ->
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
 
         move = @battle.getMove(name)
-        @battle.performMove(@id1, move)
-        @battle.performMove(@id2, @battle.getMove("Recover"))
+        @battle.performMove(@p1, move)
+        @battle.performMove(@p2, @battle.getMove("Recover"))
 
         # The user is damaged 7 times, but the attachment actually lasts
         # for 8 turns including the turn it is first used.
@@ -2469,8 +2469,8 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, "next", 'attract chance', 0)  # 100% immobilizes
 
       mock = @sandbox.mock(@battle.getMove('Tackle')).expects('execute').never()
-      @battle.performMove(@id1, @battle.getMove("Attract"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Attract"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       mock.verify()
 
     it "has a 50% chance to not immobilize a pokemon", ->
@@ -2480,8 +2480,8 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, "next", 'attract chance', .5)  # 0% immobilizes
 
       mock = @sandbox.mock(@battle.getMove('Tackle')).expects('execute').once()
-      @battle.performMove(@id1, @battle.getMove("Attract"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Attract"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       mock.verify()
 
     it "fails if the Pokemon are not opposite genders", ->
@@ -2490,18 +2490,18 @@ describe "BW Moves:", ->
         team2: [Factory("Magikarp", gender: "F")]
 
       mock = @sandbox.mock(@battle.getMove('Attract')).expects('fail').once()
-      @battle.performMove(@id1, @battle.getMove("Attract"))
+      @battle.performMove(@p1, @battle.getMove("Attract"))
       mock.verify()
 
     it "disappears if the source is no longer active", ->
       shared.create.call this,
         team1: (Factory("Magikarp", gender: "M")  for x in [1..2])
         team2: [Factory("Magikarp", gender: "F")]
-      @battle.performMove(@id1, @battle.getMove('Attract'))
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Attract'))
+      @battle.performMove(@p2, @battle.getMove('Splash'))
       @p2.has(Attachment.Attract).should.be.true
-      @battle.performSwitch(@id1, 1)
-      @battle.performMove(@id2, @battle.getMove('Splash'))
+      @battle.performSwitch(@team1.first(), 1)
+      @battle.performMove(@p2, @battle.getMove('Splash'))
       @p2.has(Attachment.Attract).should.be.false
 
   describe "Reflect", ->
@@ -2524,7 +2524,7 @@ describe "BW Moves:", ->
     it "lasts five turns", ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, @battle.getMove('Reflect'))
+      @battle.performMove(@p1, @battle.getMove('Reflect'))
 
       for i in [1..5]
         @team1.has(Attachment.Reflect).should.be.true
@@ -2536,8 +2536,8 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(@battle.getMove('Reflect'))
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, @battle.getMove('Reflect'))
-      @battle.performMove(@id1, @battle.getMove('Reflect'))
+      @battle.performMove(@p1, @battle.getMove('Reflect'))
+      @battle.performMove(@p1, @battle.getMove('Reflect'))
 
       mock.verify()
 
@@ -2568,7 +2568,7 @@ describe "BW Moves:", ->
     it "lasts five turns", ->
       shared.create.call(this)
 
-      @battle.performMove(@id1, @battle.getMove('Light Screen'))
+      @battle.performMove(@p1, @battle.getMove('Light Screen'))
 
       for i in [1..5]
         @team1.has(Attachment.LightScreen).should.be.true
@@ -2580,8 +2580,8 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(@battle.getMove('Light Screen'))
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, @battle.getMove('Light Screen'))
-      @battle.performMove(@id1, @battle.getMove('Light Screen'))
+      @battle.performMove(@p1, @battle.getMove('Light Screen'))
+      @battle.performMove(@p1, @battle.getMove('Light Screen'))
 
       mock.verify()
 
@@ -2596,57 +2596,57 @@ describe "BW Moves:", ->
     it "removes spikes", ->
       shared.create.call this
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
       @team2.has(Attachment.Spikes).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @team2.has(Attachment.Spikes).should.be.false
 
     it "removes stealth rock", ->
       shared.create.call this
 
-      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
       @team2.has(Attachment.StealthRock).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @team2.has(Attachment.StealthRock).should.be.false
 
     it "removes toxic spikes", ->
       shared.create.call this
 
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
       @team2.has(Attachment.ToxicSpikes).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @team2.has(Attachment.ToxicSpikes).should.be.false
 
     it "removes multiple layers of entry hazards", ->
       shared.create.call this
 
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
       @team2.has(Attachment.Spikes).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @team2.has(Attachment.Spikes).should.be.false
 
     it "removes trapping moves", ->
       shared.create.call this
 
-      @battle.performMove(@id1, @battle.getMove("Fire Spin"))
+      @battle.performMove(@p1, @battle.getMove("Fire Spin"))
 
       @p2.has(Attachment.Trap).should.be.true
       @p1.has(Attachment.TrapLeash).should.be.true
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @p2.has(Attachment.Trap).should.be.false
       @p1.has(Attachment.TrapLeash).should.be.false
 
     it "removes leech seed", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p1, @battle.getMove("Leech Seed"))
       @p2.has(Attachment.LeechSeed).should.be.true
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @p2.has(Attachment.LeechSeed).should.be.false
 
     it "does not remove entry hazards if the user faints from rough skin"
@@ -2655,8 +2655,8 @@ describe "BW Moves:", ->
       shared.create.call(this, team2: [Factory("Magikarp", item: "Life Orb")])
 
       @p2.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
-      @battle.performMove(@id2, @battle.getMove("Rapid Spin"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
 
       @team2.has(Attachment.Spikes).should.be.true
 
@@ -2664,20 +2664,20 @@ describe "BW Moves:", ->
     it "shatters Light Screen", ->
       shared.create.call(this)
       @team2.attach(Attachment.LightScreen)
-      @battle.performMove(@id1, @battle.getMove('Brick Break'))
+      @battle.performMove(@p1, @battle.getMove('Brick Break'))
       @team2.has(Attachment.LightScreen).should.be.false
 
     it "shatters Reflect", ->
       shared.create.call(this)
       @team2.attach(Attachment.Reflect)
-      @battle.performMove(@id1, @battle.getMove('Brick Break'))
+      @battle.performMove(@p1, @battle.getMove('Brick Break'))
       @team2.has(Attachment.Reflect).should.be.false
 
     it "shatters both at the same time", ->
       shared.create.call(this)
       @team2.attach(Attachment.Reflect)
       @team2.attach(Attachment.LightScreen)
-      @battle.performMove(@id1, @battle.getMove('Brick Break'))
+      @battle.performMove(@p1, @battle.getMove('Brick Break'))
       @team2.has(Attachment.Reflect).should.be.false
       @team2.has(Attachment.LightScreen).should.be.false
 
@@ -2689,7 +2689,7 @@ describe "BW Moves:", ->
       @team2.attach(Attachment.LightScreen)
 
       spy = @sandbox.spy(move, 'calculateDamage')
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       spy.returned(damage).should.be.true
 
     it "does not shatter if the target is immune", ->
@@ -2698,7 +2698,7 @@ describe "BW Moves:", ->
       @team2.attach(Attachment.LightScreen)
 
       @sandbox.stub(@p2, 'isImmune', -> true)
-      @battle.performMove(@id1, @battle.getMove('Brick Break'))
+      @battle.performMove(@p1, @battle.getMove('Brick Break'))
       @team2.has(Attachment.Reflect).should.be.true
       @team2.has(Attachment.LightScreen).should.be.true
 
@@ -2708,7 +2708,7 @@ describe "BW Moves:", ->
       @team2.attach(Attachment.LightScreen)
 
       shared.biasRNG.call(this, 'randInt', 'miss', 101)
-      @battle.performMove(@id1, @battle.getMove('Brick Break'))
+      @battle.performMove(@p1, @battle.getMove('Brick Break'))
       @team2.has(Attachment.Reflect).should.be.true
       @team2.has(Attachment.LightScreen).should.be.true
 
@@ -2729,7 +2729,7 @@ describe "BW Moves:", ->
   describe "Fake Out", ->
     it "flinches the enemy", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Fake Out"))
+      @battle.performMove(@p1, @battle.getMove("Fake Out"))
       @p2.has(Attachment.Flinch).should.be.true
 
     it "fails if the Pokemon has been in play one turn or more", ->
@@ -2738,23 +2738,23 @@ describe "BW Moves:", ->
       @battle.beginTurn()
       fakeOut = @battle.getMove("Fake Out")
       mock = @sandbox.mock(fakeOut).expects('fail').once()
-      @battle.performMove(@id1, fakeOut)
+      @battle.performMove(@p1, fakeOut)
       mock.verify()
 
     it "works if the Pokemon is newly switched", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @battle.endTurn()
       @battle.beginTurn()
       fakeOut = @battle.getMove("Fake Out")
       mock = @sandbox.mock(fakeOut).expects('fail').never()
-      @battle.performMove(@id1, fakeOut)
+      @battle.performMove(@team1.first(), fakeOut)
       mock.verify()
 
   describe "Focus Energy", ->
     it "adds a Focus Energy attachment to the user", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Focus Energy"))
+      @battle.performMove(@p1, @battle.getMove("Focus Energy"))
       @p1.has(Attachment.FocusEnergy).should.be.true
 
     it "fails the second time it is used", ->
@@ -2763,8 +2763,8 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, move)
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
+      @battle.performMove(@p1, move)
 
       mock.verify()
 
@@ -2776,7 +2776,7 @@ describe "BW Moves:", ->
       it "makes the target vulnerable to #{type} moves", ->
         shared.create.call(this, team2: [Factory("Spiritomb")])
         @p2.isImmune(type).should.be.true
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.has(Attachment.Identify).should.be.true
         @p2.isImmune(type).should.be.false
 
@@ -2784,7 +2784,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p2.boost(evasion: 2)
         @p2.editBoosts().evasion.should.equal 2
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.editBoosts().evasion.should.equal 0
 
   testIdentifyMove("Foresight", "Normal")
@@ -2798,7 +2798,7 @@ describe "BW Moves:", ->
           "Thunderbolt", "Ice Beam", "Conversion" ])]
       shared.biasRNG.call(this, "randInt", 'conversion types', 0)
       @p1.types.should.eql [ "Normal" ]
-      @battle.performMove(@id1, @battle.getMove("Conversion"))
+      @battle.performMove(@p1, @battle.getMove("Conversion"))
       @p1.types.should.eql [ 'Electric' ]
 
     it "ignores Conversion as part of the move types", ->
@@ -2806,7 +2806,7 @@ describe "BW Moves:", ->
         team1: [Factory("Porygon", moves: [ "Conversion", "Ice Beam" ])]
       shared.biasRNG.call(this, "randInt", 'conversion types', 0)
       @p1.types = [ "Fake Type" ]
-      @battle.performMove(@id1, @battle.getMove("Conversion"))
+      @battle.performMove(@p1, @battle.getMove("Conversion"))
       @p1.types.should.eql [ 'Ice' ]
 
     it "fails if there is no type to convert to", ->
@@ -2816,7 +2816,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move)
       mock.expects('fail').once()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
   describe "Conversion 2", ->
@@ -2825,7 +2825,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('fail').once()
 
       @p2.lastMove = null
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "changes user's type to one resisting or is immune to target's move", ->
@@ -2834,7 +2834,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Ember")
       type = move.type
       @p2.lastMove = move
-      @battle.performMove(@id1, @battle.getMove("Conversion 2"))
+      @battle.performMove(@p1, @battle.getMove("Conversion 2"))
       @p1.types.should.have.length 1
       util.typeEffectiveness(type, @p1.types).should.be.lessThan 1
 
@@ -2842,13 +2842,13 @@ describe "BW Moves:", ->
     it "raises defense by 1 stage", ->
       shared.create.call(this)
       @p1.stages.defense.should.equal 0
-      @battle.performMove(@id1, @battle.getMove("Defense Curl"))
+      @battle.performMove(@p1, @battle.getMove("Defense Curl"))
       @p1.stages.defense.should.equal 1
 
     it "attaches a volatile attachment", ->
       shared.create.call(this)
       @p1.has(Attachment.DefenseCurl).should.be.false
-      @battle.performMove(@id1, @battle.getMove("Defense Curl"))
+      @battle.performMove(@p1, @battle.getMove("Defense Curl"))
       @p1.has(Attachment.DefenseCurl).should.be.true
 
   describe "Focus Punch", ->
@@ -2868,7 +2868,7 @@ describe "BW Moves:", ->
 
     it "does not cause flinching if hit by a move last turn", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.endTurn()
       @battle.beginTurn()
       @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
@@ -2882,13 +2882,13 @@ describe "BW Moves:", ->
     it "makes the user immune to ground moves", ->
       shared.create.call(this)
       @p1.isImmune("Ground").should.be.false
-      @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
+      @battle.performMove(@p1, @battle.getMove("Magnet Rise"))
       @p1.isImmune("Ground").should.be.true
 
     it "lasts 5 turns", ->
       shared.create.call(this)
       @p1.isImmune("Ground").should.be.false
-      @battle.performMove(@id1, @battle.getMove("Magnet Rise"))
+      @battle.performMove(@p1, @battle.getMove("Magnet Rise"))
       for i in [1..5]
         @p1.isImmune("Ground").should.be.true
         @battle.endTurn()
@@ -2902,14 +2902,14 @@ describe "BW Moves:", ->
       it "makes the user's next move never miss on this target", ->
         shared.create.call(this)
         shared.biasRNG.call(this, 'randInt', 'miss', 101)
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         missMove = @battle.getMove("Tackle")
         missMove.willMiss(@battle, @p1, @p2)
           .should.be.false
 
       it "lasts only two turns", ->
         shared.create.call(this)
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         for i in [1..2]
           @p1.has(Attachment.LockOn).should.be.true
           @battle.endTurn()
@@ -2926,12 +2926,12 @@ describe "BW Moves:", ->
   describe "Minimize", ->
     it "boosts the user's evasion by 2", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Minimize"))
+      @battle.performMove(@p1, @battle.getMove("Minimize"))
       @p1.stages.evasion.should.equal 2
 
     it "adds a Minimize volatile attachment to the user", ->
       shared.create.call(this)
-      @battle.performMove(@id1, @battle.getMove("Minimize"))
+      @battle.performMove(@p1, @battle.getMove("Minimize"))
       @p1.has(Attachment.Minimize).should.be.true
 
   testStompMove = (moveName) ->
@@ -2952,7 +2952,7 @@ describe "BW Moves:", ->
       it "has a 30% chance to flinch", ->
         shared.create.call(this)
         shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.has(Attachment.Flinch).should.be.true
 
   testStompMove("Stomp")
@@ -2967,7 +2967,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p2.isSwitchBlocked().should.be.false
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.beginTurn()
         @p2.isSwitchBlocked().should.be.true
 
@@ -2981,7 +2981,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p1.isSwitchBlocked().should.be.false
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
         @p1.isSwitchBlocked().should.be.true
@@ -2989,7 +2989,7 @@ describe "BW Moves:", ->
       it "blocks the target from picking a new move the next turn", ->
         shared.create.call(this)
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
         for move in @p1.moves
@@ -2999,7 +2999,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         specialMove = @battle.getMove("Recharge")
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
 
@@ -3013,7 +3013,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         spy = @sandbox.spy(@p1, 'beforeMove')
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
         @battle.continueTurn()
@@ -3033,7 +3033,7 @@ describe "BW Moves:", ->
       # Create artificial boosts.
       @p2.stages.defense = -3
       @p2.stages.specialAttack = 4
-      @battle.performMove(@id1, @battle.getMove("Clear Smog"))
+      @battle.performMove(@p1, @battle.getMove("Clear Smog"))
       neutralBoosts = {
         attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
         speed: 0, evasion: 0, accuracy: 0
@@ -3046,7 +3046,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p1.isSwitchBlocked().should.be.false
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
         @p1.isSwitchBlocked().should.be.true
@@ -3059,7 +3059,7 @@ describe "BW Moves:", ->
         @p1.moves = [ momentumMove, @battle.getMove("Rest") ]
         @p1.resetAllPP()
 
-        @battle.performMove(@id1, momentumMove)
+        @battle.performMove(@p1, momentumMove)
         @battle.endTurn()
         @battle.beginTurn()
         for move in @p1.moves
@@ -3072,7 +3072,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         shared.biasRNG.call(this, "randInt", 'miss', 100)
 
-        @battle.performMove(@id1, @battle.getMove(moveName))
+        @battle.performMove(@p1, @battle.getMove(moveName))
         @battle.endTurn()
         @battle.beginTurn()
         @p1.has(Attachment.Momentum).should.be.false
@@ -3081,7 +3081,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         for i in [1..5]
-          @battle.performMove(@id1, @battle.getMove(moveName))
+          @battle.performMove(@p1, @battle.getMove(moveName))
           @p1.has(Attachment.Momentum).should.be.true
           @battle.endTurn()
           @battle.beginTurn()
@@ -3095,7 +3095,7 @@ describe "BW Moves:", ->
         for i in [1..5]
           bp = move.basePower(@battle, @p1, @p2)
           bp.should.equal(basePower * Math.pow(2, i - 1))
-          @battle.performMove(@id1, move)
+          @battle.performMove(@p1, move)
           @battle.endTurn()
           @battle.beginTurn()
           @p2.currentHP = @p2.stat('hp')
@@ -3110,7 +3110,7 @@ describe "BW Moves:", ->
         for i in [1..5]
           bp = move.basePower(@battle, @p1, @p2)
           bp.should.equal(basePower * Math.pow(2, i - 1))
-          @battle.performMove(@id1, move)
+          @battle.performMove(@p1, move)
           @battle.endTurn()
           @battle.beginTurn()
           @p2.currentHP = @p2.stat('hp')
@@ -3130,7 +3130,7 @@ describe "BW Moves:", ->
       @battle.determineTurnOrder()
       @battle.delay @p1
       @battle.popAction(@p2)
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       mock.verify()
 
@@ -3144,7 +3144,7 @@ describe "BW Moves:", ->
       @battle.recordMove(@id2, move)
       @battle.determineTurnOrder()
       @battle.bump @p1
-      @battle.performMove(@id1, @battle.getMove("Me First"))
+      @battle.performMove(@p1, @battle.getMove("Me First"))
 
       mock.verify()
 
@@ -3157,7 +3157,7 @@ describe "BW Moves:", ->
       @battle.recordMove(@id2, move)
       @battle.determineTurnOrder()
       @battle.bump @p1
-      @battle.performMove(@id1, @battle.getMove("Me First"))
+      @battle.performMove(@p1, @battle.getMove("Me First"))
 
       move.modifyAttack(@battle, @p1, @p2).should.equal 0x1800
 
@@ -3174,7 +3174,7 @@ describe "BW Moves:", ->
           @battle.recordMove(@id2, @battle.getMove(moveName))
           @battle.determineTurnOrder()
           @battle.bump @p1
-          @battle.performMove(@id1, move)
+          @battle.performMove(@p1, move)
 
           mock.verify()
 
@@ -3188,7 +3188,7 @@ describe "BW Moves:", ->
       @battle.recordMove(@id2, @battle.getMove("Splash"))
       @battle.determineTurnOrder()
       @battle.bump @p1
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       mock.verify()
 
@@ -3198,7 +3198,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Dream Eater")
       mock = @sandbox.mock(move).expects('fail').once()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       mock.verify()
 
@@ -3208,7 +3208,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('fail').never()
 
       @p2.attach(Status.Sleep)
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       mock.verify()
 
@@ -3217,7 +3217,7 @@ describe "BW Moves:", ->
       @p1.currentHP = initialHP = 1
 
       @p2.attach(Status.Sleep)
-      @battle.performMove(@id1, @battle.getMove("Dream Eater"))
+      @battle.performMove(@p1, @battle.getMove("Dream Eater"))
 
       damage = @p2.stat('hp') - @p2.currentHP
       healed = Math.floor(damage / 2)
@@ -3228,7 +3228,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @p1.types = [ "Normal" ]
-      @battle.performMove(@id1, @battle.getMove("Camouflage"))
+      @battle.performMove(@p1, @battle.getMove("Camouflage"))
       @p1.types.should.eql [ "Ground" ]
 
   describe "Charge", ->
@@ -3237,7 +3237,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @p1.stages.specialDefense.should.equal 0
-      @battle.performMove(@id1, @battle.getMove("Charge"))
+      @battle.performMove(@p1, @battle.getMove("Charge"))
       @p1.stages.specialDefense.should.equal 1
 
     it "doubles the base power of the user's next move", ->
@@ -3245,7 +3245,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Thunderbolt")
 
       move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
-      @battle.performMove(@id1, @battle.getMove("Charge"))
+      @battle.performMove(@p1, @battle.getMove("Charge"))
       move.modifyAttack(@battle, @p1, @p2).should.equal 0x2000
 
     it "doesn't double the next move if it is non-electric type", ->
@@ -3253,7 +3253,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Flamethrower")
 
       move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
-      @battle.performMove(@id1, @battle.getMove("Charge"))
+      @battle.performMove(@p1, @battle.getMove("Charge"))
       move.modifyAttack(@battle, @p1, @p2).should.equal 0x1000
 
     it "can be used twice in a row", ->
@@ -3261,9 +3261,9 @@ describe "BW Moves:", ->
       move = @battle.getMove("Charge")
       mock = @sandbox.mock(move).expects('fail').never()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @battle.endTurn()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @battle.endTurn()
 
       @p1.has(Attachment.Charge).should.be.true
@@ -3273,28 +3273,28 @@ describe "BW Moves:", ->
     it "has a 20% chance to activate its secondary effect", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
-      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.hasStatus().should.be.true
 
     it "has a 1/3 chance for the secondary effect to be paralysis", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 0)  # par
-      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Paralyze).should.be.true
 
     it "has a 1/3 chance for the secondary effect to be burn", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 1)  # brn
-      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Burn).should.be.true
 
     it "has a 1/3 chance for the secondary effect to be freeze", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 2)  # frz
-      @battle.performMove(@id1, @battle.getMove("Tri Attack"))
+      @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Freeze).should.be.true
 
   describe "Mirror Move", ->
@@ -3304,7 +3304,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('execute').once()
       @p2.lastMove = move
 
-      @battle.performMove(@id1, @battle.getMove("Mirror Move"))
+      @battle.performMove(@p1, @battle.getMove("Mirror Move"))
       mock.verify()
 
     it "fails if the opponent has not moved the past turn", ->
@@ -3312,7 +3312,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Mirror Move")
       mock = @sandbox.mock(move).expects('fail').once()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "fails if the move does not have a `mirror` flag", ->
@@ -3321,7 +3321,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Mirror Move")
       mock = @sandbox.mock(move).expects('fail').once()
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     # TODO: Find out if this is true: when is lastMove nullified?
@@ -3335,7 +3335,7 @@ describe "BW Moves:", ->
       move = @battle.getMove("Leech Seed")
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @battle.endTurn()
 
       p = @p2
@@ -3349,7 +3349,7 @@ describe "BW Moves:", ->
 
       @p1.currentHP = 1
       @p2.currentHP = 1
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @battle.endTurn()
 
       @p1.currentHP.should.equal 2
@@ -3360,13 +3360,13 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('afterMiss').once()
       @p2.types = [ "Water", "Grass"]
 
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "does not trigger if the user has fainted", ->
       shared.create.call(this, team1: (Factory("Magikarp") for x in [1..2]))
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p1, @battle.getMove("Leech Seed"))
       @p1.faint()
       @battle.endTurn()
       @p2.currentHP.should.equal @p2.stat('hp')
@@ -3374,10 +3374,10 @@ describe "BW Moves:", ->
     it "leeches next pokemon to switch in at that slot", ->
       shared.create.call(this, team1: (Factory("Magikarp") for x in [1..2]))
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p1, @battle.getMove("Leech Seed"))
       @p1.faint()
       @battle.endTurn()
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @p2.currentHP.should.equal @p2.stat('hp')
 
       newFirst = @team1.first()
@@ -3390,10 +3390,10 @@ describe "BW Moves:", ->
     it "stops if the target has fainted", ->
       shared.create.call(this, team2: (Factory("Magikarp") for x in [1..2]))
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p1, @battle.getMove("Leech Seed"))
       @p2.faint()
       @battle.endTurn()
-      @battle.performSwitch(@id2, 1)
+      @battle.performSwitch(@team2.first(), 1)
       @team2.first().currentHP.should.equal @team2.first().stat('hp')
       @p1.currentHP.should.equal(1)
 
@@ -3404,7 +3404,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(move).expects('fail').once()
 
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "has decreasing chances of success", ->
@@ -3426,7 +3426,7 @@ describe "BW Moves:", ->
 
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       mock.verify()
 
     it "resets to 100% chance of success if move fails", ->
@@ -3436,7 +3436,7 @@ describe "BW Moves:", ->
 
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @p1.has(Attachment.ProtectCounter).should.be.false
 
     it "resets to 100% chance of success if user selects a different move", ->
@@ -3446,11 +3446,11 @@ describe "BW Moves:", ->
 
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       @battle.endTurn()
       @p1.has(Attachment.ProtectCounter).should.be.true
 
-      @battle.performMove(@id1, @battle.getMove('Splash'))
+      @battle.performMove(@p1, @battle.getMove('Splash'))
       @battle.endTurn()
 
       @p1.has(Attachment.ProtectCounter).should.be.false
@@ -3466,8 +3466,8 @@ describe "BW Moves:", ->
 
         @battle.recordMove(@id2, move)
         @battle.determineTurnOrder()
-        @battle.performMove(@id1, @battle.getMove(moveName))
-        @battle.performMove(@id2, move)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performMove(@p2, move)
         mock.verify()
 
       it "does not carry over to the next turn", ->
@@ -3476,12 +3476,12 @@ describe "BW Moves:", ->
 
         @battle.recordMove(@id2, move)
         @battle.determineTurnOrder()
-        @battle.performMove(@id1, @battle.getMove(moveName))
-        @battle.performMove(@id2, move)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performMove(@p2, move)
         @battle.endTurn()
 
         mock = @sandbox.mock(move).expects('use').once()
-        @battle.performMove(@id2, move)
+        @battle.performMove(@p2, move)
         mock.verify()
 
       it "does not protect the user from attacks without the protect flag", ->
@@ -3491,8 +3491,8 @@ describe "BW Moves:", ->
 
         @battle.recordMove(@id2, move)
         @battle.determineTurnOrder()
-        @battle.performMove(@id1, @battle.getMove(moveName))
-        @battle.performMove(@id2, move)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performMove(@p2, move)
         mock.verify()
 
   testProtectMove 'Protect'
@@ -3509,8 +3509,8 @@ describe "BW Moves:", ->
 
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, @battle.getMove("Endure"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Endure"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.currentHP.should.equal 1
 
     it "disappears at the end of the turn", ->
@@ -3518,8 +3518,8 @@ describe "BW Moves:", ->
 
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, @battle.getMove("Endure"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Endure"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
 
       @p1.has(Attachment.Endure).should.be.true
       @battle.endTurn()
@@ -3531,7 +3531,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Protect)
       @p1.has(Attachment.Protect).should.be.true
 
-      @battle.performMove(@id2, @battle.getMove("Feint"))
+      @battle.performMove(@p2, @battle.getMove("Feint"))
       @p1.has(Attachment.Protect).should.be.false
 
     it "removes the Wide Guard attachment, if any, on the target"
@@ -3543,8 +3543,8 @@ describe "BW Moves:", ->
       move = @battle.getMove("Payback")
       spy  = @sandbox.spy(move, 'basePower')
 
-      @battle.performMove(@id2, @battle.getMove("Splash"))
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p2, @battle.getMove("Splash"))
+      @battle.performMove(@p1, move)
       spy.returned(2 * move.power).should.be.true
 
     it "doesn't double base power otherwise", ->
@@ -3553,7 +3553,7 @@ describe "BW Moves:", ->
       spy  = @sandbox.spy(move, 'basePower')
 
       @battle.recordMove(@id2, @battle.getMove("Splash"))
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
       spy.returned(move.power).should.be.true
 
     it "doesn't double BP if target moved last turn, but not this turn", ->
@@ -3561,13 +3561,13 @@ describe "BW Moves:", ->
       move = @battle.getMove("Payback")
       spy  = @sandbox.spy(move, 'basePower')
 
-      @battle.performMove(@id2, @battle.getMove("Splash"))
+      @battle.performMove(@p2, @battle.getMove("Splash"))
 
       @battle.endTurn()
       @battle.beginTurn()
 
       @battle.recordMove(@id2, @battle.getMove("Splash"))
-      @battle.performMove(@id1, move)
+      @battle.performMove(@p1, move)
 
       spy.returned(move.power).should.be.true
 
@@ -3586,7 +3586,7 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p1.types = [ "Ghost" ]
 
-        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @battle.performMove(@p1, @battle.getMove("Curse"))
         @p2.has(Attachment.Curse).should.be.true
 
       it "damages the user for half of its HP, rounded down", ->
@@ -3595,7 +3595,7 @@ describe "BW Moves:", ->
         p.types = [ "Ghost" ]
         maxHP = p.stat('hp')
 
-        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @battle.performMove(@p1, @battle.getMove("Curse"))
         p.currentHP.should.equal(maxHP - Math.floor(maxHP / 2))
 
       it "causes the opponent to lose 25% of their HP at end of turns", ->
@@ -3605,7 +3605,7 @@ describe "BW Moves:", ->
         maxHP = p.stat('hp')
         quarterHP = Math.floor(maxHP / 4)
 
-        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @battle.performMove(@p1, @battle.getMove("Curse"))
         p.currentHP.should.equal(maxHP)
 
         @battle.endTurn()
@@ -3620,7 +3620,7 @@ describe "BW Moves:", ->
         p.types = [ "Ghost" ]
         p.currentHP = 1
 
-        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @battle.performMove(@p1, @battle.getMove("Curse"))
         p.isFainted().should.be.true
 
     describe "for non-Ghost types", ->
@@ -3629,7 +3629,7 @@ describe "BW Moves:", ->
         p = @p1
         p.types = [ "Normal" ]
 
-        @battle.performMove(@id1, @battle.getMove("Curse"))
+        @battle.performMove(@p1, @battle.getMove("Curse"))
         p.stages.should.include attack: 1, defense: 1, speed: -1
 
   testBasePowerBoostMove = (moveName, rawBasePower, maxBasePower, which) ->
@@ -3673,8 +3673,8 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.performFaints()
       @p2.isFainted().should.be.true
 
@@ -3682,11 +3682,11 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
 
       @battle.endTurn()
       @battle.beginTurn()
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.performFaints()
       @p2.isFainted().should.be.true
 
@@ -3694,16 +3694,16 @@ describe "BW Moves:", ->
       shared.create.call(this)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
-      @battle.performMove(@id1, @battle.getMove("Splash"))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@p1, @battle.getMove("Splash"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.performFaints()
       @p2.isFainted().should.be.false
 
     it "does not faint attacker if pokemon fainted naturally", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
-      @battle.performMove(@id1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
       @p1.faint()
       @battle.endTurn()
       @p2.isFainted().should.be.false
@@ -3822,7 +3822,7 @@ describe "BW Moves:", ->
       @p1.boost(attack: 1, specialAttack: -3, speed: 1)
       @p2.boost(attack: 2, specialAttack: 6, defense: -1)
 
-      @battle.performMove(@id1, @battle.getMove('Power Swap'))
+      @battle.performMove(@p1, @battle.getMove('Power Swap'))
 
       @p1.stages.should.include attack: 2, specialAttack: 6, speed: 1
       @p2.stages.should.include attack: 1, specialAttack: -3, defense: -1
@@ -3833,7 +3833,7 @@ describe "BW Moves:", ->
       @p1.boost(attack: 1, specialDefense: -3, defense: 1)
       @p2.boost(speed: 2, specialDefense: 6, defense: -1)
 
-      @battle.performMove(@id1, @battle.getMove('Guard Swap'))
+      @battle.performMove(@p1, @battle.getMove('Guard Swap'))
 
       @p1.stages.should.include defense: -1, specialDefense: 6, attack: 1
       @p2.stages.should.include defense: 1, specialDefense: -3, speed: 2
@@ -3844,8 +3844,8 @@ describe "BW Moves:", ->
 
       move = @p2.moves[0]
       pp = @p2.pp(move)
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, @battle.getMove('Spite'))
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, @battle.getMove('Spite'))
       @p2.pp(move).should.equal(pp - 4 - 1)
 
     it 'fails if the target has not recorded their last move', ->
@@ -3853,7 +3853,7 @@ describe "BW Moves:", ->
       spite = @battle.getMove('Spite')
       mock = @sandbox.mock(spite).expects('fail').once()
 
-      @battle.performMove(@id1, spite)
+      @battle.performMove(@p1, spite)
       mock.verify()
 
     it "fails if the target's move has 0 PP", ->
@@ -3863,8 +3863,8 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(spite).expects('fail').once()
       @p2.setPP(move, 0)
 
-      @battle.performMove(@id2, move)
-      @battle.performMove(@id1, spite)
+      @battle.performMove(@p2, move)
+      @battle.performMove(@p1, spite)
       mock.verify()
 
     it 'fails if the target no longer knows the move', ->
@@ -3873,9 +3873,9 @@ describe "BW Moves:", ->
       move = @p2.moves[0]
       mock = @sandbox.mock(spite).expects('fail').once()
 
-      @battle.performMove(@id2, move)
+      @battle.performMove(@p2, move)
       @p2.moves.splice(@p2.moves.indexOf(move), 1)
-      @battle.performMove(@id1, spite)
+      @battle.performMove(@p1, spite)
       mock.verify()
 
   describe 'Wring Out', ->
@@ -3901,7 +3901,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       move = @battle.getMove('Assurance')
 
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       power = move.basePower(@battle, @p1, @p2)
       power.should.equal(2 * move.power)
 
@@ -3909,7 +3909,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       move = @battle.getMove('Assurance')
 
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @battle.endTurn()
       @battle.beginTurn()
       power = move.basePower(@battle, @p1, @p2)
@@ -3924,7 +3924,7 @@ describe "BW Moves:", ->
     it "doesn't double base power if hit by a non-damaging move", ->
       shared.create.call(this)
       move = @battle.getMove('Assurance')
-      @battle.performMove(@id2, @battle.getMove('Will-O-Wisp'))
+      @battle.performMove(@p2, @battle.getMove('Will-O-Wisp'))
       power = move.basePower(@battle, @p1, @p2)
       power.should.equal(move.power)
 
@@ -3936,7 +3936,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       sub = @battle.getMove('Substitute')
       hp  = @p1.stat('hp')
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.currentHP.should.equal(hp - (hp >> 2))
 
     it "fails if the pokemon has 25% HP or less", ->
@@ -3945,7 +3945,7 @@ describe "BW Moves:", ->
       hp   = @p1.stat('hp')
       mock = @sandbox.mock(sub).expects('fail').once()
       @p1.currentHP = hp >> 2
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       mock.verify()
 
     it "fails if the pokemon does not have enough total HP", ->
@@ -3953,19 +3953,19 @@ describe "BW Moves:", ->
       sub  = @battle.getMove('Substitute')
       hp   = @p1.stat('hp')
       mock = @sandbox.mock(sub).expects('fail').once()
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       mock.verify()
 
     it "takes damage for the user", ->
       shared.create.call(this)
       sub   = @battle.getMove('Substitute')
       subHP = (@p1.stat('hp') >> 2)
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       hp    = @p1.currentHP
 
       attachment = @p1.get(Attachment.Substitute)
       attachment.hp.should.equal subHP
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
 
       attachment.hp.should.be.lessThan subHP
       @p1.currentHP.should.equal hp
@@ -3975,12 +3975,12 @@ describe "BW Moves:", ->
       tackle = @battle.getMove('Tackle')
       sub    = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       hp     = @p1.currentHP
       @p1.has(Attachment.Substitute).should.be.true
 
       @sandbox.stub(tackle, 'baseDamage', -> 9999)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p1.has(Attachment.Substitute).should.be.false
       @p1.currentHP.should.equal hp
 
@@ -3989,11 +3989,11 @@ describe "BW Moves:", ->
       hypnosis = @battle.getMove('Hypnosis')
       sub      = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       mock = @sandbox.mock(hypnosis).expects('fail').once()
-      @battle.performMove(@id2, hypnosis)
+      @battle.performMove(@p2, hypnosis)
       mock.verify()
 
     it "does not fail stat-up moves", ->
@@ -4001,11 +4001,11 @@ describe "BW Moves:", ->
       dragonDance = @battle.getMove('Dragon Dance')
       sub         = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       mock = @sandbox.mock(dragonDance).expects('fail').never()
-      @battle.performMove(@id1, dragonDance)
+      @battle.performMove(@p1, dragonDance)
       mock.verify()
 
     it "does not fail non-damaging moves with an authentic flag", ->
@@ -4013,11 +4013,11 @@ describe "BW Moves:", ->
       foresight = @battle.getMove('Foresight')
       sub       = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       mock = @sandbox.mock(foresight).expects('fail').never()
-      @battle.performMove(@id2, foresight)
+      @battle.performMove(@p2, foresight)
       mock.verify()
 
     it "still stores the actual damage", ->
@@ -4025,11 +4025,11 @@ describe "BW Moves:", ->
       gigaDrain = @battle.getMove('Giga Drain')
       sub       = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       spy = @sandbox.spy(@p2, 'drain')
-      @battle.performMove(@id2, gigaDrain)
+      @battle.performMove(@p2, gigaDrain)
       spy.calledWith(0).should.be.false
       @p1.lastHitBy.damage.should.be.greaterThan 0
 
@@ -4039,11 +4039,11 @@ describe "BW Moves:", ->
       flamethrower = @battle.getMove('Flamethrower')
       sub          = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       @sandbox.stub(flamethrower, 'baseDamage', -> 1)
-      @battle.performMove(@id2, flamethrower)
+      @battle.performMove(@p2, flamethrower)
       @p1.has(Status.Burn).should.be.false
 
     it "blocks secondary effects even if sub fades", ->
@@ -4052,11 +4052,11 @@ describe "BW Moves:", ->
       flamethrower = @battle.getMove('Flamethrower')
       sub          = @battle.getMove('Substitute')
 
-      @battle.performMove(@id1, sub)
+      @battle.performMove(@p1, sub)
       @p1.has(Attachment.Substitute).should.be.true
 
       @sandbox.stub(flamethrower, 'baseDamage', -> 9999)
-      @battle.performMove(@id2, flamethrower)
+      @battle.performMove(@p2, flamethrower)
       @p1.has(Status.Burn).should.be.false
 
     it "is baton-passable"
@@ -4067,7 +4067,7 @@ describe "BW Moves:", ->
       suckerPunch = @battle.getMove('Sucker Punch')
 
       mock = @sandbox.mock(suckerPunch).expects('fail').once()
-      @battle.performMove(@id1, suckerPunch)
+      @battle.performMove(@p1, suckerPunch)
       mock.verify()
 
     it "executes normally if the target is moving after the user", ->
@@ -4078,7 +4078,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(suckerPunch).expects('afterSuccessfulHit').once()
       @battle.recordMove(@id2, tackle)
       @battle.determineTurnOrder()
-      @battle.performMove(@id1, suckerPunch)
+      @battle.performMove(@p1, suckerPunch)
       mock.verify()
 
   describe 'Grudge', ->
@@ -4089,8 +4089,8 @@ describe "BW Moves:", ->
       @p2.moves = [ tackle ]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, grudge)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, grudge)
+      @battle.performMove(@p2, tackle)
       @battle.performFaints()
       @p1.isFainted().should.be.true
       @p2.pp(tackle).should.equal 0
@@ -4102,11 +4102,11 @@ describe "BW Moves:", ->
       @p2.moves = [ tackle ]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, grudge)
+      @battle.performMove(@p1, grudge)
       @battle.endTurn()
       @battle.beginTurn()
 
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @battle.performFaints()
       @p2.pp(tackle).should.equal 0
 
@@ -4118,9 +4118,9 @@ describe "BW Moves:", ->
       @p2.moves = [ tackle ]
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, grudge)
-      @battle.performMove(@id1, splash)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, grudge)
+      @battle.performMove(@p1, splash)
+      @battle.performMove(@p2, tackle)
       @battle.performFaints()
       @p2.pp(tackle).should.not.equal 0
 
@@ -4133,8 +4133,8 @@ describe "BW Moves:", ->
       @p2.resetAllPP()
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, grudge)
-      @battle.performMove(@id2, leechSeed)
+      @battle.performMove(@p1, grudge)
+      @battle.performMove(@p2, leechSeed)
       @battle.endTurn()
       @p2.pp(leechSeed).should.equal(@p2.maxPP(leechSeed) - 1)
 
@@ -4144,7 +4144,7 @@ describe "BW Moves:", ->
       stockpile = @battle.getMove("Stockpile")
 
       @p1.stages.should.include defense: 0, specialDefense: 0
-      @battle.performMove(@id1, stockpile)
+      @battle.performMove(@p1, stockpile)
       @p1.stages.should.include defense: 1, specialDefense: 1
 
     it "cannot raise if stockpile is at its limit", ->
@@ -4155,7 +4155,7 @@ describe "BW Moves:", ->
         @p1.attach(Attachment.Stockpile)
 
       @p1.stages.should.include defense: 0, specialDefense: 0
-      @battle.performMove(@id1, stockpile)
+      @battle.performMove(@p1, stockpile)
       @p1.stages.should.include defense: 0, specialDefense: 0
 
     it "fails if stockpile is at its limit", ->
@@ -4166,7 +4166,7 @@ describe "BW Moves:", ->
       for i in [0...Attachment.Stockpile::maxLayers]
         @p1.attach(Attachment.Stockpile)
 
-      @battle.performMove(@id1, stockpile)
+      @battle.performMove(@p1, stockpile)
       mock.verify()
 
   describe 'Spit Up', ->
@@ -4175,7 +4175,7 @@ describe "BW Moves:", ->
       spitUp = @battle.getMove("Spit Up")
       mock = @sandbox.mock(spitUp).expects('fail').once()
 
-      @battle.performMove(@id1, spitUp)
+      @battle.performMove(@p1, spitUp)
       mock.verify()
 
     it "has 100 base power with 1 layer of stockpiles", ->
@@ -4208,7 +4208,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.get(Attachment.Stockpile).layers.should.equal 1
-      @battle.performMove(@id1, spitUp)
+      @battle.performMove(@p1, spitUp)
       @p1.has(Attachment.Stockpile).should.be.false
 
     it "loses def/sp. def according to number of stockpiles", ->
@@ -4218,7 +4218,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.stages.should.include defense: 0, specialDefense: 0
-      @battle.performMove(@id1, spitUp)
+      @battle.performMove(@p1, spitUp)
       @p1.stages.should.include defense: -2, specialDefense: -2
 
   describe 'Swallow', ->
@@ -4227,7 +4227,7 @@ describe "BW Moves:", ->
       swallow = @battle.getMove("Swallow")
       mock = @sandbox.mock(swallow).expects('fail').once()
 
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       mock.verify()
 
     it "heals 25% of its HP, rounded half-down, with 1 layer of stockpiles", ->
@@ -4236,7 +4236,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       @p1.currentHP.should.equal(1 + util.roundHalfDown(@p1.stat('hp') / 4))
 
     it "heals 50% of its HP, rounded half-down, with 2 layers of stockpiles", ->
@@ -4246,7 +4246,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       @p1.currentHP.should.equal(1 + util.roundHalfDown(@p1.stat('hp') / 2))
 
     it "heals all of its HP with 3 layers of stockpiles", ->
@@ -4257,7 +4257,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       @p1.currentHP.should.equal @p1.stat('hp')
 
     it "resets stockpile count to 0", ->
@@ -4266,7 +4266,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.get(Attachment.Stockpile).layers.should.equal 1
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       @p1.has(Attachment.Stockpile).should.be.false
 
     it "loses def/sp. def according to number of stockpiles", ->
@@ -4276,7 +4276,7 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
 
       @p1.stages.should.include defense: 0, specialDefense: 0
-      @battle.performMove(@id1, swallow)
+      @battle.performMove(@p1, swallow)
       @p1.stages.should.include defense: -2, specialDefense: -2
 
   describe 'Rage', ->
@@ -4286,8 +4286,8 @@ describe "BW Moves:", ->
       tackle = @battle.getMove('Tackle')
 
       @p1.stages.attack.should.equal 0
-      @battle.performMove(@id1, rage)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, rage)
+      @battle.performMove(@p2, tackle)
       @p1.stages.attack.should.equal 1
 
     it "doesn't raise the user's attack if user chooses another move", ->
@@ -4296,9 +4296,9 @@ describe "BW Moves:", ->
       tackle = @battle.getMove('Tackle')
 
       @p1.stages.attack.should.equal 0
-      @battle.performMove(@id1, rage)
-      @battle.performMove(@id1, tackle)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, rage)
+      @battle.performMove(@p1, tackle)
+      @battle.performMove(@p2, tackle)
       @p1.stages.attack.should.equal 0
 
     it "doesn't raise the user's attack if hit by a non-damaging move", ->
@@ -4307,8 +4307,8 @@ describe "BW Moves:", ->
       willOWisp = @battle.getMove('Will-O-Wisp')
 
       @p1.stages.attack.should.equal 0
-      @battle.performMove(@id1, rage)
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p1, rage)
+      @battle.performMove(@p2, willOWisp)
       @p1.stages.attack.should.equal 0
 
   testRevengeMove = (moveName) ->
@@ -4318,7 +4318,7 @@ describe "BW Moves:", ->
         revenge = @battle.getMove(moveName)
         tackle  = @battle.getMove("Tackle")
 
-        @battle.performMove(@id2, tackle)
+        @battle.performMove(@p2, tackle)
         revenge.basePower(@battle, @p1, @p2).should.equal(2 * revenge.power)
 
       it "doesn't double base power if not hit by an attack that turn", ->
@@ -4331,7 +4331,7 @@ describe "BW Moves:", ->
         revenge = @battle.getMove(moveName)
         willOWisp  = @battle.getMove("Will-O-Wisp")
 
-        @battle.performMove(@id2, willOWisp)
+        @battle.performMove(@p2, willOWisp)
         revenge.basePower(@battle, @p1, @p2).should.equal(revenge.power)
 
       it "doesn't double base power if hit last turn, but not this turn", ->
@@ -4339,7 +4339,7 @@ describe "BW Moves:", ->
         revenge = @battle.getMove(moveName)
         tackle  = @battle.getMove("Tackle")
 
-        @battle.performMove(@id2, tackle)
+        @battle.performMove(@p2, tackle)
         @battle.beginTurn()
         revenge.basePower(@battle, @p1, @p2).should.equal(revenge.power)
 
@@ -4356,7 +4356,7 @@ describe "BW Moves:", ->
       spy.withArgs(stat)  for stat in stats
 
       @p2.boost(defense: 1, specialDefense: 2, evasion: 6)
-      @battle.performMove(@id1, chipAway)
+      @battle.performMove(@p1, chipAway)
 
       for i in [0...stats.length]
         stat  = stats[i]
@@ -4372,7 +4372,7 @@ describe "BW Moves:", ->
       captivate = @battle.getMove('Captivate')
       mock = @sandbox.mock(captivate).expects('fail').once()
 
-      @battle.performMove(@id1, captivate)
+      @battle.performMove(@p1, captivate)
       mock.verify()
 
     it "lowers the target's special attack by 2", ->
@@ -4382,7 +4382,7 @@ describe "BW Moves:", ->
       captivate = @battle.getMove('Captivate')
 
       @p2.stages.specialAttack.should.equal 0
-      @battle.performMove(@id1, captivate)
+      @battle.performMove(@p1, captivate)
       @p2.stages.specialAttack.should.equal -2
 
   testStatusCureAttackMove = (moveName, status) ->
@@ -4406,7 +4406,7 @@ describe "BW Moves:", ->
 
         @p2.attach(status)
         @p2.has(status).should.be.true
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         @p2.hasStatus().should.be.false
 
   testStatusCureAttackMove("Wake-Up Slap", Status.Sleep)
@@ -4419,7 +4419,7 @@ describe "BW Moves:", ->
       delta = @p1.currentHP >> 4
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, aquaRing)
+      @battle.performMove(@p1, aquaRing)
       @p1.currentHP.should.equal(1)
       @battle.endTurn()
       @p1.currentHP.should.equal(1 + delta)
@@ -4431,7 +4431,7 @@ describe "BW Moves:", ->
       delta = @p1.currentHP >> 4
 
       @p1.currentHP = 1
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
       @p1.currentHP.should.equal(1)
       @battle.endTurn()
       @p1.currentHP.should.equal(1 + delta)
@@ -4440,7 +4440,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       ingrain = @battle.getMove('Ingrain')
 
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
       @battle.beginTurn()
       @p1.isSwitchBlocked().should.be.true
 
@@ -4450,10 +4450,10 @@ describe "BW Moves:", ->
       ingrain = @battle.getMove('Ingrain')
       whirlwind = @battle.getMove('Whirlwind')
 
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
 
       mock = @sandbox.mock(@team1).expects('switch').never()
-      @battle.performMove(@id2, whirlwind)
+      @battle.performMove(@p2, whirlwind)
       mock.verify()
 
     it "lets self be switched out if using self-switching moves", ->
@@ -4461,10 +4461,10 @@ describe "BW Moves:", ->
       ingrain = @battle.getMove('Ingrain')
       uTurn = @battle.getMove('U-turn')
 
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
 
       mock = @sandbox.mock(@battle).expects('requestActions').once()
-      @battle.performMove(@id1, uTurn)
+      @battle.performMove(@p1, uTurn)
       mock.verify()
 
     it "makes self vulnerable to Ground moves", ->
@@ -4473,7 +4473,7 @@ describe "BW Moves:", ->
       uTurn = @battle.getMove('U-turn')
 
       @p1.isImmune('Ground').should.be.true
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
       @p1.isImmune('Ground').should.be.false
 
     it "causes Telekinesis to fail", ->
@@ -4481,10 +4481,10 @@ describe "BW Moves:", ->
       ingrain = @battle.getMove('Ingrain')
       telekinesis = @battle.getMove('Telekinesis')
 
-      @battle.performMove(@id1, ingrain)
+      @battle.performMove(@p1, ingrain)
 
       mock = @sandbox.mock(telekinesis).expects('fail').once()
-      @battle.performMove(@id2, telekinesis)
+      @battle.performMove(@p2, telekinesis)
       mock.verify()
 
   describe "Embargo", ->
@@ -4494,7 +4494,7 @@ describe "BW Moves:", ->
       embargo = @battle.getMove('Embargo')
       mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
 
-      @battle.performMove(@id1, embargo)
+      @battle.performMove(@p1, embargo)
       @battle.endTurn()
       mock.verify()
 
@@ -4503,7 +4503,7 @@ describe "BW Moves:", ->
         team2: [ Factory("Magikarp", item: "Leftovers") ]
       embargo = @battle.getMove('Embargo')
       mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
-      @battle.performMove(@id1, embargo)
+      @battle.performMove(@p1, embargo)
 
       for i in [0...5]
         @p2.has(Attachment.Embargo).should.be.true
@@ -4515,7 +4515,7 @@ describe "BW Moves:", ->
         team2: [ Factory("Magikarp", item: "Leftovers") ]
       embargo = @battle.getMove('Embargo')
       mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
-      @battle.performMove(@id1, embargo)
+      @battle.performMove(@p1, embargo)
       
       for i in [0...5]
         @battle.endTurn()
@@ -4624,7 +4624,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       skullBash = @battle.getMove('Skull Bash')
       @p1.stages.defense.should.equal(0)
-      @battle.performMove(@id1, skullBash)
+      @battle.performMove(@p1, skullBash)
       @p1.stages.defense.should.equal(1)
 
   describe "Sky Attack", ->
@@ -4712,13 +4712,13 @@ describe "BW Moves:", ->
       shared.create.call(this)
       furyCutter = @battle.getMove("Fury Cutter")
       furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
-      @battle.performMove(@id1, furyCutter)
+      @battle.performMove(@p1, furyCutter)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(40)
-      @battle.performMove(@id1, furyCutter)
+      @battle.performMove(@p1, furyCutter)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(80)
-      @battle.performMove(@id1, furyCutter)
+      @battle.performMove(@p1, furyCutter)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(160)
-      @battle.performMove(@id1, furyCutter)
+      @battle.performMove(@p1, furyCutter)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(160)
 
     it "resets to normal base power if using a different move", ->
@@ -4726,9 +4726,9 @@ describe "BW Moves:", ->
       furyCutter = @battle.getMove("Fury Cutter")
       splash = @battle.getMove("Splash")
 
-      @battle.performMove(@id1, furyCutter)
+      @battle.performMove(@p1, furyCutter)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(40)
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       furyCutter.basePower(@battle, @p1, @p2).should.equal(20)
 
   describe "Imprison", ->
@@ -4747,7 +4747,7 @@ describe "BW Moves:", ->
       @p2.resetAllPP()
 
       @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
-      @battle.performMove(@id1, imprison)
+      @battle.performMove(@p1, imprison)
       @battle.beginTurn()
       @p2.validMoves().should.eql [ furyCutter ]
 
@@ -4762,9 +4762,9 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p2.resetAllPP()
 
-      @battle.performMove(@id1, imprison)
+      @battle.performMove(@p1, imprison)
       mock = @sandbox.mock(tackle).expects('execute').never()
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       mock.verify()
 
     it "lets opponents use moves again after user switches out", ->
@@ -4779,11 +4779,11 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p2.resetAllPP()
 
-      @battle.performMove(@id1, imprison)
+      @battle.performMove(@p1, imprison)
       @battle.beginTurn()
       @p2.validMoves().should.eql [ furyCutter ]
 
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @battle.beginTurn()
       @p2.validMoves().should.eql [ furyCutter, tackle, splash ]
 
@@ -4794,7 +4794,7 @@ describe "BW Moves:", ->
       present = @battle.getMove("Present")
 
       spy = @sandbox.spy(present, 'basePower')
-      @battle.performMove(@id1, present)
+      @battle.performMove(@p1, present)
       spy.alwaysReturned(40).should.be.true
 
     it "has a 30% chance for 80 base power", ->
@@ -4803,7 +4803,7 @@ describe "BW Moves:", ->
       present = @battle.getMove("Present")
 
       spy = @sandbox.spy(present, 'basePower')
-      @battle.performMove(@id1, present)
+      @battle.performMove(@p1, present)
       spy.alwaysReturned(80).should.be.true
 
     it "has a 10% chance for 120 base power", ->
@@ -4812,7 +4812,7 @@ describe "BW Moves:", ->
       present = @battle.getMove("Present")
 
       spy = @sandbox.spy(present, 'basePower')
-      @battle.performMove(@id1, present)
+      @battle.performMove(@p1, present)
       spy.alwaysReturned(120).should.be.true
 
     it "has a 20% chance to heal target by 25% HP, rounded down", ->
@@ -4822,7 +4822,7 @@ describe "BW Moves:", ->
 
       @p2.currentHP = 1
       spy = @sandbox.spy(present, 'basePower')
-      @battle.performMove(@id1, present)
+      @battle.performMove(@p1, present)
       spy.alwaysReturned(0).should.be.true
       @p2.currentHP.should.equal(1 + (@p2.stat('hp') >> 2))
 
@@ -4830,13 +4830,13 @@ describe "BW Moves:", ->
     it "faints the user", ->
       shared.create.call(this)
       finalGambit = @battle.getMove("Final Gambit")
-      @battle.performMove(@id1, finalGambit)
+      @battle.performMove(@p1, finalGambit)
       @p1.isFainted().should.be.true
 
     it "deals damage equal to the user's HP to the target", ->
       shared.create.call(this, team2: [Factory("Magikarp", evs: {hp: 4})])
       finalGambit = @battle.getMove("Final Gambit")
-      @battle.performMove(@id1, finalGambit)
+      @battle.performMove(@p1, finalGambit)
       @p2.currentHP.should.equal(1)
 
   describe "Lucky Chant", ->
@@ -4847,14 +4847,14 @@ describe "BW Moves:", ->
       shared.create.call(this)
       luckyChant = @battle.getMove("Lucky Chant")
       stormThrow = @battle.getMove("Storm Throw")
-      @battle.performMove(@id1, luckyChant)
+      @battle.performMove(@p1, luckyChant)
 
       stormThrow.isCriticalHit(@battle, @p2, @p1).should.be.false
 
     it "lasts 5 turns", ->
       shared.create.call(this)
       luckyChant = @battle.getMove("Lucky Chant")
-      @battle.performMove(@id1, luckyChant)
+      @battle.performMove(@p1, luckyChant)
 
       for i in [0...5]
         @team1.has(Attachment.LuckyChant).should.be.true
@@ -4866,7 +4866,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       lunarDance = @battle.getMove("Lunar Dance")
-      @battle.performMove(@id1, lunarDance)
+      @battle.performMove(@p1, lunarDance)
 
       @p1.isFainted().should.be.true
 
@@ -4875,7 +4875,7 @@ describe "BW Moves:", ->
       lunarDance = @battle.getMove("Lunar Dance")
 
       mock = @sandbox.mock(lunarDance).expects('fail').once()
-      @battle.performMove(@id1, lunarDance)
+      @battle.performMove(@p1, lunarDance)
       mock.verify()
       @p1.isFainted().should.be.false
 
@@ -4888,8 +4888,8 @@ describe "BW Moves:", ->
       benched.currentHP = 1
       benched.setPP(benched.moves[0], 1)
 
-      @battle.performMove(@id1, lunarDance)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, lunarDance)
+      @battle.performSwitch(@team1.first(), 1)
       benched.currentHP.should.equal(benched.stat('hp'))
       benched.hasStatus().should.be.false
       for move in benched.moves
@@ -4900,9 +4900,9 @@ describe "BW Moves:", ->
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       lunarDance = @battle.getMove("Lunar Dance")
 
-      @battle.performMove(@id1, lunarDance)
+      @battle.performMove(@p1, lunarDance)
       @team1.has(Attachment.LunarDance).should.be.true
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @team1.has(Attachment.LunarDance).should.be.false
 
     it "works for 2v2"
@@ -4912,7 +4912,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       healingWish = @battle.getMove("Healing Wish")
-      @battle.performMove(@id1, healingWish)
+      @battle.performMove(@p1, healingWish)
 
       @p1.isFainted().should.be.true
 
@@ -4921,7 +4921,7 @@ describe "BW Moves:", ->
       healingWish = @battle.getMove("Healing Wish")
 
       mock = @sandbox.mock(healingWish).expects('fail').once()
-      @battle.performMove(@id1, healingWish)
+      @battle.performMove(@p1, healingWish)
       mock.verify()
       @p1.isFainted().should.be.false
 
@@ -4934,8 +4934,8 @@ describe "BW Moves:", ->
       benched.currentHP = 1
       benched.setPP(benched.moves[0], 1)
 
-      @battle.performMove(@id1, healingWish)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, healingWish)
+      @battle.performSwitch(@team1.first(), 1)
       benched.currentHP.should.equal(benched.stat('hp'))
       benched.hasStatus().should.be.false
 
@@ -4944,9 +4944,9 @@ describe "BW Moves:", ->
         team1: [ Factory("Magikarp"), Factory("Magikarp") ]
       healingWish = @battle.getMove("Healing Wish")
 
-      @battle.performMove(@id1, healingWish)
+      @battle.performMove(@p1, healingWish)
       @team1.has(Attachment.HealingWish).should.be.true
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @team1.has(Attachment.HealingWish).should.be.false
 
     it "works for 2v2"
@@ -4958,7 +4958,7 @@ describe "BW Moves:", ->
       @p1.moves = [ lastResort ]
 
       mock = @sandbox.mock(lastResort).expects('fail').once()
-      @battle.performMove(@id1, lastResort)
+      @battle.performMove(@p1, lastResort)
       mock.verify()
 
     it "works if the pokemon uses all other moves before Last Resort", ->
@@ -4967,9 +4967,9 @@ describe "BW Moves:", ->
       splash = @battle.getMove("Splash")
       @p1.moves = [ lastResort, splash ]
 
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       mock = @sandbox.mock(lastResort).expects('afterSuccessfulHit').once()
-      @battle.performMove(@id1, lastResort)
+      @battle.performMove(@p1, lastResort)
       mock.verify()
 
     it "fails if using all moves, but switches out and back in", ->
@@ -4980,10 +4980,10 @@ describe "BW Moves:", ->
       @p1.moves = [ lastResort, splash ]
 
       mock = @sandbox.mock(lastResort).expects('fail').once()
-      @battle.performMove(@id1, splash)
-      @battle.performSwitch(@id1, 1)
-      @battle.performMove(@id1, lastResort)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, splash)
+      @battle.performSwitch(@team1.first(), 1)
+      @battle.performMove(@team1.first(), lastResort)
+      @battle.performSwitch(@team1.first(), 1)
       mock.verify()
 
     it "fails if the pokemon does not know Last Resort", ->
@@ -4994,7 +4994,7 @@ describe "BW Moves:", ->
       lastResort = @battle.getMove("Last Resort")
 
       mock = @sandbox.mock(lastResort).expects('fail').once()
-      @battle.performMove(@id1, lastResort)
+      @battle.performMove(@p1, lastResort)
       mock.verify()
 
     it "fails if the pokemon has not used another move since it was active", ->
@@ -5004,7 +5004,7 @@ describe "BW Moves:", ->
       @p1.moves = [ lastResort, splash ]
 
       mock = @sandbox.mock(lastResort).expects('fail').once()
-      @battle.performMove(@id1, lastResort)
+      @battle.performMove(@p1, lastResort)
       mock.verify()
 
   describe "Assist", ->
@@ -5014,7 +5014,7 @@ describe "BW Moves:", ->
       assist = @battle.getMove("Assist")
 
       mock = @sandbox.mock(assist).expects('fail').once()
-      @battle.performMove(@id1, assist)
+      @battle.performMove(@p1, assist)
       mock.verify()
 
     it "chooses a team member's move at random", ->
@@ -5025,7 +5025,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, "randInt", "assist", 0)
 
       mock = @sandbox.mock(move).expects('execute').once()
-      @battle.performMove(@id1, assist)
+      @battle.performMove(@p1, assist)
       mock.verify()
 
     it "fails if all team member moves are illegal", ->
@@ -5066,7 +5066,7 @@ describe "BW Moves:", ->
       @team1.at(1).moves.push @battle.getMove("Trick")
 
       mock = @sandbox.mock(assist).expects('fail').once()
-      @battle.performMove(@id1, assist)
+      @battle.performMove(@p1, assist)
       mock.verify()
 
   describe "Metronome", ->
@@ -5079,7 +5079,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, 'randInt', "metronome", index)
 
       mock = @sandbox.mock(tackle).expects('execute').once()
-      @battle.performMove(@id1, metronome)
+      @battle.performMove(@p1, metronome)
       mock.verify()
 
     it "reselects if chosen a user's move", ->
@@ -5093,7 +5093,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
 
       mock = @sandbox.mock(tackle).expects('execute').once()
-      @battle.performMove(@id1, metronome)
+      @battle.performMove(@p1, metronome)
       mock.verify()
 
     it "reselects if chosen an illegal move", ->
@@ -5108,7 +5108,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
 
       mock = @sandbox.mock(tackle).expects('execute').once()
-      @battle.performMove(@id1, metronome)
+      @battle.performMove(@p1, metronome)
       mock.verify()
 
   describe "Magic Coat", ->
@@ -5120,8 +5120,8 @@ describe "BW Moves:", ->
       magicCoat = @battle.getMove("Magic Coat")
 
       spy = @sandbox.spy(whirlwind, 'execute')
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, whirlwind)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, whirlwind)
       spy.args.some((array) =>
         [battle, user, targets] = array
         battle == @battle && user == @p1 && targets[0] == @p2
@@ -5133,8 +5133,8 @@ describe "BW Moves:", ->
       magicCoat = @battle.getMove("Magic Coat")
 
       spy = @sandbox.spy(spikes, 'execute')
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, spikes)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, spikes)
       spy.args.some((array) =>
         [battle, user, targets] = array
         battle == @battle && user == @p1 && targets[0] == @player2
@@ -5145,11 +5145,11 @@ describe "BW Moves:", ->
       spikes = @battle.getMove("Spikes")
       magicCoat = @battle.getMove("Magic Coat")
 
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, magicCoat)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, magicCoat)
 
       (=>
-        @battle.performMove(@id2, spikes)
+        @battle.performMove(@p2, spikes)
       ).should.not.throw(/Maximum call stack size exceeded/)
 
     it "does not bounce certain moves back", ->
@@ -5158,8 +5158,8 @@ describe "BW Moves:", ->
       magicCoat = @battle.getMove("Magic Coat")
 
       spy = @sandbox.spy(tackle, 'execute')
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, tackle)
       spy.args.some((array) =>
         [battle, user, targets] = array
         battle == @battle && user == @p1 && targets[0] == @p2
@@ -5169,7 +5169,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       magicCoat = @battle.getMove("Magic Coat")
 
-      @battle.performMove(@id1, magicCoat)
+      @battle.performMove(@p1, magicCoat)
       @p1.has(Attachment.MagicCoat).should.be.true
       @battle.endTurn()
       @p1.has(Attachment.MagicCoat).should.be.false
@@ -5180,11 +5180,11 @@ describe "BW Moves:", ->
       thunderWave = @battle.getMove("Thunder Wave")
       magicCoat = @battle.getMove("Magic Coat")
 
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, willOWisp)
 
       spy = @sandbox.spy(thunderWave, 'execute')
-      @battle.performMove(@id2, thunderWave)
+      @battle.performMove(@p2, thunderWave)
       spy.args.some((array) =>
         [battle, user, targets] = array
         battle == @battle && user == @p1 && targets[0] == @p2
@@ -5195,12 +5195,12 @@ describe "BW Moves:", ->
       willOWisp = @battle.getMove("Will-O-Wisp")
       magicCoat = @battle.getMove("Magic Coat")
 
-      @battle.performMove(@id1, magicCoat)
-      @battle.performMove(@id2, magicCoat)
+      @battle.performMove(@p1, magicCoat)
+      @battle.performMove(@p2, magicCoat)
 
       spy = @sandbox.spy(willOWisp, 'execute')
       (=>
-        @battle.performMove(@id2, willOWisp)
+        @battle.performMove(@p2, willOWisp)
       ).should.not.throw(/Maximum call stack size exceeded/)
       spy.calledTwice.should.be.true
       spy.args.some((array) =>
@@ -5221,14 +5221,14 @@ describe "BW Moves:", ->
       telekinesis = @battle.getMove("Telekinesis")
 
       @p1.isImmune('Ground').should.be.false
-      @battle.performMove(@id2, telekinesis)
+      @battle.performMove(@p2, telekinesis)
       @p1.isImmune('Ground').should.be.true
 
     it "lasts 3 turns", ->
       shared.create.call(this)
       telekinesis = @battle.getMove("Telekinesis")
 
-      @battle.performMove(@id2, telekinesis)
+      @battle.performMove(@p2, telekinesis)
       for x in [0...3]
         @p1.isImmune('Ground').should.be.true
         @battle.endTurn()
@@ -5241,7 +5241,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, 'randInt', "miss", 101)  # Always misses
 
       tackle.willMiss(@battle, @p2, @p1).should.be.true
-      @battle.performMove(@id2, telekinesis)
+      @battle.performMove(@p2, telekinesis)
       tackle.willMiss(@battle, @p2, @p1).should.be.false
 
   describe "Smack Down", ->
@@ -5250,7 +5250,7 @@ describe "BW Moves:", ->
       smackDown = @battle.getMove("Smack Down")
 
       @p2.isImmune("Ground").should.be.true
-      @battle.performMove(@id1, smackDown)
+      @battle.performMove(@p1, smackDown)
       @p2.isImmune("Ground").should.be.false
 
     it "stops Fly", ->
@@ -5262,7 +5262,7 @@ describe "BW Moves:", ->
       @battle.continueTurn()
 
       @p1.has(Attachment.Charging).should.be.true
-      @battle.performMove(@id2, smackDown)
+      @battle.performMove(@p2, smackDown)
       @p1.has(Attachment.Charging).should.be.false
 
     it "stops Bounce", ->
@@ -5274,7 +5274,7 @@ describe "BW Moves:", ->
       @battle.continueTurn()
 
       @p1.has(Attachment.Charging).should.be.true
-      @battle.performMove(@id2, smackDown)
+      @battle.performMove(@p2, smackDown)
       @p1.has(Attachment.Charging).should.be.false
 
     it "does not stop other charge moves like Dive", ->
@@ -5286,7 +5286,7 @@ describe "BW Moves:", ->
       @battle.continueTurn()
 
       @p1.has(Attachment.Charging).should.be.true
-      @battle.performMove(@id2, smackDown)
+      @battle.performMove(@p2, smackDown)
       @p1.has(Attachment.Charging).should.be.true
 
     it "stops Magnet Rise", ->
@@ -5294,10 +5294,10 @@ describe "BW Moves:", ->
       smackDown = @battle.getMove("Smack Down")
       magnetRise = @battle.getMove("Magnet Rise")
 
-      @battle.performMove(@id1, magnetRise)
+      @battle.performMove(@p1, magnetRise)
 
       @p1.has(Attachment.MagnetRise).should.be.true
-      @battle.performMove(@id2, smackDown)
+      @battle.performMove(@p2, smackDown)
       @p1.has(Attachment.MagnetRise).should.be.false
 
     it "stops Telekinesis", ->
@@ -5305,10 +5305,10 @@ describe "BW Moves:", ->
       smackDown = @battle.getMove("Smack Down")
       telekinesis = @battle.getMove("Telekinesis")
 
-      @battle.performMove(@id2, telekinesis)
+      @battle.performMove(@p2, telekinesis)
 
       @p1.has(Attachment.Telekinesis).should.be.true
-      @battle.performMove(@id2, smackDown)
+      @battle.performMove(@p2, smackDown)
       @p1.has(Attachment.Telekinesis).should.be.false
 
     it "makes Magnet Rise execution fail", ->
@@ -5316,10 +5316,10 @@ describe "BW Moves:", ->
       smackDown = @battle.getMove("Smack Down")
       magnetRise = @battle.getMove("Magnet Rise")
 
-      @battle.performMove(@id1, smackDown)
+      @battle.performMove(@p1, smackDown)
 
       mock = @sandbox.mock(magnetRise).expects('fail').once()
-      @battle.performMove(@id2, magnetRise)
+      @battle.performMove(@p2, magnetRise)
       mock.verify()
 
     it "causes Telekinesis execution to fail", ->
@@ -5327,10 +5327,10 @@ describe "BW Moves:", ->
       smackDown = @battle.getMove("Smack Down")
       telekinesis = @battle.getMove("Telekinesis")
 
-      @battle.performMove(@id1, smackDown)
+      @battle.performMove(@p1, smackDown)
 
       mock = @sandbox.mock(telekinesis).expects('fail').once()
-      @battle.performMove(@id1, telekinesis)
+      @battle.performMove(@p1, telekinesis)
       mock.verify()
 
   describe "Echoed Voice", ->
@@ -5338,7 +5338,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       echoedVoice = @battle.getMove("Echoed Voice")
 
-      @battle.performMove(@id1, echoedVoice)
+      @battle.performMove(@p1, echoedVoice)
       @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
 
@@ -5347,7 +5347,7 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
 
       for i in [1...3]
-        @battle.performMove(@id1, echoedVoice)
+        @battle.performMove(@p1, echoedVoice)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(120)
@@ -5356,7 +5356,7 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
 
       for i in [1...4]
-        @battle.performMove(@id1, echoedVoice)
+        @battle.performMove(@p1, echoedVoice)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(160)
@@ -5366,7 +5366,7 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
 
       for i in [1...5]
-        @battle.performMove(@id1, echoedVoice)
+        @battle.performMove(@p1, echoedVoice)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(200)
@@ -5376,7 +5376,7 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
 
       for i in [1...6]
-        @battle.performMove(@id1, echoedVoice)
+        @battle.performMove(@p1, echoedVoice)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(200)
@@ -5386,11 +5386,11 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
       splash = @battle.getMove("Splash")
 
-      @battle.performMove(@id1, echoedVoice)
+      @battle.performMove(@p1, echoedVoice)
       @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
 
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(40)
 
@@ -5399,7 +5399,7 @@ describe "BW Moves:", ->
       echoedVoice = @battle.getMove("Echoed Voice")
       splash = @battle.getMove("Splash")
 
-      @battle.performMove(@id1, echoedVoice)
+      @battle.performMove(@p1, echoedVoice)
       @battle.endTurn()
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
       echoedVoice.basePower(@battle, @p2, @p1).should.equal(80)
@@ -5418,7 +5418,7 @@ describe "BW Moves:", ->
 
       hp = @p1.currentHP
       @p1.currentHP.should.equal @p1.stat('hp')
-      @battle.performMove(@id1, struggle)
+      @battle.performMove(@p1, struggle)
       (hp - @p1.currentHP).should.equal(hp >> 2)
 
   describe "Nature Power", ->
@@ -5429,7 +5429,7 @@ describe "BW Moves:", ->
 
       mock = @sandbox.mock(earthquake).expects('execute').once()
                                       .withArgs(@battle, @p1, [ @p2 ])
-      @battle.performMove(@id1, naturePower)
+      @battle.performMove(@p1, naturePower)
       mock.verify()
 
   testRampageMove = (moveName) ->
@@ -5439,10 +5439,10 @@ describe "BW Moves:", ->
         shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
         rampageMove = @battle.getMove(moveName)
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @p1.has(Attachment.Rampage).should.be.true
         @battle.endTurn()
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @battle.endTurn()
         @p1.has(Attachment.Rampage).should.be.false
 
@@ -5454,13 +5454,13 @@ describe "BW Moves:", ->
         @p1.moves = [ rampageMove, splash ]
         @p1.resetAllPP()
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
         @battle.beginTurn()
         @p1.validMoves().should.eql [ rampageMove ]
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @battle.endTurn()
         @battle.beginTurn()
         @p1.validMoves().should.eql [ rampageMove, splash ]
@@ -5470,13 +5470,13 @@ describe "BW Moves:", ->
         shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
         rampageMove = @battle.getMove(moveName)
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
         @battle.beginTurn()
         @p1.isSwitchBlocked().should.be.true
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @battle.endTurn()
         @battle.beginTurn()
         @p1.isSwitchBlocked().should.be.false
@@ -5486,13 +5486,13 @@ describe "BW Moves:", ->
         shared.biasRNG.call(this, 'randInt', 'rampage turns', 2)
         rampageMove = @battle.getMove(moveName)
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @p2.currentHP = @p2.stat('hp')
         @battle.endTurn()
         @battle.beginTurn()
         @p1.has(Attachment.Confusion).should.be.false
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @battle.endTurn()
         @battle.beginTurn()
         @p1.has(Attachment.Confusion).should.be.true
@@ -5503,7 +5503,7 @@ describe "BW Moves:", ->
         rampageMove = @battle.getMove(moveName)
         protect = @battle.getMove("Protect")
 
-        @battle.performMove(@id1, rampageMove)
+        @battle.performMove(@p1, rampageMove)
         @battle.endTurn()
         @battle.beginTurn()
 
@@ -5526,7 +5526,7 @@ describe "BW Moves:", ->
         mock = @sandbox.mock(@battle.rng)
         mock.expects('choice').withArgs([2, 2, 3, 3, 4, 5], 'num hits').once()
 
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         mock.verify()
 
       it "hits 5 times if the user has Skill Link", ->
@@ -5558,7 +5558,7 @@ describe "BW Moves:", ->
     it "lasts 5 turns", ->
       shared.create.call(this)
       trickRoom = @battle.getMove("Trick Room")
-      @battle.performMove(@id1, trickRoom)
+      @battle.performMove(@p1, trickRoom)
       for x in [0...5]
         @battle.has(Attachment.TrickRoom).should.be.true
         @battle.endTurn()
@@ -5568,22 +5568,20 @@ describe "BW Moves:", ->
       shared.create.call(this)
       trickRoom = @battle.getMove("Trick Room")
 
-      @battle.performMove(@id1, trickRoom)
+      @battle.performMove(@p1, trickRoom)
       @battle.has(Attachment.TrickRoom).should.be.true
-      @battle.performMove(@id1, trickRoom)
+      @battle.performMove(@p1, trickRoom)
       @battle.has(Attachment.TrickRoom).should.be.false
 
     it "reverses the order that moves are performed in", ->
       shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
       trickRoom = @battle.getMove("Trick Room")
       splash = @battle.getMove("Splash")
-      @battle.performMove(@id1, trickRoom)
+      @battle.performMove(@p1, trickRoom)
 
       @battle.recordMove(@id1, splash)
       @battle.recordMove(@id2, splash)
-      @battle.determineTurnOrder()
-      pokemon = @battle.priorityQueue.map((o) -> o.pokemon)
-      pokemon.should.eql [ @p2, @p1 ]
+      @battle.determineTurnOrder().map((o) -> o.pokemon).should.eql [ @p2, @p1 ]
 
   describe "Transform", ->
     shared.shouldDoNoDamage("Transform")
@@ -5594,16 +5592,16 @@ describe "BW Moves:", ->
       substitute = @battle.getMove("Substitute")
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id2, substitute)
+      @battle.performMove(@p2, substitute)
       mock = @sandbox.mock(transform).expects('fail').once()
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       mock.verify()
 
     it "changes the user's species and type to match the target's", ->
       shared.create.call(this, team2: [Factory("Celebi")])
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.types.should.eql @p2.types
       @p1.species.should.eql @p2.species
 
@@ -5611,7 +5609,7 @@ describe "BW Moves:", ->
       shared.create.call(this, team2: [Factory("Celebi")])
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       for stat, value in @p2.baseStats
         @p1.baseStats[stat].should.equal(value)
 
@@ -5620,7 +5618,7 @@ describe "BW Moves:", ->
       transform = @battle.getMove("Transform")
       @p2.boost(attack: 3, speed: -2, accuracy: 1)
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.moves.should.eql @p2.moves
       for move in @p1.moves
         @p1.pp(move).should.equal(5)
@@ -5631,7 +5629,7 @@ describe "BW Moves:", ->
       transform = @battle.getMove("Transform")
       @p2.boost(attack: 3, speed: -2, accuracy: 1)
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.stages.should.include(attack: 3, speed: -2, accuracy: 1)
 
     it "copies the target's ability", ->
@@ -5639,7 +5637,7 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi", ability: "Natural Cure")]
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.hasAbility("Natural Cure").should.be.true
 
     it "copies the target's weight", ->
@@ -5647,7 +5645,7 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi")]
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.weight.should.equal(@p2.weight)
 
     it "copies the target's gender", ->
@@ -5656,7 +5654,7 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi")]
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       @p1.gender.should.equal(@p2.gender)
 
     it "restores the original base stats after switching out", ->
@@ -5665,8 +5663,8 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi", ability: "Natural Cure")]
       transform = @battle.getMove("Transform")
       baseStats = _.clone(@p1.baseStats)
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.baseStats.should.eql(baseStats)
 
     it "restores the original species and type after switching out", ->
@@ -5676,8 +5674,8 @@ describe "BW Moves:", ->
       transform = @battle.getMove("Transform")
       species = @p1.species
       types = _.clone(@p1.types)
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.types.should.eql(types)
       @p1.species.should.eql(species)
 
@@ -5688,8 +5686,8 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi", ability: "Natural Cure")]
       transform = @battle.getMove("Transform")
       ability = @p1.ability
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.ability.should.eql(ability)
 
     it "restores original moveset after switch, but Transform PP decreases", ->
@@ -5700,8 +5698,8 @@ describe "BW Moves:", ->
       moves = _.clone(@p1.moves)
       ppHash = _.clone(@p1.ppHash)
       maxPPHash = _.clone(@p1.maxPPHash)
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.moves.should.eql(moves)
       @p1.maxPPHash.should.eql(maxPPHash)
       # Transform's PP should go down!
@@ -5714,8 +5712,8 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi", ability: "Natural Cure")]
       transform = @battle.getMove("Transform")
       gender = @p1.gender
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.gender.should.eql(gender)
 
     it "restores original weight after switch", ->
@@ -5724,17 +5722,17 @@ describe "BW Moves:", ->
         team2: [Factory("Celebi", ability: "Natural Cure")]
       transform = @battle.getMove("Transform")
       weight = @p1.weight
-      @battle.performMove(@id1, transform)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, transform)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.weight.should.eql(weight)
 
     it "fails if the target is transformed", ->
       shared.create.call(this)
       transform = @battle.getMove("Transform")
 
-      @battle.performMove(@id2, transform)
+      @battle.performMove(@p2, transform)
       mock = @sandbox.mock(transform).expects('fail').once()
-      @battle.performMove(@id1, transform)
+      @battle.performMove(@p1, transform)
       mock.verify()
 
     it "fails if the target is under an illusion"
@@ -5876,7 +5874,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Salac Berry")]
       bugBite = @battle.getMove("Bug Bite")
-      @battle.performMove(@id1, bugBite)
+      @battle.performMove(@p1, bugBite)
       @p2.hasItem().should.be.false
       @p1.stages.should.include(speed: 1)
 
@@ -5885,7 +5883,7 @@ describe "BW Moves:", ->
         team2: [Factory("Magikarp", item: "Salac Berry")]
       bugBite = @battle.getMove("Bug Bite")
       @p2.currentHP = 1
-      @battle.performMove(@id1, bugBite)
+      @battle.performMove(@p1, bugBite)
       @p2.isFainted().should.be.true
       @p1.stages.should.not.include(speed: 1)
 
@@ -5897,7 +5895,7 @@ describe "BW Moves:", ->
       @team1.at(1).faint()
       beatUp = @battle.getMove("Beat Up")
       mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
-      @battle.performMove(@id1, beatUp)
+      @battle.performMove(@p1, beatUp)
       mock.verify()
 
     it "has 5 + X/10 base power for X in team, where X is base attack", ->
@@ -5906,7 +5904,7 @@ describe "BW Moves:", ->
                   Factory("Totodile"), Factory("Rayquaza"), Factory("Seedot") ]
       beatUp = @battle.getMove("Beat Up")
       spy = @sandbox.spy(beatUp, "basePower")
-      @battle.performMove(@id1, beatUp)
+      @battle.performMove(@p1, beatUp)
       for pokemon in @team1.pokemon
         basePower = 5 + Math.floor(pokemon.baseStats.attack / 10)
         spy.returned(basePower).should.be.true
@@ -5916,7 +5914,7 @@ describe "BW Moves:", ->
         team1: (Factory("Magikarp")  for i in [0...4])
       beatUp = @battle.getMove("Beat Up")
       mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
-      @battle.performMove(@id1, beatUp)
+      @battle.performMove(@p1, beatUp)
       mock.verify()
 
   describe "Psycho Shift", ->
@@ -5924,7 +5922,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       psychoShift = @battle.getMove("Psycho Shift")
       mock = @sandbox.mock(psychoShift).expects('fail').once()
-      @battle.performMove(@id1, psychoShift)
+      @battle.performMove(@p1, psychoShift)
       mock.verify()
 
     it "fails if the target already has a status", ->
@@ -5933,21 +5931,21 @@ describe "BW Moves:", ->
       @p2.attach(Status.Paralyze)
       psychoShift = @battle.getMove("Psycho Shift")
       mock = @sandbox.mock(psychoShift).expects('fail').once()
-      @battle.performMove(@id1, psychoShift)
+      @battle.performMove(@p1, psychoShift)
       mock.verify()
 
     it "cures the user of its status", ->
       shared.create.call(this)
       @p1.attach(Status.Poison)
       psychoShift = @battle.getMove("Psycho Shift")
-      @battle.performMove(@id1, psychoShift)
+      @battle.performMove(@p1, psychoShift)
       @p1.hasStatus().should.be.false
 
     it "gives the user's former status to the target", ->
       shared.create.call(this)
       @p1.attach(Status.Burn)
       psychoShift = @battle.getMove("Psycho Shift")
-      @battle.performMove(@id1, psychoShift)
+      @battle.performMove(@p1, psychoShift)
       @p2.has(Status.Burn).should.be.true
 
   describe "Gravity", ->
@@ -5958,14 +5956,14 @@ describe "BW Moves:", ->
       shared.create.call(this)
       gravity = @battle.getMove("Gravity")
       focusBlast = @battle.getMove("Focus Blast")
-      @battle.performMove(@id1, gravity)
+      @battle.performMove(@p1, gravity)
       accuracy = focusBlast.chanceToHit(@battle, @p1, @p2)
       accuracy.should.equal Math.floor(focusBlast.accuracy * 5 / 3)
 
     it "lasts 5 turns", ->
       shared.create.call(this)
       gravity = @battle.getMove("Gravity")
-      @battle.performMove(@id1, gravity)
+      @battle.performMove(@p1, gravity)
       for i in [0...5]
         @battle.has(Attachment.Gravity).should.be.true
         @battle.endTurn()
@@ -5975,7 +5973,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       @p2.types = [ "Flying" ]
       gravity = @battle.getMove("Gravity")
-      @battle.performMove(@id1, gravity)
+      @battle.performMove(@p1, gravity)
       @p2.isImmune("Ground").should.be.false
 
     # TODO: Sky Drop
@@ -5997,18 +5995,18 @@ describe "BW Moves:", ->
       shared.create.call(this)
       telekinesis = @battle.getMove("Telekinesis")
       gravity = @battle.getMove("Gravity")
-      @battle.performMove(@id1, telekinesis)
+      @battle.performMove(@p1, telekinesis)
       @p2.has(Attachment.Telekinesis).should.be.true
-      @battle.performMove(@id1, gravity)
+      @battle.performMove(@p1, gravity)
       @p2.has(Attachment.Telekinesis).should.be.false
 
     it "removes Magnet Rise", ->
       shared.create.call(this)
       magnetRise = @battle.getMove("Magnet Rise")
       gravity = @battle.getMove("Gravity")
-      @battle.performMove(@id2, magnetRise)
+      @battle.performMove(@p2, magnetRise)
       @p2.has(Attachment.MagnetRise).should.be.true
-      @battle.performMove(@id1, gravity)
+      @battle.performMove(@p1, gravity)
       @p2.has(Attachment.MagnetRise).should.be.false
 
     for moveName in [ "Jump Kick", "Hi Jump Kick", "Bounce", "Fly", "Sky Drop",
@@ -6020,7 +6018,7 @@ describe "BW Moves:", ->
           gravity = @battle.getMove("Gravity")
           @p1.moves = [ move ]
           @p2.moves = [ move ]
-          @battle.performMove(@id1, gravity)
+          @battle.performMove(@p1, gravity)
           @battle.beginTurn()
           @p1.validMoves().should.not.include(move)
           @p2.validMoves().should.not.include(move)
@@ -6029,9 +6027,9 @@ describe "BW Moves:", ->
           shared.create.call(this)
           move = @battle.getMove(moveName)
           gravity = @battle.getMove("Gravity")
-          @battle.performMove(@id1, gravity)
+          @battle.performMove(@p1, gravity)
           mock = @sandbox.mock(move).expects('execute').never()
-          @battle.performMove(@id2, move)
+          @battle.performMove(@p2, move)
           mock.verify()
 
   testDelayedAttackMove = (moveName, type) ->
@@ -6041,7 +6039,7 @@ describe "BW Moves:", ->
       it "waits three turns before attacking", ->
         shared.create.call(this)
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         for x in [0...3]
           @p2.currentHP.should.equal @p2.stat('hp')
           @battle.endTurn()
@@ -6050,7 +6048,7 @@ describe "BW Moves:", ->
       it "does not activate if the target has fainted", ->
         shared.create.call(this)
         move = @battle.getMove(moveName)
-        @battle.performMove(@id1, move)
+        @battle.performMove(@p1, move)
         @p2.faint()
         for x in [0...2]
           @battle.endTurn()
@@ -6069,14 +6067,14 @@ describe "BW Moves:", ->
       shared.create.call(this)
       batonPass = @battle.getMove("Baton Pass")
       mock = @sandbox.mock(batonPass).expects('fail').once()
-      @battle.performMove(@id1, batonPass)
+      @battle.performMove(@p1, batonPass)
       mock.verify()
 
     it "switches to another pokemon", ->
       shared.create.call this,
         team1: [ Factory("Magikarp"), Factory("Celebi") ]
       batonPass = @battle.getMove("Baton Pass")
-      @battle.performMove(@id1, batonPass)
+      @battle.performMove(@p1, batonPass)
       @battle.requests.should.have.property @id1
 
     it "passes certain attachments to the next pokemon", ->
@@ -6085,8 +6083,8 @@ describe "BW Moves:", ->
       batonPass = @battle.getMove("Baton Pass")
       @p1.attach(Attachment.Ingrain)
       @p1.attach(Attachment.Torment)
-      @battle.performMove(@id1, batonPass)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, batonPass)
+      @battle.performSwitch(@team1.first(), 1)
       @team1.first().has(Attachment.Torment).should.be.false
       @team1.first().has(Attachment.Ingrain).should.be.true
 
@@ -6095,11 +6093,11 @@ describe "BW Moves:", ->
         team1: [ Factory("Magikarp"), Factory("Celebi") ]
       batonPass = @battle.getMove("Baton Pass")
       perishSong = @battle.getMove("Perish Song")
-      @battle.performMove(@id1, perishSong)
+      @battle.performMove(@p1, perishSong)
       for i in [0...3]
         @battle.endTurn()
-      @battle.performMove(@id1, batonPass)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, batonPass)
+      @battle.performSwitch(@team1.first(), 1)
       @team1.first().isFainted().should.be.false
       @battle.endTurn()
       @team1.first().isFainted().should.be.true
@@ -6109,8 +6107,8 @@ describe "BW Moves:", ->
         team1: [ Factory("Magikarp"), Factory("Celebi") ]
       batonPass = @battle.getMove("Baton Pass")
       @p1.boost(attack: 1, evasion: -3)
-      @battle.performMove(@id1, batonPass)
-      @battle.performSwitch(@id1, 1)
+      @battle.performMove(@p1, batonPass)
+      @battle.performSwitch(@team1.first(), 1)
       @team1.first().stages.should.include(attack: 1, evasion: -3)
 
   describe "Thunder Wave", ->
@@ -6118,7 +6116,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       thunderWave = @battle.getMove("Thunder Wave")
       @p2.types = [ 'Ground' ]
-      @battle.performMove(@id1, thunderWave)
+      @battle.performMove(@p1, thunderWave)
       @p2.has(Status.Paralyze).should.be.false
 
   describe "Thunder", ->
@@ -6176,7 +6174,7 @@ describe "BW Moves:", ->
       shared.create.call(this)
       sleepTalk = @battle.getMove("Sleep Talk")
       mock = @sandbox.mock(sleepTalk).expects('fail').once()
-      @battle.performMove(@id1, sleepTalk)
+      @battle.performMove(@p1, sleepTalk)
       mock.verify()
 
     it "performs a random move when the pokemon is asleep", ->
@@ -6188,7 +6186,7 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p1.attach(Status.Sleep)
       spy = @sandbox.spy(@battle, 'executeMove')
-      @battle.performMove(@id1, sleepTalk)
+      @battle.performMove(@p1, sleepTalk)
       spy.calledWith(tackle).should.be.true
 
     it "does not choose sleep talk or other moves", ->
@@ -6201,7 +6199,7 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p1.attach(Status.Sleep)
       spy = @sandbox.spy(@battle, 'executeMove')
-      @battle.performMove(@id1, sleepTalk)
+      @battle.performMove(@p1, sleepTalk)
       spy.calledWith(tackle).should.be.true
 
     it "fails if there are no viable moves", ->
@@ -6212,7 +6210,7 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p1.attach(Status.Sleep)
       mock = @sandbox.mock(sleepTalk).expects('fail').once()
-      @battle.performMove(@id1, sleepTalk)
+      @battle.performMove(@p1, sleepTalk)
       mock.verify()
 
   describe "Rest", ->
@@ -6222,7 +6220,7 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(rest).expects('fail').once()
 
       @p1.setHP(@p1.stat('hp'))
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       mock.verify()
 
     it "restores the pokemon to full HP otherwise", ->
@@ -6230,7 +6228,7 @@ describe "BW Moves:", ->
       rest = @battle.getMove("Rest")
 
       @p1.setHP(1)
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       @p1.currentHP.should.equal @p1.stat('hp')
 
     it "sleeps the pokemon", ->
@@ -6239,7 +6237,7 @@ describe "BW Moves:", ->
 
       @p1.setHP(1)
       @p1.has(Status.Sleep).should.be.false
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       @p1.has(Status.Sleep).should.be.true
 
     it "cures the pokemon of adverse status effects", ->
@@ -6249,7 +6247,7 @@ describe "BW Moves:", ->
       @p1.setHP(1)
       @p1.attach(Status.Burn)
       @p1.has(Status.Burn).should.be.true
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       @p1.has(Status.Sleep).should.be.true
       @p1.has(Status.Burn).should.be.false
 
@@ -6259,7 +6257,7 @@ describe "BW Moves:", ->
       rest = @battle.getMove("Rest")
 
       @p1.setHP(1)
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       attachment = @p1.get(Status.Sleep)
       should.exist(attachment)
       attachment.should.have.property("turns")
@@ -6272,54 +6270,54 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(rest).expects('fail').once()
 
       @p1.setHP(1)
-      @battle.performMove(@id1, rest)
+      @battle.performMove(@p1, rest)
       mock.verify()
 
   describe "Defog", ->
     it "lowers target's evasion by 1", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.stages.should.include(evasion: -1)
 
     it "removes Reflect on target's side", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id2, @battle.getMove("Reflect"))
+      @battle.performMove(@p2, @battle.getMove("Reflect"))
       @p2.team.has(Attachment.Reflect).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.Reflect).should.be.false
 
     it "removes Light Screen on target's side", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id2, @battle.getMove("Light Screen"))
+      @battle.performMove(@p2, @battle.getMove("Light Screen"))
       @p2.team.has(Attachment.LightScreen).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.LightScreen).should.be.false
 
     it "removes Spikes on target's side", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, @battle.getMove("Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
       @p2.team.has(Attachment.Spikes).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.Spikes).should.be.false
 
     it "removes Stealth Rock on target's side", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, @battle.getMove("Stealth Rock"))
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
       @p2.team.has(Attachment.StealthRock).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.StealthRock).should.be.false
 
     it "removes Toxic Spikes on target's side", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
-      @battle.performMove(@id1, @battle.getMove("Toxic Spikes"))
+      @battle.performMove(@p1, @battle.getMove("Toxic Spikes"))
       @p2.team.has(Attachment.ToxicSpikes).should.be.true
-      @battle.performMove(@id1, defog)
+      @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.ToxicSpikes).should.be.false
 
     it "removes Safeguard on target's side"

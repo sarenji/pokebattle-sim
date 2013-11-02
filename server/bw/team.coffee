@@ -51,18 +51,23 @@ class @Team
     if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, @player.index, attachment.name)
     attachment
 
-  switch: (player, a, b) ->
-    @battle.message "#{player.id} withdrew #{@at(a).name}!"
-    @battle.tell(Protocol.SWITCH_OUT, player.index, a)
-    p.informSwitch(@at(a))  for p in @battle.getOpponents(@at(a))
-    @switchOut(@at(a))
-    @replace(player, a, b)
-    @switchIn(@at(a))
+  switch: (pokemon, toPosition) ->
+    newPokemon = @at(toPosition)
+    index = @indexOf(pokemon)
+    @battle.message "#{@player.id} withdrew #{pokemon.name}!"
+    @battle.tell(Protocol.SWITCH_OUT, @player.index, index)
+    p.informSwitch(pokemon)  for p in @battle.getOpponents(pokemon)
+    @switchOut(pokemon)
+    @replace(pokemon, toPosition)
+    @switchIn(newPokemon)
 
-  replace: (player, a, b) ->
+  replace: (pokemon, toPosition) ->
+    [ a, b ] = [ @indexOf(pokemon), toPosition ]
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    @battle.message "#{player.id} sent out #{@at(a).name}!"
-    @battle.tell(Protocol.SWITCH_IN, player.index, a, b)
+    newPokemon = @at(a)
+    @battle.message "#{@player.id} sent out #{newPokemon.name}!"
+    newPokemon.tell(Protocol.SWITCH_IN, b)
+    newPokemon
 
   beginTurn: ->
     @attachments.query('beginTurn')
@@ -109,6 +114,9 @@ class @Team
 
   size: ->
     @pokemon.length
+
+  filter: ->
+    @pokemon.filter.apply(@pokemon, arguments)
 
   toJSON: (options = {}) -> {
     "pokemon": @pokemon.map (p) -> p.toJSON(options)

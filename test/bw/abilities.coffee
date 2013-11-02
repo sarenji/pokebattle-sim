@@ -30,7 +30,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Aftermath")]
       @p1.currentHP = 1
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.performFaints()
       (@p2.stat('hp') - @p2.currentHP).should.equal(@p2.stat('hp') >> 2)
 
@@ -38,7 +38,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Aftermath")]
       @p1.currentHP = 1
-      @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+      @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
       @battle.performFaints()
       @p2.currentHP.should.equal(@p2.stat('hp'))
 
@@ -49,7 +49,7 @@ describe "BW Abilities:", ->
       @p1.currentHP = 2
       @p1.attach(Status.Burn)
       @sandbox.stub(thunderbolt, 'calculateDamage', -> 1)
-      @battle.performMove(@id2, thunderbolt)
+      @battle.performMove(@p2, thunderbolt)
       @battle.endTurn()
       @p2.currentHP.should.equal(@p2.stat('hp'))
 
@@ -88,7 +88,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       @sandbox.stub(tackle, 'isCriticalHit', -> true)
       @p1.stages.attack.should.equal(0)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p1.stages.should.include(attack: 6)
 
     it "doesn't maximize attack on non-critical hits", ->
@@ -97,7 +97,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       @sandbox.stub(tackle, 'isCriticalHit', -> false)
       @p1.stages.attack.should.equal(0)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p1.stages.should.include(attack: 0)
 
   describe "Anticipation", ->
@@ -107,7 +107,7 @@ describe "BW Abilities:", ->
         team2: [Factory("Pikachu", moves: ["Thunderbolt"])]
 
       spy = @sandbox.spy(@battle, 'message')
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       spy.calledWithMatch('shuddered').should.be.true
 
     it "shows a message if an opponent has an OHKO move", ->
@@ -116,7 +116,7 @@ describe "BW Abilities:", ->
         team2: [Factory("Lapras", moves: ["Sheer Cold"])]
 
       spy = @sandbox.spy(@battle, 'message')
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       spy.calledWithMatch('shuddered').should.be.true
 
     it "doesn't show a message otherwise", ->
@@ -124,7 +124,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Anticipation")]
 
       spy = @sandbox.spy(@battle, 'message')
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       spy.calledWithMatch('shuddered').should.be.false
 
    describe "Arena Trap", ->
@@ -151,7 +151,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Arena Trap")]
         team2: [Factory("Magikarp")]
-      @battle.performMove(@id2, @battle.getMove("Magnet Rise"))
+      @battle.performMove(@p2, @battle.getMove("Magnet Rise"))
       @battle.beginTurn()
       @p2.isSwitchBlocked().should.be.false
 
@@ -277,7 +277,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Color Change")]
       ember = @battle.getMove("Ember")
       @p1.hasType(ember.type).should.be.false
-      @battle.performMove(@id2, ember)
+      @battle.performMove(@p2, ember)
       @p1.hasType(ember.type).should.be.true
 
     it "does not change the owner's type if the move is non-damaging", ->
@@ -285,7 +285,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Color Change")]
       willOWisp = @battle.getMove("Will-O-Wisp")
       @p1.hasType(willOWisp.type).should.be.false
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p2, willOWisp)
       @p1.hasType(willOWisp.type).should.be.false
 
   describe "Compoundeyes", ->
@@ -302,9 +302,9 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Contrary")]
       leafStorm = @battle.getMove("Leaf Storm")
       growl     = @battle.getMove("Growl")
-      @battle.performMove(@id1, leafStorm)
+      @battle.performMove(@p1, leafStorm)
       @p1.stages.should.include(specialAttack: 2)
-      @battle.performMove(@id2, growl)
+      @battle.performMove(@p2, growl)
       @p1.stages.should.include(attack: 1)
 
   describe "Cursed Body", ->
@@ -314,7 +314,7 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "next", "cursed body", 0)
       tackle = @battle.getMove("Tackle")
       @p2.moves = [ tackle ]
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.true
 
     it "does not disable if behind a substitute", ->
@@ -324,8 +324,8 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       substitute = @battle.getMove("Substitute")
       @p2.moves = [ tackle ]
-      @battle.performMove(@id2, substitute)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, substitute)
+      @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
     it "has a 70% chance to do nothing", ->
@@ -334,7 +334,7 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "next", "cursed body", .3)
       tackle = @battle.getMove("Tackle")
       @p2.moves = [ tackle ]
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
   describe "Defeatist", ->
@@ -393,9 +393,9 @@ describe "BW Abilities:", ->
     it "gets healed 25% HP by water moves", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
       @p1.currentHP = 1
-      @battle.performMove(@id2, @battle.getMove("Hydro Pump"))
+      @battle.performMove(@p2, @battle.getMove("Hydro Pump"))
       @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.currentHP.should.be.lessThan(1 + (@p1.stat('hp') >> 2))
 
     it "gets healed 1/8 HP end of turn in Rain", ->
@@ -427,7 +427,7 @@ describe "BW Abilities:", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Early Bird")])
       shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
       @p1.attach(Status.Sleep)
-      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
       @p1.has(Status.Sleep).should.be.false
 
   describe "Effect Spore", ->
@@ -436,31 +436,31 @@ describe "BW Abilities:", ->
 
       # Sleep
       shared.biasRNG.call(this, "randInt", 'effect spore', 1)
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @p2.has(Status.Sleep).should.be.true
 
       # Paralysis
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 2)
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @p2.has(Status.Paralyze).should.be.true
 
       # Poison
       @p2.cureStatus()
       shared.biasRNG.call(this, "randInt", 'effect spore', 3)
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @p2.has(Status.Poison).should.be.true
 
     it "has a 70% chance to do nothing", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
       shared.biasRNG.call(this, "randInt", 'effect spore', 4)
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @p2.hasStatus().should.be.false
 
     it "doesn't trigger if the hitting move is a non-contact move", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Effect Spore")])
       shared.biasRNG.call(this, "randInt", 'effect spore', 1)
-      @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
+      @battle.performMove(@p2, @battle.getMove('Thunderbolt'))
       @p2.has(Status.Sleep).should.be.false
 
   testFilterAbility = (name) ->
@@ -485,19 +485,19 @@ describe "BW Abilities:", ->
       it "has a 30% chance to inflict #{attachment.name} on the attacker", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', 0)
-        @battle.performMove(@id2, @battle.getMove('Tackle'))
+        @battle.performMove(@p2, @battle.getMove('Tackle'))
         @p2.has(attachment).should.be.true
 
       it "inflicts no status if the move used is a non-contact move", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', 0)
-        @battle.performMove(@id2, @battle.getMove('Thunderbolt'))
+        @battle.performMove(@p2, @battle.getMove('Thunderbolt'))
         @p2.has(attachment).should.be.false
 
       it "has a 70% chance to do nothing", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         shared.biasRNG.call(this, "next", 'contact status', .3)
-        @battle.performMove(@id2, @battle.getMove('Tackle'))
+        @battle.performMove(@p2, @battle.getMove('Tackle'))
         @p2.has(attachment).should.be.false
 
   testContactStatusAbility("Cute Charm", Attachment.Attract)
@@ -536,14 +536,14 @@ describe "BW Abilities:", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Flash Fire")])
       ember = @battle.getMove("Ember")
       mock  = @sandbox.mock(ember).expects('hit').never()
-      @battle.performMove(@id2, ember)
+      @battle.performMove(@p2, ember)
       mock.verify()
 
     it "powers up user's Fire-type moves", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Flash Fire")])
       ember = @battle.getMove("Ember")
       tackle = @battle.getMove("Tackle")
-      @battle.performMove(@id2, ember)
+      @battle.performMove(@p2, ember)
       ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
       tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
@@ -824,7 +824,7 @@ describe "BW Abilities:", ->
 
     it "does not transform if target is already transformed", ->
       shared.create.call(this)
-      @battle.performMove(@id2, @battle.getMove("Transform"))
+      @battle.performMove(@p2, @battle.getMove("Transform"))
       @p2.has(Attachment.Transform).should.be.true
       @p1.copyAbility(Ability.Imposter)
       @p1.has(Attachment.Transform).should.be.false
@@ -889,12 +889,12 @@ describe "BW Abilities:", ->
       it "damages for 1/8 HP on contact moves", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         hp = @p2.stat('hp')
-        @battle.performMove(@id2, @battle.getMove("Tackle"))
+        @battle.performMove(@p2, @battle.getMove("Tackle"))
         (hp - @p2.currentHP).should.equal(hp >> 3)
 
       it "does not damage for non-contact moves", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
-        @battle.performMove(@id2, @battle.getMove("Thunderbolt"))
+        @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
         @p2.currentHP.should.equal @p2.stat('hp')
 
   testContactHurtAbility("Iron Barbs")
@@ -915,16 +915,16 @@ describe "BW Abilities:", ->
     it "boosts attack by 1 after being hit by a Dark move", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
       @p1.stages.should.include(attack: 0)
-      @battle.performMove(@id2, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.stages.should.include(attack: 0)
-      @battle.performMove(@id2, @battle.getMove("Crunch"))
+      @battle.performMove(@p2, @battle.getMove("Crunch"))
       @p1.stages.should.include(attack: 1)
 
   describe "Klutz", ->
     it "disables user's item upon switch-in", ->
       shared.create.call this,
         team1: [Factory("Magikarp"), Factory("Magikarp", item: "Leftovers", ability: "Klutz")]
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       @team1.first().isItemBlocked().should.be.true
 
     it "disables user's item in the beginning of the turn", ->
@@ -969,7 +969,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         mock.verify()
 
       it "boosts special attack on #{type}-type moves", ->
@@ -977,7 +977,7 @@ describe "BW Abilities:", ->
           team1: [Factory("Magikarp", ability: name)]
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.stages.should.include(specialAttack: 1)
 
       it "does not boost special attack on #{type}-type moves if immune", ->
@@ -986,7 +986,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @sandbox.stub(@p1, 'isImmune', -> true)
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.stages.should.include(specialAttack: 0)
 
       it "does nothing otherwise", ->
@@ -994,7 +994,7 @@ describe "BW Abilities:", ->
           team1: [Factory("Magikarp", ability: name)]
         tackle = @battle.getMove("Tackle")
         mock = @sandbox.mock(tackle).expects('hit').once()
-        @battle.performMove(@id2, tackle)
+        @battle.performMove(@p2, tackle)
         mock.verify()
         @p1.stages.should.include(specialAttack: 0)
 
@@ -1005,13 +1005,13 @@ describe "BW Abilities:", ->
     it "causes drain attacks to damage the user as well", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Liquid Ooze")]
-      @battle.performMove(@id2, @battle.getMove("Giga Drain"))
+      @battle.performMove(@p2, @battle.getMove("Giga Drain"))
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
     it "causes Leech Seed to damage the user as well", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Liquid Ooze")]
-      @battle.performMove(@id2, @battle.getMove("Leech Seed"))
+      @battle.performMove(@p2, @battle.getMove("Leech Seed"))
       @battle.endTurn()
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
@@ -1038,19 +1038,19 @@ describe "BW Abilities:", ->
     it "takes damage from moves", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard")]
-      @battle.performMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from Struggle", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard")]
-      @battle.performMove(@id1, @battle.getMove('Struggle'))
+      @battle.performMove(@p1, @battle.getMove('Struggle'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from Belly Drum", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard")]
-      @battle.performMove(@id1, @battle.getMove('Belly Drum'))
+      @battle.performMove(@p1, @battle.getMove('Belly Drum'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from confusion", ->
@@ -1058,26 +1058,26 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Magic Guard")]
       shared.biasRNG.call(this, 'next', 'confusion', 0)
       @p1.attach(Attachment.Confusion)
-      @battle.performMove(@id1, @battle.getMove('Tackle'))
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from using Curse", ->
       shared.create.call this,
         team1: [Factory("Gengar", ability: "Magic Guard")]
-      @battle.performMove(@id1, @battle.getMove('Curse'))
+      @battle.performMove(@p1, @battle.getMove('Curse'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from Substitute", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard")]
-      @battle.performMove(@id1, @battle.getMove('Substitute'))
+      @battle.performMove(@p1, @battle.getMove('Substitute'))
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "takes damage from Pain Split", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard")]
       @p1.currentHP = 1
-      @battle.performMove(@id1, @battle.getMove('Pain Split'))
+      @battle.performMove(@p1, @battle.getMove('Pain Split'))
       @p1.currentHP.should.be.greaterThan(1)
 
     it "takes damage from Counter", ->
@@ -1185,14 +1185,14 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         mock.verify()
 
       it "increases #{stat} by 1 if hit by a #{type}-type move", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.stages[stat].should.equal(1)
 
       it "increases #{stat} by only 1 even if move is multi-hit", ->
@@ -1200,7 +1200,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type == type
         @sandbox.stub(typedMove, 'calculateNumberOfHits', -> 2)
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.stages[stat].should.equal(1)
 
       it "does nothing otherwise", ->
@@ -1208,7 +1208,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           !m.isNonDamaging() && m.type != type
         mock = @sandbox.mock(typedMove).expects('hit').once()
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.stages[stat].should.equal(0)
         mock.verify()
 
@@ -1222,7 +1222,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       @p2.currentHP = 1
       @p1.stages.should.include(attack: 0)
-      @battle.performMove(@id1, tackle)
+      @battle.performMove(@p1, tackle)
       @p1.stages.should.include(attack: 1)
 
   describe "Multiscale", ->
@@ -1355,7 +1355,7 @@ describe "BW Abilities:", ->
       @p2.moves = [ tackle ]
       @p2.resetAllPP()
       pp = @p2.pp(tackle)
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p2.pp(tackle).should.equal(pp - 2)
 
   describe "Quick Feet", ->
@@ -1398,7 +1398,7 @@ describe "BW Abilities:", ->
           typedMove = @battle.MoveList.find (m) ->
             m.type == type
           @p1.stages.speed.should.equal(0)
-          @battle.performMove(@id2, typedMove)
+          @battle.performMove(@p2, typedMove)
           @p1.stages.speed.should.equal(1)
 
   describe "Reckless", ->
@@ -1465,7 +1465,7 @@ describe "BW Abilities:", ->
     it "negates recoil", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Rock Head")]
-      @battle.performMove(@id1, @battle.getMove("Head Smash"))
+      @battle.performMove(@p1, @battle.getMove("Head Smash"))
       @p1.currentHP.should.equal @p1.stat('hp')
 
   describe "Sand Force", ->
@@ -1555,7 +1555,7 @@ describe "BW Abilities:", ->
   describe "Simple", ->
     it "doubles stat boosts, negative and positive", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Simple")])
-      @battle.performMove(@id1, @battle.getMove("Curse"))
+      @battle.performMove(@p1, @battle.getMove("Curse"))
       @p1.stages.should.include(attack: 2, defense: 2, speed: -2)
 
   describe "Slow Start", ->
@@ -1665,7 +1665,7 @@ describe "BW Abilities:", ->
     it "boosts speed the turn after a pokemon is freshly switched in", ->
       shared.create.call this,
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Speed Boost")]
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
       @team1.first().stages.should.include(speed: 0)
       @battle.endTurn()
       @team1.first().stages.should.include(speed: 0)
@@ -1689,8 +1689,8 @@ describe "BW Abilities:", ->
       @battle.recordMove(@id1, splash)
       @battle.recordMove(@id2, splash)
       @battle.determineTurnOrder()
-      ids = @battle.priorityQueue.map((o) -> o.pokemon.player.id)
-      ids.should.eql [ @id2, @id1 ]
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
+      pokemon.should.eql [ @p2, @p1 ]
 
     it "moves before pokemon with lagging tail/full incense", ->
       shared.create.call this,
@@ -1700,8 +1700,8 @@ describe "BW Abilities:", ->
       @battle.recordMove(@id1, splash)
       @battle.recordMove(@id2, splash)
       @battle.determineTurnOrder()
-      ids = @battle.priorityQueue.map((o) -> o.pokemon.player.id)
-      ids.should.eql [ @id1, @id2 ]
+      pokemon = @battle.pokemonActions.map((o) -> o.pokemon)
+      pokemon.should.eql [ @p1, @p2 ]
 
   describe "Steadfast", ->
     it "raises speed if the Pokemon flinches", ->
@@ -1733,7 +1733,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Suction Cups"), Factory("Magikarp")]
       whirlwind = @battle.getMove('Whirlwind')
       mock = @sandbox.mock(@team1).expects('switch').never()
-      @battle.performMove(@id2, whirlwind)
+      @battle.performMove(@p2, whirlwind)
       mock.verify()
 
   describe "Super Luck", ->
@@ -1760,7 +1760,7 @@ describe "BW Abilities:", ->
     it "activates on primary status moves", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Synchronize")]
-      @battle.performMove(@id2, @battle.getMove("Will-O-Wisp"))
+      @battle.performMove(@p2, @battle.getMove("Will-O-Wisp"))
       @p2.has(Status.Burn).should.be.true
 
     it "doesn't activate on Sleep", ->
@@ -1807,7 +1807,7 @@ describe "BW Abilities:", ->
         team2: (Factory("Magikarp")  for x in [1..2])
       earthquake = @battle.getMove("Earthquake")
       mock = @sandbox.mock(earthquake).expects('hit').exactly(2)
-      @battle.performMove(@id1, earthquake)
+      @battle.performMove(@p1, earthquake)
       @team1.at(1).currentHP.should.equal(@team1.at(1).stat('hp'))
       mock.verify()
 
@@ -1861,17 +1861,17 @@ describe "BW Abilities:", ->
       splash = @battle.getMove("Splash")
 
       mock = @sandbox.mock(splash).expects('execute').once()
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       mock.verify()
       splash.execute.restore()
 
       mock = @sandbox.mock(splash).expects('execute').never()
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       mock.verify()
       splash.execute.restore()
 
       mock = @sandbox.mock(splash).expects('execute').once()
-      @battle.performMove(@id1, splash)
+      @battle.performMove(@p1, splash)
       mock.verify()
       splash.execute.restore()
 
@@ -1910,7 +1910,7 @@ describe "BW Abilities:", ->
     it "does not prevent Bug Bite, Pluck, etc. from working", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Unnerve")]
-      @battle.performMove(@id2, @battle.getMove("Bug Bite"))
+      @battle.performMove(@p2, @battle.getMove("Bug Bite"))
       @p2.stages.should.include(speed: 1)
 
   describe "Victory Star", ->
@@ -1931,7 +1931,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           m.type == type
         mock = @sandbox.mock(typedMove).expects('hit').never()
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         mock.verify()
 
       it "heals 25% HP from #{type}-type moves", ->
@@ -1940,7 +1940,7 @@ describe "BW Abilities:", ->
         typedMove = @battle.MoveList.find (m) ->
           m.type == type
         @p1.currentHP = 1
-        @battle.performMove(@id2, typedMove)
+        @battle.performMove(@p2, typedMove)
         @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
 
   testTypeAbsorbMove("Water Absorb", "Water")
@@ -1951,14 +1951,14 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Weak Armor")]
       tackle = @battle.getMove("Tackle")
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       @p1.stages.should.include(defense: -1, speed: 1)
 
     it "does nothing on any other kind of move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Weak Armor")]
       willOWisp = @battle.getMove("Will-O-Wisp")
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p2, willOWisp)
       @p1.stages.should.include(defense: 0, speed: 0)
 
   describe "Wonder Guard", ->
@@ -1967,7 +1967,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Wonder Guard")]
       tackle = @battle.getMove("Tackle")
       mock = @sandbox.mock(tackle).expects('hit').never()
-      @battle.performMove(@id2, tackle)
+      @battle.performMove(@p2, tackle)
       mock.verify()
 
     it "is not immune to struggle", ->
@@ -1975,7 +1975,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Wonder Guard")]
       struggle = @battle.getMove("Struggle")
       mock = @sandbox.mock(struggle).expects('hit').once()
-      @battle.performMove(@id2, struggle)
+      @battle.performMove(@p2, struggle)
       mock.verify()
 
     it "is not immune to non-damaging moves", ->
@@ -1983,7 +1983,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Wonder Guard")]
       willOWisp = @battle.getMove("Will-O-Wisp")
       mock = @sandbox.mock(willOWisp).expects('hit').once()
-      @battle.performMove(@id2, willOWisp)
+      @battle.performMove(@p2, willOWisp)
       mock.verify()
 
     it "is not immune to super-effective moves", ->
@@ -1992,7 +1992,7 @@ describe "BW Abilities:", ->
       typedMove = @battle.MoveList.find (m) ->
         !m.isNonDamaging() && m.type == 'Electric'
       mock = @sandbox.mock(typedMove).expects('hit').once()
-      @battle.performMove(@id2, typedMove)
+      @battle.performMove(@p2, typedMove)
       mock.verify()
 
   describe "Wonder Skin", ->

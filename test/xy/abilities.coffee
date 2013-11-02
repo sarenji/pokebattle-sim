@@ -34,14 +34,14 @@ describe "BW Abilities:", ->
         shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
         spy = @sandbox.spy(@p1, 'editMoveType')
         tackle = @battle.getMove('Tackle')
-        @battle.performMove(@id1, tackle)
+        @battle.performMove(@p1, tackle)
         spy.returned(type).should.be.true
 
       it "does not change non-Normal-type moves used by attacker", ->
         shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
         spy = @sandbox.spy(@p1, 'editMoveType')
         ember = @battle.getMove('Ember')
-        @battle.performMove(@id1, ember)
+        @battle.performMove(@p1, ember)
         spy.returned(type).should.be.false
         spy.returned(ember.type).should.be.true
 
@@ -153,7 +153,7 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Parental Bond")]
       tackle = @battle.getMove('Tackle')
       spy = @sandbox.spy(tackle, 'modifyDamage')
-      @battle.performMove(@id1, tackle)
+      @battle.performMove(@p1, tackle)
       spy.calledTwice.should.be.true
       spy.returnValues[0].should.equal(0x1000)
       spy.returnValues[1].should.equal(0x800)
@@ -176,7 +176,7 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "randInt", 'num hits', 4)
       pinMissile = @battle.getMove('Pin Missile')
       spy = @sandbox.spy(pinMissile, 'modifyDamage')
-      @battle.performMove(@id1, pinMissile)
+      @battle.performMove(@p1, pinMissile)
       spy.callCount.should.equal(4)
       spy.returnValues[0].should.equal(0x1000)
       spy.returnValues[1].should.equal(0x1000)
@@ -187,37 +187,37 @@ describe "BW Abilities:", ->
         gen: 'xy'
         team1: [Factory("Aegislash", ability: "Stance Change")]
       @p1.forme.should.equal("default")
-      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @battle.performMove(@p1, @battle.getMove("Shadow Sneak"))
       @p1.forme.should.equal("blade")
 
     it "changes to shield forme when using King's Shield", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory("Aegislash", ability: "Stance Change")]
-      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @battle.performMove(@p1, @battle.getMove("Shadow Sneak"))
       @p1.forme.should.equal("blade")
-      @battle.performMove(@id1, @battle.getMove("King's Shield"))
+      @battle.performMove(@p1, @battle.getMove("King's Shield"))
       @p1.forme.should.equal("default")
 
     it "changes to shield forme after switching out and back in", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory("Aegislash", ability: "Stance Change"), Factory("Magikarp")]
-      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @battle.performMove(@p1, @battle.getMove("Shadow Sneak"))
       @p1.forme.should.equal("blade")
-      @battle.performSwitch(@id1, 1)
-      @battle.performSwitch(@id1, 1)
+      @battle.performSwitch(@p1, 1)
+      @battle.performSwitch(@team1.first(), 1)
       @p1.forme.should.equal("default")
 
     it "does not change formes when using any other move", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory("Aegislash", ability: "Stance Change")]
-      @battle.performMove(@id1, @battle.getMove("Swords Dance"))
+      @battle.performMove(@p1, @battle.getMove("Swords Dance"))
       @p1.forme.should.equal("default")
-      @battle.performMove(@id1, @battle.getMove("Shadow Sneak"))
+      @battle.performMove(@p1, @battle.getMove("Shadow Sneak"))
       @p1.forme.should.equal("blade")
-      @battle.performMove(@id1, @battle.getMove("Swords Dance"))
+      @battle.performMove(@p1, @battle.getMove("Swords Dance"))
       @p1.forme.should.equal("blade")
 
     it "cannot be skill-swapped"

@@ -474,7 +474,7 @@ makeItem 'Red Card', ->
     # return  if benched.length == 0
     pokemon = @battle.rng.choice(benched)
     index = opponent.team.indexOf(pokemon)
-    opponent.switch(0, index)
+    opponent.switch(user, index)
     target.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'

@@ -320,12 +320,11 @@ makeRandomSwitchMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
       return  if target.shouldPhase(battle, user) == false
-      opponent = battle.getOwner(target)
-      benched  = opponent.team.getAliveBenchedPokemon()
+      {team}  = target
+      benched = team.getAliveBenchedPokemon()
       return  if benched.length == 0
       pokemon = battle.rng.choice(benched)
-      index = opponent.team.indexOf(pokemon)
-      opponent.switch(0, index)
+      team.switch(target, team.indexOf(pokemon))
 
 makeRampageMove = (moveName) ->
   extendMove moveName, ->
