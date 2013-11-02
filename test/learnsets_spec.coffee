@@ -199,16 +199,23 @@ describe "Learnsets:", ->
       moveset = [ "Imprison" ]
       @checkMoveset(5, moveset).should.be.true
 
+  testLearnset "Gengar", ->
+    it "learns Sludge Wave from dream world", ->
+      moveset = [ "Sludge Wave" ]
+      @checkMoveset(6, moveset).should.be.true
+
   describe "learnableMoves", ->
     it "returns all possible learnable moves for a pokemon", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      moves = learnableMoves({name: "Deoxys"}, 6)
+      moves.should.include("Superpower")
+
+    it "returns event moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
       moves = learnableMoves({name: "Genesect"}, 6)
       moves.should.include("Shift Gear")
 
-      moves = learnableMoves({name: "Deoxys"}, 6)
-      moves.should.include("Superpower")
-
-    it "also returns dream world and event moves", ->
+    it "returns dream world moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
       moves = learnableMoves({name: "Gengar"}, 6)
       moves.should.include("Sludge Wave")

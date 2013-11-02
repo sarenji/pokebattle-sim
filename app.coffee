@@ -11,7 +11,6 @@ request = require 'request'
 
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
-{GenerationJSON} = require './server/generations'
 ladders = require './shared/ladders'
 
 server = new BattleServer()
@@ -45,7 +44,7 @@ app.use(express.static(__dirname + "/public"))
 # Routing
 renderHomepage = (req, res) ->
   local = process.env.NODE_ENV in [ 'development', 'test' ]
-  res.render 'index.jade', {local, GenerationJSON}
+  res.render 'index.jade', {local}
 
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)

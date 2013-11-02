@@ -5,7 +5,9 @@ if module?.exports
   {INT_TO_GENERATION} = require('./ladders')
   {_} = require('underscore')
 else
-  window.EventPokemon ?= {}
+  EventPokemon = window.EventPokemon ? {}
+  INT_TO_GENERATION = window.INT_TO_GENERATION
+  _ = window._
 
 unportableGenerations = [ 1, 3 ]
 unportableGenerations.sort((a, b) -> b - a)  # numeric, descending
@@ -126,6 +128,15 @@ self.checkMoveset = (Generations, SpeciesData, pokemon, generation, moves) ->
       continue  if !learnset[group]
       total = (m  for m in leftoverMoves when m of learnset[group]).length
       return true  if total == leftoverMoves.length
+
+  # If the remaining moves are all dream world moves, it's a valid moveset.
+  return true  if looper (learnset) ->
+    return  if !learnset['dreamWorld']
+    dreamWorldMoves = []
+    for moveName of learnset['dreamWorld']
+      continue  if moveName in dreamWorldMoves || moveName not in leftoverMoves
+      dreamWorldMoves.push(moveName)
+    return true  if leftoverMoves.length == dreamWorldMoves.length
 
   # This makes it so if the remaining moves are all egg moves, the moveset is
   # valid. That's false, but it's permissive. Later, factor in chain-breeding.

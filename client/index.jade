@@ -94,12 +94,11 @@ html
       .modal-footer
         button.btn.btn-primary.modal-submit Register
         button.btn(data-dismiss="modal", aria-hidden="true") Close
-    script(type="text/javascript").
-      var Generations = !{JSON.stringify(GenerationJSON)}
     if local
       :coffeescript
         @PokeBattle ?= {}
         @PokeBattle.local = true
+    script(src='/js/data.js')
     script(src='/js/vendor.js')
     script(src='/js/templates.js')
     script(src='/js/app.js')

@@ -92,30 +92,9 @@ class @Pokemon extends Backbone.Model
     genders
 
   getMovepool: ->
-    {MoveData} = @getGeneration()
-
-    # TODO: Use shared function for getting a movepool
-    # only generations 3 to 6 for now
-    learnset = []
-    for generation in [ 'rs', 'dp', 'bw', 'xy' ]
-      forme = @getForme(@get('forme'), generation)
-      continue  unless forme
-      generationMoveMethods = forme.learnset || []
-      for method, moves of generationMoveMethods
-        learnset.push(moveName)  for moveName, level of moves
-
-      # Add pre-evos. This should also be handled by the shared function.
-      generationObject = @getGeneration(generation)
-      preevo = @getSpecies().evolvedFrom
-      while preevo
-        # TODO: What if the pre-evo forme is a non-battle only forme?
-        generationMoveMethods = generationObject.FormeData[preevo]['default']?.learnset || []
-        for method, moves of generationMoveMethods
-          learnset.push(moveName)  for moveName, level of moves
-        # TODO: Use singular SpeciesData object.
-        preevo = window.Generations[DEFAULT_GENERATION.toUpperCase()].SpeciesData[preevo].evolvedFrom
-
-    learnset = _.chain(learnset).sort().unique(true).value()
+    {SpeciesData, MoveData} = @getGeneration()
+    generation = GENERATION_TO_INT[@collection?.generation || DEFAULT_GENERATION]
+    learnset = learnableMoves(window.Generations, SpeciesData, @attributes, generation)
 
     # Map each move name to a move object
     return _(learnset).map (moveName) ->

@@ -4,7 +4,7 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     concurrent:
-      compile: ["jade", "stylus", "coffee", "concat", "cssmin"]
+      compile: ["jade", "stylus", "coffee", "concat", "cssmin", "compile:json"]
       server:
         tasks: ["nodemon", "watch"]
         options:
@@ -71,6 +71,9 @@ module.exports = (grunt) ->
       vendor_css:
         files: ['client/vendor/css/**/*.css']
         tasks: 'cssmin'
+      json:
+        files: ['**/*.json']
+        tasks: 'compile:json'
     nodemon:
       development:
         options:
@@ -104,3 +107,11 @@ module.exports = (grunt) ->
   grunt.registerTask 'scrape:pokemon', 'Scrape pokemon data from Veekun', ->
     cmd = ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
     exec(cmd, this.async())
+
+  grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
+    fs = require('fs')
+    {GenerationJSON} = require './server/generations'
+    EventPokemon = require './shared/event_pokemon.json'
+    contents = """var Generations = #{JSON.stringify(GenerationJSON)};
+    var EventPokemon = #{JSON.stringify(EventPokemon)}"""
+    fs.writeFileSync("./public/js/data.js", contents)
