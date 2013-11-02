@@ -7,6 +7,15 @@ makeBoostOnTypeItem 'Luminous Moss', 'Water', specialDefense: 1
 makeBoostOnTypeItem 'Snowball', 'Ice', attack: 1
 makePlateItem 'Pixie Plate', 'Fairy'
 
+makeItem "Assault Vest", ->
+  this::beginTurn = ->
+    for move in @pokemon.moves
+      if move.isNonDamaging()
+        @pokemon.blockMove(move)
+
+  this::editSpecialDefense = (defense) ->
+    Math.floor(defense * 1.5)
+
 makeItem "Weakness Policy", ->
   this::afterBeingHit = (move, user) ->
     if !move.isNonDamaging() &&

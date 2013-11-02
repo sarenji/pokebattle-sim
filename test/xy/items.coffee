@@ -1,9 +1,9 @@
-{Item} = require('../../server/bw/data/items')
-{Pokemon} = require '../../server/bw/pokemon'
-{Attachment, Status} = require '../../server/bw/attachment'
-{Move} = require '../../server/bw/move'
+{Item} = require('../../server/xy/data/items')
+{Pokemon} = require '../../server/xy/pokemon'
+{Attachment, Status} = require '../../server/xy/attachment'
+{Move} = require '../../server/xy/move'
 {Factory} = require '../factory'
-util = require '../../server/bw/util'
+util = require '../../server/xy/util'
 should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
@@ -46,3 +46,26 @@ describe "XY Items:", ->
       @battle.performMove(@id2, thunderWave)
       @p1.hasItem().should.be.true
       @p1.stages.should.include(attack: 0, specialAttack: 0)
+
+  describe "Assault Vest", ->
+    it "blocks non-damaging moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory('Magikarp', item: 'Assault Vest')]
+      splash = @battle.getMove("Splash")
+      @p1.isMoveBlocked(splash).should.be.true
+
+    it "doesn't block damaging moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory('Magikarp', item: 'Assault Vest')]
+      tackle = @battle.getMove("Tackle")
+      @p1.isMoveBlocked(tackle).should.be.false
+
+    it "raises special defense by 1.5", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory('Magikarp')]
+      spDef = @p1.stat('specialDefense')
+      @p1.setItem(Item.AssaultVest)
+      @p1.stat('specialDefense').should.equal Math.floor(spDef * 1.5)
