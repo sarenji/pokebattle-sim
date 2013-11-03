@@ -1,8 +1,9 @@
-{Attachment} = require('../../server/bw/attachment')
-{Battle} = require('../../server/bw/battle')
-{BattleController} = require('../../server/bw/battle_controller')
-{Pokemon} = require('../../server/bw/pokemon')
-{Weather} = require('../../server/bw/weather')
+{Attachment} = require('../../server/xy/attachment')
+{Battle} = require('../../server/xy/battle')
+{BattleController} = require('../../server/xy/battle_controller')
+{Pokemon} = require('../../server/xy/pokemon')
+{Weather} = require('../../server/xy/weather')
+{Ability} = require('../../server/xy/data/abilities')
 {Factory} = require('../factory')
 {Player} = require('../../server/player')
 {Protocol} = require '../../shared/protocol'
@@ -63,6 +64,15 @@ describe "XY Battle:", ->
       @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
       @battle.continueTurn()
       @p1.forme.should.equal('mega-x')
+
+    it "changes the pokemon's ability", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Kangaskhan", moves: ["Return"], item: "Kangaskhanite") ]
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.continueTurn()
+      should.exist(@p1.ability)
+      @p1.ability.should.equal(Ability.ParentalBond)
 
   describe "#getAction", ->
     it "does not consider mega evolutions", ->

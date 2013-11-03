@@ -2,6 +2,8 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../bw/battle.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
+{Ability} = require('./data/abilities')
+
 @Battle::generation = 'xy'
 
 @Battle::actionMap['mega'] =
@@ -12,6 +14,10 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 @Battle::performMegaEvolution = (pokemon) ->
   [ species, forme ] = pokemon.item.mega
   pokemon.changeForme(forme)
+
+  ability = @FormeData[species][forme]["abilities"][0]
+  ability = Ability[ability.replace(/\s+/g, '')]
+  pokemon.copyAbility(ability)
 
   # Generate and display mega-evolution message
   pieces = forme.split('-').map((s) -> s[0].toUpperCase() + s.substr(1))
