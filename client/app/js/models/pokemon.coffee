@@ -26,8 +26,9 @@ class @Pokemon extends Backbone.Model
     # Skip teambuilder-specific properties.
     return  if @get('teambuilder') != true
 
-    # Set to default ability when the species changes
+    # Set to default forme and ability when the species changes
     @on 'change:name', =>
+      @set('forme', 'default')
       @set('ability', @getAbilities()[0], silent: true)
 
     @on 'change:ivs', (model, ivs)=>
@@ -70,6 +71,10 @@ class @Pokemon extends Backbone.Model
 
   getFormes: ->
     (forme  for forme of @getGeneration().FormeData[@get('name')])
+
+  # Returns all non-battle only formes
+  getSelectableFormes: ->
+    _(@getFormes()).reject((forme) => @getForme(forme).isBattleOnly)
 
   getAbilities: ->
     forme = @getForme()

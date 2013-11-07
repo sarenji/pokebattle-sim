@@ -17,7 +17,7 @@ mixin printStat(statName, keyName)
     .forme-sprite-box
       - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'), {shiny: pokemon.get('shiny')})
       img.forme-sprite(src=url, alt="")
-    - var formes = pokemon.getFormes()
+    - var formes = pokemon.getSelectableFormes()
     if formes.length > 1
       div Forme:
       select.selected-forme
