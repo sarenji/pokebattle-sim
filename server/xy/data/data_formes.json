@@ -93,6 +93,7 @@
             "abilities": [
                 "Snow Warning"
             ],
+            "isBattleOnly": true,
             "weight": 1850
         }
     },
@@ -306,6 +307,7 @@
             "abilities": [
                 "Magic Bounce"
             ],
+            "isBattleOnly": true,
             "weight": 490
         }
     },
@@ -484,6 +486,7 @@
             "abilities": [
                 "Tough Claws"
             ],
+            "isBattleOnly": true,
             "weight": 790
         }
     },
@@ -600,6 +603,7 @@
             "abilities": [
                 "Filter"
             ],
+            "isBattleOnly": true,
             "weight": 3950
         }
     },
@@ -787,6 +791,7 @@
             "abilities": [
                 "Trace"
             ],
+            "isBattleOnly": true,
             "weight": 480
         }
     },
@@ -1190,6 +1195,7 @@
             "abilities": [
                 "Mold Breaker"
             ],
+            "isBattleOnly": true,
             "weight": 615
         }
     },
@@ -2361,6 +2367,7 @@
             "abilities": [
                 "Prankster"
             ],
+            "isBattleOnly": true,
             "weight": 130
         }
     },
@@ -3199,6 +3206,7 @@
             "abilities": [
                 "Mega Launcher"
             ],
+            "isBattleOnly": true,
             "weight": 1011
         }
     },
@@ -3284,6 +3292,7 @@
             "abilities": [
                 "Speed Boost"
             ],
+            "isBattleOnly": true,
             "weight": 520
         }
     },
@@ -4927,6 +4936,7 @@
             "abilities": [
                 "Tough Claws"
             ],
+            "isBattleOnly": true,
             "weight": 1105
         },
         "mega-y": {
@@ -4945,6 +4955,7 @@
             "abilities": [
                 "Drought"
             ],
+            "isBattleOnly": true,
             "weight": 1005
         }
     },
@@ -11424,6 +11435,7 @@
             "abilities": [
                 "Sand Force"
             ],
+            "isBattleOnly": true,
             "weight": 950
         }
     },
@@ -11531,6 +11543,7 @@
             "abilities": [
                 "Pixilate"
             ],
+            "isBattleOnly": true,
             "weight": 484
         }
     },
@@ -11786,6 +11799,7 @@
             "abilities": [
                 "Shadow Tag"
             ],
+            "isBattleOnly": true,
             "weight": 405
         }
     },
@@ -13511,6 +13525,7 @@
             "abilities": [
                 "Mold Breaker"
             ],
+            "isBattleOnly": true,
             "weight": 3050
         }
     },
@@ -13921,6 +13936,7 @@
             "abilities": [
                 "Skill Link"
             ],
+            "isBattleOnly": true,
             "weight": 625
         }
     },
@@ -14553,6 +14569,7 @@
             "abilities": [
                 "Solar Power"
             ],
+            "isBattleOnly": true,
             "weight": 495
         }
     },
@@ -15532,6 +15549,7 @@
             "abilities": [
                 "Parental Bond"
             ],
+            "isBattleOnly": true,
             "weight": 1000
         }
     },
@@ -17647,6 +17665,7 @@
             "abilities": [
                 "Adaptability"
             ],
+            "isBattleOnly": true,
             "weight": 575
         }
     },
@@ -18684,6 +18703,7 @@
             "abilities": [
                 "Intimidate"
             ],
+            "isBattleOnly": true,
             "weight": 440
         }
     },
@@ -19235,6 +19255,7 @@
             "abilities": [
                 "Huge Power"
             ],
+            "isBattleOnly": true,
             "weight": 235
         }
     },
@@ -19276,6 +19297,7 @@
             "abilities": [
                 "Pure Power"
             ],
+            "isBattleOnly": true,
             "weight": 315
         }
     },
@@ -19915,6 +19937,7 @@
             "abilities": [
                 "Steadfast"
             ],
+            "isBattleOnly": true,
             "weight": 1270
         },
         "mega-y": {
@@ -19932,6 +19955,7 @@
             "abilities": [
                 "Insomnia"
             ],
+            "isBattleOnly": true,
             "weight": 330
         }
     },
@@ -22653,6 +22677,7 @@
             "abilities": [
                 "Aerilate"
             ],
+            "isBattleOnly": true,
             "weight": 590
         }
     },
@@ -25749,6 +25774,7 @@
             "abilities": [
                 "Technician"
             ],
+            "isBattleOnly": true,
             "weight": 1250
         }
     },
@@ -31396,6 +31422,7 @@
             "abilities": [
                 "Sand Stream"
             ],
+            "isBattleOnly": true,
             "weight": 2550
         }
     },
@@ -31904,6 +31931,7 @@
             "abilities": [
                 "Thick Fat"
             ],
+            "isBattleOnly": true,
             "weight": 1555
         }
     },
