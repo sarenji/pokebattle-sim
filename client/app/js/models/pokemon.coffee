@@ -72,6 +72,10 @@ class @Pokemon extends Backbone.Model
   getFormes: ->
     (forme  for forme of @getGeneration().FormeData[@get('name')])
 
+  # Returns all non-battle only formes
+  getSelectableFormes: ->
+    _(@getFormes()).reject((forme) => @getForme(forme).isBattleOnly)
+
   getAbilities: ->
     forme = @getForme()
     abilities = _.clone(forme.abilities)
