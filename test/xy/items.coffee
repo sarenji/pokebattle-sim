@@ -69,3 +69,10 @@ describe "XY Items:", ->
       spDef = @p1.stat('specialDefense')
       @p1.setItem(Item.AssaultVest)
       @p1.stat('specialDefense').should.equal Math.floor(spDef * 1.5)
+
+  describe "Gems", ->
+    it "now only boosts their respective type by x1.3", ->
+      shared.create.call(this)
+      move = @battle.getMove('Acrobatics')
+      modifier = Item.FlyingGem::modifyBasePower(move, @p1, @p2)
+      modifier.should.equal 0x14CD

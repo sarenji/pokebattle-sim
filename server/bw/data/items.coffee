@@ -129,11 +129,12 @@ makePlateItem = (name, type) ->
   makeItem(name, -> @plate = type)
 
 # Gem items are one-time use.
+GEM_BOOST_AMOUNT = GEM_BOOST_AMOUNT ? 0x1800
 makeGemItem = (name, type) ->
   makeItem name, ->
     this::modifyBasePower = (move, user, target) ->
       if move.type == type
-        0x1800
+        GEM_BOOST_AMOUNT
       else
         0x1000
 
