@@ -105,7 +105,10 @@ makeAbility 'Stance Change', ->
 
 # TODO: Symbiosis
 
-# TODO: Tough Claws
+makeAbility "Tough Claws", ->
+  this::modifyBasePower = (move) ->
+    return 0x1547  if move.hasFlag("contact")
+    return 0x1000
 
 # Retcons
 

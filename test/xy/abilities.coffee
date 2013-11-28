@@ -222,3 +222,18 @@ describe "BW Abilities:", ->
 
     it "cannot be skill-swapped"
     it "cannot be replaced with another ability"
+
+  describe "Tough Claws", ->
+    it "boosts contact moves by x1.33", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Tough Claws")]
+      tackle = @battle.getMove('Tackle')
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1547)
+
+    it "does not boost non-contact moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Tough Claws")]
+      thunderbolt = @battle.getMove('Thunderbolt')
+      thunderbolt.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
