@@ -83,7 +83,12 @@ makeAbility 'Parental Bond', ->
     return 0x800  if hitNumber == 2 && move.maxHits == 1
     return 0x1000
 
-# TODO: Protean
+makeAbility 'Protean', ->
+  this::beforeMove = (move, user, targets) ->
+    type = move.getType(@battle, user, targets[0])
+    return  if user.types.length == 1 && user.types[0] == type
+    user.types = [ type ]
+    @battle.message "#{user.name} changed into the #{type} type!"
 
 makeAbility 'Stance Change', ->
   this::beforeMove = (move, user, targets) ->

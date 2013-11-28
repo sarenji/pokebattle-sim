@@ -181,6 +181,16 @@ describe "BW Abilities:", ->
       spy.returnValues[0].should.equal(0x1000)
       spy.returnValues[1].should.equal(0x1000)
 
+  describe "Protean", ->
+    it "changes the Pokemon's type when using a move", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Protean")]
+      @p1.types.should.eql([ "Water" ])
+      @controller.makeMove(@player1, "Tackle")
+      @controller.makeMove(@player2, "Splash")
+      @p1.types.should.eql([ "Normal" ])
+
   describe "Stance Change", ->
     it "changes to blade forme when using an attacking move", ->
       shared.create.call this,
