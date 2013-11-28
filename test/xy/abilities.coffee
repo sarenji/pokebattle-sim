@@ -128,6 +128,21 @@ describe "BW Abilities:", ->
       shadowBall = @battle.getMove('Shadow Ball')
       @p1.isImmune(shadowBall.type, shadowBall).should.be.true
 
+  describe "Fur Coat", ->
+    it "modifies physical attacks by 0x800", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "Fur Coat")]
+      tackle = @battle.getMove('Tackle')
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x800)
+
+    it "doesn't modify other attacks", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "Fur Coat")]
+      thunderbolt = @battle.getMove('Thunderbolt')
+      thunderbolt.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
   describe "Gooey", ->
     it "lowers the attacker's speed by 1 on contact", ->
       shared.create.call this,

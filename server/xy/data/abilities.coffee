@@ -61,8 +61,9 @@ makeAbility "Competitive"
 # TODO: Flower Veil
 makeAbility "Flower Veil"
 
-# TODO: Fur Coat
-makeAbility "Fur Coat"
+makeAbility "Fur Coat", ->
+  this::modifyBasePowerTarget = (move) ->
+    if move.isPhysical() then 0x800 else 0x1000
 
 makeAbility 'Gale Wings', ->
   this::editPriority = (priority, move) ->
