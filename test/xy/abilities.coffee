@@ -128,6 +128,21 @@ describe "BW Abilities:", ->
       shadowBall = @battle.getMove('Shadow Ball')
       @p1.isImmune(shadowBall.type, shadowBall).should.be.true
 
+  describe "Mega Launcher", ->
+    it "boosts pulse moves by x1.5", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Mega Launcher")]
+      waterPulse = @battle.getMove('Water Pulse')
+      waterPulse.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "does not boost non-pulse moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Mega Launcher")]
+      tackle = @battle.getMove('Tackle')
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
   describe "Parental Bond", ->
     it "hits twice if the move has only one target", ->
       shared.create.call this,

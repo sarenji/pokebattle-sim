@@ -71,7 +71,10 @@ makeAbility 'Gale Wings', ->
 
 # TODO: Magician
 
-# TODO: Mega Launcher
+makeAbility 'Mega Launcher', ->
+  this::modifyBasePower = (move, user, target) ->
+    return 0x1800  if move.hasFlag("pulse")
+    return 0x1000
 
 makeAbility 'Parental Bond', ->
   this::calculateNumberOfHits = (move, targets) ->
