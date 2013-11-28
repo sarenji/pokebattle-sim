@@ -70,8 +70,9 @@ makeAbility 'Gale Wings', ->
     return priority + 1  if move.type == 'Flying'
     return priority
 
-# TODO: Gooey
-makeAbility "Gooey"
+makeAbility "Gooey", ->
+  this::afterBeingHit = (move, user) ->
+    user.boost(speed: -1)  if move.hasFlag("contact")
 
 # TODO: Grass Pelt
 makeAbility "Grass Pelt"

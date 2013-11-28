@@ -128,6 +128,25 @@ describe "BW Abilities:", ->
       shadowBall = @battle.getMove('Shadow Ball')
       @p1.isImmune(shadowBall.type, shadowBall).should.be.true
 
+  describe "Gooey", ->
+    it "lowers the attacker's speed by 1 on contact", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "Gooey")]
+      tackle = @battle.getMove('Tackle')
+      @p1.stages.should.include(speed: 0)
+      @battle.performMove(@p1, tackle)
+      @p1.stages.should.include(speed: -1)
+
+    it "does not lower the attacker's speed by 1 on non-contact", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "Gooey")]
+      thunderbolt = @battle.getMove('Thunderbolt')
+      @p1.stages.should.include(speed: 0)
+      @battle.performMove(@p1, thunderbolt)
+      @p1.stages.should.include(speed: 0)
+
   describe "Mega Launcher", ->
     it "boosts pulse moves by x1.5", ->
       shared.create.call this,
