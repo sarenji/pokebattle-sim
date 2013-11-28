@@ -105,6 +105,7 @@ makeAbility 'Stance Change', ->
 makeAttachmentImmuneAbility "Sweet Veil", [Attachment.Sleep]
 
 # TODO: Symbiosis
+makeAbility "Symbiosis"
 
 makeAbility "Tough Claws", ->
   this::modifyBasePower = (move) ->
