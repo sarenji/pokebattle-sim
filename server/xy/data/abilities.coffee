@@ -101,7 +101,8 @@ makeAbility 'Stance Change', ->
 
 # TODO: Strong Jaw
 
-# TODO: Sweet Veil
+# TODO: Sweet Veil (2v2)
+makeAttachmentImmuneAbility "Sweet Veil", [Attachment.Sleep]
 
 # TODO: Symbiosis
 
