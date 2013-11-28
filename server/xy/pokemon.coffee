@@ -8,3 +8,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
   return false  if @name != species || @forme != 'default'
   return false  if @team?.filter((p) -> /^mega/.test(p.forme)).length > 0
   return true
+
+oldBlockSwitch = @Pokemon::blockSwitch
+@Pokemon::blockSwitch = ->
+  oldBlockSwitch.apply(this, arguments)  if !@hasType("Ghost")

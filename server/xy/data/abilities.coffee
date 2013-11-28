@@ -132,10 +132,3 @@ makeAbility "Tough Claws", ->
   this::modifyBasePower = (move) ->
     return 0x1547  if move.hasFlag("contact")
     return 0x1000
-
-# Retcons
-
-Ability.ShadowTag::getOpponents = ->
-  opponents = @battle.getOpponents(@pokemon)
-  opponents = opponents.filter((p) -> !p.hasType("Ghost"))
-  opponents

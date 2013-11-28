@@ -38,3 +38,14 @@ describe "XY Pokemon:", ->
         gen: 'xy'
         team1: (Factory("Charizard", item: "Charizardite X")  for x in [0..1])
       @team1.at(1).canMegaEvolve().should.be.true
+
+  describe "#blockSwitch", ->
+    it "does not block switches if the Pokemon has a Ghost type", ->
+      pokemon = new Pokemon(name: "Gengar")
+      pokemon.blockSwitch()
+      pokemon.isSwitchBlocked().should.be.false
+
+    it "acts normally otherwise", ->
+      pokemon = new Pokemon(name: "Charizard")
+      pokemon.blockSwitch()
+      pokemon.isSwitchBlocked().should.be.true
