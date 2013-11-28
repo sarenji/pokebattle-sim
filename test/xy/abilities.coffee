@@ -223,6 +223,21 @@ describe "BW Abilities:", ->
     it "cannot be skill-swapped"
     it "cannot be replaced with another ability"
 
+  describe "Strong Jaw", ->
+    it "boosts bite moves by x1.5", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Strong Jaw")]
+      bite = @battle.getMove('Bite')
+      bite.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
+
+    it "does not boost non-bite moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Strong Jaw")]
+      thunderbolt = @battle.getMove('Thunderbolt')
+      thunderbolt.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
   describe "Tough Claws", ->
     it "boosts contact moves by x1.33", ->
       shared.create.call this,

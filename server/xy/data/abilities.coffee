@@ -99,7 +99,10 @@ makeAbility 'Stance Change', ->
   this::switchOut = ->
     @pokemon.changeForme("default")  if !@pokemon.isInForme("default")
 
-# TODO: Strong Jaw
+makeAbility "Strong Jaw", ->
+  this::modifyBasePower = (move) ->
+    return 0x1800  if move.hasFlag("bite")
+    return 0x1000
 
 # TODO: Sweet Veil (2v2)
 makeAttachmentImmuneAbility "Sweet Veil", [Attachment.Sleep]
