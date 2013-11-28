@@ -42,12 +42,48 @@ makeAuraAbility("Fairy Aura", "Fairy")
 
 # New unique abilities
 
+# TODO: Aroma Veil
+
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
 
 makeAbility 'Bulletproof', ->
   this::isImmune = (type, move) ->
     return true  if move?.hasFlag('bullet')
+
+# TODO: Cheek Pouch
+
+# TODO: Competitive
+
+# TODO: Flower Veil
+
+# TODO: Fur Coat
+
+makeAbility 'Gale Wings', ->
+  this::editPriority = (priority, move) ->
+    # TODO: Test if Gale Wings works with Hidden Power Flying.
+    return priority + 1  if move.type == 'Flying'
+    return priority
+
+# TODO: Gooey
+
+# TODO: Grass Pelt
+
+# TODO: Magician
+
+# TODO: Mega Launcher
+
+makeAbility 'Parental Bond', ->
+  this::calculateNumberOfHits = (move, targets) ->
+    # Do nothing if this move is a multi-hit move or has multiple targets.
+    return  if move.minHits != 1 || targets.length > 1
+    return 2
+
+  this::modifyDamage = (move, target, hitNumber) ->
+    return 0x800  if hitNumber == 2 && move.maxHits == 1
+    return 0x1000
+
+# TODO: Protean
 
 makeAbility 'Stance Change', ->
   this::beforeMove = (move, user, targets) ->
@@ -63,21 +99,13 @@ makeAbility 'Stance Change', ->
   this::switchOut = ->
     @pokemon.changeForme("default")  if !@pokemon.isInForme("default")
 
-makeAbility 'Gale Wings', ->
-  this::editPriority = (priority, move) ->
-    # TODO: Test if Gale Wings works with Hidden Power Flying.
-    return priority + 1  if move.type == 'Flying'
-    return priority
+# TODO: Strong Jaw
 
-makeAbility 'Parental Bond', ->
-  this::calculateNumberOfHits = (move, targets) ->
-    # Do nothing if this move is a multi-hit move or has multiple targets.
-    return  if move.minHits != 1 || targets.length > 1
-    return 2
+# TODO: Sweet Veil
 
-  this::modifyDamage = (move, target, hitNumber) ->
-    return 0x800  if hitNumber == 2 && move.maxHits == 1
-    return 0x1000
+# TODO: Symbiosis
+
+# TODO: Tough Claws
 
 # Retcons
 
