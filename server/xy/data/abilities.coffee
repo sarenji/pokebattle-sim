@@ -43,6 +43,7 @@ makeAuraAbility("Fairy Aura", "Fairy")
 # New unique abilities
 
 # TODO: Aroma Veil
+makeAbility "Aroma Veil"
 
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
@@ -52,12 +53,16 @@ makeAbility 'Bulletproof', ->
     return true  if move?.hasFlag('bullet')
 
 # TODO: Cheek Pouch
+makeAbility "Cheek Pouch"
 
 # TODO: Competitive
+makeAbility "Competitive"
 
 # TODO: Flower Veil
+makeAbility "Flower Veil"
 
 # TODO: Fur Coat
+makeAbility "Fur Coat"
 
 makeAbility 'Gale Wings', ->
   this::editPriority = (priority, move) ->
@@ -66,10 +71,13 @@ makeAbility 'Gale Wings', ->
     return priority
 
 # TODO: Gooey
+makeAbility "Gooey"
 
 # TODO: Grass Pelt
+makeAbility "Grass Pelt"
 
 # TODO: Magician
+makeAbility "Magician"
 
 makeAbility 'Mega Launcher', ->
   this::modifyBasePower = (move, user, target) ->
