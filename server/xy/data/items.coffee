@@ -18,6 +18,32 @@ makeItem "Assault Vest", ->
   this::editSpecialDefense = (defense) ->
     Math.floor(defense * 1.5)
 
+makeItem "Kee Berry", ->
+  this.eat = (battle, owner) ->
+    owner.boost(defense: 1)
+
+  this::afterBeingHit = (move, user) ->
+    if move.isPhysical()
+      @battle.message("#{@pokemon.name}'s #{@displayName} berry activated!")
+      @constructor.eat(@battle, @pokemon)
+      @pokemon.useItem()
+
+makeItem "Maranga Berry", ->
+  this.eat = (battle, owner) ->
+    owner.boost(specialDefense: 1)
+
+  this::afterBeingHit = (move, user) ->
+    if move.isSpecial()
+      @battle.message("#{@pokemon.name}'s #{@displayName} berry activated!")
+      @constructor.eat(@battle, @pokemon)
+      @pokemon.useItem()
+
+makeItem "Safety Goggles", ->
+  this::isWeatherDamageImmune = -> true
+
+  this::shouldBlockExecution = (move, user) ->
+    return true  if move.hasFlag("powder")
+
 makeItem "Weakness Policy", ->
   this::afterBeingHit = (move, user) ->
     if !move.isNonDamaging() &&
