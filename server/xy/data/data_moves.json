@@ -576,7 +576,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -665,7 +667,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -974,7 +978,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -1942,7 +1948,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -2091,7 +2099,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -2459,7 +2469,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -2635,7 +2647,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -2687,7 +2701,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -3126,7 +3142,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -3535,7 +3553,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -3666,7 +3686,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -3722,7 +3744,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -5192,7 +5216,9 @@
         "ailmentChance": 100, 
         "ailmentId": "trap", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -5417,7 +5443,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6402,7 +6430,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6549,7 +6579,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6716,7 +6748,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6732,7 +6766,9 @@
         "ailmentChance": 100, 
         "ailmentId": "paralysis", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6748,7 +6784,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6882,7 +6920,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6898,7 +6938,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6994,7 +7036,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -7081,7 +7125,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -7261,7 +7307,8 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
-            "powder"
+            "powder", 
+            "protect"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -7392,7 +7439,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -10659,7 +10708,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -10806,7 +10857,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -10979,7 +11032,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -11192,7 +11247,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "physical", 
-        "flags": [], 
+        "flags": [
+            "protect"
+        ], 
         "flinchChance": 0, 
         "maxHits": 5, 
         "minHits": 2, 
