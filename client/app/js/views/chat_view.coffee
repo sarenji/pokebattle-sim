@@ -3,6 +3,7 @@ class @ChatView extends Backbone.View
   userListTemplate: JST['user_list']
 
   events:
+    'click': 'focusChat'
     'keyup .chat_input': 'sendChatIfEnter'
     'click .chat_input_send': 'sendChat'
     'scroll_to_bottom': 'scrollToBottom'
@@ -24,6 +25,9 @@ class @ChatView extends Backbone.View
     @$('.user_count').text "Users (#{@collection.length})"
     @$('.users').html @userListTemplate(userList: @collection)
     this
+
+  focusChat: =>
+    @$('.chat_input').focus()
 
   sendChat: =>
     $this = @$('.chat_input')
