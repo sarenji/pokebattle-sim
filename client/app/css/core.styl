@@ -2,19 +2,19 @@ narrow-font()
   font-family "PT Sans Narrow", "Helvetica Neue", sans-serif
 
 normal-font()
-  font-family "PT Sans", "Helvetica Neue", sans-serif
+  font-family 'proxima-nova', 'Helvetica Neue', Calibri, 'Droid Sans', Helvetica, Arial, sans-serif
 
 $body_wrapper = 30px
 $nav_size = 150px
-$header_size = 50px
+$header_size = 52px
 
 html, body
-  color   #333
+  color   #333332
   padding 0
   margin  0
   font-size 100%
   normal-font()
-  background $background-color url(/images/cream.png)
+  background $background-color url(/images/bg.png)
   line-height normal
 
 #content
@@ -24,10 +24,6 @@ html, body
   right 0
   bottom 0
   box-shadow 0 0 10px #000
-
-#header
-  height $header_size
-  line-height @height
 
 #main-section
   position absolute

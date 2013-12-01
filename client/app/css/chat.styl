@@ -3,7 +3,6 @@
   top 0
   right 0
   bottom 0
-  background white
 
 .user_list
   position absolute
@@ -11,7 +10,6 @@
   right  0
   bottom 0
   width  25%
-  background $body-color
   overflow-y auto
   p
     padding 2px 6px
@@ -29,6 +27,7 @@
   left   0
   right  25%
   bottom 0
+  box-shadow 0 0 5px rgba(0, 8, 16, .2)
 
 .messages
   overflow-y auto
@@ -38,6 +37,9 @@
   right 0
   bottom 30px
   padding 0 16px
+  border-left 1px solid rgba(0, 0, 0, .2)
+  border-right @border-left
+  background white
   p
     margin 2px 0
 

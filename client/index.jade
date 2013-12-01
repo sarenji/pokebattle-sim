@@ -6,18 +6,42 @@ html
     link(rel="stylesheet", href="/css/vendor.min.css")
     link(rel="stylesheet", href="/css/main.css")
     link(href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=PT+Sans', rel='stylesheet', type='text/css')
+    script.
+      (function() {
+        var config = {
+          kitId: 'bgv2brq',
+          scriptTimeout: 1500
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();
   body
     #navigation
     #content
       #header
-        h1 pokebattle
-        .user-info
-          .login-links
-            span.login.fake_link(data-toggle="modal", data-target="#login-modal") Login
-            |  / 
-            span.register.fake_link(data-toggle="modal", data-target="#register-modal") Register
-          .greetings
+        #main-nav
+          nav#rightmenu.right
+            ul
+              li
+                a(href="#")
+                  span.icon.icon-search
+              li
+                a(href="#")
+                  span.icon.icon-user
+          #logo
+            img(id="logoimg", src="/images/logo/pb_red.png", height="60px", alt="pokebattle.com")
+          nav#sections
+            ul
+              li
+                a(href="#") Simulator
+              li
+                a(href="#") Forums
+              li
+                a(href="#") Pokedex
+              li
+                a(href="#") Gadgets
+              li
+                a(href="#") Videos
+        #sub-nav
       #main-section.clearfix
         .window.chat_window.hidden
           .chat.half_width
