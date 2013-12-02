@@ -4,6 +4,39 @@
 
 Priorities = Priorities ? {}
 
+Priorities.beforeMove ?= [
+  # Things that should happen no matter what
+  Attachment.Pursuit
+  Attachment.Fling
+
+  # Order-dependent
+  Status.Freeze
+  Status.Sleep
+  Ability.Truant
+  Attachment.Disable
+  Attachment.ImprisonPrevention
+  # TODO: Heal Block
+  Attachment.Confusion
+  Attachment.Flinch
+  Attachment.Taunt
+  Attachment.GravityPokemon
+  Attachment.Attract
+  Status.Paralyze
+
+  # Things that should happen only if the move starts executing
+  Attachment.FocusPunch
+  Attachment.Recharge
+  Attachment.Metronome
+  Attachment.DestinyBond
+  Attachment.Grudge
+  Attachment.Rage
+  Attachment.Charging
+  Attachment.FuryCutter
+  Item.ChoiceBand
+  Item.ChoiceScarf
+  Item.ChoiceSpecs
+]
+
 Priorities.endTurn ?= [
   # Non-order-dependent
   Attachment.Flinch
@@ -89,19 +122,47 @@ Priorities.endTurn ?= [
   # Ability.ZenMode
 ]
 
-ensureAttachments = (arrayOfAttachments, eventName) ->
-  attachments = (a  for a in arrayOfAttachments when a.prototype[eventName]? && a not in Priorities[eventName])
-  attachments = attachments.map((a) -> a.displayName || a::name)
-  if attachments.length > 0
-    throw new Error("#{attachments.join(', ')} must specify their #{eventName} priority.")
 
-for eventName of Priorities
-  ensureAttachments((klass  for name, klass of Attachment), eventName)
-  ensureAttachments((klass  for name, klass of Item), eventName)
-  ensureAttachments((klass  for name, klass of Ability), eventName)
-
-@orderByPriority = (arrayOfAttachments, eventName) ->
+@orderByPriority = orderByPriority = (arrayOfAttachments, eventName) ->
   array = arrayOfAttachments.map (attachment) ->
     [ attachment, Priorities[eventName].indexOf(attachment.constructor) ]
   array.sort((a, b) -> a[1] - b[1])
   array.map((a) -> a[0])
+
+queryUntil = (funcName, conditional, attachments, args...) ->
+  for attachment in orderByPriority(attachments, funcName)
+    continue  if !attachment.valid()
+    if funcName of attachment
+      result = attachment[funcName].apply(attachment, args)
+    break  if conditional(result)
+  result
+
+@query = (funcName, args...) ->
+  queryUntil(funcName, (-> false), args...)
+
+@queryUntilTrue = (funcName, args...) ->
+  conditional = (result) -> result == true
+  queryUntil(funcName, conditional, args...)
+
+@queryUntilFalse = (funcName, args...) ->
+  conditional = (result) -> result == false
+  queryUntil(funcName, conditional, args...)
+
+@queryUntilNotNull = (funcName, args...) ->
+  conditional = (result) -> result?
+  queryUntil(funcName, conditional, args...)
+
+@queryChain = (funcName, result, attachments, args...) ->
+  for attachment in orderByPriority(attachments, funcName)
+    result = attachment[funcName].call(attachment, result, args...)  if funcName of attachment
+  result
+
+@queryModifiers = (funcName, attachments, args...) ->
+  result = 0x1000
+  for attachment in orderByPriority(attachments, funcName)
+    continue  unless funcName of attachment
+    modifier = attachment[funcName](args...)
+    result = Math.floor((result * modifier + 0x800) / 0x1000)
+  result
+
+@Priorities = Priorities

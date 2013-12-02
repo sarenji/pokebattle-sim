@@ -3,6 +3,7 @@
 {Attachment, Status, Attachments} = require './attachment'
 {Weather} = require './weather'
 {Protocol} = require '../../shared/protocol'
+Priority = require './priorities'
 util = require './util'
 floor = Math.floor
 
@@ -379,7 +380,7 @@ class @Pokemon
     @attachments.query('beginTurn')
 
   beforeMove: (move, user, targets) ->
-    @attachments.queryUntilFalse('beforeMove', move, user, targets)
+    Priority.queryUntilFalse('beforeMove', @attachments.all(), move, user, targets)
 
   afterMove: (move, user, targets) ->
     @attachments.query('afterMove', move, user, targets)

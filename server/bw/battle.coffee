@@ -356,7 +356,7 @@ class @Battle
   # Performs end turn effects.
   endTurn: ->
     @weatherUpkeep()
-    @queryAttachments("endTurn")
+    @query("endTurn")
     for pokemon in @getActivePokemon()
       pokemon.turnsActive += 1
     @performFaints()
@@ -406,14 +406,8 @@ class @Battle
     array.push(@getActivePokemon().map((p) -> p.attachments.all()))
     _.flatten(array)
 
-  orderAttachments: (attachments, eventName) ->
-    Priority.orderByPriority(attachments, eventName)
-
-  queryAttachments: (eventName) ->
-    attachments = @orderAttachments(@getAllAttachments(), eventName)
-    attachments = (a  for a in attachments when a.valid())
-    for attachment in attachments
-      attachment[eventName]?.call(attachment)
+  query: (eventName) ->
+    attachments = Priority.query(eventName, @getAllAttachments())
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
