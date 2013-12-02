@@ -2,6 +2,7 @@ class @SidebarView extends Backbone.View
   template: JST['navigation']
 
   events:
+    "click .logo" : "focusLobby"
     "click .nav_battles li" : 'focusBattle'
     "click .nav_rooms li"   : 'focusRoom'
     "click .nav_battles .close" : 'leaveBattle'
@@ -76,10 +77,19 @@ class @SidebarView extends Backbone.View
     console.log "Switching to battle #{battleId}"
     @changeWindowToBattle(battleId)
 
+  focusLobby: (e) =>
+    # TODO: Clean this up once rooms are implemented
+    # right now it duplicates part of focusRoom()
+    $lobbyLink = @$(".nav_rooms li").first()
+    $lobbyLink.find('.notifications').addClass('hidden')
+    $room = $('.chat_window')
+    @changeWindowTo($room, $lobbyLink)
+    PokeBattle.router.navigate("")
+
   focusRoom: (e) =>
     $this = $(e.currentTarget)
     $this.find('.notifications').addClass('hidden')
-    # TODO: Remove hardcoding
+    # TODO: Remove hardcoding once rooms are implemented
     $room = $('.chat_window')
     @changeWindowTo($room, $this)
     PokeBattle.router.navigate("")
