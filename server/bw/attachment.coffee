@@ -1,6 +1,7 @@
 {Protocol} = require '../../shared/protocol'
 {Weather} = require './weather'
 util = require './util'
+Query = require './queries'
 {_} = require 'underscore'
 
 @Attachment = Attachment = {}
@@ -12,7 +13,7 @@ class @Attachments
 
   push: (attachmentClass, options={}, attributes={}) ->
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
-    return null  if @queryUntilFalse('shouldAttach', attachmentClass) == false
+    return null  if Query.untilFalse('shouldAttach', @all(), attachmentClass) == false
     return null  if attachmentClass.preattach?(options, attributes) == false
     attachment = @get(attachmentClass)
     if !attachment?
@@ -60,42 +61,6 @@ class @Attachments
 
   contains: (attachment) ->
     @indexOf(attachment) != -1
-
-  queryUntil: (funcName, conditional, args...) ->
-    for attachment in _.clone(@attachments)
-      continue  if !attachment.valid()
-      if funcName of attachment
-        result = attachment[funcName].apply(attachment, args)
-      break  if conditional(result)
-    result
-
-  query: (funcName, args...) ->
-    @queryUntil(funcName, (-> false), args...)
-
-  queryUntilTrue: (funcName, args...) ->
-    conditional = (result) -> result == true
-    @queryUntil(funcName, conditional, args...)
-
-  queryUntilFalse: (funcName, args...) ->
-    conditional = (result) -> result == false
-    @queryUntil(funcName, conditional, args...)
-
-  queryUntilNotNull: (funcName, args...) ->
-    conditional = (result) -> result?
-    @queryUntil(funcName, conditional, args...)
-
-  queryChain: (funcName, result, args...) ->
-    for attachment in _.clone(@attachments)
-      result = attachment[funcName].call(attachment, result, args...)  if funcName of attachment
-    result
-
-  queryModifiers: (funcName, args...) ->
-    result = 0x1000
-    for attachment in _.clone(@attachments)
-      continue  unless funcName of attachment
-      modifier = attachment[funcName](args...)
-      result = Math.floor((result * modifier + 0x800) / 0x1000)
-    result
 
   all: ->
     _.clone(@attachments)

@@ -1,8 +1,9 @@
+{_} = require('underscore')
 {Ability} = require('./data/abilities')
 {Item} = require('./data/items')
 {Attachment, Status} = require('./attachment')
 
-Priorities = Priorities ? {}
+module.exports = Priorities = {}
 
 Priorities.beforeMove ?= [
   # Things that should happen no matter what
@@ -121,48 +122,3 @@ Priorities.endTurn ?= [
   Item.StickyBarb
   # Ability.ZenMode
 ]
-
-
-@orderByPriority = orderByPriority = (arrayOfAttachments, eventName) ->
-  array = arrayOfAttachments.map (attachment) ->
-    [ attachment, Priorities[eventName].indexOf(attachment.constructor) ]
-  array.sort((a, b) -> a[1] - b[1])
-  array.map((a) -> a[0])
-
-queryUntil = (funcName, conditional, attachments, args...) ->
-  for attachment in orderByPriority(attachments, funcName)
-    continue  if !attachment.valid()
-    if funcName of attachment
-      result = attachment[funcName].apply(attachment, args)
-    break  if conditional(result)
-  result
-
-@query = (funcName, args...) ->
-  queryUntil(funcName, (-> false), args...)
-
-@queryUntilTrue = (funcName, args...) ->
-  conditional = (result) -> result == true
-  queryUntil(funcName, conditional, args...)
-
-@queryUntilFalse = (funcName, args...) ->
-  conditional = (result) -> result == false
-  queryUntil(funcName, conditional, args...)
-
-@queryUntilNotNull = (funcName, args...) ->
-  conditional = (result) -> result?
-  queryUntil(funcName, conditional, args...)
-
-@queryChain = (funcName, result, attachments, args...) ->
-  for attachment in orderByPriority(attachments, funcName)
-    result = attachment[funcName].call(attachment, result, args...)  if funcName of attachment
-  result
-
-@queryModifiers = (funcName, attachments, args...) ->
-  result = 0x1000
-  for attachment in orderByPriority(attachments, funcName)
-    continue  unless funcName of attachment
-    modifier = attachment[funcName](args...)
-    result = Math.floor((result * modifier + 0x800) / 0x1000)
-  result
-
-@Priorities = Priorities

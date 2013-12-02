@@ -2,7 +2,10 @@
 {Item} = require('../../server/bw/data/items')
 {Attachment, Status} = require('../../server/bw/attachment')
 priority = require('../../server/bw/priorities')
+Query = require('../../server/bw/queries')
 shared = require('../shared')
+
+require '../helpers'
 
 describe "BW Priorities:", ->
   ensureAttachments = (arrayOfAttachments, eventName) ->
@@ -17,17 +20,16 @@ describe "BW Priorities:", ->
       ensureAttachments((klass  for name, klass of Item), eventName)
       ensureAttachments((klass  for name, klass of Ability), eventName)
 
-  describe "#orderByPriority", ->
-    it "returns a list of attachments in order", ->
+  describe "Queries", ->
+    it "execute priorities in order", ->
       shared.create.call(this)
       @battle.attach(Attachment.TrickRoom)
       @team2.attach(Attachment.Reflect)
       @p1.attach(Attachment.Ingrain)
-      attachments = priority.orderByPriority(@battle.getAllAttachments(), "endTurn")
-      attachments = attachments.map((a) -> a.constructor)
-      trIndex = attachments.indexOf(Attachment.TrickRoom)
-      rIndex = attachments.indexOf(Attachment.Reflect)
-      iIndex = attachments.indexOf(Attachment.Ingrain)
+      spy1 = @sandbox.spy(Attachment.TrickRoom.prototype, 'endTurn')
+      spy2 = @sandbox.spy(Attachment.Reflect.prototype, 'endTurn')
+      spy3 = @sandbox.spy(Attachment.Ingrain.prototype, 'endTurn')
 
-      iIndex.should.be.lessThan(rIndex)
-      rIndex.should.be.lessThan(trIndex)
+      Query("endTurn", @battle.getAllAttachments())
+      spy3.calledBefore(spy2).should.be.true
+      spy2.calledBefore(spy1).should.be.true

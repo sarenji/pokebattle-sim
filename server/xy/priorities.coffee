@@ -2,7 +2,7 @@
 {Item} = require('./data/items')
 {Attachment, Status} = require('./attachment')
 
-Priorities = Priorities ? {}
+module.exports = Priorities = {}
 
 Priorities.beforeMove ?= [
   # Things that should happen no matter what
@@ -124,7 +124,3 @@ Priorities.endTurn = [
   Item.StickyBarb
   # Ability.ZenMode
 ]
-
-coffee = require 'coffee-script'
-path = require('path').resolve(__dirname, '../bw/priorities.coffee')
-eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))

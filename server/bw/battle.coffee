@@ -6,7 +6,7 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
-Priority = require './priorities'
+Query = require './queries'
 
 require 'sugar'
 
@@ -304,9 +304,7 @@ class @Battle
     @tell(Protocol.START_TURN, @turn)
 
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
-    team.beginTurn()  for team in @getTeams()
-    pokemon.beginTurn() for pokemon in @getActivePokemon()
-    @attachments.query('beginTurn')
+    @query('beginTurn')
 
     # Send appropriate requests to players
     for player in @players
@@ -407,7 +405,7 @@ class @Battle
     _.flatten(array)
 
   query: (eventName) ->
-    attachments = Priority.query(eventName, @getAllAttachments())
+    Query(eventName, @getAllAttachments())
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
