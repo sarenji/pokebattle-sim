@@ -4001,7 +4001,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "charge"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -5616,8 +5618,7 @@
         "flags": [
             "protect", 
             "reflectable", 
-            "mirror", 
-            "heal"
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -6829,6 +6830,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "distance", 
             "heal"
         ], 
         "flinchChance": 0, 
@@ -7497,7 +7499,8 @@
         "damage": "physical", 
         "flags": [
             "contact", 
-            "protect"
+            "protect", 
+            "punch"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
