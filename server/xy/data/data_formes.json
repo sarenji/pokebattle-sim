@@ -19931,7 +19931,7 @@
                 "defense": 100,
                 "hp": 106,
                 "specialAttack": 154,
-                "specialDefense": 90,
+                "specialDefense": 100,
                 "speed": 130
             },
             "abilities": [
@@ -35565,7 +35565,7 @@
                 "hp": 75,
                 "specialAttack": 65,
                 "specialDefense": 90,
-                "speed": 100
+                "speed": 102
             },
             "abilities": [
                 "Fur Coat"
@@ -38085,12 +38085,12 @@
                 "Fairy"
             ],
             "stats": {
-                "attack": 81,
+                "attack": 80,
                 "defense": 91,
-                "hp": 58,
-                "specialAttack": 81,
+                "hp": 57,
+                "specialAttack": 80,
                 "specialDefense": 87,
-                "speed": 76
+                "speed": 75
             },
             "abilities": [
                 "Prankster"
@@ -38325,10 +38325,10 @@
             "stats": {
                 "attack": 66,
                 "defense": 70,
-                "hp": 59,
+                "hp": 49,
                 "specialAttack": 44,
                 "specialDefense": 55,
-                "speed": 45
+                "speed": 51
             },
             "abilities": [
                 "Pickup",
