@@ -4221,7 +4221,7 @@
         "maxHits": 1, 
         "minHits": 1, 
         "power": 0, 
-        "pp": 40, 
+        "pp": 20, 
         "priority": 0, 
         "recoil": 0, 
         "target": "user", 
@@ -6682,7 +6682,7 @@
         "pp": 20, 
         "priority": 0, 
         "recoil": 0, 
-        "target": "specific-move", 
+        "target": "selected-pokemon", 
         "type": "Normal"
     }, 
     "Needle Arm": {
@@ -7643,7 +7643,7 @@
         "type": "Psychic"
     }, 
     "Psycho Shift": {
-        "accuracy": 90, 
+        "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
@@ -7700,7 +7700,7 @@
         "type": "Psychic"
     }, 
     "Psywave": {
-        "accuracy": 80, 
+        "accuracy": 100, 
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "special", 
@@ -8523,7 +8523,7 @@
         "maxHits": 1, 
         "minHits": 1, 
         "power": 90, 
-        "pp": 20, 
+        "pp": 15, 
         "priority": 0, 
         "recoil": 0, 
         "target": "selected-pokemon", 
@@ -10471,7 +10471,7 @@
         "maxHits": 1, 
         "minHits": 1, 
         "power": 0, 
-        "pp": 30, 
+        "pp": 15, 
         "priority": 0, 
         "recoil": 0, 
         "target": "users-field", 
