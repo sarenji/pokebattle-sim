@@ -6436,6 +6436,7 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -8361,6 +8362,7 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
+            "bullet", 
             "recharge", 
             "protect", 
             "mirror"
@@ -8690,6 +8692,7 @@
         "ailmentId": "burn", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
@@ -11725,6 +11728,7 @@
         "ailmentId": "paralysis", 
         "damage": "special", 
         "flags": [
+            "bullet", 
             "protect", 
             "mirror"
         ], 
