@@ -34468,7 +34468,7 @@
                 "Cheek Pouch"
             ],
             "hiddenAbility": "Huge Power",
-            "weight": 0,
+            "weight": 424,
             "learnset": {
                 "level-up": {
                     "Bounce": 42,
@@ -34614,7 +34614,7 @@
                 "Flame Body"
             ],
             "hiddenAbility": "Gale Wings",
-            "weight": 0,
+            "weight": 160,
             "learnset": {
                 "level-up": {
                     "Ember": 17,
@@ -36017,7 +36017,7 @@
             "abilities": [
                 "Stance Change"
             ],
-            "weight": 520,
+            "weight": 530,
             "learnset": {
                 "level-up": {
                     "Autotomize": 1,
@@ -36085,7 +36085,7 @@
             "abilities": [
                 "Stance Change"
             ],
-            "weight": 0
+            "weight": 530
         }
     },
     "Spritzee": {
@@ -38335,7 +38335,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0,
+            "weight": 50,
             "learnset": {
                 "level-up": {
                     "Astonish": 1,
@@ -38417,7 +38417,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 35
         },
         "large": {
             "types": [
@@ -38437,7 +38437,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 75
         },
         "super": {
             "types": [
@@ -38457,7 +38457,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 150
         }
     },
     "Gourgeist": {
@@ -38479,7 +38479,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0,
+            "weight": 125,
             "learnset": {
                 "level-up": {
                     "Astonish": 1,
@@ -38562,7 +38562,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 95
         },
         "large": {
             "types": [
@@ -38582,7 +38582,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 140
         },
         "super": {
             "types": [
@@ -38602,7 +38602,7 @@
                 "Frisk"
             ],
             "hiddenAbility": "Insomnia",
-            "weight": 0
+            "weight": 390
         }
     },
     "Bergmite": {
