@@ -7,8 +7,6 @@ flash = require 'connect-flash'
 require 'express-namespace'
 require 'sugar'
 
-request = require 'request'
-
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
 ladders = require './shared/ladders'
@@ -89,8 +87,6 @@ connections.addEvents
       user.send("error", [ "Invalid generation: #{generation}" ])
       return
 
-    # TODO: Take team from player.
-    team ||= defaultTeam.clone()
     errors = server.validateTeam(team, generation)
     if errors.length > 0
       user.send("error", errors)
@@ -270,44 +266,3 @@ loginSuccess = (user, email) ->
   userList.push(user)
   user.send 'login success', user.toJSON()
   connections.broadcast 'join chatroom', user.toJSON()
-
-defaultTeam = [
-  {
-    name: "Pikachu"
-    moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
-    item: "Light Ball"
-    ability: "Lightningrod"
-    gender: "F"
-  }
-  {
-    name: "Hitmonchan"
-    moves: ["Close Combat", "Mach Punch", "Ice Punch", "ThunderPunch"]
-    item: "Life Orb"
-    ability: "Iron Fist"
-    gender: "M"
-  }
-  {
-    name: "Charizard"
-    item: "Choice Specs"
-    moves: ["Fire Blast", "Air Slash", "Hidden Power", "Focus Blast"]
-    ability: "Blaze"
-  }
-  {
-    name: "Dragonite"
-    item: "Leftovers"
-    moves: ["Dragon Dance", "Outrage", "Fire Punch", "ExtremeSpeed"]
-    ability: "Multiscale"
-  }
-  {
-    name: "Jigglypuff"
-    item: "Leftovers"
-    moves: ["Sing", "Seismic Toss", "Protect", "Wish"]
-    ability: "Cute Charm"
-  }
-  {
-    name: "Gengar"
-    item: "Leftovers"
-    moves: ["Substitute", "Disable", "Shadow Ball", "Focus Blast"]
-    ability: "Levitate"
-  }
-]

@@ -1,0 +1,1 @@
+{Ladder} = require('../server/ladder')

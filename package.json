@@ -1,5 +1,5 @@
 {
-  "name": "nuggetbridge",
+  "name": "pokebattle-sim",
   "version": "0.0.6",
   "private": true,
   "dependencies": {
@@ -10,7 +10,6 @@
     "express-namespace": "~0.1.1",
     "jade": "~0.34.x",
     "sugar": "~1.3.8",
-    "request": "~2.25.0",
     "stylus": "~0.32.x",
     "nib": "~0.9.x",
     "grunt": "~0.4.1",
@@ -27,7 +26,8 @@
     "bcrypt": "~0.7.6",
     "grunt-contrib-cssmin": "~0.6.1",
     "async": "~0.2.9",
-    "connect-flash": "~0.1.1"
+    "connect-flash": "~0.1.1",
+    "restify": "~2.6.1"
   },
   "devDependencies": {
     "should": "~1.2.x",
@@ -40,9 +40,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sarenji/battletower"
+    "url": "https://github.com/sarenji/pokebattle-sim"
   },
-  "subdomain": "battletower",
   "engines": {
     "node": "0.10.x",
     "npm": ">=1.1.2"
