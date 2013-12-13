@@ -20,6 +20,7 @@ maybeRequire = (path) ->
     require(path)
 
 for gen in @ALL_GENERATIONS
+  SpeciesData = maybeRequire("./#{gen}/data/data_species.json") || {}
   FormeData   = maybeRequire("./#{gen}/data/data_formes.json") || {}
   MoveData    = maybeRequire("./#{gen}/data/data_moves.json")  || {}
   ItemData    = maybeRequire("./#{gen}/data/data_items.json")  || {}
@@ -66,6 +67,7 @@ for gen in @ALL_GENERATIONS
   TypeList    = _.chain(TypeList).uniq().sort().value()
 
   @GenerationJSON[gen.toUpperCase()] =
+    SpeciesData : SpeciesData
     FormeData   : FormeData
     MoveData    : MoveData
     ItemData    : ItemData

@@ -1,28 +1,27 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
 
-ladders = require('../shared/ladders')
 {BattleQueue} = require './queue'
 {Conditions} = require './conditions'
-{GenerationJSON} = require './generations'
+gen = require './generations'
 learnsets = require '../shared/learnsets'
 
 class @BattleServer
   constructor: ->
     @queues = {}
-    for generation in ladders.SUPPORTED_GENERATIONS
+    for generation in gen.SUPPORTED_GENERATIONS
       @queues[generation] = new BattleQueue()
     @battles = {}
 
-  queuePlayer: (player, team, generation = ladders.DEFAULT_GENERATION) ->
+  queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].add(player, team)
 
-  queuedPlayers: (generation = ladders.DEFAULT_GENERATION) ->
+  queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
 
   beginBattles: ->
     battles = []
-    for generation in ladders.SUPPORTED_GENERATIONS
+    for generation in gen.SUPPORTED_GENERATIONS
       pairs = @queues[generation].pairPlayers()
 
       # Create a battle for each pair
@@ -36,7 +35,7 @@ class @BattleServer
     battles
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = ladders.DEFAULT_GENERATION, objects...) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, objects...) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
     players = objects.map (object) -> object.player
@@ -64,16 +63,15 @@ class @BattleServer
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
-  validateTeam: (team, generation = ladders.DEFAULT_GENERATION) ->
+  validateTeam: (team, generation = gen.DEFAULT_GENERATION) ->
     return [ "Invalid team format." ]  if team not instanceof Array
     return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
     return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
   # otherwise.
-  validatePokemon: (pokemon, slot, generation = ladders.DEFAULT_GENERATION) ->
-    {Battle} = require("../server/#{generation}/battle")
-    {SpeciesData, FormeData} = Battle.prototype
+  validatePokemon: (pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
+    {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
     errors = []
     if !pokemon.name
       errors.push("No species given.")
@@ -119,19 +117,19 @@ class @BattleServer
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
       errors.push("Slot #{slot}: Must have 1 to 4 moves.")
-    else if !learnsets.checkMoveset(GenerationJSON, SpeciesData, pokemon,
-                        ladders.GENERATION_TO_INT[generation], pokemon.moves)
+    else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
+                        gen.GENERATION_TO_INT[generation], pokemon.moves)
       errors.push("Slot #{slot}: Invalid moveset.")
     return errors
 
   # Normalizes a Pokemon by setting default values where applicable.
   # Assumes that the Pokemon is a real Pokemon (i.e. its name is valid)
-  normalizePokemon: (pokemon, generation = ladders.DEFAULT_GENERATION) ->
-    {Battle} = require("../server/#{generation}/battle")
+  normalizePokemon: (pokemon, generation = gen.DEFAULT_GENERATION) ->
+    {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
     pokemon.forme   ?= "default"
-    pokemon.ability ?= Battle::FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
+    pokemon.ability ?= FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
     if !pokemon.gender?
-      {genderRatio} = Battle::SpeciesData[pokemon.name]
+      {genderRatio} = SpeciesData[pokemon.name]
       if genderRatio == -1 then pokemon.gender = "Genderless"
       else if Math.random() < (genderRatio / 8) then pokemon.gender = "F"
       else pokemon.gender = "M"

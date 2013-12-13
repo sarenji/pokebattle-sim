@@ -1,16 +1,13 @@
 learnsets = require('../shared/learnsets')
 {GenerationJSON} = require '../server/generations'
 
-# We'll use BW data for tests.
-{SpeciesData, FormeData} = require('../server/bw/data')
-
 describe "Learnsets:", ->
   testLearnset = (pokemon, func) ->
     describe pokemon, ->
       beforeEach ->
         @pokemon = {name: pokemon}
         @checkMoveset = learnsets.checkMoveset.bind(
-          learnsets, GenerationJSON, SpeciesData, @pokemon)
+          learnsets, GenerationJSON, @pokemon)
 
       func.call(this)
 
@@ -206,16 +203,16 @@ describe "Learnsets:", ->
 
   describe "learnableMoves", ->
     it "returns all possible learnable moves for a pokemon", ->
-      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({name: "Deoxys"}, 6)
       moves.should.include("Superpower")
 
     it "returns event moves", ->
-      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({name: "Genesect"}, 6)
       moves.should.include("Shift Gear")
 
     it "returns dream world moves", ->
-      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON, SpeciesData)
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({name: "Gengar"}, 6)
       moves.should.include("Sludge Wave")

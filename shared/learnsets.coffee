@@ -43,18 +43,20 @@ getGenerationFromInt = (generationInteger) ->
 # for a given generation for the Pokemon's current forme.
 #
 # All generations that can be used are taken into consideration.
-loopLearnsets = (Generations, SpeciesData, pokemon, forGeneration, iterator) ->
+loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
   minimumGeneration = getMinimumGeneration(forGeneration)
   {name, forme} = pokemon
   formeName = forme || "default"
   # Find pre-evolutions and formes
   thePokemon = []
   theFormes = [ formeName ]
-  {FormeData} = Generations[getGenerationFromInt(forGeneration)]
+  {SpeciesData, FormeData} = Generations[getGenerationFromInt(forGeneration)]
   while name
     thePokemon.push(name)
     if name in switchableFormes && name not in theFormes
       theFormes.push((forme  for forme of FormeData[name])...)
+    if name not of SpeciesData
+      console.log(SpeciesData)
     name = SpeciesData[name].evolvedFrom
 
   # Loop through pre-evolutions and formes
@@ -70,9 +72,9 @@ loopLearnsets = (Generations, SpeciesData, pokemon, forGeneration, iterator) ->
   return false
 
 # Returns an array of moves that this Pokemon can learn for a given generation.
-self.learnableMoves = (Generations, SpeciesData, pokemon, forGeneration) ->
+self.learnableMoves = (Generations, pokemon, forGeneration) ->
   learnable = []
-  loopLearnsets Generations, SpeciesData, pokemon, forGeneration, (learnset, pokemonName, formeName) ->
+  loopLearnsets Generations, pokemon, forGeneration, (learnset, pokemonName, formeName) ->
     events = EventPokemon[pokemonName] || []
     events = events.filter((event) -> event.forme == formeName)
     for event in events
@@ -85,8 +87,8 @@ self.learnableMoves = (Generations, SpeciesData, pokemon, forGeneration) ->
 # species and forme data for all Pokemon.
 #
 # Returns true if the moveset is valid, false otherwise.
-self.checkMoveset = (Generations, SpeciesData, pokemon, generation, moves) ->
-  looper = loopLearnsets.bind(null, Generations, SpeciesData, pokemon, generation)
+self.checkMoveset = (Generations, pokemon, generation, moves) ->
+  looper = loopLearnsets.bind(null, Generations, pokemon, generation)
   pokemonName = pokemon.name
   pokemonForme = pokemon.forme || "default"
   pokemonLevel = (pokemon.level || 100)

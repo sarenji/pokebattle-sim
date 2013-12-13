@@ -1,0 +1,6615 @@
+{
+    "Abomasnow": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Snover",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 460
+    },
+    "Abra": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Kadabra"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 63
+    },
+    "Absol": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 359
+    },
+    "Accelgor": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Shelmet",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 617
+    },
+    "Aerodactyl": {
+        "eggGroups": [
+            "flying"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 142
+    },
+    "Aggron": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Lairon",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 306
+    },
+    "Aipom": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Ambipom"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 190
+    },
+    "Alakazam": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Kadabra",
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 65
+    },
+    "Alomomola": {
+        "eggGroups": [
+            "water1",
+            "water2"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 594
+    },
+    "Altaria": {
+        "eggGroups": [
+            "flying",
+            "dragon"
+        ],
+        "evolvedFrom": "Swablu",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 334
+    },
+    "Ambipom": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Aipom",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 424
+    },
+    "Amoonguss": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Foongus",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 591
+    },
+    "Ampharos": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Flaaffy",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 181
+    },
+    "Anorith": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Armaldo"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 347
+    },
+    "Arbok": {
+        "eggGroups": [
+            "ground",
+            "dragon"
+        ],
+        "evolvedFrom": "Ekans",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 24
+    },
+    "Arcanine": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Growlithe",
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 59
+    },
+    "Arceus": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 493
+    },
+    "Archen": {
+        "eggGroups": [
+            "flying",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Archeops"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 566
+    },
+    "Archeops": {
+        "eggGroups": [
+            "flying",
+            "water3"
+        ],
+        "evolvedFrom": "Archen",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 567
+    },
+    "Ariados": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Spinarak",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 168
+    },
+    "Armaldo": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Anorith",
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 348
+    },
+    "Aron": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Lairon"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 304
+    },
+    "Articuno": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 144
+    },
+    "Audino": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 531
+    },
+    "Axew": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Fraxure"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 610
+    },
+    "Azelf": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 482
+    },
+    "Azumarill": {
+        "eggGroups": [
+            "water1",
+            "fairy"
+        ],
+        "evolvedFrom": "Marill",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 184
+    },
+    "Azurill": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Marill"
+        ],
+        "genderRatio": 6,
+        "generation": 3,
+        "id": 298
+    },
+    "Bagon": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Shelgon"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 371
+    },
+    "Baltoy": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Claydol"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 343
+    },
+    "Banette": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Shuppet",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 354
+    },
+    "Barboach": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvesInto": [
+            "Whiscash"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 339
+    },
+    "Basculin": {
+        "eggGroups": [
+            "water2"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 550
+    },
+    "Bastiodon": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Shieldon",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 411
+    },
+    "Bayleef": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Chikorita",
+        "evolvesInto": [
+            "Meganium"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 153
+    },
+    "Beartic": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Cubchoo",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 614
+    },
+    "Beautifly": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Silcoon",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 267
+    },
+    "Beedrill": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Kakuna",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 15
+    },
+    "Beheeyem": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Elgyem",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 606
+    },
+    "Beldum": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Metang"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 374
+    },
+    "Bellossom": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Gloom",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 182
+    },
+    "Bellsprout": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Weepinbell"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 69
+    },
+    "Bibarel": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Bidoof",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 400
+    },
+    "Bidoof": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Bibarel"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 399
+    },
+    "Bisharp": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Pawniard",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 625
+    },
+    "Blastoise": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Wartortle",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 9
+    },
+    "Blaziken": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Combusken",
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 257
+    },
+    "Blissey": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Chansey",
+        "genderRatio": 8,
+        "generation": 2,
+        "id": 242
+    },
+    "Blitzle": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Zebstrika"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 522
+    },
+    "Boldore": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Roggenrola",
+        "evolvesInto": [
+            "Gigalith"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 525
+    },
+    "Bonsly": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Sudowoodo"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 438
+    },
+    "Bouffalant": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 626
+    },
+    "Braviary": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Rufflet",
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 628
+    },
+    "Breloom": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Shroomish",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 286
+    },
+    "Bronzong": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Bronzor",
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 437
+    },
+    "Bronzor": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Bronzong"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 436
+    },
+    "Budew": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Roselia"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 406
+    },
+    "Buizel": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Floatzel"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 418
+    },
+    "Bulbasaur": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Ivysaur"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 1
+    },
+    "Buneary": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Lopunny"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 427
+    },
+    "Burmy": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Wormadam",
+            "Mothim"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 412
+    },
+    "Butterfree": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Metapod",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 12
+    },
+    "Cacnea": {
+        "eggGroups": [
+            "plant",
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Cacturne"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 331
+    },
+    "Cacturne": {
+        "eggGroups": [
+            "plant",
+            "humanshape"
+        ],
+        "evolvedFrom": "Cacnea",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 332
+    },
+    "Camerupt": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Numel",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 323
+    },
+    "Carnivine": {
+        "eggGroups": [
+            "plant"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 455
+    },
+    "Carracosta": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvedFrom": "Tirtouga",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 565
+    },
+    "Carvanha": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvesInto": [
+            "Sharpedo"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 318
+    },
+    "Cascoon": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Wurmple",
+        "evolvesInto": [
+            "Dustox"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 268
+    },
+    "Castform": {
+        "eggGroups": [
+            "fairy",
+            "indeterminate"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 351
+    },
+    "Caterpie": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Metapod"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 10
+    },
+    "Celebi": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 251
+    },
+    "Chandelure": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Lampent",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 609
+    },
+    "Chansey": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Happiny",
+        "evolvesInto": [
+            "Blissey"
+        ],
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 113
+    },
+    "Charizard": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Charmeleon",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 6
+    },
+    "Charmander": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Charmeleon"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 4
+    },
+    "Charmeleon": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Charmander",
+        "evolvesInto": [
+            "Charizard"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 5
+    },
+    "Chatot": {
+        "eggGroups": [
+            "flying"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 441
+    },
+    "Cherrim": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Cherubi",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 421
+    },
+    "Cherubi": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Cherrim"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 420
+    },
+    "Chikorita": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Bayleef"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 152
+    },
+    "Chimchar": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Monferno"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 390
+    },
+    "Chimecho": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Chingling",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 358
+    },
+    "Chinchou": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvesInto": [
+            "Lanturn"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 170
+    },
+    "Chingling": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Chimecho"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 433
+    },
+    "Cinccino": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Minccino",
+        "genderRatio": 6,
+        "generation": 5,
+        "id": 573
+    },
+    "Clamperl": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvesInto": [
+            "Huntail",
+            "Gorebyss"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 366
+    },
+    "Claydol": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Baltoy",
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 344
+    },
+    "Clefable": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Clefairy",
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 36
+    },
+    "Clefairy": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Cleffa",
+        "evolvesInto": [
+            "Clefable"
+        ],
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 35
+    },
+    "Cleffa": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Clefairy"
+        ],
+        "genderRatio": 6,
+        "generation": 2,
+        "id": 173
+    },
+    "Cloyster": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Shellder",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 91
+    },
+    "Cobalion": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 638
+    },
+    "Cofagrigus": {
+        "eggGroups": [
+            "mineral",
+            "indeterminate"
+        ],
+        "evolvedFrom": "Yamask",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 563
+    },
+    "Combee": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Vespiquen"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 415
+    },
+    "Combusken": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Torchic",
+        "evolvesInto": [
+            "Blaziken"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 256
+    },
+    "Conkeldurr": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Gurdurr",
+        "genderRatio": 2,
+        "generation": 5,
+        "id": 534
+    },
+    "Corphish": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Crawdaunt"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 341
+    },
+    "Corsola": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "genderRatio": 6,
+        "generation": 2,
+        "id": 222
+    },
+    "Cottonee": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Whimsicott"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 546
+    },
+    "Cradily": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Lileep",
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 346
+    },
+    "Cranidos": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Rampardos"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 408
+    },
+    "Crawdaunt": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvedFrom": "Corphish",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 342
+    },
+    "Cresselia": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 8,
+        "generation": 4,
+        "id": 488
+    },
+    "Croagunk": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Toxicroak"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 453
+    },
+    "Crobat": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Golbat",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 169
+    },
+    "Croconaw": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Totodile",
+        "evolvesInto": [
+            "Feraligatr"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 159
+    },
+    "Crustle": {
+        "eggGroups": [
+            "bug",
+            "mineral"
+        ],
+        "evolvedFrom": "Dwebble",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 558
+    },
+    "Cryogonal": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 615
+    },
+    "Cubchoo": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Beartic"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 613
+    },
+    "Cubone": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Marowak"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 104
+    },
+    "Cyndaquil": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Quilava"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 155
+    },
+    "Darkrai": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 491
+    },
+    "Darmanitan": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Darumaka",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 555
+    },
+    "Darumaka": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Darmanitan"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 554
+    },
+    "Deerling": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Sawsbuck"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 585
+    },
+    "Deino": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Zweilous"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 633
+    },
+    "Delcatty": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvedFrom": "Skitty",
+        "genderRatio": 6,
+        "generation": 3,
+        "id": 301
+    },
+    "Delibird": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 225
+    },
+    "Deoxys": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 386
+    },
+    "Dewgong": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Seel",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 87
+    },
+    "Dewott": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Oshawott",
+        "evolvesInto": [
+            "Samurott"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 502
+    },
+    "Dialga": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 483
+    },
+    "Diglett": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Dugtrio"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 50
+    },
+    "Ditto": {
+        "eggGroups": [
+            "ditto"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 132
+    },
+    "Dodrio": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Doduo",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 85
+    },
+    "Doduo": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Dodrio"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 84
+    },
+    "Donphan": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Phanpy",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 232
+    },
+    "Dragonair": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvedFrom": "Dratini",
+        "evolvesInto": [
+            "Dragonite"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 148
+    },
+    "Dragonite": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvedFrom": "Dragonair",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 149
+    },
+    "Drapion": {
+        "eggGroups": [
+            "bug",
+            "water3"
+        ],
+        "evolvedFrom": "Skorupi",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 452
+    },
+    "Dratini": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Dragonair"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 147
+    },
+    "Drifblim": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Drifloon",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 426
+    },
+    "Drifloon": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Drifblim"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 425
+    },
+    "Drilbur": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Excadrill"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 529
+    },
+    "Drowzee": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Hypno"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 96
+    },
+    "Druddigon": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 621
+    },
+    "Ducklett": {
+        "eggGroups": [
+            "water1",
+            "flying"
+        ],
+        "evolvesInto": [
+            "Swanna"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 580
+    },
+    "Dugtrio": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Diglett",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 51
+    },
+    "Dunsparce": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 206
+    },
+    "Duosion": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Solosis",
+        "evolvesInto": [
+            "Reuniclus"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 578
+    },
+    "Durant": {
+        "eggGroups": [
+            "bug"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 632
+    },
+    "Dusclops": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Duskull",
+        "evolvesInto": [
+            "Dusknoir"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 356
+    },
+    "Dusknoir": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Dusclops",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 477
+    },
+    "Duskull": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Dusclops"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 355
+    },
+    "Dustox": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Cascoon",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 269
+    },
+    "Dwebble": {
+        "eggGroups": [
+            "bug",
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Crustle"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 557
+    },
+    "Eelektrik": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Tynamo",
+        "evolvesInto": [
+            "Eelektross"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 603
+    },
+    "Eelektross": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Eelektrik",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 604
+    },
+    "Eevee": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Vaporeon",
+            "Jolteon",
+            "Flareon",
+            "Espeon",
+            "Umbreon",
+            "Leafeon",
+            "Glaceon"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 133
+    },
+    "Ekans": {
+        "eggGroups": [
+            "ground",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Arbok"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 23
+    },
+    "Electabuzz": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Elekid",
+        "evolvesInto": [
+            "Electivire"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 125
+    },
+    "Electivire": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Electabuzz",
+        "genderRatio": 2,
+        "generation": 4,
+        "id": 466
+    },
+    "Electrike": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Manectric"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 309
+    },
+    "Electrode": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Voltorb",
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 101
+    },
+    "Elekid": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Electabuzz"
+        ],
+        "genderRatio": 2,
+        "generation": 2,
+        "id": 239
+    },
+    "Elgyem": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Beheeyem"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 605
+    },
+    "Emboar": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Pignite",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 500
+    },
+    "Emolga": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 587
+    },
+    "Empoleon": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Prinplup",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 395
+    },
+    "Entei": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 244
+    },
+    "Escavalier": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Karrablast",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 589
+    },
+    "Espeon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 196
+    },
+    "Excadrill": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Drilbur",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 530
+    },
+    "Exeggcute": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Exeggutor"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 102
+    },
+    "Exeggutor": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Exeggcute",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 103
+    },
+    "Exploud": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Loudred",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 295
+    },
+    "Farfetch'd": {
+        "eggGroups": [
+            "flying",
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 83
+    },
+    "Fearow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Spearow",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 22
+    },
+    "Feebas": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Milotic"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 349
+    },
+    "Feraligatr": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Croconaw",
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 160
+    },
+    "Ferroseed": {
+        "eggGroups": [
+            "plant",
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Ferrothorn"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 597
+    },
+    "Ferrothorn": {
+        "eggGroups": [
+            "plant",
+            "mineral"
+        ],
+        "evolvedFrom": "Ferroseed",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 598
+    },
+    "Finneon": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvesInto": [
+            "Lumineon"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 456
+    },
+    "Flaaffy": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Mareep",
+        "evolvesInto": [
+            "Ampharos"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 180
+    },
+    "Flareon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 136
+    },
+    "Floatzel": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Buizel",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 419
+    },
+    "Flygon": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Vibrava",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 330
+    },
+    "Foongus": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Amoonguss"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 590
+    },
+    "Forretress": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Pineco",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 205
+    },
+    "Fraxure": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Axew",
+        "evolvesInto": [
+            "Haxorus"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 611
+    },
+    "Frillish": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Jellicent"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 592
+    },
+    "Froslass": {
+        "eggGroups": [
+            "fairy",
+            "mineral"
+        ],
+        "evolvedFrom": "Snorunt",
+        "genderRatio": 8,
+        "generation": 4,
+        "id": 478
+    },
+    "Furret": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Sentret",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 162
+    },
+    "Gabite": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Gible",
+        "evolvesInto": [
+            "Garchomp"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 444
+    },
+    "Gallade": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Kirlia",
+        "genderRatio": 0,
+        "generation": 4,
+        "id": 475
+    },
+    "Galvantula": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Joltik",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 596
+    },
+    "Garbodor": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Trubbish",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 569
+    },
+    "Garchomp": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Gabite",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 445
+    },
+    "Gardevoir": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Kirlia",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 282
+    },
+    "Gastly": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Haunter"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 92
+    },
+    "Gastrodon": {
+        "eggGroups": [
+            "water1",
+            "indeterminate"
+        ],
+        "evolvedFrom": "Shellos",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 423
+    },
+    "Genesect": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 649
+    },
+    "Gengar": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Haunter",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 94
+    },
+    "Geodude": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Graveler"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 74
+    },
+    "Gible": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Gabite"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 443
+    },
+    "Gigalith": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Boldore",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 526
+    },
+    "Girafarig": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 203
+    },
+    "Giratina": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 487
+    },
+    "Glaceon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 471
+    },
+    "Glalie": {
+        "eggGroups": [
+            "fairy",
+            "mineral"
+        ],
+        "evolvedFrom": "Snorunt",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 362
+    },
+    "Glameow": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Purugly"
+        ],
+        "genderRatio": 6,
+        "generation": 4,
+        "id": 431
+    },
+    "Gligar": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Gliscor"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 207
+    },
+    "Gliscor": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Gligar",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 472
+    },
+    "Gloom": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Oddish",
+        "evolvesInto": [
+            "Vileplume",
+            "Bellossom"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 44
+    },
+    "Golbat": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Zubat",
+        "evolvesInto": [
+            "Crobat"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 42
+    },
+    "Goldeen": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvesInto": [
+            "Seaking"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 118
+    },
+    "Golduck": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Psyduck",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 55
+    },
+    "Golem": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Graveler",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 76
+    },
+    "Golett": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Golurk"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 622
+    },
+    "Golurk": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Golett",
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 623
+    },
+    "Gorebyss": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Clamperl",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 368
+    },
+    "Gothita": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Gothorita"
+        ],
+        "genderRatio": 6,
+        "generation": 5,
+        "id": 574
+    },
+    "Gothitelle": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Gothorita",
+        "genderRatio": 6,
+        "generation": 5,
+        "id": 576
+    },
+    "Gothorita": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Gothita",
+        "evolvesInto": [
+            "Gothitelle"
+        ],
+        "genderRatio": 6,
+        "generation": 5,
+        "id": 575
+    },
+    "Granbull": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvedFrom": "Snubbull",
+        "genderRatio": 6,
+        "generation": 2,
+        "id": 210
+    },
+    "Graveler": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Geodude",
+        "evolvesInto": [
+            "Golem"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 75
+    },
+    "Grimer": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Muk"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 88
+    },
+    "Grotle": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Turtwig",
+        "evolvesInto": [
+            "Torterra"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 388
+    },
+    "Groudon": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 383
+    },
+    "Grovyle": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Treecko",
+        "evolvesInto": [
+            "Sceptile"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 253
+    },
+    "Growlithe": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Arcanine"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 58
+    },
+    "Grumpig": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Spoink",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 326
+    },
+    "Gulpin": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Swalot"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 316
+    },
+    "Gurdurr": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Timburr",
+        "evolvesInto": [
+            "Conkeldurr"
+        ],
+        "genderRatio": 2,
+        "generation": 5,
+        "id": 533
+    },
+    "Gyarados": {
+        "eggGroups": [
+            "water2",
+            "dragon"
+        ],
+        "evolvedFrom": "Magikarp",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 130
+    },
+    "Happiny": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Chansey"
+        ],
+        "genderRatio": 8,
+        "generation": 4,
+        "id": 440
+    },
+    "Hariyama": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Makuhita",
+        "genderRatio": 2,
+        "generation": 3,
+        "id": 297
+    },
+    "Haunter": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Gastly",
+        "evolvesInto": [
+            "Gengar"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 93
+    },
+    "Haxorus": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Fraxure",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 612
+    },
+    "Heatmor": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 631
+    },
+    "Heatran": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 485
+    },
+    "Heracross": {
+        "eggGroups": [
+            "bug"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 214
+    },
+    "Herdier": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Lillipup",
+        "evolvesInto": [
+            "Stoutland"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 507
+    },
+    "Hippopotas": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Hippowdon"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 449
+    },
+    "Hippowdon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Hippopotas",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 450
+    },
+    "Hitmonchan": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Tyrogue",
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 107
+    },
+    "Hitmonlee": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Tyrogue",
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 106
+    },
+    "Hitmontop": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Tyrogue",
+        "genderRatio": 0,
+        "generation": 2,
+        "id": 237
+    },
+    "Ho-Oh": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 250
+    },
+    "Honchkrow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Murkrow",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 430
+    },
+    "Hoothoot": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Noctowl"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 163
+    },
+    "Hoppip": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Skiploom"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 187
+    },
+    "Horsea": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Seadra"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 116
+    },
+    "Houndoom": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Houndour",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 229
+    },
+    "Houndour": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Houndoom"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 228
+    },
+    "Huntail": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Clamperl",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 367
+    },
+    "Hydreigon": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvedFrom": "Zweilous",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 635
+    },
+    "Hypno": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Drowzee",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 97
+    },
+    "Igglybuff": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Jigglypuff"
+        ],
+        "genderRatio": 6,
+        "generation": 2,
+        "id": 174
+    },
+    "Illumise": {
+        "eggGroups": [
+            "bug",
+            "humanshape"
+        ],
+        "genderRatio": 8,
+        "generation": 3,
+        "id": 314
+    },
+    "Infernape": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvedFrom": "Monferno",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 392
+    },
+    "Ivysaur": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Bulbasaur",
+        "evolvesInto": [
+            "Venusaur"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 2
+    },
+    "Jellicent": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Frillish",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 593
+    },
+    "Jigglypuff": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Igglybuff",
+        "evolvesInto": [
+            "Wigglytuff"
+        ],
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 39
+    },
+    "Jirachi": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 385
+    },
+    "Jolteon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 135
+    },
+    "Joltik": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Galvantula"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 595
+    },
+    "Jumpluff": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Skiploom",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 189
+    },
+    "Jynx": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Smoochum",
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 124
+    },
+    "Kabuto": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Kabutops"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 140
+    },
+    "Kabutops": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvedFrom": "Kabuto",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 141
+    },
+    "Kadabra": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Abra",
+        "evolvesInto": [
+            "Alakazam"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 64
+    },
+    "Kakuna": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Weedle",
+        "evolvesInto": [
+            "Beedrill"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 14
+    },
+    "Kangaskhan": {
+        "eggGroups": [
+            "monster"
+        ],
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 115
+    },
+    "Karrablast": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Escavalier"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 588
+    },
+    "Kecleon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 352
+    },
+    "Keldeo": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 647
+    },
+    "Kingdra": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvedFrom": "Seadra",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 230
+    },
+    "Kingler": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Krabby",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 99
+    },
+    "Kirlia": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Ralts",
+        "evolvesInto": [
+            "Gardevoir",
+            "Gallade"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 281
+    },
+    "Klang": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Klink",
+        "evolvesInto": [
+            "Klinklang"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 600
+    },
+    "Klink": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Klang"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 599
+    },
+    "Klinklang": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Klang",
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 601
+    },
+    "Koffing": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Weezing"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 109
+    },
+    "Krabby": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Kingler"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 98
+    },
+    "Kricketot": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Kricketune"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 401
+    },
+    "Kricketune": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Kricketot",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 402
+    },
+    "Krokorok": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Sandile",
+        "evolvesInto": [
+            "Krookodile"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 552
+    },
+    "Krookodile": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Krokorok",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 553
+    },
+    "Kyogre": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 382
+    },
+    "Kyurem": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 646
+    },
+    "Lairon": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Aron",
+        "evolvesInto": [
+            "Aggron"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 305
+    },
+    "Lampent": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Litwick",
+        "evolvesInto": [
+            "Chandelure"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 608
+    },
+    "Landorus": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 645
+    },
+    "Lanturn": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvedFrom": "Chinchou",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 171
+    },
+    "Lapras": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 131
+    },
+    "Larvesta": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Volcarona"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 636
+    },
+    "Larvitar": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Pupitar"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 246
+    },
+    "Latias": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 8,
+        "generation": 3,
+        "id": 380
+    },
+    "Latios": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 0,
+        "generation": 3,
+        "id": 381
+    },
+    "Leafeon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 470
+    },
+    "Leavanny": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Swadloon",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 542
+    },
+    "Ledian": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Ledyba",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 166
+    },
+    "Ledyba": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Ledian"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 165
+    },
+    "Lickilicky": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Lickitung",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 463
+    },
+    "Lickitung": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Lickilicky"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 108
+    },
+    "Liepard": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Purrloin",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 510
+    },
+    "Lileep": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Cradily"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 345
+    },
+    "Lilligant": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Petilil",
+        "genderRatio": 8,
+        "generation": 5,
+        "id": 549
+    },
+    "Lillipup": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Herdier"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 506
+    },
+    "Linoone": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Zigzagoon",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 264
+    },
+    "Litwick": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Lampent"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 607
+    },
+    "Lombre": {
+        "eggGroups": [
+            "water1",
+            "plant"
+        ],
+        "evolvedFrom": "Lotad",
+        "evolvesInto": [
+            "Ludicolo"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 271
+    },
+    "Lopunny": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvedFrom": "Buneary",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 428
+    },
+    "Lotad": {
+        "eggGroups": [
+            "water1",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Lombre"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 270
+    },
+    "Loudred": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Whismur",
+        "evolvesInto": [
+            "Exploud"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 294
+    },
+    "Lucario": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvedFrom": "Riolu",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 448
+    },
+    "Ludicolo": {
+        "eggGroups": [
+            "water1",
+            "plant"
+        ],
+        "evolvedFrom": "Lombre",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 272
+    },
+    "Lugia": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 249
+    },
+    "Lumineon": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvedFrom": "Finneon",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 457
+    },
+    "Lunatone": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 337
+    },
+    "Luvdisc": {
+        "eggGroups": [
+            "water2"
+        ],
+        "genderRatio": 6,
+        "generation": 3,
+        "id": 370
+    },
+    "Luxio": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Shinx",
+        "evolvesInto": [
+            "Luxray"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 404
+    },
+    "Luxray": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Luxio",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 405
+    },
+    "Machamp": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Machoke",
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 68
+    },
+    "Machoke": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Machop",
+        "evolvesInto": [
+            "Machamp"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 67
+    },
+    "Machop": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Machoke"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 66
+    },
+    "Magby": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Magmar"
+        ],
+        "genderRatio": 2,
+        "generation": 2,
+        "id": 240
+    },
+    "Magcargo": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Slugma",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 219
+    },
+    "Magikarp": {
+        "eggGroups": [
+            "water2",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Gyarados"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 129
+    },
+    "Magmar": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Magby",
+        "evolvesInto": [
+            "Magmortar"
+        ],
+        "genderRatio": 2,
+        "generation": 1,
+        "id": 126
+    },
+    "Magmortar": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Magmar",
+        "genderRatio": 2,
+        "generation": 4,
+        "id": 467
+    },
+    "Magnemite": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Magneton"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 81
+    },
+    "Magneton": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Magnemite",
+        "evolvesInto": [
+            "Magnezone"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 82
+    },
+    "Magnezone": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Magneton",
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 462
+    },
+    "Makuhita": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Hariyama"
+        ],
+        "genderRatio": 2,
+        "generation": 3,
+        "id": 296
+    },
+    "Mamoswine": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Piloswine",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 473
+    },
+    "Manaphy": {
+        "eggGroups": [
+            "water1",
+            "fairy"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 490
+    },
+    "Mandibuzz": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Vullaby",
+        "genderRatio": 8,
+        "generation": 5,
+        "id": 630
+    },
+    "Manectric": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Electrike",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 310
+    },
+    "Mankey": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Primeape"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 56
+    },
+    "Mantine": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Mantyke",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 226
+    },
+    "Mantyke": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Mantine"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 458
+    },
+    "Maractus": {
+        "eggGroups": [
+            "plant"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 556
+    },
+    "Mareep": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Flaaffy"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 179
+    },
+    "Marill": {
+        "eggGroups": [
+            "water1",
+            "fairy"
+        ],
+        "evolvedFrom": "Azurill",
+        "evolvesInto": [
+            "Azumarill"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 183
+    },
+    "Marowak": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Cubone",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 105
+    },
+    "Marshtomp": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Mudkip",
+        "evolvesInto": [
+            "Swampert"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 259
+    },
+    "Masquerain": {
+        "eggGroups": [
+            "water1",
+            "bug"
+        ],
+        "evolvedFrom": "Surskit",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 284
+    },
+    "Mawile": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 303
+    },
+    "Medicham": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Meditite",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 308
+    },
+    "Meditite": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Medicham"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 307
+    },
+    "Meganium": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Bayleef",
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 154
+    },
+    "Meloetta": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 648
+    },
+    "Meowth": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Persian"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 52
+    },
+    "Mesprit": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 481
+    },
+    "Metagross": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Metang",
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 376
+    },
+    "Metang": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Beldum",
+        "evolvesInto": [
+            "Metagross"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 375
+    },
+    "Metapod": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Caterpie",
+        "evolvesInto": [
+            "Butterfree"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 11
+    },
+    "Mew": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 151
+    },
+    "Mewtwo": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 150
+    },
+    "Mienfoo": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Mienshao"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 619
+    },
+    "Mienshao": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvedFrom": "Mienfoo",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 620
+    },
+    "Mightyena": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Poochyena",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 262
+    },
+    "Milotic": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvedFrom": "Feebas",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 350
+    },
+    "Miltank": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 8,
+        "generation": 2,
+        "id": 241
+    },
+    "Mime Jr.": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Mr. Mime"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 439
+    },
+    "Minccino": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Cinccino"
+        ],
+        "genderRatio": 6,
+        "generation": 5,
+        "id": 572
+    },
+    "Minun": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 312
+    },
+    "Misdreavus": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Mismagius"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 200
+    },
+    "Mismagius": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Misdreavus",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 429
+    },
+    "Moltres": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 146
+    },
+    "Monferno": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "evolvedFrom": "Chimchar",
+        "evolvesInto": [
+            "Infernape"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 391
+    },
+    "Mothim": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Burmy",
+        "genderRatio": 0,
+        "generation": 4,
+        "id": 414
+    },
+    "Mr. Mime": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Mime Jr.",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 122
+    },
+    "Mudkip": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvesInto": [
+            "Marshtomp"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 258
+    },
+    "Muk": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Grimer",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 89
+    },
+    "Munchlax": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Snorlax"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 446
+    },
+    "Munna": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Musharna"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 517
+    },
+    "Murkrow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Honchkrow"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 198
+    },
+    "Musharna": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Munna",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 518
+    },
+    "Natu": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Xatu"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 177
+    },
+    "Nidoking": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Nidorino",
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 34
+    },
+    "Nidoqueen": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvedFrom": "Nidorina",
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 31
+    },
+    "Nidoran\u2640": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Nidorina"
+        ],
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 29
+    },
+    "Nidoran\u2642": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Nidorino"
+        ],
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 32
+    },
+    "Nidorina": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvedFrom": "Nidoran\u2640",
+        "evolvesInto": [
+            "Nidoqueen"
+        ],
+        "genderRatio": 8,
+        "generation": 1,
+        "id": 30
+    },
+    "Nidorino": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Nidoran\u2642",
+        "evolvesInto": [
+            "Nidoking"
+        ],
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 33
+    },
+    "Nincada": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Ninjask",
+            "Shedinja"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 290
+    },
+    "Ninetales": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Vulpix",
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 38
+    },
+    "Ninjask": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Nincada",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 291
+    },
+    "Noctowl": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Hoothoot",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 164
+    },
+    "Nosepass": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Probopass"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 299
+    },
+    "Numel": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Camerupt"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 322
+    },
+    "Nuzleaf": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvedFrom": "Seedot",
+        "evolvesInto": [
+            "Shiftry"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 274
+    },
+    "Octillery": {
+        "eggGroups": [
+            "water1",
+            "water2"
+        ],
+        "evolvedFrom": "Remoraid",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 224
+    },
+    "Oddish": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Gloom"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 43
+    },
+    "Omanyte": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Omastar"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 138
+    },
+    "Omastar": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvedFrom": "Omanyte",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 139
+    },
+    "Onix": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Steelix"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 95
+    },
+    "Oshawott": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Dewott"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 501
+    },
+    "Pachirisu": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 417
+    },
+    "Palkia": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 484
+    },
+    "Palpitoad": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Tympole",
+        "evolvesInto": [
+            "Seismitoad"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 536
+    },
+    "Panpour": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Simipour"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 515
+    },
+    "Pansage": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Simisage"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 511
+    },
+    "Pansear": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Simisear"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 513
+    },
+    "Paras": {
+        "eggGroups": [
+            "bug",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Parasect"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 46
+    },
+    "Parasect": {
+        "eggGroups": [
+            "bug",
+            "plant"
+        ],
+        "evolvedFrom": "Paras",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 47
+    },
+    "Patrat": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Watchog"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 504
+    },
+    "Pawniard": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Bisharp"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 624
+    },
+    "Pelipper": {
+        "eggGroups": [
+            "water1",
+            "flying"
+        ],
+        "evolvedFrom": "Wingull",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 279
+    },
+    "Persian": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Meowth",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 53
+    },
+    "Petilil": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Lilligant"
+        ],
+        "genderRatio": 8,
+        "generation": 5,
+        "id": 548
+    },
+    "Phanpy": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Donphan"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 231
+    },
+    "Phione": {
+        "eggGroups": [
+            "water1",
+            "fairy"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 489
+    },
+    "Pichu": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Pikachu"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 172
+    },
+    "Pidgeot": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Pidgeotto",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 18
+    },
+    "Pidgeotto": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Pidgey",
+        "evolvesInto": [
+            "Pidgeot"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 17
+    },
+    "Pidgey": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Pidgeotto"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 16
+    },
+    "Pidove": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Tranquill"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 519
+    },
+    "Pignite": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Tepig",
+        "evolvesInto": [
+            "Emboar"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 499
+    },
+    "Pikachu": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvedFrom": "Pichu",
+        "evolvesInto": [
+            "Raichu"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 25
+    },
+    "Piloswine": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Swinub",
+        "evolvesInto": [
+            "Mamoswine"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 221
+    },
+    "Pineco": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Forretress"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 204
+    },
+    "Pinsir": {
+        "eggGroups": [
+            "bug"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 127
+    },
+    "Piplup": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Prinplup"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 393
+    },
+    "Plusle": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 311
+    },
+    "Politoed": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Poliwhirl",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 186
+    },
+    "Poliwag": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvesInto": [
+            "Poliwhirl"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 60
+    },
+    "Poliwhirl": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Poliwag",
+        "evolvesInto": [
+            "Poliwrath",
+            "Politoed"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 61
+    },
+    "Poliwrath": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Poliwhirl",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 62
+    },
+    "Ponyta": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Rapidash"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 77
+    },
+    "Poochyena": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Mightyena"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 261
+    },
+    "Porygon": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Porygon2"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 137
+    },
+    "Porygon-Z": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Porygon2",
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 474
+    },
+    "Porygon2": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Porygon",
+        "evolvesInto": [
+            "Porygon-Z"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 233
+    },
+    "Primeape": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Mankey",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 57
+    },
+    "Prinplup": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Piplup",
+        "evolvesInto": [
+            "Empoleon"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 394
+    },
+    "Probopass": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Nosepass",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 476
+    },
+    "Psyduck": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Golduck"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 54
+    },
+    "Pupitar": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Larvitar",
+        "evolvesInto": [
+            "Tyranitar"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 247
+    },
+    "Purrloin": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Liepard"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 509
+    },
+    "Purugly": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Glameow",
+        "genderRatio": 6,
+        "generation": 4,
+        "id": 432
+    },
+    "Quagsire": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Wooper",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 195
+    },
+    "Quilava": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Cyndaquil",
+        "evolvesInto": [
+            "Typhlosion"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 156
+    },
+    "Qwilfish": {
+        "eggGroups": [
+            "water2"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 211
+    },
+    "Raichu": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvedFrom": "Pikachu",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 26
+    },
+    "Raikou": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 243
+    },
+    "Ralts": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Kirlia"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 280
+    },
+    "Rampardos": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Cranidos",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 409
+    },
+    "Rapidash": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Ponyta",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 78
+    },
+    "Raticate": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Rattata",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 20
+    },
+    "Rattata": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Raticate"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 19
+    },
+    "Rayquaza": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 384
+    },
+    "Regice": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 378
+    },
+    "Regigigas": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 486
+    },
+    "Regirock": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 377
+    },
+    "Registeel": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 379
+    },
+    "Relicanth": {
+        "eggGroups": [
+            "water1",
+            "water2"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 369
+    },
+    "Remoraid": {
+        "eggGroups": [
+            "water1",
+            "water2"
+        ],
+        "evolvesInto": [
+            "Octillery"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 223
+    },
+    "Reshiram": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 643
+    },
+    "Reuniclus": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Duosion",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 579
+    },
+    "Rhydon": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Rhyhorn",
+        "evolvesInto": [
+            "Rhyperior"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 112
+    },
+    "Rhyhorn": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Rhydon"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 111
+    },
+    "Rhyperior": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvedFrom": "Rhydon",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 464
+    },
+    "Riolu": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Lucario"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 447
+    },
+    "Roggenrola": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Boldore"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 524
+    },
+    "Roselia": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Budew",
+        "evolvesInto": [
+            "Roserade"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 315
+    },
+    "Roserade": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Roselia",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 407
+    },
+    "Rotom": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 479
+    },
+    "Rufflet": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Braviary"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 627
+    },
+    "Sableye": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 302
+    },
+    "Salamence": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvedFrom": "Shelgon",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 373
+    },
+    "Samurott": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Dewott",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 503
+    },
+    "Sandile": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Krokorok"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 551
+    },
+    "Sandshrew": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Sandslash"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 27
+    },
+    "Sandslash": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Sandshrew",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 28
+    },
+    "Sawk": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 539
+    },
+    "Sawsbuck": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Deerling",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 586
+    },
+    "Sceptile": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvedFrom": "Grovyle",
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 254
+    },
+    "Scizor": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Scyther",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 212
+    },
+    "Scolipede": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Whirlipede",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 545
+    },
+    "Scrafty": {
+        "eggGroups": [
+            "ground",
+            "dragon"
+        ],
+        "evolvedFrom": "Scraggy",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 560
+    },
+    "Scraggy": {
+        "eggGroups": [
+            "ground",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Scrafty"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 559
+    },
+    "Scyther": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Scizor"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 123
+    },
+    "Seadra": {
+        "eggGroups": [
+            "water1",
+            "dragon"
+        ],
+        "evolvedFrom": "Horsea",
+        "evolvesInto": [
+            "Kingdra"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 117
+    },
+    "Seaking": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvedFrom": "Goldeen",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 119
+    },
+    "Sealeo": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Spheal",
+        "evolvesInto": [
+            "Walrein"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 364
+    },
+    "Seedot": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Nuzleaf"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 273
+    },
+    "Seel": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Dewgong"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 86
+    },
+    "Seismitoad": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvedFrom": "Palpitoad",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 537
+    },
+    "Sentret": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Furret"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 161
+    },
+    "Serperior": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvedFrom": "Servine",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 497
+    },
+    "Servine": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvedFrom": "Snivy",
+        "evolvesInto": [
+            "Serperior"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 496
+    },
+    "Seviper": {
+        "eggGroups": [
+            "ground",
+            "dragon"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 336
+    },
+    "Sewaddle": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Swadloon"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 540
+    },
+    "Sharpedo": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvedFrom": "Carvanha",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 319
+    },
+    "Shaymin": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 492
+    },
+    "Shedinja": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Nincada",
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 292
+    },
+    "Shelgon": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvedFrom": "Bagon",
+        "evolvesInto": [
+            "Salamence"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 372
+    },
+    "Shellder": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Cloyster"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 90
+    },
+    "Shellos": {
+        "eggGroups": [
+            "water1",
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Gastrodon"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 422
+    },
+    "Shelmet": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Accelgor"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 616
+    },
+    "Shieldon": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvesInto": [
+            "Bastiodon"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 410
+    },
+    "Shiftry": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvedFrom": "Nuzleaf",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 275
+    },
+    "Shinx": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Luxio"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 403
+    },
+    "Shroomish": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Breloom"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 285
+    },
+    "Shuckle": {
+        "eggGroups": [
+            "bug"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 213
+    },
+    "Shuppet": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Banette"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 353
+    },
+    "Sigilyph": {
+        "eggGroups": [
+            "flying"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 561
+    },
+    "Silcoon": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Wurmple",
+        "evolvesInto": [
+            "Beautifly"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 266
+    },
+    "Simipour": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Panpour",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 516
+    },
+    "Simisage": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Pansage",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 512
+    },
+    "Simisear": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Pansear",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 514
+    },
+    "Skarmory": {
+        "eggGroups": [
+            "flying"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 227
+    },
+    "Skiploom": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Hoppip",
+        "evolvesInto": [
+            "Jumpluff"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 188
+    },
+    "Skitty": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvesInto": [
+            "Delcatty"
+        ],
+        "genderRatio": 6,
+        "generation": 3,
+        "id": 300
+    },
+    "Skorupi": {
+        "eggGroups": [
+            "bug",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Drapion"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 451
+    },
+    "Skuntank": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Stunky",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 435
+    },
+    "Slaking": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Vigoroth",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 289
+    },
+    "Slakoth": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Vigoroth"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 287
+    },
+    "Slowbro": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Slowpoke",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 80
+    },
+    "Slowking": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Slowpoke",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 199
+    },
+    "Slowpoke": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvesInto": [
+            "Slowbro",
+            "Slowking"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 79
+    },
+    "Slugma": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Magcargo"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 218
+    },
+    "Smeargle": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 235
+    },
+    "Smoochum": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Jynx"
+        ],
+        "genderRatio": 8,
+        "generation": 2,
+        "id": 238
+    },
+    "Sneasel": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Weavile"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 215
+    },
+    "Snivy": {
+        "eggGroups": [
+            "ground",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Servine"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 495
+    },
+    "Snorlax": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Munchlax",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 143
+    },
+    "Snorunt": {
+        "eggGroups": [
+            "fairy",
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Glalie",
+            "Froslass"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 361
+    },
+    "Snover": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Abomasnow"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 459
+    },
+    "Snubbull": {
+        "eggGroups": [
+            "ground",
+            "fairy"
+        ],
+        "evolvesInto": [
+            "Granbull"
+        ],
+        "genderRatio": 6,
+        "generation": 2,
+        "id": 209
+    },
+    "Solosis": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Duosion"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 577
+    },
+    "Solrock": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "genderRatio": -1,
+        "generation": 3,
+        "id": 338
+    },
+    "Spearow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Fearow"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 21
+    },
+    "Spheal": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Sealeo"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 363
+    },
+    "Spinarak": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Ariados"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 167
+    },
+    "Spinda": {
+        "eggGroups": [
+            "ground",
+            "humanshape"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 327
+    },
+    "Spiritomb": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 442
+    },
+    "Spoink": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Grumpig"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 325
+    },
+    "Squirtle": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvesInto": [
+            "Wartortle"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 7
+    },
+    "Stantler": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 234
+    },
+    "Staraptor": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Staravia",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 398
+    },
+    "Staravia": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Starly",
+        "evolvesInto": [
+            "Staraptor"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 397
+    },
+    "Starly": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Staravia"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 396
+    },
+    "Starmie": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Staryu",
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 121
+    },
+    "Staryu": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Starmie"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 120
+    },
+    "Steelix": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Onix",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 208
+    },
+    "Stoutland": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Herdier",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 508
+    },
+    "Stunfisk": {
+        "eggGroups": [
+            "water1",
+            "indeterminate"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 618
+    },
+    "Stunky": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Skuntank"
+        ],
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 434
+    },
+    "Sudowoodo": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Bonsly",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 185
+    },
+    "Suicune": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 245
+    },
+    "Sunflora": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Sunkern",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 192
+    },
+    "Sunkern": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Sunflora"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 191
+    },
+    "Surskit": {
+        "eggGroups": [
+            "water1",
+            "bug"
+        ],
+        "evolvesInto": [
+            "Masquerain"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 283
+    },
+    "Swablu": {
+        "eggGroups": [
+            "flying",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Altaria"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 333
+    },
+    "Swadloon": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Sewaddle",
+        "evolvesInto": [
+            "Leavanny"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 541
+    },
+    "Swalot": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Gulpin",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 317
+    },
+    "Swampert": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Marshtomp",
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 260
+    },
+    "Swanna": {
+        "eggGroups": [
+            "water1",
+            "flying"
+        ],
+        "evolvedFrom": "Ducklett",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 581
+    },
+    "Swellow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Taillow",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 277
+    },
+    "Swinub": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Piloswine"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 220
+    },
+    "Swoobat": {
+        "eggGroups": [
+            "flying",
+            "ground"
+        ],
+        "evolvedFrom": "Woobat",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 528
+    },
+    "Taillow": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Swellow"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 276
+    },
+    "Tangela": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvesInto": [
+            "Tangrowth"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 114
+    },
+    "Tangrowth": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Tangela",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 465
+    },
+    "Tauros": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 0,
+        "generation": 1,
+        "id": 128
+    },
+    "Teddiursa": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Ursaring"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 216
+    },
+    "Tentacool": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvesInto": [
+            "Tentacruel"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 72
+    },
+    "Tentacruel": {
+        "eggGroups": [
+            "water3"
+        ],
+        "evolvedFrom": "Tentacool",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 73
+    },
+    "Tepig": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Pignite"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 498
+    },
+    "Terrakion": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 639
+    },
+    "Throh": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 538
+    },
+    "Thundurus": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 642
+    },
+    "Timburr": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvesInto": [
+            "Gurdurr"
+        ],
+        "genderRatio": 2,
+        "generation": 5,
+        "id": 532
+    },
+    "Tirtouga": {
+        "eggGroups": [
+            "water1",
+            "water3"
+        ],
+        "evolvesInto": [
+            "Carracosta"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 564
+    },
+    "Togekiss": {
+        "eggGroups": [
+            "flying",
+            "fairy"
+        ],
+        "evolvedFrom": "Togetic",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 468
+    },
+    "Togepi": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Togetic"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 175
+    },
+    "Togetic": {
+        "eggGroups": [
+            "flying",
+            "fairy"
+        ],
+        "evolvedFrom": "Togepi",
+        "evolvesInto": [
+            "Togekiss"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 176
+    },
+    "Torchic": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Combusken"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 255
+    },
+    "Torkoal": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 324
+    },
+    "Tornadus": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": 0,
+        "generation": 5,
+        "id": 641
+    },
+    "Torterra": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Grotle",
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 389
+    },
+    "Totodile": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvesInto": [
+            "Croconaw"
+        ],
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 158
+    },
+    "Toxicroak": {
+        "eggGroups": [
+            "humanshape"
+        ],
+        "evolvedFrom": "Croagunk",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 454
+    },
+    "Tranquill": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Pidove",
+        "evolvesInto": [
+            "Unfezant"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 520
+    },
+    "Trapinch": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Vibrava"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 328
+    },
+    "Treecko": {
+        "eggGroups": [
+            "monster",
+            "dragon"
+        ],
+        "evolvesInto": [
+            "Grovyle"
+        ],
+        "genderRatio": 1,
+        "generation": 3,
+        "id": 252
+    },
+    "Tropius": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 357
+    },
+    "Trubbish": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Garbodor"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 568
+    },
+    "Turtwig": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvesInto": [
+            "Grotle"
+        ],
+        "genderRatio": 1,
+        "generation": 4,
+        "id": 387
+    },
+    "Tympole": {
+        "eggGroups": [
+            "water1"
+        ],
+        "evolvesInto": [
+            "Palpitoad"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 535
+    },
+    "Tynamo": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Eelektrik"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 602
+    },
+    "Typhlosion": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Quilava",
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 157
+    },
+    "Tyranitar": {
+        "eggGroups": [
+            "monster"
+        ],
+        "evolvedFrom": "Pupitar",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 248
+    },
+    "Tyrogue": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Hitmonlee",
+            "Hitmonchan",
+            "Hitmontop"
+        ],
+        "genderRatio": 0,
+        "generation": 2,
+        "id": 236
+    },
+    "Umbreon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 2,
+        "id": 197
+    },
+    "Unfezant": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Tranquill",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 521
+    },
+    "Unown": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 2,
+        "id": 201
+    },
+    "Ursaring": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Teddiursa",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 217
+    },
+    "Uxie": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 4,
+        "id": 480
+    },
+    "Vanillish": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Vanillite",
+        "evolvesInto": [
+            "Vanilluxe"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 583
+    },
+    "Vanillite": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Vanillish"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 582
+    },
+    "Vanilluxe": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvedFrom": "Vanillish",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 584
+    },
+    "Vaporeon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Eevee",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 134
+    },
+    "Venipede": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Whirlipede"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 543
+    },
+    "Venomoth": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Venonat",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 49
+    },
+    "Venonat": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Venomoth"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 48
+    },
+    "Venusaur": {
+        "eggGroups": [
+            "monster",
+            "plant"
+        ],
+        "evolvedFrom": "Ivysaur",
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 3
+    },
+    "Vespiquen": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Combee",
+        "genderRatio": 8,
+        "generation": 4,
+        "id": 416
+    },
+    "Vibrava": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Trapinch",
+        "evolvesInto": [
+            "Flygon"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 329
+    },
+    "Victini": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 494
+    },
+    "Victreebel": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Weepinbell",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 71
+    },
+    "Vigoroth": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Slakoth",
+        "evolvesInto": [
+            "Slaking"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 288
+    },
+    "Vileplume": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Gloom",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 45
+    },
+    "Virizion": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 640
+    },
+    "Volbeat": {
+        "eggGroups": [
+            "bug",
+            "humanshape"
+        ],
+        "genderRatio": 0,
+        "generation": 3,
+        "id": 313
+    },
+    "Volcarona": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Larvesta",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 637
+    },
+    "Voltorb": {
+        "eggGroups": [
+            "mineral"
+        ],
+        "evolvesInto": [
+            "Electrode"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 100
+    },
+    "Vullaby": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Mandibuzz"
+        ],
+        "genderRatio": 8,
+        "generation": 5,
+        "id": 629
+    },
+    "Vulpix": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Ninetales"
+        ],
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 37
+    },
+    "Wailmer": {
+        "eggGroups": [
+            "ground",
+            "water2"
+        ],
+        "evolvesInto": [
+            "Wailord"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 320
+    },
+    "Wailord": {
+        "eggGroups": [
+            "ground",
+            "water2"
+        ],
+        "evolvedFrom": "Wailmer",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 321
+    },
+    "Walrein": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvedFrom": "Sealeo",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 365
+    },
+    "Wartortle": {
+        "eggGroups": [
+            "monster",
+            "water1"
+        ],
+        "evolvedFrom": "Squirtle",
+        "evolvesInto": [
+            "Blastoise"
+        ],
+        "genderRatio": 1,
+        "generation": 1,
+        "id": 8
+    },
+    "Watchog": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Patrat",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 505
+    },
+    "Weavile": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Sneasel",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 461
+    },
+    "Weedle": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Kakuna"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 13
+    },
+    "Weepinbell": {
+        "eggGroups": [
+            "plant"
+        ],
+        "evolvedFrom": "Bellsprout",
+        "evolvesInto": [
+            "Victreebel"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 70
+    },
+    "Weezing": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Koffing",
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 110
+    },
+    "Whimsicott": {
+        "eggGroups": [
+            "fairy",
+            "plant"
+        ],
+        "evolvedFrom": "Cottonee",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 547
+    },
+    "Whirlipede": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Venipede",
+        "evolvesInto": [
+            "Scolipede"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 544
+    },
+    "Whiscash": {
+        "eggGroups": [
+            "water2"
+        ],
+        "evolvedFrom": "Barboach",
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 340
+    },
+    "Whismur": {
+        "eggGroups": [
+            "monster",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Loudred"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 293
+    },
+    "Wigglytuff": {
+        "eggGroups": [
+            "fairy"
+        ],
+        "evolvedFrom": "Jigglypuff",
+        "genderRatio": 6,
+        "generation": 1,
+        "id": 40
+    },
+    "Wingull": {
+        "eggGroups": [
+            "water1",
+            "flying"
+        ],
+        "evolvesInto": [
+            "Pelipper"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 278
+    },
+    "Wobbuffet": {
+        "eggGroups": [
+            "indeterminate"
+        ],
+        "evolvedFrom": "Wynaut",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 202
+    },
+    "Woobat": {
+        "eggGroups": [
+            "flying",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Swoobat"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 527
+    },
+    "Wooper": {
+        "eggGroups": [
+            "water1",
+            "ground"
+        ],
+        "evolvesInto": [
+            "Quagsire"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 194
+    },
+    "Wormadam": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Burmy",
+        "genderRatio": 8,
+        "generation": 4,
+        "id": 413
+    },
+    "Wurmple": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Silcoon",
+            "Cascoon"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 265
+    },
+    "Wynaut": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "evolvesInto": [
+            "Wobbuffet"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 360
+    },
+    "Xatu": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvedFrom": "Natu",
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 178
+    },
+    "Yamask": {
+        "eggGroups": [
+            "mineral",
+            "indeterminate"
+        ],
+        "evolvesInto": [
+            "Cofagrigus"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 562
+    },
+    "Yanma": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvesInto": [
+            "Yanmega"
+        ],
+        "genderRatio": 4,
+        "generation": 2,
+        "id": 193
+    },
+    "Yanmega": {
+        "eggGroups": [
+            "bug"
+        ],
+        "evolvedFrom": "Yanma",
+        "genderRatio": 4,
+        "generation": 4,
+        "id": 469
+    },
+    "Zangoose": {
+        "eggGroups": [
+            "ground"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 335
+    },
+    "Zapdos": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 1,
+        "id": 145
+    },
+    "Zebstrika": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Blitzle",
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 523
+    },
+    "Zekrom": {
+        "eggGroups": [
+            "no-eggs"
+        ],
+        "genderRatio": -1,
+        "generation": 5,
+        "id": 644
+    },
+    "Zigzagoon": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Linoone"
+        ],
+        "genderRatio": 4,
+        "generation": 3,
+        "id": 263
+    },
+    "Zoroark": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvedFrom": "Zorua",
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 571
+    },
+    "Zorua": {
+        "eggGroups": [
+            "ground"
+        ],
+        "evolvesInto": [
+            "Zoroark"
+        ],
+        "genderRatio": 1,
+        "generation": 5,
+        "id": 570
+    },
+    "Zubat": {
+        "eggGroups": [
+            "flying"
+        ],
+        "evolvesInto": [
+            "Golbat"
+        ],
+        "genderRatio": 4,
+        "generation": 1,
+        "id": 41
+    },
+    "Zweilous": {
+        "eggGroups": [
+            "dragon"
+        ],
+        "evolvedFrom": "Deino",
+        "evolvesInto": [
+            "Hydreigon"
+        ],
+        "genderRatio": 4,
+        "generation": 5,
+        "id": 634
+    }
+}

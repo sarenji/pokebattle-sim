@@ -99,7 +99,7 @@ class @Pokemon extends Backbone.Model
   getMovepool: ->
     {SpeciesData, MoveData} = @getGeneration()
     generation = GENERATION_TO_INT[@collection?.generation || DEFAULT_GENERATION]
-    learnset = learnableMoves(window.Generations, SpeciesData, @attributes, generation)
+    learnset = learnableMoves(window.Generations, @attributes, generation)
 
     # Map each move name to a move object
     return _(learnset).map (moveName) ->

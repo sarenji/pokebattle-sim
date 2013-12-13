@@ -65,3 +65,23 @@ describe 'XY API:', ->
         data.should.be.an.instanceOf(Array)
         data.should.includeEql(["Greninja", "default"])
         done()
+
+  describe '/xy/pokemon/:name', ->
+    it 'should get species data for that pokemon', (done) ->
+      @client.get '/xy/pokemon/charizard', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("default")
+        data.should.have.property("mega-x")
+        data.should.have.property("mega-y")
+        done()
+
+  describe '/xy/pokemon/:name/moves', ->
+    it 'should get all moves that pokemon can learn', (done) ->
+      @client.get '/xy/pokemon/charizard/moves', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("moves")
+        data.moves.should.be.an.instanceOf(Array)
+        data.moves.should.include("Fire Blast")
+        done()

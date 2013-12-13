@@ -72,7 +72,7 @@ attachAPIEndpoints = (server) ->
       server.get "#{gen}/pokemon/:name/moves", (req, res, next) ->
         name = getName(req.params.name)
         pokemon = {name: name}
-        moves = learnsets.learnableMoves(pokemon, intGeneration)
+        moves = learnsets.learnableMoves(GenerationJSON, pokemon, intGeneration)
         return next(new restify.ResourceNotFoundError("Could not find moves for Pokemon: #{req.params.name}"))  if !moves || moves.length == 0
         res.send(moves: moves)
         return next()
@@ -82,7 +82,7 @@ attachAPIEndpoints = (server) ->
         return next(new restify.ResourceNotFoundError("Could not find Pokemon: #{req.params.name}"))  if !name
         pokemon = {name: name}
         moveset = req.query.moves?.split(/,/) || []
-        valid = learnsets.checkMoveset(pokemon, intGeneration, moveset)
+        valid = learnsets.checkMoveset(GenerationJSON, pokemon, intGeneration, moveset)
         errors = []
         errors.push("Invalid moveset")  if !valid
         res.send(errors: errors)
