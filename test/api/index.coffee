@@ -14,8 +14,9 @@ describe 'XY API:', ->
     it 'should get an array of items back', (done) ->
       @client.get '/xy/items', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.length.should.be.greaterThan(0)
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("items")
+        data.items.length.should.be.greaterThan(0)
         done()
 
   describe '/xy/moves', ->
@@ -30,40 +31,45 @@ describe 'XY API:', ->
     it 'should get an array of pokemon that can learn that move', (done) ->
       @client.get '/xy/moves/sketch', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.should.eql([["Smeargle", "default"]])
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        data.pokemon.should.eql([["Smeargle", "default"]])
         done()
 
   describe '/xy/abilities', ->
     it 'should get an array of abilities back', (done) ->
       @client.get '/xy/abilities', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.length.should.be.greaterThan(0)
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("abilities")
+        data.abilities.length.should.be.greaterThan(0)
         done()
 
   describe '/xy/abilities/:name', ->
     it 'should get an array of pokemon that have that ability', (done) ->
       @client.get '/xy/abilities/air-lock', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.should.eql([["Rayquaza", "default"]])
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        data.pokemon.should.eql([["Rayquaza", "default"]])
         done()
 
   describe '/xy/types', ->
     it 'should get an array of all available types', (done) ->
       @client.get '/xy/types', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.should.include("Fairy")
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("types")
+        data.types.should.include("Fairy")
         done()
 
   describe '/xy/types/:name', ->
     it 'should get an array of pokemon that have that type', (done) ->
       @client.get '/xy/types/water', (err, req, res, data) ->
         throw new Error(err)  if err
-        data.should.be.an.instanceOf(Array)
-        data.should.includeEql(["Greninja", "default"])
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        data.pokemon.should.includeEql(["Greninja", "default"])
         done()
 
   describe '/xy/pokemon/:name', ->

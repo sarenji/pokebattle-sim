@@ -36,37 +36,37 @@ attachAPIEndpoints = (server) ->
         return next()
 
       server.get "#{gen}/items", (req, res, next) ->
-        res.send(json.ItemList)
+        res.send(items: json.ItemList)
         return next()
 
       server.get "#{gen}/moves", (req, res, next) ->
-        res.send(json.MoveList)
+        res.send(moves: json.MoveList)
         return next()
 
       server.get "#{gen}/moves/:name", (req, res, next) ->
         move = GenMoves[req.params.name]
         return next(new restify.ResourceNotFoundError("Could not find Move: #{req.params.name}"))  if !move
-        res.send(json.MoveMap[move])
+        res.send(pokemon: json.MoveMap[move])
         return next()
 
       server.get "#{gen}/abilities", (req, res, next) ->
-        res.send(json.AbilityList)
+        res.send(abilities: json.AbilityList)
         return next()
 
       server.get "#{gen}/abilities/:name", (req, res, next) ->
         ability = GenAbilities[req.params.name]
         return next(new restify.ResourceNotFoundError("Could not find Ability: #{req.params.name}"))  if !ability
-        res.send(json.AbilityMap[ability])
+        res.send(pokemon: json.AbilityMap[ability])
         return next()
 
       server.get "#{gen}/types", (req, res, next) ->
-        res.send(json.TypeList)
+        res.send(types: json.TypeList)
         return next()
 
       server.get "#{gen}/types/:name", (req, res, next) ->
         type = GenTypes[req.params.name]
         return next(new restify.ResourceNotFoundError("Could not find Type: #{req.params.name}"))  if !type
-        res.send(json.TypeMap[type])
+        res.send(pokemon: json.TypeMap[type])
         return next()
 
       server.get "#{gen}/pokemon/:name/moves", (req, res, next) ->
