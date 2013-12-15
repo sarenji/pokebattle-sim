@@ -68,60 +68,6 @@ html
                 span.glyphicon.glyphicon-pencil
                 |  Teambuilder
         #teambuilder-section.window.hidden
-    #login-modal.modal.hide(aria-hidden="true", data-server-event="login")
-      .modal-header
-        button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
-        h3 Login to PokeBattle
-      .modal-body
-        .form-errors.alert.alert-error.hidden
-        form.form-horizontal
-          .control-group
-            label.control-label(for="login-email-input") Email
-            .controls
-              input#login-email-input(type="text", placeholder="Email", data-key="email")
-              span.help-inline
-          .control-group
-            label.control-label(for="login-password-input") Password
-            .controls
-              input#login-password-input(type="password", placeholder="Password", data-key="password")
-              span.help-inline
-      .modal-footer
-        button.btn.btn-primary.modal-submit Sign in
-        button.btn(data-dismiss="modal", aria-hidden="true") Close
-    #register-modal.modal.hide(aria-hidden="true", data-server-event="register")
-      .modal-header
-        button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
-        h3 Register for PokeBattle
-      .modal-body
-        .form-errors.alert.alert-error.hidden
-        form.form-horizontal
-          .control-group
-            label.control-label(for="register-username-input") Username
-            .controls
-              input#register-username-input(type="text", placeholder="Username", data-key="username")
-              span.help-inline
-          .control-group
-            label.control-label(for="register-email-input") Email
-            .controls
-              input#register-email-input(type="text", placeholder="Email", data-key="email")
-              span.help-inline
-          .control-group
-            label.control-label(for="register-password-input") Password
-            .controls
-              input#register-password-input(type="password", placeholder="Password", data-key="password")
-              span.help-inline
-          #register-confirm-password.control-group.hidden
-            label.control-label(for="confirm-password-input") Confirm Password
-            .controls
-              input#confirm-password-input(type="password", placeholder="Confirm Password")
-              span.help-inline
-      .modal-footer
-        button.btn.btn-primary.modal-submit Register
-        button.btn(data-dismiss="modal", aria-hidden="true") Close
-    if local
-      :coffeescript
-        @PokeBattle ?= {}
-        @PokeBattle.local = true
     script(src='/js/data.js')
     script(src='/js/vendor.js')
     script(src='/js/templates.js')

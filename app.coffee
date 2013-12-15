@@ -1,23 +1,21 @@
 http = require 'http'
 express = require 'express'
 redis = require 'redis'
-bcrypt = require 'bcrypt'
-async = require 'async'
-flash = require 'connect-flash'
-require 'express-namespace'
 require 'sugar'
 
+# Variables
+process.env.NODE_ENV ||= "development"
+PORT = process.env.PORT || 8000
+
+config = require './server/config'
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
+authentication = require('./server/authentication')
 ladders = require './shared/ladders'
 
 server = new BattleServer()
 app = express()
 httpServer = http.createServer(app)
-
-# Variables
-process.env.NODE_ENV ||= "development"
-PORT = process.env.PORT || 8000
 
 # Connect to redis
 if process.env.REDIS_DB_URL
@@ -32,17 +30,15 @@ app.set("views", "client")
 app.use(express.logger())
 app.use(express.compress())  # gzip
 app.use(express.bodyParser())
-app.use(express.cookieParser(process.env.SECRET_KEY || 'very secure key'))
-app.use(express.session(cookie: { maxAge: 60000 }))
-app.use(flash())
+app.use(express.cookieParser())
+app.use(authentication.middleware())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
 
 # Routing
 renderHomepage = (req, res) ->
-  local = process.env.NODE_ENV in [ 'development', 'test' ]
-  res.render 'index.jade', {local}
+  res.render 'index.jade', username: req.user.username
 
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)
@@ -53,8 +49,17 @@ userList = []
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
-  'connection': (user) ->
-    user.send 'list chatroom', userList.map((u) -> u.toJSON())
+  'login': (user, sessionId) ->
+    authentication.auth sessionId, (body) ->
+      if !body
+        user.send('error', "Something went wrong connecting to the server.")
+        return
+      else
+        user.id = body.username
+        user.send 'list chatroom', userList.map((u) -> u.toJSON())
+        userList.push(user)
+        user.send 'login success', user.toJSON()
+        connections.broadcast 'join chatroom', user.toJSON()
 
   'send chat': (user, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
@@ -151,118 +156,6 @@ connections.addEvents
 
     battle.forfeit(user)
 
-  ##################
-  # AUTHENTICATION #
-  ##################
-  'login': (user, params = {}) ->
-    {email, password} = params
-    login(user, email, password)
-
-  'register': (user, params) ->
-    {username, email, password} = params
-    email = email.toLowerCase()
-    errors = []
-    if !username || username.length < 2
-      errors.push 'Your username must be at least 2 characters.'
-    if username && /[^a-zA-Z0-9\-_]/.test(username)
-      errors.push 'Your username cannot include non-alphanumeric characters.'
-    if !email || !/\@/.test(email)
-      errors.push 'Invalid email address.'
-    if /\:/.test(email)
-      errors.push 'Email addresses cannot include colon characters.'
-    if !password || password.length < 8
-      errors.push 'Your password must be at least 8 characters.'
-
-    if errors.length > 0
-      user.send('register error', errors)
-      return
-
-    async.parallel
-      emailExists: (done) ->
-        db.sismember("users", email, done)
-      usernameExists: (done) ->
-        db.sismember("names", username, done)
-    , (err, results) ->
-      if err
-        console.err(err)
-        user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-        return
-
-      # Notify user if the email or username already exists.
-      {emailExists, usernameExists} = results
-      if usernameExists || emailExists
-        errors = []
-        errors.push('This username is already in use.')  if usernameExists
-        errors.push('This email is already in use.')  if emailExists
-        user.send('register error', errors)
-        return
-
-      # Save to global database of users (emails) and names (usernames)
-      db.multi()
-        .sadd("users", email)
-        .sadd("names", username)
-        .exec (err) ->
-          if err
-            console.err(err)
-            user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-            return
-
-          # Hash password and store it in users:{email}:password
-          bcrypt.hash password, 8, (err, hashedPassword) ->
-            if err
-              console.err(err)
-              user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-              return
-            db.multi()
-              .set("users:#{email}:password", hashedPassword)
-              .rpush("users:#{email}:names", username)
-              .exec (err) ->
-                if err
-                  console.err(err)
-                  user.send('register error', 'Oops, something on our end went wrong! Let us know.')
-                  return
-                # Automatically login.
-                login(user, email, password)
-                user.send('register success')
-
   # TODO: socket.off after disconnection
 
 httpServer.listen(PORT)
-
-generateUsername = ->
-  {SpeciesData} = require './server/bw/data'
-  randomName = (name  for name of SpeciesData)
-  randomName = randomName[Math.floor(Math.random() * randomName.length)]
-  randomName = randomName.split(/\s+/)[0]
-  randomName += "Fan" + Math.floor(Math.random() * 10000)
-  randomName
-
-login = (user, email, password) ->
-  if process.env.NODE_ENV in [ 'development', 'test' ]
-    loginSuccess(user, "test@pokebattle.com")
-  else
-    email = email.toLowerCase().replace(/:/g, '')
-    db.get "users:#{email}:password", (err, hashedPassword) ->
-      if err
-        console.err(err)
-        user.send('login fail', "You entered the wrong username or password.")
-        return
-
-      bcrypt.compare password, hashedPassword, (err, res) ->
-        if res
-          db.lindex "users:#{email}:names", 0, (err, username) ->
-            if err
-              console.err(err)
-              user.send('login fail', "Something went wrong. Try again.")
-              return
-            user.id = username
-            loginSuccess(user, email)
-        else
-          user.send('login fail', "You entered the wrong username or password.")
-
-loginSuccess = (user, email) ->
-  user.id ||= generateUsername()
-  user.email = email
-  userList.push(user)
-  user.send 'login success', user.toJSON()
-  connections.broadcast 'join chatroom', user.toJSON()
