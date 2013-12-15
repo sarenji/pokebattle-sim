@@ -1,23 +1,25 @@
 button-bg(clr)
   clr          = lighten(clr, 50%)
-  dark         = darken(clr, 10%)
-  darker-dark  = darken(dark, 20%)
+  light        = lighten(clr, 30%)
   dark-clr     = darken(clr, 20%)
   darker-clr   = darken(clr, 50%)
   darkest-clr  = darken(darker-clr, 20%)
   btn-clr      = darken(darkest-clr, 30%)
   background   linear-gradient(top, clr, dark-clr)
   border       1px solid darker-clr
-  border-color rgba(0, 0, 0, .1), rgba(0, 0, 0, .2), rgba(0, 0, 0, .3)
+  border-top-color rgba(0, 0, 0, .1)
+  border-left-color rgba(0, 0, 0, .2)
+  border-right-color @border-left-color
+  border-bottom-color rgba(0, 0, 0, .3)
   color        btn-clr
   &:hover
-    background linear-gradient(top, dark, darker-dark)
-    border-color darkest-clr
-    color darken(btn-clr, 20%)
+    background linear-gradient(top, light, clr)
+    color lighten(btn-clr, 20%)
     text-shadow   0 -1px 0 rgba(255, 255, 255, .10)
   &:active, &.pressed
     color darken(btn-clr, 50%)
     text-shadow none
+    border-color darkest-clr
   &.pressed
     background darker-clr
   &:active
@@ -37,6 +39,8 @@ button-bg(clr)
   text-shadow   0 -1px 0 rgba(255, 255, 255, .25)
   box-shadow    inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25)
   position      relative
+  &:hover
+    box-shadow  inset 0 1px 0 rgba(255,255,255,.125), 0 1px 2px rgba(0,0,0,.125)
   .main_text
     narrow-font()
     font-weight 700
@@ -99,10 +103,10 @@ button-bg(clr)
   &.fairy
     button-bg($fairy)
   &.disabled, &.disabled:hover
-    background  #fcfcfc
-    border-color #aaa
+    background  #333
+    border-color #000
     cursor      default
-    color       #ccc
+    color       #666
     text-shadow none
     div, span
       opacity .5
