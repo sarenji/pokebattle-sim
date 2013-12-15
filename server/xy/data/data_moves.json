@@ -581,7 +581,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -984,6 +985,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "mirror", 
             "sound", 
             "authentic"
         ], 
@@ -1516,6 +1518,7 @@
         "damage": "non-damaging", 
         "flags": [
             "reflectable", 
+            "mirror", 
             "sound", 
             "authentic"
         ], 
@@ -1961,7 +1964,8 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -2113,6 +2117,7 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
+            "mirror", 
             "sound", 
             "authentic"
         ], 
@@ -2487,6 +2492,7 @@
         "flags": [
             "contact", 
             "protect", 
+            "mirror", 
             "heal"
         ], 
         "flinchChance": 0, 
@@ -2668,7 +2674,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -2722,7 +2729,8 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -3031,7 +3039,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "mirror"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -3164,7 +3174,8 @@
         "damage": "physical", 
         "flags": [
             "contact", 
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -3577,6 +3588,7 @@
         "flags": [
             "contact", 
             "protect", 
+            "mirror", 
             "gravity"
         ], 
         "flinchChance": 0, 
@@ -3711,7 +3723,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -3769,7 +3782,8 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -5250,7 +5264,8 @@
         "damage": "special", 
         "flags": [
             "contact", 
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -5479,7 +5494,8 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -5961,6 +5977,7 @@
         "ailmentId": "none", 
         "damage": "non-damaging", 
         "flags": [
+            "snatch", 
             "authentic"
         ], 
         "flinchChance": 0, 
@@ -5997,7 +6014,9 @@
         "ailmentChance": 0, 
         "ailmentId": "none", 
         "damage": "non-damaging", 
-        "flags": [], 
+        "flags": [
+            "snatch"
+        ], 
         "flinchChance": 0, 
         "maxHits": 1, 
         "minHits": 1, 
@@ -6472,7 +6491,8 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -6621,7 +6641,8 @@
         "ailmentId": "none", 
         "damage": "special", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -6792,6 +6813,7 @@
         "flags": [
             "protect", 
             "reflectable", 
+            "mirror", 
             "sound", 
             "authentic"
         ], 
@@ -6812,7 +6834,8 @@
         "damage": "physical", 
         "flags": [
             "contact", 
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -6831,6 +6854,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "mirror", 
             "distance", 
             "heal"
         ], 
@@ -6969,6 +6993,7 @@
         "damage": "special", 
         "flags": [
             "protect", 
+            "mirror", 
             "heal"
         ], 
         "flinchChance": 0, 
@@ -6989,6 +7014,7 @@
         "flags": [
             "protect", 
             "reflectable", 
+            "mirror", 
             "sound", 
             "authentic"
         ], 
@@ -7088,7 +7114,8 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -7126,7 +7153,8 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
-            "contact"
+            "contact", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -7164,6 +7192,7 @@
         "damage": "non-damaging", 
         "flags": [
             "reflectable", 
+            "mirror", 
             "authentic"
         ], 
         "flinchChance": 0, 
@@ -7183,7 +7212,8 @@
         "damage": "physical", 
         "flags": [
             "contact", 
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -7367,6 +7397,7 @@
             "powder", 
             "protect", 
             "reflectable", 
+            "mirror", 
             "authentic"
         ], 
         "flinchChance": 0, 
@@ -7501,6 +7532,7 @@
         "flags": [
             "contact", 
             "protect", 
+            "mirror", 
             "punch"
         ], 
         "flinchChance": 0, 
@@ -10782,7 +10814,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -10932,7 +10965,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -11109,7 +11143,8 @@
         "damage": "non-damaging", 
         "flags": [
             "protect", 
-            "reflectable"
+            "reflectable", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 1, 
@@ -11324,7 +11359,8 @@
         "ailmentId": "none", 
         "damage": "physical", 
         "flags": [
-            "protect"
+            "protect", 
+            "mirror"
         ], 
         "flinchChance": 0, 
         "maxHits": 5, 
