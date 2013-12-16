@@ -90,6 +90,10 @@ module.exports = (grunt) ->
             'package.json'
             '*.md'
             '*.txt'
+            'Capfile'
+            'config/*'
+            'Gemfile'
+            'Gemfile.lock'
           ]
 
   grunt.loadNpmTasks('grunt-contrib-jade')

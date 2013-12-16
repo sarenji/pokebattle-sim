@@ -17,7 +17,6 @@ request = request.defaults(json: true, headers: authHeaders)
   return next()  if !id
   request.get "http://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
     return next()  if err
-    console.log(body)
     return next(body)
 
 generateUsername = ->
