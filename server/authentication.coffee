@@ -1,7 +1,10 @@
-config = require './config'
 request = require 'request'
+{_} = require 'underscore'
 authHeaders = {AUTHUSER: process.env.AUTHUSER, AUTHTOKEN: process.env.AUTHTOKEN}
 request = request.defaults(json: true, headers: authHeaders)
+
+config = require './config'
+db = require './database'
 
 @middleware = -> (req, res, next) ->
   auth req.cookies.sessionid, (body) ->
@@ -9,8 +12,9 @@ request = request.defaults(json: true, headers: authHeaders)
       redirectURL = "http://pokebattle.com/accounts/login"
       redirectURL += "?next=http://#{req.headers.host}"
       return res.redirect(redirectURL)
-    req.user = {username: body.username}
-    next()
+    req.user = _.clone(body)
+    req.user.token = generateToken()
+    db.set("tokens:#{req.user.token}", JSON.stringify(body), next)
 
 @auth = auth = (id, next) ->
   return next(username: generateUsername())  if config.IS_LOCAL
@@ -19,6 +23,12 @@ request = request.defaults(json: true, headers: authHeaders)
     return next()  if err
     return next(body)
 
+@matchToken = (token, next) ->
+  db.get "tokens:#{token}", (err, result) ->
+    if err then return next(err, null)
+    user = JSON.parse(result)
+    return next(null, user)
+
 generateUsername = ->
   {SpeciesData} = require './xy/data'
   randomName = (name  for name of SpeciesData)
@@ -26,3 +36,6 @@ generateUsername = ->
   randomName = randomName.split(/\s+/)[0]
   randomName += "Fan" + Math.floor(Math.random() * 10000)
   randomName
+
+generateToken = ->
+  Math.random().toString(36).substr(2)

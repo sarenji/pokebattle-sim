@@ -1,6 +1,5 @@
 http = require 'http'
 express = require 'express'
-redis = require 'redis'
 require 'sugar'
 
 # Variables
@@ -17,14 +16,6 @@ server = new BattleServer()
 app = express()
 httpServer = http.createServer(app)
 
-# Connect to redis
-if process.env.REDIS_DB_URL
-  parts = require("url").parse(process.env.REDIS_DB_URL)
-  db = redis.createClient(parts.port, parts.hostname)
-  db.auth(parts.auth.split(":")[1])  if parts.auth
-else
-  db = redis.createClient()
-
 # Configuration
 app.set("views", "client")
 app.use(express.logger())
@@ -38,7 +29,7 @@ app.use(express.static(__dirname + "/public"))
 
 # Routing
 renderHomepage = (req, res) ->
-  res.render 'index.jade', username: req.user.username
+  res.render 'index.jade', user: req.user
 
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)
@@ -49,17 +40,14 @@ userList = []
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
-  'login': (user, sessionId) ->
-    authentication.auth sessionId, (body) ->
-      if !body
-        user.send('error', "Something went wrong connecting to the server.")
-        return
-      else
-        user.id = body.username
-        user.send 'list chatroom', userList.map((u) -> u.toJSON())
-        userList.push(user)
-        user.send 'login success', user.toJSON()
-        connections.broadcast 'join chatroom', user.toJSON()
+  'login': (user, token) ->
+    authentication.matchToken token, (err, details) ->
+      if err then return user.send('error', "Invalid login!")
+      user.id = details.username
+      user.send 'list chatroom', userList.map((u) -> u.toJSON())
+      userList.push(user)
+      user.send 'login success', user.toJSON()
+      connections.broadcast 'join chatroom', user.toJSON()
 
   'send chat': (user, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
