@@ -2,6 +2,7 @@
 {Pokemon} = require './pokemon'
 {Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
+Query = require('./queries')
 
 class @Team
   constructor: (battle, player, pokemon, @numActive) ->
@@ -69,19 +70,16 @@ class @Team
     newPokemon.tell(Protocol.SWITCH_IN, b)
     newPokemon
 
-  beginTurn: ->
-    @attachments.query('beginTurn')
-
   shouldBlockFieldExecution: (move, user) ->
-    @attachments.queryUntilTrue('shouldBlockFieldExecution', move, user)
+    Query.untilTrue('shouldBlockFieldExecution', @attachments.all(), move, user)
 
   switchOut: (pokemon) ->
-    @attachments.query('switchOut', pokemon)
+    Query('switchOut', @attachments.all(), pokemon)
     pokemon.switchOut()
 
   switchIn: (pokemon) ->
     pokemon.switchIn()
-    @attachments.query('switchIn', pokemon)
+    Query('switchIn', @attachments.all(), pokemon)
 
   getAdjacent: (pokemon) ->
     index = @pokemon.indexOf(pokemon)

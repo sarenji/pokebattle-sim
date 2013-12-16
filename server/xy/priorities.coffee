@@ -2,7 +2,42 @@
 {Item} = require('./data/items')
 {Attachment, Status} = require('./attachment')
 
-Priorities = {}
+module.exports = Priorities = {}
+
+Priorities.beforeMove ?= [
+  # Things that should happen no matter what
+  Attachment.Pursuit
+  Attachment.Fling
+
+  # Order-dependent
+  Ability.StanceChange
+  Status.Freeze
+  Status.Sleep
+  Ability.Truant
+  Attachment.Disable
+  Attachment.ImprisonPrevention
+  # TODO: Heal Block
+  Attachment.Confusion
+  Attachment.Flinch
+  Attachment.Taunt
+  Attachment.GravityPokemon
+  Attachment.Attract
+  Status.Paralyze
+
+  # Things that should happen only if the move starts executing
+  Attachment.FocusPunch
+  Attachment.Recharge
+  Attachment.Metronome
+  Attachment.DestinyBond
+  Attachment.Grudge
+  Attachment.Rage
+  Attachment.Charging
+  Attachment.FuryCutter
+  Ability.Protean
+  Item.ChoiceBand
+  Item.ChoiceScarf
+  Item.ChoiceSpecs
+]
 
 Priorities.endTurn = [
   # Non-order-dependent
@@ -89,7 +124,3 @@ Priorities.endTurn = [
   Item.StickyBarb
   # Ability.ZenMode
 ]
-
-coffee = require 'coffee-script'
-path = require('path').resolve(__dirname, '../bw/priorities.coffee')
-eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))

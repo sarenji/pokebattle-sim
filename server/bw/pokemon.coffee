@@ -3,6 +3,7 @@
 {Attachment, Status, Attachments} = require './attachment'
 {Weather} = require './weather'
 {Protocol} = require '../../shared/protocol'
+Query = require './queries'
 util = require './util'
 floor = Math.floor
 
@@ -124,7 +125,7 @@ class @Pokemon
     else
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
-    total = @attachments.queryChain("edit#{capitalized}", total)
+    total = Query.chain("edit#{capitalized}", @attachments.all(), total)
     total = @statBoost(key, total, options)  if key != 'hp'
     total
 
@@ -154,7 +155,7 @@ class @Pokemon
   # Example: pokemon.boost(specialAttack: 1, evasion: 2)
   #
   boost: (boosts, source = this) ->
-    boosts = @attachments.queryChain('transformBoosts', _.clone(boosts), source)
+    boosts = Query.chain('transformBoosts', @attachments.all(), _.clone(boosts), source)
     boosted = {}
     for stat, amount of boosts
       amount *= -1  if @ability == Ability.Contrary
@@ -269,7 +270,7 @@ class @Pokemon
     @setHP(0)  if !@isFainted()
     @fainted = true
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
-    @attachments.query('afterFaint')
+    Query('afterFaint', @attachments.all())
 
   damage: (amount, options = {}) ->
     amount = @transformHealthChange(amount, options)
@@ -285,31 +286,31 @@ class @Pokemon
     @heal(amount)
 
   transformHealthChange: (damage, options) ->
-    @attachments.queryChain('transformHealthChange', damage, options)
+    Query.chain('transformHealthChange', @attachments.all(), damage, options)
 
   editPriority: (priority, move) ->
-    @attachments.queryChain('editPriority', priority, move)
+    Query.chain('editPriority', @attachments.all(), priority, move)
 
   editDamage: (move, damage) ->
-    @attachments.queryChain('editDamage', damage, move, this)
+    Query.chain('editDamage', @attachments.all(), damage, move, this)
 
   editBoosts: ->
-    @attachments.queryChain('editBoosts', _.clone(@stages))
+    Query.chain('editBoosts', @attachments.all(), _.clone(@stages))
 
   editAccuracy: (accuracy, move, target) ->
-    @attachments.queryChain('editAccuracy', accuracy, move, target)
+    Query.chain('editAccuracy', @attachments.all(), accuracy, move, target)
 
   editEvasion: (accuracy, move, user) ->
-    @attachments.queryChain('editEvasion', accuracy, move, user)
+    Query.chain('editEvasion', @attachments.all(), accuracy, move, user)
 
   editMoveType: (type, target) ->
-    @attachments.queryChain('editMoveType', type, target)
+    Query.chain('editMoveType', @attachments.all(), type, target)
 
   calculateWeight: ->
-    @attachments.queryChain('calculateWeight', @weight)
+    Query.chain('calculateWeight', @attachments.all(), @weight)
 
   criticalModifier: ->
-    @attachments.queryChain('criticalModifier', 0)
+    Query.chain('criticalModifier', @attachments.all(), 0)
 
   setHP: (hp) ->
     oldHP = @currentHP
@@ -331,7 +332,7 @@ class @Pokemon
     @lastHitBy = {pokemon, damage, move, turn}
 
   isImmune: (type, move) ->
-    b = @attachments.queryUntilNotNull('isImmune', type, move)
+    b = Query.untilNotNull('isImmune', @attachments.all(), type, move)
     if b? then return b
 
     return false  if move?.ignoresImmunities()
@@ -340,7 +341,7 @@ class @Pokemon
     return multiplier == 0
 
   isWeatherDamageImmune: (weather) ->
-    b = @attachments.queryUntilNotNull('isWeatherDamageImmune', weather)
+    b = Query.untilNotNull('isWeatherDamageImmune', @attachments.all(), weather)
     if b? then return b
 
     return true  if weather == Weather.HAIL && @hasType("Ice")
@@ -352,59 +353,59 @@ class @Pokemon
     @turnsActive = 0
     @attach(@ability)  if @ability
     @attach(@item)   if @item
-    @attachments.query('switchIn')
+    Query('switchIn', @attachments.all())
 
   switchOut: ->
     delete @lastMove
     @used = {}
-    @attachments.query('switchOut')
+    Query('switchOut', @attachments.all())
     @attachments.unattachAll((a) -> a.volatile)
     @resetForme()
     @resetBoosts()
     @resetBlocks()
 
   informSwitch: (switcher) ->
-    @attachments.query('informSwitch', switcher)
+    Query('informSwitch', @attachments.all(), switcher)
 
   shouldPhase: (phaser) ->
-    @attachments.queryUntilFalse('shouldPhase', phaser) != false
+    Query.untilFalse('shouldPhase', @attachments.all(), phaser) != false
 
   informCriticalHit: ->
-    @attachments.query('informCriticalHit')
+    Query('informCriticalHit', @attachments.all())
 
   informWeather: (weather) ->
-    @attachments.query('informWeather', weather)
+    Query('informWeather', @attachments.all(), weather)
 
   beginTurn: ->
-    @attachments.query('beginTurn')
+    Query('beginTurn', @attachments.all())
 
   beforeMove: (move, user, targets) ->
-    @attachments.queryUntilFalse('beforeMove', move, user, targets)
+    Query.untilFalse('beforeMove', @attachments.all(), move, user, targets)
 
   afterMove: (move, user, targets) ->
-    @attachments.query('afterMove', move, user, targets)
+    Query('afterMove', @attachments.all(), move, user, targets)
 
   shouldBlockExecution: (move, user) ->
-    @attachments.queryUntilTrue('shouldBlockExecution', move, user)
+    Query.untilTrue('shouldBlockExecution', @attachments.all(), move, user)
 
   update: ->
-    @attachments.query('update')
+    Query('update', @attachments.all())
 
   afterTurnOrder: ->
-    @attachments.query('afterTurnOrder')
+    Query('afterTurnOrder', @attachments.all())
 
   calculateNumberOfHits: (move, targets) ->
-    @attachments.queryUntilNotNull("calculateNumberOfHits", move, targets)
+    Query.untilNotNull("calculateNumberOfHits", @attachments.all(), move, targets)
 
   resetRecords: ->
     @lastHitBy = null
 
   # Hook for when the Pokemon gets hit by a move
   afterBeingHit: (move, user, target, damage) ->
-    @attachments.query('afterBeingHit', move, user, target, damage)
+    Query('afterBeingHit', @attachments.all(), move, user, target, damage)
 
   afterSuccessfulHit: (move, user, target, damage) ->
-    @attachments.query('afterSuccessfulHit', move, user, target, damage)
+    Query('afterSuccessfulHit', @attachments.all(), move, user, target, damage)
 
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->

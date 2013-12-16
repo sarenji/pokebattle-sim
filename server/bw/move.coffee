@@ -1,6 +1,7 @@
 {Attachment, Status} = require './attachment'
 {Weather} = require './weather'
 {Protocol} = require '../../shared/protocol'
+Query = require('./queries')
 util = require './util'
 
 # A single Move in the Pokemon engine. Move objects are constructed in
@@ -246,18 +247,18 @@ class @Move
       battle.rng.randInt(@minHits, @maxHits, "num hits")
 
   modifyBasePower: (battle, user, target) ->
-    modify = user.attachments.queryModifiers('modifyBasePower', this, user, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyBasePowerTarget', this, user))
+    modify = Query.modifiers("modifyBasePower", user.attachments.all(), this, user, target)
+    modify = @modify(modify, Query.modifiers("modifyBasePowerTarget", target.attachments.all(), this, user))
 
   modifyDamage: (battle, user, target, hitNumber) ->
     {team} = battle.getOwner(target)
-    modify = team.attachments.queryModifiers('modifyDamageTarget', this, user, hitNumber)
-    modify = @modify(modify, user.attachments.queryModifiers('modifyDamage', this, target, hitNumber))
-    modify = @modify(modify, target.attachments.queryModifiers('modifyDamageTarget', this, user, hitNumber))
+    modify = Query.modifiers('modifyDamageTarget', team.attachments.all(), this, user, hitNumber)
+    modify = @modify(modify, Query.modifiers('modifyDamage', user.attachments.all(), this, target, hitNumber))
+    modify = @modify(modify, Query.modifiers('modifyDamageTarget', target.attachments.all(), this, user, hitNumber))
 
   modifyAttack: (battle, user, target) ->
-    modify = user.attachments.queryModifiers('modifyAttack', this, target)
-    modify = @modify(modify, target.attachments.queryModifiers('modifyAttackTarget', this, user))
+    modify = Query.modifiers('modifyAttack', user.attachments.all(), this, target)
+    modify = @modify(modify, Query.modifiers('modifyAttackTarget', target.attachments.all(), this, user))
 
   getType: (battle, user, target) ->
     @type

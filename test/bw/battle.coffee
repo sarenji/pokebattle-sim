@@ -275,21 +275,7 @@ describe 'Battle', ->
       attachments.should.include(Attachment.Reflect)
       attachments.should.include(Attachment.Ingrain)
 
-  describe "#orderAttachments", ->
-    it "returns a list of attachments in order", ->
-      @battle.attach(Attachment.TrickRoom)
-      @team2.attach(Attachment.Reflect)
-      @p1.attach(Attachment.Ingrain)
-      attachments = @battle.orderAttachments(@battle.getAllAttachments(), "endTurn")
-      attachments = attachments.map((a) -> a.constructor)
-      trIndex = attachments.indexOf(Attachment.TrickRoom)
-      rIndex = attachments.indexOf(Attachment.Reflect)
-      iIndex = attachments.indexOf(Attachment.Ingrain)
-
-      iIndex.should.be.lessThan(rIndex)
-      rIndex.should.be.lessThan(trIndex)
-
-  describe "#queryAttachments", ->
+  describe "#query", ->
     it "queries all attachments attached to a specific event", ->
       @battle.attach(Attachment.TrickRoom)
       @team2.attach(Attachment.Reflect)
@@ -299,7 +285,7 @@ describe 'Battle', ->
       mocks.push @sandbox.mock(Attachment.Reflect.prototype)
       mocks.push @sandbox.mock(Attachment.Ingrain.prototype)
       mock.expects("endTurn").once()  for mock in mocks
-      attachments = @battle.queryAttachments("endTurn")
+      attachments = @battle.query("endTurn")
       mock.verify()  for mock in mocks
 
   describe "#getOpponents", ->
