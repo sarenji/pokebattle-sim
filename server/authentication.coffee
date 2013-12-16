@@ -14,7 +14,10 @@ db = require './database'
       return res.redirect(redirectURL)
     req.user = _.clone(body)
     req.user.token = generateToken()
-    db.set("tokens:#{req.user.token}", JSON.stringify(body), next)
+    db.set "tokens:#{req.user.token}", JSON.stringify(body), (err) ->
+      if err then return next.apply(null, arguments)
+      db.expire("tokens:#{req.user.token}", 5 * 60)  # Expire in 5 mins.
+      next.apply(null, arguments)
 
 @auth = auth = (id, next) ->
   return next(username: generateUsername())  if config.IS_LOCAL
@@ -25,6 +28,7 @@ db = require './database'
 
 @matchToken = (token, next) ->
   db.get "tokens:#{token}", (err, result) ->
+    db.del("tokens:#{token}")  # We don't need the token anymore.
     if err then return next(err, null)
     user = JSON.parse(result)
     return next(null, user)
