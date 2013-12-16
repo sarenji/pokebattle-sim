@@ -23,7 +23,7 @@ db = require './database'
   return next(username: generateUsername())  if config.IS_LOCAL
   return next()  if !id
   request.get "http://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
-    return next()  if err
+    return next()  if err || res.statusCode != 200
     return next(body)
 
 @matchToken = (token, next) ->
