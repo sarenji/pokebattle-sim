@@ -89,8 +89,13 @@ class @BattleView extends Backbone.View
     this
 
   popover: ($this, pokemon) =>
+    displayName = pokemon.get('name')
+    displayName += " @ #{pokemon.get('item')}"  if pokemon.has('item')
+    displayName += "<br>"
+    for type in pokemon.getForme().types
+      displayName += """<img src="http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png" alt="#{type}"/>"""
     $this.popover
-      title: pokemon.get('name')
+      title: displayName
       html: true
       content: JST['battle_hover_info']({window, pokemon})
       trigger: 'hover'

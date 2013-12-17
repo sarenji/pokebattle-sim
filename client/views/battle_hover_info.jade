@@ -1,24 +1,31 @@
 p
-  each type in pokemon.getForme().types
-    | [#{type}]
-
-p
-  | HP: #{pokemon.getPercentHP()}%
+  strong HP:
+  |  #{pokemon.getPercentHP()}%
   if pokemon.has('hp')
     |  (#{pokemon.get('hp')}/#{pokemon.get('maxHP')})
 
-if pokemon.has('item')
-  p Item: #{pokemon.get('item')}
+  br
 
-if pokemon.has('ability')
-  p Ability: #{pokemon.get('ability')}
-else
-  p Possible abilities: #{pokemon.getAbilities().join(', ')}
+  if pokemon.has('ability')
+    strong Ability:
+    |  #{pokemon.get('ability')}
+  else
+    strong Possible abilities:
+    |  #{pokemon.getAbilities().join(', ')}
 
-p Status: #{pokemon.getStatus()}
+  br
+
+  strong Status:
+  |  #{pokemon.getStatus()}
 
 if pokemon.has('moves')
-  p
-    each moveName in pokemon.get('moves')
-      | - #{moveName}
-      br
+  .hover_info_moves
+    each moveName, i in pokemon.get('moves')
+      - var moveClass = pokemon.get('moveTypes')[i].toLowerCase()
+      - var pp        = pokemon.get('pp')[i]
+      - var maxPP     = pokemon.get('maxPP')[i]
+      .button.hover_info(class = moveClass)
+        .main_text= moveName
+        .meta_info
+          = pp
+          small /#{maxPP}
