@@ -11,6 +11,7 @@ config = require './server/config'
 {ConnectionServer} = require './server/connections'
 authentication = require('./server/authentication')
 ladders = require './shared/ladders'
+{Room} = require('./server/rooms')
 
 server = new BattleServer()
 app = express()
@@ -34,7 +35,7 @@ renderHomepage = (req, res) ->
 app.get("/", renderHomepage)
 app.get("/battles/:id", renderHomepage)
 
-userList = []
+lobby = new Room("Lobby")
 
 # Start responding to websocket clients
 connections = new ConnectionServer(httpServer, prefix: '/socket')
@@ -42,16 +43,16 @@ connections = new ConnectionServer(httpServer, prefix: '/socket')
 connections.addEvents
   'login': (user, token) ->
     authentication.matchToken token, (err, details) ->
-      if err then return user.send('error', "Invalid login!")
+      if err || !details then return user.send('error', "Invalid login!")
       user.id = details.username
-      user.send 'list chatroom', userList.map((u) -> u.toJSON())
-      userList.push(user)
-      user.send 'login success', user.toJSON()
-      connections.broadcast 'join chatroom', user.toJSON()
+      user.send('login success', user.id)
+      user.send('list chatroom', lobby.userJSON())
+      if lobby.addUser(user) == 1  # First to join
+        connections.broadcast('join chatroom', user.id)
 
   'send chat': (user, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
-    user.broadcast 'update chat', user.toJSON(), message
+    user.broadcast('update chat', user.id, message)
 
   'send battle chat': (user, battleId, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
@@ -66,8 +67,8 @@ connections.addEvents
     console.log(team) # todo: implement this
 
   'close': (user) ->
-    userList.remove((u) -> u == user)
-    user.broadcast 'leave chatroom', user.toJSON()
+    if lobby.removeUser(user) == 0  # No more connections.
+      user.broadcast('leave chatroom', user.id)
     # TODO: Remove from battles as well
     # TODO: Dequeue player from finding battles
 

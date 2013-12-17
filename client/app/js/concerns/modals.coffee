@@ -51,11 +51,11 @@ PokeBattle.socket.addEvents
     errorText = ("<p>#{error}</p>"  for error in errors).join('')
     $('#register-modal .form-errors').html(errorText).removeClass('hidden')
 
-  'login success' : (socket, user) ->
+  'login success' : (socket, username) ->
     $('.modal').modal('hide')
     $('.login-links').hide()
-    $('.greetings').html("Greetings, <strong>#{user.id}</strong>!")
-    PokeBattle.username = user.id
+    $('.greetings').html("Greetings, <strong>#{username}</strong>!")
+    PokeBattle.username = username
 
   'login fail' : (socket, reason) ->
     $('#login-modal .form-errors').text(reason).removeClass('hidden')

@@ -55,21 +55,21 @@ PokeBattle.socket.addEvents
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
 
-  'update chat': (socket, user, data) ->
-    PokeBattle.chatView.userMessage(user.id, data)
+  'update chat': (socket, username, data) ->
+    PokeBattle.chatView.userMessage(username, data)
 
-  'update battle chat': (socket, battleId, user, data) ->
+  'update battle chat': (socket, battleId, username, data) ->
     chatView = PokeBattle.battles.get(battleId).view.chatView
-    chatView.userMessage(user.id, data)
+    chatView.userMessage(username, data)
 
   'raw message': (socket, message) ->
     PokeBattle.chatView.updateChat(message)
 
-  'join chatroom': (socket, user) ->
-    PokeBattle.userList.add(user)
+  'join chatroom': (socket, username) ->
+    PokeBattle.userList.add(id: username)
 
-  'leave chatroom': (socket, user) ->
-    PokeBattle.userList.remove(user)
+  'leave chatroom': (socket, username) ->
+    PokeBattle.userList.remove(id: username)
 
   'error': (socket, message) ->
     alert(message)
