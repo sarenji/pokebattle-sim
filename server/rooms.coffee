@@ -5,19 +5,17 @@ class @Room
   # Adds a user to this room.
   # Returns the number of connections that this user has.
   addUser: (user) ->
-    array = (@users[user] ||= [])
-    array.push(user)  if user not in array
-    array.length
+    @users[user] ||= 0
+    @users[user]  += 1
 
   # Removes a user from this room.
   # Returns the number of remaining connections this user has.
   removeUser: (user) ->
-    array = @users[user]
-    return 0  if !array
-    index = array.indexOf(user)
-    array.splice(index, 1)  if index != -1
-    delete @users[user]  if array.length == 0
-    array.length
+    count = @users[user]
+    return 0  if !count
+    @users[user] -= 1
+    delete @users[user]  if @users[user] == 0
+    @users[user] || 0
 
   userJSON: ->
     Object.keys(@users).map((user) -> {id: user})
