@@ -41,6 +41,7 @@ class @Socket
   send: (type, data...) ->
     @socket.send(JSON.stringify(messageType: type, data: data))
 
+PokeBattle.ready = false
 PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
@@ -50,6 +51,9 @@ PokeBattle.socket.addEvents
       collection: PokeBattle.userList
     )
     PokeBattle.chatView.render()
+    if !PokeBattle.ready  # Only trigger this event once.
+      PokeBattle.ready = true
+      PokeBattle.events.trigger("ready")
     PokeBattle.events.trigger("connect")
 
   'list chatroom': (socket, users) ->

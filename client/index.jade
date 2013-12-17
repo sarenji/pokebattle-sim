@@ -26,11 +26,11 @@ html
           nav#sections
             ul
               li
-                a(href="#") Simulator
+                a(href="//sim.pokebattle.com") Simulator
               li
-                a(href="#") Forums
+                a(href="//pokebattle.com/forums") Forums
               li
-                a(href="#") Pokedex
+                a(href="//pokebattle.com/dex") Pokedex
               li
                 a(href="#") Gadgets
               li
@@ -67,8 +67,16 @@ html
     script(src='/js/templates.js')
     script(src='/js/app.js')
     script.
-      PokeBattle.user = !{JSON.stringify(user)};
-    script.
+      //- Authentication
+      (function() {
+        var TOKEN = "#{user.token}";
+        var ID = "#{user.id}";
+        PokeBattle.events.on("connect", function() {
+          PokeBattle.socket.send('login', ID, TOKEN);
+        });
+      }).call(this);
+
+      //- For Typekit
       (function() {
         var config = {
           kitId: 'bgv2brq',

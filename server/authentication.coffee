@@ -1,11 +1,20 @@
-request = require 'request'
 {_} = require 'underscore'
+
+crypto = require('crypto')
+SECRET = process.env.SECRET_KEY || 'v. secure imo'
+
+request = require 'request'
 authHeaders = {AUTHUSER: process.env.AUTHUSER, AUTHTOKEN: process.env.AUTHTOKEN}
 request = request.defaults(json: true, headers: authHeaders)
 
 config = require './config'
 db = require './database'
 
+# This middleware checks if a user is authenticated through the site. If yes,
+# then information about the user is stored in req.user. In addition, we store
+# a token associated with that user into req.user.token.
+#
+# User information is also stored in a database.
 @middleware = -> (req, res, next) ->
   auth req.cookies.sessionid, (body) ->
     if !body
@@ -13,25 +22,27 @@ db = require './database'
       redirectURL += "?next=http://#{req.headers.host}"
       return res.redirect(redirectURL)
     req.user = _.clone(body)
-    req.user.token = generateToken()
-    db.set "tokens:#{req.user.token}", JSON.stringify(body), (err) ->
-      if err then return next.apply(null, arguments)
-      db.expire("tokens:#{req.user.token}", 5 * 60)  # Expire in 5 mins.
-      next.apply(null, arguments)
+    hmac = crypto.createHmac('sha256', SECRET)
+    req.user.token = hmac.update("#{req.user.id}").digest('hex')
+    db.set("users:#{body.id}", JSON.stringify(body), next)
 
+# Authenticates against the site. A user object is returned if successful, or
+# null if unsuccessful.
 @auth = auth = (id, next) ->
-  return next(username: generateUsername())  if config.IS_LOCAL
+  return next(generateUser())  if config.IS_LOCAL
   return next()  if !id
   request.get "http://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
     return next()  if err || res.statusCode != 200
     return next(body)
 
-@matchToken = (token, next) ->
-  db.get "tokens:#{token}", (err, result) ->
-    db.del("tokens:#{token}")  # We don't need the token anymore.
-    if err then return next(err, null)
-    user = JSON.parse(result)
-    return next(null, user)
+# If the id and token match, the associated user object is returned.
+@matchToken = (id, token, next) ->
+  if crypto.createHmac('sha256', SECRET).update("#{id}").digest('hex') != token
+    return next(new Error("Invalid session!"))
+  db.get "users:#{id}", (err, jsonString) ->
+    if err then return next(err)
+    json = JSON.parse(jsonString)
+    return next(null, json)
 
 generateUsername = ->
   {SpeciesData} = require './xy/data'
@@ -41,5 +52,8 @@ generateUsername = ->
   randomName += "Fan" + Math.floor(Math.random() * 10000)
   randomName
 
-generateToken = ->
-  Math.random().toString(36).substr(2)
+generateId = ->
+  Math.floor(1000000 * Math.random())
+
+generateUser = ->
+  {id: generateId(), username: generateUsername()}

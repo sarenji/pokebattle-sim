@@ -41,14 +41,14 @@ lobby = new Room("Lobby")
 connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
-  'login': (user, token) ->
-    authentication.matchToken token, (err, details) ->
-      if err || !details then return user.send('error', "Invalid login!")
-      user.id = details.username
+  'login': (user, id, token) ->
+    authentication.matchToken id, token, (err, json) ->
+      if err then return user.send('invalid session')
+      user.id = json.username
       user.send('login success', user.id)
+      numConnections = lobby.addUser(user.id)
+      connections.broadcast('join chatroom', user.id)  if numConnections == 1
       user.send('list chatroom', lobby.userJSON())
-      if lobby.addUser(user) == 1  # First to join
-        connections.broadcast('join chatroom', user.id)
 
   'send chat': (user, message) ->
     return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
@@ -67,7 +67,7 @@ connections.addEvents
     console.log(team) # todo: implement this
 
   'close': (user) ->
-    if lobby.removeUser(user) == 0  # No more connections.
+    if lobby.removeUser(user.id) == 0  # No more connections.
       user.broadcast('leave chatroom', user.id)
     # TODO: Remove from battles as well
     # TODO: Dequeue player from finding battles
