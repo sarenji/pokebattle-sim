@@ -56,6 +56,9 @@ PokeBattle.socket.addEvents
       PokeBattle.events.trigger("ready")
     PokeBattle.events.trigger("connect")
 
+  'login success': (socket, id) ->
+    PokeBattle.events.trigger('login success', id)
+
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
 

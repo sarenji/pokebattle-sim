@@ -169,14 +169,14 @@ class @BattleCollection extends Backbone.Collection
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
-    battle.spectators.add(user)
+    battle.spectators.add(id: user)
 
   leaveBattle: (socket, id, user) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
-    battle.spectators.remove(user)
+    battle.spectators.remove(id: user)
 
 createBattleWindow = (collection, battle) ->
   $battle = $(JST['battle_window'](battle: battle, window: window))
