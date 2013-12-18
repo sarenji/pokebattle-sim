@@ -4,9 +4,6 @@ require 'sugar'
 class User
   constructor: (@socket, @connections) ->
 
-  isLoggedIn: ->
-    !!@id
-
   toJSON: -> {
     'id': @id
   }

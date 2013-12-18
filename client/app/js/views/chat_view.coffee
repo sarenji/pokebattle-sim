@@ -32,8 +32,7 @@ class @ChatView extends Backbone.View
   sendChat: =>
     $this = @$('.chat_input')
     message = $this.val()
-    return  unless PokeBattle.username && message?.replace(/\s+$/).length > 0
-    @userMessage(PokeBattle.username, message)
+    return  unless message?.replace(/\s+$/).length > 0
     args = _.clone(@chatArgs)
     args.push(message)
     PokeBattle.socket.send(@chatEvent, args...)

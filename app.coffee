@@ -51,11 +51,11 @@ connections.addEvents
       user.send('list chatroom', lobby.userJSON())
 
   'send chat': (user, message) ->
-    return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
-    user.broadcast('update chat', user.id, message)
+    return  unless message?.replace(/\s+/, '').length > 0
+    connections.broadcast('update chat', user.id, message)
 
   'send battle chat': (user, battleId, message) ->
-    return  unless user.isLoggedIn() && message?.replace(/\s+/, '').length > 0
+    return  unless message?.replace(/\s+/, '').length > 0
     battle = server.findBattle(battleId)
     if !battle
       user.send 'error', 'ERROR: Battle does not exist'
