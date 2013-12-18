@@ -1075,7 +1075,7 @@ extendMove 'Tri Attack', ->
 makeTrickMove 'Trick'
 # extendWithSecondaryEffect 'twineedle', .2, Status.Poison
 extendWithSecondaryEffect 'Twister', .2, Attachment.Flinch
-extendWithSecondaryBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
+extendWithBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
 extendWithSecondaryStatus 'Volt Tackle', .1, Status.Paralyze
 extendWithSecondaryEffect 'Water Pulse', .2, Attachment.Confusion
 makeEruptionMove 'Water Spout'

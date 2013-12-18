@@ -2,25 +2,36 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/moves.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
-extendMove 'Hidden Power', ->
-  @basePower = -> @power
-
-extendMove 'Facade', ->
-  @burnCalculation = -> 1
+makeBoostMove 'Baby-Doll Eyes', 'target', attack: -1
+makeBoostMove 'Confide', 'target', specialAttack: -1
 
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
   @selectPlayers = (battle) ->
     battle.players
 
-extendWithBoost 'Power-Up Punch', 'self', attack: 1
+makeBoostMove 'Eerie Impulse', 'target', specialAttack: -2
 
-extendMove "Rapid Spin", ->
-  @entryHazards.push(Attachment.StickyWeb)
+extendMove 'Facade', ->
+  @burnCalculation = -> 1
+
+extendMove 'Hidden Power', ->
+  @basePower = -> @power
 
 makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
   battle.message "#{user.name} protected itself!"
+
+extendWithSecondaryBoost 'Moonblast', 'target', .3, specialAttack: -1
+extendWithSecondaryBoost 'Mystical Fire', 'target', 1, specialAttack: -1
+makeBoostMove 'Noble Roar', 'target', attack: -1, specialAttack: -1
+extendWithSecondaryStatus 'Nuzzle', 1, Status.Paralyze
+makeBoostMove 'Play Nice', 'target', attack: -1
+extendWithSecondaryBoost 'Play Rough', 'target', .1, attack: -1
+extendWithSecondaryBoost 'Power-Up Punch', 'self', 1, attack: 1
+
+extendMove "Rapid Spin", ->
+  @entryHazards.push(Attachment.StickyWeb)
 
 makeOpponentFieldMove 'Sticky Web', (battle, user, opponent) ->
   if opponent.attachToTeam(Attachment.StickyWeb)
