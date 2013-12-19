@@ -133,3 +133,32 @@ describe "XY Moves:", ->
       @battle.performMove(@p1, defog)
       @p1.team.has(Attachment.StickyWeb).should.be.false
       @p2.team.has(Attachment.StickyWeb).should.be.false
+
+  describe "Knock Off", ->
+    it "has x1.0 power if the pokemon has no item", ->
+      shared.create.call(this, gen: 'xy')
+      knockOff = @battle.getMove("Knock Off")
+      knockOff.basePower(@battle, @p1, @p2).should.equal(knockOff.power)
+
+    it "has x1.5 power if the item can be knocked off", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      knockOff = @battle.getMove("Knock Off")
+      basePower = knockOff.basePower(@battle, @p1, @p2)
+      basePower.should.equal Math.floor(1.5 * knockOff.power)
+
+    it "has x1.0 power if the item cannot be knocked off", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", item: "Air Mail")]
+      knockOff = @battle.getMove("Knock Off")
+      knockOff.basePower(@battle, @p1, @p2).should.equal(knockOff.power)
+
+    it "has x1.5 power if item can be knocked off but owner has Sticky Hold", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", item: "Leftovers", ability: "Sticky Hold")]
+      knockOff = @battle.getMove("Knock Off")
+      basePower = knockOff.basePower(@battle, @p1, @p2)
+      basePower.should.equal Math.floor(1.5 * knockOff.power)

@@ -1677,8 +1677,17 @@ describe "BW Abilities:", ->
   describe "Sticky Hold", ->
     it "prevents items from being taken", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Sticky Hold")]
-      @p1.hasTakeableItem().should.be.false
+        team1: [Factory("Magikarp", item: "Leftovers", ability: "Sticky Hold")]
+      @battle.performMove(@p2, @battle.getMove("Trick"))
+      @p1.hasItem("Leftovers").should.be.true
+      @p2.hasItem().should.be.false
+
+    it "does not prevent the user from using Trick", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Leftovers", ability: "Sticky Hold")]
+      @battle.performMove(@p1, @battle.getMove("Trick"))
+      @p1.hasItem().should.be.false
+      @p2.hasItem("Leftovers").should.be.true
 
   describe "Stall", ->
     it "forces the user to move last no matter what", ->
