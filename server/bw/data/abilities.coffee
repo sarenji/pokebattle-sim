@@ -761,7 +761,7 @@ makeAbility 'Stall', ->
 # Hardcoded in Attachment.Flinch
 makeAbility 'Steadfast'
 
-# Hardcoded in Pokemon#hasTakeableItem
+# Hardcoded in Pokemon#canLoseItem
 makeAbility 'Sticky Hold'
 
 makeAbility 'Sturdy', ->

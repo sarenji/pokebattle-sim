@@ -211,7 +211,7 @@ makeTrickMove = (name) ->
 
     @afterSuccessfulHit = (battle, user, target) ->
       if (user.hasItem() && !user.hasTakeableItem()) ||
-          (target.hasItem() && !target.hasTakeableItem()) ||
+          (target.hasItem() && !target.canLoseItem()) ||
           (!target.hasItem() && !user.hasItem())
         @fail(battle)
         return false

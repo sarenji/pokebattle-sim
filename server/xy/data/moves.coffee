@@ -15,6 +15,11 @@ makeBoostMove 'Eerie Impulse', 'target', specialAttack: -2
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
+extendMove 'Knock Off', ->
+  @basePower = (battle, user, target) ->
+    multiplier = (if target.hasTakeableItem() then 1.5 else 1.0)
+    Math.floor(multiplier * @power)
+
 extendMove 'Hidden Power', ->
   @basePower = -> @power
 
