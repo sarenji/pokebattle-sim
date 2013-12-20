@@ -58,7 +58,6 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team, 'change:nature', @renderStats)
     @listenTo(team, 'change:hiddenPowerType', @renderStats)
     @listenTo(team, 'change:shiny', @renderPokemon)
-    @listenTo(team, 'change reset add remove', @dirty)
 
     # Todo: Make this perform better
     @listenTo(team, 'change:name change:forme', (pokemon) =>
@@ -68,6 +67,7 @@ class @TeambuilderView extends Backbone.View
 
     @listenTo(team, 'add remove', @renderPokemonList)
     @listenTo(team, 'reset', @renderTeam)
+    @listenTo(team, 'change reset add remove', @dirty)
 
   loadTeams: =>
     teamsJSON = window.localStorage.getItem("teams")
