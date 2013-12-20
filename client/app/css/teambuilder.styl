@@ -82,19 +82,18 @@ $header = 50px
   margin 1.5em 0
   width 100%
 
-  div
+  .teambuilder_row
     display table-row
     line-height 1.5em
     
-  span, input, select
+  .teambuilder_col
     display table-cell
     box-sizing border-box
     height 2em
     margin 0
-
-  span
-    text-align right
-    padding-right 10px
+    &:first-child
+      text-align right
+      padding-right 10px
 
 .teambuilder .stats
   margin-bottom 1.5em

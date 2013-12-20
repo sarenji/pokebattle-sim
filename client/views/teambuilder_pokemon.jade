@@ -10,7 +10,7 @@ mixin printStat(statName, keyName)
 
 .clearfix
   .species
-    select.species_list
+    select.species_list.select2
       each species in speciesList
         - var selected = (species === pokemon.get("name"))
         option(value=species, selected=selected)= species
@@ -19,38 +19,39 @@ mixin printStat(statName, keyName)
       img.forme-sprite(src=url, alt="")
     - var formes = pokemon.getSelectableFormes()
     if formes.length > 1
-      div Forme:
-      select.selected-forme
-        each forme in formes
-          - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
-          - var selected = (forme === pokemon.get('forme'))
-          option(value=forme, selected=selected)= displayedForme
+      .teambuilder_row
+        .teambuilder_col Forme:
+        select.teambuilder_col.selected-forme
+          each forme in formes
+            - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
+            - var selected = (forme === pokemon.get('forme'))
+            option(value=forme, selected=selected)= displayedForme
   .meta-info
     .row-fluid
       .span4
         .non-stats
-          div
-            span Ability:
-            select.selected_ability
+          .teambuilder_row
+            .teambuilder_col Ability:
+            select.teambuilder_col.selected_ability
               each ability in pokemon.getAbilities()
                 - var selected = (ability == pokemon.get("ability"))
                 option(value=ability, selected=selected)= ability
-          div
-            span Nature:
-            select.selected_nature
+          .teambuilder_row
+            .teambuilder_col Nature:
+            select.teambuilder_col.selected_nature.select2
               each nature in pokemon.getNatures()
                 - var selected = (nature == pokemon.get("nature"))
                 option(value=nature, selected=selected)= nature
-          div
-            span Item:
-            select.selected_item
+          .teambuilder_row
+            .teambuilder_col Item:
+            select.teambuilder_col.selected_item.select2
               option(value="")
               each itemName in itemList
                 - var selected = (itemName == pokemon.get("item"))
                 option(value=itemName, selected=selected)= itemName
-          div
-            span Gender:
-            select.selected_gender
+          .teambuilder_row
+            .teambuilder_col Gender:
+            select.teambuilder_col.selected_gender
               each gender in pokemon.getGenders()
                 - var selected = (gender === pokemon.get("gender"))
                 - var displayedGender = gender
@@ -59,15 +60,15 @@ mixin printStat(statName, keyName)
                 else if gender === "M"
                   - displayedGender = "Male"
                 option(value=gender, selected=selected)= displayedGender
-          div
-            span Level:
-            input.selected_level(type="text", value=pokemon.get('level'))
-          div
-            span Happiness:
-            input.selected_happiness(type="text", value=pokemon.get('happiness'))
-          div
-            span Shiny?
-            input.selected_shininess(type="checkbox", checked=pokemon.get('shiny'))
+          .teambuilder_row
+            .teambuilder_col Level:
+            input.teambuilder_col.selected_level(type="text", value=pokemon.get('level'))
+          .teambuilder_row
+            .teambuilder_col Happiness:
+            input.teambuilder_col.selected_happiness(type="text", value=pokemon.get('happiness'))
+          .teambuilder_row
+            .teambuilder_col Shiny?
+            input.teambuilder_col.selected_shininess(type="checkbox", checked=pokemon.get('shiny'))
 
       .span8
         table.stats
