@@ -920,6 +920,12 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, @battle.getMove("Crunch"))
       @p1.stages.should.include(attack: 1)
 
+    it "doesn't boost attack if the move is non-damaging", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
+      @p1.stages.should.include(attack: 0)
+      @battle.performMove(@p1, @battle.getMove("Nasty Plot"))
+      @p1.stages.should.include(attack: 0)
+
   describe "Klutz", ->
     it "disables user's item upon switch-in", ->
       shared.create.call this,

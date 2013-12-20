@@ -483,7 +483,7 @@ makeAbility 'Iron Fist', ->
 
 makeAbility 'Justified', ->
   this::afterBeingHit = (move, user) ->
-    if move.getType(@battle, user, @pokemon) == 'Dark'
+    if !move.isNonDamaging() && move.getType(@battle, user, @pokemon) == 'Dark'
       @pokemon.boost(attack: 1)
 
 makeAbility 'Klutz', ->
