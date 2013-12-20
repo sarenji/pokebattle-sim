@@ -17,6 +17,9 @@ mixin printStat(statName, keyName)
     .forme-sprite-box
       - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'), {shiny: pokemon.get('shiny')})
       img.forme-sprite(src=url, alt="")
+    .species-types
+      each type in pokemon.getForme().types
+        img(src=window.TypeSprite(type), alt=type)
     - var formes = pokemon.getSelectableFormes()
     if formes.length > 1
       div Forme:
@@ -121,7 +124,8 @@ table.table.table-hover.table-moves
     each move in pokemon.getMovepool()
       tr(data-move-id=move.name)
         td= move.name
-        td= move.type
+        td
+          img(src=window.TypeSprite(move.type), alt=move.type)
         td= move.damage[0].toUpperCase() + move.damage.substr(1)
         td= (move.power == 0) ? "-" : move.power
         td= (move.accuracy == 0) ? "-" : move.accuracy + '%'

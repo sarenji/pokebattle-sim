@@ -133,6 +133,12 @@ $header = 50px
   .forme-sprite
     display inline-block
 
+.teambuilder .species-types
+  text-align center
+  margin-bottom 5px
+  img
+    margin 0 2px
+
 .teambuilder .selected_moves
   .move-button, input
     display block
@@ -142,23 +148,21 @@ $header = 50px
 
 .teambuilder .table-moves
   border-collapse separate
+  margin-top 8px
+  border solid 1px #DDD
+  thead th
+    background whitesmoke
+    border-bottom solid 1px #DDD
   tbody tr
     cursor pointer
     td
       border 1px solid transparent
+    &.active td
+      background #f0f0f9
       &:first-child
-        border-radius 1em 0 0 1em
-      &:last-child
-        border-radius 0 1em 1em 0
-    &.active
-      td
-        border-top 1px solid #dddde7
-        border-bottom @border-top
-        background #f0f0f9
-        &:first-child
-          border-left @border-top
-        &:last-child
-          border-right @border-top
+        text-decoration underline
+    img
+      margin-bottom 3px
 
 .teambuilder .display_teams
   position absolute

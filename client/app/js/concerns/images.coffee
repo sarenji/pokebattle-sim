@@ -13,6 +13,9 @@
   if forme && forme != 'default' then id += "-#{forme}"
   "http://s3.pokebattle.com.s3.amazonaws.com/sprites/#{kind}/#{id}.gif"
 
+@TypeSprite = (type) ->
+  "http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
+
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
 NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
