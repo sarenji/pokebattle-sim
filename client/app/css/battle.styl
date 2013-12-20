@@ -144,8 +144,9 @@ $pane-width = $battle-width + $padding + $padding
         color #EFA532
       .pokemon-effects
         position absolute
-        top 7px
+        top 9px
         color #fff
+        normal-font()
         .pokemon-effect
           font-size .625em
           float left
@@ -153,6 +154,7 @@ $pane-width = $battle-width + $padding + $padding
           background #333
           color #fff
           padding 0 4px
+          border 1px solid rgba(0, 0, 0, .5)
           &.sleep
             background #535
           &.burn
@@ -163,6 +165,10 @@ $pane-width = $battle-width + $padding + $padding
             background #b93
           &.poison, &.toxic
             background #b3b
+          &.boost
+            background #5a3
+            &.negative
+              background #a53
     .sprite
       position absolute
       transition .5s ease-out

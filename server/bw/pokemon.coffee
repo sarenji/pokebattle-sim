@@ -156,7 +156,7 @@ class @Pokemon
   #
   boost: (boosts, source = this) ->
     boosts = Query.chain('transformBoosts', @attachments.all(), _.clone(boosts), source)
-    boosted = {}
+    wasBoosted = {}
     for stat, amount of boosts
       amount *= -1  if @ability == Ability.Contrary
       if stat not of @stages
@@ -165,9 +165,9 @@ class @Pokemon
       @stages[stat] += amount
       @stages[stat] = Math.max(-6, @stages[stat])
       @stages[stat] = Math.min(6, @stages[stat])
-      boosted[stat] = (@stages[stat] != previous)
-    if @battle then util.printBoostMessage(@battle, this, boosted, boosts)
-    boosted
+      wasBoosted[stat] = (@stages[stat] != previous)
+    @tell(Protocol.BOOSTS, wasBoosted, boosts)
+    wasBoosted
 
   positiveBoostCount: ->
     count = 0
@@ -183,6 +183,8 @@ class @Pokemon
     @stages.specialDefense = 0
     @stages.accuracy = 0
     @stages.evasion = 0
+    @tell(Protocol.RESET_BOOSTS)
+    true
 
   hasType: (type) ->
     type in @types

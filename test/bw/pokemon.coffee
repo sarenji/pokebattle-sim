@@ -313,10 +313,6 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(item: "Acro Bike")
       pokemon.hasTakeableItem().should.be.false
 
-    it "returns false if the pokemon has Sticky Hold", ->
-      pokemon = new Pokemon(ability: "Sticky Hold", item: "Leftovers")
-      pokemon.hasTakeableItem().should.be.false
-
     it "returns false if the pokemon has Multitype and a plate", ->
       pokemon = new Pokemon(ability: "Multitype", item: "Draco Plate")
       pokemon.hasTakeableItem().should.be.false

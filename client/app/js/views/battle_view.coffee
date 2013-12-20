@@ -93,7 +93,7 @@ class @BattleView extends Backbone.View
     displayName += " @ #{pokemon.get('item')}"  if pokemon.has('item')
     displayName += "<br>"
     for type in pokemon.getForme().types
-      displayName += """<img src="http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png" alt="#{type}"/>"""
+      displayName += """<img src="#{TypeSprite(type)}" alt="#{type}"/>"""
     $this.popover
       title: displayName
       html: true
@@ -194,6 +194,7 @@ class @BattleView extends Backbone.View
     $newPokemon.attr('data-slot', slot)
     $newPokemon.removeClass('hidden')
     $newSprite = $newPokemon.find('.sprite')
+    @popover($newSprite, pokemon)
 
     if @skip?
       done()
@@ -330,6 +331,60 @@ class @BattleView extends Backbone.View
   attachBattle: (attachment, done) =>
     done()
 
+  boost: (player, slot, wasBoosted, boosts, done) =>
+    pokemonName = @model.getPokemon(player, slot).get('name')
+    $pokemon = @$pokemon(player, slot)
+    $effects = $pokemon.find('.pokemon-effects')
+    for stat, didBoost of wasBoosted
+      amount = boosts[stat]
+      # Boost log message
+      message = @makeBoostMessage(pokemonName, stat, amount, didBoost)
+      @addLog(message)
+      # Boost in the view
+      abbreviatedStat = switch stat
+        when "attack" then "Att"
+        when "defense" then "Def"
+        when "speed" then "Spe"
+        when "specialAttack" then "Sp.A"
+        when "specialDefense" then "Sp.D"
+        when "accuracy" then "Acc."
+        when "evasion" then "Eva."
+        else stat
+      abbreviatedStat = "+#{amount} (x#{(2 + amount) / 2}) #{abbreviatedStat}"
+      $effect = @addPokemonEffect($pokemon, "boost #{stat}", abbreviatedStat)
+      if amount < 0
+        $effect.addClass('negative')
+      else
+        $effect.removeClass('negative')
+    done()
+    true
+
+  makeBoostMessage: (pokemonName, stat, amount, didBoost) ->
+    stat = switch stat
+      when "attack" then "Attack"
+      when "defense" then "Defense"
+      when "speed" then "Speed"
+      when "specialAttack" then "Special Attack"
+      when "specialDefense" then "Special Defense"
+      when "accuracy" then "Accuracy"
+      when "evasion" then "Evasion"
+      else stat
+    if didBoost && amount > 0
+      adverb = ""              if amount == 1
+      adverb = " sharply"      if amount == 2
+      adverb = " drastically"  if amount >= 3
+      "#{pokemonName}'s #{stat} rose#{adverb}!"
+    else if didBoost && amount < 0
+      adverb = ""           if amount == -1
+      adverb = " harshly"   if amount == -2
+      adverb = " severely"  if amount <= -3
+      "#{pokemonName}'s #{stat}#{adverb} fell!"
+    else if !didBoost && amount > 0
+      "#{pokemonName}'s #{stat} won't go any higher!"
+    else if !didBoost && amount < 0
+      "#{pokemonName}'s #{stat} won't go any lower!"
+
+
   unattachPokemon: (player, slot, effect, done) =>
     pokemon = @model.getPokemon(player, slot)
     switch effect
@@ -366,12 +421,17 @@ class @BattleView extends Backbone.View
       else
         done()
 
+  resetBoosts: (player, slot, done) =>
+    $pokemon = @$pokemon(pokemon)
+    $pokemon.find('.boosts').remove()
+    done()
+
   handleStatus: (pokemon, status) =>
     $pokemon = @$pokemon(pokemon)
     if status?
       $effects = $pokemon.find('.pokemon-effects')
       display = @mapStatusForDisplay(status)
-      $effects.append("""<div class="pokemon-effect #{status}">#{display}</div>""")
+      @addPokemonEffect($pokemon, status, display)
     else
       $pokemon.find(".pokemon-effect.#{pokemon.previous('status')}").remove()
 
@@ -383,6 +443,17 @@ class @BattleView extends Backbone.View
       when "toxic" then "TOX"
       when "freeze" then "FRZ"
       when "sleep" then "SLP"
+
+  addPokemonEffect: ($pokemon, klass, text) =>
+    $effects = $pokemon.find(".pokemon-effects")
+    $effect = $effects.find(".pokemon-effect.#{klass.replace(/\s+/g, '.')}")
+    return $effect  if !text
+    if $effect.length == 0
+      $effect = $("<div class='pokemon-effect #{klass}'>#{text}</div>")
+      $effect.appendTo($effects)
+    else
+      $effect.text(text)
+    $effect
 
   unattachTeam: (slot, effect, done) =>
     done()

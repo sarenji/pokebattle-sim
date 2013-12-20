@@ -283,7 +283,7 @@ makeIdentifyMove = (name, type) ->
 makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      return  if user.hasItem() || !target.hasTakeableItem()
+      return  if user.hasItem() || !target.canLoseItem()
       battle.message "#{user.name} stole #{target.name}'s #{target.item.displayName}!"
       user.setItem(target.item)
       target.removeItem()
