@@ -485,8 +485,6 @@ makeAbility 'Justified', ->
   this::afterBeingHit = (move, user) ->
     if move.getType(@battle, user, @pokemon) == 'Dark'
       @pokemon.boost(attack: 1)
-      # TODO: Message
-      @battle.message "#{@pokemon.name}'s attack rose!"
 
 makeAbility 'Klutz', ->
   this::beginTurn = this::switchIn = ->
