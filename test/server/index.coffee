@@ -1,0 +1,1 @@
+require './rooms_spec'

@@ -142,8 +142,14 @@ class @BattleCollection extends Backbone.Collection
           pokemon = battle.getPokemon(player, slot)
           pokemon.set('name', newSpecies)
           pokemon.set('forme', newForme)
-          battle.view.changeSprite(player, slot, newSpecies, newForme)
+          view.changeSprite(player, slot, newSpecies, newForme)
           done()
+        when Protocol.BOOSTS
+          [player, slot, wasBoosted, boosts] = rest
+          view.boost(player, slot, wasBoosted, boosts, done)
+        when Protocol.RESET_BOOSTS
+          [player, slot] = rest
+          view.resetBoosts(player, slot, done)
         else
           done()
     catch e

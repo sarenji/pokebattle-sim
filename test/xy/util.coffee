@@ -5,7 +5,7 @@ require '../helpers'
 describe "XY utility functions:", ->
   it "inherits from BW", ->
     should.exist(util)
-    util.should.have.property('printBoostMessage')
+    util.should.have.property('roundHalfDown')
 
   it "adds a new Fairy type", ->
     should.exist(util.Type)

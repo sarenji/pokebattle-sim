@@ -21,3 +21,5 @@
   RECEIVE_TEAM     : 20
   CHANGE_EXACT_HP  : 21
   SPRITE_CHANGE    : 22
+  BOOSTS           : 23
+  RESET_BOOSTS     : 24
