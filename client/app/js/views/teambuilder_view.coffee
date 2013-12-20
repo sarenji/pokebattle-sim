@@ -28,7 +28,7 @@ class @TeambuilderView extends Backbone.View
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
     'change .select-hidden-power': 'changeHiddenPower'
-    'keyup .selected_moves input': 'keyupMoves'
+    'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
     'click .table-moves tbody tr': 'clickMoveName'
     'click .move-button': 'clickSelectedMove'
@@ -179,9 +179,8 @@ class @TeambuilderView extends Backbone.View
     @itemList = _(name for name, data of ItemData).sort()
     @render()
 
-  keyupMoves: (e) =>
+  keydownMoves: (e) =>
     $input = $(e.currentTarget)
-    return  if $input.val().length == 0
     $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
@@ -202,8 +201,11 @@ class @TeambuilderView extends Backbone.View
           $nextMove.addClass('active')
       else
         # Otherwise we're filtering moves
-        moveName = $input.val()
-        @filterMovesBy(moveName)
+        # We defer since $input may not have updated yet
+        _.defer =>
+          return  unless $input.is(":focus")
+          moveName = $input.val()
+          @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
     $table = @getActivePokemonView().find('.table-moves')
@@ -222,8 +224,14 @@ class @TeambuilderView extends Backbone.View
 
   blurMoves: (e) =>
     $input = $(e.currentTarget)
+    $selectedMove = @$selectedMove()
+    moveName = $selectedMove.data('move-id')
+
+    # Remove filtering and row selection
+    @filterMovesBy("")
+    $(".table-moves .active").removeClass("active")
+
     return  if $input.val().length == 0
-    moveName = @$selectedMove().data('move-id')
     @insertMove($input, moveName)
 
   clickMoveName: (e) =>
@@ -258,6 +266,9 @@ class @TeambuilderView extends Backbone.View
     $input = $("<input type='text' value='#{$this.text()}'/>")
     $this.replaceWith($input)
     $input.focus()
+
+    # Set the current move row to active
+    $(".table-moves tr[data-move-id='#{$this.text()}']").addClass("active")
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
