@@ -21,6 +21,10 @@ describe "XY Pokemon:", ->
       pokemon = new Pokemon(name: "Charizard", item: "Leftovers")
       pokemon.canMegaEvolve().should.be.false
 
+    it "returns false if holding no item", ->
+      pokemon = new Pokemon(name: "Charizard")
+      pokemon.canMegaEvolve().should.be.false
+
     it "returns false if already another forme", ->
       pokemon = new Pokemon(name: "Charizard", item: "Charizardite X")
       pokemon.changeForme("mega-x")
