@@ -53,3 +53,18 @@ describe "XY Pokemon:", ->
       pokemon = new Pokemon(name: "Charizard")
       pokemon.blockSwitch()
       pokemon.isSwitchBlocked().should.be.true
+
+  describe "#hasTakeableItem", ->
+    it "returns false if the pokemon holds a mega stone for its species", ->
+      pokemon = new Pokemon(name: "Gengar", item: "Gengarite")
+      pokemon.hasTakeableItem().should.be.false
+
+    it "returns true if the pokemon holds a mega stone for another species", ->
+      pokemon = new Pokemon(name: "Gengar", item: "Kangaskhanite")
+      pokemon.hasTakeableItem().should.be.true
+
+    it "still uses old BW conditions", ->
+      pokemon = new Pokemon(name: "Gengar", item: "Leftovers")
+      pokemon.hasTakeableItem().should.be.true
+      pokemon = new Pokemon(name: "Gengar")
+      pokemon.hasTakeableItem().should.be.false

@@ -13,3 +13,11 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 oldBlockSwitch = @Pokemon::blockSwitch
 @Pokemon::blockSwitch = ->
   oldBlockSwitch.apply(this, arguments)  if !@hasType("Ghost")
+
+oldHasTakeableItem = @Pokemon::hasTakeableItem
+@Pokemon::hasTakeableItem = ->
+  return false  if oldHasTakeableItem.apply(this, arguments) == false
+  if @item.type == 'megastone'
+    [ species, forme ] = @item.mega
+    return false  if @name == species
+  return true
