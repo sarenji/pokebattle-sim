@@ -78,9 +78,6 @@ PokeBattle.socket.addEvents
   'leave chatroom': (socket, username) ->
     PokeBattle.userList.remove(id: username)
 
-  'error': (socket, message) ->
-    alert(message)
-
 $ ->
   PokeBattle.battles = new BattleCollection([])
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))

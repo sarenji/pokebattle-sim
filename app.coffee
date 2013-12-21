@@ -12,6 +12,7 @@ config = require './server/config'
 authentication = require('./server/authentication')
 ladders = require './shared/ladders'
 {Room} = require('./server/rooms')
+errors = require './shared/errors'
 
 server = new BattleServer()
 app = express()
@@ -43,7 +44,7 @@ connections = new ConnectionServer(httpServer, prefix: '/socket')
 connections.addEvents
   'login': (user, id, token) ->
     authentication.matchToken id, token, (err, json) ->
-      if err then return user.send('invalid session')
+      if err then return user.send('error', errors.INVALID_SESSION)
       user.id = json.username
       user.send('login success', user.id)
       numConnections = lobby.addUser(user.id)
@@ -58,7 +59,7 @@ connections.addEvents
     return  unless message?.replace(/\s+/, '').length > 0
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.messageSpectators(user, message)
@@ -78,12 +79,12 @@ connections.addEvents
 
   'find battle': (user, team, generation) ->
     if generation not in ladders.SUPPORTED_GENERATIONS
-      user.send("error", [ "Invalid generation: #{generation}" ])
+      user.send("error", errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
       return
 
-    errors = server.validateTeam(team, generation)
-    if errors.length > 0
-      user.send("error", errors)
+    validationErrors = server.validateTeam(team, generation)
+    if validationErrors.length > 0
+      user.send("error", errors.FIND_BATTLE, validationErrors)
       return
 
     server.queuePlayer(user, team, generation)
@@ -100,7 +101,7 @@ connections.addEvents
   'send move': (user, battleId, moveName, slot, forTurn, args...) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.makeMove(user, moveName, slot, forTurn, args...)
@@ -108,7 +109,7 @@ connections.addEvents
   'send switch': (user, battleId, toSlot, fromSlot, forTurn) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.makeSwitch(user, toSlot, fromSlot, forTurn)
@@ -116,7 +117,7 @@ connections.addEvents
   'arrange team': (user, battleId, arrangement) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.arrangeTeam(user, arrangement)
@@ -124,7 +125,7 @@ connections.addEvents
   'spectate battle': (user, battleId) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.addSpectator(user)
@@ -132,7 +133,7 @@ connections.addEvents
   'leave battle': (user, battleId) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.removeSpectator(user)
@@ -140,7 +141,7 @@ connections.addEvents
   'forfeit': (user, battleId) ->
     battle = server.findBattle(battleId)
     if !battle
-      user.send 'error', 'ERROR: Battle does not exist'
+      user.send('error', errors.BATTLE_DNE)
       return
 
     battle.forfeit(user)

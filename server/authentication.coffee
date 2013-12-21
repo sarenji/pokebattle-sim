@@ -1,7 +1,6 @@
 {_} = require 'underscore'
 
 crypto = require('crypto')
-SECRET = process.env.SECRET_KEY || 'v. secure imo'
 
 request = require 'request'
 authHeaders = {AUTHUSER: process.env.AUTHUSER, AUTHTOKEN: process.env.AUTHTOKEN}
@@ -22,7 +21,7 @@ db = require './database'
       redirectURL += "?next=http://#{req.headers.host}"
       return res.redirect(redirectURL)
     req.user = _.clone(body)
-    hmac = crypto.createHmac('sha256', SECRET)
+    hmac = crypto.createHmac('sha256', config.SECRET_KEY)
     req.user.token = hmac.update("#{req.user.id}").digest('hex')
     db.set("users:#{body.id}", JSON.stringify(body), next)
 
@@ -37,7 +36,9 @@ db = require './database'
 
 # If the id and token match, the associated user object is returned.
 @matchToken = (id, token, next) ->
-  if crypto.createHmac('sha256', SECRET).update("#{id}").digest('hex') != token
+  hmac = crypto.createHmac('sha256', config.SECRET_KEY)
+  hmac = hmac.update("#{id}").digest('hex')
+  if hmac != token
     return next(new Error("Invalid session!"))
   db.get "users:#{id}", (err, jsonString) ->
     if err then return next(err)
