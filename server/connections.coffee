@@ -8,6 +8,9 @@ class User
     'id': @id
   }
 
+  trigger: (args...) ->
+    @connections.trigger(this, args...)
+
   send: (type, data...) ->
     @socket.write(JSON.stringify(messageType: type, data: data))
 

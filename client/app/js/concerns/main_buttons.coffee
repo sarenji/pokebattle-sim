@@ -6,11 +6,13 @@ $ ->
   $selectFormat = $mainButtons.find(".select-format")
   $mainButtons.on 'click', '.find_battle', ->
     $this = $(this)
-    return  if $this.hasClass('disabled')
-    teamJSON = allTeams[selectedIndex].pokemon
     format = $selectFormat.data('format')
-    PokeBattle.socket.send('find battle', teamJSON, format)
-    $this.addClass('disabled')
+    if !$this.hasClass('disabled')
+      teamJSON = allTeams[selectedIndex].pokemon
+      PokeBattle.socket.send('find battle', teamJSON, format)
+      $this.addClass('disabled')
+    else
+      PokeBattle.socket.send('cancel find battle', format)
 
   $mainButtons.on 'click', '.teambuilder_button', (e) ->
     PokeBattle.navigation.showTeambuilder()
@@ -55,3 +57,7 @@ $(window).load ->
   PokeBattle.battles.on 'add', (battle) ->
     if !battle.get('spectating')
       $mainButtons.find('.find_battle').removeClass('disabled')
+
+  PokeBattle.events.on 'find battle canceled', ->
+    $button = $('.find_battle')
+    $button.removeClass("disabled")

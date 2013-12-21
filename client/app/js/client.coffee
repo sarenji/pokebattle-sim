@@ -59,6 +59,9 @@ PokeBattle.socket.addEvents
   'login success': (socket, id) ->
     PokeBattle.events.trigger('login success', id)
 
+  'find battle canceled': (socket) ->
+    PokeBattle.events.trigger('find battle canceled')
+
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
 

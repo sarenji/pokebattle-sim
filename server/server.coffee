@@ -5,7 +5,7 @@
 {Conditions} = require './conditions'
 gen = require './generations'
 learnsets = require '../shared/learnsets'
-config = './config'
+config = require './config'
 
 class @BattleServer
   constructor: ->
@@ -15,10 +15,17 @@ class @BattleServer
     @battles = {}
 
   queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
+    return false  if generation not of @queues
     @queues[generation].add(player, team)
+    return true
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
+
+  removePlayer: (player, generation = gen.DEFAULT_GENERATION) ->
+    return false  if generation not of @queues
+    @queues[generation].remove(player)
+    return true
 
   beginBattles: ->
     battles = []

@@ -37,8 +37,7 @@ db = require './database'
 # If the id and token match, the associated user object is returned.
 @matchToken = (id, token, next) ->
   hmac = crypto.createHmac('sha256', config.SECRET_KEY)
-  hmac = hmac.update("#{id}").digest('hex')
-  if hmac != token
+  if hmac.update("#{id}").digest('hex') != token
     return next(new Error("Invalid session!"))
   db.get "users:#{id}", (err, jsonString) ->
     if err then return next(err)
