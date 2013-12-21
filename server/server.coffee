@@ -5,6 +5,7 @@
 {Conditions} = require './conditions'
 gen = require './generations'
 learnsets = require '../shared/learnsets'
+config = './config'
 
 class @BattleServer
   constructor: ->
@@ -50,8 +51,7 @@ class @BattleServer
 
   # Generate a random ID for a new battle.
   generateBattleId: (players) ->
-    # TODO load key from config or env
-    hmac = createHmac('sha1', 'INSECURE KEY')
+    hmac = createHmac('sha1', config.SECRET_KEY)
     hmac.update((new Date).toISOString())
     for player in players
       hmac.update(player.id)
@@ -73,53 +73,56 @@ class @BattleServer
   validatePokemon: (pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
     {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
     errors = []
+    prefix = "Slot ##{slot}"
+
     if !pokemon.name
-      errors.push("No species given.")
+      errors.push("#{prefix}: No species given.")
       return errors
     species = SpeciesData[pokemon.name]
     if !species
-      errors.push("Invalid species: #{pokemon.name}.")
+      errors.push("#{prefix}: Invalid species: #{pokemon.name}.")
       return errors
 
+    prefix += " (#{pokemon.name})"
     @normalizePokemon(pokemon, generation)
     forme = FormeData[pokemon.name][pokemon.forme]
     if !forme
-      errors.push("Slot #{slot}: Invalid forme: #{pokemon.forme}.")
+      errors.push("#{prefix}: Invalid forme: #{pokemon.forme}.")
       return errors
 
     if isNaN(pokemon.level)
-      errors.push("Slot #{slot}: Invalid level: #{pokemon.level}.")
+      errors.push("#{prefix}: Invalid level: #{pokemon.level}.")
     # TODO: 100 is a magic constant
     else if !(1 <= pokemon.level <= 100)
-      errors.push("Slot #{slot}: Level must be between 1 and 100.")
+      errors.push("#{prefix}: Level must be between 1 and 100.")
 
     if pokemon.gender not in [ "M", "F", "Genderless" ]
-      errors.push("Slot #{slot}: Invalid gender: #{pokemon.gender}.")
+      errors.push("#{prefix}: Invalid gender: #{pokemon.gender}.")
     if species.genderRatio == -1 && pokemon.gender != "Genderless"
-      errors.push("Slot #{slot}: Must be genderless.")
+      errors.push("#{prefix}: Must be genderless.")
     if species.genderRatio == 0 && pokemon.gender != "M"
-      errors.push("Slot #{slot}: Must be male.")
+      errors.push("#{prefix}: Must be male.")
     if species.genderRatio == 8 && pokemon.gender != "F"
-      errors.push("Slot #{slot}: Must be female.")
+      errors.push("#{prefix}: Must be female.")
     if (typeof pokemon.evs != "object")
-      errors.push("Slot #{slot}: Invalid evs.")
+      errors.push("#{prefix}: Invalid evs.")
     if (typeof pokemon.ivs != "object")
-      errors.push("Slot #{slot}: Invalid ivs.")
+      errors.push("#{prefix}: Invalid ivs.")
     if !Object.values(pokemon.evs).all((ev) -> 0 <= ev <= 255)
-      errors.push("Slot #{slot}: EVs must be between 0 and 255.")
+      errors.push("#{prefix}: EVs must be between 0 and 255.")
     if !Object.values(pokemon.ivs).all((iv) -> 0 <= iv <= 31)
-      errors.push("Slot #{slot}: IVs must be between 0 and 31.")
+      errors.push("#{prefix}: IVs must be between 0 and 31.")
     if pokemon.ability not in forme["abilities"] &&
        pokemon.ability != forme["hiddenAbility"]
-      errors.push("Slot #{slot}: Invalid ability.")
+      errors.push("#{prefix}: Invalid ability.")
     if pokemon.moves not instanceof Array
-      errors.push("Slot #{slot}: Invalid moves.")
+      errors.push("#{prefix}: Invalid moves.")
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
-      errors.push("Slot #{slot}: Must have 1 to 4 moves.")
+      errors.push("#{prefix}: Must have 1 to 4 moves.")
     else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
                         gen.GENERATION_TO_INT[generation], pokemon.moves)
-      errors.push("Slot #{slot}: Invalid moveset.")
+      errors.push("#{prefix}: Invalid moveset.")
     return errors
 
   # Normalizes a Pokemon by setting default values where applicable.
