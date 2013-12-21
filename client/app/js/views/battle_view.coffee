@@ -350,12 +350,15 @@ class @BattleView extends Backbone.View
         when "accuracy" then "Acc."
         when "evasion" then "Eva."
         else stat
-      abbreviatedStat = "+#{amount} (x#{(2 + amount) / 2}) #{abbreviatedStat}"
+      amount = "+#{amount}"  if amount > 0
+      abbreviatedStat = "#{amount} (x#{(2 + amount) / 2}) #{abbreviatedStat}"
       $effect = @addPokemonEffect($pokemon, "boost #{stat}", abbreviatedStat)
       if amount < 0
         $effect.addClass('negative')
-      else
+      else if amount > 0
         $effect.removeClass('negative')
+      else # amount == 0
+        $effect.remove()
     done()
     true
 
@@ -422,8 +425,8 @@ class @BattleView extends Backbone.View
         done()
 
   resetBoosts: (player, slot, done) =>
-    $pokemon = @$pokemon(pokemon)
-    $pokemon.find('.boosts').remove()
+    $pokemon = @$pokemon(player, slot)
+    $pokemon.find('.boost').remove()
     done()
 
   handleStatus: (pokemon, status) =>
