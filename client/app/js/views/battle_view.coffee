@@ -259,7 +259,7 @@ class @BattleView extends Backbone.View
   logMove: (player, slot, moveName, done) =>
     {owner} = @model.getTeam(player)
     pokemon = @model.getPokemon(player, slot)
-    @addLog("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!")
+    @addMoveMessage(owner, pokemon, moveName)
     @lastMove = moveName
     done()
 
@@ -532,6 +532,10 @@ class @BattleView extends Backbone.View
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
     @renderWaiting()
+
+  addMoveMessage: (owner, pokemon, moveName) =>
+    @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')}
+      used <strong>#{moveName}</strong>!</p>")
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
