@@ -71,7 +71,7 @@ connections.addEvents
     if lobby.removeUser(user.id) == 0  # No more connections.
       user.broadcast('leave chatroom', user.id)
     # TODO: Remove from battles as well
-    # TODO: Dequeue player from finding battles
+    user.trigger("cancel find battle")
 
   ###########
   # BATTLES #
@@ -97,6 +97,10 @@ connections.addEvents
         message = """#{first.id} vs. #{second.id}!
         <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
         connections.broadcast('raw message', message)
+
+  'cancel find battle': (user, generation) ->
+    server.removePlayer(user, generation)
+    user.send("find battle canceled")
 
   'send move': (user, battleId, moveName, slot, forTurn, args...) ->
     battle = server.findBattle(battleId)
