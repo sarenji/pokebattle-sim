@@ -1271,8 +1271,8 @@ class @Status.Toxic extends @StatusAttachment
     @counter = 0
 
   endTurn: ->
-    return  if @pokemon.hasAbility("Poison Heal")
     @counter = Math.min(@counter + 1, 15)
+    return  if @pokemon.hasAbility("Poison Heal")
     if @pokemon.damage(Math.floor(@pokemon.stat('hp') * @counter / 16))
       @battle.message "#{@pokemon.name} was hurt by poison!"
 
