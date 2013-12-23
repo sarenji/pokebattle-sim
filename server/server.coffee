@@ -27,27 +27,25 @@ class @BattleServer
     @queues[generation].remove(player)
     return true
 
-  beginBattles: ->
-    battles = []
+  beginBattles: (next) ->
     for generation in gen.SUPPORTED_GENERATIONS
-      pairs = @queues[generation].pairPlayers()
+      @queues[generation].pairPlayers (err, pairs) =>
+        if err then return next(err)
 
-      # Create a battle for each pair
-      for pair in pairs
-        id = @createBattle(generation, pair...)
-        @beginBattle(id)
-        battle = pair.map((o) -> o.player)
-        battle.push(id)
-        battles.push(battle)
-
-    battles
+        # Create a battle for each pair
+        battleIds = []
+        for pair in pairs
+          id = @createBattle(generation, pair...)
+          @beginBattle(id)
+          battleIds.push(id)
+        next(null, battleIds)
+    return true
 
   # Creates a battle and returns its battleId
   createBattle: (generation = gen.DEFAULT_GENERATION, objects...) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    players = objects.map (object) -> object.player
-    battleId = @generateBattleId(players)
+    battleId = @generateBattleId(objects.map((o) -> o.player.id))
     conditions = [ Conditions.TEAM_PREVIEW, Conditions.SLEEP_CLAUSE ]
     battle = new Battle(battleId, players: objects, conditions: conditions)
     @battles[battleId] = new BattleController(battle)
@@ -60,8 +58,8 @@ class @BattleServer
   generateBattleId: (players) ->
     hmac = createHmac('sha1', config.SECRET_KEY)
     hmac.update((new Date).toISOString())
-    for player in players
-      hmac.update(player.id)
+    for id in players
+      hmac.update(id)
     hmac.digest('hex')
 
   # Returns the battle with battleId.

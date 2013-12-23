@@ -89,15 +89,6 @@ connections.addEvents
 
     server.queuePlayer(user, team, generation)
 
-    # TODO: Pair players on an interval.
-    if server.queuedPlayers(generation).length >= 2
-      battles = server.beginBattles()
-      for battle in battles
-        [ first, second, id ] = battle
-        message = """#{first.id} vs. #{second.id}!
-        <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
-        connections.broadcast('raw message', message)
-
   'cancel find battle': (user, generation) ->
     server.removePlayer(user, generation)
     user.send("find battle canceled")
@@ -151,5 +142,16 @@ connections.addEvents
     battle.forfeit(user)
 
   # TODO: socket.off after disconnection
+
+battleSearch = ->
+  server.beginBattles (err, battleIds) ->
+    if err then return
+    for id in battleIds
+      message = """A new battle started!
+      <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
+      connections.broadcast('raw message', message)
+  setTimeout(battleSearch, 5 * 1000)
+
+battleSearch()
 
 httpServer.listen(PORT)

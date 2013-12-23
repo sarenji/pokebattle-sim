@@ -1,4 +1,6 @@
-redis = require 'redis'
+redis = switch process.env.NODE_ENV
+  when 'test' then require 'redis-mock'
+  else             require 'redis'
 
 # Connect to redis
 if process.env.REDIS_DB_URL

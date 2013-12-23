@@ -11,7 +11,7 @@ describe 'BattleServer', ->
     battleId = server.createBattle()
     server.battles.should.have.ownProperty battleId
 
-  it "sends the 'spectate battle' event for each matched player", ->
+  it "sends the 'spectate battle' event for each matched player", (done) ->
     players = [{id: 'abc', send: ->}, {id: 'def', send: ->}]
     spies = []
     for player in players
@@ -20,11 +20,12 @@ describe 'BattleServer', ->
 
     server = new BattleServer()
     for player in players
-      server.queuePlayer(player, [Factory('Hitmonchan')], gen.DEFAULT_GENERATION)
-    server.beginBattles()
-
-    for spy in spies
-      spy.calledWith('spectate battle').should.be.true
+      server.queuePlayer(player, [Factory('Hitmonchan')])
+    server.beginBattles (err, ids) ->
+      return  if ids.length == 0
+      for spy in spies
+        spy.calledWith('spectate battle').should.be.true
+      done()
 
   describe "#queuePlayer", ->
     it "queues players", ->

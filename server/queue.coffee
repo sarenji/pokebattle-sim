@@ -1,4 +1,7 @@
+db = require './database'
 require 'sugar'
+
+DEFAULT_RATING = 1000
 
 # A queue of users waiting for a battle
 class @BattleQueue
@@ -11,29 +14,49 @@ class @BattleQueue
     @queue.push({player, team})
     return true
 
-  remove: (player) ->
-    players = @queuedPlayers()
-    index = players.indexOf(player)
-    @queue.splice(index, 1)  if index != -1
+  remove: (players) ->
+    players = Array(players)
+    queuedPlayers = @queuedPlayers()
+    for player in players
+      for qPlayer, i in queuedPlayers
+        if player == qPlayer
+          @queue.splice(index, 1)
+          break
 
   queuedPlayers: ->
     @queue.map((o) -> o.player)
+
+  queuedIds: ->
+    @queue.map((o) -> o.player.id)
 
   size: ->
     @queue.length
 
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.
-  pairPlayers: ->
-    pairs = []
+  pairPlayers: (next) ->
+    keys = @queuedIds().map((id) -> "ratings:#{id}")
+    return next(null, [])  if keys.length == 0
+    db.mget keys, (err, ratings) =>
+      if err then return next(err, null)
 
-    # Take players out of the queue and add them to a pairs array.
-    while @queue.length >= 2
-      # Todo: Use something more efficient than shift
-      object1 = @queue.shift()
-      object2 = @queue.shift()
+      pairs = []
+      sortedPlayers = []
 
-      pairs.push([ object1, object2 ])
+      # Get the list of players sorted by rating
+      for rating, i in ratings
+        sortedPlayers.push([ @queue[i], rating || DEFAULT_RATING ])
+      sortedPlayers.sort((a, b) -> a[1] - b[1])
+      sortedPlayers = sortedPlayers.map((pair) -> pair[0])
 
-    # Return the list of paired players
-    pairs
+      # Populate pair array
+      for i in [0...sortedPlayers.length] by 2
+        first = sortedPlayers[i]
+        second = sortedPlayers[i + 1]
+        pairs.push([ first, second ])  if first && second
+
+      # Remove paired players from the queue
+      @queue.splice(0, pairs.length * 2)
+
+      # Return the list of paired players
+      next(null, pairs)
