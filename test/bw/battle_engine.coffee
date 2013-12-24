@@ -375,6 +375,14 @@ describe 'Mechanics', ->
       @battle.endTurn()
       (hp - @p1.currentHP).should.equal(2 * eighth)
 
+    it "loses 1 minimum HP", ->
+      shared.create.call(this, team1: [Factory("Shedinja")])
+      @p1.attach(Status.Burn)
+      @p1.currentHP.should.equal(1)
+
+      @battle.endTurn()
+      @p1.currentHP.should.equal(0)
+
   describe "a sleeping pokemon", ->
     it "sleeps for 1-3 turns", ->
       shared.create.call(this)
@@ -431,6 +439,14 @@ describe 'Mechanics', ->
       @battle.endTurn()
       (hp - @p1.currentHP).should.equal(2 * eighth)
 
+    it "loses 1 minimum HP", ->
+      shared.create.call(this, team1: [Factory("Shedinja")])
+      @p1.attach(Status.Poison)
+      @p1.currentHP.should.equal(1)
+
+      @battle.endTurn()
+      @p1.currentHP.should.equal(0)
+
   describe "a badly poisoned pokemon", ->
     it "loses 1/16 of its HP the first turn", ->
       shared.create.call(this)
@@ -440,7 +456,7 @@ describe 'Mechanics', ->
       @battle.endTurn()
       (hp - @p1.currentHP).should.equal(hp >> 4)
 
-    it "loses x/16 of its HP where x is the number of turns up to 15", ->
+    it "loses 1/16 of its max HP, rounded down, times x where x is the number of turns up to 15", ->
       shared.create.call(this)
       @p1.attach(Status.Toxic)
       hp = @p1.currentHP
@@ -448,9 +464,32 @@ describe 'Mechanics', ->
 
       for i in [1..16]
         @battle.endTurn()
-        hpFraction = Math.min(hp * i, hp * 15)
-        (hp - @p1.currentHP).should.equal(hpFraction >> 4)
+        hpFraction = Math.min(fraction * i, fraction * 15)
+        (hp - @p1.currentHP).should.equal(hpFraction)
         @p1.currentHP = hp
+
+    it "still increases the counter with poison heal", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Poison Heal")])
+      @p1.attach(Status.Toxic)
+      hp = @p1.currentHP
+      fraction = (hp >> 4)
+      turns = 3
+
+      for i in [1..turns]
+        @battle.endTurn()
+
+      @p1.copyAbility(null)
+      @battle.endTurn()
+      hpFraction = Math.min(fraction * turns, fraction * 15)
+      (hp - @p1.currentHP).should.equal(hpFraction)
+
+    it "loses 1 minimum HP", ->
+      shared.create.call(this, team1: [Factory("Shedinja")])
+      @p1.attach(Status.Toxic)
+      @p1.currentHP.should.equal(1)
+
+      @battle.endTurn()
+      @p1.currentHP.should.equal(0)
 
     it "resets its counter when switching out", ->
       shared.create.call this,
