@@ -475,7 +475,7 @@ describe 'Mechanics', ->
       fraction = (hp >> 4)
       turns = 3
 
-      for i in [1..turns]
+      for i in [1...turns]
         @battle.endTurn()
 
       @p1.copyAbility(null)

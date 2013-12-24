@@ -1257,7 +1257,7 @@ class @Status.Poison extends @StatusAttachment
 
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    if @pokemon.damage(@pokemon.stat('hp') >> 3)
+    if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
       @battle.message "#{@pokemon.name} was hurt by poison!"
 
 class @Status.Toxic extends @StatusAttachment
@@ -1273,7 +1273,7 @@ class @Status.Toxic extends @StatusAttachment
   endTurn: ->
     @counter = Math.min(@counter + 1, 15)
     return  if @pokemon.hasAbility("Poison Heal")
-    if @pokemon.damage(Math.max(Math.floor(@pokemon.stat('hp') / 16), 1) * @counter)
+    if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 4, 1) * @counter)
       @battle.message "#{@pokemon.name} was hurt by poison!"
 
 class @Status.Sleep extends @StatusAttachment
@@ -1303,5 +1303,5 @@ class @Status.Burn extends @StatusAttachment
   name: "Burn"
 
   endTurn: ->
-    if @pokemon.damage(@pokemon.stat('hp') >> 3)
+    if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
       @battle.message "#{@pokemon.name} was hurt by its burn!"
