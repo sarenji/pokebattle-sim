@@ -37,15 +37,15 @@ describe 'BattleQueue', ->
   describe '#remove', ->
     it 'can dequeue old players', ->
       queue = new BattleQueue()
-      player = {}
+      player = {id: 'abc'}
       queue.add(player, {})
       queue.remove(player)
-      queue.queue.should.have.length 0
+      queue.size().should.equal 0
 
     it "can take an array of players", ->
       queue = new BattleQueue()
-      player1 = {}
-      player2 = {}
+      player1 = {id: 'abc'}
+      player2 = {id: 'def'}
       queue.add(player1, {})
       queue.add(player2, {})
       queue.remove([ player1, player2 ])

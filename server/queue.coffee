@@ -13,12 +13,11 @@ class @BattleQueue
     return true
 
   remove: (players) ->
-    players = Array(players)
-    queuedPlayers = @queuedPlayers()
+    players = Array(players)  if players not instanceof Array
     for player in players
-      for qPlayer, i in queuedPlayers
-        if player == qPlayer
-          @queue.splice(index, 1)
+      for other, i in @queue
+        if player.id == other.player.id
+          @queue.splice(i, 1)
           break
 
   queuedPlayers: ->
