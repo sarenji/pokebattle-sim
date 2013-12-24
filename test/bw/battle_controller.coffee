@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
 {Status, VolatileStatus, Attachment} = require('../../server/bw/attachment')
@@ -6,7 +8,6 @@
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'
-require '../helpers'
 
 describe 'BattleController', ->
   it "automatically ends the turn if all players move", ->

@@ -127,7 +127,11 @@ class @BattleController
     @sendUpdates()
 
   endBattle: ->
-    @battle.endBattle()
+    @battle.endBattle (err, info) =>
+      {winner, loser} = info
+      @battle.message "#{winner.id}: #{winner.oldRating} -> #{winner.newRating}"
+      @battle.message "#{loser.id}: #{loser.oldRating} -> #{loser.newRating}"
+      @sendUpdates()
 
   # Sends battle updates to players.
   sendUpdates: ->

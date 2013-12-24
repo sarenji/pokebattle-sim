@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Item} = require('../../server/bw/data/items')
 {Pokemon} = require '../../server/bw/pokemon'
 {Attachment, Status} = require '../../server/bw/attachment'
@@ -7,8 +9,6 @@ util = require '../../server/bw/util'
 should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
-
-require '../helpers'
 
 describe "BW Items:", ->
   describe "Leftovers", ->

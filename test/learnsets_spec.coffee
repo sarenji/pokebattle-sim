@@ -1,3 +1,5 @@
+require './helpers'
+
 learnsets = require('../shared/learnsets')
 {GenerationJSON} = require '../server/generations'
 

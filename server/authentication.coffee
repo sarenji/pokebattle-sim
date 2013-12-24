@@ -42,6 +42,7 @@ db = require './database'
   db.get "users:#{id}", (err, jsonString) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
+    return next(new Error("Invalid session!"))  if !json
     return next(null, json)
 
 generateUsername = ->

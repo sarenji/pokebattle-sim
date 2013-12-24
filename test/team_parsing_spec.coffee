@@ -1,8 +1,8 @@
-{PokeBattle} = require '../client/app/js/concerns/team_parsing'
-
-require 'sugar'
-should = require 'should'
 require './helpers'
+require 'sugar'
+
+should = require 'should'
+{PokeBattle} = require '../client/app/js/concerns/team_parsing'
 
 describe "Client", ->
   describe "parsing teams", ->

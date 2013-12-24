@@ -1,3 +1,6 @@
+require '../helpers'
+require 'sugar'
+
 {Attachment, Status} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
@@ -7,9 +10,6 @@ util = require '../../server/bw/util'
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'
-
-require '../helpers'
-require 'sugar'
 
 describe "BW Abilities:", ->
   describe "Adaptability", ->

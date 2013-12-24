@@ -1,9 +1,9 @@
+require './helpers'
+
 {BattleServer} = require('../server/server')
 gen = require('../server/generations')
 {Player} = require('../server/player')
 {Factory} = require './factory'
-
-require './helpers'
 
 describe 'BattleServer', ->
   it 'can create a new battle', ->
@@ -22,6 +22,7 @@ describe 'BattleServer', ->
     for player in players
       server.queuePlayer(player, [Factory('Hitmonchan')])
     server.beginBattles (err, ids) ->
+      throw new Error(err.message)  if err
       return  if ids.length == 0
       for spy in spies
         spy.calledWith('spectate battle').should.be.true

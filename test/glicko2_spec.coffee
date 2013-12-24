@@ -1,3 +1,5 @@
+require './helpers'
+
 glicko2 = require '../server/glicko2'
 
 describe "Glicko2", ->

@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Battle} = require('../../server/bw/battle')
 {Weather} = require('../../server/bw/weather')
 {Pokemon} = require('../../server/bw/pokemon')
@@ -5,8 +7,6 @@
 {Moves, SpeciesData} = require('../../server/bw/data')
 {Protocol} = require '../../shared/protocol'
 should = require 'should'
-
-require '../helpers'
 
 describe 'Pokemon', ->
   it 'should have a name of Missingno by default', ->

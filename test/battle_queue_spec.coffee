@@ -1,6 +1,9 @@
+require './helpers'
+
 should = require 'should'
 {BattleQueue} = require('../server/queue')
 db = require('../server/database')
+ratings = require('../server/ratings')
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->
@@ -91,8 +94,16 @@ describe 'BattleQueue', ->
         done()
 
     it "returns an array of pairs in the order of their rating", (done) ->
-      db.mset("ratings:batman", 1, "ratings:superman", 4,
-        "ratings:flash", 3, "ratings:spiderman", 2)
+      args = []
+      createPlayer = (rating) ->
+        player = ratings.algorithm.createPlayer()
+        player.rating = rating
+        JSON.stringify(player)
+      args.push("batman", createPlayer(1))
+      args.push("superman", createPlayer(4))
+      args.push("flash", createPlayer(3))
+      args.push("spiderman", createPlayer(2))
+      db.hmset("ratings", args...)
       queue = new BattleQueue()
       queue.add(id: 'batman')
       queue.add(id: 'superman')

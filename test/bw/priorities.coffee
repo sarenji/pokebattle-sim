@@ -1,11 +1,11 @@
+require '../helpers'
+
 {Ability} = require('../../server/bw/data/abilities')
 {Item} = require('../../server/bw/data/items')
 {Attachment, Status} = require('../../server/bw/attachment')
 priority = require('../../server/bw/priorities')
 Query = require('../../server/bw/queries')
 shared = require('../shared')
-
-require '../helpers'
 
 describe "BW Priorities:", ->
   ensureAttachments = (arrayOfAttachments, eventName) ->

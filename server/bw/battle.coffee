@@ -7,6 +7,7 @@
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
+ratings = require '../ratings'
 
 require 'sugar'
 
@@ -376,9 +377,19 @@ class @Battle
   has: (attachment) ->
     @attachments.contains(attachment)
 
-  endBattle: ->
+  endBattle: (next) ->
     winner = @getWinner()
     @tell(Protocol.END_BATTLE, winner.index)
+    loser = @players[1 - winner.index]
+    # Update ratings
+    ratings.getRatings [ winner.id, loser.id ], (err, oldRatings) =>
+      ratings.updatePlayers winner.id, loser.id, ratings.results.WIN, (err, result) =>
+        return next(err)  if err
+        ret = {
+          winner: {id: winner.id, oldRating: oldRatings[0], newRating: result[0].rating}
+          loser: {id: loser.id, oldRating: oldRatings[1], newRating: result[1].rating}
+        }
+        next(null, ret)
 
   getWinner: ->
     winner = null

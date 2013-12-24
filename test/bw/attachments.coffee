@@ -1,6 +1,7 @@
+require '../helpers'
+
 {Attachments, Attachment, BaseAttachment} = require '../../server/bw/attachment'
 should = require 'should'
-require '../helpers'
 
 describe "An Attachment list", ->
   class TestAttachment extends BaseAttachment

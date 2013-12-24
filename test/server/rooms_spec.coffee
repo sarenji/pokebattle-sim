@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Room} = require '../../server/rooms'
 
 describe "A server room:", ->

@@ -1,7 +1,5 @@
-db = require './database'
+ratings = require('./ratings')
 require 'sugar'
-
-DEFAULT_RATING = 1000
 
 # A queue of users waiting for a battle
 class @BattleQueue
@@ -35,9 +33,9 @@ class @BattleQueue
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.
   pairPlayers: (next) ->
-    keys = @queuedIds().map((id) -> "ratings:#{id}")
-    return next(null, [])  if keys.length == 0
-    db.mget keys, (err, ratings) =>
+    ids = @queuedIds()
+    return next(null, [])  if ids.length == 0
+    ratings.getRatings ids, (err, ratings) =>
       if err then return next(err, null)
 
       pairs = []
@@ -45,7 +43,7 @@ class @BattleQueue
 
       # Get the list of players sorted by rating
       for rating, i in ratings
-        sortedPlayers.push([ @queue[i], rating || DEFAULT_RATING ])
+        sortedPlayers.push([ @queue[i], rating ])
       sortedPlayers.sort((a, b) -> a[1] - b[1])
       sortedPlayers = sortedPlayers.map((pair) -> pair[0])
 

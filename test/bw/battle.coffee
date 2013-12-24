@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Attachment} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {BattleController} = require('../../server/bw/battle_controller')
@@ -8,7 +10,6 @@
 {Protocol} = require '../../shared/protocol'
 should = require 'should'
 sinon = require 'sinon'
-require '../helpers'
 
 describe 'Battle', ->
   beforeEach ->

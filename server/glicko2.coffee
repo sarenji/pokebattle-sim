@@ -27,9 +27,9 @@ _extractPlayer = (player) ->
   {rating, deviation, volatility} = player
 
 createPlayer = ->
-  rating: DEFAULT_RATING
-  deviation: DEFAULT_DEVIATION
-  volatility: DEFAULT_VOLATILITY
+  rating: config.DEFAULT_RATING
+  deviation: config.DEFAULT_DEVIATION
+  volatility: config.DEFAULT_VOLATILITY
 
 calculate = (player, matches, options = {}) ->
   # Step 1: Initialize tau. Players with no rating are assumed to have been

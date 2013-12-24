@@ -1,3 +1,5 @@
+require '../helpers'
+
 restify = require('restify')
 {Factory} = require("../factory")
 

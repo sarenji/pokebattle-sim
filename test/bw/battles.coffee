@@ -1,5 +1,6 @@
-shared = require '../shared'
 require '../helpers'
+
+shared = require '../shared'
 
 defaultTeam = [
   {

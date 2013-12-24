@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
 {Status, Attachment} = require('../../server/bw/attachment')
@@ -5,8 +7,6 @@
 should = require 'should'
 shared = require '../shared'
 {Protocol} = require '../../shared/protocol'
-
-require '../helpers'
 
 describe 'Mechanics', ->
   describe 'an attack missing', ->
@@ -232,6 +232,20 @@ describe 'Mechanics', ->
       @controller.makeMove(@player1, 'Mach Punch')
       @controller.makeMove(@player2, 'Psychic')
       mock.verify()
+
+    it "updates the winner and losers' ratings", (done) ->
+      shared.create.call(this)
+      @p2.currentHP = 1
+      mock = @sandbox.mock(@controller)
+      @controller.makeMove(@player1, 'Mach Punch')
+      @controller.makeMove(@player2, 'Psychic')
+      ratings = require('../../server/ratings')
+      ratings.getPlayer @player1.id, (err, player1) =>
+        ratings.getPlayer @player2.id, (err, player2) =>
+          defaultPlayer = ratings.algorithm.createPlayer()
+          player1.rating.should.be.greaterThan(defaultPlayer.rating)
+          player2.rating.should.be.lessThan(defaultPlayer.rating)
+          done()
 
   describe 'a pokemon with a type immunity', ->
     it 'cannot be damaged by a move of that type', ->

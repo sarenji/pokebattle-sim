@@ -1,3 +1,5 @@
+require '../helpers'
+
 {Attachment, Status} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
@@ -9,8 +11,6 @@ util = require '../../server/bw/util'
 should = require 'should'
 {_} = require 'underscore'
 shared = require '../shared'
-
-require '../helpers'
 
 describe 'Move:', ->
   it "multiplies critical hits by 2x", ->
