@@ -1,4 +1,5 @@
 restify = require('restify')
+{Factory} = require("../factory")
 
 before (done) ->
   @PORT = 8083
@@ -90,4 +91,19 @@ describe 'XY API:', ->
         data.should.have.property("moves")
         data.moves.should.be.an.instanceOf(Array)
         data.moves.should.include("Fire Blast")
+        done()
+
+  describe '/xy/damagecalc', ->
+    jsonUrl = (json) -> encodeURIComponent(JSON.stringify(json))
+
+    xit 'should calculate damage properly', (done) ->
+      move = "Fire Punch"
+      attacker = Factory("Hitmonchan")
+      defender = Factory("Hitmonlee")
+
+      @client.put '/xy/damagecalc', { move, attacker, defender}, (err, req, res, data) ->
+        throw new Error(err)  if err
+        # are these numbers correct?
+        data.min.damage.should.equal(183)
+        data.max.damage.should.equal(216)
         done()
