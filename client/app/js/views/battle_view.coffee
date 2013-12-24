@@ -350,8 +350,9 @@ class @BattleView extends Backbone.View
         when "accuracy" then "Acc."
         when "evasion" then "Eva."
         else stat
+      multiplier = (2 + amount) / 2
       amount = "+#{amount}"  if amount > 0
-      abbreviatedStat = "#{amount} (x#{(2 + amount) / 2}) #{abbreviatedStat}"
+      abbreviatedStat = "#{amount} (x#{multiplier}) #{abbreviatedStat}"
       $effect = @addPokemonEffect($pokemon, "boost #{stat}", abbreviatedStat)
       if amount < 0
         $effect.addClass('negative')
