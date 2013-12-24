@@ -1,6 +1,7 @@
 restify = require('restify')
 generations = require('../server/generations')
 learnsets = require('../shared/learnsets')
+{makeBiasedRng} = require("../shared/bias_rng")
 GenerationJSON = generations.GenerationJSON
 
 getName = (name) ->
@@ -22,6 +23,11 @@ attachAPIEndpoints = (server) ->
       GenMoves = slugifyArray(json.MoveList)
       GenAbilities = slugifyArray(json.AbilityList)
       GenTypes = slugifyArray(json.TypeList)
+      try
+        # Preload Battle
+        {Battle} = require("../server/#{gen}/battle")
+      catch
+        # TODO: There is no Battle object for this gen
 
       intGeneration = generations.GENERATION_TO_INT[gen]
       server.get "#{gen}/moves", (req, res, next) ->
@@ -86,6 +92,48 @@ attachAPIEndpoints = (server) ->
         errors = []
         errors.push("Invalid moveset")  if !valid
         res.send(errors: errors)
+        return next()
+
+      server.put "#{gen}/damagecalc", (req, res, next) ->
+        # todo: catch any invalid data.
+        moveName = req.params.move
+        attacker = req.params.attacker
+        defender = req.params.defender
+
+        createPlayer = (id, p) -> { player: { id: id }, team: [p] }
+        players = [createPlayer("0", attacker), createPlayer("1", defender)]
+        battle = new Battle('id', players: players, numActive: 1, conditions: [])
+
+        move = battle.getMove(moveName)
+        if not move
+          return next(new restify.BadRequest("Invalid move #{moveName}"))
+
+        battle.begin()
+        attackerPokemon = battle.getTeam("0").at(0)
+        defenderPokemon = battle.getTeam("1").at(0)
+
+        # bias the RNG to remove randmomness like critical hits
+        makeBiasedRng(battle)
+        battle.rng.bias("next", "ch", 1)
+        battle.rng.bias("randInt", "miss", 0)
+        battle.rng.bias("next", "secondary status", 0)
+
+        # calculate min damage
+        battle.rng.bias("randInt", "damage roll", 15)
+        minDamage = move.calculateDamage(battle, attackerPokemon, defenderPokemon)
+
+        # calculate max damage
+        battle.rng.bias("randInt", "damage roll", 0)
+        maxDamage = move.calculateDamage(battle, attackerPokemon, defenderPokemon)
+
+        # TODO: Add remaining HP or anything else that's requested
+        res.send(
+          min:
+            damage: minDamage
+          max:
+            damage: maxDamage
+        )
+
         return next()
 
 @createServer = (port, done) ->

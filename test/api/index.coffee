@@ -1,4 +1,5 @@
 restify = require('restify')
+{Factory} = require("../factory")
 
 before (done) ->
   @PORT = 8083
@@ -90,4 +91,22 @@ describe 'XY API:', ->
         data.should.have.property("moves")
         data.moves.should.be.an.instanceOf(Array)
         data.moves.should.include("Fire Blast")
+        done()
+
+  describe '/xy/damagecalc', ->
+    it 'should calculate damage properly', (done) ->
+      params =
+        move: "Fire Punch"
+        attacker: Factory("Hitmonchan", {
+            nature: "Adamant"
+            ability: "Iron Fist"
+            evs: {attack: 252}
+            item: "Life Orb"
+          })
+        defender: Factory("Hitmonlee")
+
+      @client.put '/xy/damagecalc', params, (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.min.damage.should.equal(200)
+        data.max.damage.should.equal(236)
         done()

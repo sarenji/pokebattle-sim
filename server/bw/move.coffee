@@ -104,7 +104,7 @@ class @Move
   getTargets: (battle, user) ->
     throw new Error("Move #{@name} has not implemented getTargets.")
 
-  calculateDamage: (battle, user, target, hitNumber) ->
+  calculateDamage: (battle, user, target, hitNumber=1) ->
     return 0  if @basePower(battle, user, target) == 0
 
     user.crit = @isCriticalHit(battle, user, target)
