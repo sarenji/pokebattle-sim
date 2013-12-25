@@ -161,6 +161,8 @@ makeAttachmentImmuneAbility("Water Veil", [Status.Burn])
 
 makeContactHurtAbility = (name) ->
   makeAbility name, ->
+    this::isAliveCheck = -> true
+
     this::afterBeingHit = (move, user, target, damage) ->
       return  unless move.hasFlag('contact')
       amount = user.stat('hp') >> 3

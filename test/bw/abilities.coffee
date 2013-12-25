@@ -897,6 +897,13 @@ describe "BW Abilities:", ->
         @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
         @p2.currentHP.should.equal @p2.stat('hp')
 
+      it "still works even if the owner faints", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        hp = @p2.stat('hp')
+        @p1.currentHP = 1
+        @battle.performMove(@p2, @battle.getMove("Tackle"))
+        (hp - @p2.currentHP).should.equal(hp >> 3)
+
   testContactHurtAbility("Iron Barbs")
   testContactHurtAbility("Rough Skin")
 
