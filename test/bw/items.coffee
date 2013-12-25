@@ -143,7 +143,14 @@ describe "BW Items:", ->
       maxHP = @p1.stat('hp')
       @p1.currentHP.should.equal(maxHP - (Math.floor(maxHP / 6) * 3))
 
-    it "doesn't let certain effects activate if attacker faints"
+    it "still works even if user faints", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', item: 'Rocky Helmet')]
+
+      @p2.currentHP = 1
+      hp = @p1.stat('hp')
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @p1.currentHP.should.equal(hp - Math.floor(hp / 6))
 
   testBoostOnTypeItem = (itemName, type, stat) ->
     describe itemName, ->

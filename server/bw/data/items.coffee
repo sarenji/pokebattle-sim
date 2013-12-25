@@ -482,6 +482,8 @@ makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
 
 makeItem 'Rocky Helmet', ->
+  this::isAliveCheck = -> true
+
   this::afterBeingHit = (move, user, target) ->
     if move.hasFlag("contact")
       amount = Math.floor(user.stat('hp') / 6)
