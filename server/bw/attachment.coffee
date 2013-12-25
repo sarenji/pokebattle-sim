@@ -705,8 +705,8 @@ class @Attachment.Substitute extends @VolatileAttachment
     {@hp} = attributes
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
 
-  transformHealthChange: (damage, options) ->
-    if options.direct
+  transformHealthChange: (damage, options = {}) ->
+    if options.direct != false
       # Substitute does not trigger on direct damage
       return damage
 

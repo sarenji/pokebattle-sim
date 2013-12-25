@@ -4059,6 +4059,24 @@ describe "BW Moves:", ->
       @battle.performMove(@p2, flamethrower)
       @p1.has(Status.Burn).should.be.false
 
+    it "does not block sandstorm damage", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SAND)
+      @battle.performMove(@p1, @battle.getMove('Substitute'))
+
+      hp = @p1.currentHP
+      @battle.endTurn()
+      @p1.currentHP.should.be.lessThan(hp)
+
+    it "does not block leech seed damage", ->
+      shared.create.call(this)
+      @battle.performMove(@p2, @battle.getMove('Leech Seed'))
+      @battle.performMove(@p1, @battle.getMove('Substitute'))
+
+      hp = @p1.currentHP
+      @battle.endTurn()
+      @p1.currentHP.should.be.lessThan(hp)
+
     it "is baton-passable"
 
   describe "Sucker Punch", ->
