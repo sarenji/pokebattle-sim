@@ -24,6 +24,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
+    'change .selected_gender': 'changeGender'
     'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
@@ -129,6 +130,10 @@ class @TeambuilderView extends Backbone.View
   changeItem: (e) =>
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("item", $list.val())
+
+  changeGender: (e) =>
+    $list = $(e.currentTarget)
+    @getSelectedPokemon().set("gender", $list.val())
 
   changeShiny: (e) =>
     $checkbox = $(e.currentTarget)
