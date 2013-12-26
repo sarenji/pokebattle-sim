@@ -1,21 +1,6 @@
 sockjs = require 'sockjs'
+{User} = require './user'
 require 'sugar'
-
-class User
-  constructor: (@socket, @connections) ->
-
-  toJSON: -> {
-    'id': @id
-  }
-
-  trigger: (args...) ->
-    @connections.trigger(this, args...)
-
-  send: (type, data...) ->
-    @socket.write(JSON.stringify(messageType: type, data: data))
-
-  broadcast: (args...) ->
-    user.send(args...)  for user in @connections.users when this != user
 
 # A wrapper for sockjs which manages multiple connections with a higher level of abstraction.
 # Todo: Don't use array parameters and use object parameters instead

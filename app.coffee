@@ -47,13 +47,13 @@ connections.addEvents
       if err then return user.send('error', errors.INVALID_SESSION)
       user.id = json.username
       user.send('login success', user.id)
-      numConnections = lobby.addUser(user.id)
+      numConnections = lobby.addUser(user)
       connections.broadcast('join chatroom', user.id)  if numConnections == 1
       user.send('list chatroom', lobby.userJSON())
 
   'send chat': (user, message) ->
-    return  unless message?.replace(/\s+/, '').length > 0
-    connections.broadcast('update chat', user.id, message)
+    return  unless typeof message == "string" && message.trim().length > 0
+    lobby.userMessage(user, message)
 
   'send battle chat': (user, battleId, message) ->
     return  unless message?.replace(/\s+/, '').length > 0
@@ -68,10 +68,10 @@ connections.addEvents
     console.log(team) # todo: implement this
 
   'close': (user) ->
-    if lobby.removeUser(user.id) == 0  # No more connections.
+    if lobby.removeUser(user) == 0  # No more connections.
       user.broadcast('leave chatroom', user.id)
     # TODO: Remove from battles as well
-    user.trigger("cancel find battle")
+    connections.trigger(user, "cancel find battle")
 
   ###########
   # BATTLES #
@@ -149,7 +149,7 @@ battleSearch = ->
     for id in battleIds
       message = """A new battle started!
       <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
-      connections.broadcast('raw message', message)
+      lobby.message(message)
   setTimeout(battleSearch, 5 * 1000)
 
 battleSearch()

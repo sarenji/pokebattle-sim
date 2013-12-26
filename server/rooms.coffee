@@ -1,21 +1,44 @@
 class @Room
   constructor: (@name) ->
-    @users = {}
+    @users = []
+    @counts = {}
 
   # Adds a user to this room.
   # Returns the number of connections that this user has.
   addUser: (user) ->
-    @users[user] ||= 0
-    @users[user]  += 1
+    {id} = user
+    @counts[id] ||= 0
+    @users.push(user)  if @counts[id] == 0
+    @counts[id] += 1
+    @counts[id]
 
   # Removes a user from this room.
   # Returns the number of remaining connections this user has.
   removeUser: (user) ->
-    count = @users[user]
+    {id} = user
+    count = @counts[id]
     return 0  if !count
-    @users[user] -= 1
-    delete @users[user]  if @users[user] == 0
-    @users[user] || 0
+    @counts[id] -= 1
+
+    # Remove the user from the user array if there are no more.
+    if @counts[id] == 0
+      delete @counts[id]
+      for element, i in @users
+        if id == element.id
+          @users.splice(i, 1)
+          break
+    @counts[id] || 0
+
+  userMessage: (user, message) ->
+    @broadcast('update chat', user.id, message)
+
+  message: (message) ->
+    @broadcast('raw message', message)
+
+  broadcast: ->
+    for user in @users
+      user.send?.apply(user, arguments)
 
   userJSON: ->
-    Object.keys(@users).map((user) -> {id: user})
+    @users.map (user) ->
+      {id: user.id}
