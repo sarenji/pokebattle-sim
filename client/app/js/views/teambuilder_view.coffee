@@ -24,6 +24,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
+    'change .selected_gender': 'changeGender'
     'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'change .ev-entry': 'changeEv'
@@ -130,6 +131,10 @@ class @TeambuilderView extends Backbone.View
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("item", $list.val())
 
+  changeGender: (e) =>
+    $list = $(e.currentTarget)
+    @getSelectedPokemon().set("gender", $list.val())
+
   changeShiny: (e) =>
     $checkbox = $(e.currentTarget)
     @getSelectedPokemon().set("shiny", $checkbox.is(":checked"))
@@ -208,12 +213,13 @@ class @TeambuilderView extends Backbone.View
           @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
+    moveName = moveName.replace(/\s+/g, "")
     $table = @getActivePokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     moveRegex = new RegExp(moveName, "i")
     $moves = $allMoves.filter ->
       $move = $(this)
-      moveName = $move.data('move-id')
+      moveName = $move.data('move-search-id')
       moveRegex.test(moveName)
     $table.addClass('hidden')
     $moves.removeClass('hidden')

@@ -30,6 +30,16 @@ class @Pokemon extends Backbone.Model
     @on 'change:name', =>
       @set('forme', 'default')
       @set('ability', @getAbilities()[0], silent: true)
+      @set('item', null, silent: true)
+      @set('level', 100, silent: true)
+      @set('happiness', 100, silent: true)
+      @set('gender', @getGenders()[0], silent: true)
+      @get('ivs')[stat] = 31  for stat of @get('ivs')
+      @get('evs')[stat] = 0   for stat of @get('evs')
+      @set('moves', [], silent: true)
+
+      hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
+      @set('hiddenPowerType', hiddenPowerType, silent: true)
 
     @on 'change:ivs', (model, ivs)=>
       type = HiddenPower.BW.type(ivs).toLowerCase()
