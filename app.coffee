@@ -48,16 +48,17 @@ connections.addEvents
       if err then return user.error(errors.INVALID_SESSION)
       user.id = json.username
       user.setAuthority(json.authority)
-      user.send('login success', user.id)
+      user.send('login success')
       numConnections = lobby.addUser(user)
-      connections.broadcast('join chatroom', user.id)  if numConnections == 1
+      connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
       user.send('list chatroom', lobby.userJSON())
 
   'send chat': (user, message) ->
     return  unless typeof message == "string" && message.trim().length > 0
     if message[0] == '/'
       [ command, args... ] = message.split(/\s+/)
-      command = command[1...]
+      command = command.substr(1)
+      args = args.join(' ').split(/,\s*/g)
       commands.executeCommand(user, lobby, command, args...)
     else
       lobby.userMessage(user, message)
