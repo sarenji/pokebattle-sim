@@ -2,10 +2,14 @@ class @UserList extends Backbone.Collection
   model: User
 
   comparator: (a, b) =>
-    aName = a.id
-    bName = b.id
-    if aName < bName      then -1
-    else if aName > bName then  1
-    else                        0
+    aAuthority = a.authority
+    bAuthority = b.authority
+    aName = a.id.toLowerCase()
+    bName = b.id.toLowerCase()
+    if aAuthority < bAuthority      then -1
+    else if aAuthority > bAuthority then  1
+    else if aName < bName           then -1
+    else if aName > bName           then  1
+    else                                  0
 
   initialize: =>
