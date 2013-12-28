@@ -1967,6 +1967,8 @@ extendMove 'Techno Blast', ->
     switch user.getItem()?.displayName
       when "Burn Drive"
         "Fire"
+      when "Chill Drive"
+        "Ice"
       when "Douse Drive"
         "Water"
       when "Shock Drive"
