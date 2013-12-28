@@ -22,6 +22,17 @@ parsePlayer = (p) ->
     return next(err)  if err
     return next(null, parsePlayer(json))
 
+@getRating = (id, next) ->
+  exports.getPlayer id, (err, player) ->
+    return next(err)  if err
+    return next(null, player.rating)
+
+@setRating = (id, newRating, next) ->
+  @getPlayer id, (err, player) ->
+    if err then return next(err)
+    player.rating = newRating
+    db.hset(RATINGS_KEY, id, JSON.stringify(player), next)
+
 @getPlayers = (idArray, next) ->
   db.hmget RATINGS_KEY, idArray, (err, players) ->
     return next(err)  if err

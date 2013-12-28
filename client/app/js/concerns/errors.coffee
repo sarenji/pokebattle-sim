@@ -9,6 +9,9 @@ PokeBattle.socket.on "error", (socket, type, args...) ->
       # Show errors
       [errors] = args
       alert(errors)
+    when e.COMMAND_ERROR
+      [ message ] = args
+      PokeBattle.chatView.updateChat(message)
     else
       console.log("Received error: #{type}")
       console.log("  with content: #{args}")

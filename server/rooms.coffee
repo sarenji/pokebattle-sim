@@ -1,3 +1,5 @@
+{User} = require('./user')
+
 class @Room
   constructor: (@name) ->
     @users = []
@@ -38,6 +40,21 @@ class @Room
   broadcast: ->
     for user in @users
       user.send?.apply(user, arguments)
+
+  find: (id) ->
+    for user in @users
+      if user.id == id
+        return user
+    return null
+
+  has: (id) ->
+    !!@find(id)
+
+  kick: (user) ->
+    user = @find(user)  if user not instanceof User
+    user.close()
+    count = 1
+    count = @removeUser(user)  while count > 0
 
   userJSON: ->
     @users.map (user) ->
