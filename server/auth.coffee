@@ -36,7 +36,10 @@ exports.matchToken = (id, token, next) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
     return next(new Error("Invalid session!"))  if !json
-    return next(null, json)
+    exports.getAuth id, (err, authLevel) ->
+      if err then return next(err)
+      json.authority = authLevel
+      return next(null, json)
 
 # Authenticates against the site. A user object is returned if successful, or
 # null if unsuccessful.

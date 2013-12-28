@@ -61,4 +61,4 @@ class @Room
 
   userJSON: ->
     @users.map (user) ->
-      {id: user.id}
+      user.toJSON()

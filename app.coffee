@@ -47,6 +47,7 @@ connections.addEvents
     auth.matchToken id, token, (err, json) ->
       if err then return user.error(errors.INVALID_SESSION)
       user.id = json.username
+      user.setAuthority(json.authority)
       user.send('login success', user.id)
       numConnections = lobby.addUser(user)
       connections.broadcast('join chatroom', user.id)  if numConnections == 1
