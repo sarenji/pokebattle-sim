@@ -47,6 +47,9 @@ class @Room
         return user
     return null
 
+  # Alias for #find
+  get: this::find
+
   has: (id) ->
     !!@find(id)
 

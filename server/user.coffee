@@ -11,6 +11,9 @@ class @User
     'id': @id
   }
 
+  setAuthority: (newAuthority) ->
+    @authority = newAuthority
+
   send: (type, data...) ->
     @socket?.write(JSON.stringify(messageType: type, data: data))
 

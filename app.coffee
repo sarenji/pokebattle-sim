@@ -10,7 +10,7 @@ config = require './server/config'
 {BattleServer} = require './server/server'
 {ConnectionServer} = require './server/connections'
 commands = require './server/commands'
-authentication = require('./server/authentication')
+auth = require('./server/auth')
 ladders = require './shared/ladders'
 {Room} = require('./server/rooms')
 errors = require './shared/errors'
@@ -25,7 +25,7 @@ app.use(express.logger())
 app.use(express.compress())  # gzip
 app.use(express.bodyParser())
 app.use(express.cookieParser())
-app.use(authentication.middleware())
+app.use(auth.middleware())
 app.use(express.methodOverride())
 app.use(app.router)
 app.use(express.static(__dirname + "/public"))
@@ -44,7 +44,7 @@ connections = new ConnectionServer(httpServer, prefix: '/socket')
 
 connections.addEvents
   'login': (user, id, token) ->
-    authentication.matchToken id, token, (err, json) ->
+    auth.matchToken id, token, (err, json) ->
       if err then return user.error(errors.INVALID_SESSION)
       user.id = json.username
       user.send('login success', user.id)

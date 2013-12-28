@@ -1,16 +1,8 @@
+auth = require('./auth')
 ratings = require('./ratings')
 errors = require('../shared/errors')
 
 Commands = {}
-
-exports.Auth = Auth =
-  USER          : 1
-  DRIVER        : 2
-  MOD           : 3
-  MODERATOR     : 3
-  ADMIN         : 4
-  ADMINISTRATOR : 4
-  OWNER         : 5
 
 parseArguments = (args) ->
   args = Array::slice.call(args, 0)
@@ -26,15 +18,15 @@ makeCommand = (commandNames, func) ->
     Commands[commandName] = func
 
 makeModCommand = (commandNames, func) ->
-  func.authority = Auth.MOD
+  func.authority = auth.levels.MOD
   makeCommand(commandNames, func)
 
 makeAdminCommand = (commandNames, func) ->
-  func.authority = Auth.ADMIN
+  func.authority = auth.levels.ADMIN
   makeCommand(commandNames, func)
 
 makeOwnerCommand = (commandNames, func) ->
-  func.authority = Auth.OWNER
+  func.authority = auth.levels.OWNER
   makeCommand(commandNames, func)
 
 @executeCommand = (user, room, commandName, args...) ->
@@ -63,7 +55,7 @@ makeCommand "rating", (user, room, next, username) ->
 
 makeModCommand "kick", (user, room, next, username, reason) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /kick [username]")
+    user.error(errors.COMMAND_ERROR, "Usage: /kick username [reason]")
     return next()
   else if !room.has(username)
     user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
@@ -73,3 +65,13 @@ makeModCommand "kick", (user, room, next, username, reason) ->
   message += " (#{reason})"  if reason
   room.message(message)
   next()
+
+makeOwnerCommand "mod", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /mod username")
+    return next()
+  auth.setAuth username, auth.levels.MOD, (err, result) ->
+    if err then return next(err)
+    user = room.get(username)
+    user.setAuthority(auth.levels.MOD)
+    return next(null, result)

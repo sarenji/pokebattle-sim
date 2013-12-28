@@ -2,6 +2,7 @@ require('../helpers')
 
 should = require('should')
 commands = require('../../server/commands')
+auth = require('../../server/auth')
 {User} = require('../../server/user')
 {Room} = require('../../server/rooms')
 ratings = require('../../server/ratings')
@@ -62,7 +63,7 @@ describe "Commands", ->
           done()
 
       it "kicks someone if a moderator", (done) ->
-        @user1.authority = commands.Auth.MOD
+        @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('close').never()
         mock2 = @sandbox.mock(@user2).expects('close').once()
         commands.executeCommand @user1, @room, "kick", @user2.id, ->
@@ -70,8 +71,17 @@ describe "Commands", ->
           mock2.verify()
           done()
 
+      it "adds a reason if applicable", (done) ->
+        @user1.authority = auth.levels.MOD
+        mock1 = @sandbox.mock(@user1).expects('close').never()
+        mock2 = @sandbox.mock(@user2).expects('close').once()
+        commands.executeCommand @user1, @room, "kick", @user2.id, "smelly", ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
       it "returns an error with an invalid argument", (done) ->
-        @user1.authority = commands.Auth.MOD
+        @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
         commands.executeCommand @user1, @room, "kick", ->
@@ -80,10 +90,26 @@ describe "Commands", ->
           done()
 
       it "returns an error with a user who is not online", (done) ->
-        @user1.authority = commands.Auth.MOD
+        @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
         commands.executeCommand @user1, @room, "kick", "offline user", ->
           mock1.verify()
           mock2.verify()
+          done()
+
+    describe "mod", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @user1, @room, "mod", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "mods a user if owner", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @user1, @room, "mod", @user2.id, =>
+          @user2.should.have.property("authority")
+          @user2.authority.should.equal(auth.levels.MOD)
           done()
