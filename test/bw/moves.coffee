@@ -1782,6 +1782,13 @@ describe "BW Moves:", ->
       type = move.getType(@battle, @p1, @p2)
       type.should.equal "Electric"
 
+    it "is Ice-type if the user holds a Chill Drive", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Chill Drive")]
+      move = @battle.getMove('Techno Blast')
+      type = move.getType(@battle, @p1, @p2)
+      type.should.equal "Ice"
+
     it "is Normal-type otherwise", ->
       shared.create.call(this)
       move = @battle.getMove('Techno Blast')
