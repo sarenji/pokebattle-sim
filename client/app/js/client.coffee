@@ -56,8 +56,8 @@ PokeBattle.socket.addEvents
       PokeBattle.events.trigger("ready")
     PokeBattle.events.trigger("connect")
 
-  'login success': (socket, id) ->
-    PokeBattle.events.trigger('login success', id)
+  'login success': (socket) ->
+    PokeBattle.events.trigger('login success')
 
   'find battle canceled': (socket) ->
     PokeBattle.events.trigger('find battle canceled')
@@ -75,11 +75,11 @@ PokeBattle.socket.addEvents
   'raw message': (socket, message) ->
     PokeBattle.chatView.updateChat(message)
 
-  'join chatroom': (socket, username) ->
-    PokeBattle.userList.add(id: username)
+  'join chatroom': (socket, userJSON) ->
+    PokeBattle.userList.add(userJSON)
 
-  'leave chatroom': (socket, username) ->
-    PokeBattle.userList.remove(id: username)
+  'leave chatroom': (socket, userJSON) ->
+    PokeBattle.userList.remove(userJSON)
 
 $ ->
   PokeBattle.battles = new BattleCollection([])
