@@ -36,7 +36,7 @@ exports.matchToken = (id, token, next) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
     return next(new Error("Invalid session!"))  if !json
-    exports.getAuth id, (err, authLevel) ->
+    exports.getAuth json.username, (err, authLevel) ->
       if err then return next(err)
       json.authority = authLevel
       return next(null, json)
