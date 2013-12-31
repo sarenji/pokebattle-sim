@@ -10,7 +10,7 @@ class @Room
   addUser: (user) ->
     {id} = user
     @counts[id] ||= 0
-    @users.push(user)  if @counts[id] == 0
+    @users.push(user)
     @counts[id] += 1
     @counts[id]
 
@@ -22,13 +22,14 @@ class @Room
     return 0  if !count
     @counts[id] -= 1
 
+    # Remove the user from the user array.
+    for element, i in @users
+      if id == element.id
+        @users.splice(i, 1)
+        break
+
     # Remove the user from the user array if there are no more.
-    if @counts[id] == 0
-      delete @counts[id]
-      for element, i in @users
-        if id == element.id
-          @users.splice(i, 1)
-          break
+    delete @counts[id]  if @counts[id] == 0
     @counts[id] || 0
 
   userMessage: (user, message) ->
