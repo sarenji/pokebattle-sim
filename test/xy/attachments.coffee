@@ -1,4 +1,5 @@
 {Attachment, Status} = require '../../server/xy/attachment'
+{Factory} = require '../factory'
 shared = require '../shared'
 should = require 'should'
 require '../helpers'
@@ -13,3 +14,8 @@ describe "XY status:", ->
       @p1.get(Status.Sleep).counter.should.equal(1)
       @p1.team.switchOut(@p1)
       @p1.get(Status.Sleep).counter.should.equal(1)
+
+  describe "paralysis", ->
+    it "does not affect electric pokemon", ->
+      shared.create.call(this, team1: [Factory("Pikachu")], gen: 'xy')
+      should.not.exist @p1.attach(Status.Paralyze)

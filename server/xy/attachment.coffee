@@ -4,6 +4,10 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 delete @Status.Sleep::switchOut
 
+# In XY, electric pokemon are immune to paralysis
+@Status.Paralyze.worksOn = (battle, pokemon) ->
+  !pokemon.hasType("Electric")
+
 class @Attachment.KingsShield extends @VolatileAttachment
   name: "KingsShieldAttachment"
 
