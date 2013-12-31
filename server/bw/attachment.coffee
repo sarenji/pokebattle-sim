@@ -1190,11 +1190,7 @@ class @StatusAttachment extends @BaseAttachment
     if !force
       return false  if pokemon.hasStatus()
       return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
-      return false  if this == Status.Burn && pokemon.hasType("Fire")
-      return false  if this == Status.Toxic && (pokemon.hasType("Poison") || pokemon.hasType("Steel"))
-      return false  if this == Status.Poison && (pokemon.hasType("Poison") || pokemon.hasType("Steel"))
-      return false  if this == Status.Freeze &&
-        (pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
+      return false  unless @worksOn(battle, pokemon)
       if source && this in [ Status.Toxic, Status.Burn, Status.Poison ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon
         source.attach(this)  # Do not attach source
@@ -1221,6 +1217,9 @@ class @StatusAttachment extends @BaseAttachment
     @battle?.message "#{@pokemon.name} #{wasStatused}!"
     @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
+  @worksOn: (battle, pokemon) ->
+    true
+
   unattach: ->
     @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
     @pokemon.status = null
@@ -1239,6 +1238,9 @@ class @Status.Paralyze extends @StatusAttachment
 class @Status.Freeze extends @StatusAttachment
   name: "Freeze"
 
+  @worksOn: (battle, pokemon) ->
+    !(pokemon.hasType("Ice") || battle?.hasWeather(Weather.SUN))
+
   beforeMove: (move, user, targets) ->
     if move.thawsUser || @battle.rng.next('unfreeze chance') < .2
       @battle.message "#{@pokemon.name} thawed out!"
@@ -1255,6 +1257,9 @@ class @Status.Freeze extends @StatusAttachment
 class @Status.Poison extends @StatusAttachment
   name: "Poison"
 
+  @worksOn: (battle, pokemon) ->
+    !(pokemon.hasType("Poison") || pokemon.hasType("Steel"))
+
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
     if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
@@ -1262,6 +1267,9 @@ class @Status.Poison extends @StatusAttachment
 
 class @Status.Toxic extends @StatusAttachment
   name: "Toxic"
+
+  @worksOn: (battle, pokemon) ->
+    !(pokemon.hasType("Poison") || pokemon.hasType("Steel"))
 
   initialize: ->
     super()
@@ -1301,6 +1309,9 @@ class @Status.Sleep extends @StatusAttachment
 
 class @Status.Burn extends @StatusAttachment
   name: "Burn"
+
+  @worksOn: (battle, pokemon) ->
+    !pokemon.hasType("Fire")
 
   endTurn: ->
     if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
