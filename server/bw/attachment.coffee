@@ -65,6 +65,9 @@ class @Attachments
   all: ->
     _.clone(@attachments)
 
+  size: ->
+    @attachments.length
+
 # Attachments represents a pokemon's state. Some examples are
 # status effects, entry hazards, and fire spin's trapping effect.
 # Attachments are "attached" with Pokemon.attach(), and after
@@ -80,6 +83,7 @@ class @BaseAttachment
 
   valid: ->
     return false  if !@attached
+    return false  if @battle?.isOver()
     return false  if @item && @pokemon?.item && @pokemon?.isItemBlocked()
     return false  if @isAliveCheck() == false
     return true

@@ -136,14 +136,18 @@ describe 'BattleController', ->
     describe "Team Preview", ->
       it "starts the battle by passing team info and requesting team order", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.build(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.build(this, {conditions, team1, team2})
         mock = @sandbox.mock(@battle).expects('begin').never()
         @controller.beginBattle()
         mock.verify()
 
       it "waits until all players have arranged their teams before starting", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.build(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.build(this, {conditions, team1, team2})
         mock = @sandbox.mock(@battle).expects('begin').never()
         @controller.beginBattle()
         @controller.arrangeTeam(@player1, [ 0 ])
@@ -156,37 +160,49 @@ describe 'BattleController', ->
 
       it "rejects team arrangements that aren't arrays", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = true
         @controller.arrangeTeam(@player1, arrangement).should.be.false
 
       it "accepts arrays of integers (arrangements) matching team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 0 ]
         @controller.arrangeTeam(@player1, arrangement).should.be.true
 
       it "rejects team arrangements that are smaller than the team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = []
         @controller.arrangeTeam(@player1, arrangement).should.be.false
 
       it "rejects team arrangements that are larger than the team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 0, 1 ]
         @controller.arrangeTeam(@player1, arrangement).should.be.false
 
       it "rejects team arrangements containing negative indices", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = [ -1 ]
         @controller.arrangeTeam(@player1, arrangement).should.be.false
 
       it "rejects team arrangements containing indices out of bounds", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 1 ]
         @controller.arrangeTeam(@player1, arrangement).should.be.false
 
@@ -233,7 +249,9 @@ describe 'BattleController', ->
 
       it "shows the team preview for new spectators", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         spectator = new Player(id: "scouter")
         length = @battle.spectators.length
         spy = @sandbox.spy(spectator, 'send')
@@ -242,7 +260,9 @@ describe 'BattleController', ->
 
       it "does not show the team preview if the battle is done arranging", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        shared.create.call(this, {conditions})
+        team1 = [ Factory("Magikarp") ]
+        team2 = [ Factory("Magikarp") ]
+        shared.create.call(this, {conditions, team1, team2})
         @controller._beginBattle()
         spectator = new Player(id: "scouter")
         length = @battle.spectators.length

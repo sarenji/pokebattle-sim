@@ -13,8 +13,7 @@ shouldFailIfUsedTwice = (moveName, battleOptions) ->
   it 'should fail if used twice', ->
     create.call(this, battleOptions)
     move = @battle.getMove(moveName)
-    mock = @sandbox.mock(move)
-    mock.expects('fail').once()
+    mock = @sandbox.mock(move).expects('fail').once()
 
     @battle.performMove(@p1, move)
     @battle.performMove(@p1, move)
@@ -29,8 +28,8 @@ build = (context, opts={}) ->
   context.id2 = 'fghij'
   player1 = opts.player1 || {id: context.id1}
   player2 = opts.player2 || {id: context.id2}
-  team1   = opts.team1 || [Factory('Magikarp')]
-  team2   = opts.team2 || [Factory('Magikarp')]
+  team1   = opts.team1 || [Factory('Magikarp'), Factory('Magikarp')]
+  team2   = opts.team2 || [Factory('Magikarp'), Factory('Magikarp')]
   conditions = opts.conditions
   players = [{player: player1, team: team1},
              {player: player2, team: team2}]

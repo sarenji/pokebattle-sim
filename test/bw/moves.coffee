@@ -2988,7 +2988,9 @@ describe "BW Moves:", ->
         shared.create.call(this)
         @p1.isSwitchBlocked().should.be.false
 
-        @battle.performMove(@p1, @battle.getMove(moveName))
+        theMove = @battle.getMove(moveName)
+        @sandbox.stub(theMove, 'baseDamage', -> 2)
+        @battle.performMove(@p1, theMove)
         @battle.endTurn()
         @battle.beginTurn()
         @p1.isSwitchBlocked().should.be.true
@@ -2996,7 +2998,9 @@ describe "BW Moves:", ->
       it "blocks the target from picking a new move the next turn", ->
         shared.create.call(this)
 
-        @battle.performMove(@p1, @battle.getMove(moveName))
+        theMove = @battle.getMove(moveName)
+        @sandbox.stub(theMove, 'baseDamage', -> 2)
+        @battle.performMove(@p1, theMove)
         @battle.endTurn()
         @battle.beginTurn()
         for move in @p1.moves
@@ -3006,7 +3010,9 @@ describe "BW Moves:", ->
         shared.create.call(this)
         specialMove = @battle.getMove("Recharge")
 
-        @battle.performMove(@p1, @battle.getMove(moveName))
+        theMove = @battle.getMove(moveName)
+        @sandbox.stub(theMove, 'baseDamage', -> 2)
+        @battle.performMove(@p1, theMove)
         @battle.endTurn()
         @battle.beginTurn()
 
@@ -3020,7 +3026,9 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         spy = @sandbox.spy(@p1, 'beforeMove')
-        @battle.performMove(@p1, @battle.getMove(moveName))
+        theMove = @battle.getMove(moveName)
+        @sandbox.stub(theMove, 'baseDamage', -> 2)
+        @battle.performMove(@p1, theMove)
         @battle.endTurn()
         @battle.beginTurn()
         @battle.continueTurn()
@@ -4896,7 +4904,7 @@ describe "BW Moves:", ->
       @p1.isFainted().should.be.true
 
     it "fails if the user is the last active pokemon", ->
-      shared.create.call(this)
+      shared.create.call(this, team1: [Factory('Magikarp')])
       lunarDance = @battle.getMove("Lunar Dance")
 
       mock = @sandbox.mock(lunarDance).expects('fail').once()
@@ -4942,7 +4950,7 @@ describe "BW Moves:", ->
       @p1.isFainted().should.be.true
 
     it "fails if the user is the last active pokemon", ->
-      shared.create.call(this)
+      shared.create.call(this, team1: [Factory('Magikarp')])
       healingWish = @battle.getMove("Healing Wish")
 
       mock = @sandbox.mock(healingWish).expects('fail').once()
@@ -5164,6 +5172,8 @@ describe "BW Moves:", ->
         [battle, user, targets] = array
         battle == @battle && user == @p1 && targets[0] == @player2
       ).should.be.true
+      @team1.has(Attachment.Spikes).should.be.false
+      @team2.has(Attachment.Spikes).should.be.true
 
     it "cannot bounce spikes more than once", ->
       shared.create.call(this)
@@ -6089,7 +6099,7 @@ describe "BW Moves:", ->
 
   describe "Baton Pass", ->
     it "fails if there is no benched pokemon to BP to", ->
-      shared.create.call(this)
+      shared.create.call(this, team1: [Factory('Magikarp')])
       batonPass = @battle.getMove("Baton Pass")
       mock = @sandbox.mock(batonPass).expects('fail').once()
       @battle.performMove(@p1, batonPass)

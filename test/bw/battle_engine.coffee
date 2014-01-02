@@ -227,7 +227,7 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @p2.currentHP = 1
-      mock = @sandbox.mock(@controller)
+      mock = @sandbox.mock(@battle)
       mock.expects('endBattle').once()
       @controller.makeMove(@player1, 'Mach Punch')
       @controller.makeMove(@player2, 'Psychic')

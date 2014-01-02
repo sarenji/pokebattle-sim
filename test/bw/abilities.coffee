@@ -28,7 +28,7 @@ describe "BW Abilities:", ->
   describe "Aftermath", ->
     it "deals 25% HP damage to the killer", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Aftermath")]
+        team1: [Factory("Magikarp", ability: "Aftermath"), Factory("Magikarp")]
       @p1.currentHP = 1
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @battle.performFaints()
@@ -36,7 +36,7 @@ describe "BW Abilities:", ->
 
     it "does not deal damage for non-contact moves", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Aftermath")]
+        team1: [Factory("Magikarp", ability: "Aftermath"), Factory("Magikarp")]
       @p1.currentHP = 1
       @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
       @battle.performFaints()
@@ -44,7 +44,7 @@ describe "BW Abilities:", ->
 
     it "does not deal damage if pokemon died of natural causes", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", ability: "Aftermath")]
+        team1: [Factory("Magikarp", ability: "Aftermath"), Factory("Magikarp")]
       thunderbolt = @battle.getMove("Thunderbolt")
       @p1.currentHP = 2
       @p1.attach(Status.Burn)
@@ -887,18 +887,18 @@ describe "BW Abilities:", ->
   testContactHurtAbility = (name) ->
     describe name, ->
       it "damages for 1/8 HP on contact moves", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name), Factory("Magikarp")])
         hp = @p2.stat('hp')
         @battle.performMove(@p2, @battle.getMove("Tackle"))
         (hp - @p2.currentHP).should.equal(hp >> 3)
 
       it "does not damage for non-contact moves", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name), Factory("Magikarp")])
         @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
         @p2.currentHP.should.equal @p2.stat('hp')
 
       it "still works even if the owner faints", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name), Factory("Magikarp")])
         hp = @p2.stat('hp')
         @p1.currentHP = 1
         @battle.performMove(@p2, @battle.getMove("Tackle"))
@@ -1033,11 +1033,11 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Bounce")]
       @p1.has(Attachment.MagicCoat).should.be.true
+      @team1.has(Attachment.MagicCoat).should.be.true
+
       @battle.endTurn()
-      @p1.has(Attachment.MagicCoat).should.be.false
-      @p1.has(Ability.MagicBounce).should.be.true
-      @battle.beginTurn()
       @p1.has(Attachment.MagicCoat).should.be.true
+      @team1.has(Attachment.MagicCoat).should.be.true
 
   describe "Magic Guard", ->
     it "takes no damage from anything that isn't a move", ->

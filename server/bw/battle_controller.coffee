@@ -57,11 +57,12 @@ class @BattleController
 
   # Continue or begin a new turn if each player has made an action.
   transitionToNextState: ->
-    if @battle.areAllRequestsCompleted()
-      if @battle.replacing
-        @beginTurn()
-      else
-        @continueTurn()
+    return  if not @battle.areAllRequestsCompleted()
+    if @battle.replacing
+      @battle.performReplacements()
+      @battle.doReplacements()
+    else
+      @continueTurn()
 
   # Officially starts the battle.
   beginBattle: ->
@@ -116,22 +117,7 @@ class @BattleController
   # any replacements are needed, or begins the next turn.
   endTurn: ->
     @battle.endTurn()
-
-    if @battle.areReplacementsNeeded()
-      if !@battle.isOver()
-        @battle.requestFaintedReplacements()
-      else
-        @endBattle()
-    else
-      @beginTurn()
     @sendUpdates()
-
-  endBattle: ->
-    @battle.endBattle (err, info) =>
-      {winner, loser} = info
-      @battle.message "#{winner.id}: #{winner.oldRating} -> #{winner.newRating}"
-      @battle.message "#{loser.id}: #{loser.oldRating} -> #{loser.newRating}"
-      @sendUpdates()
 
   # Sends battle updates to players.
   sendUpdates: ->

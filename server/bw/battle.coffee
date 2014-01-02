@@ -50,14 +50,8 @@ class @Battle
     # Stores the current requests for action.
     @requests = {}
 
-    # Stores queue of players that need to move.
-    @requestQueue = []
-
     # Creates a RNG for this battle.
     @rng = new FakeRNG()
-
-    # Maps clientId -> object
-    @objectHash = {}
 
     # Current battle weather.
     @weather = Weather.NONE
@@ -298,12 +292,8 @@ class @Battle
   # move, then the battle engine progresses to continueTurn. Otherwise, the
   # battle waits for user responses.
   beginTurn: ->
-    @performReplacements()  if @replacing
-
     @turn++
-
     @tell(Protocol.START_TURN, @turn)
-
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     @query('beginTurn')
 
@@ -358,7 +348,7 @@ class @Battle
     @query("endTurn")
     for pokemon in @getActivePokemon()
       pokemon.turnsActive += 1
-    @performFaints()
+    @doReplacements()
 
   attach: (klass, options = {}) ->
     options = _.clone(options)
@@ -377,19 +367,17 @@ class @Battle
   has: (attachment) ->
     @attachments.contains(attachment)
 
-  endBattle: (next) ->
+  endBattle: ->
     winner = @getWinner()
     @tell(Protocol.END_BATTLE, winner.index)
     loser = @players[1 - winner.index]
+
     # Update ratings
     ratings.getRatings [ winner.id, loser.id ], (err, oldRatings) =>
       ratings.updatePlayers winner.id, loser.id, ratings.results.WIN, (err, result) =>
-        return next(err)  if err
-        ret = {
-          winner: {id: winner.id, oldRating: oldRatings[0], newRating: result[0].rating}
-          loser: {id: loser.id, oldRating: oldRatings[1], newRating: result[1].rating}
-        }
-        next(null, ret)
+        return @message "An error occurred updating rankings :("  if err
+        @message "#{winner.id}: #{oldRatings[0]} -> #{result[0].rating}"
+        @message "#{loser.id}: #{oldRatings[1]} -> #{result[1].rating}"
 
   getWinner: ->
     winner = null
@@ -502,6 +490,15 @@ class @Battle
     total = 0
     total += (request  for request of @requests).length
     total == 0
+
+  doReplacements: ->
+    @performFaints()
+    if @isOver()
+      @endBattle()
+    else if @areReplacementsNeeded()
+      @requestFaintedReplacements()
+    else
+      @beginTurn()
 
   # Returns true if any player's active Pokemon are fainted.
   areReplacementsNeeded: ->

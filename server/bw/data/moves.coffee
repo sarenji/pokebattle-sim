@@ -834,8 +834,8 @@ extendWithSecondaryBoost 'Low Sweep', 'target', 1, speed: -1
 extendWithPrimaryStatus 'Lovely Kiss', Status.Sleep
 
 extendMove 'Lucky Chant', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    player = battle.getOwner(target)
+  @execute = (battle, user, opponents) ->
+    player = battle.getOwner(user)
     if player.team.attach(Attachment.LuckyChant)
       battle.message "The Lucky Chant shielded #{player.id}'s " +
                      "team from critical hits!"

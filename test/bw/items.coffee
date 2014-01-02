@@ -145,7 +145,7 @@ describe "BW Items:", ->
 
     it "still works even if user faints", ->
       shared.create.call this,
-        team2: [Factory('Magikarp', item: 'Rocky Helmet')]
+        team2: [Factory('Magikarp', item: 'Rocky Helmet'), Factory("Magikarp")]
 
       @p2.currentHP = 1
       hp = @p1.stat('hp')
