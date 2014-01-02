@@ -1510,7 +1510,7 @@ extendMove 'Judgment', ->
 
 extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.hasItem()
+    if target.hasItem() && target.canLoseItem()
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
 

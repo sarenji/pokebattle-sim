@@ -877,6 +877,18 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove("Knock Off"))
       should.not.exist @p2.item
 
+    it "does not remove unremovable items", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', item: "Air Mail")]
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
+      @p2.hasItem().should.be.true
+
+    it "does not knock off items from pokemon with Sticky Hold", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', ability: "Sticky Hold", item: "Leftovers")]
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
+      @p2.hasItem().should.be.true
+
   describe 'trick and switcheroo', ->
     shared.shouldDoNoDamage('Trick')
 
