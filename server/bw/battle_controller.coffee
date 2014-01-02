@@ -60,7 +60,6 @@ class @BattleController
     return  if not @battle.areAllRequestsCompleted()
     if @battle.replacing
       @battle.performReplacements()
-      @battle.doReplacements()
     else
       @continueTurn()
 

@@ -348,7 +348,7 @@ class @Battle
     @query("endTurn")
     for pokemon in @getActivePokemon()
       pokemon.turnsActive += 1
-    @doReplacements()
+    @checkReplacements()
 
   attach: (klass, options = {}) ->
     options = _.clone(options)
@@ -491,7 +491,7 @@ class @Battle
     total += (request  for request of @requests).length
     total == 0
 
-  doReplacements: ->
+  checkReplacements: ->
     @performFaints()
     if @isOver()
       @endBattle()
@@ -566,6 +566,9 @@ class @Battle
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched
       pokemon.team.switchIn(pokemon)
+
+    # Pokemon may have fainted upon switch-in; we need to check.
+    @checkReplacements()
 
   # Executed by @continueTurn
   performMove: (pokemon, move) ->
