@@ -1,11 +1,19 @@
+{Weather} = require '../weather'
+
 # Retcon weather abilities to only last 5 turns.
 makeWeatherAbility = (name, weather) ->
   makeAbility name, ->
     this::switchIn = ->
-      if !@battle.hasWeather(weather)
-        # TODO: See if it's lengthened by rocks.
-        length = 5
-        @battle.setWeather(weather, length)
+      return  if @battle.hasWeather(weather)
+      moveName = switch weather
+        when Weather.SUN  then "Sunny Day"
+        when Weather.RAIN then "Rain Dance"
+        when Weather.SAND then "Sandstorm"
+        when Weather.HAIL then "Hail"
+        else throw new Error("#{weather} ability not supported.")
+
+      move = @battle.getMove(moveName)
+      move.changeWeather(@battle, @pokemon)
 
 # Import old abilities
 

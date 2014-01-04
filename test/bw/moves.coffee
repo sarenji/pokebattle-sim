@@ -2211,6 +2211,16 @@ describe "BW Moves:", ->
         @battle.weather.should.equal(weather)
         @battle.weatherDuration.should.equal 8
 
+      it "fails if the weather is already #{weather}", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: item)]
+        @battle.setWeather(weather)
+
+        theMove = @battle.getMove(moveName)
+        mock = @sandbox.mock(theMove).expects('fail').once()
+        @battle.performMove(@p1, theMove)
+        mock.verify()
+
   testWeatherMove("Rain Dance", Weather.RAIN, "Damp Rock")
   testWeatherMove("Sunny Day",  Weather.SUN,  "Heat Rock")
   testWeatherMove("Hail",       Weather.HAIL, "Icy Rock")

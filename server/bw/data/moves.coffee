@@ -436,7 +436,13 @@ makeBoostMove = (name, boostTarget, boosts) ->
 
 makeWeatherMove = (name, weatherType) ->
   extendMove name, ->
-    @hit = (battle, user) ->
+    @execute = (battle, user) ->
+      if !battle.hasWeather(weatherType)
+        @changeWeather(battle, user)
+      else
+        @fail(battle)
+
+    @changeWeather = (battle, user) ->
       length = 5
       length = 8  if weatherType == user.getItem()?.lengthensWeather
       battle.setWeather(weatherType, length)

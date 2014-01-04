@@ -3,6 +3,7 @@
 {Pokemon} = require('../../server/xy/pokemon')
 {Weather} = require('../../server/xy/weather')
 {Ability} = require '../../server/xy/data/abilities'
+{Item} = require '../../server/xy/data/items'
 util = require '../../server/xy/util'
 {Factory} = require '../factory'
 should = require 'should'
@@ -22,6 +23,14 @@ describe "BW Abilities:", ->
         @battle.setWeather(weather, 2)
         @controller.beginBattle()
         @battle.weatherDuration.should.equal(2)
+
+      it "is lengthened by rocks", ->
+        for itemName, item of Item
+          break  if item.lengthensWeather == weather
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: name, item: itemName)]
+        @battle.weatherDuration.should.equal(8)
 
   testWeatherAbility("Drizzle", Weather.RAIN)
   testWeatherAbility("Drought", Weather.SUN)
