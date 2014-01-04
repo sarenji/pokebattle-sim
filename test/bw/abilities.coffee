@@ -375,6 +375,13 @@ describe "BW Abilities:", ->
       @p1.copyAbility(Ability.Download)
       @p1.stages.should.include(specialAttack: 1)
 
+    it "does not raise anything if all foes have fainted", ->
+      shared.create.call(this)
+      @p2.faint()
+      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.copyAbility(Ability.Download)
+      @p1.stages.should.include(attack: 0, specialAttack: 0)
+
   testWeatherAbility = (name, weather) ->
     describe name, ->
       it "causes unending #{weather}", ->

@@ -288,9 +288,10 @@ makeAbility 'Defeatist', ->
 makeAbility 'Download', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
+    return  if opponents.length == 0
     totalDef = opponents.reduce(((s, p) -> s + p.stat('defense')), 0)
     totalSpDef = opponents.reduce(((s, p) -> s + p.stat('specialDefense')), 0)
-    # TODO: Real message
+    # TODO: Ability activation
     if totalSpDef <= totalDef
       @pokemon.boost(specialAttack: 1)
       @battle.message "#{@pokemon.name}'s Download boosted its Special Attack!"
