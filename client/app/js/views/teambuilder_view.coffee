@@ -11,6 +11,7 @@ class @TeambuilderView extends Backbone.View
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeam'
     'click .select-team': 'clickTeam'
+    'click .import-team': 'renderModal'
 
     # Pokemon view
     'click .change-gen-dropdown a': 'changeTeamGeneration'
@@ -20,7 +21,6 @@ class @TeambuilderView extends Backbone.View
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addNewPokemonEvent'
     'click .save_team': 'saveTeams'
-    'click .import_team': 'renderModal'
     'change .species_list': 'changeSpecies'
     'change .selected-forme': 'changeForme'
     'change .selected_nature': 'changeNature'
@@ -419,9 +419,8 @@ class @TeambuilderView extends Backbone.View
     $modal = $('#import-team-modal')
     $modal.on 'click', '.import-team-submit', (e) =>
       teamString = $modal.find('.imported-team').val()
-      teamJSON = PokeBattle.parseTeam(teamString)
-      pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON
-      @getSelectedTeam().reset(teamJSON)
+      pokemonJSON = PokeBattle.parseTeam(teamString)
+      @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
       $modal.modal('hide')
       return false
     $modal.modal('show')
