@@ -7,8 +7,10 @@ class @TeambuilderView extends Backbone.View
 
   events:
     # Team view
-    'click .select-team': 'clickTeam'
     'click .add-new-team': 'addNewTeam'
+    'click .clone-team': 'cloneTeam'
+    'click .delete-team': 'deleteTeam'
+    'click .select-team': 'clickTeam'
 
     # Pokemon view
     'click .change-gen-dropdown a': 'changeTeamGeneration'
@@ -76,27 +78,43 @@ class @TeambuilderView extends Backbone.View
       teamsJSON = JSON.parse(teamsJSON)
       for teamJSON in teamsJSON
         pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON.pokemon
-      @teams = teamsJSON.map (json) =>
-        {pokemon} = json
-        attributes = _.clone(json)
-        delete attributes.pokemon
-        team = new Team(pokemon, attributes)
-        @attachEventsToTeam(team)
-        team
+      @teams = teamsJSON.map(@jsonToTeam)
+      @teams.map(@attachEventsToTeam)
     else
       @addNewTeam()
     @render()
 
+  jsonToTeam: (json) =>
+    {pokemon} = json
+    attributes = _.clone(json)
+    delete attributes.pokemon
+    return new Team(pokemon, attributes)
+
   addEmptyPokemon: (team) =>
     team.add(new Pokemon(teambuilder: true))
 
-  addNewTeam: =>
-    team = new Team()
+  addNewTeam: (team) =>
+    team ||= new Team()
     @teams.push(team)
-    @addNewPokemon(team)  for i in [1..6]
+    @addNewPokemon(team)  for i in [1..6]  if team.length == 0
     @attachEventsToTeam(team)
     @saveTeams()
     @renderTeams()
+
+  cloneTeam: (e) =>
+    $team = $(e.currentTarget).closest('.select-team')
+    index = $team.index()
+    @addNewTeam(@jsonToTeam(@teams[index].toJSON()))
+    return false
+
+  deleteTeam: (e) =>
+    return false  if !confirm("Do you really want to delete this team?")
+    $team = $(e.currentTarget).closest('.select-team')
+    index = $team.index()
+    @teams.splice(index, 1)
+    @saveTeams()
+    @renderTeams()
+    return false
 
   addNewPokemonEvent: =>
     @addNewPokemon(@teams[@selectedTeam])

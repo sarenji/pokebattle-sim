@@ -3,4 +3,12 @@
     .left.select-team
       h2= team.getName()
       != window.JST['team']({team: team.models, window: window})
+      .team-meta
+        span.fake_link.clone-team
+          span.icon-copy
+          |  Clone
+        |  | 
+        span.fake_link.delete-team
+          span.icon-remove
+          |  Delete
 .button.add-new-team Add new team

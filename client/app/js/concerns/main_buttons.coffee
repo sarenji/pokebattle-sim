@@ -11,6 +11,9 @@ $ ->
       teamJSON = allTeams[selectedIndex].pokemon
       PokeBattle.socket.send('find battle', teamJSON, format)
       $this.addClass('disabled')
+      $this.find('.find-icon')
+        .addClass('icon-spinner spinner-anim')
+        .removeClass("icon-globe")
     else
       PokeBattle.socket.send('cancel find battle', format)
 
@@ -61,3 +64,6 @@ $(window).load ->
   PokeBattle.events.on 'find battle canceled', ->
     $button = $('.find_battle')
     $button.removeClass("disabled")
+    $button.find('.find-icon')
+      .removeClass("icon-spinner spinner-anim")
+      .addClass("icon-globe")

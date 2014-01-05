@@ -108,6 +108,16 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     font-style: normal;
 }
 
+
+@keyframes anim-rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 [class*="icon-"] {
     font-family: 'icomoon';
     speak: none;
@@ -116,6 +126,7 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     font-variant: normal;
     text-transform: none;
     line-height: 1;
+    font-size: .9em;
 
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
@@ -141,37 +152,13 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     content: "\e605";
 }
 .icon-remove:before {
-    content: "\e606";
+    content: "\e6a8";
 }
 .icon-pencil:before {
-    content: "\e607";
+    content: "\e606";
 }
 .icon-trophy:before {
     content: "\e608";
-}
-.icon-facebook:before {
-    content: "\e609";
-}
-.icon-twitter:before {
-    content: "\e60a";
-}
-.icon-feed:before {
-    content: "\e60b";
-}
-.icon-youtube:before {
-    content: "\e60c";
-}
-.icon-github:before {
-    content: "\e60d";
-}
-.icon-reddit:before {
-    content: "\e60e";
-}
-.icon-linkedin:before {
-    content: "\e60f";
-}
-.icon-pinterest:before {
-    content: "\e610";
 }
 .icon-home:before {
     content: "\e611";
@@ -180,7 +167,7 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     content: "\e612";
 }
 .icon-bubbles:before {
-    content: "\e613";
+    content: "\e66b";
 }
 .icon-power-cord:before {
     content: "\e614";
@@ -189,11 +176,31 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     content: "\e615";
 }
 .icon-cancel:before {
-    content: "\e616";
+    content: "\e6fa";
 }
 .icon-tick:before {
     content: "\e617";
 }
 .icon-stop:before {
     content: "\e618";
+}
+.icon-spinner:before {
+    content: "\e67c";
+}
+.icon-import:before {
+    content: "\e6bf";
+}
+.icon-export:before {
+    content: "\e6c0";
+}
+.icon-globe:before {
+    content: "\e6c2";
+}
+.icon-copy:before {
+    content: "\e627";
+}
+
+.spinner-anim {
+    display: inline-block;
+    animation: anim-rotate 1s infinite linear;
 }
