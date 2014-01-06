@@ -59,7 +59,7 @@ connections.addEvents
       [ command, args... ] = message.split(/\s+/)
       command = command.substr(1)
       args = args.join(' ').split(/,\s*/g)
-      commands.executeCommand(user, lobby, command, args...)
+      commands.executeCommand(server, user, lobby, command, args...)
     else
       lobby.userMessage(user, message)
 

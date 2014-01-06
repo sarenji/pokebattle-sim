@@ -4,6 +4,7 @@ should = require('should')
 commands = require('../../server/commands')
 auth = require('../../server/auth')
 {User} = require('../../server/user')
+{BattleServer} = require('../../server/server')
 {Room} = require('../../server/rooms')
 ratings = require('../../server/ratings')
 
@@ -15,13 +16,14 @@ describe "Commands", ->
     @room.addUser(@user1)
     @room.addUser(@user2)
     @emptyRoom = new Room()
+    @server = new BattleServer()
 
   describe "#executeCommand", ->
     describe "an invalid command", ->
       it "returns an error to the user", ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand(@user1, @room, "an invalid command")
+        commands.executeCommand(@server, @user1, @room, "an invalid command")
         mock1.verify()
         mock2.verify()
 
@@ -34,7 +36,7 @@ describe "Commands", ->
           ratings.setRating(@user2.id, user2Rating, done)
 
       it "returns the user's rating to the user without arguments", (done) ->
-        commands.executeCommand @user1, @room, "rating", (err, results) =>
+        commands.executeCommand @server, @user1, @room, "rating", (err, results) =>
           if err then throw err
           should.exist(results)
           results.should.have.property("username")
@@ -44,7 +46,7 @@ describe "Commands", ->
           done()
 
       it "returns someone's rating to the user as an argument", (done) ->
-        commands.executeCommand @user1, @room, "rating", @user2.id, (err, results) =>
+        commands.executeCommand @server, @user1, @room, "rating", @user2.id, (err, results) =>
           if err then throw err
           should.exist(results)
           results.should.have.property("username")
@@ -57,7 +59,7 @@ describe "Commands", ->
       it "returns an error if insufficient authority", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand @user1, @room, "kick", @user2.id, ->
+        commands.executeCommand @server, @user1, @room, "kick", @user2.id, ->
           mock1.verify()
           mock2.verify()
           done()
@@ -66,7 +68,7 @@ describe "Commands", ->
         @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('close').never()
         mock2 = @sandbox.mock(@user2).expects('close').once()
-        commands.executeCommand @user1, @room, "kick", @user2.id, ->
+        commands.executeCommand @server, @user1, @room, "kick", @user2.id, ->
           mock1.verify()
           mock2.verify()
           done()
@@ -75,7 +77,7 @@ describe "Commands", ->
         @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('close').never()
         mock2 = @sandbox.mock(@user2).expects('close').once()
-        commands.executeCommand @user1, @room, "kick", @user2.id, "smelly", ->
+        commands.executeCommand @server, @user1, @room, "kick", @user2.id, "smelly", ->
           mock1.verify()
           mock2.verify()
           done()
@@ -84,7 +86,7 @@ describe "Commands", ->
         @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand @user1, @room, "kick", ->
+        commands.executeCommand @server, @user1, @room, "kick", ->
           mock1.verify()
           mock2.verify()
           done()
@@ -93,7 +95,7 @@ describe "Commands", ->
         @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand @user1, @room, "kick", "offline user", ->
+        commands.executeCommand @server, @user1, @room, "kick", "offline user", ->
           mock1.verify()
           mock2.verify()
           done()
@@ -102,14 +104,35 @@ describe "Commands", ->
       it "returns an error if insufficient authority", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand @user1, @room, "mod", @user2.id, ->
+        commands.executeCommand @server, @user1, @room, "mod", @user2.id, ->
           mock1.verify()
           mock2.verify()
           done()
 
       it "mods a user if owner", (done) ->
         @user1.authority = auth.levels.OWNER
-        commands.executeCommand @user1, @room, "mod", @user2.id, =>
+        commands.executeCommand @server, @user1, @room, "mod", @user2.id, =>
           @user2.should.have.property("authority")
           @user2.authority.should.equal(auth.levels.MOD)
           done()
+
+    describe "battles", ->
+      it "returns an error if no user is passed", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "battles", ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "returns all battles that user is in if user is passed", (done) ->
+        @server.queuePlayer(@user1, [])
+        @server.queuePlayer(@user2, [])
+        @server.queuePlayer(id: "aardvark", [])
+        @server.queuePlayer(id: "bologna", [])
+        @server.beginBattles (err, battleIds) =>
+          if err then throw err
+          commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>
+            if err then throw err
+            battleIds.should.eql(@server.getUserBattles(@user2.id))
+            done()

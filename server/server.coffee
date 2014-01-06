@@ -41,7 +41,7 @@ class @BattleServer
           id = @createBattle(generation, pair...)
           @beginBattle(id)
           battleIds.push(id)
-        next(null, battleIds)
+        next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
 
   # Creates a battle and returns its battleId

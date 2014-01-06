@@ -29,7 +29,7 @@ makeOwnerCommand = (commandNames, func) ->
   func.authority = auth.levels.OWNER
   makeCommand(commandNames, func)
 
-@executeCommand = (user, room, commandName, args...) ->
+@executeCommand = (server, user, room, commandName, args...) ->
   {args, callback} = parseArguments(args)
   callback ||= ->
   func = Commands[commandName]
@@ -37,7 +37,7 @@ makeOwnerCommand = (commandNames, func) ->
     message = "Invalid command: #{commandName}. Type /help to see a list."
     return user.error(errors.COMMAND_ERROR, message)
   if !func.authority || user.authority >= func.authority
-    Commands[commandName]?.call(user, user, room, callback, args...)
+    Commands[commandName]?.call(server, user, room, callback, args...)
   else
     user.error(errors.COMMAND_ERROR, "You have insufficient authority.")
     callback()
@@ -52,6 +52,16 @@ makeCommand "rating", (user, room, next, username) ->
     if err then return user.error(errors.COMMAND_ERROR, err.message)
     user.message("#{username}'s rating: #{rating}")
     next(err, {username, rating})
+
+makeCommand "battles", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /battles username")
+    return next(new Error("Incorrect usage"))
+  battleIds = @getUserBattles(username)
+  links = battleIds.map (id) ->
+    "<span class='fake_link spectate' data-battle-id='#{id}'>#{id[...6]}</span>"
+  user.message("#{username}'s battles: #{links.join(" | ")}")
+  next(null, battleIds)
 
 makeModCommand "kick", (user, room, next, username, reason) ->
   if !username
