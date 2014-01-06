@@ -14,6 +14,9 @@ class @BattleServer
       @queues[generation] = new BattleQueue()
     @battles = {}
 
+    # A hash mapping users to battles.
+    @userBattles = {}
+
   queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues
     @queues[generation].add(player, team)
@@ -45,10 +48,15 @@ class @BattleServer
   createBattle: (generation = gen.DEFAULT_GENERATION, objects...) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    battleId = @generateBattleId(objects.map((o) -> o.player.id))
+    playerIds = objects.map((o) -> o.player.id)
+    battleId = @generateBattleId(playerIds)
     conditions = [ Conditions.TEAM_PREVIEW, Conditions.SLEEP_CLAUSE ]
     battle = new Battle(battleId, players: objects, conditions: conditions)
     @battles[battleId] = new BattleController(battle)
+    for playerId in playerIds
+      @userBattles[playerId] ?= {}
+      @userBattles[playerId][battleId] = true
+      battle.on 'end', @removeUserBattle.bind(this, playerId, battleId)
     battleId
 
   beginBattle: (battleId) ->
@@ -65,6 +73,12 @@ class @BattleServer
   # Returns the battle with battleId.
   findBattle: (battleId) ->
     @battles[battleId]
+
+  getUserBattles: (userId) ->
+    (id  for id, value of @userBattles[userId])
+
+  removeUserBattle: (userId, battleId) ->
+    delete @userBattles[userId][battleId]
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.

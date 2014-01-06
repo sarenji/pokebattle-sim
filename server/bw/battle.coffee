@@ -8,10 +8,11 @@
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
 ratings = require '../ratings'
+{EventEmitter} = require 'events'
 
 require 'sugar'
 
-class @Battle
+class @Battle extends EventEmitter
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
   Moves: Moves
   MoveList: MoveList
@@ -371,6 +372,7 @@ class @Battle
     winner = @getWinner()
     @tell(Protocol.END_BATTLE, winner.index)
     loser = @players[1 - winner.index]
+    @emit('end')
 
     # Update ratings
     ratings.getRatings [ winner.id, loser.id ], (err, oldRatings) =>
@@ -381,8 +383,6 @@ class @Battle
 
   getWinner: ->
     winner = null
-    if @players.all((player) -> player.team.getAlivePokemon().length > 0)
-      return winner
     length = 0
     for player in @players
       newLength = player.team.getAlivePokemon().length

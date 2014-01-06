@@ -199,3 +199,29 @@ describe 'BattleServer', ->
       server.validateTeam([ blissey ]).should.not.be.empty
 
     it "returns non-empty if a pokemon cannot have its forme"
+
+  describe "users", ->
+    it "are recorded to be playing in which battles", ->
+      server = new BattleServer()
+      [ user1, user2, user3 ] = [ "a", "b", "c" ]
+      server.queuePlayer(id: user1, [])
+      server.queuePlayer(id: user2, [])
+      server.queuePlayer(id: user3, [])
+      server.beginBattles (err, battleIds) ->
+        server.getUserBattles(user1).should.eql(battleIds)
+        server.getUserBattles(user2).should.eql(battleIds)
+        server.getUserBattles(user3).should.be.empty
+
+    it "no longer records battles once they end", ->
+      server = new BattleServer()
+      [ user1, user2, user3 ] = [ "a", "b", "c" ]
+      server.queuePlayer(id: user1, [Factory("Blissey"), Factory("Skarmory")])
+      server.queuePlayer(id: user2, [Factory("Blissey")])
+      server.queuePlayer(id: user3, [Factory("Blissey")])
+      server.beginBattles (err, battleIds) ->
+        for battleId in battleIds
+          battle = server.findBattle(battleId)
+          battle.endBattle()
+        server.getUserBattles(user1).should.be.empty
+        server.getUserBattles(user2).should.be.empty
+        server.getUserBattles(user3).should.be.empty

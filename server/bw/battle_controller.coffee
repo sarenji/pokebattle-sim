@@ -119,6 +119,10 @@ class @BattleController
     @battle.endTurn()
     @sendUpdates()
 
+  endBattle: ->
+    @battle.endBattle()
+    @sendUpdates()
+
   # Sends battle updates to players.
   sendUpdates: ->
     for spectator in @battle.spectators
