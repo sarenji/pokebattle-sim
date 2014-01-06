@@ -95,8 +95,8 @@ class @TeambuilderView extends Backbone.View
   addEmptyPokemon: (team) =>
     team.add(new Pokemon(teambuilder: true))
 
-addNewTeamEvent: (e) =>
-  @addNewTeam()
+  addNewTeamEvent: (e) =>
+    @addNewTeam()
 
   addNewTeam: (team) =>
     team ||= new Team()
