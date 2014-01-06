@@ -4,6 +4,10 @@
       h2= team.getName()
       != window.JST['team']({team: team.models, window: window})
       .team-meta
+        span.fake_link.export-team
+          span.icon-upload
+          |  Export
+        |  | 
         span.fake_link.clone-team
           span.icon-copy
           |  Clone

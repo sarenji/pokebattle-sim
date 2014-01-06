@@ -3,11 +3,13 @@ class @TeambuilderView extends Backbone.View
   teamsTemplate: JST['teambuilder_teams']
   editTemplate: JST['teambuilder_pokemon']
   importTemplate: JST['modals/import_team']
+  exportTemplate: JST['modals/export_team']
   teamTemplate: JST['team']
 
   events:
     # Team view
     'click .add-new-team': 'addNewTeam'
+    'click .export-team': 'exportTeam'
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeam'
     'click .select-team': 'clickTeam'
@@ -114,6 +116,20 @@ class @TeambuilderView extends Backbone.View
     @teams.splice(index, 1)
     @saveTeams()
     @renderTeams()
+    return false
+
+  exportTeam: (e) =>
+    if $('#export-team-modal').length == 0
+      $('body').append(@exportTemplate())
+    $team = $(e.currentTarget).closest('.select-team')
+    index = $team.index()
+    teamJSON = @teams[index].toJSON()
+    teamString = PokeBattle.exportTeam(teamJSON.pokemon)
+
+    $modal = $('#export-team-modal')
+    $modal.find('.exported-team').val(teamString)
+    $modal.modal('show')
+    $modal.find('textarea, input').first().focus().select()
     return false
 
   addNewPokemonEvent: =>
