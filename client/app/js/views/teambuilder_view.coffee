@@ -424,6 +424,7 @@ class @TeambuilderView extends Backbone.View
       $modal.modal('hide')
       return false
     $modal.modal('show')
+    $modal.find('textarea, input').first().focus()
 
   renderStats: (pokemon) =>
     $div = @getPokemonView(pokemon)
