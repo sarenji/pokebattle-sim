@@ -55,15 +55,17 @@ renderCurrentTeam = ($context) ->
   $selectTeam.html(html)
 
 # Depresss Find Battle once one is found
+depressFindBattle = ->
+  $button = $('.find_battle')
+  $button.removeClass("disabled")
+  $button.find('.find-icon')
+    .removeClass("icon-spinner spinner-anim")
+    .addClass("icon-globe")
+
 $(window).load ->
   $mainButtons = $('.main_buttons')
   PokeBattle.battles.on 'add', (battle) ->
     if !battle.get('spectating')
-      $mainButtons.find('.find_battle').removeClass('disabled')
+      depressFindBattle()
 
-  PokeBattle.events.on 'find battle canceled', ->
-    $button = $('.find_battle')
-    $button.removeClass("disabled")
-    $button.find('.find-icon')
-      .removeClass("icon-spinner spinner-anim")
-      .addClass("icon-globe")
+  PokeBattle.events.on 'find battle canceled', depressFindBattle
