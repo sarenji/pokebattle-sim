@@ -382,14 +382,24 @@ class @Battle extends EventEmitter
         @message "#{loser.id}: #{oldRatings[1]} -> #{result[1].rating}"
 
   getWinner: ->
-    winner = null
+    winner     = null
+
+    # If each player has the same number of pokemon alive, return null.
+    teamLength = @players[0].team.getAlivePokemon().length
+    playerSize = @players.length
+    count      = 1
+    for i in [1...playerSize] by 1
+      count++  if teamLength == @players[i].team.getAlivePokemon().length
+    return null  if count == playerSize
+
+    # Otherwise, return the player with the most pokemon alive.
     length = 0
     for player in @players
       newLength = player.team.getAlivePokemon().length
       if newLength > length
         length = newLength
         winner = player
-    winner
+    return winner
 
   isOver: ->
     @finished || @players.any((player) -> player.team.getAlivePokemon().length == 0)
