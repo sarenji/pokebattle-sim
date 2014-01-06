@@ -10,7 +10,7 @@ mixin printStat(statName, keyName)
 
 .clearfix
   .species
-    select.species_list.select2
+    select.species_list
       each species in speciesList
         - var selected = (species === pokemon.get("name"))
         option(value=species, selected=selected)= species
@@ -41,13 +41,13 @@ mixin printStat(statName, keyName)
                 option(value=ability, selected=selected)= ability
           .teambuilder_row
             .teambuilder_col Nature:
-            select.teambuilder_col.selected_nature.select2
+            select.teambuilder_col.selected_nature
               each nature in pokemon.getNatures()
                 - var selected = (nature == pokemon.get("nature"))
                 option(value=nature, selected=selected)= nature
           .teambuilder_row
             .teambuilder_col Item:
-            select.teambuilder_col.selected_item.select2
+            select.teambuilder_col.selected_item
               option(value="")
               each itemName in itemList
                 - var selected = (itemName == pokemon.get("item"))

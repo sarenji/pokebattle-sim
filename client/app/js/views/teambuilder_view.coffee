@@ -419,7 +419,6 @@ class @TeambuilderView extends Backbone.View
 
     view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
-    @$('select.select2').select2(width: "100%")
 
     @$('.selected_moves input').each (i, el) =>
       $this = $(el)
