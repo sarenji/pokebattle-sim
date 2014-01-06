@@ -274,8 +274,10 @@ class @TeambuilderView extends Backbone.View
     @filterMovesBy("")
     $(".table-moves .active").removeClass("active")
 
-    return  if $input.val().length == 0
-    @insertMove($input, moveName)
+    if $input.val().length == 0
+      @recordMoves()
+    else
+      @insertMove($input, moveName)
 
   clickMoveName: (e) =>
     $this = $(e.currentTarget)
@@ -290,9 +292,11 @@ class @TeambuilderView extends Backbone.View
     return  if !@buttonify($input, moveName)
     $moves = @getActivePokemonView().find('.selected_moves')
     $moves.find('input').first().focus()
+    @recordMoves()
 
-    # Record moves
+  recordMoves: =>
     movesArray = []
+    $moves = @getActivePokemonView().find('.selected_moves')
     $moves.find('.move-button').each ->
       moveName = $(this).text().trim()
       if moveName != ""
