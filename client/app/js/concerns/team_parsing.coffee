@@ -56,6 +56,53 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       pokemon.moves.push(moveName)
   return team
 
+@PokeBattle.exportTeam = (json) ->
+  s = []
+  for pokemon in json
+    s.push("")
+
+    # Pokemon name
+    name = pokemon.name
+    if pokemon.forme && pokemon.forme != "default"
+      name += "-#{pokemon.forme[0].toUpperCase()}"
+    name += " (#{pokemon.gender})"  if pokemon.gender
+    name += " @ #{pokemon.item}"  if pokemon.item
+    s.push(name)
+
+    # Ability
+    s.push("Ability: #{pokemon.ability}")  if pokemon.ability
+
+    # EVs
+    if pokemon.evs
+      evArray = for stat, amount of pokemon.evs when amount > 0
+        "#{amount} #{reverseStatsHash[stat]}"
+      s.push("EVs: #{evArray.join(" / ")}")  if evArray.length > 0
+
+    # IVs
+    if pokemon.ivs
+      ivArray = for stat, amount of pokemon.ivs when amount < 31
+        "#{amount} #{reverseStatsHash[stat]}"
+      s.push("IVs: #{ivArray.join(" / ")}")  if ivArray.length > 0
+
+    # Nature
+    s.push("#{pokemon.nature} nature")  if pokemon.nature
+
+    # Level
+    s.push("Level: #{pokemon.level}")  if pokemon.level && pokemon.level != 100
+
+    # Shiny
+    s.push("Shiny: Yes")  if pokemon.shiny
+
+    # Happiness
+    if pokemon.happiness && pokemon.happiness != 100
+      s.push("Happiness: #{pokemon.happiness}")
+
+    # Moves
+    if pokemon.moves
+      s.push("- #{moveName}")  for moveName in pokemon.moves
+  s.push("\n")  # Trailing newlines, just in case.
+  s.join("\n")
+
 statsHash =
   'hp'   : 'hp'
   'HP'   : 'hp'
@@ -67,6 +114,14 @@ statsHash =
   'SpD'  : 'specialDefense'
   'Spe'  : 'speed'
   'Spd'  : 'speed'
+
+reverseStatsHash =
+  'hp'             : 'HP'
+  'attack'         : 'Atk'
+  'defense'        : 'Def'
+  'specialAttack'  : 'SAtk'
+  'specialDefense' : 'SDef'
+  'speed'          : 'Spe'
 
 convertNameToSpeciesAndForme = (pokemon, name) ->
   if name.match(/(Thundurus|Landorus|Tornadus)\-T(herian)?/i)

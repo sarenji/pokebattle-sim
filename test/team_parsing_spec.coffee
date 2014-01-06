@@ -218,3 +218,52 @@ EVs: 252 SpA / 176 SpD
         if forme
           member.should.have.property('forme')
           member.forme.should.equal(forme)
+
+  describe "exporting teams", ->
+    it "exports properly", ->
+      team = [
+        {
+          name: "Pikachu"
+          moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
+          item: "Light Ball"
+          ability: "Lightningrod"
+          gender: "F"
+          level: 99
+          shiny: true
+          happiness: 20
+          ivs: { attack: 30, defense: 30 }
+          evs: { hp: 4, specialAttack: 252, speed: 252 }
+        }
+        {
+          name: "Kyurem"
+          forme: "black"
+          item: "Choice Band"
+          nature: "Adamant"
+          moves: ["Ice Beam", "Fusion Bolt", "Outrage", "Dragon Claw"]
+          ability: "Turboblaze"
+        }
+      ]
+      PokeBattle.exportTeam(team).should.equal """
+
+Pikachu (F) @ Light Ball
+Ability: Lightningrod
+EVs: 4 HP / 252 SAtk / 252 Spe
+IVs: 30 Atk / 30 Def
+Level: 99
+Shiny: Yes
+Happiness: 20
+- Substitute
+- Thunderbolt
+- Hidden Power
+- Grass Knot
+
+Kyurem-B @ Choice Band
+Ability: Turboblaze
+Adamant nature
+- Ice Beam
+- Fusion Bolt
+- Outrage
+- Dragon Claw
+
+
+"""
