@@ -8,7 +8,7 @@ class @TeambuilderView extends Backbone.View
 
   events:
     # Team view
-    'click .add-new-team': 'addNewTeam'
+    'click .add-new-team': 'addNewTeamEvent'
     'click .export-team': 'exportTeam'
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeam'
@@ -94,6 +94,9 @@ class @TeambuilderView extends Backbone.View
 
   addEmptyPokemon: (team) =>
     team.add(new Pokemon(teambuilder: true))
+
+addNewTeamEvent: (e) =>
+  @addNewTeam()
 
   addNewTeam: (team) =>
     team ||= new Team()
