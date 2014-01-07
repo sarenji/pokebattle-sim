@@ -1295,6 +1295,22 @@
         "target": "all-opponents", 
         "type": "Normal"
     }, 
+    "Celebrate": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [],
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 40, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "user", 
+        "type": "Normal"
+    }, 
     "Charge": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -4414,6 +4430,22 @@
         "target": "selected-pokemon", 
         "type": "Fighting"
     }, 
+    "Happy Hour": {
+        "accuracy": 0, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "non-damaging", 
+        "flags": [],
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 0, 
+        "pp": 30, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "users-field", 
+        "type": "Normal"
+    }, 
     "Harden": {
         "accuracy": 0, 
         "ailmentChance": 0, 
@@ -4779,6 +4811,26 @@
         "minHits": 1, 
         "power": 60, 
         "pp": 15, 
+        "priority": 0, 
+        "recoil": 0, 
+        "target": "selected-pokemon", 
+        "type": "Normal"
+    }, 
+    "Hold Back": {
+        "accuracy": 100, 
+        "ailmentChance": 0, 
+        "ailmentId": "none", 
+        "damage": "physical", 
+        "flags": [
+            "contact", 
+            "protect", 
+            "mirror"
+        ], 
+        "flinchChance": 0, 
+        "maxHits": 1, 
+        "minHits": 1, 
+        "power": 40, 
+        "pp": 40, 
         "priority": 0, 
         "recoil": 0, 
         "target": "selected-pokemon", 
