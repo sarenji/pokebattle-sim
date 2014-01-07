@@ -23,7 +23,7 @@ $ ->
   if allTeams?.length > 0
     renderCurrentTeam($mainButtons)
   else
-    $selectTeam = $('.select-team')
+    $selectTeam = $mainButtons.find('.select-team')
     $selectTeam.html("You have no teams!")
 
   $mainButtons.find('.select-team').click (e) ->
