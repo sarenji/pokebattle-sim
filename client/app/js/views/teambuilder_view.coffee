@@ -13,7 +13,7 @@ class @TeambuilderView extends Backbone.View
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeam'
     'click .select-team': 'clickTeam'
-    'click .import-team': 'renderModal'
+    'click .import-team': 'renderImportTeamModal'
 
     # Pokemon view
     'click .change-gen-dropdown a': 'changeTeamGeneration'
@@ -88,6 +88,7 @@ class @TeambuilderView extends Backbone.View
 
   jsonToTeam: (json) =>
     {pokemon} = json
+    p.teambuilder = true  for p in pokemon
     attributes = _.clone(json)
     delete attributes.pokemon
     return new Team(pokemon, attributes)
@@ -435,16 +436,19 @@ class @TeambuilderView extends Backbone.View
     text = @$(".change-gen-dropdown a[data-generation='#{generation}']").text()
     @$(".current-generation").text(text)
 
-  renderModal: =>
+  renderImportTeamModal: =>
+    # Add the import team modal if it doesn't exist
     if $('#import-team-modal').length == 0
       $('body').append(@importTemplate())
+      $modal = $('#import-team-modal')
+      $modal.on 'click', '.import-team-submit', (e) =>
+        teamString = $modal.find('.imported-team').val()
+        pokemonJSON = PokeBattle.parseTeam(teamString)
+        @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
+        $modal.modal('hide')
+        return false
+
     $modal = $('#import-team-modal')
-    $modal.on 'click', '.import-team-submit', (e) =>
-      teamString = $modal.find('.imported-team').val()
-      pokemonJSON = PokeBattle.parseTeam(teamString)
-      @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
-      $modal.modal('hide')
-      return false
     $modal.modal('show')
     $modal.find('textarea, input').first().focus()
 
