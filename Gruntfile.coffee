@@ -72,7 +72,7 @@ module.exports = (grunt) ->
         files: ['client/vendor/css/**/*.css']
         tasks: 'cssmin'
       json:
-        files: ['**/*.json']
+        files: ['**/*.json','!**/node_modules/**']
         tasks: 'compile:json'
     nodemon:
       development:
