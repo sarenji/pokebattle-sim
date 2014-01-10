@@ -445,6 +445,7 @@ class @TeambuilderView extends Backbone.View
         teamString = $modal.find('.imported-team').val()
         pokemonJSON = PokeBattle.parseTeam(teamString)
         @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
+        $modal.find('.imported-team').val("")
         $modal.modal('hide')
         return false
 
