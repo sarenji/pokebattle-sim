@@ -48,6 +48,8 @@ build = (context, opts={}) ->
   biasRNG.call(context, 'randInt', 'damage roll', 0)
   biasRNG.call(context, 'randInt', 'miss', 0)  # Can be overridden, of course.
   biasRNG.call(context, 'next', 'secondary status', 1)  # Often used in tests.
+  # moves that call other moves also get new targets
+  biasRNG.call(context, 'randInt', 'selected pokemon target', 0)
 
 create = (opts={}) ->
   build(this, opts)

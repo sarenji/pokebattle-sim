@@ -5079,7 +5079,8 @@ describe "BW Moves:", ->
       move = @team1.at(1).moves[0]
       shared.biasRNG.call(this, "randInt", "assist", 0)
 
-      mock = @sandbox.mock(move).expects('execute').once()
+      mock = @sandbox.mock(move)
+      mock.expects('execute').once().withArgs(@battle, @p1, [ @p1 ])
       @battle.performMove(@p1, assist)
       mock.verify()
 
@@ -5580,11 +5581,11 @@ describe "BW Moves:", ->
         shared.create.call(this)
 
         move = @battle.getMove(moveName)
-        mock = @sandbox.mock(@battle.rng)
-        mock.expects('choice').withArgs([2, 2, 3, 3, 4, 5], 'num hits').once()
+        spy = @sandbox.spy(@battle.rng, 'choice')
+        spy = spy.withArgs([2, 2, 3, 3, 4, 5], 'num hits')
 
         @battle.performMove(@p1, move)
-        mock.verify()
+        spy.calledOnce.should.be.true
 
       it "hits 5 times if the user has Skill Link", ->
         shared.create.call(this, team1: [Factory('Cloyster', ability: 'Skill Link')])
@@ -6267,6 +6268,20 @@ describe "BW Moves:", ->
       @p1.resetAllPP()
       @p1.attach(Status.Sleep)
       mock = @sandbox.mock(sleepTalk).expects('fail').once()
+      @battle.performMove(@p1, sleepTalk)
+      mock.verify()
+
+    it "changes the move's target properly", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, 'randInt', 'sleep talk', 0)
+      tackle = @battle.getMove("Tackle")
+      sleepTalk = @battle.getMove("Sleep Talk")
+      @p1.moves = [ tackle, sleepTalk ]
+      @p1.resetAllPP()
+      @p1.attach(Status.Sleep)
+
+      mock = @sandbox.mock(tackle)
+      mock.expects('execute').once().withArgs(@battle, @p1, [ @p2 ])
       @battle.performMove(@p1, sleepTalk)
       mock.verify()
 

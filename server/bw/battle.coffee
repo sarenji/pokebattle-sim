@@ -632,7 +632,8 @@ class @Battle extends EventEmitter
         @getOpponents(user)
       when 'selected-pokemon'
         # TODO: Actually get selected Pokemon from client.
-        [ @getOpponentOwners(user)[0].team.first() ]
+        pokemon = @getOpponents(user)
+        [ @rng.choice(pokemon, "selected pokemon target") ]
       when 'all-other-pokemon'
         @getActivePokemon().filter((p) -> p != user)
       when 'entire-field'
@@ -649,7 +650,7 @@ class @Battle extends EventEmitter
       else
         throw new Error("Unimplemented target: #{move.target}.")
     if move.target != 'opponents-field'
-      targets = targets.filter((p) -> !p.isFainted())
+      targets = targets.filter((p) -> p && !p.isFainted())
     return targets
 
   getMove: (moveName) ->

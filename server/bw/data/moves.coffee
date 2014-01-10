@@ -1127,7 +1127,7 @@ extendMove 'Assist', ->
     "Thief":        true
     "Transform":    true
     "Trick":        true
-  @execute = (battle, user, targets) ->
+  @execute = (battle, user) ->
     {team}  = battle.getOwner(user)
     pokemon = _.without(team.pokemon, user)
     moves   = _.flatten(pokemon.map((p) -> p.moves))
@@ -1136,13 +1136,7 @@ extendMove 'Assist', ->
       @fail(battle)
     else
       move = battle.rng.choice(moves, "assist")
-      # Assist chooses a random foe if selecting a Pokemon.
-      if move.target == 'selected-pokemon'
-        pokemon = battle.getOpponents(user)
-        targets = [ battle.rng.choice(pokemon) ]
-      else
-        targets = battle.getTargets(move, user)
-      battle.executeMove(move, user, targets)
+      battle.executeMove(move, user, battle.getTargets(move, user))
 
 extendMove 'Aqua Ring', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1863,14 +1857,14 @@ extendMove 'Sleep Talk', ->
     "Uproar"
   ]
   @usableWhileAsleep = true
-  @execute = (battle, user, targets) ->
+  @execute = (battle, user) ->
     viableMoves = user.moves.filter((move) -> move.name not in bannedMoves)
     if viableMoves.length == 0 || !user.has(Status.Sleep)
       @fail(battle)
       return
     moveIndex = battle.rng.randInt(0, viableMoves.length - 1, "sleep talk")
     move = viableMoves[moveIndex]
-    battle.executeMove(move, user, targets)
+    battle.executeMove(move, user, battle.getTargets(move, user))
 
 extendMove 'Smack Down', ->
   @afterSuccessfulHit = (battle, user, target) ->
