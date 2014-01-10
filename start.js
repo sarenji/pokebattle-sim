@@ -1,5 +1,7 @@
 require('coffee-script');
 
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
 switch (process.env.POKEBATTLE_ENV) {
   case "api":
     var PORT = process.env.PORT || 8082;
@@ -7,6 +9,7 @@ switch (process.env.POKEBATTLE_ENV) {
     break;
   case "sim":
   default:
-    require('./app');
+    var PORT = process.env.PORT || 8000;
+    require('./server').createServer(PORT);
     break;
 }
