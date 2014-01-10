@@ -7,7 +7,6 @@
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
-ratings = require '../ratings'
 {EventEmitter} = require 'events'
 
 require 'sugar'
@@ -375,6 +374,7 @@ class @Battle extends EventEmitter
     @emit('end')
 
     # Update ratings
+    ratings = require '../ratings'
     ratings.getRatings [ winner.id, loser.id ], (err, oldRatings) =>
       ratings.updatePlayers winner.id, loser.id, ratings.results.WIN, (err, result) =>
         return @message "An error occurred updating rankings :("  if err
