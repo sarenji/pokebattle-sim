@@ -20,7 +20,7 @@ exports.middleware = -> (req, res, next) ->
   authenticate req.cookies.sessionid, (body) ->
     if !body
       redirectURL = "http://pokebattle.com/accounts/login"
-      redirectURL += "?next=http://#{req.headers.host}"
+      redirectURL += "?next=/sim"
       return res.redirect(redirectURL)
     req.user = _.clone(body)
     hmac = crypto.createHmac('sha256', config.SECRET_KEY)
