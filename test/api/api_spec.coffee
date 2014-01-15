@@ -57,6 +57,16 @@ describe 'XY API:', ->
         data.pokemon.should.eql([["Rayquaza", "default"]])
         done()
 
+    it "encodes pokemon names properly", (done) ->
+      @client.get '/xy/abilities/poison-point', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        res.headers['content-type'].should.include("charset=utf8")
+        data.pokemon.should.includeEql(["Nidoran♀", "default"])
+        data.pokemon.should.includeEql(["Nidoran♂", "default"])
+        done()
+
   describe '/xy/types', ->
     it 'should get an array of all available types', (done) ->
       @client.get '/xy/types', (err, req, res, data) ->

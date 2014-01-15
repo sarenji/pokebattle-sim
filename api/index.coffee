@@ -146,6 +146,10 @@ attachAPIEndpoints = (server) ->
   server.use(restify.bodyParser())
   server.use(restify.gzipResponse())
 
+  server.use (req, res, next) ->
+    res.charSet('utf8')
+    return next()
+
   attachAPIEndpoints(server)
 
   server.listen port, ->
