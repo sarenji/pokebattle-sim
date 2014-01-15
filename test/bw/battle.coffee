@@ -64,6 +64,16 @@ describe 'Battle', ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.pokemonActions.length.should.equal(1 + length)
 
+  describe '#undoCompletedRequest', ->
+    it "fails if the player didn't make any action", ->
+      @battle.undoCompletedRequest(@id1).should.be.false
+
+    it "succeeds if the player selected an action already", ->
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.pokemonActions.should.not.be.empty
+      @battle.undoCompletedRequest(@id1).should.be.true
+      @battle.pokemonActions.should.be.empty
+
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
