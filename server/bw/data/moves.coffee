@@ -59,8 +59,8 @@ extendWithSecondaryEffect = (name, chance, Klass, options={}) ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       oldFunc.call(this, battle, user, target, damage)
       return  if target.has(Attachment.Substitute)
-      chance *= 2  if user.hasAbility("Serene Grace")
-      return  if battle.rng.next("secondary effect") >= chance
+      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+      return  if battle.rng.next("secondary effect") >= chance * multiplier
 
       target.attach(Klass, options)
 
@@ -70,8 +70,8 @@ extendWithSecondaryStatus = (name, chance, status) ->
     @afterSuccessfulHit = (battle, user, target, damage) ->
       oldFunc.call(this, battle, user, target, damage)
       return  if target.has(Attachment.Substitute)
-      chance *= 2  if user.hasAbility("Serene Grace")
-      return  if battle.rng.next("secondary status") >= chance
+      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+      return  if battle.rng.next("secondary status") >= chance * multiplier
 
       target.attach(status)
 
@@ -79,11 +79,11 @@ extendWithSecondaryStatus = (name, chance, status) ->
 extendWithFangEffect = (name, chance, status, options) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      chance *= 2  if user.hasAbility("Serene Grace")
-      if battle.rng.next("fang status") < chance
+      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+      if battle.rng.next("fang status") < chance * multiplier
         target.attach(status)
 
-      if battle.rng.next("fang flinch") < chance
+      if battle.rng.next("fang flinch") < chance * multiplier
         target.attach(Attachment.Flinch)
 
 extendWithDrain = (name, drainPercent=.5) ->
