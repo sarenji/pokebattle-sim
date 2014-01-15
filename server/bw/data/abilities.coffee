@@ -13,7 +13,6 @@ makeAbility = (name, func) ->
     func?.call(this)
 
 # TODO: Implement.
-makeAbility 'Sheer Force'
 makeAbility 'Mold Breaker'
 makeAbility 'Pickup'
 
@@ -689,6 +688,11 @@ makeAbility 'Shed Skin', ->
     if @battle.rng.randInt(1, 10, "shed skin") <= 3
       @battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}."
       @pokemon.cureStatus()
+
+makeAbility 'Sheer Force', ->
+  this::modifyBasePower = (move, target) ->
+    return 0x14CD  if move.hasSecondaryEffect()
+    return 0x1000
 
 makeAbility 'Simple', ->
   this::transformBoosts = (boosts) ->

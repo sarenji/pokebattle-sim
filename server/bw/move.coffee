@@ -23,6 +23,9 @@ class @Move
     @flinchChance = (attributes.flinchChance || 0)
     @ailmentChance = (attributes.ailmentChance || 0)
     @ailmentId = attributes.ailmentId
+    @boostChance = attributes.boostChance || 0
+    @boostStats = attributes.boostStats
+    @boostTarget = attributes.boostTarget
     @pp = attributes.pp
     @recoil = attributes.recoil
     {@minHits, @maxHits} = attributes
@@ -41,7 +44,8 @@ class @Move
 
   # A secondary effect also includes flinching.
   hasSecondaryEffect: ->
-    @ailmentChance > 0 || @flinchChance > 0
+    (@ailmentChance > 0 && @ailmentId != "none") ||
+      @flinchChance > 0 || @boostChance > 0
 
   # Executes this move on several targets.
   # Only override this method if the move does not need to be
@@ -61,8 +65,9 @@ class @Move
       for hitNumber in [1..numHits]
         @hit(battle, user, target, hitNumber)
 
-    # If we hit at least once, then query the user's afterAllHits event.
-    if targetsHit.length > 0
+    # If the move hit 1+ times, query the user's afterAllHits event.
+    # If the user has Sheer Force, these are all ignored.
+    if targetsHit.length > 0 && !user.hasAbility("Sheer Force")
       user.afterAllHits(this)
       for target in targetsHit
         target.afterAllHitsTarget(this, user)

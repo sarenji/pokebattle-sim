@@ -27,12 +27,8 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
   battle.message "#{user.name} protected itself!"
 
-extendWithSecondaryBoost 'Moonblast', 'target', .3, specialAttack: -1
-extendWithSecondaryBoost 'Mystical Fire', 'target', 1, specialAttack: -1
 makeBoostMove 'Noble Roar', 'target', attack: -1, specialAttack: -1
 makeBoostMove 'Play Nice', 'target', attack: -1
-extendWithSecondaryBoost 'Play Rough', 'target', .1, attack: -1
-extendWithSecondaryBoost 'Power-Up Punch', 'self', 1, attack: 1
 
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)

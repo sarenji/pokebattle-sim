@@ -36,8 +36,9 @@ extendMove = (name, callback) ->
 
 # This adds secondary effects/flinch to all moves that require it.
 secondaryEffect = (battle, user, target) ->
-  # Substitute blocks all secondary effects.
+  # Substitute and Sheer Force block all secondary effects.
   return  if target.has(Attachment.Substitute)
+  return  if user.hasAbility("Sheer Force")
 
   # Multiply chances by 2 if the user has Serene Grace.
   chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
@@ -60,6 +61,11 @@ secondaryEffect = (battle, user, target) ->
           else throw new Error("Unrecognized unknown ailment for #{@name}")
       else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
     target.attach(klass)
+
+  # Secondary boosts
+  if @boostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @boostChance * chanceMultiplier
+    pokemon = (if @boostTarget == 'self' then user else target)
+    pokemon.boost(@boostStats)
 
   # Flinching. In the game, flinching is treated subtly different than
   # secondary effects. One result is that the Fang moves can both inflict
@@ -446,14 +452,6 @@ extendWithBoost = (name, boostTarget, boosts) ->
       pokemon = (if boostTarget == 'self' then user else target)
       pokemon.boost(boosts)
 
-extendWithSecondaryBoost = (name, boostTarget, chance, boosts) ->
-  extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target) ->
-      if battle.rng.next('secondary boost') >= chance
-        return
-      pokemon = (if boostTarget == 'self' then user else target)
-      pokemon.boost(boosts)
-
 makeCounterMove = (name, multiplier, applies) ->
   extendMove name, ->
     @getTargets = (battle, user) ->
@@ -491,14 +489,9 @@ makeTrappingMove = (name) ->
         user.attach(Attachment.TrapLeash, {target})
 
 extendWithDrain 'Absorb'
-extendWithSecondaryBoost 'Acid', 'target', .1, specialDefense: -1
 makeBoostMove 'Acid Armor', 'self', defense: 2
-extendWithSecondaryBoost 'Acid Spray', 'target', 1, specialDefense: -2
 makeBoostMove 'Agility', 'self', speed: 2
 makeBoostMove 'Amnesia', 'self', specialDefense: 2
-extendWithSecondaryBoost 'AncientPower', 'self', .1, {
-  attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
-}
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'Attract', ->
@@ -510,7 +503,6 @@ extendMove 'Attract', ->
       return
     target.attach(Attachment.Attract, source: user)
 
-extendWithSecondaryBoost 'Aurora Beam', 'target', .1, attack: -1
 makeBoostMove 'Autotomize', 'self', speed: 2
 makeBoostMove 'Barrier', 'self', defense: 2
 
@@ -540,11 +532,7 @@ extendMove 'Blizzard', ->
     return @accuracy
 
 makeMeanLookMove 'Block'
-extendWithSecondaryBoost 'Bubble', 'target', .1, speed: -1
-extendWithSecondaryBoost 'BubbleBeam', 'target', .1, speed: -1
-extendWithSecondaryBoost 'Bug Buzz', 'target', .1, specialDefense: -1
 makeBoostMove 'Bulk Up', 'self', attack: 1, defense: 1
-extendWithSecondaryBoost 'Bulldoze', 'target', 1, speed: -1
 makeBoostMove 'Calm Mind', 'self', specialAttack: 1, specialDefense: 1
 
 extendMove 'Camouflage', ->
@@ -572,7 +560,6 @@ extendMove 'Charge', ->
     oldUse.call(this, battle, user, target)
 
 makeBoostMove 'Charm', 'target', attack: -2
-extendWithSecondaryBoost 'Charge Beam', 'self', .7, specialAttack: 1
 
 extendMove 'Chip Away', ->
   oldExecute = @execute
@@ -592,7 +579,6 @@ extendMove 'Clear Smog', ->
 extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'Coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithPrimaryEffect 'Confuse Ray', Attachment.Confusion
-extendWithSecondaryBoost 'Constrict', 'target', .1, speed: -1
 
 extendMove 'Conversion', ->
   @use = (battle, user, target) ->
@@ -624,8 +610,6 @@ makeBoostMove 'Cosmic Power', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'Cotton Guard', 'self', defense: 3
 makeBoostMove 'Cotton Spore', 'target', speed: -2
 makeThiefMove 'Covet'
-extendWithSecondaryBoost 'Crunch', 'target', .2, defense: -1
-extendWithSecondaryBoost 'Crush Claw', 'target', .5, defense: -1
 extendWithPrimaryEffect 'Dark Void', Status.Sleep
 makeBoostMove 'Defend Order', 'self', defense: 1, specialDefense: 1
 makeBoostMove 'Defense Curl', 'self', defense: 1
@@ -667,9 +651,6 @@ extendWithDrain 'Drain Punch'
 extendWithDrain 'Dream Eater'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
-extendWithSecondaryBoost 'Earth Power', 'target', .1, specialDefense: -1
-extendWithSecondaryBoost 'Electroweb', 'target', 1, speed: -1
-extendWithSecondaryBoost 'Energy Ball', 'target', .1, specialDefense: -1
 
 extendMove 'Embargo', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -697,15 +678,11 @@ extendMove 'Feint', ->
       target.unattach(Attachment.Protect)
       battle.message "#{target.name} fell for the feint!"
 
-extendWithSecondaryBoost 'Fiery Dance', 'self', .5, specialAttack: 1
 makeTrappingMove "Fire Spin"
 makeOneHitKOMove 'Fissure'
 makeReversalMove 'Flail'
-extendWithSecondaryBoost 'Flame Charge', 'self', 1, speed: 1
 extendMove 'Flame Wheel', -> @thawsUser = true
 extendMove 'Flare Blitz', -> @thawsUser = true
-extendWithSecondaryBoost 'Flash Cannon', 'target', .1, specialDefense: -1
-extendWithSecondaryBoost 'Focus Blast', 'target', .1, specialDefense: -1
 
 extendMove 'Focus Energy', ->
   @use = (battle, user, target) ->
@@ -726,7 +703,6 @@ makeRechargeMove 'Frenzy Plant'
 extendMove 'Fusion Flare', -> @thawsUser = true
 extendWithDrain 'Giga Drain'
 makeRechargeMove 'Giga Impact'
-extendWithSecondaryBoost 'Glaciate', 'target', 1, speed: -1
 makeWeightBased 'Grass Knot'
 extendWithPrimaryEffect 'GrassWhistle', Status.Sleep
 makeBoostMove 'Growl', 'target', attack: -1
@@ -754,9 +730,7 @@ makeRechargeMove 'Hydro Cannon'
 makeRechargeMove 'Hyper Beam'
 extendWithPrimaryEffect 'Hypnosis', Status.Sleep
 makeMomentumMove 'Ice Ball'
-extendWithSecondaryBoost 'Icy Wind', 'target', 1, speed: -1
 makeBoostMove 'Iron Defense', 'self', defense: 2
-extendWithSecondaryBoost 'Iron Tail', 'target', .1, defense: -1
 makeWeatherMove 'Hail', Weather.HAIL
 
 extendMove 'Hurricane', ->
@@ -767,7 +741,6 @@ extendMove 'Hurricane', ->
 
 makeJumpKick 'Jump Kick'
 extendWithBoost 'Leaf Storm', 'self', specialAttack: -2
-extendWithSecondaryBoost 'Leaf Tornado', 'target', .5, accuracy: -1
 makeBoostMove 'Leer', 'target', defense: -1
 extendWithDrain 'Leech Life'
 
@@ -789,7 +762,6 @@ extendMove 'Leech Seed', ->
 
 makeLockOnMove 'Lock-On'
 makeWeightBased 'Low Kick'
-extendWithSecondaryBoost 'Low Sweep', 'target', 1, speed: -1
 extendWithPrimaryEffect 'Lovely Kiss', Status.Sleep
 
 extendMove 'Lucky Chant', ->
@@ -805,7 +777,6 @@ makeTrappingMove "Magma Storm"
 makeMeanLookMove 'Mean Look'
 makeBoostMove 'Meditate', 'self', attack: 1
 extendWithDrain 'Mega Drain'
-extendWithSecondaryBoost 'Metal Claw', 'self', .1, attack: 1
 makeBoostMove 'Metal Sound', 'target', specialDefense: -2
 makeRecoveryMove 'Milk Drink'
 makeLockOnMove 'Mind Reader'
@@ -826,42 +797,27 @@ extendMove 'Mirror Move', ->
       return false
     battle.executeMove(move, user, targets)
 
-extendWithSecondaryBoost 'Mirror Shot', 'target', .3, accuracy: -1
-extendWithSecondaryBoost 'Mist Ball', 'target', .5, specialAttack: -1
 makeWeatherRecoveryMove 'Moonlight'
 makeWeatherRecoveryMove 'Morning Sun'
-extendWithSecondaryBoost 'Mud Bomb', 'target', .3, accuracy: -1
-extendWithSecondaryBoost 'Mud Shot', 'target', 1, speed: -1
-extendWithSecondaryBoost 'Mud-Slap', 'target', 1, accuracy: -1
-extendWithSecondaryBoost 'Muddy Water', 'target', .3, accuracy: -1
 makeBoostMove 'Nasty Plot', 'self', specialAttack: 2
-extendWithSecondaryBoost 'Night Daze', 'target', .4, accuracy: -1
 makeLevelAsDamageMove 'Night Shade'
-extendWithSecondaryBoost 'Octazooka', 'target', .5, accuracy: -1
 makeIdentifyMove("Odor Sleuth", "Normal")
-extendWithSecondaryBoost 'Ominous Wind', 'self', .1, {
-  attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
-}
 extendWithBoost 'Overheat', 'self', specialAttack: -2
 extendWithPrimaryEffect 'Poison Gas', Status.Poison
 extendWithPrimaryEffect 'PoisonPowder', Status.Poison
 makeProtectMove 'Protect'
-extendWithSecondaryBoost 'Psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
 makePickDefenseMove 'Psyshock'
 makePickDefenseMove 'Psystrike'
 makeBasePowerBoostMove 'Punishment', 60, 200, 'target'
 makeBoostMove 'Quiver Dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 makeWeatherMove 'Rain Dance', Weather.RAIN
-extendWithSecondaryBoost 'Razor Shell', 'target', .5, defense: -1
 makeRecoveryMove 'Recover'
 makeRevengeMove 'Revenge'
 makeReversalMove 'Reversal'
 makeRandomSwitchMove "Roar"
 makeRechargeMove 'Roar of Time'
 makeBoostMove 'Rock Polish', 'self', speed: 2
-extendWithSecondaryBoost 'Rock Smash', 'target', .5, defense: -1
-extendWithSecondaryBoost 'Rock Tomb', 'target', 1, speed: -1
 makeRechargeMove 'Rock Wrecker'
 makeMomentumMove 'Rollout'
 makeRecoveryMove 'Roost'
@@ -877,25 +833,19 @@ extendMove 'Scald', -> @thawsUser = true
 makeBoostMove 'Scary Face', 'target', speed: -2
 makeBoostMove 'Screech', 'target', defense: -2
 makePickDefenseMove 'Secret Sword'
-extendWithSecondaryBoost 'Seed Flare', 'target', .4, specialDefense: -2
 makeExplosionMove 'Selfdestruct'
 makeLevelAsDamageMove 'Seismic Toss'
-extendWithSecondaryBoost 'Shadow Ball', 'target', .2, specialDefense: -1
 makeBoostMove 'Sharpen', 'self', attack: 1
 makeOneHitKOMove 'Sheer Cold'
 makeBoostMove 'Shell Smash', 'self', {
   attack: 2, specialAttack: 2, speed: 2, defense: -1, specialDefense: -1
 }
 makeBoostMove 'Shift Gear', 'self', speed: 2, attack: 1
-extendWithSecondaryBoost 'Silver Wind', 'self', .1, {
-  attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
-}
 extendWithPrimaryEffect 'Sing', Status.Sleep
 makeBoostMove 'Skull Bash', 'self', defense: 1
 makeRecoveryMove 'Slack Off'
 extendWithPrimaryEffect 'Sleep Powder', Status.Sleep
 makeBoostMove 'SmokeScreen', 'target', accuracy: -1
-extendWithSecondaryBoost 'Snarl', 'target', 1, specialAttack: -1
 makeRecoveryMove 'Softboiled'
 makeMeanLookMove 'Spider Web'
 
@@ -923,7 +873,6 @@ extendMove 'Spit Up', ->
 
 extendWithPrimaryEffect 'Spore', Status.Sleep
 makeStompMove 'Steamroller'
-extendWithSecondaryBoost 'Steel Wing', 'self', .1, defense: 1
 
 extendMove 'Stockpile', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -935,7 +884,6 @@ extendMove 'Stockpile', ->
 makeStompMove 'Stomp'
 makeBasePowerBoostMove 'Stored Power', 20, 860, 'user'
 makeBoostMove 'String Shot', 'target', speed: -1
-extendWithSecondaryBoost 'Struggle Bug', 'target', 1, specialAttack: -1
 extendWithPrimaryEffect 'Stun Spore', Status.Paralyze
 makeWeatherMove 'Sunny Day', Weather.SUN
 extendWithBoost 'Superpower', 'self', attack: -1, defense: -1

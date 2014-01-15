@@ -1549,6 +1549,19 @@ describe "BW Abilities:", ->
       @battle.performMove(@p1, ember)
       @p2.has(Status.Burn).should.be.true
 
+    it "doubles the chance of secondary boosts happening", ->
+      shared.create.call(this)
+      shared.biasRNG.call(this, "randInt", "secondary boost", 10)
+      acid = @battle.getMove("Acid")
+      @sandbox.stub(acid, "baseDamage", -> 1)
+
+      @battle.performMove(@p1, acid)
+      @p2.stages.should.include(specialDefense: 0)
+
+      @p1.copyAbility(Ability.SereneGrace)
+      @battle.performMove(@p1, acid)
+      @p2.stages.should.include(specialDefense: -1)
+
     it "doubles the chance of flinches happening", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "randInt", "flinch", 30)
@@ -1588,10 +1601,56 @@ describe "BW Abilities:", ->
       @p1.has(Status.Burn).should.be.true
 
   describe "Sheer Force", ->
-    it "raises power of moves with secondary effects by 30%"
-    it "nullifies secondary effects"
-    it "does not apply to some moves that negatively affect user"
-    it "receives no life orb damage"
+    it "raises power of moves with secondary effects by 30%", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force")]
+      ember = @battle.getMove("Ember")
+      ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+
+    it "does not raise power of moves without secondary effects", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force")]
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+    it "nullifies secondary effects", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # always happens
+      @battle.performMove(@p1, @battle.getMove("Zap Cannon"))
+      @p2.has(Status.Paralyze).should.be.false
+
+    it "nullifies flinch", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      shared.biasRNG.call(this, 'next', 'flinch', 0)  # always happens
+      @battle.performMove(@p1, @battle.getMove("Iron Head"))
+      @p2.has(Attachment.Flinch).should.be.false
+
+    it "nullifies secondary boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      @battle.performMove(@p1, @battle.getMove("Charge Beam"))
+      @p1.stages.should.include(specialAttack: 0)
+
+    it "does not apply to primary boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      cc = @battle.getMove("Close Combat")
+      cc.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+      @battle.performMove(@p1, cc)
+      @p1.stages.should.include(defense: -1, specialDefense: -1)
+
+    it "receives no life orb recoil", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
+
+    it "does not activate Red Card"
+    it "does not activate Eject Button"
+    it "does not activate Jaboca Berry?"
+    it "does not activate Rowap Berry?"
 
   describe "Shield Dust", ->
     it "prevents secondary effects"
