@@ -74,9 +74,9 @@ makeWeatherSpeedAbility("Sand Rush", Weather.SAND)
 
 makeLowHealthAbility = (name, type) ->
   makeAbility name, ->
-    this::modifyBasePower = (move, user, target) ->
-      return 0x1000  if move.getType(@battle, user, target) != type
-      return 0x1000  if user.currentHP > Math.floor(user.stat('hp') / 3)
+    this::modifyBasePower = (move, target) ->
+      return 0x1000  if move.getType(@battle, @pokemon, target) != type
+      return 0x1000  if @pokemon.currentHP > Math.floor(@pokemon.stat('hp') / 3)
       return 0x1800
 
 makeLowHealthAbility("Blaze", "Fire")
@@ -119,7 +119,7 @@ makeContactStatusAbility("Static", Status.Paralyze)
 
 makeStatusBoostAbility = (name, statuses, spectra) ->
   makeAbility name, ->
-    this::modifyBasePower = (move, user, target) ->
+    this::modifyBasePower = (move, target) ->
       if move.spectra == spectra && statuses.some((s) => @pokemon.has(s))
         0x1800
       else
@@ -624,7 +624,7 @@ makeAbility 'Rattled', ->
       @pokemon.boost(boosts)
 
 makeAbility 'Reckless', ->
-  this::modifyBasePower = (move, user, target) ->
+  this::modifyBasePower = (move, target) ->
     kickMoves = [ @battle.getMove("Jump Kick"), @battle.getMove("Hi Jump Kick")]
     if move.recoil < 0 || move in kickMoves
       0x1333
@@ -632,10 +632,10 @@ makeAbility 'Reckless', ->
       0x1000
 
 makeAbility 'Rivalry', ->
-  this::modifyBasePower = (move, user, target) ->
-    return 0x1400  if user.gender == target.gender
-    return 0xC00   if (user.gender == 'F' && target.gender == 'M') ||
-                      (user.gender == 'M' && target.gender == 'F')
+  this::modifyBasePower = (move, target) ->
+    return 0x1400  if @pokemon.gender == target.gender
+    return 0xC00   if (@pokemon.gender == 'F' && target.gender == 'M') ||
+                      (@pokemon.gender == 'M' && target.gender == 'F')
     return 0x1000
 
 makeAbility 'Regenerator', ->
@@ -649,8 +649,8 @@ makeAbility 'Rock Head'
 makeAbility 'Run Away'
 
 makeAbility 'Sand Force', ->
-  this::modifyBasePower = (move, user) ->
-    type = move.getType(@battle, user, @pokemon)
+  this::modifyBasePower = (move, target) ->
+    type = move.getType(@battle, @pokemon, target)
     return 0x14CD  if type in ['Rock', 'Ground', 'Steel']
     return 0x1000
 
@@ -791,8 +791,8 @@ makeAbility 'Tangled Feet', ->
     if @pokemon.has(Attachment.Confusion) then evasion >> 1 else evasion
 
 makeAbility 'Technician', ->
-  this::modifyBasePower = (move, user) ->
-    return 0x1800  if move.basePower(@battle, user, @pokemon) <= 60
+  this::modifyBasePower = (move, target) ->
+    return 0x1800  if move.basePower(@battle, @pokemon, target) <= 60
     return 0x1000
 
 makeAbility 'Telepathy', ->

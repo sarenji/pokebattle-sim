@@ -1094,12 +1094,6 @@ class @Attachment.Fling extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
-class @Attachment.BeatUp extends @VolatileAttachment
-  name: "BeatUpAttachment"
-
-  initialize: ->
-    @index = -1
-
 class @Attachment.Gravity extends @BattleAttachment
   name: "GravityAttachment"
 
@@ -1174,7 +1168,7 @@ class @Attachment.BatonPass extends @TeamAttachment
 class @Attachment.FlashFire extends @VolatileAttachment
   name: "FlashFireAttachment"
 
-  modifyBasePower: (move, user, target) ->
+  modifyBasePower: (move, target) ->
     return 0x1000  if move.getType(@battle, @pokemon, target) != 'Fire'
     return 0x1800
 

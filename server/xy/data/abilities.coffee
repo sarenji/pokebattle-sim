@@ -29,8 +29,8 @@ makeNormalTypeChangeAbility = (name, newType) ->
       return newType  if type == 'Normal' && @pokemon != target
       return type
 
-    this::modifyBasePower = (move, user, target) ->
-      return 0x1555  if move.getType(@battle, user, target) == 'Normal'
+    this::modifyBasePower = (move, target) ->
+      return 0x1555  if move.getType(@battle, @pokemon, target) == 'Normal'
       return 0x1000
 
 makeNormalTypeChangeAbility("Aerilate", "Flying")
@@ -39,8 +39,8 @@ makeNormalTypeChangeAbility("Refrigerate", "Ice")
 
 makeAuraAbility = (name, type) ->
   makeAbility name, ->
-    this::modifyBasePower = (move, user, target) ->
-      return 0x1000  if move.getType(@battle, user, target) != type
+    this::modifyBasePower = (move, target) ->
+      return 0x1000  if move.getType(@battle, @pokemon, target) != type
       for pokemon in @battle.getActiveAlivePokemon()
         return 0xC00  if pokemon.hasAbility("Aura Break")
       return 0x1555
@@ -90,7 +90,7 @@ makeAbility "Grass Pelt"
 makeAbility "Magician"
 
 makeAbility 'Mega Launcher', ->
-  this::modifyBasePower = (move, user, target) ->
+  this::modifyBasePower = (move, target) ->
     return 0x1800  if move.hasFlag("pulse")
     return 0x1000
 

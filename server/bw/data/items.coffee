@@ -104,8 +104,8 @@ makeStatusCureBerry = (name, statuses...) ->
 makeOrbItem = (name, species) ->
   species = SpeciesData[species]
   makeItem name, ->
-    this::modifyBasePower = (move, user, target) ->
-      if user.species == species && move.type in user.types
+    this::modifyBasePower = (move, target) ->
+      if @pokemon.species == species && move.type in @pokemon.types
         0x1333
       else
         0x1000
@@ -117,7 +117,7 @@ makeStatusOrbItem = (name, status) ->
 
 makeTypeBoostItem = (name, type) ->
   makeItem name, ->
-    this::modifyBasePower = (move, user, target) ->
+    this::modifyBasePower = (move, target) ->
       if move.type == type
         0x1333
       else
@@ -132,7 +132,7 @@ makePlateItem = (name, type) ->
 GEM_BOOST_AMOUNT = GEM_BOOST_AMOUNT ? 0x1800
 makeGemItem = (name, type) ->
   makeItem name, ->
-    this::modifyBasePower = (move, user, target) ->
+    this::modifyBasePower = (move, target) ->
       if move.type == type
         GEM_BOOST_AMOUNT
       else
@@ -292,13 +292,15 @@ makePlateItem 'Dread Plate', 'Dark'
 makePlateItem 'Earth Plate', 'Ground'
 
 makeItem 'Eject Button', ->
-  this::afterBeingHit = (move, user, target) ->
+  this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
-    owner = @battle.getOwner(target)
+    owner = @battle.getOwner(@pokemon)
     switches = owner.team.getAliveBenchedPokemon()
-    slot = owner.team.indexOf(target)
+    return  if switches.length == 0
+    slot = owner.team.indexOf(@pokemon)
+    @battle.cancelAction(@pokemon)
     @battle.requestActions(owner, [ {switches, slot} ])
-    target.useItem()
+    @pokemon.useItem()
 
 makeGemItem 'Electric Gem', 'Electric'
 
@@ -392,9 +394,9 @@ makeItem 'Life Orb', ->
   this::modifyAttack = ->
     0x14CC
 
-  this::afterSuccessfulHit = (move, user, target) ->
+  this::afterAllHits = (move) ->
     return  if move.isNonDamaging()
-    if user.damage(Math.floor(user.stat('hp') / 10))
+    if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 10))
       @battle.message "#{@pokemon.name} hurt itself with its Life Orb."
 
 makeItem 'Light Clay' # Hardcoded in Attachment.Screen
@@ -425,8 +427,8 @@ makeItem 'Mental Herb', ->
 makeTypeBoostItem 'Metal Coat', 'Steel'
 
 makeItem 'Metronome', ->
-  this::modifyBasePower = (move, user, target) ->
-    attachment = user.get(Attachment.Metronome)
+  this::modifyBasePower = (move, target) ->
+    attachment = @pokemon.get(Attachment.Metronome)
     layers = attachment?.layers || 0
     0x1000 + layers * 0x333
 
@@ -440,7 +442,7 @@ makePlateItem 'Mind Plate', 'Psychic'
 makeTypeBoostItem 'Miracle Seed', 'Grass'
 
 makeItem 'Muscle Band', ->
-  this::modifyBasePower = (move, user, target) ->
+  this::modifyBasePower = (move, target) ->
     if move.isPhysical()
       0x1199
     else
@@ -469,15 +471,15 @@ makeStatusCureBerry 'Rawst Berry', Status.Burn
 makeFlinchItem "Razor Fang"
 
 makeItem 'Red Card', ->
-  this::afterBeingHit = (move, user, target) ->
+  this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
     opponent = @battle.getOwner(user)
     benched  = opponent.team.getAliveBenchedPokemon()
-    # return  if benched.length == 0
+    return  if benched.length == 0
     pokemon = @battle.rng.choice(benched)
     index = opponent.team.indexOf(pokemon)
     opponent.switch(user, index)
-    target.useItem()
+    @pokemon.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
@@ -570,7 +572,7 @@ makeItem "Wide Lens", ->
 makeFlavorHealingBerry 'Wiki Berry', "specialAttack"
 
 makeItem 'Wise Glasses', ->
-  this::modifyBasePower = (move, user, target) ->
+  this::modifyBasePower = (move, target) ->
     if move.isSpecial()
       0x1199
     else

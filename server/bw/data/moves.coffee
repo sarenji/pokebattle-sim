@@ -1086,32 +1086,16 @@ extendMove 'Acupressure', ->
 # item such as Choice Band, but the attack ignores all stat changes from
 # moves such as Swords Dance.
 extendMove 'Beat Up', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    target.attach(Attachment.BeatUp)  for target in targets
-    oldExecute.call(this, battle, user, targets)
-    target.unattach(Attachment.BeatUp)  for target in targets
-
-  oldUse = @use
-  @use = (battle, user, target) ->
-    {team} = battle.getOwner(user)
-    attachment = target.get(Attachment.BeatUp)
-    attachment.index++
-    pokemon = team.at(attachment.index)
-    while pokemon.hasStatus() || pokemon.isFainted()
-      attachment.index++
-      pokemon = team.at(attachment.index)
-    oldUse.call(this, battle, user, target)
-
   @calculateNumberOfHits = (battle, user, target) ->
-    {team} = battle.getOwner(user)
-    team.pokemon.filter((p) -> !p.hasStatus() && !p.isFainted()).length
+    user.team.pokemon.filter((p) -> !p.hasStatus() && !p.isFainted()).length
 
-  @basePower = (battle, user, target) ->
-    {team} = battle.getOwner(user)
-    attachment = target.get(Attachment.BeatUp)
-    {baseStats} = team.at(attachment.index)
-    5 + Math.floor(baseStats.attack / 10)
+  @basePower = (battle, user, target, hitNumber) ->
+    index = -1
+    {team} = user
+    for x in [0...hitNumber]
+      index++
+      index++  while team.at(index).hasStatus() || team.at(index).isFainted()
+    5 + Math.floor(team.at(index).baseStats.attack / 10)
 
 extendMove 'Belly Drum', ->
   @use = (battle, user, target) ->
@@ -1705,7 +1689,7 @@ extendMove 'Rage', ->
 
 extendMove 'Rapid Spin', ->
   @entryHazards = [ Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes ]
-  @afterSuccessfulHit = (battle, user, target, damage) ->
+  @afterAllHits = (battle, user) ->
     # Do not remove anything if the user is fainted.
     if user.isFainted()
       return

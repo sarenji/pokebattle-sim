@@ -317,6 +317,12 @@ class @Pokemon
   criticalModifier: ->
     Query.chain('criticalModifier', @attachments.all(), 0)
 
+  afterAllHits: (move) ->
+    Query.chain('afterAllHits', @attachments.all(), move)
+
+  afterAllHitsTarget: (move, user) ->
+    Query.chain('afterAllHitsTarget', @attachments.all(), move, user)
+
   setHP: (hp) ->
     oldHP = @currentHP
     @currentHP = Math.min(@stat('hp'), hp)

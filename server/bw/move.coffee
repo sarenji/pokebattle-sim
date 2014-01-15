@@ -52,12 +52,21 @@ class @Move
       battle.message "But there was no target..."
       return
 
+    targetsHit = []
     for target in targets
       continue  if target.shouldBlockExecution(this, user) == true
+      continue  if @use(battle, user, target, hitNumber) == false
+      targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
-        if @use(battle, user, target, hitNumber) != false
-          @hit(battle, user, target, hitNumber)
+        @hit(battle, user, target, hitNumber)
+
+    # If we hit at least once, then query the user's afterAllHits event.
+    if targetsHit.length > 0
+      user.afterAllHits(this)
+      for target in targetsHit
+        target.afterAllHitsTarget(this, user)
+      @afterAllHits(battle, user)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
@@ -106,6 +115,9 @@ class @Move
   afterMiss: (battle, user, target) ->
     battle.message "#{target.name} avoided the attack!"
 
+  # A hook that executes after all hits have completed.
+  afterAllHits: (battle, user) ->
+
   # A hook that executes once a move fails.
   fail: (battle) ->
     battle.message "But it failed!"
@@ -115,10 +127,10 @@ class @Move
     throw new Error("Move #{@name} has not implemented getTargets.")
 
   calculateDamage: (battle, user, target, hitNumber=1) ->
-    return 0  if @basePower(battle, user, target) == 0
+    return 0  if @basePower(battle, user, target, hitNumber) == 0
 
     user.crit = @isCriticalHit(battle, user, target)
-    damage = @baseDamage(battle, user, target)
+    damage = @baseDamage(battle, user, target, hitNumber)
     # TODO: Multi-target modifier.
     damage = @modify(damage, @weatherModifier(battle, user, target))
     damage = damage * @criticalMultiplier  if user.crit
@@ -193,7 +205,7 @@ class @Move
     else
       1
 
-  basePower: (battle, user, target) ->
+  basePower: (battle, user, target, hitNumber) ->
     @power
 
   isCriticalHit: (battle, attacker, defender) ->
@@ -229,14 +241,14 @@ class @Move
   modify: (number, modifier) ->
     Math.ceil((number * modifier) / 0x1000 - 0.5)
 
-  baseDamage: (battle, user, target) ->
+  baseDamage: (battle, user, target, hitNumber=1) ->
     floor = Math.floor
     uStat = @pickAttackStat(user, target)
     tStat = @pickDefenseStat(user, target)
     if battle.hasWeather(Weather.SAND) && target.hasType("Rock") && @isSpecial()
       tStat = @modify(tStat, 0x1800)
     damage = floor((2 * user.level) / 5 + 2)
-    damage *= @basePower(battle, user, target)
+    damage *= @basePower(battle, user, target, hitNumber)
     damage = @modify(damage, @modifyBasePower(battle, user, target))
     damage *= @modify(uStat, @modifyAttack(battle, user, target))
     damage = floor(damage / tStat)
@@ -257,7 +269,7 @@ class @Move
       battle.rng.randInt(@minHits, @maxHits, "num hits")
 
   modifyBasePower: (battle, user, target) ->
-    modify = Query.modifiers("modifyBasePower", user.attachments.all(), this, user, target)
+    modify = Query.modifiers("modifyBasePower", user.attachments.all(), this, target)
     modify = @modify(modify, Query.modifiers("modifyBasePowerTarget", target.attachments.all(), this, user))
 
   modifyDamage: (battle, user, target, hitNumber) ->

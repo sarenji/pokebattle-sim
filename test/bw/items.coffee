@@ -63,17 +63,17 @@ describe "BW Items:", ->
   describe "An Orb item", ->
     it "increases base power of moves matching the user's type by 0x1333", ->
       shared.create.call this,
-        team1: [Factory('Giratina')]
+        team1: [Factory('Giratina', item: "Griseous Orb")]
       move = @battle.getMove('Outrage')
-      modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
+      modifier = move.modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1333
 
       move = @battle.getMove('Shadow Ball')
-      modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
+      modifier = move.modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1333
 
       move = @battle.getMove('Tackle')
-      modifier = Item.GriseousOrb::modifyBasePower(move, @p1, @p2)
+      modifier = move.modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "A type-boosting miscellaneous item", ->
@@ -215,7 +215,7 @@ describe "BW Items:", ->
 
       overpoweredMultihitMove = new Move(null, minHits: 2, maxHits: 2, target: "selected-pokemon")
       overpoweredMultihitMove.calculateDamage = -> 99999
-      mock = @sandbox.mock(overpoweredMultihitMove).expects("use").exactly(2)
+      mock = @sandbox.mock(overpoweredMultihitMove).expects("hit").exactly(2)
 
       @battle.performMove(@p1, overpoweredMultihitMove)
       mock.verify()
@@ -879,9 +879,13 @@ describe "BW Items:", ->
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.hasItem().should.be.false
 
-    # TODO: Find out if these are true or not.
-    it "does not activate if there is only one Pokemon left"
-    it "does not activate on Sheer Force"
+    it "does not activate if there is only one Pokemon left", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp")]
+
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p1.hasItem().should.be.true
 
     it "does not activate if a non-damaging move is used", ->
       shared.create.call this,
@@ -1107,6 +1111,18 @@ describe "BW Items:", ->
       request.should.have.property("switches")
       request.switches.should.eql bench.map((p) => @team1.indexOf(p))
 
+    it "cancels whatever action the ejecter had", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
+        team2: [Factory("Magikarp")]
+
+      bench = @team1.getAliveBenchedPokemon()
+      @battle.recordMove(@id1, @battle.getMove('Splash'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+
+      should.not.exist(@battle.getAction(@p1))
+
     it "destroys the Eject Button after use", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
@@ -1121,9 +1137,15 @@ describe "BW Items:", ->
     # the attacker from switching.
     it "prevents self-switching moves from switching"
 
-    # TODO: Find out if these are true or not.
-    it "does not activate if there is only one Pokemon left"
-    it "does not activate on Sheer Force"
+    it "does not activate if there is only one Pokemon left", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Eject Button")]
+        team2: [Factory("Magikarp")]
+
+      @controller.makeMove(@player1, "Splash")
+      @controller.makeMove(@player2, "Tackle")
+
+      @p1.hasItem().should.be.true
 
     it "does not activate if a non-damaging move is used", ->
       shared.create.call this,
@@ -1285,7 +1307,7 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Metronome")]
 
-      modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
+      modifier = @battle.getMove("Tackle").modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1000
 
     it "has a base power of x1.2 the second time a Pokemon uses a move", ->
@@ -1294,7 +1316,7 @@ describe "BW Items:", ->
 
       @battle.performMove(@p1, @battle.getMove('Tackle'))
 
-      modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
+      modifier = @battle.getMove("Tackle").modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1333
 
     it "has a base power of x2.0 the sixth time a Pokemon uses a move", ->
@@ -1304,7 +1326,7 @@ describe "BW Items:", ->
       for i in [1..5]
         @battle.performMove(@p1, @battle.getMove('Tackle'))
 
-      modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
+      modifier = @battle.getMove("Tackle").modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1FFF
 
     it "has a base power of x2.0 further times a Pokemon uses a move", ->
@@ -1314,7 +1336,7 @@ describe "BW Items:", ->
       for i in [1..6]
         @battle.performMove(@p1, @battle.getMove('Tackle'))
 
-      modifier = Item.Metronome::modifyBasePower(@battle.getMove('Tackle'), @p1, @p2)
+      modifier = @battle.getMove("Tackle").modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1FFF
 
     it "resets base power multiplier to x1.0 on a different move", ->
@@ -1326,7 +1348,7 @@ describe "BW Items:", ->
       @battle.performMove(@p1, tackle)
       @battle.performMove(@p1, splash)
 
-      modifier = Item.Metronome::modifyBasePower(splash, @p1, @p2)
+      modifier = splash.modifyBasePower(@battle, @p1, @p2)
       modifier.should.equal 0x1000
 
   describe "Shed Shell", ->

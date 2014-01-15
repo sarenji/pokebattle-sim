@@ -257,10 +257,10 @@ describe 'Move:', ->
         .hasFlag('catwoman').should.be.false
 
   describe '#execute', ->
-    it 'calls use multiple times for multihit moves', ->
+    it 'calls hit multiple times for multihit moves', ->
       shared.create.call(this)
       move = new Move("multihit", minHits: 4, maxHits: 4)
-      mock = @sandbox.mock(move).expects('use').exactly(4)
+      mock = @sandbox.mock(move).expects('hit').exactly(4)
 
       move.execute(@battle, @p1, [@p2], true)
       mock.verify()
@@ -5952,7 +5952,7 @@ describe "BW Moves:", ->
       @team1.at(5).attach(Status.Paralyze)
       @team1.at(1).faint()
       beatUp = @battle.getMove("Beat Up")
-      mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
+      mock = @sandbox.mock(beatUp).expects('hit').exactly(4)
       @battle.performMove(@p1, beatUp)
       mock.verify()
 
@@ -5971,7 +5971,7 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: (Factory("Magikarp")  for i in [0...4])
       beatUp = @battle.getMove("Beat Up")
-      mock = @sandbox.mock(beatUp).expects('afterSuccessfulHit').exactly(4)
+      mock = @sandbox.mock(beatUp).expects('hit').exactly(4)
       @battle.performMove(@p1, beatUp)
       mock.verify()
 
