@@ -122,7 +122,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Gyarados')]
         team2: [Factory('Gyarados')]
-      shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
+      shared.biasRNG.call(this, "randInt", "secondary effect", 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", "flinch", 0)
       @battle.performMove(@p1, @battle.getMove("Ice Fang"))
 

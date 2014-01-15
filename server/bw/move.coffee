@@ -21,6 +21,8 @@ class @Move
     @chLevel = attributes.criticalHitLevel || 1
     @flags = attributes.flags
     @flinchChance = (attributes.flinchChance || 0)
+    @ailmentChance = (attributes.ailmentChance || 0)
+    @ailmentId = attributes.ailmentId
     @pp = attributes.pp
     @recoil = attributes.recoil
     {@minHits, @maxHits} = attributes
@@ -87,15 +89,6 @@ class @Move
       recoil = Math.max(1, recoil)
       if user.damage(recoil)
         battle.message("#{user.name} was hit by recoil!")
-
-    # Secondary effect chances are multiplied by 2 if the user has Serene Grace.
-    chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
-
-    # Secondary effects
-
-    # Flinching
-    if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
-      target.attach(Attachment.Flinch)
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn)

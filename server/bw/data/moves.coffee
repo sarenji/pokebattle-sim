@@ -24,8 +24,8 @@ for name, attributes of @MoveData
 # Example:
 #
 #   extendMove 'Substitute', (attributes) ->
-#     @initialize -> # blah
-#     @afterMove -> # blah
+#     @initialize = -> # blah
+#     @afterMove = -> # blah
 #
 extendMove = (name, callback) ->
   if name not of Moves
@@ -33,6 +33,44 @@ extendMove = (name, callback) ->
 
   move = Moves[name]
   callback.call(move, move.attributes)
+
+# This adds secondary effects/flinch to all moves that require it.
+secondaryEffect = (battle, user, target) ->
+  # Substitute blocks all secondary effects.
+  return  if target.has(Attachment.Substitute)
+
+  # Multiply chances by 2 if the user has Serene Grace.
+  chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+
+  # Secondary effects
+  if @ailmentChance > 0 && battle.rng.randInt(0, 99, "secondary effect") < @ailmentChance * chanceMultiplier
+    klass = switch @ailmentId
+      when "confusion" then Attachment.Confusion
+      when "paralysis" then Status.Paralyze
+      when "freeze"    then Status.Freeze
+      when "burn"      then Status.Burn
+      when "sleep"     then Status.Sleep
+      when "poison"    then Status.Poison
+      when "toxic"     then Status.Toxic
+      when "unknown"
+        switch @name
+          when "Tri Attack"
+            triAttackEffects = [ Status.Paralyze, Status.Burn, Status.Freeze ]
+            battle.rng.choice(triAttackEffects, "tri attack effect")
+          else throw new Error("Unrecognized unknown ailment for #{@name}")
+      else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
+    target.attach(klass)
+
+  # Flinching. In the game, flinching is treated subtly different than
+  # secondary effects. One result is that the Fang moves can both inflict
+  # a secondary effect as well as flinch.
+  if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
+    target.attach(Attachment.Flinch)
+
+for name, move of @Moves
+  if move.flinchChance > 0 || move.ailmentChance > 0
+    extendMove name, ->
+      @afterSuccessfulHit = secondaryEffect
 
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
@@ -42,35 +80,6 @@ extendWithPrimaryEffect = (name, Klass, options={}) ->
         return
 
       target.attach(Klass, source: user)
-
-# Extends a move in the move list as an attack with a secondary effect.
-#
-# name - The name of the move to turn into a secondary effect attack.
-# chance - The chance that the secondary effect will activate
-# effect - The constructor of the status to inflict
-#
-# Example:
-#
-#   extendWithSecondaryEffect 'Iron Head', .3, Attachment.Flinch
-#
-extendWithSecondaryEffect = (name, chance, Klass) ->
-  extendMove name, ->
-    oldFunc = @afterSuccessfulHit
-    @afterSuccessfulHit = (battle, user, target, damage) ->
-      oldFunc.call(this, battle, user, target, damage)
-      return  if target.has(Attachment.Substitute)
-      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
-      return  if battle.rng.next("secondary effect") >= chance * multiplier
-
-      target.attach(Klass)
-
-# The fang moves have an additional 10% chance to flinch.
-extendWithFangEffect = (name, chance, status, options) ->
-  extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target) ->
-      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
-      if battle.rng.next("fang status") < chance * multiplier
-        target.attach(status)
 
 extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
@@ -523,8 +532,6 @@ extendMove 'Baton Pass', ->
 
 makeTrappingMove "Bind"
 makeRechargeMove 'Blast Burn'
-extendWithSecondaryEffect 'Blaze Kick', .1, Status.Burn
-extendWithSecondaryEffect 'Blizzard', .1, Status.Freeze
 
 extendMove 'Blizzard', ->
   @getAccuracy = (battle, user, target) ->
@@ -532,10 +539,6 @@ extendMove 'Blizzard', ->
     return @accuracy
 
 makeMeanLookMove 'Block'
-extendWithSecondaryEffect 'Blue Flare', .2, Status.Burn
-extendWithSecondaryEffect 'Body Slam', .3, Status.Paralyze
-extendWithSecondaryEffect 'Bolt Strike', .2, Status.Paralyze
-extendWithSecondaryEffect 'Bounce', .3, Status.Paralyze
 extendWithSecondaryBoost 'Bubble', 'target', .1, speed: -1
 extendWithSecondaryBoost 'BubbleBeam', 'target', .1, speed: -1
 extendWithSecondaryBoost 'Bug Buzz', 'target', .1, specialDefense: -1
@@ -568,7 +571,6 @@ extendMove 'Charge', ->
     oldUse.call(this, battle, user, target)
 
 makeBoostMove 'Charm', 'target', attack: -2
-extendWithSecondaryEffect 'Chatter', .1, Attachment.Confusion
 extendWithSecondaryBoost 'Charge Beam', 'self', .7, specialAttack: 1
 
 extendMove 'Chip Away', ->
@@ -589,7 +591,6 @@ extendMove 'Clear Smog', ->
 extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
 makeBoostMove 'Coil', 'self', attack: 1, defense: 1, accuracy: 1
 extendWithPrimaryEffect 'Confuse Ray', Attachment.Confusion
-extendWithSecondaryEffect 'Confusion', .1, Attachment.Confusion
 extendWithSecondaryBoost 'Constrict', 'target', .1, speed: -1
 
 extendMove 'Conversion', ->
@@ -659,16 +660,12 @@ extendMove 'Defog', ->
         battle.message "#{opponent.id}'s side of the field is cleared of entry hazards."
 
 makeProtectMove 'Detect'
-extendWithSecondaryEffect 'Discharge', .3, Status.Paralyze
-extendWithSecondaryEffect 'Dizzy Punch', .2, Attachment.Confusion
 makeBoostMove 'Double Team', 'self', evasion: 1
 makeBoostMove 'Dragon Dance', 'self', attack: 1, speed: 1
-extendWithSecondaryEffect 'DragonBreath', .3, Status.Paralyze
 extendWithDrain 'Drain Punch'
 extendWithDrain 'Dream Eater'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
-extendWithSecondaryEffect 'DynamicPunch', 1, Attachment.Confusion
 extendWithSecondaryBoost 'Earth Power', 'target', .1, specialDefense: -1
 extendWithSecondaryBoost 'Electroweb', 'target', 1, speed: -1
 extendWithSecondaryBoost 'Energy Ball', 'target', .1, specialDefense: -1
@@ -678,7 +675,6 @@ extendMove 'Embargo', ->
     target.attach(Attachment.Embargo)
     battle.message "#{target.name} can't use items anymore!"
 
-extendWithSecondaryEffect 'Ember', .1, Status.Burn
 makeEruptionMove 'Eruption'
 makeExplosionMove 'Explosion'
 makeBoostMove 'Fake Tears', 'target', specialDefense: -2
@@ -701,20 +697,13 @@ extendMove 'Feint', ->
       battle.message "#{target.name} fell for the feint!"
 
 extendWithSecondaryBoost 'Fiery Dance', 'self', .5, specialAttack: 1
-extendWithSecondaryEffect 'Fire Blast', .1, Status.Burn
-extendWithFangEffect 'Fire Fang', .1, Status.Burn
-extendWithSecondaryEffect 'Fire Punch', .1, Status.Burn
 makeTrappingMove "Fire Spin"
 makeOneHitKOMove 'Fissure'
 makeReversalMove 'Flail'
 extendWithSecondaryBoost 'Flame Charge', 'self', 1, speed: 1
 extendMove 'Flame Wheel', -> @thawsUser = true
-extendWithSecondaryEffect 'Flame Wheel', .1, Status.Burn
-extendWithSecondaryEffect 'Flamethrower', .1, Status.Burn
 extendMove 'Flare Blitz', -> @thawsUser = true
-extendWithSecondaryEffect 'Flare Blitz', .1, Status.Burn
 extendWithSecondaryBoost 'Flash Cannon', 'target', .1, specialDefense: -1
-extendWithSecondaryEffect 'Force Palm', .3, Status.Paralyze
 extendWithSecondaryBoost 'Focus Blast', 'target', .1, specialDefense: -1
 
 extendMove 'Focus Energy', ->
@@ -732,7 +721,6 @@ extendMove 'Focus Punch', ->
 
 makeIdentifyMove("Foresight", "Normal")
 makePickAttackMove 'Foul Play'
-extendWithSecondaryEffect 'Freeze Shock', .3, Status.Paralyze
 makeRechargeMove 'Frenzy Plant'
 extendMove 'Fusion Flare', -> @thawsUser = true
 extendWithDrain 'Giga Drain'
@@ -749,14 +737,12 @@ extendMove 'Grudge', ->
     battle.message "#{user.name} wants its target to bear a grudge!"
 
 makeOneHitKOMove 'Guillotine'
-extendWithSecondaryEffect 'Gunk Shot', .3, Status.Poison
 extendWithBoost 'Hammer Arm', 'self', speed: -1
 makeBoostMove 'Harden', 'self', defense: 1
 makeStatusCureMove 'Heal Bell', 'A bell chimed!'
 makeRecoveryMove 'Heal Order'
 makeRecoveryMove 'Heal Pulse'
 makeWeightRatioBased 'Heat Crash'
-extendWithSecondaryEffect 'Heat Wave', .1, Status.Burn
 makeWeightRatioBased 'Heavy Slam'
 makeJumpKick 'Hi Jump Kick'
 makeBoostMove 'Hone Claws', 'self', attack: 1, accuracy: 1
@@ -771,7 +757,6 @@ extendWithSecondaryBoost 'Icy Wind', 'target', 1, speed: -1
 makeBoostMove 'Iron Defense', 'self', defense: 2
 extendWithSecondaryBoost 'Iron Tail', 'target', .1, defense: -1
 makeWeatherMove 'Hail', Weather.HAIL
-extendWithSecondaryEffect 'Hurricane', .3, Attachment.Confusion
 
 extendMove 'Hurricane', ->
   @getAccuracy = (battle, user, target) ->
@@ -779,12 +764,7 @@ extendMove 'Hurricane', ->
     return 0   if battle.hasWeather(Weather.RAIN)
     return @accuracy
 
-extendWithSecondaryEffect 'Ice Beam', .1, Status.Freeze
-extendWithSecondaryEffect 'Ice Burn', .3, Status.Burn
-extendWithFangEffect 'Ice Fang', .1, Status.Freeze
-extendWithSecondaryEffect 'Ice Punch', .1, Status.Freeze
 makeJumpKick 'Jump Kick'
-extendWithSecondaryEffect 'Lava Plume', .3, Status.Burn
 extendWithBoost 'Leaf Storm', 'self', specialAttack: -2
 extendWithSecondaryBoost 'Leaf Tornado', 'target', .5, accuracy: -1
 makeBoostMove 'Leer', 'target', defense: -1
@@ -806,7 +786,6 @@ extendMove 'Leech Seed', ->
     else
       @fail(battle)
 
-extendWithSecondaryEffect 'Lick', .3, Status.Paralyze
 makeLockOnMove 'Lock-On'
 makeWeightBased 'Low Kick'
 extendWithSecondaryBoost 'Low Sweep', 'target', 1, speed: -1
@@ -863,15 +842,9 @@ extendWithSecondaryBoost 'Ominous Wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
 extendWithBoost 'Overheat', 'self', specialAttack: -2
-extendWithSecondaryEffect 'Poison Fang', .3, Status.Toxic
 extendWithPrimaryEffect 'Poison Gas', Status.Poison
-extendWithSecondaryEffect 'Poison Jab', .3, Status.Poison
 extendWithPrimaryEffect 'PoisonPowder', Status.Poison
-extendWithSecondaryEffect 'Poison Sting', .3, Status.Poison
-extendWithSecondaryEffect 'Poison Tail', .1, Status.Poison
-extendWithSecondaryEffect 'Powder Snow', .1, Status.Freeze
 makeProtectMove 'Protect'
-extendWithSecondaryEffect 'Psybeam', .1, Attachment.Confusion
 extendWithSecondaryBoost 'Psychic', 'target', .1, specialDefense: -1
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
 makePickDefenseMove 'Psyshock'
@@ -881,12 +854,10 @@ makeBoostMove 'Quiver Dance', 'self', specialAttack: 1, specialDefense: 1, speed
 makeWeatherMove 'Rain Dance', Weather.RAIN
 extendWithSecondaryBoost 'Razor Shell', 'target', .5, defense: -1
 makeRecoveryMove 'Recover'
-extendWithSecondaryEffect 'Relic Song', .1, Status.Sleep
 makeRevengeMove 'Revenge'
 makeReversalMove 'Reversal'
 makeRandomSwitchMove "Roar"
 makeRechargeMove 'Roar of Time'
-extendWithSecondaryEffect 'Rock Climb', .2, Attachment.Confusion
 makeBoostMove 'Rock Polish', 'self', speed: 2
 extendWithSecondaryBoost 'Rock Smash', 'target', .5, defense: -1
 extendWithSecondaryBoost 'Rock Tomb', 'target', 1, speed: -1
@@ -899,14 +870,11 @@ extendMove 'Roost', ->
 
 makeBoostMove 'Sand-Attack', 'target', accuracy: -1
 extendMove 'Sacred Fire', -> @thawsUser = true
-extendWithSecondaryEffect 'Sacred Fire', .5, Status.Burn
 makeWeatherMove 'Sandstorm', Weather.SAND
 makeTrappingMove "Sand Tomb"
 extendMove 'Scald', -> @thawsUser = true
-extendWithSecondaryEffect 'Scald', .3, Status.Burn
 makeBoostMove 'Scary Face', 'target', speed: -2
 makeBoostMove 'Screech', 'target', defense: -2
-extendWithSecondaryEffect 'Searing Shot', .3, Status.Burn
 makePickDefenseMove 'Secret Sword'
 extendWithSecondaryBoost 'Seed Flare', 'target', .4, specialDefense: -2
 makeExplosionMove 'Selfdestruct'
@@ -918,7 +886,6 @@ makeBoostMove 'Shell Smash', 'self', {
   attack: 2, specialAttack: 2, speed: 2, defense: -1, specialDefense: -1
 }
 makeBoostMove 'Shift Gear', 'self', speed: 2, attack: 1
-extendWithSecondaryEffect 'Signal Beam', .1, Attachment.Confusion
 extendWithSecondaryBoost 'Silver Wind', 'self', .1, {
   attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
 }
@@ -926,14 +893,9 @@ extendWithPrimaryEffect 'Sing', Status.Sleep
 makeBoostMove 'Skull Bash', 'self', defense: 1
 makeRecoveryMove 'Slack Off'
 extendWithPrimaryEffect 'Sleep Powder', Status.Sleep
-extendWithSecondaryEffect 'Sludge', .3, Status.Poison
-extendWithSecondaryEffect 'Sludge Bomb', .3, Status.Poison
-extendWithSecondaryEffect 'Sludge Wave', .1, Status.Poison
-extendWithSecondaryEffect 'Smog', .4, Status.Poison
 makeBoostMove 'SmokeScreen', 'target', accuracy: -1
 extendWithSecondaryBoost 'Snarl', 'target', 1, specialAttack: -1
 makeRecoveryMove 'Softboiled'
-extendWithSecondaryEffect 'Spark', .3, Status.Paralyze
 makeMeanLookMove 'Spider Web'
 
 extendMove 'Spit Up', ->
@@ -1017,7 +979,6 @@ extendWithPrimaryEffect 'Teeter Dance', Attachment.Confusion
 extendMove 'Teleport', (battle) ->
   @execute = -> @fail(battle)
 makeThiefMove 'Thief'
-extendWithSecondaryEffect 'Thunder', .3, Status.Paralyze
 
 extendMove 'Thunder', ->
   @getAccuracy = (battle, user, target) ->
@@ -1025,37 +986,20 @@ extendMove 'Thunder', ->
     return 0   if battle.hasWeather(Weather.RAIN)
     return @accuracy
 
-extendWithFangEffect 'Thunder Fang', .1, Status.Paralyze
 extendWithPrimaryEffect 'Thunder Wave', Status.Paralyze
 extendMove 'Thunder Wave', ->
   @ignoresImmunities = -> false
-extendWithSecondaryEffect 'Thunderbolt', .1, Status.Paralyze
-extendWithSecondaryEffect 'ThunderPunch', .1, Status.Paralyze
-extendWithSecondaryEffect 'ThunderShock', .1, Status.Paralyze
 makeBoostMove 'Tickle', 'target', attack: -1, defense: -1
 extendWithPrimaryEffect 'Toxic', Status.Toxic
-extendMove 'Tri Attack', ->
-  oldFunc = @afterSuccessfulHit
-  @afterSuccessfulHit = (battle, user, target, damage) ->
-    oldFunc.call(this, battle, user, target, damage)
-    return  if battle.rng.next("secondary effect") >= .2
-    switch battle.rng.randInt(0, 2, "tri attack effect")
-      when 0 then target.attach(Status.Paralyze)
-      when 1 then target.attach(Status.Burn)
-      when 2 then target.attach(Status.Freeze)
 
 makeTrickMove 'Trick'
-# extendWithSecondaryEffect 'twineedle', .2, Status.Poison
 extendWithBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
-extendWithSecondaryEffect 'Volt Tackle', .1, Status.Paralyze
-extendWithSecondaryEffect 'Water Pulse', .2, Attachment.Confusion
 makeEruptionMove 'Water Spout'
 makeRandomSwitchMove "Whirlwind"
 extendWithPrimaryEffect 'Will-O-Wisp', Status.Burn
 makeBoostMove 'Withdraw', 'user', defense: 1
 makeBoostMove 'Work Up', 'user', attack: 1, specialAttack: 1
 makeTrappingMove "Wrap"
-extendWithSecondaryEffect 'Zap Cannon', 1, Status.Paralyze
 
 extendMove 'Assist', ->
   bannedMoves =

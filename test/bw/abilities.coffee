@@ -1538,7 +1538,7 @@ describe "BW Abilities:", ->
   describe "Serene Grace", ->
     it "doubles the chance of secondary effects happening", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", "secondary effect", .1)
+      shared.biasRNG.call(this, "randInt", "secondary effect", 10)
       ember = @battle.getMove("Ember")
       @sandbox.stub(ember, "baseDamage", -> 1)
 
@@ -1561,22 +1561,6 @@ describe "BW Abilities:", ->
       @p1.copyAbility(Ability.SereneGrace)
       @battle.performMove(@p1, ironHead)
       @p2.has(Attachment.Flinch).should.be.true
-
-    it "doubles the chance of fang effects happening", ->
-      shared.create.call(this)
-      shared.biasRNG.call(this, "next", "fang status", .15)
-      shared.biasRNG.call(this, "randInt", "flinch", 15)
-      fireFang = @battle.getMove("Fire Fang")
-      @sandbox.stub(fireFang, "baseDamage", -> 1)
-
-      @battle.performMove(@p1, fireFang)
-      @p2.has(Attachment.Flinch).should.be.false
-      @p2.has(Status.Burn).should.be.false
-
-      @p1.copyAbility(Ability.SereneGrace)
-      @battle.performMove(@p1, fireFang)
-      @p2.has(Attachment.Flinch).should.be.true
-      @p2.has(Status.Burn).should.be.true
 
   describe "Shadow Tag", ->
     it "prevents foes from switching", ->

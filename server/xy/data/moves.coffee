@@ -30,7 +30,6 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 extendWithSecondaryBoost 'Moonblast', 'target', .3, specialAttack: -1
 extendWithSecondaryBoost 'Mystical Fire', 'target', 1, specialAttack: -1
 makeBoostMove 'Noble Roar', 'target', attack: -1, specialAttack: -1
-extendWithSecondaryEffect 'Nuzzle', 1, Status.Paralyze
 makeBoostMove 'Play Nice', 'target', attack: -1
 extendWithSecondaryBoost 'Play Rough', 'target', .1, attack: -1
 extendWithSecondaryBoost 'Power-Up Punch', 'self', 1, attack: 1
