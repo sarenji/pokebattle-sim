@@ -69,10 +69,10 @@ class @Move
     # If the user is affected by Sheer Force, these are all ignored.
     if targetsHit.length > 0 &&
         (!user.hasAbility("Sheer Force") || !@hasSecondaryEffect())
+      user.afterAllHits(this)
       @afterAllHits(battle, user)
       for target in targetsHit
         target.afterAllHitsTarget(this, user)
-      user.afterAllHits(this)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
