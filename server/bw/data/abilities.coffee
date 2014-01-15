@@ -16,7 +16,6 @@ makeAbility = (name, func) ->
 makeAbility 'Sheer Force'
 makeAbility 'Mold Breaker'
 makeAbility 'Pickup'
-makeAbility 'Serene Grace'
 
 # Ability templates
 
@@ -670,6 +669,9 @@ makeAbility 'Sand Veil', ->
 
 # Hardcoded in move#typeEffectiveness
 makeAbility 'Scrappy'
+
+# Hardcoded in server/bw/data/moves
+makeAbility 'Serene Grace'
 
 makeAbility 'Shadow Tag', ->
   this::getOpponents = ->
