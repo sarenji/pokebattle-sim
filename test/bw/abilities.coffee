@@ -1644,8 +1644,14 @@ describe "BW Abilities:", ->
     it "receives no life orb recoil", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
-      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Ember"))
       @p1.currentHP.should.not.be.lessThan @p1.stat('hp')
+
+    it "receives life orb recoil if no secondary effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @p1.currentHP.should.be.lessThan @p1.stat('hp')
 
     it "does not activate Red Card"
     it "does not activate Eject Button"

@@ -66,12 +66,13 @@ class @Move
         @hit(battle, user, target, hitNumber)
 
     # If the move hit 1+ times, query the user's afterAllHits event.
-    # If the user has Sheer Force, these are all ignored.
-    if targetsHit.length > 0 && !user.hasAbility("Sheer Force")
-      user.afterAllHits(this)
+    # If the user is affected by Sheer Force, these are all ignored.
+    if targetsHit.length > 0 &&
+        (!user.hasAbility("Sheer Force") || !@hasSecondaryEffect())
+      @afterAllHits(battle, user)
       for target in targetsHit
         target.afterAllHitsTarget(this, user)
-      @afterAllHits(battle, user)
+      user.afterAllHits(this)
 
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `afterSuccessfulHit` hook is never called.
