@@ -44,11 +44,12 @@ class @Battle extends EventEmitter
     @turn = 0
 
     # Stores the actions each player is about to make
-    # Keyed by player.id
     @pokemonActions = []
 
-    # Stores the current requests for action.
+    # Stores the current and completed requests for action.
+    # Keyed by player.id
     @requests = {}
+    @completedRequests = {}
 
     # Creates a RNG for this battle.
     @rng = new FakeRNG()
@@ -426,7 +427,7 @@ class @Battle extends EventEmitter
     pokemon = @getTeam(playerId).at(forSlot)
     action = {type: 'move', move: move, pokemon: pokemon}
     @pokemonActions.push(action)  unless @getAction(pokemon)
-    @removeRequest(playerId, forSlot)
+    @removeRequest(playerId, action, forSlot)
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
@@ -439,15 +440,38 @@ class @Battle extends EventEmitter
     pokemon = @getTeam(playerId).at(forSlot)
     action = {type: 'switch', to: toPosition, pokemon: pokemon}
     @pokemonActions.push(action)  unless @getAction(pokemon)
-    @removeRequest(playerId, forSlot)
+    @removeRequest(playerId, action, forSlot)
 
-  removeRequest: (playerId, forSlot = 0) ->
+  removeRequest: (playerId, action, forSlot = 0) ->
     actions = @requests[playerId] || []
     for {slot}, i in actions
       if slot == forSlot
+        completed = { request: @requests[i], action: action }
+        @completedRequests[playerId] ?= []
+        @completedRequests[playerId].push(completed)
+
         actions.splice(i, 1)
         delete @requests[playerId]  if actions.length == 0
         break
+
+  # Cancels the most recent completed request made by a certain player
+  # Returns true if the cancel succeeded, and false if it didn't.
+  undoCompletedRequest: (playerId) ->
+    return false  if @isOver()
+    return false  if @areAllRequestsCompleted()
+    return false  if not @completedRequests[playerId]
+    return false  if @completedRequests[playerId].length == 0
+
+    {request, action} = @completedRequests[playerId].pop()
+
+    # Add the cancelled request to the beginning of @requests
+    @requests[playerId] ?= []
+    @requests[playerId].unshift(request)
+
+    # Remove the pokemon action
+    @pokemonActions.splice(@pokemonActions.indexOf(action), 1)
+
+    return true
 
   requestFor: (pokemon) ->
     {id}    = pokemon.player

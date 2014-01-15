@@ -36,6 +36,12 @@ class @BattleController
     @battle.recordSwitch(player.id, toPosition, forSlot)
     @transitionToNextState()
 
+  # Tells the player to cancel their latest completed request.
+  # Returns true if the cancel succeeded, and false if it didn't.
+  undoCompletedRequest: (player, forTurn = @battle.turn) ->
+    return false  if forTurn != @battle.turn
+    return @battle.undoCompletedRequest(player.id)
+
   # Makes a player forfeit.
   forfeit: (player) ->
     return  if @battle.isOver()
