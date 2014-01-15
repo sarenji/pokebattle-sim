@@ -116,7 +116,8 @@ attachAPIEndpoints = (server) ->
         makeBiasedRng(battle)
         battle.rng.bias("next", "ch", 1)
         battle.rng.bias("randInt", "miss", 0)
-        battle.rng.bias("next", "secondary status", 0)
+        battle.rng.bias("next", "secondary effect", 0)
+        battle.rng.bias("randInt", "flinch", 100)
 
         # calculate min damage
         battle.rng.bias("randInt", "damage roll", 15)

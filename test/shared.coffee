@@ -47,7 +47,8 @@ build = (context, opts={}) ->
   biasRNG.call(context, 'next', 'ch', 1)
   biasRNG.call(context, 'randInt', 'damage roll', 0)
   biasRNG.call(context, 'randInt', 'miss', 0)  # Can be overridden, of course.
-  biasRNG.call(context, 'next', 'secondary status', 1)  # Often used in tests.
+  biasRNG.call(context, 'next', 'secondary effect', 1)  # Often used in tests.
+  biasRNG.call(context, 'randInt', 'flinch', 99)  # No flinch (unless fake out)
   # moves that call other moves also get new targets
   biasRNG.call(context, 'randInt', 'selected pokemon target', 0)
 

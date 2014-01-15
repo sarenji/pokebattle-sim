@@ -1536,9 +1536,9 @@ describe "BW Abilities:", ->
       closeCombat.typeEffectiveness(@battle, @p1, @p2).should.equal(.5)
 
   describe "Serene Grace", ->
-    it "doubles the chance of secondary statuses happening", ->
+    it "doubles the chance of secondary effects happening", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", "secondary status", .1)
+      shared.biasRNG.call(this, "next", "secondary effect", .1)
       ember = @battle.getMove("Ember")
       @sandbox.stub(ember, "baseDamage", -> 1)
 
@@ -1549,9 +1549,9 @@ describe "BW Abilities:", ->
       @battle.performMove(@p1, ember)
       @p2.has(Status.Burn).should.be.true
 
-    it "doubles the chance of secondary effects happening", ->
+    it "doubles the chance of flinches happening", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", "secondary effect", .3)
+      shared.biasRNG.call(this, "randInt", "flinch", 30)
       ironHead = @battle.getMove("Iron Head")
       @sandbox.stub(ironHead, "baseDamage", -> 1)
 
@@ -1565,7 +1565,7 @@ describe "BW Abilities:", ->
     it "doubles the chance of fang effects happening", ->
       shared.create.call(this)
       shared.biasRNG.call(this, "next", "fang status", .15)
-      shared.biasRNG.call(this, "next", "fang flinch", .15)
+      shared.biasRNG.call(this, "randInt", "flinch", 15)
       fireFang = @battle.getMove("Fire Fang")
       @sandbox.stub(fireFang, "baseDamage", -> 1)
 

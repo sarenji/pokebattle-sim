@@ -20,7 +20,7 @@ class @Move
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
     @flags = attributes.flags
-    @flinchChance = (attributes.flinchChance || 0) / 100
+    @flinchChance = (attributes.flinchChance || 0)
     @pp = attributes.pp
     @recoil = attributes.recoil
     {@minHits, @maxHits} = attributes
@@ -80,11 +80,24 @@ class @Move
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
     target.afterBeingHit(this, user, target, damage)
+
+    # Recoil
     if @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(-damage * @recoil / 100)
       recoil = Math.max(1, recoil)
       if user.damage(recoil)
         battle.message("#{user.name} was hit by recoil!")
+
+    # Secondary effect chances are multiplied by 2 if the user has Serene Grace.
+    chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+
+    # Secondary effects
+
+    # Flinching
+    if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
+      target.attach(Attachment.Flinch)
+
+    # Miscellaneous
     target.recordHit(user, damage, this, battle.turn)
 
   # A hook that executes after a pokemon has been successfully damaged by

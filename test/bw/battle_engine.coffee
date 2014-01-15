@@ -113,18 +113,7 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Porygon-Z')]
         team2: [Factory('Porygon-Z')]
-      shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
-      spy = @sandbox.spy(@p2, 'attach')
-
-      @battle.performMove(@p1, @battle.getMove('Iron Head'))
-      spy.args[0][0].should.eql Attachment.Flinch
-
-  describe 'secondary status attacks', ->
-    it 'can inflict effect on successful hit', ->
-      shared.create.call this,
-        team1: [Factory('Porygon-Z')]
-        team2: [Factory('Porygon-Z')]
-      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
       @battle.performMove(@p1, @battle.getMove('Flamethrower'))
       @p2.has(Status.Burn).should.be.true
 
@@ -134,7 +123,7 @@ describe 'Mechanics', ->
         team1: [Factory('Gyarados')]
         team2: [Factory('Gyarados')]
       shared.biasRNG.call(this, "next", "fang status", 0)  # 100% chance
-      shared.biasRNG.call(this, "next", "fang flinch", 0)
+      shared.biasRNG.call(this, "randInt", "flinch", 0)
       @battle.performMove(@p1, @battle.getMove("Ice Fang"))
 
       @p2.has(Attachment.Flinch).should.be.true

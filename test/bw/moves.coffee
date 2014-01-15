@@ -2980,7 +2980,7 @@ describe "BW Moves:", ->
 
       it "has a 30% chance to flinch", ->
         shared.create.call(this)
-        shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # 100% chance
+        shared.biasRNG.call(this, 'randInt', 'flinch', 0)  # 100% chance
         @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.has(Attachment.Flinch).should.be.true
 
@@ -3309,27 +3309,27 @@ describe "BW Moves:", ->
   describe "Tri Attack", ->
     it "has a 20% chance to activate its secondary effect", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
       @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.hasStatus().should.be.true
 
     it "has a 1/3 chance for the secondary effect to be paralysis", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 0)  # par
       @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Paralyze).should.be.true
 
     it "has a 1/3 chance for the secondary effect to be burn", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 1)  # brn
       @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Burn).should.be.true
 
     it "has a 1/3 chance for the secondary effect to be freeze", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", 'secondary status', 0)  # 100% chance
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
       shared.biasRNG.call(this, "randInt", 'tri attack effect', 2)  # frz
       @battle.performMove(@p1, @battle.getMove("Tri Attack"))
       @p2.has(Status.Freeze).should.be.true
@@ -4072,7 +4072,7 @@ describe "BW Moves:", ->
 
     it "blocks secondary effects", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", "secondary status", 0)  # always burn
+      shared.biasRNG.call(this, "next", "secondary effect", 0)  # always burn
       flamethrower = @battle.getMove('Flamethrower')
       sub          = @battle.getMove('Substitute')
 
@@ -4085,7 +4085,7 @@ describe "BW Moves:", ->
 
     it "blocks secondary effects even if sub fades", ->
       shared.create.call(this)
-      shared.biasRNG.call(this, "next", "secondary status", 0)  # always burn
+      shared.biasRNG.call(this, "next", "secondary effect", 0)  # always burn
       flamethrower = @battle.getMove('Flamethrower')
       sub          = @battle.getMove('Substitute')
 
@@ -4686,7 +4686,7 @@ describe "BW Moves:", ->
     it "has a 30% chance to flinch after execution", ->
       shared.create.call(this)
       skyAttack = @battle.getMove('Sky Attack')
-      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
+      shared.biasRNG.call(this, "randInt", 'flinch', 0)  # 100% chance
 
       @battle.recordMove(@id1, skyAttack)
       @battle.continueTurn()
