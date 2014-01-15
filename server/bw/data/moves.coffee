@@ -67,8 +67,9 @@ secondaryEffect = (battle, user, target) ->
   if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
     target.attach(Attachment.Flinch)
 
+# Now add the secondary effect handler to afterSuccessfulHit.
 for name, move of @Moves
-  if move.flinchChance > 0 || move.ailmentChance > 0
+  if move.hasSecondaryEffect()
     extendMove name, ->
       @afterSuccessfulHit = secondaryEffect
 

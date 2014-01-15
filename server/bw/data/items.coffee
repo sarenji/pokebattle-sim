@@ -193,8 +193,9 @@ makeEvasionItem = (name, ratio=0.9) ->
 makeFlinchItem = (name) ->
   makeItem name, ->
     this::afterSuccessfulHit = (move, user, target) ->
+      multiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
       if move.flinchChance == 0 && !move.isNonDamaging() &&
-          @battle.rng.next("flinch item chance") < .1
+          @battle.rng.next("flinch item chance") < .1 * multiplier
         target.attach(Attachment.Flinch)
 
 makeCriticalBoostItem = (name) ->

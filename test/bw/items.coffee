@@ -1,6 +1,7 @@
 require '../helpers'
 
 {Item} = require('../../server/bw/data/items')
+{Ability} = require('../../server/bw/data/abilities')
 {Pokemon} = require '../../server/bw/pokemon'
 {Attachment, Status} = require '../../server/bw/attachment'
 {Move} = require '../../server/bw/move'
@@ -1206,6 +1207,18 @@ describe "BW Items:", ->
           team1: [Factory("Magikarp", item: itemName)]
 
         shared.biasRNG.call(this, "next", 'flinch item chance', 0)
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
+        @p2.has(Attachment.Flinch).should.be.true
+
+      it "has a 20% chance to flinch with Serene Grace", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", item: itemName)]
+
+        shared.biasRNG.call(this, "next", 'flinch item chance', .1)
+        @battle.performMove(@p1, @battle.getMove('Tackle'))
+        @p2.has(Attachment.Flinch).should.be.false
+
+        @p1.copyAbility(Ability.SereneGrace)
         @battle.performMove(@p1, @battle.getMove('Tackle'))
         @p2.has(Attachment.Flinch).should.be.true
 

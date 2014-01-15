@@ -39,6 +39,10 @@ class @Move
   hasFlag: (flagName) ->
     flagName in @flags
 
+  # A secondary effect also includes flinching.
+  hasSecondaryEffect: ->
+    @ailmentChance > 0 || @flinchChance > 0
+
   # Executes this move on several targets.
   # Only override this method if the move does not need to be
   # recorded on the enemy pokemon.
