@@ -17,6 +17,14 @@ describe "XY Moves:", ->
     it "multiplies damage by 1.5x", ->
       Move::criticalMultiplier.should.equal(1.5)
 
+    it "becomes a 50% chance at a +3 CH level", ->
+      Move::determineCriticalHitFromLevel(3, .49).should.be.true
+      Move::determineCriticalHitFromLevel(3, .5).should.be.false
+
+    it "becomes a 100% chance at a +4 CH level", ->
+      Move::determineCriticalHitFromLevel(4, .99).should.be.true
+      Move::determineCriticalHitFromLevel(4, 1.0).should.be.false
+
   describe "Dragon Pulse", ->
     it "has 85 base power now", ->
       shared.create.call(this, gen: 'xy')

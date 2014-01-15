@@ -218,8 +218,12 @@ class @Move
     return false  if owner?.team.has(Attachment.LuckyChant)
     return false  if defender.ability?.preventsCriticalHits
 
+    chLevel = @criticalHitLevel(battle, attacker, defender)
     rand = battle.rng.next("ch")
-    switch @criticalHitLevel(battle, attacker, defender)
+    @determineCriticalHitFromLevel(chLevel, rand)
+
+  determineCriticalHitFromLevel: (level, rand) ->
+    switch level
       when -1
         true
       when 1
