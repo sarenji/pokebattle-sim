@@ -616,11 +616,14 @@ class @Battle extends EventEmitter
       @message "But there was no PP left for the move!"
       # TODO: Is this the right place...?
       pokemon.resetRecords()
-    else if pokemon.beforeMove(move, pokemon, targets) != false
-      pokemon.reducePP(move)
-      for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
+    else
+      if pokemon.beforeMove(move, pokemon, targets) != false
         pokemon.reducePP(move)
-      @executeMove(move, pokemon, targets)
+        for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
+          pokemon.reducePP(move)
+        @executeMove(move, pokemon, targets)
+      # After the move finishes (whether it executed properly or not, e.g. par)
+      pokemon.afterMove(move, pokemon, targets)
 
   # TODO: Put in priority queue
   performFaints: ->
@@ -634,7 +637,6 @@ class @Battle extends EventEmitter
     # TODO: Send move id instead
     pokemon.tell(Protocol.MAKE_MOVE, move.name)
     move.execute(this, pokemon, targets)
-    # TODO: Execute any after move events
 
     # Record last move.
     @lastMove = move

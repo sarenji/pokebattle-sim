@@ -1160,7 +1160,33 @@ describe "BW Abilities:", ->
 
   testAbilityCancelAbility = (name) ->
     describe name, ->
-      it "cancels abilities for the duration of the user's move"
+      it "cancels abilities for the duration of the user's move", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp", ability: "Levitate")]
+        eq = @battle.getMove("Earthquake")
+        mock = @sandbox.mock(eq).expects('hit').once()
+        @battle.performMove(@p1, eq)
+        mock.verify()
+
+      it "resets canceled abilities after the move", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp", ability: "Levitate")]
+        eq = @battle.getMove("Earthquake")
+        @p2.isAbilityBlocked().should.be.false
+        @battle.performMove(@p1, eq)
+        @p2.isAbilityBlocked().should.be.false
+
+      it "does not reset already-canceled abilities after performing move", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp", ability: "Levitate")]
+        @p2.blockAbility()
+        eq = @battle.getMove("Earthquake")
+        @p2.isAbilityBlocked().should.be.true
+        @battle.performMove(@p1, eq)
+        @p2.isAbilityBlocked().should.be.true
 
   testAbilityCancelAbility("Mold Breaker")
   testAbilityCancelAbility("Teravolt")

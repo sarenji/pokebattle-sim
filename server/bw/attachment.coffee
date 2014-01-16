@@ -85,6 +85,7 @@ class @BaseAttachment
     return false  if !@attached
     return false  if @battle?.isOver()
     return false  if @item && @pokemon?.item && @pokemon?.isItemBlocked()
+    return false  if @ability && @pokemon?.isAbilityBlocked()
     return false  if @isAliveCheck() == false
     return true
 
@@ -1177,6 +1178,20 @@ class @Attachment.Unburden extends @VolatileAttachment
 
   editSpeed: (speed) ->
     2 * speed
+
+class @Attachment.AbilityCancel extends @VolatileAttachment
+  name: "AbilityCancelAttachment"
+
+  initialize: ->
+    if !@pokemon.isAbilityBlocked()
+      @shouldUnblock = true
+      @pokemon.blockAbility()
+
+  unattach: ->
+    if @shouldUnblock then @pokemon.unblockAbility()
+
+  endTurn: ->
+    @pokemon.unattach(@constructor)
 
 class @StatusAttachment extends @BaseAttachment
   name: "StatusAttachment"

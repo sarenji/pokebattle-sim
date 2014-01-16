@@ -10,10 +10,10 @@ makeAbility = (name, func) ->
   class Ability[condensed] extends VolatileAttachment
     @displayName: name
     displayName: name
+    ability: true
     func?.call(this)
 
 # TODO: Implement.
-makeAbility 'Mold Breaker'
 makeAbility 'Pickup'
 
 # Ability templates
@@ -206,6 +206,20 @@ makeTypeAbsorbMove = (name, type) ->
 
 makeTypeAbsorbMove("Water Absorb", "Water")
 makeTypeAbsorbMove("Volt Absorb", "Electric")
+
+makeAbilityCancelAbility = (name) ->
+  makeAbility name, ->
+    this::beforeMove = (move, pokemon, targets) ->
+      for target in targets
+        target.attach(Attachment.AbilityCancel)
+
+    this::afterMove = (move, pokemon, targets) ->
+      for target in targets
+        target.unattach(Attachment.AbilityCancel)
+
+makeAbilityCancelAbility 'Mold Breaker'
+makeAbilityCancelAbility 'Teravolt'
+makeAbilityCancelAbility 'Turboblaze'
 
 # Unique Abilities
 

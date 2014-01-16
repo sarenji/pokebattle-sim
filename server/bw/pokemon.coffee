@@ -455,10 +455,21 @@ class @Pokemon
   blockItem: ->
     @itemBlocked = true
 
+  # Blocks an ability for a single turn
+  blockAbility: ->
+    @abilityBlocked = true
+
+  unblockAbility: ->
+    @abilityBlocked = false
+
+  isAbilityBlocked: ->
+    @abilityBlocked
+
   resetBlocks: ->
     @blockedMoves = []
     @switchBlocked = false
     @itemBlocked = false
+    @abilityBlocked = false
 
   # Locks the Pokemon into a single move. Does not limit switches.
   lockMove: (moveToLock) ->
