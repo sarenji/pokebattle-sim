@@ -1160,6 +1160,12 @@ describe "BW Abilities:", ->
 
   testAbilityCancelAbility = (name) ->
     describe name, ->
+      it "emits a catchphrase when switching in or activating", ->
+        shared.create.call(this)
+        mock = @sandbox.mock(@battle).expects('message').once()
+        @p1.copyAbility(Ability[name.replace(/\s+/, '')])
+        mock.verify()
+
       it "cancels abilities for the duration of the user's move", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]

@@ -207,8 +207,12 @@ makeTypeAbsorbMove = (name, type) ->
 makeTypeAbsorbMove("Water Absorb", "Water")
 makeTypeAbsorbMove("Volt Absorb", "Electric")
 
-makeAbilityCancelAbility = (name) ->
+makeAbilityCancelAbility = (name, phrase) ->
   makeAbility name, ->
+    this::switchIn = ->
+      # TODO: Send canned text instead
+      @battle.message(phrase.replace(/$1/, @pokemon.name))
+
     this::beforeMove = (move, pokemon, targets) ->
       for target in targets
         target.attach(Attachment.AbilityCancel)
@@ -217,9 +221,9 @@ makeAbilityCancelAbility = (name) ->
       for target in targets
         target.unattach(Attachment.AbilityCancel)
 
-makeAbilityCancelAbility 'Mold Breaker'
-makeAbilityCancelAbility 'Teravolt'
-makeAbilityCancelAbility 'Turboblaze'
+makeAbilityCancelAbility('Mold Breaker', "$1 breaks the mold!")
+makeAbilityCancelAbility('Teravolt', "$1 is radiating a bursting aura!")
+makeAbilityCancelAbility('Turboblaze', "$1 is radiating a blazing aura!")
 
 # Unique Abilities
 
