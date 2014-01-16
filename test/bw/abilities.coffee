@@ -1679,8 +1679,38 @@ describe "BW Abilities:", ->
       @battle.performMove(@p1, @battle.getMove("Tackle"))
       @p1.currentHP.should.be.lessThan @p1.stat('hp')
 
-    it "does not activate Red Card"
-    it "does not activate Eject Button"
+    it "does not activate Red Card", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
+        team2: [Factory("Magikarp", item: "Red Card"), Factory("Magikarp")]
+      @battle.performMove(@p1, @battle.getMove("Ember"))
+      @p1.should.equal @team1.first()
+
+    it "activates Red Card if no secondary effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
+        team2: [Factory("Magikarp", item: "Red Card"), Factory("Magikarp")]
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @p1.should.not.equal @team1.first()
+
+    it "does not activate Eject Button", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
+        team2: [Factory("Magikarp", item: "Eject Button"), Factory("Magikarp")]
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      should.not.exist @battle.requests[@player2.id]
+      @battle.performMove(@p1, @battle.getMove("Ember"))
+      should.not.exist @battle.requests[@player2.id]
+
+    it "activates Eject Button if no secondary effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
+        team2: [Factory("Magikarp", item: "Eject Button"), Factory("Magikarp")]
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      should.not.exist @battle.requests[@player2.id]
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @battle.requests[@player2.id].should.not.be.empty
+
     it "does not activate Jaboca Berry?"
     it "does not activate Rowap Berry?"
 

@@ -404,8 +404,7 @@ describe "BW Items:", ->
       hp = @p1.stat('hp')
       (hp - @p1.currentHP).should.equal Math.floor(hp / 10)
 
-    # Enable once afterMove gets implemented
-    xit "only recoils once in a multi-hit move", ->
+    it "only recoils once in a multi-hit move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
