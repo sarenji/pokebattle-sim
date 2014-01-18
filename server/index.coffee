@@ -1,5 +1,6 @@
 http = require 'http'
 express = require 'express'
+path = require 'path'
 require 'sugar'
 
 config = require './config'
@@ -25,7 +26,7 @@ errors = require '../shared/errors'
   app.use(auth.middleware())
   app.use(express.methodOverride())
   app.use(app.router)
-  app.use(express.static(__dirname + "/public"))
+  app.use(express.static(path.join(__dirname, "../public")))
 
   # Routing
   renderHomepage = (req, res) ->
