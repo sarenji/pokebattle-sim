@@ -114,8 +114,10 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
     fs = require('fs')
+    done = this.async()
     {GenerationJSON} = require './server/generations'
     EventPokemon = require './shared/event_pokemon.json'
     contents = """var Generations = #{JSON.stringify(GenerationJSON)};
     var EventPokemon = #{JSON.stringify(EventPokemon)}"""
-    fs.writeFileSync("./public/js/data.js", contents)
+    fs.mkdir "./public/js", ->
+      fs.writeFile("./public/js/data.js", contents, done)
