@@ -218,3 +218,13 @@ describe "Learnsets:", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({name: "Gengar"}, 6)
       moves.should.include("Sludge Wave")
+
+    it "returns valid moves for battle-only formes", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
+      moves = learnableMoves({name: "Darmanitan", forme: "zen"}, 6)
+
+      # Only Darmanitan can learn this move; Darumaka can't.
+      moves.should.include("Bulk Up")
+
+      # Egg move.
+      moves.should.include("Encore")

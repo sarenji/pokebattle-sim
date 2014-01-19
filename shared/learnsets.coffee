@@ -70,7 +70,10 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
         # Since we check pre-evos, the pre-evo may not have the forme that its
         # parent has. We check if no forme exists; if so, we revert to default.
         formeName = "default"  if formeName not of FormeData[name]
-        learnset = FormeData[name][formeName].learnset
+        # The current forme may not have a learnset (Zen mode, megas), so we
+        # do another check to see if it has a learnset. If not, use default.
+        formeName = "default"  if !FormeData[name][formeName].learnset
+        learnset = FormeData[name][formeName]?.learnset
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
         if iterator(learnset, name, formeName) == true then return true
