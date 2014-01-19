@@ -65,7 +65,12 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
       # Loop through all available generations
       for generation in [minimumGeneration..forGeneration]
         {FormeData} = Generations[getGenerationFromInt(generation)]
-        learnset = FormeData[name]?[formeName].learnset
+        # Skip if this pokemon has no data.
+        continue  if !FormeData[name]?
+        # Since we check pre-evos, the pre-evo may not have the forme that its
+        # parent has. We check if no forme exists; if so, we revert to default.
+        formeName = "default"  if formeName not of FormeData[name]
+        learnset = FormeData[name][formeName].learnset
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
         if iterator(learnset, name, formeName) == true then return true
