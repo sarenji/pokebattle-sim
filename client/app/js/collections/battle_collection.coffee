@@ -150,6 +150,8 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.RESET_BOOSTS
           [player, slot] = rest
           view.resetBoosts(player, slot, done)
+        when Protocol.CANCEL_SUCCESS
+          view.cancelSuccess()
         else
           done()
     catch e

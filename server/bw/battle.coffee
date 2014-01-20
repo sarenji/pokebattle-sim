@@ -443,15 +443,15 @@ class @Battle extends EventEmitter
     @removeRequest(playerId, action, forSlot)
 
   removeRequest: (playerId, action, forSlot = 0) ->
-    actions = @requests[playerId] || []
-    for {slot}, i in actions
-      if slot == forSlot
-        completed = { request: @requests[i], action: action }
+    playerRequests = @requests[playerId] || []
+    for request, i in playerRequests
+      if request.slot == forSlot
+        completed = { request, action }
         @completedRequests[playerId] ?= []
         @completedRequests[playerId].push(completed)
 
-        actions.splice(i, 1)
-        delete @requests[playerId]  if actions.length == 0
+        playerRequests.splice(i, 1)
+        delete @requests[playerId]  if playerRequests.length == 0
         break
 
   # Cancels the most recent completed request made by a certain player
@@ -462,6 +462,9 @@ class @Battle extends EventEmitter
     return false  if not @completedRequests[playerId]
     return false  if @completedRequests[playerId].length == 0
 
+    player = @getPlayer(playerId)
+    return false  if not player
+
     {request, action} = @completedRequests[playerId].pop()
 
     # Add the cancelled request to the beginning of @requests
@@ -471,6 +474,7 @@ class @Battle extends EventEmitter
     # Remove the pokemon action
     @pokemonActions.splice(@pokemonActions.indexOf(action), 1)
 
+    player.tell(Protocol.CANCEL_SUCCESS)
     return true
 
   requestFor: (pokemon) ->

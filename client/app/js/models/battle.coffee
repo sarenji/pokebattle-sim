@@ -31,6 +31,9 @@ class @Battle extends Backbone.Model
   makeSwitch: (toSlot, forSlot) =>
     @socket.send('send switch', @id, toSlot, forSlot, @get('turn'))
 
+  makeCancel: =>
+    @socket.send 'send cancel action', @id, @get('turn')
+
   arrangeTeam: (arrangement) =>
     @socket.send 'arrange team', @id, arrangement
 

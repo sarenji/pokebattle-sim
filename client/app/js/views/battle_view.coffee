@@ -9,6 +9,7 @@ class @BattleView extends Backbone.View
     'click .move': 'makeMove'
     'click .switch': 'switchPokemon'
     'click .mega-evolve': 'megaEvolve'
+    'click .cancel': 'cancelAction'
     'click .submit_arrangement': 'submitTeamPreview'
     'click .save-log': 'saveLog'
 
@@ -67,7 +68,7 @@ class @BattleView extends Backbone.View
 
   renderWaiting: =>
     @$('.battle_actions').html """
-    <div class="well well-battle-actions">Waiting for opponent...</div>
+    <div class="well well-battle-actions">Waiting for opponent... <a class="cancel">Cancel</a></div>
     """
 
   renderUserInfo: =>
@@ -264,6 +265,10 @@ class @BattleView extends Backbone.View
     done()
 
   moveSuccess: (player, slot, targetSlot, done) =>
+    done()
+
+  cancelSuccess: =>
+    @enableButtons()
     done()
 
   changeSprite: (player, slot, species, forme) =>
@@ -531,7 +536,8 @@ class @BattleView extends Backbone.View
     @renderUserInfo()
 
   enableButtons: (validActions) =>
-    @renderActions(validActions)
+    @lastValidActions = validActions || @lastValidActions
+    @renderActions(@lastValidActions)
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
@@ -569,6 +575,13 @@ class @BattleView extends Backbone.View
     toSlot = parseInt(toSlot, 10)
     @model.makeSwitch(toSlot)
     @disableButtons()
+
+  cancelAction: (e) =>
+    @$('.battle_actions').html """
+    <div class="well well-battle-actions">Canceling...</div>
+    """
+
+    @model.makeCancel()
 
   megaEvolve: (e) =>
     $target = $(e.currentTarget)
