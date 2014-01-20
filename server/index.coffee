@@ -115,6 +115,14 @@ errors = require '../shared/errors'
 
       battle.makeSwitch(user, toSlot, fromSlot, forTurn)
 
+    'send cancel action': (user, battleId, forTurn) ->
+      battle = server.findBattle(battleId)
+      if !battle
+        user.error(errors.BATTLE_DNE)
+        return
+
+      battle.undoCompletedRequest(user, forTurn)
+
     'arrange team': (user, battleId, arrangement) ->
       battle = server.findBattle(battleId)
       if !battle

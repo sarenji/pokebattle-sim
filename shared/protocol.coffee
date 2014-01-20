@@ -23,3 +23,4 @@
   SPRITE_CHANGE    : 22
   BOOSTS           : 23
   RESET_BOOSTS     : 24
+  CANCEL_SUCCESS   : 25

@@ -74,6 +74,13 @@ describe 'Battle', ->
       @battle.undoCompletedRequest(@id1).should.be.true
       @battle.pokemonActions.should.be.empty
 
+    it "can cancel an action multiple times", ->
+      for i in [0..5]
+        @battle.recordMove(@id1, @battle.getMove('Tackle'))
+        @battle.pokemonActions.should.not.be.empty
+        @battle.undoCompletedRequest(@id1).should.be.true
+        @battle.pokemonActions.should.be.empty
+
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
