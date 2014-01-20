@@ -37,10 +37,14 @@ Priorities.beforeMove ?= [
   Item.ChoiceBand
   Item.ChoiceScarf
   Item.ChoiceSpecs
+  Ability.MoldBreaker
+  Ability.Teravolt
+  Ability.Turboblaze
 ]
 
 Priorities.endTurn = [
   # Non-order-dependent
+  Attachment.AbilityCancel
   Attachment.Flinch
   Attachment.Roost
   Attachment.MicleBerry

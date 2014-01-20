@@ -3,19 +3,19 @@ require '../helpers'
 {Ability} = require('../../server/bw/data/abilities')
 {Item} = require('../../server/bw/data/items')
 {Attachment, Status} = require('../../server/bw/attachment')
-priority = require('../../server/bw/priorities')
+Priorities = require('../../server/bw/priorities')
 Query = require('../../server/bw/queries')
 shared = require('../shared')
 
 describe "BW Priorities:", ->
   ensureAttachments = (arrayOfAttachments, eventName) ->
-    attachments = (a  for a in arrayOfAttachments when a.prototype[eventName]? && a not in priority.Priorities[eventName])
+    attachments = (a  for a in arrayOfAttachments when a.prototype[eventName]? && a not in Priorities[eventName])
     attachments = attachments.map((a) -> a.displayName || a::name)
     if attachments.length > 0
       throw new Error("#{attachments.join(', ')} must specify their #{eventName} priority.")
 
   it "ensures all relevant attachments have their specified event names", ->
-    for eventName of priority.Priorities
+    for eventName of Priorities
       ensureAttachments((klass  for name, klass of Attachment), eventName)
       ensureAttachments((klass  for name, klass of Item), eventName)
       ensureAttachments((klass  for name, klass of Ability), eventName)
