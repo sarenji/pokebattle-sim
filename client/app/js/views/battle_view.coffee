@@ -578,7 +578,7 @@ class @BattleView extends Backbone.View
 
   cancelAction: (e) =>
     @$('.battle_actions').html """
-    <div class="well well-battle-actions">Cancelling...</div>
+    <div class="well well-battle-actions">Canceling...</div>
     """
 
     @model.makeCancel()
