@@ -322,6 +322,10 @@ class @Battle extends EventEmitter
   # Continues the turn. This is called once all requests
   # have been submitted and the battle is ready to continue.
   continueTurn: ->
+    # We're done processing requests, so cancelling shouldn't be possible anymore.
+    # Clean the completed requests
+    @completedRequests = {}
+
     @determineTurnOrder()
     for action in @pokemonActions
       action.move?.beforeTurn?(this, action.pokemon)
