@@ -9,6 +9,7 @@ require 'sugar'
 util = require '../../server/bw/util'
 {Factory} = require '../factory'
 should = require 'should'
+sinon = require 'sinon'
 shared = require '../shared'
 
 describe "BW Abilities:", ->
@@ -2056,8 +2057,37 @@ describe "BW Abilities:", ->
       splash.execute.restore()
 
   describe "Unaware", ->
-    it "ignores attackers' attack, special attack, and accuracy boosts"
-    it "ignores defenders' defense, special defense, and evasion boosts"
+    it "ignores attackers' attack and special attack boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unaware")]
+      @p2.boost(attack: 1, specialAttack: 2)
+      spy = @sandbox.spy(@p2, "editBoosts")
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      spy.returned(sinon.match(attack: 0, specialAttack: 0)).should.be.true
+
+    it "ignores defenders' defense and special defense boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unaware")]
+      @p2.boost(defense: 1, specialDefense: 2)
+      spy = @sandbox.spy(@p2, "editBoosts")
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      spy.returned(sinon.match(defense: 0, specialDefense: 0)).should.be.true
+
+    it "ignores attackers' accuracy boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unaware")]
+      @p2.boost(accuracy: 3)
+      spy = @sandbox.spy(@p2, "editBoosts")
+      @battle.getMove("Tackle").chanceToHit(@battle, @p2, @p1)
+      spy.returned(sinon.match(accuracy: 0)).should.be.true
+
+    it "ignores defenders' evasion boosts", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Unaware")]
+      @p2.boost(evasion: 3)
+      spy = @sandbox.spy(@p2, "editBoosts")
+      @battle.getMove("Tackle").chanceToHit(@battle, @p1, @p2)
+      spy.returned(sinon.match(evasion: 0)).should.be.true
 
   describe "Unburden", ->
     it "doubles its speed when the owner's item is removed", ->

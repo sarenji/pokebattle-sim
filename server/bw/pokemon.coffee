@@ -139,10 +139,8 @@ class @Pokemon
       1
 
   statBoost: (statName, total, options = {}) ->
-    stages = @editBoosts()
+    stages = @editBoosts(options)
     boost  = stages[statName]
-    boost  = 0 if options.ignorePositiveBoosts && boost > 0
-    boost  = 0 if options.ignoreNegativeBoosts && boost < 0
     if boost >= 0
       Math.floor((2 + boost) * total / 2)
     else
@@ -299,8 +297,17 @@ class @Pokemon
   editDamage: (move, damage) ->
     Query.chain('editDamage', @attachments.all(), damage, move, this)
 
-  editBoosts: ->
-    Query.chain('editBoosts', @attachments.all(), _.clone(@stages))
+  editBoosts: (opts = {}) ->
+    stages = Query.chain('editBoosts', @attachments.all(), _.clone(@stages))
+    for stat, amt of stages
+      amt = 0  if opts.ignorePositiveBoosts && amt > 0
+      amt = 0  if opts.ignoreNegativeBoosts && amt < 0
+      amt = 0  if opts.ignoreEvasion && stat == 'evasion'
+      amt = 0  if opts.ignoreAccuracy && stat == 'accuracy'
+      amt = 0  if opts.ignoreOffense && stat in [ 'attack', 'specialAttack' ]
+      amt = 0  if opts.ignoreDefense && stat in [ 'defense', 'specialDefense' ]
+      stages[stat] = amt
+    return stages
 
   editAccuracy: (accuracy, move, target) ->
     Query.chain('editAccuracy', @attachments.all(), accuracy, move, target)

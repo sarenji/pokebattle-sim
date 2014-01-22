@@ -860,6 +860,9 @@ makeAbility 'Truant', ->
       @battle.message "#{@pokemon.name} is loafing around!"
       return false
 
+# Hardcoded in Move
+makeAbility "Unaware"
+
 # Hardcoded in Pokemon#removeItem
 makeAbility 'Unburden'
 

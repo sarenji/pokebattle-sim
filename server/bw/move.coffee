@@ -165,9 +165,11 @@ class @Move
     battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) ->
+    userBoosts = user.editBoosts(ignoreAccuracy: target.hasAbility("Unaware"))
+    targetBoosts = target.editBoosts(ignoreEvasion: user.hasAbility("Unaware"))
     accuracy = @getAccuracy(battle, user, target)
-    accuracy = Math.floor(accuracy * (3 + user.editBoosts().accuracy) / 3)
-    accuracy = Math.floor(accuracy * 3 / (3 + target.editBoosts().evasion))
+    accuracy = Math.floor(accuracy * (3 + userBoosts.accuracy) / 3)
+    accuracy = Math.floor(accuracy * 3 / (3 + targetBoosts.evasion))
     accuracy = user.editAccuracy(accuracy, this, target)
     accuracy = target.editEvasion(accuracy, this, user)
     accuracy
@@ -297,11 +299,11 @@ class @Move
 
   pickAttackStat: (user, target) ->
     stat = (if @isPhysical() then 'attack' else 'specialAttack')
-    user.stat(stat, ignoreNegativeBoosts: user.crit)
+    user.stat(stat, ignoreNegativeBoosts: user.crit, ignoreOffense: target.hasAbility("Unaware"))
 
   pickDefenseStat: (user, target) ->
     stat = (if @isPhysical() then 'defense' else 'specialDefense')
-    target.stat(stat, ignorePositiveBoosts: user.crit)
+    target.stat(stat, ignorePositiveBoosts: user.crit, ignoreDefense: user.hasAbility("Unaware"))
 
   toString: ->
     "[Move name:#{@name}]"
