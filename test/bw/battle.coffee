@@ -68,6 +68,12 @@ describe 'Battle', ->
     it "fails if the player didn't make any action", ->
       @battle.undoCompletedRequest(@id1).should.be.false
 
+    it "fails on the second turn as well if the player didn't make any action", ->
+      @controller.makeMove(@player1, "Mach Punch")
+      @controller.makeMove(@player2, "Mach Punch")
+      @battle.turn.should.equal 2
+      @battle.undoCompletedRequest(@id1).should.be.false
+
     it "succeeds if the player selected an action already", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
       @battle.pokemonActions.should.not.be.empty
