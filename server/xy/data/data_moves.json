@@ -7494,7 +7494,7 @@
     "Poison Fang": {
         "accuracy": 100,
         "ailmentChance": 30,
-        "ailmentId": "poison",
+        "ailmentId": "toxic",
         "damage": "physical",
         "flags": [
             "bite",
