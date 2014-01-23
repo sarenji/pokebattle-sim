@@ -39424,7 +39424,7 @@
             ],
             "isBattleOnly": false,
             "learnset": {
-                "level-up": {
+                "form-change": {
                     "Air Slash": 1
                 }
             },
@@ -39448,7 +39448,7 @@
             ],
             "isBattleOnly": false,
             "learnset": {
-                "level-up": {
+                "form-change": {
                     "Blizzard": 1
                 }
             },
@@ -39472,7 +39472,7 @@
             ],
             "isBattleOnly": false,
             "learnset": {
-                "level-up": {
+                "form-change": {
                     "Overheat": 1
                 }
             },
@@ -39496,7 +39496,7 @@
             ],
             "isBattleOnly": false,
             "learnset": {
-                "level-up": {
+                "form-change": {
                     "Leaf Storm": 1
                 }
             },
@@ -39520,7 +39520,7 @@
             ],
             "isBattleOnly": false,
             "learnset": {
-                "level-up": {
+                "form-change": {
                     "Hydro Pump": 1
                 }
             },

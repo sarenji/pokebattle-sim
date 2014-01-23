@@ -105,6 +105,17 @@ describe 'XY API:', ->
         data.moves.should.include("Fire Blast")
         done()
 
+  describe '/xy/pokemon/:name/:forme/moves', ->
+    it 'should get all moves that pokemon in that forme can learn', (done) ->
+      @client.get '/xy/pokemon/rotom/wash/moves', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("moves")
+        data.moves.should.be.an.instanceOf(Array)
+        data.moves.should.include("Hydro Pump")
+        data.moves.should.not.include("Overheat")
+        done()
+
   describe '/xy/damagecalc', ->
     it 'should calculate damage properly', (done) ->
       params =

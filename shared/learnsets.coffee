@@ -55,8 +55,6 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
     thePokemon.push(name)
     if name in switchableFormes && name not in theFormes
       theFormes.push((forme  for forme of FormeData[name])...)
-    if name not of SpeciesData
-      console.log(SpeciesData)
     name = SpeciesData[name].evolvedFrom
 
   # Loop through pre-evolutions and formes
@@ -88,7 +86,10 @@ self.learnableMoves = (Generations, pokemon, forGeneration) ->
     for event in events
       learnable.push(event.moves)
     for method, moves of learnset
-      learnable.push((moveName  for moveName of moves))
+      if method in [ 'level-up', 'tutor', 'machine', 'egg' ] ||
+          ((pokemon.forme || "default") == formeName)  # e.g. Hydro Pump Rotom-w
+        learnable.push((moveName  for moveName of moves))
+
   _.chain(learnable).flatten().sort().unique().value()
 
 # Checks the moveset of a given Pokemon for a given generation, with the given

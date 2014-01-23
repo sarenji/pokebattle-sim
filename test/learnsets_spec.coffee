@@ -228,3 +228,21 @@ describe "Learnsets:", ->
 
       # Egg move.
       moves.should.include("Encore")
+
+    it "does not take into account nonstandard learnsets", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
+      moves = learnableMoves({name: "Rotom"}, 6)
+      moves.should.not.include("Overheat")
+      moves.should.not.include("Leaf Storm")
+      moves.should.not.include("Hydro Pump")
+      moves.should.not.include("Blizzard")
+      moves.should.not.include("Air Slash")
+
+    it "lets pokemon learn nonstandard learnsets if they are of that forme", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
+      moves = learnableMoves({name: "Rotom", forme: "wash"}, 6)
+      moves.should.not.include("Overheat")
+      moves.should.not.include("Leaf Storm")
+      moves.should.include("Hydro Pump")
+      moves.should.not.include("Blizzard")
+      moves.should.not.include("Air Slash")

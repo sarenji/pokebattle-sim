@@ -83,6 +83,14 @@ attachAPIEndpoints = (server) ->
         res.send(moves: moves)
         return next()
 
+      server.get "#{gen}/pokemon/:name/:forme/moves", (req, res, next) ->
+        name = getName(req.params.name)
+        pokemon = {name: name, forme: req.params.forme}
+        moves = learnsets.learnableMoves(GenerationJSON, pokemon, intGeneration)
+        return next(new restify.ResourceNotFoundError("Could not find moves for Pokemon: #{req.params.name}"))  if !moves || moves.length == 0
+        res.send(moves: moves)
+        return next()
+
       server.get "#{gen}/pokemon/:name/check", (req, res, next) ->
         name = getName(req.params.name)
         return next(new restify.ResourceNotFoundError("Could not find Pokemon: #{req.params.name}"))  if !name
