@@ -2194,7 +2194,7 @@
         "accuracy": 0,
         "ailmentChance": 0,
         "ailmentId": "none",
-        "damage": "non-damaging",
+        "damage": "special",
         "flags": [
             "protect",
             "mirror",
@@ -7394,6 +7394,7 @@
         "damage": "physical",
         "flags": [
             "contact",
+            "charge",
             "mirror"
         ],
         "flinchChance": 0,
