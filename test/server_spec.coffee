@@ -2,7 +2,7 @@ require './helpers'
 
 {BattleServer} = require('../server/server')
 gen = require('../server/generations')
-{Player} = require('../server/player')
+{User} = require('../server/user')
 {Factory} = require './factory'
 
 describe 'BattleServer', ->
@@ -12,7 +12,7 @@ describe 'BattleServer', ->
     server.battles.should.have.ownProperty battleId
 
   it "sends the 'spectate battle' event for each matched player", (done) ->
-    players = [{id: 'abc', send: ->}, {id: 'def', send: ->}]
+    players = [ new User('abc'), new User('def') ]
     spies = []
     for player in players
       spy = @sandbox.spy(player, 'send')

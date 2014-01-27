@@ -10,48 +10,48 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (player, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
+  makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
     return  if @battle.isOver()
     return  if forTurn != @battle.turn
-    pokemon = @battle.getTeam(player.id).at(forSlot)
+    pokemon = @battle.getTeam(playerId).at(forSlot)
     return  if !pokemon
     request = @battle.requestFor(pokemon)
     return  if !request
     return  if moveName not in (request.moves || [])
     move = @battle.getMove(moveName)
-    @battle.recordMove(player.id, move, forSlot, args...)
+    @battle.recordMove(playerId, move, forSlot, args...)
     @transitionToNextState()
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
-  makeSwitch: (player, toPosition, forSlot = 0, forTurn = @battle.turn) ->
+  makeSwitch: (playerId, toPosition, forSlot = 0, forTurn = @battle.turn) ->
     return  if @battle.isOver()
     return  if forTurn != @battle.turn
-    pokemon = @battle.getTeam(player.id).at(forSlot)
+    pokemon = @battle.getTeam(playerId).at(forSlot)
     return  if !pokemon
     request = @battle.requestFor(pokemon)
     return  if !request
     return  if toPosition not in (request.switches || [])
-    @battle.recordSwitch(player.id, toPosition, forSlot)
+    @battle.recordSwitch(playerId, toPosition, forSlot)
     @transitionToNextState()
 
   # Tells the player to cancel their latest completed request.
-  undoCompletedRequest: (player, forTurn = @battle.turn) ->
+  undoCompletedRequest: (playerId, forTurn = @battle.turn) ->
     return  if forTurn != @battle.turn
-    @battle.undoCompletedRequest(player.id)
+    @battle.undoCompletedRequest(playerId)
     @sendUpdates()
 
   # Makes a player forfeit.
-  forfeit: (player) ->
+  forfeit: (playerId) ->
     return  if @battle.isOver()
-    @battle.forfeit(player)
+    @battle.forfeit(playerId)
     @sendUpdates()
 
   addSpectator: (spectator) ->
-    @battle.addSpectator(spectator)
-    if @arranging && spectator not in @battle.players
-      teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
+    isNew = @battle.addSpectator(spectator)
+    if @arranging && isNew
+      teams = @battle.getTeams().map((t) -> t.toJSON(hidden: true))
       spectator.send? 'team preview', @battle.id, teams
 
   removeSpectator: (spectator) ->
@@ -75,16 +75,17 @@ class @BattleController
     # Team Preview asks for order before starting the battle.
     if @battle.hasCondition(Conditions.TEAM_PREVIEW)
       @arranging = true
-      teams = @battle.players.map((p) -> p.team.toJSON(hidden: true))
+      teams = @battle.getTeams().map((t) -> t.toJSON(hidden: true))
       for you, i in @battle.spectators
         you.send? 'team preview', @battle.id, teams
     else
       @_beginBattle()
 
-  arrangeTeam: (player, arrangement) ->
+  arrangeTeam: (playerId, arrangement) ->
     return false  if @battle.hasStarted()
     return false  if arrangement not instanceof Array
-    team = @battle.getTeam(player.id)
+    team = @battle.getTeam(playerId)
+    return false  if !team
     return false  if arrangement.length != team.size()
     for index, i in arrangement
       return false  if isNaN(index)
@@ -92,8 +93,8 @@ class @BattleController
       return false  if arrangement.indexOf(index, i + 1) != -1
 
     team.arrange(arrangement)
-    @arranged.push(player.id)
-    @_beginBattle()  if @battle.players.all((player) => player.id in @arranged)
+    @arranged.push(playerId)
+    @_beginBattle()  if @battle.playerIds.all((id) => id in @arranged)
     return true
 
   _beginBattle: ->
@@ -131,7 +132,14 @@ class @BattleController
 
   # Sends battle updates to players.
   sendUpdates: ->
+    # Send battle updates to each spectator. Keep in mind that multiple
+    # spectators can belong to a single id, due to multiple clients.
+    # This is why we cleanup after all spectators are iterated through.
     for spectator in @battle.spectators
-      continue  if spectator.queue.length == 0
-      spectator.send('update battle', @battle.id, spectator.queue)
-      spectator.queue = []
+      queue = @battle.queues[spectator.id]
+      continue  if !queue || queue.length == 0
+      spectator.send('update battle', @battle.id, queue)
+
+    # Now clean-up.
+    for id of @battle.queues
+      delete @battle.queues[id]

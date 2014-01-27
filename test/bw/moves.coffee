@@ -839,8 +839,8 @@ describe "BW Moves:", ->
         team1: [Factory('Lapras')]
         team2: [Factory('Magikarp')]
       @p2.currentHP = Math.floor(@p2.stat('hp') / 2)
-      @controller.makeMove(@player1, 'Sheer Cold')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Sheer Cold')
+      @controller.makeMove(@id2, 'Splash')
 
       move = @battle.getMove('Sheer Cold')
       damage = move.calculateDamage(@battle, @p1, @p2)
@@ -910,8 +910,8 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', item: "Leftovers")]
       item1 = @p1.item
       item2 = @p2.item
-      @controller.makeMove(@player1, 'Trick')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Trick')
+      @controller.makeMove(@id2, 'Splash')
 
       @p2.item.should.equal item1
       @p1.item.should.equal item2
@@ -1074,8 +1074,8 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
-      @controller.makeMove(@player1, 'Pain Split')
-      @controller.makeMove(@player1, 'Seismic Toss')
+      @controller.makeMove(@id1, 'Pain Split')
+      @controller.makeMove(@id1, 'Seismic Toss')
 
       @p1.currentHP.should.equal @p1.stat('hp')
 
@@ -1084,8 +1084,8 @@ describe "BW Moves:", ->
         team1: [Factory('Gengar')]
         team2: [Factory('Blissey')]
       @p1.currentHP = 2
-      @controller.makeMove(@player1, 'Pain Split')
-      @controller.makeMove(@player2, 'Seismic Toss')
+      @controller.makeMove(@id1, 'Pain Split')
+      @controller.makeMove(@id2, 'Seismic Toss')
 
       @p1.currentHP.should.equal Math.min(326, @p1.stat('hp'))
       @p2.currentHP.should.equal Math.min(326, @p2.stat('hp'))
@@ -1098,8 +1098,8 @@ describe "BW Moves:", ->
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       @p1.stages.attack = -6
-      @controller.makeMove(@player1, 'Belly Drum')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Belly Drum')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.stages.attack.should.equal 6
 
@@ -1107,8 +1107,8 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
-      @controller.makeMove(@player1, 'Belly Drum')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Belly Drum')
+      @controller.makeMove(@id2, 'Splash')
 
       hp = @p1.stat('hp')
       (hp - @p1.currentHP).should.equal Math.floor(hp / 2)
@@ -1118,8 +1118,8 @@ describe "BW Moves:", ->
         team1: [Factory('Poliwrath')]
         team2: [Factory('Magikarp')]
       hp = @p1.currentHP = Math.floor(@p1.stat('hp') / 2) - 1
-      @controller.makeMove(@player1, 'Belly Drum')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Belly Drum')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.currentHP.should.equal hp
       @p1.stages.attack.should.equal 0
@@ -1132,8 +1132,8 @@ describe "BW Moves:", ->
         team1: [Factory('Shuckle')]
         team2: [Factory('Magikarp')]
       stages = _.clone(@p1.stages)
-      @controller.makeMove(@player1, 'Acupressure')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Acupressure')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.stages.should.not.eql stages
 
@@ -1150,8 +1150,8 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(@p2)
       mock.expects('boost').never()
 
-      @controller.makeMove(@player1, 'Acupressure')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Acupressure')
+      @controller.makeMove(@id2, 'Splash')
 
       mock.verify()
 
@@ -1648,7 +1648,7 @@ describe "BW Moves:", ->
           shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..2]))
           @battle.performMove(@p1, @battle.getMove(moveName))
 
-          @battle.requests.should.have.property @player1.id
+          @battle.requests.should.have.property(@id1)
 
         it "makes a request containing all the possible switches", ->
           shared.create.call(this, team1: (Factory("Magikarp")  for i in [1..3]))
@@ -1734,8 +1734,8 @@ describe "BW Moves:", ->
       shared.create.call(this)
       mock = @sandbox.mock(@battle.getMove('Counter'))
       mock.expects('fail').once()
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Tackle")
 
       @battle.performMove(@p1, @battle.getMove('Counter'))
       mock.verify()
@@ -2359,7 +2359,7 @@ describe "BW Moves:", ->
       it "should not force switches if opponent is the last pokemon", ->
         shared.create.call(this, team2: [Factory("Magikarp")])
 
-        mock = @sandbox.mock(@battle.getOwner(@p2))
+        mock = @sandbox.mock(@team2)
         mock.expects("switch").never()
 
         move = @battle.getMove(moveName)
@@ -2456,8 +2456,8 @@ describe "BW Moves:", ->
         @battle.performMove(@p1, @battle.getMove(name))
         @battle.endTurn()
 
-        @controller.makeSwitch(@player1, 1)
-        @controller.makeMove(@player2, "Splash")
+        @controller.makeSwitch(@id1, 1)
+        @controller.makeMove(@id2, "Splash")
 
         @p2.isSwitchBlocked().should.be.false
         @p2.has(Attachment.Trap).should.be.false
@@ -5193,7 +5193,7 @@ describe "BW Moves:", ->
       @battle.performMove(@p2, spikes)
       spy.args.some((array) =>
         [battle, user, targets] = array
-        battle == @battle && user == @p1 && targets[0] == @player2
+        battle == @battle && user == @p1 && targets[0] == @id2
       ).should.be.true
       @team1.has(Attachment.Spikes).should.be.false
       @team2.has(Attachment.Spikes).should.be.true

@@ -402,14 +402,12 @@ makeAbility 'Forewarn', ->
     maxPower = Math.max(moves.map((m) -> consider(m))...)
     possibles = moves.filter((m) -> consider(m) == maxPower)
     finalMove = @battle.rng.choice(possibles, "forewarn")
-    owner = opponents.find((p) -> finalMove in p.moves)
-    @battle.message "It was alerted to #{owner.id}'s #{finalMove.name}!"
+    pokemon = opponents.find((p) -> finalMove in p.moves)
+    @battle.message "It was alerted to #{pokemon.name}'s #{finalMove.name}!"
 
 makeAbility 'Friend Guard', ->
   this::modifyDamageTarget = (move, user) ->
-    userTeam = @battle.getOwner(user).team
-    thisTeam = @battle.getOwner(@pokemon).team
-    return 0xC00  if userTeam == thisTeam
+    return 0xC00  if user.team == @pokemon.team
     return 0x1000
 
 makeAbility "Frisk", ->
@@ -440,8 +438,7 @@ makeAbility 'Harvest', ->
 
 makeAbility 'Healer', ->
   this::endTurn = ->
-    {team} = @battle.getOwner(@pokemon)
-    for adjacent in team.getAdjacent(@pokemon)
+    for adjacent in @pokemon.team.getAdjacent(@pokemon)
       if @battle.rng.randInt(1, 10, "healer") <= 3 then adjacent.cureStatus()
 
 makeAbility 'Heatproof', ->

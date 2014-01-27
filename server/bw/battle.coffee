@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{Player} = require '../player'
+{User} = require '../user'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
 {Team} = require './team'
@@ -60,9 +60,6 @@ class @Battle extends EventEmitter
     # Current turn duration for the weather. -1 means infinity.
     @weatherDuration = -1
 
-    # Array of players partaking in the battle.
-    @players = []
-
     # Array of spectators scouting these fine, upstanding players.
     @spectators = []
 
@@ -84,27 +81,33 @@ class @Battle extends EventEmitter
     # Stores an ongoing log of the battle
     @log = []
 
+    # Teams for each player, keyed by player id.
+    @teams = {}
+
+    # Battle update information for each player, keyed by player id.
+    @queues = {}
+
+    # Holds all playerIds. The location in this array is the player's index.
+    @playerIds = []
+
     for object, i in attributes.players
       {player, team} = object
-      player = new Player(player)
-      player.index = i  # This index is for the client
-      team = new Team(this, player, team, @numActive)
-      player.team = team  # TODO: Deprecate
-      @players.push(player)
+      @playerIds.push(player.id)
+      @teams[player.id] = new Team(this, player.id, team, @numActive)
       @addSpectator(player)
 
     @replacing = false
     @finished = false
 
   begin: ->
-    teams = (player.team.toJSON(hidden: true)  for player in @players)
+    teams = (team.toJSON(hidden: true)  for team in @getTeams())
     @tell(Protocol.BEGIN_BATTLE, teams)
-    for player in @players
-      player.tell(Protocol.RECEIVE_TEAM, player.team.toJSON())
+    for playerId in @playerIds
+      @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
     # TODO: Merge this with performReplacements?
-    for player in @players
+    for playerId in @playerIds
       for slot in [0...@numActive]
-        pokemon = player.team.at(slot)
+        pokemon = @getTeam(playerId).at(slot)
         continue  if !pokemon
         @performReplacement(pokemon, slot)
     # TODO: Switch-in events are ordered by speed
@@ -114,19 +117,21 @@ class @Battle extends EventEmitter
       pokemon.turnsActive = 1
     @beginTurn()
 
-  getPlayer: (id) ->
-    @players.find((p) -> p.id == id)
+  getPlayerIndex: (playerId) ->
+    index = @playerIds.indexOf(playerId)
+    return (if index == -1 then null else index)
 
-  getTeam: (id) ->
-    @getPlayer(id).team
+  getTeam: (playerId) ->
+    @teams[playerId]
 
+  # Returns teams in order of index.
   getTeams: ->
-    (player.team  for player in @players)
+    (@getTeam(playerId)  for playerId in @playerIds)
 
   # Returns all opposing pokemon of a given pokemon.
   getOpponents: (pokemon) ->
     opponents = @getOpponentOwners(pokemon)
-    teams = (opponent.team.slice(0, @numActive)  for opponent in opponents)
+    teams = (@getTeam(playerId).slice(0, @numActive)  for playerId in opponents)
     opponents = _.flatten(teams)
     opponents = opponents.filter((p) -> p.isAlive())
     opponents
@@ -134,15 +139,15 @@ class @Battle extends EventEmitter
   # Returns all opponent players of a given pokemon. In a 1v1 it returns
   # an array with only one opponent.
   getOpponentOwners: (pokemon) ->
-    {id} = @getOwner(pokemon)
-    (player  for player in @players when id != player.id)
+    id = @getOwner(pokemon)
+    (playerId  for playerId in @playerIds when id != playerId)
 
   # Returns all active pokemon on the field belonging to both players.
   # Active pokemon include fainted pokemon that have not been switched out.
   getActivePokemon: ->
     pokemon = []
-    for player in @players
-      pokemon.push(player.team.getActivePokemon()...)
+    for team in @getTeams()
+      pokemon.push(team.getActivePokemon()...)
     pokemon
 
   getActiveAlivePokemon: ->
@@ -155,18 +160,18 @@ class @Battle extends EventEmitter
 
   # Finds the Player attached to a certain Pokemon.
   getOwner: (pokemon) ->
-    for player in @players
-      return player  if pokemon in player.team.pokemon
+    for playerId in @playerIds
+      return playerId  if @getTeam(playerId).contains(pokemon)
 
   getSlotNumber: (pokemon) ->
     pokemon.team.indexOf(pokemon)
 
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) ->
-    player = @getOwner(pokemon)
-    switches = player.team.getAliveBenchedPokemon()
+    playerId = @getOwner(pokemon)
+    switches = pokemon.team.getAliveBenchedPokemon()
     slot = @getSlotNumber(pokemon)
-    @requestActions(player, [ {switches, slot} ])
+    @requestActions(playerId, [ {switches, slot} ])
 
   # Returns true if the Pokemon has yet to move.
   willMove: (pokemon) ->
@@ -223,9 +228,14 @@ class @Battle extends EventEmitter
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectator.tell(args...)  for spectator in @spectators
+    spectatorIds = _.unique(@spectators.map((s) -> s.id))
+    @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
     @log.push(args)
     true
+
+  tellPlayer: (id, args...) ->
+    @queues[id] ?= []
+    @queues[id].push(args)
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
@@ -299,18 +309,19 @@ class @Battle extends EventEmitter
     @query('beginTurn')
 
     # Send appropriate requests to players
-    for player in @players
+    for playerId in @playerIds
       actions = []
       for slot in [0...@numActive]
-        pokemon = player.team.at(slot)
+        team = @getTeam(playerId)
+        pokemon = team.at(slot)
         continue  if !pokemon || @getAction(pokemon)
         moves = pokemon.validMoves()
-        switches = player.team.getAliveBenchedPokemon()
+        switches = team.getAliveBenchedPokemon()
         switches = []  if pokemon.isSwitchBlocked()
         # This guarantees the user always has a move to pick.
         moves.push(@struggleMove)  if moves.length == 0
         actions.push({moves, switches, slot})
-      @requestActions(player, actions)
+      @requestActions(playerId, actions)
 
   # A callback done after turn order is calculated for the first time.
   # Use this callback to edit the turn order after players have selected
@@ -373,41 +384,42 @@ class @Battle extends EventEmitter
     @attachments.contains(attachment)
 
   endBattle: ->
-    winner = @getWinner()
-    @tell(Protocol.END_BATTLE, winner.index)
-    loser = @players[1 - winner.index]
+    winnerId = @getWinner()
+    winnerIndex = @getPlayerIndex(winnerId)
+    @tell(Protocol.END_BATTLE, winnerIndex)
+    loserId = @playerIds[1 - winnerIndex]
     @emit('end')
 
     # Update ratings
     ratings = require '../ratings'
-    ratings.getRatings [ winner.id, loser.id ], (err, oldRatings) =>
-      ratings.updatePlayers winner.id, loser.id, ratings.results.WIN, (err, result) =>
+    ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
+      ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
         return @message "An error occurred updating rankings :("  if err
-        @message "#{winner.id}: #{oldRatings[0]} -> #{result[0].rating}"
-        @message "#{loser.id}: #{oldRatings[1]} -> #{result[1].rating}"
+        @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
+        @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
 
   getWinner: ->
     winner     = null
 
     # If each player has the same number of pokemon alive, return null.
-    teamLength = @players[0].team.getAlivePokemon().length
-    playerSize = @players.length
+    teamLength = @getTeam(@playerIds[0]).getAlivePokemon().length
+    playerSize = @playerIds.length
     count      = 1
     for i in [1...playerSize] by 1
-      count++  if teamLength == @players[i].team.getAlivePokemon().length
+      count++  if teamLength == @getTeam(@playerIds[i]).getAlivePokemon().length
     return null  if count == playerSize
 
     # Otherwise, return the player with the most pokemon alive.
     length = 0
-    for player in @players
-      newLength = player.team.getAlivePokemon().length
+    for playerId in @playerIds
+      newLength = @getTeam(playerId).getAlivePokemon().length
       if newLength > length
         length = newLength
-        winner = player
+        winner = playerId
     return winner
 
   isOver: ->
-    @finished || @players.any((player) -> player.team.getAlivePokemon().length == 0)
+    @finished || @playerIds.any((id) => @getTeam(id).getAlivePokemon().length == 0)
 
   hasStarted: ->
     @turn >= 1
@@ -465,9 +477,7 @@ class @Battle extends EventEmitter
     return false  if @areAllRequestsCompleted()
     return false  if not @completedRequests[playerId]
     return false  if @completedRequests[playerId].length == 0
-
-    player = @getPlayer(playerId)
-    return false  if not player
+    return false  if playerId not in @playerIds
 
     {request, action} = @completedRequests[playerId].pop()
 
@@ -478,13 +488,13 @@ class @Battle extends EventEmitter
     # Remove the pokemon action
     @pokemonActions.splice(@pokemonActions.indexOf(action), 1)
 
-    player.tell(Protocol.CANCEL_SUCCESS)
+    @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
     return true
 
   requestFor: (pokemon) ->
-    {id}    = pokemon.player
-    forSlot = pokemon.team.indexOf(pokemon)
-    actions = @requests[id] || []
+    playerId = @getOwner(pokemon)
+    forSlot  = @getSlotNumber(pokemon)
+    actions  = @requests[playerId] || []
     for action in actions
       if action.slot == forSlot
         return action
@@ -507,14 +517,14 @@ class @Battle extends EventEmitter
     action = @popAction(pokemon)
     action = @popAction(pokemon)  while action?
 
-  requestActions: (player, validActions) ->
+  requestActions: (playerId, validActions) ->
     # Normalize actions for the client
     # TODO: Should not need to do this here.
     total = 0
     for action in validActions
       {switches, moves} = action
       if switches?
-        action.switches = switches.map((p) -> player.team.indexOf(p))
+        action.switches = switches.map((p) => @getSlotNumber(p))
         total += action.switches.length
       if moves?
         action.moves = moves.map((m) -> m.name)
@@ -522,9 +532,8 @@ class @Battle extends EventEmitter
 
     return false  if total == 0
 
-    # TODO: Delegate this kind of logic to the Player class.
-    @requests[player.id] = validActions
-    player.tell(Protocol.REQUEST_ACTIONS, validActions)
+    @requests[playerId] = validActions
+    @tellPlayer(playerId, Protocol.REQUEST_ACTIONS, validActions)
     return true
 
   # Returns true if all requests have been completed. False otherwise.
@@ -549,14 +558,14 @@ class @Battle extends EventEmitter
   # Force people to replace fainted Pokemon.
   requestFaintedReplacements: ->
     @replacing = true
-    for player in @players
-      team = player.team
+    for playerId in @playerIds
+      team = @getTeam(playerId)
       fainted = team.getActiveFaintedPokemon()
       size = fainted.length
       if size > 0
         benched = team.getAliveBenchedPokemon()
         validActions = ({switches: benched, slot: x}  for x in [0...size])
-        @requestActions(player, validActions)
+        @requestActions(playerId, validActions)
 
   determineTurnOrder: ->
     @sortActions()
@@ -697,30 +706,37 @@ class @Battle extends EventEmitter
     return null
 
   addSpectator: (spectator) ->
-    return  if spectator.id in @spectators.map((s) -> s.id)
-    spectator = new Player(spectator)  if spectator not instanceof Player
+    return  if spectator in @spectators
+    spectator = new User(spectator.id)  if spectator not instanceof User
     @spectators.push(spectator)
     teams = @getTeams().map((team) -> team.toJSON())
-    index = spectator.index
+    index = @getPlayerIndex(spectator.id)
+    # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectate battle', @id, @generation, @numActive, index, teams, spectators, @log)
-    s.send('join battle', @id, spectator.id)  for s in @spectators
+    # TODO: Only do if spectator id has not joined yet.
+    @broadcast('join battle', @id, spectator.id)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
-        s.send('leave battle', @id, spectator.id)  for s in @spectators
+        @broadcast('leave battle', @id, spectator.id)
         break
 
   hasCondition: (condition) ->
     condition in @conditions
 
-  forfeit: (user) ->
-    player = @players.find((p) -> p.user == user)
-    return  unless player
-    @tell(Protocol.FORFEIT_BATTLE, player.index)
+  forfeit: (id) ->
+    index = @getPlayerIndex(id)
+    return  unless index?
+    @tell(Protocol.FORFEIT_BATTLE, index)
     @finished = true
+    # TODO: Update ranking.
+
+  # Proxies arguments the `send` function for all spectators.
+  broadcast: ->
+    s.send.apply(s, arguments)  for s in @spectators
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

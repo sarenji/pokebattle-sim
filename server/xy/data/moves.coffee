@@ -8,7 +8,7 @@ makeBoostMove 'Confide', 'target', specialAttack: -1
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
   @selectPlayers = (battle) ->
-    battle.players
+    battle.playerIds
 
 makeBoostMove 'Eerie Impulse', 'target', specialAttack: -2
 
@@ -33,8 +33,9 @@ makeBoostMove 'Play Nice', 'target', attack: -1
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
 
-makeOpponentFieldMove 'Sticky Web', (battle, user, opponent) ->
-  if opponent.attachToTeam(Attachment.StickyWeb)
-    battle.message "A sticky web spreads out beneath #{opponent.id} team's feet!"
+makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
+  team = battle.getTeam(opponentId)
+  if team.attach(Attachment.StickyWeb)
+    battle.message "A sticky web spreads out beneath #{opponentId} team's feet!"
   else
     @fail(battle)

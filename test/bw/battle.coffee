@@ -6,7 +6,7 @@ require '../helpers'
 {Pokemon} = require('../../server/bw/pokemon')
 {Weather} = require('../../server/bw/weather')
 {Factory} = require('../factory')
-{Player} = require('../../server/player')
+{User} = require('../../server/user')
 {Protocol} = require '../../shared/protocol'
 should = require 'should'
 sinon = require 'sinon'
@@ -25,8 +25,6 @@ describe 'Battle', ->
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
-    @player1 = @team1.player
-    @player2 = @team2.player
     @p1     = @team1.first()
     @p2     = @team2.first()
 
@@ -69,8 +67,8 @@ describe 'Battle', ->
       @battle.undoCompletedRequest(@id1).should.be.false
 
     it "fails on the second turn as well if the player didn't make any action", ->
-      @controller.makeMove(@player1, "Mach Punch")
-      @controller.makeMove(@player2, "Mach Punch")
+      @controller.makeMove(@id1, "Mach Punch")
+      @controller.makeMove(@id2, "Mach Punch")
       @battle.turn.should.equal 2
       @battle.undoCompletedRequest(@id1).should.be.false
 
@@ -205,40 +203,34 @@ describe 'Battle', ->
 
   describe "#addSpectator", ->
     it "adds the spectator to an internal array", ->
-      spectator = {send: ->}
+      spectator = new User("derp")
       length = @battle.spectators.length
       @battle.addSpectator(spectator)
       @battle.spectators.should.have.length(length + 1)
-      @battle.spectators.map((s) -> s.user).should.includeEql(spectator)
+      @battle.spectators.should.include(spectator)
 
     it "gives the spectator battle information", ->
-      spectator = {send: ->}
+      spectator = new User("derp")
       spy = @sandbox.spy(spectator, 'send')
       @battle.addSpectator(spectator)
       teams = @battle.getTeams().map((team) -> team.toJSON())
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
-      spy.calledWithMatch("spectate battle", id, 'bw', numActive, undefined, teams, spectators, log).should.be.true
+      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, teams, spectators, log).should.be.true
 
     it "does not add a spectator twice", ->
-      spectator = {send: ->}
+      spectator = new User("derp")
       length = @battle.spectators.length
       @battle.addSpectator(spectator)
       @battle.addSpectator(spectator)
       @battle.spectators.should.have.length(length + 1)
-
-    it "takes raw Players as well as other hashes", ->
-      spectator = new Player(id: "scouter")
-      length = @battle.spectators.length
-      @battle.addSpectator(spectator)
-      @battle.spectators.should.have.length(length + 1)
-      @battle.spectators.should.includeEql(spectator)
 
   describe "#removeSpectator", ->
     it "removes the spectator from the array", ->
-      spectator = {id: "guy", send: ->}
+      spectator = new User("guy")
       length = @battle.spectators.length
       @battle.addSpectator(spectator)
+      @battle.spectators.should.have.length(length + 1)
       @battle.removeSpectator(spectator)
       @battle.spectators.should.have.length(length)
 
@@ -248,32 +240,26 @@ describe 'Battle', ->
 
     it "returns player 1 if player 2's team has all fainted", ->
       pokemon.faint()  for pokemon in @team2.pokemon
-      @battle.getWinner().should.equal(@player1)
+      @battle.getWinner().should.equal(@id1)
 
     it "returns player 2 if player 1's team has all fainted", ->
       pokemon.faint()  for pokemon in @team1.pokemon
-      @battle.getWinner().should.equal(@player2)
+      @battle.getWinner().should.equal(@id2)
 
   describe "#forfeit", ->
     it "prematurely ends the battle", ->
-      mocks = []
-      for player in [ @player1, @player2 ]
-        mock = @sandbox.mock(player).expects('tell').once()
-        mock.withArgs Protocol.FORFEIT_BATTLE, @battle.players.indexOf(@player1)
-        mocks.push(mock)
-      @battle.forfeit(@socket1)
-      mock.verify()  for mock in mocks
+      mock = @sandbox.mock(@battle).expects('tell').once()
+      mock.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
+      @battle.forfeit(@id1)
+      mock.verify()
 
     it "does not forfeit if the player given is invalid", ->
-      mocks = []
-      for player in [ @player1, @player2 ]
-        mock = @sandbox.mock(player).expects('tell').never()
-        mocks.push(mock)
-      @battle.forfeit({})
-      mock.verify()  for mock in mocks
+      mock = @sandbox.mock(@battle).expects('tell').never()
+      @battle.forfeit('this definitely should not work')
+      mock.verify()
 
     it "marks the battle as over", ->
-      @battle.forfeit(@socket1)
+      @battle.forfeit(@id1)
       @battle.isOver().should.be.true
 
   describe "#hasStarted", ->

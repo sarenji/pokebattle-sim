@@ -217,8 +217,7 @@ class @Move
     @power
 
   isCriticalHit: (battle, attacker, defender) ->
-    owner = battle.getOwner(defender)
-    return false  if owner?.team.has(Attachment.LuckyChant)
+    return false  if defender.team?.has(Attachment.LuckyChant)
     return false  if defender.ability?.preventsCriticalHits
 
     chLevel = @criticalHitLevel(battle, attacker, defender)
@@ -285,8 +284,7 @@ class @Move
     modify = @modify(modify, Query.modifiers("modifyBasePowerTarget", target.attachments.all(), this, user))
 
   modifyDamage: (battle, user, target, hitNumber) ->
-    {team} = battle.getOwner(target)
-    modify = Query.modifiers('modifyDamageTarget', team.attachments.all(), this, user, hitNumber)
+    modify = Query.modifiers('modifyDamageTarget', target.team.attachments.all(), this, user, hitNumber)
     modify = @modify(modify, Query.modifiers('modifyDamage', user.attachments.all(), this, target, hitNumber))
     modify = @modify(modify, Query.modifiers('modifyDamageTarget', target.attachments.all(), this, user, hitNumber))
 

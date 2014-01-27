@@ -45,11 +45,11 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
-      spy = @sandbox.spy(@player2, 'tell')
+      spy = @sandbox.spy(@battle, 'tellPlayer')
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Psychic')
-      @controller.makeMove(@player2, 'Mach Punch')
-      spy.calledWith(Protocol.REQUEST_ACTIONS).should.be.true
+      @controller.makeMove(@id1, 'Psychic')
+      @controller.makeMove(@id2, 'Mach Punch')
+      spy.calledWith(@id2, Protocol.REQUEST_ACTIONS).should.be.true
 
     it 'does not increment the turn count', ->
       shared.create.call this,
@@ -57,8 +57,8 @@ describe 'Mechanics', ->
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       turn = @battle.turn
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Psychic')
-      @controller.makeMove(@player2, 'Mach Punch')
+      @controller.makeMove(@id1, 'Psychic')
+      @controller.makeMove(@id2, 'Mach Punch')
       @battle.turn.should.not.equal turn + 1
 
     it 'removes the fainted pokemon from the action priority queue', ->
@@ -67,8 +67,8 @@ describe 'Mechanics', ->
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @p1.currentHP = 1
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Psychic')
-      @controller.makeMove(@player2, 'Mach Punch')
+      @controller.makeMove(@id1, 'Psychic')
+      @controller.makeMove(@id2, 'Mach Punch')
       @p1.currentHP.should.be.below 1
       @p2.currentHP.should.equal 1
       action = @battle.getAction(@p1)
@@ -79,9 +79,9 @@ describe 'Mechanics', ->
         team1: [Factory('Mew'), Factory('Heracross')]
         team2: [Factory('Hitmonchan'), Factory('Heracross')]
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Psychic')
-      @controller.makeMove(@player2, 'Mach Punch')
-      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@id1, 'Psychic')
+      @controller.makeMove(@id2, 'Mach Punch')
+      @controller.makeSwitch(@id2, 1)
       @team2.first().name.should.equal 'Heracross'
 
     it "occurs when a pokemon faints from passive damage", ->
@@ -104,8 +104,8 @@ describe 'Mechanics', ->
       shared.create.call(this, team2: (Factory("Magikarp")  for x in [1..2]))
       spy = @sandbox.spy(@team2.at(1), 'faint')
       @team2.at(1).currentHP = 1
-      @controller.makeMove(@player1, "Tackle")
-      @controller.makeSwitch(@player2, 1)
+      @controller.makeMove(@id1, "Tackle")
+      @controller.makeSwitch(@id2, 1)
       spy.calledOnce.should.be.true
 
   describe 'secondary effect attacks', ->
@@ -206,10 +206,10 @@ describe 'Mechanics', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Mach Punch')
-      @controller.makeMove(@player2, 'Psychic')
-      @battle.requests.should.not.have.property @player1.id
-      @battle.requests.should.not.have.property @player2.id
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
+      @battle.requests.should.not.have.property @id1.id
+      @battle.requests.should.not.have.property @id2.id
 
     it 'ends the battle', ->
       shared.create.call this,
@@ -218,22 +218,22 @@ describe 'Mechanics', ->
       @p2.currentHP = 1
       mock = @sandbox.mock(@battle)
       mock.expects('endBattle').once()
-      @controller.makeMove(@player1, 'Mach Punch')
-      @controller.makeMove(@player2, 'Psychic')
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
       mock.verify()
 
     it "updates the winner and losers' ratings", (done) ->
       shared.create.call(this)
       @p2.currentHP = 1
       mock = @sandbox.mock(@controller)
-      @controller.makeMove(@player1, 'Mach Punch')
-      @controller.makeMove(@player2, 'Psychic')
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
       ratings = require('../../server/ratings')
-      ratings.getPlayer @player1.id, (err, player1) =>
-        ratings.getPlayer @player2.id, (err, player2) =>
+      ratings.getPlayer @id1, (err, id1) =>
+        ratings.getPlayer @id2, (err, id2) =>
           defaultPlayer = ratings.algorithm.createPlayer()
-          player1.rating.should.be.greaterThan(defaultPlayer.rating)
-          player2.rating.should.be.lessThan(defaultPlayer.rating)
+          id1.rating.should.be.greaterThan(defaultPlayer.rating)
+          id2.rating.should.be.lessThan(defaultPlayer.rating)
           done()
 
   describe 'a pokemon with a type immunity', ->
@@ -241,8 +241,8 @@ describe 'Mechanics', ->
       shared.create.call this,
         team1: [Factory('Camerupt')]
         team2: [Factory('Gyarados')]
-      @controller.makeMove(@player1, 'Earthquake')
-      @controller.makeMove(@player2, 'Dragon Dance')
+      @controller.makeMove(@id1, 'Earthquake')
+      @controller.makeMove(@id2, 'Dragon Dance')
 
       @p2.currentHP.should.equal @p2.stat('hp')
 
@@ -257,8 +257,8 @@ describe 'Mechanics', ->
       mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       mock.verify()
 
@@ -271,11 +271,11 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
       @p1.attach(Attachment.Confusion)
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Attachment.Confusion).should.be.false
 
@@ -287,8 +287,8 @@ describe 'Mechanics', ->
       shared.biasRNG.call(this, 'next', 'ch', 0) # always crits
 
       spy = @sandbox.spy(@battle.confusionMove, 'isCriticalHit')
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Tackle')
 
       spy.returned(false).should.be.true
 
@@ -301,8 +301,8 @@ describe 'Mechanics', ->
       mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       mock.verify()
 
@@ -311,8 +311,8 @@ describe 'Mechanics', ->
       @p1.attach(Status.Freeze)
       shared.biasRNG.call(this, "next", 'unfreeze chance', 0)  # always unfreezes
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Status.Freeze).should.be.false
 
@@ -352,8 +352,8 @@ describe 'Mechanics', ->
       mock = @sandbox.mock(@battle.getMove('Tackle'))
       mock.expects('execute').never()
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       mock.verify()
 

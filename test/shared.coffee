@@ -36,10 +36,8 @@ build = (context, opts={}) ->
   numActive = opts.numActive || 1
   context.battle = new Battle('id', {players, numActive, conditions})
   context.controller = new BattleController(context.battle)
-  context.player1 = context.battle.players.find((p) -> p.id == player1.id)
-  context.player2 = context.battle.players.find((p) -> p.id == player2.id)
-  context.team1  = context.player1.team
-  context.team2  = context.player2.team
+  context.team1  = context.battle.getTeam(context.id1)
+  context.team2  = context.battle.getTeam(context.id2)
   context.p1 = context.team1.first()
   context.p2 = context.team2.first()
 

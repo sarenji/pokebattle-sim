@@ -3,7 +3,6 @@ express = require 'express'
 path = require 'path'
 require 'sugar'
 
-config = require './config'
 {BattleServer} = require './server'
 {ConnectionServer} = require './connections'
 commands = require './commands'
@@ -105,7 +104,7 @@ errors = require '../shared/errors'
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.makeMove(user, moveName, slot, forTurn, args...)
+      battle.makeMove(user.id, moveName, slot, forTurn, args...)
     
     'send switch': (user, battleId, toSlot, fromSlot, forTurn) ->
       battle = server.findBattle(battleId)
@@ -113,7 +112,7 @@ errors = require '../shared/errors'
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.makeSwitch(user, toSlot, fromSlot, forTurn)
+      battle.makeSwitch(user.id, toSlot, fromSlot, forTurn)
 
     'send cancel action': (user, battleId, forTurn) ->
       battle = server.findBattle(battleId)
@@ -121,7 +120,7 @@ errors = require '../shared/errors'
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.undoCompletedRequest(user, forTurn)
+      battle.undoCompletedRequest(user.id, forTurn)
 
     'arrange team': (user, battleId, arrangement) ->
       battle = server.findBattle(battleId)
@@ -129,7 +128,7 @@ errors = require '../shared/errors'
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.arrangeTeam(user, arrangement)
+      battle.arrangeTeam(user.id, arrangement)
 
     'spectate battle': (user, battleId) ->
       battle = server.findBattle(battleId)
@@ -153,7 +152,7 @@ errors = require '../shared/errors'
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.forfeit(user)
+      battle.forfeit(user.id)
 
     # TODO: socket.off after disconnection
 

@@ -294,10 +294,10 @@ makePlateItem 'Earth Plate', 'Ground'
 makeItem 'Eject Button', ->
   this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
-    owner = @battle.getOwner(@pokemon)
-    switches = owner.team.getAliveBenchedPokemon()
+    switches = @pokemon.team.getAliveBenchedPokemon()
     return  if switches.length == 0
-    slot = owner.team.indexOf(@pokemon)
+    slot = @battle.getSlotNumber(@pokemon)
+    owner = @battle.getOwner(@pokemon)
     @battle.cancelAction(@pokemon)
     @battle.requestActions(owner, [ {switches, slot} ])
     @pokemon.useItem()
@@ -473,12 +473,11 @@ makeFlinchItem "Razor Fang"
 makeItem 'Red Card', ->
   this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
-    opponent = @battle.getOwner(user)
-    benched  = opponent.team.getAliveBenchedPokemon()
+    benched  = user.team.getAliveBenchedPokemon()
     return  if benched.length == 0
     pokemon = @battle.rng.choice(benched)
-    index = opponent.team.indexOf(pokemon)
-    opponent.switch(user, index)
+    index = user.team.indexOf(pokemon)
+    user.team.switch(user, index)
     @pokemon.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'

@@ -243,8 +243,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Choice Band")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       requestedMoves = @battle.requestFor(@p1).moves
       requestedMoves.should.eql [ @battle.getMove('Splash').name ]
@@ -264,14 +264,14 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Choice Band"), Factory("Magikarp")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
-      @controller.makeSwitch(@player1, 1)
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeSwitch(@id1, 1)
+      @controller.makeMove(@id2, 'Splash')
 
-      @controller.makeSwitch(@player1, 1)
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeSwitch(@id1, 1)
+      @controller.makeMove(@id2, 'Splash')
 
       request = @battle.requestFor(@p1)
       should.exist(request)
@@ -300,8 +300,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Flame Orb")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Status.Burn).should.be.true
 
@@ -311,8 +311,8 @@ describe "BW Items:", ->
 
       @p1.attach(Status.Sleep)
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Status.Burn).should.be.false
 
@@ -321,8 +321,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Toxic Orb")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Status.Toxic).should.be.true
 
@@ -332,8 +332,8 @@ describe "BW Items:", ->
 
       @p1.attach(Status.Sleep)
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Status.Toxic).should.be.false
 
@@ -350,8 +350,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Tackle')
 
       @p1.hasItem().should.be.false
 
@@ -366,8 +366,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Air Balloon")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Tackle')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Tackle')
 
       move = @battle.getMove('Earthquake')
       type = move.getType(@battle, @p1, @p2)
@@ -398,8 +398,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Life Orb")]
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       hp = @p1.stat('hp')
       (hp - @p1.currentHP).should.equal Math.floor(hp / 10)
@@ -432,14 +432,14 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.stages.speed.should.equal(0)
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.stages.speed.should.equal(1)
 
@@ -448,8 +448,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.false
 
@@ -461,8 +461,8 @@ describe "BW Items:", ->
       shared.biasRNG.call(this, "randInt", 'starf berry stat', 1)
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.stages.defense.should.equal(2)
 
@@ -471,8 +471,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Salac Berry")]
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.false
 
@@ -484,8 +484,8 @@ describe "BW Items:", ->
 
       @p1.stages.defense = 6
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       # Note: This depends on the stats array inside
       # the definition of Starf Berry. Not exactly robust.
@@ -503,8 +503,8 @@ describe "BW Items:", ->
         @p1.stages[stat] = 6
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       hash = {}
       for stat in stats
@@ -517,16 +517,16 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Figy Berry")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.true
 
       maxHP = @p1.stat('hp')
       hp = Math.floor(maxHP / 2)
       @p1.currentHP = hp
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.currentHP.should.equal(hp + Math.floor(maxHP / 8))
 
@@ -535,8 +535,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Figy Berry")]
 
       @p1.currentHP = Math.floor(@p1.stat('hp') / 2)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.false
 
@@ -545,8 +545,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Figy Berry", nature: "Calm")]
 
       @p1.currentHP = Math.floor(@p1.stat('hp') / 2)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.has(Attachment.Confusion).should.be.true
 
@@ -555,16 +555,16 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Sitrus Berry")]
 
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.true
 
       maxHP = @p1.stat('hp')
       hp = Math.floor(maxHP / 2)
       @p1.currentHP = hp
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.currentHP.should.equal(hp + Math.floor(maxHP / 4))
 
@@ -573,8 +573,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Sitrus Berry")]
 
       @p1.currentHP = Math.floor(@p1.stat('hp') / 2)
-      @controller.makeMove(@player1, 'Splash')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Splash')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.hasItem().should.be.false
 
@@ -634,8 +634,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Jaboca Berry")]
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       hp = @p1.stat('hp')
       (hp - @p1.currentHP).should.equal Math.floor(hp / 8)
@@ -644,8 +644,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Jaboca Berry")]
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       @p2.hasItem().should.be.false
 
@@ -653,8 +653,8 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Rowap Berry")]
 
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.currentHP.should.equal @p1.stat('hp')
 
@@ -663,8 +663,8 @@ describe "BW Items:", ->
         team2: [Factory("Magikarp", item: "Rowap Berry")]
 
       @p2.currentHP = 1
-      @controller.makeMove(@player1, 'Tackle')
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, 'Tackle')
+      @controller.makeMove(@id2, 'Splash')
 
       @p1.currentHP.should.equal @p1.stat('hp')
 
@@ -784,8 +784,8 @@ describe "BW Items:", ->
       move = pokemon.moves[0]
       pokemon.setPP(move, 1)
 
-      @controller.makeMove(@player1, move.name)
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, move.name)
+      @controller.makeMove(@id2, 'Splash')
 
       pokemon.pp(move).should.equal 10
 
@@ -799,8 +799,8 @@ describe "BW Items:", ->
       secondMove  = pokemon.moves[1]
       pokemon.setPP(secondMove, 1)
 
-      @controller.makeMove(@player1, secondMove.name)
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, secondMove.name)
+      @controller.makeMove(@id2, 'Splash')
 
       pokemon.pp(pokemon.moves[0]).should.equal 10
       pokemon.pp(secondMove).should.equal 0
@@ -813,8 +813,8 @@ describe "BW Items:", ->
       move = pokemon.moves[0]
       pokemon.setPP(move, 1)
 
-      @controller.makeMove(@player1, move.name)
-      @controller.makeMove(@player2, 'Splash')
+      @controller.makeMove(@id1, move.name)
+      @controller.makeMove(@id2, 'Splash')
 
       pokemon.hasItem().should.be.false
 
@@ -828,8 +828,8 @@ describe "BW Items:", ->
 
       shared.biasRNG.call(this, "randInt", 'focus band', 0)
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Tackle")
 
       pokemon.currentHP.should.equal 1
 
@@ -842,8 +842,8 @@ describe "BW Items:", ->
 
       shared.biasRNG.call(this, "randInt", 'focus band', 1)
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Tackle")
 
       pokemon.isFainted().should.be.true
 
@@ -984,8 +984,8 @@ describe "BW Items:", ->
 
       @p1.currentHP = 1
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Splash")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Splash")
 
       @p1.hasItem().should.be.false
 
@@ -1022,8 +1022,8 @@ describe "BW Items:", ->
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
 
-      @controller.makeMove(@player1, "Tackle")
-      @controller.makeMove(@player2, "Splash")
+      @controller.makeMove(@id1, "Tackle")
+      @controller.makeMove(@id2, "Splash")
 
       @p1.has(Attachment.MicleBerry).should.be.true
       @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
@@ -1035,11 +1035,11 @@ describe "BW Items:", ->
 
       @p1.currentHP = Math.floor(@p1.currentHP / 4)
 
-      @controller.makeMove(@player1, "Tackle")
-      @controller.makeMove(@player2, "Splash")
+      @controller.makeMove(@id1, "Tackle")
+      @controller.makeMove(@id2, "Splash")
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Splash")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Splash")
 
       @p1.has(Attachment.MicleBerry).should.be.false
 
@@ -1049,8 +1049,8 @@ describe "BW Items:", ->
         shared.create.call this,
           team2: [Factory("Magikarp", item: itemName)]
 
-        @controller.makeMove(@player1, "Tackle")
-        @controller.makeMove(@player2, "Splash")
+        @controller.makeMove(@id1, "Tackle")
+        @controller.makeMove(@id2, "Splash")
 
         @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
           .should.equal Math.floor(@battle.getMove('Tackle').accuracy * ratio)
@@ -1061,8 +1061,8 @@ describe "BW Items:", ->
 
         @p2.removeItem()
 
-        @controller.makeMove(@player1, "Tackle")
-        @controller.makeMove(@player2, "Splash")
+        @controller.makeMove(@id1, "Tackle")
+        @controller.makeMove(@id2, "Splash")
 
         @battle.getMove('Tackle').chanceToHit(@battle, @p1, @p2)
           .should.equal Math.floor(@battle.getMove('Tackle').accuracy)
@@ -1101,6 +1101,7 @@ describe "BW Items:", ->
         team2: [Factory("Magikarp")]
 
       bench = @team1.getAliveBenchedPokemon()
+      # This record move is necessary to get rid of the initial request.
       @battle.recordMove(@id1, @battle.getMove('Splash'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
       @battle.performMove(@p2, @battle.getMove('Tackle'))
@@ -1118,8 +1119,9 @@ describe "BW Items:", ->
       bench = @team1.getAliveBenchedPokemon()
       @battle.recordMove(@id1, @battle.getMove('Splash'))
       @battle.recordMove(@id2, @battle.getMove('Tackle'))
-      @battle.performMove(@p2, @battle.getMove('Tackle'))
 
+      should.exist(@battle.getAction(@p1))
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
       should.not.exist(@battle.getAction(@p1))
 
     it "destroys the Eject Button after use", ->
@@ -1127,8 +1129,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Eject Button"), Factory("Abra")]
         team2: [Factory("Magikarp")]
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Tackle")
 
       @p1.hasItem().should.be.false
 
@@ -1141,8 +1143,8 @@ describe "BW Items:", ->
         team1: [Factory("Magikarp", item: "Eject Button")]
         team2: [Factory("Magikarp")]
 
-      @controller.makeMove(@player1, "Splash")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Splash")
+      @controller.makeMove(@id2, "Tackle")
 
       @p1.hasItem().should.be.true
 

@@ -11,9 +11,9 @@ class @Pokemon
   # TODO: Take the species obj, not attributes?
   constructor: (attributes = {}) ->
     # Inject battle and team dependencies
-    @battle = attributes.battle
-    @team   = attributes.team
-    @player = attributes.player
+    @battle   = attributes.battle
+    @team     = attributes.team
+    @playerId = attributes.playerId
 
     @name = attributes.name || 'Missingno'
     @species = SpeciesData[@name]
@@ -100,7 +100,7 @@ class @Pokemon
     pp = Math.max(pp, 0)
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
-    @player?.tell(Protocol.CHANGE_PP, @player.index,
+    @player?.tell(Protocol.CHANGE_PP, @battle.getPlayerIndex(@playerId),
                   @team.pokemon.indexOf(this),
                   @moves.indexOf(move), pp)
     pp
@@ -267,7 +267,7 @@ class @Pokemon
   faint: ->
     if @battle
       @battle.message "#{@name} fainted!"
-      @battle.tell(Protocol.FAINT, @player.index, @battle.getSlotNumber(this))
+      @battle.tell(Protocol.FAINT, @battle.getPlayerIndex(@playerId), @battle.getSlotNumber(this))
       # Remove pending actions they had.
       @battle.popAction(this)
     @setHP(0)  if !@isFainted()
@@ -338,8 +338,8 @@ class @Pokemon
     if delta != 0
       pixels = Math.floor(48 * @currentHP / @stat('hp'))
       pixels = 1  if pixels == 0 && @isAlive()
-      @battle?.tell(Protocol.CHANGE_HP, @player.index, @team.indexOf(this), pixels)
-      @player?.tell(Protocol.CHANGE_EXACT_HP, @player.index, @team.indexOf(this), @currentHP)
+      @battle?.tell(Protocol.CHANGE_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), pixels)
+      @player?.tell(Protocol.CHANGE_EXACT_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), @currentHP)
     delta
 
   recordMove: (move) ->
@@ -485,7 +485,7 @@ class @Pokemon
 
   tell: (protocol, args...) ->
     return  unless @battle
-    args = [ @player.index, @team.indexOf(this), args... ]
+    args = [ @battle.getPlayerIndex(@playerId), @team.indexOf(this), args... ]
     @battle.tell(protocol, args...)
 
   # Returns whether this Pokemon has this move in its moveset.

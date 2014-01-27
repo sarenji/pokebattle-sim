@@ -260,10 +260,12 @@ makeProtectCounterMove = (name, callback) ->
 
 makeOpponentFieldMove = (name, func) ->
   extendMove name, ->
-    @execute = (battle, user, opponents) ->
-      for opponent in opponents
-        continue  if opponent.shouldBlockFieldExecution(this, user.player)
-        func.call(this, battle, user, opponent)
+    @execute = (battle, user, opponentIds) ->
+      userId = battle.getOwner(user)
+      for id in opponentIds
+        team = battle.getTeam(id)
+        continue  if team.shouldBlockFieldExecution(this, userId)
+        func.call(this, battle, user, id)
 
 makeProtectMove = (name) ->
   makeProtectCounterMove name, (battle, user, targets) ->
@@ -309,8 +311,7 @@ makeDelayedAttackMove = (name, message) ->
     @execute = (battle, user, targets) ->
       # These moves pick a single target.
       target = targets[0]
-      {team} = battle.getOwner(target)
-      if !team.attach(Attachment.DelayedAttack, user: user, move: this)
+      if !target.team.attach(Attachment.DelayedAttack, user: user, move: this)
         @fail(battle)
         return
       battle.message message.replace(/$1/, user.name)
@@ -508,8 +509,7 @@ makeBoostMove 'Barrier', 'self', defense: 2
 
 extendMove 'Baton Pass', ->
   @execute = (battle, user, targets) ->
-    {team} = battle.getOwner(user)
-    slot = team.indexOf(user)
+    slot = user.team.indexOf(user)
     if !battle.forceSwitch(user)
       @fail(battle)
       return
@@ -521,7 +521,7 @@ extendMove 'Baton Pass', ->
     attachments = attachments.filter((a) -> a.constructor in passable)
     for attachment in passable
       user.unattach(attachment)
-    team.attach(Attachment.BatonPass, {slot, stages, attachments})
+    user.team.attach(Attachment.BatonPass, {slot, stages, attachments})
 
 makeTrappingMove "Bind"
 makeRechargeMove 'Blast Burn'
@@ -630,19 +630,20 @@ extendMove 'Defog', ->
   ]
 
   @selectPlayers = (battle, user, target) ->
-    [ target.player ]
+    [ battle.getOwner(target) ]
 
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(evasion: -1)
 
-    for opponent in @selectPlayers(battle, user, target)
+    for opponentId in @selectPlayers(battle, user, target)
       hazardRemoved = false
+      team = battle.getTeam(opponentId)
       for hazard in @entryHazards
-        if opponent.team.unattach(hazard)
+        if team.unattach(hazard)
           hazardRemoved = true
 
       if hazardRemoved
-        battle.message "#{opponent.id}'s side of the field is cleared of entry hazards."
+        battle.message "#{opponentId}'s side of the field is cleared of entry hazards."
 
 makeProtectMove 'Detect'
 makeBoostMove 'Double Team', 'self', evasion: 1
@@ -766,9 +767,8 @@ extendWithPrimaryEffect 'Lovely Kiss', Status.Sleep
 
 extendMove 'Lucky Chant', ->
   @execute = (battle, user, opponents) ->
-    player = battle.getOwner(user)
-    if player.team.attach(Attachment.LuckyChant)
-      battle.message "The Lucky Chant shielded #{player.id}'s " +
+    if user.team.attach(Attachment.LuckyChant)
+      battle.message "The Lucky Chant shielded #{battle.getOwner(user)}'s " +
                      "team from critical hits!"
     else
       @fail(battle)
@@ -984,8 +984,7 @@ extendMove 'Assist', ->
     "Transform":    true
     "Trick":        true
   @execute = (battle, user) ->
-    {team}  = battle.getOwner(user)
-    pokemon = _.without(team.pokemon, user)
+    pokemon = _.without(user.team.pokemon, user)
     moves   = _.flatten(pokemon.map((p) -> p.moves))
     moves   = moves.filter((move) -> move.name not of bannedMoves)
     if moves.length == 0
@@ -1060,9 +1059,8 @@ extendMove 'Brick Break', ->
   oldUse = @use
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
-    {team} = battle.getOwner(target)
-    team.unattach(Attachment.Reflect)
-    team.unattach(Attachment.LightScreen)
+    target.team.unattach(Attachment.Reflect)
+    target.team.unattach(Attachment.LightScreen)
 
 extendMove 'Brine', ->
   @basePower = (battle, user, target) ->
@@ -1368,27 +1366,24 @@ extendMove 'Last Resort', ->
 
 extendMove 'Light Screen', ->
   @execute = (battle, user, opponents) ->
-    {team} = battle.getOwner(user)
-    if team.attach(Attachment.LightScreen, {user})
+    if user.team.attach(Attachment.LightScreen, {user})
       battle.message "A screen came up!"
     else
       @fail(battle)
 
 extendMove 'Healing Wish', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    {team} = battle.getOwner(target)
-    if team.getAliveBenchedPokemon().length > 0
+    if target.team.getAliveBenchedPokemon().length > 0
       target.faint()
-      team.attach(Attachment.HealingWish)
+      target.team.attach(Attachment.HealingWish)
     else
       @fail(battle)
 
 extendMove 'Lunar Dance', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    {team} = battle.getOwner(target)
-    if team.getAliveBenchedPokemon().length > 0
+    if target.team.getAliveBenchedPokemon().length > 0
       target.faint()
-      team.attach(Attachment.LunarDance)
+      target.team.attach(Attachment.LunarDance)
     else
       @fail(battle)
 
@@ -1642,8 +1637,7 @@ extendMove 'Rapid Spin', ->
     if user.isFainted()
       return
 
-    owner = battle.getOwner(user)
-    team = owner.team
+    team = user.team
 
     hazardRemoved = false
     for hazard in @entryHazards
@@ -1651,7 +1645,8 @@ extendMove 'Rapid Spin', ->
         hazardRemoved = true
 
     if hazardRemoved
-      battle.message "#{owner.id}'s side of the field is cleared of entry hazards."
+      id = battle.getOwner(user)
+      battle.message "#{id}'s side of the field is cleared of entry hazards."
 
     # Remove trapping moves like fire-spin
     trap = user.unattach(Attachment.Trap)
@@ -1663,8 +1658,7 @@ extendMove 'Rapid Spin', ->
 
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
-    {team} = battle.getOwner(user)
-    if team.attach(Attachment.Reflect, {user})
+    if user.team.attach(Attachment.Reflect, {user})
       battle.message "A screen came up!"
     else
       @fail(battle)
@@ -1720,9 +1714,10 @@ extendMove 'SonicBoom', ->
   @calculateDamage = (battle, user, target) ->
     20
 
-makeOpponentFieldMove 'Spikes', (battle, user, opponent) ->
-  if opponent.attachToTeam(Attachment.Spikes)
-    battle.message "#{@name} were scattered all around #{opponent.id}'s team's feet!"
+makeOpponentFieldMove 'Spikes', (battle, user, opponentId) ->
+  team = battle.getTeam(opponentId)
+  if team.attach(Attachment.Spikes)
+    battle.message "#{@name} were scattered all around #{opponentId}'s team's feet!"
   else
     @fail(battle)
 
@@ -1736,9 +1731,10 @@ extendMove 'Spite', ->
       opponent.reducePP(move, 4)
       battle.message "It reduced the PP of #{opponent.name}!"
 
-makeOpponentFieldMove 'Stealth Rock', (battle, user, opponent) ->
-  if opponent.attachToTeam(Attachment.StealthRock)
-    battle.message "Pointed stones float in the air around #{opponent.id}'s team!"
+makeOpponentFieldMove 'Stealth Rock', (battle, user, opponentId) ->
+  team = battle.getTeam(opponentId)
+  if team.attach(Attachment.StealthRock)
+    battle.message "Pointed stones float in the air around #{opponentId}'s team!"
   else
     @fail(battle)
 
@@ -1830,9 +1826,10 @@ extendMove 'Torment', ->
     else
       @fail(battle)
 
-makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponent) ->
-  if opponent.attachToTeam(Attachment.ToxicSpikes)
-    battle.message "Poison spikes were scattered all around #{opponent.id}'s team's feet!"
+makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponentId) ->
+  team = battle.getTeam(opponentId)
+  if team.attach(Attachment.ToxicSpikes)
+    battle.message "Poison spikes were scattered all around #{opponentId}'s team's feet!"
   else
     @fail(battle)
 
@@ -1896,8 +1893,7 @@ extendMove 'Weather Ball', ->
 
 extendMove 'Wish', ->
   @hit = (battle, user) ->
-    team = battle.getOwner(user).team
-    @fail(battle)  unless team.attach(Attachment.Wish, {user})
+    @fail(battle)  unless user.team.attach(Attachment.Wish, {user})
 
 extendMove 'Wring Out', ->
   @basePower = (battle, user, target) ->

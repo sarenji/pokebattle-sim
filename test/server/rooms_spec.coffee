@@ -55,14 +55,14 @@ describe "A server room:", ->
       room.addUser(user2 = new User("bbbb"))
       room.userJSON().should.eql([ {id: user1.id}, {id: user2.id} ])
 
-  describe "#broadcast", ->
+  describe "#send", ->
     it "broadcasts to every single user, including ones on the same account", ->
       room = new Room()
       room.addUser(user1 = new User("aaaa"))
       room.addUser(user2 = new User("aaaa"))
       mock1 = @sandbox.mock(user1).expects('send').withArgs('hello').once()
       mock2 = @sandbox.mock(user2).expects('send').withArgs('hello').once()
-      room.broadcast("hello")
+      room.send("hello")
       mock1.verify()
       mock2.verify()
 
@@ -74,7 +74,7 @@ describe "A server room:", ->
       mock2 = @sandbox.mock(user2).expects('send').withArgs('hello').once()
 
       room.removeUser(user1)
-      room.broadcast("hello")
+      room.send("hello")
 
       mock1.verify()
       mock2.verify()

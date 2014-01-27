@@ -245,8 +245,8 @@ describe "BW Abilities:", ->
         gen: 'xy'
         team1: [Factory("Magikarp", ability: "Protean")]
       @p1.types.should.eql([ "Water" ])
-      @controller.makeMove(@player1, "Tackle")
-      @controller.makeMove(@player2, "Splash")
+      @controller.makeMove(@id1, "Tackle")
+      @controller.makeMove(@id2, "Splash")
       @p1.types.should.eql([ "Normal" ])
 
   describe "Stance Change", ->

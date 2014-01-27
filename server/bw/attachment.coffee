@@ -338,7 +338,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   switchIn: (pokemon) ->
     if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
-      name = @team.player.id
+      name = @battle.getOwner(pokemon)
       @battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
       @team.unattach(@constructor)
 
@@ -535,7 +535,7 @@ class @Attachment.Recharge extends @VolatileAttachment
   beginTurn: ->
     @pokemon.blockSwitch()
     @pokemon.blockMoves()
-    {id} = @battle.getOwner(@pokemon)
+    id = @battle.getOwner(@pokemon)
     @battle.recordMove(id, @battle.getMove("Recharge"))
 
   beforeMove: (move, user, targets) ->
@@ -680,8 +680,7 @@ class @Attachment.Pursuit extends @VolatileAttachment
   name: "PursuitAttachment"
 
   informSwitch: (switcher) ->
-    owner = @battle.getOwner(switcher)
-    team = owner.team
+    team = switcher.team
     return  if team.has(Attachment.BatonPass)
     pursuit = @battle.getMove('Pursuit')
     @battle.cancelAction(@pokemon)
@@ -834,7 +833,7 @@ class @Attachment.Charging extends @VolatileAttachment
 
   beginTurn: ->
     # TODO: Add targets
-    {id} = @battle.getOwner(@pokemon)
+    id = @battle.getOwner(@pokemon)
     @battle.recordMove(id, @move)
 
   shouldBlockExecution: (move, user) ->
@@ -907,8 +906,8 @@ class @Attachment.LuckyChant extends @TeamAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      # TODO: Less hacky way of getting id
-      {id} = (p for p in @battle.players when p.team == @team)[0]
+      # TODO: Less hacky?
+      id = (id for id in @battle.playerIds when @battle.getTeam(id) == @team)[0]
       @battle.message "#{id}'s team's Lucky Chant wore off!"
       @team.unattach(@constructor)
 
@@ -946,16 +945,17 @@ class @Attachment.MagicCoat extends @VolatileAttachment
     move.execute(@battle, @pokemon, [ user ])
     return true
 
-  shouldBlockFieldExecution: (move, user) ->
+  shouldBlockFieldExecution: (move, userId) ->
     return  unless move.hasFlag("reflectable")
     return  if @bounced
-    for p in user.team.getActiveAlivePokemon()
+    team = @battle.getTeam(userId)
+    for p in team.getActiveAlivePokemon()
       return  if p.get(Attachment.MagicCoat)?.bounced
     for p in @team.getActiveAlivePokemon()
       continue  unless p.has(Attachment.MagicCoat)
       @bounced = true
       @battle.message "#{p.name} bounced the #{move.name} back!"
-      @battle.executeMove(move, p, [ user ])
+      @battle.executeMove(move, p, [ userId ])
       return true
 
   endTurn: ->

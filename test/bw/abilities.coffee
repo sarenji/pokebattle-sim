@@ -879,8 +879,8 @@ describe "BW Abilities:", ->
       @p1.faint()
       @p2.faint()
       @battle.requestFaintedReplacements()
-      @controller.makeSwitch(@player1, 1)
-      @controller.makeSwitch(@player2, 1)
+      @controller.makeSwitch(@id1, 1)
+      @controller.makeSwitch(@id2, 1)
       @team1.first().should.not.equal(@p1)
       @team2.first().should.not.equal(@p2)
       @team1.first().stages.should.include(attack: -1)
@@ -1104,8 +1104,8 @@ describe "BW Abilities:", ->
     it "takes damage from Counter", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Magic Guard", moves: ["Counter"])]
-      @controller.makeMove(@player1, "Counter")
-      @controller.makeMove(@player2, "Tackle")
+      @controller.makeMove(@id1, "Counter")
+      @controller.makeMove(@id2, "Tackle")
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
     it "restores health from Leftovers", ->
@@ -1705,18 +1705,18 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
         team2: [Factory("Magikarp", item: "Eject Button"), Factory("Magikarp")]
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
-      should.not.exist @battle.requests[@player2.id]
+      should.not.exist @battle.requests[@id2]
       @battle.performMove(@p1, @battle.getMove("Ember"))
-      should.not.exist @battle.requests[@player2.id]
+      should.not.exist @battle.requests[@id2]
 
     it "activates Eject Button if no secondary effect", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sheer Force"), Factory("Magikarp")]
         team2: [Factory("Magikarp", item: "Eject Button"), Factory("Magikarp")]
       @battle.recordMove(@id2, @battle.getMove("Tackle"))
-      should.not.exist @battle.requests[@player2.id]
+      should.not.exist @battle.requests[@id2]
       @battle.performMove(@p1, @battle.getMove("Tackle"))
-      @battle.requests[@player2.id].should.not.be.empty
+      @battle.requests[@id2].should.not.be.empty
 
     it "does not activate Jaboca Berry?"
     it "does not activate Rowap Berry?"

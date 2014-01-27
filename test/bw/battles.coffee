@@ -52,16 +52,16 @@ describe "BW: Integration:", ->
 
       @battle.turn.should.equal(1)
       @sandbox.stub(@battle.getMove("Thunderbolt"), "baseDamage", -> 9999)
-      @controller.makeMove(@player1, "Thunderbolt")
-      @controller.makeSwitch(@player2, 4)
+      @controller.makeMove(@id1, "Thunderbolt")
+      @controller.makeSwitch(@id2, 4)
 
       @battle.turn.should.equal(1)
-      @controller.makeSwitch(@player2, 1)
+      @controller.makeSwitch(@id2, 1)
       @battle.turn.should.equal(2)
 
       (=>
-        @controller.makeMove(@player1, "Thunderbolt")
-        @controller.makeSwitch(@player2, 2)
+        @controller.makeMove(@id1, "Thunderbolt")
+        @controller.makeSwitch(@id2, 2)
       ).should.not.throw()
       spy.calledOnce.should.be.true
 
@@ -79,8 +79,8 @@ describe "BW: Integration:", ->
       @team2.attach(Attachment.StealthRock)
 
       # Now attempt the first replacement.
-      @controller.makeSwitch(@player2, 1)
-      @controller.makeMove(@player1, "Thunderbolt")
+      @controller.makeSwitch(@id2, 1)
+      @controller.makeMove(@id1, "Thunderbolt")
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
@@ -88,7 +88,7 @@ describe "BW: Integration:", ->
       @battle.areAllRequestsCompleted().should.be.false
 
       # Do the second replacement.
-      @controller.makeSwitch(@player2, 2)
+      @controller.makeSwitch(@id2, 2)
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)

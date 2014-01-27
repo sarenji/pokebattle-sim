@@ -5,15 +5,12 @@
 Query = require('./queries')
 
 class @Team
-  constructor: (battle, player, pokemon, @numActive) ->
-    # Inject battle dependency
-    @battle = battle
-    @player = player
+  constructor: (@battle, @playerId, pokemon, @numActive) ->
     @pokemon = pokemon.map (attributes) =>
       # TODO: Is there a nicer way of doing these injections?
-      attributes.battle = battle
+      attributes.battle = @battle
       attributes.team = this
-      attributes.player = player
+      attributes.playerId = @playerId
       new Pokemon(attributes)
     @attachments = new Attachments()
 
@@ -32,6 +29,9 @@ class @Team
   indexOf: (pokemon) ->
     @pokemon.indexOf(pokemon)
 
+  contains: (pokemon) ->
+    @indexOf(pokemon) != -1
+
   first: ->
     @at(0)
 
@@ -44,19 +44,22 @@ class @Team
   attach: (attachment, options={}) ->
     options = _.clone(options)
     attachment = @attachments.push(attachment, options, battle: @battle, team: this)
-    if attachment then @battle?.tell(Protocol.TEAM_ATTACH, @player.index, attachment.name)
+    playerIndex = @battle.getPlayerIndex(@playerId)
+    if attachment then @battle?.tell(Protocol.TEAM_ATTACH, playerIndex, attachment.name)
     attachment
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
-    if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, @player.index, attachment.name)
+    playerIndex = @battle.getPlayerIndex(@playerId)
+    if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, playerIndex, attachment.name)
     attachment
 
   switch: (pokemon, toPosition) ->
     newPokemon = @at(toPosition)
     index = @indexOf(pokemon)
-    @battle.message "#{@player.id} withdrew #{pokemon.name}!"
-    @battle.tell(Protocol.SWITCH_OUT, @player.index, index)
+    playerIndex = @battle.getPlayerIndex(@playerId)
+    @battle.message "#{@playerId} withdrew #{pokemon.name}!"
+    @battle.tell(Protocol.SWITCH_OUT, playerIndex, index)
     p.informSwitch(pokemon)  for p in @battle.getOpponents(pokemon)
     @switchOut(pokemon)
     @replace(pokemon, toPosition)
@@ -66,7 +69,7 @@ class @Team
     [ a, b ] = [ @indexOf(pokemon), toPosition ]
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     newPokemon = @at(a)
-    @battle.message "#{@player.id} sent out #{newPokemon.name}!"
+    @battle.message "#{@playerId} sent out #{newPokemon.name}!"
     newPokemon.tell(Protocol.SWITCH_IN, b)
     newPokemon
 
@@ -118,5 +121,5 @@ class @Team
 
   toJSON: (options = {}) -> {
     "pokemon": @pokemon.map (p) -> p.toJSON(options)
-    "owner": @player.id
+    "owner": @playerId
   }

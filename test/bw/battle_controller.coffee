@@ -14,8 +14,8 @@ describe 'BattleController', ->
     shared.create.call(this)
     mock = @sandbox.mock(@controller)
     mock.expects('continueTurn').once()
-    @controller.makeMove(@player1, 'Tackle')
-    @controller.makeMove(@player2, 'Tackle')
+    @controller.makeMove(@id1, 'Tackle')
+    @controller.makeMove(@id2, 'Tackle')
     mock.verify()
 
   it "automatically ends the turn if all players switch", ->
@@ -24,15 +24,15 @@ describe 'BattleController', ->
       team2: [Factory('Hitmonchan'), Factory('Heracross')]
     mock = @sandbox.mock(@controller)
     mock.expects('continueTurn').once()
-    @controller.makeSwitch(@player1, 1)
-    @controller.makeSwitch(@player2, 1)
+    @controller.makeSwitch(@id1, 1)
+    @controller.makeSwitch(@id2, 1)
     mock.verify()
 
   describe "switch validations", ->
     it "rejects switches under 0", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
       mock = @sandbox.mock(@battle).expects('recordSwitch').never()
-      @controller.makeSwitch(@player1, -1)
+      @controller.makeSwitch(@id1, -1)
       mock.verify()
 
     it "rejects switches for pokemon who are already out", ->
@@ -40,14 +40,14 @@ describe 'BattleController', ->
         numActive: 2
         team1: (Factory("Magikarp")  for x in [0..2])
       mock = @sandbox.mock(@battle).expects('recordSwitch').never()
-      @controller.makeSwitch(@player1, 0)
-      @controller.makeSwitch(@player1, 1)
+      @controller.makeSwitch(@id1, 0)
+      @controller.makeSwitch(@id1, 1)
       mock.verify()
 
     it "rejects switches over the max team party index", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
       mock = @sandbox.mock(@battle).expects('recordSwitch').never()
-      @controller.makeSwitch(@player1, 3)
+      @controller.makeSwitch(@id1, 3)
       mock.verify()
 
     it "accepts switches between active pokemon and max team party index", ->
@@ -55,7 +55,7 @@ describe 'BattleController', ->
         numActive: 2
         team1: (Factory("Magikarp")  for x in [0..2])
       mock = @sandbox.mock(@battle).expects('recordSwitch').once()
-      @controller.makeSwitch(@player1, 2)
+      @controller.makeSwitch(@id1, 2)
       mock.verify()
 
     it "rejects switches that are not part of the request action", ->
@@ -66,21 +66,21 @@ describe 'BattleController', ->
       @battle.beginTurn()
 
       mock = @sandbox.mock(@battle).expects('recordSwitch').never()
-      @controller.makeSwitch(@player1, 2)
+      @controller.makeSwitch(@id1, 2)
       mock.verify()
 
     it "rejects switches if the battle has not started yet", ->
       shared.build(this, team1: (Factory("Magikarp")  for x in [0..2]))
 
       mock = @sandbox.mock(@battle).expects('recordSwitch').never()
-      @controller.makeSwitch(@player1, 2)
+      @controller.makeSwitch(@id1, 2)
       mock.verify()
 
     it "rejects switches not for a specific turn", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
 
       mock = @sandbox.mock(@battle).expects('recordMove').never()
-      @controller.makeSwitch(@player1, 2)
+      @controller.makeSwitch(@id1, 2)
       mock.verify()
 
   describe "move validations", ->
@@ -88,7 +88,7 @@ describe 'BattleController', ->
       shared.create.call this,
         team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
       mock = @sandbox.mock(@battle).expects('recordMove').never()
-      @controller.makeMove(@player1, "EXTERMINATE")
+      @controller.makeMove(@id1, "EXTERMINATE")
       mock.verify()
 
     it "accepts Struggle", ->
@@ -100,7 +100,7 @@ describe 'BattleController', ->
       @battle.beginTurn()
 
       mock = @sandbox.mock(@battle).expects('recordMove').once()
-      @controller.makeMove(@player1, "Struggle")
+      @controller.makeMove(@id1, "Struggle")
       mock.verify()
 
     it "rejects moves that cannot be selected", ->
@@ -113,7 +113,7 @@ describe 'BattleController', ->
       @battle.beginTurn()
 
       mock = @sandbox.mock(@battle).expects('recordMove').never()
-      @controller.makeMove(@player1, move.name)
+      @controller.makeMove(@id1, move.name)
       mock.verify()
 
     it "rejects moves if the battle has not started yet", ->
@@ -121,7 +121,7 @@ describe 'BattleController', ->
         team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
 
       mock = @sandbox.mock(@battle).expects('recordMove').never()
-      @controller.makeMove(@player1, @p1.moves[0].name)
+      @controller.makeMove(@id1, @p1.moves[0].name)
       mock.verify()
 
     it "rejects moves not for a specific turn", ->
@@ -129,7 +129,7 @@ describe 'BattleController', ->
         team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
 
       mock = @sandbox.mock(@battle).expects('recordMove').never()
-      @controller.makeMove(@player1, @p1.moves[0].name, null, @battle.turn - 1)
+      @controller.makeMove(@id1, @p1.moves[0].name, null, @battle.turn - 1)
       mock.verify()
 
   describe "conditions:", ->
@@ -150,12 +150,12 @@ describe 'BattleController', ->
         shared.build(this, {conditions, team1, team2})
         mock = @sandbox.mock(@battle).expects('begin').never()
         @controller.beginBattle()
-        @controller.arrangeTeam(@player1, [ 0 ])
+        @controller.arrangeTeam(@id1, [ 0 ])
         mock.verify()
         @battle.begin.restore()
 
         mock = @sandbox.mock(@battle).expects('begin').once()
-        @controller.arrangeTeam(@player2, [ 0 ])
+        @controller.arrangeTeam(@id2, [ 0 ])
         mock.verify()
 
       it "rejects team arrangements that aren't arrays", ->
@@ -164,7 +164,7 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = true
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "accepts arrays of integers (arrangements) matching team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
@@ -172,7 +172,7 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 0 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.true
+        @controller.arrangeTeam(@id1, arrangement).should.be.true
 
       it "rejects team arrangements that are smaller than the team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
@@ -180,7 +180,7 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = []
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements that are larger than the team length", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
@@ -188,7 +188,7 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 0, 1 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements containing negative indices", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
@@ -196,7 +196,7 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = [ -1 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements containing indices out of bounds", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
@@ -204,42 +204,42 @@ describe 'BattleController', ->
         team2 = [ Factory("Magikarp") ]
         shared.create.call(this, {conditions, team1, team2})
         arrangement = [ 1 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements containing non-unique indices", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         team1 = (Factory("Magikarp")  for x in [0..1])
         shared.create.call(this, {conditions, team1})
         arrangement = [ 1, 1 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements that have some non-numbers", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         team1 = (Factory("Magikarp")  for x in [0..1])
         shared.create.call(this, {conditions, team1})
         arrangement = [ 1, "a" ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements that don't point to a correct index", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         team1 = (Factory("Magikarp")  for x in [0..1])
         shared.create.call(this, {conditions, team1})
         arrangement = [ 1, .5 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rejects team arrangements if the battle has already begun", ->
         team1 = (Factory("Magikarp")  for x in [0..1])
         shared.create.call(this, {team1})
         arrangement = [ 1, 0 ]
-        @controller.arrangeTeam(@player1, arrangement).should.be.false
+        @controller.arrangeTeam(@id1, arrangement).should.be.false
 
       it "rearranges team when given a valid array of indices", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         team1 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
         team2 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
         shared.create.call(this, {conditions, team1, team2})
-        @controller.arrangeTeam(@player1, [ 0, 2, 1 ])
-        @controller.arrangeTeam(@player2, [ 2, 0, 1 ])
+        @controller.arrangeTeam(@id1, [ 0, 2, 1 ])
+        @controller.arrangeTeam(@id2, [ 2, 0, 1 ])
         @team1.at(0).name.should.equal("Magikarp")
         @team1.at(1).name.should.equal("Celebi")
         @team1.at(2).name.should.equal("Gyarados")
