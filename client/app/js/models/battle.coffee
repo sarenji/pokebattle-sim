@@ -6,11 +6,12 @@ class @Battle extends Backbone.Model
     @set('turn', 0)
 
   receiveTeams: (teams) =>
-    @teams = []
-    for team in teams
-      @teams.push @makeTeamFromJSON(team)
+    @teams ?= []
+    for team, i in teams
+      @teams[i] = @makeTeamFromJSON(team)
 
   receiveTeam: (team) =>
+    @teams ?= []
     @teams[@index].off('all', @_teamEvents)  if @teams[@index]
     @teams[@index] = @makeTeamFromJSON(team)
 

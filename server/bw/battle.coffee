@@ -533,8 +533,11 @@ class @Battle extends EventEmitter
     return false  if total == 0
 
     @requests[playerId] = validActions
-    @tellPlayer(playerId, Protocol.REQUEST_ACTIONS, validActions)
+    @sendRequestTo(playerId)
     return true
+
+  sendRequestTo: (playerId) ->
+    @tellPlayer(playerId, Protocol.REQUEST_ACTIONS, @requests[playerId])
 
   # Returns true if all requests have been completed. False otherwise.
   areAllRequestsCompleted: ->
@@ -709,11 +712,13 @@ class @Battle extends EventEmitter
     return  if spectator in @spectators
     spectator = new User(spectator.id)  if spectator not instanceof User
     @spectators.push(spectator)
-    teams = @getTeams().map((team) -> team.toJSON())
+    teams = @getTeams().map((team) -> team.toJSON(hidden: true))
     index = @getPlayerIndex(spectator.id)
     # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectate battle', @id, @generation, @numActive, index, teams, spectators, @log)
+    if spectator.id in @playerIds
+      @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     # TODO: Only do if spectator id has not joined yet.
     @broadcast('join battle', @id, spectator.id)
 
@@ -737,6 +742,20 @@ class @Battle extends EventEmitter
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->
     s.send.apply(s, arguments)  for s in @spectators
+
+  # Sends battle updates to each spectator.
+  sendUpdates: ->
+    # Send battle updates to each spectator. Keep in mind that multiple
+    # spectators can belong to a single id, due to multiple clients.
+    # This is why we cleanup after all spectators are iterated through.
+    for spectator in @spectators
+      queue = @queues[spectator.id]
+      continue  if !queue || queue.length == 0
+      spectator.send('update battle', @id, queue)
+
+    # Now clean-up.
+    for id of @queues
+      delete @queues[id]
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

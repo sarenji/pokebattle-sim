@@ -17,6 +17,13 @@ class @BattleServer
     # A hash mapping users to battles.
     @userBattles = {}
 
+  join: (player) ->
+    for battleId of @userBattles[player.id]
+      battle = @battles[battleId]
+      battle.addSpectator(player)
+      battle.sendRequestTo(player.id)
+      battle.sendUpdates()
+
   queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues
     @queues[generation].add(player, team)

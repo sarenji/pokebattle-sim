@@ -54,6 +54,9 @@ class @BattleController
       teams = @battle.getTeams().map((t) -> t.toJSON(hidden: true))
       spectator.send? 'team preview', @battle.id, teams
 
+  sendRequestTo: (spectator) ->
+    @battle.sendRequestTo(spectator)
+
   removeSpectator: (spectator) ->
     @battle.removeSpectator(spectator)
 
@@ -130,16 +133,6 @@ class @BattleController
     @battle.endBattle()
     @sendUpdates()
 
-  # Sends battle updates to players.
+  # Sends battle updates to spectators.
   sendUpdates: ->
-    # Send battle updates to each spectator. Keep in mind that multiple
-    # spectators can belong to a single id, due to multiple clients.
-    # This is why we cleanup after all spectators are iterated through.
-    for spectator in @battle.spectators
-      queue = @battle.queues[spectator.id]
-      continue  if !queue || queue.length == 0
-      spectator.send('update battle', @battle.id, queue)
-
-    # Now clean-up.
-    for id of @battle.queues
-      delete @battle.queues[id]
+    @battle.sendUpdates()

@@ -49,6 +49,7 @@ errors = require '../shared/errors'
         numConnections = lobby.addUser(user)
         connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
         user.send('list chatroom', lobby.userJSON())
+        server.join(user)
 
     'send chat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
@@ -75,8 +76,8 @@ errors = require '../shared/errors'
     'close': (user) ->
       if lobby.removeUser(user) == 0  # No more connections.
         user.broadcast('leave chatroom', user.id)
-      # TODO: Remove from battles as well
-      connections.trigger(user, "cancel find battle")
+        connections.trigger(user, "cancel find battle")
+        # TODO: Remove from battles as well
 
     ###########
     # BATTLES #

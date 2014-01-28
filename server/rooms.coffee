@@ -33,12 +33,12 @@ class @Room
     @counts[id] || 0
 
   userMessage: (user, message) ->
-    @broadcast('update chat', user.id, message)
+    @send('update chat', user.id, message)
 
   message: (message) ->
-    @broadcast('raw message', message)
+    @send('raw message', message)
 
-  broadcast: ->
+  send: ->
     for user in @users
       user.send?.apply(user, arguments)
 

@@ -306,3 +306,10 @@ describe 'Battle', ->
     it "does not include fainted opponents", ->
       @p2.faint()
       @battle.getOpponents(@p1).should.have.length(0)
+
+  describe "#sendRequestTo", ->
+    it "sends all requests to a certain player", ->
+      mock = @sandbox.mock(@battle).expects('tellPlayer').once()
+      mock.withArgs(@id1, Protocol.REQUEST_ACTIONS)
+      @battle.sendRequestTo(@id1)
+      mock.verify()
