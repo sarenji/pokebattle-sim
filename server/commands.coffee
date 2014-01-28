@@ -2,7 +2,11 @@ auth = require('./auth')
 ratings = require('./ratings')
 errors = require('../shared/errors')
 
-Commands = {}
+exports.Commands = Commands = {}
+exports.HelpDescriptions = HelpDescriptions = {}
+
+desc = (description) ->
+  desc.lastDescription = description
 
 parseArguments = (args) ->
   args = Array::slice.call(args, 0)
@@ -14,8 +18,10 @@ parseArguments = (args) ->
 
 makeCommand = (commandNames, func) ->
   commandNames = [ commandNames ]  if commandName not instanceof Array
+  HelpDescriptions[commandNames[0]] = desc.lastDescription || ""
   for commandName in commandNames
     Commands[commandName] = func
+  delete desc.lastDescription
 
 makeModCommand = (commandNames, func) ->
   func.authority = auth.levels.MOD
@@ -46,6 +52,7 @@ makeOwnerCommand = (commandNames, func) ->
 # Command definitions #
 #######################
 
+desc "Gets a single username's rating on this server. Usage: /rating username"
 makeCommand "rating", (user, room, next, username) ->
   username ||= user.id
   ratings.getRating username, (err, rating) ->
@@ -53,6 +60,8 @@ makeCommand "rating", (user, room, next, username) ->
     user.message("#{username}'s rating: #{rating}")
     next(err, {username, rating})
 
+desc "Finds all the battles a username is playing in on this server.
+      Usage: /battles username"
 makeCommand "battles", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /battles username")
@@ -63,6 +72,7 @@ makeCommand "battles", (user, room, next, username) ->
   user.message("#{username}'s battles: #{links.join(" | ")}")
   next(null, battleIds)
 
+desc "Kicks a username. The reason is optional. Usage: /kick username [reason]"
 makeModCommand "kick", (user, room, next, username, reason) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /kick username [reason]")
@@ -76,6 +86,7 @@ makeModCommand "kick", (user, room, next, username, reason) ->
   room.message(message)
   next()
 
+desc "Mods a username permanently. Usage: /mod username"
 makeOwnerCommand "mod", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /mod username")
@@ -85,3 +96,12 @@ makeOwnerCommand "mod", (user, room, next, username) ->
     user = room.get(username)
     user.setAuthority(auth.levels.MOD)
     return next(null, result)
+
+desc "Displays all commands available. Usage: /help"
+makeCommand "help", (user, room, next, commandName) ->
+  message = []
+  for name, description of HelpDescriptions
+    message.push(description)
+  message = message.join("<br>")
+  user.message(message)
+  next(null, message)

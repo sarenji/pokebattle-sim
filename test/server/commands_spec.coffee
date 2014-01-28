@@ -136,3 +136,17 @@ describe "Commands", ->
             if err then throw err
             battleIds.should.eql(@server.getUserBattles(@user2.id))
             done()
+
+    describe "help", ->
+      it "messages all available commands to that user", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('message').once()
+        mock2 = @sandbox.mock(@user2).expects('message').never()
+        commandNames = (name  for name of commands.HelpDescriptions)
+        commands.executeCommand @server, @user1, @room, "help", (err, msg) ->
+          should.not.exist(err)
+          should.exist(msg)
+          for commandName in commandNames
+            msg.should.include(commandName)
+          mock1.verify()
+          mock2.verify()
+          done()
