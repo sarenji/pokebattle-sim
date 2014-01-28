@@ -213,7 +213,7 @@ describe 'Battle', ->
       spectator = new User("derp")
       spy = @sandbox.spy(spectator, 'send')
       @battle.addSpectator(spectator)
-      teams = @battle.getTeams().map((team) -> team.toJSON())
+      teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, teams, spectators, log).should.be.true
@@ -248,19 +248,39 @@ describe 'Battle', ->
 
   describe "#forfeit", ->
     it "prematurely ends the battle", ->
-      mock = @sandbox.mock(@battle).expects('tell').once()
-      mock.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
+      spy = @sandbox.spy(@battle, 'tell')
+      spy.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
       @battle.forfeit(@id1)
-      mock.verify()
+      spy.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
+        .called.should.be.true
 
     it "does not forfeit if the player given is invalid", ->
       mock = @sandbox.mock(@battle).expects('tell').never()
       @battle.forfeit('this definitely should not work')
       mock.verify()
 
+    it "cannot forfeit multiple times", ->
+      spy = @sandbox.spy(@battle, 'tell')
+      spy.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
+      @battle.forfeit(@id1)
+      @battle.forfeit(@id1)
+      spy.withArgs(Protocol.FORFEIT_BATTLE, @battle.getPlayerIndex(@id1))
+        .calledOnce.should.be.true
+
     it "marks the battle as over", ->
       @battle.forfeit(@id1)
       @battle.isOver().should.be.true
+
+    it "updates the winner and losers' ratings", (done) ->
+      ratings = require('../../server/ratings')
+      @battle.on 'ratingsUpdated', =>
+        ratings.getPlayer @id1, (err, rating1) =>
+          ratings.getPlayer @id2, (err, rating2) =>
+            defaultPlayer = ratings.algorithm.createPlayer()
+            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
+            rating2.rating.should.be.lessThan(defaultPlayer.rating)
+            done()
+      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->

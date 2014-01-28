@@ -223,18 +223,23 @@ describe 'Mechanics', ->
       mock.verify()
 
     it "updates the winner and losers' ratings", (done) ->
-      shared.create.call(this)
-      @p2.currentHP = 1
-      mock = @sandbox.mock(@controller)
-      @controller.makeMove(@id1, 'Mach Punch')
-      @controller.makeMove(@id2, 'Psychic')
+      shared.create.call this,
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
       ratings = require('../../server/ratings')
-      ratings.getPlayer @id1, (err, id1) =>
-        ratings.getPlayer @id2, (err, id2) =>
-          defaultPlayer = ratings.algorithm.createPlayer()
-          id1.rating.should.be.greaterThan(defaultPlayer.rating)
-          id2.rating.should.be.lessThan(defaultPlayer.rating)
-          done()
+      @battle.on "ratingsUpdated", =>
+        ratings.getPlayer @id1, (err, rating1) =>
+          ratings.getPlayer @id2, (err, rating2) =>
+            defaultPlayer = ratings.algorithm.createPlayer()
+            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
+            rating2.rating.should.be.lessThan(defaultPlayer.rating)
+            done()
+
+      ratings.resetRatings [ @id1, @id2 ], =>
+        @p2.currentHP = 1
+        mock = @sandbox.mock(@controller)
+        @controller.makeMove(@id1, 'Mach Punch')
+        @controller.makeMove(@id2, 'Psychic')
 
   describe 'a pokemon with a type immunity', ->
     it 'cannot be damaged by a move of that type', ->

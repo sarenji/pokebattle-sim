@@ -4,6 +4,7 @@ require './helpers'
 gen = require('../server/generations')
 {User} = require('../server/user')
 {Factory} = require './factory'
+should = require('should')
 
 describe 'BattleServer', ->
   it 'can create a new battle', ->
@@ -225,3 +226,30 @@ describe 'BattleServer', ->
         server.getUserBattles(user1).should.be.empty
         server.getUserBattles(user2).should.be.empty
         server.getUserBattles(user3).should.be.empty
+
+  describe "a battle", ->
+    beforeEach (done) ->
+      @server = new BattleServer()
+      [ @user1, @user2, @user3 ] = [ "a", "b", "c" ]
+      @server.queuePlayer(id: @user1, [ Factory("Magikarp") ])
+      @server.queuePlayer(id: @user2, [ Factory("Magikarp"), Factory("Magikarp") ])
+      @server.queuePlayer(id: @user3, [ Factory("Magikarp") ])
+      @server.beginBattles (err, battleIds) =>
+        @battleIds = battleIds
+        done()
+
+    it "removes from user battles if ended", ->
+      @server.getUserBattles(@user2).should.not.be.empty
+      battle = @server.findBattle(@battleIds[0])
+      battle.endBattle()
+      @server.getUserBattles(@user1).should.be.empty
+      @server.getUserBattles(@user2).should.be.empty
+      @server.getUserBattles(@user3).should.be.empty
+
+    it "removes from user battles if forfeited", ->
+      @server.getUserBattles(@user2).should.not.be.empty
+      battle = @server.findBattle(@battleIds[0])
+      battle.forfeit(@user2)
+      @server.getUserBattles(@user1).should.be.empty
+      @server.getUserBattles(@user2).should.be.empty
+      @server.getUserBattles(@user3).should.be.empty

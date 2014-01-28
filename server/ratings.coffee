@@ -59,3 +59,12 @@ parsePlayer = (p) ->
       db.hset(RATINGS_KEY, id, JSON.stringify(newWinner))
       db.hset(RATINGS_KEY, opponentId, JSON.stringify(newLoser))
       return next(null, [ newWinner, newLoser ])
+
+@resetRating = (id, next) ->
+  db.hset(RATINGS_KEY, id, JSON.stringify(parsePlayer()), next)
+
+@resetRatings = (idArray, next) ->
+  playerJSON = JSON.stringify(parsePlayer())
+  hash = {}
+  hash[id] = playerJSON  for id in idArray
+  db.hmset(RATINGS_KEY, hash, next)

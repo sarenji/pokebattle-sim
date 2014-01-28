@@ -99,6 +99,10 @@ class @Battle extends EventEmitter
     @replacing = false
     @finished = false
 
+    @once 'end', (winnerId) ->
+      @finished = true
+      @updateRatings(winnerId)
+
   begin: ->
     teams = (team.toJSON(hidden: true)  for team in @getTeams())
     @tell(Protocol.BEGIN_BATTLE, teams)
@@ -387,16 +391,7 @@ class @Battle extends EventEmitter
     winnerId = @getWinner()
     winnerIndex = @getPlayerIndex(winnerId)
     @tell(Protocol.END_BATTLE, winnerIndex)
-    loserId = @playerIds[1 - winnerIndex]
-    @emit('end')
-
-    # Update ratings
-    ratings = require '../ratings'
-    ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
-      ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
-        return @message "An error occurred updating rankings :("  if err
-        @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
-        @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
+    @emit('end', winnerId)
 
   getWinner: ->
     winner     = null
@@ -733,11 +728,23 @@ class @Battle extends EventEmitter
     condition in @conditions
 
   forfeit: (id) ->
+    return  if @isOver()
     index = @getPlayerIndex(id)
     return  unless index?
     @tell(Protocol.FORFEIT_BATTLE, index)
-    @finished = true
-    # TODO: Update ranking.
+    winnerId = @playerIds[1 - index]
+    @emit('end', winnerId)
+
+  updateRatings: (winnerId) ->
+    index = @getPlayerIndex(winnerId)
+    loserId = @playerIds[1 - index]
+    ratings = require '../ratings'
+    ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
+      ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
+        return @message "An error occurred updating rankings :("  if err
+        @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
+        @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
+        @emit('ratingsUpdated')
 
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->
