@@ -91,16 +91,20 @@ attachAPIEndpoints = (server) ->
         res.send(moves: moves)
         return next()
 
-      server.get "#{gen}/pokemon/:name/check", (req, res, next) ->
+      checkMoveset = (req, res, next) ->
         name = getName(req.params.name)
         return next(new restify.ResourceNotFoundError("Could not find Pokemon: #{req.params.name}"))  if !name
         pokemon = {name: name}
+        pokemon.forme = req.params.forme  if req.params.forme
         moveset = req.query.moves?.split(/,/) || []
         valid = learnsets.checkMoveset(GenerationJSON, pokemon, intGeneration, moveset)
         errors = []
         errors.push("Invalid moveset")  if !valid
         res.send(errors: errors)
         return next()
+
+      server.get "#{gen}/pokemon/:name/check", checkMoveset
+      server.get "#{gen}/pokemon/:name/:forme/check", checkMoveset
 
       server.put "#{gen}/damagecalc", (req, res, next) ->
         # todo: catch any invalid data.
