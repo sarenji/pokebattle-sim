@@ -5,6 +5,7 @@ require '../helpers'
 {BattleController} = require('../../server/bw/battle_controller')
 {Pokemon} = require('../../server/bw/pokemon')
 {Weather} = require('../../server/bw/weather')
+{Conditions} = require '../../server/conditions'
 {Factory} = require('../factory')
 {User} = require('../../server/user')
 {Protocol} = require '../../shared/protocol'
@@ -271,14 +272,27 @@ describe 'Battle', ->
       @battle.forfeit(@id1)
       @battle.isOver().should.be.true
 
-    it "updates the winner and losers' ratings", (done) ->
+    it "updates the winner and losers' ratings if a rated battle", (done) ->
       ratings = require('../../server/ratings')
+      @battle.addCondition(Conditions.RATED_BATTLE)
       @battle.on 'ratingsUpdated', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
             defaultPlayer = ratings.algorithm.createPlayer()
             rating1.rating.should.be.greaterThan(defaultPlayer.rating)
             rating2.rating.should.be.lessThan(defaultPlayer.rating)
+            done()
+      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
+
+    it "doesn't update the winner and losers' ratings if not a rated battle", (done) ->
+      ratings = require('../../server/ratings')
+      @battle.removeCondition(Conditions.RATED_BATTLE)
+      @battle.on 'end', =>
+        ratings.getPlayer @id1, (err, rating1) =>
+          ratings.getPlayer @id2, (err, rating2) =>
+            defaultPlayer = ratings.algorithm.createPlayer()
+            rating1.rating.should.equal(defaultPlayer.rating)
+            rating2.rating.should.equal(defaultPlayer.rating)
             done()
       ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
 

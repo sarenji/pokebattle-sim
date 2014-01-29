@@ -57,7 +57,11 @@ class @BattleServer
     {BattleController} = require("../server/#{generation}/battle_controller")
     playerIds = objects.map((o) -> o.player.id)
     battleId = @generateBattleId(playerIds)
-    conditions = [ Conditions.TEAM_PREVIEW, Conditions.SLEEP_CLAUSE ]
+    conditions = [
+      Conditions.TEAM_PREVIEW
+      Conditions.SLEEP_CLAUSE
+      Conditions.RATED_BATTLE
+    ]
     battle = new Battle(battleId, players: objects, conditions: conditions)
     @battles[battleId] = new BattleController(battle)
     for playerId in playerIds

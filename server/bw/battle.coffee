@@ -6,6 +6,7 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
+{Conditions} = require '../conditions'
 Query = require './queries'
 {EventEmitter} = require 'events'
 
@@ -101,7 +102,8 @@ class @Battle extends EventEmitter
 
     @once 'end', (winnerId) ->
       @finished = true
-      @updateRatings(winnerId)
+      if @hasCondition(Conditions.RATED_BATTLE)
+        @updateRatings(winnerId)
 
   begin: ->
     teams = (team.toJSON(hidden: true)  for team in @getTeams())
@@ -723,6 +725,14 @@ class @Battle extends EventEmitter
         @spectators.splice(i, 1)
         @broadcast('leave battle', @id, spectator.id)
         break
+
+  addCondition: (condition) ->
+    @conditions.push(condition)
+
+  removeCondition: (condition) ->
+    index = @conditions.indexOf(condition)
+    if index != -1
+      @conditions.splice(index, 1)
 
   hasCondition: (condition) ->
     condition in @conditions
