@@ -105,6 +105,7 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
 
 statsHash =
   'hp'   : 'hp'
+  'Hp'   : 'hp'
   'HP'   : 'hp'
   'Atk'  : 'attack'
   'Def'  : 'defense'
