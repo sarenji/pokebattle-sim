@@ -1,13 +1,4 @@
-auth = require('./auth')
-
 class @User
-  @get: (args..., next) ->
-    user = new User(args...)
-    auth.getAuth id, (err, authLevel) ->
-      if err then return next(err)
-      user.setAuthority(authLevel)
-      return next(null, user)
-
   constructor: (args...) ->
     if args.length == 1
       [ @id ] = args
