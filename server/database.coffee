@@ -1,8 +1,3 @@
-if process.env.POKEBATTLE_ENV == 'api'
-  # For some reason throwing an error will prevent an error from happening.
-  # If you console.log here, then you can see this module is included twice.
-  throw new Error("API should not connect to DB.")
-
 redis = switch process.env.NODE_ENV
   when 'test' then require 'redis-mock'
   else             require 'redis'
