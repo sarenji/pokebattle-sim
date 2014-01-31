@@ -3,6 +3,7 @@
 
 {BattleQueue} = require './queue'
 {Conditions} = require './conditions'
+{SocketHash} = require './socket_hash'
 gen = require './generations'
 learnsets = require '../shared/learnsets'
 config = require './config'
@@ -17,12 +18,19 @@ class @BattleServer
     # A hash mapping users to battles.
     @userBattles = {}
 
+    # A hash mapping ids to users
+    @users = new SocketHash()
+
   join: (player) ->
+    @users.add(player)
     for battleId of @userBattles[player.id]
       battle = @battles[battleId]
       battle.addSpectator(player)
       battle.sendRequestTo(player.id)
       battle.sendUpdates()
+
+  leave: (player) ->
+    @users.remove(player)
 
   queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues

@@ -1,0 +1,90 @@
+#messages
+  position absolute
+  bottom 0
+  right 0
+  width 100%
+  font-size .875em
+
+  .popup
+    position fixed
+    bottom 0
+    float right
+    width 240px
+    margin-left 10px
+    box-shadow 0 2px 6px rgba(0, 0, 0, .2)
+
+    .popup_messages
+      background white
+      height 270px
+      border-bottom 1px solid #ccc
+      border-left 1px solid #ccc
+      border-right @border-left
+      overflow-y scroll
+
+      p
+        margin 0 6px
+        overflow hidden
+        &.error
+          font-style italic
+          color #c00
+
+    .popup_menu
+      background linear-gradient(top, #f0f0f0, #eee)
+      border-left 1px solid #ccc
+      border-right @border-left
+      border-bottom @border-left
+
+    .popup_menu_button
+      border-right 1px solid #ddd
+      float left
+      padding 8px
+      cursor pointer
+      &:hover
+        background #ddd
+
+    .chat_input_pane
+      position relative
+      background #eee
+      height 36px
+
+      .chat_input_wrapper
+        padding 3px
+        border-left 1px solid #ccc
+        border-right @border-left
+
+    .title
+      background #333
+      border-radius 3px 3px 0 0
+      padding 8px 0 8px 12px
+      color white
+
+      &.new
+        background #d94e47
+
+    .title_buttons
+      position absolute
+      top 0
+      right 2px
+
+      .title_button
+        display inline-block
+        cursor pointer
+        padding 5px
+        margin 4px
+        &:hover
+          background #706666
+
+      .icon-minus
+        position relative
+        top 4px
+
+    .challenge
+      position absolute
+      bottom 0
+      height 300px
+
+      .challenge_data
+        height 250px
+
+      .challenge_buttons
+        height 50px

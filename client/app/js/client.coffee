@@ -29,7 +29,9 @@ class @Socket
 
     data ?= []
     for callback in (@callbacks[type] || [])
-      callback.apply(this, [this, data...])
+      callback.apply(this, [this].concat(data))
+
+    PokeBattle.events.trigger(type, data...)
 
   on: (type, callback) ->
     @callbacks[type] ?= []
@@ -54,13 +56,6 @@ PokeBattle.socket.addEvents
     if !PokeBattle.ready  # Only trigger this event once.
       PokeBattle.ready = true
       PokeBattle.events.trigger("ready")
-    PokeBattle.events.trigger("connect")
-
-  'login success': (socket) ->
-    PokeBattle.events.trigger('login success')
-
-  'find battle canceled': (socket) ->
-    PokeBattle.events.trigger('find battle canceled')
 
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
@@ -83,5 +78,7 @@ PokeBattle.socket.addEvents
 
 $ ->
   PokeBattle.battles = new BattleCollection([])
+  PokeBattle.messages = new PrivateMessages([])
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
+  new PrivateMessagesView(el: $("#messages"), collection: PokeBattle.messages)

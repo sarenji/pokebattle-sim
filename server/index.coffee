@@ -74,10 +74,22 @@ errors = require '../shared/errors'
       console.log(team) # todo: implement this
 
     'close': (user) ->
+      server.leave(user)
       if lobby.removeUser(user) == 0  # No more connections.
         user.broadcast('leave chatroom', user.id)
         connections.trigger(user, "cancel find battle")
         # TODO: Remove from battles as well
+
+    ####################
+    # PRIVATE MESSAGES #
+    ####################
+
+    'privateMessage': (user, toUser, message) ->
+      return  unless typeof message == "string" && message.trim().length > 0
+      if server.users.contains(toUser)
+        server.users.send(toUser, 'privateMessage', user.id, message)
+      else
+        user.error(errors.PRIVATE_MESSAGE, toUser, "This user is offline.")
 
     ###########
     # BATTLES #

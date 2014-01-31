@@ -1,0 +1,22 @@
+.popup(data-user-id=id)
+  .title
+    .title_name
+      span.icon.icon-bubbles
+      |  #{title}
+    .title_buttons
+      .title_button.title_minimize
+        .icon.icon-minus
+      .title_button.title_close
+        .icon.icon-close
+  .popup_menu.clearfix
+    .popup_menu_button
+      .icon.icon-notification(title = "Challenge")
+  .challenge.hidden
+    .challenge_data!= window.JST['new_battle']()
+    .challenge_buttons
+      .send_challenge.btn.primary= buttonText
+      .cancel_challenge.btn Cancel
+  .popup_messages
+  .chat_input_pane
+    .chat_input_wrapper
+      input.chat_input(type = 'text', placeholder = "Send a message...")

@@ -1,4 +1,4 @@
-PokeBattle.socket.on "error", (socket, type, args...) ->
+PokeBattle.events.on "error", (type, args...) ->
   e = PokeBattle.errors
   switch type
     when e.INVALID_SESSION
@@ -12,6 +12,10 @@ PokeBattle.socket.on "error", (socket, type, args...) ->
     when e.COMMAND_ERROR
       [ message ] = args
       PokeBattle.chatView.updateChat(message)
+    when e.PRIVATE_MESSAGE
+      [ toUser, messageText ] = args
+      message = PokeBattle.messages.get(toUser)
+      message.add(toUser, messageText, type: "error")
     else
       console.log("Received error: #{type}")
       console.log("  with content: #{args}")
