@@ -755,6 +755,7 @@ class @Battle extends EventEmitter
         @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
         @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
         @emit('ratingsUpdated')
+        @sendUpdates()
 
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->
