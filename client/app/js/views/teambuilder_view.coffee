@@ -285,7 +285,7 @@ class @TeambuilderView extends Backbone.View
     moveName = $this.data('move-id')
     $moves = @getActivePokemonView().find('.selected_moves')
     $input = $moves.find('input:focus').first()
-    $input ||= $moves.find('input').first()
+    $input = $moves.find('input').first()  if $input.length == 0
     return  if $input.length == 0
     @insertMove($input, moveName)
 
