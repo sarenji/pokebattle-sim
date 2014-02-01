@@ -1,4 +1,5 @@
 $header = 50px
+$pokemon-list-height = 50px
 
 // TODO: Make this a global style
 .teambuilder input
@@ -51,9 +52,10 @@ $header = 50px
 
   li, .nav-button
     display block
-    padding 6px 0 6px 1em
-    height 32px
-    line-height @height
+    box-sizing border-box
+    padding-left 1em
+    height $pokemon-list-height
+    line-height $pokemon-list-height
 
   li:hover, .nav-button:hover
     cursor pointer
@@ -242,3 +244,18 @@ textarea.imported-team, textarea.exported-team
 
   .teambuilder .meta-info .right-side
     padding-left 0
+
+  .teambuilder .navigation
+    width 100%
+
+  .teambuilder .pokemon_edit
+    left 0
+    top $header + $pokemon-list-height
+
+  .teambuilder .navigation
+    li, .nav-button
+      float left
+      width (100/6)%
+      font-size 0 // Hide the text
+      text-align center
+    
