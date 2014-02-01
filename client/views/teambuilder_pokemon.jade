@@ -119,7 +119,7 @@ table.table.table-hover.table-moves
       th Power
       th Accuracy
       th PP
-      th Description
+      th.description Description
   tbody
     each move in pokemon.getMovepool()
       tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
@@ -130,4 +130,4 @@ table.table.table-hover.table-moves
         td= (move.power == 0) ? "-" : move.power
         td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
         td= move.pp
-        td Description
+        td.description Description will go here
