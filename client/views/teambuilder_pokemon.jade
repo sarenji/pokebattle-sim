@@ -1,6 +1,6 @@
 mixin printStat(statName, keyName)
   tr
-    td
+    td.stat-label
       strong #{statName}:
     td
       input(type="text", class="ev-entry", data-stat=keyName)
@@ -33,26 +33,26 @@ mixin printStat(statName, keyName)
     
     .non-stats
       .teambuilder_row
-        .teambuilder_col Ability:
+        .teambuilder_col.non-stat-label Ability:
         select.teambuilder_col.selected_ability
           each ability in pokemon.getAbilities()
             - var selected = (ability == pokemon.get("ability"))
             option(value=ability, selected=selected)= ability
       .teambuilder_row
-        .teambuilder_col Nature:
+        .teambuilder_col.non-stat-label Nature:
         select.teambuilder_col.selected_nature
           each nature in pokemon.getNatures()
             - var selected = (nature == pokemon.get("nature"))
             option(value=nature, selected=selected)= nature
       .teambuilder_row
-        .teambuilder_col Item:
+        .teambuilder_col.non-stat-label Item:
         select.teambuilder_col.selected_item
           option(value="")
           each itemName in itemList
             - var selected = (itemName == pokemon.get("item"))
             option(value=itemName, selected=selected)= itemName
       .teambuilder_row
-        .teambuilder_col Gender:
+        .teambuilder_col.non-stat-label Gender:
         select.teambuilder_col.selected_gender
           each gender in pokemon.getGenders()
             - var selected = (gender === pokemon.get("gender"))
@@ -63,13 +63,13 @@ mixin printStat(statName, keyName)
               - displayedGender = "Male"
             option(value=gender, selected=selected)= displayedGender
       .teambuilder_row
-        .teambuilder_col Level:
+        .teambuilder_col.non-stat-label Level:
         input.teambuilder_col.selected_level(type="text", value=pokemon.get('level'))
       .teambuilder_row
-        .teambuilder_col Happiness:
+        .teambuilder_col.non-stat-label Happiness:
         input.teambuilder_col.selected_happiness(type="text", value=pokemon.get('happiness'))
       .teambuilder_row
-        .teambuilder_col Shiny?
+        .teambuilder_col.non-stat-label Shiny?
         input.teambuilder_col.selected_shininess(type="checkbox", checked=pokemon.get('shiny'))
 
   .right-side
@@ -83,8 +83,8 @@ mixin printStat(statName, keyName)
         +printStat("HP", "hp")
         +printStat("Attack", "attack")
         +printStat("Defense", "defense")
-        +printStat("Special Attack", "specialAttack")
-        +printStat("Special Defense", "specialDefense")
+        +printStat("Sp. Attack", "specialAttack")
+        +printStat("Sp. Defense", "specialDefense")
         +printStat("Speed", "speed")
         tr
           td
