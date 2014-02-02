@@ -4,17 +4,25 @@ selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
 $ ->
   $mainButtons = $('.main_buttons')
 
-  html = JST['new_battle']()
-  $mainButtons.find('.find_battle_select_team').html(html)
-
   $mainButtons.on 'click', '.teambuilder_button', (e) ->
     PokeBattle.navigation.showTeambuilder()
 
-  createChallengePane($mainButtons)
+  createChallengePane
+    eventName: "find battle"
+    populate: $mainButtons.find('.find_battle_select_team')
+    button: $mainButtons.find('.find_battle')
+
+  $mainButtons.find('.find_battle').on 'challenge', ->
+    $this = $(this)
+    $this.addClass('disabled')
+    $this.find('.find-icon')
+      .addClass('icon-spinner spinner-anim')
+      .removeClass("icon-globe")
 
 # Depresss Find Battle once one is found
 depressFindBattle = ->
-  $button = $('.find_battle')
+  $mainButtons = $('.main_buttons')
+  $button = $mainButtons.find('.find_battle')
   $button.removeClass("disabled")
   $button.find('.find-icon')
     .removeClass("icon-spinner spinner-anim")
