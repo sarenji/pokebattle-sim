@@ -4,6 +4,9 @@ selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
 $ ->
   $mainButtons = $('.main_buttons')
 
+  html = JST['new_battle']()
+  $mainButtons.find('.find_battle_select_team').html(html)
+
   $mainButtons.on 'click', '.teambuilder_button', (e) ->
     PokeBattle.navigation.showTeambuilder()
 
