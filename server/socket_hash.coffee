@@ -10,11 +10,13 @@ class @SocketHash
 
   remove: (socket) ->
     array = @sockets[socket.id]
-    return false  if !array
+    return 0  if !array
     index = array.indexOf(socket)
-    return false  if index == -1
+    return array.length  if index == -1
     array.splice(index, 1)
-    array.length
+    length = array.length
+    delete @sockets[socket.id]  if length == 0
+    return length
 
   contains: (socketId) ->
     @sockets[socketId]?
