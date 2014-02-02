@@ -339,7 +339,7 @@ class @Pokemon
       pixels = Math.floor(48 * @currentHP / @stat('hp'))
       pixels = 1  if pixels == 0 && @isAlive()
       @battle?.tell(Protocol.CHANGE_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), pixels)
-      @player?.tell(Protocol.CHANGE_EXACT_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), @currentHP)
+      @battle?.tellPlayer(@playerId, Protocol.CHANGE_EXACT_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), @currentHP)
     delta
 
   recordMove: (move) ->
