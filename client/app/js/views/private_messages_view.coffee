@@ -3,7 +3,7 @@ class @PrivateMessagesView extends Backbone.View
 
   events:
     "keypress .chat_input"  : "sendMessageEvent"
-    "click .challenge_button" : "challengeEvent"
+    "click .challenge_button, .cancel_challenge" : "toggleChallengeEvent"
     "click .popup_messages" : "focusChatEvent"
     "click .title_minimize" : "minimizePopupEvent"
     "click .title_close" : "closePopupEvent"
@@ -55,7 +55,6 @@ class @PrivateMessagesView extends Backbone.View
     messages.scrollTop = messages.scrollHeight
     false
 
-
   positionPopup: ($popup, index) =>
     leftOffset = $('#content').position().left
     $popup.css(left: leftOffset + index * $popup.outerWidth(true))
@@ -102,3 +101,18 @@ class @PrivateMessagesView extends Backbone.View
 
   focusChatEvent: (e) =>
     @$closestPopup(e.currentTarget).find('input').focus()
+
+  toggleChallengeEvent: (e) =>
+    $popup = @$closestPopup(e.currentTarget)
+    $challenge = $popup.find('.challenge')
+    if $challenge.hasClass("outside")
+      createChallengePane
+        eventName: "challenge"
+        button: $popup.find('.send_challenge')
+        populate: $popup.find(".challenge_data")
+      $challenge.removeClass('outside')
+      $challenge.css(overflow: 'hidden')
+      setTimeout((-> $challenge.css(overflow: 'visible')), 250)
+    else
+      $challenge.addClass('outside')
+      $challenge.css(overflow: 'hidden')
