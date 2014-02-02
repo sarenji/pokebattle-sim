@@ -1,14 +1,14 @@
 {
     "Ability Capsule": {
-        "flingPower": 1,
-        "type": "misc"
+        "flingPower": 0,
+        "type": "medicine"
     },
     "Ability Urge": {
         "flingPower": 0,
         "type": "battle"
     },
     "Abomasite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Abomasnow",
             "mega"
@@ -16,7 +16,7 @@
         "type": "megastone"
     },
     "Absolite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Absol",
             "mega"
@@ -40,7 +40,7 @@
         "type": "key"
     },
     "Aerodactylite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Aerodactyl",
             "mega"
@@ -48,7 +48,7 @@
         "type": "megastone"
     },
     "Aggronite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Aggron",
             "mega"
@@ -68,7 +68,7 @@
         "type": "mail"
     },
     "Alakazite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Alakazam",
             "mega"
@@ -76,7 +76,7 @@
         "type": "megastone"
     },
     "Ampharosite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Ampharos",
             "mega"
@@ -108,7 +108,7 @@
         "type": "berries"
     },
     "Assault Vest": {
-        "flingPower": 1,
+        "flingPower": 80,
         "type": "misc"
     },
     "AuroraTicket": {
@@ -132,7 +132,7 @@
         "type": "misc"
     },
     "Banettite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Banette",
             "mega"
@@ -208,7 +208,7 @@
         "type": "misc"
     },
     "Blastoisinite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Blastoise",
             "mega"
@@ -216,7 +216,7 @@
         "type": "megastone"
     },
     "Blazikenite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Blaziken",
             "mega"
@@ -332,7 +332,7 @@
         "type": "misc"
     },
     "Charizardite X": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Charizard",
             "mega-x"
@@ -340,7 +340,7 @@
         "type": "megastone"
     },
     "Charizardite Y": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Charizard",
             "mega-y"
@@ -607,6 +607,10 @@
         "flingPower": 0,
         "type": "battle"
     },
+    "Discount Coupon": {
+        "flingPower": 10,
+        "type": "misc"
+    },
     "Dive Ball": {
         "flingPower": 0,
         "type": "pokeballs"
@@ -848,7 +852,7 @@
         "type": "berries"
     },
     "Garchompite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Garchomp",
             "mega"
@@ -856,7 +860,7 @@
         "type": "megastone"
     },
     "Gardevoirite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Gardevoir",
             "mega"
@@ -864,7 +868,7 @@
         "type": "megastone"
     },
     "Gengarite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Gengar",
             "mega"
@@ -968,7 +972,7 @@
         "type": "battle"
     },
     "Gyaradosite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Gyarados",
             "mega"
@@ -1056,7 +1060,7 @@
         "type": "misc"
     },
     "Heracronite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Heracross",
             "mega"
@@ -1080,7 +1084,7 @@
         "type": "key"
     },
     "Houndoominite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Houndoom",
             "mega"
@@ -1160,7 +1164,7 @@
         "type": "key"
     },
     "Kangaskhanite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Kangaskhan",
             "mega"
@@ -1284,7 +1288,7 @@
         "type": "pokeballs"
     },
     "Lucarionite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Lucario",
             "mega"
@@ -1312,7 +1316,7 @@
         "type": "misc"
     },
     "Lumiose Galette": {
-        "flingPower": 1,
+        "flingPower": 30,
         "type": "misc"
     },
     "Lunar Wing": {
@@ -1368,7 +1372,7 @@
         "type": "berries"
     },
     "Manectite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Manectric",
             "mega"
@@ -1384,7 +1388,7 @@
         "type": "pokeballs"
     },
     "Mawilite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Mawile",
             "mega"
@@ -1420,7 +1424,7 @@
         "type": "mail"
     },
     "Medichamite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Medicham",
             "mega"
@@ -1456,7 +1460,7 @@
         "type": "misc"
     },
     "Mewtwonite X": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Mewtwo",
             "mega-x"
@@ -1464,7 +1468,7 @@
         "type": "megastone"
     },
     "Mewtwonite Y": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Mewtwo",
             "mega-y"
@@ -1676,7 +1680,7 @@
         "type": "misc"
     },
     "Pinsirite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Pinsir",
             "mega"
@@ -2044,7 +2048,7 @@
         "type": "key"
     },
     "Sachet": {
-        "flingPower": 1,
+        "flingPower": 80,
         "type": "misc"
     },
     "Sacred Ash": {
@@ -2056,7 +2060,7 @@
         "type": "pokeballs"
     },
     "Safety Goggles": {
-        "flingPower": 1,
+        "flingPower": 80,
         "type": "misc"
     },
     "Sail Fossil": {
@@ -2076,7 +2080,7 @@
         "type": "key"
     },
     "Scizorite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Scizor",
             "mega"
@@ -2288,7 +2292,7 @@
         "type": "key"
     },
     "Strange Souvenir": {
-        "flingPower": 1,
+        "flingPower": 30,
         "type": "misc"
     },
     "Suite Key": {
@@ -2800,7 +2804,7 @@
         "type": "misc"
     },
     "Tyranitarite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Tyranitar",
             "mega"
@@ -2820,7 +2824,7 @@
         "type": "misc"
     },
     "Venusaurite": {
-        "flingPower": 1,
+        "flingPower": 80,
         "mega": [
             "Venusaur",
             "mega"
@@ -2864,7 +2868,7 @@
         "type": "mail"
     },
     "Weakness Policy": {
-        "flingPower": 1,
+        "flingPower": 80,
         "type": "misc"
     },
     "Wepear Berry": {
@@ -2872,7 +2876,7 @@
         "type": "berries"
     },
     "Whipped Dream": {
-        "flingPower": 1,
+        "flingPower": 80,
         "type": "misc"
     },
     "White Flute": {
