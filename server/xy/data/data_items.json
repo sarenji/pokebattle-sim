@@ -1419,6 +1419,14 @@
         "flingPower": 0,
         "type": "mail"
     },
+    "Medichamite": {
+        "flingPower": 1,
+        "mega": [
+            "Medicham",
+            "mega"
+        ],
+        "type": "megastone"
+    },
     "Mega Ring": {
         "flingPower": 0,
         "type": "key"
