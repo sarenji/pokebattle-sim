@@ -192,6 +192,7 @@ class @Pokemon extends Backbone.Model
 
   toJSON: ->
     attributes = _.clone(@attributes)
+    delete attributes.gender  if attributes.gender == 'Genderless'
     delete attributes.hiddenPowerType
     attributes
 
