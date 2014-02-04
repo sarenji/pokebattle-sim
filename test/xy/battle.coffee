@@ -44,7 +44,7 @@ describe "XY Battle:", ->
       @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 1, true)
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(1)
 
-    it "happens before switches", ->
+    it "happens after switches", ->
       shared.create.call this,
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
@@ -54,7 +54,7 @@ describe "XY Battle:", ->
       megaSpy = @sandbox.spy(@battle, 'performMegaEvolution')
       switchSpy = @sandbox.spy(@battle, 'performSwitch')
       @battle.continueTurn()
-      megaSpy.calledBefore(switchSpy).should.be.true
+      switchSpy.calledBefore(megaSpy).should.be.true
 
     it "changes the pokemon's forme", ->
       shared.create.call this,

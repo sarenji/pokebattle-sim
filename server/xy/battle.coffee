@@ -7,7 +7,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 @Battle::generation = 'xy'
 
 @Battle::actionMap['mega'] =
-  priority: -> 10
+  priority: -> 5
   action: (action) ->
     @performMegaEvolution(action.pokemon)
 

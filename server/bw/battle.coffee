@@ -23,7 +23,7 @@ class @Battle extends EventEmitter
 
   actionMap:
     switch:
-      priority: -> 5
+      priority: -> 10
       action: (action) ->
         @performSwitch(action.pokemon, action.to)
     move:
