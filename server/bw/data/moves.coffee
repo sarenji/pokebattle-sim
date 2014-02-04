@@ -314,7 +314,7 @@ makeDelayedAttackMove = (name, message) ->
       if !target.team.attach(Attachment.DelayedAttack, user: user, move: this)
         @fail(battle)
         return
-      battle.message message.replace(/$1/, user.name)
+      battle.message message.replace("$1", user.name)
 
 makeRandomSwitchMove = (name) ->
   extendMove name, ->

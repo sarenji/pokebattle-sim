@@ -211,7 +211,7 @@ makeAbilityCancelAbility = (name, phrase) ->
   makeAbility name, ->
     this::switchIn = ->
       # TODO: Send canned text instead
-      @battle.message(phrase.replace(/$1/, @pokemon.name))
+      @battle.message(phrase.replace("$1", @pokemon.name))
 
     this::beforeMove = (move, pokemon, targets) ->
       for target in targets

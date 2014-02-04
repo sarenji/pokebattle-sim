@@ -828,7 +828,7 @@ class @Attachment.Charging extends @VolatileAttachment
       return
 
     @charging = true
-    @battle.message @message.replace(/$1/g, user.name)
+    @battle.message @message.replace("$1", user.name)
     return false
 
   beginTurn: ->
