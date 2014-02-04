@@ -1,0 +1,34 @@
+$header_size = 52px // same value from header.styl
+
+@media screen and (max-width: 319px)
+  #logo
+    visibility hidden
+
+@media screen and (max-width: 640px)
+  #main-nav
+    padding 0
+
+  #logo
+    float none
+    margin 0 auto!important
+
+  #sections
+    visibility: hidden
+
+  #leftmenu
+    display block
+    width 0
+
+  #navigation
+    display none
+    top $header_size
+    z-index 100
+    
+  #navigation .logo
+    display none
+
+  #navigation.active
+    display block
+
+  #content
+    left 0

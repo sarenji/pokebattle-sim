@@ -15,26 +15,30 @@ $header_size = 52px
     top 3px
     font-size 20px
 
+#main-nav
+  padding 0 18px
+
 #main-nav, #header li
   line-height 42px
 
-#logo {
-    width: 60px;
-    margin: 0 auto;
-}
-#logo img {
-    position: relative;
-    z-index: 100;
-    top: 3px;
-}
-#sections {
-    margin-left: 30px;
-    margin-right: 120px;
-    visibility: hidden;
-}
-#leftmenu {
-    margin-left: -40px;
-}
+#logo
+  float left
+  width 60px
+  margin-right 15px
+
+#logo img
+  position relative
+  z-index: 100
+  top 3px
+
+#sections
+  margin-left 30px
+  margin-right 120px
+  visibility visible
+
+#leftmenu
+  display none
+
 #rightmenu {
     margin-left: -40px;
 }
@@ -72,29 +76,6 @@ nav a:hover, nav li:hover, #leftmenu a:hover {
     bottom 0
     left 0
     right @left
-}
-
-@media screen and (max-width: 319px) {
-    #logo {
-        visibility: hidden;
-    }
-}
-@media screen and (min-width: 640px) {
-    #main-nav {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-    #logo {
-        float: left;
-        margin-right: 15px;
-    }
-    #sections {
-        visibility: visible;
-    }
-    #leftmenu {
-        visibility: hidden;
-        width: 0;
-    }
 }
 
 @font-face {
