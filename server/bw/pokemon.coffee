@@ -100,9 +100,12 @@ class @Pokemon
     pp = Math.max(pp, 0)
     pp = Math.min(pp, @maxPP(move))
     @ppHash[move.name] = pp
-    @player?.tell(Protocol.CHANGE_PP, @battle.getPlayerIndex(@playerId),
-                  @team.pokemon.indexOf(this),
-                  @moves.indexOf(move), pp)
+    @battle?.tellPlayer(@playerId,
+      Protocol.CHANGE_PP,
+      @battle.getPlayerIndex(@playerId),
+      @team.pokemon.indexOf(this),
+      @moves.indexOf(move),
+      pp)
     pp
 
   resetAllPP: (pp) ->
