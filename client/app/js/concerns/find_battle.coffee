@@ -15,7 +15,6 @@
     $selectTeam.html(html)
 
   $wrapper.html(JST['new_battle']())
-  $wrapper.find('.dropdown').addClass('dropup')
   $selectFormat = $wrapper.find(".select-format")
   $button.click ->
     format = $selectFormat.data('format')
@@ -41,13 +40,13 @@
       $wrapper.find('.team-dropdown').html(html)
 
   # Selecting a team from the menu
-  $wrapper.find('.select-team-dropdown-item').click (e) ->
+  $wrapper.find('.team-dropdown').on 'click', '.select-team-dropdown-item', (e) ->
     slot = $(e.currentTarget).data('slot')
     selectedIndex = slot
     renderCurrentTeam($wrapper)
 
   # Selecting the format changes the dropdown.
-  $wrapper.find('.select-format-dropdown-item').click (e) ->
+  $wrapper.find('.format-dropdown').on 'click', '.select-format-dropdown-item', (e) ->
     $target = $(e.currentTarget)
     format = $target.data('format')
     $selectFormat.text($target.text())

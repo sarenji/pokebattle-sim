@@ -79,38 +79,20 @@
         top 4px
 
     .challenge
-      position absolute
-      bottom 0
-      width 240px
-      height 307px
-      z-index 2
-      overflow hidden
-      pointer-events none
-
-      .challenge_wrapper
-        pointer-events auto
-        position absolute
-        left 0
-        right 0
-        height 307px
-        bottom 0
-        background #f0f0f0
-        border-right 1px solid #ccc
-        border-left 1px solid #ccc
-        border-bottom 1px solid #aaa
-        transition bottom .25s ease-out
-
-      &.outside .challenge_wrapper
-        bottom 100%
+      background #f0f0f0
+      border-right 1px solid #ccc
+      border-left @border-right
+      border-bottom @border-right
+      transition bottom .25s ease-out
 
       .challenge_data
         padding 8px
-
         p
           margin 1em 0 0
+          &:first-child
+            margin-top 0
 
       .challenge_buttons
-        padding 8px
-
+        padding 0 8px 8px
         .btn
           margin-right 8px

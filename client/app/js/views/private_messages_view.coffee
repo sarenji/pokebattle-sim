@@ -105,14 +105,11 @@ class @PrivateMessagesView extends Backbone.View
   toggleChallengeEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)
     $challenge = $popup.find('.challenge')
-    if $challenge.hasClass("outside")
+    if $challenge.hasClass("hidden")
       createChallengePane
         eventName: "challenge"
         button: $popup.find('.send_challenge')
         populate: $popup.find(".challenge_data")
-      $challenge.removeClass('outside')
-      $challenge.css(overflow: 'hidden')
-      setTimeout((-> $challenge.css(overflow: 'visible')), 250)
+      $challenge.removeClass('hidden')
     else
-      $challenge.addClass('outside')
-      $challenge.css(overflow: 'hidden')
+      $challenge.addClass('hidden')
