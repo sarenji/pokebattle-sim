@@ -30,7 +30,7 @@ makeNormalTypeChangeAbility = (name, newType) ->
       return type
 
     this::modifyBasePower = (move, target) ->
-      return 0x1555  if move.getType(@battle, @pokemon, target) == 'Normal'
+      return 0x1555  if move.type == 'Normal'
       return 0x1000
 
 makeNormalTypeChangeAbility("Aerilate", "Flying")

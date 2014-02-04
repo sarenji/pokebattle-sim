@@ -70,6 +70,16 @@ describe "BW Abilities:", ->
         ember = @battle.getMove('Ember')
         ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
+      it "is unaffected by the original immunities", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Gengar")]
+        tackle = @battle.getMove('Tackle')
+        mock = @sandbox.mock(tackle).expects('hit').once()
+        @battle.performMove(@p1, tackle)
+        mock.verify()
+
   testNormalTypeChangeAbility("Aerilate", "Flying")
   testNormalTypeChangeAbility("Pixilate", "Fairy")
   testNormalTypeChangeAbility("Refrigerate", "Ice")

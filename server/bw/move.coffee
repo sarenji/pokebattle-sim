@@ -293,7 +293,8 @@ class @Move
     modify = @modify(modify, Query.modifiers('modifyAttackTarget', target.attachments.all(), this, user))
 
   getType: (battle, user, target) ->
-    @type
+    type = user.editMoveType(@type, target)
+    type
 
   pickAttackStat: (user, target) ->
     stat = (if @isPhysical() then 'attack' else 'specialAttack')
