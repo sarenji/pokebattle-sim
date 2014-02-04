@@ -245,15 +245,18 @@ class @Battle extends EventEmitter
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
-    @message switch weatherName
-      when Weather.SUN
-        "The sunlight turned harsh!"
-      when Weather.RAIN
-        "It started to rain!"
-      when Weather.SAND
-        "A sandstorm kicked up!"
-      when Weather.HAIL
-        "It started to hail!"
+    message = switch weatherName
+      when Weather.SUN  then "The sunlight turned harsh!"
+      when Weather.RAIN then "It started to rain!"
+      when Weather.SAND then "A sandstorm kicked up!"
+      when Weather.HAIL then "It started to hail!"
+      else
+        switch @weather
+          when Weather.SUN  then "The sunlight faded."
+          when Weather.RAIN then "The rain stopped."
+          when Weather.SAND then "The sandstorm subsided."
+          when Weather.HAIL then "The hail stopped."
+    @message(message)  if message
     @weather = weatherName
     @weatherDuration = turns
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
@@ -261,18 +264,6 @@ class @Battle extends EventEmitter
   hasWeather: (weatherName) ->
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
-
-  stopWeather: ->
-    @message switch @weather
-      when Weather.SUN
-        "The sunlight faded."
-      when Weather.RAIN
-        "The rain stopped."
-      when Weather.SAND
-        "The sandstorm subsided."
-      when Weather.HAIL
-        "The hail stopped."
-    @setWeather(Weather.NONE)
 
   weatherMessage: ->
     switch @weather
@@ -283,7 +274,7 @@ class @Battle extends EventEmitter
 
   weatherUpkeep: ->
     if @weatherDuration == 1
-      @stopWeather()
+      @setWeather(Weather.NONE)
     else if @weatherDuration > 1
       @weatherDuration--
 
