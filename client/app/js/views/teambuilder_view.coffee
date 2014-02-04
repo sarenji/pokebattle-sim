@@ -155,7 +155,10 @@ class @TeambuilderView extends Backbone.View
 
   changeForme: (e) =>
     $forme = $(e.currentTarget)
-    @getSelectedPokemon().set('forme', $forme.val())
+    pokemon = @getSelectedPokemon()
+    pokemon.set('forme', $forme.val())
+    # Forme changes may have different abilities, so we have to change this.
+    pokemon.set('ability', pokemon.getAbilities()[0])
 
   changeNature: (e) =>
     $list = $(e.currentTarget)
