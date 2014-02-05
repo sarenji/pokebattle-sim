@@ -9,3 +9,9 @@ class @PrivateMessage extends Backbone.Model
 
   clear: =>
     @set('log', [])
+
+  openChallenge: (args...) =>
+    @trigger("openChallenge", args...)
+
+  closeChallenge: (args...) =>
+    @trigger("closeChallenge", args...)

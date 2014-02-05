@@ -114,21 +114,6 @@ describe 'BattleServer', ->
       server.registerChallenge(other, user.id, generation, team, options)
       mock.verify()
 
-    it "sends a 'challengeSuccess' event to the challenger", ->
-      server = new BattleServer()
-      user = new User("Batman")
-      challengeeId = "Robin"
-      team = [ Factory("Magikarp") ]
-      generation = 'xy'
-      options = {}
-
-      spy = @sandbox.spy(server.users, 'send')
-      spy.withArgs(user.id, 'challengeSuccess', challengeeId,
-        generation, team, options)
-      server.registerChallenge(user, challengeeId, generation, team, options)
-      spy.withArgs(user.id, 'challengeSuccess', challengeeId,
-        generation, team, options).calledOnce.should.be.true
-
     it "sends a 'challenge' event to the challengee", ->
       server = new BattleServer()
       user = new User("Batman")
@@ -269,6 +254,24 @@ describe 'BattleServer', ->
       server.acceptChallenge(other, user.id, team)
       should.not.exist server.challenges[user.id][other.id]
 
+    it "sends a 'challengeSuccess' event to both players", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, challengeeId, generation, team, options)
+
+      spy = @sandbox.spy(server.users, 'send')
+      spy.withArgs(user.id, 'challengeSuccess', challengeeId)
+      spy.withArgs(challengeeId, 'challengeSuccess', user.id)
+      server.acceptChallenge(other, user.id, team)
+      spy.withArgs(user.id, 'challengeSuccess', challengeeId).calledOnce.should.be.true
+      spy.withArgs(challengeeId, 'challengeSuccess', user.id).calledOnce.should.be.true
+
     it "returns an error if no such challenge exists", ->
       server = new BattleServer()
       user = new User("Batman")
@@ -282,6 +285,39 @@ describe 'BattleServer', ->
       mock = @sandbox.mock(other).expects('error').once()
       server.acceptChallenge(other, "bogus dude", team)
       mock.verify()
+
+  describe "#leave", ->
+    it "removes challenges by that player", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      should.exist server.challenges[user.id]
+      should.exist server.challenges[user.id][other.id]
+      server.leave(user)
+      should.not.exist server.challenges[user.id]
+
+    it "removes challenges to that player", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(other, user.id, generation, team, options)
+      should.exist server.challenges[other.id]
+      should.exist server.challenges[other.id][user.id]
+      server.leave(user)
+      should.exist server.challenges[other.id]
+      should.not.exist server.challenges[other.id][user.id]
+
 
   describe "#validateTeam", ->
     it "returns non-empty if given anything that's not an array", ->

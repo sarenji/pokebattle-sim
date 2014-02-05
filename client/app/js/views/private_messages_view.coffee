@@ -7,19 +7,22 @@ class @PrivateMessagesView extends Backbone.View
     "click .popup_messages" : "focusChatEvent"
     "click .title_minimize" : "minimizePopupEvent"
     "click .title_close" : "closePopupEvent"
+    "click .accept_challenge" : "acceptChallengeEvent"
+    "click .reject_challenge" : "rejectChallengeEvent"
 
   initialize: =>
     @numPopups = 0
     @collection.on('open', @createPopup)
     @collection.on('receive', @receiveMessage)
     @collection.on('close minimize', @closePopup)
+    @collection.on('openChallenge', @openChallenge)
+    @collection.on('closeChallenge', @closeChallenge)
 
   createPopup: (message) =>
     title = id = message.id
     $html = @$findPopup(id)
     if @$findPopup(id).length == 0
-      buttonText = "Challenge"
-      $html = $(@messageTemplate({window, id, title, buttonText}))
+      $html = $(@messageTemplate({window, id, title}))
 
       @$el.append($html)
       @positionPopup($html, @numPopups)
@@ -34,15 +37,27 @@ class @PrivateMessagesView extends Backbone.View
     @numPopups -= 1
 
   receiveMessage: (messageId, username, message, options) =>
-    $popup = @$findPopup(messageId)
-    $popup = @createPopup(@collection.get(messageId))  if $popup.length == 0
+    $popup = @$findOrCreatePopup(messageId)
     $messages = $popup.find('.popup_messages')
     wasAtBottom = @isAtBottom()
     if options.type == 'error'
-      $messages.append("<p class='error'>#{message}</p>")
+      $messages.append("<p class='privmsg-error'>#{message}</p>")
+    else if options.type == 'alert'
+      $messages.append("<p class='privmsg-alert'>#{message}</p>")
     else
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom()
+
+  openChallenge: (messageId, generation, options = {}) =>
+    $popup = @$findOrCreatePopup(messageId)
+    $challenge = @createChallenge($popup, generation, options)
+    $challenge.find('.is_not_challenger').addClass('hidden')
+    $challenge.find('.is_challenger').removeClass('hidden')
+
+  closeChallenge: (messageId) =>
+    $popup = @$findOrCreatePopup(messageId)
+    $challenge = $popup.find('.challenge')
+    $challenge.addClass('hidden')
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
@@ -66,6 +81,11 @@ class @PrivateMessagesView extends Backbone.View
   $findPopup: (id) =>
     @$(".popup[data-user-id='#{id}']")
 
+  $findOrCreatePopup: (messageId) =>
+    $popup = @$findPopup(messageId)
+    $popup = @createPopup(@collection.get(messageId))  if $popup.length == 0
+    $popup
+
   $closestPopup: (target) =>
     $target = $(target)
     return $target  if $target.hasClass("popup")
@@ -75,6 +95,21 @@ class @PrivateMessagesView extends Backbone.View
     $popup = @$closestPopup(target)
     message = @collection.get($popup.data('user-id'))
     return message
+
+  createChallenge: ($popup, generation, options = {}) =>
+    $challenge = $popup.find('.challenge')
+    $challenge.html(JST['challenge']())
+    createChallengePane
+      eventName: "challenge"
+      button: $popup.find('.send_challenge')
+      cancel_button: $popup.find('.cancel_challenge')
+      acceptButton: $popup.find('.accept_challenge')
+      rejectButton: $popup.find('.reject_challenge')
+      populate: $popup.find(".challenge_data")
+      generation: generation
+      personId: $popup.data('user-id')
+    $challenge.removeClass('hidden')
+    $challenge
 
   ##########
   # EVENTS #
@@ -106,10 +141,6 @@ class @PrivateMessagesView extends Backbone.View
     $popup = @$closestPopup(e.currentTarget)
     $challenge = $popup.find('.challenge')
     if $challenge.hasClass("hidden")
-      createChallengePane
-        eventName: "challenge"
-        button: $popup.find('.send_challenge')
-        populate: $popup.find(".challenge_data")
-      $challenge.removeClass('hidden')
+      @createChallenge($popup)
     else
       $challenge.addClass('hidden')

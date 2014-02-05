@@ -8,3 +8,23 @@ $(document).on 'click', '.open_pm', ->
 PokeBattle.events.on 'privateMessage', (fromUserId, messageText) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.add(fromUserId, messageText)
+
+# Challenges
+PokeBattle.events.on 'challenge', (fromUserId, generation, options) ->
+  message = PokeBattle.messages.add(id: fromUserId)
+  message.add(fromUserId, "You have been challenged!", type: "alert")
+  message.openChallenge(fromUserId, generation, options)
+
+PokeBattle.events.on 'cancelChallenge', (fromUserId) ->
+  message = PokeBattle.messages.add(id: fromUserId)
+  message.add(fromUserId, "The challenge was canceled!", type: "alert")
+  message.closeChallenge(fromUserId)
+
+PokeBattle.events.on 'rejectChallenge', (fromUserId) ->
+  message = PokeBattle.messages.add(id: fromUserId)
+  message.add(fromUserId, "The challenge was rejected!", type: "alert")
+  message.closeChallenge(fromUserId)
+
+PokeBattle.events.on 'challengeSuccess', (fromUserId) ->
+  message = PokeBattle.messages.add(id: fromUserId)
+  message.closeChallenge(fromUserId)

@@ -35,7 +35,8 @@ class @BattleServer
       battle.sendUpdates()
 
   leave: (player) ->
-    @users.remove(player)
+    if @users.remove(player) == 0
+      @stopChallenges(player)
 
   registerChallenge: (player, challengeeId, generation, team, options) ->
     if @challenges[player.id]?[challengeeId] ||
@@ -55,7 +56,6 @@ class @BattleServer
     # TODO: Validate clauses
     @challenges[player.id] ?= {}
     @challenges[player.id][challengeeId] = {generation, team, options}
-    @users.send(player.id, "challengeSuccess", challengeeId, generation, team, options)
     @users.send(challengeeId, "challenge", player.id, generation, options)
     return true
 
@@ -75,7 +75,16 @@ class @BattleServer
     teams = {}
     teams[challengerId] = challenge.team
     teams[player.id] = team
-    @createBattle(challenge.generation, teams, challenge.options)
+
+    # TODO: Use challenge.options
+    options =
+      conditions: [
+        Conditions.TEAM_PREVIEW
+        Conditions.SLEEP_CLAUSE
+      ]
+    @createBattle(challenge.generation, teams, options)
+    @users.send(player.id, "challengeSuccess", challengerId)
+    @users.send(challengerId, "challengeSuccess", player.id)
     delete @challenges[challengerId][player.id]
     return true
 
@@ -96,6 +105,15 @@ class @BattleServer
     delete @challenges[player.id][challengeeId]
     @users.send(player.id, "cancelChallenge", challengeeId)
     @users.send(challengeeId, "cancelChallenge", player.id)
+
+  stopChallenges: (player) ->
+    playerId = player.id
+    for challengeeId of @challenges[playerId]
+      @cancelChallenge(player, challengeeId)
+    delete @challenges[playerId]
+    for challengerId of @challenges
+      if @challenges[challengerId][playerId]
+        @rejectChallenge(player, challengerId)
 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues
@@ -125,7 +143,6 @@ class @BattleServer
         battleIds = []
         for pair in pairs
           id = @createBattle(generation, pair, options)
-          @beginBattle(id)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
@@ -149,10 +166,8 @@ class @BattleServer
       @userBattles[playerId] ?= {}
       @userBattles[playerId][battleId] = true
       battle.on 'end', @removeUserBattle.bind(this, playerId, battleId)
-    battleId
-
-  beginBattle: (battleId) ->
     @battles[battleId].beginBattle()
+    battleId
 
   # Generate a random ID for a new battle.
   generateBattleId: (players) ->

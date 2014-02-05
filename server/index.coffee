@@ -91,11 +91,27 @@ errors = require '../shared/errors'
       else
         user.error(errors.PRIVATE_MESSAGE, toUser, "This user is offline.")
 
+    ##############
+    # CHALLENGES #
+    ##############
+
+    'challenge': (user, challengeeId, generation, team, options) ->
+      server.registerChallenge(user, challengeeId, generation, team, options)
+
+    'cancel challenge': (user, challengeeId) ->
+      server.cancelChallenge(user, challengeeId)
+
+    'accept challenge': (user, challengerId, team) ->
+      server.acceptChallenge(user, challengerId, team)
+
+    'reject challenge': (user, challengerId, team) ->
+      server.rejectChallenge(user, challengerId)
+
     ###########
     # BATTLES #
     ###########
 
-    'find battle': (user, team, generation) ->
+    'find battle': (user, generation, team) ->
       if generation not in generations.SUPPORTED_GENERATIONS
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return

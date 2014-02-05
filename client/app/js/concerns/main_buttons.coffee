@@ -11,10 +11,10 @@ $ ->
     eventName: "find battle"
     populate: $mainButtons.find('.find_battle_select_team')
     button: $mainButtons.find('.find_battle')
+    options: {}
 
   $mainButtons.find('.find_battle').on 'challenge', ->
     $this = $(this)
-    $this.addClass('disabled')
     $this.find('.find-icon')
       .addClass('icon-spinner spinner-anim')
       .removeClass("icon-globe")
