@@ -20,8 +20,10 @@ describe 'BattleServer', ->
       spies.push(spy)
 
     server = new BattleServer()
+    server.join(players[0])
+    server.join(players[1])
     for player in players
-      server.queuePlayer(player, [Factory('Hitmonchan')])
+      server.queuePlayer(player.id, [Factory('Hitmonchan')])
     server.beginBattles (err, ids) ->
       throw new Error(err.message)  if err
       return  if ids.length == 0
@@ -32,7 +34,7 @@ describe 'BattleServer', ->
   describe "#queuePlayer", ->
     it "queues players", ->
       server = new BattleServer()
-      server.queuePlayer(id: "derp", [])
+      server.queuePlayer("derp", [])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
     it "does not queue null players", ->
@@ -40,18 +42,246 @@ describe 'BattleServer', ->
       server.queuePlayer(null, [])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
 
-    it "does not queue non-logged in players", ->
-      server = new BattleServer()
-      server.queuePlayer({}, [])
-      server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
-
     it "does not queue players already queued", ->
       server = new BattleServer()
-      server.queuePlayer(id: "derp", [])
-      server.queuePlayer(id: "derp", [])
+      server.queuePlayer("derp", [])
+      server.queuePlayer("derp", [])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
-    it "does not queue invalid teams"
+  describe "#registerChallenge", ->
+    it "registers a challenge to a player", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      challengeeId = "Robin"
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.challenges.should.have.property(user.id)
+      server.challenges[user.id].should.have.property(challengeeId)
+
+      challenge = server.challenges[user.id][challengeeId]
+      challenge.should.have.property("team")
+      challenge.should.have.property("generation")
+      challenge.should.have.property("options")
+      challenge.team.should.equal(team)
+      challenge.generation.should.equal(generation)
+      challenge.options.should.equal(options)
+
+    it "does not override old challenges", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      challengeeId = "Robin"
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+      diffGeneration = 'bw'
+      diffTeam = [ Factory("Celebi") ]
+
+      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.registerChallenge(user, challengeeId, diffGeneration, diffTeam, options)
+
+      challenge = server.challenges[user.id][challengeeId]
+      challenge.generation.should.equal(generation)
+      challenge.team.should.equal(team)
+
+    it "returns an error if the team is invalid", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      generation = 'xy'
+      options = {}
+
+      mock = @sandbox.mock(user).expects('error').once()
+      team = []
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock.verify()
+
+    it "sends an error if a challenge already exists for that pair", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+
+      mock = @sandbox.mock(other).expects('error').once()
+      server.registerChallenge(other, user.id, generation, team, options)
+      mock.verify()
+
+    it "sends a 'challengeSuccess' event to the challenger", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      challengeeId = "Robin"
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      spy = @sandbox.spy(server.users, 'send')
+      spy.withArgs(user.id, 'challengeSuccess', challengeeId,
+        generation, team, options)
+      server.registerChallenge(user, challengeeId, generation, team, options)
+      spy.withArgs(user.id, 'challengeSuccess', challengeeId,
+        generation, team, options).calledOnce.should.be.true
+
+    it "sends a 'challenge' event to the challengee", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      challengeeId = "Robin"
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      spy = @sandbox.spy(server.users, 'send')
+      spy.withArgs(challengeeId, 'challenge', user.id,
+        generation, options)
+      server.registerChallenge(user, challengeeId, generation, team, options)
+      spy.withArgs(challengeeId, 'challenge', user.id,
+        generation, options).calledOnce.should.be.true
+
+  describe "#cancelChallenge", ->
+    it "sends a 'cancel challenge' to both the challengee and challenger", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      challengeeId = "Robin"
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      spy = @sandbox.spy(server.users, 'send')
+      spy.withArgs(challengeeId, 'cancelChallenge', user.id)
+      spy.withArgs(user.id, 'cancelChallenge', challengeeId)
+      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.cancelChallenge(user, challengeeId)
+      spy.withArgs(challengeeId, 'cancelChallenge', user.id)
+        .calledOnce.should.be.true
+      spy.withArgs(user.id, 'cancelChallenge', challengeeId)
+        .calledOnce.should.be.true
+
+    it "removes the challenge from the internal hash", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      should.exist server.challenges[user.id][other.id]
+      server.cancelChallenge(user, other.id)
+      should.not.exist server.challenges[user.id][other.id]
+
+  describe "#rejectChallenge", ->
+    it "sends a 'rejectChallenge' to the challengee and challenger", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+
+      spy = @sandbox.spy(server.users, 'send')
+      spy.withArgs(challengeeId, 'rejectChallenge', user.id)
+      spy.withArgs(user.id, 'rejectChallenge', challengeeId)
+      server.rejectChallenge(other, user.id)
+      spy.withArgs(challengeeId, 'rejectChallenge', user.id)
+        .calledOnce.should.be.true
+      spy.withArgs(user.id, 'rejectChallenge', challengeeId)
+        .calledOnce.should.be.true
+
+    it "removes the challenge from the internal hash", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      should.exist server.challenges[user.id][other.id]
+      server.rejectChallenge(other, user.id)
+      should.not.exist server.challenges[user.id][other.id]
+
+    it "returns an error if no such challenge exists", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock = @sandbox.mock(other).expects('error').once()
+      server.rejectChallenge(other, "bogus dude")
+      mock.verify()
+
+  describe "#acceptChallenge", ->
+    it "creates a battle with the teams given by both players", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock = @sandbox.mock(server).expects('createBattle').once()
+      server.acceptChallenge(other, user.id, team)
+      mock.verify()
+
+    it "returns an error to a player if their team is invalid", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock = @sandbox.mock(other).expects('error').once()
+      server.acceptChallenge(other, user.id, [])
+      mock.verify()
+
+    it "removes the challenge from the internal hash", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      should.exist server.challenges[user.id][other.id]
+      server.acceptChallenge(other, user.id, team)
+      should.not.exist server.challenges[user.id][other.id]
+
+    it "returns an error if no such challenge exists", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock = @sandbox.mock(other).expects('error').once()
+      server.acceptChallenge(other, "bogus dude", team)
+      mock.verify()
 
   describe "#validateTeam", ->
     it "returns non-empty if given anything that's not an array", ->
@@ -205,9 +435,9 @@ describe 'BattleServer', ->
     it "are recorded to be playing in which battles", ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(id: user1, [])
-      server.queuePlayer(id: user2, [])
-      server.queuePlayer(id: user3, [])
+      server.queuePlayer(user1, [])
+      server.queuePlayer(user2, [])
+      server.queuePlayer(user3, [])
       server.beginBattles (err, battleIds) ->
         server.getUserBattles(user1).should.eql(battleIds)
         server.getUserBattles(user2).should.eql(battleIds)
@@ -216,9 +446,9 @@ describe 'BattleServer', ->
     it "no longer records battles once they end", ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(id: user1, [Factory("Blissey"), Factory("Skarmory")])
-      server.queuePlayer(id: user2, [Factory("Blissey")])
-      server.queuePlayer(id: user3, [Factory("Blissey")])
+      server.queuePlayer(user1, [Factory("Blissey"), Factory("Skarmory")])
+      server.queuePlayer(user2, [Factory("Blissey")])
+      server.queuePlayer(user3, [Factory("Blissey")])
       server.beginBattles (err, battleIds) ->
         for battleId in battleIds
           battle = server.findBattle(battleId)
@@ -231,9 +461,9 @@ describe 'BattleServer', ->
     beforeEach (done) ->
       @server = new BattleServer()
       [ @user1, @user2, @user3 ] = [ "a", "b", "c" ]
-      @server.queuePlayer(id: @user1, [ Factory("Magikarp") ])
-      @server.queuePlayer(id: @user2, [ Factory("Magikarp"), Factory("Magikarp") ])
-      @server.queuePlayer(id: @user3, [ Factory("Magikarp") ])
+      @server.queuePlayer(@user1, [ Factory("Magikarp") ])
+      @server.queuePlayer(@user2, [ Factory("Magikarp"), Factory("Magikarp") ])
+      @server.queuePlayer(@user3, [ Factory("Magikarp") ])
       @server.beginBattles (err, battleIds) =>
         @battleIds = battleIds
         done()

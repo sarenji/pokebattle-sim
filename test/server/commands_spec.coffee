@@ -128,8 +128,8 @@ describe "Commands", ->
       it "returns all battles that user is in if user is passed", (done) ->
         @server.queuePlayer(@user1, [])
         @server.queuePlayer(@user2, [])
-        @server.queuePlayer(id: "aardvark", [])
-        @server.queuePlayer(id: "bologna", [])
+        @server.queuePlayer("aardvark", [])
+        @server.queuePlayer("bologna", [])
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>

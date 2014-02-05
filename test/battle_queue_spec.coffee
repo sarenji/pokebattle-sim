@@ -7,56 +7,56 @@ ratings = require('../server/ratings')
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->
-    new BattleQueue().queue.should.be.empty
+    new BattleQueue().should.be.empty
 
   describe '#add', ->
     it 'queues a new player', ->
       queue = new BattleQueue()
-      queue.add(id: 'derp', {})
-      queue.queue.should.have.length 1
+      queue.add('derp', {})
+      queue.should.have.length 1
 
     it 'queues two players', ->
       queue = new BattleQueue()
-      queue.add(id: 'batman', {})
-      queue.add(id: 'superman', {})
-      queue.queue.should.have.length 2
+      queue.add('batman', {})
+      queue.add('superman', {})
+      queue.should.have.length 2
 
     it 'cannot queue the same player twice', ->
       queue = new BattleQueue()
-      queue.add(id: 'batman', {})
-      queue.add(id: 'batman', {})
-      queue.queue.should.have.length 1
+      queue.add('batman', {})
+      queue.add('batman', {})
+      queue.should.have.length 1
 
     it 'cannot queue falsy references', ->
       queue = new BattleQueue()
       queue.add(null, {})
       queue.add(false, {})
       queue.add(undefined, {})
-      queue.queue.should.have.length 0
+      queue.should.have.length 0
 
   describe '#remove', ->
     it 'can dequeue old players', ->
       queue = new BattleQueue()
-      player = {id: 'abc'}
+      player = 'abc'
       queue.add(player, {})
       queue.remove(player)
       queue.size().should.equal 0
 
     it "can take an array of players", ->
       queue = new BattleQueue()
-      player1 = {id: 'abc'}
-      player2 = {id: 'def'}
+      player1 = 'abc'
+      player2 = 'def'
       queue.add(player1, {})
       queue.add(player2, {})
       queue.remove([ player1, player2 ])
-      queue.queue.should.have.length 0
+      queue.should.have.length 0
 
   describe '#queuedPlayers', ->
     it 'returns the players who are queued', ->
       queue = new BattleQueue()
-      dude = {id: 'dude'}
+      dude = 'dude'
       queue.add(dude)
-      queue.queuedPlayers().should.includeEql dude
+      queue.queuedPlayers().should.includeEql(dude)
       queue.queuedPlayers().should.have.length 1
 
   describe '#pairPlayers', ->
@@ -65,27 +65,27 @@ describe 'BattleQueue', ->
 
     it 'takes players out of the queue', (done) ->
       queue = new BattleQueue()
-      queue.add(id: 'batman')
-      queue.add(id: 'superman')
+      queue.add('batman')
+      queue.add('superman')
       queue.pairPlayers ->
         queue.queuedPlayers().should.be.empty
         done()
 
     it 'leaves one person out if the queue length is odd', (done) ->
       queue = new BattleQueue()
-      queue.add(id: 'batman')
-      queue.add(id: 'superman')
-      queue.add(id: 'flash')
+      queue.add('batman')
+      queue.add('superman')
+      queue.add('flash')
       queue.pairPlayers ->
         queue.queuedPlayers().should.have.length 1
         done()
 
     it 'returns an array of pairs', (done) ->
       queue = new BattleQueue()
-      queue.add(id: 'batman')
-      queue.add(id: 'superman')
-      queue.add(id: 'flash')
-      queue.add(id: 'spiderman')
+      queue.add('batman')
+      queue.add('superman')
+      queue.add('flash')
+      queue.add('spiderman')
       queue.pairPlayers (err, results) ->
         should.not.exist(err)
         should.exist(results)
@@ -105,17 +105,17 @@ describe 'BattleQueue', ->
       args.push("spiderman", createPlayer(2))
       db.hmset("ratings", args...)
       queue = new BattleQueue()
-      queue.add(id: 'batman')
-      queue.add(id: 'superman')
-      queue.add(id: 'flash')
-      queue.add(id: 'spiderman')
+      queue.add('batman')
+      queue.add('superman')
+      queue.add('flash')
+      queue.add('spiderman')
       queue.pairPlayers (err, results) ->
         should.not.exist(err)
         should.exist(results)
         results.should.be.instanceOf(Array)
         results.should.have.length(2)
         results = results.map (result) ->
-          result.map (p) -> p.player.id
+          Object.keys(result)
         results.should.eql [[ "batman", "spiderman" ]
                             [ "flash", "superman"   ]]
         done()

@@ -91,11 +91,9 @@ class @Battle extends EventEmitter
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
 
-    for object, i in attributes.players
-      {player, team} = object
-      @playerIds.push(player.id)
-      @teams[player.id] = new Team(this, player.id, team, @numActive)
-      @addSpectator(player)
+    for playerId, team of attributes.players
+      @playerIds.push(playerId)
+      @teams[playerId] = new Team(this, playerId, team, @numActive)
 
     @replacing = false
     @finished = false

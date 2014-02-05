@@ -26,13 +26,12 @@ build = (context, opts={}) ->
   {BattleController} = require("../server/#{generation}/battle_controller")
   context.id1 = 'abcde'
   context.id2 = 'fghij'
-  player1 = opts.player1 || {id: context.id1}
-  player2 = opts.player2 || {id: context.id2}
   team1   = opts.team1 || [Factory('Magikarp'), Factory('Magikarp')]
   team2   = opts.team2 || [Factory('Magikarp'), Factory('Magikarp')]
   conditions = opts.conditions
-  players = [{player: player1, team: team1},
-             {player: player2, team: team2}]
+  players = {}
+  players[context.id1] = team1
+  players[context.id2] = team2
   numActive = opts.numActive || 1
   context.battle = new Battle('id', {players, numActive, conditions})
   context.controller = new BattleController(context.battle)

@@ -112,8 +112,7 @@ attachAPIEndpoints = (server) ->
         attacker = req.params.attacker
         defender = req.params.defender
 
-        createPlayer = (id, p) -> { player: { id: id }, team: [p] }
-        players = [createPlayer("0", attacker), createPlayer("1", defender)]
+        players = {"0": [attacker], "1": [defender]}
         battle = new Battle('id', players: players, numActive: 1, conditions: [])
 
         move = battle.getMove(moveName)

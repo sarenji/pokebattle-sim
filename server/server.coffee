@@ -7,6 +7,7 @@
 gen = require './generations'
 learnsets = require '../shared/learnsets'
 config = require './config'
+errors = require '../shared/errors'
 
 class @BattleServer
   constructor: ->
@@ -17,6 +18,10 @@ class @BattleServer
 
     # A hash mapping users to battles.
     @userBattles = {}
+
+    # A hash mapping user ids to challenges
+    # challenges[challengeeId][challengerId] = {generation: 'xy', team: []}
+    @challenges = {}
 
     # A hash mapping ids to users
     @users = new SocketHash()
@@ -32,20 +37,86 @@ class @BattleServer
   leave: (player) ->
     @users.remove(player)
 
-  queuePlayer: (player, team, generation = gen.DEFAULT_GENERATION) ->
+  registerChallenge: (player, challengeeId, generation, team, options) ->
+    if @challenges[player.id]?[challengeeId] ||
+          @challenges[challengeeId]?[player.id]
+      errorMessage = "A challenge already exists between you two."
+      player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
+      return false
+
+    # TODO: Validate generation
+
+    err = @validateTeam(team, generation)
+    if err.length > 0
+      # TODO: Use a modal error instead
+      player.error(errors.FIND_BATTLE, err)
+      return false
+
+    # TODO: Validate clauses
+    @challenges[player.id] ?= {}
+    @challenges[player.id][challengeeId] = {generation, team, options}
+    @users.send(player.id, "challengeSuccess", challengeeId, generation, team, options)
+    @users.send(challengeeId, "challenge", player.id, generation, options)
+    return true
+
+  acceptChallenge: (player, challengerId, team) ->
+    if !@challenges[challengerId]?[player.id]?
+      errorMessage = "The challenge no longer exists."
+      player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
+      return false
+
+    challenge = @challenges[challengerId][player.id]
+    err = @validateTeam(team, challenge.generation)
+    if err.length > 0
+      # TODO: Use a modal error instead
+      player.error(errors.FIND_BATTLE, err)
+      return false
+
+    teams = {}
+    teams[challengerId] = challenge.team
+    teams[player.id] = team
+    @createBattle(challenge.generation, teams, challenge.options)
+    delete @challenges[challengerId][player.id]
+    return true
+
+  rejectChallenge: (player, challengerId) ->
+    if !@challenges[challengerId]?[player.id]?
+      errorMessage = "The challenge no longer exists."
+      player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
+      return false
+    delete @challenges[challengerId][player.id]
+    @users.send(player.id, "rejectChallenge", challengerId)
+    @users.send(challengerId, "rejectChallenge", player.id)
+
+  cancelChallenge: (player, challengeeId) ->
+    if !@challenges[player.id]?[challengeeId]?
+      errorMessage = "The challenge no longer exists."
+      player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
+      return false
+    delete @challenges[player.id][challengeeId]
+    @users.send(player.id, "cancelChallenge", challengeeId)
+    @users.send(challengeeId, "cancelChallenge", player.id)
+
+  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues
-    @queues[generation].add(player, team)
+    @queues[generation].add(playerId, team)
     return true
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
 
-  removePlayer: (player, generation = gen.DEFAULT_GENERATION) ->
+  removePlayer: (playerId, generation = gen.DEFAULT_GENERATION) ->
     return false  if generation not of @queues
-    @queues[generation].remove(player)
+    @queues[generation].remove(playerId)
     return true
 
   beginBattles: (next) ->
+    options =
+      conditions: [
+        Conditions.TEAM_PREVIEW
+        Conditions.SLEEP_CLAUSE
+        Conditions.RATED_BATTLE
+      ]
     for generation in gen.SUPPORTED_GENERATIONS
       @queues[generation].pairPlayers (err, pairs) =>
         if err then return next(err)
@@ -53,26 +124,28 @@ class @BattleServer
         # Create a battle for each pair
         battleIds = []
         for pair in pairs
-          id = @createBattle(generation, pair...)
+          id = @createBattle(generation, pair, options)
           @beginBattle(id)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, objects...) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, options = {}) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    playerIds = objects.map((o) -> o.player.id)
+    playerIds = Object.keys(pair)
     battleId = @generateBattleId(playerIds)
-    conditions = [
-      Conditions.TEAM_PREVIEW
-      Conditions.SLEEP_CLAUSE
-      Conditions.RATED_BATTLE
-    ]
-    battle = new Battle(battleId, players: objects, conditions: conditions)
+    options = _.clone(options)
+    options.players = pair
+    battle = new Battle(battleId, options)
     @battles[battleId] = new BattleController(battle)
     for playerId in playerIds
+      # Add users to spectators
+      @users.iterate playerId, (user) ->
+        battle.addSpectator(user)
+
+      # Add/remove player ids to/from user battles
       @userBattles[playerId] ?= {}
       @userBattles[playerId][battleId] = true
       battle.on 'end', @removeUserBattle.bind(this, playerId, battleId)
@@ -110,58 +183,58 @@ class @BattleServer
   # otherwise.
   validatePokemon: (pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
     {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
-    errors = []
+    err = []
     prefix = "Slot ##{slot}"
 
     if !pokemon.name
-      errors.push("#{prefix}: No species given.")
-      return errors
+      err.push("#{prefix}: No species given.")
+      return err
     species = SpeciesData[pokemon.name]
     if !species
-      errors.push("#{prefix}: Invalid species: #{pokemon.name}.")
-      return errors
+      err.push("#{prefix}: Invalid species: #{pokemon.name}.")
+      return err
 
     prefix += " (#{pokemon.name})"
     @normalizePokemon(pokemon, generation)
     forme = FormeData[pokemon.name][pokemon.forme]
     if !forme
-      errors.push("#{prefix}: Invalid forme: #{pokemon.forme}.")
-      return errors
+      err.push("#{prefix}: Invalid forme: #{pokemon.forme}.")
+      return err
 
     if isNaN(pokemon.level)
-      errors.push("#{prefix}: Invalid level: #{pokemon.level}.")
+      err.push("#{prefix}: Invalid level: #{pokemon.level}.")
     # TODO: 100 is a magic constant
     else if !(1 <= pokemon.level <= 100)
-      errors.push("#{prefix}: Level must be between 1 and 100.")
+      err.push("#{prefix}: Level must be between 1 and 100.")
 
     if pokemon.gender not in [ "M", "F", "Genderless" ]
-      errors.push("#{prefix}: Invalid gender: #{pokemon.gender}.")
+      err.push("#{prefix}: Invalid gender: #{pokemon.gender}.")
     if species.genderRatio == -1 && pokemon.gender != "Genderless"
-      errors.push("#{prefix}: Must be genderless.")
+      err.push("#{prefix}: Must be genderless.")
     if species.genderRatio == 0 && pokemon.gender != "M"
-      errors.push("#{prefix}: Must be male.")
+      err.push("#{prefix}: Must be male.")
     if species.genderRatio == 8 && pokemon.gender != "F"
-      errors.push("#{prefix}: Must be female.")
+      err.push("#{prefix}: Must be female.")
     if (typeof pokemon.evs != "object")
-      errors.push("#{prefix}: Invalid evs.")
+      err.push("#{prefix}: Invalid evs.")
     if (typeof pokemon.ivs != "object")
-      errors.push("#{prefix}: Invalid ivs.")
+      err.push("#{prefix}: Invalid ivs.")
     if !Object.values(pokemon.evs).all((ev) -> 0 <= ev <= 255)
-      errors.push("#{prefix}: EVs must be between 0 and 255.")
+      err.push("#{prefix}: EVs must be between 0 and 255.")
     if !Object.values(pokemon.ivs).all((iv) -> 0 <= iv <= 31)
-      errors.push("#{prefix}: IVs must be between 0 and 31.")
+      err.push("#{prefix}: IVs must be between 0 and 31.")
     if pokemon.ability not in forme["abilities"] &&
        pokemon.ability != forme["hiddenAbility"]
-      errors.push("#{prefix}: Invalid ability.")
+      err.push("#{prefix}: Invalid ability.")
     if pokemon.moves not instanceof Array
-      errors.push("#{prefix}: Invalid moves.")
+      err.push("#{prefix}: Invalid moves.")
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
-      errors.push("#{prefix}: Must have 1 to 4 moves.")
+      err.push("#{prefix}: Must have 1 to 4 moves.")
     else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
                         gen.GENERATION_TO_INT[generation], pokemon.moves)
-      errors.push("#{prefix}: Invalid moveset.")
-    return errors
+      err.push("#{prefix}: Invalid moveset.")
+    return err
 
   # Normalizes a Pokemon by setting default values where applicable.
   # Assumes that the Pokemon is a real Pokemon (i.e. its name is valid)

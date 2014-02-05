@@ -275,8 +275,7 @@ describe 'Pokemon', ->
       pokemon.has(Status.Freeze).should.be.false
 
     it "doesn't freeze under Sun", ->
-      battle = new Battle('id', players: [{player: {id: "a", send: ->}, team: []}
-                                        , {player: {id: "b", send: ->}, team: [] }])
+      battle = new Battle('id', players: {"a": [], "b": []})
       battle.setWeather(Weather.SUN)
       pokemon = new Pokemon(battle: battle)
       pokemon.attach(Status.Freeze)

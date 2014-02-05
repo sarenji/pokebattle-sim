@@ -28,5 +28,9 @@ class @SocketHash
     return false
 
   send: (socketId, args...) ->
-    for socket in @sockets[socketId] || []
+    @iterate socketId, (socket) ->
       socket.send(args...)
+
+  iterate: (socketId, iter) ->
+    for socket in @sockets[socketId] || []
+      iter(socket)

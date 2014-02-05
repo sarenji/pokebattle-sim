@@ -105,10 +105,10 @@ errors = require '../shared/errors'
         user.error(errors.FIND_BATTLE, validationErrors)
         return
 
-      server.queuePlayer(user, team, generation)
+      server.queuePlayer(user.id, team, generation)
 
     'cancel find battle': (user, generation) ->
-      server.removePlayer(user, generation)
+      server.removePlayer(user.id, generation)
       user.send("find battle canceled")
 
     'send move': (user, battleId, moveName, slot, forTurn, args...) ->

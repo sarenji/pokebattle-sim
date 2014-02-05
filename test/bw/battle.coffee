@@ -20,8 +20,9 @@ describe 'Battle', ->
     @socket2 = {id: @id2, send: ->}
     team1   = [Factory('Hitmonchan'), Factory('Heracross')]
     team2   = [Factory('Hitmonchan'), Factory('Heracross')]
-    @players = [{player: @socket1, team: team1},
-               {player: @socket2, team: team2}]
+    @players = {}
+    @players[@id1] = team1
+    @players[@id2] = team2
     @battle = new Battle('id', players: @players)
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
