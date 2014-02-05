@@ -14,7 +14,8 @@ class @PrivateMessagesView extends Backbone.View
     @numPopups = 0
     @collection.on('open', @createPopup)
     @collection.on('receive', @receiveMessage)
-    @collection.on('close minimize', @closePopup)
+    @collection.on('close', @closePopup)
+    @collection.on('minimize', @minimizePopup)
     @collection.on('openChallenge', @openChallenge)
     @collection.on('closeChallenge', @closeChallenge)
 
@@ -35,6 +36,12 @@ class @PrivateMessagesView extends Backbone.View
     @$findPopup(username).remove()
     @repositionPopups()
     @numPopups -= 1
+
+  minimizePopup: (message) =>
+    username = message.id
+    $popup = @$findPopup(username)
+    $body = $popup.find('.popup_body')
+    $body.toggleClass('hidden')
 
   receiveMessage: (messageId, username, message, options) =>
     $popup = @$findOrCreatePopup(messageId)
