@@ -416,6 +416,9 @@ class @Battle extends EventEmitter
     array.push(@getActivePokemon().map((p) -> p.attachments.all()))
     _.flatten(array)
 
+  isPokemon: (maybePokemon) ->
+    maybePokemon instanceof Pokemon
+
   query: (eventName) ->
     Query(eventName, @getAllAttachments())
 

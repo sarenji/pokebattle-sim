@@ -1195,6 +1195,12 @@ describe "BW Abilities:", ->
         @battle.performMove(@p1, eq)
         @p2.isAbilityBlocked().should.be.true
 
+      it "works when using field moves", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        sr = @battle.getMove("Stealth Rock")
+        (=> @battle.performMove(@p1, sr)).should.not.throw()
+
   testAbilityCancelAbility("Mold Breaker")
   testAbilityCancelAbility("Teravolt")
   testAbilityCancelAbility("Turboblaze")

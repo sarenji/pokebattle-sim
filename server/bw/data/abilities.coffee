@@ -215,10 +215,12 @@ makeAbilityCancelAbility = (name, phrase) ->
 
     this::beforeMove = (move, pokemon, targets) ->
       for target in targets
+        continue  if !@battle.isPokemon(target)
         target.attach(Attachment.AbilityCancel)
 
     this::afterMove = (move, pokemon, targets) ->
       for target in targets
+        continue  if !@battle.isPokemon(target)
         target.unattach(Attachment.AbilityCancel)
 
 makeAbilityCancelAbility('Mold Breaker', "$1 breaks the mold!")
