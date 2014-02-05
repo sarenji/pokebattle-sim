@@ -447,9 +447,15 @@ class @TeambuilderView extends Backbone.View
       $modal.on 'click', '.import-team-submit', (e) =>
         teamString = $modal.find('.imported-team').val()
         pokemonJSON = PokeBattle.parseTeam(teamString)
-        @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
-        $modal.find('.imported-team').val("")
-        $modal.modal('hide')
+        errors = @validateImportedTeam(pokemonJSON)
+        if errors.length > 0
+          listErrors = errors.map((e) -> "<li>#{e}</li>").join('')
+          $errors = $modal.find('.form-errors')
+          $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
+        else
+          @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
+          $modal.find('.imported-team').val("")
+          $modal.modal('hide')
         return false
 
     $modal = $('#import-team-modal')
@@ -476,3 +482,13 @@ class @TeambuilderView extends Backbone.View
 
     $div.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
     $div.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
+
+  validateImportedTeam: (json) =>
+    errors = []
+    pokemonNames = (pokemon.name  for pokemon in json)
+    {SpeciesData} = window.Generations[DEFAULT_GENERATION.toUpperCase()]
+    pokemonNames = pokemonNames.filter((name) -> name not of SpeciesData)
+    if pokemonNames.length > 0
+      errors.push(pokemonNames.map((n) -> "#{n} is not a valid Pokemon.")...)
+      return errors
+    return errors
