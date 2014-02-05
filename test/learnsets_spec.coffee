@@ -246,3 +246,11 @@ describe "Learnsets:", ->
       moves.should.include("Hydro Pump")
       moves.should.not.include("Blizzard")
       moves.should.not.include("Air Slash")
+
+    it "returns all moves except Struggle and Chatter if can learn Sketch", ->
+      learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
+      moves = learnableMoves({name: "Smeargle"}, 6)
+      moves.should.not.include("Struggle")
+      moves.should.not.include("Chatter")
+      moves.should.include("Sacred Fire")
+      moves.should.include("Aeroblast")

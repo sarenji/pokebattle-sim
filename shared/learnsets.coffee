@@ -81,14 +81,23 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
 self.learnableMoves = (Generations, pokemon, forGeneration) ->
   learnable = []
   loopLearnsets Generations, pokemon, forGeneration, (learnset, pokemonName, formeName) ->
+    # Push event moves
     events = EventPokemon[pokemonName] || []
     events = events.filter((event) -> event.forme == formeName)
     for event in events
       learnable.push(event.moves)
+
+    # Push learnset moves
     for method, moves of learnset
       if method in [ 'level-up', 'tutor', 'machine', 'egg' ] ||
           ((pokemon.forme || "default") == formeName)  # e.g. Hydro Pump Rotom-w
         learnable.push((moveName  for moveName of moves))
+
+    # If the learnset includes Sketch, then we include every move.
+    if learnset["level-up"]?["Sketch"]
+      for moveName of Generations[getGenerationFromInt(forGeneration)].MoveData
+        if moveName not in [ "Chatter", "Struggle" ]
+          learnable.push(moveName)
 
   _.chain(learnable).flatten().sort().unique().value()
 
