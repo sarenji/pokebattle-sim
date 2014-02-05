@@ -215,6 +215,14 @@ describe "BW Abilities:", ->
       targets = @battle.getTargets(earthquake, @p1)
       earthquake.calculateNumberOfHits(@battle, @p1, targets).should.equal(1)
 
+    it "hits once if the move is non-damaging", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      willOWisp = @battle.getMove('Will-O-Wisp')
+      targets = @battle.getTargets(willOWisp, @p1)
+      willOWisp.calculateNumberOfHits(@battle, @p1, targets).should.equal(1)
+
     it "hits for half damage the second hit", ->
       shared.create.call this,
         gen: 'xy'

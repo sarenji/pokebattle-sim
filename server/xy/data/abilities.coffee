@@ -96,8 +96,8 @@ makeAbility 'Mega Launcher', ->
 
 makeAbility 'Parental Bond', ->
   this::calculateNumberOfHits = (move, targets) ->
-    # Do nothing if this move is a multi-hit move or has multiple targets.
-    return  if move.minHits != 1 || targets.length > 1
+    # Do nothing if this move is multi-hit, has multiple targets, or is status.
+    return  if move.minHits != 1 || targets.length > 1 || move.isNonDamaging()
     return 2
 
   this::modifyDamage = (move, target, hitNumber) ->
