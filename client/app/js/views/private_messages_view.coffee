@@ -9,6 +9,7 @@ class @PrivateMessagesView extends Backbone.View
     "click .title_close" : "closePopupEvent"
     "challenge .popup" : "sendChallengeEvent"
     "cancelChallenge .popup" : "challengeCanceledEvent"
+    "focus .popup" : "focusPopupEvent"
 
   initialize: =>
     @numPopups = 0
@@ -56,6 +57,7 @@ class @PrivateMessagesView extends Backbone.View
     else if options.type == 'alert'
       $messages.append("<p class='privmsg-alert'>#{message}</p>")
     else
+      $popup.addClass('new_message')  if username != "Me"
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom()
 
@@ -185,3 +187,7 @@ class @PrivateMessagesView extends Backbone.View
   challengeCanceledEvent: (e) =>
     message = @messageFromPopup(e.currentTarget)
     message.trigger('cancelChallenge', message.id)
+
+  focusPopupEvent: (e) =>
+    $popup = @$closestPopup(e.currentTarget)
+    $popup.removeClass('new_message')
