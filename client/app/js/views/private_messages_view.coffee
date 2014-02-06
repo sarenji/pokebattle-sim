@@ -57,7 +57,8 @@ class @PrivateMessagesView extends Backbone.View
     else if options.type == 'alert'
       $messages.append("<p class='privmsg-alert'>#{message}</p>")
     else
-      $popup.addClass('new_message')  if username != "Me"
+      if username != "Me" && !$popup.find('.chat_input').is(":focus")
+        $popup.addClass('new_message')
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom()
 
