@@ -11,7 +11,7 @@
   kind += "-s"  if shiny
   id    = "000#{id}".substr(-3)
   if forme && forme != 'default' then id += "-#{forme}"
-  "http://s3.pokebattle.com.s3.amazonaws.com/sprites/#{kind}/#{id}.gif"
+  "http://s3.pokebattle.com/sprites/#{kind}/#{id}.gif"
 
 @TypeSprite = (type) ->
   "http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
