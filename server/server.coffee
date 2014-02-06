@@ -39,8 +39,12 @@ class @BattleServer
       @stopChallenges(player)
 
   registerChallenge: (player, challengeeId, generation, team, options) ->
-    if @challenges[player.id]?[challengeeId] ||
-          @challenges[challengeeId]?[player.id]
+    if !@users.contains(challengeeId)
+      errorMessage = "This user is offline."
+      player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
+      return false
+    else if @challenges[player.id]?[challengeeId] ||
+            @challenges[challengeeId]?[player.id]
       errorMessage = "A challenge already exists between you two."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false

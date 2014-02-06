@@ -52,11 +52,14 @@ describe 'BattleServer', ->
     it "registers a challenge to a player", ->
       server = new BattleServer()
       user = new User("Batman")
-      challengeeId = "Robin"
+      other = new User("Robin")
+      challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, challengeeId, generation, team, options)
       server.challenges.should.have.property(user.id)
       server.challenges[user.id].should.have.property(challengeeId)
@@ -72,13 +75,16 @@ describe 'BattleServer', ->
     it "does not override old challenges", ->
       server = new BattleServer()
       user = new User("Batman")
-      challengeeId = "Robin"
+      other = new User("Robin")
+      challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
       options = {}
       diffGeneration = 'bw'
       diffTeam = [ Factory("Celebi") ]
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, challengeeId, generation, team, options)
       server.registerChallenge(user, challengeeId, diffGeneration, diffTeam, options)
 
@@ -94,8 +100,25 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       team = []
+      server.registerChallenge(user, other.id, generation, team, options)
+      mock.verify()
+
+    it "returns an error if the challengee is offline", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.join(user)
+      # server.join(other)  # Other must be offline.
+      mock = @sandbox.mock(user).expects('error').once()
       server.registerChallenge(user, other.id, generation, team, options)
       mock.verify()
 
@@ -108,6 +131,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
 
       mock = @sandbox.mock(other).expects('error').once()
@@ -117,11 +142,14 @@ describe 'BattleServer', ->
     it "sends a 'challenge' event to the challengee", ->
       server = new BattleServer()
       user = new User("Batman")
-      challengeeId = "Robin"
+      other = new User("Robin")
+      challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'challenge', user.id,
         generation, options)
@@ -133,11 +161,14 @@ describe 'BattleServer', ->
     it "sends a 'cancel challenge' to both the challengee and challenger", ->
       server = new BattleServer()
       user = new User("Batman")
-      challengeeId = "Robin"
+      other = new User("Robin")
+      challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'cancelChallenge', user.id)
       spy.withArgs(user.id, 'cancelChallenge', challengeeId)
@@ -157,6 +188,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       should.exist server.challenges[user.id][other.id]
       server.cancelChallenge(user, other.id)
@@ -172,6 +205,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
 
       spy = @sandbox.spy(server.users, 'send')
@@ -192,6 +227,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       should.exist server.challenges[user.id][other.id]
       server.rejectChallenge(other, user.id)
@@ -206,6 +243,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       mock = @sandbox.mock(other).expects('error').once()
       server.rejectChallenge(other, "bogus dude")
@@ -221,6 +260,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       mock = @sandbox.mock(server).expects('createBattle').once()
       server.acceptChallenge(other, user.id, team)
@@ -235,6 +276,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       mock = @sandbox.mock(other).expects('error').once()
       server.acceptChallenge(other, user.id, [])
@@ -249,6 +292,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       should.exist server.challenges[user.id][other.id]
       server.acceptChallenge(other, user.id, team)
@@ -263,6 +308,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, challengeeId, generation, team, options)
 
       spy = @sandbox.spy(server.users, 'send')
@@ -281,6 +328,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       mock = @sandbox.mock(other).expects('error').once()
       server.acceptChallenge(other, "bogus dude", team)
@@ -296,6 +345,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(user, other.id, generation, team, options)
       should.exist server.challenges[user.id]
       should.exist server.challenges[user.id][other.id]
@@ -311,6 +362,8 @@ describe 'BattleServer', ->
       generation = 'xy'
       options = {}
 
+      server.join(user)
+      server.join(other)
       server.registerChallenge(other, user.id, generation, team, options)
       should.exist server.challenges[other.id]
       should.exist server.challenges[other.id][user.id]
