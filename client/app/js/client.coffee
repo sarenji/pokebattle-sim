@@ -47,7 +47,6 @@ PokeBattle.ready = false
 PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
-    PokeBattle.userList = new UserList()
     PokeBattle.chatView = new ChatView(
       el: $('.chat_window .chat')
       collection: PokeBattle.userList
@@ -77,6 +76,7 @@ PokeBattle.socket.addEvents
     PokeBattle.userList.remove(userJSON)
 
 $ ->
+  PokeBattle.userList = new UserList()
   PokeBattle.battles = new BattleCollection([])
   PokeBattle.messages = new PrivateMessages([])
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))

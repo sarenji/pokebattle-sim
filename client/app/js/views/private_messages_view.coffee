@@ -7,17 +7,21 @@ class @PrivateMessagesView extends Backbone.View
     "click .popup_messages" : "focusChatEvent"
     "click .title_minimize" : "minimizePopupEvent"
     "click .title_close" : "closePopupEvent"
-    "click .accept_challenge" : "acceptChallengeEvent"
-    "click .reject_challenge" : "rejectChallengeEvent"
+    "challenge .popup" : "sendChallengeEvent"
+    "cancelChallenge .popup" : "challengeCanceledEvent"
 
   initialize: =>
     @numPopups = 0
-    @collection.on('open', @createPopup)
-    @collection.on('receive', @receiveMessage)
-    @collection.on('close', @closePopup)
-    @collection.on('minimize', @minimizePopup)
-    @collection.on('openChallenge', @openChallenge)
-    @collection.on('closeChallenge', @closeChallenge)
+    @listenTo(@collection, 'open', @createPopup)
+    @listenTo(@collection, 'receive', @receiveMessage)
+    @listenTo(@collection, 'close', @closePopup)
+    @listenTo(@collection, 'minimize', @minimizePopup)
+    @listenTo(@collection, 'openChallenge', @openChallenge)
+    @listenTo(@collection, 'cancelChallenge', @cancelChallenge)
+    @listenTo(@collection, 'closeChallenge', @closeChallenge)
+
+    @listenTo(PokeBattle.userList, 'add', @notifyJoin)
+    @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
 
   createPopup: (message) =>
     title = id = message.id
@@ -62,10 +66,26 @@ class @PrivateMessagesView extends Backbone.View
       $challenge.find('.is_not_challenger').addClass('hidden')
       $challenge.find('.is_challenger').removeClass('hidden')
 
+  cancelChallenge: (messageId) =>
+    $popup = @$findOrCreatePopup(messageId)
+    $challenge = $popup.find('.challenge')
+    $challenge.find('.icon-spinner').addClass('hidden')
+    $challenge.find('.send_challenge, .select').removeClass('disabled')
+    $challenge.find('.challenge_text').text("Challenge")
+    $challenge.find(".cancel_challenge").text('Close')
+
   closeChallenge: (messageId) =>
     $popup = @$findOrCreatePopup(messageId)
     $challenge = $popup.find('.challenge')
     $challenge.addClass('hidden')
+
+  notifyJoin: (user) =>
+    message = @collection.get(user.id)
+    message?.add(user.id, "#{user.id} is now online!", type: "alert")
+
+  notifyLeave: (user) =>
+    message = @collection.get(user.id)
+    message?.add(user.id, "#{user.id} is now offline.", type: "alert")
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
@@ -150,5 +170,18 @@ class @PrivateMessagesView extends Backbone.View
     $challenge = $popup.find('.challenge')
     if $challenge.hasClass("hidden")
       @createChallenge($popup)
+    else if $challenge.find('.cancel_challenge').text() == 'Cancel'
+      $popup.find('.send_challenge').click()
     else
       $challenge.addClass('hidden')
+
+  sendChallengeEvent: (e) =>
+    $popup = @$closestPopup(e.currentTarget)
+    $challenge = $popup.find('.challenge')
+    $challenge.find(".icon-spinner").removeClass('hidden')
+    $challenge.find(".challenge_text").text('Challenging...')
+    $challenge.find(".cancel_challenge").text('Cancel')
+
+  challengeCanceledEvent: (e) =>
+    message = @messageFromPopup(e.currentTarget)
+    message.trigger('cancelChallenge', message.id)

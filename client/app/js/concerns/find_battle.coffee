@@ -10,7 +10,6 @@
   eventName = opts.eventName
   generation = opts.generation
   personId = opts.personId
-  isChallenger = opts.isChallenger || false
 
   allTeams = JSON.parse(window.localStorage.getItem('teams'))
   selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
@@ -22,28 +21,32 @@
     $selectTeam.html(html)
 
   cancelChallenge = ->
-    disableButtons()
+    enableButtons()
     if personId
       PokeBattle.socket.send("cancel #{eventName}", personId)
     else
       format = $selectFormat.data('format')
       PokeBattle.socket.send("cancel #{eventName}", format)
-    $button.trigger('cancelChallenge').off('.challenge')
+    $button.trigger('cancelChallenge')
 
   disableButtons = ->
     $wrapper.find('.select').addClass('disabled')
     $buttons.addClass('disabled')
 
   # Enable buttons
-  $buttons.removeClass('disabled')
+  enableButtons = ->
+    $buttons.removeClass('disabled')
 
-  $wrapper.html(JST['new_battle']({isChallenger}))
+  enableButtons()
+
+  $wrapper.html(JST['new_battle']())
   $selectFormat = $wrapper.find(".select-format")
   # Implement finding battle/challenging
   $button.on 'click.challenge', ->
     format = $selectFormat.data('format')
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
+      disableButtons()
       teamJSON = allTeams[selectedIndex].pokemon
       # Send the event
       if personId
