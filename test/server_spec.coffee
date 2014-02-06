@@ -122,6 +122,20 @@ describe 'BattleServer', ->
       server.registerChallenge(user, other.id, generation, team, options)
       mock.verify()
 
+    it "returns an error if you challenge yourself", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      options = {}
+
+      server.join(user)
+      mock = @sandbox.mock(user).expects('error').once()
+      server.registerChallenge(user, user.id, generation, team, options)
+      mock.verify()
+
     it "sends an error if a challenge already exists for that pair", ->
       server = new BattleServer()
       user = new User("Batman")

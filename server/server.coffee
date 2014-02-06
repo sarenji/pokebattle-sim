@@ -43,6 +43,10 @@ class @BattleServer
       errorMessage = "This user is offline."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
+    else if player.id == challengeeId
+      errorMessage = "You cannot challenge yourself."
+      player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
+      return false
     else if @challenges[player.id]?[challengeeId] ||
             @challenges[challengeeId]?[player.id]
       errorMessage = "A challenge already exists between you two."
