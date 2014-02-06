@@ -58,8 +58,9 @@ class @PrivateMessagesView extends Backbone.View
   openChallenge: (messageId, generation, options = {}) =>
     $popup = @$findOrCreatePopup(messageId)
     $challenge = @createChallenge($popup, generation, options)
-    $challenge.find('.is_not_challenger').addClass('hidden')
-    $challenge.find('.is_challenger').removeClass('hidden')
+    if generation
+      $challenge.find('.is_not_challenger').addClass('hidden')
+      $challenge.find('.is_challenger').removeClass('hidden')
 
   closeChallenge: (messageId) =>
     $popup = @$findOrCreatePopup(messageId)
