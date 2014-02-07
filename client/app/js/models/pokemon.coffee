@@ -22,6 +22,7 @@ class @Pokemon extends Backbone.Model
     @set('forme', 'default')  unless attributes.forme
     @normalizeStats(@get('ivs'), 31)
     @normalizeStats(@get('evs'), 0)
+    @resetBoosts()
 
     # Skip teambuilder-specific properties.
     return  if @get('teambuilder') != true
@@ -57,6 +58,15 @@ class @Pokemon extends Backbone.Model
     @set('happiness', 0)  unless attributes.happiness
     hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
     @set('hiddenPowerType', hiddenPowerType, silent: true)
+
+  resetBoosts: ->
+    @set 'stages',
+      hp: 0
+      attack: 0
+      defense: 0
+      specialAttack: 0
+      specialDefense: 0
+      speed: 0
 
   normalizeStats: (hash, defaultValue) ->
     stats = [ "hp", "attack", "defense", "specialAttack",
@@ -222,4 +232,8 @@ natures =
   gentle:  {specialDefense: PLUS, defense: MINUS}
   sassy:   {specialDefense: PLUS, speed: MINUS}
   careful: {specialDefense: PLUS, specialAttack: MINUS}
-
+  hardy:   {}
+  docile:  {}
+  serious: {}
+  bashful: {}
+  quirky:  {}

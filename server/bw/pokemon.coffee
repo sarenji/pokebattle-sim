@@ -150,14 +150,14 @@ class @Pokemon
       Math.floor(2 * total / (2 - boost))
 
   # Boosts this pokemon's stats by the given number of stages.
-  # Returns a hashmap of the stats that were boosted. The keys are the stats.
-  # If no stat was boosted, the value for that stat is false.
+  # Returns true whether any stat was boosted, false otherwise.
   #
   # Example: pokemon.boost(specialAttack: 1, evasion: 2)
   #
   boost: (boosts, source = this) ->
     boosts = Query.chain('transformBoosts', @attachments.all(), _.clone(boosts), source)
-    wasBoosted = {}
+    deltaBoosts = {}
+    didBoost = false
     for stat, amount of boosts
       amount *= -1  if @ability == Ability.Contrary
       if stat not of @stages
@@ -166,9 +166,10 @@ class @Pokemon
       @stages[stat] += amount
       @stages[stat] = Math.max(-6, @stages[stat])
       @stages[stat] = Math.min(6, @stages[stat])
-      wasBoosted[stat] = (@stages[stat] != previous)
-    @tell(Protocol.BOOSTS, wasBoosted, boosts)
-    wasBoosted
+      deltaBoosts[stat] = (@stages[stat] - previous)
+      didBoost ||= (deltaBoosts[stat] != 0)
+    @tell(Protocol.BOOSTS, deltaBoosts)  if didBoost
+    didBoost
 
   positiveBoostCount: ->
     count = 0

@@ -336,15 +336,18 @@ class @BattleView extends Backbone.View
   attachBattle: (attachment, done) =>
     done()
 
-  boost: (player, slot, wasBoosted, boosts, done) =>
-    pokemonName = @model.getPokemon(player, slot).get('name')
+  boost: (player, slot, deltaBoosts, done) =>
+    pokemon = @model.getPokemon(player, slot)
+    pokemonName = pokemon.get('name')
+    stages = pokemon.get('stages')
     $pokemon = @$pokemon(player, slot)
     $effects = $pokemon.find('.pokemon-effects')
-    for stat, didBoost of wasBoosted
-      amount = boosts[stat]
+    for stat, delta of deltaBoosts
+      previous = stages[stat]
+      stages[stat] += delta
       # Boost log message
-      message = @makeBoostMessage(pokemonName, stat, amount, didBoost)
-      @addLog(message)
+      message = @makeBoostMessage(pokemonName, stat, delta, stages[stat])
+      @addLog(message)  if message
       # Boost in the view
       abbreviatedStat = switch stat
         when "attack" then "Att"
@@ -355,6 +358,7 @@ class @BattleView extends Backbone.View
         when "accuracy" then "Acc."
         when "evasion" then "Eva."
         else stat
+      amount = stages[stat]
       amount = "+#{amount}"  if amount > 0
       abbreviatedStat = "#{amount} #{abbreviatedStat}"
       $effect = @addPokemonEffect($pokemon, "boost #{stat}", abbreviatedStat)
@@ -367,7 +371,7 @@ class @BattleView extends Backbone.View
     done()
     true
 
-  makeBoostMessage: (pokemonName, stat, amount, didBoost) ->
+  makeBoostMessage: (pokemonName, stat, amount, currentBoost) ->
     stat = switch stat
       when "attack" then "Attack"
       when "defense" then "Defense"
@@ -377,22 +381,22 @@ class @BattleView extends Backbone.View
       when "accuracy" then "Accuracy"
       when "evasion" then "Evasion"
       else stat
-    if didBoost && amount > 0
+    if amount > 0
       if amount == 12
         "#{pokemonName} cut its own HP and maximized its #{stat}!"
       else
         adverb = ""              if amount == 1
         adverb = " sharply"      if amount == 2
-        adverb = " drastically"  if amount == 3
+        adverb = " drastically"  if amount >= 3
         "#{pokemonName}'s #{stat} rose#{adverb}!"
-    else if didBoost && amount < 0
+    else if amount < 0
       adverb = ""           if amount == -1
       adverb = " harshly"   if amount == -2
-      adverb = " severely"  if amount == -3
+      adverb = " severely"  if amount <= -3
       "#{pokemonName}'s #{stat}#{adverb} fell!"
-    else if !didBoost && amount > 0
+    else if currentBoost == 6
       "#{pokemonName}'s #{stat} won't go any higher!"
-    else if !didBoost && amount < 0
+    else if currentBoost == -6
       "#{pokemonName}'s #{stat} won't go any lower!"
 
   unattachPokemon: (player, slot, effect, done) =>
@@ -432,6 +436,8 @@ class @BattleView extends Backbone.View
         done()
 
   resetBoosts: (player, slot, done) =>
+    pokemon = @model.getPokemon(player, slot)
+    pokemon.resetBoosts()
     $pokemon = @$pokemon(player, slot)
     $pokemon.find('.boost').remove()
     done()

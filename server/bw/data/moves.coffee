@@ -1047,12 +1047,11 @@ extendMove 'Beat Up', ->
 extendMove 'Belly Drum', ->
   @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)
-    if user.currentHP <= halfHP || user.stages.attack >= 6
+    if user.currentHP <= halfHP || !user.boost(attack: 12)
       @fail(battle)
       return false
     else
       user.damage(halfHP, source: "move")
-      user.boost(attack: 12)
 
 extendMove 'Brick Break', ->
   oldUse = @use
