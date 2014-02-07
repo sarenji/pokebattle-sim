@@ -338,6 +338,13 @@ class @TeambuilderView extends Backbone.View
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
+    
+    # The blur event may have been cancelled, so when removing the input also
+    # remove the filter
+    if $input.is(":focus")
+      @filterMovesBy("")
+      $(".table-moves .active").removeClass("active")
+
     type = @moveData[moveName].type.toLowerCase()
     $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
     return true
