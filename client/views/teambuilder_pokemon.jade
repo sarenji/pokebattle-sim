@@ -32,6 +32,13 @@ mixin printStat(statName, keyName)
               option(value=forme, selected=selected)= displayedForme
     
     .non-stats
+      .teambuilder_row.pbv-row
+        .teambuilder_col.non-stat-label PBV:
+        .teambuilder_col
+          span.individual-pbv= pokemon.getPBV()
+          .right
+            span.total-pbv
+            /1000
       .teambuilder_row
         .teambuilder_col.non-stat-label Ability:
         select.teambuilder_col.selected_ability
