@@ -175,6 +175,10 @@ class @Pokemon extends Backbone.Model
   getNatures: ->
     (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
 
+  getPBV: ->
+    gen = @getGeneration()
+    PokeBattle.PBV.determinePBV(gen, @attributes)
+
   setPP: (moveIndex, newPP) ->
     array = _.clone(@get('pp'))
     array[moveIndex] = newPP

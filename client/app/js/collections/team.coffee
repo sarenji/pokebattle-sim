@@ -13,3 +13,13 @@ class @Team extends Backbone.Collection
       generation: @generation
       pokemon: super()
     }
+
+  getGeneration: (generation) ->
+    gen = @generation || DEFAULT_GENERATION
+    gen = gen.toUpperCase()
+    window.Generations[gen]
+
+  getPBV: =>
+    gen = @getGeneration()
+    pokemonList = _(@models).pluck("attributes")
+    PokeBattle.PBV.determinePBV(gen, pokemonList)

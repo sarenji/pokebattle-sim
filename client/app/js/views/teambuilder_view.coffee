@@ -74,6 +74,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team, 'add remove', @renderPokemonList)
     @listenTo(team, 'reset', @renderTeam)
     @listenTo(team, 'change reset add remove', @dirty)
+    @listenTo(team, 'change reset add remove', @renderPBV)
 
   loadTeams: =>
     teamsJSON = window.localStorage.getItem("teams")
@@ -401,6 +402,20 @@ class @TeambuilderView extends Backbone.View
     @$('.go_back').text('Back')
     @$('.save_team').addClass('disabled')
 
+  renderPBV: (pokemon) =>
+    if pokemon
+      $view = @getPokemonView(pokemon)
+      $view.find(".individual-pbv").text(pokemon.getPBV())
+
+    totalPBV = @getSelectedTeam().getPBV()
+    maxPBV = 1000 # temporary
+
+    @$(".total-pbv").text(totalPBV)
+    if totalPBV > maxPBV
+      @$(".total-pbv").addClass("pbv-over-max")
+    else
+      @$(".total-pbv").removeClass("pbv-over-max")
+
   render: =>
     @$el.html @template(pokemon: @getSelectedTeam(), selected: @selectedPokemon)
     @renderTeams()
@@ -417,6 +432,7 @@ class @TeambuilderView extends Backbone.View
     @renderGeneration()
     @renderPokemonList(team)
     @renderPokemon(pokemon)  for pokemon in team.models
+    @renderPBV()
     @setSelectedPokemonIndex(@selectedPokemon)
     @$('.team_name').text(team.getName())
     @$('.display_teams').addClass('hidden')

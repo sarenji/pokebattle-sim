@@ -101,10 +101,9 @@ $pokemon-list-height = 50px
 
 .teambuilder .meta-info .non-stats
   display table
-  margin 1.5em 0
   width 100%
 
-  .teambuilder_row
+  .teambuilder_row, .pbv-row
     display table-row
     line-height 1.5em
     
@@ -116,6 +115,13 @@ $pokemon-list-height = 50px
     &:first-child
       text-align right
       padding-right 10px
+
+  .pbv-row .left, .pbv-row .right
+    box-sizing border-box
+    height 2em
+
+  .pbv-over-max
+    color red
 
   .non-stat-label
     width 1px // minimum possible size
