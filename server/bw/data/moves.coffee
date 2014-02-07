@@ -1665,7 +1665,7 @@ extendMove 'Reflect', ->
 
 extendMove 'Rest', ->
   @hit = (battle, user, target) ->
-    if user.currentHP >= user.stat('hp') ||
+    if user.currentHP >= user.stat('hp') || user.has(Status.Sleep) ||
         !user.attach(Status.Sleep, turns: 2, force: true)
       @fail(battle)
       return

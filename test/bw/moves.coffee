@@ -6323,6 +6323,17 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, rest)
       @p1.has(Status.Sleep).should.be.true
 
+    it "fails if the pokemon is already asleep", ->
+      shared.create.call(this)
+      rest = @battle.getMove("Rest")
+      mock = @sandbox.mock(rest).expects('fail').once()
+
+      @p1.setHP(1)
+      @p1.attach(Status.Sleep)
+      # execute instead of perform to avoid beforeMove callbacks.
+      @battle.executeMove(rest, @p1, [ @p1 ])
+      mock.verify()
+
     it "cures the pokemon of adverse status effects", ->
       shared.create.call(this)
       rest = @battle.getMove("Rest")
