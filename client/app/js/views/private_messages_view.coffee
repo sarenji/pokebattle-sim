@@ -81,6 +81,7 @@ class @PrivateMessagesView extends Backbone.View
     $popup = @$findOrCreatePopup(messageId)
     $challenge = $popup.find('.challenge')
     $challenge.addClass('hidden')
+    $popup.find('.popup_messages').removeClass('small')
 
   notifyJoin: (user) =>
     message = @collection.get(user.id)
@@ -127,18 +128,23 @@ class @PrivateMessagesView extends Backbone.View
     message = @collection.get($popup.data('user-id'))
     return message
 
-  createChallenge: ($popup, generation, options = {}) =>
+  createChallenge: ($popup, generation) =>
     $challenge = $popup.find('.challenge')
     $challenge.html(JST['challenge']())
     createChallengePane
       eventName: "challenge"
       button: $popup.find('.send_challenge')
-      cancel_button: $popup.find('.cancel_challenge')
       acceptButton: $popup.find('.accept_challenge')
       rejectButton: $popup.find('.reject_challenge')
       populate: $popup.find(".challenge_data")
       generation: generation
       personId: $popup.data('user-id')
+      defaultClauses: [
+        Conditions.TEAM_PREVIEW
+        Conditions.SLEEP_CLAUSE
+        Conditions.PBV_1000
+      ]
+    $popup.find('.popup_messages').addClass('small')
     $challenge.removeClass('hidden')
     $challenge
 
@@ -171,12 +177,14 @@ class @PrivateMessagesView extends Backbone.View
   toggleChallengeEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)
     $challenge = $popup.find('.challenge')
+    wasAtBottom = @isAtBottom()
     if $challenge.hasClass("hidden")
       @createChallenge($popup)
     else if $challenge.find('.cancel_challenge').text() == 'Cancel'
       $popup.find('.send_challenge').click()
     else
-      $challenge.addClass('hidden')
+      @closeChallenge(@messageFromPopup($popup))
+    if wasAtBottom then @scrollToBottom()
 
   sendChallengeEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)

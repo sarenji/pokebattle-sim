@@ -95,8 +95,8 @@ errors = require '../shared/errors'
     # CHALLENGES #
     ##############
 
-    'challenge': (user, challengeeId, generation, team, options) ->
-      server.registerChallenge(user, challengeeId, generation, team, options)
+    'challenge': (user, challengeeId, generation, team, conditions) ->
+      server.registerChallenge(user, challengeeId, generation, team, conditions)
 
     'cancel challenge': (user, challengeeId) ->
       server.cancelChallenge(user, challengeeId)

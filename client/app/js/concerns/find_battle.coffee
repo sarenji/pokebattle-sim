@@ -3,13 +3,14 @@
 @createChallengePane = (opts) ->
   $wrapper = opts.populate
   $button = opts.button
-  $cancel = opts.cancelButton || $()
   $accept = opts.acceptButton || $()
   $reject = opts.rejectButton || $()
-  $buttons = $button.add($cancel).add($accept).add($reject)
+  $buttons = $button.add($accept).add($reject)
   eventName = opts.eventName
   generation = opts.generation
   personId = opts.personId
+  defaultClauses = opts.defaultClauses || []
+  canEditClauses = opts.canEditClauses ? true
 
   allTeams = JSON.parse(window.localStorage.getItem('teams'))
   selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
@@ -39,7 +40,7 @@
 
   enableButtons()
 
-  $wrapper.html(JST['new_battle']())
+  $wrapper.html(JST['new_battle']({window, defaultClauses}))
   $selectFormat = $wrapper.find(".select-format")
   # Implement finding battle/challenging
   $button.on 'click.challenge', ->
@@ -50,17 +51,15 @@
       teamJSON = allTeams[selectedIndex].pokemon
       # Send the event
       if personId
-        PokeBattle.socket.send(eventName, personId, format, teamJSON)
+        $clauses = $wrapper.find('input:checked[type="checkbox"]')
+        clauses = []
+        $clauses.each(-> clauses.push(parseInt($(this).val(), 10)))
+        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses)
       else
         PokeBattle.socket.send(eventName, format, teamJSON)
       $button.addClass('disabled').trigger('challenge')
     else
       cancelChallenge()
-
-  # Implement cancel button.
-  $cancel.on 'click.challenge', ->
-    return  if $(this).hasClass('disabled')
-    cancelChallenge()
 
   # Implement accept/reject buttons.
   $accept.on 'click.challenge', ->
@@ -109,3 +108,8 @@
   else
     # Auto-select first available format.
     $wrapper.find('.format-dropdown a').first().click()
+
+  if !canEditClauses
+    $checkboxes = $wrapper.find('input[type="checkbox"]')
+    $checkboxes.prop('disabled', true)
+    $checkboxes.closest('label').addClass('disabled')

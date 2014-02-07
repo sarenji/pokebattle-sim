@@ -67,7 +67,6 @@ class @BattleServer
       player.error(errors.FIND_BATTLE, err)
       return false
 
-    # TODO: Validate clauses
     @challenges[player.id] ?= {}
     @challenges[player.id][challengeeId] = {generation, team, conditions}
     @users.send(challengeeId, "challenge", player.id, generation, conditions)
@@ -80,7 +79,7 @@ class @BattleServer
       return false
 
     challenge = @challenges[challengerId][player.id]
-    err = @validateTeam(team, challenge.generation)
+    err = @validateTeam(team, challenge.generation, challenge.conditions)
     if err.length > 0
       # TODO: Use a modal error instead
       player.error(errors.FIND_BATTLE, err)

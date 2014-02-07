@@ -13,3 +13,13 @@ p
   .select.select-team(data-toggle = "dropdown")
     strong Your team
   ul.dropdown-menu.team-dropdown(role = "menu")
+
+p
+  strong Clauses:
+ul.challenge_clauses.well
+  for value, clause in window.Conditions
+    - var checked = (defaultClauses.indexOf(value) >= 0)
+    li
+      label
+        input(type = "checkbox", value = value, checked = checked)
+        |  #{window.HumanizedConditions[clause]}

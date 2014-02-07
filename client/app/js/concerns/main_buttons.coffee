@@ -11,7 +11,13 @@ $ ->
     eventName: "find battle"
     populate: $mainButtons.find('.find_battle_select_team')
     button: $mainButtons.find('.find_battle')
-    options: {}
+    defaultClauses: [
+      Conditions.TEAM_PREVIEW
+      Conditions.SLEEP_CLAUSE
+      Conditions.PBV_1000
+      Conditions.RATED_BATTLE
+    ]
+    canEditClauses: false
 
   $mainButtons.find('.find_battle').on 'challenge', ->
     $this = $(this)
@@ -27,6 +33,7 @@ depressFindBattle = ->
   $button.find('.find-icon')
     .removeClass("icon-spinner spinner-anim")
     .addClass("icon-globe")
+  $mainButtons.find('.find_battle_select_team .select').removeClass('disabled')
 
 $(window).load ->
   $mainButtons = $('.main_buttons')

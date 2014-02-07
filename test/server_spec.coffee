@@ -326,6 +326,23 @@ describe 'BattleServer', ->
       server.acceptChallenge(other, user.id, [])
       mock.verify()
 
+    it "returns an error to a player if their team violates clauses", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      acceptTeam = [ Factory("Mewtwo", moves: [ "Psychic" ]) ]
+      generation = 'xy'
+      conditions = [ Conditions.PBV_1000 ]
+
+      server.join(user)
+      server.join(other)
+      server.registerChallenge(user, other.id, generation, team, conditions)
+      mock = @sandbox.mock(other).expects('error').once()
+      server.acceptChallenge(other, user.id, acceptTeam)
+      mock.verify()
+
     it "removes the challenge from the internal hash", ->
       server = new BattleServer()
       user = new User("Batman")
