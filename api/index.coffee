@@ -113,7 +113,7 @@ attachAPIEndpoints = (server) ->
         defender = req.params.defender
 
         players = {"0": [attacker], "1": [defender]}
-        battle = new Battle('id', players: players, numActive: 1, conditions: [])
+        battle = new Battle('id', players, numActive: 1)
 
         move = battle.getMove(moveName)
         if not move

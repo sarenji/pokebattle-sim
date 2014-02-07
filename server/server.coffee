@@ -6,6 +6,7 @@
 {SocketHash} = require './socket_hash'
 gen = require './generations'
 learnsets = require '../shared/learnsets'
+pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
 
@@ -38,7 +39,7 @@ class @BattleServer
     if @users.remove(player) == 0
       @stopChallenges(player)
 
-  registerChallenge: (player, challengeeId, generation, team, options) ->
+  registerChallenge: (player, challengeeId, generation, team, conditions) ->
     if !@users.contains(challengeeId)
       errorMessage = "This user is offline."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
@@ -53,9 +54,7 @@ class @BattleServer
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
 
-    # TODO: Validate generation
-
-    err = @validateTeam(team, generation)
+    err = @validateTeam(team, generation, conditions)
     if err.length > 0
       # TODO: Use a modal error instead
       player.error(errors.FIND_BATTLE, err)
@@ -63,8 +62,8 @@ class @BattleServer
 
     # TODO: Validate clauses
     @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {generation, team, options}
-    @users.send(challengeeId, "challenge", player.id, generation, options)
+    @challenges[player.id][challengeeId] = {generation, team, conditions}
+    @users.send(challengeeId, "challenge", player.id, generation, conditions)
     return true
 
   acceptChallenge: (player, challengerId, team) ->
@@ -84,13 +83,7 @@ class @BattleServer
     teams[challengerId] = challenge.team
     teams[player.id] = team
 
-    # TODO: Use challenge.options
-    options =
-      conditions: [
-        Conditions.TEAM_PREVIEW
-        Conditions.SLEEP_CLAUSE
-      ]
-    @createBattle(challenge.generation, teams, options)
+    @createBattle(challenge.generation, teams, challenge.conditions)
     @users.send(player.id, "challengeSuccess", challengerId)
     @users.send(challengerId, "challengeSuccess", player.id)
     delete @challenges[challengerId][player.id]
@@ -137,12 +130,12 @@ class @BattleServer
     return true
 
   beginBattles: (next) ->
-    options =
-      conditions: [
-        Conditions.TEAM_PREVIEW
-        Conditions.SLEEP_CLAUSE
-        Conditions.RATED_BATTLE
-      ]
+    conditions = [
+      Conditions.TEAM_PREVIEW
+      Conditions.SLEEP_CLAUSE
+      Conditions.RATED_BATTLE
+      Conditions.PBV_1000
+    ]
     for generation in gen.SUPPORTED_GENERATIONS
       @queues[generation].pairPlayers (err, pairs) =>
         if err then return next(err)
@@ -150,20 +143,18 @@ class @BattleServer
         # Create a battle for each pair
         battleIds = []
         for pair in pairs
-          id = @createBattle(generation, pair, options)
+          id = @createBattle(generation, pair, conditions)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, options = {}) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, conditions = []) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
     playerIds = Object.keys(pair)
     battleId = @generateBattleId(playerIds)
-    options = _.clone(options)
-    options.players = pair
-    battle = new Battle(battleId, options)
+    battle = new Battle(battleId, pair, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
     for playerId in playerIds
       # Add users to spectators
@@ -197,9 +188,13 @@ class @BattleServer
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
-  validateTeam: (team, generation = gen.DEFAULT_GENERATION) ->
+  validateTeam: (team, generation = gen.DEFAULT_GENERATION, conditions = []) ->
     return [ "Invalid team format." ]  if team not instanceof Array
     return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
+    if generation not in gen.SUPPORTED_GENERATIONS
+      return [ "Invalid generation: #{generation}." ]
+    if Conditions.PBV_1000 in conditions && pbv.determinePBV(team) > 1000
+      return [ "Total team PBV cannot surpass 1,000." ]
     return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors

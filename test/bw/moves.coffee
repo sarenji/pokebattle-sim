@@ -33,14 +33,14 @@ describe 'Move:', ->
 
   describe 'critical hit level', ->
     it "is 1 by default", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       attacker.switchIn()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 1
 
     it "can be changed from the default", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       attacker.switchIn()
@@ -48,7 +48,7 @@ describe 'Move:', ->
         .criticalHitLevel(battle, attacker, defender).should.equal 2
 
     it "is 3 if the attacker has Focus Energy", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       attacker.attach(Attachment.FocusEnergy)
@@ -56,14 +56,14 @@ describe 'Move:', ->
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
       defender = new Pokemon()
       attacker.switchIn()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Chansey with a Lucky Punch", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
       defender = new Pokemon()
       attacker.switchIn()
@@ -72,7 +72,7 @@ describe 'Move:', ->
     for item in ["Razor Claw", "Scope Lens"]
       do (item) ->
         it "is 2 if the attacker has a #{item}", ->
-          battle = new Battle('1', players: [])
+          battle = new Battle('1', [])
           attacker = new Pokemon(item: item)
           defender = new Pokemon()
           attacker.switchIn()
@@ -80,7 +80,7 @@ describe 'Move:', ->
 
   describe "a critical hit", ->
     it "occurs when the RNG output < the critical hit level", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       move = new Move()
@@ -89,7 +89,7 @@ describe 'Move:', ->
       move.isCriticalHit(battle, attacker, defender).should.be.true
 
     it "does not occur when the RNG output >= the critical hit level", ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       @sandbox.stub(battle.rng, 'next', -> 0.0700)
@@ -158,7 +158,7 @@ describe 'Move:', ->
 
     describe "-1 crit ratios", ->
       beforeEach ->
-        @battle = new Battle('1', players: [])
+        @battle = new Battle('1', [])
         @attacker = new Pokemon()
         @move = new Move("TestMove", criticalHitLevel: -1)
         @sandbox.stub(@battle.rng, 'next', -> 1)
@@ -177,7 +177,7 @@ describe 'Move:', ->
 
   describe 'type effectiveness', ->
     testTypeEffectiveness = (type, defense, expected) ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
       defender.types = defense
@@ -228,14 +228,14 @@ describe 'Move:', ->
 
   describe 'an attack with 0 accuracy', ->
     it 'can never miss', ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       a = new Pokemon()
       d = new Pokemon()
       new Move(accuracy: 0).willMiss(battle, a, d).should.be.false
 
   describe 'accuracy and evasion boosts', ->
     it 'heighten and lower the chances of a move hitting', ->
-      battle = new Battle('1', players: [])
+      battle = new Battle('1', [])
       a = new Pokemon()
       d = new Pokemon()
       new Move(null, accuracy: 100).chanceToHit(battle, a, d).should.eql 100

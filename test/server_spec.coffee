@@ -3,6 +3,7 @@ require './helpers'
 {BattleServer} = require('../server/server')
 gen = require('../server/generations')
 {User} = require('../server/user')
+{Conditions} = require '../server/conditions'
 {Factory} = require './factory'
 should = require('should')
 
@@ -56,21 +57,21 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.registerChallenge(user, challengeeId, generation, team, conditions)
       server.challenges.should.have.property(user.id)
       server.challenges[user.id].should.have.property(challengeeId)
 
       challenge = server.challenges[user.id][challengeeId]
       challenge.should.have.property("team")
       challenge.should.have.property("generation")
-      challenge.should.have.property("options")
+      challenge.should.have.property("conditions")
       challenge.team.should.equal(team)
       challenge.generation.should.equal(generation)
-      challenge.options.should.equal(options)
+      challenge.conditions.should.equal(conditions)
 
     it "does not override old challenges", ->
       server = new BattleServer()
@@ -79,14 +80,13 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
       diffGeneration = 'bw'
       diffTeam = [ Factory("Celebi") ]
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, challengeeId, generation, team, options)
-      server.registerChallenge(user, challengeeId, diffGeneration, diffTeam, options)
+      server.registerChallenge(user, challengeeId, generation, team)
+      server.registerChallenge(user, challengeeId, diffGeneration, diffTeam)
 
       challenge = server.challenges[user.id][challengeeId]
       challenge.generation.should.equal(generation)
@@ -98,13 +98,42 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       generation = 'xy'
-      options = {}
 
       server.join(user)
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       team = []
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team)
+      mock.verify()
+
+    it "returns an error if the team is over 1000 PBV with 1000 PBV clause", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      generation = 'xy'
+      team = [ Factory("Arceus", moves: [ "Recover" ]) ]
+      conditions = [ Conditions.PBV_1000 ]
+
+      server.join(user)
+      server.join(other)
+      mock = @sandbox.mock(user).expects('error').once()
+      server.registerChallenge(user, other.id, generation, team, conditions)
+      mock.verify()
+
+    it "returns an error if the generation is invalid", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      team = [ Factory("Magikarp") ]
+      generation = "UNRELEASED INFERNO RED AND WEIRD YELLOWISH GREEN"
+      conditions = []
+
+      server.join(user)
+      server.join(other)
+      mock = @sandbox.mock(user).expects('error').once()
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock.verify()
 
     it "returns an error if the challengee is offline", ->
@@ -114,12 +143,12 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       # server.join(other)  # Other must be offline.
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock.verify()
 
     it "returns an error if you challenge yourself", ->
@@ -129,11 +158,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, user.id, generation, team, options)
+      server.registerChallenge(user, user.id, generation, team, conditions)
       mock.verify()
 
     it "sends an error if a challenge already exists for that pair", ->
@@ -143,14 +172,14 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
 
       mock = @sandbox.mock(other).expects('error').once()
-      server.registerChallenge(other, user.id, generation, team, options)
+      server.registerChallenge(other, user.id, generation, team, conditions)
       mock.verify()
 
     it "sends a 'challenge' event to the challengee", ->
@@ -160,16 +189,16 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'challenge', user.id,
-        generation, options)
-      server.registerChallenge(user, challengeeId, generation, team, options)
+        generation, conditions)
+      server.registerChallenge(user, challengeeId, generation, team, conditions)
       spy.withArgs(challengeeId, 'challenge', user.id,
-        generation, options).calledOnce.should.be.true
+        generation, conditions).calledOnce.should.be.true
 
   describe "#cancelChallenge", ->
     it "sends a 'cancel challenge' to both the challengee and challenger", ->
@@ -179,14 +208,14 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'cancelChallenge', user.id)
       spy.withArgs(user.id, 'cancelChallenge', challengeeId)
-      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.registerChallenge(user, challengeeId, generation, team, conditions)
       server.cancelChallenge(user, challengeeId)
       spy.withArgs(challengeeId, 'cancelChallenge', user.id)
         .calledOnce.should.be.true
@@ -200,11 +229,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       should.exist server.challenges[user.id][other.id]
       server.cancelChallenge(user, other.id)
       should.not.exist server.challenges[user.id][other.id]
@@ -217,11 +246,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
 
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'rejectChallenge', user.id)
@@ -239,11 +268,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       should.exist server.challenges[user.id][other.id]
       server.rejectChallenge(other, user.id)
       should.not.exist server.challenges[user.id][other.id]
@@ -255,11 +284,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock = @sandbox.mock(other).expects('error').once()
       server.rejectChallenge(other, "bogus dude")
       mock.verify()
@@ -272,11 +301,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock = @sandbox.mock(server).expects('createBattle').once()
       server.acceptChallenge(other, user.id, team)
       mock.verify()
@@ -288,11 +317,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock = @sandbox.mock(other).expects('error').once()
       server.acceptChallenge(other, user.id, [])
       mock.verify()
@@ -304,11 +333,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       should.exist server.challenges[user.id][other.id]
       server.acceptChallenge(other, user.id, team)
       should.not.exist server.challenges[user.id][other.id]
@@ -320,11 +349,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, challengeeId, generation, team, options)
+      server.registerChallenge(user, challengeeId, generation, team, conditions)
 
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(user.id, 'challengeSuccess', challengeeId)
@@ -340,11 +369,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       mock = @sandbox.mock(other).expects('error').once()
       server.acceptChallenge(other, "bogus dude", team)
       mock.verify()
@@ -357,11 +386,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, options)
+      server.registerChallenge(user, other.id, generation, team, conditions)
       should.exist server.challenges[user.id]
       should.exist server.challenges[user.id][other.id]
       server.leave(user)
@@ -374,11 +403,11 @@ describe 'BattleServer', ->
       challengeeId = other.id
       team = [ Factory("Magikarp") ]
       generation = 'xy'
-      options = {}
+      conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(other, user.id, generation, team, options)
+      server.registerChallenge(other, user.id, generation, team, conditions)
       should.exist server.challenges[other.id]
       should.exist server.challenges[other.id][user.id]
       server.leave(user)

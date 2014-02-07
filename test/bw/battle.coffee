@@ -23,7 +23,7 @@ describe 'Battle', ->
     @players = {}
     @players[@id1] = team1
     @players[@id2] = team2
-    @battle = new Battle('id', players: @players)
+    @battle = new Battle('id', @players)
     @controller = new BattleController(@battle)
     @team1  = @battle.getTeam(@id1)
     @team2  = @battle.getTeam(@id2)
@@ -299,11 +299,11 @@ describe 'Battle', ->
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->
-      battle = new Battle('id', players: @players)
+      battle = new Battle('id', @players)
       battle.hasStarted().should.be.false
 
     it "returns true if the battle has started", ->
-      battle = new Battle('id', players: @players)
+      battle = new Battle('id', @players)
       battle.begin()
       battle.hasStarted().should.be.true
 

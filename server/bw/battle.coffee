@@ -34,12 +34,13 @@ class @Battle extends EventEmitter
       action: (action) ->
         @performMove(action.pokemon, action.move)
 
-  constructor: (@id, attributes = {}) ->
+  constructor: (@id, players, attributes = {}) ->
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
     # An array of conditions like clauses or team preview that this battle has.
-    @conditions = attributes.conditions || []
+    @conditions = (attributes.conditions && _.clone(attributes.conditions))
+    @conditions ||= []
 
     # Stores the current turn of the battle
     @turn = 0
@@ -91,7 +92,7 @@ class @Battle extends EventEmitter
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
 
-    for playerId, team of attributes.players
+    for playerId, team of players
       @playerIds.push(playerId)
       @teams[playerId] = new Team(this, playerId, team, @numActive)
 
