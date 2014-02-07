@@ -629,7 +629,9 @@ class @Battle extends EventEmitter
     else
       if pokemon.beforeMove(move, pokemon, targets) != false
         pokemon.reducePP(move)
-        for target in targets.filter((t) -> t instanceof Pokemon && t.hasAbility("Pressure"))
+        pressureTargets = targets.filter (t) ->
+          t instanceof Pokemon && t.hasAbility("Pressure") && t != pokemon
+        for target in pressureTargets
           pokemon.reducePP(move)
         @executeMove(move, pokemon, targets)
       # After the move finishes (whether it executed properly or not, e.g. par)

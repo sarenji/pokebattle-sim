@@ -1417,6 +1417,16 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, tackle)
       @p2.pp(tackle).should.equal(pp - 2)
 
+    it "does not reduce a move's PP by 1 if target is self", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Pressure")]
+      dd = @battle.getMove("Dragon Dance")
+      @p1.moves = [ dd ]
+      @p1.resetAllPP()
+      pp = @p1.pp(dd)
+      @battle.performMove(@p1, dd)
+      @p1.pp(dd).should.equal(pp - 1)
+
   describe "Quick Feet", ->
     it "increases speed by x1.5 when statused", ->
       shared.create.call this,
