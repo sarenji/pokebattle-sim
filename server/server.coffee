@@ -193,8 +193,10 @@ class @BattleServer
     return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
     if generation not in gen.SUPPORTED_GENERATIONS
       return [ "Invalid generation: #{generation}." ]
-    if Conditions.PBV_1000 in conditions && pbv.determinePBV(team) > 1000
-      return [ "Total team PBV cannot surpass 1,000." ]
+    if Conditions.PBV_1000 in conditions
+      genData = gen.GenerationJSON[generation.toUpperCase()]
+      if pbv.determinePBV(genData, team) > 1000
+        return [ "Total team PBV cannot surpass 1,000." ]
     return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
