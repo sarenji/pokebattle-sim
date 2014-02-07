@@ -36,6 +36,7 @@ class @TeambuilderView extends Backbone.View
     'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
     'click .table-moves tbody tr': 'clickMoveName'
+    'mousedown .table-moves': 'preventBlurMoves'
     'click .move-button': 'clickSelectedMove'
 
   initialize: (attributes) =>
@@ -269,8 +270,21 @@ class @TeambuilderView extends Backbone.View
     $moves.first().addClass('active')
     $table.removeClass('hidden')
 
+  # Prevents the blurMoves event from activating for the duration of
+  # the remaining javascript events. This allows the click event to not fire
+  # the blur event.
+  preventBlurMoves: (e) =>
+    @_preventBlur = true
+    _.defer =>
+      @_preventBlur = false
+
   blurMoves: (e) =>
     $input = $(e.currentTarget)
+    if @_preventBlur
+      $input.focus()
+      e.preventDefault()
+      return
+
     $selectedMove = @$selectedMove()
     moveName = $selectedMove.data('move-id')
 
@@ -293,6 +307,7 @@ class @TeambuilderView extends Backbone.View
     @insertMove($input, moveName)
 
   insertMove: ($input, moveName) =>
+    @preventBlurMoves()
     return  if !@buttonify($input, moveName)
     $moves = @getActivePokemonView().find('.selected_moves')
     $moves.find('input').first().focus()
