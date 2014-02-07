@@ -4,7 +4,7 @@
 - var greenStyle = style + "; background-color: " + color
 .sprite.preload(data-name = pokemon.get('name'), data-forme = pokemon.get('forme'), data-shiny = (pokemon.get('shiny') ? "true" : "false"))
 .pokemon-info
-  .pokemon-name= pokemon.get('name')
+  a.pokemon-name(href=pokemon.getPokedexUrl(), target="_blank")= pokemon.get('name')
   .pokemon-meta
     if pokemon.get('gender') === 'F'
       span.gender.gender_female &#9792;
