@@ -35,18 +35,18 @@ describe 'BattleServer', ->
   describe "#queuePlayer", ->
     it "queues players", ->
       server = new BattleServer()
-      server.queuePlayer("derp", [])
+      server.queuePlayer("derp", [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
     it "does not queue null players", ->
       server = new BattleServer()
-      server.queuePlayer(null, [])
+      server.queuePlayer(null, [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
-      server.queuePlayer("derp", [])
-      server.queuePlayer("derp", [])
+      server.queuePlayer("derp", [ Factory("Magikarp") ])
+      server.queuePlayer("derp", [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
   describe "#registerChallenge", ->
@@ -567,9 +567,9 @@ describe 'BattleServer', ->
     it "are recorded to be playing in which battles", ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(user1, [])
-      server.queuePlayer(user2, [])
-      server.queuePlayer(user3, [])
+      server.queuePlayer(user1, [ Factory("Magikarp") ])
+      server.queuePlayer(user2, [ Factory("Magikarp") ])
+      server.queuePlayer(user3, [ Factory("Magikarp") ])
       server.beginBattles (err, battleIds) ->
         server.getUserBattles(user1).should.eql(battleIds)
         server.getUserBattles(user2).should.eql(battleIds)
@@ -596,12 +596,14 @@ describe 'BattleServer', ->
       @server.queuePlayer(@user1, [ Factory("Magikarp") ])
       @server.queuePlayer(@user2, [ Factory("Magikarp"), Factory("Magikarp") ])
       @server.queuePlayer(@user3, [ Factory("Magikarp") ])
+      @server.queuedPlayers().should.have.length(3)
       @server.beginBattles (err, battleIds) =>
         @battleIds = battleIds
+        @relevantUser = @server.findBattle(@battleIds[0]).battle.playerIds[0]
         done()
 
     it "removes from user battles if ended", ->
-      @server.getUserBattles(@user2).should.not.be.empty
+      @server.getUserBattles(@relevantUser).should.not.be.empty
       battle = @server.findBattle(@battleIds[0])
       battle.endBattle()
       @server.getUserBattles(@user1).should.be.empty
@@ -609,9 +611,9 @@ describe 'BattleServer', ->
       @server.getUserBattles(@user3).should.be.empty
 
     it "removes from user battles if forfeited", ->
-      @server.getUserBattles(@user2).should.not.be.empty
+      @server.getUserBattles(@relevantUser).should.not.be.empty
       battle = @server.findBattle(@battleIds[0])
-      battle.forfeit(@user2)
+      battle.forfeit(@relevantUser)
       @server.getUserBattles(@user1).should.be.empty
       @server.getUserBattles(@user2).should.be.empty
       @server.getUserBattles(@user3).should.be.empty

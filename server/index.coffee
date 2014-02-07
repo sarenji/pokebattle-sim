@@ -116,12 +116,10 @@ errors = require '../shared/errors'
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return
 
-      validationErrors = server.validateTeam(team, generation)
+      validationErrors = server.queuePlayer(user.id, team, generation)
       if validationErrors.length > 0
         user.error(errors.FIND_BATTLE, validationErrors)
         return
-
-      server.queuePlayer(user.id, team, generation)
 
     'cancel find battle': (user, generation) ->
       server.removePlayer(user.id, generation)

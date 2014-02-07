@@ -10,6 +10,13 @@ pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
 
+FIND_BATTLE_CONDITIONS = [
+  Conditions.TEAM_PREVIEW
+  Conditions.SLEEP_CLAUSE
+  Conditions.RATED_BATTLE
+  Conditions.PBV_1000
+]
+
 class @BattleServer
   constructor: ->
     @queues = {}
@@ -117,9 +124,9 @@ class @BattleServer
         @rejectChallenge(player, challengerId)
 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
-    return false  if generation not of @queues
-    @queues[generation].add(playerId, team)
-    return true
+    errors = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
+    @queues[generation].add(playerId, team)  if errors.length == 0
+    return errors
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
@@ -130,12 +137,6 @@ class @BattleServer
     return true
 
   beginBattles: (next) ->
-    conditions = [
-      Conditions.TEAM_PREVIEW
-      Conditions.SLEEP_CLAUSE
-      Conditions.RATED_BATTLE
-      Conditions.PBV_1000
-    ]
     for generation in gen.SUPPORTED_GENERATIONS
       @queues[generation].pairPlayers (err, pairs) =>
         if err then return next(err)
@@ -143,7 +144,7 @@ class @BattleServer
         # Create a battle for each pair
         battleIds = []
         for pair in pairs
-          id = @createBattle(generation, pair, conditions)
+          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true

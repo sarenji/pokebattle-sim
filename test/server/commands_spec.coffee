@@ -7,6 +7,7 @@ auth = require('../../server/auth')
 {BattleServer} = require('../../server/server')
 {Room} = require('../../server/rooms')
 ratings = require('../../server/ratings')
+{Factory} = require '../factory'
 
 describe "Commands", ->
   beforeEach ->
@@ -126,10 +127,10 @@ describe "Commands", ->
           done()
 
       it "returns all battles that user is in if user is passed", (done) ->
-        @server.queuePlayer(@user1, [])
-        @server.queuePlayer(@user2, [])
-        @server.queuePlayer("aardvark", [])
-        @server.queuePlayer("bologna", [])
+        @server.queuePlayer(@user1, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2, [ Factory("Magikarp") ])
+        @server.queuePlayer("aardvark", [ Factory("Magikarp") ])
+        @server.queuePlayer("bologna", [ Factory("Magikarp") ])
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>
