@@ -204,6 +204,18 @@ class @Pokemon extends Backbone.Model
     return false  if @get('name') != species || @get('forme') != 'default'
     return true
 
+  # Returns the complete web address to the pokedex link for this pokemon.
+  # For this project, this leads to our website at http://www.pokebattle.com,
+  # but if you want it to lead somewhere else, edit this function.
+  getPokedexUrl: ->
+    # todo: move this function to /shared, or use an actual slugify library
+    slugify = (str) ->
+      str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/\-{2,}/g, '-')
+
+    slugSpecies = slugify(@get('name'))
+    slugForme = slugify(@get('forme'))
+    "http://www.pokebattle.com/dex/pokemon/#{slugSpecies}/#{slugForme}"
+
   toJSON: ->
     attributes = _.clone(@attributes)
     delete attributes.gender  if attributes.gender == 'Genderless'
