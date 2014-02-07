@@ -378,20 +378,22 @@ class @BattleView extends Backbone.View
       when "evasion" then "Evasion"
       else stat
     if didBoost && amount > 0
-      adverb = ""              if amount == 1
-      adverb = " sharply"      if amount == 2
-      adverb = " drastically"  if amount >= 3
-      "#{pokemonName}'s #{stat} rose#{adverb}!"
+      if amount == 12
+        "#{pokemonName} cut its own HP and maximized its #{stat}!"
+      else
+        adverb = ""              if amount == 1
+        adverb = " sharply"      if amount == 2
+        adverb = " drastically"  if amount == 3
+        "#{pokemonName}'s #{stat} rose#{adverb}!"
     else if didBoost && amount < 0
       adverb = ""           if amount == -1
       adverb = " harshly"   if amount == -2
-      adverb = " severely"  if amount <= -3
+      adverb = " severely"  if amount == -3
       "#{pokemonName}'s #{stat}#{adverb} fell!"
     else if !didBoost && amount > 0
       "#{pokemonName}'s #{stat} won't go any higher!"
     else if !didBoost && amount < 0
       "#{pokemonName}'s #{stat} won't go any lower!"
-
 
   unattachPokemon: (player, slot, effect, done) =>
     pokemon = @model.getPokemon(player, slot)

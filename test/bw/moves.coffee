@@ -1090,7 +1090,7 @@ describe "BW Moves:", ->
       @p1.currentHP.should.equal Math.min(326, @p1.stat('hp'))
       @p2.currentHP.should.equal Math.min(326, @p2.stat('hp'))
 
-  describe 'belly drum', ->
+  describe 'Belly Drum', ->
     shared.shouldDoNoDamage('Belly Drum')
 
     it "maximizes attack", ->
@@ -1123,6 +1123,18 @@ describe "BW Moves:", ->
 
       @p1.currentHP.should.equal hp
       @p1.stages.attack.should.equal 0
+
+    it "fails if the pokemon's attack is already maximized", ->
+      shared.create.call this,
+        team1: [Factory('Poliwrath')]
+        team2: [Factory('Magikarp')]
+      @p1.boost(attack: 12)
+      bd = @battle.getMove('Belly Drum')
+      mock = @sandbox.mock(bd).expects('fail').once()
+
+      @battle.performMove(@p1, bd)
+      mock.verify()
+      @p1.currentHP.should.equal(@p1.stat('hp'))
 
   describe 'acupressure', ->
     shared.shouldDoNoDamage('Acupressure')
