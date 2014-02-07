@@ -85,6 +85,16 @@ describe 'XY API:', ->
         data.pokemon.should.includeEql(["Greninja", "default"])
         done()
 
+  describe '/xy/pokemon', ->
+    it 'should get forme data for all pokemon', (done) ->
+      @client.get '/xy/pokemon', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("Charizard")
+        data.should.have.property("Mandibuzz")
+        data.should.have.property("Trevenant")
+        done()
+
   describe '/xy/pokemon/:name', ->
     it 'should get species data for that pokemon', (done) ->
       @client.get '/xy/pokemon/charizard', (err, req, res, data) ->

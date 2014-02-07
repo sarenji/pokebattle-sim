@@ -34,6 +34,10 @@ attachAPIEndpoints = (server) ->
         res.send(json.MoveData)
         return next()
 
+      server.get "#{gen}/pokemon", (req, res, next) ->
+        res.send(json.FormeData)
+        return next()
+
       server.get "#{gen}/pokemon/:name", (req, res, next) ->
         name = getName(req.params.name)
         return next(new restify.ResourceNotFoundError("Could not find Pokemon: #{req.params.name}"))  if !name
