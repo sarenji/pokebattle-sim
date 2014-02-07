@@ -2,6 +2,7 @@
 html
   head
     meta(http-equiv="X-UA-Compatible", content="IE=Edge")
+    meta(name="viewport", content="width=device-width")
     title PokeBattle
     link(rel="stylesheet", href="/css/vendor.min.css")
     link(rel="stylesheet", href="/css/main.css")
@@ -58,6 +59,11 @@ html
     script(src='/js/templates.js')
     script(src='/js/app.js')
     script.
+      // quicker click response on mobile devices
+      $(document).ready(function() {
+        FastClick.attach(document.body);
+      });
+
       //- Authentication
       (function() {
         var TOKEN = "#{user.token}";
