@@ -4136,6 +4136,17 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, suckerPunch)
       mock.verify()
 
+    it "fails if the target is using a status move", ->
+      shared.create.call(this)
+      suckerPunch = @battle.getMove('Sucker Punch')
+      willOWisp = @battle.getMove('Will-O-Wisp')
+
+      mock = @sandbox.mock(suckerPunch).expects('fail').once()
+      @battle.recordMove(@id2, willOWisp)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, suckerPunch)
+      mock.verify()
+
   describe 'Grudge', ->
     it "causes the last move to lose all its PP if the user faints", ->
       shared.create.call(this)

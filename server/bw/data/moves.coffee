@@ -1772,7 +1772,7 @@ extendMove 'Substitute', ->
 extendMove 'Sucker Punch', ->
   oldUse = @use
   @use = (battle, user, target) ->
-    if !battle.willMove(target)
+    if !battle.willMove(target) || battle.peekMove(target).isNonDamaging()
       @fail(battle)
       return false
     else
