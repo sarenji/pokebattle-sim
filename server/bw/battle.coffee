@@ -6,7 +6,7 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
-{Conditions} = require '../conditions'
+{Conditions} = require '../../shared/conditions'
 Query = require './queries'
 {EventEmitter} = require 'events'
 

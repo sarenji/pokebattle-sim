@@ -2,10 +2,10 @@
 {_} = require 'underscore'
 
 {BattleQueue} = require './queue'
-{Conditions} = require './conditions'
 {SocketHash} = require './socket_hash'
 gen = require './generations'
 learnsets = require '../shared/learnsets'
+{Conditions} = require '../shared/conditions'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'

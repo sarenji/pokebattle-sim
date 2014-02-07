@@ -3,7 +3,7 @@ require '../helpers'
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
 {Status, Attachment} = require('../../server/bw/attachment')
-{Conditions} = require '../../server/conditions'
+{Conditions} = require '../../shared/conditions'
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'

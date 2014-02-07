@@ -3,7 +3,7 @@ require './helpers'
 {BattleServer} = require('../server/server')
 gen = require('../server/generations')
 {User} = require('../server/user')
-{Conditions} = require '../server/conditions'
+{Conditions} = require '../shared/conditions'
 {Factory} = require './factory'
 should = require('should')
 

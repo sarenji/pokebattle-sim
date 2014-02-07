@@ -4,7 +4,7 @@ require '../helpers'
 {Pokemon} = require('../../server/bw/pokemon')
 {Status, VolatileStatus, Attachment} = require('../../server/bw/attachment')
 {Player} = require('../../server/player')
-{Conditions} = require '../../server/conditions'
+{Conditions} = require '../../shared/conditions'
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'

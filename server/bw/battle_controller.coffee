@@ -1,4 +1,4 @@
-{Conditions} = require '../conditions'
+{Conditions} = require '../../shared/conditions'
 
 # Abstracts out sending messages from player to battle.
 # Makes the Battle smoothly go into the next turn
