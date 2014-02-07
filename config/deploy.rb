@@ -31,4 +31,4 @@ end
 after "node:install_packages", "sim:compile"
 
 # clean up old releases on each deploy
-after "deploy:restart", "deploy:cleanup"
+after "deploy", "deploy:cleanup"
