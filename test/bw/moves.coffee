@@ -5621,6 +5621,20 @@ describe "BW Moves:", ->
         move = @battle.getMove(moveName)
         move.calculateNumberOfHits(@battle, @p1, [ @p2 ]).should.equal(5)
 
+      it "only hits up until the target Pokemon faints", ->
+        shared.create.call(this, team1: [Factory('Cloyster', ability: 'Skill Link')])
+
+        # try to "trick" the system into giving an invalid result. It should always hit
+        # 5 times regardless of the rng
+        shared.biasRNG.call(this, "choice", 'num hits', 3)
+        shared.biasRNG.call(this, "randInt", 'num hits', 3)
+
+        @p2.currentHP = 1
+        move = @battle.getMove(moveName)
+        spy = @sandbox.spy(move, 'hit')
+        @battle.performMove(@p1, move)
+        spy.calledOnce.should.be.true
+
   test2To5MulthitMove('Arm Thrust')
   test2To5MulthitMove('Barrage')
   test2To5MulthitMove('Bone Rush')

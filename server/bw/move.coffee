@@ -64,6 +64,7 @@ class @Move
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
         @hit(battle, user, target, hitNumber)
+        break  if target.isFainted()
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 
