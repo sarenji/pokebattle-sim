@@ -607,9 +607,11 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
 
   maxLayers: -1
 
+  successMultiplier: 2
+
   successChance: ->
-    x = Math.pow(2, @layers - 1)
-    if x >= 256 then Math.pow(2, 32) else x
+    x = Math.pow(@successMultiplier, @layers - 1)
+    if @layers > 8 then Math.pow(2, 32) else x
 
   endTurn: ->
     @turns--

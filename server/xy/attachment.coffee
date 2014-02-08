@@ -8,6 +8,10 @@ delete @Status.Sleep::switchOut
 @Status.Paralyze.worksOn = (battle, pokemon) ->
   !pokemon.hasType("Electric")
 
+# In XY, Protect-like moves have a chance of success corresponding to the
+# power of 3, instead of the power of 2 in previous generations.
+@Attachment.ProtectCounter::successMultiplier = 3
+
 class @Attachment.KingsShield extends @VolatileAttachment
   name: "KingsShieldAttachment"
 

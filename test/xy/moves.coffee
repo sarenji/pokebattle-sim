@@ -170,3 +170,14 @@ describe "XY Moves:", ->
       knockOff = @battle.getMove("Knock Off")
       basePower = knockOff.basePower(@battle, @p1, @p2)
       basePower.should.equal Math.floor(1.5 * knockOff.power)
+
+  describe "Protect-like moves", ->
+    it "determines success chance using a power of 3 instead of 2", ->
+      shared.create.call(this, gen: 'xy')
+
+      for x in [0..7]
+        attachment = @p1.attach(Attachment.ProtectCounter)
+        attachment.successChance().should.equal Math.pow(3, x)
+
+      attachment = @p1.attach(Attachment.ProtectCounter)
+      attachment.successChance().should.equal Math.pow(2, 32)
