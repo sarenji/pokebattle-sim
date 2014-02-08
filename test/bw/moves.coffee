@@ -3511,7 +3511,7 @@ describe "BW Moves:", ->
       it "completely protects the user from attacks", ->
         shared.create.call(this)
         move = @battle.getMove("Tackle")
-        mock = @sandbox.mock(move).expects('use').never()
+        mock = @sandbox.mock(move).expects('hit').never()
 
         @battle.recordMove(@id2, move)
         @battle.determineTurnOrder()
@@ -3529,14 +3529,14 @@ describe "BW Moves:", ->
         @battle.performMove(@p2, move)
         @battle.endTurn()
 
-        mock = @sandbox.mock(move).expects('use').once()
+        mock = @sandbox.mock(move).expects('hit').once()
         @battle.performMove(@p2, move)
         mock.verify()
 
       it "does not protect the user from attacks without the protect flag", ->
         shared.create.call(this)
         move = @battle.getMove("Feint")
-        mock = @sandbox.mock(move).expects('use').once()
+        mock = @sandbox.mock(move).expects('hit').once()
 
         @battle.recordMove(@id2, move)
         @battle.determineTurnOrder()
@@ -4650,7 +4650,7 @@ describe "BW Moves:", ->
           @battle.recordMove(@id1, move)
           @battle.recordMove(@id2, tackle)
 
-          mock = @sandbox.mock(tackle).expects('use').never()
+          mock = @sandbox.mock(tackle).expects('hit').never()
           @battle.continueTurn()
           mock.verify()
 
@@ -4663,7 +4663,7 @@ describe "BW Moves:", ->
           @battle.recordMove(@id1, move)
           @battle.recordMove(@id2, tackle)
 
-          mock = @sandbox.mock(tackle).expects('use').once()
+          mock = @sandbox.mock(tackle).expects('hit').once()
           @battle.continueTurn()
           mock.verify()
 
@@ -4681,7 +4681,7 @@ describe "BW Moves:", ->
             @battle.recordMove(@id1, move)
             @battle.recordMove(@id2, vulnerable)
 
-            mock = @sandbox.mock(vulnerable).expects('use').once()
+            mock = @sandbox.mock(vulnerable).expects('hit').once()
             @battle.continueTurn()
             mock.verify()
 
@@ -5943,7 +5943,7 @@ describe "BW Moves:", ->
         team1: [Factory("Magikarp", item: "Poison Herb")]
       protect = @battle.getMove("Protect")
       fling = @battle.getMove("Fling")
-      mock = @sandbox.mock(fling).expects('use').never()
+      mock = @sandbox.mock(fling).expects('hit').never()
       @battle.recordMove(@id2, protect)
       @battle.recordMove(@id1, fling)
       @battle.continueTurn()
