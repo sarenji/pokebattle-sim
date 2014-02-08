@@ -64,7 +64,8 @@ class @Move
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
         @hit(battle, user, target, hitNumber)
-      if numHits > 1 then battle.message @numHitsMessage(hitNumber)
+      if numHits > 1
+        battle.message @numHitsMessage Math.min(hitNumber, numHits)
 
     # If the move hit 1+ times, query the user's afterAllHits event.
     # If the user is affected by Sheer Force, these are all ignored.
