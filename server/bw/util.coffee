@@ -2,33 +2,33 @@
   Math.ceil(number - .5)
 
 @typeEffectiveness = (userType, againstTypes, options = {}) ->
-  userType = Type[userType.toUpperCase()]
+  userType = Type[userType]
   effectiveness = 1
   for subtype in againstTypes
-    targetType = Type[subtype.toUpperCase()]
+    targetType = Type[subtype]
     multiplier = typeChart[userType][targetType]
     multiplier = 1  if multiplier == 0 && options.ignoreImmunities
     effectiveness *= multiplier
   effectiveness
 
 @Type = Type =
-  NORMAL   : 0
-  FIRE     : 1
-  WATER    : 2
-  ELECTRIC : 3
-  GRASS    : 4
-  ICE      : 5
-  FIGHTING : 6
-  POISON   : 7
-  GROUND   : 8
-  FLYING   : 9
-  PSYCHIC  : 10
-  BUG      : 11
-  ROCK     : 12
-  GHOST    : 13
-  DRAGON   : 14
-  DARK     : 15
-  STEEL    : 16
+  Normal   : 0
+  Fire     : 1
+  Water    : 2
+  Electric : 3
+  Grass    : 4
+  Ice      : 5
+  Fighting : 6
+  Poison   : 7
+  Ground   : 8
+  Flying   : 9
+  Psychic  : 10
+  Bug      : 11
+  Rock     : 12
+  Ghost    : 13
+  Dragon   : 14
+  Dark     : 15
+  Steel    : 16
   "???"    : 17
 
 typeChart = [

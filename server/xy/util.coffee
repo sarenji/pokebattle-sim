@@ -2,7 +2,7 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../bw/util.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
-@Type.FAIRY  = Type.FAIRY  = 17
+@Type.Fairy  = Type.Fairy  = 17
 @Type["???"] = Type["???"] = 18
 
 typeChart = [
