@@ -238,7 +238,7 @@ describe 'Pokemon', ->
       for name, status of Status
         pokemon = new Pokemon()
         pokemon.attach(status)
-        pokemon.status.should.equal(status.name)
+        pokemon.status.should.equal(status)
 
     it "sets the corresponding attachment on the pokemon", ->
       for name, status of Status

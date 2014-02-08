@@ -213,9 +213,46 @@ class @Pokemon
   get: (attachment) ->
     @attachments.get(attachment)
 
-  cureStatus: (status) ->
-    if !status? || Status[@status] == status
-      @unattach(Status[@status])  if @status
+  cureAttachment: (attachment, options) ->
+    if attachment.name of Status
+      @cureStatus(attachment, options)
+    else
+      @cureAilment(attachment, options)
+
+  cureStatus: (status, options) ->
+    return false  if !@status
+    [ status, options ] = [ @status, status ]  if status?.name not of Status
+    return false  if status != @status
+    @cureAilment(@status, options)
+    @status = null
+    return true
+
+  cureAilment: (ailment, options = {}) ->
+    return false  if !@has(ailment)
+    shouldMessage = options.message ? true
+    if @battle && shouldMessage
+      if shouldMessage == true
+        message = switch ailment
+          when Status.Paralyze      then " was cured of paralysis."
+          when Status.Burn          then " healed its burn!"
+          when Status.Sleep         then " woke up!"
+          when Status.Toxic         then " was cured of its poisoning."
+          when Status.Poison        then " was cured of its poisoning."
+          when Status.Freeze        then " thawed out!"
+          when Attachment.Confusion then " snapped out of its confusion."
+      else
+        source = options.message
+        message = switch ailment
+          when Status.Paralyze      then "'s #{source} cured its paralysis!"
+          when Status.Burn          then "'s #{source} healed its burn!"
+          when Status.Sleep         then "'s #{source} woke it up!"
+          when Status.Toxic         then "'s #{source} cured its poison!"
+          when Status.Poison        then "'s #{source} cured its poison!"
+          when Status.Freeze        then "'s #{source} defrosted it!"
+          when Attachment.Confusion then "'s #{source} snapped it out of its confusion!"
+      @battle.message("#{@name}#{message}")
+    @unattach(ailment)
+    return true
 
   # TODO: really ugly copying of ability
   copyAbility: (ability) ->

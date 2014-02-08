@@ -694,6 +694,16 @@ describe "BW Items:", ->
       @p2.update()
       @p2.has(Attachment.Confusion).should.be.false
 
+    it "sends a message about status being restored", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Lum Berry")]
+
+      spy = @sandbox.spy(@battle, 'message')
+      shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
+      @p2.attach(Attachment.Confusion, {@battle})
+      @p2.update()
+      spy.args.join(',').should.include("#{@p1.name}'s Lum Berry snapped it out of its confusion!")
+
   describe "Enigma Berry", ->
     it "restores 25% of HP after the owner is hit by a super-effective move", ->
       shared.create.call this,

@@ -91,12 +91,10 @@ makeFeedbackDamageBerry = (name, klass) ->
 makeStatusCureBerry = (name, statuses...) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
-      removed = false
       for attachment in statuses
-        if owner.has(attachment)
-          owner.unattach(attachment)
-          removed = true
-      return removed
+        if owner.cureAttachment(attachment, message: name)
+          return true
+      return false
 
     this::update = ->
       if @constructor.eat(@battle, @pokemon) then @pokemon.useItem()
@@ -296,6 +294,7 @@ makeItem 'Eject Button', ->
     return  if move.isNonDamaging()
     switches = @pokemon.team.getAliveBenchedPokemon()
     return  if switches.length == 0
+    @battle.message "#{@pokemon.name} is switched out with the #{@name}!"
     slot = @battle.getSlotNumber(@pokemon)
     owner = @battle.getOwner(@pokemon)
     @battle.cancelAction(@pokemon)
@@ -475,6 +474,7 @@ makeItem 'Red Card', ->
     return  if move.isNonDamaging()
     benched  = user.team.getAliveBenchedPokemon()
     return  if benched.length == 0
+    @battle.message "#{@pokemon.name} held up its #{@name} against #{user.name}!"
     pokemon = @battle.rng.choice(benched)
     index = user.team.indexOf(pokemon)
     user.team.switch(user, index)

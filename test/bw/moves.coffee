@@ -6428,3 +6428,27 @@ describe "BW Moves:", ->
 
     it "removes Safeguard on target's side"
     it "removes Mist on target's side"
+
+  describe "Refresh", ->
+    it "fails if the Pokemon has no status", ->
+      shared.create.call(this, gen: 'bw')
+      refresh = @battle.getMove("Refresh")
+      mock = @sandbox.mock(refresh).expects('fail').once()
+      @battle.performMove(@p1, refresh)
+      mock.verify()
+
+    it "restores a Pokemon's status", ->
+      shared.create.call(this, gen: 'bw')
+      refresh = @battle.getMove("Refresh")
+      @p1.attach(Status.Burn)
+      @p1.has(Status.Burn).should.be.true
+      @battle.performMove(@p1, refresh)
+      @p1.has(Status.Burn).should.be.false
+
+    it "sends a message about status being restored", ->
+      shared.create.call(this, gen: 'bw')
+      refresh = @battle.getMove("Refresh")
+      @p1.attach(Status.Burn)
+      spy = @sandbox.spy(@battle, 'message')
+      @battle.performMove(@p1, refresh)
+      spy.args.join(',').should.include("#{@p1.name} healed its burn!")

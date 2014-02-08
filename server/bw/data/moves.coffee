@@ -294,7 +294,7 @@ makeStatusCureMove = (name, message) ->
     @execute = (battle, user, targets) ->
       battle.message(message)
       for target in targets
-        target.cureStatus()
+        target.cureStatus(message: false)
 
 makePickAttackMove = (name) ->
   extendMove name, ->
@@ -813,6 +813,12 @@ makeBasePowerBoostMove 'Punishment', 60, 200, 'target'
 makeBoostMove 'Quiver Dance', 'self', specialAttack: 1, specialDefense: 1, speed: 1
 makeWeatherMove 'Rain Dance', Weather.RAIN
 makeRecoveryMove 'Recover'
+
+extendMove 'Refresh', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.cureStatus()
+      @fail(battle)
+
 makeRevengeMove 'Revenge'
 makeReversalMove 'Reversal'
 makeRandomSwitchMove "Roar"
@@ -820,6 +826,7 @@ makeRechargeMove 'Roar of Time'
 makeBoostMove 'Rock Polish', 'self', speed: 2
 makeRechargeMove 'Rock Wrecker'
 makeMomentumMove 'Rollout'
+
 makeRecoveryMove 'Roost'
 extendMove 'Roost', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1610,7 +1617,7 @@ extendMove 'Psycho Shift', ->
     if !user.hasStatus() || target.hasStatus()
       @fail(battle)
       return false
-    status = Status[user.status]
+    status = user.status
     user.cureStatus()
     target.attach(status)
 

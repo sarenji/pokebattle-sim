@@ -466,7 +466,6 @@ makeAbility 'Hustle', ->
 makeAbility "Hydration", ->
   this::endTurn = ->
     if @battle.hasWeather(Weather.RAIN) && @pokemon.hasStatus()
-      @battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}!"
       @pokemon.cureStatus()
 
 makeAbility 'Ice Body', ->
@@ -581,7 +580,7 @@ makeAbility 'Multitype'
 
 makeAbility 'Natural Cure', ->
   this::switchOut = ->
-    @pokemon.cureStatus()
+    @pokemon.cureStatus(message: false)
 
 makeAbility 'No Guard', ->
   this::editAccuracy = -> 0  # Never miss
@@ -703,7 +702,6 @@ makeAbility 'Shed Skin', ->
   this::endTurn = ->
     return  unless @pokemon.hasStatus()
     if @battle.rng.randInt(1, 10, "shed skin") <= 3
-      @battle.message "#{@pokemon.name} was cured of its #{@pokemon.status}."
       @pokemon.cureStatus()
 
 makeAbility 'Sheer Force', ->

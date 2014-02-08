@@ -1209,8 +1209,8 @@ class @StatusAttachment extends @BaseAttachment
         source.attach(this)  # Do not attach source
         battle.message "#{pokemon.name} synchronized its status with #{source.name}!"
     else
-      pokemon.cureStatus()
-    pokemon.status = @name
+      pokemon.cureStatus(message: false)
+    pokemon.status = this
     return true
 
   initialize: ->
@@ -1256,7 +1256,6 @@ class @Status.Freeze extends @StatusAttachment
 
   beforeMove: (move, user, targets) ->
     if move.thawsUser || @battle.rng.next('unfreeze chance') < .2
-      @battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
     else
       @battle.message "#{@pokemon.name} is frozen solid!"
@@ -1264,7 +1263,6 @@ class @Status.Freeze extends @StatusAttachment
 
   afterBeingHit: (move, user, target) ->
     if !move.isNonDamaging() && move.type == 'Fire'
-      @battle.message "#{@pokemon.name} thawed out!"
       @pokemon.cureStatus()
 
 class @Status.Poison extends @StatusAttachment
@@ -1313,7 +1311,6 @@ class @Status.Sleep extends @StatusAttachment
 
   beforeMove: (move, user, targets) ->
     if @counter == @turns
-      @battle.message "#{@pokemon.name} woke up!"
       @pokemon.cureStatus()
     else
       @battle.message "#{@pokemon.name} is fast asleep."
