@@ -147,7 +147,7 @@ class @BattleView extends Backbone.View
       gen   = battle.get('generation').toUpperCase()
       {id}  = window.Generations[gen].SpeciesData[name]
       url   = PokemonSprite(id, forme, front: front, shiny: shiny)
-      scale = if front then .75 else 1
+      scale = if front then 1 else 1.3
       addPokemonImage($this, url, scale: scale, callback: callback)
 
   changeHP: (player, slot, oldPixels, done) =>
