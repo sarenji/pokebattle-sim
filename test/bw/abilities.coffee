@@ -1862,6 +1862,20 @@ describe "BW Abilities:", ->
       @battle.endTurn()
       @team1.first().stages.should.include(speed: 2)
 
+    it "boosts speed the turn after a pokemon is replaced", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Speed Boost")]
+      @p1.currentHP = 1
+      @controller.makeMove(@id1, "Tackle")
+      @controller.makeMove(@id2, "Tackle")
+      @controller.makeSwitch(@id1, 1)
+      @battle.turn.should.equal(2)
+      @team1.first().stages.should.include(speed: 0)
+      @battle.endTurn()
+      @team1.first().stages.should.include(speed: 1)
+      @battle.endTurn()
+      @team1.first().stages.should.include(speed: 2)
+
   describe "Sticky Hold", ->
     it "prevents items from being taken", ->
       shared.create.call this,

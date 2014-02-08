@@ -118,7 +118,6 @@ class @Battle extends EventEmitter
     # TODO: Switch-in events are ordered by speed
     for pokemon in @getActivePokemon()
       pokemon.switchIn()
-      # TODO: This is not part of the regular performReplacements
       pokemon.turnsActive = 1
     @beginTurn()
 
@@ -610,6 +609,7 @@ class @Battle extends EventEmitter
     # TODO: Switch-in events are ordered by speed
     for pokemon in switched
       pokemon.team.switchIn(pokemon)
+      pokemon.turnsActive = 1
 
     # Pokemon may have fainted upon switch-in; we need to check.
     @checkForReplacements()

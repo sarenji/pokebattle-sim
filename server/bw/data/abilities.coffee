@@ -773,8 +773,7 @@ makeAbility 'Soundproof', ->
 makeAbility 'Speed Boost', ->
   this::endTurn = ->
     return  if @pokemon.turnsActive <= 0
-    boosts = {speed: 1}
-    @pokemon.boost(boosts)
+    @pokemon.boost(speed: 1)
 
 makeAbility 'Stall', ->
   this::afterTurnOrder = ->
