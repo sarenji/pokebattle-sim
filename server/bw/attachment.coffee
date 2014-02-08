@@ -150,7 +150,11 @@ class @Attachment.Confusion extends @VolatileAttachment
 
   initialize: (attributes) ->
     @turns = @battle?.rng.randInt(1, 4, "confusion turns") || 1
+    @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
     @turn = 0
+
+  unattach: ->
+    @pokemon?.tell(Protocol.POKEMON_UNATTACH, @name)
 
   beforeMove: (move, user, targets) ->
     @battle.message "#{@pokemon.name} is confused!"

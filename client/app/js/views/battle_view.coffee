@@ -282,9 +282,9 @@ class @BattleView extends Backbone.View
 
   attachPokemon: (player, slot, attachment, done) =>
     pokemon = @model.getPokemon(player, slot)
+    $pokemon = @$pokemon(player, slot)
     switch attachment
       when 'SubstituteAttachment'
-        $pokemon = @$pokemon(player, slot)
         $sprite = @$sprite(player, slot)
         spriteWidth = $sprite.width()
         spriteHeight = $sprite.height()
@@ -309,6 +309,10 @@ class @BattleView extends Backbone.View
               .y( yOffset >> 3).ease('ease-in-quad').duration(@skip ? '.1s').then()
               .pop().pop().pop().end(done)
           , 0
+      when 'ConfusionAttachment'
+        @addPokemonEffect($pokemon, "confusion", "Confusion")
+        @addLog("#{pokemon.get('name')} became confused!")
+        done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
         done()
@@ -401,9 +405,9 @@ class @BattleView extends Backbone.View
 
   unattachPokemon: (player, slot, effect, done) =>
     pokemon = @model.getPokemon(player, slot)
+    $pokemon = @$pokemon(player, slot)
     switch effect
       when 'SubstituteAttachment'
-        $pokemon = @$pokemon(player, slot)
         $sprite = @$sprite(player, slot)
         $sprite.removeClass('fade')
         $substitute = $pokemon.find('.substitute').first()
@@ -414,6 +418,9 @@ class @BattleView extends Backbone.View
         else
           move($substitute).set('opacity', 0).y(300)
             .then(-> $substitute.remove()).end(done)
+      when 'ConfusionAttachment'
+        $pokemon.find(".pokemon-effect.confusion").remove()
+        done()
       when 'Paralyze'
         pokemon.set('status', null)
         done()
