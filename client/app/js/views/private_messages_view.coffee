@@ -102,11 +102,16 @@ class @PrivateMessagesView extends Backbone.View
 
   notifyJoin: (user) =>
     message = @collection.get(user.id)
+    return  unless @isOpen(message)
     message?.add(user.id, "#{user.id} is now online!", type: "alert")
 
   notifyLeave: (user) =>
     message = @collection.get(user.id)
+    return  unless @isOpen(message)
     message?.add(user.id, "#{user.id} is now offline.", type: "alert")
+
+  isOpen: (message) =>
+    $findPopup(message.id).length > 0
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
