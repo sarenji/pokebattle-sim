@@ -77,8 +77,6 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.REQUEST_ACTIONS
           [validActions] = rest
-          console.log "ACTIONS REQUESTED:"
-          console.log validActions
           view.enableButtons(validActions)
           done()
         when Protocol.START_TURN
