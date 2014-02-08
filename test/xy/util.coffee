@@ -9,7 +9,7 @@ describe "XY utility functions:", ->
 
   it "adds a new Fairy type", ->
     should.exist(util.Type)
-    should.exist(util.Type.FAIRY)
+    should.exist(util.Type.Fairy)
 
   it "adds strengths and weaknesses of the new Fairy type", ->
     util.typeEffectiveness("Fairy", [ "Dragon" ]).should.equal(2)

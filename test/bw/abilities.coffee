@@ -1837,8 +1837,8 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Soundproof")]
       bugBuzz = @battle.getMove('Bug Buzz')
       perishSong = @battle.getMove('Perish Song')
-      @p1.isImmune(bugBuzz.type, bugBuzz).should.be.true
-      @p1.isImmune(perishSong.type, perishSong).should.be.true
+      @p1.isImmune(bugBuzz.type, move: bugBuzz).should.be.true
+      @p1.isImmune(perishSong.type, move: perishSong).should.be.true
 
   describe "Speed Boost", ->
     it "boosts speed at the end of every turn", ->

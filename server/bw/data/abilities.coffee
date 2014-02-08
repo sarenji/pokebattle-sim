@@ -682,8 +682,9 @@ makeAbility 'Sand Veil', ->
   this::isWeatherDamageImmune = (weather) ->
     return true  if weather == Weather.SAND
 
-# Hardcoded in move#typeEffectiveness
-makeAbility 'Scrappy'
+makeAbility 'Scrappy', ->
+  this::shouldIgnoreImmunity = (moveType, target) ->
+    return target.hasType('Ghost') && moveType in [ 'Normal', 'Fighting' ]
 
 # Hardcoded in server/bw/data/moves
 makeAbility 'Serene Grace'

@@ -145,7 +145,7 @@ describe "BW Abilities:", ->
         gen: 'xy'
         team1: [Factory("Magikarp", ability: "Bulletproof")]
       shadowBall = @battle.getMove('Shadow Ball')
-      @p1.isImmune(shadowBall.type, shadowBall).should.be.true
+      @p1.isImmune(shadowBall.type, move: shadowBall).should.be.true
 
   describe "Fur Coat", ->
     it "modifies physical attacks by 0x800", ->

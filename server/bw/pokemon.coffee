@@ -391,14 +391,21 @@ class @Pokemon
   recordHit: (pokemon, damage, move, turn) ->
     @lastHitBy = {pokemon, damage, move, turn}
 
-  isImmune: (type, move) ->
-    b = Query.untilNotNull('isImmune', @attachments.all(), type, move)
+  isImmune: (type, options = {}) ->
+    b = Query.untilNotNull('isImmune', @attachments.all(), type, options.move)
     if b? then return b
 
-    return false  if move?.ignoresImmunities()
+    return false  if options.move?.ignoresImmunities()
 
-    multiplier = util.typeEffectiveness(type, @types)
+    multiplier = @effectivenessOf(type, options)
     return multiplier == 0
+
+  effectivenessOf: (type, options) ->
+    hash = {}
+    if options.user
+      type = options.user.editMoveType(type, this)
+      hash.ignoreImmunities = options.user.shouldIgnoreImmunity(type, this)
+    util.typeEffectiveness(type, @types, hash)
 
   isWeatherDamageImmune: (weather) ->
     b = Query.untilNotNull('isWeatherDamageImmune', @attachments.all(), weather)
@@ -429,6 +436,9 @@ class @Pokemon
 
   shouldPhase: (phaser) ->
     Query.untilFalse('shouldPhase', @attachments.all(), phaser) != false
+
+  shouldIgnoreImmunity: (type, target) ->
+    Query.untilTrue('shouldIgnoreImmunity', @attachments.all(), type, target)
 
   informCriticalHit: ->
     Query('informCriticalHit', @attachments.all())
@@ -572,7 +582,6 @@ class @Pokemon
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
-# TODO: .yml-ify these.
 PLUS  = 1.1
 MINUS = 0.9
 natures =

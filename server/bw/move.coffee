@@ -81,7 +81,7 @@ class @Move
       @afterMiss(battle, user, target)
       return false
 
-    if target.isImmune(@getType(battle, user, target), this)
+    if target.isImmune(@getType(battle, user, target), move: this)
       battle.message "But it doesn't affect #{target.name}..."
       return false
 
@@ -203,9 +203,7 @@ class @Move
 
   typeEffectiveness: (battle, user, target) ->
     type = @getType(battle, user, target)
-    options = {ignoreImmunities: user.hasAbility("Scrappy")}
-    type = user.editMoveType(type, target)
-    util.typeEffectiveness(type, target.types, options)
+    target.effectivenessOf(type, user: user, move: this)
 
   burnCalculation: (user) ->
     if @isPhysical() && !user.hasAbility("Guts") && user.has(Status.Burn)

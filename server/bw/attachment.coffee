@@ -1100,6 +1100,7 @@ class @Attachment.Gravity extends @BattleAttachment
 
   initialize: ->
     @turns = 5
+    @beginTurn()
 
   beginTurn: ->
     for pokemon in @battle.getActivePokemon()
@@ -1125,8 +1126,10 @@ class @Attachment.GravityPokemon extends @VolatileAttachment
     Math.floor(accuracy * 5 / 3)
 
   isImmune: (type) ->
-    # TODO: Display "POKEMON couldn't stay airborne because of gravity!"?
     return false  if type == 'Ground'
+
+  shouldIgnoreImmunity: (moveType, target) ->
+    return target.hasType("Flying") && moveType == 'Ground'
 
   endTurn: ->
     @pokemon.unattach(@constructor)

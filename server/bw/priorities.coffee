@@ -126,3 +126,16 @@ Priorities.endTurn ?= [
   Item.StickyBarb
   # Ability.ZenMode
 ]
+
+Priorities.isImmune ?= [
+  Attachment.GravityPokemon  # Gravity overrides Ground-type immunities.
+  Attachment.Identify
+  Attachment.MagnetRise
+  Attachment.Ingrain
+  Attachment.Telekinesis
+  Attachment.SmackDown
+  Item.AirBalloon
+  Item.IronBall
+  Ability.Levitate
+  Ability.Soundproof
+]

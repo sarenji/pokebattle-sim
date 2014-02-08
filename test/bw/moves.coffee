@@ -6050,12 +6050,29 @@ describe "BW Moves:", ->
         @battle.endTurn()
       @battle.has(Attachment.Gravity).should.be.false
 
-    it "makes Pokemon otherwise immune to Ground susceptible to it", ->
+    it "makes Flying Pokemon no longer immune to Ground", ->
       shared.create.call(this)
       @p2.types = [ "Flying" ]
+      @p2.isImmune("Ground").should.be.true
       gravity = @battle.getMove("Gravity")
       @battle.performMove(@p1, gravity)
       @p2.isImmune("Ground").should.be.false
+
+    it "makes Levitating Pokemon no longer immune to Ground", ->
+      shared.create.call(this, team2: [Factory("Magikarp", ability: "Levitate")])
+      @p2.isImmune("Ground").should.be.true
+      gravity = @battle.getMove("Gravity")
+      @battle.performMove(@p1, gravity)
+      @p2.isImmune("Ground").should.be.false
+
+    it "deals damage to Flying Pokemon", ->
+      shared.create.call(this)
+      @p2.types = [ "Flying" ]
+      gravity = @battle.getMove("Gravity")
+      earthquake = @battle.getMove("Earthquake")
+      earthquake.typeEffectiveness(@battle, @p1, @p2).should.equal(0)
+      @battle.performMove(@p1, gravity)
+      earthquake.typeEffectiveness(@battle, @p1, @p2).should.equal(1)
 
     # TODO: Sky Drop
     for moveName in [ "Bounce", "Fly" ]
