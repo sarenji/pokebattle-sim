@@ -32,6 +32,7 @@ class @PrivateMessagesView extends Backbone.View
 
       @$el.append($html)
       @positionPopup($html, @numPopups)
+      @addLogMessages($html, message.getLog())
       @numPopups += 1
     $html.find('input').focus()
     $html
@@ -48,6 +49,21 @@ class @PrivateMessagesView extends Backbone.View
     $body = $popup.find('.popup_body')
     $body.toggleClass('hidden')
 
+  # todo: make this and receiveMessage construct messages from a common source
+  addLogMessages: ($popup, log) =>
+    messageHtml = ""
+    for {username, message, opts} in log 
+      if opts.type == 'error'
+        messageHtml += "<p class='privmsg-error log-message'>#{message}</p>"
+      else if opts.type == 'alert'
+        messageHtml += "<p class='privmsg-alert log-message'>#{message}</p>"
+      else
+        messageHtml += "<p class='log-message'><strong>#{username}:</strong> #{message}</p>"
+
+    $messages = $popup.find('.popup_messages').append($(messageHtml))
+    @scrollToBottom()
+
+  # todo: make this and addLogMessages construct messages from a common source
   receiveMessage: (messageId, username, message, options) =>
     $popup = @$findOrCreatePopup(messageId)
     $messages = $popup.find('.popup_messages')
