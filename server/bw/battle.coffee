@@ -98,6 +98,7 @@ class @Battle extends EventEmitter
 
     @replacing = false
     @finished = false
+    @originalTeams = @getTeams().map((team) -> team.toJSON(hidden: true))
 
     @once 'end', (winnerId) ->
       @finished = true
@@ -704,11 +705,12 @@ class @Battle extends EventEmitter
     return  if spectator in @spectators
     spectator = new User(spectator.id)  if spectator not instanceof User
     @spectators.push(spectator)
-    teams = @getTeams().map((team) -> team.toJSON(hidden: true))
     index = @getPlayerIndex(spectator.id)
     # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectate battle', @id, @generation, @numActive, index, teams, spectators, @log)
+    spectator.send('spectate battle',
+      @id, @generation, @numActive,
+      index, @originalTeams, spectators, @log)
     if spectator.id in @playerIds
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     # TODO: Only do if spectator id has not joined yet.

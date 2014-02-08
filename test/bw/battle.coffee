@@ -220,6 +220,18 @@ describe 'Battle', ->
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, teams, spectators, log).should.be.true
 
+    it "receives the correct set of initial teams", ->
+      spectator = new User("derp")
+      spy = @sandbox.spy(spectator, 'send')
+      teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
+      @team1.switch(@p1, 1)
+      teams.should.not.eql @battle.getTeams().map((team) -> team.toJSON(hidden: true))
+
+      @battle.addSpectator(spectator)
+      spectators = @battle.spectators.map((s) -> s.toJSON())
+      {id, numActive, log} = @battle
+      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, teams, spectators, log).should.be.true
+
     it "does not add a spectator twice", ->
       spectator = new User("derp")
       length = @battle.spectators.length
