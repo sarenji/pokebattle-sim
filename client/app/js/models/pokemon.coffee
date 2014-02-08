@@ -67,6 +67,8 @@ class @Pokemon extends Backbone.Model
       specialAttack: 0
       specialDefense: 0
       speed: 0
+      accuracy: 0
+      evasion: 0
 
   normalizeStats: (hash, defaultValue) ->
     stats = [ "hp", "attack", "defense", "specialAttack",
