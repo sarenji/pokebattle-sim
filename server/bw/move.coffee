@@ -64,6 +64,7 @@ class @Move
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
         @hit(battle, user, target, hitNumber)
+      if numHits > 1 then battle.message @numHitsMessage(hitNumber)
 
     # If the move hit 1+ times, query the user's afterAllHits event.
     # If the user is affected by Sheer Force, these are all ignored.
@@ -127,6 +128,9 @@ class @Move
   # A hook that executes once a move fails.
   fail: (battle) ->
     battle.message "But it failed!"
+
+  numHitsMessage: (hitNumber) ->
+    return "Hit #{hitNumber} time(s)!"
 
   # A hook that is only used by special "specific-move" targets.
   getTargets: (battle, user) ->

@@ -11,6 +11,10 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
   action: (action) ->
     @performMegaEvolution(action.pokemon)
 
+@Battle::numHitsMessage = (hitNumber) ->
+  times = (if hitNumber == 1 then "time" else "times")
+  return "Hit #{hitNumber} #{times}!"
+
 @Battle::performMegaEvolution = (pokemon) ->
   [ species, forme ] = pokemon.item.mega
   pokemon.changeForme(forme)
