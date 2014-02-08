@@ -58,8 +58,8 @@ class @Move
 
     targetsHit = []
     for target in targets
-      continue  if target.shouldBlockExecution(this, user) == true
       continue  if @use(battle, user, target, hitNumber) == false
+      continue  if target.shouldBlockExecution(this, user) == true
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]

@@ -70,6 +70,20 @@ describe "XY Moves:", ->
       @battle.performMove(@p2, willOWisp)
       mock.verify()
 
+    it "does not protect against attacks it is immune to", ->
+      shared.create.call(this, gen: 'xy')
+      @p1.types = [ 'Ghost' ]
+      kingsShield = @battle.getMove("King's Shield")
+      tackle = @battle.getMove("Tackle")
+      mock = @sandbox.mock(tackle).expects('hit').never()
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, kingsShield)
+      @battle.performMove(@p2, tackle)
+      mock.verify()
+      @p2.stages.should.include(attack: 0)
+
     it "sharply lowers attacker's Attack if move was a contact move", ->
       shared.create.call(this, gen: 'xy')
       kingsShield = @battle.getMove("King's Shield")
