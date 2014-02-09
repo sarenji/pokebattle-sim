@@ -133,7 +133,7 @@ makeAbility "Strong Jaw", ->
     return 0x1000
 
 # TODO: Sweet Veil (2v2)
-makeAttachmentImmuneAbility "Sweet Veil", [Attachment.Sleep]
+makeAttachmentImmuneAbility "Sweet Veil", [Status.Sleep]
 
 # TODO: Symbiosis
 makeAbility "Symbiosis"
