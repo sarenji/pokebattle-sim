@@ -76,24 +76,24 @@ class @BattleServer
     if !@challenges[challengerId]?[player.id]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
-      return false
+      return null
 
     challenge = @challenges[challengerId][player.id]
     err = @validateTeam(team, challenge.generation, challenge.conditions)
     if err.length > 0
       # TODO: Use a modal error instead
       player.error(errors.FIND_BATTLE, err)
-      return false
+      return null
 
     teams = {}
     teams[challengerId] = challenge.team
     teams[player.id] = team
 
-    @createBattle(challenge.generation, teams, challenge.conditions)
+    id = @createBattle(challenge.generation, teams, challenge.conditions)
     @users.send(player.id, "challengeSuccess", challengerId)
     @users.send(challengerId, "challengeSuccess", player.id)
     delete @challenges[challengerId][player.id]
-    return true
+    return id
 
   rejectChallenge: (player, challengerId) ->
     if !@challenges[challengerId]?[player.id]?

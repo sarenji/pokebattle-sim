@@ -102,7 +102,10 @@ errors = require '../shared/errors'
       server.cancelChallenge(user, challengeeId)
 
     'accept challenge': (user, challengerId, team) ->
-      server.acceptChallenge(user, challengerId, team)
+      battleId = server.acceptChallenge(user, challengerId, team)
+      if battleId
+        lobby.message("""Challenge: <span class="fake_link spectate"
+        data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
 
     'reject challenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
@@ -187,8 +190,10 @@ errors = require '../shared/errors'
     server.beginBattles (err, battleIds) ->
       if err then return
       for id in battleIds
-        message = """A new battle started!
-        <span class="fake_link spectate" data-battle-id="#{id}">Watch</span>"""
+        battle = server.findBattle(id)
+        playerNames = battle.getPlayerIds()
+        message = """Ladder match: <span class="fake_link spectate"
+        data-battle-id="#{id}">#{playerNames.join(" vs. ")}</span>!"""
         lobby.message(message)
     setTimeout(battleSearch, 5 * 1000)
 

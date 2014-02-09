@@ -8,6 +8,10 @@ class @BattleController
     @arranged = []
     @arranging = false
 
+  # Returns all the player ids participating in this battle.
+  getPlayerIds: ->
+    @battle.playerIds
+
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
   makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
