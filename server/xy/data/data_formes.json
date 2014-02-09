@@ -58392,6 +58392,7 @@
             "abilities": [
                 "Stance Change"
             ],
+            "isBattleOnly": true,
             "weight": 530
         }
     },
