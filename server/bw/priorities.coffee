@@ -129,13 +129,13 @@ Priorities.endTurn ?= [
 
 Priorities.isImmune ?= [
   Attachment.GravityPokemon  # Gravity overrides Ground-type immunities.
-  Attachment.Identify
-  Attachment.MagnetRise
   Attachment.Ingrain
-  Attachment.Telekinesis
   Attachment.SmackDown
-  Item.AirBalloon
   Item.IronBall
+  Attachment.Telekinesis
   Ability.Levitate
+  Attachment.MagnetRise
+  Item.AirBalloon
+  Attachment.Identify
   Ability.Soundproof
 ]
