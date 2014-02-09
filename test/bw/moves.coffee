@@ -5692,13 +5692,30 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, transform)
       mock.verify()
 
-    it "changes the user's species and type to match the target's", ->
+    it "changes the user's type to match the target's", ->
       shared.create.call(this, team2: [Factory("Celebi")])
       transform = @battle.getMove("Transform")
 
       @battle.performMove(@p1, transform)
       @p1.types.should.eql @p2.types
-      @p1.species.should.eql @p2.species
+
+    it "forces a sprite change", ->
+      shared.create.call(this, team2: [Factory("Celebi")])
+      transform = @battle.getMove("Transform")
+
+      mock = @sandbox.mock(@p1).expects('changeSprite').once()
+      @battle.performMove(@p1, transform)
+      mock.verify()
+
+    it "does not change species or forme", ->
+      shared.create.call(this, team2: [Factory("Latias")])
+      transform = @battle.getMove("Transform")
+
+      oldSpecies = @p1.species
+      oldForme = @p1.forme
+      @battle.performMove(@p1, transform)
+      @p1.species.should.equal(oldSpecies)
+      @p1.forme.should.equal(oldForme)
 
     it "changes the user's base stats to the target's, except HP", ->
       shared.create.call(this, team2: [Factory("Celebi")])

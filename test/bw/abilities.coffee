@@ -822,7 +822,6 @@ describe "BW Abilities:", ->
         team2: [Factory("Celebi"), Factory("Mew")]
       @team1.at(1).copyAbility(Ability.Imposter)
       @team1.at(1).has(Attachment.Transform).should.be.true
-      @team1.at(1).species.should.equal @team2.at(1).species
 
     it "does not transform if target is behind a substitute", ->
       shared.create.call(this)

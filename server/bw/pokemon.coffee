@@ -542,6 +542,11 @@ class @Pokemon
     args = [ @battle.getPlayerIndex(@playerId), @team.indexOf(this), args... ]
     @battle.tell(protocol, args...)
 
+  tellPlayer: (protocol, args...) ->
+    return  unless @battle
+    args = [ @battle.getPlayerIndex(@playerId), @team.indexOf(this), args... ]
+    @battle.tellPlayer(@playerId, protocol, args...)
+
   # Returns whether this Pokemon has this move in its moveset.
   knows: (move) ->
     move in @moves
@@ -555,6 +560,14 @@ class @Pokemon
   toString: ->
     "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
 
+  movesetJSON: ->
+    return {
+      "moves"     : @moves.map (m) -> m.name
+      "moveTypes" : @moves.map (m) -> m.type
+      "pp"        : @moves.map (m) => @pp(m)
+      "maxPP"     : @moves.map (m) => @maxPP(m)
+    }
+
   toJSON: (options = {}) ->
     base =
       "name"      : @name
@@ -564,13 +577,10 @@ class @Pokemon
       "forme"     : @forme
       "shiny"     : @shiny == true
     return base  if options.hidden
+    base = Object.merge base, @movesetJSON()
     base = Object.merge base,
       "hp"        : @currentHP
       "maxHP"     : @stat('hp')
-      "moves"     : @moves.map (m) -> m.name
-      "moveTypes" : @moves.map (m) -> m.type
-      "pp"        : @moves.map (m) => @pp(m)
-      "maxPP"     : @moves.map (m) => @maxPP(m)
       "ivs"       :
         hp: @iv('hp')
         attack: @iv('attack')

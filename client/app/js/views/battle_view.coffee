@@ -267,7 +267,7 @@ class @BattleView extends Backbone.View
   moveSuccess: (player, slot, targetSlot, done) =>
     done()
 
-  cancelSuccess: =>
+  cancelSuccess: (done) =>
     @enableButtons()
     done()
 

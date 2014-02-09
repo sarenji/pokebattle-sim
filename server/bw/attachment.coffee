@@ -1060,11 +1060,10 @@ class @Attachment.Transform extends @VolatileAttachment
   initialize: (attributes) ->
     {target} = attributes
     # Save old data
-    {@ability, @species, @moves, @stages, @types, @gender, @weight} = @pokemon
-    {@ppHash, @maxPPHash} = @pokemon
+    {@ability, @moves, @stages} = @pokemon
+    {@types, @gender, @weight, @ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
     @pokemon.copyAbility(target.ability)
-    @pokemon.species = target.species
     @pokemon.gender  = target.gender
     @pokemon.weight  = target.weight
     # The rest aren't.
@@ -1072,11 +1071,13 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.stages  = _.clone(target.stages)
     @pokemon.types   = _.clone(target.types)
     @pokemon.resetAllPP(5)
+    # Send updated information to the client
+    @pokemon.changeSprite(target.name, target.forme)
+    @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
   unattach: ->
     # Restore old data
     @pokemon.ability   = @ability
-    @pokemon.species   = @species
     @pokemon.moves     = @moves
     @pokemon.stages    = @stages
     @pokemon.types     = @types
@@ -1084,6 +1085,8 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.weight    = @weight
     @pokemon.ppHash    = @ppHash
     @pokemon.maxPPHash = @maxPPHash
+    @pokemon.changeSprite(@pokemon.name, @pokemon.forme)
+    @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
 class @Attachment.Fling extends @VolatileAttachment
   name: "FlingAttachment"
