@@ -416,10 +416,12 @@ class @Pokemon
                      @hasType("Rock") || @hasType("Steel"))
     return @battle?.hasWeatherCancelAbilityOnField() || false
 
-  switchIn: ->
+  activate: ->
     @turnsActive = 0
     @attach(@ability)  if @ability
-    @attach(@item)   if @item
+    @attach(@item)     if @item
+
+  switchIn: ->
     Query('switchIn', @attachments.all())
 
   switchOut: ->

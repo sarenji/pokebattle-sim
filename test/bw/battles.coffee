@@ -31,10 +31,10 @@ defaultTeam = [
     ability: "Multiscale"
   }
   {
-    name: "Jigglypuff"
+    name: "Politoed"
     item: "Leftovers"
-    moves: ["Sing", "Seismic Toss", "Protect", "Wish"]
-    ability: "Cute Charm"
+    moves: ["Scald", "Ice Beam", "Protect", "Toxic"]
+    ability: "Drizzle"
   }
   {
     name: "Haunter"
@@ -84,6 +84,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
+      @team2.first().name.should.equal("Hitmonchan")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
@@ -92,9 +93,71 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
+      @team2.first().name.should.equal("Charizard")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
       # Each pokemon should have called their faint method
       spy1.called.should.be.true
       spy2.called.should.be.true
+
+    it "doesn't trigger weather if a switch-in faints immediately", ->
+      shared.create.call(this, team1: defaultTeam, team2: defaultTeam)
+      spy = @sandbox.spy(@battle, 'performReplacements')
+
+      @battle.turn.should.equal(1)
+
+      # There should be no weather at the start of the battle.
+      @battle.hasWeather().should.be.false
+
+      # Artificially set up conditions
+      @team2.at(4).currentHP = 1
+      @team2.attach(Attachment.StealthRock)
+
+      # Now attempt the switch.
+      @controller.makeSwitch(@id2, 4)
+      @controller.makeMove(@id1, "Substitute")
+
+      # Nothing happens except the Pokemon faints.
+      @battle.turn.should.equal(1)
+      @team2.first().name.should.equal("Politoed")
+      @team2.first().isFainted().should.be.true
+      @battle.areAllRequestsCompleted().should.be.false
+
+      # There should be no weather.
+      @battle.hasWeather().should.be.false
+
+    it "doesn't trigger weather if a replacement faints immediately", ->
+      shared.create.call(this, team1: defaultTeam, team2: defaultTeam)
+
+      @battle.turn.should.equal(1)
+
+      # There should be no weather at the start of the battle.
+      @battle.hasWeather().should.be.false
+
+      # Artificially set up conditions
+      @team2.at(1).currentHP = 1
+      @team2.at(4).currentHP = 1
+      @team2.attach(Attachment.StealthRock)
+
+      # Now attempt the switches.
+      @controller.makeSwitch(@id2, 1)
+      @controller.makeMove(@id1, "Substitute")
+
+      # Nothing happens except the Pokemon faints.
+      @battle.turn.should.equal(1)
+      @team2.first().name.should.equal("Hitmonchan")
+      @team2.first().isFainted().should.be.true
+      @battle.areAllRequestsCompleted().should.be.false
+
+      # Attempt the replacement
+      @controller.makeSwitch(@id2, 4)
+
+      # Nothing happens except the Pokemon faints, again.
+      @battle.turn.should.equal(1)
+      @team2.first().name.should.equal("Politoed")
+      @team2.first().isFainted().should.be.true
+      @battle.areAllRequestsCompleted().should.be.false
+
+      # There should be no weather.
+      @battle.hasWeather().should.be.false

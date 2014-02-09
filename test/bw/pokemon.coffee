@@ -359,29 +359,29 @@ describe 'Pokemon', ->
   describe "#useItem", ->
     it "records the item in lastItem", ->
       pokemon = new Pokemon(item: "Leftovers")
-      pokemon.switchIn()
+      pokemon.activate()
       pokemon.useItem()
       should.exist pokemon.lastItem
       pokemon.lastItem.displayName.should.equal("Leftovers")
 
     it "removes the item", ->
       pokemon = new Pokemon(item: "Leftovers")
-      pokemon.switchIn()
+      pokemon.activate()
       pokemon.useItem()
       pokemon.hasItem().should.be.false
 
   describe "#removeItem", ->
     it "removes the item", ->
       pokemon = new Pokemon(item: "Leftovers")
-      pokemon.switchIn()
+      pokemon.activate()
       pokemon.removeItem()
       pokemon.hasItem().should.be.false
 
     it "removes prior records of an item", ->
       pokemon = new Pokemon(item: "Flying Gem")
       fake = new Pokemon(item: "Leftovers")
-      pokemon.switchIn()
-      fake.switchIn()
+      pokemon.activate()
+      fake.activate()
       pokemon.useItem()
       pokemon.setItem(fake.getItem())
       pokemon.removeItem()

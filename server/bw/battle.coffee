@@ -118,7 +118,7 @@ class @Battle extends EventEmitter
         @performReplacement(pokemon, slot)
     # TODO: Switch-in events are ordered by speed
     for pokemon in @getActivePokemon()
-      pokemon.switchIn()
+      pokemon.team.switchIn(pokemon)
       pokemon.turnsActive = 1
     @beginTurn()
 
@@ -261,6 +261,7 @@ class @Battle extends EventEmitter
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
 
   hasWeather: (weatherName) ->
+    return @weather != Weather.NONE  if !weatherName
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
 
@@ -631,7 +632,7 @@ class @Battle extends EventEmitter
       if pokemon.beforeMove(move, pokemon, targets) != false
         pokemon.reducePP(move)
         pressureTargets = targets.filter (t) ->
-          t instanceof Pokemon && t.hasAbility("Pressure") && t != pokemon
+          t instanceof Pokemon && t.hasAbility("Pressure") && !t.team.contains(pokemon)
         for target in pressureTargets
           pokemon.reducePP(move)
         @executeMove(move, pokemon, targets)

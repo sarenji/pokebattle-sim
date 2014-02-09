@@ -81,8 +81,9 @@ class @Team
     pokemon.switchOut()
 
   switchIn: (pokemon) ->
-    pokemon.switchIn()
+    pokemon.activate()
     Query('switchIn', @attachments.all(), pokemon)
+    pokemon.switchIn()
 
   getAdjacent: (pokemon) ->
     index = @pokemon.indexOf(pokemon)

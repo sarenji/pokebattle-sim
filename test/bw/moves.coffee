@@ -36,14 +36,14 @@ describe 'Move:', ->
       battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
-      attacker.switchIn()
+      attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 1
 
     it "can be changed from the default", ->
       battle = new Battle('1', [])
       attacker = new Pokemon()
       defender = new Pokemon()
-      attacker.switchIn()
+      attacker.activate()
       new Move(null, criticalHitLevel: 2)
         .criticalHitLevel(battle, attacker, defender).should.equal 2
 
@@ -52,21 +52,21 @@ describe 'Move:', ->
       attacker = new Pokemon()
       defender = new Pokemon()
       attacker.attach(Attachment.FocusEnergy)
-      attacker.switchIn()
+      attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
       battle = new Battle('1', [])
       attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
       defender = new Pokemon()
-      attacker.switchIn()
+      attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Chansey with a Lucky Punch", ->
       battle = new Battle('1', [])
       attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
       defender = new Pokemon()
-      attacker.switchIn()
+      attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     for item in ["Razor Claw", "Scope Lens"]
@@ -75,7 +75,7 @@ describe 'Move:', ->
           battle = new Battle('1', [])
           attacker = new Pokemon(item: item)
           defender = new Pokemon()
-          attacker.switchIn()
+          attacker.activate()
           new Move().criticalHitLevel(battle, attacker, defender).should.equal 2
 
   describe "a critical hit", ->
