@@ -98,7 +98,6 @@ class @Battle extends EventEmitter
 
     @replacing = false
     @finished = false
-    @originalTeams = @getTeams().map((team) -> team.toJSON(hidden: true))
 
     @once 'end', (winnerId) ->
       @finished = true
@@ -106,7 +105,7 @@ class @Battle extends EventEmitter
         @updateRatings(winnerId)
 
   begin: ->
-    @tell(Protocol.BEGIN_BATTLE, @originalTeams)
+    @tell(Protocol.BEGIN_BATTLE, @getTeams().map((team) -> team.toJSON(hidden: true)))
     for playerId in @playerIds
       @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
     # TODO: Merge this with performReplacements?
