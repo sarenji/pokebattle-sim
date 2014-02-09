@@ -174,15 +174,18 @@ class @BattleView extends Backbone.View
   floatPercent: (player, slot, percent) =>
     return  if @skip?
     $sprite = @$sprite(player, slot)
-    kind = (if percent >= 0 then "success" else "important")
-    $hp = $('<span/>').addClass("label label-#{kind}").text("#{percent}%")
+    kind = (if percent >= 0 then "" else "red")
+    percent = "+#{percent}"  if percent >= 0
+    $hp = $('<span/>').addClass("percentage #{kind}").text("#{percent}%")
     $hp.hide().appendTo($sprite)
     x = $sprite.width() / 2 - $hp.width()
     y = $sprite.height() / 3
     $hp.css(position: 'absolute', top: y, left: x).show()
-    move($hp).y(-30).ease('ease-out').duration('1s')
-      .then().delay('3s').set('opacity', 0).pop()
-      .end(-> $hp.remove())
+    xOffset = Math.floor(Math.random() * 300) + 100
+    direction = (if player == @model.index then "+=" else "-=")
+    $hp.css(left: "#{direction}#{xOffset}", opacity: 0)
+    $hp.animate {top: "-=30"}, 1000, ->
+      $hp.animate({top: "+=500"}, 4000, -> $hp.remove())
 
   switchIn: (player, slot, fromSlot, done) =>
     $oldPokemon = @$pokemon(player, slot)
