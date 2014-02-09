@@ -114,6 +114,18 @@ errors = require '../shared/errors'
     # BATTLES #
     ###########
 
+    'get battle list': (user) ->
+      # TODO: Make this more efficient
+      # TODO: Order by age
+      # NOTE: Cache this? Even something like a 5 second expiration
+      # may improve server performance greatly
+      battleMetadata = ([
+          controller.battle.id,
+          controller.battle.playerIds[0],
+          controller.battle.playerIds[1]
+        ] for controller in server.getOngoingBattles())
+      user.send('battleList', battleMetadata)
+
     'find battle': (user, generation, team) ->
       if generation not in generations.SUPPORTED_GENERATIONS
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])

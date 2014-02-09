@@ -31,6 +31,8 @@ class @TeambuilderView extends Backbone.View
     'change .selected_gender': 'changeGender'
     'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
+    'focus .ev-entry': 'focusEv'
+    'blur .ev-entry': 'changeEv'
     'change .ev-entry': 'changeEv'
     'change .select-hidden-power': 'changeHiddenPower'
     'keydown .selected_moves input': 'keydownMoves'
@@ -193,12 +195,18 @@ class @TeambuilderView extends Backbone.View
     pokemon = @getSelectedPokemon()
     pokemon.setIv(stat, value)
 
+  focusEv: (e) =>
+    $input = $(e.currentTarget)
+    value = parseInt($input.val())
+    $input.val("")  if value == 0
+
   changeEv: (e) =>
     # todo: make changeIv and changeEv DRY
     $input = $(e.currentTarget)
     stat = $input.data("stat")
     value = parseInt($input.val())
-    value = 252  if isNaN(value) || value > 252 || value < 0
+    value = 252  if value > 252
+    value = 0  if isNaN(value) || value < 0
 
     pokemon = @getSelectedPokemon()
     value = pokemon.setEv(stat, value)

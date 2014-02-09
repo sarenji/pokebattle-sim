@@ -1,0 +1,13 @@
+.battle-list
+  h2 Battle List V1 (Do not submit reports for this feature yet, we know its incomplete)
+
+  .battle-list-collection
+    each battle in battles
+      .battle-list-row.spectate.clearfix(data-battle-id=battle[0])
+        .left
+          span.player= battle[1]
+          span.vs VS
+          span.player= battle[2]
+        .right
+          span.fake_link Watch Battle
+

@@ -183,6 +183,9 @@ class @BattleServer
   getUserBattles: (userId) ->
     (id  for id, value of @userBattles[userId])
 
+  getOngoingBattles: ->
+    _(@battles).values()
+
   removeUserBattle: (userId, battleId) ->
     delete @userBattles[userId][battleId]
 

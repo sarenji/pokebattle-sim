@@ -7,6 +7,7 @@ class @SidebarView extends Backbone.View
     "click .nav_rooms li"   : 'focusRoom'
     "click .nav_battles .close" : 'leaveBattle'
     "click .nav_teambuilder": 'showTeambuilder'
+    "click .nav_battle_list": 'showBattleList'
 
   initialize: (attributes) =>
     @currentWindow = null
@@ -18,6 +19,10 @@ class @SidebarView extends Backbone.View
 
   showTeambuilder: =>
     @changeWindowTo($("#teambuilder-section"), $(".nav_teambuilder"))
+
+  showBattleList: =>
+    @changeWindowTo($("#battle-list-section"), $(".nav_battle_list"))
+    PokeBattle.battleList.refreshList()
 
   render: =>
     @$el.html @template(battles: PokeBattle.battles)
