@@ -169,7 +169,7 @@ class @BattleView extends Backbone.View
     $hpText.text("#{percent}%")
     deltaPercent = Math.floor(100 * (pokemon.get('pixels') - oldPixels) / 48)
     @floatPercent(player, slot, deltaPercent)
-    setTimeout(done, 500)
+    if @skip? then done() else setTimeout(done, 500)
 
   floatPercent: (player, slot, percent) =>
     return  if @skip?
