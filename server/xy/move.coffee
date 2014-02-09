@@ -16,3 +16,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
       rand < 0.5
     else
       rand < 1
+
+@Move::numHitsMessage = (hitNumber) ->
+  times = (if hitNumber == 1 then "time" else "times")
+  return "Hit #{hitNumber} #{times}!"
