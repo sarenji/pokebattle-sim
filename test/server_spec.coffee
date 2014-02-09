@@ -49,6 +49,17 @@ describe 'BattleServer', ->
       server.queuePlayer("derp", [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
+  # TODO: Tests were broken when I made this function, so I can't actually test if this works.
+  # Fix the testing suite, and then enable and complete this test
+  xdescribe "#getOngoingBattles", ->
+    it "returns one object for each queued battle", ->
+      nBattles = 3
+      for i in [1..3]
+        @server.queuePlayer("#{2*i}", [ Factory("Magikarp") ])
+        @server.queuePlayer("#{(2*i) + 1}", [ Factory("Magikarp") ])
+
+      server.getOngoingBattles().should.equal(nBattles)
+
   describe "#registerChallenge", ->
     it "registers a challenge to a player", ->
       server = new BattleServer()

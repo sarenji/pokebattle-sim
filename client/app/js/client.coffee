@@ -81,4 +81,5 @@ $ ->
   PokeBattle.messages = new PrivateMessages([])
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
+  PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))
   new PrivateMessagesView(el: $("#messages"), collection: PokeBattle.messages)
