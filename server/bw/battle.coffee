@@ -175,6 +175,7 @@ class @Battle extends EventEmitter
     playerId = @getOwner(pokemon)
     switches = pokemon.team.getAliveBenchedPokemon()
     slot = @getSlotNumber(pokemon)
+    @cancelAction(pokemon)
     @requestActions(playerId, [ {switches, slot} ])
 
   # Returns true if the Pokemon has yet to move.

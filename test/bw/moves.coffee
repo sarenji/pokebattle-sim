@@ -2379,6 +2379,18 @@ describe "BW Moves:", ->
 
         mock.verify()
 
+      it "cancels the opponent's move if user moves first", ->
+        shared.create.call this,
+          team1: [ Factory("Magikarp", moves: [ moveName ], evs: {speed: 4}), Factory("Magikarp")]
+          team2: [ Factory("Magikarp", moves: [ moveName ]), Factory("Magikarp")]
+
+        spy1 = @sandbox.spy(@team1, 'switch')
+        spy2 = @sandbox.spy(@team2, 'switch')
+        @controller.makeMove(@id1, moveName)
+        @controller.makeMove(@id2, moveName)
+        spy1.callCount.should.equal(0)
+        spy2.callCount.should.equal(1)
+
   testRandomSwitchMove "Roar"
   testRandomSwitchMove "Whirlwind"
   testRandomSwitchMove "Dragon Tail"

@@ -292,13 +292,8 @@ makePlateItem 'Earth Plate', 'Ground'
 makeItem 'Eject Button', ->
   this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
-    switches = @pokemon.team.getAliveBenchedPokemon()
-    return  if switches.length == 0
+    return  if !@battle.forceSwitch(@pokemon)
     @battle.message "#{@pokemon.name} is switched out with the #{@name}!"
-    slot = @battle.getSlotNumber(@pokemon)
-    owner = @battle.getOwner(@pokemon)
-    @battle.cancelAction(@pokemon)
-    @battle.requestActions(owner, [ {switches, slot} ])
     @pokemon.useItem()
 
 makeGemItem 'Electric Gem', 'Electric'

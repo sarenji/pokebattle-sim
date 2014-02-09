@@ -59,6 +59,7 @@ class @Team
     index = @indexOf(pokemon)
     playerIndex = @battle.getPlayerIndex(@playerId)
     @battle.removeRequest(@playerId, index)
+    @battle.cancelAction(pokemon)
     @battle.message "#{@playerId} withdrew #{pokemon.name}!"
     @battle.tell(Protocol.SWITCH_OUT, playerIndex, index)
     p.informSwitch(pokemon)  for p in @battle.getOpponents(pokemon)
