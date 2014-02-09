@@ -168,6 +168,7 @@ class @Pokemon
       @stages[stat] = Math.min(6, @stages[stat])
       deltaBoosts[stat] = (@stages[stat] - previous)
       didBoost ||= (deltaBoosts[stat] != 0)
+      @afterEachBoost(deltaBoosts[stat], source)
     @tell(Protocol.BOOSTS, deltaBoosts)  if didBoost
     didBoost
 
@@ -365,6 +366,9 @@ class @Pokemon
 
   criticalModifier: ->
     Query.chain('criticalModifier', @attachments.all(), 0)
+
+  afterEachBoost: (boostAmount, source = this) ->
+    Query('afterEachBoost', @attachments.all(), boostAmount, source)
 
   afterAllHits: (move) ->
     Query.chain('afterAllHits', @attachments.all(), move)

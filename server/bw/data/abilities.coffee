@@ -303,6 +303,11 @@ makeAbility 'Defeatist', ->
     halfHP = (@pokemon.stat('hp') >> 1)
     if @pokemon.currentHP <= halfHP then 0x800 else 0x1000
 
+makeAbility 'Defiant', ->
+  this::afterEachBoost = (boostAmount, source) ->
+    return  if source.team == @pokemon.team
+    @pokemon.boost(attack: 2)  if boostAmount < 0
+
 makeAbility 'Download', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)

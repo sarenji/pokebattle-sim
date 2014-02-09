@@ -356,8 +356,19 @@ describe "BW Abilities:", ->
       thunderbolt.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Defiant", ->
-    it "boosts attack by 2 every time a stat is lowered"
-    it "does not boost attack if the stat was self-lowered"
+    it "boosts attack by 2 every time a stat is lowered", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Defiant")]
+      @p1.boost(defense: -1, @p2)
+      @p1.stages.should.include(attack: 2)
+      @p1.boost(attack: -1, defense: -2, evasion: 1, @p2)
+      @p1.stages.should.include(attack: 5)
+
+    it "does not boost attack if the stat was self-lowered", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Defiant")]
+      @battle.performMove(@p1, @battle.getMove("Close Combat"))
+      @p1.stages.should.include(attack: 0, defense: -1, specialDefense: -1)
 
   describe "Download", ->
     it "raises attack if foes have total defense < total sp.def", ->

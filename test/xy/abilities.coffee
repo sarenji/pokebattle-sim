@@ -147,6 +147,23 @@ describe "BW Abilities:", ->
       shadowBall = @battle.getMove('Shadow Ball')
       @p1.isImmune(shadowBall.type, move: shadowBall).should.be.true
 
+  describe "Competitive", ->
+    it "boosts special attack by 2 every time a stat is lowered", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Competitive")]
+      @p1.boost(defense: -1, @p2)
+      @p1.stages.should.include(specialAttack: 2)
+      @p1.boost(specialAttack: -1, defense: -2, evasion: 1, @p2)
+      @p1.stages.should.include(specialAttack: 5)
+
+    it "does not boost special attack if the stat was self-lowered", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Competitive")]
+      @battle.performMove(@p1, @battle.getMove("Close Combat"))
+      boosts = {specialAttack: 0, defense: -1, specialDefense: -1}
+      @p1.stages.should.include(boosts)
+
   describe "Fur Coat", ->
     it "modifies physical attacks by 0x800", ->
       shared.create.call this,

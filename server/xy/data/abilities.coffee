@@ -63,8 +63,10 @@ makeAbility 'Bulletproof', ->
 # TODO: Cheek Pouch
 makeAbility "Cheek Pouch"
 
-# TODO: Competitive
-makeAbility "Competitive"
+makeAbility "Competitive", ->
+  this::afterEachBoost = (boostAmount, source) ->
+    return  if source.team == @pokemon.team
+    @pokemon.boost(specialAttack: 2)  if boostAmount < 0
 
 # TODO: Flower Veil
 makeAbility "Flower Veil"
