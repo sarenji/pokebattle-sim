@@ -65,7 +65,7 @@ secondaryEffect = (battle, user, target) ->
   # Secondary boosts
   if @boostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @boostChance * chanceMultiplier
     pokemon = (if @boostTarget == 'self' then user else target)
-    pokemon.boost(@boostStats)
+    pokemon.boost(@boostStats, user)
 
   # Flinching. In the game, flinching is treated subtly different than
   # secondary effects. One result is that the Fang moves can both inflict
@@ -432,7 +432,7 @@ makeBoostMove = (name, boostTarget, boosts) ->
   extendMove name, ->
     @use = (battle, user, target) ->
       pokemon = (if boostTarget == 'self' then user else target)
-      pokemon.boost(boosts)
+      pokemon.boost(boosts, user)
 
 makeWeatherMove = (name, weatherType) ->
   extendMove name, ->
@@ -451,7 +451,7 @@ extendWithBoost = (name, boostTarget, boosts) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
       pokemon = (if boostTarget == 'self' then user else target)
-      pokemon.boost(boosts)
+      pokemon.boost(boosts, user)
 
 makeCounterMove = (name, multiplier, applies) ->
   extendMove name, ->
@@ -548,7 +548,7 @@ extendMove 'Captivate', ->
         !(user.gender == 'F' && target.gender == 'M'))
       @fail(battle)
     else
-      target.boost(specialAttack: -2)
+      target.boost(specialAttack: -2, user)
 
 makeBoostMove 'Charge', 'self', specialDefense: 1
 extendMove 'Charge', ->
@@ -633,7 +633,7 @@ extendMove 'Defog', ->
     [ battle.getOwner(target) ]
 
   @afterSuccessfulHit = (battle, user, target) ->
-    target.boost(evasion: -1)
+    target.boost(evasion: -1, user)
 
     for opponentId in @selectPlayers(battle, user, target)
       hazardRemoved = false
