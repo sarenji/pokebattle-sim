@@ -449,13 +449,17 @@ class @Battle extends EventEmitter
     @pokemonActions.push(action)  unless @getAction(pokemon)
     @removeRequest(playerId, action, forSlot)
 
-  removeRequest: (playerId, action, forSlot = 0) ->
+  removeRequest: (playerId, action, forSlot) ->
+    if arguments.length == 2
+      [action, forSlot] = [null, forSlot]
+    forSlot ?= 0
     playerRequests = @requests[playerId] || []
     for request, i in playerRequests
       if request.slot == forSlot
-        completed = { request, action }
-        @completedRequests[playerId] ?= []
-        @completedRequests[playerId].push(completed)
+        if action
+          completed = { request, action }
+          @completedRequests[playerId] ?= []
+          @completedRequests[playerId].push(completed)
 
         playerRequests.splice(i, 1)
         delete @requests[playerId]  if playerRequests.length == 0

@@ -33,6 +33,7 @@ Query.untilNotNull = (funcName, args...) ->
 
 Query.chain = (funcName, attachments, result, args...) ->
   for attachment in orderByPriority(attachments, funcName)
+    continue  if !attachment.valid()
     result = attachment[funcName].call(attachment, result, args...)  if funcName of attachment
   result
 

@@ -371,10 +371,10 @@ class @Pokemon
     Query('afterEachBoost', @attachments.all(), boostAmount, source)
 
   afterAllHits: (move) ->
-    Query.chain('afterAllHits', @attachments.all(), move)
+    Query('afterAllHits', @attachments.all(), move)
 
   afterAllHitsTarget: (move, user) ->
-    Query.chain('afterAllHitsTarget', @attachments.all(), move, user)
+    Query('afterAllHitsTarget', @attachments.all(), move, user)
 
   setHP: (hp) ->
     oldHP = @currentHP

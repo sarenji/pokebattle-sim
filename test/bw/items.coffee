@@ -880,6 +880,17 @@ describe "BW Items:", ->
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @team2.first().should.equal target
 
+    it "cancels any future action of the pokemon", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp"), Factory("Abra")]
+
+      target = @team2.at(1)
+      @battle.performMove(@p2, @battle.getMove("Volt Switch"))
+      @team2.first().should.equal(target)
+      should.not.exist @battle.requestFor(@p2)
+      should.not.exist @battle.requestFor(@team2.first())
+
     it "destroys the Red Card after use", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Red Card")]
@@ -887,6 +898,15 @@ describe "BW Items:", ->
 
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.hasItem().should.be.false
+
+    it "does not activate if KOed by the move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card"), Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Abra")]
+
+      @p1.currentHP = 1
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @team2.first().should.equal(@p2)
 
     it "does not activate if there is only one Pokemon left", ->
       shared.create.call this,
