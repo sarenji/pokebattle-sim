@@ -106,8 +106,7 @@ class @Battle extends EventEmitter
         @updateRatings(winnerId)
 
   begin: ->
-    teams = (team.toJSON(hidden: true)  for team in @getTeams())
-    @tell(Protocol.BEGIN_BATTLE, teams)
+    @tell(Protocol.BEGIN_BATTLE, @originalTeams)
     for playerId in @playerIds
       @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
     # TODO: Merge this with performReplacements?
@@ -715,7 +714,7 @@ class @Battle extends EventEmitter
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectate battle',
       @id, @generation, @numActive,
-      index, @originalTeams, spectators, @log)
+      index, spectators, @log)
     if spectator.id in @playerIds
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     # TODO: Only do if spectator id has not joined yet.
