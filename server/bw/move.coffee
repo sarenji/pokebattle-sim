@@ -19,7 +19,7 @@ class @Move
     @type = attributes.type || '???'
     @spectra = attributes.damage || '???'
     @chLevel = attributes.criticalHitLevel || 1
-    @flags = attributes.flags
+    @flags = attributes.flags || []
     @flinchChance = (attributes.flinchChance || 0)
     @ailmentChance = (attributes.ailmentChance || 0)
     @ailmentId = attributes.ailmentId

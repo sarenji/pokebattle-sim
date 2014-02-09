@@ -319,6 +319,17 @@ describe 'Mechanics', ->
 
       spy.returned(false).should.be.true
 
+    it "will not error for not having unusual move properties", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Iron Fist")])
+
+      @p1.attach(Attachment.Confusion)
+      shared.biasRNG.call(this, "next", 'confusion', 0)  # always recoils
+
+      (=>
+        @controller.makeMove(@id1, 'Tackle')
+        @controller.makeMove(@id2, 'Tackle')
+      ).should.not.throw()
+
   describe 'a frozen pokemon', ->
     it "will not execute moves", ->
       shared.create.call(this)
