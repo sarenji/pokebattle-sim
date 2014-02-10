@@ -175,17 +175,24 @@ class @BattleView extends Backbone.View
     return  if @skip?
     $sprite = @$sprite(player, slot)
     kind = (if percent >= 0 then "" else "red")
-    percent = "+#{percent}"  if percent >= 0
-    $hp = $('<span/>').addClass("percentage #{kind}").text("#{percent}%")
+    percentText = "#{percent}"
+    percentText = "+#{percentText}"  if percent >= 0
+    percentText += "%"
+    $hp = $('<span/>').addClass("percentage #{kind}").text(percentText)
     $hp.hide().appendTo($sprite)
     x = $sprite.width() / 2 - $hp.width()
     y = $sprite.height() / 3
     $hp.css(position: 'absolute', top: y, left: x).show()
-    xOffset = Math.floor(Math.random() * 300) + 100
-    direction = (if player == @model.index then "+=" else "-=")
-    $hp.css(left: "#{direction}#{xOffset}", opacity: 0)
-    $hp.animate {top: "-=30"}, 1000, 'easeOutCubic', ->
-      $hp.animate({top: "+=500"}, 4000, 'easeInCubic', -> $hp.remove())
+    if percent >= 0
+      $hp.animate({top: "-=30"}, 1000, 'easeOutCubic')
+      $hp.delay(2000)
+      $hp.animate({opacity: 0}, 1000, -> $hp.remove())
+    else
+      xOffset = Math.floor(Math.random() * 300) + 100
+      direction = (if player == @model.index then "+=" else "-=")
+      $hp.css(left: "#{direction}#{xOffset}", opacity: 1)
+      $hp.animate({top: "-=30"}, 1000, 'easeOutCubic')
+      $hp.animate({top: "+=500", opacity: 0}, 4000, 'easeInCubic', -> $hp.remove())
 
   switchIn: (player, slot, fromSlot, done) =>
     $oldPokemon = @$pokemon(player, slot)
