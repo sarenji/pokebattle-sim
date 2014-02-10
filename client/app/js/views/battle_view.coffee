@@ -358,10 +358,10 @@ class @BattleView extends Backbone.View
         $div = $("<div/>").addClass("field-#{player} team-stealth-rock")
         if isFront
           [ oldX, oldY ] = [ "20%", "80%" ]
-          [ newX, newY ] = [ "61%", "33%" ]
+          [ newX, newY ] = [ "67%", "35%" ]
         else
           [ oldX, oldY ] = [ "80%", "20%" ]
-          [ newX, newY ] = [ "37%", "86%" ]
+          [ newX, newY ] = [ "34%", "81%" ]
         if @skip?
           $div.css(top: newY, left: newX, opacity: .5)
           $battlePane.prepend($div)
@@ -382,8 +382,8 @@ class @BattleView extends Backbone.View
             when 0 then "41%"
             when 1 then "40%"
           newX = switch previousLayers
-            when 0 then "85%"
-            when 1 then "82%"
+            when 0 then "77%"
+            when 1 then "73%"
         else
           oldY = "20%"
           oldX = "80%"
@@ -391,8 +391,8 @@ class @BattleView extends Backbone.View
             when 0 then "87%"
             when 1 then "86%"
           newX = switch previousLayers
-            when 0 then "15%"
-            when 1 then "18%"
+            when 0 then "23%"
+            when 1 then "27%"
         if @skip?
           $div.css(top: newY, left: newX, opacity: .5)
           $battlePane.prepend($div)
