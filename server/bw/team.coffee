@@ -44,15 +44,17 @@ class @Team
   attach: (attachment, options={}) ->
     options = _.clone(options)
     attachment = @attachments.push(attachment, options, battle: @battle, team: this)
-    playerIndex = @battle.getPlayerIndex(@playerId)
-    if attachment then @battle?.tell(Protocol.TEAM_ATTACH, playerIndex, attachment.name)
+    if attachment then @tell(Protocol.TEAM_ATTACH, attachment.name)
     attachment
 
   unattach: (klass) ->
     attachment = @attachments.unattach(klass)
-    playerIndex = @battle.getPlayerIndex(@playerId)
-    if attachment then @battle?.tell(Protocol.TEAM_UNATTACH, playerIndex, attachment.name)
+    if attachment then @tell(Protocol.TEAM_UNATTACH, attachment.name)
     attachment
+
+  tell: (protocol, args...) ->
+    playerIndex = @battle.getPlayerIndex(@playerId)
+    @battle?.tell(protocol, playerIndex, args...)
 
   switch: (pokemon, toPosition) ->
     newPokemon = @at(toPosition)
