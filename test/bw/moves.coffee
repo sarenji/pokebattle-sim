@@ -6512,3 +6512,10 @@ describe "BW Moves:", ->
       spy = @sandbox.spy(@battle, 'message')
       @battle.performMove(@p1, refresh)
       spy.args.join(',').should.include("#{@p1.name} healed its burn!")
+
+  describe "Growth", ->
+    it "boosts the pokemon's stats", ->
+      shared.create.call(this, gen: 'bw')
+      @battle.setWeather(Weather.SUN)
+      @battle.performMove(@p1, @battle.getMove('Growth'))
+      @p1.stages.should.include attack: 2, specialAttack: 2

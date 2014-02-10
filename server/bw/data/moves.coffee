@@ -707,7 +707,10 @@ makeRechargeMove 'Giga Impact'
 makeWeightBased 'Grass Knot'
 extendWithPrimaryEffect 'GrassWhistle', Status.Sleep
 makeBoostMove 'Growl', 'target', attack: -1
-makeBoostMove 'Growth', 'self', attack: 1, specialAttack: 1
+extendMove 'Growth', ->
+  @use = (battle, user, targets) ->
+    boost = if battle.hasWeather(Weather.SUN) then 2 else 1
+    user.boost(attack: boost, specialAttack: boost)
 
 extendMove 'Grudge', ->
   @execute = (battle, user, targets) ->
