@@ -339,7 +339,113 @@ class @BattleView extends Backbone.View
         done()
 
   attachTeam: (player, attachment, done) =>
-    done()
+    $battlePane = @$('.battle_pane')
+    isFront = @isFront(player)
+    switch attachment
+      when "StealthRockAttachment"
+        $div = $("<div/>").addClass("field-#{player} team-stealth-rock")
+        if isFront
+          [ oldX, oldY ] = [ "20%", "80%" ]
+          [ newX, newY ] = [ "61%", "33%" ]
+        else
+          [ oldX, oldY ] = [ "80%", "20%" ]
+          [ newX, newY ] = [ "37%", "86%" ]
+        if @skip?
+          $div.css(top: newY, left: newX, opacity: .5)
+          $battlePane.prepend($div)
+          done()
+        else
+          $div.css(top: oldY, left: oldX, opacity: 0)
+          $div.animate(top: newY, left: newX, opacity: 1, 500)
+            .delay(1000).animate(opacity: .5)
+          $battlePane.prepend($div)
+          setTimeout(done, 500)
+      when "ToxicSpikesAttachment"
+        $div = $("<div/>").addClass("field-#{player} team-toxic-spikes")
+        previousLayers = @$(".field-#{player}.team-toxic-spikes").length
+        if isFront
+          oldY = "80%"
+          oldX = "20%"
+          newY = switch previousLayers
+            when 0 then "41%"
+            when 1 then "40%"
+          newX = switch previousLayers
+            when 0 then "85%"
+            when 1 then "82%"
+        else
+          oldY = "20%"
+          oldX = "80%"
+          newY = switch previousLayers
+            when 0 then "87%"
+            when 1 then "86%"
+          newX = switch previousLayers
+            when 0 then "15%"
+            when 1 then "18%"
+        if @skip?
+          $div.css(top: newY, left: newX, opacity: .5)
+          $battlePane.prepend($div)
+          done()
+        else
+          $div.css(top: oldY, left: oldX, opacity: 0)
+          $div.animate(top: newY, left: newX, opacity: 1, 500)
+            .delay(1000).animate(opacity: .5)
+          $battlePane.prepend($div)
+          setTimeout(done, 500)
+      when "SpikesAttachment"
+        $div = $("<div/>").addClass("field-#{player} team-spikes")
+        previousLayers = @$(".field-#{player}.team-spikes").length
+        if isFront
+          oldY = "80%"
+          oldX = "20%"
+          newY = switch previousLayers
+            when 0 then "39%"
+            when 1 then "42%"
+            when 2 then "40%"
+          newX = switch previousLayers
+            when 0 then "87%"
+            when 1 then "84%"
+            when 2 then "82%"
+        else
+          oldY = "20%"
+          oldX = "80%"
+          newY = switch previousLayers
+            when 0 then "85%"
+            when 1 then "88%"
+            when 2 then "86%"
+          newX = switch previousLayers
+            when 0 then "13%"
+            when 1 then "16%"
+            when 2 then "18%"
+        if @skip?
+          $div.css(top: newY, left: newX, opacity: .5)
+          $battlePane.prepend($div)
+          done()
+        else
+          $div.css(top: oldY, left: oldX, opacity: 0)
+          $div.animate(top: newY, left: newX, opacity: 1, 500)
+            .delay(1000).animate(opacity: .5)
+          $battlePane.prepend($div)
+          setTimeout(done, 500)
+      when "StickyWebAttachment"
+        $div = $("<div/>").addClass("field-#{player} team-sticky-web")
+        if isFront
+          [ oldX, oldY ] = [ "0%",  "50%" ]
+          [ newX, newY ] = [ "65%", "0%"  ]
+        else
+          [ oldX, oldY ] = [ "65%", "0%"  ]
+          [ newX, newY ] = [ "0%",  "50%" ]
+        if @skip?
+          $div.css(top: newY, left: newX, opacity: .5)
+          $battlePane.prepend($div)
+          done()
+        else
+          $div.css(top: oldY, left: oldX, opacity: 0)
+          $div.animate(top: newY, left: newX, opacity: 1, 1000, 'easeOutElastic')
+            .delay(1000).animate(opacity: .2)
+          $battlePane.prepend($div)
+          setTimeout(done, 500)
+      else
+        done()
 
   attachBattle: (attachment, done) =>
     done()
@@ -483,7 +589,22 @@ class @BattleView extends Backbone.View
     $effect
 
   unattachTeam: (slot, effect, done) =>
-    done()
+    $battlePane = @$('.battle_pane')
+    switch attachment
+      when "StealthRockAttachment"
+        $battlePane.find(".field-#{player}.team-stealth-rock").remove()
+        done()
+      when "ToxicSpikesAttachment"
+        $battlePane.find(".field-#{player}.team-toxic-spikes").remove()
+        done()
+      when "SpikesAttachment"
+        $battlePane.find(".field-#{player}.team-spikes").remove()
+        done()
+      when "StickyWebAttachment"
+        $battlePane.find(".field-#{player}.team-sticky-web").remove()
+        done()
+      else
+        done()
 
   unattachBattle: (effect, done) =>
     done()
