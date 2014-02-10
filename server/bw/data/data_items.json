@@ -17,6 +17,10 @@
     },
     "Aguav Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Dragon"
+        },
         "type": "berries"
     },
     "Air Balloon": {
@@ -37,6 +41,10 @@
     },
     "Apicot Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Ground"
+        },
         "type": "berries"
     },
     "Apricorn Box": {
@@ -49,6 +57,10 @@
     },
     "Aspear Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ice"
+        },
         "type": "berries"
     },
     "AuroraTicket": {
@@ -65,6 +77,10 @@
     },
     "Babiri Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Steel"
+        },
         "type": "berries"
     },
     "BalmMushroom": {
@@ -81,6 +97,10 @@
     },
     "Belue Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Electric"
+        },
         "type": "berries"
     },
     "Berry Juice": {
@@ -173,6 +193,10 @@
     },
     "Bluk Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Fire"
+        },
         "type": "berries"
     },
     "Brick Mail": {
@@ -245,10 +269,18 @@
     },
     "Charti Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Rock"
+        },
         "type": "berries"
     },
     "Cheri Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Fire"
+        },
         "type": "berries"
     },
     "Cherish Ball": {
@@ -257,10 +289,18 @@
     },
     "Chesto Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Water"
+        },
         "type": "berries"
     },
     "Chilan Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Normal"
+        },
         "type": "berries"
     },
     "Chill Drive": {
@@ -281,6 +321,10 @@
     },
     "Chople Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Fighting"
+        },
         "type": "berries"
     },
     "Claw Fossil": {
@@ -301,6 +345,10 @@
     },
     "Coba Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Flying"
+        },
         "type": "berries"
     },
     "Coin Case": {
@@ -309,6 +357,10 @@
     },
     "Colbur Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Dark"
+        },
         "type": "berries"
     },
     "Comet Shard": {
@@ -321,6 +373,10 @@
     },
     "Cornn Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Bug"
+        },
         "type": "berries"
     },
     "Coupon 1": {
@@ -341,6 +397,10 @@
     },
     "Custap Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Ghost"
+        },
         "type": "berries"
     },
     "Damp Mulch": {
@@ -557,6 +617,10 @@
     },
     "Durin Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Water"
+        },
         "type": "berries"
     },
     "Dusk Ball": {
@@ -597,6 +661,10 @@
     },
     "Enigma Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Bug"
+        },
         "type": "berries"
     },
     "Enigma Stone": {
@@ -661,6 +729,10 @@
     },
     "Figy Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Bug"
+        },
         "type": "berries"
     },
     "Fire Gem": {
@@ -737,6 +809,10 @@
     },
     "Ganlon Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Ice"
+        },
         "type": "berries"
     },
     "Genius Wing": {
@@ -809,6 +885,10 @@
     },
     "Grepa Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Flying"
+        },
         "type": "berries"
     },
     "Grip Claw": {
@@ -873,6 +953,10 @@
     },
     "Haban Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Dragon"
+        },
         "type": "berries"
     },
     "Harbor Mail": {
@@ -917,6 +1001,10 @@
     },
     "Hondew Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Ground"
+        },
         "type": "berries"
     },
     "Honey": {
@@ -929,6 +1017,10 @@
     },
     "Iapapa Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Dark"
+        },
         "type": "berries"
     },
     "Ice Gem": {
@@ -977,6 +1069,10 @@
     },
     "Jaboca Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Dragon"
+        },
         "type": "berries"
     },
     "Jade Orb": {
@@ -989,14 +1085,26 @@
     },
     "Kasib Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ghost"
+        },
         "type": "berries"
     },
     "Kebia Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Poison"
+        },
         "type": "berries"
     },
     "Kelpsy Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Fighting"
+        },
         "type": "berries"
     },
     "King's Rock": {
@@ -1009,6 +1117,10 @@
     },
     "Lansat Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Flying"
+        },
         "type": "berries"
     },
     "Lava Cookie": {
@@ -1033,6 +1145,10 @@
     },
     "Leppa Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Fighting"
+        },
         "type": "berries"
     },
     "Letter": {
@@ -1049,6 +1165,10 @@
     },
     "Liechi Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Grass"
+        },
         "type": "berries"
     },
     "Life Orb": {
@@ -1105,6 +1225,10 @@
     },
     "Lum Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Flying"
+        },
         "type": "berries"
     },
     "Lunar Wing": {
@@ -1153,10 +1277,18 @@
     },
     "Mago Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ghost"
+        },
         "type": "berries"
     },
     "Magost Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Rock"
+        },
         "type": "berries"
     },
     "Master Ball": {
@@ -1217,6 +1349,10 @@
     },
     "Micle Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Rock"
+        },
         "type": "berries"
     },
     "Mind Plate": {
@@ -1265,6 +1401,10 @@
     },
     "Nanab Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Water"
+        },
         "type": "berries"
     },
     "Nest Ball": {
@@ -1281,6 +1421,10 @@
     },
     "Nomel Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Dragon"
+        },
         "type": "berries"
     },
     "Normal Gem": {
@@ -1301,6 +1445,10 @@
     },
     "Occa Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Fire"
+        },
         "type": "berries"
     },
     "Odd Incense": {
@@ -1333,6 +1481,10 @@
     },
     "Oran Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Poison"
+        },
         "type": "berries"
     },
     "Orange Mail": {
@@ -1357,6 +1509,10 @@
     },
     "Pamtre Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Steel"
+        },
         "type": "berries"
     },
     "Parcel": {
@@ -1381,10 +1537,18 @@
     },
     "Passho Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Water"
+        },
         "type": "berries"
     },
     "Payapa Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Psychic"
+        },
         "type": "berries"
     },
     "Pearl": {
@@ -1397,14 +1561,26 @@
     },
     "Pecha Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Electric"
+        },
         "type": "berries"
     },
     "Persim Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ground"
+        },
         "type": "berries"
     },
     "Petaya Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Poison"
+        },
         "type": "berries"
     },
     "Photo Album": {
@@ -1413,6 +1589,10 @@
     },
     "Pinap Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Grass"
+        },
         "type": "berries"
     },
     "Pink Scarf": {
@@ -1469,6 +1649,10 @@
     },
     "Pomeg Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Ice"
+        },
         "type": "berries"
     },
     "Potion": {
@@ -1541,6 +1725,10 @@
     },
     "Qualot Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Poison"
+        },
         "type": "berries"
     },
     "Quick Ball": {
@@ -1561,6 +1749,10 @@
     },
     "Rabuta Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Ghost"
+        },
         "type": "berries"
     },
     "RageCandyBar": {
@@ -1585,6 +1777,10 @@
     },
     "Rawst Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Grass"
+        },
         "type": "berries"
     },
     "Razor Claw": {
@@ -1597,6 +1793,10 @@
     },
     "Razz Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Steel"
+        },
         "type": "berries"
     },
     "Reaper Cloth": {
@@ -1697,6 +1897,10 @@
     },
     "Rindo Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Grass"
+        },
         "type": "berries"
     },
     "Ring Target": {
@@ -1741,6 +1945,10 @@
     },
     "Rowap Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Dark"
+        },
         "type": "berries"
     },
     "Ruby": {
@@ -1765,6 +1973,10 @@
     },
     "Salac Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Fighting"
+        },
         "type": "berries"
     },
     "Sapphire": {
@@ -1833,6 +2045,10 @@
     },
     "Shuca Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ground"
+        },
         "type": "berries"
     },
     "Silk Scarf": {
@@ -1853,6 +2069,10 @@
     },
     "Sitrus Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Psychic"
+        },
         "type": "berries"
     },
     "Skull Fossil": {
@@ -1909,6 +2129,10 @@
     },
     "Spelon Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Dark"
+        },
         "type": "berries"
     },
     "Splash Plate": {
@@ -1945,6 +2169,10 @@
     },
     "Starf Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Psychic"
+        },
         "type": "berries"
     },
     "Steel Gem": {
@@ -2385,10 +2613,18 @@
     },
     "Tamato Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Psychic"
+        },
         "type": "berries"
     },
     "Tanga Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Bug"
+        },
         "type": "berries"
     },
     "Tea": {
@@ -2473,6 +2709,10 @@
     },
     "Wacan Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Electric"
+        },
         "type": "berries"
     },
     "Wailmer Pail": {
@@ -2489,6 +2729,10 @@
     },
     "Watmel Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 80,
+            "type": "Fire"
+        },
         "type": "berries"
     },
     "Wave Incense": {
@@ -2501,6 +2745,10 @@
     },
     "Wepear Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 70,
+            "type": "Electric"
+        },
         "type": "berries"
     },
     "White Flute": {
@@ -2521,6 +2769,10 @@
     },
     "Wiki Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Rock"
+        },
         "type": "berries"
     },
     "Wise Glasses": {
@@ -2637,6 +2889,10 @@
     },
     "Yache Berry": {
         "flingPower": 10,
+        "naturalGift": {
+            "power": 60,
+            "type": "Ice"
+        },
         "type": "berries"
     },
     "Yellow Flute": {
@@ -2666,9 +2922,5 @@
     "Zoom Lens": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "god stone": {
-        "flingPower": 0,
-        "type": "key"
     }
 }
