@@ -1549,7 +1549,7 @@ extendMove 'Nightmare', ->
       @fail(battle)
 
 extendMove 'Pain Split', ->
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     averageHP = Math.floor((user.currentHP + target.currentHP) / 2)
     user.setHP(averageHP)
     target.setHP(averageHP)

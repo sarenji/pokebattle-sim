@@ -78,7 +78,7 @@ class @Move
         target.afterAllHitsTarget(this, user)
 
   # A hook with a default implementation of returning false on a type immunity.
-  # If `use` returns false, the `afterSuccessfulHit` hook is never called.
+  # If `use` returns false, the `hit` hook is never called.
   use: (battle, user, target, hitNumber) ->
     if @willMiss(battle, user, target)
       @afterMiss(battle, user, target)

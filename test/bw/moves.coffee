@@ -1069,7 +1069,7 @@ describe "BW Moves:", ->
       shared.biasRNG.call(this, "randInt", 'magnitude', 50)
       move.basePower(@battle, @p1, @p2).should.equal 70
 
-  describe 'pain split', ->
+  describe 'Pain Split', ->
     it "doesn't make a pokemon's HP go over their max", ->
       shared.create.call this,
         team1: [Factory('Gengar')]
@@ -1089,6 +1089,27 @@ describe "BW Moves:", ->
 
       @p1.currentHP.should.equal Math.min(326, @p1.stat('hp'))
       @p2.currentHP.should.equal Math.min(326, @p2.stat('hp'))
+
+    it "affects Ghosts", ->
+      shared.create.call this,
+        team2: [Factory('Gengar')]
+      painSplit = @battle.getMove("Pain Split")
+      mock = @sandbox.mock(painSplit).expects('hit').once()
+      @battle.performMove(@p1, painSplit)
+      mock.verify()
+
+    it "is blocked by Protect", ->
+      shared.create.call(this)
+      @p1.currentHP = 1
+      painSplit = @battle.getMove("Pain Split")
+      mock = @sandbox.mock(painSplit).expects('hit').never()
+      @battle.recordMove(@id1, painSplit)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p2, @battle.getMove("Protect"))
+      @battle.performMove(@p1, painSplit)
+      mock.verify()
+      @p1.currentHP.should.equal(1)
+      @p2.currentHP.should.equal(@p2.stat('hp'))
 
   describe 'Belly Drum', ->
     shared.shouldDoNoDamage('Belly Drum')
