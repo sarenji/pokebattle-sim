@@ -209,9 +209,8 @@ class @Battle extends EventEmitter
 
     # Put segment in proper place in the queue
     for action, i in @pokemonActions
-      continue  if @actionPriority(action) != bracket
-      @pokemonActions.splice(i, 0, segment)
-      break
+      break  if @actionPriority(action) <= bracket
+    @pokemonActions.splice(i, 0, segment)
 
   # Delays a Pokemon to the end of a priority bracket.
   # If no bracket is provided, the Pokemon's current priority bracket is used.
@@ -227,9 +226,8 @@ class @Battle extends EventEmitter
     # Put segment in proper place in the queue
     for i in [(@pokemonActions.length - 1)..0] by -1
       action = @pokemonActions[i]
-      continue  if @actionPriority(action) != bracket
-      @pokemonActions.splice(i + 1, 0, segment)
-      break
+      break  if @actionPriority(action) >= bracket
+    @pokemonActions.splice(i + 1, 0, segment)
 
   # Add `string` to a buffer that will be sent to each client.
   message: (string) ->

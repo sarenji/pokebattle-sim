@@ -169,6 +169,17 @@ describe 'Battle', ->
       @battle.bump(@p1, @battle.getMove('Mach Punch').priority)
       queue[0].pokemon.should.eql @p1
 
+    it "still works even if there's nothing in that bracket", ->
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Mach Punch'))
+      queue = @battle.determineTurnOrder()
+
+      queue.should.have.length(2)
+      @battle.bump(@p1)
+      queue.should.have.length(2)
+      queue[0].pokemon.should.eql @p2
+      queue[1].pokemon.should.eql @p1
+
   describe "#delay", ->
     it "delays a pokemon to the end of its priority bracket", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
@@ -186,6 +197,17 @@ describe 'Battle', ->
       queue = @battle.determineTurnOrder()
 
       @battle.delay(@p1, @battle.getMove('Tackle').priority)
+      queue[1].pokemon.should.eql @p1
+
+    it "still works even if there's nothing in that bracket", ->
+      @battle.recordMove(@id1, @battle.getMove('Tackle'))
+      @battle.recordMove(@id2, @battle.getMove('Mach Punch'))
+      queue = @battle.determineTurnOrder()
+
+      queue.should.have.length(2)
+      @battle.delay(@p1)
+      queue.should.have.length(2)
+      queue[0].pokemon.should.eql @p2
       queue[1].pokemon.should.eql @p1
 
   describe "#weatherUpkeep", ->
