@@ -213,6 +213,7 @@ class @BattleView extends Backbone.View
     $pokeball.appendTo(@$(".battle_pane"))
 
     # Start animations
+    $oldPokemon.css(opacity: 0)
     $newPokemon.css(opacity: 0)
     $pokeball.css(opacity: 1)
     releasePokemon = =>
@@ -539,16 +540,17 @@ class @BattleView extends Backbone.View
 
   faint: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
+    $image = $pokemon.find('.sprite img')
 
     if @skip?
-      $pokemon.addClass('hidden')
+      $image.addClass('hidden')
       done()
       return
 
     $image = $pokemon.find('.sprite img')
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
-    move($pokemon).set('opacity', 0).end ->
-      $pokemon.addClass('hidden').css(opacity: 1)
+    move($image).set('opacity', 0).end ->
+      $image.addClass('hidden')
       done()
     @renderUserInfo()
 
