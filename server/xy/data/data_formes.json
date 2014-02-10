@@ -76,7 +76,7 @@
                 "Ice"
             ],
             "weight": 1355,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         },
         "mega": {
             "types": [
@@ -96,7 +96,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1850,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Abra": {
@@ -296,7 +296,7 @@
                 "Dark"
             ],
             "weight": 470,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         },
         "mega": {
             "types": [
@@ -315,7 +315,7 @@
             ],
             "isBattleOnly": true,
             "weight": 490,
-            "pokeBattleValue": 190
+            "pokeBattleValue": 170
         }
     },
     "Accelgor": {
@@ -384,7 +384,7 @@
                 "Bug"
             ],
             "weight": 253,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Aerodactyl": {
@@ -486,7 +486,7 @@
                 "Flying"
             ],
             "weight": 590,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         },
         "mega": {
             "types": [
@@ -506,7 +506,7 @@
             ],
             "isBattleOnly": true,
             "weight": 790,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 160
         }
     },
     "Aggron": {
@@ -606,7 +606,7 @@
                 "Rock"
             ],
             "weight": 3600,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 135
         },
         "mega": {
             "types": [
@@ -625,7 +625,7 @@
             ],
             "isBattleOnly": true,
             "weight": 3950,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 150
         }
     },
     "Aipom": {
@@ -808,7 +808,7 @@
                 "Psychic"
             ],
             "weight": 480,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 145
         },
         "mega": {
             "types": [
@@ -827,7 +827,7 @@
             ],
             "isBattleOnly": true,
             "weight": 480,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Alomomola": {
@@ -908,7 +908,7 @@
                 "Water"
             ],
             "weight": 316,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Altaria": {
@@ -998,7 +998,7 @@
                 "Flying"
             ],
             "weight": 206,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 115
         }
     },
     "Ambipom": {
@@ -1083,7 +1083,7 @@
                 "Normal"
             ],
             "weight": 203,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 120
         }
     },
     "Amoonguss": {
@@ -1153,7 +1153,7 @@
                 "Poison"
             ],
             "weight": 105,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Ampharos": {
@@ -1236,7 +1236,7 @@
                 "Electric"
             ],
             "weight": 615,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         },
         "mega": {
             "types": [
@@ -1256,7 +1256,7 @@
             ],
             "isBattleOnly": true,
             "weight": 615,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Anorith": {
@@ -1422,7 +1422,7 @@
                 "Poison"
             ],
             "weight": 650,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Arcanine": {
@@ -1492,7 +1492,7 @@
                 "Fire"
             ],
             "weight": 1550,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 135
         }
     },
     "Arceus": {
@@ -1789,7 +1789,7 @@
                 "Flying"
             ],
             "weight": 320,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Ariados": {
@@ -1867,7 +1867,7 @@
                 "Poison"
             ],
             "weight": 335,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Armaldo": {
@@ -1945,7 +1945,7 @@
                 "Bug"
             ],
             "weight": 682,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Aron": {
@@ -2035,7 +2035,7 @@
                 "Rock"
             ],
             "weight": 600,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Articuno": {
@@ -2111,7 +2111,7 @@
                 "Flying"
             ],
             "weight": 554,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 125
         }
     },
     "Audino": {
@@ -2215,7 +2215,7 @@
                 "Normal"
             ],
             "weight": 310,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Axew": {
@@ -2395,7 +2395,7 @@
                 "Psychic"
             ],
             "weight": 3,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 155
         }
     },
     "Azumarill": {
@@ -2474,7 +2474,7 @@
                 "Fairy"
             ],
             "weight": 285,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 165
         }
     },
     "Azurill": {
@@ -2804,7 +2804,7 @@
                 "Ghost"
             ],
             "weight": 125,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         },
         "mega": {
             "types": [
@@ -2823,7 +2823,7 @@
             ],
             "isBattleOnly": true,
             "weight": 130,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Barboach": {
@@ -2983,7 +2983,7 @@
                 "Water"
             ],
             "weight": 180,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         },
         "red-striped": {
             "abilities": [
@@ -3069,7 +3069,7 @@
                 "Water"
             ],
             "weight": 180,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Bastiodon": {
@@ -3151,7 +3151,7 @@
                 "Steel"
             ],
             "weight": 1495,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Bayleef": {
@@ -3314,7 +3314,7 @@
                 "Ice"
             ],
             "weight": 2600,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Beautifly": {
@@ -3462,7 +3462,7 @@
                 "Poison"
             ],
             "weight": 295,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Beheeyem": {
@@ -3548,7 +3548,7 @@
                 "Psychic"
             ],
             "weight": 345,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Beldum": {
@@ -3642,7 +3642,7 @@
                 "Grass"
             ],
             "weight": 58,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Bellsprout": {
@@ -3811,7 +3811,7 @@
                 "Water"
             ],
             "weight": 315,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Bidoof": {
@@ -3992,7 +3992,7 @@
                 "Steel"
             ],
             "weight": 700,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 155
         }
     },
     "Blastoise": {
@@ -4079,7 +4079,7 @@
                 "Water"
             ],
             "weight": 855,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         },
         "mega": {
             "types": [
@@ -4098,7 +4098,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1011,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Blaziken": {
@@ -4194,7 +4194,7 @@
                 "Fighting"
             ],
             "weight": 520,
-            "pokeBattleValue": 210
+            "pokeBattleValue": 245
         },
         "mega": {
             "types": [
@@ -4214,7 +4214,7 @@
             ],
             "isBattleOnly": true,
             "weight": 520,
-            "pokeBattleValue": 295
+            "pokeBattleValue": 275
         }
     },
     "Blissey": {
@@ -4313,7 +4313,7 @@
                 "Normal"
             ],
             "weight": 468,
-            "pokeBattleValue": 220
+            "pokeBattleValue": 175
         }
     },
     "Blitzle": {
@@ -4627,7 +4627,7 @@
                 "Normal"
             ],
             "weight": 946,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Braviary": {
@@ -4707,7 +4707,7 @@
                 "Flying"
             ],
             "weight": 410,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 150
         }
     },
     "Breloom": {
@@ -4789,7 +4789,7 @@
                 "Fighting"
             ],
             "weight": 392,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 150
         }
     },
     "Bronzong": {
@@ -4881,7 +4881,7 @@
                 "Psychic"
             ],
             "weight": 1870,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Bronzor": {
@@ -4965,7 +4965,7 @@
                 "Psychic"
             ],
             "weight": 605,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Budew": {
@@ -5605,7 +5605,7 @@
                 "Dark"
             ],
             "weight": 774,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Camerupt": {
@@ -5690,7 +5690,7 @@
                 "Ground"
             ],
             "weight": 2200,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Carnivine": {
@@ -5855,7 +5855,7 @@
                 "Rock"
             ],
             "weight": 810,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Carvanha": {
@@ -6211,7 +6211,7 @@
                 "Grass"
             ],
             "weight": 50,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 165
         }
     },
     "Chandelure": {
@@ -6284,7 +6284,7 @@
                 "Fire"
             ],
             "weight": 343,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 140
         }
     },
     "Chansey": {
@@ -6396,7 +6396,7 @@
                 "Normal"
             ],
             "weight": 346,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 170
         }
     },
     "Charizard": {
@@ -6495,7 +6495,7 @@
                 "Flying"
             ],
             "weight": 905,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 130
         },
         "mega-x": {
             "types": [
@@ -6515,7 +6515,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1105,
-            "pokeBattleValue": 210
+            "pokeBattleValue": 225
         },
         "mega-y": {
             "types": [
@@ -6535,7 +6535,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1005,
-            "pokeBattleValue": 260
+            "pokeBattleValue": 215
         }
     },
     "Charmander": {
@@ -6709,7 +6709,7 @@
                 "Fire"
             ],
             "weight": 190,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Chatot": {
@@ -6792,7 +6792,7 @@
                 "Flying"
             ],
             "weight": 19,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Cherrim": {
@@ -7445,7 +7445,7 @@
                 "Normal"
             ],
             "weight": 75,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Clamperl": {
@@ -7604,7 +7604,7 @@
                 "Psychic"
             ],
             "weight": 1080,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Clefable": {
@@ -7687,7 +7687,7 @@
                 "Fairy"
             ],
             "weight": 400,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 150
         }
     },
     "Clefairy": {
@@ -7936,7 +7936,7 @@
                 "Ice"
             ],
             "weight": 1325,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Cobalion": {
@@ -8016,7 +8016,7 @@
                 "Fighting"
             ],
             "weight": 2500,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 135
         }
     },
     "Cofagrigus": {
@@ -8092,7 +8092,7 @@
                 "Ghost"
             ],
             "weight": 765,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Combee": {
@@ -8207,7 +8207,7 @@
                 "Fighting"
             ],
             "weight": 195,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Conkeldurr": {
@@ -8290,7 +8290,7 @@
                 "Fighting"
             ],
             "weight": 870,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 160
         }
     },
     "Corphish": {
@@ -8486,7 +8486,7 @@
                 "Rock"
             ],
             "weight": 50,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 100
         }
     },
     "Cottonee": {
@@ -8645,7 +8645,7 @@
                 "Grass"
             ],
             "weight": 604,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Cranidos": {
@@ -8738,7 +8738,7 @@
                 "Rock"
             ],
             "weight": 315,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Crawdaunt": {
@@ -8826,7 +8826,7 @@
                 "Dark"
             ],
             "weight": 328,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Cresselia": {
@@ -9082,7 +9082,7 @@
                 "Flying"
             ],
             "weight": 750,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 150
         }
     },
     "Croconaw": {
@@ -9246,7 +9246,7 @@
                 "Rock"
             ],
             "weight": 2000,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Cryogonal": {
@@ -9319,7 +9319,7 @@
                 "Ice"
             ],
             "weight": 1480,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Cubchoo": {
@@ -9682,7 +9682,7 @@
                 "Dark"
             ],
             "weight": 505,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 250
         }
     },
     "Darmanitan": {
@@ -9774,7 +9774,7 @@
                 "Fire"
             ],
             "weight": 929,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         },
         "zen": {
             "abilities": [
@@ -10477,7 +10477,7 @@
                 "Psychic"
             ],
             "weight": 608,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 170
         },
         "speed": {
             "abilities": [
@@ -10514,7 +10514,7 @@
                 "Psychic"
             ],
             "weight": 608,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 185
         }
     },
     "Dewgong": {
@@ -10589,7 +10589,7 @@
                 "Ice"
             ],
             "weight": 1200,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Dewott": {
@@ -10848,7 +10848,7 @@
                 "Ground"
             ],
             "weight": 8,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Ditto": {
@@ -10875,7 +10875,7 @@
                 "Normal"
             ],
             "weight": 40,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 170
         }
     },
     "Dodrio": {
@@ -10945,7 +10945,7 @@
                 "Flying"
             ],
             "weight": 852,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Doduo": {
@@ -11095,7 +11095,7 @@
                 "Ground"
             ],
             "weight": 1200,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Dragonair": {
@@ -11275,7 +11275,7 @@
                 "Flying"
             ],
             "weight": 2100,
-            "pokeBattleValue": 210
+            "pokeBattleValue": 165
         }
     },
     "Drapion": {
@@ -11373,7 +11373,7 @@
                 "Dark"
             ],
             "weight": 615,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Dratini": {
@@ -11545,7 +11545,7 @@
                 "Flying"
             ],
             "weight": 150,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 125
         }
     },
     "Drifloon": {
@@ -11926,7 +11926,7 @@
                 "Dragon"
             ],
             "weight": 1390,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Ducklett": {
@@ -12084,7 +12084,7 @@
                 "Ground"
             ],
             "weight": 333,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Dunsparce": {
@@ -12189,7 +12189,7 @@
                 "Normal"
             ],
             "weight": 140,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Duosion": {
@@ -12270,7 +12270,7 @@
                 "Psychic"
             ],
             "weight": 80,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Durant": {
@@ -12357,7 +12357,7 @@
                 "Steel"
             ],
             "weight": 330,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Dusclops": {
@@ -12450,7 +12450,7 @@
             ],
             "weight": 306,
             "hiddenAbility": "Frisk",
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Dusknoir": {
@@ -12544,7 +12544,7 @@
             ],
             "weight": 1066,
             "hiddenAbility": "Frisk",
-            "pokeBattleValue": 140
+            "pokeBattleValue": 125
         }
     },
     "Duskull": {
@@ -12943,7 +12943,7 @@
                 "Electric"
             ],
             "weight": 805,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Eevee": {
@@ -13191,7 +13191,7 @@
                 "Electric"
             ],
             "weight": 300,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Electivire": {
@@ -13279,7 +13279,7 @@
                 "Electric"
             ],
             "weight": 1386,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Electrike": {
@@ -13718,7 +13718,7 @@
                 "Fighting"
             ],
             "weight": 1500,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Emolga": {
@@ -13805,7 +13805,7 @@
                 "Flying"
             ],
             "weight": 50,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Empoleon": {
@@ -13896,7 +13896,7 @@
                 "Steel"
             ],
             "weight": 845,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 155
         }
     },
     "Entei": {
@@ -13978,7 +13978,7 @@
                 "Fire"
             ],
             "weight": 1980,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 145
         }
     },
     "Escavalier": {
@@ -14053,7 +14053,7 @@
                 "Steel"
             ],
             "weight": 330,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 130
         }
     },
     "Espeon": {
@@ -14129,7 +14129,7 @@
                 "Psychic"
             ],
             "weight": 265,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Excadrill": {
@@ -14211,7 +14211,7 @@
                 "Steel"
             ],
             "weight": 404,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 160
         }
     },
     "Exeggcute": {
@@ -14378,7 +14378,7 @@
                 "Psychic"
             ],
             "weight": 1200,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Exploud": {
@@ -14468,7 +14468,7 @@
                 "Normal"
             ],
             "weight": 840,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Farfetch'd": {
@@ -14638,7 +14638,7 @@
                 "Flying"
             ],
             "weight": 380,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Feebas": {
@@ -14796,7 +14796,7 @@
                 "Water"
             ],
             "weight": 888,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Ferroseed": {
@@ -14879,7 +14879,7 @@
             ],
             "weight": 188,
             "hiddenAbility": "Anticipation",
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Ferrothorn": {
@@ -14964,7 +14964,7 @@
             ],
             "weight": 1100,
             "hiddenAbility": "Anticipation",
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Finneon": {
@@ -15193,7 +15193,7 @@
                 "Fire"
             ],
             "weight": 250,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Floatzel": {
@@ -15273,7 +15273,7 @@
                 "Water"
             ],
             "weight": 335,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Flygon": {
@@ -15360,7 +15360,7 @@
                 "Dragon"
             ],
             "weight": 820,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 140
         }
     },
     "Foongus": {
@@ -15523,7 +15523,7 @@
                 "Steel"
             ],
             "weight": 1258,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Fraxure": {
@@ -15772,7 +15772,7 @@
                 "Ghost"
             ],
             "weight": 266,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Furret": {
@@ -15857,7 +15857,7 @@
                 "Normal"
             ],
             "weight": 325,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Gabite": {
@@ -15934,7 +15934,7 @@
                 "Ground"
             ],
             "weight": 560,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Gallade": {
@@ -16039,7 +16039,7 @@
                 "Fighting"
             ],
             "weight": 520,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Galvantula": {
@@ -16118,7 +16118,7 @@
                 "Electric"
             ],
             "weight": 143,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Garbodor": {
@@ -16197,7 +16197,7 @@
                 "Poison"
             ],
             "weight": 1073,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Garchomp": {
@@ -16285,7 +16285,7 @@
                 "Ground"
             ],
             "weight": 950,
-            "pokeBattleValue": 190
+            "pokeBattleValue": 185
         },
         "mega": {
             "types": [
@@ -16305,7 +16305,7 @@
             ],
             "isBattleOnly": true,
             "weight": 950,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 180
         }
     },
     "Gardevoir": {
@@ -16395,7 +16395,7 @@
                 "Fairy"
             ],
             "weight": 484,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         },
         "mega": {
             "types": [
@@ -16415,7 +16415,7 @@
             ],
             "isBattleOnly": true,
             "weight": 484,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 185
         }
     },
     "Gastly": {
@@ -16584,7 +16584,7 @@
                 "Ground"
             ],
             "weight": 299,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Genesect": {
@@ -16673,7 +16673,7 @@
                 "Steel"
             ],
             "weight": 825,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 200
         }
     },
     "Gengar": {
@@ -16763,7 +16763,7 @@
                 "Poison"
             ],
             "weight": 405,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 160
         },
         "mega": {
             "types": [
@@ -16783,7 +16783,7 @@
             ],
             "isBattleOnly": true,
             "weight": 405,
-            "pokeBattleValue": 255
+            "pokeBattleValue": 230
         }
     },
     "Geodude": {
@@ -17039,7 +17039,7 @@
                 "Rock"
             ],
             "weight": 2600,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Girafarig": {
@@ -17140,7 +17140,7 @@
                 "Psychic"
             ],
             "weight": 415,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Giratina": {
@@ -17402,7 +17402,7 @@
                 "Ice"
             ],
             "weight": 259,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Glalie": {
@@ -17477,7 +17477,7 @@
                 "Ice"
             ],
             "weight": 2565,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Glameow": {
@@ -17674,7 +17674,7 @@
                 "Flying"
             ],
             "weight": 648,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Gliscor": {
@@ -17771,7 +17771,7 @@
                 "Flying"
             ],
             "weight": 425,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 180
         }
     },
     "Gloom": {
@@ -17915,7 +17915,7 @@
                 "Flying"
             ],
             "weight": 550,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Goldeen": {
@@ -18079,7 +18079,7 @@
                 "Water"
             ],
             "weight": 766,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Golem": {
@@ -18165,7 +18165,7 @@
                 "Ground"
             ],
             "weight": 3000,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Golett": {
@@ -18333,7 +18333,7 @@
                 "Ghost"
             ],
             "weight": 3300,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Gorebyss": {
@@ -18401,7 +18401,7 @@
                 "Water"
             ],
             "weight": 226,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Gothita": {
@@ -18495,7 +18495,7 @@
                 "Psychic"
             ],
             "weight": 58,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Gothitelle": {
@@ -18585,7 +18585,7 @@
                 "Psychic"
             ],
             "weight": 440,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Gothorita": {
@@ -18670,7 +18670,7 @@
                 "Psychic"
             ],
             "weight": 180,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Granbull": {
@@ -18766,7 +18766,7 @@
                 "Fairy"
             ],
             "weight": 487,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Graveler": {
@@ -18847,7 +18847,7 @@
                 "Ground"
             ],
             "weight": 1050,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Grimer": {
@@ -19362,7 +19362,7 @@
                 "Psychic"
             ],
             "weight": 715,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Gulpin": {
@@ -19524,7 +19524,7 @@
                 "Fighting"
             ],
             "weight": 400,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Gyarados": {
@@ -19625,7 +19625,7 @@
             ],
             "isBattleOnly": true,
             "weight": 3050,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 170
         }
     },
     "Happiny": {
@@ -19789,7 +19789,7 @@
                 "Fighting"
             ],
             "weight": 2538,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Haunter": {
@@ -19871,7 +19871,7 @@
                 "Poison"
             ],
             "weight": 1,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Haxorus": {
@@ -19963,7 +19963,7 @@
                 "Dragon"
             ],
             "weight": 1055,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Heatmor": {
@@ -20057,7 +20057,7 @@
                 "Fire"
             ],
             "weight": 580,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Heatran": {
@@ -20139,7 +20139,7 @@
                 "Steel"
             ],
             "weight": 4300,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 200
         }
     },
     "Heracross": {
@@ -20239,7 +20239,7 @@
                 "Fighting"
             ],
             "weight": 540,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         },
         "mega": {
             "types": [
@@ -20259,7 +20259,7 @@
             ],
             "isBattleOnly": true,
             "weight": 625,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 155
         }
     },
     "Herdier": {
@@ -20477,7 +20477,7 @@
                 "Ground"
             ],
             "weight": 3000,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 160
         }
     },
     "Hitmonchan": {
@@ -20555,7 +20555,7 @@
                 "Fighting"
             ],
             "weight": 502,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Hitmonlee": {
@@ -20633,7 +20633,7 @@
                 "Fighting"
             ],
             "weight": 498,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Hitmontop": {
@@ -20709,7 +20709,7 @@
                 "Fighting"
             ],
             "weight": 480,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Ho-Oh": {
@@ -20882,7 +20882,7 @@
                 "Flying"
             ],
             "weight": 273,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Hoothoot": {
@@ -21220,7 +21220,7 @@
                 "Fire"
             ],
             "weight": 350,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         },
         "mega": {
             "types": [
@@ -21240,7 +21240,7 @@
             ],
             "isBattleOnly": true,
             "weight": 495,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Houndour": {
@@ -21402,7 +21402,7 @@
                 "Water"
             ],
             "weight": 270,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Hydreigon": {
@@ -21497,7 +21497,7 @@
                 "Dragon"
             ],
             "weight": 1600,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 170
         }
     },
     "Hypno": {
@@ -21584,7 +21584,7 @@
                 "Psychic"
             ],
             "weight": 756,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Igglybuff": {
@@ -21756,7 +21756,7 @@
                 "Bug"
             ],
             "weight": 177,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Infernape": {
@@ -21856,7 +21856,7 @@
                 "Fighting"
             ],
             "weight": 550,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 160
         }
     },
     "Ivysaur": {
@@ -22012,7 +22012,7 @@
                 "Ghost"
             ],
             "weight": 1350,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 140
         }
     },
     "Jigglypuff": {
@@ -22187,7 +22187,7 @@
                 "Psychic"
             ],
             "weight": 11,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 160
         }
     },
     "Jolteon": {
@@ -22262,7 +22262,7 @@
                 "Electric"
             ],
             "weight": 245,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Joltik": {
@@ -22425,7 +22425,7 @@
                 "Flying"
             ],
             "weight": 30,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Jynx": {
@@ -22513,7 +22513,7 @@
                 "Psychic"
             ],
             "weight": 406,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Kabuto": {
@@ -22683,7 +22683,7 @@
                 "Water"
             ],
             "weight": 405,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 135
         }
     },
     "Kadabra": {
@@ -22764,7 +22764,7 @@
                 "Psychic"
             ],
             "weight": 565,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Kakuna": {
@@ -22898,7 +22898,7 @@
                 "Normal"
             ],
             "weight": 800,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         },
         "mega": {
             "types": [
@@ -22917,7 +22917,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1000,
-            "pokeBattleValue": 225
+            "pokeBattleValue": 270
         }
     },
     "Karrablast": {
@@ -23099,7 +23099,7 @@
             ],
             "weight": 220,
             "hiddenAbility": "Protean",
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Keldeo": {
@@ -23180,7 +23180,7 @@
                 "Fighting"
             ],
             "weight": 485,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 170
         },
         "resolute": {
             "abilities": [
@@ -23339,7 +23339,7 @@
                 "Dragon"
             ],
             "weight": 1520,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 135
         }
     },
     "Kingler": {
@@ -23420,7 +23420,7 @@
                 "Water"
             ],
             "weight": 600,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Kirlia": {
@@ -23570,7 +23570,7 @@
                 "Steel"
             ],
             "weight": 510,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Klink": {
@@ -23708,7 +23708,7 @@
                 "Steel"
             ],
             "weight": 810,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Koffing": {
@@ -24184,7 +24184,7 @@
                 "Dark"
             ],
             "weight": 963,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 155
         }
     },
     "Kyogre": {
@@ -24348,7 +24348,7 @@
                 "Ice"
             ],
             "weight": 3250,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 200
         },
         "default": {
             "abilities": [
@@ -24434,7 +24434,7 @@
                 "Ice"
             ],
             "weight": 3250,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 180
         },
         "white": {
             "abilities": [
@@ -24520,7 +24520,7 @@
                 "Ice"
             ],
             "weight": 3250,
-            "pokeBattleValue": 210
+            "pokeBattleValue": 215
         }
     },
     "Lairon": {
@@ -24597,7 +24597,7 @@
                 "Rock"
             ],
             "weight": 1200,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Lampent": {
@@ -24767,7 +24767,7 @@
                 "Flying"
             ],
             "weight": 680,
-            "pokeBattleValue": 225
+            "pokeBattleValue": 195
         },
         "therian": {
             "abilities": [
@@ -24862,7 +24862,7 @@
                 "Flying"
             ],
             "weight": 680,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 195
         }
     },
     "Lanturn": {
@@ -24943,7 +24943,7 @@
                 "Electric"
             ],
             "weight": 225,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Lapras": {
@@ -25037,7 +25037,7 @@
                 "Ice"
             ],
             "weight": 2200,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 115
         }
     },
     "Larvesta": {
@@ -25308,7 +25308,7 @@
                 "Psychic"
             ],
             "weight": 400,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 190
         }
     },
     "Latios": {
@@ -25408,7 +25408,7 @@
                 "Psychic"
             ],
             "weight": 600,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 200
         }
     },
     "Leafeon": {
@@ -25483,7 +25483,7 @@
                 "Grass"
             ],
             "weight": 255,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Leavanny": {
@@ -25566,7 +25566,7 @@
                 "Grass"
             ],
             "weight": 205,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Ledian": {
@@ -25646,7 +25646,7 @@
                 "Flying"
             ],
             "weight": 356,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Ledyba": {
@@ -25829,7 +25829,7 @@
                 "Normal"
             ],
             "weight": 1400,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 120
         }
     },
     "Lickitung": {
@@ -25933,7 +25933,7 @@
                 "Normal"
             ],
             "weight": 655,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Liepard": {
@@ -26016,7 +26016,7 @@
                 "Dark"
             ],
             "weight": 375,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Lileep": {
@@ -26584,7 +26584,7 @@
                 "Normal"
             ],
             "weight": 333,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Lotad": {
@@ -26858,7 +26858,7 @@
             ],
             "isBattleOnly": true,
             "weight": 575,
-            "pokeBattleValue": 225
+            "pokeBattleValue": 220
         }
     },
     "Ludicolo": {
@@ -26931,7 +26931,7 @@
                 "Grass"
             ],
             "weight": 550,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 125
         }
     },
     "Lugia": {
@@ -27097,7 +27097,7 @@
                 "Water"
             ],
             "weight": 240,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Lunatone": {
@@ -27185,7 +27185,7 @@
                 "Psychic"
             ],
             "weight": 1680,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Luvdisc": {
@@ -27401,7 +27401,7 @@
                 "Electric"
             ],
             "weight": 420,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Machamp": {
@@ -27486,7 +27486,7 @@
                 "Fighting"
             ],
             "weight": 1300,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Machoke": {
@@ -27835,7 +27835,7 @@
                 "Rock"
             ],
             "weight": 550,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Magikarp": {
@@ -27938,7 +27938,7 @@
                 "Fire"
             ],
             "weight": 445,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Magmortar": {
@@ -28022,7 +28022,7 @@
                 "Fire"
             ],
             "weight": 680,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Magnemite": {
@@ -28176,7 +28176,7 @@
                 "Steel"
             ],
             "weight": 600,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Magnezone": {
@@ -28257,7 +28257,7 @@
                 "Steel"
             ],
             "weight": 1800,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Makuhita": {
@@ -28431,7 +28431,7 @@
                 "Ground"
             ],
             "weight": 2910,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 155
         }
     },
     "Manaphy": {
@@ -28506,7 +28506,7 @@
                 "Water"
             ],
             "weight": 14,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 180
         }
     },
     "Mandibuzz": {
@@ -28590,7 +28590,7 @@
                 "Flying"
             ],
             "weight": 395,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Manectric": {
@@ -28666,7 +28666,7 @@
                 "Electric"
             ],
             "weight": 402,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         },
         "mega": {
             "types": [
@@ -28685,7 +28685,7 @@
             ],
             "isBattleOnly": true,
             "weight": 440,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 155
         }
     },
     "Mankey": {
@@ -28875,7 +28875,7 @@
                 "Flying"
             ],
             "weight": 2200,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Mantyke": {
@@ -29283,7 +29283,7 @@
                 "Ground"
             ],
             "weight": 450,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Marshtomp": {
@@ -29361,7 +29361,7 @@
                 "Ground"
             ],
             "weight": 280,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Masquerain": {
@@ -29435,7 +29435,7 @@
                 "Flying"
             ],
             "weight": 36,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Mawile": {
@@ -29545,7 +29545,7 @@
                 "Fairy"
             ],
             "weight": 115,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         },
         "mega": {
             "types": [
@@ -29565,7 +29565,7 @@
             ],
             "isBattleOnly": true,
             "weight": 235,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 200
         }
     },
     "Medicham": {
@@ -29654,7 +29654,7 @@
                 "Psychic"
             ],
             "weight": 315,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         },
         "mega": {
             "types": [
@@ -29674,7 +29674,7 @@
             ],
             "isBattleOnly": true,
             "weight": 315,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 170
         }
     },
     "Meditite": {
@@ -29853,7 +29853,7 @@
                 "Grass"
             ],
             "weight": 1005,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Meloetta": {
@@ -29949,7 +29949,7 @@
                 "Psychic"
             ],
             "weight": 65,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 150
         },
         "pirouette": {
             "abilities": [
@@ -30143,7 +30143,7 @@
                 "Psychic"
             ],
             "weight": 3,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Metagross": {
@@ -30229,7 +30229,7 @@
                 "Psychic"
             ],
             "weight": 5500,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 150
         }
     },
     "Metang": {
@@ -30313,7 +30313,7 @@
                 "Psychic"
             ],
             "weight": 2025,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Metapod": {
@@ -30484,7 +30484,7 @@
                 "Psychic"
             ],
             "weight": 40,
-            "pokeBattleValue": 230
+            "pokeBattleValue": 165
         }
     },
     "Mewtwo": {
@@ -30813,7 +30813,7 @@
                 "Fighting"
             ],
             "weight": 355,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Mightyena": {
@@ -30960,7 +30960,7 @@
                 "Water"
             ],
             "weight": 1620,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Miltank": {
@@ -31059,7 +31059,7 @@
                 "Normal"
             ],
             "weight": 755,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Mime Jr.": {
@@ -31162,7 +31162,7 @@
                 "Fairy"
             ],
             "weight": 130,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Minccino": {
@@ -31421,7 +31421,7 @@
                 "Ghost"
             ],
             "weight": 10,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Mismagius": {
@@ -31496,7 +31496,7 @@
                 "Ghost"
             ],
             "weight": 44,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Moltres": {
@@ -31574,7 +31574,7 @@
                 "Flying"
             ],
             "weight": 600,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 155
         }
     },
     "Monferno": {
@@ -31664,7 +31664,7 @@
                 "Fighting"
             ],
             "weight": 220,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Mothim": {
@@ -31856,7 +31856,7 @@
                 "Fairy"
             ],
             "weight": 545,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Mudkip": {
@@ -32035,7 +32035,7 @@
                 "Poison"
             ],
             "weight": 300,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 115
         }
     },
     "Munchlax": {
@@ -32133,7 +32133,7 @@
                 "Normal"
             ],
             "weight": 1050,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Munna": {
@@ -32322,7 +32322,7 @@
                 "Flying"
             ],
             "weight": 21,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Musharna": {
@@ -32391,7 +32391,7 @@
                 "Psychic"
             ],
             "weight": 605,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Natu": {
@@ -32581,7 +32581,7 @@
                 "Ground"
             ],
             "weight": 620,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 150
         }
     },
     "Nidoqueen": {
@@ -32675,7 +32675,7 @@
                 "Ground"
             ],
             "weight": 600,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Nidoran♀": {
@@ -33143,7 +33143,7 @@
                 "Fire"
             ],
             "weight": 199,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Ninjask": {
@@ -33219,7 +33219,7 @@
                 "Flying"
             ],
             "weight": 120,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Noctowl": {
@@ -33296,7 +33296,7 @@
                 "Flying"
             ],
             "weight": 408,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Nosepass": {
@@ -33383,7 +33383,7 @@
                 "Rock"
             ],
             "weight": 970,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 90
         }
     },
     "Numel": {
@@ -33642,7 +33642,7 @@
                 "Water"
             ],
             "weight": 285,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Oddish": {
@@ -33811,7 +33811,7 @@
                 "Water"
             ],
             "weight": 75,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Omastar": {
@@ -33888,7 +33888,7 @@
                 "Water"
             ],
             "weight": 350,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Onix": {
@@ -35026,7 +35026,7 @@
                 "Flying"
             ],
             "weight": 280,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Persian": {
@@ -35112,7 +35112,7 @@
                 "Normal"
             ],
             "weight": 320,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Petilil": {
@@ -35334,7 +35334,7 @@
                 "Water"
             ],
             "weight": 31,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Pichu": {
@@ -35480,7 +35480,7 @@
                 "Flying"
             ],
             "weight": 395,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Pidgeotto": {
@@ -35790,7 +35790,7 @@
                 "Fighting"
             ],
             "weight": 555,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Pikachu": {
@@ -35943,7 +35943,7 @@
                 "Ground"
             ],
             "weight": 558,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Pineco": {
@@ -36121,7 +36121,7 @@
                 "Bug"
             ],
             "weight": 550,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         },
         "mega": {
             "types": [
@@ -36141,7 +36141,7 @@
             ],
             "isBattleOnly": true,
             "weight": 590,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 180
         }
     },
     "Piplup": {
@@ -36382,7 +36382,7 @@
                 "Water"
             ],
             "weight": 339,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 165
         }
     },
     "Poliwag": {
@@ -36613,7 +36613,7 @@
                 "Fighting"
             ],
             "weight": 540,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Ponyta": {
@@ -36858,7 +36858,7 @@
                 "Normal"
             ],
             "weight": 365,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Porygon-Z": {
@@ -36939,7 +36939,7 @@
                 "Normal"
             ],
             "weight": 340,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 150
         }
     },
     "Porygon2": {
@@ -37017,7 +37017,7 @@
                 "Normal"
             ],
             "weight": 325,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Primeape": {
@@ -37108,7 +37108,7 @@
                 "Fighting"
             ],
             "weight": 320,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Prinplup": {
@@ -37271,7 +37271,7 @@
                 "Steel"
             ],
             "weight": 3400,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 120
         }
     },
     "Psyduck": {
@@ -37446,7 +37446,7 @@
                 "Ground"
             ],
             "weight": 1520,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Purrloin": {
@@ -37618,7 +37618,7 @@
                 "Normal"
             ],
             "weight": 438,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Quagsire": {
@@ -37703,7 +37703,7 @@
                 "Ground"
             ],
             "weight": 750,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Quilava": {
@@ -37872,7 +37872,7 @@
                 "Poison"
             ],
             "weight": 39,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Raichu": {
@@ -37938,7 +37938,7 @@
                 "Electric"
             ],
             "weight": 300,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Raikou": {
@@ -38018,7 +38018,7 @@
                 "Electric"
             ],
             "weight": 1780,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Ralts": {
@@ -38203,7 +38203,7 @@
                 "Rock"
             ],
             "weight": 1025,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Rapidash": {
@@ -38277,7 +38277,7 @@
                 "Fire"
             ],
             "weight": 950,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Raticate": {
@@ -38358,7 +38358,7 @@
                 "Normal"
             ],
             "weight": 185,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Rattata": {
@@ -38623,7 +38623,7 @@
                 "Ice"
             ],
             "weight": 1750,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Regigigas": {
@@ -38701,7 +38701,7 @@
                 "Normal"
             ],
             "weight": 4200,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Regirock": {
@@ -38777,7 +38777,7 @@
                 "Rock"
             ],
             "weight": 2300,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Registeel": {
@@ -38860,7 +38860,7 @@
                 "Steel"
             ],
             "weight": 2050,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 145
         }
     },
     "Relicanth": {
@@ -38952,7 +38952,7 @@
                 "Rock"
             ],
             "weight": 234,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 110
         }
     },
     "Remoraid": {
@@ -39221,7 +39221,7 @@
                 "Psychic"
             ],
             "weight": 201,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Rhydon": {
@@ -39315,7 +39315,7 @@
                 "Rock"
             ],
             "weight": 1200,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Rhyhorn": {
@@ -39415,7 +39415,7 @@
                 "Rock"
             ],
             "weight": 1150,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Rhyperior": {
@@ -39511,7 +39511,7 @@
                 "Rock"
             ],
             "weight": 2828,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 55
         }
     },
     "Riolu": {
@@ -39773,7 +39773,7 @@
                 "Poison"
             ],
             "weight": 20,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Roserade": {
@@ -39841,7 +39841,7 @@
                 "Poison"
             ],
             "weight": 145,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Rotom": {
@@ -39912,7 +39912,7 @@
                 "Ghost"
             ],
             "weight": 3,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         },
         "fan": {
             "abilities": [
@@ -39937,7 +39937,7 @@
                 "Flying"
             ],
             "weight": 3,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         },
         "frost": {
             "abilities": [
@@ -39962,7 +39962,7 @@
                 "Ice"
             ],
             "weight": 3,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         },
         "heat": {
             "abilities": [
@@ -39987,7 +39987,7 @@
                 "Fire"
             ],
             "weight": 3,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 140
         },
         "mow": {
             "abilities": [
@@ -40012,7 +40012,7 @@
                 "Grass"
             ],
             "weight": 3,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         },
         "wash": {
             "abilities": [
@@ -40037,7 +40037,7 @@
                 "Water"
             ],
             "weight": 3,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 165
         }
     },
     "Rufflet": {
@@ -40221,7 +40221,7 @@
                 "Ghost"
             ],
             "weight": 110,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Salamence": {
@@ -40309,7 +40309,7 @@
                 "Flying"
             ],
             "weight": 1026,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 165
         }
     },
     "Samurott": {
@@ -40394,7 +40394,7 @@
                 "Water"
             ],
             "weight": 946,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Sandile": {
@@ -40666,7 +40666,7 @@
                 "Ground"
             ],
             "weight": 295,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Sawk": {
@@ -40746,7 +40746,7 @@
                 "Fighting"
             ],
             "weight": 510,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Sawsbuck": {
@@ -40826,7 +40826,7 @@
                 "Grass"
             ],
             "weight": 925,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Sceptile": {
@@ -40916,7 +40916,7 @@
                 "Grass"
             ],
             "weight": 522,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Scizor": {
@@ -41002,7 +41002,7 @@
                 "Steel"
             ],
             "weight": 1180,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         },
         "mega": {
             "types": [
@@ -41022,7 +41022,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1250,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 195
         }
     },
     "Scolipede": {
@@ -41104,7 +41104,7 @@
                 "Poison"
             ],
             "weight": 2005,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 155
         }
     },
     "Scrafty": {
@@ -41195,7 +41195,7 @@
                 "Fighting"
             ],
             "weight": 300,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Scraggy": {
@@ -41297,7 +41297,7 @@
                 "Fighting"
             ],
             "weight": 118,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Scyther": {
@@ -41390,7 +41390,7 @@
                 "Flying"
             ],
             "weight": 560,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 120
         }
     },
     "Seadra": {
@@ -41455,7 +41455,7 @@
                 "Water"
             ],
             "weight": 250,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Seaking": {
@@ -41595,7 +41595,7 @@
                 "Water"
             ],
             "weight": 876,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Seedot": {
@@ -41847,7 +41847,7 @@
                 "Ground"
             ],
             "weight": 620,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Sentret": {
@@ -42021,7 +42021,7 @@
                 "Grass"
             ],
             "weight": 630,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Servine": {
@@ -42350,7 +42350,7 @@
                 "Dark"
             ],
             "weight": 888,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 160
         }
     },
     "Shaymin": {
@@ -42415,7 +42415,7 @@
                 "Grass"
             ],
             "weight": 21,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         },
         "sky": {
             "abilities": [
@@ -42479,7 +42479,7 @@
                 "Flying"
             ],
             "weight": 52,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 250
         }
     },
     "Shedinja": {
@@ -42551,7 +42551,7 @@
                 "Ghost"
             ],
             "weight": 12,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Shelgon": {
@@ -42625,7 +42625,7 @@
                 "Dragon"
             ],
             "weight": 1105,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Shellder": {
@@ -42953,7 +42953,7 @@
                 "Steel"
             ],
             "weight": 570,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Shiftry": {
@@ -43036,7 +43036,7 @@
                 "Dark"
             ],
             "weight": 596,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Shinx": {
@@ -43481,7 +43481,7 @@
                 "Flying"
             ],
             "weight": 140,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Silcoon": {
@@ -43580,7 +43580,7 @@
                 "Water"
             ],
             "weight": 290,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Simisage": {
@@ -43651,7 +43651,7 @@
                 "Grass"
             ],
             "weight": 305,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Simisear": {
@@ -43725,7 +43725,7 @@
                 "Fire"
             ],
             "weight": 280,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Skarmory": {
@@ -43817,7 +43817,7 @@
                 "Flying"
             ],
             "weight": 505,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 155
         }
     },
     "Skiploom": {
@@ -44176,7 +44176,7 @@
                 "Dark"
             ],
             "weight": 380,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Slaking": {
@@ -44265,7 +44265,7 @@
                 "Normal"
             ],
             "weight": 1305,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Slakoth": {
@@ -44448,7 +44448,7 @@
                 "Psychic"
             ],
             "weight": 785,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Slowking": {
@@ -44546,7 +44546,7 @@
                 "Psychic"
             ],
             "weight": 795,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 145
         }
     },
     "Slowpoke": {
@@ -44646,7 +44646,7 @@
                 "Psychic"
             ],
             "weight": 360,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Slugma": {
@@ -44759,7 +44759,7 @@
                 "Normal"
             ],
             "weight": 580,
-            "pokeBattleValue": 80
+            "pokeBattleValue": 145
         }
     },
     "Smoochum": {
@@ -44959,7 +44959,7 @@
                 "Ice"
             ],
             "weight": 280,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Snivy": {
@@ -45148,7 +45148,7 @@
                 "Normal"
             ],
             "weight": 4600,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 150
         }
     },
     "Snorunt": {
@@ -45593,7 +45593,7 @@
                 "Psychic"
             ],
             "weight": 1540,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Spearow": {
@@ -45937,7 +45937,7 @@
                 "Normal"
             ],
             "weight": 50,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Spiritomb": {
@@ -46025,7 +46025,7 @@
                 "Dark"
             ],
             "weight": 1080,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Spoink": {
@@ -46304,7 +46304,7 @@
                 "Normal"
             ],
             "weight": 712,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Staraptor": {
@@ -46372,7 +46372,7 @@
                 "Flying"
             ],
             "weight": 249,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Staravia": {
@@ -46589,7 +46589,7 @@
                 "Psychic"
             ],
             "weight": 800,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Staryu": {
@@ -46760,7 +46760,7 @@
                 "Ground"
             ],
             "weight": 4000,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 145
         }
     },
     "Stoutland": {
@@ -46839,7 +46839,7 @@
                 "Normal"
             ],
             "weight": 610,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Stunfisk": {
@@ -46932,7 +46932,7 @@
                 "Electric"
             ],
             "weight": 110,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 110
         }
     },
     "Stunky": {
@@ -47118,7 +47118,7 @@
                 "Rock"
             ],
             "weight": 380,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Suicune": {
@@ -47195,7 +47195,7 @@
                 "Water"
             ],
             "weight": 1870,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Sunflora": {
@@ -47659,7 +47659,7 @@
                 "Poison"
             ],
             "weight": 800,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Swampert": {
@@ -47744,7 +47744,7 @@
                 "Ground"
             ],
             "weight": 819,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 140
         }
     },
     "Swanna": {
@@ -47814,7 +47814,7 @@
                 "Flying"
             ],
             "weight": 242,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Swellow": {
@@ -47879,7 +47879,7 @@
                 "Flying"
             ],
             "weight": 198,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Swinub": {
@@ -48054,7 +48054,7 @@
                 "Flying"
             ],
             "weight": 105,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Taillow": {
@@ -48221,7 +48221,7 @@
                 "Grass"
             ],
             "weight": 350,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Tangrowth": {
@@ -48311,7 +48311,7 @@
                 "Grass"
             ],
             "weight": 1286,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 150
         }
     },
     "Tauros": {
@@ -48392,7 +48392,7 @@
                 "Normal"
             ],
             "weight": 884,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Teddiursa": {
@@ -48663,7 +48663,7 @@
                 "Poison"
             ],
             "weight": 550,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Tepig": {
@@ -48835,7 +48835,7 @@
                 "Fighting"
             ],
             "weight": 2600,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 160
         }
     },
     "Throh": {
@@ -48915,7 +48915,7 @@
                 "Fighting"
             ],
             "weight": 555,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Thundurus": {
@@ -49006,7 +49006,7 @@
                 "Flying"
             ],
             "weight": 610,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 195
         },
         "therian": {
             "abilities": [
@@ -49103,7 +49103,7 @@
                 "Flying"
             ],
             "weight": 610,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Timburr": {
@@ -49287,7 +49287,7 @@
                 "Rock"
             ],
             "weight": 165,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Togekiss": {
@@ -49365,7 +49365,7 @@
                 "Flying"
             ],
             "weight": 380,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 160
         }
     },
     "Togepi": {
@@ -49548,7 +49548,7 @@
                 "Flying"
             ],
             "weight": 32,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Torchic": {
@@ -49729,7 +49729,7 @@
                 "Fire"
             ],
             "weight": 804,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 115
         }
     },
     "Tornadus": {
@@ -49814,7 +49814,7 @@
                 "Flying"
             ],
             "weight": 630,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 165
         },
         "therian": {
             "abilities": [
@@ -49907,7 +49907,7 @@
                 "Flying"
             ],
             "weight": 630,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 175
         }
     },
     "Torterra": {
@@ -49991,7 +49991,7 @@
                 "Ground"
             ],
             "weight": 3100,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 125
         }
     },
     "Totodile": {
@@ -50180,7 +50180,7 @@
                 "Fighting"
             ],
             "weight": 444,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Tranquill": {
@@ -50332,7 +50332,7 @@
                 "Ground"
             ],
             "weight": 150,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Treecko": {
@@ -50520,7 +50520,7 @@
                 "Flying"
             ],
             "weight": 1000,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Trubbish": {
@@ -50887,7 +50887,7 @@
                 "Fire"
             ],
             "weight": 795,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Tyranitar": {
@@ -50989,7 +50989,7 @@
                 "Dark"
             ],
             "weight": 2020,
-            "pokeBattleValue": 225
+            "pokeBattleValue": 175
         },
         "mega": {
             "types": [
@@ -51009,7 +51009,7 @@
             ],
             "isBattleOnly": true,
             "weight": 2550,
-            "pokeBattleValue": 270
+            "pokeBattleValue": 210
         }
     },
     "Tyrogue": {
@@ -51155,7 +51155,7 @@
                 "Dark"
             ],
             "weight": 270,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Unfezant": {
@@ -51226,7 +51226,7 @@
                 "Flying"
             ],
             "weight": 290,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Unown": {
@@ -51339,7 +51339,7 @@
                 "Normal"
             ],
             "weight": 1258,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Uxie": {
@@ -51419,7 +51419,7 @@
                 "Psychic"
             ],
             "weight": 3,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Vanillish": {
@@ -51631,7 +51631,7 @@
                 "Ice"
             ],
             "weight": 575,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Vaporeon": {
@@ -51704,7 +51704,7 @@
                 "Water"
             ],
             "weight": 290,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Venipede": {
@@ -51858,7 +51858,7 @@
                 "Poison"
             ],
             "weight": 125,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Venonat": {
@@ -52021,7 +52021,7 @@
                 "Poison"
             ],
             "weight": 1000,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         },
         "mega": {
             "types": [
@@ -52041,7 +52041,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1555,
-            "pokeBattleValue": 175
+            "pokeBattleValue": 180
         }
     },
     "Vespiquen": {
@@ -52121,7 +52121,7 @@
                 "Flying"
             ],
             "weight": 385,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Vibrava": {
@@ -52288,7 +52288,7 @@
                 "Fire"
             ],
             "weight": 40,
-            "pokeBattleValue": 190
+            "pokeBattleValue": 145
         }
     },
     "Victreebel": {
@@ -52356,7 +52356,7 @@
                 "Poison"
             ],
             "weight": 155,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Vigoroth": {
@@ -52438,7 +52438,7 @@
                 "Normal"
             ],
             "weight": 465,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Vileplume": {
@@ -52504,7 +52504,7 @@
                 "Poison"
             ],
             "weight": 186,
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Virizion": {
@@ -52584,7 +52584,7 @@
                 "Fighting"
             ],
             "weight": 2000,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Volbeat": {
@@ -52670,7 +52670,7 @@
                 "Bug"
             ],
             "weight": 177,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Volcarona": {
@@ -52751,7 +52751,7 @@
                 "Fire"
             ],
             "weight": 460,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 175
         }
     },
     "Voltorb": {
@@ -53168,7 +53168,7 @@
                 "Water"
             ],
             "weight": 3980,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Walrein": {
@@ -53244,7 +53244,7 @@
                 "Water"
             ],
             "weight": 1506,
-            "pokeBattleValue": 130
+            "pokeBattleValue": 110
         }
     },
     "Wartortle": {
@@ -53402,7 +53402,7 @@
                 "Normal"
             ],
             "weight": 270,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Weavile": {
@@ -53501,7 +53501,7 @@
                 "Ice"
             ],
             "weight": 340,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Weedle": {
@@ -53678,7 +53678,7 @@
                 "Poison"
             ],
             "weight": 95,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Whimsicott": {
@@ -53749,7 +53749,7 @@
                 "Fairy"
             ],
             "weight": 66,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Whirlipede": {
@@ -53896,7 +53896,7 @@
                 "Ground"
             ],
             "weight": 236,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Whismur": {
@@ -54059,7 +54059,7 @@
                 "Fairy"
             ],
             "weight": 120,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Wingull": {
@@ -54174,7 +54174,7 @@
                 "Psychic"
             ],
             "weight": 285,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 145
         }
     },
     "Woobat": {
@@ -54510,7 +54510,7 @@
                 "Ground"
             ],
             "weight": 65,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         },
         "trash": {
             "abilities": [
@@ -54646,7 +54646,7 @@
                 "Psychic"
             ],
             "weight": 140,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Xatu": {
@@ -54731,7 +54731,7 @@
                 "Flying"
             ],
             "weight": 150,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Yamask": {
@@ -54898,7 +54898,7 @@
                 "Flying"
             ],
             "weight": 380,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 80
         }
     },
     "Yanmega": {
@@ -54975,7 +54975,7 @@
                 "Flying"
             ],
             "weight": 515,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 145
         }
     },
     "Zangoose": {
@@ -55081,7 +55081,7 @@
                 "Normal"
             ],
             "weight": 403,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Zapdos": {
@@ -55159,7 +55159,7 @@
                 "Flying"
             ],
             "weight": 526,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 160
         }
     },
     "Zebstrika": {
@@ -55230,7 +55230,7 @@
                 "Electric"
             ],
             "weight": 795,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 90
         }
     },
     "Zekrom": {
@@ -55499,7 +55499,7 @@
                 "Dark"
             ],
             "weight": 811,
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Zorua": {
@@ -55751,7 +55751,7 @@
                 "Dragon"
             ],
             "weight": 500,
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Chespin": {
@@ -56043,7 +56043,7 @@
                     "Grass Pledge": 0
                 }
             },
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Fennekin": {
@@ -56304,7 +56304,7 @@
                     "Fire Pledge": 0
                 }
             },
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Froakie": {
@@ -56473,7 +56473,7 @@
                     "Water Pledge": 0
                 }
             },
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Greninja": {
@@ -56563,7 +56563,7 @@
                     "Water Pledge": 0
                 }
             },
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Bunnelby": {
@@ -56739,7 +56739,7 @@
                     "Wild Charge": 0
                 }
             },
-            "pokeBattleValue": 125
+            "pokeBattleValue": 130
         }
     },
     "Fletchling": {
@@ -56885,7 +56885,7 @@
                     "Will-O-Wisp": 0
                 }
             },
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Talonflame": {
@@ -56965,7 +56965,7 @@
                     "Will-O-Wisp": 0
                 }
             },
-            "pokeBattleValue": 180
+            "pokeBattleValue": 175
         }
     },
     "Scatterbug": {
@@ -57108,7 +57108,7 @@
                     "U-turn": 0
                 }
             },
-            "pokeBattleValue": 85
+            "pokeBattleValue": 80
         }
     },
     "Litleo": {
@@ -57277,7 +57277,7 @@
                     "Will-O-Wisp": 0
                 }
             },
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Flabébé": {
@@ -57479,7 +57479,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Skiddo": {
@@ -57640,7 +57640,7 @@
                     "Wild Charge": 0
                 }
             },
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Pancham": {
@@ -57833,7 +57833,7 @@
                     "X-Scissor": 0
                 }
             },
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Furfrou": {
@@ -57910,7 +57910,7 @@
                     "Work Up": 0
                 }
             },
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Espurr": {
@@ -58075,7 +58075,7 @@
                     "Trick Room": 0
                 }
             },
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         },
         "female": {
             "types": [
@@ -58160,7 +58160,7 @@
                     "Trick Room": 0
                 }
             },
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Honedge": {
@@ -58302,7 +58302,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Aegislash": {
@@ -58374,7 +58374,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 180
+            "pokeBattleValue": 195
         },
         "blade": {
             "types": [
@@ -58557,7 +58557,7 @@
                     "Trick Room": 0
                 }
             },
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Swirlix": {
@@ -58709,7 +58709,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 100
+            "pokeBattleValue": 95
         }
     },
     "Inkay": {
@@ -58886,7 +58886,7 @@
                     "Trick Room": 0
                 }
             },
-            "pokeBattleValue": 150
+            "pokeBattleValue": 125
         }
     },
     "Binacle": {
@@ -59093,7 +59093,7 @@
                     "X-Scissor": 0
                 }
             },
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Skrelp": {
@@ -59248,7 +59248,7 @@
                     "Draco Meteor": 0
                 }
             },
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         }
     },
     "Clauncher": {
@@ -59398,7 +59398,7 @@
                     "Waterfall": 0
                 }
             },
-            "pokeBattleValue": 90
+            "pokeBattleValue": 85
         }
     },
     "Helioptile": {
@@ -59557,7 +59557,7 @@
                     "Wild Charge": 0
                 }
             },
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Tyrunt": {
@@ -59727,7 +59727,7 @@
                     "Draco Meteor": 0
                 }
             },
-            "pokeBattleValue": 130
+            "pokeBattleValue": 125
         }
     },
     "Amaura": {
@@ -59917,7 +59917,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 155
+            "pokeBattleValue": 120
         }
     },
     "Sylveon": {
@@ -59990,7 +59990,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 140
+            "pokeBattleValue": 135
         }
     },
     "Hawlucha": {
@@ -60092,7 +60092,7 @@
                     "Quick Guard": 0
                 }
             },
-            "pokeBattleValue": 125
+            "pokeBattleValue": 120
         }
     },
     "Dedenne": {
@@ -60252,7 +60252,7 @@
                     "Trick Room": 0
                 }
             },
-            "pokeBattleValue": 110
+            "pokeBattleValue": 105
         }
     },
     "Goomy": {
@@ -60470,7 +60470,7 @@
                     "Draco Meteor": 0
                 }
             },
-            "pokeBattleValue": 150
+            "pokeBattleValue": 145
         }
     },
     "Klefki": {
@@ -60551,7 +60551,7 @@
                     "Thief": 0
                 }
             },
-            "pokeBattleValue": 145
+            "pokeBattleValue": 140
         }
     },
     "Phantump": {
@@ -60724,7 +60724,7 @@
                     "X-Scissor": 0
                 }
             },
-            "pokeBattleValue": 120
+            "pokeBattleValue": 115
         }
     },
     "Pumpkaboo": {
@@ -60959,7 +60959,7 @@
                     "Will-O-Wisp": 0
                 }
             },
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         },
         "small": {
             "types": [
@@ -60980,7 +60980,7 @@
             ],
             "hiddenAbility": "Insomnia",
             "weight": 95,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         },
         "large": {
             "types": [
@@ -61001,7 +61001,7 @@
             ],
             "hiddenAbility": "Insomnia",
             "weight": 140,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 100
         },
         "super": {
             "types": [
@@ -61022,7 +61022,7 @@
             ],
             "hiddenAbility": "Insomnia",
             "weight": 390,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 110
         }
     },
     "Bergmite": {
@@ -61182,7 +61182,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 135
+            "pokeBattleValue": 130
         }
     },
     "Noibat": {
@@ -61363,7 +61363,7 @@
                     "Draco Meteor": 0
                 }
             },
-            "pokeBattleValue": 165
+            "pokeBattleValue": 150
         }
     },
     "Xerneas": {
@@ -61606,7 +61606,7 @@
                     "Draco Meteor": 0
                 }
             },
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     }
 }
