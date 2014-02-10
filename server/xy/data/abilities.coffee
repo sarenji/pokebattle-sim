@@ -83,7 +83,7 @@ makeAbility 'Gale Wings', ->
 
 makeAbility "Gooey", ->
   this::afterBeingHit = (move, user) ->
-    user.boost(speed: -1)  if move.hasFlag("contact")
+    user.boost(speed: -1, @pokemon)  if move.hasFlag("contact")
 
 # TODO: Grass Pelt
 makeAbility "Grass Pelt"

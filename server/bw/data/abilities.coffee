@@ -640,8 +640,7 @@ makeAbility 'Rattled', ->
   this::afterBeingHit = (move, user) ->
     type = move.getType(@battle, user, @pokemon)
     if type in [ "Bug", "Ghost", "Dark" ]
-      boosts = {speed: 1}
-      @pokemon.boost(boosts)
+      @pokemon.boost(speed: 1)
 
 makeAbility 'Reckless', ->
   this::modifyBasePower = (move, target) ->

@@ -131,12 +131,17 @@ class @Battle extends EventEmitter
   getTeams: ->
     (@getTeam(playerId)  for playerId in @playerIds)
 
-  # Returns all opposing pokemon of a given pokemon.
+  # Returns non-fainted opposing pokemon of a given pokemon.
   getOpponents: (pokemon) ->
+    opponents = @getAllOpponents(pokemon)
+    opponents = opponents.filter((p) -> p.isAlive())
+    opponents
+
+  # Returns all opposing pokemon of a given pokemon.
+  getAllOpponents: (pokemon) ->
     opponents = @getOpponentOwners(pokemon)
     teams = (@getTeam(playerId).slice(0, @numActive)  for playerId in opponents)
     opponents = _.flatten(teams)
-    opponents = opponents.filter((p) -> p.isAlive())
     opponents
 
   # Returns all opponent players of a given pokemon. In a 1v1 it returns

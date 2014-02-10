@@ -18,7 +18,7 @@ class @Attachment.KingsShield extends @VolatileAttachment
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect") && !move.isNonDamaging()
       @battle.message "#{@pokemon.name} protected itself!"
-      if move.hasFlag("contact") then user.boost(attack: -2)
+      if move.hasFlag("contact") then user.boost(attack: -2, @pokemon)
       return true
 
   endTurn: ->
@@ -30,4 +30,6 @@ class @Attachment.StickyWeb extends @TeamAttachment
   switchIn: (pokemon) ->
     if !pokemon.isImmune("Ground")
       @battle.message "#{pokemon.name} was caught in a sticky web!"
-      pokemon.boost(speed: -1)
+      # The source is not actually an opposing Pokemon, but in order for Defiant
+      # to work properly, the source should not be the pokemon itself.
+      pokemon.boost(speed: -1, @battle.getAllOpponents(pokemon)[0])
