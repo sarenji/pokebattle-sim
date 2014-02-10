@@ -27,11 +27,13 @@ Bold Nature
 
 Skarmory (M)
 
-Tyranitar
+Tyranitar @ Never-Melt Ice
+Ability: Lightning Rod
 Level: 1
 Happiness: 3
 EVs: 252 HP / 80 Def / 176 SDef
 - Hidden Power [Grass]
+- Extreme Speed
 
 Articuno
 IVs: 30 HP / 29 Def
@@ -86,15 +88,15 @@ EVs: 252 SpA / 176 SpD
       pokemon = team[3]
       pokemon.name.should.equal("Tyranitar")
       pokemon.should.not.have.property('gender')
-      pokemon.should.not.have.property('item')
-      pokemon.should.not.have.property('ability')
       pokemon.should.not.have.property('nature')
       pokemon.level.should.equal(1)
       pokemon.happiness.should.equal(3)
       pokemon.should.not.have.property('shiny')
       pokemon.ivs.should.eql(attack: 30, specialAttack: 30)
       pokemon.evs.should.eql(hp: 252, defense: 80, specialDefense: 176)
-      pokemon.moves.should.eql(["Hidden Power"])
+      pokemon.moves.should.eql(["Hidden Power", "ExtremeSpeed"])
+      pokemon.item.should.eql("NeverMeltIce")
+      pokemon.ability.should.eql("Lightningrod")
 
       pokemon = team[4]
       pokemon.name.should.equal("Articuno")
