@@ -203,7 +203,6 @@ describe "XY Moves:", ->
       freezeDry = @battle.getMove('Freeze-Dry')
       spy = @sandbox.spy(freezeDry, 'typeEffectiveness')
       @battle.performMove(@p1, freezeDry)
-      console.log(spy.returnValues)
       spy.returned(2).should.be.true
 
     it "is 2x effective against Water-types with Normalize", ->

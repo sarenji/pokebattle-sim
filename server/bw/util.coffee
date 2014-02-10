@@ -8,7 +8,7 @@
     targetType = Type[subtype]
     multiplier = typeChart[userType][targetType]
     multiplier = 1  if multiplier == 0 && options.ignoreImmunities
-    multiplier = 2  if options.move?.superEffectiveAgainst == subtype
+    multiplier = 2  if options.superEffectiveAgainst == subtype
     effectiveness *= multiplier
   effectiveness
 
