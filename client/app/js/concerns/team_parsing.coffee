@@ -46,6 +46,8 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       pokemon.nature = RegExp.$1
     else if line.match(/^[\-\~]\s*(.*)/)
       moveName = RegExp.$1
+      if moveName is 'Extreme Speed'
+        moveName = 'ExtremeSpeed'
       if /Hidden Power /.test(moveName)
         if !pokemon.ivs
           moveName.match(/Hidden Power (.*)/i)
