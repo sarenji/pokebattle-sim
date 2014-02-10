@@ -29,6 +29,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
     'change .selected_gender': 'changeGender'
+    'change .selected_level': 'changeLevel'
     'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'focus .ev-entry': 'focusEv'
@@ -61,6 +62,7 @@ class @TeambuilderView extends Backbone.View
 
   attachEventsToTeam: (team) =>
     @listenTo(team, 'add', @renderPokemon)
+    @listenTo(team, 'change:level', @renderStats)
     @listenTo(team, 'change:ivs', @renderStats)
     @listenTo(team, 'change:evs', @renderStats)
     @listenTo(team, 'change:nature', @renderStats)
@@ -179,6 +181,14 @@ class @TeambuilderView extends Backbone.View
   changeGender: (e) =>
     $list = $(e.currentTarget)
     @getSelectedPokemon().set("gender", $list.val())
+
+  changeLevel: (e) =>
+    $input = $(e.currentTarget)
+    value = parseInt($input.val())
+    value = 100  if isNaN(value) || value > 100
+    value = 1  if value < 1
+    $input.val(value)
+    @getSelectedPokemon().set("level", value)
 
   changeShiny: (e) =>
     $checkbox = $(e.currentTarget)
