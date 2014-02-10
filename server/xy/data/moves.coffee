@@ -36,6 +36,10 @@ makeBoostMove 'Play Nice', 'target', attack: -1
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
 
+makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
+  user.attach(Attachment.SpikyShield)
+  battle.message "#{user.name} protected itself!"
+
 makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if team.attach(Attachment.StickyWeb)

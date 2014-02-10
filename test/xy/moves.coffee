@@ -108,6 +108,69 @@ describe "XY Moves:", ->
       @battle.performMove(@p2, ember)
       @p2.stages.attack.should.equal(0)
 
+  describe "Spiky Shield", ->
+    it "protects against attacks", ->
+      shared.create.call(this, gen: 'xy')
+      spikyShield = @battle.getMove("Spiky Shield")
+      tackle = @battle.getMove("Tackle")
+      mock = @sandbox.mock(tackle).expects('hit').never()
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, spikyShield)
+      @battle.performMove(@p2, tackle)
+      mock.verify()
+
+    it "protects against non-damaging moves", ->
+      shared.create.call(this, gen: 'xy')
+      spikyShield = @battle.getMove("Spiky Shield")
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      mock = @sandbox.mock(willOWisp).expects('hit').never()
+
+      @battle.recordMove(@id2, willOWisp)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, spikyShield)
+      @battle.performMove(@p2, willOWisp)
+      mock.verify()
+
+    it "does not protect against attacks it is immune to", ->
+      shared.create.call(this, gen: 'xy')
+      @p1.types = [ 'Ghost' ]
+      spikyShield = @battle.getMove("Spiky Shield")
+      tackle = @battle.getMove("Tackle")
+      mock = @sandbox.mock(tackle).expects('hit').never()
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, spikyShield)
+      @battle.performMove(@p2, tackle)
+      mock.verify()
+      @p2.stages.should.include(attack: 0)
+
+    it "damages attacker by 1/8 if move was a contact move", ->
+      shared.create.call(this, gen: 'xy')
+      spikyShield = @battle.getMove("Spiky Shield")
+      tackle = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id2, tackle)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, spikyShield)
+      @p2.currentHP.should.not.be.lessThan(@p2.stat('hp'))
+      @battle.performMove(@p2, tackle)
+      (@p2.stat('hp') - @p2.currentHP).should.equal(@p2.stat('hp') >> 3)
+
+    it "does not damage attacker if move was not a contact move", ->
+      shared.create.call(this, gen: 'xy')
+      spikyShield = @battle.getMove("Spiky Shield")
+      ember = @battle.getMove("Ember")
+
+      @battle.recordMove(@id2, ember)
+      @battle.determineTurnOrder()
+      @battle.performMove(@p1, spikyShield)
+      @p2.currentHP.should.not.be.lessThan(@p2.stat('hp'))
+      @battle.performMove(@p2, ember)
+      @p2.currentHP.should.not.be.lessThan(@p2.stat('hp'))
+
   describe "Sticky Web", ->
     shared.shouldFailIfUsedTwice("Sticky Web", gen: 'xy')
 

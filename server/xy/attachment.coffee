@@ -24,6 +24,18 @@ class @Attachment.KingsShield extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
+class @Attachment.SpikyShield extends @VolatileAttachment
+  name: "SpikyShieldAttachment"
+
+  shouldBlockExecution: (move, user) ->
+    if move.hasFlag("protect")
+      @battle.message "#{@pokemon.name} protected itself!"
+      if move.hasFlag("contact") then user.damage(user.stat('hp') >> 3)
+      return true
+
+  endTurn: ->
+    @pokemon.unattach(@constructor)
+
 class @Attachment.StickyWeb extends @TeamAttachment
   name: "StickyWebAttachment"
 
