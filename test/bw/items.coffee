@@ -102,13 +102,13 @@ describe "BW Items:", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
       @battle.performMove(@p1, @battle.getMove("Acrobatics"))
-      should.not.exist @p1.item
+      @p1.hasItem().should.equal.false
 
     it "is not removed after use if the move isn't the right type", ->
       shared.create.call this,
         team1: [Factory('Magikarp', item: 'Flying Gem')]
       @battle.performMove(@p1, @battle.getMove("Tackle"))
-      should.exist @p1.item
+      @p1.hasItem("Flying Gem").should.equal.true
 
   describe "A typed plate", ->
     it "has the plate attribute set", ->

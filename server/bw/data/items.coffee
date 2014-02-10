@@ -139,7 +139,7 @@ makeGemItem = (name, type) ->
     this::afterSuccessfulHit = (move, user, target) ->
       if move.type == type
         @battle.message "The #{@displayName} strengthened #{move.name}'s power!"
-        user.item = null
+        user.useItem()
 
 makeChoiceItem = (name, func) ->
   makeItem name, ->
