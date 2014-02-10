@@ -1358,6 +1358,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Copycat'))
       mock.verify()
 
+    it "changes the move's target properly", ->
+      tackle = @battle.getMove('Tackle')
+      @battle.lastMove = tackle
+      mock = @sandbox.mock(tackle)
+      mock.expects('execute').once().withArgs(@battle, @p1, [ @p2 ])
+      @battle.performMove(@p1, @battle.getMove('Copycat'))
+      mock.verify()
+
     it 'fails if no last move was used', ->
       @battle.lastMove = null
       mock = @sandbox.mock(@battle.getMove('Copycat'))

@@ -1088,7 +1088,7 @@ extendMove 'Copycat', ->
   @execute = (battle, user, targets) ->
     move = battle.lastMove
     if move? && move != battle.getMove('Copycat')
-      battle.executeMove(move, user, targets)
+      battle.executeMove(move, user, battle.getTargets(move, user))
     else
       @fail(battle)
 
