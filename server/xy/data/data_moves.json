@@ -3893,8 +3893,8 @@
     },
     "Freeze-Dry": {
         "accuracy": 100,
-        "ailmentChance": 0,
-        "ailmentId": "none",
+        "ailmentChance": 10,
+        "ailmentId": "freeze",
         "damage": "special",
         "flags": [
             "protect",

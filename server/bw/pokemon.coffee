@@ -409,6 +409,7 @@ class @Pokemon
     if options.user
       type = options.user.editMoveType(type, this)
       hash.ignoreImmunities = options.user.shouldIgnoreImmunity(type, this)
+    hash.move = options.move  if options.move?
     util.typeEffectiveness(type, @types, hash)
 
   isWeatherDamageImmune: (weather) ->

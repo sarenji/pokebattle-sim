@@ -195,3 +195,33 @@ describe "XY Moves:", ->
 
       attachment = @p1.attach(Attachment.ProtectCounter)
       attachment.successChance().should.equal Math.pow(2, 32)
+
+  describe "Freeze-Dry", ->
+    it "is 2x effective against Water-types", ->
+      shared.create.call(this, gen: 'xy')
+      @p2.types = [ "Water" ]
+      freezeDry = @battle.getMove('Freeze-Dry')
+      spy = @sandbox.spy(freezeDry, 'typeEffectiveness')
+      @battle.performMove(@p1, freezeDry)
+      console.log(spy.returnValues)
+      spy.returned(2).should.be.true
+
+    it "is 2x effective against Water-types with Normalize", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Normalize")]
+      @p2.types = [ "Water" ]
+      freezeDry = @battle.getMove('Freeze-Dry')
+      spy = @sandbox.spy(freezeDry, 'typeEffectiveness')
+      @battle.performMove(@p1, freezeDry)
+      spy.returned(2).should.be.true
+
+    it "is normally effective against other types", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp")]
+      @p2.types = [ "Fire" ]
+      freezeDry = @battle.getMove('Freeze-Dry')
+      spy = @sandbox.spy(freezeDry, 'typeEffectiveness')
+      @battle.performMove(@p1, freezeDry)
+      spy.returned(.5).should.be.true

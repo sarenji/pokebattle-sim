@@ -15,6 +15,9 @@ makeBoostMove 'Eerie Impulse', 'target', specialAttack: -2
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
+extendMove 'Freeze-Dry', ->
+  @superEffectiveAgainst = "Water"
+
 extendMove 'Knock Off', ->
   @basePower = (battle, user, target) ->
     multiplier = (if target.hasTakeableItem() then 1.5 else 1.0)
