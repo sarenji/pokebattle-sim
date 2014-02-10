@@ -20,8 +20,14 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       convertNameToSpeciesAndForme(pokemon, pokemonLine.trim())
       pokemon.gender = gender[1]  if gender  # (M) and (F)
       pokemon.item   = item    if item
+      for olditem, newitem of Aliases.items
+        if olditem is pokemon.item
+          pokemon.item = newitem
     else if line.match(/^(?:Trait|Ability):\s+(.*)$/i)
       pokemon.ability = RegExp.$1
+      for oldability, newability of Aliases.abilities
+        if pokemon.ability is oldability
+          pokemon.ability = newability
     else if line.match(/^Level:\s+(.*)$/i)
       pokemon.level = Number(RegExp.$1) || 100
     else if line.match(/^Happiness:\s+(.*)$/i)
@@ -46,8 +52,9 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       pokemon.nature = RegExp.$1
     else if line.match(/^[\-\~]\s*(.*)/)
       moveName = RegExp.$1
-      if moveName is 'Extreme Speed'
-        moveName = 'ExtremeSpeed'
+      for oldmove, newmove of Aliases.moves
+        if moveName is oldmove
+          moveName = newmove
       if /Hidden Power /.test(moveName)
         if !pokemon.ivs
           moveName.match(/Hidden Power (.*)/i)
@@ -104,6 +111,47 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       s.push("- #{moveName}")  for moveName in pokemon.moves
   s.push("\n")  # Trailing newlines, just in case.
   s.join("\n")
+
+Aliases =
+  moves:
+    "Ancient Power"   :  "AncientPower"
+    "Bubble Beam"     :  "BubbleBeam"
+    "Double Slap"     :  "DoubleSlap"
+    "Dragon Breath"   :  "DragonBreath"
+    "Dynamic Punch"   :  "DynamicPunch"
+    "Extreme Speed"   :  "ExtremeSpeed"
+    "Feint Attack"    :  "Faint Attack"
+    "Feather Dance"   :  "FeatherDance"
+    "Grass Whistle"   :  "GrassWhistle"
+    "High Jump Kick"  :  "Hi Jump Kick"
+    "Poison Powder"   :  "PoisonPowder"
+    "Sand Attack"     :  "Sand-Attack"
+    "Self-Destruct"   :  "Selfdestruct"
+    "Smelling Salts"  :  "SmellingSalt"
+    "Smokescreen"     :  "SmokeScreen"
+    "Soft-Boiled"     :  "Softboiled"
+    "Solar Beam"      :  "SolarBeam"
+    "Sonic Boom"      :  "SonicBoom"
+    "Thunder Punch"   :  "ThunderPunch"
+    "Thunder Shock"   :  "ThunderShock"
+    "Vice Grip"       :  "ViceGrip"
+  abilities:
+    "Compound Eyes"   :  "Compoundeyes"
+    "Lightning Rod"   :  "Lightningrod"
+  items:
+    "Balm Mushroom"   :  "BalmMushroom"
+    "Black Glasses"   :  "BlackGlasses"
+    "Bright Powder"   :  "BrightPowder"
+    "Deep Sea Scale"  :  "DeepSeaScale"
+    "Deep Sea Tooth"  :  "DeepSeaTooth"
+    "Energy Powder"   :  "EnergyPowder"
+    "Never-MeltIce"   :  "NeverMeltIce"
+    "Parlyze Heal"    :  "Paralyz Heal"
+    "Rage Candy Bar"  :  "RageCandyBar"
+    "Silver Powder"   :  "SilverPowder"
+    "Thunder Stone"   :  "Thunderstone"
+    "Tiny Mushroom"   :  "TinyMushroom"
+    "Twisted Spoon"   :  "TwistedSpoon"
 
 statsHash =
   'hp'   : 'hp'
