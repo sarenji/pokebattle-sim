@@ -303,7 +303,7 @@ class @BattleView extends Backbone.View
         position = $sprite.position()
         substituteUrl = (if @isFront(player) then "substitute" else "subback")
         substituteUrl = "http://sprites.pokecheck.org/o/#{substituteUrl}.gif"
-        addPokemonImage $pokemon, substituteUrl, callback: ($image) ->
+        addPokemonImage $pokemon, substituteUrl, callback: ($image) =>
           $image.addClass('substitute')
           width = $image.width()
           height = $image.height()
@@ -311,15 +311,20 @@ class @BattleView extends Backbone.View
           y = position.top + ((spriteHeight - height) >> 1)
           yOffset = 200
           $image.remove()
-          $image.css(left: x, top: y - yOffset)
-          $image.appendTo($pokemon)
-          setTimeout ->
-            move($image)
-              .y( yOffset).ease('ease-in-quad').duration(@skip ? '.2s').then()
-              .y(-yOffset >> 3).ease('ease-out-quad').duration(@skip ? '.1s').then()
-              .y( yOffset >> 3).ease('ease-in-quad').duration(@skip ? '.1s').then()
-              .pop().pop().pop().end(done)
-          , 0
+          if @skip?
+            $image.css(left: x, top: y)
+            $image.appendTo($pokemon)
+            done()
+          else
+            $image.css(left: x, top: y - yOffset)
+            $image.appendTo($pokemon)
+            setTimeout ->
+              move($image)
+                .y( yOffset).ease('ease-in-quad').duration('.2s').then()
+                .y(-yOffset >> 3).ease('ease-out-quad').duration('.1s').then()
+                .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
+                .pop().pop().pop().end(done)
+            , 0
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
         @addLog("#{pokemon.get('name')} became confused!")
