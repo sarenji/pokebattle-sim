@@ -1955,7 +1955,7 @@ makeVulnerable('Dive', 'Whirlpool')
 
 extendMove 'Reflect Type', ->
   @use = (battle, user, target) ->
-    if target.hasAbility("Multitype")
+    if user.hasAbility("Multitype")
       @fail(battle)
 
     user.types = target.types
