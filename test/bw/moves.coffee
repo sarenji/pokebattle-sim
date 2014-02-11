@@ -247,6 +247,19 @@ describe 'Move:', ->
       d.stages.evasion = 3
       new Move(null, accuracy: 50).chanceToHit(battle, a, d).should.eql 50
 
+    it 'keeps heightening and lowering chances when negative', ->
+      battle = new Battle('1', [])
+      a = new Pokemon()
+      d = new Pokemon()
+      new Move(null, accuracy: 100).chanceToHit(battle, a, d).should.eql 100
+
+      a.stages.accuracy = -3
+      new Move(null, accuracy: 50).chanceToHit(battle, a, d).should.eql 25
+
+      a.stages.accuracy = -3
+      d.stages.evasion = -3
+      new Move(null, accuracy: 50).chanceToHit(battle, a, d).should.eql 50
+
   describe '#hasFlag', ->
     it 'returns true if a move has a specific flag', ->
       new Move(null, flags: ['superman', 'batman'])
