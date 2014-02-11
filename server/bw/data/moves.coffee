@@ -1880,7 +1880,7 @@ extendMove 'Venoshock', ->
 makeSwitchMove = (moveName) ->
   extendMove moveName, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      battle.forceSwitch(user) unless battle.isOver()
+      battle.forceSwitch(user)
 
 makeSwitchMove 'Volt Switch'
 makeSwitchMove 'U-turn'

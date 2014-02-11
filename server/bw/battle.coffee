@@ -176,6 +176,7 @@ class @Battle extends EventEmitter
 
   # Forces the owner of a Pokemon to switch.
   forceSwitch: (pokemon) ->
+    return if @isOver()
     playerId = @getOwner(pokemon)
     switches = pokemon.team.getAliveBenchedPokemon()
     slot = @getSlotNumber(pokemon)
