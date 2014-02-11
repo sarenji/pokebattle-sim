@@ -38,8 +38,11 @@ class @SidebarView extends Backbone.View
 
     # Show notification count.
     notificationCount = battle.get('notifications')
-    $notifications.text(notificationCount)
-    $notifications.removeClass('hidden')
+    if notificationCount > 0
+      $notifications.text(notificationCount)
+      $notifications.removeClass('hidden')
+    else
+      $notifications.addClass('hidden')
 
   addBattle: (battle) =>
     @$(".header_battles, .nav_battles").removeClass("hidden")
@@ -78,22 +81,22 @@ class @SidebarView extends Backbone.View
 
   focusBattle: (e) =>
     $this = $(e.currentTarget)
+    @resetNotifications($this)
     battleId = $this.data('battle-id')
-    console.log "Switching to battle #{battleId}"
     @changeWindowToBattle(battleId)
 
   focusLobby: (e) =>
     # TODO: Clean this up once rooms are implemented
     # right now it duplicates part of focusRoom()
     $lobbyLink = @$(".nav_rooms li").first()
-    $lobbyLink.find('.notifications').addClass('hidden')
+    @resetNotifications($lobbyLink)
     $room = $('.chat_window')
     @changeWindowTo($room, $lobbyLink)
     PokeBattle.router.navigate("")
 
   focusRoom: (e) =>
     $this = $(e.currentTarget)
-    $this.find('.notifications').addClass('hidden')
+    @resetNotifications($this)
     # TODO: Remove hardcoding once rooms are implemented
     $room = $('.chat_window')
     @changeWindowTo($room, $this)
@@ -116,3 +119,10 @@ class @SidebarView extends Backbone.View
     $navItem = @$("[data-battle-id='#{battleId}']")
     @changeWindowTo($battle, $navItem)
     PokeBattle.router.navigate("battles/#{battleId}")
+
+  resetNotifications: ($link) =>
+    $link = $link.first()
+    $link = $link.closest('li')  if $link[0].tagName != 'li'
+    if battleId = $link.data('battle-id')
+      battle = PokeBattle.battles.get(battleId)
+      battle.set('notifications', 0)
