@@ -661,7 +661,7 @@ class @Attachment.DestinyBond extends @VolatileAttachment
     pokemon = @battle.lastPokemon
     if pokemon? && pokemon.isAlive()
       pokemon.faint()
-      @battle.message "#{pokemon.name} took its attacker down with it!"
+      @battle.message "#{@pokemon.name} took its attacker down with it!"
 
   beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
