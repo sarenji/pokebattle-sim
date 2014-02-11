@@ -208,6 +208,7 @@ class @BattleView extends Backbone.View
     @popover($newSprite, pokemon)
 
     if @skip?
+      $oldPokemon.css(opacity: 0)
       done()
       return
 
