@@ -47,11 +47,6 @@ PokeBattle.ready = false
 PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
-    PokeBattle.chatView = new ChatView(
-      el: $('.chat_window .chat')
-      collection: PokeBattle.userList
-    )
-    PokeBattle.chatView.render()
     if !PokeBattle.ready  # Only trigger this event once.
       PokeBattle.ready = true
       PokeBattle.events.trigger("ready")
@@ -82,4 +77,8 @@ $ ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))
+  PokeBattle.chatView = new ChatView(
+    el: $('.chat_window .chat')
+    collection: PokeBattle.userList
+  ).render()
   new PrivateMessagesView(el: $("#messages"), collection: PokeBattle.messages)
