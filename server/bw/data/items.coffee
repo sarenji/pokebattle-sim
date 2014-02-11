@@ -391,7 +391,7 @@ makeItem 'Life Orb', ->
   this::afterAllHits = (move) ->
     return  if move.isNonDamaging()
     if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 10))
-      @battle.message "#{@pokemon.name} hurt itself with its Life Orb."
+      @battle.message "#{@pokemon.name} lost some of its HP!"
 
 makeItem 'Light Clay' # Hardcoded in Attachment.Screen
 
