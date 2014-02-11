@@ -1870,10 +1870,6 @@ extendMove 'Trump Card', ->
       else
         40
 
-extendMove 'U-turn', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    battle.forceSwitch(user)
-
 extendMove 'Venoshock', ->
   @basePower = (battle, user, target) ->
     if target.has(Status.Toxic) || target.has(Status.Poison)
@@ -1881,9 +1877,13 @@ extendMove 'Venoshock', ->
     else
       @power
 
-extendMove 'Volt Switch', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    battle.forceSwitch(user)
+makeSwitchMove = (moveName) ->
+  extendMove moveName, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      battle.forceSwitch(user)
+
+makeSwitchMove 'Volt Switch'
+makeSwitchMove 'U-turn'
 
 makeStatusCureAttackMove 'Wake-Up Slap', Status.Sleep
 
