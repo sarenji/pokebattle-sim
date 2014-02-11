@@ -1957,6 +1957,7 @@ extendMove 'Reflect Type', ->
   @use = (battle, user, target) ->
     if user.hasAbility("Multitype")
       @fail(battle)
+      return false
 
     user.types = target.types
     battle.message "#{user.name}'s type changed to match #{target.name}'s!"

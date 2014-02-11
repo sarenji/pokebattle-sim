@@ -6554,3 +6554,8 @@ describe "BW Moves:", ->
       shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Charmander")])
       @battle.performMove(@p1, @battle.getMove('Reflect Type'))
       @p1.types.should.include "Fire"
+
+    it "fails if the user has multitype", ->
+      shared.create.call(this, team1: [Factory("Arceus", ability: "Multitype")], team2: [Factory("Toxicroak")])
+      @battle.performMove(@p1, @battle.getMove('Reflect Type'))
+      @p1.types.should.include "Normal"
