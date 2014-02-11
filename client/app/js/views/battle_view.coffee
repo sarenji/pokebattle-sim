@@ -209,6 +209,7 @@ class @BattleView extends Backbone.View
 
     if @skip?
       $oldPokemon.css(opacity: 0)
+      $newPokemon.css(opacity: 1)
       done()
       return
 
