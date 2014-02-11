@@ -600,7 +600,7 @@ class @BattleView extends Backbone.View
       $effect.text(text)
     $effect
 
-  unattachTeam: (slot, effect, done) =>
+  unattachTeam: (player, attachment, done) =>
     $battlePane = @$('.battle_pane')
     switch attachment
       when "StealthRockAttachment"
@@ -680,7 +680,6 @@ class @BattleView extends Backbone.View
       done()
       return
 
-    $image = $pokemon.find('.sprite img')
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
     move($image).set('opacity', 0).end ->
       $image.addClass('hidden')
