@@ -6548,3 +6548,14 @@ describe "BW Moves:", ->
       @battle.setWeather(Weather.SUN)
       @battle.performMove(@p1, @battle.getMove('Growth'))
       @p1.stages.should.include attack: 2, specialAttack: 2
+
+  describe "Reflect Type", ->
+    it "copies the target's types", ->
+      shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Charmander")])
+      @battle.performMove(@p1, @battle.getMove('Reflect Type'))
+      @p1.types.should.include "Fire"
+
+    it "fails if the user has multitype", ->
+      shared.create.call(this, team1: [Factory("Arceus", ability: "Multitype")], team2: [Factory("Toxicroak")])
+      @battle.performMove(@p1, @battle.getMove('Reflect Type'))
+      @p1.types.should.include "Normal"
