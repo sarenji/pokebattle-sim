@@ -708,7 +708,7 @@ makeWeightBased 'Grass Knot'
 extendWithPrimaryEffect 'GrassWhistle', Status.Sleep
 makeBoostMove 'Growl', 'target', attack: -1
 extendMove 'Growth', ->
-  @use = (battle, user, targets) ->
+  @use = (battle, user, target) ->
     boost = if battle.hasWeather(Weather.SUN) then 2 else 1
     user.boost(attack: boost, specialAttack: boost)
 
@@ -1952,3 +1952,11 @@ makeVulnerable('Dig', 'Earthquake')
 makeVulnerable('Dig', 'Magnitude')
 makeVulnerable('Dive', 'Surf')
 makeVulnerable('Dive', 'Whirlpool')
+
+extendMove 'Reflect Type', ->
+  @use = (battle, user, target) ->
+    if target.hasAbility("Multitype")
+      @fail(battle)
+
+    user.types = target.types
+    battle.message "#{user.name}'s type changed to match #{target.name}'s!"
