@@ -55,6 +55,7 @@ Priorities.endTurn = [
   Attachment.Charge
   Attachment.ProtectCounter
   Attachment.Protect
+  Attachment.SpikyShield
   Attachment.KingsShield
   Attachment.Endure
   Attachment.Pursuit
