@@ -185,14 +185,12 @@ class @BattleView extends Backbone.View
     $hp.css(position: 'absolute', top: y, left: x).show()
     if percent >= 0
       $hp.animate({top: "-=30"}, 1000, 'easeOutCubic')
-      $hp.delay(2000)
+      $hp.delay(1000)
       $hp.animate({opacity: 0}, 1000, -> $hp.remove())
     else
-      xOffset = Math.floor(Math.random() * 300) + 100
-      direction = (if player == @model.index then "+=" else "-=")
-      $hp.css(left: "#{direction}#{xOffset}", opacity: 1)
-      $hp.animate({top: "-=30"}, 1000, 'easeOutCubic')
-      $hp.animate({top: "+=500", opacity: 0}, 4000, 'easeInCubic', -> $hp.remove())
+      $hp.animate({top: "+=30"}, 1000, 'easeOutCubic')
+      $hp.delay(1000)
+      $hp.animate({opacity: 0}, 1000, -> $hp.remove())
 
   switchIn: (player, slot, fromSlot, done) =>
     $oldPokemon = @$pokemon(player, slot)
