@@ -94,6 +94,7 @@ module.exports = (grunt) ->
             'config/*'
             'Gemfile'
             'Gemfile.lock'
+            'dump.rdb'
           ]
 
   grunt.loadNpmTasks('grunt-contrib-jade')
