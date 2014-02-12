@@ -285,10 +285,17 @@ class @BattleView extends Backbone.View
   changeSprite: (player, slot, species, forme) =>
     self = this
     $sprite = @$sprite(player, slot)
-    $sprite.find('img').fadeOut ->
-      $(this).remove()
-      $sprite.data('name', species)
-      $sprite.data('forme', forme)
+    $spriteImage = $sprite.find('img')
+
+    $sprite.data('name', species)
+    $sprite.data('forme', forme)
+
+    if @skip?
+      self.addImages($sprite, -> $spriteImage.remove())
+      return
+
+    $spriteImage.fadeOut ->
+      $spriteImage.remove()
       self.addImages($sprite, ($image) -> $image.hide().fadeIn())
 
   attachPokemon: (player, slot, attachment, done) =>
