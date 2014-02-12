@@ -486,6 +486,8 @@ class @Pokemon
 
   # Adds an attachment to the list of attachments
   attach: (attachment, options={}) ->
+    if @isFainted()
+      return false
     options = _.clone(options)
     @attachments.push(attachment, options, battle: @battle, team: @team, pokemon: this)
 
