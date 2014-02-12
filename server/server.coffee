@@ -184,7 +184,8 @@ class @BattleServer
     (id  for id, value of @userBattles[userId])
 
   getOngoingBattles: ->
-    _(@battles).values()
+    # TODO: This is very inefficient. Improve this.
+    _.chain(@battles).values().reject((b) -> b.battle.isOver()).value()
 
   removeUserBattle: (userId, battleId) ->
     delete @userBattles[userId][battleId]

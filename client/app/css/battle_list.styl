@@ -4,17 +4,27 @@
   bottom 0
   left 0
   right 0
+  overflow auto
 
   h2
     display block
     margin-left 10px
 
-.battle-list-row
+.battle-list-collection
+  padding-right 10px
+
+.battle-list-item-wrapper
+  float left
+  width 100%
+  padding-left 10px
+  padding-bottom 10px
+  box-sizing border-box
+
+.battle-list-item
   cursor pointer
   border 1px solid #DDD
   background #F5F5F5
   box-shadow 1px 2px 0 rgba(0, 0, 0, 0.2)
-  margin 10px
   padding 10px
 
   &:hover
@@ -23,3 +33,24 @@
   .vs
     font-weight bold
     margin 0 5px
+
+// Normally, our media queries use max-width to scale down, but for this page we want to scale up
+@media screen and (min-width: 1000px)
+  .battle-list-item-wrapper
+    width 50%
+
+@media screen and (min-width: 1400px)
+  .battle-list-item-wrapper
+    width 33%
+
+@media screen and (min-width: 1800px)
+  .battle-list-item-wrapper
+    width 25%
+
+@media screen and (min-width: 2200px)
+  .battle-list-item-wrapper
+    width 20%
+
+@media screen and (min-width: 2600px)
+  .battle-list-item-wrapper
+    width 16.6%
