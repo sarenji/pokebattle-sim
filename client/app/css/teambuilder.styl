@@ -120,9 +120,6 @@ $pokemon-list-height = 50px
     box-sizing border-box
     height 2em
 
-  .pbv-over-max
-    color red
-
   .non-stat-label
     width 1px // minimum possible size
 
@@ -199,6 +196,9 @@ $pokemon-list-height = 50px
     img
       margin-bottom 3px
 
+.teambuilder .pbv-over-max
+    color #f00
+
 .teambuilder .display_teams
   position absolute
   top 0
@@ -237,6 +237,10 @@ $pokemon-list-height = 50px
     font-size .75em
     text-align right
     margin-top 10px
+
+  .team-pbv
+    font-size 0.75em
+    margin-top -5px
 
 textarea.imported-team, textarea.exported-team
   box-sizing border-box
