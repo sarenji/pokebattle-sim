@@ -85,7 +85,7 @@ class @Move
       return false
 
     if target.isImmune(@getType(battle, user, target), move: this)
-      battle.message "But it doesn't affect #{target.name}..."
+      @afterImmune(battle, user, target)
       return false
 
   # Actually deals damage and runs hooks after hit.
@@ -123,6 +123,10 @@ class @Move
   # overriden, this will not execute.
   afterMiss: (battle, user, target) ->
     battle.message "#{target.name} avoided the attack!"
+
+  # A hook that executes after a pokemon uses a move which the target is immune to.
+  afterImmune: (battle, user, target) ->
+    battle.message "But it doesn't affect #{target.name}..."
 
   # A hook that executes after all hits have completed.
   afterAllHits: (battle, user) ->
