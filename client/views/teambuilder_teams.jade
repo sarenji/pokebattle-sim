@@ -3,6 +3,14 @@ h2 Your teams
   each team in teams
     .left.select-team
       h2= team.getName()
+      .team-pbv
+        | PBV 
+        if team.getPBV() <= 1000
+          = team.getPBV() + '\/1000'
+        else
+          span.pbv-over-max
+            = team.getPBV()
+          | /1000
       != window.JST['team']({team: team.models, window: window})
       .team-meta
         span.fake_link.export-team
