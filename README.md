@@ -4,17 +4,23 @@ A competitive Pokemon battle simulator playable in the browser.
 
 ## Set up
 
+### Installation
+
 ```bash
 git clone git://github.com/sarenji/pokebattle-sim.git
 cd pokebattle-sim
 npm install
 ```
 
+### Redis
+
 You also need to install redis. On Mac OS X with homebrew, you can do:
 
 ```bash
 brew install redis
 ```
+
+On Windows, there is a Redis port that works fairly well: https://github.com/rgl/redis/downloads
 
 ## Run server
 
@@ -26,10 +32,9 @@ grunt
 
 to automatically compile all client-side files and run nodemon for you.
 
-### Vagrant
+### Vagrant (Windows-only, optional)
 
-In case you are using Windows or wish to ensure that your development 
-environment is consistent, you can use Vagrant. First, you must install 
+In case the Windows redis-server does not work for you, we do provide Vagrant. First, you must install 
 [Vagrant](http://www.vagrantup.com/) and 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads). Next, run this in the 
 terminal, inside the project directory:
@@ -66,14 +71,17 @@ mocha
 pokebattle-sim is a one-page app. The server serves the client.
 
 ```
+api/             Hosts the code for the API that we host.
 client/          Main client code. Contains JS and CSS.
+config/          For Capistrano and deployment.
+public/          Public-facing dir. Generated files, fonts, images.
 scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
-server/          Battle logic, move logic, Pokemon logic, etc.
+server/          Server, battle, move, Pokemon logic, etc.
+shared/          Files shared between server and client.
 test/            Automated tests for server and client.
 views/           All views that are rendered server-side go here.
 Gruntfile.coffee Contains all tasks for pokebattle-sim, like compiling.
-app.coffee       The main entry point of pokebattle-sim.
-                 The API and socket.io listeners are hosted here. This will probably change.
+start.js         The main entry point of pokebattle-sim.
 ```
 
 ## Contributing
