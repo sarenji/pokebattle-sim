@@ -370,12 +370,16 @@ describe "BW Moves:", ->
   describe 'jump kick attacks', ->
     it 'has 50% recoil if it misses', ->
       shared.create.call(this)
-      move = @battle.getMove('Hi Jump Kick')
       shared.biasRNG.call(this, "randInt", 'miss', 100)
-      originalHP = @p1.currentHP
-      @battle.performMove(@p1, move)
-      damage = move.calculateDamage(@battle, @p1, @p2)
-      (originalHP - @p1.currentHP).should.equal Math.floor(damage / 2)
+      oldHP = @p1.stat('hp')
+      @battle.performMove(@p1, @battle.getMove('Hi Jump Kick'))
+      (oldHP - @p1.currentHP).should.equal Math.floor(oldHP / 2)
+
+    it "has 50% recoil if the target is immune", ->
+      shared.create.call(this, team2: [Factory("Gengar")])
+      oldHP = @p1.stat('hp')
+      @battle.performMove(@p1, @battle.getMove('Hi Jump Kick'))
+      (oldHP - @p1.currentHP).should.equal Math.floor(oldHP / 2)
 
   describe 'a drain attack', ->
     it 'recovers a percentage of the damage dealt, rounded down', ->
