@@ -42,7 +42,9 @@ errors = require '../shared/errors'
   connections.addEvents
     'login': (user, id, token) ->
       auth.matchToken id, token, (err, json) ->
-        if err then return user.error(errors.INVALID_SESSION)
+        if err
+          console.error(err)
+          return user.error(errors.INVALID_SESSION)
         user.id = json.username
         user.setAuthority(json.authority)
         user.send('login success')
