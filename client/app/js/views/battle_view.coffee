@@ -365,7 +365,7 @@ class @BattleView extends Backbone.View
         $div = $("<div/>").addClass("field-#{player} team-stealth-rock")
         if isFront
           [ oldX, oldY ] = [ "20%", "80%" ]
-          [ newX, newY ] = [ "67%", "35%" ]
+          [ newX, newY ] = [ "67%", "45%" ]
         else
           [ oldX, oldY ] = [ "80%", "20%" ]
           [ newX, newY ] = [ "34%", "81%" ]
@@ -386,13 +386,13 @@ class @BattleView extends Backbone.View
           oldY = "80%"
           oldX = "20%"
           newY = switch previousLayers
-            when 0 then "41%"
-            when 1 then "40%"
+            when 0 then "51%"
+            when 1 then "50%"
           newX = switch previousLayers
             when 0 then "77%"
             when 1 then "73%"
         else
-          oldY = "20%"
+          oldY = "30%"
           oldX = "80%"
           newY = switch previousLayers
             when 0 then "87%"
@@ -417,15 +417,15 @@ class @BattleView extends Backbone.View
           oldY = "80%"
           oldX = "20%"
           newY = switch previousLayers
-            when 0 then "39%"
-            when 1 then "42%"
-            when 2 then "40%"
+            when 0 then "49%"
+            when 1 then "52%"
+            when 2 then "50%"
           newX = switch previousLayers
             when 0 then "87%"
             when 1 then "84%"
             when 2 then "82%"
         else
-          oldY = "20%"
+          oldY = "30%"
           oldX = "80%"
           newY = switch previousLayers
             when 0 then "85%"
@@ -449,9 +449,9 @@ class @BattleView extends Backbone.View
         $div = $("<div/>").addClass("field-#{player} team-sticky-web")
         if isFront
           [ oldX, oldY ] = [ "0%",  "50%" ]
-          [ newX, newY ] = [ "65%", "0%"  ]
+          [ newX, newY ] = [ "65%", "10%"  ]
         else
-          [ oldX, oldY ] = [ "65%", "0%"  ]
+          [ oldX, oldY ] = [ "65%", "10%"  ]
           [ newX, newY ] = [ "0%",  "50%" ]
         if @skip?
           $div.css(top: newY, left: newX, opacity: .5)

@@ -4,14 +4,16 @@
 - var greenStyle = style + "; background-color: " + color
 .sprite.preload(data-name = pokemon.get('name'), data-forme = pokemon.get('forme'), data-shiny = (pokemon.get('shiny') ? "true" : "false"))
 .pokemon-info
-  a.pokemon-name(href=pokemon.getPokedexUrl(), target="_blank")= pokemon.get('name')
-  .pokemon-meta
+  span.pokemon-meta
+    a.pokemon-name(href=pokemon.getPokedexUrl(), target="_blank")
+      = pokemon.get('name')
     if pokemon.get('gender') === 'F'
-      span.gender.gender_female &#9792;
+      span.gender.gender_female  &#9792;
     else if pokemon.get('gender') === 'M'
-      span.gender.gender_male &#9794;
-    span.pokemon-level  Lv.
-    = pokemon.get('level')
+      span.gender.gender_male  &#9794;
+    span.pokemon-level
+      span.pokemon-level-text  Lv.
+      = pokemon.get('level')
   .hp-text #{percent}%
   .hp-red(style = style)
   .hp(style = greenStyle)

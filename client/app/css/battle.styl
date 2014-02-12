@@ -86,7 +86,7 @@ $pane-width = $battle-width + $padding + $padding
           top         20%
           right       188px
         .sprite
-          top      30px
+          top      60px
           right    20px
           width    96px
           height   @width
@@ -129,19 +129,19 @@ $pane-width = $battle-width + $padding + $padding
         border-radius 0 2px 2px 0
         box-shadow 0 0 0 1px #222
         font-family Verdana, sans-serif
-      .pokemon-name, .pokemon-meta
+      .pokemon-meta
         position absolute
+        left 0
         bottom 100%
         color #fff
         pointer-events visible
         outline-text()
       .pokemon-name
-        left 0
         font-weight 700
-      .pokemon-meta
-        right 0
+        color #fff
+      .pokemon-level, .gender
         font-size 75%
-      .pokemon-level
+      .pokemon-level-text
         color #EFA532
       .pokemon-effects
         position absolute
@@ -198,7 +198,7 @@ $pane-width = $battle-width + $padding + $padding
     border-radius 3px
     background #4e4
     transition left 5s linear
-    color #333
+    color #fff
     &.red
       background #e44
 
