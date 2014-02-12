@@ -47,9 +47,6 @@ PokeBattle.ready = false
 PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
-    if !PokeBattle.ready  # Only trigger this event once.
-      PokeBattle.ready = true
-      PokeBattle.events.trigger("ready")
 
   'list chatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
@@ -70,10 +67,11 @@ PokeBattle.socket.addEvents
   'leave chatroom': (socket, userJSON) ->
     PokeBattle.userList.remove(userJSON)
 
-$ ->
-  PokeBattle.userList = new UserList()
-  PokeBattle.battles = new BattleCollection([])
-  PokeBattle.messages = new PrivateMessages([])
+PokeBattle.userList = new UserList()
+PokeBattle.battles = new BattleCollection([])
+PokeBattle.messages = new PrivateMessages([])
+
+PokeBattle.events.once 'ready', ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))

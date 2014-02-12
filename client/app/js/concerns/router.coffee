@@ -17,5 +17,6 @@ class PokeBattleRouter extends Backbone.Router
 PokeBattle.events.once "login success", ->
   return  if Backbone.History.started
   PokeBattle.router = new PokeBattleRouter()
+  PokeBattle.events.trigger("ready")
   routed = Backbone.history.start(pushState: true)
-  if !routed then @PokeBattle.router.navigate("")
+  if !routed then PokeBattle.router.navigate("")
