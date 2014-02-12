@@ -81,10 +81,12 @@ class @Move
   # If `use` returns false, the `hit` hook is never called.
   use: (battle, user, target, hitNumber) ->
     if @willMiss(battle, user, target)
+      battle.message "#{target.name} avoided the attack!"
       @afterMiss(battle, user, target)
       return false
 
     if target.isImmune(@getType(battle, user, target), move: this)
+      battle.message "But it doesn't affect #{target.name}..."
       @afterImmune(battle, user, target)
       return false
 
@@ -122,11 +124,9 @@ class @Move
   # A hook that executes after a pokemon misses an attack. If execute is
   # overriden, this will not execute.
   afterMiss: (battle, user, target) ->
-    battle.message "#{target.name} avoided the attack!"
 
   # A hook that executes after a pokemon uses a move which the target is immune to.
   afterImmune: (battle, user, target) ->
-    battle.message "But it doesn't affect #{target.name}..."
 
   # A hook that executes after all hits have completed.
   afterAllHits: (battle, user) ->
