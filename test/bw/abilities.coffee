@@ -1593,6 +1593,12 @@ describe "BW Abilities:", ->
       closeCombat = @battle.getMove("Close Combat")
       tackle.typeEffectiveness(@battle, @p1, @p2).should.equal(1)
       closeCombat.typeEffectiveness(@battle, @p1, @p2).should.equal(.5)
+      mock1 = @sandbox.mock(tackle).expects('hit').once()
+      mock2 = @sandbox.mock(closeCombat).expects('hit').once()
+      @battle.performMove(@p1, tackle)
+      @battle.performMove(@p1, closeCombat)
+      mock1.verify()
+      mock2.verify()
 
   describe "Serene Grace", ->
     it "doubles the chance of secondary effects happening", ->
