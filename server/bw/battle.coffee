@@ -92,12 +92,16 @@ class @Battle extends EventEmitter
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
 
+    # Populates @playerIds and creates the teams for each player
     for playerId, team of players
       @playerIds.push(playerId)
       @teams[playerId] = new Team(this, playerId, team, @numActive)
 
+    # Holds battle state information
     @replacing = false
     @finished = false
+    @arranging = false
+    @arranged = {}
 
     @once 'end', (winnerId) ->
       @finished = true
@@ -105,9 +109,32 @@ class @Battle extends EventEmitter
         @updateRatings(winnerId)
 
   begin: ->
-    @tell(Protocol.BEGIN_BATTLE, @getTeams().map((team) -> team.toJSON(hidden: true)))
+    @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
     for playerId in @playerIds
       @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
+
+    if @hasCondition(Conditions.TEAM_PREVIEW)
+      @arranging = true
+      @tell(Protocol.TEAM_PREVIEW)
+    else
+      @startBattle()
+
+  arrangeTeam: (playerId, arrangement) ->
+    return true  if !@arranging
+    team = @getTeam(playerId)
+    team.arrange(arrangement)
+    @arranged[playerId] = arrangement
+    return _.difference(@playerIds, Object.keys(@arranged)).length == 0
+
+  getArrangements: ->
+    for playerId in @playerIds
+      @arranged[playerId] || [0...@getTeam(playerId).length]
+
+  startBattle: ->
+    if @arranging
+      @tell(Protocol.REARRANGE_TEAMS, @getArrangements()...)
+      @arranging = false
+    @tell(Protocol.START_BATTLE)
     # TODO: Merge this with performReplacements?
     for playerId in @playerIds
       for slot in [0...@numActive]

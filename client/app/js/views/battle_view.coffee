@@ -19,7 +19,6 @@ class @BattleView extends Backbone.View
     @lastMove = null
     @skip     = null
     @renderChat()
-    @listenTo(@model, 'team_preview', @renderTeamPreview)
     @listenTo(@model, 'change:status', @handleStatus)
     @listenTo(@model, 'change:finished', @handleEnd)
 
@@ -103,9 +102,9 @@ class @BattleView extends Backbone.View
       animation: false
       container: "body"
 
-  renderTeamPreview: (teams) =>
+  renderTeamPreview: =>
     locals =
-      teams        : teams
+      teams        : @model.teams
       numActive    : @model.numActive
       yourIndex    : @model.index
       isSpectating : @model.get('spectating')

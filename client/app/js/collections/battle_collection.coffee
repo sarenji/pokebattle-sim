@@ -3,21 +3,12 @@ class @BattleCollection extends Backbone.Collection
 
   initialize: (models, options) =>
     PokeBattle.socket.addEvents
-      'team preview': @teamPreview
       'update battle': @updateBattle
       'spectate battle': @spectateBattle
       'join battle': @joinBattle
       'leave battle': @leaveBattle
     @on 'remove', (model) ->
       PokeBattle.socket.send('leave battle', model.id)
-
-  teamPreview: (socket, battleId, teams) =>
-    battle = @get(battleId)
-    if !battle
-      console.log "Received events for #{battleId}, but no longer in battle!"
-      return
-    battle.notify()
-    battle.trigger('team_preview', teams)
 
   updateBattle: (socket, battleId, actions) =>
     battle = @get(battleId)
@@ -123,13 +114,19 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.BATTLE_UNATTACH
           [attachment] = rest
           view.unattachBattle(attachment, done)
-        when Protocol.BEGIN_BATTLE
-          view.removeTeamPreview()
-          # TODO: This should be unnecessary later; the opponent's team should be
-          # completely dark.
+        when Protocol.INITIALIZE
+          # TODO: Handle non-team-preview
           [teams] = rest
           battle.receiveTeams(teams)
+          done()
+        when Protocol.START_BATTLE
+          view.removeTeamPreview()
           view.renderBattle()
+          done()
+        when Protocol.REARRANGE_TEAMS
+          arrangements = rest
+          for team, i in battle.teams
+            team.rearrange(arrangements[i])
           done()
         when Protocol.RECEIVE_TEAM
           [team] = rest
@@ -152,6 +149,9 @@ class @BattleCollection extends Backbone.Collection
           [player, slot, movesetJSON] = rest
           pokemon = battle.getPokemon(player, slot)
           pokemon.set(movesetJSON)
+          done()
+        when Protocol.TEAM_PREVIEW
+          view.renderTeamPreview()
           done()
         when Protocol.CANCEL_SUCCESS
           view.cancelSuccess(done)

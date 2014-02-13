@@ -2,9 +2,10 @@ mixin displayOtherTeam(team, text)
   section.battle_team_preview
     p= text
     ul.row-fluid.unstyled
-      each pokemon in team.pokemon
+      - team.each(function(pokemon) {
         li.span2
           +displayPokemon(pokemon)
+      - })
 
 mixin displayYourTeam(team, text)
   section.battle_team_preview
@@ -17,28 +18,29 @@ mixin displayYourTeam(team, text)
           else
             | Lead
     ul.arrange_team.row-fluid.unstyled
-      each pokemon, i in yourTeam.pokemon
+      - yourTeam.each(function(pokemon, i) {
         li.span2.img-polaroid
           +displayPokemon(pokemon, i)
+      - })
 
     .button.submit_arrangement Start battle
 
 mixin displayPokemon(pokemon, i)
   .team_pokemon
-    - var style = window.PokemonIconBackground(pokemon.name, pokemon.forme)
+    - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
     .pokemon_icon(data-index = i, style = style)
-  if pokemon.gender === 'F'
+  if pokemon.get('gender') === 'F'
     .gender.gender_female &#9792;
-  else if pokemon.gender === 'M'
+  else if pokemon.get('gender') === 'M'
     .gender.gender_male &#9794;
-  if pokemon.level != 100
-    .level Lv.#{pokemon.level}
+  if pokemon.get('level') != 100
+    .level Lv.#{pokemon.get('level')}
 
 .battle_teams
   - var theirTeam = teams[1 - yourIndex]
   - var yourTeam = teams[yourIndex]
   if !isSpectating
-    +displayOtherTeam(theirTeam, "Your opponent's team:")
+    +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
     +displayYourTeam(yourTeam, "Drag and rearrange your team:")
   else
     +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")

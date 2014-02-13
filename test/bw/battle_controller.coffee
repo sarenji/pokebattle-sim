@@ -5,6 +5,7 @@ require '../helpers'
 {Status, VolatileStatus, Attachment} = require('../../server/bw/attachment')
 {Player} = require('../../server/player')
 {Conditions} = require '../../shared/conditions'
+{Protocol} = require '../../shared/protocol'
 {Factory} = require '../factory'
 should = require 'should'
 shared = require '../shared'
@@ -139,22 +140,24 @@ describe 'BattleController', ->
         team1 = [ Factory("Magikarp") ]
         team2 = [ Factory("Magikarp") ]
         shared.build(this, {conditions, team1, team2})
-        mock = @sandbox.mock(@battle).expects('begin').never()
+        mock = @sandbox.mock(@battle).expects('startBattle').never()
+        spy = @sandbox.spy(@battle, 'tell')
         @controller.beginBattle()
         mock.verify()
+        spy.calledWith(Protocol.TEAM_PREVIEW).should.be.true
 
       it "waits until all players have arranged their teams before starting", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
         team1 = [ Factory("Magikarp") ]
         team2 = [ Factory("Magikarp") ]
         shared.build(this, {conditions, team1, team2})
-        mock = @sandbox.mock(@battle).expects('begin').never()
+        mock = @sandbox.mock(@battle).expects('startBattle').never()
         @controller.beginBattle()
         @controller.arrangeTeam(@id1, [ 0 ])
         mock.verify()
-        @battle.begin.restore()
+        @battle.startBattle.restore()
 
-        mock = @sandbox.mock(@battle).expects('begin').once()
+        mock = @sandbox.mock(@battle).expects('startBattle').once()
         @controller.arrangeTeam(@id2, [ 0 ])
         mock.verify()
 
@@ -247,25 +250,11 @@ describe 'BattleController', ->
         @team2.at(1).name.should.equal("Magikarp")
         @team2.at(2).name.should.equal("Gyarados")
 
-      it "shows the team preview for new spectators", ->
+      it "rejects team arrangement when arranging is over", ->
         conditions = [ Conditions.TEAM_PREVIEW ]
-        team1 = [ Factory("Magikarp") ]
-        team2 = [ Factory("Magikarp") ]
+        team1 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
+        team2 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
         shared.create.call(this, {conditions, team1, team2})
-        spectator = new Player(id: "scouter")
-        length = @battle.spectators.length
-        spy = @sandbox.spy(spectator, 'send')
-        @controller.addSpectator(spectator)
-        spy.calledWith('team preview').should.be.true
-
-      it "does not show the team preview if the battle is done arranging", ->
-        conditions = [ Conditions.TEAM_PREVIEW ]
-        team1 = [ Factory("Magikarp") ]
-        team2 = [ Factory("Magikarp") ]
-        shared.create.call(this, {conditions, team1, team2})
-        @controller._beginBattle()
-        spectator = new Player(id: "scouter")
-        length = @battle.spectators.length
-        spy = @sandbox.spy(spectator, 'send')
-        @controller.addSpectator(spectator)
-        spy.calledWith('team preview').should.be.false
+        @controller.arrangeTeam(@id1, [ 0, 2, 1 ])
+        @controller.arrangeTeam(@id2, [ 2, 0, 1 ])
+        @controller.arrangeTeam(@id2, [ 2, 0, 1 ]).should.be.false

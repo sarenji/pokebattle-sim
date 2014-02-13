@@ -14,6 +14,10 @@ class @Team extends Backbone.Collection
       pokemon: super()
     }
 
+  rearrange: (arrangement) ->
+    @models = (@models[index]  for index in arrangement)
+    return true
+
   getGeneration: (generation) ->
     gen = @generation || DEFAULT_GENERATION
     gen = gen.toUpperCase()

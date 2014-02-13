@@ -5,8 +5,6 @@
 # Necessary to separate out making commands and executing commands.
 class @BattleController
   constructor: (@battle) ->
-    @arranged = []
-    @arranging = false
 
   # Returns all the player ids participating in this battle.
   getPlayerIds: ->
@@ -52,11 +50,23 @@ class @BattleController
     @battle.forfeit(playerId)
     @sendUpdates()
 
+  arrangeTeam: (playerId, arrangement) ->
+    return false  if @battle.hasStarted()
+    return false  if arrangement not instanceof Array
+    team = @battle.getTeam(playerId)
+    return false  if !team
+    return false  if arrangement.length != team.size()
+    for index, i in arrangement
+      return false  if isNaN(index)
+      return false  if !team.pokemon[index]
+      return false  if arrangement.indexOf(index, i + 1) != -1
+
+    if @battle.arrangeTeam(playerId, arrangement) then @battle.startBattle()
+    @sendUpdates()
+    return true
+
   addSpectator: (spectator) ->
-    isNew = @battle.addSpectator(spectator)
-    if @arranging && isNew
-      teams = @battle.getTeams().map((t) -> t.toJSON(hidden: true))
-      spectator.send? 'team preview', @battle.id, teams
+    @battle.addSpectator(spectator)
 
   sendRequestTo: (spectator) ->
     @battle.sendRequestTo(spectator)
@@ -79,33 +89,6 @@ class @BattleController
 
   # Officially starts the battle.
   beginBattle: ->
-    # Team Preview asks for order before starting the battle.
-    if @battle.hasCondition(Conditions.TEAM_PREVIEW)
-      @arranging = true
-      teams = @battle.getTeams().map((t) -> t.toJSON(hidden: true))
-      for you, i in @battle.spectators
-        you.send? 'team preview', @battle.id, teams
-    else
-      @_beginBattle()
-
-  arrangeTeam: (playerId, arrangement) ->
-    return false  if @battle.hasStarted()
-    return false  if arrangement not instanceof Array
-    team = @battle.getTeam(playerId)
-    return false  if !team
-    return false  if arrangement.length != team.size()
-    for index, i in arrangement
-      return false  if isNaN(index)
-      return false  if !team.pokemon[index]
-      return false  if arrangement.indexOf(index, i + 1) != -1
-
-    team.arrange(arrangement)
-    @arranged.push(playerId)
-    @_beginBattle()  if @battle.playerIds.all((id) => id in @arranged)
-    return true
-
-  _beginBattle: ->
-    @arranging = false
     @battle.begin()
     @sendUpdates()
 
