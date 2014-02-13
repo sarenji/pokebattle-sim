@@ -82,7 +82,7 @@ class @Move
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `hit` hook is never called.
   use: (battle, user, target, hitNumber) ->
-    if target.isImmune(@getType(battle, user, target), move: this)
+    if target.isImmune(@getType(battle, user, target), user: user, move: this)
       battle.message "But it doesn't affect #{target.name}..."
       @afterFail(battle, user, target)
       return false
