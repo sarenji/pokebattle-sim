@@ -58,8 +58,10 @@ class @Move
 
     targetsHit = []
     for target in targets
+      if target.shouldBlockExecution(this, user) == true
+        @afterFail(battle, user, target)
+        continue
       continue  if @use(battle, user, target, hitNumber) == false
-      continue  if target.shouldBlockExecution(this, user) == true
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
@@ -80,14 +82,14 @@ class @Move
   # A hook with a default implementation of returning false on a type immunity.
   # If `use` returns false, the `hit` hook is never called.
   use: (battle, user, target, hitNumber) ->
+    if target.isImmune(@getType(battle, user, target), move: this)
+      battle.message "But it doesn't affect #{target.name}..."
+      @afterFail(battle, user, target)
+      return false
+
     if @willMiss(battle, user, target)
       battle.message "#{target.name} avoided the attack!"
       @afterMiss(battle, user, target)
-      return false
-
-    if target.isImmune(@getType(battle, user, target), move: this)
-      battle.message "But it doesn't affect #{target.name}..."
-      @afterImmune(battle, user, target)
       return false
 
   # Actually deals damage and runs hooks after hit.
@@ -125,8 +127,9 @@ class @Move
   # overriden, this will not execute.
   afterMiss: (battle, user, target) ->
 
-  # A hook that executes after a pokemon uses a move which the target is immune to.
-  afterImmune: (battle, user, target) ->
+  # A hook that executes after a pokemon fails while using a move (NOT a miss.)
+  # Examples: Target is immune, target successfully uses Protect/Detect
+  afterFail: (battle, user, target) ->
 
   # A hook that executes after all hits have completed.
   afterAllHits: (battle, user) ->

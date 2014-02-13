@@ -100,7 +100,7 @@ extendWithDrain = (name, drainPercent=.5) ->
 
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
-    @afterMiss = @afterImmune = (battle, user, target) ->
+    @afterMiss = @afterFail = (battle, user, target) ->
       maxHP = user.stat('hp')
       user.damage(Math.floor(maxHP / 2))
       battle.message("#{user.name} kept going and crashed!")

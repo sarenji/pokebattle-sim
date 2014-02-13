@@ -381,6 +381,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Hi Jump Kick'))
       (oldHP - @p1.currentHP).should.equal Math.floor(oldHP / 2)
 
+    it "has 50% recoil if the target protects itself", ->
+      shared.create.call(this)
+      oldHP = @p1.stat('hp')
+      @battle.recordMove(@id2, @battle.getMove("Protect"))
+      @battle.recordMove(@id1, @battle.getMove("Hi Jump Kick"))
+      @battle.continueTurn()
+      (oldHP - @p1.currentHP).should.equal Math.floor(oldHP / 2)
+
   describe 'a drain attack', ->
     it 'recovers a percentage of the damage dealt, rounded down', ->
       shared.create.call this,
