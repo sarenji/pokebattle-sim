@@ -22,28 +22,33 @@ NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
 
 SpriteIds = {
   "Abomasnow": {
-    "default": 460
+    "default": 460,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 139
   },
   "Abra": {
     "default": 63
   },
   "Absol": {
-    "default": 359
+    "default": 359,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 136
   },
   "Accelgor": {
     "default": 617
   },
   "Aerodactyl": {
-    "default": 142
+    "default": 142,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 121
   },
   "Aggron": {
-    "default": 306
+    "default": 306,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 132
   },
   "Aipom": {
     "default": 190
   },
   "Alakazam": {
-    "default": 65
+    "default": 65,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 116
   },
   "Alomomola": {
     "default": 594
@@ -58,7 +63,8 @@ SpriteIds = {
     "default": 591
   },
   "Ampharos": {
-    "default": 181
+    "default": 181,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 124
   },
   "Anorith": {
     "default": 347
@@ -112,7 +118,8 @@ SpriteIds = {
     "default": 343
   },
   "Banette": {
-    "default": 354
+    "default": 354,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 135
   },
   "Barboach": {
     "default": 339
@@ -160,7 +167,8 @@ SpriteIds = {
     "default": 9
   },
   "Blaziken": {
-    "default": 257
+    "default": 257,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 129
   },
   "Blissey": {
     "default": 242
@@ -249,7 +257,9 @@ SpriteIds = {
     "default": 113
   },
   "Charizard": {
-    "default": 6
+    "default": 6,
+    "mega-x": NON_DEFAULT_FORMES_OFFSET + 114,
+    "mega-y": NON_DEFAULT_FORMES_OFFSET + 115
   },
   "Charmander": {
     "default": 4
@@ -595,10 +605,12 @@ SpriteIds = {
     "default": 569
   },
   "Garchomp": {
-    "default": 445
+    "default": 445,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 137
   },
   "Gardevoir": {
-    "default": 282
+    "default": 282,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 130
   },
   "Gastly": {
     "default": 92
@@ -610,7 +622,8 @@ SpriteIds = {
     "default": 649
   },
   "Gengar": {
-    "default": 94
+    "default": 94,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 117
   },
   "Geodude": {
     "default": 74
@@ -707,7 +720,8 @@ SpriteIds = {
     "default": 533
   },
   "Gyarados": {
-    "default": 130
+    "default": 130,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 120
   },
   "Happiny": {
     "default": 440
@@ -728,7 +742,8 @@ SpriteIds = {
     "default": 485
   },
   "Heracross": {
-    "default": 214
+    "default": 214,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 126
   },
   "Herdier": {
     "default": 507
@@ -764,7 +779,8 @@ SpriteIds = {
     "default": 116
   },
   "Houndoom": {
-    "default": 229
+    "default": 229,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 127
   },
   "Houndour": {
     "default": 228
@@ -824,7 +840,8 @@ SpriteIds = {
     "default": 14
   },
   "Kangaskhan": {
-    "default": 115
+    "default": 115,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 118
   },
   "Karrablast": {
     "default": 588
@@ -957,7 +974,8 @@ SpriteIds = {
     "default": 294
   },
   "Lucario": {
-    "default": 448
+    "default": 448,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 138
   },
   "Ludicolo": {
     "default": 272
@@ -1026,7 +1044,8 @@ SpriteIds = {
     "default": 630
   },
   "Manectric": {
-    "default": 310
+    "default": 310,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 134
   },
   "Mankey": {
     "default": 56
@@ -1056,10 +1075,12 @@ SpriteIds = {
     "default": 284
   },
   "Mawile": {
-    "default": 303
+    "default": 303,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 131
   },
   "Medicham": {
-    "default": 308
+    "default": 308,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 133
   },
   "Meditite": {
     "default": 307
@@ -1090,7 +1111,9 @@ SpriteIds = {
     "default": 151
   },
   "Mewtwo": {
-    "default": 150
+    "default": 150,
+    "mega-x": NON_DEFAULT_FORMES_OFFSET + 122
+    "mega-y": NON_DEFAULT_FORMES_OFFSET + 123
   },
   "Mienfoo": {
     "default": 619
@@ -1285,7 +1308,8 @@ SpriteIds = {
     "default": 204
   },
   "Pinsir": {
-    "default": 127
+    "default": 127,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 119
   },
   "Piplup": {
     "default": 393
@@ -1458,7 +1482,8 @@ SpriteIds = {
     "default": 254
   },
   "Scizor": {
-    "default": 212
+    "default": 212,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 125
   },
   "Scolipede": {
     "default": 545
@@ -1809,7 +1834,8 @@ SpriteIds = {
     "default": 157
   },
   "Tyranitar": {
-    "default": 248
+    "default": 248,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 128
   },
   "Tyrogue": {
     "default": 236
@@ -1851,7 +1877,8 @@ SpriteIds = {
     "default": 48
   },
   "Venusaur": {
-    "default": 3
+    "default": 3,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 113
   },
   "Vespiquen": {
     "default": 416
