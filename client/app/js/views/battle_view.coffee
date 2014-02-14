@@ -158,7 +158,7 @@ class @BattleView extends Backbone.View
     $pokemon = @$pokemon(player, slot)
     $info = $pokemon.find(".pokemon-info")
     $hp = $info.find('.hp')
-    $allHP = $info.find('.hp, .hp-red')
+    $allHP = $info.find('.hp')
     $hpText = $info.find('.hp-text')
     pokemon = @model.getPokemon(player, slot)
     percent = pokemon.getPercentHP()
