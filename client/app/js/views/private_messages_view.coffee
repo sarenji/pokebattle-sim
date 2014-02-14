@@ -75,7 +75,7 @@ class @PrivateMessagesView extends Backbone.View
     else
       if username != "Me" && !$popup.find('.chat_input').is(":focus")
         $popup.addClass('new_message')
-        PokeBattle.notifyTab("message", username)
+        PokeBattle.notifyUser(PokeBattle.NotificationTypes.PRIVATE_MESSAGE, username)
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom()
 

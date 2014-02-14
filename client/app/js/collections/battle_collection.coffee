@@ -69,6 +69,7 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.REQUEST_ACTIONS
           [validActions] = rest
           view.enableButtons(validActions)
+          PokeBattle.notifyUser(PokeBattle.NotificationTypes.ACTION_REQUESTED, battle.id + "_" + battle.get('turn'))
           done()
         when Protocol.START_TURN
           [turn] = rest
@@ -172,6 +173,9 @@ class @BattleCollection extends Backbone.Collection
   spectateBattle: (socket, id, generation, numActive, index, spectators, log) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
+    if not isSpectating
+      PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, id)
+
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
     battle = new Battle({id, generation, numActive, socket, index, spectators})
