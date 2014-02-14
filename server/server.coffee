@@ -15,6 +15,7 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.SLEEP_CLAUSE
   Conditions.RATED_BATTLE
   Conditions.PBV_1000
+  Conditions.TIMED_BATTLE
 ]
 
 class @BattleServer

@@ -31,5 +31,5 @@ oldRecordMove = @Battle::recordMove
   pokemon = @getTeam(playerId).at(forSlot)
   if megaEvolve && !@getAction(pokemon) && pokemon.canMegaEvolve()
     if @pokemonActions.filter((o) -> o.type == 'mega' && o.pokemon.team == pokemon.team).length == 0
-      @pokemonActions.push(type: 'mega', pokemon: pokemon)
+      @addAction(type: 'mega', pokemon: pokemon)
   oldRecordMove.apply(this, arguments)

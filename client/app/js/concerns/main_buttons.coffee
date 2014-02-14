@@ -16,6 +16,7 @@ $ ->
       Conditions.SLEEP_CLAUSE
       Conditions.PBV_1000
       Conditions.RATED_BATTLE
+      Conditions.TIMED_BATTLE
     ]
     canEditClauses: false
 

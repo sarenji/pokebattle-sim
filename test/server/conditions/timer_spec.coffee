@@ -1,0 +1,112 @@
+require '../../helpers'
+
+shared = require '../../shared'
+{Conditions} = require '../../../shared/conditions'
+{Protocol} = require '../../../shared/protocol'
+
+describe "Battle timer", ->
+  describe "without team preview", ->
+    beforeEach ->
+      shared.create.call this,
+        conditions: [ Conditions.TIMED_BATTLE ]
+
+    it "gets added to the battle as a condition", ->
+      @battle.hasCondition(Conditions.TIMED_BATTLE).should.be.true
+
+    it "starts a timer that ends the battle in 5 minutes", ->
+      @battle.isOver().should.be.false
+      delta = 100
+      @clock.tick(@battle.DEFAULT_TIMER - delta)
+      @battle.isOver().should.be.false
+      @clock.tick(delta)
+      @battle.isOver().should.be.true
+
+    it "declares a timer win for the player that didn't run out of time", ->
+      @battle.playerTimes[@id1] += 1000
+      spy = @sandbox.spy(@battle, 'tell')
+      @clock.tick(@battle.DEFAULT_TIMER)
+      index1 = @battle.getPlayerIndex(@id1)
+      spy.calledWith(Protocol.TIMER_WIN, index1).should.be.true
+
+    it "increases time remaining by 20 seconds for each player each turn", ->
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER)
+
+      @battle.beginTurn()
+      delta = @battle.TIMER_PER_TURN_INCREASE
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER + delta)
+      @battle.timeRemainingFor(@id2).should.equal(@battle.DEFAULT_TIMER + delta)
+
+      @battle.beginTurn()
+      delta *= 2
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER + delta)
+      @battle.timeRemainingFor(@id2).should.equal(@battle.DEFAULT_TIMER + delta)
+
+    it "stops the timer at the time of the player's last action", ->
+      delta = 5000
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER)
+      @battle.timeRemainingFor(@id2).should.equal(@battle.DEFAULT_TIMER)
+
+      @clock.tick(delta)
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER - delta)
+      @battle.timeRemainingFor(@id2).should.equal(@battle.DEFAULT_TIMER - delta)
+
+      @battle.recordMove(@id1, @battle.getMove("Splash"))
+
+      @clock.tick(delta)
+      @battle.timeRemainingFor(@id1).should.equal(@battle.DEFAULT_TIMER - delta)
+      @battle.timeRemainingFor(@id2).should.equal(@battle.DEFAULT_TIMER - 2 * delta)
+
+    it "grants time if player selected a move before the battle continued", ->
+      @clock.tick(2500)
+
+      @controller.makeMove(@id1, "Splash")
+
+      # 5 seconds after the player moves, the battle progresses
+      @clock.tick(5000)
+      @controller.makeMove(@id2, "Splash")
+      @battle.timeRemainingFor(@id1).should
+        .equal(@battle.DEFAULT_TIMER - 2500 + @battle.TIMER_PER_TURN_INCREASE)
+
+      # Turn has progressed. Make another move and check the time.
+      @clock.tick(2500)
+      @controller.makeMove(@id1, "Splash")
+      @clock.tick(5000)
+      @battle.timeRemainingFor(@id1).should
+        .equal(@battle.DEFAULT_TIMER - 5000 + @battle.TIMER_PER_TURN_INCREASE)
+
+    it "ends battle if canceling after which they'd lose to timer", ->
+      # So the second player won't trigger the end condition.
+      @battle.playerTimes[@id2] += 4000
+
+      @clock.tick(2500)
+
+      @controller.makeMove(@id1, "Splash")
+      @clock.tick(@battle.DEFAULT_TIMER)
+
+      mock = @sandbox.mock(@battle).expects('timerWin').once()
+      @controller.undoCompletedRequest(@id1)
+      @battle.timeRemainingFor(@id1).should.equal(-2500)
+      mock.verify()
+
+    it "sends timer updates when battle continues", ->
+      @battle.recordMove(@id1, @battle.getMove("Splash"))
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+
+      spy = @sandbox.spy(@battle, 'tell')
+      @battle.continueTurn()
+      spy.calledWith(Protocol.UPDATE_TIMERS).should.be.true
+
+    it "gets cleared if the battle ends prematurely", ->
+      @battle.endBattle()
+
+      mock = @sandbox.mock(@battle).expects('timerWin').never()
+      @clock.tick(@battle.DEFAULT_TIMER)
+      mock.verify()
+
+  describe "with team preview", ->
+    beforeEach ->
+      shared.create.call this,
+        conditions: [ Conditions.TIMED_BATTLE, Conditions.TEAM_PREVIEW ]
+
+    it "starts a timer that automatically selects the team after 1 minute"
+    it "does not automatically select the team those who already arranged"

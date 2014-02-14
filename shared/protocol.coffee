@@ -28,3 +28,5 @@
   TEAM_PREVIEW     : 27
   INITIALIZE       : 28
   REARRANGE_TEAMS  : 29
+  TIMER_WIN        : 30
+  UPDATE_TIMERS    : 31

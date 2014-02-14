@@ -21,6 +21,9 @@ class @Battle extends EventEmitter
 
   generation: 'bw'
 
+  DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
+  TIMER_PER_TURN_INCREASE: 10 * 1000  # ten seconds
+
   actionMap:
     switch:
       priority: -> 10
@@ -108,6 +111,46 @@ class @Battle extends EventEmitter
       if @hasCondition(Conditions.RATED_BATTLE)
         @updateRatings(winnerId)
 
+    # Implement Timer
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      nowTime = (+new Date())
+      @playerTimes = {}
+      for id in @playerIds
+        @playerTimes[id] = nowTime + @DEFAULT_TIMER
+      @lastActionTimes = {}
+      @startTimer()
+
+  startTimer: (msecs) ->
+    msecs ?= @DEFAULT_TIMER
+    check = () =>
+      leastRemainingTime = @checkPlayerTimes()
+      @startTimer(leastRemainingTime)  if leastRemainingTime > 0
+    @timerId = setTimeout(check, msecs)
+    @once('end', => clearTimeout(@timerId))
+
+  timeRemainingFor: (playerId) ->
+    endTime = @playerTimes[playerId]
+    endTime += (@turn - 1) * @TIMER_PER_TURN_INCREASE
+    nowTime = @lastActionTimes[playerId] || (+new Date)
+    return endTime - nowTime
+
+  checkPlayerTimes: ->
+    remainingTimes = []
+    remainingPlayers = []
+    for id in @playerIds
+      timeRemaining = @timeRemainingFor(id)
+      if timeRemaining <= 0
+        remainingTimes.push(timeRemaining)
+        remainingPlayers.push(id)
+
+    return Math.min(remainingTimes...)  if remainingTimes.length == 0
+
+    loser = @rng.choice(remainingPlayers, "timer")
+    index = @getPlayerIndex(loser)
+    winnerIndex = 1 - index
+    @timerWin(winnerIndex)
+    return 0
+
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
     for playerId in @playerIds
@@ -135,6 +178,8 @@ class @Battle extends EventEmitter
       @tell(Protocol.REARRANGE_TEAMS, @getArrangements()...)
       @arranging = false
     @tell(Protocol.START_BATTLE)
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      @tell(Protocol.UPDATE_TIMERS, (@playerTimes[id]  for id in @playerIds)...)
     # TODO: Merge this with performReplacements?
     for playerId in @playerIds
       for slot in [0...@numActive]
@@ -364,6 +409,17 @@ class @Battle extends EventEmitter
     # Clean the completed requests
     @completedRequests = {}
 
+    # Subtract the amount of time between now and a player's last action;
+    # this is time they should not be penalized for.
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      now = (+new Date)
+      for playerId in Object.keys(@lastActionTimes)
+        leftoverTime = now - @lastActionTimes[playerId]
+        @playerTimes[playerId] += leftoverTime
+        delete @lastActionTimes[playerId]
+      endTimes = (@playerTimes[id]  for id in @playerIds)
+      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+
     @determineTurnOrder()
     for action in @pokemonActions
       action.move?.beforeTurn?(this, action.pokemon)
@@ -416,6 +472,10 @@ class @Battle extends EventEmitter
     @tell(Protocol.END_BATTLE, winnerIndex)
     @emit('end', winnerId)
 
+  timerWin: (winnerIndex) ->
+    @tell(Protocol.TIMER_WIN, winnerIndex)
+    @emit('end', @playerIds[winnerIndex])
+
   getWinner: ->
     winner     = null
 
@@ -462,8 +522,7 @@ class @Battle extends EventEmitter
   #
   recordMove: (playerId, move, forSlot = 0) ->
     pokemon = @getTeam(playerId).at(forSlot)
-    action = {type: 'move', move: move, pokemon: pokemon}
-    @pokemonActions.push(action)  unless @getAction(pokemon)
+    action = @addAction(type: 'move', move: move, pokemon: pokemon)
     @removeRequest(playerId, action, forSlot)
 
   # Tells the player to switch with a certain pokemon specified by position.
@@ -475,9 +534,15 @@ class @Battle extends EventEmitter
   #
   recordSwitch: (playerId, toPosition, forSlot = 0) ->
     pokemon = @getTeam(playerId).at(forSlot)
-    action = {type: 'switch', to: toPosition, pokemon: pokemon}
-    @pokemonActions.push(action)  unless @getAction(pokemon)
+    action = @addAction(type: 'switch', to: toPosition, pokemon: pokemon)
     @removeRequest(playerId, action, forSlot)
+
+  addAction: (action) ->
+    unless @getAction(action.pokemon)
+      @pokemonActions.push(action)
+      if @hasCondition(Conditions.TIMED_BATTLE)
+        @lastActionTimes[action.pokemon.playerId] = (+new Date)
+    return action
 
   removeRequest: (playerId, action, forSlot) ->
     if arguments.length == 2
@@ -514,6 +579,10 @@ class @Battle extends EventEmitter
     @pokemonActions.splice(@pokemonActions.indexOf(action), 1)
 
     @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
+
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      delete @lastActionTimes[playerId]
+      @checkPlayerTimes()
     return true
 
   requestFor: (pokemon) ->

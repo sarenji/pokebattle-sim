@@ -21,6 +21,10 @@ class @BattleView extends Backbone.View
     @renderChat()
     @listenTo(@model, 'change:status', @handleStatus)
     @listenTo(@model, 'change:finished', @handleEnd)
+    @battleStartTime = (+new Date)
+    @timers = []
+    @timerIterations = 0
+    @countdownTimers()
 
   renderBattle: =>
     locals =
@@ -627,6 +631,40 @@ class @BattleView extends Backbone.View
   unattachBattle: (effect, done) =>
     done()
 
+  updateTimers: (timers, done) =>
+    @timers = timers
+    done()
+
+  countdownTimers: =>
+    $userInfo = @$('.battle_user_info')
+    $yourTimer = $userInfo.find('.left .battle-timer')
+    $theirTimer = $userInfo.find('.right .battle-timer')
+    yourTime = @timers[0]
+    theirTime = @timers[1]
+    now = (+new Date)
+    if yourTime && theirTime
+      @changeTimer($yourTimer, yourTime - now)
+      @changeTimer($theirTimer, theirTime - now)
+      if now > yourTime || now > theirTime
+        return  # Stop changing the time
+    diff = ((+new Date) - @battleStartTime - @timerIterations * 1000)
+    @timerIterations++
+    setTimeout(@countdownTimers, 1000 - diff)
+
+  changeTimer: ($timer, timeRemaining) =>
+    timeRemaining = 0  if timeRemaining < 0
+    $timer.text @humanizeTime(timeRemaining)
+    if timeRemaining <= 1 * 60 * 1000
+      $timer.addClass("battle-timer-low")
+    else
+      $timer.removeClass("battle-timer-low")
+
+  humanizeTime: (unixTime) =>
+    seconds = Math.floor(unixTime / 1000) % 60
+    minutes = Math.floor(unixTime / 1000 / 60)
+    seconds = String(seconds)
+    return minutes + ":" + "00".substr(seconds.length) + seconds
+
   announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
     @chatView.print("<h3>#{owner} won!</h3>")
@@ -636,6 +674,12 @@ class @BattleView extends Backbone.View
   announceForfeit: (player, done) =>
     {owner} = @model.getTeam(player)
     @chatView.print("<h3>#{owner} has forfeited!</h3>")
+    @model.set('finished', true)
+    done()
+
+  announceTimer: (player, done) =>
+    {owner} = @model.getTeam(player)
+    @chatView.print("<h3>#{owner} was given the timer win!</h3>")
     @model.set('finished', true)
     done()
 

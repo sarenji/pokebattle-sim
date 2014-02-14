@@ -2,6 +2,7 @@ each team in [ yourTeam, opponentTeam ]
   - var leftOrRight = (team === yourTeam ? 'left' : 'right')
   div(class = leftOrRight)
     = team.owner
+    .battle-timer
     - for (var j = 0, len = team.length; j < len; j += 3)
       .row-fluid
         - for (var i = j; i < j + 3; i++)

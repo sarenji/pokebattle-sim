@@ -40,9 +40,10 @@ class @BattleController
 
   # Tells the player to cancel their latest completed request.
   undoCompletedRequest: (playerId, forTurn = @battle.turn) ->
-    return  if forTurn != @battle.turn
+    return false  if forTurn != @battle.turn
     @battle.undoCompletedRequest(playerId)
     @sendUpdates()
+    return true
 
   # Makes a player forfeit.
   forfeit: (playerId) ->

@@ -90,6 +90,12 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.FORFEIT_BATTLE
           [forfeiter] = rest
           view.announceForfeit(forfeiter, done)
+        when Protocol.TIMER_WIN
+          [winner] = rest
+          view.announceTimer(winner, done)
+        when Protocol.UPDATE_TIMERS
+          timers = rest
+          view.updateTimers(timers, done)
         when Protocol.MOVE_SUCCESS
           [player, slot, targetSlot] = rest
           view.moveSuccess(player, slot, targetSlot, done)
