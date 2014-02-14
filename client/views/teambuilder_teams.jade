@@ -6,11 +6,11 @@ h2 Your teams
       .team-pbv
         | PBV: 
         if team.getPBV() <= 1000
-          = team.getPBV() + '\/1000'
+          = team.getPBV()
         else
           span.pbv-over-max
             = team.getPBV()
-          | /1000
+        | /1000
       != window.JST['team']({team: team.models, window: window})
       .team-meta
         span.fake_link.export-team
