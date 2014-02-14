@@ -462,7 +462,10 @@ class @TeambuilderView extends Backbone.View
     pokemon_list.empty()
     for pokemon, i in team.models
       $listItem = $("<li/>").data("pokemon-index", i)
-      $listItem.text(pokemon.get("name"))
+      $listItem.prepend($("<div/>").addClass("pokemon_middle")
+        .text(pokemon.get("name"))
+        .append($("<div/>").addClass("pokemon_pbv")
+          .text('PBV: ' + pokemon.getPBV())))
       $listItem.prepend($("<div/>").addClass("pokemon_icon")
         .attr("style", PokemonIconBackground(pokemon.get('name'),
                                              pokemon.get('forme'))))
