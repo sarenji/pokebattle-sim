@@ -767,8 +767,8 @@
     },
     "Bind": {
         "accuracy": 85,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "physical",
         "flags": [
             "contact",
@@ -1480,8 +1480,8 @@
     },
     "Clamp": {
         "accuracy": 85,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "physical",
         "flags": [
             "contact",
@@ -3407,8 +3407,8 @@
     },
     "Fire Spin": {
         "accuracy": 85,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "special",
         "flags": [
             "protect",
@@ -5420,8 +5420,8 @@
     },
     "Infestation": {
         "accuracy": 100,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "special",
         "flags": [
             "contact",
@@ -6091,8 +6091,8 @@
     },
     "Magma Storm": {
         "accuracy": 75,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "special",
         "flags": [
             "protect",
@@ -8854,8 +8854,8 @@
     },
     "Sand Tomb": {
         "accuracy": 85,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "physical",
         "flags": [
             "protect",
@@ -11754,8 +11754,8 @@
     },
     "Whirlpool": {
         "accuracy": 85,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "special",
         "flags": [
             "protect",
@@ -11985,8 +11985,8 @@
     },
     "Wrap": {
         "accuracy": 90,
-        "ailmentChance": 100,
-        "ailmentId": "trap",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "physical",
         "flags": [
             "contact",

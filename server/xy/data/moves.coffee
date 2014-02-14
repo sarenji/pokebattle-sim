@@ -30,6 +30,8 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
   battle.message "#{user.name} protected itself!"
 
+makeTrappingMove "Infestation"
+
 makeBoostMove 'Noble Roar', 'target', attack: -1, specialAttack: -1
 makeBoostMove 'Play Nice', 'target', attack: -1
 
