@@ -111,15 +111,6 @@ class @Battle extends EventEmitter
       if @hasCondition(Conditions.RATED_BATTLE)
         @updateRatings(winnerId)
 
-    # Implement Timer
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      nowTime = (+new Date())
-      @playerTimes = {}
-      for id in @playerIds
-        @playerTimes[id] = nowTime + @DEFAULT_TIMER
-      @lastActionTimes = {}
-      @startTimer()
-
   startTimer: (msecs) ->
     msecs ?= @DEFAULT_TIMER
     check = () =>
@@ -192,9 +183,17 @@ class @Battle extends EventEmitter
     for pokemon in @getActivePokemon()
       pokemon.team.switchIn(pokemon)
       pokemon.turnsActive = 1
-    @beginTurn()
+
+    # Implement Timer
     if @hasCondition(Conditions.TIMED_BATTLE)
-      @tell(Protocol.UPDATE_TIMERS, (@endTimeFor(id)  for id in @playerIds)...)
+      nowTime = (+new Date())
+      @playerTimes = {}
+      for id in @playerIds
+        @playerTimes[id] = nowTime + @DEFAULT_TIMER
+      @lastActionTimes = {}
+      @startTimer()
+
+    @beginTurn()
 
   getPlayerIndex: (playerId) ->
     index = @playerIds.indexOf(playerId)
@@ -383,6 +382,11 @@ class @Battle extends EventEmitter
     @tell(Protocol.START_TURN, @turn)
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     @query('beginTurn')
+
+    # Show players the updated time
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      endTimes = (@endTimeFor(id)  for id in @playerIds)
+      @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
     # Send appropriate requests to players
     for playerId in @playerIds

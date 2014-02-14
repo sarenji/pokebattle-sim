@@ -640,8 +640,8 @@ class @BattleView extends Backbone.View
     $userInfo = @$('.battle_user_info')
     $yourTimer = $userInfo.find('.left .battle-timer')
     $theirTimer = $userInfo.find('.right .battle-timer')
-    yourTime = @timers[0]
-    theirTime = @timers[1]
+    yourTime = @timers[@model.index]
+    theirTime = @timers[1 - @model.index]
     now = (+new Date)
     if yourTime && theirTime
       @changeTimer($yourTimer, yourTime - now)
