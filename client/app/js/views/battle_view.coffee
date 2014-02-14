@@ -731,13 +731,13 @@ class @BattleView extends Backbone.View
     $image = $pokemon.find('.sprite img')
 
     if @skip?
-      $image.addClass('hidden')
+      $pokemon.remove()
       done()
       return
 
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
     move($image).set('opacity', 0).end ->
-      $image.addClass('hidden')
+      $pokemon.remove()
       done()
     @renderUserInfo()
 
