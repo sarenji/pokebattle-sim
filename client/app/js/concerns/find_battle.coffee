@@ -44,6 +44,9 @@
   $selectFormat = $wrapper.find(".select-format")
   # Implement finding battle/challenging
   $button.on 'click.challenge', ->
+    # Start requesting for notify permission here
+    PokeBattle.requestNotifyPermission()
+
     format = $selectFormat.data('format')
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
