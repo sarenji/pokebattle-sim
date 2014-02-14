@@ -11,9 +11,10 @@
       span.gender.gender_female  &#9792;
     else if pokemon.get('gender') === 'M'
       span.gender.gender_male  &#9794;
-    span.pokemon-level
-      span.pokemon-level-text  Lv.
-      = pokemon.get('level')
+    if pokemon.get('level') != 100
+      span.pokemon-level
+        span.pokemon-level-text  Lv.
+        = pokemon.get('level')
   .hp-text #{percent}%
   .hp-red(style = style)
   .hp(style = greenStyle)
