@@ -2,6 +2,7 @@ class @TeambuilderView extends Backbone.View
   template: JST['teambuilder']
   teamsTemplate: JST['teambuilder_teams']
   editTemplate: JST['teambuilder_pokemon']
+  moveRowTemplate: JST['teambuilder_move_row']
   importTemplate: JST['modals/import_team']
   exportTemplate: JST['modals/export_team']
   teamTemplate: JST['team']
@@ -486,6 +487,7 @@ class @TeambuilderView extends Backbone.View
 
     view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
     @renderStats(pokemon)
+    @renderMoves(pokemon)
 
     @$('.selected_moves input').each (i, el) =>
       $this = $(el)
@@ -541,6 +543,14 @@ class @TeambuilderView extends Backbone.View
 
     $div.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
     $div.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
+
+  renderMoves: (pokemon) =>
+    # TODO: Cache the resultant html
+    $div = @getPokemonView(pokemon)
+    $moveTableBody = $div.find(".table-moves tbody")
+    $moveTableBody.empty()
+    for move in pokemon.getMovepool()
+      $moveTableBody.append @moveRowTemplate(window: window, move: move)
 
   validateImportedTeam: (json) =>
     errors = []
