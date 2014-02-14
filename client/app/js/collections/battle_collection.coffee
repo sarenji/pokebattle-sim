@@ -125,6 +125,8 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Handle non-team-preview
           [teams] = rest
           battle.receiveTeams(teams)
+          if not view.skip?
+            PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, battle.id)
           done()
         when Protocol.START_BATTLE
           view.removeTeamPreview()
@@ -173,9 +175,6 @@ class @BattleCollection extends Backbone.Collection
   spectateBattle: (socket, id, generation, numActive, index, spectators, log) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
-    if not isSpectating
-      PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, id)
-
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
     battle = new Battle({id, generation, numActive, socket, index, spectators})
