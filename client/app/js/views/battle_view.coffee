@@ -21,7 +21,7 @@ class @BattleView extends Backbone.View
     @renderChat()
     @listenTo(@model, 'change:status', @handleStatus)
     @listenTo(@model, 'change:finished', @handleEnd)
-    @battleStartTime = (+new Date)
+    @battleStartTime = $.now()
     @timers = []
     @timerIterations = 0
     @countdownTimers()
@@ -642,17 +642,17 @@ class @BattleView extends Backbone.View
     $theirTimer = $userInfo.find('.right .battle-timer')
     yourTime = @timers[@model.index]
     theirTime = @timers[1 - @model.index]
-    now = (+new Date)
+    now = $.now()
     if yourTime && theirTime
       @changeTimer($yourTimer, yourTime - now)
       @changeTimer($theirTimer, theirTime - now)
 
   countdownTimers: =>
     @renderTimers()
-    now = (+new Date)
+    now = $.now()
     keepRunning = (Math.min(@timers...) - now) > 0
     return  if !keepRunning
-    diff = ((+new Date) - @battleStartTime - @timerIterations * 1000)
+    diff = ($.now() - @battleStartTime - @timerIterations * 1000)
     @timerIterations++
     setTimeout(@countdownTimers, 1000 - diff)
 
