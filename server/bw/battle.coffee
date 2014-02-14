@@ -22,7 +22,7 @@ class @Battle extends EventEmitter
   generation: 'bw'
 
   DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
-  TIMER_PER_TURN_INCREASE: 10 * 1000  # ten seconds
+  TIMER_PER_TURN_INCREASE: 20 * 1000  # twenty seconds
 
   actionMap:
     switch:
@@ -129,10 +129,14 @@ class @Battle extends EventEmitter
     @once('end', => clearTimeout(@timerId))
 
   timeRemainingFor: (playerId) ->
-    endTime = @playerTimes[playerId]
-    endTime += (@turn - 1) * @TIMER_PER_TURN_INCREASE
+    endTime = @endTimeFor(playerId)
     nowTime = @lastActionTimes[playerId] || (+new Date)
     return endTime - nowTime
+
+  endTimeFor: (playerId) ->
+    endTime = @playerTimes[playerId]
+    endTime += (@turn - 1) * @TIMER_PER_TURN_INCREASE
+    endTime
 
   checkPlayerTimes: ->
     remainingTimes = []
@@ -178,8 +182,6 @@ class @Battle extends EventEmitter
       @tell(Protocol.REARRANGE_TEAMS, @getArrangements()...)
       @arranging = false
     @tell(Protocol.START_BATTLE)
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      @tell(Protocol.UPDATE_TIMERS, (@playerTimes[id]  for id in @playerIds)...)
     # TODO: Merge this with performReplacements?
     for playerId in @playerIds
       for slot in [0...@numActive]
@@ -191,6 +193,8 @@ class @Battle extends EventEmitter
       pokemon.team.switchIn(pokemon)
       pokemon.turnsActive = 1
     @beginTurn()
+    if @hasCondition(Conditions.TIMED_BATTLE)
+      @tell(Protocol.UPDATE_TIMERS, (@endTimeFor(id)  for id in @playerIds)...)
 
   getPlayerIndex: (playerId) ->
     index = @playerIds.indexOf(playerId)
@@ -417,7 +421,7 @@ class @Battle extends EventEmitter
         leftoverTime = now - @lastActionTimes[playerId]
         @playerTimes[playerId] += leftoverTime
         delete @lastActionTimes[playerId]
-      endTimes = (@playerTimes[id]  for id in @playerIds)
+      endTimes = (@endTimeFor(id)  for id in @playerIds)
       @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
     @determineTurnOrder()

@@ -90,6 +90,7 @@ class @BattleView extends Backbone.View
       slot = $this.data('slot')
       pokemon = @model.getPokemon(team, slot)
       @popover($this, pokemon)
+    @renderTimers()
     this
 
   popover: ($this, pokemon) =>
@@ -635,7 +636,7 @@ class @BattleView extends Backbone.View
     @timers = timers
     done()
 
-  countdownTimers: =>
+  renderTimers: =>
     $userInfo = @$('.battle_user_info')
     $yourTimer = $userInfo.find('.left .battle-timer')
     $theirTimer = $userInfo.find('.right .battle-timer')
@@ -645,8 +646,12 @@ class @BattleView extends Backbone.View
     if yourTime && theirTime
       @changeTimer($yourTimer, yourTime - now)
       @changeTimer($theirTimer, theirTime - now)
-      if now > yourTime || now > theirTime
-        return  # Stop changing the time
+
+  countdownTimers: =>
+    @renderTimers()
+    now = (+new Date)
+    keepRunning = (Math.min(@timers...) - now) > 0
+    return  if !keepRunning
     diff = ((+new Date) - @battleStartTime - @timerIterations * 1000)
     @timerIterations++
     setTimeout(@countdownTimers, 1000 - diff)
