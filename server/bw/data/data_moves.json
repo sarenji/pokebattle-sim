@@ -36,11 +36,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Poison",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Acid Armor": {
         "accuracy": 0,
@@ -78,11 +78,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Poison",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "specialDefense": -2
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Acrobatics": {
         "accuracy": 100,
@@ -291,15 +291,15 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Rock",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "attack": 1,
             "defense": 1,
             "speed": 1,
             "specialAttack": 1,
             "specialDefense": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Aqua Jet": {
         "accuracy": 100,
@@ -532,11 +532,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ice",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "attack": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Autotomize": {
         "accuracy": 0,
@@ -1041,11 +1041,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Water",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "BubbleBeam": {
         "accuracy": 100,
@@ -1065,11 +1065,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Water",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Bug Bite": {
         "accuracy": 100,
@@ -1110,11 +1110,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Bug",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Bulk Up": {
         "accuracy": 0,
@@ -1152,11 +1152,11 @@
         "recoil": 0,
         "target": "all-other-pokemon",
         "type": "Ground",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Bullet Punch": {
         "accuracy": 100,
@@ -1290,11 +1290,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Electric",
-        "boostChance": 70,
-        "boostStats": {
+        "secondaryBoostChance": 70,
+        "secondaryBoostStats": {
             "specialAttack": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Charm": {
         "accuracy": 100,
@@ -1532,11 +1532,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Normal",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Conversion": {
         "accuracy": 0,
@@ -1767,11 +1767,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Dark",
-        "boostChance": 20,
-        "boostStats": {
+        "secondaryBoostChance": 20,
+        "secondaryBoostStats": {
             "defense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Crush Claw": {
         "accuracy": 95,
@@ -1792,11 +1792,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Normal",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "defense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Crush Grip": {
         "accuracy": 100,
@@ -2500,11 +2500,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ground",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Earthquake": {
         "accuracy": 100,
@@ -2601,11 +2601,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Electric",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Embargo": {
         "accuracy": 100,
@@ -2721,11 +2721,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Grass",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Entrainment": {
         "accuracy": 100,
@@ -2978,11 +2978,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Fire",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "specialAttack": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Final Gambit": {
         "accuracy": 100,
@@ -3179,11 +3179,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Fire",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Flame Wheel": {
         "accuracy": 100,
@@ -3284,11 +3284,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Steel",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Flatter": {
         "accuracy": 100,
@@ -3370,11 +3370,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Fighting",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Focus Energy": {
         "accuracy": 0,
@@ -3784,11 +3784,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Ice",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Glare": {
         "accuracy": 90,
@@ -4877,11 +4877,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Ice",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Imprison": {
         "accuracy": 0,
@@ -5015,11 +5015,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Steel",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "defense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Judgment": {
         "accuracy": 100,
@@ -5219,11 +5219,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Grass",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Leech Life": {
         "accuracy": 100,
@@ -5401,11 +5401,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Fighting",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Lucky Chant": {
         "accuracy": 0,
@@ -5807,11 +5807,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Steel",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "attack": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Metal Sound": {
         "accuracy": 85,
@@ -6019,11 +6019,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Steel",
-        "boostChance": 30,
-        "boostStats": {
+        "secondaryBoostChance": 30,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Mist": {
         "accuracy": 0,
@@ -6061,11 +6061,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Psychic",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "specialAttack": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Moonlight": {
         "accuracy": 0,
@@ -6123,11 +6123,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ground",
-        "boostChance": 30,
-        "boostStats": {
+        "secondaryBoostChance": 30,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Mud Shot": {
         "accuracy": 95,
@@ -6147,11 +6147,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ground",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Mud Sport": {
         "accuracy": 0,
@@ -6187,11 +6187,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ground",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Muddy Water": {
         "accuracy": 85,
@@ -6211,11 +6211,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Water",
-        "boostChance": 30,
-        "boostStats": {
+        "secondaryBoostChance": 30,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Nasty Plot": {
         "accuracy": 0,
@@ -6308,11 +6308,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Dark",
-        "boostChance": 40,
-        "boostStats": {
+        "secondaryBoostChance": 40,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Night Shade": {
         "accuracy": 100,
@@ -6391,11 +6391,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Water",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "accuracy": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Odor Sleuth": {
         "accuracy": 0,
@@ -6436,15 +6436,15 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ghost",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "attack": 1,
             "defense": 1,
             "speed": 1,
             "specialAttack": 1,
             "specialDefense": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Outrage": {
         "accuracy": 100,
@@ -6988,11 +6988,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Psychic",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Psycho Boost": {
         "accuracy": 90,
@@ -7335,11 +7335,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Water",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "defense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Razor Wind": {
         "accuracy": 100,
@@ -7710,11 +7710,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Fighting",
-        "boostChance": 50,
-        "boostStats": {
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
             "defense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Rock Throw": {
         "accuracy": 90,
@@ -7753,11 +7753,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Rock",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "speed": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Rock Wrecker": {
         "accuracy": 90,
@@ -8164,11 +8164,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Grass",
-        "boostChance": 40,
-        "boostStats": {
+        "secondaryBoostChance": 40,
+        "secondaryBoostStats": {
             "specialDefense": -2
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Seismic Toss": {
         "accuracy": 100,
@@ -8227,11 +8227,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Ghost",
-        "boostChance": 20,
-        "boostStats": {
+        "secondaryBoostChance": 20,
+        "secondaryBoostStats": {
             "specialDefense": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Shadow Claw": {
         "accuracy": 100,
@@ -8445,15 +8445,15 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Bug",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "attack": 1,
             "defense": 1,
             "speed": 1,
             "specialAttack": 1,
             "specialDefense": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Simple Beam": {
         "accuracy": 100,
@@ -8871,11 +8871,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Dark",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "specialAttack": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Snatch": {
         "accuracy": 0,
@@ -9224,11 +9224,11 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Steel",
-        "boostChance": 10,
-        "boostStats": {
+        "secondaryBoostChance": 10,
+        "secondaryBoostStats": {
             "defense": 1
         },
-        "boostTarget": "self"
+        "secondaryBoostTarget": "self"
     },
     "Stockpile": {
         "accuracy": 0,
@@ -9405,11 +9405,11 @@
         "recoil": 0,
         "target": "all-opponents",
         "type": "Bug",
-        "boostChance": 100,
-        "boostStats": {
+        "secondaryBoostChance": 100,
+        "secondaryBoostStats": {
             "specialAttack": -1
         },
-        "boostTarget": "target"
+        "secondaryBoostTarget": "target"
     },
     "Stun Spore": {
         "accuracy": 75,

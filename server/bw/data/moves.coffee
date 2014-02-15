@@ -63,9 +63,9 @@ secondaryEffect = (battle, user, target) ->
     target.attach(klass)
 
   # Secondary boosts
-  if @boostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @boostChance * chanceMultiplier
-    pokemon = (if @boostTarget == 'self' then user else target)
-    pokemon.boost(@boostStats, user)
+  if @secondaryBoostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @secondaryBoostChance * chanceMultiplier
+    pokemon = (if @secondaryBoostTarget == 'self' then user else target)
+    pokemon.boost(@secondaryBoostStats, user)
 
   # Flinching. In the game, flinching is treated subtly different than
   # secondary effects. One result is that the Fang moves can both inflict

@@ -23,9 +23,9 @@ class @Move
     @flinchChance = (attributes.flinchChance || 0)
     @ailmentChance = (attributes.ailmentChance || 0)
     @ailmentId = attributes.ailmentId
-    @boostChance = attributes.boostChance || 0
-    @boostStats = attributes.boostStats
-    @boostTarget = attributes.boostTarget
+    @secondaryBoostChance = attributes.secondaryBoostChance || 0
+    @secondaryBoostStats = attributes.secondaryBoostStats
+    @secondaryBoostTarget = attributes.secondaryBoostTarget
     @pp = attributes.pp
     @recoil = attributes.recoil
     {@minHits, @maxHits} = attributes
@@ -45,7 +45,7 @@ class @Move
   # A secondary effect also includes flinching.
   hasSecondaryEffect: ->
     (@ailmentChance > 0 && @ailmentId != "none") ||
-      @flinchChance > 0 || @boostChance > 0
+      @flinchChance > 0 || @secondaryBoostChance > 0
 
   # Executes this move on several targets.
   # Only override this method if the move does not need to be
