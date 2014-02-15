@@ -223,46 +223,6 @@ describe 'Mechanics', ->
       @controller.makeMove(@id2, 'Psychic')
       mock.verify()
 
-    it "updates the winner and losers' ratings", (done) ->
-      shared.create.call this,
-        team1: [Factory('Hitmonchan')]
-        team2: [Factory('Mew')]
-      ratings = require('../../server/ratings')
-      @battle.addCondition(Conditions.RATED_BATTLE)
-      @battle.on "ratingsUpdated", =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
-            rating2.rating.should.be.lessThan(defaultPlayer.rating)
-            done()
-
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
-
-    it "doesn't update ratings if an unrated battle", (done) ->
-      shared.create.call this,
-        team1: [Factory('Hitmonchan')]
-        team2: [Factory('Mew')]
-      ratings = require('../../server/ratings')
-      @battle.removeCondition(Conditions.RATED_BATTLE)
-      @battle.on 'end', =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.equal(defaultPlayer.rating)
-            rating2.rating.should.equal(defaultPlayer.rating)
-            done()
-
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
-
   describe 'a pokemon with a type immunity', ->
     it 'cannot be damaged by a move of that type', ->
       shared.create.call this,

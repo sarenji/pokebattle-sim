@@ -102,9 +102,11 @@ describe "Team preview", ->
     @controller.arrangeTeam(@id1, arrangement).should.be.false
 
   it "rejects team arrangements if the battle has already begun", ->
+    conditions = [ Conditions.TEAM_PREVIEW ]
     team1 = (Factory("Magikarp")  for x in [0..1])
-    shared.create.call(this, {team1})
+    shared.create.call(this, {conditions, team1})
     arrangement = [ 1, 0 ]
+    @battle.startBattle()
     @controller.arrangeTeam(@id1, arrangement).should.be.false
 
   it "rearranges team when given a valid array of indices", ->

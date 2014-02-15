@@ -1,10 +1,12 @@
-{Conditions} = require '../../shared/conditions'
+conditions = require '../conditions'
 
 # Abstracts out sending messages from player to battle.
 # Makes the Battle smoothly go into the next turn
 # Necessary to separate out making commands and executing commands.
 class @BattleController
   constructor: (@battle) ->
+    conditions.attach(this)
+    @battle.emit('initialize')
 
   # Returns all the player ids participating in this battle.
   getPlayerIds: ->
@@ -50,21 +52,6 @@ class @BattleController
     return  if @battle.isOver()
     @battle.forfeit(playerId)
     @sendUpdates()
-
-  arrangeTeam: (playerId, arrangement) ->
-    return false  if @battle.hasStarted()
-    return false  if arrangement not instanceof Array
-    team = @battle.getTeam(playerId)
-    return false  if !team
-    return false  if arrangement.length != team.size()
-    for index, i in arrangement
-      return false  if isNaN(index)
-      return false  if !team.pokemon[index]
-      return false  if arrangement.indexOf(index, i + 1) != -1
-
-    if @battle.arrangeTeam(playerId, arrangement) then @battle.startBattle()
-    @sendUpdates()
-    return true
 
   addSpectator: (spectator) ->
     @battle.addSpectator(spectator)

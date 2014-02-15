@@ -21,9 +21,6 @@ class @Battle extends EventEmitter
 
   generation: 'bw'
 
-  DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
-  TIMER_PER_TURN_INCREASE: 20 * 1000  # twenty seconds
-
   actionMap:
     switch:
       priority: -> 10
@@ -103,76 +100,20 @@ class @Battle extends EventEmitter
     # Holds battle state information
     @replacing = false
     @finished = false
-    @arranging = false
-    @arranged = {}
 
     @once 'end', (winnerId) ->
       @finished = true
-      if @hasCondition(Conditions.RATED_BATTLE)
-        @updateRatings(winnerId)
-
-  startTimer: (msecs) ->
-    msecs ?= @DEFAULT_TIMER
-    check = () =>
-      leastRemainingTime = @checkPlayerTimes()
-      @startTimer(leastRemainingTime)  if leastRemainingTime > 0
-    @timerId = setTimeout(check, msecs)
-    @once('end', => clearTimeout(@timerId))
-
-  timeRemainingFor: (playerId) ->
-    endTime = @endTimeFor(playerId)
-    nowTime = @lastActionTimes[playerId] || (+new Date)
-    return endTime - nowTime
-
-  endTimeFor: (playerId) ->
-    endTime = @playerTimes[playerId]
-    endTime += (@turn - 1) * @TIMER_PER_TURN_INCREASE
-    endTime
-
-  checkPlayerTimes: ->
-    remainingTimes = []
-    timedOutPlayers = []
-    for id in @playerIds
-      timeRemaining = @timeRemainingFor(id)
-      if timeRemaining <= 0
-        timedOutPlayers.push(id)
-      else
-        remainingTimes.push(timeRemaining)
-
-    return Math.min(remainingTimes...)  if timedOutPlayers.length == 0
-
-    loser = @rng.choice(timedOutPlayers, "timer")
-    index = @getPlayerIndex(loser)
-    winnerIndex = 1 - index
-    @timerWin(winnerIndex)
-    return 0
 
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
     for playerId in @playerIds
       @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
 
-    if @hasCondition(Conditions.TEAM_PREVIEW)
-      @arranging = true
-      @tell(Protocol.TEAM_PREVIEW)
-    else
-      @startBattle()
-
-  arrangeTeam: (playerId, arrangement) ->
-    return true  if !@arranging
-    team = @getTeam(playerId)
-    team.arrange(arrangement)
-    @arranged[playerId] = arrangement
-    return _.difference(@playerIds, Object.keys(@arranged)).length == 0
-
-  getArrangements: ->
-    for playerId in @playerIds
-      @arranged[playerId] || [0...@getTeam(playerId).length]
+    @shouldStart = true
+    @emit('start')
+    @startBattle()  if @shouldStart
 
   startBattle: ->
-    if @arranging
-      @tell(Protocol.REARRANGE_TEAMS, @getArrangements()...)
-      @arranging = false
     @tell(Protocol.START_BATTLE)
     # TODO: Merge this with performReplacements?
     for playerId in @playerIds
@@ -184,15 +125,6 @@ class @Battle extends EventEmitter
     for pokemon in @getActivePokemon()
       pokemon.team.switchIn(pokemon)
       pokemon.turnsActive = 1
-
-    # Implement Timer
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      nowTime = (+new Date())
-      @playerTimes = {}
-      for id in @playerIds
-        @playerTimes[id] = nowTime + @DEFAULT_TIMER
-      @lastActionTimes = {}
-      @startTimer()
 
     @beginTurn()
 
@@ -383,11 +315,7 @@ class @Battle extends EventEmitter
     @tell(Protocol.START_TURN, @turn)
     pokemon.resetBlocks()  for pokemon in @getActivePokemon()
     @query('beginTurn')
-
-    # Show players the updated time
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      endTimes = (@endTimeFor(id)  for id in @playerIds)
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+    @emit('beginTurn')
 
     # Send appropriate requests to players
     for playerId in @playerIds
@@ -418,16 +346,7 @@ class @Battle extends EventEmitter
     # Clean the completed requests
     @completedRequests = {}
 
-    # Subtract the amount of time between now and a player's last action;
-    # this is time they should not be penalized for.
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      now = (+new Date)
-      for playerId in Object.keys(@lastActionTimes)
-        leftoverTime = now - @lastActionTimes[playerId]
-        @playerTimes[playerId] += leftoverTime
-        delete @lastActionTimes[playerId]
-      endTimes = (@endTimeFor(id)  for id in @playerIds)
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+    @emit('continueTurn')
 
     @determineTurnOrder()
     for action in @pokemonActions
@@ -476,14 +395,11 @@ class @Battle extends EventEmitter
     @attachments.contains(attachment)
 
   endBattle: ->
+    return  if @finished
     winnerId = @getWinner()
     winnerIndex = @getPlayerIndex(winnerId)
     @tell(Protocol.END_BATTLE, winnerIndex)
     @emit('end', winnerId)
-
-  timerWin: (winnerIndex) ->
-    @tell(Protocol.TIMER_WIN, winnerIndex)
-    @emit('end', @playerIds[winnerIndex])
 
   getWinner: ->
     winner     = null
@@ -549,8 +465,7 @@ class @Battle extends EventEmitter
   addAction: (action) ->
     unless @getAction(action.pokemon)
       @pokemonActions.push(action)
-      if @hasCondition(Conditions.TIMED_BATTLE)
-        @lastActionTimes[action.pokemon.playerId] = (+new Date)
+      @emit('addAction', action.pokemon.playerId, action)
     return action
 
   removeRequest: (playerId, action, forSlot) ->
@@ -589,9 +504,7 @@ class @Battle extends EventEmitter
 
     @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
 
-    if @hasCondition(Conditions.TIMED_BATTLE)
-      delete @lastActionTimes[playerId]
-      @checkPlayerTimes()
+    @emit('undoCompletedRequest', playerId)
     return true
 
   requestFor: (pokemon) ->
@@ -836,17 +749,6 @@ class @Battle extends EventEmitter
         @broadcast('leave battle', @id, spectator.id)
         break
 
-  addCondition: (condition) ->
-    @conditions.push(condition)
-
-  removeCondition: (condition) ->
-    index = @conditions.indexOf(condition)
-    if index != -1
-      @conditions.splice(index, 1)
-
-  hasCondition: (condition) ->
-    condition in @conditions
-
   forfeit: (id) ->
     return  if @isOver()
     index = @getPlayerIndex(id)
@@ -854,18 +756,6 @@ class @Battle extends EventEmitter
     @tell(Protocol.FORFEIT_BATTLE, index)
     winnerId = @playerIds[1 - index]
     @emit('end', winnerId)
-
-  updateRatings: (winnerId) ->
-    index = @getPlayerIndex(winnerId)
-    loserId = @playerIds[1 - index]
-    ratings = require '../ratings'
-    ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
-      ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
-        return @message "An error occurred updating rankings :("  if err
-        @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
-        @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
-        @emit('ratingsUpdated')
-        @sendUpdates()
 
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->

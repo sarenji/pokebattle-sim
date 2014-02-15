@@ -10,9 +10,6 @@ describe "Battle timer", ->
       shared.create.call this,
         conditions: [ Conditions.TIMED_BATTLE ]
 
-    it "gets added to the battle as a condition", ->
-      @battle.hasCondition(Conditions.TIMED_BATTLE).should.be.true
-
     it "starts a timer that ends the battle in 5 minutes", ->
       @battle.isOver().should.be.false
       delta = 100
