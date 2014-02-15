@@ -2,15 +2,10 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/moves.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
-makeBoostMove 'Baby-Doll Eyes', 'target', attack: -1
-makeBoostMove 'Confide', 'target', specialAttack: -1
-
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
   @selectPlayers = (battle) ->
     battle.playerIds
-
-makeBoostMove 'Eerie Impulse', 'target', specialAttack: -2
 
 extendMove 'Facade', ->
   @burnCalculation = -> 1
@@ -31,9 +26,6 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   battle.message "#{user.name} protected itself!"
 
 makeTrappingMove "Infestation"
-
-makeBoostMove 'Noble Roar', 'target', attack: -1, specialAttack: -1
-makeBoostMove 'Play Nice', 'target', attack: -1
 
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)

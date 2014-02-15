@@ -13,6 +13,9 @@ shared = require '../shared'
 require '../helpers'
 
 describe "XY Moves:", ->
+  # Test every single move for their primary effects.
+  shared.testEveryMove(Battle::Moves)
+
   describe "a critical hit", ->
     it "multiplies damage by 1.5x", ->
       Move::criticalMultiplier.should.equal(1.5)

@@ -23,6 +23,8 @@ class @Move
     @flinchChance = (attributes.flinchChance || 0)
     @ailmentChance = (attributes.ailmentChance || 0)
     @ailmentId = attributes.ailmentId
+    @primaryBoostStats = attributes.primaryBoostStats
+    @primaryBoostTarget = attributes.primaryBoostTarget
     @secondaryBoostChance = attributes.secondaryBoostChance || 0
     @secondaryBoostStats = attributes.secondaryBoostStats
     @secondaryBoostTarget = attributes.secondaryBoostTarget
@@ -41,6 +43,9 @@ class @Move
 
   hasFlag: (flagName) ->
     flagName in @flags
+
+  hasPrimaryEffect: ->
+    @primaryBoostStats?
 
   # A secondary effect also includes flinching.
   hasSecondaryEffect: ->
@@ -65,7 +70,8 @@ class @Move
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
-        @hit(battle, user, target, hitNumber)
+        damage = @hit(battle, user, target, hitNumber)
+        @afterHit(battle, user, target, damage)
         break  if target.isFainted()
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
@@ -105,6 +111,10 @@ class @Move
       else
         currentHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
         damage = previousHP - Math.max(0, currentHP)
+    return damage
+
+  # `hit` may be overridden, but we still want to run these callbacks.
+  afterHit: (battle, user, target, damage) ->
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
     target.afterBeingHit(this, user, target, damage)
@@ -178,6 +188,7 @@ class @Move
     battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) ->
+    return 0  if user == target
     userBoosts = user.editBoosts(ignoreAccuracy: target.hasAbility("Unaware"))
     targetBoosts = target.editBoosts(ignoreEvasion: user.hasAbility("Unaware"))
     accuracy = @getAccuracy(battle, user, target)

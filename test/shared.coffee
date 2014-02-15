@@ -64,8 +64,30 @@ createTestRNG = ->
         func = @biasedRNGFuncs[funcName]
         return (if id of func then func[id] else oldFunc(args...))
 
+testEveryMove = (allMoves) ->
+  for moveName, move of allMoves
+    if move.hasPrimaryEffect()
+      do (moveName, move) ->
+        describe moveName, ->
+          # Test primary boost moves
+          if move.primaryBoostStats?
+            it "boosts properly", ->
+              create.call(this)
+              target = (if move.primaryBoostTarget == 'self' then @p1 else @p2)
+              target.stages.should.not.include(move.primaryBoostStats)
+              @battle.performMove(@p1, move)
+              target.stages.should.include(move.primaryBoostStats)
+
+            if move.primaryBoostTarget == 'self'
+              it "can never miss self", ->
+                create.call(this)
+                move.chanceToHit(@battle, @p1, @p1).should.equal(0)
+
 biasRNG = (funcName, id, returns) ->
   @biasedRNGFuncs[funcName] ||= {}
   @biasedRNGFuncs[funcName][id] = returns
 
-module.exports = {shouldDoNoDamage, shouldFailIfUsedTwice, build, create, biasRNG}
+module.exports = {
+  shouldDoNoDamage, shouldFailIfUsedTwice,
+  build, create, biasRNG, testEveryMove
+}

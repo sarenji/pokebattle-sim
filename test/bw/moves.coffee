@@ -13,6 +13,9 @@ should = require 'should'
 shared = require '../shared'
 
 describe 'Move:', ->
+  # Test every single move for their primary effects.
+  shared.testEveryMove(Battle::Moves)
+
   it "multiplies critical hits by 2x", ->
     Move::criticalMultiplier.should.equal(2)
 

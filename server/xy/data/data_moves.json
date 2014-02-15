@@ -59,7 +59,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Poison"
+        "type": "Poison",
+        "primaryBoostStats": {
+            "defense": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Acid Spray": {
         "accuracy": 100,
@@ -199,7 +203,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "speed": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Air Cutter": {
         "accuracy": 95,
@@ -273,7 +281,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "specialDefense": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "AncientPower": {
         "accuracy": 100,
@@ -576,7 +588,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Steel"
+        "type": "Steel",
+        "primaryBoostStats": {
+            "speed": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Avalanche": {
         "accuracy": 100,
@@ -616,7 +632,11 @@
         "priority": 1,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Fairy"
+        "type": "Fairy",
+        "primaryBoostStats": {
+            "attack": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Barrage": {
         "accuracy": 85,
@@ -654,7 +674,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "defense": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Baton Pass": {
         "accuracy": 0,
@@ -1216,7 +1240,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Fighting"
+        "type": "Fighting",
+        "primaryBoostStats": {
+            "attack": 1,
+            "defense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Bulldoze": {
         "accuracy": 100,
@@ -1299,7 +1328,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "specialAttack": 1,
+            "specialDefense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Camouflage": {
         "accuracy": 0,
@@ -1371,7 +1405,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Electric"
+        "type": "Electric",
+        "primaryBoostStats": {
+            "specialDefense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Charge Beam": {
         "accuracy": 90,
@@ -1415,7 +1453,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Fairy"
+        "type": "Fairy",
+        "primaryBoostStats": {
+            "attack": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Chatter": {
         "accuracy": 100,
@@ -1553,7 +1595,13 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Poison"
+        "type": "Poison",
+        "primaryBoostStats": {
+            "attack": 1,
+            "defense": 1,
+            "accuracy": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Comet Punch": {
         "accuracy": 85,
@@ -1595,7 +1643,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "specialAttack": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Confuse Ray": {
         "accuracy": 100,
@@ -1729,7 +1781,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "defense": 1,
+            "specialDefense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Cotton Guard": {
         "accuracy": 0,
@@ -1747,7 +1804,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Grass"
+        "type": "Grass",
+        "primaryBoostStats": {
+            "defense": 3
+        },
+        "primaryBoostTarget": "self"
     },
     "Cotton Spore": {
         "accuracy": 100,
@@ -1768,7 +1829,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Grass"
+        "type": "Grass",
+        "primaryBoostStats": {
+            "speed": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Counter": {
         "accuracy": 100,
@@ -2073,7 +2138,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Bug"
+        "type": "Bug",
+        "primaryBoostStats": {
+            "defense": 1,
+            "specialDefense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Defense Curl": {
         "accuracy": 0,
@@ -2091,7 +2161,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Defog": {
         "accuracy": 0,
@@ -2344,7 +2418,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "evasion": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Double-Edge": {
         "accuracy": 100,
@@ -2441,7 +2519,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Dragon"
+        "type": "Dragon",
+        "primaryBoostStats": {
+            "attack": 1,
+            "speed": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Dragon Pulse": {
         "accuracy": 100,
@@ -2770,7 +2853,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Electric"
+        "type": "Electric",
+        "primaryBoostStats": {
+            "specialAttack": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Egg Bomb": {
         "accuracy": 75,
@@ -3204,7 +3291,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Dark"
+        "type": "Dark",
+        "primaryBoostStats": {
+            "specialDefense": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "False Swipe": {
         "accuracy": 100,
@@ -3244,7 +3335,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Flying"
+        "type": "Flying",
+        "primaryBoostStats": {
+            "attack": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Feint": {
         "accuracy": 100,
@@ -3431,7 +3526,8 @@
         "damage": "physical",
         "flags": [
             "protect",
-            "mirror"
+            "mirror",
+            "ohko"
         ],
         "flinchChance": 0,
         "maxHits": 1,
@@ -4341,7 +4437,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Growth": {
         "accuracy": 0,
@@ -4425,7 +4525,8 @@
         "flags": [
             "contact",
             "protect",
-            "mirror"
+            "mirror",
+            "ohko"
         ],
         "flinchChance": 0,
         "maxHits": 1,
@@ -4566,7 +4667,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Haze": {
         "accuracy": 0,
@@ -4956,7 +5061,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Dark"
+        "type": "Dark",
+        "primaryBoostStats": {
+            "attack": 1,
+            "accuracy": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Horn Attack": {
         "accuracy": 100,
@@ -4986,7 +5096,8 @@
         "flags": [
             "contact",
             "protect",
-            "mirror"
+            "mirror",
+            "ohko"
         ],
         "flinchChance": 0,
         "maxHits": 1,
@@ -5035,7 +5146,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Hurricane": {
         "accuracy": 70,
@@ -5490,7 +5605,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Steel"
+        "type": "Steel",
+        "primaryBoostStats": {
+            "defense": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Iron Head": {
         "accuracy": 100,
@@ -5835,7 +5954,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Lick": {
         "accuracy": 100,
@@ -6258,7 +6381,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Psychic"
+        "type": "Psychic",
+        "primaryBoostStats": {
+            "attack": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Mega Drain": {
         "accuracy": 100,
@@ -6424,7 +6551,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Steel"
+        "type": "Steel",
+        "primaryBoostStats": {
+            "specialDefense": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Meteor Mash": {
         "accuracy": 90,
@@ -6891,7 +7022,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Dark"
+        "type": "Dark",
+        "primaryBoostStats": {
+            "specialAttack": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Natural Gift": {
         "accuracy": 100,
@@ -7051,7 +7186,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": -1,
+            "specialAttack": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Nuzzle": {
         "accuracy": 100,
@@ -7444,7 +7584,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Play Rough": {
         "accuracy": 90,
@@ -8120,7 +8264,13 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Bug"
+        "type": "Bug",
+        "primaryBoostStats": {
+            "specialAttack": 1,
+            "specialDefense": 1,
+            "speed": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Rage": {
         "accuracy": 100,
@@ -8570,7 +8720,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Rock"
+        "type": "Rock",
+        "primaryBoostStats": {
+            "speed": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Rock Slide": {
         "accuracy": 90,
@@ -8889,7 +9043,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Ground"
+        "type": "Ground",
+        "primaryBoostStats": {
+            "accuracy": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Sandstorm": {
         "accuracy": 0,
@@ -8945,7 +9103,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "speed": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Scratch": {
         "accuracy": 100,
@@ -8987,7 +9149,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": -2
+        },
+        "primaryBoostTarget": "target"
     },
     "Searing Shot": {
         "accuracy": 100,
@@ -9253,7 +9419,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Sheer Cold": {
         "accuracy": 30,
@@ -9262,7 +9432,8 @@
         "damage": "special",
         "flags": [
             "protect",
-            "mirror"
+            "mirror",
+            "ohko"
         ],
         "flinchChance": 0,
         "maxHits": 1,
@@ -9290,7 +9461,15 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": 2,
+            "specialAttack": 2,
+            "speed": 2,
+            "defense": -1,
+            "specialDefense": -1
+        },
+        "primaryBoostTarget": "self"
     },
     "Shift Gear": {
         "accuracy": 0,
@@ -9308,7 +9487,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Steel"
+        "type": "Steel",
+        "primaryBoostStats": {
+            "speed": 2,
+            "attack": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Shock Wave": {
         "accuracy": 0,
@@ -9475,7 +9659,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Sky Attack": {
         "accuracy": 90,
@@ -9774,7 +9962,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "accuracy": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Snarl": {
         "accuracy": 95,
@@ -10327,7 +10519,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Bug"
+        "type": "Bug",
+        "primaryBoostStats": {
+            "speed": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Struggle": {
         "accuracy": 0,
@@ -10625,7 +10821,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "evasion": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Swift": {
         "accuracy": 0,
@@ -10681,7 +10881,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Synchronoise": {
         "accuracy": 100,
@@ -10757,7 +10961,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Bug"
+        "type": "Bug",
+        "primaryBoostStats": {
+            "specialAttack": 3
+        },
+        "primaryBoostTarget": "self"
     },
     "Tail Slap": {
         "accuracy": 85,
@@ -10797,7 +11005,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "all-opponents",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "defense": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Tailwind": {
         "accuracy": 0,
@@ -11110,7 +11322,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": -1,
+            "defense": -1
+        },
+        "primaryBoostTarget": "target"
     },
     "Topsy-Turvy": {
         "accuracy": 0,
@@ -11905,7 +12122,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Water"
+        "type": "Water",
+        "primaryBoostStats": {
+            "defense": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Wonder Room": {
         "accuracy": 0,
@@ -11961,7 +12182,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "attack": 1,
+            "specialAttack": 1
+        },
+        "primaryBoostTarget": "self"
     },
     "Worry Seed": {
         "accuracy": 100,
