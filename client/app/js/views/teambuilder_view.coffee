@@ -1,8 +1,8 @@
 class @TeambuilderView extends Backbone.View
-  template: JST['teambuilder']
-  teamsTemplate: JST['teambuilder_teams']
-  editTemplate: JST['teambuilder_pokemon']
-  moveRowTemplate: JST['teambuilder_move_row']
+  template: JST['teambuilder/main']
+  teamsTemplate: JST['teambuilder/teams']
+  editTemplate: JST['teambuilder/pokemon']
+  moveRowTemplate: JST['teambuilder/move_row']
   importTemplate: JST['modals/import_team']
   exportTemplate: JST['modals/export_team']
   teamTemplate: JST['team']
