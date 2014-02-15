@@ -163,8 +163,10 @@ class @PrivateMessagesView extends Backbone.View
       personId: $popup.data('user-id')
       defaultClauses: [
         Conditions.TEAM_PREVIEW
-        Conditions.SLEEP_CLAUSE
         Conditions.PBV_1000
+        Conditions.SLEEP_CLAUSE
+        Conditions.EVASION_CLAUSE
+        Conditions.SPECIES_CLAUSE
       ]
     $popup.find('.popup_messages').addClass('small')
     $challenge.removeClass('hidden')

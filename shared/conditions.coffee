@@ -1,9 +1,9 @@
 @Conditions =
   TEAM_PREVIEW   : 1
-  SLEEP_CLAUSE   : 2
-  RATED_BATTLE   : 3
-  PBV_1000       : 4
-  TIMED_BATTLE   : 5
+  RATED_BATTLE   : 2
+  PBV_1000       : 3
+  TIMED_BATTLE   : 4
+  SLEEP_CLAUSE   : 5
   SPECIES_CLAUSE : 6
   EVASION_CLAUSE : 7
 

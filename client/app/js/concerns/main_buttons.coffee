@@ -14,6 +14,8 @@ $ ->
     defaultClauses: [
       Conditions.TEAM_PREVIEW
       Conditions.SLEEP_CLAUSE
+      Conditions.EVASION_CLAUSE
+      Conditions.SPECIES_CLAUSE
       Conditions.PBV_1000
       Conditions.RATED_BATTLE
       Conditions.TIMED_BATTLE
