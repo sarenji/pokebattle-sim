@@ -1,6 +1,7 @@
 class @TeambuilderView extends Backbone.View
   template: JST['teambuilder/main']
   teamsTemplate: JST['teambuilder/teams']
+  pokemonListTemplate: JST['teambuilder/pokemon_list']
   editTemplate: JST['teambuilder/pokemon']
   speciesTemplate: JST['teambuilder/species']
   nonStatsTemplate: JST['teambuilder/non_stats']
@@ -419,20 +420,6 @@ class @TeambuilderView extends Backbone.View
     @$('.go_back').text('Back')
     @$('.save_team').addClass('disabled')
 
-  renderPBV: (pokemon) =>
-    if pokemon
-      $view = @getPokemonView()
-      $view.find(".individual-pbv").text(pokemon.getPBV())
-
-    totalPBV = @getSelectedTeam().getPBV()
-    maxPBV = 1000 # temporary
-
-    @$(".total-pbv").text(totalPBV)
-    if totalPBV > maxPBV
-      @$(".total-pbv").addClass("pbv-over-max")
-    else
-      @$(".total-pbv").removeClass("pbv-over-max")
-
   render: =>
     @$el.html @template(pokemon: @getSelectedTeam(), selected: @selectedPokemon)
     @renderTeams()
@@ -447,7 +434,7 @@ class @TeambuilderView extends Backbone.View
     team = @getSelectedTeam()
     @generationChanged(team.generation || DEFAULT_GENERATION)
     @renderGeneration()
-    @renderPokemonList(team)
+    @renderPokemonList()
     @renderPBV()
     @setSelectedPokemonIndex(@selectedPokemon)
     @$('.team_name').text(team.getName())
@@ -456,20 +443,12 @@ class @TeambuilderView extends Backbone.View
 
   renderPokemonList: =>
     team = @getSelectedTeam()
-    pokemon_list = @$(".pokemon_list")
-    pokemon_list.empty()
-    for pokemon, i in team.models
-      $listItem = $("<li/>").data("pokemon-index", i)
-      $listItem.prepend($("<div/>").addClass("pokemon_middle")
-        .text(pokemon.get("name"))
-        .append($("<div/>").addClass("pokemon_pbv")
-          .text('PBV: ' + pokemon.getPBV())))
-      $listItem.prepend($("<div/>").addClass("pokemon_icon")
-        .attr("style", PokemonIconBackground(pokemon.get('name'),
-                                             pokemon.get('forme'))))
-      $listItem.addClass("active")  if @selectedPokemon == i
-      pokemon_list.append($listItem)
+    $pokemon_list = @$(".pokemon_list").empty()
+    $pokemon_list.html @pokemonListTemplate(window: window, pokemonList: team.models)
+    $pokemon_list.find("li[data-pokemon-index=#{@selectedPokemon}]").addClass("active")
 
+    # NOTE: this isn't be used, and just amounts to hiding the button, however
+    # we may re-enable this functionality in the future
     # Hide add pokemon if there's 6 pokemon
     if team.length < 6
       @$(".add_pokemon").show()
@@ -496,6 +475,23 @@ class @TeambuilderView extends Backbone.View
     this
 
     @renderPBV(pokemon)
+
+  renderPBV: (pokemon) =>
+    if pokemon
+      individualPBV = pokemon.getPBV()
+      $view = @getPokemonView()
+      $listItem = @$(".pokemon_list li[data-pokemon-cid=#{pokemon.cid}]")
+      $view.find(".individual-pbv").text(individualPBV)
+      $listItem.find(".pbv-value").text(individualPBV)
+
+    totalPBV = @getSelectedTeam().getPBV()
+    maxPBV = 1000 # temporary
+
+    @$(".total-pbv").text(totalPBV)
+    if totalPBV > maxPBV
+      @$(".total-pbv").addClass("pbv-over-max")
+    else
+      @$(".total-pbv").removeClass("pbv-over-max")
 
   renderGeneration: =>
     generation = @getSelectedTeam().generation || DEFAULT_GENERATION
