@@ -46,6 +46,19 @@ createCondition Conditions.PBV_1000,
 
 createCondition Conditions.SLEEP_CLAUSE
 
+createCondition Conditions.SPECIES_CLAUSE,
+  validate: (team, genData) ->
+    errors = []
+    species = team.map((p) -> p.name)
+    species.sort()
+    for i in [1...species.length]
+      speciesName = species[i - 1]
+      if speciesName == species[i]
+        errors.push("Cannot have the same species: #{speciesName}")
+      while speciesName == species[i]
+        i++
+    return errors
+
 createCondition Conditions.RATED_BATTLE,
   attach:
     end: (winnerId) ->
