@@ -75,15 +75,18 @@ createCondition Conditions.EVASION_CLAUSE,
   validatePokemon: (pokemon, genData, prefix) ->
     {moves, ability} = pokemon
     errors = []
+
+    # Check evasion abilities
+    if ability in [ "Moody" ]
+      errors.push("#{prefix}: #{ability} is banned under Evasion Clause.")
+
+    # Check evasion moves
     for moveName in moves
       move = genData.MoveData[moveName]
-      # Check evasion moves
       if move.primaryBoostStats? && move.primaryBoostStats.evasion > 0 &&
           move.primaryBoostTarget == 'self'
         errors.push("#{prefix}: #{moveName} is banned under Evasion Clause.")
-      # Check evasion abilities
-      if ability in [ "Moody" ]
-        errors.push("#{prefix}: #{ability} is banned under Evasion Clause.")
+
     return errors
 
 createCondition Conditions.RATED_BATTLE,
