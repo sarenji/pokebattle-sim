@@ -480,8 +480,9 @@ class @TeambuilderView extends Backbone.View
     view = @getPokemonView()
     if view.children().length == 0
       view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
-    
-    view.find(".species_list").val(pokemon.get("name"))
+      view.find(".species_list").select2() # nice dropdown menu
+
+    view.find(".species_list").val(pokemon.get("name")).trigger("change")
     view.find(".species-info").html @speciesTemplate(window: window, pokemon: pokemon)
 
     @renderNonStats(pokemon)
