@@ -1,7 +1,11 @@
 class @TeambuilderView extends Backbone.View
-  template: JST['teambuilder']
-  teamsTemplate: JST['teambuilder_teams']
-  editTemplate: JST['teambuilder_pokemon']
+  template: JST['teambuilder/main']
+  teamsTemplate: JST['teambuilder/teams']
+  pokemonListTemplate: JST['teambuilder/pokemon_list']
+  editTemplate: JST['teambuilder/pokemon']
+  speciesTemplate: JST['teambuilder/species']
+  nonStatsTemplate: JST['teambuilder/non_stats']
+  movesTemplate: JST['teambuilder/moves']
   importTemplate: JST['modals/import_team']
   exportTemplate: JST['modals/export_team']
   teamTemplate: JST['team']
@@ -247,7 +251,7 @@ class @TeambuilderView extends Backbone.View
 
   keydownMoves: (e) =>
     $input = $(e.currentTarget)
-    $table = @getActivePokemonView().find('.table-moves')
+    $table = @getPokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     switch e.which
       when 13  # [Enter]; we're selecting the active move.
@@ -275,7 +279,7 @@ class @TeambuilderView extends Backbone.View
 
   filterMovesBy: (moveName) =>
     moveName = moveName.replace(/\s+/g, "")
-    $table = @getActivePokemonView().find('.table-moves')
+    $table = @getPokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     moveRegex = new RegExp(moveName, "i")
     $moves = $allMoves.filter ->
@@ -319,7 +323,7 @@ class @TeambuilderView extends Backbone.View
   clickMoveName: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
-    $moves = @getActivePokemonView().find('.selected_moves')
+    $moves = @getPokemonView().find('.selected_moves')
     $input = $moves.find('input:focus').first()
     $input = $moves.find('input').first()  if $input.length == 0
     return  if $input.length == 0
@@ -328,13 +332,13 @@ class @TeambuilderView extends Backbone.View
   insertMove: ($input, moveName) =>
     @preventBlurMoves()
     return  if !@buttonify($input, moveName)
-    $moves = @getActivePokemonView().find('.selected_moves')
+    $moves = @getPokemonView().find('.selected_moves')
     $moves.find('input').first().focus()
     @recordMoves()
 
   recordMoves: =>
     movesArray = []
-    $moves = @getActivePokemonView().find('.selected_moves')
+    $moves = @getPokemonView().find('.selected_moves')
     $moves.find('.move-button').each ->
       moveName = $(this).text().trim()
       if moveName != ""
@@ -342,7 +346,7 @@ class @TeambuilderView extends Backbone.View
     @getSelectedPokemon().set("moves", movesArray)
 
   $selectedMove: =>
-    $table = @getActivePokemonView().find('.table-moves')
+    $table = @getPokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     $allMoves.filter('.active').first()
 
@@ -372,9 +376,8 @@ class @TeambuilderView extends Backbone.View
     pokemon = @getSelectedTeam().at(index)
     @selectedPokemon = index
     
-    # Set the correct pokemon view to active
-    @$(".pokemon_edit").children().hide().removeClass("active")
-    @getPokemonView(pokemon).show().addClass("active")
+    # Render the pokemon
+    @renderPokemon(pokemon)
 
     # Set the correct list item to active
     @$(".navigation li").removeClass("active")
@@ -390,11 +393,8 @@ class @TeambuilderView extends Backbone.View
   getSelectedTeam: =>
     @teams[@selectedTeam]
 
-  getActivePokemonView: =>
-    @getPokemonView(@getSelectedPokemon())
-
-  getPokemonView: (pokemon) =>
-    @$("div[data-cid=#{pokemon.cid}]")
+  getPokemonView: () =>
+    @$(".pokemon_edit")
 
   blurTeamName: =>
     teamName = @$('.team_name').text()
@@ -420,20 +420,6 @@ class @TeambuilderView extends Backbone.View
     @$('.go_back').text('Back')
     @$('.save_team').addClass('disabled')
 
-  renderPBV: (pokemon) =>
-    if pokemon
-      $view = @getPokemonView(pokemon)
-      $view.find(".individual-pbv").text(pokemon.getPBV())
-
-    totalPBV = @getSelectedTeam().getPBV()
-    maxPBV = 1000 # temporary
-
-    @$(".total-pbv").text(totalPBV)
-    if totalPBV > maxPBV
-      @$(".total-pbv").addClass("pbv-over-max")
-    else
-      @$(".total-pbv").removeClass("pbv-over-max")
-
   render: =>
     @$el.html @template(pokemon: @getSelectedTeam(), selected: @selectedPokemon)
     @renderTeams()
@@ -448,8 +434,7 @@ class @TeambuilderView extends Backbone.View
     team = @getSelectedTeam()
     @generationChanged(team.generation || DEFAULT_GENERATION)
     @renderGeneration()
-    @renderPokemonList(team)
-    @renderPokemon(pokemon)  for pokemon in team.models
+    @renderPokemonList()
     @renderPBV()
     @setSelectedPokemonIndex(@selectedPokemon)
     @$('.team_name').text(team.getName())
@@ -458,20 +443,12 @@ class @TeambuilderView extends Backbone.View
 
   renderPokemonList: =>
     team = @getSelectedTeam()
-    pokemon_list = @$(".pokemon_list")
-    pokemon_list.empty()
-    for pokemon, i in team.models
-      $listItem = $("<li/>").data("pokemon-index", i)
-      $listItem.prepend($("<div/>").addClass("pokemon_middle")
-        .text(pokemon.get("name"))
-        .append($("<div/>").addClass("pokemon_pbv")
-          .text('PBV: ' + pokemon.getPBV())))
-      $listItem.prepend($("<div/>").addClass("pokemon_icon")
-        .attr("style", PokemonIconBackground(pokemon.get('name'),
-                                             pokemon.get('forme'))))
-      $listItem.addClass("active")  if @selectedPokemon == i
-      pokemon_list.append($listItem)
+    $pokemon_list = @$(".pokemon_list").empty()
+    $pokemon_list.html @pokemonListTemplate(window: window, pokemonList: team.models)
+    $pokemon_list.find("li[data-pokemon-index=#{@selectedPokemon}]").addClass("active")
 
+    # NOTE: this isn't be used, and just amounts to hiding the button, however
+    # we may re-enable this functionality in the future
     # Hide add pokemon if there's 6 pokemon
     if team.length < 6
       @$(".add_pokemon").show()
@@ -479,19 +456,42 @@ class @TeambuilderView extends Backbone.View
       @$(".add_pokemon").hide()
 
   renderPokemon: (pokemon) =>
-    view = @getPokemonView(pokemon)
-    if view.length == 0
-      view = $("<div/>").attr("data-cid", pokemon.cid).hide()
-      @$(".pokemon_edit").append(view)
+    view = @getPokemonView()
+    if view.children().length == 0
+      view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
+      view.find(".species_list").select2() # nice dropdown menu
 
-    view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
+    view.find(".species_list").val(pokemon.get("name")).trigger("change")
+    view.find(".species-info").html @speciesTemplate(window: window, pokemon: pokemon)
+
+    @renderNonStats(pokemon)
     @renderStats(pokemon)
+    @renderMoves(pokemon)
 
     @$('.selected_moves input').each (i, el) =>
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
     this
+
+    @renderPBV(pokemon)
+
+  renderPBV: (pokemon) =>
+    if pokemon
+      individualPBV = pokemon.getPBV()
+      $view = @getPokemonView()
+      $listItem = @$(".pokemon_list li[data-pokemon-cid=#{pokemon.cid}]")
+      $view.find(".individual-pbv").text(individualPBV)
+      $listItem.find(".pbv-value").text(individualPBV)
+
+    totalPBV = @getSelectedTeam().getPBV()
+    maxPBV = 1000 # temporary
+
+    @$(".total-pbv").text(totalPBV)
+    if totalPBV > maxPBV
+      @$(".total-pbv").addClass("pbv-over-max")
+    else
+      @$(".total-pbv").removeClass("pbv-over-max")
 
   renderGeneration: =>
     generation = @getSelectedTeam().generation || DEFAULT_GENERATION
@@ -521,8 +521,34 @@ class @TeambuilderView extends Backbone.View
     $modal.modal('show')
     $modal.find('textarea, input').first().focus()
 
+  renderNonStats: (pokemon) =>
+    $nonStats = @getPokemonView().find(".non-stats")
+
+    populateSelect = (searchStr, valueTextPairs, selectedValue) ->
+      $select = $nonStats.find(searchStr).empty()
+      for pair in valueTextPairs
+        value = text = pair
+        if pair instanceof Array 
+          value = pair[0]
+          text = pair[1]
+
+        $select.append($("<option>").attr("value", value).text(text))
+      $select.val(selectedValue)
+
+    displayedGenders =
+      F: "Female"
+      M: "Male"
+
+    populateSelect ".selected_ability", pokemon.getAbilities(), pokemon.get("ability")
+    populateSelect ".selected_nature", pokemon.getNatures(), pokemon.get("nature")
+    $nonStats.find(".selected_item").val(pokemon.get("item"))
+    populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in pokemon.getGenders()), pokemon.get("gender")
+    $nonStats.find(".selected_level").val(pokemon.get("level"))
+    $nonStats.find(".selected_happiness").val(pokemon.get("happiness"))
+    $nonStats.find(".selected_shininess").prop("checked", pokemon.get('shiny'))
+
   renderStats: (pokemon) =>
-    $div = @getPokemonView(pokemon)
+    $div = @getPokemonView()
 
     $div.find(".iv-entry").each ->
       $input = $(this)
@@ -541,6 +567,12 @@ class @TeambuilderView extends Backbone.View
 
     $div.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
     $div.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
+
+  renderMoves: (pokemon) =>
+    # TODO: Cache the resultant html
+    $div = @getPokemonView()
+    $moveTableBody = $div.find(".table-moves tbody")
+    $moveTableBody.html @movesTemplate(window: window, moves: pokemon.getMovepool())
 
   validateImportedTeam: (json) =>
     errors = []

@@ -1,0 +1,98 @@
+mixin printStat(statName, keyName)
+  tr
+    td.stat-label
+      strong #{statName}:
+    td
+      input(type="text", class="ev-entry", data-stat=keyName)
+    td
+      input(type="text", class="iv-entry", data-stat=keyName)
+    td.stat-total(data-stat=keyName)
+
+.meta-info.clearfix
+  .left-side
+    .species
+      select.species_list
+        each species in speciesList
+          option(value=species)= species
+      .species-info
+    
+    .non-stats
+      .teambuilder_row.pbv-row
+        .teambuilder_col.non-stat-label PBV:
+        .teambuilder_col
+          span.individual-pbv
+          .right
+            span.total-pbv
+            /1000
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Ability:
+        select.teambuilder_col.selected_ability
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Nature:
+        select.teambuilder_col.selected_nature
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Item:
+        select.teambuilder_col.selected_item
+          option(value="")
+          each itemName in itemList
+            option(value=itemName)= itemName
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Gender:
+        select.teambuilder_col.selected_gender
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Level:
+        input.teambuilder_col.selected_level(type="text")
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Happiness:
+        input.teambuilder_col.selected_happiness(type="text")
+      .teambuilder_row
+        .teambuilder_col.non-stat-label Shiny?
+        input.teambuilder_col.selected_shininess(type="checkbox")
+
+  .right-side
+    table.stats
+      thead
+        th
+        th EV
+        th IV
+        th Stat
+      tbody
+        +printStat("HP", "hp")
+        +printStat("Attack", "attack")
+        +printStat("Defense", "defense")
+        +printStat("Sp. Attack", "specialAttack")
+        +printStat("Sp. Defense", "specialDefense")
+        +printStat("Speed", "speed")
+        tr
+          td
+          td.total-evs
+          td(colspan="2")
+            | Hidden Power: 
+            select.select-hidden-power
+              each value, type in window.HiddenPower.BW.ivs
+                - var displayType = type[0].toUpperCase() + type.substr(1)
+                option(value=type)= displayType
+
+.selected_moves
+  h2 Moves:
+  .row-fluid
+    .span3
+      input(type="text")
+    .span3
+      input(type="text")
+    .span3
+      input(type="text")
+    .span3
+      input(type="text")
+
+table.table.table-hover.table-moves
+  thead
+    tr
+      th Name
+      th Type
+      th Category
+      th Power
+      th Accuracy
+      th PP
+      th.description Description
+  tbody
