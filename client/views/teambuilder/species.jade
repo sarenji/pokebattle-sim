@@ -1,0 +1,16 @@
+.forme-sprite-box
+  - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'), {shiny: pokemon.get('shiny')})
+  img.forme-sprite(src=url, alt="")
+.species-types
+  each type in pokemon.getForme().types
+    img(src=window.TypeSprite(type), alt=type)
+    
+- var formes = pokemon.getSelectableFormes()
+if formes.length > 1
+  .teambuilder_row
+    .teambuilder_col Forme:
+    select.teambuilder_col.selected-forme
+      each forme in formes
+        - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
+        - var selected = (forme === pokemon.get('forme'))
+        option(value=forme, selected=selected)= displayedForme
