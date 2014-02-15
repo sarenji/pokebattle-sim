@@ -274,6 +274,17 @@ describe "BW Abilities:", ->
       spy.returnValues[0].should.equal(0x1000)
       spy.returnValues[1].should.equal(0x1000)
 
+    it "recoils only once, but with both attack damages combined", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Parental Bond")]
+      takeDown = @battle.getMove("Take Down")
+      spy = @sandbox.spy(takeDown, 'hit')
+      @battle.performMove(@p1, takeDown)
+      totalDamage = spy.returnValues.reduce((a, b) -> a + b)
+      recoilDamage = Math.round(totalDamage * -takeDown.recoil / 100)
+      (@p1.stat('hp') - @p1.currentHP).should.equal(recoilDamage)
+
   describe "Protean", ->
     it "changes the Pokemon's type when using a move", ->
       shared.create.call this,

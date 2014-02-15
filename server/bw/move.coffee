@@ -62,6 +62,7 @@ class @Move
       return
 
     targetsHit = []
+    totalDamage = 0
     for target in targets
       continue  if @use(battle, user, target, hitNumber) == false
       if target.shouldBlockExecution(this, user) == true
@@ -72,9 +73,17 @@ class @Move
       for hitNumber in [1..numHits]
         damage = @hit(battle, user, target, hitNumber)
         @afterHit(battle, user, target, damage)
+        totalDamage += damage
         break  if target.isFainted()
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
+
+    # Recoil
+    if @recoil < 0 && !user.hasAbility("Rock Head")
+      recoil = Math.round(totalDamage * -@recoil / 100)
+      recoil = Math.max(1, recoil)
+      if user.damage(recoil)
+        battle.message("#{user.name} was hit by recoil!")
 
     # If the move hit 1+ times, query the user's afterAllHits event.
     # If the user is affected by Sheer Force, these are all ignored.
@@ -118,13 +127,6 @@ class @Move
     user.afterSuccessfulHit(this, user, target, damage)
     @afterSuccessfulHit(battle, user, target, damage)
     target.afterBeingHit(this, user, target, damage)
-
-    # Recoil
-    if @recoil < 0 && !user.hasAbility("Rock Head")
-      recoil = Math.round(-damage * @recoil / 100)
-      recoil = Math.max(1, recoil)
-      if user.damage(recoil)
-        battle.message("#{user.name} was hit by recoil!")
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn)
