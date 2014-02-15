@@ -103,6 +103,15 @@ describe "Battle timer", ->
       @clock.tick(@battle.DEFAULT_TIMER)
       mock.verify()
 
+    it "does not cause an infinite loop on later turns", ->
+      @battle.turn = 5
+      spy = @sandbox.spy(@battle, 'startTimer')
+      @clock.tick(@battle.DEFAULT_TIMER)
+      @clock.tick(@battle.TIMER_PER_TURN_INCREASE)
+      @clock.tick(@battle.TIMER_PER_TURN_INCREASE)
+      spy.callCount.should.equal(1)
+      spy.calledWith(Infinity).should.be.false
+
   describe "with team preview", ->
     beforeEach ->
       shared.create.call this,

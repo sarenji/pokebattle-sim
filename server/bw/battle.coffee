@@ -131,16 +131,17 @@ class @Battle extends EventEmitter
 
   checkPlayerTimes: ->
     remainingTimes = []
-    remainingPlayers = []
+    timedOutPlayers = []
     for id in @playerIds
       timeRemaining = @timeRemainingFor(id)
       if timeRemaining <= 0
+        timedOutPlayers.push(id)
+      else
         remainingTimes.push(timeRemaining)
-        remainingPlayers.push(id)
 
-    return Math.min(remainingTimes...)  if remainingTimes.length == 0
+    return Math.min(remainingTimes...)  if timedOutPlayers.length == 0
 
-    loser = @rng.choice(remainingPlayers, "timer")
+    loser = @rng.choice(timedOutPlayers, "timer")
     index = @getPlayerIndex(loser)
     winnerIndex = 1 - index
     @timerWin(winnerIndex)
