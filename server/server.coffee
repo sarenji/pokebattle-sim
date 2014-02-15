@@ -124,9 +124,9 @@ class @BattleServer
         @rejectChallenge(player, challengerId)
 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
-    errors = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-    @queues[generation].add(playerId, team)  if errors.length == 0
-    return errors
+    err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
+    @queues[generation].add(playerId, team)  if err.length == 0
+    return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
@@ -199,14 +199,19 @@ class @BattleServer
     if generation not in gen.SUPPORTED_GENERATIONS
       return [ "Invalid generation: #{generation}." ]
     genData = gen.GenerationJSON[generation.toUpperCase()]
-    errors = require('./conditions').validate(conditions, team, genData)
-    return errors  if errors.length > 0
-    return team.map((pokemon, i) => @validatePokemon(pokemon, i + 1, generation)).flatten()
+
+    err = require('./conditions').validateTeam(conditions, team, genData)
+    return err  if err.length > 0
+
+    err = team.map (pokemon, i) =>
+      @validatePokemon(conditions, pokemon, i + 1, generation)
+    return err.flatten()
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
   # otherwise.
-  validatePokemon: (pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
-    {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
+  validatePokemon: (conditions, pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
+    genData = gen.GenerationJSON[generation.toUpperCase()]
+    {SpeciesData, FormeData} = genData
     err = []
     prefix = "Slot ##{slot}"
 
@@ -258,6 +263,7 @@ class @BattleServer
     else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
                         gen.GENERATION_TO_INT[generation], pokemon.moves)
       err.push("#{prefix}: Invalid moveset.")
+    err.push require('./conditions').validatePokemon(conditions, pokemon, genData, prefix)...
     return err
 
   # Normalizes a Pokemon by setting default values where applicable.

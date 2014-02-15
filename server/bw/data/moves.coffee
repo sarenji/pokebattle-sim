@@ -754,9 +754,8 @@ makeRecoveryMove 'Milk Drink'
 makeLockOnMove 'Mind Reader'
 
 extendMove 'Minimize', ->
-  @use = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Minimize)
-    target.boost(evasion: 2)
 
 makeIdentifyMove("Miracle Eye", "Psychic")
 

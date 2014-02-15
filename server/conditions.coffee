@@ -28,18 +28,30 @@ createCondition = (condition, effects = {}) ->
     for funcName, funcRef of hash.extendFacade
       battleFacade[funcName] = funcRef
 
-@validate = (conditions, team, genData) ->
+# validates an entire team
+@validateTeam = (conditions, team, genData) ->
   errors = []
   for condition in conditions
     if condition not of ConditionHash
       throw new Error("Undefined condition: #{condition}")
-    validator = ConditionHash[condition].validate
+    validator = ConditionHash[condition].validateTeam
     continue  if !validator
     errors.push(validator(team, genData)...)
   return errors
 
+# validates a single pokemon
+@validatePokemon = (conditions, pokemon, prefix) ->
+  errors = []
+  for condition in conditions
+    if condition not of ConditionHash
+      throw new Error("Undefined condition: #{condition}")
+    validator = ConditionHash[condition].validatePokemon
+    continue  if !validator
+    errors.push(validator(pokemon, prefix)...)
+  return errors
+
 createCondition Conditions.PBV_1000,
-  validate: (team, genData) ->
+  validateTeam: (team, genData) ->
     if pbv.determinePBV(genData, team) > 1000
       return [ "Total team PBV cannot surpass 1,000." ]
     return []
@@ -47,7 +59,7 @@ createCondition Conditions.PBV_1000,
 createCondition Conditions.SLEEP_CLAUSE
 
 createCondition Conditions.SPECIES_CLAUSE,
-  validate: (team, genData) ->
+  validateTeam: (team, genData) ->
     errors = []
     species = team.map((p) -> p.name)
     species.sort()
@@ -57,6 +69,21 @@ createCondition Conditions.SPECIES_CLAUSE,
         errors.push("Cannot have the same species: #{speciesName}")
       while speciesName == species[i]
         i++
+    return errors
+
+createCondition Conditions.EVASION_CLAUSE,
+  validatePokemon: (pokemon, genData, prefix) ->
+    {moves, ability} = pokemon
+    errors = []
+    for moveName in moves
+      move = genData.MoveData[moveName]
+      # Check evasion moves
+      if move.primaryBoostStats? && move.primaryBoostStats.evasion > 0 &&
+          move.primaryBoostTarget == 'self'
+        errors.push("#{prefix}: #{moveName} is banned under Evasion Clause.")
+      # Check evasion abilities
+      if ability in [ "Moody" ]
+        errors.push("#{prefix}: #{ability} is banned under Evasion Clause.")
     return errors
 
 createCondition Conditions.RATED_BATTLE,

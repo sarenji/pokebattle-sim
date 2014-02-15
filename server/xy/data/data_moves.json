@@ -6667,7 +6667,11 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Normal"
+        "type": "Normal",
+        "primaryBoostStats": {
+            "evasion": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Miracle Eye": {
         "accuracy": 0,
