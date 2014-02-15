@@ -1,9 +1,0 @@
-tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
-  td= move.name
-  td
-    img(src=window.TypeSprite(move.type), alt=move.type)
-  td= move.damage[0].toUpperCase() + move.damage.substr(1)
-  td= (move.power == 0) ? "-" : move.power
-  td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
-  td= move.pp
-  td.description Description will go here

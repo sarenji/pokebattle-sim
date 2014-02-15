@@ -5,7 +5,7 @@ class @TeambuilderView extends Backbone.View
   editTemplate: JST['teambuilder/pokemon']
   speciesTemplate: JST['teambuilder/species']
   nonStatsTemplate: JST['teambuilder/non_stats']
-  moveRowTemplate: JST['teambuilder/move_row']
+  movesTemplate: JST['teambuilder/moves']
   importTemplate: JST['modals/import_team']
   exportTemplate: JST['modals/export_team']
   teamTemplate: JST['team']
@@ -572,13 +572,7 @@ class @TeambuilderView extends Backbone.View
     # TODO: Cache the resultant html
     $div = @getPokemonView()
     $moveTableBody = $div.find(".table-moves tbody")
-    $moveTableBody.empty()
-
-    htmlStr = ""
-    for move in pokemon.getMovepool()
-      htmlStr += @moveRowTemplate(window: window, move: move)
-
-    $moveTableBody.html htmlStr
+    $moveTableBody.html @movesTemplate(window: window, moves: pokemon.getMovepool())
 
   validateImportedTeam: (json) =>
     errors = []
