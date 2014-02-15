@@ -6,7 +6,6 @@
 {Weather} = require './weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
-{Conditions} = require '../../shared/conditions'
 Query = require './queries'
 {EventEmitter} = require 'events'
 
@@ -39,6 +38,7 @@ class @Battle extends EventEmitter
     @numActive = attributes.numActive || 1
 
     # An array of conditions like clauses or team preview that this battle has.
+    # TODO: Remove
     @conditions = (attributes.conditions && _.clone(attributes.conditions))
     @conditions ||= []
 
