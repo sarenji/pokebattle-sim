@@ -6,7 +6,7 @@ gen = require('./generations')
 
 ConditionHash = {}
 
-createCondition = (condition, effects) ->
+createCondition = (condition, effects = {}) ->
   ConditionHash[condition] = effects
 
 # Attaches each condition to the Battle facade.
@@ -28,9 +28,18 @@ createCondition = (condition, effects) ->
     for funcName, funcRef of hash.extendFacade
       battleFacade[funcName] = funcRef
 
+@validate = (conditions, team, genData) ->
+  errors = []
+  for condition in conditions
+    if condition not of ConditionHash
+      throw new Error("Undefined condition: #{condition}")
+    validator = ConditionHash[condition].validate
+    continue  if !validator
+    errors.push(validator(team, genData)...)
+  return errors
+
 createCondition Conditions.PBV_1000,
-  validate: (team, generation) ->
-    genData = gen.GenerationJSON[generation.toUpperCase()]
+  validate: (team, genData) ->
     if pbv.determinePBV(genData, team) > 1000
       return [ "Total team PBV cannot surpass 1,000." ]
     return []
