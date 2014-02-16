@@ -12,10 +12,12 @@ errors = require '../shared/errors'
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
-  Conditions.SLEEP_CLAUSE
   Conditions.RATED_BATTLE
   Conditions.PBV_1000
   Conditions.TIMED_BATTLE
+  Conditions.SLEEP_CLAUSE
+  Conditions.EVASION_CLAUSE
+  Conditions.SPECIES_CLAUSE
 ]
 
 class @BattleServer
