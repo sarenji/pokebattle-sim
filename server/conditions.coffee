@@ -94,6 +94,19 @@ createCondition Conditions.EVASION_CLAUSE,
 
     return errors
 
+createCondition Conditions.OHKO_CLAUSE,
+  validatePokemon: (pokemon, genData, prefix) ->
+    {moves} = pokemon
+    errors = []
+
+    # Check OHKO moves
+    for moveName in moves
+      move = genData.MoveData[moveName]
+      if "ohko" in move.flags
+        errors.push("#{prefix}: #{moveName} is banned under One-Hit KO Clause.")
+
+    return errors
+
 createCondition Conditions.RATED_BATTLE,
   attach:
     end: (winnerId) ->

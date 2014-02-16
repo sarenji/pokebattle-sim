@@ -18,6 +18,7 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.SLEEP_CLAUSE
   Conditions.EVASION_CLAUSE
   Conditions.SPECIES_CLAUSE
+  Conditions.OHKO_CLAUSE
 ]
 
 class @BattleServer

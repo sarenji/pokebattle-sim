@@ -6,6 +6,7 @@
   SLEEP_CLAUSE   : 5
   SPECIES_CLAUSE : 6
   EVASION_CLAUSE : 7
+  OHKO_CLAUSE    : 8
 
 @HumanizedConditions =
   TEAM_PREVIEW   : "Team Preview"
@@ -15,3 +16,4 @@
   TIMED_BATTLE   : "Timed Battle"
   SPECIES_CLAUSE : "Species Clause"
   EVASION_CLAUSE : "Evasion Clause"
+  OHKO_CLAUSE    : "One-Hit KO Clause"
