@@ -7,6 +7,8 @@ extendMove "Defog", ->
   @selectPlayers = (battle) ->
     battle.playerIds
 
+extendWithDrain('Draining Kiss', .75)
+
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
@@ -26,6 +28,7 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   battle.message "#{user.name} protected itself!"
 
 makeTrappingMove "Infestation"
+extendWithDrain('Oblivion Wing', .75)
 
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
