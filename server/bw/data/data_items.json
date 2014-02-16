@@ -1,15 +1,7 @@
 {
-    "Ability Urge": {
-        "flingPower": 0,
-        "type": "battle"
-    },
     "Absorb Bulb": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Acro Bike": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Adamant Orb": {
         "flingPower": 60,
@@ -47,10 +39,6 @@
         },
         "type": "berries"
     },
-    "Apricorn Box": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Armor Fossil": {
         "flingPower": 100,
         "type": "misc"
@@ -63,17 +51,9 @@
         },
         "type": "berries"
     },
-    "AuroraTicket": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Awakening": {
         "flingPower": 30,
         "type": "medicine"
-    },
-    "Azure Flute": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Babiri Berry": {
         "flingPower": 10,
@@ -86,10 +66,6 @@
     "BalmMushroom": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Basement Key": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Bead Mail": {
         "flingPower": 0,
@@ -107,18 +83,6 @@
         "flingPower": 30,
         "type": "medicine"
     },
-    "Berry Pots": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Berry Pouch": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Bicycle": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Big Mushroom": {
         "flingPower": 30,
         "type": "misc"
@@ -134,10 +98,6 @@
     "Big Root": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "Bike Voucher": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Binding Band": {
         "flingPower": 30,
@@ -159,29 +119,13 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Blk Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Bloom Mail": {
         "flingPower": 0,
         "type": "mail"
     },
-    "Blu Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Blue Card": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Blue Flute": {
         "flingPower": 30,
         "type": "battle"
-    },
-    "Blue Orb": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Blue Scarf": {
         "flingPower": 10,
@@ -250,10 +194,6 @@
     "Carbos": {
         "flingPower": 30,
         "type": "medicine"
-    },
-    "Card Key": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Casteliacone": {
         "flingPower": 30,
@@ -335,10 +275,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Clear Bell": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Clever Wing": {
         "flingPower": 20,
         "type": "medicine"
@@ -350,10 +286,6 @@
             "type": "Flying"
         },
         "type": "berries"
-    },
-    "Coin Case": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Colbur Berry": {
         "flingPower": 10,
@@ -367,10 +299,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Contest Pass": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Cornn Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -378,18 +306,6 @@
             "type": "Bug"
         },
         "type": "berries"
-    },
-    "Coupon 1": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Coupon 2": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Coupon 3": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Cover Fossil": {
         "flingPower": 100,
@@ -415,118 +331,6 @@
         "flingPower": 0,
         "type": "misc"
     },
-    "Dark Stone": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 01": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 02": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 03": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 04": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 05": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 06": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 07": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 08": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 09": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 10": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 11": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 12": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 13": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 14": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 15": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 16": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 17": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 18": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 19": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 20": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 21": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 22": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 23": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 24": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 25": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 26": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Data Card 27": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Dawn Stone": {
         "flingPower": 80,
         "type": "misc"
@@ -543,24 +347,8 @@
         "flingPower": 10,
         "type": "misc"
     },
-    "Devon Goods": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Devon Scope": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Dire Hit": {
         "flingPower": 30,
-        "type": "battle"
-    },
-    "Dire Hit 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "Dire Hit 3": {
-        "flingPower": 0,
         "type": "battle"
     },
     "Dive Ball": {
@@ -574,10 +362,6 @@
     "Douse Drive": {
         "flingPower": 70,
         "type": "misc"
-    },
-    "Dowsing MCHN": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Draco Plate": {
         "flingPower": 90,
@@ -594,10 +378,6 @@
     "Dragon Scale": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Dragon Skull": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Dread Plate": {
         "flingPower": 90,
@@ -667,14 +447,6 @@
         },
         "type": "berries"
     },
-    "Enigma Stone": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Eon Ticket": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Escape Rope": {
         "flingPower": 30,
         "type": "misc"
@@ -699,21 +471,9 @@
         "flingPower": 10,
         "type": "misc"
     },
-    "Explorer Kit": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Fab Mail": {
         "flingPower": 0,
         "type": "mail"
-    },
-    "Fame Checker": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Fashion Case": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Fast Ball": {
         "flingPower": 0,
@@ -799,14 +559,6 @@
         "flingPower": 30,
         "type": "medicine"
     },
-    "GB Sounds": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Galactic Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Ganlon Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -827,37 +579,9 @@
         "flingPower": 0,
         "type": "mail"
     },
-    "Go-Goggles": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Gold Teeth": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Good Rod": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Gooey Mulch": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Gracidea": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Gram 1": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Gram 2": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Gram 3": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Grass Gem": {
         "flingPower": 0,
@@ -899,10 +623,6 @@
         "flingPower": 0,
         "type": "misc"
     },
-    "Grn Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Ground Gem": {
         "flingPower": 0,
         "type": "misc"
@@ -914,38 +634,6 @@
     "Guard Spec.": {
         "flingPower": 30,
         "type": "battle"
-    },
-    "HM01": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM02": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM03": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM04": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM05": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM06": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM07": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "HM08": {
-        "flingPower": 0,
-        "type": "machines"
     },
     "HP Up": {
         "flingPower": 30,
@@ -1059,14 +747,6 @@
         "flingPower": 90,
         "type": "misc"
     },
-    "Item Drop": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "Item Urge": {
-        "flingPower": 0,
-        "type": "battle"
-    },
     "Jaboca Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -1074,14 +754,6 @@
             "type": "Dragon"
         },
         "type": "berries"
-    },
-    "Jade Orb": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Journal": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Kasib Berry": {
         "flingPower": 10,
@@ -1151,17 +823,9 @@
         },
         "type": "berries"
     },
-    "Letter": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Level Ball": {
         "flingPower": 0,
         "type": "pokeballs"
-    },
-    "Liberty Pass": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Liechi Berry": {
         "flingPower": 10,
@@ -1175,10 +839,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Lift Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Light Ball": {
         "flingPower": 30,
         "type": "misc"
@@ -1187,25 +847,9 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Light Stone": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Like Mail": {
         "flingPower": 0,
         "type": "mail"
-    },
-    "Lock Capsule": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Loot Sack": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Lost Item": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Love Ball": {
         "flingPower": 0,
@@ -1231,10 +875,6 @@
         },
         "type": "berries"
     },
-    "Lunar Wing": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Lure Ball": {
         "flingPower": 0,
         "type": "pokeballs"
@@ -1247,25 +887,9 @@
         "flingPower": 0,
         "type": "pokeballs"
     },
-    "Mach Bike": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Machine Part": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Macho Brace": {
         "flingPower": 60,
         "type": "misc"
-    },
-    "Magma Emblem": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Magma Stone": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Magmarizer": {
         "flingPower": 80,
@@ -1323,10 +947,6 @@
         "flingPower": 0,
         "type": "mail"
     },
-    "Member Card": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Mental Herb": {
         "flingPower": 10,
         "type": "misc"
@@ -1338,10 +958,6 @@
     "Metal Powder": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "Meteorite": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Metronome": {
         "flingPower": 30,
@@ -1387,17 +1003,9 @@
         "flingPower": 20,
         "type": "medicine"
     },
-    "Mystery Egg": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Mystic Water": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "MysticTicket": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Nanab Berry": {
         "flingPower": 10,
@@ -1435,14 +1043,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Oak's Letter": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Oak's Parcel": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Occa Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -1463,21 +1063,9 @@
         "flingPower": 100,
         "type": "misc"
     },
-    "Old Charm": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Old Gateau": {
         "flingPower": 30,
         "type": "medicine"
-    },
-    "Old Rod": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Old Sea Map": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Oran Berry": {
         "flingPower": 10,
@@ -1503,10 +1091,6 @@
         "flingPower": 30,
         "type": "medicine"
     },
-    "Pal Pad": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Pamtre Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -1515,10 +1099,6 @@
         },
         "type": "berries"
     },
-    "Parcel": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Park Ball": {
         "flingPower": 0,
         "type": "pokeballs"
@@ -1526,10 +1106,6 @@
     "Parlyz Heal": {
         "flingPower": 30,
         "type": "medicine"
-    },
-    "Pass": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Pass Orb": {
         "flingPower": 30,
@@ -1583,10 +1159,6 @@
         },
         "type": "berries"
     },
-    "Photo Album": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Pinap Berry": {
         "flingPower": 10,
         "naturalGift": {
@@ -1602,18 +1174,6 @@
     "Plume Fossil": {
         "flingPower": 100,
         "type": "misc"
-    },
-    "Pnk Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Poffin Case": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Point Card": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Poison Barb": {
         "flingPower": 70,
@@ -1631,21 +1191,9 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Pok\u00e9 Flute": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Pok\u00e9 Radar": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Pok\u00e9 Toy": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Pok\u00e9block Case": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Pomeg Berry": {
         "flingPower": 10,
@@ -1658,10 +1206,6 @@
     "Potion": {
         "flingPower": 30,
         "type": "medicine"
-    },
-    "Powder Jar": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Power Anklet": {
         "flingPower": 70,
@@ -1702,10 +1246,6 @@
     "Prism Scale": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Prop Case": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Protector": {
         "flingPower": 80,
@@ -1755,18 +1295,6 @@
         },
         "type": "berries"
     },
-    "RageCandyBar": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rainbow Pass": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rainbow Wing": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Rare Bone": {
         "flingPower": 100,
         "type": "misc"
@@ -1803,29 +1331,13 @@
         "flingPower": 10,
         "type": "misc"
     },
-    "Red Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Red Card": {
         "flingPower": 10,
         "type": "misc"
     },
-    "Red Chain": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Red Flute": {
         "flingPower": 30,
         "type": "battle"
-    },
-    "Red Orb": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Red Scale": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Red Scarf": {
         "flingPower": 10,
@@ -1875,10 +1387,6 @@
         "flingPower": 0,
         "type": "mail"
     },
-    "Reset Urge": {
-        "flingPower": 0,
-        "type": "battle"
-    },
     "Resist Wing": {
         "flingPower": 20,
         "type": "medicine"
@@ -1906,22 +1414,6 @@
     "Ring Target": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "Rm. 1 Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rm. 2 Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rm. 4 Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rm. 6 Key": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Rock Gem": {
         "flingPower": 0,
@@ -1951,18 +1443,6 @@
         },
         "type": "berries"
     },
-    "Ruby": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Rule Book": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "S.S. Ticket": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Sacred Ash": {
         "flingPower": 30,
         "type": "medicine"
@@ -1979,14 +1459,6 @@
         },
         "type": "berries"
     },
-    "Sapphire": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Scanner": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Scope Lens": {
         "flingPower": 30,
         "type": "misc"
@@ -1994,22 +1466,6 @@
     "Sea Incense": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "Seal Bag": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Seal Case": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Secret Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "SecretPotion": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Shadow Mail": {
         "flingPower": 0,
@@ -2055,14 +1511,6 @@
         "flingPower": 10,
         "type": "misc"
     },
-    "Silph Scope": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Silver Wing": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "SilverPowder": {
         "flingPower": 10,
         "type": "misc"
@@ -2083,10 +1531,6 @@
         "flingPower": 90,
         "type": "misc"
     },
-    "SlowpokeTail": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Smoke Ball": {
         "flingPower": 30,
         "type": "misc"
@@ -2106,10 +1550,6 @@
     "Soft Sand": {
         "flingPower": 10,
         "type": "misc"
-    },
-    "Soot Sack": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Soothe Bell": {
         "flingPower": 10,
@@ -2146,14 +1586,6 @@
     "Sport Ball": {
         "flingPower": 0,
         "type": "pokeballs"
-    },
-    "Sprayduck": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "SquirtBottle": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Stable Mulch": {
         "flingPower": 30,
@@ -2195,14 +1627,6 @@
         "flingPower": 90,
         "type": "misc"
     },
-    "Storage Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Suite Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Sun Stone": {
         "flingPower": 30,
         "type": "misc"
@@ -2215,10 +1639,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Super Rod": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Sweet Heart": {
         "flingPower": 30,
         "type": "medicine"
@@ -2226,390 +1646,6 @@
     "Swift Wing": {
         "flingPower": 20,
         "type": "medicine"
-    },
-    "TM Case": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "TM01": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM02": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM03": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM04": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM05": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM06": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM07": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM08": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM09": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM10": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM11": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM12": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM13": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM14": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM15": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM16": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM17": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM18": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM19": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM20": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM21": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM22": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM23": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM24": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM25": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM26": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM27": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM28": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM29": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM30": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM31": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM32": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM33": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM34": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM35": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM36": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM37": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM38": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM39": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM40": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM41": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM42": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM43": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM44": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM45": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM46": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM47": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM48": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM49": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM50": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM51": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM52": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM53": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM54": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM55": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM56": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM57": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM58": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM59": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM60": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM61": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM62": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM63": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM64": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM65": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM66": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM67": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM68": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM69": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM70": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM71": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM72": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM73": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM74": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM75": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM76": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM77": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM78": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM79": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM80": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM81": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM82": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM83": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM84": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM85": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM86": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM87": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM88": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM89": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM90": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM91": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM92": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM93": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM94": {
-        "flingPower": 0,
-        "type": "machines"
-    },
-    "TM95": {
-        "flingPower": 0,
-        "type": "machines"
     },
     "Tamato Berry": {
         "flingPower": 10,
@@ -2627,14 +1663,6 @@
         },
         "type": "berries"
     },
-    "Tea": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Teachy TV": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Thanks Mail": {
         "flingPower": 0,
         "type": "mail"
@@ -2647,10 +1675,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Tidal Bell": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Timer Ball": {
         "flingPower": 0,
         "type": "pokeballs"
@@ -2659,10 +1683,6 @@
         "flingPower": 30,
         "type": "misc"
     },
-    "Town Map": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Toxic Orb": {
         "flingPower": 30,
         "type": "misc"
@@ -2670,10 +1690,6 @@
     "Toxic Plate": {
         "flingPower": 90,
         "type": "misc"
-    },
-    "Tri-Pass": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Tropic Mail": {
         "flingPower": 0,
@@ -2691,21 +1707,9 @@
         "flingPower": 0,
         "type": "pokeballs"
     },
-    "Unown Report": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Up-Grade": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Vs. Recorder": {
-        "flingPower": 0,
-        "type": "key"
-    },
-    "Vs. Seeker": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Wacan Berry": {
         "flingPower": 10,
@@ -2714,10 +1718,6 @@
             "type": "Electric"
         },
         "type": "berries"
-    },
-    "Wailmer Pail": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Water Gem": {
         "flingPower": 0,
@@ -2759,10 +1759,6 @@
         "flingPower": 10,
         "type": "misc"
     },
-    "Wht Apricorn": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "Wide Lens": {
         "flingPower": 10,
         "type": "misc"
@@ -2783,109 +1779,29 @@
         "flingPower": 0,
         "type": "mail"
     },
-    "Works Key": {
-        "flingPower": 0,
-        "type": "key"
-    },
     "X Accuracy": {
         "flingPower": 30,
-        "type": "battle"
-    },
-    "X Accuracy 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Accuracy 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Accuracy 6": {
-        "flingPower": 0,
         "type": "battle"
     },
     "X Attack": {
         "flingPower": 30,
         "type": "battle"
     },
-    "X Attack 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Attack 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Attack 6": {
-        "flingPower": 0,
-        "type": "battle"
-    },
     "X Defend": {
         "flingPower": 30,
-        "type": "battle"
-    },
-    "X Defend 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Defend 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Defend 6": {
-        "flingPower": 0,
         "type": "battle"
     },
     "X Sp. Def": {
         "flingPower": 30,
         "type": "battle"
     },
-    "X Sp. Def 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Sp. Def 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Sp. Def 6": {
-        "flingPower": 0,
-        "type": "battle"
-    },
     "X Special": {
         "flingPower": 30,
-        "type": "battle"
-    },
-    "X Special 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Special 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Special 6": {
-        "flingPower": 0,
         "type": "battle"
     },
     "X Speed": {
         "flingPower": 30,
         "type": "battle"
-    },
-    "X Speed 2": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Speed 3": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "X Speed 6": {
-        "flingPower": 0,
-        "type": "battle"
-    },
-    "Xtransceiver": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Yache Berry": {
         "flingPower": 10,
@@ -2906,10 +1822,6 @@
     "Yellow Shard": {
         "flingPower": 30,
         "type": "misc"
-    },
-    "Ylw Apricorn": {
-        "flingPower": 0,
-        "type": "key"
     },
     "Zap Plate": {
         "flingPower": 90,
