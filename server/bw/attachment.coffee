@@ -13,7 +13,7 @@ class @Attachments
 
   push: (attachmentClass, options={}, attributes={}) ->
     throw new Error("Passed a non-existent Attachment.")  if !attachmentClass?
-    return null  if Query.untilFalse('shouldAttach', @all(), attachmentClass) == false
+    return null  if Query.untilFalse('shouldAttach', @all(), attachmentClass, options) == false
     return null  if attachmentClass.preattach?(options, attributes) == false
     attachment = @get(attachmentClass)
     if !attachment?
@@ -1205,8 +1205,23 @@ class @Attachment.AbilityCancel extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
+class @Attachment.SleepClause extends @BaseAttachment
+  name: "SleepClause"
+
+  shouldAttach: (attachment, options) ->
+    {source} = options
+    return  if attachment != Status.Sleep
+    return  if !source || source.team == @pokemon.team
+    pokemonSleptByOtherTeams = @pokemon.team.filter (p) =>
+      source = p.get(Status.Sleep)?.source
+      return source && source.team != @pokemon.team
+    # Attach if we have no pokemon slept by other teams.
+    return pokemonSleptByOtherTeams.length == 0
+
 class @StatusAttachment extends @BaseAttachment
   name: "StatusAttachment"
+
+  @status: true
 
   @preattach: (options, attributes) ->
     {battle, pokemon} = attributes
@@ -1214,7 +1229,6 @@ class @StatusAttachment extends @BaseAttachment
     force ?= false
     if !force
       return false  if pokemon.hasStatus()
-      return false  if battle?.hasWeather(Weather.SUN) && pokemon.hasAbility("Leaf Guard")
       return false  unless @worksOn(battle, pokemon)
       if source && this in [ Status.Toxic, Status.Burn, Status.Poison ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon
@@ -1225,7 +1239,8 @@ class @StatusAttachment extends @BaseAttachment
     pokemon.status = this
     return true
 
-  initialize: ->
+  initialize: (attributes = {}) ->
+    {@source} = attributes
     wasStatused = switch @constructor
       when Status.Paralyze
         "was paralyzed"
@@ -1311,7 +1326,7 @@ class @Status.Sleep extends @StatusAttachment
   name: "Sleep"
 
   initialize: (attributes) ->
-    super()
+    super(attributes)
     @counter = 0
     {@turns} = attributes
     if !@turns && @battle?

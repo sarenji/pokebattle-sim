@@ -89,12 +89,9 @@ for name, move of @Moves
 
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target) ->
-      if target.has(Klass)
+    @hit = (battle, user, target) ->
+      if target.has(Klass) || !target.attach(Klass, source: user)
         @fail(battle)
-        return
-
-      target.attach(Klass, source: user)
 
 extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->

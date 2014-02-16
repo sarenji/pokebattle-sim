@@ -71,7 +71,7 @@ class @Move
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
-        damage = @hit(battle, user, target, hitNumber)
+        damage = @hit(battle, user, target, hitNumber) || 0
         @afterHit(battle, user, target, damage)
         totalDamage += damage
         break  if target.isFainted()

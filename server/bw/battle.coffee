@@ -727,6 +727,9 @@ class @Battle extends EventEmitter
       if condition(move) then return move
     return null
 
+  getAttachment: (attachmentName) ->
+    Attachment[attachmentName]
+
   addSpectator: (spectator) ->
     return  if spectator in @spectators
     spectator = new User(spectator.id)  if spectator not instanceof User

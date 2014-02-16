@@ -512,8 +512,9 @@ makeAbility 'Klutz', ->
   this::beginTurn = this::switchIn = ->
     @pokemon.blockItem()
 
-# Hardcoded in status.coffee
-makeAbility 'Leaf Guard'
+makeAbility 'Leaf Guard', ->
+  this::shouldAttach = (attachment) ->
+    return false  if attachment.status && @battle.hasWeather(Weather.SUN)
 
 makeAbility 'Levitate', ->
   this::isImmune = (type) ->

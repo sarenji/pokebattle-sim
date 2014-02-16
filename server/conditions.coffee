@@ -56,7 +56,12 @@ createCondition Conditions.PBV_1000,
       return [ "Total team PBV cannot surpass 1,000." ]
     return []
 
-createCondition Conditions.SLEEP_CLAUSE
+createCondition Conditions.SLEEP_CLAUSE,
+  attach:
+    initialize: ->
+      for team in @getTeams()
+        for p in team.pokemon
+          p.attach(@getAttachment("SleepClause"))
 
 createCondition Conditions.SPECIES_CLAUSE,
   validateTeam: (team, genData) ->
