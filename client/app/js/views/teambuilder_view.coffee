@@ -467,14 +467,9 @@ class @TeambuilderView extends Backbone.View
     @renderNonStats(pokemon)
     @renderStats(pokemon)
     @renderMoves(pokemon)
-
-    @$('.selected_moves input').each (i, el) =>
-      $this = $(el)
-      moveName = $this.val()
-      @buttonify($this, moveName)
-    this
-
     @renderPBV(pokemon)
+
+    return this
 
   renderPBV: (pokemon) =>
     if pokemon
@@ -570,9 +565,13 @@ class @TeambuilderView extends Backbone.View
 
   renderMoves: (pokemon) =>
     # TODO: Cache the resultant html
-    $div = @getPokemonView()
-    $moveTableBody = $div.find(".table-moves tbody")
-    $moveTableBody.html @movesTemplate(window: window, moves: pokemon.getMovepool())
+    $moveSection = @getPokemonView().find(".moves-section")
+    $moveSection.html @movesTemplate(window: window, pokemon: pokemon)
+
+    $moveSection.find('.selected_moves input').each (i, el) =>
+      $this = $(el)
+      moveName = $this.val()
+      @buttonify($this, moveName)
 
   validateImportedTeam: (json) =>
     errors = []

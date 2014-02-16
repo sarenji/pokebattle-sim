@@ -73,26 +73,5 @@ mixin printStat(statName, keyName)
                 - var displayType = type[0].toUpperCase() + type.substr(1)
                 option(value=type)= displayType
 
-.selected_moves
-  h2 Moves:
-  .row-fluid
-    .span3
-      input(type="text")
-    .span3
-      input(type="text")
-    .span3
-      input(type="text")
-    .span3
-      input(type="text")
-
-table.table.table-hover.table-moves
-  thead
-    tr
-      th Name
-      th Type
-      th Category
-      th Power
-      th Accuracy
-      th PP
-      th.description Description
-  tbody
+  .moves-section
+  

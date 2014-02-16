@@ -1,10 +1,33 @@
-each move in moves
-  tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
-    td= move.name
-    td
-      img(src=window.TypeSprite(move.type), alt=move.type)
-    td= move.damage[0].toUpperCase() + move.damage.substr(1)
-    td= (move.power == 0) ? "-" : move.power
-    td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
-    td= move.pp
-    td.description Description will go here
+.selected_moves
+  h2 Moves:
+  .row-fluid
+    .span3
+      input(type="text", value=pokemon.get("moves")[0])
+    .span3
+      input(type="text", value=pokemon.get("moves")[1])
+    .span3
+      input(type="text", value=pokemon.get("moves")[2])
+    .span3
+      input(type="text", value=pokemon.get("moves")[3])
+
+table.table.table-hover.table-moves
+  thead
+    tr
+      th Name
+      th Type
+      th Category
+      th Power
+      th Accuracy
+      th PP
+      th.description Description
+  tbody
+    each move in pokemon.getMovepool()
+      tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
+        td= move.name
+        td
+          img(src=window.TypeSprite(move.type), alt=move.type)
+        td= move.damage[0].toUpperCase() + move.damage.substr(1)
+        td= (move.power == 0) ? "-" : move.power
+        td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
+        td= move.pp
+        td.description Description will go here
