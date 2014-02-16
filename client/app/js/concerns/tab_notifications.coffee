@@ -31,6 +31,8 @@ PokeBattle.NotificationTypes =
     title: "Battle Action Requested"
     body: "A battle is ready for your input!"
 
+notifications = []
+
 # Currently called in concerns/find_battle.coffee
 PokeBattle.requestNotifyPermission = =>
   if notify.permissionLevel() == notify.PERMISSION_DEFAULT
@@ -42,10 +44,15 @@ PokeBattle.notifyUser = (type, identifier) =>
   $.flashTitle "You have new notification(s)"
 
   if type.showDesktop
-    notify.createNotification type.title,
+    notification = notify.createNotification type.title,
       icon: "/images/logo/pb_red.png"
       body: type.body
       tag: "PokeBattle_#{type.prefix}_#{identifier}"
 
+    notifications.push notification
+
 $(window).focus ->
   $.flashTitle(false)
+  notification.close()  for notification in notifications
+  notifications = []
+  
