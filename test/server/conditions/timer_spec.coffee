@@ -9,6 +9,7 @@ describe "Battle timer", ->
     beforeEach ->
       shared.create.call this,
         conditions: [ Conditions.TIMED_BATTLE ]
+      @battle.TIMER_CAP = Infinity
 
     it "starts a timer that ends the battle in 5 minutes", ->
       @battle.isOver().should.be.false
@@ -101,13 +102,30 @@ describe "Battle timer", ->
       mock.verify()
 
     it "does not cause an infinite loop on later turns", ->
-      @battle.turn = 5
+      @battle.beginTurn()  for x in [1..5]
       spy = @sandbox.spy(@battle, 'startTimer')
       @clock.tick(@battle.DEFAULT_TIMER)
       @clock.tick(@battle.TIMER_PER_TURN_INCREASE)
       @clock.tick(@battle.TIMER_PER_TURN_INCREASE)
       spy.callCount.should.equal(1)
       spy.calledWith(Infinity).should.be.false
+
+    it "has a cap every time a new turn begins", ->
+      @battle.TIMER_CAP = @battle.DEFAULT_TIMER
+
+      @clock.tick(@battle.TIMER_PER_TURN_INCREASE >> 1)
+      @battle.beginTurn()
+
+      @battle.timeRemainingFor(@id1).should.equal(@battle.TIMER_CAP)
+
+    it "has a cap every time a player gains time after move selection", ->
+      @battle.TIMER_CAP = @battle.DEFAULT_TIMER
+      @battle.recordMove(@id1, @battle.getMove("Splash"))
+
+      @clock.tick(@battle.TIMER_PER_TURN_INCREASE >> 1)
+      @battle.continueTurn()
+
+      @battle.timeRemainingFor(@id1).should.equal(@battle.TIMER_CAP)
 
   describe "with team preview", ->
     beforeEach ->

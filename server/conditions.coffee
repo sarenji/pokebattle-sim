@@ -128,6 +128,8 @@ createCondition Conditions.TIMED_BATTLE,
       @playerTimes = {}
       for id in @playerIds
         @playerTimes[id] = nowTime + @DEFAULT_TIMER
+        # Remove first turn since we'll be increasing it again.
+        @playerTimes[id] -= @TIMER_PER_TURN_INCREASE
       @lastActionTimes = {}
       @startTimer()
 
@@ -141,7 +143,10 @@ createCondition Conditions.TIMED_BATTLE,
 
     # Show players updated times
     beginTurn: ->
-      endTimes = (@endTimeFor(id)  for id in @playerIds)
+      endTimes = []
+      for id in @playerIds
+        @addTime(id, @TIMER_PER_TURN_INCREASE)
+        endTimes.push(@endTimeFor(id))
       @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
     # Subtract the amount of time between now and a player's last action;
@@ -150,14 +155,15 @@ createCondition Conditions.TIMED_BATTLE,
       now = (new Date).getTime()
       for playerId in Object.keys(@lastActionTimes)
         leftoverTime = now - @lastActionTimes[playerId]
-        @playerTimes[playerId] += leftoverTime
         delete @lastActionTimes[playerId]
+        @addTime(playerId, leftoverTime)
       endTimes = (@endTimeFor(id)  for id in @playerIds)
       @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
   extend:
     DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
     TIMER_PER_TURN_INCREASE: 20 * 1000  # twenty seconds
+    TIMER_CAP: 5 * 60 * 1000  # five minutes
 
     startTimer: (msecs) ->
       msecs ?= @DEFAULT_TIMER
@@ -167,6 +173,14 @@ createCondition Conditions.TIMED_BATTLE,
       @timerId = setTimeout(check, msecs)
       @once('end', => clearTimeout(@timerId))
 
+    addTime: (id, msecs) ->
+      @playerTimes[id] += msecs
+      remainingTime = @timeRemainingFor(id)
+      if remainingTime > @TIMER_CAP
+        diff = remainingTime - @TIMER_CAP
+        @playerTimes[id] -= diff
+      @playerTimes[id]
+
     timeRemainingFor: (playerId) ->
       endTime = @endTimeFor(playerId)
       nowTime = @lastActionTimes[playerId] || (+new Date)
@@ -174,7 +188,6 @@ createCondition Conditions.TIMED_BATTLE,
 
     endTimeFor: (playerId) ->
       endTime = @playerTimes[playerId]
-      endTime += (@turn - 1) * @TIMER_PER_TURN_INCREASE
       endTime
 
     checkPlayerTimes: ->
