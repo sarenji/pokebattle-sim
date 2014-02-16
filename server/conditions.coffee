@@ -188,12 +188,8 @@ createCondition Conditions.TEAM_PREVIEW,
       @arranged = {}
 
     start: ->
-      if @arranging
-        @tell(Protocol.TEAM_PREVIEW)
-        @shouldStart = false
-      else
-        @tell(Protocol.REARRANGE_TEAMS, @getArrangements()...)
-        @shouldStart = true
+      @tell(Protocol.TEAM_PREVIEW)
+      @shouldStart = false
 
   extendFacade:
     arrangeTeam: (playerId, arrangement) ->
@@ -207,6 +203,8 @@ createCondition Conditions.TEAM_PREVIEW,
         return false  if !team.pokemon[index]
         return false  if arrangement.indexOf(index, i + 1) != -1
       if @battle.arrangeTeam(playerId, arrangement)
+        @arranging = false
+        @battle.tell(Protocol.REARRANGE_TEAMS, @battle.getArrangements()...)
         @battle.startBattle()
         @battle.sendUpdates()
       return true
@@ -221,5 +219,4 @@ createCondition Conditions.TEAM_PREVIEW,
 
     getArrangements: ->
       for playerId in @playerIds
-        console.log @arranging, @arranged
         @arranged[playerId] || [0...@getTeam(playerId).length]
