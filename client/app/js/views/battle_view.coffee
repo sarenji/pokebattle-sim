@@ -644,7 +644,7 @@ class @BattleView extends Backbone.View
     theirTime = @timers[1 - @model.index]
     now = $.now()
     if yourTime && theirTime
-      @changeTimer($yourTimer, yourTime - now)
+      @changeTimer($yourTimer, @timerFrozenAt || (yourTime - now))
       @changeTimer($theirTimer, theirTime - now)
 
   countdownTimers: =>
@@ -654,7 +654,7 @@ class @BattleView extends Backbone.View
     return  if !keepRunning
     diff = ($.now() - @battleStartTime - @timerIterations * 1000)
     @timerIterations++
-    setTimeout(@countdownTimers, 1000 - diff)
+    @countdownTimersId = setTimeout(@countdownTimers, 1000 - diff)
 
   changeTimer: ($timer, timeRemaining) =>
     timeRemaining = 0  if timeRemaining < 0
@@ -693,6 +693,7 @@ class @BattleView extends Backbone.View
     @$('.battle_actions').html """
     <div class="button big save-log">Save Log</div>
     """
+    clearTimeout(@countdownTimersId)
 
   saveLog: =>
     log = []
@@ -744,10 +745,12 @@ class @BattleView extends Backbone.View
   enableButtons: (validActions) =>
     @lastValidActions = validActions || @lastValidActions
     @renderActions(@lastValidActions)
+    delete @timerFrozenAt
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
     @renderWaiting()
+    @timerFrozenAt = @timers[@model.index] - $.now()
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')}
