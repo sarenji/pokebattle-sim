@@ -86,7 +86,7 @@ createCondition Conditions.EVASION_CLAUSE,
       errors.push("#{prefix}: #{ability} is banned under Evasion Clause.")
 
     # Check evasion moves
-    for moveName in moves
+    for moveName in moves || []
       move = genData.MoveData[moveName]
       if move.primaryBoostStats? && move.primaryBoostStats.evasion > 0 &&
           move.primaryBoostTarget == 'self'
@@ -100,7 +100,7 @@ createCondition Conditions.OHKO_CLAUSE,
     errors = []
 
     # Check OHKO moves
-    for moveName in moves
+    for moveName in moves || []
       move = genData.MoveData[moveName]
       if "ohko" in move.flags
         errors.push("#{prefix}: #{moveName} is banned under One-Hit KO Clause.")
@@ -218,9 +218,8 @@ createCondition Conditions.TEAM_PREVIEW,
       @arranging = true
       @arranged = {}
 
-    start: ->
+    beforeStart: ->
       @tell(Protocol.TEAM_PREVIEW)
-      @shouldStart = false
 
   extendFacade:
     arrangeTeam: (playerId, arrangement) ->

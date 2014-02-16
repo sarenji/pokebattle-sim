@@ -622,7 +622,7 @@ describe 'BattleServer', ->
       @server = new BattleServer()
       [ @user1, @user2, @user3 ] = [ "a", "b", "c" ]
       @server.queuePlayer(@user1, [ Factory("Magikarp") ])
-      @server.queuePlayer(@user2, [ Factory("Magikarp"), Factory("Magikarp") ])
+      @server.queuePlayer(@user2, [ Factory("Magikarp"), Factory("Gyarados") ])
       @server.queuePlayer(@user3, [ Factory("Magikarp") ])
       @server.queuedPlayers().should.have.length(3)
       @server.beginBattles (err, battleIds) =>

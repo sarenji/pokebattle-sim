@@ -67,6 +67,9 @@ Factory.register 'Weezing',
 Factory.register 'Blissey',
   moves: ['Seismic Toss', 'Aromatherapy', 'Thunder Wave', 'Softboiled']
 
+Factory.register 'Skarmory',
+  moves: ['Spikes', 'Whirlwind']
+
 Factory.register 'Zangoose',
   moves: ['Facade', 'Flail']
 

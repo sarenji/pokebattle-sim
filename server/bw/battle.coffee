@@ -109,11 +109,13 @@ class @Battle extends EventEmitter
     for playerId in @playerIds
       @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
 
-    @shouldStart = true
-    @emit('start')
-    @startBattle()  if @shouldStart
+    if @listeners('beforeStart').length > 0
+      @emit('beforeStart')
+    else
+      @startBattle()
 
   startBattle: ->
+    @emit('start')
     @tell(Protocol.START_BATTLE)
     # TODO: Merge this with performReplacements?
     for playerId in @playerIds
