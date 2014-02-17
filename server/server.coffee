@@ -234,6 +234,10 @@ class @BattleServer
       err.push("#{prefix}: Invalid forme: #{pokemon.forme}.")
       return err
 
+    if forme.isBattleOnly
+      err.push("#{prefix}: #{pokemon.forme} forme is battle-only.")
+      return err
+
     if isNaN(pokemon.level)
       err.push("#{prefix}: Invalid level: #{pokemon.level}.")
     # TODO: 100 is a magic constant

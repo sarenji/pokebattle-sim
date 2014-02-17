@@ -49,16 +49,17 @@ describe 'BattleServer', ->
       server.queuePlayer("derp", [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
-  # TODO: Tests were broken when I made this function, so I can't actually test if this works.
-  # Fix the testing suite, and then enable and complete this test
-  xdescribe "#getOngoingBattles", ->
-    it "returns one object for each queued battle", ->
+  describe "#getOngoingBattles", ->
+    it "returns one object for each queued battle", (done) ->
+      server = new BattleServer()
       nBattles = 3
-      for i in [1..3]
-        @server.queuePlayer("#{2*i}", [ Factory("Magikarp") ])
-        @server.queuePlayer("#{(2*i) + 1}", [ Factory("Magikarp") ])
+      for i in [1..nBattles]
+        server.queuePlayer("#{2*i}", [ Factory("Magikarp") ])
+        server.queuePlayer("#{(2*i) + 1}", [ Factory("Magikarp") ])
 
-      server.getOngoingBattles().should.equal(nBattles)
+      server.beginBattles ->
+        server.getOngoingBattles().should.have.length(nBattles)
+        done()
 
   describe "#registerChallenge", ->
     it "registers a challenge to a player", ->
@@ -588,6 +589,11 @@ describe 'BattleServer', ->
       server = new BattleServer()
       blissey = Factory("Blissey", forme: "Super Ultra Mega Blissey")
       server.validateTeam([ blissey ]).should.not.be.empty
+
+    it "returns non-empty if a pokemon has a battle-only forme", ->
+      server = new BattleServer()
+      meloetta = Factory("Meloetta", forme: "pirouette", moves: ["Relic Song"])
+      server.validateTeam([ meloetta ]).should.not.be.empty
 
     it "returns non-empty if a pokemon cannot have its forme"
 
