@@ -56342,7 +56342,7 @@
             ],
             "stats": {
                 "attack": 56,
-                "defense": 41,
+                "defense": 40,
                 "hp": 41,
                 "specialAttack": 62,
                 "specialDefense": 44,
@@ -60035,7 +60035,7 @@
             ],
             "stats": {
                 "attack": 92,
-                "defense": 77,
+                "defense": 75,
                 "hp": 78,
                 "specialAttack": 74,
                 "specialDefense": 63,
@@ -61066,10 +61066,10 @@
             ],
             "stats": {
                 "attack": 69,
-                "defense": 86,
-                "hp": 56,
+                "defense": 85,
+                "hp": 55,
                 "specialAttack": 32,
-                "specialDefense": 36,
+                "specialDefense": 35,
                 "speed": 28
             },
             "abilities": [
