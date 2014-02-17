@@ -79,9 +79,9 @@ class @PrivateMessagesView extends Backbone.View
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom()
 
-  openChallenge: (messageId, generation, options = {}) =>
+  openChallenge: (messageId, generation, conditions) =>
     $popup = @$findOrCreatePopup(messageId)
-    $challenge = @createChallenge($popup, generation, options)
+    $challenge = @createChallenge($popup, generation, conditions)
     if generation
       $challenge.find('.is_not_challenger').addClass('hidden')
       $challenge.find('.is_challenger').removeClass('hidden')
@@ -150,7 +150,7 @@ class @PrivateMessagesView extends Backbone.View
     message = @collection.get($popup.data('user-id'))
     return message
 
-  createChallenge: ($popup, generation) =>
+  createChallenge: ($popup, generation, conditions) =>
     $challenge = $popup.find('.challenge')
     $challenge.html(JST['challenge']())
     createChallengePane
@@ -161,7 +161,7 @@ class @PrivateMessagesView extends Backbone.View
       populate: $popup.find(".challenge_data")
       generation: generation
       personId: $popup.data('user-id')
-      defaultClauses: [
+      defaultClauses: conditions || [
         Conditions.TEAM_PREVIEW
         Conditions.PBV_1000
         Conditions.SLEEP_CLAUSE
@@ -170,6 +170,7 @@ class @PrivateMessagesView extends Backbone.View
         Conditions.OHKO_CLAUSE
         Conditions.UNRELEASED_BAN
       ]
+      canEditClauses: !conditions?
     $popup.find('.popup_messages').addClass('small')
     $challenge.removeClass('hidden')
     $challenge

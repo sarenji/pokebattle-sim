@@ -10,10 +10,10 @@ PokeBattle.events.on 'privateMessage', (fromUserId, messageText) ->
   message.add(fromUserId, messageText)
 
 # Challenges
-PokeBattle.events.on 'challenge', (fromUserId, generation, options) ->
+PokeBattle.events.on 'challenge', (fromUserId, generation, conditions) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.add(fromUserId, "You have been challenged!", type: "alert")
-  message.openChallenge(fromUserId, generation, options)
+  message.openChallenge(fromUserId, generation, conditions)
 
 PokeBattle.events.on 'cancelChallenge', (fromUserId) ->
   message = PokeBattle.messages.add(id: fromUserId)
