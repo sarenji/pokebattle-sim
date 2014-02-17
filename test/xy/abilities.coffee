@@ -1,7 +1,7 @@
 {Attachment, Status} = require('../../server/xy/attachment')
 {Battle} = require('../../server/xy/battle')
 {Pokemon} = require('../../server/xy/pokemon')
-{Weather} = require('../../server/xy/weather')
+{Weather} = require('../../shared/weather')
 {Ability} = require '../../server/xy/data/abilities'
 {Item} = require '../../server/xy/data/items'
 util = require '../../server/xy/util'

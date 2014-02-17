@@ -1,7 +1,7 @@
 @ItemData = ItemData = require './data_items.json'
 {SpeciesData} = require './pokemon'
 {Attachment, Status, VolatileAttachment} = require('../attachment')
-{Weather} = require '../weather'
+{Weather} = require '../../../shared/weather'
 util = require '../util'
 
 @Item = Item = {}

@@ -114,7 +114,7 @@ class @BattleView extends Backbone.View
       yourIndex    : @model.index
       isSpectating : @model.get('spectating')
       window       : window
-    @$('.battle_pane').html @team_preview_template(locals)
+    @$('.battle_container').append @team_preview_template(locals)
     $arrangeTeam = @$('.arrange_team')
     $arrangeTeam.sortable()
     $arrangeTeam.on 'sortupdateplaceholder', (e, $placeholder) ->
@@ -301,6 +301,22 @@ class @BattleView extends Backbone.View
     $spriteImage.fadeOut ->
       $spriteImage.remove()
       self.addImages($sprite, ($image) -> $image.hide().fadeIn())
+
+  changeWeather: (newWeather, done) =>
+    $overlays = @$('.battle_overlays')
+    $overlays.find('.weather').animate(opacity: 0, 500, -> $(this).remove())
+    $weather = switch newWeather
+      when Weather.RAIN
+        $overlays.append($("<div/>").addClass("battle_overlay weather rain"))
+      when Weather.SUN
+        $overlays.append($("<div/>").addClass("battle_overlay weather sun"))
+      when Weather.SAND
+        $overlays.append($("<div/>").addClass("battle_overlay weather sand"))
+      when Weather.HAIL
+        $overlays.append($("<div/>").addClass("battle_overlay weather hail"))
+      else $()
+    $weather.css(opacity: 0).animate(opacity: 1, 500)
+    done()
 
   attachPokemon: (player, slot, attachment, done) =>
     pokemon = @model.getPokemon(player, slot)

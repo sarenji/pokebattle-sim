@@ -2,7 +2,7 @@
 {Battle} = require('../../server/xy/battle')
 {BattleController} = require('../../server/xy/battle_controller')
 {Pokemon} = require('../../server/xy/pokemon')
-{Weather} = require('../../server/xy/weather')
+{Weather} = require('../../shared/weather')
 {Ability} = require('../../server/xy/data/abilities')
 {Factory} = require('../factory')
 {Player} = require('../../server/player')

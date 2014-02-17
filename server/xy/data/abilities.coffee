@@ -1,4 +1,4 @@
-{Weather} = require '../weather'
+{Weather} = require '../../../shared/weather'
 
 # Retcon weather abilities to only last 5 turns.
 makeWeatherAbility = (name, weather) ->

@@ -1,7 +1,7 @@
 require '../helpers'
 
 {Battle} = require('../../server/bw/battle')
-{Weather} = require('../../server/bw/weather')
+{Weather} = require('../../shared/weather')
 {Pokemon} = require('../../server/bw/pokemon')
 {Status, Attachment, BaseAttachment, VolatileAttachment} = require('../../server/bw/attachment')
 {Moves, SpeciesData} = require('../../server/bw/data')

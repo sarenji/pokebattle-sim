@@ -1,5 +1,5 @@
 {Protocol} = require '../../shared/protocol'
-{Weather} = require './weather'
+{Weather} = require '../../shared/weather'
 util = require './util'
 Query = require './queries'
 {_} = require 'underscore'

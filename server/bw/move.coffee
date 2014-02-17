@@ -1,5 +1,5 @@
 {Attachment, Status} = require './attachment'
-{Weather} = require './weather'
+{Weather} = require '../../shared/weather'
 {Protocol} = require '../../shared/protocol'
 Query = require('./queries')
 util = require './util'

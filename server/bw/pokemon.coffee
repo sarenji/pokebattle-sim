@@ -1,7 +1,7 @@
 {_} = require 'underscore'
 {Ability, Item, Moves, SpeciesData, FormeData} = require './data'
 {Attachment, Status, Attachments} = require './attachment'
-{Weather} = require './weather'
+{Weather} = require '../../shared/weather'
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
 util = require './util'

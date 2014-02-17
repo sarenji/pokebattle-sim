@@ -4,7 +4,7 @@ require '../helpers'
 {Battle} = require('../../server/bw/battle')
 {BattleController} = require('../../server/bw/battle_controller')
 {Pokemon} = require('../../server/bw/pokemon')
-{Weather} = require('../../server/bw/weather')
+{Weather} = require('../../shared/weather')
 {Conditions} = require '../../shared/conditions'
 {Factory} = require('../factory')
 {User} = require('../../server/user')

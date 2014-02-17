@@ -1,4 +1,4 @@
-{Weather} = require('../../server/xy/weather')
+{Weather} = require('../../shared/weather')
 {Pokemon} = require('../../server/xy/pokemon')
 {Protocol} = require '../../shared/protocol'
 {Factory} = require '../factory'

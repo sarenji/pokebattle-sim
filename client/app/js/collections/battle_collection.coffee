@@ -159,6 +159,9 @@ class @BattleCollection extends Backbone.Collection
           pokemon = battle.getPokemon(player, slot)
           pokemon.set(movesetJSON)
           done()
+        when Protocol.WEATHER_CHANGE
+          [newWeather] = rest
+          view.changeWeather(newWeather, done)
         when Protocol.TEAM_PREVIEW
           view.renderTeamPreview()
           done()

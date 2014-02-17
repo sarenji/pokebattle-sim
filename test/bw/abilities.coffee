@@ -4,7 +4,7 @@ require 'sugar'
 {Attachment, Status} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
-{Weather} = require('../../server/bw/weather')
+{Weather} = require('../../shared/weather')
 {Ability} = require '../../server/bw/data/abilities'
 util = require '../../server/bw/util'
 {Factory} = require '../factory'

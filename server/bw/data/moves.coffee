@@ -1,5 +1,5 @@
 @MoveData = require('./data_moves.json')
-{Weather} = require('../weather')
+{Weather} = require('../../../shared/weather')
 {Move} = require('../move')
 {Attachment, Status} = require('../attachment')
 {Protocol} = require('../../../shared/protocol')

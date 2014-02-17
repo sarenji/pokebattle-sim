@@ -3,7 +3,7 @@ require '../helpers'
 {Attachment, Status} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
-{Weather} = require('../../server/bw/weather')
+{Weather} = require('../../shared/weather')
 {Move} = require('../../server/bw/move')
 util = require '../../server/bw/util'
 {Protocol} = require '../../shared/protocol'

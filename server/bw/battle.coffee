@@ -3,7 +3,7 @@
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
 {Team} = require './team'
-{Weather} = require './weather'
+{Weather} = require '../../shared/weather'
 {Attachment, Attachments} = require './attachment'
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
@@ -272,6 +272,7 @@ class @Battle extends EventEmitter
     @weather = weatherName
     @weatherDuration = turns
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
+    @tell(Protocol.WEATHER_CHANGE, @weather)
 
   hasWeather: (weatherName) ->
     return @weather != Weather.NONE  if !weatherName

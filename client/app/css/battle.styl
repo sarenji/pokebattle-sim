@@ -7,6 +7,7 @@ divide(a, b)
 
 $padding = 10px
 $battle-width = 600px
+$battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
 
 .battle_window .chat
@@ -30,7 +31,7 @@ $pane-width = $battle-width + $padding + $padding
   .battle_container
     position relative
     width $battle-width
-    height 300px
+    height $battle-height
     background url("/images/battle_bg.jpg")
     narrow-font()
   .battle_user_info
@@ -62,10 +63,32 @@ $pane-width = $battle-width + $padding + $padding
     &.battle-timer-low
       color #f33
 
+  .battle_overlays
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    pointer-events none
+    .battle_overlay
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
+      &.rain
+        background rgba(0, 48, 196, .3)
+      &.hail
+        background rgba(128, 255, 255, .3)
+      &.sand
+        background rgba(128, 64, 0, .3)
+      &.sun
+        background rgba(255, 196, 64, .3)
+
   .battle_pane
     position      absolute
     width         400px
-    height        300px
+    height        $battle-height
     top           0
     left          100px
     background    url("/images/battle_bg.jpg") center center
@@ -266,9 +289,12 @@ $pane-width = $battle-width + $padding + $padding
     opacity 0.5
 
 .battle_teams
+  position absolute
+  left 100px
+  right 100px
   text-align center
-  width 80%
   margin 0 auto
+  width 320px
   normal-font()
   li
     position relative
