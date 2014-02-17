@@ -222,6 +222,24 @@ describe "XY Moves:", ->
       @p1.team.has(Attachment.StickyWeb).should.be.false
       @p2.team.has(Attachment.StickyWeb).should.be.false
 
+    it "removes screens from only the target's side of the field", ->
+      shared.create.call(this, gen: 'xy')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@p1, @battle.getMove("Reflect"))
+      @battle.performMove(@p1, @battle.getMove("Light Screen"))
+      @battle.performMove(@p2, @battle.getMove("Reflect"))
+      @battle.performMove(@p2, @battle.getMove("Light Screen"))
+      @p1.team.has(Attachment.Reflect).should.be.true
+      @p1.team.has(Attachment.LightScreen).should.be.true
+      @p2.team.has(Attachment.Reflect).should.be.true
+      @p2.team.has(Attachment.LightScreen).should.be.true
+
+      @battle.performMove(@p1, defog)
+      @p1.team.has(Attachment.Reflect).should.be.true
+      @p1.team.has(Attachment.LightScreen).should.be.true
+      @p2.team.has(Attachment.Reflect).should.be.false
+      @p2.team.has(Attachment.LightScreen).should.be.false
+
   describe "Knock Off", ->
     it "has x1.0 power if the pokemon has no item", ->
       shared.create.call(this, gen: 'xy')

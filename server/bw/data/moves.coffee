@@ -601,8 +601,6 @@ extendMove 'Defense Curl', ->
 
 extendMove 'Defog', ->
   @entryHazards = [
-    Attachment.Reflect
-    Attachment.LightScreen
     Attachment.Spikes
     Attachment.StealthRock
     Attachment.ToxicSpikes
@@ -613,6 +611,8 @@ extendMove 'Defog', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(evasion: -1, user)
+    target.team.unattach(Attachment.Reflect)
+    target.team.unattach(Attachment.LightScreen)
 
     for opponentId in @selectPlayers(battle, user, target)
       hazardRemoved = false
