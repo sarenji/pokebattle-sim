@@ -16,8 +16,9 @@
   selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
 
   renderCurrentTeam = ($context) ->
+    teams = PokeBattle.loadTeams(false)
     $selectTeam = $context.find('.select-team')
-    currentTeam = allTeams[selectedIndex] || allTeams[0]
+    currentTeam = teams[selectedIndex] || teams[0]
     html = JST['team_dropdown'](window: window, team: currentTeam)
     $selectTeam.html(html)
 
@@ -84,9 +85,9 @@
 
   # Clicking the team dropdown brings down a team selection menu.
   $wrapper.find('.select-team').click (e) ->
-    allTeams = JSON.parse(window.localStorage.getItem('teams'))
-    if allTeams && allTeams.length > 0
-      html = JST['team_dropdown'](window: window, teams: allTeams)
+    teams = PokeBattle.loadTeams(false)
+    if teams && teams.length > 0
+      html = JST['team_dropdown'](window: window, teams: teams)
       $wrapper.find('.team-dropdown').html(html)
 
   # Selecting a team from the menu
