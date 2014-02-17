@@ -39,9 +39,8 @@ mixin displayPokemon(pokemon, i)
 .battle_teams
   - var theirTeam = teams[1 - yourIndex]
   - var yourTeam = teams[yourIndex]
+  +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
   if !isSpectating
-    +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
     +displayYourTeam(yourTeam, "Drag and rearrange your team:")
   else
-    +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
     +displayOtherTeam(yourTeam, yourTeam.owner + "'s team:")
