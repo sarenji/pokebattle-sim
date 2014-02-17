@@ -19,6 +19,7 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.EVASION_CLAUSE
   Conditions.SPECIES_CLAUSE
   Conditions.OHKO_CLAUSE
+  Conditions.UNRELEASED_BAN
 ]
 
 class @BattleServer

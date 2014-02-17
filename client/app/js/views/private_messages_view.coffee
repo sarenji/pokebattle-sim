@@ -168,6 +168,7 @@ class @PrivateMessagesView extends Backbone.View
         Conditions.EVASION_CLAUSE
         Conditions.SPECIES_CLAUSE
         Conditions.OHKO_CLAUSE
+        Conditions.UNRELEASED_BAN
       ]
     $popup.find('.popup_messages').addClass('small')
     $challenge.removeClass('hidden')

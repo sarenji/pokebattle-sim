@@ -67,6 +67,7 @@
     "Air Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Alakazite": {
@@ -156,6 +157,7 @@
     "Bead Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Belue Berry": {
@@ -238,6 +240,7 @@
     "Bloom Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Blue Flute": {
@@ -272,31 +275,37 @@
     "Brick Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BridgeMail D": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BridgeMail M": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BridgeMail S": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BridgeMail T": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BridgeMail V": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "BrightPowder": {
@@ -307,11 +316,13 @@
     "Bubble Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Bug Gem": {
         "description": "The holder's first successful Bug-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Burn Drive": {
@@ -492,6 +503,7 @@
     "Custap Berry": {
         "description": "The holder moves first in its priority bracket if it has 1/4 or less of its maximum HP. Single use.",
         "flingPower": 10,
+        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Ghost"
@@ -511,6 +523,7 @@
     "Dark Gem": {
         "description": "The holder's first successful Dark-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Dawn Stone": {
@@ -571,6 +584,7 @@
     "Dragon Gem": {
         "description": "The holder's first successful Dragon-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Dragon Scale": {
@@ -591,6 +605,7 @@
     "Dream Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Dubious Disc": {
@@ -635,6 +650,7 @@
     "Electric Gem": {
         "description": "The holder's first successful Electric-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Elixir": {
@@ -655,6 +671,7 @@
     "Enigma Berry": {
         "description": "The holder restores 1/4 of its maximum HP, rounded down, after it is hit by a supereffective move. Single use.",
         "flingPower": 10,
+        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Bug"
@@ -689,6 +706,7 @@
     "Fab Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Fast Ball": {
@@ -699,11 +717,13 @@
     "Favored Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Fighting Gem": {
         "description": "The holder's first successful Fighting-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Figy Berry": {
@@ -718,6 +738,7 @@
     "Fire Gem": {
         "description": "The holder's first successful Fire-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Fire Stone": {
@@ -733,6 +754,7 @@
     "Flame Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Flame Orb": {
@@ -758,6 +780,7 @@
     "Flying Gem": {
         "description": "The holder's first successful Flying-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Focus Band": {
@@ -839,11 +862,13 @@
     "Ghost Gem": {
         "description": "The holder's first successful Ghost-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Glitter Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Gooey Mulch": {
@@ -854,11 +879,13 @@
     "Grass Gem": {
         "description": "The holder's first successful Grass-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Grass Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Great Ball": {
@@ -879,6 +906,7 @@
     "Greet Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Grepa Berry": {
@@ -903,6 +931,7 @@
     "Ground Gem": {
         "description": "The holder's first successful Ground-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Growth Mulch": {
@@ -941,6 +970,7 @@
     "Harbor Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Hard Stone": {
@@ -966,6 +996,7 @@
     "Heart Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Heart Scale": {
@@ -1037,6 +1068,7 @@
     "Ice Gem": {
         "description": "The holder's first successful Ice-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Ice Heal": {
@@ -1057,6 +1089,7 @@
     "Inquiry Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Insect Plate": {
@@ -1082,6 +1115,7 @@
     "Jaboca Berry": {
         "description": "If the holder is hit by a physical attack, the attacker loses 1/8 of its maximum HP, rounded down. Single use.",
         "flingPower": 10,
+        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Dragon"
@@ -1223,6 +1257,7 @@
     "Like Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Love Ball": {
@@ -1386,6 +1421,7 @@
     "Mech Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Medichamite": {
@@ -1438,6 +1474,7 @@
     "Micle Berry": {
         "description": "The holder's next move has its accuracy multiplied by 1.2 when it has 1/4 or less of its maximum HP. Single use.",
         "flingPower": 10,
+        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Rock"
@@ -1472,6 +1509,7 @@
     "Mosaic Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Muscle Band": {
@@ -1573,6 +1611,7 @@
     "Orange Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Oval Stone": {
@@ -1710,6 +1749,7 @@
     "Poison Gem": {
         "description": "The holder's first successful Poison-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Pok\u00e9 Ball": {
@@ -1804,6 +1844,7 @@
     "Psychic Gem": {
         "description": "The holder's first successful Psychic-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Pure Incense": {
@@ -1838,6 +1879,7 @@
     "RSVP Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Rabuta Berry": {
@@ -1960,6 +2002,7 @@
     "Reply Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Resist Wing": {
@@ -1970,6 +2013,7 @@
     "Retro Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Revival Herb": {
@@ -2004,6 +2048,7 @@
     "Rock Gem": {
         "description": "The holder's first successful Rock-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Rock Incense": {
@@ -2038,6 +2083,7 @@
     "Rowap Berry": {
         "description": "If the holder is hit by a special attack, the attacker loses 1/8 of its maximum HP, rounded down. Single use.",
         "flingPower": 10,
+        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Dark"
@@ -2100,6 +2146,7 @@
     "Shadow Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Sharp Beak": {
@@ -2188,6 +2235,7 @@
     "Snow Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Snowball": {
@@ -2213,11 +2261,13 @@
     "Soul Dew": {
         "description": "If the holder is a Latias or a Latios, its Special Attack and Special Defense are multiplied by 1.5.",
         "flingPower": 30,
+        "unreleased": true,
         "type": "misc"
     },
     "Space Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Spell Tag": {
@@ -2276,11 +2326,13 @@
     "Steel Gem": {
         "description": "The holder's first successful Steel-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Steel Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Stick": {
@@ -2354,6 +2406,7 @@
     "Thanks Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Thick Club": {
@@ -2389,11 +2442,13 @@
     "Tropic Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Tunnel Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "TwistedSpoon": {
@@ -2441,6 +2496,7 @@
     "Water Gem": {
         "description": "The holder's first successful Water-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "misc"
     },
     "Water Stone": {
@@ -2465,6 +2521,7 @@
     "Wave Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "Weakness Policy": {
@@ -2518,6 +2575,7 @@
     "Wood Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
+        "unreleased": true,
         "type": "mail"
     },
     "X Accuracy": {

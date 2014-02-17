@@ -2202,6 +2202,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Snow Cloak",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -3446,6 +3447,7 @@
 				"Overgrow"
 			],
 			"hiddenAbility": "Leaf Guard",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6824,6 +6826,7 @@
 				"Flame Body"
 			],
 			"hiddenAbility": "Shadow Tag",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7563,6 +7566,7 @@
 				"Overgrow"
 			],
 			"hiddenAbility": "Leaf Guard",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -10033,6 +10037,7 @@
 				"Torrent"
 			],
 			"hiddenAbility": "Sheer Force",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10495,6 +10500,7 @@
 				"Blaze"
 			],
 			"hiddenAbility": "Flash Fire",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11772,10 +11778,10 @@
 	"Dewott": {
 		"default": {
 			"abilities": [
-				"Torrent",
 				"Torrent"
 			],
 			"hiddenAbility": "Shell Armor",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15166,10 +15172,10 @@
 	"Emboar": {
 		"default": {
 			"abilities": [
-				"Blaze",
 				"Blaze"
 			],
 			"hiddenAbility": "Reckless",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15471,6 +15477,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Flash Fire",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16361,6 +16368,7 @@
 				"Torrent"
 			],
 			"hiddenAbility": "Sheer Force",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20437,6 +20445,7 @@
 				"Frisk"
 			],
 			"hiddenAbility": "Shadow Tag",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22289,6 +22298,7 @@
 				"Flash Fire"
 			],
 			"hiddenAbility": "Flame Body",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26189,6 +26199,7 @@
 				"Minus"
 			],
 			"hiddenAbility": "Clear Body",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27328,6 +27339,7 @@
 				"Flame Body"
 			],
 			"hiddenAbility": "Shadow Tag",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27805,6 +27817,7 @@
 				"Flame Body"
 			],
 			"hiddenAbility": "Swarm",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -29255,6 +29268,7 @@
 				"Flame Body"
 			],
 			"hiddenAbility": "Shadow Tag",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -33065,6 +33079,7 @@
 				"Overgrow"
 			],
 			"hiddenAbility": "Leaf Guard",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -35034,6 +35049,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Flame Body",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -37803,10 +37819,10 @@
 	"Oshawott": {
 		"default": {
 			"abilities": [
-				"Torrent",
 				"Torrent"
 			],
 			"hiddenAbility": "Shell Armor",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -39734,10 +39750,10 @@
 	"Pignite": {
 		"default": {
 			"abilities": [
-				"Blaze",
 				"Blaze"
 			],
 			"hiddenAbility": "Thick Fat",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -41957,6 +41973,7 @@
 				"Blaze"
 			],
 			"hiddenAbility": "Flash Fire",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -42210,6 +42227,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Volt Absorb",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -42898,6 +42916,7 @@
 				"Clear Body"
 			],
 			"hiddenAbility": "Ice Body",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -43075,6 +43094,7 @@
 				"Clear Body"
 			],
 			"hiddenAbility": "Sturdy",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -43165,6 +43185,7 @@
 				"Clear Body"
 			],
 			"hiddenAbility": "Light Metal",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -44857,6 +44878,7 @@
 				"Sheer Force"
 			],
 			"hiddenAbility": "Hustle",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -45156,10 +45178,10 @@
 	"Samurott": {
 		"default": {
 			"abilities": [
-				"Torrent",
 				"Torrent"
 			],
 			"hiddenAbility": "Shell Armor",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -46972,10 +46994,10 @@
 	"Serperior": {
 		"default": {
 			"abilities": [
-				"Overgrow",
 				"Overgrow"
 			],
 			"hiddenAbility": "Contrary",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -47064,10 +47086,10 @@
 	"Servine": {
 		"default": {
 			"abilities": [
-				"Overgrow",
 				"Overgrow"
 			],
 			"hiddenAbility": "Contrary",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -50385,10 +50407,10 @@
 	"Snivy": {
 		"default": {
 			"abilities": [
-				"Overgrow",
 				"Overgrow"
 			],
 			"hiddenAbility": "Contrary",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -52842,6 +52864,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Water Absorb",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -54568,10 +54591,10 @@
 	"Tepig": {
 		"default": {
 			"abilities": [
-				"Blaze",
 				"Blaze"
 			],
 			"hiddenAbility": "Thick Fat",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -56036,6 +56059,7 @@
 				"Torrent"
 			],
 			"hiddenAbility": "Sheer Force",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -56916,6 +56940,7 @@
 				"Blaze"
 			],
 			"hiddenAbility": "Flash Fire",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -58959,6 +58984,7 @@
 				"Flame Body"
 			],
 			"hiddenAbility": "Swarm",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -61638,6 +61664,7 @@
 				"Pressure"
 			],
 			"hiddenAbility": "Lightningrod",
+			"unreleasedHidden": true,
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {

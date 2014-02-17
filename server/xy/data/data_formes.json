@@ -2044,6 +2044,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Snow Cloak",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -3160,6 +3161,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Leaf Guard",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -6944,6 +6946,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Leaf Guard",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -9091,6 +9094,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Sheer Force",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -9510,6 +9514,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Flash Fire",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -10598,6 +10603,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -13630,6 +13636,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Reckless",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -13905,6 +13912,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Flash Fire",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -14714,6 +14722,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Sheer Force",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -20066,6 +20075,7 @@
                 "Flash Fire"
             ],
             "hiddenAbility": "Flame Body",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -29781,6 +29791,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Leaf Guard",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -31505,6 +31516,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Flame Body",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -33995,6 +34007,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -35710,6 +35723,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Thick Fat",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -37712,6 +37726,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Flash Fire",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -37947,6 +37962,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Volt Absorb",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -38552,6 +38568,7 @@
                 "Clear Body"
             ],
             "hiddenAbility": "Ice Body",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -38710,6 +38727,7 @@
                 "Clear Body"
             ],
             "hiddenAbility": "Sturdy",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -38786,6 +38804,7 @@
                 "Clear Body"
             ],
             "hiddenAbility": "Light Metal",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -40318,6 +40337,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Shell Armor",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -41949,6 +41969,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -42030,6 +42051,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -44968,6 +44990,7 @@
                 "Overgrow"
             ],
             "hiddenAbility": "Contrary",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -47127,6 +47150,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Water Absorb",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -48672,6 +48696,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Thick Fat",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -50000,6 +50025,7 @@
                 "Torrent"
             ],
             "hiddenAbility": "Sheer Force",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -50806,6 +50832,7 @@
                 "Blaze"
             ],
             "hiddenAbility": "Flash Fire",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -55090,6 +55117,7 @@
                 "Pressure"
             ],
             "hiddenAbility": "Lightningrod",
+            "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -59115,6 +59143,7 @@
                 "Poison Touch"
             ],
             "hiddenAbility": "Adaptability",
+            "unreleasedHidden": true,
             "weight": 73,
             "learnset": {
                 "level-up": {
@@ -59191,6 +59220,7 @@
                 "Poison Touch"
             ],
             "hiddenAbility": "Adaptability",
+            "unreleasedHidden": true,
             "weight": 815,
             "learnset": {
                 "level-up": {
@@ -59578,6 +59608,7 @@
                 "Strong Jaw"
             ],
             "hiddenAbility": "Rock Head",
+            "unreleasedHidden": true,
             "weight": 260,
             "learnset": {
                 "level-up": {
@@ -59665,6 +59696,7 @@
                 "Strong Jaw"
             ],
             "hiddenAbility": "Rock Head",
+            "unreleasedHidden": true,
             "weight": 2700,
             "learnset": {
                 "level-up": {
@@ -59748,6 +59780,7 @@
                 "Refrigerate"
             ],
             "hiddenAbility": "Snow Warning",
+            "unreleasedHidden": true,
             "weight": 252,
             "learnset": {
                 "level-up": {
@@ -59844,6 +59877,7 @@
                 "Refrigerate"
             ],
             "hiddenAbility": "Snow Warning",
+            "unreleasedHidden": true,
             "weight": 2250,
             "learnset": {
                 "level-up": {

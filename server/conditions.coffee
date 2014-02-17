@@ -40,14 +40,14 @@ createCondition = (condition, effects = {}) ->
   return errors
 
 # validates a single pokemon
-@validatePokemon = (conditions, pokemon, prefix) ->
+@validatePokemon = (conditions, pokemon, genData, prefix) ->
   errors = []
   for condition in conditions
     if condition not of ConditionHash
       throw new Error("Undefined condition: #{condition}")
     validator = ConditionHash[condition].validatePokemon
     continue  if !validator
-    errors.push(validator(pokemon, prefix)...)
+    errors.push(validator(pokemon, genData, prefix)...)
   return errors
 
 createCondition Conditions.PBV_1000,
@@ -105,6 +105,19 @@ createCondition Conditions.OHKO_CLAUSE,
       if "ohko" in move.flags
         errors.push("#{prefix}: #{moveName} is banned under One-Hit KO Clause.")
 
+    return errors
+
+createCondition Conditions.UNRELEASED_BAN,
+  validatePokemon: (pokemon, genData, prefix) ->
+    # Check for unreleased items
+    errors = []
+    if pokemon.item && genData.ItemData[pokemon.item]?.unreleased
+      errors.push("#{prefix}: The item '#{pokemon.item}' is unreleased.")
+    # Check for unreleased abilities
+    forme = genData.FormeData[pokemon.name][pokemon.forme || "default"]
+    if forme.unreleasedHidden && pokemon.ability == forme.hiddenAbility &&
+        forme.hiddenAbility not in forme.abilities
+      errors.push("#{prefix}: The ability #{pokemon.ability} is unreleased.")
     return errors
 
 createCondition Conditions.RATED_BATTLE,

@@ -7,6 +7,7 @@
   SPECIES_CLAUSE : 6
   EVASION_CLAUSE : 7
   OHKO_CLAUSE    : 8
+  UNRELEASED_BAN : 9
 
 @HumanizedConditions =
   TEAM_PREVIEW   : "Team Preview"
@@ -17,3 +18,4 @@
   SPECIES_CLAUSE : "Species Clause"
   EVASION_CLAUSE : "Evasion Clause"
   OHKO_CLAUSE    : "One-Hit KO Clause"
+  UNRELEASED_BAN : "Unreleased Ban"
