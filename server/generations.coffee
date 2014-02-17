@@ -24,6 +24,7 @@ for gen in @ALL_GENERATIONS
   FormeData   = maybeRequire("./#{gen}/data/data_formes.json") || {}
   MoveData    = maybeRequire("./#{gen}/data/data_moves.json")  || {}
   ItemData    = maybeRequire("./#{gen}/data/data_items.json")  || {}
+  AbilityData = maybeRequire("./#{gen}/data/data_abilities.json")  || {}
   PokemonList = (name  for name of FormeData)
   ItemList    = (name  for name of ItemData)
   MoveList    = []
@@ -71,6 +72,7 @@ for gen in @ALL_GENERATIONS
     FormeData   : FormeData
     MoveData    : MoveData
     ItemData    : ItemData
+    AbilityData : AbilityData
     PokemonList : PokemonList
     ItemList    : ItemList
     MoveList    : MoveList
