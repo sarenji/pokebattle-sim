@@ -206,7 +206,9 @@ class @BattleView extends Backbone.View
     $oldPokemon.attr('data-slot', fromSlot)
     $newPokemon.attr('data-slot', slot)
     $newPokemon.removeClass('hidden')
+    $oldSprite = $oldPokemon.find('.sprite')
     $newSprite = $newPokemon.find('.sprite')
+    $oldSprite.popover('destroy')
     @popover($newSprite, pokemon)
 
     if @skip?
@@ -745,7 +747,9 @@ class @BattleView extends Backbone.View
 
   faint: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
-    $image = $pokemon.find('.sprite img')
+    $sprite = $pokemon.find('.sprite')
+    $image = $sprite.find('img')
+    $sprite.popover('destroy')
 
     if @skip?
       $pokemon.remove()
