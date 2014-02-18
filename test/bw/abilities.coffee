@@ -134,6 +134,15 @@ describe "BW Abilities:", ->
       @battle.performSwitch(@p1, 1)
       spy.calledWithMatch('shuddered').should.be.false
 
+    it "displays nothing when no opponents left", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      @p2.faint()
+      spy = @sandbox.spy(@battle, 'message')
+      @p1.copyAbility(Ability.Anticipation)
+      spy.called.should.be.false
+
    describe "Arena Trap", ->
     it "blocks switch", ->
       shared.create.call this,
@@ -631,6 +640,15 @@ describe "BW Abilities:", ->
       @controller.beginBattle()
       spy.calledWithMatch('Tackle').should.be.true
 
+    it "displays nothing when no opponents left", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      @p2.faint()
+      spy = @sandbox.spy(@battle, 'message')
+      @p1.copyAbility(Ability.Forewarn)
+      spy.called.should.be.false
+
   describe "Friend Guard", ->
     it "weakens attacks from allies by 25%", ->
       shared.create.call this,
@@ -654,6 +672,15 @@ describe "BW Abilities:", ->
       spy = @sandbox.spy(@battle, 'message')
       @controller.beginBattle()
       spy.calledWithMatch('Leftovers').should.be.true
+
+    it "displays nothing when no opponents left", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      @p2.faint()
+      spy = @sandbox.spy(@battle, 'message')
+      @p1.copyAbility(Ability.Frisk)
+      spy.called.should.be.false
 
   describe "Gluttony", ->
     it "makes berries activate at 50% HP", ->
@@ -861,6 +888,15 @@ describe "BW Abilities:", ->
       @p2.has(Attachment.Transform).should.be.true
       @p1.copyAbility(Ability.Imposter)
       @p1.has(Attachment.Transform).should.be.false
+
+    it "does not transform if no one is alive", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      @p2.faint()
+      spy = @sandbox.spy(@battle, 'message')
+      @p1.copyAbility(Ability.Imposter)
+      spy.called.should.be.false
 
   testAttachmentImmuneAbility = (name, attachments) ->
     describe name, ->

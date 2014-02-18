@@ -407,6 +407,7 @@ makeAbility 'Forewarn', ->
 
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
+    return  if opponents.length == 0
     moves = (opponent.moves  for opponent in opponents).flatten()
     maxPower = Math.max(moves.map((m) -> consider(m))...)
     possibles = moves.filter((m) -> consider(m) == maxPower)
@@ -422,6 +423,7 @@ makeAbility 'Friend Guard', ->
 makeAbility "Frisk", ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
+    return  if opponents.length == 0
     # TODO: Do you select from opponents with items, or all alive opponents?
     opponent  = @battle.rng.choice(opponents, "frisk")
     if opponent.hasItem()
@@ -489,10 +491,10 @@ makeAbility 'Illuminate'
 
 makeAbility 'Imposter', ->
   this::switchIn = ->
-    opponents = @battle.getOpponents(@pokemon)
+    opponents = @battle.getAllOpponents(@pokemon)
     index = @team.indexOf(@pokemon)
     opponent = opponents[index]
-    return  if opponent.has(Attachment.Substitute)
+    return  if !opponent || opponent.has(Attachment.Substitute)
     @pokemon.attach(Attachment.Transform, target: opponent)
 
 makeAbility 'Intimidate', ->
@@ -697,12 +699,8 @@ makeAbility 'Scrappy', ->
 makeAbility 'Serene Grace'
 
 makeAbility 'Shadow Tag', ->
-  this::getOpponents = ->
-    opponents = @battle.getOpponents(@pokemon)
-    opponents
-
   this::beginTurn = this::switchIn = ->
-    opponents = @getOpponents()
+    opponents = @battle.getOpponents(@pokemon)
     for opponent in opponents
       opponent.blockSwitch()
 
