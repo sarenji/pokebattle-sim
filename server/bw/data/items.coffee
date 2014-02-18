@@ -43,7 +43,7 @@ makeFlavorHealingBerry = (name, stat) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
       # TODO: Replace with the real battle message.
-      battle.message "#{owner.id}'s #{name} restored its HP a little!"
+      battle.message "#{owner.name}'s #{name} restored its HP a little!"
       owner.heal(Math.floor(owner.stat('hp') / 8))
       if owner.natureBoost(stat) < 1.0
         # TODO: Replace with the real battle message.
@@ -59,7 +59,7 @@ makeHealingBerry = (name, func) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
       # TODO: Replace with the real battle message.
-      battle.message "#{owner.id}'s #{name} restored its HP a little!"
+      battle.message "#{owner.name}'s #{name} restored its HP a little!"
       owner.heal(func(owner))
 
     this::update = ->
