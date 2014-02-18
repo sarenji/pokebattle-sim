@@ -88,6 +88,7 @@ createCondition Conditions.EVASION_CLAUSE,
     # Check evasion moves
     for moveName in moves || []
       move = genData.MoveData[moveName]
+      continue  if !move
       if move.primaryBoostStats? && move.primaryBoostStats.evasion > 0 &&
           move.primaryBoostTarget == 'self'
         errors.push("#{prefix}: #{moveName} is banned under Evasion Clause.")
@@ -102,6 +103,7 @@ createCondition Conditions.OHKO_CLAUSE,
     # Check OHKO moves
     for moveName in moves || []
       move = genData.MoveData[moveName]
+      continue  if !move
       if "ohko" in move.flags
         errors.push("#{prefix}: #{moveName} is banned under One-Hit KO Clause.")
 

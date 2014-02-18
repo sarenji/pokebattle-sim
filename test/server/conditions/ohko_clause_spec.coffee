@@ -26,3 +26,14 @@ describe 'Validations: OHKO Clause', ->
     conditions = [ Conditions.OHKO_CLAUSE ]
 
     server.validateTeam(team, generation, conditions).should.be.empty
+
+  it "ignores invalid moves", ->
+    server = new BattleServer()
+    generation = 'xy'
+    team = [
+      Factory("Magikarp", moves: [ "Bullshit" ])
+      Factory("Gyarados", moves: [ "Dragon Dance" ])
+    ]
+    conditions = [ Conditions.OHKO_CLAUSE ]
+
+    (-> server.validateTeam(team, generation, conditions)).should.not.throw()
