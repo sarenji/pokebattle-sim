@@ -54,6 +54,12 @@ describe "BW Abilities:", ->
       @battle.endTurn()
       @p2.currentHP.should.equal(@p2.stat('hp'))
 
+    it "does not crash if the Pokemon never was hit", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Aftermath"), Factory("Magikarp")]
+
+      (=> @p1.faint()).should.not.throw()
+
   testWeatherPreventionAbility = (name) ->
     describe name, ->
       it "causes the battle to think there is no weather", ->

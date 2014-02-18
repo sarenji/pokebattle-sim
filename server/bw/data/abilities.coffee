@@ -235,7 +235,9 @@ makeAbility "Aftermath", ->
   this::isAliveCheck = -> true
 
   this::afterFaint = ->
-    {pokemon, damage, move, turn} = @pokemon.lastHitBy
+    hit = @pokemon.lastHitBy
+    return  if !hit
+    {pokemon, damage, move, turn} = hit
     if move.hasFlag('contact')
       if pokemon.damage(pokemon.stat('hp') >> 2)
         @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
