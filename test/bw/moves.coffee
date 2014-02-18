@@ -6098,6 +6098,16 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, beatUp)
       mock.verify()
 
+    it "doesn't crash if all pokemon are statused or fainted", ->
+      shared.create.call this,
+        team1: (Factory("Magikarp")  for i in [0...2])
+      @team1.at(1).faint()
+      @team1.at(0).attach(Status.Burn)
+      beatUp = @battle.getMove("Beat Up")
+      (=>
+        @battle.performMove(@p1, beatUp)
+      ).should.not.throw()
+
   describe "Psycho Shift", ->
     it "fails if the user doesn't have a status", ->
       shared.create.call(this)

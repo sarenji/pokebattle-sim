@@ -982,20 +982,24 @@ extendMove 'Acupressure', ->
       @fail(battle)
       return false
 
-# TODO:
-# All Beat Up hits are boosted if the user of the move has an Attack-raising
-# item such as Choice Band, but the attack ignores all stat changes from
-# moves such as Swords Dance.
 extendMove 'Beat Up', ->
   @calculateNumberOfHits = (battle, user, target) ->
-    user.team.pokemon.filter((p) -> !p.hasStatus() && !p.isFainted()).length
+    teamIndex = user.team.indexOf(user)
+    numHits = 0
+    for p, i in user.team.pokemon
+      if teamIndex == i || (!p.hasStatus() && !p.isFainted())
+        numHits++
+    numHits
 
   @basePower = (battle, user, target, hitNumber) ->
     index = -1
     {team} = user
+    teamIndex = team.indexOf(user)
     for x in [0...hitNumber]
       index++
-      index++  while team.at(index).hasStatus() || team.at(index).isFainted()
+      while index != teamIndex &&
+          (team.at(index).hasStatus() || team.at(index).isFainted())
+        index++
     5 + Math.floor(team.at(index).baseStats.attack / 10)
 
 extendMove 'Belly Drum', ->
