@@ -572,6 +572,15 @@ describe "BW Abilities:", ->
       ember.modifyBasePower(@battle, @p1, @p2).should.equal(0x1800)
       tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
+    it "doesn't activate on Protect", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Flash Fire")])
+      protect = @battle.getMove("Protect")
+      ember = @battle.getMove("Ember")
+      @battle.recordMove(@id1, protect)
+      @battle.recordMove(@id2, ember)
+      @battle.continueTurn()
+      @p1.has(Attachment.FlashFire).should.be.false
+
   describe "Flower Gift", ->
     it "changes Cherrim's forme"
     it "does not change a transformed pokemon's forme"

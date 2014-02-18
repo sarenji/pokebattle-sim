@@ -127,6 +127,29 @@ Priorities.endTurn ?= [
   # Ability.ZenMode
 ]
 
+Priorities.shouldBlockExecution ?= [
+  # Type-immunity/Levitate (Move#use)
+  # Wide Guard/Quick Guard
+  Attachment.Protect
+  Attachment.MagicCoat
+  # TODO: Reimplement Magic Bounce as its own thing
+  Ability.DrySkin
+  Ability.FlashFire
+  Ability.Lightningrod
+  Ability.MotorDrive
+  Ability.SapSipper
+  Ability.Soundproof
+  Ability.StormDrain
+  Ability.Telepathy
+  Ability.VoltAbsorb
+  Ability.WaterAbsorb
+  Ability.WonderGuard
+  Attachment.Ingrain
+  Attachment.Charging
+  Attachment.SmackDown
+  Attachment.Substitute
+]
+
 Priorities.isImmune ?= [
   Attachment.GravityPokemon  # Gravity overrides Ground-type immunities.
   Attachment.Ingrain
