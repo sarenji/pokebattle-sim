@@ -1575,6 +1575,15 @@ extendMove 'Reflect', ->
     else
       @fail(battle)
 
+extendMove 'Reflect Type', ->
+  @use = (battle, user, target) ->
+    if user.hasAbility("Multitype")
+      @fail(battle)
+      return false
+
+    user.types = target.types
+    battle.message "#{user.name}'s type changed to match #{target.name}'s!"
+
 extendMove 'Rest', ->
   @hit = (battle, user, target) ->
     if user.currentHP >= user.stat('hp') || user.has(Status.Sleep) ||
@@ -1703,6 +1712,16 @@ extendMove 'Synchronoise', ->
       return false
     return oldUse.call(this, battle, user, target)
 
+extendMove 'Tailwind', ->
+  @execute = (battle, user, targets) ->
+    team = user.team
+    if team.has(Attachment.Tailwind)
+      @fail(battle)
+      return false
+
+    team.attach(Attachment.Tailwind)
+    battle.message "A tailwind started blowing!"
+
 extendMove 'Taunt', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.attach(Attachment.Taunt, battle)
@@ -1774,6 +1793,13 @@ extendMove 'Trump Card', ->
       else
         40
 
+makeSwitchMove = (moveName) ->
+  extendMove moveName, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      battle.forceSwitch(user)
+
+makeSwitchMove 'U-turn'
+
 extendMove 'Venoshock', ->
   @basePower = (battle, user, target) ->
     if target.has(Status.Toxic) || target.has(Status.Poison)
@@ -1781,13 +1807,7 @@ extendMove 'Venoshock', ->
     else
       @power
 
-makeSwitchMove = (moveName) ->
-  extendMove moveName, ->
-    @afterSuccessfulHit = (battle, user, target) ->
-      battle.forceSwitch(user)
-
 makeSwitchMove 'Volt Switch'
-makeSwitchMove 'U-turn'
 
 makeStatusCureAttackMove 'Wake-Up Slap', Status.Sleep
 
@@ -1856,12 +1876,3 @@ makeVulnerable('Dig', 'Earthquake')
 makeVulnerable('Dig', 'Magnitude')
 makeVulnerable('Dive', 'Surf')
 makeVulnerable('Dive', 'Whirlpool')
-
-extendMove 'Reflect Type', ->
-  @use = (battle, user, target) ->
-    if user.hasAbility("Multitype")
-      @fail(battle)
-      return false
-
-    user.types = target.types
-    battle.message "#{user.name}'s type changed to match #{target.name}'s!"

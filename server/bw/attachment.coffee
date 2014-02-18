@@ -244,6 +244,22 @@ class @Attachment.Taunt extends @VolatileAttachment
       @battle.message "#{@pokemon.name}'s taunt wore off!"
       @pokemon.unattach(@constructor)
 
+class @Attachment.Tailwind extends @TeamAttachment
+  name: "TailwindAttachment"
+
+  initialize: ->
+    @turns = 4
+    @turn = 0
+
+  editSpeed: (speed) ->
+    2 * speed
+
+  endTurn: ->
+    @turn++
+    if @turn >= @turns
+      @battle.message "The tailwind petered out!"
+      @team.unattach(@constructor)
+
 class @Attachment.Wish extends @TeamAttachment
   name: "WishAttachment"
 

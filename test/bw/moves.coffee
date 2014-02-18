@@ -1697,6 +1697,29 @@ describe "BW Moves:", ->
       move = @battle.getMove('Judgment')
       move.getType(@battle, @p1, @p2).should.equal 'Ground'
 
+  describe 'Tailwind', ->
+    shared.shouldDoNoDamage("Tailwind")
+    shared.shouldFailIfUsedTwice("Tailwind")
+
+    it "doubles the speed of the user's team", ->
+      shared.create.call this
+
+      oldSpeed = @p1.stat('speed')
+      @battle.performMove(@p1, @battle.getMove('Tailwind'))
+      newSpeed = @p1.stat('speed')
+      newSpeed.should.equal(oldSpeed * 2)
+
+    it "lasts three turns", ->
+      shared.create.call(this)
+
+      @battle.performMove(@p1, @battle.getMove('Tailwind'))
+      @battle.endTurn()
+      @battle.endTurn()
+      @battle.endTurn()
+      @battle.endTurn()
+
+      @p1.team.has(Attachment.Tailwind).should.be.false
+
   describe 'Taunt', ->
     shared.shouldDoNoDamage("Taunt")
     shared.shouldFailIfUsedTwice("Taunt")
@@ -1713,7 +1736,7 @@ describe "BW Moves:", ->
 
       mock.verify()
 
-    it 'lasts three turns', ->
+    it 'lasts two turns', ->
       shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
 
       @battle.performMove(@p1, @battle.getMove('Taunt'))

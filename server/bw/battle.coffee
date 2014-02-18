@@ -607,8 +607,9 @@ class @Battle extends EventEmitter
   # As a result, speed precision is 13 bits long; an overflow happens at 8191.
   # Trick Room replaces the Pokemon's speed with 0x2710 - speed.
   sortActions: ->
-    trickRoomed = @has(Attachment.TrickRoom)
     array = @pokemonActions.map (action) =>
+      trickRoomed = @has(Attachment.TrickRoom)
+
       {pokemon} = action
       priority = @actionPriority(action)
       speed = pokemon.stat('speed')
