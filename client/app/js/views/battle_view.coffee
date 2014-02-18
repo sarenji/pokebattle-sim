@@ -773,8 +773,7 @@ class @BattleView extends Backbone.View
     @timerFrozenAt = @timers[@model.index] - $.now()
 
   addMoveMessage: (owner, pokemon, moveName) =>
-    @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')}
-      used <strong>#{moveName}</strong>!</p>")
+    @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!</p>")
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
