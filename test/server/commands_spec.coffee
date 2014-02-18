@@ -14,6 +14,7 @@ describe "Commands", ->
     @room = new Room()
     @user1 = new User("Star Fox")
     @user2 = new User("Slippy")
+    @offline = new User("husk")
     @room.addUser(@user1)
     @room.addUser(@user2)
     @emptyRoom = new Room()
@@ -96,7 +97,7 @@ describe "Commands", ->
         @user1.authority = auth.levels.MOD
         mock1 = @sandbox.mock(@user1).expects('error').once()
         mock2 = @sandbox.mock(@user2).expects('error').never()
-        commands.executeCommand @server, @user1, @room, "kick", "offline user", ->
+        commands.executeCommand @server, @user1, @room, "kick", @offline.id, ->
           mock1.verify()
           mock2.verify()
           done()
@@ -116,6 +117,13 @@ describe "Commands", ->
           @user2.should.have.property("authority")
           @user2.authority.should.equal(auth.levels.MOD)
           done()
+
+      it "does not crash if user isn't on yet", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "mod", @offline.id, =>
+          auth.getAuth @offline.id, (err, result) ->
+            result.should.equal(auth.levels.MOD)
+            done()
 
     describe "battles", ->
       it "returns an error if no user is passed", (done) ->

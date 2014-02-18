@@ -94,7 +94,7 @@ makeOwnerCommand "mod", (user, room, next, username) ->
   auth.setAuth username, auth.levels.MOD, (err, result) ->
     if err then return next(err)
     user = room.get(username)
-    user.setAuthority(auth.levels.MOD)
+    user?.setAuthority(auth.levels.MOD)
     return next(null, result)
 
 desc "Displays all commands available. Usage: /help"
