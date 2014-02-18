@@ -56,3 +56,21 @@ describe "Sleep Clause", ->
 
     @team2.at(0).has(Status.Sleep).should.be.true
     @team2.at(1).has(Status.Sleep).should.be.true
+
+  it "doesn't prevent Sleep if the opponent was slept, but fainted", ->
+    conditions = [ Conditions.SLEEP_CLAUSE ]
+    team1 = [ Factory("Magikarp"), Factory("Magikarp") ]
+    team2 = [ Factory("Magikarp"), Factory("Magikarp") ]
+    shared.create.call(this, {conditions, team1, team2})
+
+    spore = @battle.getMove("Spore")
+    @battle.performMove(@p1, spore)
+    @battle.performSwitch(@p2, 1)
+
+    @p2.faint()
+
+    mock = @sandbox.mock(spore).expects('fail').never()
+    @battle.performMove(@p1, spore)
+    mock.verify()
+
+    @team2.at(0).has(Status.Sleep).should.be.true

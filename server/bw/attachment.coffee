@@ -1213,6 +1213,7 @@ class @Attachment.SleepClause extends @BaseAttachment
     return  if attachment != Status.Sleep
     return  if !source || source.team == @pokemon.team
     pokemonSleptByOtherTeams = @pokemon.team.filter (p) =>
+      return false  if p.isFainted()
       source = p.get(Status.Sleep)?.source
       return source && source.team != @pokemon.team
     # Attach if we have no pokemon slept by other teams.
