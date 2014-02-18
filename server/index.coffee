@@ -37,7 +37,7 @@ errors = require '../shared/errors'
   lobby = new Room("Lobby")
 
   # Start responding to websocket clients
-  connections = new ConnectionServer(httpServer, prefix: '/socket')
+  connections = new ConnectionServer(httpServer, lobby, prefix: '/socket')
 
   connections.addEvents
     'login': (user, id, token) ->

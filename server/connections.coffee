@@ -5,8 +5,9 @@ require 'sugar'
 # A wrapper for sockjs which manages multiple connections with a higher level of abstraction.
 # Todo: Don't use array parameters and use object parameters instead
 class @ConnectionServer
-  constructor: (httpServer, options) ->
+  constructor: (httpServer, lobby, options) ->
     @sockjs = sockjs.listen(httpServer, options)
+    @lobby = lobby
     @users = []
     @callbacks = {}
 
@@ -19,7 +20,11 @@ class @ConnectionServer
         catch e
           # Invalid JSON. Discard.
           return
-        @trigger(user, data.messageType, data.data...)
+        try
+          @trigger(user, data.messageType, data.data...)
+        catch e
+          console.error(e)
+          @lobby.message("<b>A crash occurred!</b> We stopped and logged it, but whatever caused the crash will not work.")
 
       # Hack for Heroku:
       # https://github.com/sockjs/sockjs-node/issues/57#issuecomment-5242187
