@@ -4736,7 +4736,18 @@ describe "BW Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
-        it "is vulnerable to attacks from a No Guard pokemon"
+        it "is vulnerable to attacks from a No Guard pokemon", ->
+          shared.create.call this,
+            team2: [Factory("Magikarp", ability: "No Guard")]
+          move = @battle.getMove(moveName)
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, move)
+          @battle.recordMove(@id2, tackle)
+
+          mock = @sandbox.mock(tackle).expects('hit').once()
+          @battle.continueTurn()
+          mock.verify()
 
         it "is vulnerable to attacks if locked on"
 

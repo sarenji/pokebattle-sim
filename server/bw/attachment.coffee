@@ -842,10 +842,10 @@ class @Attachment.Charging extends @VolatileAttachment
     id = @battle.getOwner(@pokemon)
     @battle.recordMove(id, @move)
 
-  shouldBlockExecution: (move, user) ->
-    if @charging && (move not in @vulnerable.map((v) => @battle.getMove(v)))
-      @battle.message "#{@pokemon.name} avoided the attack!"
-      return true
+  editEvasion: (accuracy, move) ->
+    return -1  if @charging && accuracy > 0 &&
+                (move not in @vulnerable.map((v) => @battle.getMove(v)))
+    return accuracy
 
   unattach: ->
     delete @move
