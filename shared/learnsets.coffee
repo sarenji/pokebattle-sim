@@ -132,31 +132,34 @@ self.checkMoveset = (Generations, pokemon, generation, moves) ->
 
   # Check against event Pokemon
   # TODO: Event Pokemon require more stringent checks, e.g. gender/ability etc.
-  return true  if looper (learnset, pokemonName, formeName) ->
+  checksOut = looper (learnset, pokemonName, formeName) ->
     events = EventPokemon[pokemonName] || []
     events = events.filter((event) -> event.forme == formeName)
     for event in events
       lsetLeftovers = leftoverMoves.filter (move) ->
         move in event.moves && pokemonLevel >= event.level
       return true  if lsetLeftovers.length == leftoverMoves.length
+  return true  if checksOut
 
   # These learnset groups are non-standard but can be used. If a non-standard
   # group completely overlaps the leftover moves, the moveset is valid.
   nonstandardGroups = [ "light-ball-egg", "stadium-surfing-pikachu" ]
-  return true  if looper (learnset) ->
+  checksOut = looper (learnset) ->
     for group in nonstandardGroups
       continue  if !learnset[group]
       total = (m  for m in leftoverMoves when m of learnset[group]).length
       return true  if total == leftoverMoves.length
+  return true  if checksOut
 
   # If the remaining moves are all dream world moves, it's a valid moveset.
-  return true  if looper (learnset) ->
+  checksOut = looper (learnset) ->
     return  if !learnset['dreamWorld']
     dreamWorldMoves = []
     for moveName of learnset['dreamWorld']
       continue  if moveName in dreamWorldMoves || moveName not in leftoverMoves
       dreamWorldMoves.push(moveName)
     return true  if leftoverMoves.length == dreamWorldMoves.length
+  return true  if checksOut
 
   # This makes it so if the remaining moves are all egg moves, the moveset is
   # valid. That's false, but it's permissive. Later, factor in chain-breeding.
@@ -182,7 +185,7 @@ checkMove = (looper, pokemon, move) ->
   {level} = pokemon
   level ||= 100
 
-  return true  if looper (learnset) ->
+  checksOut = looper (learnset) ->
     # Check level-up, TM/HM, and tutors.
     return true  if learnset["level-up"]?[move] <= level ||
                     learnset["machine"]?[move]  <= level ||
@@ -193,6 +196,7 @@ checkMove = (looper, pokemon, move) ->
     # so you must take care of them at a higher level.
     return true  if learnset["level-up"]?["Sketch"] <= level &&
                     move not in [ "Chatter", "Struggle" ]
+  return true  if checksOut
 
   # TODO: Skip unavailable Pokemon (due to being a generation later).
   # TODO: level-up moves can be bred.
