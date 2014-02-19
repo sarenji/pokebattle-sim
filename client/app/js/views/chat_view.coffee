@@ -17,6 +17,13 @@ class @ChatView extends Backbone.View
     @listenTo(@collection, 'add', @userJoin)
     @listenTo(@collection, 'remove', @userLeave)
 
+  # Sets the channel topic
+  # TODO: Once we have rooms, create a "room" model, and make the topic
+  # update by listening to the model
+  setTopic: (topic) =>
+    sanitizedTopic = $('<div/>').text(topic).html()
+    @updateChat("<div class='alert alert-info'><b>Topic:</b> #{sanitizedTopic}</div>")
+
   render: =>
     @$el.html @template()
     this

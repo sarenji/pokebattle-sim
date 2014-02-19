@@ -41,8 +41,9 @@ makeOwnerCommand = (commandNames, func) ->
   func = Commands[commandName]
   if !func
     message = "Invalid command: #{commandName}. Type /help to see a list."
-    return user.error(errors.COMMAND_ERROR, message)
-  if !func.authority || user.authority >= func.authority
+    user.error(errors.COMMAND_ERROR, message)
+    callback()
+  else if !func.authority || user.authority >= func.authority
     Commands[commandName]?.call(server, user, room, callback, args...)
   else
     user.error(errors.COMMAND_ERROR, "You have insufficient authority.")
@@ -96,6 +97,11 @@ makeOwnerCommand "mod", (user, room, next, username) ->
     user = room.get(username)
     user?.setAuthority(auth.levels.MOD)
     return next(null, result)
+
+desc "Changes the topic message. Usage: /topic message"
+makeAdminCommand "topic", (user, room, next, topic) ->
+  room.setTopic(topic)
+  next()
 
 desc "Displays all commands available. Usage: /help"
 makeCommand "help", (user, room, next, commandName) ->

@@ -1,4 +1,5 @@
 {User} = require('./user')
+db = require('./database')
 
 class @Room
   constructor: (@name) ->
@@ -37,6 +38,13 @@ class @Room
 
   message: (message) ->
     @send('raw message', message)
+
+  # Set the room's topic. Does not work for battle rooms.
+  # TODO: Or rather, it shouldn't work for battle rooms. Once a distinction is
+  # possible, block it for battle rooms
+  setTopic: (topic) ->
+    db.hset "topic", "main", topic
+    @send('topic', topic)  if topic
 
   send: ->
     for user in @users

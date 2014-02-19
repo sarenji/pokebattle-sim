@@ -67,6 +67,9 @@ PokeBattle.socket.addEvents
   'leave chatroom': (socket, userJSON) ->
     PokeBattle.userList.remove(userJSON)
 
+  'topic': (socket, topic) ->
+    PokeBattle.chatView.setTopic(topic)
+
 PokeBattle.userList = new UserList()
 PokeBattle.battles = new BattleCollection([])
 PokeBattle.messages = new PrivateMessages([])

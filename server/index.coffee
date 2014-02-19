@@ -10,6 +10,7 @@ auth = require('./auth')
 generations = require './generations'
 {Room} = require('./rooms')
 errors = require '../shared/errors'
+db = require('./database')
 
 @createServer = (port) ->
   app = express()
@@ -50,6 +51,9 @@ errors = require '../shared/errors'
         connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
         user.send('list chatroom', lobby.userJSON())
         server.join(user)
+
+        db.hget "topic", "main", (err, topic) ->
+          user.send('topic', topic)  if topic
 
     'send chat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
