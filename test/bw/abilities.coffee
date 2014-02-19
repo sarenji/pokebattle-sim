@@ -2159,6 +2159,15 @@ describe "BW Abilities:", ->
         team2: [Factory("Magikarp", ability: "Forecast")]
       @p1.hasAbility("Forecast").should.be.false
 
+    it "does not crash if there are no opponents", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Magikarp")]
+      @p2.faint()
+      (=>
+        @p1.copyAbility(Ability.Trace)
+      ).should.not.throw()
+
   describe "Truant", ->
     it "prevents the user from attacking every other turn", ->
       shared.create.call this,

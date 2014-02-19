@@ -853,9 +853,10 @@ makeAbility 'Trace', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
     abilities = (opponent.ability  for opponent in opponents).compact()
-    ability   = @battle.rng.choice(abilities, "trace")
-    if ability && ability.displayName not of bannedAbilities
-      @pokemon.copyAbility(ability)
+    abilities = abilities.filter((a) -> a.displayName not of bannedAbilities)
+    return  if abilities.length == 0
+    ability = @battle.rng.choice(abilities, "trace")
+    @pokemon.copyAbility(ability)
 
 makeAbility 'Truant', ->
   this::initialize = ->
