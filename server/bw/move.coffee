@@ -71,8 +71,9 @@ class @Move
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
       for hitNumber in [1..numHits]
-        damage = @hit(battle, user, target, hitNumber) || 0
-        @afterHit(battle, user, target, damage)
+        isDirect = @isDirectHit(battle, user, target)
+        damage = @hit(battle, user, target, hitNumber, isDirect) || 0
+        @afterHit(battle, user, target, damage, isDirect)
         totalDamage += damage
         break  if target.isFainted()
       if numHits > 1
@@ -108,11 +109,10 @@ class @Move
       return false
 
   # Actually deals damage and runs hooks after hit.
-  hit: (battle, user, target, hitNumber) ->
+  hit: (battle, user, target, hitNumber, isDirect) ->
     damage = @calculateDamage(battle, user, target, hitNumber)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
-      isDirect = @isDirectHit(battle, user, target)
       damage = target.damage(damage, direct: isDirect, source: "move")
       if damage != 0
         # TODO: Print out opponent's name alongside the pokemon.
@@ -124,12 +124,12 @@ class @Move
     return damage
 
   # `hit` may be overridden, but we still want to run these callbacks.
-  afterHit: (battle, user, target, damage) ->
-    if @shouldTriggerSecondary(battle, user, target)
+  afterHit: (battle, user, target, damage, isDirect) ->
+    if isDirect && @shouldTriggerSecondary(battle, user, target)
       @triggerSecondaryEffect(battle, user, target)
-    user.afterSuccessfulHit(this, user, target, damage)
-    target.afterBeingHit(this, user, target, damage)
-    @afterSuccessfulHit(battle, user, target, damage)
+    user.afterSuccessfulHit(this, user, target, damage, isDirect)
+    target.afterBeingHit(this, user, target, damage, isDirect)
+    @afterSuccessfulHit(battle, user, target, damage, isDirect)
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn)
@@ -257,7 +257,6 @@ class @Move
   shouldTriggerSecondary: (battle, user, target) ->
     return false  if !@hasSecondaryEffect()
     return false  if user.hasAbility("Sheer Force")
-    return false  if !@isDirectHit(battle, user, target)
     return true
 
   triggerSecondaryEffect: (battle, user, target) ->

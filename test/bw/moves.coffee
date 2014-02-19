@@ -931,6 +931,13 @@ describe "BW Moves:", ->
       @p2.hasItem().should.be.false
       @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
+    it "doesn't knock off if substitute fades", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', item: "Leftovers")]
+      @p2.attach(Attachment.Substitute, hp: 1)
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
+      @p2.hasItem().should.be.true
+
   describe 'trick and switcheroo', ->
     shared.shouldDoNoDamage('Trick')
 

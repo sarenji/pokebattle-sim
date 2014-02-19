@@ -1259,9 +1259,8 @@ extendMove 'Judgment', ->
     user.getItem()?.plate || @type
 
 extendMove 'Knock Off', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.hasItem() && target.canLoseItem() &&
-        @isDirectHit(battle, user, target)
+  @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+    if target.hasItem() && target.canLoseItem() && isDirect
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
 
