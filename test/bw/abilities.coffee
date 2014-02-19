@@ -2073,6 +2073,13 @@ describe "BW Abilities:", ->
       @p1.attach(Status.Freeze, source: @p2)
       @p2.has(Status.Freeze).should.be.false
 
+    it "activates on secondary effects", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Synchronize")]
+      shared.biasRNG.call(this, "next", 'secondary effect', 0)  # 100% chance
+      @battle.performMove(@p2, @battle.getMove("Flamethrower"))
+      @p2.has(Status.Burn).should.be.true
+
   describe "Tangled Feet", ->
     it "doubles evasion rate when confused", ->
       shared.create.call this,

@@ -281,7 +281,7 @@ class @Move
               battle.rng.choice(triAttackEffects, "tri attack effect")
             else throw new Error("Unrecognized unknown ailment for #{@name}")
         else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
-      target.attach(klass)
+      target.attach(klass, source: user)
 
     # Secondary boosts
     if @secondaryBoostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @secondaryBoostChance * chanceMultiplier
