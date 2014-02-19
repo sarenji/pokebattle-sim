@@ -899,7 +899,7 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, softboiled)
       mock.verify()
 
-  describe 'knock off', ->
+  describe 'Knock Off', ->
     it "deals damage", ->
       shared.create.call this,
         team2: [Factory('Magikarp', item: "Leftovers")]
@@ -923,6 +923,13 @@ describe "BW Moves:", ->
         team2: [Factory('Magikarp', ability: "Sticky Hold", item: "Leftovers")]
       @battle.performMove(@p1, @battle.getMove("Knock Off"))
       @p2.hasItem().should.be.true
+
+    it "takes damage from Rocky Helmet", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', item: "Rocky Helmet")]
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
+      @p2.hasItem().should.be.false
+      @p1.currentHP.should.be.lessThan(@p1.stat('hp'))
 
   describe 'trick and switcheroo', ->
     shared.shouldDoNoDamage('Trick')

@@ -20,3 +20,10 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 @Move::numHitsMessage = (hitNumber) ->
   times = (if hitNumber == 1 then "time" else "times")
   return "Hit #{hitNumber} #{times}!"
+
+# In XY, voice moves and Infiltrator deal direct damage.
+oldIsDirectHit = @Move::isDirectHit
+@Move::isDirectHit = (battle, user, target) ->
+  return true  if @hasFlag("sound")
+  return true  if user.hasAbility("Infiltrator")
+  return oldIsDirectHit.apply(this, arguments)

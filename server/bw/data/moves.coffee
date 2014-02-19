@@ -42,51 +42,6 @@ for name, move of @Moves
         pokemon = (if @primaryBoostTarget == 'self' then user else target)
         pokemon.boost(@primaryBoostStats, user)
 
-# This adds secondary effects/flinch to all moves that require it.
-secondaryEffect = (battle, user, target) ->
-  # Substitute and Sheer Force block all secondary effects.
-  return  if target.has(Attachment.Substitute)
-  return  if user.hasAbility("Sheer Force")
-
-  # Multiply chances by 2 if the user has Serene Grace.
-  chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
-
-  # Secondary effects
-  if @ailmentChance > 0 && battle.rng.randInt(0, 99, "secondary effect") < @ailmentChance * chanceMultiplier
-    klass = switch @ailmentId
-      when "confusion" then Attachment.Confusion
-      when "paralysis" then Status.Paralyze
-      when "freeze"    then Status.Freeze
-      when "burn"      then Status.Burn
-      when "sleep"     then Status.Sleep
-      when "poison"    then Status.Poison
-      when "toxic"     then Status.Toxic
-      when "unknown"
-        switch @name
-          when "Tri Attack"
-            triAttackEffects = [ Status.Paralyze, Status.Burn, Status.Freeze ]
-            battle.rng.choice(triAttackEffects, "tri attack effect")
-          else throw new Error("Unrecognized unknown ailment for #{@name}")
-      else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
-    target.attach(klass)
-
-  # Secondary boosts
-  if @secondaryBoostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @secondaryBoostChance * chanceMultiplier
-    pokemon = (if @secondaryBoostTarget == 'self' then user else target)
-    pokemon.boost(@secondaryBoostStats, user)
-
-  # Flinching. In the game, flinching is treated subtly different than
-  # secondary effects. One result is that the Fang moves can both inflict
-  # a secondary effect as well as flinch.
-  if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
-    target.attach(Attachment.Flinch)
-
-# Now add the secondary effect handler to afterSuccessfulHit.
-for name, move of @Moves
-  if move.hasSecondaryEffect()
-    extendMove name, ->
-      @afterSuccessfulHit = secondaryEffect
-
 extendWithPrimaryEffect = (name, Klass, options={}) ->
   extendMove name, ->
     @hit = (battle, user, target) ->
@@ -1305,7 +1260,8 @@ extendMove 'Judgment', ->
 
 extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.hasItem() && target.canLoseItem()
+    if target.hasItem() && target.canLoseItem() &&
+        @isDirectHit(battle, user, target)
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
 

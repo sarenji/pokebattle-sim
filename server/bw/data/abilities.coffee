@@ -497,6 +497,9 @@ makeAbility 'Imposter', ->
     return  if !opponent || opponent.has(Attachment.Substitute)
     @pokemon.attach(Attachment.Transform, target: opponent)
 
+# Hardcoded in Move#isDirectHit
+makeAbility 'Infiltrator'
+
 makeAbility 'Intimidate', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)

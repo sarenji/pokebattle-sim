@@ -331,3 +331,60 @@ describe "XY Moves:", ->
       spy = @sandbox.spy(freezeDry, 'typeEffectiveness')
       @battle.performMove(@p1, freezeDry)
       spy.returned(.5).should.be.true
+
+  describe "Substitute", ->
+    it "is bypassed by voice moves", ->
+      shared.create.call(this, gen: 'xy')
+      @p2.attach(Attachment.Substitute, hp: (@p1.currentHP >> 2))
+      voiceMove = @battle.findMove (m) ->
+        !m.isNonDamaging() && m.hasFlag("sound")
+      spy = @sandbox.spy(voiceMove, 'hit')
+      @battle.performMove(@p1, voiceMove)
+      spy.calledOnce.should.be.true
+      @p2.currentHP.should.be.lessThan(@p2.stat('hp'))
+
+    it "is bypassed by Infiltrator", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Magikarp", ability: "Infiltrator")]
+      @p2.attach(Attachment.Substitute, hp: (@p1.currentHP >> 2))
+      tackle = @battle.getMove("Tackle")
+      spy = @sandbox.spy(tackle, 'hit')
+      @battle.performMove(@p1, tackle)
+      spy.calledOnce.should.be.true
+      @p2.currentHP.should.be.lessThan(@p2.stat('hp'))
+
+    it "is bypassed by Infiltrator even on status moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Magikarp", ability: "Infiltrator")]
+      @p2.attach(Attachment.Substitute, hp: (@p1.currentHP >> 2))
+      toxic = @battle.getMove("Toxic")
+      spy = @sandbox.spy(toxic, 'hit')
+      @battle.performMove(@p1, toxic)
+      spy.calledOnce.should.be.true
+      @p2.has(Status.Toxic).should.be.true
+
+    it "does not block Knock Off + Infiltrator", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Magikarp", ability: "Infiltrator")]
+        team2: [ Factory("Magikarp", item: "Leftovers")]
+      @p2.attach(Attachment.Substitute, hp: (@p1.currentHP >> 2))
+      knockOff = @battle.getMove("Knock Off")
+      spy = @sandbox.spy(knockOff, 'hit')
+      @battle.performMove(@p1, knockOff)
+      spy.calledOnce.should.be.true
+      @p2.hasItem().should.be.false
+
+    it "does not block secondary effects + Infiltrator", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Magikarp", ability: "Infiltrator")]
+      shared.biasRNG.call(this, "next", "secondary effect", 0)  # always burn
+      @p2.attach(Attachment.Substitute, hp: (@p1.currentHP >> 2))
+      flamethrower = @battle.getMove('Flamethrower')
+      spy = @sandbox.spy(flamethrower, 'hit')
+      @battle.performMove(@p1, flamethrower)
+      spy.calledOnce.should.be.true
+      @p2.has(Status.Burn).should.be.true

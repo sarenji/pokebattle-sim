@@ -324,11 +324,6 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(name: "Genesect", item: "Burn Drive")
       pokemon.hasTakeableItem().should.be.false
 
-    it "returns false if the pokemon has Substitute", ->
-      pokemon = new Pokemon(name: "Magikarp", item: "Leftovers")
-      pokemon.attach(Attachment.Substitute, hp: 25)
-      pokemon.hasTakeableItem().should.be.false
-
   describe "#isWeatherDamageImmune", ->
     it "returns true if it's hailing and the Pokemon is Ice type", ->
       pokemon = new Pokemon()

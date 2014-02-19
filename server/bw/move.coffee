@@ -112,7 +112,8 @@ class @Move
     damage = @calculateDamage(battle, user, target, hitNumber)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
-      damage = target.damage(damage, direct: false, source: "move")
+      isDirect = @isDirectHit(battle, user, target)
+      damage = target.damage(damage, direct: isDirect, source: "move")
       if damage != 0
         # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
@@ -124,9 +125,11 @@ class @Move
 
   # `hit` may be overridden, but we still want to run these callbacks.
   afterHit: (battle, user, target, damage) ->
+    if @shouldTriggerSecondary(battle, user, target)
+      @triggerSecondaryEffect(battle, user, target)
     user.afterSuccessfulHit(this, user, target, damage)
-    @afterSuccessfulHit(battle, user, target, damage)
     target.afterBeingHit(this, user, target, damage)
+    @afterSuccessfulHit(battle, user, target, damage)
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn)
@@ -145,6 +148,11 @@ class @Move
 
   # A hook that executes after all hits have completed.
   afterAllHits: (battle, user) ->
+
+  # A hook that executes when asking if this move should do direct damage
+  isDirectHit: (battle, user, target) ->
+    return true   if @hasFlag('authentic')
+    return !target.has(Attachment.Substitute)
 
   # A hook that executes once a move fails.
   fail: (battle) ->
@@ -245,6 +253,46 @@ class @Move
 
   basePower: (battle, user, target, hitNumber) ->
     @power
+
+  shouldTriggerSecondary: (battle, user, target) ->
+    return false  if !@hasSecondaryEffect()
+    return false  if user.hasAbility("Sheer Force")
+    return false  if !@isDirectHit(battle, user, target)
+    return true
+
+  triggerSecondaryEffect: (battle, user, target) ->
+    # Multiply chances by 2 if the user has Serene Grace.
+    chanceMultiplier = (if user.hasAbility("Serene Grace") then 2 else 1)
+
+    # Secondary effects
+    if @ailmentChance > 0 && battle.rng.randInt(0, 99, "secondary effect") < @ailmentChance * chanceMultiplier
+      klass = switch @ailmentId
+        when "confusion" then Attachment.Confusion
+        when "paralysis" then Status.Paralyze
+        when "freeze"    then Status.Freeze
+        when "burn"      then Status.Burn
+        when "sleep"     then Status.Sleep
+        when "poison"    then Status.Poison
+        when "toxic"     then Status.Toxic
+        when "unknown"
+          switch @name
+            when "Tri Attack"
+              triAttackEffects = [ Status.Paralyze, Status.Burn, Status.Freeze ]
+              battle.rng.choice(triAttackEffects, "tri attack effect")
+            else throw new Error("Unrecognized unknown ailment for #{@name}")
+        else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
+      target.attach(klass)
+
+    # Secondary boosts
+    if @secondaryBoostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @secondaryBoostChance * chanceMultiplier
+      pokemon = (if @secondaryBoostTarget == 'self' then user else target)
+      pokemon.boost(@secondaryBoostStats, user)
+
+    # Flinching. In the game, flinching is treated subtly different than
+    # secondary effects. One result is that the Fang moves can both inflict
+    # a secondary effect as well as flinch.
+    if @flinchChance > 0 && battle.rng.randInt(0, 99, "flinch") < @flinchChance * chanceMultiplier
+      target.attach(Attachment.Flinch)
 
   isCriticalHit: (battle, attacker, defender) ->
     return false  if defender.team?.has(Attachment.LuckyChant)

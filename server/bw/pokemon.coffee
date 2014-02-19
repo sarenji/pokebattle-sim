@@ -292,7 +292,6 @@ class @Pokemon
     return false  if @item.type == 'mail'
     return false  if @item.type == 'key'
     return false  if @hasAbility("Multitype") && @item.plate
-    return false  if @has(Attachment.Substitute)
     return false  if @name == 'Giratina' && @forme == 'origin'
     return false  if @name == 'Genesect' && /Drive$/.test(@item.displayName)
     true

@@ -728,8 +728,12 @@ class @Attachment.Substitute extends @VolatileAttachment
       @battle.message "The substitute took damage for #{@pokemon.name}!"
     return 0
 
+  failsOnSub: (move, user) ->
+    @pokemon != user && move.isNonDamaging() &&
+      !move.isDirectHit(@battle, user, @pokemon)
+
   shouldBlockExecution: (move, user) ->
-    if move.isNonDamaging() && !move.hasFlag('authentic') && @pokemon != user
+    if @failsOnSub(move, user)
       move.fail(@battle)
       return true
 
