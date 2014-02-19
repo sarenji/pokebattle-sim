@@ -7,6 +7,7 @@ class @BattleCollection extends Backbone.Collection
       'spectate battle': @spectateBattle
       'join battle': @joinBattle
       'leave battle': @leaveBattle
+    @updateQueue = []
     @on 'remove', (model) ->
       PokeBattle.socket.send('leave battle', model.id)
 
@@ -16,17 +17,22 @@ class @BattleCollection extends Backbone.Collection
       console.log "Received events for #{battleId}, but no longer in battle!"
       return
     battle.notify()
-    @_updateBattle(battle, actions)
+    @queueBattleUpdates(battle, actions)
 
-  _updateBattle: (battle, actions, wasAtBottom) =>
+  queueBattleUpdates: (battle, actions) =>
+    hadStuff = (@updateQueue.length > 0)
+    @updateQueue.push(actions...)
+    if !hadStuff then @_updateBattle(battle)
+
+  _updateBattle: (battle, wasAtBottom) =>
     view = battle.view
-    if actions.length == 0
+    if @updateQueue.length == 0
       view.renderUserInfo()
       if wasAtBottom || view.skip? then view.chatView.scrollToBottom()
       if view.skip?                then delete view.skip
       return
     wasAtBottom ||= view.chatView.isAtBottom()
-    action = actions.shift()
+    action = @updateQueue.shift()
     [ type, rest... ] = action
     protocol = (key  for key, value of Protocol when value == type)[0]
     console.log "Received protocol: #{protocol}"
@@ -34,7 +40,7 @@ class @BattleCollection extends Backbone.Collection
     done = () =>
       return  if done.called
       done.called = true
-      @_updateBattle.call(this, battle, actions, wasAtBottom)
+      @_updateBattle.call(this, battle, wasAtBottom)
 
     try
       switch type
@@ -185,7 +191,7 @@ class @BattleCollection extends Backbone.Collection
     createBattleWindow(this, battle)
     if log.length > 0
       battle.view.skip = 0
-      @_updateBattle(battle, log, false)
+      @queueBattleUpdates(battle, log)
 
   joinBattle: (socket, id, user) =>
     battle = @get(id)
