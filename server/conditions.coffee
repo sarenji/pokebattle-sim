@@ -236,6 +236,11 @@ createCondition Conditions.TEAM_PREVIEW,
     beforeStart: ->
       @tell(Protocol.TEAM_PREVIEW)
 
+    start: ->
+      for playerId in @playerIds
+        team = @getTeam(playerId)
+        team.arrange(@arranged[playerId])
+
   extendFacade:
     arrangeTeam: (playerId, arrangement) ->
       return false  if @battle.hasStarted()
@@ -257,8 +262,6 @@ createCondition Conditions.TEAM_PREVIEW,
   extend:
     arrangeTeam: (playerId, arrangement) ->
       return true  if !@arranging
-      team = @getTeam(playerId)
-      team.arrange(arrangement)
       @arranged[playerId] = arrangement
       return _.difference(@playerIds, Object.keys(@arranged)).length == 0
 

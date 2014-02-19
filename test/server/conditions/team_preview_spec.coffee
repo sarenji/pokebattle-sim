@@ -106,7 +106,8 @@ describe "Team preview", ->
     team1 = (Factory("Magikarp")  for x in [0..1])
     shared.create.call(this, {conditions, team1})
     arrangement = [ 1, 0 ]
-    @battle.startBattle()
+    @controller.arrangeTeam(@id1, arrangement)
+    @controller.arrangeTeam(@id2, arrangement)
     @controller.arrangeTeam(@id1, arrangement).should.be.false
 
   it "rearranges team when given a valid array of indices", ->
@@ -123,11 +124,13 @@ describe "Team preview", ->
     @team2.at(1).name.should.equal("Magikarp")
     @team2.at(2).name.should.equal("Gyarados")
 
-  it "rejects team arrangement when arranging is over", ->
+  it "is isomorphic", ->
     conditions = [ Conditions.TEAM_PREVIEW ]
     team1 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
     team2 = [ Factory("Magikarp"), Factory("Gyarados"), Factory("Celebi") ]
+    arrangedTeamNames = [ "Celebi", "Magikarp", "Gyarados" ]
     shared.create.call(this, {conditions, team1, team2})
-    @controller.arrangeTeam(@id1, [ 0, 2, 1 ])
+    @controller.arrangeTeam(@id1, [ 2, 0, 1 ])
+    @controller.arrangeTeam(@id1, [ 2, 0, 1 ])
     @controller.arrangeTeam(@id2, [ 2, 0, 1 ])
-    @controller.arrangeTeam(@id2, [ 2, 0, 1 ]).should.be.false
+    @team1.pokemon.map((p) -> p.name).should.eql(arrangedTeamNames)
