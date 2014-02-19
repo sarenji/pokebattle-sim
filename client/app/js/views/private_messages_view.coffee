@@ -61,13 +61,13 @@ class @PrivateMessagesView extends Backbone.View
         messageHtml += "<p class='log-message'><strong>#{username}:</strong> #{message}</p>"
 
     $messages = $popup.find('.popup_messages').append($(messageHtml))
-    @scrollToBottom()
+    @scrollToBottom($popup)
 
   # todo: make this and addLogMessages construct messages from a common source
   receiveMessage: (messageId, username, message, options) =>
     $popup = @$findOrCreatePopup(messageId)
     $messages = $popup.find('.popup_messages')
-    wasAtBottom = @isAtBottom()
+    wasAtBottom = @isAtBottom($popup)
     if options.type == 'error'
       $messages.append("<p class='privmsg-error'>#{message}</p>")
     else if options.type == 'alert'
@@ -77,7 +77,7 @@ class @PrivateMessagesView extends Backbone.View
         $popup.addClass('new_message')
         PokeBattle.notifyUser(PokeBattle.NotificationTypes.PRIVATE_MESSAGE, username)
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
-    if wasAtBottom then @scrollToBottom()
+    if wasAtBottom then @scrollToBottom($popup)
 
   openChallenge: (messageId, generation, conditions) =>
     $popup = @$findOrCreatePopup(messageId)
@@ -115,12 +115,12 @@ class @PrivateMessagesView extends Backbone.View
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
-  isAtBottom: =>
-    $el = @$('.popup_messages')
+  isAtBottom: ($popup) =>
+    $el = $popup.find('.popup_messages')
     ($el[0].scrollHeight - $el.scrollTop() <= $el.outerHeight())
 
-  scrollToBottom: =>
-    messages = @$('.popup_messages')[0]
+  scrollToBottom: ($popup) =>
+    messages = $popup.find('.popup_messages')[0]
     messages.scrollTop = messages.scrollHeight
     false
 
@@ -204,14 +204,14 @@ class @PrivateMessagesView extends Backbone.View
   toggleChallengeEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)
     $challenge = $popup.find('.challenge')
-    wasAtBottom = @isAtBottom()
+    wasAtBottom = @isAtBottom($popup)
     if $challenge.hasClass("hidden")
       @createChallenge($popup)
     else if $challenge.find('.cancel_challenge').text() == 'Cancel'
       $popup.find('.send_challenge').click()
     else
       @closeChallenge(@messageFromPopup($popup))
-    if wasAtBottom then @scrollToBottom()
+    if wasAtBottom then @scrollToBottom($popup)
 
   sendChallengeEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)
