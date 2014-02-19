@@ -1,4 +1,5 @@
 {_} = require('underscore')
+learnsets = require '../shared/learnsets'
 
 @ALL_GENERATIONS = [ 'rb', 'gs', 'rs', 'dp', 'bw', 'xy' ]
 @SUPPORTED_GENERATIONS = [ 'bw', 'xy' ]
@@ -47,24 +48,11 @@ for gen in @ALL_GENERATIONS
       abilities.push(formeData.abilities...)
       abilities.push(formeData.hiddenAbility)  if formeData.hiddenAbility
       for ability in abilities
-        AbilityList.push(ability)
         AbilityMap[ability] ?= []
         AbilityMap[ability].push([pokemonName, formeName])
 
-      # Add moves
-      allMoves = []
-      for kind, moves of formeData.learnset
-        for moveName of moves
-          allMoves.push(moveName)
-
-      allMoves = _.chain(allMoves).flatten().uniq().value()
-      for moveName in allMoves
-        MoveList.push(moveName)
-        MoveMap[moveName] ?= []
-        MoveMap[moveName].push([pokemonName, formeName])
-
-  AbilityList = _.chain(AbilityList).uniq().sort().value()
-  MoveList    = _.chain(MoveList).uniq().sort().value()
+  AbilityList = Object.keys(AbilityData)
+  MoveList    = Object.keys(MoveData)
   TypeList    = _.chain(TypeList).uniq().sort().value()
 
   @GenerationJSON[gen.toUpperCase()] =
@@ -81,3 +69,17 @@ for gen in @ALL_GENERATIONS
     MoveMap     : MoveMap
     AbilityMap  : AbilityMap
     TypeMap     : TypeMap
+
+# Now add moves for every generation
+for gen in @ALL_GENERATIONS
+  thisGen = @GenerationJSON[gen.toUpperCase()]
+  for pokemonName, pokemonData of thisGen.FormeData
+    for formeName, formeData of pokemonData
+      pokemon = {name: pokemonName, forme: formeName}
+
+      # Add moves
+      moves = learnsets.learnableMoves(@GenerationJSON, pokemon, @GENERATION_TO_INT[gen])
+
+      for moveName in moves
+        thisGen.MoveMap[moveName] ?= []
+        thisGen.MoveMap[moveName].push([pokemonName, formeName])

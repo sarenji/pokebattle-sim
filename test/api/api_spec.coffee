@@ -39,6 +39,22 @@ describe 'XY API:', ->
         data.pokemon.should.eql([["Smeargle", "default"]])
         done()
 
+    it 'takes into account event pokemon', (done) ->
+      @client.get '/xy/moves/extremespeed', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        data.pokemon.should.includeEql(["Genesect", "default"])
+        done()
+
+    it 'takes into account pre-evolution moves', (done) ->
+      @client.get '/xy/moves/pursuit', (err, req, res, data) ->
+        throw new Error(err)  if err
+        data.should.be.an.instanceOf(Object)
+        data.should.have.property("pokemon")
+        data.pokemon.should.includeEql(["Tyranitar", "default"])
+        done()
+
   describe '/xy/abilities', ->
     it 'should get an array of abilities back', (done) ->
       @client.get '/xy/abilities', (err, req, res, data) ->
