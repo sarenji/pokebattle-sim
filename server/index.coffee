@@ -60,7 +60,7 @@ db = require('./database')
       if message[0] == '/'
         [ command, args... ] = message.split(/\s+/)
         command = command.substr(1)
-        args = args.join(' ').split(/,\s*/g)
+        args = args.join(' ').split(/,/g)
         commands.executeCommand(server, user, lobby, command, args...)
       else
         lobby.userMessage(user, message)

@@ -153,7 +153,7 @@ describe "Commands", ->
           mock1.verify()
           done()
 
-      it "Updates the channel topic", (done) ->
+      it "updates the channel topic", (done) ->
         topicName = "a test"
         @user1.authority = auth.levels.ADMIN
         mock = @sandbox.mock(@room).expects("setTopic").withArgs(topicName).once()

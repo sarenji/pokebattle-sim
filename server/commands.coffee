@@ -99,8 +99,8 @@ makeOwnerCommand "mod", (user, room, next, username) ->
     return next(null, result)
 
 desc "Changes the topic message. Usage: /topic message"
-makeAdminCommand "topic", (user, room, next, topic) ->
-  room.setTopic(topic)
+makeAdminCommand "topic", (user, room, next, topicPieces...) ->
+  room.setTopic(topicPieces.join(','))
   next()
 
 desc "Displays all commands available. Usage: /help"
