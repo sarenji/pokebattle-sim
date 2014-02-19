@@ -493,7 +493,8 @@ class @Attachment.FocusPunch extends @VolatileAttachment
 
   beforeMove: (move, user, targets) ->
     hit = user.lastHitBy
-    if hit? && !hit.move.isNonDamaging() && hit.turn == @battle.turn
+    if hit? && !hit.move.isNonDamaging() && hit.turn == @battle.turn &&
+        hit.move.isDirectHit(@battle, hit.pokemon, user)
       @battle.message "#{user.name} lost its focus and couldn't move!"
       return false
 
