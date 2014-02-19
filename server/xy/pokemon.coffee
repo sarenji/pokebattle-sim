@@ -21,3 +21,11 @@ oldHasTakeableItem = @Pokemon::hasTakeableItem
     [ species, forme ] = @item.mega
     return false  if @name == species
   return true
+
+# Powder moves no longer affect Grass-type Pokemon.
+oldShouldBlockExecution = @Pokemon::shouldBlockExecution
+@Pokemon::shouldBlockExecution = (move, user) ->
+  if move.hasFlag("powder") && @hasType("Grass")
+    move.fail(@battle)
+    return true
+  oldShouldBlockExecution.apply(this, arguments)

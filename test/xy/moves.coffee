@@ -28,6 +28,29 @@ describe "XY Moves:", ->
       Move::determineCriticalHitFromLevel(4, .99).should.be.true
       Move::determineCriticalHitFromLevel(4, 1.0).should.be.false
 
+  describe "a powder move", ->
+    it "does not affect Grass-types", ->
+      shared.create.call(this, gen: 'xy')
+      powderMove = @battle.findMove((m) -> m.hasFlag("powder"))
+      @p2.types.push("Grass")
+
+      mock1 = @sandbox.mock(powderMove).expects('hit').never()
+      mock2 = @sandbox.mock(powderMove).expects('fail').once()
+      @battle.performMove(@p1, powderMove)
+      mock1.verify()
+      mock2.verify()
+
+    it "affects non-Grass-types", ->
+      shared.create.call(this, gen: 'xy')
+      powderMove = @battle.findMove((m) -> m.hasFlag("powder"))
+      @p2.types = [ "Normal" ]
+
+      mock1 = @sandbox.mock(powderMove).expects('hit').once()
+      mock2 = @sandbox.mock(powderMove).expects('fail').never()
+      @battle.performMove(@p1, powderMove)
+      mock1.verify()
+      mock2.verify()
+
   describe "Dragon Pulse", ->
     it "has 85 base power now", ->
       shared.create.call(this, gen: 'xy')
