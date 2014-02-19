@@ -498,6 +498,9 @@ class @Attachment.FocusPunch extends @VolatileAttachment
       @battle.message "#{user.name} lost its focus and couldn't move!"
       return false
 
+  afterMove: ->
+    @pokemon.unattach(@constructor)
+
 class @Attachment.MagnetRise extends @VolatileAttachment
   name: "MagnetRiseAttachment"
   passable: true

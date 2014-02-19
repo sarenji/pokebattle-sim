@@ -3022,6 +3022,21 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
+    it "does not cause flinching afterwards", ->
+      shared.create.call(this, team2: [Factory("Magikarp", evs: {speed: 4})])
+      focusPunch = @battle.getMove("Focus Punch")
+      @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+      @battle.continueTurn()
+      @battle.endTurn()
+      @battle.beginTurn()
+
+      hp = @p2.currentHP
+      @battle.recordMove(@id1, @battle.getMove("Tackle"))
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      @battle.continueTurn()
+      @p2.currentHP.should.be.lessThan(hp)
+
   describe "Magnet Rise", ->
     shared.shouldDoNoDamage("Magnet Rise")
     shared.shouldFailIfUsedTwice("Magnet Rise")
