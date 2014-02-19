@@ -23,7 +23,6 @@ class @ConnectionServer
         try
           @trigger(user, data.messageType, data.data...)
         catch e
-          console.error(e)
           console.error(e.stack)
           @lobby.message("<b>A crash occurred!</b> We stopped and logged it, but whatever caused the crash will not work.")
 

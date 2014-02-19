@@ -502,8 +502,13 @@ class @Battle extends EventEmitter
     @requests[playerId] ?= []
     @requests[playerId].unshift(request)
 
-    # Remove the pokemon action
-    @pokemonActions.splice(@pokemonActions.indexOf(action), 1)
+    # Remove the related pokemon actions. There may be more than one.
+    index = 0
+    while index < @pokemonActions.length
+      if @pokemonActions[index].pokemon.playerId == playerId
+        @pokemonActions.splice(index, 1)
+      else
+        index += 1
 
     @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
 

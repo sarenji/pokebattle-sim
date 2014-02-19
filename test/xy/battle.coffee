@@ -81,3 +81,13 @@ describe "XY Battle:", ->
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
       @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
       @battle.getAction(@p1).type.should.equal("move")
+
+  describe "#undoCompletedRequest", ->
+    it "cancels mega evolutions properly", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.pokemonActions.should.not.be.empty
+      (=> @battle.undoCompletedRequest(@id1)).should.not.throw()
+      @battle.pokemonActions.should.be.empty
