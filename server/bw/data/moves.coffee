@@ -670,6 +670,7 @@ extendMove 'Focus Energy', ->
 
 extendMove 'Focus Punch', ->
   @beforeTurn = (battle, user) ->
+    battle.message "#{user.name} is tightening its focus!"
     user.attach(Attachment.FocusPunch)
 
 makeIdentifyMove("Foresight", "Normal")
