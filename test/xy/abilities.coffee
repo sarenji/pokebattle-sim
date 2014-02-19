@@ -213,6 +213,23 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove('Tackle')
       tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
+  describe "Overcoat", ->
+    it "makes the user immune to weather", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Overcoat")]
+      @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
+      @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
+
+    it "makes the user immune to powder moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Overcoat")]
+      spore = @battle.getMove("Spore")
+      mock = @sandbox.mock(spore).expects('hit').never()
+      @battle.performMove(@p2, spore)
+      mock.verify()
+
   describe "Parental Bond", ->
     it "hits twice if the move has only one target", ->
       shared.create.call this,

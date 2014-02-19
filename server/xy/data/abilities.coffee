@@ -21,6 +21,12 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/abilities.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
+# Retcon old abilities
+
+# Overcoat now also prevents powder moves from working.
+Ability.Overcoat::shouldBlockExecution = (move, user) ->
+    return true  if move.hasFlag("powder")
+
 # New ability interfaces
 
 makeNormalTypeChangeAbility = (name, newType) ->
