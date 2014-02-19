@@ -391,8 +391,8 @@ class @Pokemon
     @lastMove = move
     @used[move.name] = true
 
-  recordHit: (pokemon, damage, move, turn) ->
-    @lastHitBy = {pokemon, damage, move, turn}
+  recordHit: (pokemon, damage, move, turn, direct) ->
+    @lastHitBy = {pokemon, damage, move, turn, direct}
 
   isImmune: (type, options = {}) ->
     b = Query.untilNotNull('isImmune', @attachments.all(), type, options.move)

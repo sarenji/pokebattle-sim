@@ -132,7 +132,7 @@ class @Move
     @afterSuccessfulHit(battle, user, target, damage, isDirect)
 
     # Miscellaneous
-    target.recordHit(user, damage, this, battle.turn)
+    target.recordHit(user, damage, this, battle.turn, isDirect)
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.

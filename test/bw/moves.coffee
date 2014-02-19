@@ -3005,6 +3005,14 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
+    it "does not cause flinching if sub fades", ->
+      shared.create.call(this)
+      @p1.attach(Attachment.Substitute, hp: 1)
+      @battle.recordMove(@id1, @battle.getMove("Focus Punch"))
+      @battle.recordMove(@id2, @battle.getMove("Tackle"))
+      @battle.continueTurn()
+      @p2.currentHP.should.be.lessThan @p2.stat('hp')
+
     it "does not cause flinching if hit by a move last turn", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove("Tackle"))
