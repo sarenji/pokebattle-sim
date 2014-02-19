@@ -543,6 +543,13 @@ describe "BW Moves:", ->
         damage = (hp - @p2.currentHP)
         (startHP - @p1.currentHP).should.equal 1
 
+      it "does not recoil if no damage was dealt", ->
+        shared.create.call(this)
+        @battle.recordMove(@id2, @battle.getMove("Protect"))
+        @battle.recordMove(@id1, @battle.getMove(moveName))
+        @battle.continueTurn()
+        @p1.currentHP.should.equal(@p1.stat('hp'))
+
   testRecoilMove("Brave Bird")
   testRecoilMove("Double-Edge")
   testRecoilMove("Flare Blitz")

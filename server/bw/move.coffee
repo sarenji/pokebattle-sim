@@ -79,7 +79,7 @@ class @Move
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 
     # Recoil
-    if @recoil < 0 && !user.hasAbility("Rock Head")
+    if totalDamage > 0 && @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(totalDamage * -@recoil / 100)
       recoil = Math.max(1, recoil)
       if user.damage(recoil)
