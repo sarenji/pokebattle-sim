@@ -146,6 +146,21 @@ describe "Commands", ->
             battleIds.should.eql(@server.getUserBattles(@user2.id))
             done()
 
+    describe "topic", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        commands.executeCommand @server, @user1, @room, "topic", "test topic", ->
+          mock1.verify()
+          done()
+
+      it "Updates the channel topic", (done) ->
+        topicName = "a test"
+        @user1.authority = auth.levels.ADMIN
+        mock = @sandbox.mock(@room).expects("setTopic").withArgs(topicName).once()
+        commands.executeCommand @server, @user1, @room, "topic", topicName, ->
+          mock.verify()
+          done()
+
     describe "help", ->
       it "messages all available commands to that user", (done) ->
         mock1 = @sandbox.mock(@user1).expects('message').once()

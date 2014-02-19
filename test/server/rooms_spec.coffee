@@ -48,6 +48,20 @@ describe "A server room:", ->
       mock1.verify()
       mock2.verify()
 
+  describe "#setTopic", ->
+    it "sends a topic message to all users in that room", ->
+      room = new Room()
+      room.addUser(user1 = new User("aaaa"))
+      room.addUser(user2 = new User("bbbb"))
+      mock1 = @sandbox.mock(user1).expects('send')
+      mock1.withArgs("topic", "a test").once()
+      mock2 = @sandbox.mock(user2).expects('send').once()
+      mock2.withArgs("topic", "a test").once()
+
+      room.setTopic("a test")
+      mock1.verify()
+      mock2.verify()
+
   describe "#userJSON", ->
     it "returns an array containing the JSON of all users", ->
       room = new Room()
