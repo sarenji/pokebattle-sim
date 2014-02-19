@@ -948,8 +948,20 @@ describe "BW Abilities:", ->
       @team2.first().stages.should.include(attack: -1)
 
   describe "Infiltrator", ->
-    it "ignores Reflect"
-    it "ignores Light Screen"
+    it "ignores Reflect", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", ability: "Infiltrator") ]
+      @team2.attach(Attachment.Reflect)
+      tackle = @battle.getMove('Tackle')
+      tackle.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
+
+    it "ignores Light Screen", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", ability: "Infiltrator") ]
+      @team2.attach(Attachment.LightScreen)
+      thundershock = @battle.getMove('ThunderShock')
+      thundershock.modifyDamage(@battle, @p1, @p2).should.equal(0x1000)
+
     it "ignores Safeguard"
     it "ignores Mist"
 

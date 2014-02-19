@@ -460,13 +460,17 @@ class @Attachment.Reflect extends @Attachment.Screen
   name: "ReflectAttachment"
 
   modifyDamageTarget: (move, user) ->
-    if move.isPhysical() && !user.crit then 0x800 else 0x1000
+    if move.isPhysical() && !user.crit && !user.hasAbility("Infiltrator")
+      return 0x800
+    return 0x1000
 
 class @Attachment.LightScreen extends @Attachment.Screen
   name: "LightScreenAttachment"
 
   modifyDamageTarget: (move, user) ->
-    if move.isSpecial() && !user.crit then 0x800 else 0x1000
+    if move.isSpecial() && !user.crit && !user.hasAbility("Infiltrator")
+      return 0x800
+    return 0x1000
 
 class @Attachment.Identify extends @VolatileAttachment
   name: "IdentifyAttachment"

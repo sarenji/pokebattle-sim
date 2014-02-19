@@ -498,6 +498,7 @@ makeAbility 'Imposter', ->
     @pokemon.attach(Attachment.Transform, target: opponent)
 
 # Hardcoded in Move#isDirectHit
+# Hardcoded in Attachment.Reflect and Attachment.LightScreen
 makeAbility 'Infiltrator'
 
 makeAbility 'Intimidate', ->
