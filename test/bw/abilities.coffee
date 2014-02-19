@@ -928,8 +928,16 @@ describe "BW Abilities:", ->
 
   describe "Intimidate", ->
     it "lowers the attack of all foe pokemon", ->
-      shared.create.call(this, team1: [Factory("Magikarp", ability: "Intimidate")])
+      shared.create.call this,
+        team1: [ Factory("Magikarp", ability: "Intimidate") ]
       @p2.stages.should.include(attack: -1)
+
+    it "does not lower attack of Pokemon behind Substitute", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp") ]
+      @p2.attach(Attachment.Substitute, hp: (@p2.currentHP >> 2))
+      @p1.copyAbility(Ability.Intimidate)
+      @p2.stages.should.include(attack: 0)
 
     it "lowers attack simultaneously on all begin-turn switch-ins", ->
       shared.create.call this,

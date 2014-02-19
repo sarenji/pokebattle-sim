@@ -505,7 +505,8 @@ makeAbility 'Intimidate', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
     for opponent in opponents
-      opponent.boost(attack: -1, @pokemon)
+      unless opponent.has(Attachment.Substitute)
+        opponent.boost(attack: -1, @pokemon)
 
 makeAbility 'Iron Fist', ->
   this::modifyBasePower = (move) ->
