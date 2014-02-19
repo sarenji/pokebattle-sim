@@ -3,9 +3,15 @@
   "version": "0.0.6",
   "dependencies": {
     "coffee-script": {
-      "version": "1.6.3",
-      "from": "coffee-script@1.6.3",
-      "resolved": "https://registry.npmjs.org/coffee-script/-/coffee-script-1.6.3.tgz"
+      "version": "1.7.1",
+      "from": "coffee-script@1.7.1",
+      "resolved": "https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz",
+      "dependencies": {
+        "mkdirp": {
+          "version": "0.3.5",
+          "from": "mkdirp@~0.3.5"
+        }
+      }
     },
     "sockjs": {
       "version": "0.3.7",
@@ -688,9 +694,38 @@
       }
     },
     "grunt-contrib-coffee": {
-      "version": "0.7.0",
-      "from": "grunt-contrib-coffee@",
-      "resolved": "https://registry.npmjs.org/grunt-contrib-coffee/-/grunt-contrib-coffee-0.7.0.tgz"
+      "version": "0.10.1",
+      "from": "grunt-contrib-coffee@0.10.1",
+      "resolved": "https://registry.npmjs.org/grunt-contrib-coffee/-/grunt-contrib-coffee-0.10.1.tgz",
+      "dependencies": {
+        "chalk": {
+          "version": "0.4.0",
+          "from": "chalk@~0.4.0",
+          "resolved": "https://registry.npmjs.org/chalk/-/chalk-0.4.0.tgz",
+          "dependencies": {
+            "has-color": {
+              "version": "0.1.4",
+              "from": "has-color@~0.1.0",
+              "resolved": "https://registry.npmjs.org/has-color/-/has-color-0.1.4.tgz"
+            },
+            "ansi-styles": {
+              "version": "1.0.0",
+              "from": "ansi-styles@~1.0.0",
+              "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-1.0.0.tgz"
+            },
+            "strip-ansi": {
+              "version": "0.1.1",
+              "from": "strip-ansi@~0.1.0",
+              "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-0.1.1.tgz"
+            }
+          }
+        },
+        "lodash": {
+          "version": "2.4.1",
+          "from": "lodash@~2.4.1",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-2.4.1.tgz"
+        }
+      }
     },
     "grunt-contrib-concat": {
       "version": "0.3.0",
@@ -1165,7 +1200,12 @@
     },
     "async": {
       "version": "0.2.9",
-      "from": "async@"
+      "from": "async@0.2.9"
+    },
+    "redis-mock": {
+      "version": "0.2.5",
+      "from": "git://github.com/sarenji/redis-mock",
+      "resolved": "git://github.com/sarenji/redis-mock#1b93b96b98d9de596ff19f094ce0f4562735aa08"
     },
     "should": {
       "version": "1.2.2",

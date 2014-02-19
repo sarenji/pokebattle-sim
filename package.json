@@ -3,7 +3,7 @@
   "version": "0.0.6",
   "private": true,
   "dependencies": {
-    "coffee-script": "~1.6.2",
+    "coffee-script": "~1.7.1",
     "sockjs": "0.3.x",
     "underscore": "~1.4.x",
     "express": "~3.2.x",
@@ -13,7 +13,7 @@
     "nib": "~0.9.x",
     "grunt": "~0.4.1",
     "grunt-contrib-jade": "~0.8.0",
-    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-coffee": "~0.10.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-stylus": "~0.7.0",
     "grunt-contrib-watch": "~0.5.1",
