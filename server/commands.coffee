@@ -98,6 +98,28 @@ makeOwnerCommand "mod", (user, room, next, username) ->
     user?.setAuthority(auth.levels.MOD)
     return next(null, result)
 
+desc "Admins a username permanently. Usage: /admin username"
+makeOwnerCommand "admin", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /admin username")
+    return next()
+  auth.setAuth username, auth.levels.ADMIN, (err, result) ->
+    if err then return next(err)
+    user = room.get(username)
+    user?.setAuthority(auth.levels.ADMIN)
+    return next(null, result)
+
+desc "Deauthes a username permanently. Usage: /deauth username"
+makeOwnerCommand "deauth", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /deauth username")
+    return next()
+  auth.setAuth username, auth.levels.USER, (err, result) ->
+    if err then return next(err)
+    user = room.get(username)
+    user?.setAuthority(auth.levels.USER)
+    return next(null, result)
+
 desc "Changes the topic message. Usage: /topic message"
 makeAdminCommand "topic", (user, room, next, topicPieces...) ->
   room.setTopic(topicPieces.join(','))

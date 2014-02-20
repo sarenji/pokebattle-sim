@@ -125,6 +125,52 @@ describe "Commands", ->
             result.should.equal(auth.levels.MOD)
             done()
 
+    describe "admin", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "admin", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "admins a user if owner", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "admin", @user2.id, =>
+          @user2.should.have.property("authority")
+          @user2.authority.should.equal(auth.levels.ADMIN)
+          done()
+
+      it "does not crash if user isn't on yet", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "admin", @offline.id, =>
+          auth.getAuth @offline.id, (err, result) ->
+            result.should.equal(auth.levels.ADMIN)
+            done()
+
+    describe "deauth", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "deauth", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "deauthes a user if owner", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "deauth", @user2.id, =>
+          @user2.should.have.property("authority")
+          @user2.authority.should.equal(auth.levels.USER)
+          done()
+
+      it "does not crash if user isn't on yet", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "deauth", @offline.id, =>
+          auth.getAuth @offline.id, (err, result) ->
+            result.should.equal(auth.levels.USER)
+            done()
+
     describe "battles", ->
       it "returns an error if no user is passed", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
