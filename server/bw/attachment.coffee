@@ -323,7 +323,8 @@ class @Attachment.Spikes extends @TeamAttachment
     return  if pokemon.isImmune("Ground")
     fraction = (10 - 2 * @layers)
     hp = pokemon.stat('hp')
-    if pokemon.damage(Math.floor(hp / fraction))
+    damage = Math.max(1, Math.floor(hp / fraction))
+    if pokemon.damage(damage)
       @battle.message("#{pokemon.name} is hurt by the spikes!")
 
 class @Attachment.StealthRock extends @TeamAttachment
@@ -332,7 +333,8 @@ class @Attachment.StealthRock extends @TeamAttachment
   switchIn: (pokemon) ->
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
-    if pokemon.damage(Math.floor(hp * multiplier / 8))
+    damage = Math.max(1, (hp * multiplier) >> 3)
+    if pokemon.damage(damage)
       @battle.message("Pointed stones dug into #{pokemon.name}!")
 
 class @Attachment.ToxicSpikes extends @TeamAttachment

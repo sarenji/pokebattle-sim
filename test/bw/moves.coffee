@@ -2130,6 +2130,16 @@ describe "BW Moves:", ->
 
       mock.verify()
 
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Shedinja")]
+
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
+      @battle.performSwitch(@team2.first(), 1)
+
+      pokemon = @team2.first()
+      (pokemon.stat('hp') - pokemon.currentHP).should.equal(1)
+
     it "does damage to pokemon switching in according to # of layers", ->
       shared.create.call this,
         team2: [Factory("Magikarp"), Factory("Magikarp")]
@@ -2199,6 +2209,16 @@ describe "BW Moves:", ->
       pokemon = @team2.first()
       hp = pokemon.stat('hp')
       (hp - pokemon.currentHP).should.equal Math.floor(hp / 8)
+
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp"), Factory("Aron", level: 1)]
+
+      @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
+      @battle.performSwitch(@team2.first(), 1)
+
+      pokemon = @team2.first()
+      (pokemon.stat('hp') - pokemon.currentHP).should.equal(1)
 
     it "affects replacements", ->
       shared.create.call this,
