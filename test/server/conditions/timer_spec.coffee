@@ -1,5 +1,6 @@
 require '../../helpers'
 
+{_} = require 'underscore'
 shared = require '../../shared'
 {Conditions} = require '../../../shared/conditions'
 {Protocol} = require '../../../shared/protocol'
@@ -7,6 +8,7 @@ shared = require '../../shared'
 describe "Battle timer", ->
   describe "without team preview", ->
     beforeEach ->
+      @clock.tick(10000)
       shared.create.call this,
         conditions: [ Conditions.TIMED_BATTLE ]
       @battle.TIMER_CAP = Infinity
@@ -129,8 +131,23 @@ describe "Battle timer", ->
 
   describe "with team preview", ->
     beforeEach ->
+      @clock.tick(10000)
       shared.create.call this,
         conditions: [ Conditions.TIMED_BATTLE, Conditions.TEAM_PREVIEW ]
 
-    it "starts a timer that automatically selects the team after 1 minute"
-    it "does not automatically select the team those who already arranged"
+    it "starts a timer that auto-starts the battle after 1.5 mins", ->
+      @battle.arranging.should.be.true
+      spy = @sandbox.spy(@battle, 'startBattle')
+      @clock.tick(@battle.TEAM_PREVIEW_TIMER)
+      spy.calledOnce.should.be.true
+      @battle.arranging.should.be.false
+
+    it "arranges teams of those who already submitted arrangements", ->
+      @battle.arranging.should.be.true
+      arrangement = [0...@team1.size()]
+      arrangement.reverse()
+      pokemon = _.clone(@team1.pokemon)
+      pokemon.reverse()
+      @controller.arrangeTeam(@id1, arrangement)
+      @clock.tick(@battle.TEAM_PREVIEW_TIMER)
+      @team1.pokemon.should.eql(pokemon)

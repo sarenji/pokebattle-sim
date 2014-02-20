@@ -138,8 +138,19 @@ createCondition Conditions.RATED_BATTLE,
 
 createCondition Conditions.TIMED_BATTLE,
   attach:
+    initialize: ->
+      previewTime = Date.now() + @TEAM_PREVIEW_TIMER
+      check = () =>
+        @startBattle()
+        @sendUpdates()
+      @teamPreviewTimerId = setTimeout(check, @TEAM_PREVIEW_TIMER)
+      @once('end', => clearTimeout(@teamPreviewTimerId))
+      @once('start', => clearTimeout(@teamPreviewTimerId))
+      endTimes = (previewTime  for playerId in @playerIds)
+      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+
     start: ->
-      nowTime = (new Date).getTime()
+      nowTime = Date.now()
       @playerTimes = {}
       for id in @playerIds
         @playerTimes[id] = nowTime + @DEFAULT_TIMER
@@ -150,7 +161,7 @@ createCondition Conditions.TIMED_BATTLE,
 
     addAction: (playerId, action) ->
       # Record the last action for use
-      @lastActionTimes[playerId] = (new Date).getTime()
+      @lastActionTimes[playerId] = Date.now()
 
     undoCompletedRequest: (playerId) ->
       delete @lastActionTimes[playerId]
@@ -179,6 +190,7 @@ createCondition Conditions.TIMED_BATTLE,
     DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
     TIMER_PER_TURN_INCREASE: 20 * 1000  # twenty seconds
     TIMER_CAP: 5 * 60 * 1000  # five minutes
+    TEAM_PREVIEW_TIMER: 1.5 * 60 * 1000  # 1 minute and 30 seconds
 
     startTimer: (msecs) ->
       msecs ?= @DEFAULT_TIMER
@@ -237,9 +249,12 @@ createCondition Conditions.TEAM_PREVIEW,
       @tell(Protocol.TEAM_PREVIEW)
 
     start: ->
-      for playerId in @playerIds
+      @arranging = false
+      arrangements = @getArrangements()
+      @tell(Protocol.REARRANGE_TEAMS, arrangements...)
+      for playerId, i in @playerIds
         team = @getTeam(playerId)
-        team.arrange(@arranged[playerId])
+        team.arrange(arrangements[i])
 
   extendFacade:
     arrangeTeam: (playerId, arrangement) ->
@@ -252,19 +267,17 @@ createCondition Conditions.TEAM_PREVIEW,
         return false  if isNaN(index)
         return false  if !team.pokemon[index]
         return false  if arrangement.indexOf(index, i + 1) != -1
-      if @battle.arrangeTeam(playerId, arrangement)
-        @arranging = false
-        @battle.tell(Protocol.REARRANGE_TEAMS, @battle.getArrangements()...)
-        @battle.startBattle()
-        @battle.sendUpdates()
+      @battle.arrangeTeam(playerId, arrangement)
+      @battle.sendUpdates()
       return true
 
   extend:
     arrangeTeam: (playerId, arrangement) ->
-      return true  if !@arranging
+      return false  unless @arranging
       @arranged[playerId] = arrangement
-      return _.difference(@playerIds, Object.keys(@arranged)).length == 0
+      if _.difference(@playerIds, Object.keys(@arranged)).length == 0
+        @startBattle()
 
     getArrangements: ->
       for playerId in @playerIds
-        @arranged[playerId] || [0...@getTeam(playerId).length]
+        @arranged[playerId] || [0...@getTeam(playerId).size()]
