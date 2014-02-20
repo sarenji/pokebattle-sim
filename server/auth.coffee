@@ -9,9 +9,10 @@ request = request.defaults(json: true, headers: authHeaders)
 config = require './config'
 db = require './database'
 
-USERS_KEY = "users"
+USER_KEY = "users"
 AUTH_KEY = "auth"
 BANS_KEY = "bans"
+MUTE_KEY = "mute"
 
 # This middleware checks if a user is authenticated through the site. If yes,
 # then information about the user is stored in req.user. In addition, we store
@@ -27,14 +28,14 @@ exports.middleware = -> (req, res, next) ->
     req.user = _.clone(body)
     hmac = crypto.createHmac('sha256', config.SECRET_KEY)
     req.user.token = hmac.update("#{req.user.id}").digest('hex')
-    db.hset(USERS_KEY, body.id, JSON.stringify(body), next)
+    db.hset(USER_KEY, body.id, JSON.stringify(body), next)
 
 # If the id and token match, the associated user object is returned.
 exports.matchToken = (id, token, next) ->
   hmac = crypto.createHmac('sha256', config.SECRET_KEY)
   if hmac.update("#{id}").digest('hex') != token
     return next(new Error("Invalid session!"))
-  db.hget USERS_KEY, id, (err, jsonString) ->
+  db.hget USER_KEY, id, (err, jsonString) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
     return next(new Error("Invalid session!"))  if !json
@@ -93,6 +94,7 @@ exports.setAuth = (id, newAuthLevel, next) ->
     next(new Error("Incorrect auth level: #{newAuthLevel}"))
   db.hset(AUTH_KEY, id, newAuthLevel, next)
 
+# Ban
 # Length is in seconds.
 exports.ban = (username, reason, length, next) ->
   username = username.toLowerCase()
@@ -113,6 +115,31 @@ exports.getBanReason = (username, next) ->
 exports.getBanTTL = (username, next) ->
   username = username.toLowerCase()
   key = "#{BANS_KEY}:#{username}"
+  db.exists key, (err, result) ->
+    if !result
+      # In older versions of Redis, TTL returns -1 if key doesn't exist.
+      return next(null, -2)
+    else
+      db.ttl(key, next)
+
+# Mute
+# Length is in seconds.
+exports.mute = (username, reason, length, next) ->
+  username = username.toLowerCase()
+  key = "#{MUTE_KEY}:#{username}"
+  if length > 0
+    db.setex(key, length, reason, next)
+  else
+    db.set(key, reason, next)
+
+exports.unmute = (username, next) ->
+  username = username.toLowerCase()
+  key = "#{MUTE_KEY}:#{username}"
+  db.del(key, next)
+
+exports.getMuteTTL = (username, next) ->
+  username = username.toLowerCase()
+  key = "#{MUTE_KEY}:#{username}"
   db.exists key, (err, result) ->
     if !result
       # In older versions of Redis, TTL returns -1 if key doesn't exist.

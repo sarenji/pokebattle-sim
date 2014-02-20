@@ -54,8 +54,7 @@ db = require('./database')
               user.close()
               return
           else
-            lobby.setAuthority(user, json.authority)
-            console.log(user.authority, user.toJSON())
+            server.setAuthority(user, json.authority)
             user.send('login success')
             numConnections = lobby.addUser(user)
             connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
@@ -73,7 +72,7 @@ db = require('./database')
         args = args.join(' ').split(/,/g)
         commands.executeCommand(server, user, lobby, command, args...)
       else
-        lobby.userMessage(user, message)
+        server.userMessage(lobby, user, message)
 
     'send battle chat': (user, battleId, message) ->
       return  unless message?.replace(/\s+/, '').length > 0

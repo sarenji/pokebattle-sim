@@ -74,18 +74,30 @@ makeCommand "battles", (user, room, next, username) ->
   next(null, battleIds)
 
 desc "Mutes a username for 10 minutes. The reason is optional. Usage: /mute username [reason]"
-makeModCommand "mute", (user, room, next, username, reason) ->
+makeModCommand "mute", (user, room, next, username, reason...) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /mute username [reason]")
     return next()
-  else if !room.has(username)
-    user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
-    return next()
-  room.mute(username, 10)
-  message = "#{@id} muted #{username} for 10 minutes"
-  message += " (#{reason})"  if reason
+  @mute(username, reason.join(','), 10 * 60)
+  message = "#{user.id} muted #{username} for 10 minutes"
+  message += " (#{reason.join(',')})"  if reason.length > 0
   room.message(message)
   next()
+
+desc "Unmutes a username. Usage: /unmute username"
+makeModCommand "unmute", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /unmute username")
+    return next()
+  auth.getMuteTTL username, (err, ttl) =>
+    if ttl == -2
+      user.error(errors.COMMAND_ERROR, "#{username} is already unmuted!")
+      return next()
+    else
+      @unmute(username)
+      message = "#{user.id} unmuted #{username}"
+      room.message(message)
+      next()
 
 desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username [reason]"
 makeModCommand "kick", (user, room, next, username, reason...) ->
@@ -95,7 +107,7 @@ makeModCommand "kick", (user, room, next, username, reason...) ->
   else if !room.has(username)
     user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
     return next()
-  room.ban(username, reason.join(','), 3 * 60)
+  @ban(username, reason.join(','), 3 * 60)
   message = "#{user.id} kicked #{username} for 3 minutes"
   message += " (#{reason.join(',')})"  if reason.length > 0
   room.message(message)
@@ -106,7 +118,7 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /ban username, [reason]")
     return next()
-  room.ban(username, reason)
+  @ban(username, reason)
   message = "#{user.id} banned #{username}"
   message += " (#{reason.join(',')})"  if reason.length > 0
   room.message(message)
@@ -117,12 +129,12 @@ makeModCommand "unban", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /unban username")
     return next()
-  auth.getBanTTL username, (err, ttl) ->
+  auth.getBanTTL username, (err, ttl) =>
     if ttl == -2
       user.error(errors.COMMAND_ERROR, "#{username} is already unbanned!")
       return next()
     else
-      room.unban username, ->
+      @unban username, =>
         message = "#{user.id} unbanned #{username}"
         room.message(message)
         return next()
@@ -132,9 +144,9 @@ makeOwnerCommand "mod", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /mod username")
     return next()
-  auth.setAuth username, auth.levels.MOD, (err, result) ->
+  auth.setAuth username, auth.levels.MOD, (err, result) =>
     if err then return next(err)
-    room.setAuthority(username, auth.levels.MOD)
+    @setAuthority(username, auth.levels.MOD)
     return next(null, result)
 
 desc "Admins a username permanently. Usage: /admin username"
@@ -142,9 +154,9 @@ makeOwnerCommand "admin", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /admin username")
     return next()
-  auth.setAuth username, auth.levels.ADMIN, (err, result) ->
+  auth.setAuth username, auth.levels.ADMIN, (err, result) =>
     if err then return next(err)
-    room.setAuthority(username, auth.levels.ADMIN)
+    @setAuthority(username, auth.levels.ADMIN)
     return next(null, result)
 
 desc "Deauthes a username permanently. Usage: /deauth username"
@@ -152,9 +164,9 @@ makeOwnerCommand "deauth", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /deauth username")
     return next()
-  auth.setAuth username, auth.levels.USER, (err, result) ->
+  auth.setAuth username, auth.levels.USER, (err, result) =>
     if err then return next(err)
-    room.setAuthority(username, auth.levels.USER)
+    @setAuthority(username, auth.levels.USER)
     return next(null, result)
 
 desc "Changes the topic message. Usage: /topic message"

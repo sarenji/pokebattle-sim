@@ -1,7 +1,5 @@
-{User} = require('./user')
 {SocketHash} = require('./socket_hash')
 db = require('./database')
-auth = require('./auth')
 errors = require('../shared/errors')
 
 class @Room
@@ -27,13 +25,6 @@ class @Room
   send: ->
     @users.broadcast.apply(@users, arguments)
 
-  setAuthority: (user, newAuthority) ->
-    if user instanceof User
-      user.authority = newAuthority
-    else
-      for user in @users.get(user)
-        user.authority = newAuthority
-
   # Set the room's topic. Does not work for battle rooms.
   # TODO: Or rather, it shouldn't work for battle rooms. Once a distinction is
   # possible, block it for battle rooms
@@ -43,15 +34,6 @@ class @Room
 
   has: (id) ->
     @users.contains(id)
-
-  # A length of -1 denotes a permanent ban.
-  ban: (username, reason, length = -1) ->
-    auth.ban(username, reason, length)
-    @users.error(username, errors.BANNED, reason, length)
-    @users.close(username)
-
-  unban: (username, next) ->
-    auth.unban(username, next)
 
   userJSON: ->
     @users.toJSON()

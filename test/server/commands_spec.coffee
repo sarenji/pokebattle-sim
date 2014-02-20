@@ -20,6 +20,8 @@ describe "Commands", ->
     @room.addUser(@user2)
     @emptyRoom = new Room()
     @server = new BattleServer()
+    @server.join(@user1)
+    @server.join(@user2)
 
   afterEach (done) ->
     db.flushdb(done)
@@ -234,12 +236,79 @@ describe "Commands", ->
           done()
 
       it "unbans a user even if user isn't on yet", (done) ->
-        mock1 = @sandbox.mock(@user1).expects('error').never()
+        mock = @sandbox.mock(@user1).expects('error').never()
         @user1.authority = auth.levels.MOD
         commands.executeCommand @server, @user1, @room, "ban", @offline.id, =>
           commands.executeCommand @server, @user1, @room, "unban", @offline.id, =>
-            mock1.verify()
+            mock.verify()
             auth.getBanTTL @user2.id, (err, ttl) ->
+              should.exist(ttl)
+              ttl.should.equal(-2)
+              done()
+
+    describe "mute", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "mutes a user if mod", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, =>
+          mock.verify()
+          auth.getMuteTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(10 * 60)
+            done()
+
+      it "mutes a user even if user isn't on yet", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @offline.id, =>
+          mock.verify()
+          auth.getMuteTTL @offline.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(10 * 60)
+            done()
+
+    describe "unmute", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "unmute", @user2.id, =>
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "unmutes a user if mod", (done) ->
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, =>
+            commands.executeCommand @server, @user1, @room, "unmute", @user2.id, =>
+              auth.getMuteTTL @user2.id, (err, ttl) ->
+                should.exist(ttl)
+                ttl.should.equal(-2)
+                done()
+
+      it "returns an error if user is not muted", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "unmute", @user2.id, =>
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "unmutes a user even if user isn't on yet", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @offline.id, =>
+          commands.executeCommand @server, @user1, @room, "unmute", @offline.id, =>
+            mock1.verify()
+            auth.getMuteTTL @user2.id, (err, ttl) ->
               should.exist(ttl)
               ttl.should.equal(-2)
               done()

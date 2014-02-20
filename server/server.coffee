@@ -1,9 +1,11 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
 
+{User} = require('./user')
 {BattleQueue} = require './queue'
 {SocketHash} = require './socket_hash'
 gen = require './generations'
+auth = require('./auth')
 learnsets = require '../shared/learnsets'
 {Conditions} = require '../shared/conditions'
 pbv = require '../shared/pokebattle_values'
@@ -194,6 +196,35 @@ class @BattleServer
 
   removeUserBattle: (userId, battleId) ->
     delete @userBattles[userId][battleId]
+
+  # A length of -1 denotes a permanent ban.
+  ban: (username, reason, length = -1) ->
+    auth.ban(username, reason, length)
+    @users.error(username, errors.BANNED, reason, length)
+    @users.close(username)
+
+  unban: (username, next) ->
+    auth.unban(username, next)
+
+  mute: (username, reason, length) ->
+    auth.mute(username, reason, length)
+
+  unmute: (username) ->
+    auth.unmute(username)
+
+  userMessage: (room, user, message) ->
+    auth.getMuteTTL user.id, (err, ttl) ->
+      if ttl == -2
+        room.userMessage(user, message)
+      else
+        # is muted
+
+  setAuthority: (user, newAuthority) ->
+    if user instanceof User
+      user.authority = newAuthority
+    else
+      for user in @users.get(user)
+        user.authority = newAuthority
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
