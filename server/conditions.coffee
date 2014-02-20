@@ -131,8 +131,12 @@ createCondition Conditions.RATED_BATTLE,
       ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
         ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
           return @message "An error occurred updating rankings :("  if err
-          @message "#{winnerId}: #{oldRatings[0]} -> #{result[0].rating}"
-          @message "#{loserId}: #{oldRatings[1]} -> #{result[1].rating}"
+          oldRating = Math.floor(oldRatings[0])
+          newRating = Math.floor(result[0].rating)
+          @message "#{winnerId}'s rating: #{oldRating} -> #{newRating}"
+          oldRating = Math.floor(oldRatings[1])
+          newRating = Math.floor(result[1].rating)
+          @message "#{loserId}: #{oldRating} -> #{newRating}"
           @emit('ratingsUpdated')
           @sendUpdates()
 
