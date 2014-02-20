@@ -135,10 +135,12 @@ db = require('./database')
       # TODO: Order by age
       # NOTE: Cache this? Even something like a 5 second expiration
       # may improve server performance greatly
+      currentTime = Date.now()
       battleMetadata = ([
           controller.battle.id,
           controller.battle.playerIds[0],
-          controller.battle.playerIds[1]
+          controller.battle.playerIds[1],
+          currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
 

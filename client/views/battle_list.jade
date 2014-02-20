@@ -1,5 +1,5 @@
 .battle-list
-  h2 Battle List V2 (Do not submit reports for this feature yet, we know its incomplete)
+  h2 Battle List
 
   .battle-list-collection
     each battle in battles
@@ -10,5 +10,5 @@
             span.vs VS
             span.player= battle[2]
           .right
-            span.fake_link Watch Battle
+            span.fake_link.elapsed-time(data-time-start=Date.now() - battle[3])
 

@@ -104,6 +104,9 @@ class @Battle extends EventEmitter
     @once 'end', (winnerId) ->
       @finished = true
 
+    # Store when the battle was created
+    @createdAt = Date.now()
+
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
     for playerId in @playerIds

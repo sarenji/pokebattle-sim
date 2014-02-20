@@ -10,7 +10,7 @@ class @BattleListView extends Backbone.View
     # wait for refresh complete. It will be fired by concerns/battle_list.coffee
 
   refreshListComplete: (battles) =>
-    @battles = battles
+    @battles = _(battles).sortBy((battle) => battle[3])
     @render()
 
   render: =>

@@ -676,17 +676,11 @@ class @BattleView extends Backbone.View
 
   changeTimer: ($timer, timeRemaining) =>
     timeRemaining = 0  if timeRemaining < 0
-    $timer.text @humanizeTime(timeRemaining)
+    $timer.text PokeBattle.humanizeTime(timeRemaining)
     if timeRemaining <= 1 * 60 * 1000
       $timer.addClass("battle-timer-low")
     else
       $timer.removeClass("battle-timer-low")
-
-  humanizeTime: (unixTime) =>
-    seconds = Math.floor(unixTime / 1000) % 60
-    minutes = Math.floor(unixTime / 1000 / 60)
-    seconds = String(seconds)
-    return minutes + ":" + "00".substr(seconds.length) + seconds
 
   announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
