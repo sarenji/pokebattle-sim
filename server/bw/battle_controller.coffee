@@ -66,6 +66,10 @@ class @BattleController
     for spectator in @battle.spectators
       spectator.send('update battle chat', @battle.id, user.id, message)
 
+  rawMessage: (message) ->
+    for spectator in @battle.spectators
+      spectator.send('raw battle message', @battle.id, message)
+
   # Continue or begin a new turn if each player has made an action.
   transitionToNextState: ->
     return  if not @battle.areAllRequestsCompleted()

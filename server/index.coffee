@@ -36,6 +36,7 @@ db = require('./database')
   app.get("/battles/:id", renderHomepage)
 
   lobby = new Room("Lobby")
+  server.rooms.push(lobby)
 
   # Start responding to websocket clients
   connections = new ConnectionServer(httpServer, lobby, prefix: '/socket')

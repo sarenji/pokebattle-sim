@@ -58,6 +58,10 @@ PokeBattle.socket.addEvents
     chatView = PokeBattle.battles.get(battleId).view.chatView
     chatView.userMessage(username, data)
 
+  'raw battle message': (socket, battleId, message) ->
+    chatView = PokeBattle.battles.get(battleId).view.chatView
+    chatView.updateChat(message)
+
   'raw message': (socket, message) ->
     PokeBattle.chatView.updateChat(message)
 

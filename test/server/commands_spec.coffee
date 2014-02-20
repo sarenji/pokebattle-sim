@@ -20,6 +20,7 @@ describe "Commands", ->
     @room.addUser(@user2)
     @emptyRoom = new Room()
     @server = new BattleServer()
+    @server.rooms.push(@room)
     @server.join(@user1)
     @server.join(@user2)
 
@@ -323,8 +324,8 @@ describe "Commands", ->
           done()
 
       it "returns all battles that user is in if user is passed", (done) ->
-        @server.queuePlayer(@user1, [ Factory("Magikarp") ])
-        @server.queuePlayer(@user2, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
         @server.queuePlayer("aardvark", [ Factory("Magikarp") ])
         @server.queuePlayer("bologna", [ Factory("Magikarp") ])
         @server.beginBattles (err, battleIds) =>
@@ -348,6 +349,28 @@ describe "Commands", ->
         commands.executeCommand @server, @user1, @room, "topic", topicName, ->
           mock.verify()
           done()
+
+    describe "wall", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        commands.executeCommand @server, @user1, @room, "wall", "hi", ->
+          mock1.verify()
+          done()
+
+      it "messages all rooms and all battles", (done) ->
+        mock = @sandbox.mock(@room).expects('message').once()
+        spy1 = @sandbox.spy(@user1, 'send')
+        spy2 = @sandbox.spy(@user2, 'send')
+        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
+        @server.beginBattles (err, battleIds) =>
+          if err then throw err
+          @user1.authority = auth.levels.ADMIN
+          commands.executeCommand @server, @user1, @room, "wall", "derper", =>
+            mock.verify()
+            spy1.calledWithMatch("raw battle message", battleIds[0], "derper").should.be.true
+            spy2.calledWithMatch("raw battle message", battleIds[0], "derper").should.be.true
+            done()
 
     describe "help", ->
       it "messages all available commands to that user", (done) ->

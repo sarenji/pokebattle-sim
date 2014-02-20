@@ -174,6 +174,13 @@ makeAdminCommand "topic", (user, room, next, topicPieces...) ->
   room.setTopic(topicPieces.join(','))
   next()
 
+desc "Announces something to the entire server. Usage: /wall message"
+makeAdminCommand "wall", (user, room, next, pieces...) ->
+  message = pieces.join(',')
+  return next()  if !message
+  @announce(user.id, message)
+  next()
+
 desc "Displays all commands available. Usage: /help"
 makeCommand "help", (user, room, next, commandName) ->
   message = []

@@ -41,6 +41,8 @@ class @BattleServer
     # A hash mapping ids to users
     @users = new SocketHash()
 
+    @rooms = []
+
   join: (player) ->
     @users.add(player)
     for battleId of @userBattles[player.id]
@@ -211,6 +213,14 @@ class @BattleServer
 
   unmute: (username) ->
     auth.unmute(username)
+
+  announce: (username, message) ->
+    rawMessage = """<div class="alert alert-warning">
+        <strong>#{username}:</strong> #{message}</div>"""
+    for room in @rooms
+      room.message(rawMessage)
+    for battleId, battle of @battles
+      battle.rawMessage(rawMessage)
 
   userMessage: (room, user, message) ->
     auth.getMuteTTL user.id, (err, ttl) ->
