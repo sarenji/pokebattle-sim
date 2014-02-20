@@ -45,15 +45,25 @@ db = require('./database')
       auth.matchToken id, token, (err, json) ->
         if err then return user.error(errors.INVALID_SESSION)
         user.id = json.username
-        user.setAuthority(json.authority)
-        user.send('login success')
-        numConnections = lobby.addUser(user)
-        connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
-        user.send('list chatroom', lobby.userJSON())
-        server.join(user)
+        auth.getBanTTL user.id, (err, ttl) ->
+          if err
+            return user.error(errors.INVALID_SESSION)
+          else if ttl != -2  # -2 means the ban does not exist
+            auth.getBanReason user.id, (err, reason) ->
+              user.error(errors.BANNED, reason, Number(ttl))
+              user.close()
+              return
+          else
+            lobby.setAuthority(user, json.authority)
+            console.log(user.authority, user.toJSON())
+            user.send('login success')
+            numConnections = lobby.addUser(user)
+            connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
+            user.send('list chatroom', lobby.userJSON())
+            server.join(user)
 
-        db.hget "topic", "main", (err, topic) ->
-          user.send('topic', topic)  if topic
+            db.hget "topic", "main", (err, topic) ->
+              user.send('topic', topic)  if topic
 
     'send chat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0

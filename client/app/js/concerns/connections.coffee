@@ -1,8 +1,14 @@
 $body = $("body")
 reconnectId = null
+shouldReconnect = true
+
+PokeBattle.cancelReconnection = ->
+  clearTimeout(reconnectId)
+  shouldReconnect = false
 
 PokeBattle.socket.addEvents
   'close': (socket) ->
+    return  if !shouldReconnect
     $popup = $('<div class="reconnect"/>')
       .addClass('popup-absolute')
       .hide()
@@ -18,6 +24,10 @@ PokeBattle.socket.addEvents
     reconnectTimer($popup)
 
 reconnectTimer = ($popup) ->
+  if !shouldReconnect
+    $popup.remove()
+    clearTimeout(reconnectId)
+    return
   seconds = $body.data('seconds') ? 1
   if seconds == 0
     $popup.find('.reconnect-text').text("Reconnecting...")

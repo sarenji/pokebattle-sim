@@ -8,6 +8,7 @@ auth = require('../../server/auth')
 {Room} = require('../../server/rooms')
 ratings = require('../../server/ratings')
 {Factory} = require '../factory'
+db = require('../../server/database')
 
 describe "Commands", ->
   beforeEach ->
@@ -19,6 +20,9 @@ describe "Commands", ->
     @room.addUser(@user2)
     @emptyRoom = new Room()
     @server = new BattleServer()
+
+  afterEach (done) ->
+    db.flushdb(done)
 
   describe "#executeCommand", ->
     describe "an invalid command", ->
@@ -170,6 +174,75 @@ describe "Commands", ->
           auth.getAuth @offline.id, (err, result) ->
             result.should.equal(auth.levels.USER)
             done()
+
+    describe "ban", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "bans a user if mod", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').never()
+        mock2 = @sandbox.mock(@user2).expects('close').once()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, =>
+          mock1.verify()
+          mock2.verify()
+          auth.getBanTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(-1)
+            done()
+
+      it "bans a user even if user isn't on yet", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @offline.id, =>
+          mock1.verify()
+          auth.getBanTTL @offline.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(-1)
+            done()
+
+    describe "unban", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "unban", @user2.id, =>
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "unbans a user if mod", (done) ->
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, =>
+            commands.executeCommand @server, @user1, @room, "unban", @user2.id, =>
+              auth.getBanTTL @user2.id, (err, ttl) ->
+                should.exist(ttl)
+                ttl.should.equal(-2)
+                done()
+
+      it "returns an error if user is not banned", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "unban", @user2.id, =>
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "unbans a user even if user isn't on yet", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @offline.id, =>
+          commands.executeCommand @server, @user1, @room, "unban", @offline.id, =>
+            mock1.verify()
+            auth.getBanTTL @user2.id, (err, ttl) ->
+              should.exist(ttl)
+              ttl.should.equal(-2)
+              done()
 
     describe "battles", ->
       it "returns an error if no user is passed", (done) ->

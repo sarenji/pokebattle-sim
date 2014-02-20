@@ -14,11 +14,12 @@ describe "A server room:", ->
   describe "#removeUser", ->
     it "returns the number of remaining connections with that id", ->
       room = new Room()
-      room.addUser(new User("derp"))
-      room.addUser(new User("derp"))
-      room.removeUser(new User("derp")).should.equal(1)
-      room.removeUser(new User("derp")).should.equal(0)
-      room.removeUser(new User("derp")).should.equal(0)
+      room.addUser(user1 = new User("derp"))
+      room.addUser(user2 = new User("derp"))
+      room.removeUser(user1).should.equal(1)
+      room.removeUser(user1).should.equal(1)
+      room.removeUser(user2).should.equal(0)
+      room.removeUser(user2).should.equal(0)
 
   describe "#message", ->
     it "sends a message to all users in that room", ->

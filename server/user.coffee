@@ -14,10 +14,6 @@ class @User
     json['authority'] = @authority  if @authority
     json
 
-  setAuthority: (newAuthority) ->
-    @authority = newAuthority
-    @send("auth change", @id)
-
   send: (type, data...) ->
     @socket?.write(JSON.stringify(messageType: type, data: data))
 

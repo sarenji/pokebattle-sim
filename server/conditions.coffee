@@ -214,7 +214,7 @@ createCondition Conditions.TIMED_BATTLE,
 
     timeRemainingFor: (playerId) ->
       endTime = @endTimeFor(playerId)
-      nowTime = @lastActionTimes[playerId] || (+new Date)
+      nowTime = @lastActionTimes[playerId] || Date.now()
       return endTime - nowTime
 
     endTimeFor: (playerId) ->

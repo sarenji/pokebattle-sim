@@ -11,6 +11,7 @@ db = require './database'
 
 USERS_KEY = "users"
 AUTH_KEY = "auth"
+BANS_KEY = "bans"
 
 # This middleware checks if a user is authenticated through the site. If yes,
 # then information about the user is stored in req.user. In addition, we store
@@ -80,12 +81,41 @@ exports.levels =
 LEVEL_VALUES = (value  for key, value of exports.levels)
 
 exports.getAuth = (id, next) ->
+  id = id.toLowerCase()
   db.hget AUTH_KEY, id, (err, auth) ->
     if err then return next(err)
     auth = parseInt(auth, 10) || exports.levels.USER
     next(null, auth)
 
 exports.setAuth = (id, newAuthLevel, next) ->
+  id = id.toLowerCase()
   if newAuthLevel not in LEVEL_VALUES
     next(new Error("Incorrect auth level: #{newAuthLevel}"))
   db.hset(AUTH_KEY, id, newAuthLevel, next)
+
+# Length is in seconds.
+exports.ban = (username, reason, length, next) ->
+  username = username.toLowerCase()
+  key = "#{BANS_KEY}:#{username}"
+  if length > 0
+    db.setex(key, length, reason, next)
+  else
+    db.set(key, reason, next)
+
+exports.unban = (username, next) ->
+  username = username.toLowerCase()
+  db.del("#{BANS_KEY}:#{username}", next)
+
+exports.getBanReason = (username, next) ->
+  username = username.toLowerCase()
+  db.get("#{BANS_KEY}:#{username}", next)
+
+exports.getBanTTL = (username, next) ->
+  username = username.toLowerCase()
+  key = "#{BANS_KEY}:#{username}"
+  db.exists key, (err, result) ->
+    if !result
+      # In older versions of Redis, TTL returns -1 if key doesn't exist.
+      return next(null, -2)
+    else
+      db.ttl(key, next)
