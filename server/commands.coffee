@@ -16,24 +16,23 @@ parseArguments = (args) ->
   hash.args = args
   hash
 
-makeCommand = (commandNames, func) ->
-  commandNames = [ commandNames ]  if commandName not instanceof Array
+makeCommand = (commandNames..., func) ->
   HelpDescriptions[commandNames[0]] = desc.lastDescription || ""
   for commandName in commandNames
     Commands[commandName] = func
   delete desc.lastDescription
 
-makeModCommand = (commandNames, func) ->
+makeModCommand = (commandNames..., func) ->
   func.authority = auth.levels.MOD
-  makeCommand(commandNames, func)
+  makeCommand(commandNames..., func)
 
-makeAdminCommand = (commandNames, func) ->
+makeAdminCommand = (commandNames..., func) ->
   func.authority = auth.levels.ADMIN
-  makeCommand(commandNames, func)
+  makeCommand(commandNames..., func)
 
-makeOwnerCommand = (commandNames, func) ->
+makeOwnerCommand = (commandNames..., func) ->
   func.authority = auth.levels.OWNER
-  makeCommand(commandNames, func)
+  makeCommand(commandNames..., func)
 
 @executeCommand = (server, user, room, commandName, args...) ->
   {args, callback} = parseArguments(args)
@@ -54,7 +53,7 @@ makeOwnerCommand = (commandNames, func) ->
 #######################
 
 desc "Gets a single username's rating on this server. Usage: /rating username"
-makeCommand "rating", (user, room, next, username) ->
+makeCommand "rating", "ranking", (user, room, next, username) ->
   username ||= user.id
   ratings.getRating username, (err, rating) ->
     if err then return user.error(errors.COMMAND_ERROR, err.message)
@@ -175,7 +174,7 @@ makeAdminCommand "topic", (user, room, next, topicPieces...) ->
   next()
 
 desc "Announces something to the entire server. Usage: /wall message"
-makeAdminCommand "wall", (user, room, next, pieces...) ->
+makeAdminCommand "wall", "announce", (user, room, next, pieces...) ->
   message = pieces.join(',')
   return next()  if !message
   @announce(user.id, message)
