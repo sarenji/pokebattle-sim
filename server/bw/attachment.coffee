@@ -295,7 +295,7 @@ class @Attachment.Encore extends @VolatileAttachment
   name: "EncoreAttachment"
 
   initialize: ->
-    @turns = 3
+    @turns = 4
     @turn = 0
     @move = @pokemon.lastMove
 

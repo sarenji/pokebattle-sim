@@ -1991,13 +1991,14 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       @p2.lastMove.should.equal @battle.getMove('Splash')
 
-    it "lasts 3 turns", ->
+    it "lasts 4 turns", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove('Splash'))
       @battle.performMove(@p1, @battle.getMove('Encore'))
 
       @p2.has(Attachment.Encore).should.be.true
 
+      @battle.endTurn()
       @battle.endTurn()
       @battle.endTurn()
       @battle.endTurn()
