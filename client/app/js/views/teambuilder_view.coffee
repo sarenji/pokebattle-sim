@@ -304,8 +304,11 @@ class @TeambuilderView extends Backbone.View
   blurMoves: (e) =>
     $input = $(e.currentTarget)
     if @_preventBlur
+      $view = @getPokemonView()
+      previousScrollPosition = $view.scrollTop()
       $input.focus()
       e.preventDefault()
+      $view.scrollTop(previousScrollPosition) # prevent scroll from refocus
       return
 
     $selectedMove = @$selectedMove()
