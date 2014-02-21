@@ -2,6 +2,8 @@
   h2 Battle List
 
   .battle-list-collection
+    if battles.length == 0
+      p.empty There are no active battles happening at this time.
     each battle in battles
       .battle-list-item-wrapper
         .battle-list-item.spectate.clearfix(data-battle-id=battle[0])
@@ -11,4 +13,3 @@
             span.player= battle[2]
           .right
             span.fake_link.elapsed-time(data-time-start=Date.now() - battle[3])
-
