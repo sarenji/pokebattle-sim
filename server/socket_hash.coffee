@@ -52,6 +52,12 @@ class @SocketHash
     socketId = socketId.toLowerCase()
     return @sockets[socketId] || []
 
+  values: ->
+    sockets = []
+    for id, array of @sockets
+      sockets.push(array...)
+    sockets
+
   close: (id) ->
     id = id.toLowerCase()
     for socket in @get(id)

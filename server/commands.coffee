@@ -123,7 +123,7 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
   room.message(message)
   next()
 
-desc "Unbans a username.Usage: /unban username"
+desc "Unbans a username. Usage: /unban username"
 makeModCommand "unban", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /unban username")
@@ -137,6 +137,14 @@ makeModCommand "unban", (user, room, next, username) ->
         message = "#{user.id} unbanned #{username}"
         room.message(message)
         return next()
+
+desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
+makeOwnerCommand "lockdown", (user, room, next, option = "on") ->
+  if option not in [ "on", "off" ]
+    user.error(errors.COMMAND_ERROR, "Usage: /lockdown [on|off]")
+    return next()
+  if option == 'on' then @lockdown() else @unlockdown()
+  next()
 
 desc "Mods a username permanently. Usage: /mod username"
 makeOwnerCommand "mod", (user, room, next, username) ->
@@ -177,7 +185,7 @@ desc "Announces something to the entire server. Usage: /wall message"
 makeAdminCommand "wall", "announce", (user, room, next, pieces...) ->
   message = pieces.join(',')
   return next()  if !message
-  @announce(user.id, message)
+  @announce("<strong>#{user.id}:</strong> #{message}")
   next()
 
 desc "Displays all commands available. Usage: /help"

@@ -372,6 +372,27 @@ describe "Commands", ->
             spy2.calledWithMatch("raw battle message", battleIds[0], "derper").should.be.true
             done()
 
+    describe "lockdown", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').once()
+        commands.executeCommand @server, @user1, @room, "lockdown", ->
+          mock.verify()
+          done()
+
+      it "stops battles from occuring", (done) ->
+        mock = @sandbox.mock(@server).expects('lockdown').once()
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "lockdown", ->
+          mock.verify()
+          done()
+
+      it "can start them again", (done) ->
+        mock = @sandbox.mock(@server).expects('unlockdown').once()
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "lockdown", "off", ->
+          mock.verify()
+          done()
+
     describe "help", ->
       it "messages all available commands to that user", (done) ->
         mock1 = @sandbox.mock(@user1).expects('message').once()

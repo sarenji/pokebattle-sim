@@ -212,6 +212,22 @@ describe 'BattleServer', ->
       spy.withArgs(challengeeId, 'challenge', user.id,
         generation, conditions).calledOnce.should.be.true
 
+    it "returns an error if the server is locked down", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      generation = 'xy'
+      team = [ Factory("Magikarp") ]
+      conditions = [ Conditions.PBV_1000 ]
+
+      server.join(user)
+      server.join(other)
+      mock = @sandbox.mock(user).expects('error').once()
+      server.lockdown()
+      server.registerChallenge(user, other.id, generation, team, conditions)
+      mock.verify()
+
   describe "#cancelChallenge", ->
     it "sends a 'cancel challenge' to both the challengee and challenger", ->
       server = new BattleServer()
@@ -443,6 +459,24 @@ describe 'BattleServer', ->
       should.exist server.challenges[other.id]
       should.not.exist server.challenges[other.id][user.id]
 
+  describe "#lockdown", ->
+    it "cancels all challenges", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      challengeeId = other.id
+      challengerId = user.id
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      conditions = []
+
+      server.join(user)
+      server.join(other)
+      server.registerChallenge(other, user.id, generation, team, conditions)
+      should.exist server.challenges[challengeeId]
+      should.exist server.challenges[challengeeId][challengerId]
+      server.lockdown()
+      should.not.exist server.challenges[challengeeId]
 
   describe "#validateTeam", ->
     it "returns non-empty if given anything that's not an array", ->
@@ -598,7 +632,7 @@ describe 'BattleServer', ->
     it "returns non-empty if a pokemon cannot have its forme"
 
   describe "users", ->
-    it "are recorded to be playing in which battles", ->
+    it "are recorded to be playing in which battles", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
       server.queuePlayer(user1, [ Factory("Magikarp") ])
@@ -608,8 +642,9 @@ describe 'BattleServer', ->
         server.getUserBattles(user1).should.eql(battleIds)
         server.getUserBattles(user2).should.eql(battleIds)
         server.getUserBattles(user3).should.be.empty
+        done()
 
-    it "no longer records battles once they end", ->
+    it "no longer records battles once they end", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
       server.queuePlayer(user1, [Factory("Blissey"), Factory("Skarmory")])
@@ -622,6 +657,7 @@ describe 'BattleServer', ->
         server.getUserBattles(user1).should.be.empty
         server.getUserBattles(user2).should.be.empty
         server.getUserBattles(user3).should.be.empty
+        done()
 
   describe "a battle", ->
     beforeEach (done) ->

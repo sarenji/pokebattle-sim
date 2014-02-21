@@ -43,6 +43,9 @@ class @BattleServer
 
     @rooms = []
 
+    # Battles can start.
+    @unlockdown()
+
   join: (player) ->
     @users.add(player)
     for battleId of @userBattles[player.id]
@@ -56,7 +59,11 @@ class @BattleServer
       @stopChallenges(player)
 
   registerChallenge: (player, challengeeId, generation, team, conditions) ->
-    if !@users.contains(challengeeId)
+    if @isLockedDown()
+      errorMessage = "The server is locked. No new battles can start at this time."
+      player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
+      return false
+    else if !@users.contains(challengeeId)
       errorMessage = "This user is offline."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
@@ -132,9 +139,12 @@ class @BattleServer
         @rejectChallenge(player, challengerId)
 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
-    err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-    @queues[generation].add(playerId, team)  if err.length == 0
-    return err
+    if @isLockedDown()
+      return ["The server is locked. No new battles can start at this time."]
+    else
+      err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
+      @queues[generation].add(playerId, team)  if err.length == 0
+      return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()
@@ -214,9 +224,8 @@ class @BattleServer
   unmute: (username) ->
     auth.unmute(username)
 
-  announce: (username, message) ->
-    rawMessage = """<div class="alert alert-warning">
-        <strong>#{username}:</strong> #{message}</div>"""
+  announce: (message) ->
+    rawMessage = """<div class="alert alert-warning">#{message}</div>"""
     for room in @rooms
       room.message(rawMessage)
     for battleId, battle of @battles
@@ -235,6 +244,19 @@ class @BattleServer
     else
       for user in @users.get(user)
         user.authority = newAuthority
+
+  lockdown: ->
+    @canBattlesStart = false
+    for user in @users.values()
+      @stopChallenges(user)
+    @announce("<strong>The server is locked!</strong> No new battles can start at this time.")
+
+  unlockdown: ->
+    @canBattlesStart = true
+    @announce("<strong>The server was unlocked!</strong> You may battle again.")
+
+  isLockedDown: ->
+    !@canBattlesStart
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
