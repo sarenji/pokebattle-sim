@@ -293,7 +293,7 @@ makeItem 'Eject Button', ->
   this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
     return  if !@battle.forceSwitch(@pokemon)
-    @battle.message "#{@pokemon.name} is switched out with the #{@name}!"
+    @battle.message "#{@pokemon.name} is switched out with the Eject Button!"
     @pokemon.useItem()
 
 makeGemItem 'Electric Gem', 'Electric'
@@ -469,7 +469,7 @@ makeItem 'Red Card', ->
     return  if move.isNonDamaging()
     benched  = user.team.getAliveBenchedPokemon()
     return  if benched.length == 0
-    @battle.message "#{@pokemon.name} held up its #{@name} against #{user.name}!"
+    @battle.message "#{@pokemon.name} held up its Red Card against #{user.name}!"
     pokemon = @battle.rng.choice(benched)
     index = user.team.indexOf(pokemon)
     user.team.switch(user, index)
