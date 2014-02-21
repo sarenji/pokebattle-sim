@@ -333,10 +333,18 @@ class @TeambuilderView extends Backbone.View
     @insertMove($input, moveName)
 
   insertMove: ($input, moveName) =>
+    $view = @getPokemonView()
+    currentScrollPosition = $view.scrollTop()
+
     @preventBlurMoves()
     return  if !@buttonify($input, moveName)
     $moves = @getPokemonView().find('.selected_moves')
-    $moves.find('input').first().focus()
+    $firstInput = $moves.find('input').first()
+    if $firstInput.length > 0
+      $firstInput.focus()
+      $view.scrollTop(currentScrollPosition)
+    else
+      $view.scrollTop(0)
     @recordMoves()
 
   recordMoves: =>
