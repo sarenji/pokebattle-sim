@@ -88,6 +88,8 @@ db = require('./database')
       console.log(team) # todo: implement this
 
     'close': (user) ->
+      # Do nothing if this user never logged in.
+      return  if !user.id?
       server.leave(user)
       if lobby.removeUser(user) == 0  # No more connections.
         user.broadcast('leave chatroom', user.id)
