@@ -351,6 +351,20 @@ describe "BW Abilities:", ->
       @battle.performMove(@p1, @battle.getMove("Swords Dance"))
       @p1.forme.should.equal("blade")
 
+    it "doesn't attempt to change forme for Pokemon who aren't Aegislash", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Ditto", ability: "Stance Change")]
+      @battle.performMove(@p1, @battle.getMove("Shadow Sneak"))
+      @p1.forme.should.not.equal("blade")
+
+    it "doesn't attempt to change forme to default for non-Aegislashes", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Rotom", forme: "wash", ability: "Stance Change")]
+      @battle.performMove(@p1, @battle.getMove("King's Shield"))
+      @p1.forme.should.not.equal("default")
+
     it "cannot be skill-swapped"
     it "cannot be replaced with another ability"
 

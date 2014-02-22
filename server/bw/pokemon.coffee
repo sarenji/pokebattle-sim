@@ -71,10 +71,11 @@ class @Pokemon
     @forme == forme
 
   changeForme: (newForme) ->
-    return  if !@getForme(newForme)
+    return false  if !@getForme(newForme)
     @changeSprite(newForme)
     @forme = newForme
     @resetForme()
+    return true
 
   resetForme: ->
     forme      = @getForme() || {}
