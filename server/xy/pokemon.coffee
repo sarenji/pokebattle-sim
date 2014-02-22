@@ -29,3 +29,8 @@ oldShouldBlockExecution = @Pokemon::shouldBlockExecution
     move.fail(@battle)
     return true
   oldShouldBlockExecution.apply(this, arguments)
+
+# In XY, Stance Change is another specially hardcoded ability that cannot change
+oldHasChangeableAbility = @Pokemon::hasChangeableAbility
+@Pokemon::hasChangeableAbility = ->
+  !@hasAbility("Stance Change") && oldHasChangeableAbility.call(this)

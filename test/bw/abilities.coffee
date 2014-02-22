@@ -1393,8 +1393,30 @@ describe "BW Abilities:", ->
     it "changes Arceus forme for different plates"
 
   describe "Mummy", ->
-    it "changes the attacker's ability to Mummy on contact"
-    it "doesn't change ability if move used isn't a contact move"
+    it "changes the attacker's ability to Mummy on contact", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Mummy")]
+      tackle = @battle.getMove("Tackle")
+      @p2.hasAbility("Mummy").should.be.false
+      @battle.performMove(@p2, tackle)
+      @p2.hasAbility("Mummy").should.be.true
+
+    it "doesn't change ability if move used isn't a contact move", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Mummy")]
+      iceBeam = @battle.getMove("Ice Beam")
+      @p2.hasAbility("Mummy").should.be.false
+      @battle.performMove(@p2, iceBeam)
+      @p2.hasAbility("Mummy").should.be.false
+
+    it "doesn't change ability if attacker has Multitype", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Mummy")]
+        team2: [Factory("Magikarp", ability: "Multitype")]
+      tackle = @battle.getMove("Tackle")
+      @p2.hasAbility("Mummy").should.be.false
+      @battle.performMove(@p2, tackle)
+      @p2.hasAbility("Mummy").should.be.false
 
   describe "Natural Cure", ->
     it "cures status upon switch out", ->

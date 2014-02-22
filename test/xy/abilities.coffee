@@ -397,3 +397,14 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Tough Claws")]
       thunderbolt = @battle.getMove('Thunderbolt')
       thunderbolt.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
+  describe "Mummy", ->
+    it "doesn't change ability if attacker has Stance Change", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Mummy")]
+        team2: [Factory("Magikarp", ability: "Stance Change")]
+      tackle = @battle.getMove("Tackle")
+      @p2.hasAbility("Mummy").should.be.false
+      @battle.performMove(@p2, tackle)
+      @p2.hasAbility("Mummy").should.be.false

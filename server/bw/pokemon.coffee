@@ -264,6 +264,9 @@ class @Pokemon
     @ability = ability
     @attach(@ability).switchIn?()  if @ability
 
+  hasChangeableAbility: ->
+    !@hasAbility("Multitype")
+
   setItem: (item) ->
     if @hasItem() then @removeItem()
     @item = item

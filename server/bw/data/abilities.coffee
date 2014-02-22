@@ -593,6 +593,12 @@ makeAbility 'Multiscale', ->
 
 makeAbility 'Multitype'
 
+makeAbility 'Mummy', ->
+  this::afterBeingHit = (move, user) ->
+    if move.hasFlag("contact") && user.hasChangeableAbility()
+      @battle.message("#{user.name}'s Ability became Mummy!")
+      user.copyAbility(@constructor)
+
 makeAbility 'Natural Cure', ->
   this::switchOut = ->
     @pokemon.cureStatus(message: false)
