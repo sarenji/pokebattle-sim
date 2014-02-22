@@ -1194,12 +1194,15 @@ describe "BW Items:", ->
     for effectName in ['Attract','Taunt','Encore','Torment','Disable']
       it "removes the effect of #{effectName} on Pokemon#update", ->
         shared.create.call this,
-          team1: [Factory("Magikarp", item: "Mental Herb")]
+          team1: [Factory("Magikarp", gender: "M", item: "Mental Herb")]
+          team2: [Factory("Magikarp", gender: "F")]
+
+        @battle.performMove(@p1, @battle.getMove("Splash"))
 
         pokemon = @p1
         attachment = Attachment[effectName]
         pokemon.has(attachment).should.be.false
-        pokemon.attach(attachment, turns: 2)
+        pokemon.attach(attachment, source: @p2)
         pokemon.has(attachment).should.be.true
 
         pokemon.update(@battle)
@@ -1208,21 +1211,27 @@ describe "BW Items:", ->
 
     it "disappears after use", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", item: "Mental Herb")]
+        team1: [Factory("Magikarp", gender: "M", item: "Mental Herb")]
+        team2: [Factory("Magikarp", gender: "F")]
+
+      @battle.performMove(@p1, @battle.getMove("Splash"))
 
       pokemon = @p1
-      pokemon.attach(Attachment.Attract)
+      pokemon.attach(Attachment.Attract, source: @p2)
       pokemon.update(@battle)
 
       pokemon.hasItem().should.be.false
 
     it "gets rid of the first highest priority effect", ->
       shared.create.call this,
-        team1: [Factory("Magikarp", item: "Mental Herb")]
+        team1: [Factory("Magikarp", gender: "M", item: "Mental Herb")]
+        team2: [Factory("Magikarp", gender: "F")]
+
+      @battle.performMove(@p1, @battle.getMove("Splash"))
 
       pokemon = @p1
-      pokemon.attach(Attachment.Attract)
-      pokemon.attach(Attachment.Torment)
+      pokemon.attach(Attachment.Attract, source: @p2)
+      pokemon.attach(Attachment.Torment, source: @p2)
       pokemon.update(@battle)
 
       pokemon.has(Attachment.Attract).should.be.false

@@ -4,7 +4,7 @@
 {Pokemon} = require './pokemon'
 {Team} = require './team'
 {Weather} = require '../../shared/weather'
-{Attachment, Attachments} = require './attachment'
+{Attachment, Attachments, Status} = require './attachment'
 {Protocol} = require '../../shared/protocol'
 Query = require './queries'
 {EventEmitter} = require 'events'
@@ -740,6 +740,33 @@ class @Battle extends EventEmitter
 
   getAttachment: (attachmentName) ->
     Attachment[attachmentName]
+
+  getAilmentEffect: (move) ->
+    switch move.ailmentId
+      when "confusion"   then Attachment.Confusion
+      when "paralysis"   then Status.Paralyze
+      when "freeze"      then Status.Freeze
+      when "burn"        then Status.Burn
+      when "sleep"       then Status.Sleep
+      when "poison"      then Status.Poison
+      when "toxic"       then Status.Toxic
+      when "yawn"        then Attachment.Yawn
+      when "infatuation" then Attachment.Attract
+      when "disable"     then Attachment.Disable
+      when "ingrain"     then Attachment.Ingrain
+      when "leech-seed"  then Attachment.LeechSeed
+      when "torment"     then Attachment.Torment
+      when "perish-song" then Attachment.PerishSong
+      when "embargo"     then Attachment.Embargo
+      when "telekinesis" then Attachment.Telekinesis
+      when "nightmare"   then Attachment.Nightmare
+      when "unknown"
+        switch move.name
+          when "Tri Attack"
+            triAttackEffects = [ Status.Paralyze, Status.Burn, Status.Freeze ]
+            @rng.choice(triAttackEffects, "tri attack effect")
+          else throw new Error("Unrecognized unknown ailment for #{move.name}")
+      else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
   addSpectator: (spectator) ->
     return  if spectator in @spectators

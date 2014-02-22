@@ -45,7 +45,7 @@ class @Move
     flagName in @flags
 
   hasPrimaryEffect: ->
-    @primaryBoostStats?
+    @primaryBoostStats? || (@ailmentId != "none" && @ailmentChance == 0)
 
   # A secondary effect also includes flinching.
   hasSecondaryEffect: ->
@@ -265,22 +265,7 @@ class @Move
 
     # Secondary effects
     if @ailmentChance > 0 && battle.rng.randInt(0, 99, "secondary effect") < @ailmentChance * chanceMultiplier
-      klass = switch @ailmentId
-        when "confusion" then Attachment.Confusion
-        when "paralysis" then Status.Paralyze
-        when "freeze"    then Status.Freeze
-        when "burn"      then Status.Burn
-        when "sleep"     then Status.Sleep
-        when "poison"    then Status.Poison
-        when "toxic"     then Status.Toxic
-        when "unknown"
-          switch @name
-            when "Tri Attack"
-              triAttackEffects = [ Status.Paralyze, Status.Burn, Status.Freeze ]
-              battle.rng.choice(triAttackEffects, "tri attack effect")
-            else throw new Error("Unrecognized unknown ailment for #{@name}")
-        else throw new Error("Unrecognized ailment: #{@ailmentId} for #{@name}")
-      target.attach(klass, source: user)
+      target.attach(battle.getAilmentEffect(this), source: user)
 
     # Secondary boosts
     if @secondaryBoostChance > 0 && battle.rng.randInt(0, 99, "secondary boost") < @secondaryBoostChance * chanceMultiplier

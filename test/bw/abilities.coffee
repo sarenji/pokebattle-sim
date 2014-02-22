@@ -517,19 +517,25 @@ describe "BW Abilities:", ->
   testContactStatusAbility = (name, attachment) ->
     describe name, ->
       it "has a 30% chance to inflict #{attachment.name} on the attacker", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F", ability: name)]
+          team2: [Factory("Magikarp", gender: "M")]
         shared.biasRNG.call(this, "next", 'contact status', 0)
         @battle.performMove(@p2, @battle.getMove('Tackle'))
         @p2.has(attachment).should.be.true
 
       it "inflicts no status if the move used is a non-contact move", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F", ability: name)]
+          team2: [Factory("Magikarp", gender: "M")]
         shared.biasRNG.call(this, "next", 'contact status', 0)
         @battle.performMove(@p2, @battle.getMove('Thunderbolt'))
         @p2.has(attachment).should.be.false
 
       it "has a 70% chance to do nothing", ->
-        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F", ability: name)]
+          team2: [Factory("Magikarp", gender: "M")]
         shared.biasRNG.call(this, "next", 'contact status', .3)
         @battle.performMove(@p2, @battle.getMove('Tackle'))
         @p2.has(attachment).should.be.false
@@ -901,15 +907,19 @@ describe "BW Abilities:", ->
   testAttachmentImmuneAbility = (name, attachments) ->
     describe name, ->
       it "prevents the pokemon from receiving a specific attachment", ->
-        shared.create.call this, team1: [Factory("Magikarp", ability: name)]
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F", ability: name)]
+          team2: [Factory("Magikarp", gender: "M")]
         for attachment in attachments
-          should.not.exist @p1.attach(attachment)
+          should.not.exist @p1.attach(attachment, source: @p2)
           @p1.has(attachment).should.be.false
 
       it "removes the attachment if the pokemon already has it", ->
-        shared.create.call this, team1: [Factory("Magikarp")]
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F")]
+          team2: [Factory("Magikarp", gender: "M")]
         for attachment in attachments
-          @p1.attach(attachment)
+          @p1.attach(attachment, source: @p2)
           @p1.has(attachment).should.be.true
           @p1.copyAbility(Ability[name.replace(/\s+/g, '')])
           @p1.update()

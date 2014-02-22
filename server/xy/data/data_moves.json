@@ -4100,7 +4100,7 @@
     "Foresight": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "description": "Causes the target to have its positive evasiveness stat stage set to 0 while it is active. Normal- and Fighting-type attacks can hit the target if it is a Ghost type. The effect ends when the target is no longer active. Fails if the target is already affected.",
         "flags": [
@@ -5007,7 +5007,7 @@
     "Heal Block": {
         "accuracy": 100,
         "ailmentChance": 0,
-        "ailmentId": "heal-block",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "description": "For 5 turns, the target is prevented from restoring any HP as long as it remains active. During the effect, healing and draining moves are unusable, and Abilities and items that grant healing will not heal the user. If an affected Pokemon uses Baton Pass, the replacement will remain unable to restore its HP. Pain Split and the Ability Regenerator are unaffected.",
         "flags": [
@@ -7006,7 +7006,7 @@
     "Miracle Eye": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "description": "Causes the target to have its positive evasiveness stat stage set to 0 while it is active. Psychic-type attacks can hit the target if it is a Dark type. The effect ends when the target is no longer active. Fails if the target is already affected.",
         "flags": [
@@ -7624,7 +7624,7 @@
     "Odor Sleuth": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "description": "Causes the target to have its positive evasiveness stat stage set to 0 while it is active. Normal- and Fighting-type attacks can hit the target if it is a Ghost type. The effect ends when the target is no longer active. Fails if the target is already affected.",
         "flags": [
@@ -11663,7 +11663,7 @@
     "Telekinesis": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "unknown",
+        "ailmentId": "telekinesis",
         "damage": "non-damaging",
         "description": "For 3 turns, the target cannot avoid any attacks made against it, other than OHKO moves, as long as it remains active. During the effect, the target is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Ability Arena Trap as long as it remains active. If the target uses Baton Pass, the replacement will gain the effect. Ingrain, Smack Down, and Iron Ball override this move if the target is under any of their effects. Fails if the target is already under this effect or the effects of Ingrain or Smack Down.",
         "flags": [
@@ -11938,7 +11938,7 @@
     "Toxic": {
         "accuracy": 90,
         "ailmentChance": 0,
-        "ailmentId": "poison",
+        "ailmentId": "toxic",
         "damage": "non-damaging",
         "description": "Badly poisons the target. If a Poison-type Pokemon uses this move, the target cannot avoid the attack, even if the target is in the middle of a two-turn move.",
         "flags": [

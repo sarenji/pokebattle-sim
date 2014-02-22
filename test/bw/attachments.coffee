@@ -43,18 +43,18 @@ describe "An Attachment list", ->
 
   describe '#getPassable', ->
     beforeEach ->
-      @attachments.push(Attachment.Embargo)
-      @attachments.push(Attachment.Yawn)
-      @attachments.push(Attachment.Ingrain)
-      @attachments.push(Attachment.AquaRing)
-      @attachments.push(Attachment.Disable)
-      @attachments.push(Attachment.Torment)
-      @attachments.push(Attachment.Substitute)
-      @attachments.push(Attachment.Curse)
-      @attachments.push(Attachment.LeechSeed)
-      @attachments.push(Attachment.MagnetRise)
-      @attachments.push(Attachment.LockOn)
-      @attachments.push(Attachment.Confusion)
+      @attachments.attachments.push(new Attachment.Embargo())
+      @attachments.attachments.push(new Attachment.Yawn())
+      @attachments.attachments.push(new Attachment.Ingrain())
+      @attachments.attachments.push(new Attachment.AquaRing())
+      @attachments.attachments.push(new Attachment.Disable())
+      @attachments.attachments.push(new Attachment.Torment())
+      @attachments.attachments.push(new Attachment.Substitute())
+      @attachments.attachments.push(new Attachment.Curse())
+      @attachments.attachments.push(new Attachment.LeechSeed())
+      @attachments.attachments.push(new Attachment.MagnetRise())
+      @attachments.attachments.push(new Attachment.LockOn())
+      @attachments.attachments.push(new Attachment.Confusion())
 
     it "returns an array of passable attachments already attached", ->
       attachments = @attachments.getPassable()

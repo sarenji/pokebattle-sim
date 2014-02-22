@@ -171,9 +171,15 @@ class @Attachment.Confusion extends @VolatileAttachment
 class @Attachment.Disable extends @VolatileAttachment
   name: "DisableAttachment"
 
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    move = pokemon.lastMove
+    return false  if !move? || !pokemon.knows(move) || pokemon.pp(move) <= 0
+
   initialize: (attributes) ->
-    @blockedMove = attributes.move
+    @blockedMove = @pokemon.lastMove
     @turns = 4
+    @battle.message("#{@pokemon.name}'s #{@blockedMove.name} was disabled!")
 
   beginTurn: ->
     @pokemon.blockMove(@blockedMove)
@@ -192,8 +198,13 @@ class @Attachment.Disable extends @VolatileAttachment
 class @Attachment.Yawn extends @VolatileAttachment
   name: 'YawnAttachment'
 
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    return false  if pokemon.hasStatus()
+
   initialize: ->
     @turn = 0
+    @battle.message("#{@pokemon.name} grew drowsy!")
 
   endTurn: ->
     @turn += 1
@@ -212,6 +223,13 @@ class @Attachment.Autotomize extends @VolatileAttachment
 
 class @Attachment.Nightmare extends @VolatileAttachment
   name: "NightmareAttachment"
+
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    return false  if !pokemon.hasStatus(Status.Sleep)
+
+  initialize: ->
+    @battle.message("#{@pokemon.name} began having a nightmare!")
 
   endTurn: ->
     if @pokemon.has(Status.Sleep)
@@ -271,6 +289,7 @@ class @Attachment.PerishSong extends @VolatileAttachment
   initialize: ->
     @turns = 4
     @turn = 0
+    @battle.message("All Pokemon hearing the song will faint in three turns!")
 
   endTurn: ->
     @turn++
@@ -310,6 +329,9 @@ class @Attachment.Encore extends @VolatileAttachment
 
 class @Attachment.Torment extends @VolatileAttachment
   name: "TormentAttachment"
+
+  initialize: ->
+    @battle.message("#{@pokemon.name} was subjected to torment!")
 
   beginTurn: ->
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
@@ -402,11 +424,18 @@ class @Attachment.TrapLeash extends @VolatileAttachment
 class @Attachment.Attract extends @VolatileAttachment
   name: "AttractAttachment"
 
+  @preattach: (options, attributes) ->
+    {source} = options
+    {pokemon} = attributes
+    return false  if (!(pokemon.gender == 'M' && source.gender == 'F') &&
+                      !(pokemon.gender == 'F' && source.gender == 'M'))
+
   initialize: (attributes) ->
     {@source} = attributes
     if @pokemon.hasItem("Destiny Knot") && !@source.has(Attachment.Attract)
-      @source.attach(Attachment.Attract, {@source})
       @pokemon.removeItem()
+      @source.attach(Attachment.Attract, source: @pokemon)
+    @battle.message("#{@pokemon.name} fell in love with #{@source.name}!")
 
   beforeMove: (move, user, targets) ->
     if @source not in @battle.getOpponents(@pokemon)
@@ -605,7 +634,9 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    {@slot, @team} = attributes
+    {@team} = attributes.source
+    @slot = @team.indexOf(attributes.source)
+    @battle.message("#{@pokemon.name} was seeded!")
 
   endTurn: ->
     user = @team.at(@slot)
@@ -792,6 +823,9 @@ class @Attachment.Ingrain extends @VolatileAttachment
   name: "IngrainAttachment"
   passable: true
 
+  initialize: ->
+    @battle.message("#{@pokemon.name} planted its roots!")
+
   endTurn: ->
     amount = Math.floor(@pokemon.stat('hp') / 16)
     # Ingrain is considered a drain move for the purposes of Big Root.
@@ -819,7 +853,8 @@ class @Attachment.Embargo extends @VolatileAttachment
 
   initialize: ->
     @turns = 5
-    @pokemon?.blockItem()
+    @pokemon.blockItem()
+    @battle.message("#{@pokemon.name} can't use items anymore!")
 
   beginTurn: ->
     @pokemon.blockItem()
@@ -989,6 +1024,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
 
   initialize: ->
     @turns = 3
+    @battle.message("#{@pokemon.name} was hurled into the air!")
 
   editEvasion: ->
     0  # Always hit
@@ -1255,6 +1291,7 @@ class @StatusAttachment extends @BaseAttachment
     return true
 
   initialize: (attributes = {}) ->
+    # We store the source for use in other places, like Sleep Clause.
     {@source} = attributes
     wasStatused = switch @constructor
       when Status.Paralyze

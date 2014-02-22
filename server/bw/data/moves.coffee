@@ -35,18 +35,17 @@ extendMove = (name, callback) ->
   callback.call(move, move.attributes)
 
 # We add primary boost moves to the "hit" handler.
-for name, move of @Moves
+for move in MoveList
   if move.hasPrimaryEffect()
-    extendMove name, ->
+    extendMove move.name, ->
       @hit = (battle, user, target) ->
-        pokemon = (if @primaryBoostTarget == 'self' then user else target)
-        pokemon.boost(@primaryBoostStats, user)
-
-extendWithPrimaryEffect = (name, Klass, options={}) ->
-  extendMove name, ->
-    @hit = (battle, user, target) ->
-      if target.has(Klass) || !target.attach(Klass, source: user)
-        @fail(battle)
+        if @primaryBoostStats?
+          pokemon = (if @primaryBoostTarget == 'self' then user else target)
+          pokemon.boost(@primaryBoostStats, user)
+        if @ailmentId != 'none' && @ailmentChance == 0
+          effect = battle.getAilmentEffect(this)
+          if !target.attach(effect, source: user)
+            @fail(battle)
 
 extendWithDrain = (name, drainPercent=.5) ->
   extendMove name, ->
@@ -443,15 +442,6 @@ makeTrappingMove = (name) ->
 extendWithDrain 'Absorb'
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
-extendMove 'Attract', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.has(Attachment.Attract) ||
-        (!(user.gender == 'M' && target.gender == 'F') &&
-         !(user.gender == 'F' && target.gender == 'M'))
-      @fail(battle)
-      return
-    target.attach(Attachment.Attract, source: user)
-
 extendMove 'Baton Pass', ->
   @execute = (battle, user, targets) ->
     slot = user.team.indexOf(user)
@@ -517,7 +507,6 @@ extendMove 'Clear Smog', ->
     battle.message "#{target.name}'s stat changes were removed!"
 
 extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
-extendWithPrimaryEffect 'Confuse Ray', Attachment.Confusion
 
 extendMove 'Conversion', ->
   @use = (battle, user, target) ->
@@ -546,7 +535,6 @@ extendMove 'Conversion 2', ->
     user.types = [ battle.rng.choice(possibles, "conversion 2") ]
 
 makeThiefMove 'Covet'
-extendWithPrimaryEffect 'Dark Void', Status.Sleep
 
 extendMove 'Defense Curl', ->
   oldUse = @use
@@ -584,12 +572,6 @@ extendWithDrain 'Drain Punch'
 extendWithDrain 'Dream Eater'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
-
-extendMove 'Embargo', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(Attachment.Embargo)
-    battle.message "#{target.name} can't use items anymore!"
-
 makeEruptionMove 'Eruption'
 makeExplosionMove 'Explosion'
 
@@ -635,7 +617,6 @@ extendMove 'Fusion Flare', -> @thawsUser = true
 extendWithDrain 'Giga Drain'
 makeRechargeMove 'Giga Impact'
 makeWeightBased 'Grass Knot'
-extendWithPrimaryEffect 'GrassWhistle', Status.Sleep
 extendMove 'Growth', ->
   @use = (battle, user, target) ->
     boost = if battle.hasWeather(Weather.SUN) then 2 else 1
@@ -658,7 +639,6 @@ makeOneHitKOMove 'Horn Drill'
 extendWithDrain 'Horn Leech'
 makeRechargeMove 'Hydro Cannon'
 makeRechargeMove 'Hyper Beam'
-extendWithPrimaryEffect 'Hypnosis', Status.Sleep
 makeMomentumMove 'Ice Ball'
 makeWeatherMove 'Hail', Weather.HAIL
 
@@ -680,17 +660,8 @@ extendMove 'Leech Seed', ->
     else
       oldWillMiss.call(this, battle, user, target)
 
-  @afterSuccessfulHit = (battle, user, target) ->
-    team = user.team
-    slot = team.indexOf(user)
-    if target.attach(Attachment.LeechSeed, {team, slot})
-      battle.message "#{target.name} was seeded!"
-    else
-      @fail(battle)
-
 makeLockOnMove 'Lock-On'
 makeWeightBased 'Low Kick'
-extendWithPrimaryEffect 'Lovely Kiss', Status.Sleep
 
 extendMove 'Lucky Chant', ->
   @execute = (battle, user, opponents) ->
@@ -726,8 +697,6 @@ makeWeatherRecoveryMove 'Morning Sun'
 makeLevelAsDamageMove 'Night Shade'
 makeIdentifyMove("Odor Sleuth", "Normal")
 extendWithBoost 'Overheat', 'self', specialAttack: -2
-extendWithPrimaryEffect 'Poison Gas', Status.Poison
-extendWithPrimaryEffect 'PoisonPowder', Status.Poison
 makeProtectMove 'Protect'
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
 makePickDefenseMove 'Psyshock'
@@ -761,9 +730,7 @@ makePickDefenseMove 'Secret Sword'
 makeExplosionMove 'Selfdestruct'
 makeLevelAsDamageMove 'Seismic Toss'
 makeOneHitKOMove 'Sheer Cold'
-extendWithPrimaryEffect 'Sing', Status.Sleep
 makeRecoveryMove 'Slack Off'
-extendWithPrimaryEffect 'Sleep Powder', Status.Sleep
 makeRecoveryMove 'Softboiled'
 makeMeanLookMove 'Spider Web'
 
@@ -789,7 +756,6 @@ extendMove 'Spit Up', ->
     user.unattach(Attachment.Stockpile)
     user.boost(defense: num, specialDefense: num)
 
-extendWithPrimaryEffect 'Spore', Status.Sleep
 makeStompMove 'Steamroller'
 
 extendMove 'Stockpile', ->
@@ -801,10 +767,8 @@ extendMove 'Stockpile', ->
 
 makeStompMove 'Stomp'
 makeBasePowerBoostMove 'Stored Power', 20, 860, 'user'
-extendWithPrimaryEffect 'Stun Spore', Status.Paralyze
 makeWeatherMove 'Sunny Day', Weather.SUN
 extendWithBoost 'Superpower', 'self', attack: -1, defense: -1
-extendWithPrimaryEffect 'Supersonic', Attachment.Confusion
 
 extendMove 'Swallow', ->
   oldUse = @use
@@ -830,14 +794,12 @@ extendMove 'Swallow', ->
       target.unattach(Attachment.Stockpile)
       user.boost(defense: num, specialDefense: num)
 
-extendWithPrimaryEffect 'Sweet Kiss', Attachment.Confusion
 makeTrickMove 'Switcheroo'
 extendMove 'Super Fang', ->
   @calculateDamage = (battle, user, target) ->
     halfHP = Math.floor(target.currentHP / 2)
     Math.max(1, halfHP)
 makeWeatherRecoveryMove 'Synthesis'
-extendWithPrimaryEffect 'Teeter Dance', Attachment.Confusion
 extendMove 'Teleport', (battle) ->
   @execute = -> @fail(battle)
 makeThiefMove 'Thief'
@@ -848,16 +810,13 @@ extendMove 'Thunder', ->
     return 0   if battle.hasWeather(Weather.RAIN)
     return @accuracy
 
-extendWithPrimaryEffect 'Thunder Wave', Status.Paralyze
 extendMove 'Thunder Wave', ->
   @ignoresImmunities = -> false
-extendWithPrimaryEffect 'Toxic', Status.Toxic
 
 makeTrickMove 'Trick'
 extendWithBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
 makeEruptionMove 'Water Spout'
 makeRandomSwitchMove "Whirlwind"
-extendWithPrimaryEffect 'Will-O-Wisp', Status.Burn
 makeTrappingMove "Wrap"
 
 extendMove 'Assist', ->
@@ -1024,25 +983,6 @@ extendMove 'Destiny Bond', ->
   @hit = (battle, user) ->
     user.attach(Attachment.DestinyBond)
     battle.message "#{user.name} is trying to take its foe down with it!"
-
-extendMove 'Disable', ->
-  # TODO: Does it only reduce duration if the disabled pokemon successfully
-  #       goes through with a move?
-  oldUse = @use
-  @use = (battle, user, target) ->
-    # Fails if the target doesn't know the last move it used or if that move
-    # has zero PP or if the target has not moved since it was active.
-    move = target.lastMove
-    if !move? || !target.knows(move) || target.pp(move) <= 0
-      @fail(battle)
-      return false
-
-    oldUse.call(this, battle, user, target)
-
-  @afterSuccessfulHit = (battle, user, target) ->
-    move = target.lastMove
-    target.attach(Attachment.Disable, {move})
-    battle.message "#{target.name}'s #{move.name} was disabled!"
 
 makeDelayedAttackMove("Doom Desire", "$1 chose Doom Desire as its destiny!")
 
@@ -1249,11 +1189,6 @@ extendMove 'Incinerate', ->
       battle.message "#{target.name}'s #{target.getItem().name} was burnt up!"
       target.removeItem()
 
-extendMove 'Ingrain', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(Attachment.Ingrain)
-    battle.message "#{target.name} planted its roots!"
-
 extendMove 'Judgment', ->
   @getType = (battle, user, target) ->
     user.getItem()?.plate || @type
@@ -1445,13 +1380,6 @@ extendMove 'Nature Power', ->
     earthquake = battle.getMove('Earthquake')
     battle.getTargets(earthquake, user)
 
-extendMove 'Nightmare', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.has(Status.Sleep) && target.attach(Attachment.Nightmare)
-      battle.message "#{target.name} began having a nightmare!"
-    else
-      @fail(battle)
-
 extendMove 'Pain Split', ->
   @afterSuccessfulHit = (battle, user, target) ->
     averageHP = Math.floor((user.currentHP + target.currentHP) / 2)
@@ -1503,15 +1431,6 @@ extendMove 'Psywave', ->
   @calculateDamage = (battle, user, target) ->
     fraction = battle.rng.randInt(5, 15, "psywave") / 10
     Math.floor(user.level * fraction)
-
-extendMove 'Perish Song', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    oldExecute.call(this, battle, user, targets)
-    battle.message "All Pokemon hearing the song will faint in three turns!"
-
-  @afterSuccessfulHit = (battle, user, target) ->
-    target.attach(Attachment.PerishSong)
 
 extendMove 'Psych Up', ->
   @use = (battle, user, target) ->
@@ -1724,20 +1643,6 @@ extendMove 'Techno Blast', ->
       else
         "Normal"
 
-extendMove 'Telekinesis', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.attach(Attachment.Telekinesis)
-      battle.message "#{target.name} was hurled into the air!"
-    else
-      @fail(battle)
-
-extendMove 'Torment', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.attach(Attachment.Torment)
-      battle.message "#{target.name} was subjected to torment!"
-    else
-      @fail(battle)
-
 makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if team.attach(Attachment.ToxicSpikes)
@@ -1811,16 +1716,6 @@ extendMove 'Wring Out', ->
   @basePower = (battle, user, target) ->
     power = Math.floor(120 * user.currentHP / user.stat('hp'))
     Math.max(1, power)
-
-extendMove 'Yawn', ->
-  # TODO: Fail if safeguard is activate
-  # NOTE: Insomnia and Vital Spirit guard against the sleep effect
-  # but not yawn itself.
-  @afterSuccessfulHit = (battle, user, target) ->
-    if target.attach(Attachment.Yawn) && !target.hasStatus()
-      battle.message "#{target.name} grew drowsy!"
-    else
-      @fail(battle)
 
 # Keep this at the bottom or look up how it affects Metronome.
 # TODO: Figure out a better solution

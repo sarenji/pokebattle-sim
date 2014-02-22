@@ -14,7 +14,7 @@ require '../helpers'
 
 describe "XY Moves:", ->
   # Test every single move for their primary effects.
-  shared.testEveryMove(Battle::Moves)
+  shared.testEveryMove(Battle::MoveList, 'xy')
 
   describe "a critical hit", ->
     it "multiplies damage by 1.5x", ->

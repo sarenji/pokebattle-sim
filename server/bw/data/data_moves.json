@@ -3536,7 +3536,7 @@
     "Foresight": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "flags": [
             "protect",
@@ -4305,7 +4305,7 @@
     "Heal Block": {
         "accuracy": 100,
         "ailmentChance": 0,
-        "ailmentId": "heal-block",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "flags": [
             "protect",
@@ -6069,7 +6069,7 @@
     "Miracle Eye": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "flags": [
             "protect",
@@ -6524,7 +6524,7 @@
     "Odor Sleuth": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "no-type-immunity",
+        "ailmentId": "none",
         "damage": "non-damaging",
         "flags": [
             "protect",
@@ -10127,7 +10127,7 @@
     "Telekinesis": {
         "accuracy": 0,
         "ailmentChance": 0,
-        "ailmentId": "unknown",
+        "ailmentId": "telekinesis",
         "damage": "non-damaging",
         "flags": [
             "protect",
@@ -10368,7 +10368,7 @@
     "Toxic": {
         "accuracy": 90,
         "ailmentChance": 0,
-        "ailmentId": "poison",
+        "ailmentId": "toxic",
         "damage": "non-damaging",
         "flags": [
             "protect",
