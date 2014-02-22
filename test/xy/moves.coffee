@@ -388,3 +388,87 @@ describe "XY Moves:", ->
       @battle.performMove(@p1, flamethrower)
       spy.calledOnce.should.be.true
       @p2.has(Status.Burn).should.be.true
+
+  describe "Phantom Force", ->
+    it "chooses the player's next action for them", ->
+      shared.create.call(this, gen: 'xy')
+      move = @battle.getMove("Phantom Force")
+      @p1.moves = [ move ]
+
+      @battle.recordMove(@id1, move)
+      @battle.continueTurn()
+      @battle.endTurn()
+      @battle.beginTurn()
+      @battle.requests.should.not.have.property(@id1)
+      should.exist(@battle.getAction(@p1))
+
+    it "only spends 1 PP for the entire attack", ->
+      shared.create.call(this, gen: 'xy')
+      move = @battle.getMove("Phantom Force")
+      @p1.moves = [ move ]
+      @p1.resetAllPP()
+
+      pp = @p1.pp(move)
+      @battle.recordMove(@id1, move)
+      @battle.continueTurn()
+      @p1.pp(move).should.equal(pp)
+      @battle.beginTurn()
+      @battle.continueTurn()
+      @p1.pp(move).should.equal(pp - 1)
+
+    it "skips the charge turn if the user is holding a Power Herb", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", item: "Power Herb")]
+      move = @battle.getMove("Phantom Force")
+
+      @p1.hasItem("Power Herb").should.be.true
+      mock = @sandbox.mock(move).expects('execute').once()
+      @battle.recordMove(@id1, move)
+      @battle.continueTurn()
+      mock.verify()
+      @p1.hasItem().should.be.false
+
+    it "makes target invulnerable to moves", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", evs: {speed: 4})]
+      move = @battle.getMove("Phantom Force")
+      tackle = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id1, move)
+      @battle.recordMove(@id2, tackle)
+
+      mock = @sandbox.mock(tackle).expects('hit').never()
+      @battle.continueTurn()
+      mock.verify()
+
+    it "makes target invulnerable to moves *after* use", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", evs: {speed: 4})]
+      move = @battle.getMove("Phantom Force")
+      tackle = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id1, move)
+      @battle.recordMove(@id2, tackle)
+
+      mock = @sandbox.mock(tackle).expects('hit').once()
+      @battle.continueTurn()
+      mock.verify()
+
+    it "is vulnerable to attacks from a No Guard pokemon", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "No Guard")]
+      move = @battle.getMove("Phantom Force")
+      tackle = @battle.getMove("Tackle")
+
+      @battle.recordMove(@id1, move)
+      @battle.recordMove(@id2, tackle)
+
+      mock = @sandbox.mock(tackle).expects('hit').once()
+      @battle.continueTurn()
+      mock.verify()
+
+    it "is vulnerable to attacks if locked on"

@@ -30,6 +30,8 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 makeTrappingMove "Infestation"
 extendWithDrain('Oblivion Wing', .75)
 
+makeChargeMove 'Phantom Force', [], "$1 vanished instantly!"
+
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
 
