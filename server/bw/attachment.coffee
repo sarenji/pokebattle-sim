@@ -893,7 +893,7 @@ class @Attachment.Charging extends @VolatileAttachment
     @battle.recordMove(id, @move)
 
   editEvasion: (accuracy, move) ->
-    return -1  if @charging && accuracy > 0 &&
+    return -1  if @vulnerable && @charging && accuracy > 0 &&
                 (move not in @vulnerable.map((v) => @battle.getMove(v)))
     return accuracy
 

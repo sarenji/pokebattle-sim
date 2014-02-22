@@ -4849,6 +4849,19 @@ describe "BW Moves:", ->
             mock = @sandbox.mock(vulnerable).expects('hit').once()
             @battle.continueTurn()
             mock.verify()
+      else # no vulnerable moves
+        it "doesn't make target invulnerable to moves", ->
+          shared.create.call this,
+            team1: [Factory("Magikarp", evs: {speed: 4})]
+          move = @battle.getMove(moveName)
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, move)
+          @battle.recordMove(@id2, tackle)
+
+          mock = @sandbox.mock(tackle).expects('hit').once()
+          @battle.continueTurn()
+          mock.verify()
 
   testChargeMove('Skull Bash')
   testChargeMove('Razor Wind')
