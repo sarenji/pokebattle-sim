@@ -3,7 +3,7 @@ REPORTER = spec
 
 test:
 	NODE_ENV=test ./node_modules/.bin/mocha \
-		--reporter $(REPORTER) --require should --compilers coffee:coffee-script
+		--reporter $(REPORTER) --require should --compilers coffee:coffee-script/register
 
 
 test-cov: lib-cov

@@ -130,6 +130,8 @@ class @Pokemon
       floor(((2 * base + iv + ev) * (@level / 100) + 5) * @natureBoost(key))
     capitalized = key[0].toUpperCase() + key.substr(1)
     total = Query.chain("edit#{capitalized}", @attachments.all(), total)
+    if @team?.attachments
+      total = Query.chain("edit#{capitalized}", @team.attachments.all(), total)
     total = @statBoost(key, total, options)  if key != 'hp'
     total
 

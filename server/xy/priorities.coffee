@@ -111,7 +111,7 @@ Priorities.endTurn = [
   Attachment.Screen
   # Attachment.Safeguard
   # Attachment.Mist
-  # Attachment.Tailwind
+  Attachment.Tailwind
   Attachment.LuckyChant
   # TODO: Pledge moves
   Attachment.Gravity
