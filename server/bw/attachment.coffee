@@ -242,7 +242,8 @@ class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
 
   initialize: (attributes) ->
-    @turns = 3
+    @turns = 4
+    @turns = 3  if @battle.willMove(@pokemon)
     @turn = 0
 
   beginTurn: ->
@@ -331,6 +332,7 @@ class @Attachment.Encore extends @VolatileAttachment
 
   initialize: ->
     @turns = 4
+    @turns = 3  if @battle.willMove(@pokemon)
     @turn = 0
     @move = @pokemon.lastMove
 
