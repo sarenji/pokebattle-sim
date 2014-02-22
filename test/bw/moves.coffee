@@ -2528,6 +2528,21 @@ describe "BW Moves:", ->
 
         @team2.first().should.equal target
 
+      it "does not force a switch if the target faints", ->
+        shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Magikarp"), Factory("Abra")])
+
+        move = @battle.getMove(moveName)
+
+        mock = @sandbox.mock(@team2)
+        # Whirlwind, Roar
+        if move.power > 0
+          mock.expects("switch").never()
+
+        @team2.at(0).setHP(1)
+        @battle.performMove(@p1, move)
+
+        mock.verify()
+
       it "should not force switches if opponent is the last pokemon", ->
         shared.create.call(this, team2: [Factory("Magikarp")])
 
