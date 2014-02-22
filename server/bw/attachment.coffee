@@ -732,7 +732,8 @@ class @Attachment.Pursuit extends @VolatileAttachment
     pursuit = @battle.getMove('Pursuit')
     @battle.cancelAction(@pokemon)
     @pokemon.attach(Attachment.PursuitModifiers)
-    @battle.executeMove(pursuit, @pokemon, [ switcher ])
+    # TODO: You will have to record the target for 2v2.
+    @battle.performMove(@pokemon, pursuit)
     @pokemon.unattach(Attachment.PursuitModifiers)
     @pokemon.unattach(@constructor)
 

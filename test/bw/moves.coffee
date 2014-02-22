@@ -4005,6 +4005,18 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       mock.verify()
 
+    it "does not trigger if asleep", ->
+      shared.create.call(this)
+
+      @p1.attach(Status.Sleep, turns: 4)
+      pursuit = @battle.getMove("Pursuit")
+      mock = @sandbox.mock(pursuit).expects('hit').never()
+
+      @battle.recordMove(@id1, pursuit)
+      @battle.recordSwitch(@id2, 1)
+      @battle.continueTurn()
+      mock.verify()
+
     it "does not trigger on team members"
 
   describe 'Power Swap', ->
