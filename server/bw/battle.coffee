@@ -377,6 +377,7 @@ class @Battle extends EventEmitter
 
   # Performs end turn effects.
   endTurn: ->
+    @lastPokemon = null
     @weatherUpkeep()
     @query("endTurn")
     for pokemon in @getActivePokemon()

@@ -3975,6 +3975,17 @@ describe "BW Moves:", ->
       @battle.endTurn()
       @p2.isFainted().should.be.false
 
+    it "does not faint attacker if opponent made move, but did not faint", ->
+      shared.create.call(this)
+      @battle.setWeather(Weather.SAND)
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p1.currentHP = 1
+      @battle.endTurn()
+      @p1.isFainted().should.be.true
+      @p2.isFainted().should.be.false
+
     it "does not cause a party member to faint"
     it "handles 2+ pokemon destiny-bonding and all fainting at once"
 
