@@ -788,7 +788,7 @@ describe "BW Moves:", ->
   describe 'hidden power', ->
     it 'has a max power of 70', ->
       ivs = {
-        hp: 31, attack: 31, defense: 31, 
+        hp: 31, attack: 31, defense: 31,
         specialAttack: 31, specialDefense: 31, speed: 31
       }
       shared.create.call this,
@@ -799,7 +799,7 @@ describe "BW Moves:", ->
 
     it 'has a min power of 30', ->
       ivs = {
-        hp: 0, attack: 0, defense: 0, 
+        hp: 0, attack: 0, defense: 0,
         specialAttack: 0, specialDefense: 0, speed: 0
       }
       shared.create.call this,
@@ -810,7 +810,7 @@ describe "BW Moves:", ->
 
     it 'is dark when all ivs are 31', ->
       ivs = {
-        hp: 31, attack: 31, defense: 31, 
+        hp: 31, attack: 31, defense: 31,
         specialAttack: 31, specialDefense: 31, speed: 31
       }
       shared.create.call this,
@@ -821,7 +821,7 @@ describe "BW Moves:", ->
 
     it 'is fighting when all ivs are 0', ->
       ivs = {
-        hp: 0, attack: 0, defense: 0, 
+        hp: 0, attack: 0, defense: 0,
         specialAttack: 0, specialDefense: 0, speed: 0
       }
       shared.create.call this,
@@ -1736,12 +1736,33 @@ describe "BW Moves:", ->
 
       mock.verify()
 
-    it 'lasts two turns', ->
-      shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
+    it "lasts 4 turns if the user moved after the target", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      @battle.performMove(@p1, @battle.getMove('Splash'))
+      @battle.performMove(@p2, @battle.getMove('Taunt'))
 
-      @battle.performMove(@p1, @battle.getMove('Taunt'))
+      @p1.has(Attachment.Taunt).should.be.true
+
       @battle.endTurn()
       @battle.endTurn()
+      @battle.endTurn()
+      @p1.has(Attachment.Taunt).should.be.true
+      @battle.endTurn()
+
+      @p1.has(Attachment.Taunt).should.be.false
+
+    it "lasts 3 turns if the user moved before the target", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      @battle.performMove(@p2, @battle.getMove('Splash'))
+      @battle.recordMove(@id1, @battle.getMove('Taunt'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
+      @battle.continueTurn()
+
+      @p2.has(Attachment.Taunt).should.be.true
+
+      @battle.endTurn()
+      @battle.endTurn()
+      @p2.has(Attachment.Taunt).should.be.true
       @battle.endTurn()
 
       @p2.has(Attachment.Taunt).should.be.false
@@ -2014,16 +2035,33 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       @p2.lastMove.should.equal @battle.getMove('Splash')
 
-    it "lasts 4 turns", ->
-      shared.create.call(this)
+    it "lasts 4 turns if the user moved after the target", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
+      @battle.performMove(@p1, @battle.getMove('Splash'))
+      @battle.performMove(@p2, @battle.getMove('Encore'))
+
+      @p1.has(Attachment.Encore).should.be.true
+
+      @battle.endTurn()
+      @battle.endTurn()
+      @battle.endTurn()
+      @p1.has(Attachment.Encore).should.be.true
+      @battle.endTurn()
+
+      @p1.has(Attachment.Encore).should.be.false
+
+    it "lasts 3 turns if the user moved before the target", ->
+      shared.create.call(this, team1: [Factory("Magikarp", evs: {speed: 4})])
       @battle.performMove(@p2, @battle.getMove('Splash'))
-      @battle.performMove(@p1, @battle.getMove('Encore'))
+      @battle.recordMove(@id1, @battle.getMove('Encore'))
+      @battle.recordMove(@id2, @battle.getMove('Tackle'))
+      @battle.continueTurn()
 
       @p2.has(Attachment.Encore).should.be.true
 
       @battle.endTurn()
       @battle.endTurn()
-      @battle.endTurn()
+      @p2.has(Attachment.Encore).should.be.true
       @battle.endTurn()
 
       @p2.has(Attachment.Encore).should.be.false
@@ -4771,7 +4809,7 @@ describe "BW Moves:", ->
       embargo = @battle.getMove('Embargo')
       mock = @sandbox.mock(@p2.get(@p2.item)).expects('endTurn').never()
       @battle.performMove(@p1, embargo)
-      
+
       for i in [0...5]
         @battle.endTurn()
         @battle.beginTurn()
