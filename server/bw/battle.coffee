@@ -303,11 +303,11 @@ class @Battle extends EventEmitter
       continue  if pokemon.isWeatherDamageImmune(@weather)
       damage = pokemon.stat('hp') >> 4
       if @hasWeather(Weather.HAIL)
-        @message "#{pokemon.name} is buffeted by the hail!"
-        pokemon.damage(damage)
+        if pokemon.damage(damage)
+          @message "#{pokemon.name} is buffeted by the hail!"
       else if @hasWeather(Weather.SAND)
-        @message "#{pokemon.name} is buffeted by the sandstorm!"
-        pokemon.damage(damage)
+        if pokemon.damage(damage)
+          @message "#{pokemon.name} is buffeted by the sandstorm!"
 
   hasWeatherCancelAbilityOnField: ->
     _.any @getActivePokemon(), (pokemon) ->
