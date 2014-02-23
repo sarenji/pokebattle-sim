@@ -4,7 +4,7 @@ class @ChatView extends Backbone.View
 
   events:
     'click': 'focusChat'
-    'keyup .chat_input': 'sendChatIfEnter'
+    'keydown .chat_input': 'sendChatIfEnter'
     'click .chat_input_send': 'sendChat'
     'scroll_to_bottom': 'scrollToBottom'
 
