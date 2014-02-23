@@ -15,30 +15,34 @@ class @BattleController
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
   makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
-    return  if @battle.isOver()
-    return  if forTurn != @battle.turn
+    return false  if @battle.isOver()
+    return false  if forTurn != @battle.turn
+    return false  if playerId not in @battle.playerIds
     pokemon = @battle.getTeam(playerId).at(forSlot)
-    return  if !pokemon
+    return false  if !pokemon
     request = @battle.requestFor(pokemon)
-    return  if !request
-    return  if moveName not in (request.moves || [])
+    return false  if !request
+    return false  if moveName not in (request.moves || [])
     move = @battle.getMove(moveName)
     @battle.recordMove(playerId, move, forSlot, args...)
     @transitionToNextState()
+    return true
 
   # Tells the player to switch with a certain pokemon specified by position.
   # The switch is added to the list of player actions, which are executed
   # once the turn continues.
   makeSwitch: (playerId, toPosition, forSlot = 0, forTurn = @battle.turn) ->
-    return  if @battle.isOver()
-    return  if forTurn != @battle.turn
+    return false  if @battle.isOver()
+    return false  if forTurn != @battle.turn
+    return false  if playerId not in @battle.playerIds
     pokemon = @battle.getTeam(playerId).at(forSlot)
-    return  if !pokemon
+    return false  if !pokemon
     request = @battle.requestFor(pokemon)
-    return  if !request
-    return  if toPosition not in (request.switches || [])
+    return false  if !request
+    return false  if toPosition not in (request.switches || [])
     @battle.recordSwitch(playerId, toPosition, forSlot)
     @transitionToNextState()
+    return true
 
   # Tells the player to cancel their latest completed request.
   undoCompletedRequest: (playerId, forTurn = @battle.turn) ->

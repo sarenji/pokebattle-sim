@@ -78,6 +78,11 @@ describe 'BattleController', ->
       @controller.makeSwitch(@id1, 2)
       mock.verify()
 
+    it "rejects switches for a player who doesn't exist", ->
+      shared.create.call(this, team1: (Factory("Magikarp")  for x in [0..2]))
+
+      @controller.makeSwitch("fake dude", 2).should.be.false
+
   describe "move validations", ->
     it "rejects moves not part of the pokemon's valid moves", ->
       shared.create.call this,
@@ -126,3 +131,9 @@ describe 'BattleController', ->
       mock = @sandbox.mock(@battle).expects('recordMove').never()
       @controller.makeMove(@id1, @p1.moves[0].name, null, @battle.turn - 1)
       mock.verify()
+
+    it "rejects moves for a player who doesn't exist", ->
+      shared.create.call this,
+        team1: [ Factory("Magikarp", moves: ["Tackle", "Splash"]) ]
+
+      @controller.makeMove("fake dude", @p1.moves[0].name).should.be.false
