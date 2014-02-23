@@ -6000,13 +6000,25 @@ describe "BW Moves:", ->
       @p1.species.should.equal(oldSpecies)
       @p1.forme.should.equal(oldForme)
 
-    it "changes the user's base stats to the target's, except HP", ->
-      shared.create.call(this, team2: [Factory("Celebi")])
+    it "changes the user's stats to match the target's, except HP", ->
+      shared.create.call(this, team2: [Factory("Celebi", evs: {speed: 252})])
       transform = @battle.getMove("Transform")
 
       @battle.performMove(@p1, transform)
-      for stat, value in @p2.baseStats
-        @p1.baseStats[stat].should.equal(value)
+      for stat of @p2.baseStats
+        if stat == 'hp'
+          @p1.stat(stat).should.not.equal(@p2.stat(stat))
+        else
+          @p1.stat(stat).should.equal(@p2.stat(stat))
+
+    it "copies the target's gender", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", gender: "F")]
+        team2: [Factory("Celebi")]
+      transform = @battle.getMove("Transform")
+
+      @battle.performMove(@p1, transform)
+      @p1.gender.should.equal(@p2.gender)
 
     it "copies the target's moveset, setting each PP and max PP to 5", ->
       shared.create.call(this, team2: [Factory("Celebi")])
@@ -6052,15 +6064,28 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, transform)
       @p1.gender.should.equal(@p2.gender)
 
-    it "restores the original base stats after switching out", ->
+    it "restores the original stats after switching out", ->
       shared.create.call this,
         team1: [Factory("Ditto"), Factory("Magikarp")]
-        team2: [Factory("Celebi", ability: "Natural Cure")]
+        team2: [Factory("Celebi", ability: "Natural Cure", evs: {speed: 252})]
       transform = @battle.getMove("Transform")
       baseStats = _.clone(@p1.baseStats)
+      evs = _.clone(@p1.evs)
+      stats = {}
+      for stat of baseStats
+        stats[stat] = @p1.stat(stat)
+
       @battle.performMove(@p1, transform)
-      @battle.performSwitch(@team1.first(), 1)
+      @p1.baseStats.should.not.eql(baseStats)
+      @p1.evs.should.not.eql(evs)
+      for stat, value of stats
+        @p1.stat(stat).should.not.equal(value)
+
+      @battle.performSwitch(@p1, 1)
       @p1.baseStats.should.eql(baseStats)
+      @p1.evs.should.eql(evs)
+      for stat, value of stats
+        @p1.stat(stat).should.equal(value)
 
     it "restores the original species and type after switching out", ->
       shared.create.call this,

@@ -1127,16 +1127,18 @@ class @Attachment.Transform extends @VolatileAttachment
   initialize: (attributes) ->
     {target} = attributes
     # Save old data
-    {@ability, @moves, @stages} = @pokemon
+    {@ability, @moves, @stages, @baseStats, @evs} = @pokemon
     {@types, @gender, @weight, @ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
     @pokemon.copyAbility(target.ability)
-    @pokemon.gender  = target.gender
-    @pokemon.weight  = target.weight
+    @pokemon.gender = target.gender
+    @pokemon.weight = target.weight
     # The rest aren't.
-    @pokemon.moves   = _.clone(target.moves)
-    @pokemon.stages  = _.clone(target.stages)
-    @pokemon.types   = _.clone(target.types)
+    @pokemon.moves     = _.clone(target.moves)
+    @pokemon.stages    = _.clone(target.stages)
+    @pokemon.types     = _.clone(target.types)
+    @pokemon.evs       = _.extend({}, target.evs, hp: @pokemon.evs.hp)
+    @pokemon.baseStats = _.extend({}, target.baseStats, hp: @pokemon.baseStats.hp)
     @pokemon.resetAllPP(5)
     # Send updated information to the client
     @pokemon.changeSprite(target.name, target.forme)
@@ -1152,6 +1154,8 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.weight    = @weight
     @pokemon.ppHash    = @ppHash
     @pokemon.maxPPHash = @maxPPHash
+    @pokemon.baseStats = @baseStats
+    @pokemon.evs       = @evs
     @pokemon.changeSprite(@pokemon.name, @pokemon.forme)
     @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
