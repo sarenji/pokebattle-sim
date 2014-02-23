@@ -18,6 +18,9 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
   ability = @FormeData[species][forme]["abilities"][0]
   ability = Ability[ability.replace(/\s+/g, '')]
   pokemon.copyAbility(ability)
+  # We set the original ability to this ability so that the ability
+  # is not reset upon switch out.
+  pokemon.originalAbility = ability
 
   # Generate and display mega-evolution message
   pieces = forme.split('-').map((s) -> s[0].toUpperCase() + s.substr(1))

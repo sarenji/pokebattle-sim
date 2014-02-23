@@ -74,6 +74,19 @@ describe "XY Battle:", ->
       should.exist(@p1.ability)
       @p1.ability.should.equal(Ability.ParentalBond)
 
+    it "retains the changed ability upon switching back in", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Kangaskhan", moves: ["Return"], item: "Kangaskhanite"), Factory("Magikarp") ]
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.continueTurn()
+      should.exist(@p1.ability)
+      @p1.ability.should.equal(Ability.ParentalBond)
+      @battle.performSwitch(@team1.first(), 1)
+      @battle.performSwitch(@team1.first(), 1)
+      should.exist(@p1.ability)
+      @p1.ability.should.equal(Ability.ParentalBond)
+
   describe "#getAction", ->
     it "does not consider mega evolutions", ->
       shared.create.call this,
