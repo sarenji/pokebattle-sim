@@ -186,12 +186,12 @@ class @BattleCollection extends Backbone.Collection
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
-  spectateBattle: (socket, id, generation, numActive, index, spectators, log) =>
+  spectateBattle: (socket, id, generation, numActive, index, playerIds, spectators, log) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
-    battle = new Battle({id, generation, numActive, socket, index, spectators})
+    battle = new Battle({id, generation, numActive, socket, index, playerIds, spectators})
     battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
     if log.length > 0

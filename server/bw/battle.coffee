@@ -778,7 +778,7 @@ class @Battle extends EventEmitter
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectate battle',
       @id, @generation, @numActive,
-      index, spectators, @log)
+      index, @playerIds, spectators, @log)
     if spectator.id in @playerIds
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     # TODO: Only do if spectator id has not joined yet.

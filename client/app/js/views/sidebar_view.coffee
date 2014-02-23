@@ -50,7 +50,7 @@ class @SidebarView extends Backbone.View
       <div class="nav_meta">
         <div class="notifications hidden">0</div>
         <div class="close">x</div>
-      </div>#{battle.id}</li>""")
+      </div>#{battle.get('playerIds').join(' VS ')}</li>""")
     $li.appendTo(@$('.nav_battles'))
     $li.click()
 

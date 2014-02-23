@@ -226,7 +226,7 @@ describe 'Battle', ->
       @battle.addSpectator(spectator)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
-      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, spectators, log).should.be.true
+      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "receives the correct set of initial teams", ->
       spectator = new User("derp")
@@ -237,7 +237,7 @@ describe 'Battle', ->
       @battle.addSpectator(spectator)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
-      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, spectators, log).should.be.true
+      spy.calledWithMatch("spectate battle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "does not add a spectator twice", ->
       spectator = new User("derp")
