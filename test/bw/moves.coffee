@@ -2535,7 +2535,7 @@ describe "BW Moves:", ->
 
         mock = @sandbox.mock(@team2)
         # Whirlwind, Roar
-        if move.power > 0
+        if !move.isNonDamaging()
           mock.expects("switch").never()
 
         @team2.at(0).setHP(1)
