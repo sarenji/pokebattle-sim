@@ -1,6 +1,4 @@
 .team_icons.clearfix
   each pokemon, i in team
-    - var name = pokemon.name || pokemon.get('name')
-    - var forme = pokemon.forme || pokemon.get('forme')
-    - var style = window.PokemonIconBackground(name, forme)
+    - var style = window.PokemonIconBackground(pokemon)
     .left.pokemon_icon(data-index = i, style = style)

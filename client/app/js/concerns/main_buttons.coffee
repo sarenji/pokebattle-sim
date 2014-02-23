@@ -1,6 +1,3 @@
-allTeams = JSON.parse(window.localStorage.getItem('teams'))
-selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
-
 $ ->
   $mainButtons = $('.main_buttons')
 

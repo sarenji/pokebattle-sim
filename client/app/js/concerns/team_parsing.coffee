@@ -68,6 +68,7 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
 @PokeBattle.exportTeam = (json) ->
   s = []
   for pokemon in json
+    continue  if not pokemon.name # skip "null pokemon"
     s.push("")
 
     # Pokemon name

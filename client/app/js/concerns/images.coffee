@@ -1,10 +1,25 @@
 @PokemonIconBackground = (name, forme) ->
-  id = SpriteIds[name][forme] || SpriteIds[name]["default"]
+  if not (typeof name == "string")
+    pokemon = name
+    name = pokemon.name || pokemon.get?("name")
+    forme = pokemon.forme || pokemon.get?("forme")
+  
+  if name  
+    id = SpriteIds[name][forme] || SpriteIds[name]["default"]
+  else
+    id = 0
+
   x  = (id % 16) * 32
   y  = (id >> 4) * 32
   "background-position: -#{x}px -#{y}px"
 
 @PokemonSprite = (id, forme, options = {}) ->
+  if id instanceof Pokemon
+    pokemon = id
+    id = pokemon.getSpecies()?.id || 0
+    forme = pokemon.get('forme')
+    options = { shiny: pokemon.get('shiny') } 
+
   front = options.front ? true
   shiny = options.shiny ? false
   kind  = (if front then "front" else "back")
@@ -20,6 +35,7 @@ generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
 NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
 
+# TODO: Move this elswhere
 SpriteIds = {
   "Abomasnow": {
     "default": 460,

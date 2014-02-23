@@ -12,6 +12,7 @@ mixin printStat(statName, keyName)
   .left-side
     .species
       select.species_list
+        option
         each species in speciesList
           option(value=species)= species
       .species-info
