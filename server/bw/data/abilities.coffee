@@ -862,6 +862,8 @@ makeAbility 'Trace', ->
     abilities = abilities.filter((a) -> a.displayName not of bannedAbilities)
     return  if abilities.length == 0
     ability = @battle.rng.choice(abilities, "trace")
+    # TODO: Display whose ability it traced.
+    @battle.message("It traced the foe's #{ability.displayName}!")
     @pokemon.copyAbility(ability)
 
 makeAbility 'Truant', ->

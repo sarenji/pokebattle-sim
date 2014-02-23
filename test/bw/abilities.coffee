@@ -2200,6 +2200,17 @@ describe "BW Abilities:", ->
         @p1.copyAbility(Ability.Trace)
       ).should.not.throw()
 
+    it "traces another ability upon switching out and back in", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Trace"), Factory("Magikarp")]
+        team2: [Factory("Magikarp", ability: "Intimidate")
+                Factory("Magikarp", ability: "Magic Bounce")]
+      @p1.hasAbility("Intimidate").should.be.true
+      @battle.performSwitch(@p2, 1)
+      @battle.performSwitch(@p1, 1)
+      @battle.performSwitch(@team1.first(), 1)
+      @p1.hasAbility("Magic Bounce").should.be.true
+
   describe "Truant", ->
     it "prevents the user from attacking every other turn", ->
       shared.create.call this,
