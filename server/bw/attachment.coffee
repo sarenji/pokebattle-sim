@@ -37,14 +37,12 @@ class @Attachments
 
   unattachAll: (condition) ->
     condition ||= -> true
-    length = @attachments.length
     i = 0
-    while i < length
+    while i < @attachments.length
       attachment = @attachments[i]
       if condition(attachment)
         attachment.unattach?()
         @attachments.splice(i, 1)
-        length--
       else
         i++
 

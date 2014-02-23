@@ -2661,6 +2661,24 @@ describe "BW Moves:", ->
         @p2.isSwitchBlocked().should.be.false
         @p2.has(Attachment.Trap).should.be.false
 
+      it "properly removes from a list of attachments", ->
+        shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
+
+        @battle.performMove(@p1, @battle.getMove(name))
+        @battle.endTurn()
+
+        @battle.recordMove(@id1, @battle.getMove("Protect"))
+        @battle.recordMove(@id2, @battle.getMove("Splash"))
+        @battle.continueTurn()
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @controller.makeSwitch(@id1, 1)
+        @controller.makeMove(@id2, "Splash")
+
+        @p2.isSwitchBlocked().should.be.false
+        @p2.has(Attachment.Trap).should.be.false
+
       it "is always 7 turns if the user is holding grip claw", ->
         shared.create.call(this, team1: [Factory("Magikarp", item: "Grip Claw")])
         shared.biasRNG.call(this, "randInt", 'trapping move', 5)
