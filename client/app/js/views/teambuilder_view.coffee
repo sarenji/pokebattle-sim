@@ -524,7 +524,7 @@ class @TeambuilderView extends Backbone.View
           $errors = $modal.find('.form-errors')
           $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
         else
-          @addNewTeam(PokeBattle.jsonToTeam(pokemon: pokemonJSON))
+          @addNewTeam(Team.fromJSON(pokemon: pokemonJSON))
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false
