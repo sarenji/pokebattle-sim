@@ -34,7 +34,6 @@ class @PrivateMessagesView extends Backbone.View
       @positionPopup($html, @numPopups)
       @addLogMessages($html, message.getLog())
       @numPopups += 1
-    $html.find('input').focus()
     $html
 
   closePopup: (message) =>
