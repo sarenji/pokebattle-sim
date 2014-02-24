@@ -26,17 +26,17 @@ class @Battle extends Backbone.Model
 
   makeMove: (moveName, forSlot) =>
     pokemon = @getPokemon(@index, forSlot)
-    @socket.send('send move', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
+    @socket.send('sendMove', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
     pokemon.set('megaEvolve', false)
 
   makeSwitch: (toSlot, forSlot) =>
-    @socket.send('send switch', @id, toSlot, forSlot, @get('turn'))
+    @socket.send('sendSwitch', @id, toSlot, forSlot, @get('turn'))
 
   makeCancel: =>
-    @socket.send 'send cancel action', @id, @get('turn')
+    @socket.send 'sendCancelAction', @id, @get('turn')
 
   arrangeTeam: (arrangement) =>
-    @socket.send 'arrange team', @id, arrangement
+    @socket.send 'arrangeTeam', @id, arrangement
 
   switch: (fromIndex, toIndex) =>
     you = @getTeam().pokemon

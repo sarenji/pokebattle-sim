@@ -48,27 +48,27 @@ PokeBattle.socket = new Socket(new SockJS('/socket'))
 PokeBattle.socket.addEvents
   'connect': (socket) ->
 
-  'list chatroom': (socket, users) ->
+  'listChatroom': (socket, users) ->
     PokeBattle.userList.reset(users)
 
-  'update chat': (socket, username, data) ->
+  'updateChat': (socket, username, data) ->
     PokeBattle.chatView.userMessage(username, data)
 
-  'update battle chat': (socket, battleId, username, data) ->
+  'updateBattleChat': (socket, battleId, username, data) ->
     chatView = PokeBattle.battles.get(battleId).view.chatView
     chatView.userMessage(username, data)
 
-  'raw battle message': (socket, battleId, message) ->
+  'rawBattleMessage': (socket, battleId, message) ->
     chatView = PokeBattle.battles.get(battleId).view.chatView
     chatView.updateChat(message)
 
-  'raw message': (socket, message) ->
+  'rawMessage': (socket, message) ->
     PokeBattle.chatView.updateChat(message)
 
-  'join chatroom': (socket, userJSON) ->
+  'joinChatroom': (socket, userJSON) ->
     PokeBattle.userList.add(userJSON)
 
-  'leave chatroom': (socket, userJSON) ->
+  'leaveChatroom': (socket, userJSON) ->
     PokeBattle.userList.remove(userJSON)
 
   'topic': (socket, topic) ->

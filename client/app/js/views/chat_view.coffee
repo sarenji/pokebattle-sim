@@ -11,7 +11,7 @@ class @ChatView extends Backbone.View
   # Takes a `collection`, which is a UserList instance.
   initialize: (options) =>
     {@chatEvent, @chatArgs} = options
-    @chatEvent ||= "send chat"
+    @chatEvent ||= "sendChat"
     @chatArgs ||= []
     @listenTo(@collection, 'add remove reset', @renderUserList)
     @listenTo(@collection, 'add', @userJoin)

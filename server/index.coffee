@@ -56,16 +56,16 @@ db = require('./database')
               return
           else
             server.setAuthority(user, json.authority)
-            user.send('login success')
+            user.send('loginSuccess')
             numConnections = lobby.addUser(user)
-            connections.broadcast('join chatroom', user.toJSON())  if numConnections == 1
-            user.send('list chatroom', lobby.userJSON())
+            connections.broadcast('joinChatroom', user.toJSON())  if numConnections == 1
+            user.send('listChatroom', lobby.userJSON())
             server.join(user)
 
             db.hget "topic", "main", (err, topic) ->
               user.send('topic', topic)  if topic
 
-    'send chat': (user, message) ->
+    'sendChat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
       if message[0] == '/'
         [ command, args... ] = message.split(/\s+/)
@@ -75,7 +75,7 @@ db = require('./database')
       else
         server.userMessage(lobby, user, message)
 
-    'send battle chat': (user, battleId, message) ->
+    'sendBattleChat': (user, battleId, message) ->
       return  unless message?.replace(/\s+/, '').length > 0
       battle = server.findBattle(battleId)
       if !battle
@@ -84,7 +84,7 @@ db = require('./database')
 
       battle.messageSpectators(user, message)
 
-    'save team': (user, team) ->
+    'saveTeam': (user, team) ->
       console.log(team) # todo: implement this
 
     'close': (user) ->
@@ -92,8 +92,8 @@ db = require('./database')
       return  if !user.id?
       server.leave(user)
       if lobby.removeUser(user) == 0  # No more connections.
-        user.broadcast('leave chatroom', user.id)
-        connections.trigger(user, "cancel find battle")
+        user.broadcast('leaveChatroom', user.id)
+        connections.trigger(user, "cancelFindBattle")
         # TODO: Remove from battles as well
 
     ####################
@@ -114,23 +114,23 @@ db = require('./database')
     'challenge': (user, challengeeId, generation, team, conditions) ->
       server.registerChallenge(user, challengeeId, generation, team, conditions)
 
-    'cancel challenge': (user, challengeeId) ->
+    'cancelChallenge': (user, challengeeId) ->
       server.cancelChallenge(user, challengeeId)
 
-    'accept challenge': (user, challengerId, team) ->
+    'acceptChallenge': (user, challengerId, team) ->
       battleId = server.acceptChallenge(user, challengerId, team)
       if battleId
         lobby.message("""Challenge: <span class="fake_link spectate"
         data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
 
-    'reject challenge': (user, challengerId, team) ->
+    'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
 
     ###########
     # BATTLES #
     ###########
 
-    'get battle list': (user) ->
+    'getBattleList': (user) ->
       # TODO: Make this more efficient
       # TODO: Order by age
       # NOTE: Cache this? Even something like a 5 second expiration
@@ -144,7 +144,7 @@ db = require('./database')
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
 
-    'find battle': (user, generation, team) ->
+    'findBattle': (user, generation, team) ->
       if generation not in generations.SUPPORTED_GENERATIONS
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return
@@ -154,11 +154,11 @@ db = require('./database')
         user.error(errors.FIND_BATTLE, validationErrors)
         return
 
-    'cancel find battle': (user, generation) ->
+    'cancelFindBattle': (user, generation) ->
       server.removePlayer(user.id, generation)
-      user.send("find battle canceled")
+      user.send("findBattleCanceled")
 
-    'send move': (user, battleId, moveName, slot, forTurn, args...) ->
+    'sendMove': (user, battleId, moveName, slot, forTurn, args...) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
@@ -166,7 +166,7 @@ db = require('./database')
 
       battle.makeMove(user.id, moveName, slot, forTurn, args...)
     
-    'send switch': (user, battleId, toSlot, fromSlot, forTurn) ->
+    'sendSwitch': (user, battleId, toSlot, fromSlot, forTurn) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
@@ -174,7 +174,7 @@ db = require('./database')
 
       battle.makeSwitch(user.id, toSlot, fromSlot, forTurn)
 
-    'send cancel action': (user, battleId, forTurn) ->
+    'sendCancelAction': (user, battleId, forTurn) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
@@ -182,7 +182,7 @@ db = require('./database')
 
       battle.undoCompletedRequest(user.id, forTurn)
 
-    'arrange team': (user, battleId, arrangement) ->
+    'arrangeTeam': (user, battleId, arrangement) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
@@ -190,7 +190,7 @@ db = require('./database')
 
       battle.arrangeTeam(user.id, arrangement)
 
-    'spectate battle': (user, battleId) ->
+    'spectateBattle': (user, battleId) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
@@ -198,7 +198,7 @@ db = require('./database')
 
       battle.addSpectator(user)
 
-    'leave battle': (user, battleId) ->
+    'leaveBattle': (user, battleId) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)

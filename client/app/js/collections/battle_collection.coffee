@@ -3,16 +3,16 @@ class @BattleCollection extends Backbone.Collection
 
   initialize: (models, options) =>
     PokeBattle.socket.addEvents
-      'update battle': @updateBattle
-      'spectate battle': @spectateBattle
-      'join battle': @joinBattle
-      'leave battle': @leaveBattle
+      'updateBattle': @updateBattle
+      'spectateBattle': @spectateBattle
+      'joinBattle': @joinBattle
+      'leaveBattle': @leaveBattle
     @updateQueue = {}
     @on 'add', (model) =>
       @updateQueue[model.id] = []
     @on 'remove', (model) =>
       delete @updateQueue[model.id]
-      PokeBattle.socket.send('leave battle', model.id)
+      PokeBattle.socket.send('leaveBattle', model.id)
 
   updateBattle: (socket, battleId, actions) =>
     battle = @get(battleId)

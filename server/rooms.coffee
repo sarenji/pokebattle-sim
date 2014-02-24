@@ -17,10 +17,10 @@ class @Room
     @users.remove(user)
 
   userMessage: (user, message) ->
-    @send('update chat', user.id, message)
+    @send('updateChat', user.id, message)
 
   message: (message) ->
-    @send('raw message', message)
+    @send('rawMessage', message)
 
   send: ->
     @users.broadcast.apply(@users, arguments)

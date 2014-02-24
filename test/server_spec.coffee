@@ -13,7 +13,7 @@ describe 'BattleServer', ->
     battleId = server.createBattle()
     server.battles.should.have.ownProperty battleId
 
-  it "sends the 'spectate battle' event for each matched player", (done) ->
+  it "sends the 'spectateBattle' event for each matched player", (done) ->
     players = [ new User('abc'), new User('def') ]
     spies = []
     for player in players
@@ -29,7 +29,7 @@ describe 'BattleServer', ->
       throw new Error(err.message)  if err
       return  if ids.length == 0
       for spy in spies
-        spy.calledWith('spectate battle').should.be.true
+        spy.calledWith('spectateBattle').should.be.true
       done()
 
   describe "#queuePlayer", ->
@@ -229,7 +229,7 @@ describe 'BattleServer', ->
       mock.verify()
 
   describe "#cancelChallenge", ->
-    it "sends a 'cancel challenge' to both the challengee and challenger", ->
+    it "sends a 'cancelChallenge' to both the challengee and challenger", ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")

@@ -24,7 +24,7 @@ class @User
     @send("error", args...)
 
   message: (msg) ->
-    @send("raw message", msg)
+    @send("rawMessage", msg)
 
   close: ->
     @socket?.close()

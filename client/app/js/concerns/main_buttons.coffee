@@ -5,7 +5,7 @@ $ ->
     PokeBattle.navigation.showTeambuilder()
 
   createChallengePane
-    eventName: "find battle"
+    eventName: "findBattle"
     populate: $mainButtons.find('.find_battle_select_team')
     button: $mainButtons.find('.find_battle')
     defaultClauses: [
@@ -50,4 +50,4 @@ $(window).load ->
     if !battle.get('spectating')
       depressFindBattle()
 
-  PokeBattle.events.on 'find battle canceled', depressFindBattle
+  PokeBattle.events.on 'findBattleCanceled', depressFindBattle

@@ -368,8 +368,8 @@ describe "Commands", ->
           @user1.authority = auth.levels.ADMIN
           commands.executeCommand @server, @user1, @room, "wall", "derper", =>
             mock.verify()
-            spy1.calledWithMatch("raw battle message", battleIds[0], "derper").should.be.true
-            spy2.calledWithMatch("raw battle message", battleIds[0], "derper").should.be.true
+            spy1.calledWithMatch("rawBattleMessage", battleIds[0], "derper").should.be.true
+            spy2.calledWithMatch("rawBattleMessage", battleIds[0], "derper").should.be.true
             done()
 
     describe "lockdown", ->

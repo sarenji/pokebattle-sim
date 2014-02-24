@@ -31,7 +31,7 @@ PokeBattle.events.on "error", (type, args...) ->
       PokeBattle.cancelReconnection()
 
     when e.FIND_BATTLE
-      PokeBattle.events.trigger("find battle canceled")
+      PokeBattle.events.trigger("findBattleCanceled")
 
       # Show errors
       [errors] = args

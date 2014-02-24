@@ -776,19 +776,19 @@ class @Battle extends EventEmitter
     index = @getPlayerIndex(spectator.id)
     # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectate battle',
+    spectator.send('spectateBattle',
       @id, @generation, @numActive,
       index, @playerIds, spectators, @log)
     if spectator.id in @playerIds
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     # TODO: Only do if spectator id has not joined yet.
-    @broadcast('join battle', @id, spectator.id)
+    @broadcast('joinBattle', @id, spectator.id)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
-        @broadcast('leave battle', @id, spectator.id)
+        @broadcast('leaveBattle', @id, spectator.id)
         break
 
   forfeit: (id) ->
@@ -811,7 +811,7 @@ class @Battle extends EventEmitter
     for spectator in @spectators
       queue = @queues[spectator.id]
       continue  if !queue || queue.length == 0
-      spectator.send('update battle', @id, queue)
+      spectator.send('updateBattle', @id, queue)
 
     # Now clean-up.
     for id of @queues
