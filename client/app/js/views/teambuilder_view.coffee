@@ -482,7 +482,9 @@ class @TeambuilderView extends Backbone.View
     @renderPBV(pokemon)
 
     # Disable entering values if this is a NullPokemon
-    $view.find("input, select").not(".species_list").prop("disabled", pokemon.isNull)
+    $view.find("input, select")
+      .not(".species_list").not('.select2-input')
+      .prop("disabled", pokemon.isNull)
 
     return this
 
