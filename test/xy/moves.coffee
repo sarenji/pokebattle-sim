@@ -472,3 +472,11 @@ describe "XY Moves:", ->
       mock.verify()
 
     it "is vulnerable to attacks if locked on"
+
+  describe "Toxic", ->
+    it "has perfect accuracy from a Poison type pokemon", ->
+      shared.create.call(this, gen: 'xy')
+      @p1.types = [ "Poison" ]
+      @p2.types = [ "Normal" ]
+      toxic = @battle.getMove("Toxic")
+      toxic.chanceToHit(@battle, @p1, @p2).should.equal(0)

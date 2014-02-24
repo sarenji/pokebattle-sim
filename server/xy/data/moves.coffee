@@ -45,3 +45,8 @@ makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
     battle.message "A sticky web spreads out beneath #{opponentId} team's feet!"
   else
     @fail(battle)
+
+extendMove 'Toxic', ->
+  @getAccuracy = (battle, user, target) ->
+    return 0  if user.hasType("Poison")
+    return @accuracy
