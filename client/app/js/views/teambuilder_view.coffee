@@ -86,15 +86,9 @@ class @TeambuilderView extends Backbone.View
 
   loadTeams: =>
     @teams = PokeBattle.TeamStore.getTeams(teambuilder: true)
+    @teams.map(@attachEventsToTeam)
     @addNewTeam()  if @teams.length == 0
     @render()
-
-  jsonToTeam: (json) =>
-    {pokemon} = json
-    p.teambuilder = true  for p in pokemon
-    attributes = _.clone(json)
-    delete attributes.pokemon
-    return new Team(pokemon, attributes)
 
   addEmptyPokemon: (team) =>
     team.add(new NullPokemon())
@@ -105,7 +99,7 @@ class @TeambuilderView extends Backbone.View
   addNewTeam: (team) =>
     team ||= new Team()
     @teams.push(team)
-    @addEmptyPokemon(team)  while team.length != 6
+    @addEmptyPokemon(team)  while team.length < 6
     @attachEventsToTeam(team)
     @saveTeams()
     @renderTeams()
@@ -113,7 +107,7 @@ class @TeambuilderView extends Backbone.View
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
     index = $team.index()
-    @addNewTeam(@jsonToTeam(@teams[index].toJSON()))
+    @addNewTeam(@teams[index].clone())
     return false
 
   deleteTeam: (e) =>
@@ -505,9 +499,9 @@ class @TeambuilderView extends Backbone.View
 
     @$(".total-pbv").text(totalPBV)
     if totalPBV > maxPBV
-      @$(".total-pbv").addClass("pbv-over-max")
+      @$(".total-pbv").addClass("red")
     else
-      @$(".total-pbv").removeClass("pbv-over-max")
+      @$(".total-pbv").removeClass("red")
 
   renderGeneration: =>
     generation = @getSelectedTeam().generation || DEFAULT_GENERATION
@@ -528,7 +522,7 @@ class @TeambuilderView extends Backbone.View
           $errors = $modal.find('.form-errors')
           $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
         else
-          @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
+          @addNewTeam(PokeBattle.jsonToTeam(pokemon: pokemonJSON))
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false

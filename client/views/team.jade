@@ -1,4 +1,11 @@
+.team-pbv PBV: 
+  if team.getPBV() <= 1000
+    = team.getPBV()
+  else
+    span.red
+      = team.getPBV()
+  | /1000
 .team_icons.clearfix
-  each pokemon, i in team
+  each pokemon, i in team.models
     - var style = window.PokemonIconBackground(pokemon)
     .left.pokemon_icon(data-index = i, style = style)
