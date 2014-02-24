@@ -85,26 +85,13 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team, 'change reset add remove', @renderPBV)
 
   loadTeams: =>
-    teamsJSON = window.localStorage.getItem("teams")
-    if teamsJSON
-      teamsJSON = JSON.parse(teamsJSON)
-      for teamJSON in teamsJSON
-        pokemonJSON.teambuilder = true  for pokemonJSON in teamJSON.pokemon
-      @teams = teamsJSON.map(@jsonToTeam)
-      @teams.map(@attachEventsToTeam)
-    else
-      @addNewTeam()
+    @teams = PokeBattle.TeamStore.getTeams(teambuilder: true)
+    @teams.map(@attachEventsToTeam)
+    @addNewTeam()  if @teams.length == 0
     @render()
 
-  jsonToTeam: (json) =>
-    {pokemon} = json
-    p.teambuilder = true  for p in pokemon
-    attributes = _.clone(json)
-    delete attributes.pokemon
-    return new Team(pokemon, attributes)
-
   addEmptyPokemon: (team) =>
-    team.add(new Pokemon(teambuilder: true))
+    team.add(new NullPokemon())
 
   addNewTeamEvent: (e) =>
     @addNewTeam()
@@ -112,7 +99,7 @@ class @TeambuilderView extends Backbone.View
   addNewTeam: (team) =>
     team ||= new Team()
     @teams.push(team)
-    @addNewPokemon(team)  for i in [1..6]  if team.length == 0
+    @addEmptyPokemon(team)  while team.length < 6
     @attachEventsToTeam(team)
     @saveTeams()
     @renderTeams()
@@ -120,7 +107,7 @@ class @TeambuilderView extends Backbone.View
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
     index = $team.index()
-    @addNewTeam(@jsonToTeam(@teams[index].toJSON()))
+    @addNewTeam(@teams[index].clone())
     return false
 
   deleteTeam: (e) =>
@@ -137,7 +124,11 @@ class @TeambuilderView extends Backbone.View
       $('body').append(@exportTemplate())
     $team = $(e.currentTarget).closest('.select-team')
     index = $team.index()
-    teamJSON = @teams[index].toJSON()
+    if not @teams[index].hasNonNullPokemon()
+      alert("You cannot export empty teams. Please add some pokemon first.")
+      return false
+
+    teamJSON = @teams[index].toNonNullJSON()
     teamString = PokeBattle.exportTeam(teamJSON.pokemon)
 
     $modal = $('#export-team-modal')
@@ -153,6 +144,8 @@ class @TeambuilderView extends Backbone.View
     @addEmptyPokemon(team)
     @$('.pokemon_list li').last().click()
 
+  # TODO: phase this out: updating all teams is way too inefficient
+  # Also this is not using the TeamStore as it should
   saveTeams: =>
     teamJSON = @teams.map((team) -> team.toJSON())
     # PokeBattle.socket.send('save team', teamJson)
@@ -160,8 +153,11 @@ class @TeambuilderView extends Backbone.View
     @resetHeaderButtons()
 
   changeSpecies: (e) =>
-    $list = $(e.currentTarget)
-    @getSelectedPokemon().set("name", $list.val())
+    species = $(e.currentTarget).val()
+    if species
+      @replaceSelectedPokemon(new Pokemon(teambuilder: true, name: species))
+    else
+      @replaceSelectedPokemon(new NullPokemon())
 
   changeForme: (e) =>
     $forme = $(e.currentTarget)
@@ -397,6 +393,11 @@ class @TeambuilderView extends Backbone.View
   getSelectedPokemon: =>
     @getSelectedTeam().at(@selectedPokemon)
 
+  replaceSelectedPokemon: (newPokemon) =>
+    team = @getSelectedTeam()
+    team.remove(team.at(@selectedPokemon))
+    team.add(newPokemon, at: @selectedPokemon)
+
   setSelectedTeamIndex: (index) =>
     @selectedTeam = index
     @renderTeam()
@@ -467,18 +468,21 @@ class @TeambuilderView extends Backbone.View
       @$(".add_pokemon").hide()
 
   renderPokemon: (pokemon) =>
-    view = @getPokemonView()
-    if view.children().length == 0
-      view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
-      view.find(".species_list").select2() # nice dropdown menu
+    $view = @getPokemonView()
 
-    view.find(".species_list").val(pokemon.get("name")).trigger("change")
-    view.find(".species-info").html @speciesTemplate(window: window, pokemon: pokemon)
+    # Render it for the first time if there's nothing inside
+    if $view.children().length == 0
+      $view.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: pokemon)
+      $view.find(".species_list").select2(placeholder: "Empty", allowClear: true) # nice dropdown menu
 
+    @renderSpecies(pokemon)
     @renderNonStats(pokemon)
     @renderStats(pokemon)
     @renderMoves(pokemon)
     @renderPBV(pokemon)
+
+    # Disable entering values if this is a NullPokemon
+    $view.find("input, select").not(".species_list").prop("disabled", pokemon.isNull)
 
     return this
 
@@ -495,9 +499,9 @@ class @TeambuilderView extends Backbone.View
 
     @$(".total-pbv").text(totalPBV)
     if totalPBV > maxPBV
-      @$(".total-pbv").addClass("pbv-over-max")
+      @$(".total-pbv").addClass("red")
     else
-      @$(".total-pbv").removeClass("pbv-over-max")
+      @$(".total-pbv").removeClass("red")
 
   renderGeneration: =>
     generation = @getSelectedTeam().generation || DEFAULT_GENERATION
@@ -518,7 +522,7 @@ class @TeambuilderView extends Backbone.View
           $errors = $modal.find('.form-errors')
           $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
         else
-          @addNewTeam(@jsonToTeam(pokemon: pokemonJSON))
+          @addNewTeam(PokeBattle.jsonToTeam(pokemon: pokemonJSON))
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false
@@ -526,6 +530,13 @@ class @TeambuilderView extends Backbone.View
     $modal = $('#import-team-modal')
     $modal.modal('show')
     $modal.find('textarea, input').first().focus()
+
+  renderSpecies: (pokemon) =>
+    $view = @getPokemonView()
+
+    $view.find(".species_list").select2('val', pokemon.get("name"))
+    html = if pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: pokemon)
+    $view.find(".species-info").html(html)
 
   renderNonStats: (pokemon) =>
     $nonStats = @getPokemonView().find(".non-stats")
@@ -554,31 +565,34 @@ class @TeambuilderView extends Backbone.View
     $nonStats.find(".selected_shininess").prop("checked", pokemon.get('shiny'))
 
   renderStats: (pokemon) =>
-    $div = @getPokemonView()
+    $view = @getPokemonView()
 
-    $div.find(".iv-entry").each ->
+    $view.find(".iv-entry").each ->
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.iv(stat))
 
-    $div.find(".ev-entry").each ->
+    $view.find(".ev-entry").each ->
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.ev(stat))
 
-    $div.find('.stat-total').each ->
+    $view.find('.stat-total').each ->
       $this = $(this)
       stat = $this.data("stat")
       $this.text(pokemon.stat(stat))
 
-    $div.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
-    $div.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
+    $view.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
+    $view.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
 
   renderMoves: (pokemon) =>
     # TODO: Cache the resultant html
     $moveSection = @getPokemonView().find(".moves-section")
-    $moveSection.html @movesTemplate(window: window, pokemon: pokemon)
+    if pokemon.isNull
+      $moveSection.html ""
+      return
 
+    $moveSection.html @movesTemplate(window: window, pokemon: pokemon)
     $moveSection.find('.selected_moves input').each (i, el) =>
       $this = $(el)
       moveName = $this.val()

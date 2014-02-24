@@ -53,6 +53,7 @@ mixin moveButton(forPokemon, i)
         - var pokemon = yourTeam.at(i)
         - var isEnabled = validSwitches.indexOf(i) !== -1
         - var disabledClass = (!isEnabled ? 'disabled' : '')
-        .span4
-          .switch.button(class = disabledClass, data-slot = i)
-            .pokemon_icon(style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme')))
+        if pokemon
+          .span4
+            .switch.button(class = disabledClass, data-slot = i)
+              .pokemon_icon(style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme')))

@@ -12,8 +12,8 @@
   defaultClauses = opts.defaultClauses || []
   canEditClauses = opts.canEditClauses ? true
 
-  allTeams = JSON.parse(window.localStorage.getItem('teams'))
-  selectedIndex = window.localStorage.getItem('selectedTeamIndex') || 0
+  allTeams = PokeBattle.TeamStore.getTeams()
+  selectedIndex = PokeBattle.TeamStore.getSelectedTeamIndex() || 0
 
   renderCurrentTeam = ($context) ->
     $selectTeam = $context.find('.select-team')
@@ -51,7 +51,7 @@
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
       disableButtons()
-      teamJSON = allTeams[selectedIndex].pokemon
+      teamJSON = allTeams[selectedIndex].toNonNullJSON().pokemon
       # Send the event
       if personId
         $clauses = $wrapper.find('input:checked[type="checkbox"]')
@@ -68,7 +68,7 @@
   $accept.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
     disableButtons()
-    teamJSON = allTeams[selectedIndex].pokemon
+    teamJSON = allTeams[selectedIndex].toNonNullJSON().pokemon
     PokeBattle.socket.send("accept #{eventName}", personId, teamJSON)
 
   $reject.on 'click.challenge', ->
@@ -83,8 +83,9 @@
     $selectTeam.html("You have no teams!")
 
   # Clicking the team dropdown brings down a team selection menu.
+  # Also updates the allTeams collection
   $wrapper.find('.select-team').click (e) ->
-    allTeams = JSON.parse(window.localStorage.getItem('teams'))
+    allTeams = PokeBattle.TeamStore.getTeams()
     if allTeams && allTeams.length > 0
       html = JST['team_dropdown'](window: window, teams: allTeams)
       $wrapper.find('.team-dropdown').html(html)

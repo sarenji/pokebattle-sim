@@ -23,6 +23,7 @@ class @Pokemon extends Backbone.Model
     @normalizeStats(@get('ivs'), 31)
     @normalizeStats(@get('evs'), 0)
     @resetBoosts()
+    @isNull = false
 
     # Skip teambuilder-specific properties.
     return  if @get('teambuilder') != true
@@ -222,6 +223,7 @@ class @Pokemon extends Backbone.Model
     attributes = _.clone(@attributes)
     delete attributes.gender  if attributes.gender == 'Genderless'
     delete attributes.hiddenPowerType
+    delete attributes.teambuilder
     attributes
 
 # A hash that keys a nature with the stats that it boosts.
@@ -255,3 +257,31 @@ natures =
   serious: {}
   bashful: {}
   quirky:  {}
+
+class @NullPokemon extends Pokemon
+  initialize: ->
+    @set('name', null)
+    @set('forme', 'default')
+    @isNull = true
+
+  getNatures: -> []
+  getPBV: -> 0
+  stat: -> null
+  iv: -> null
+  ev: -> null
+
+  getSpecies: ->
+    id: 0
+    genderRatio: -1
+    generation: 1
+
+  getForme: ->
+    @getFormes()['default']
+
+  getFormes: ->
+    default:
+      abilities: []
+      hiddenAbility: null
+      isBattleOnly: false
+      learnset: {}
+      types: []

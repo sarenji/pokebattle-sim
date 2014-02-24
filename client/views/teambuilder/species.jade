@@ -1,5 +1,5 @@
 .forme-sprite-box
-  - var url = window.PokemonSprite(pokemon.getSpecies().id, pokemon.get('forme'), {shiny: pokemon.get('shiny')})
+  - var url = window.PokemonSprite(pokemon)
   img.forme-sprite(src=url, alt="")
 .species-types
   each type in pokemon.getForme().types
