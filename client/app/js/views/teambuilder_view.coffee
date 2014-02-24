@@ -128,7 +128,7 @@ class @TeambuilderView extends Backbone.View
       alert("You cannot export empty teams. Please add some pokemon first.")
       return false
 
-    teamJSON = @teams[index].toJSON()
+    teamJSON = @teams[index].toNonNullJSON()
     teamString = PokeBattle.exportTeam(teamJSON.pokemon)
 
     $modal = $('#export-team-modal')
