@@ -615,6 +615,15 @@ makeAbility 'Normalize', ->
 makeAbility 'Overcoat', ->
   this::isWeatherDamageImmune = -> true
 
+makeAbility 'Pickpocket', ->
+  this::isAliveCheck = -> true
+
+  this::afterBeingHit = (move, user, target, damage) ->
+    return  if !move.hasFlag("contact") || target.hasItem() || !user.canLoseItem()
+    @battle.message "#{target.name} stole #{user.name}'s #{user.item.displayName}!"
+    target.setItem(user.item)
+    user.removeItem()
+
 makeAbility 'Plus', ->
   this::modifyAttack = (move, target) ->
     allies = @team.getActiveAlivePokemon()
