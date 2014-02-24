@@ -7,7 +7,10 @@
   $reject = opts.rejectButton || $()
   $buttons = $button.add($accept).add($reject)
   eventName = opts.eventName
-  cancelEventName = "cancel#{eventName[0].toUpperCase()}#{eventName.substr(1)}"
+  capitalizedEventName = "#{eventName[0].toUpperCase()}#{eventName.substr(1)}"
+  acceptEventName = "accept#{capitalizedEventName}"
+  rejectEventName = "reject#{capitalizedEventName}"
+  cancelEventName = "cancel#{capitalizedEventName}"
   generation = opts.generation
   personId = opts.personId
   defaultClauses = opts.defaultClauses || []
@@ -70,12 +73,12 @@
     return  if $(this).hasClass('disabled')
     disableButtons()
     teamJSON = allTeams[selectedIndex].toNonNullJSON().pokemon
-    PokeBattle.socket.send("accept #{eventName}", personId, teamJSON)
+    PokeBattle.socket.send(acceptEventName, personId, teamJSON)
 
   $reject.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
     disableButtons()
-    PokeBattle.socket.send("reject #{eventName}", personId)
+    PokeBattle.socket.send(rejectEventName, personId)
 
   if allTeams?.length > 0
     renderCurrentTeam($wrapper)
