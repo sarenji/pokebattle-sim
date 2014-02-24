@@ -7,6 +7,7 @@
   $reject = opts.rejectButton || $()
   $buttons = $button.add($accept).add($reject)
   eventName = opts.eventName
+  cancelEventName = "cancel#{eventName[0].toUpperCase()}#{eventName.substr(1)}"
   generation = opts.generation
   personId = opts.personId
   defaultClauses = opts.defaultClauses || []
@@ -24,10 +25,10 @@
   cancelChallenge = ->
     enableButtons()
     if personId
-      PokeBattle.socket.send("cancel #{eventName}", personId)
+      PokeBattle.socket.send(cancelEventName, personId)
     else
       format = $selectFormat.data('format')
-      PokeBattle.socket.send("cancel #{eventName}", format)
+      PokeBattle.socket.send(cancelEventName, format)
     $button.trigger('cancelChallenge')
 
   disableButtons = ->
