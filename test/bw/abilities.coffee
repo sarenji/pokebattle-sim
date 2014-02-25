@@ -1468,6 +1468,16 @@ describe "BW Abilities:", ->
       @p1.isWeatherDamageImmune(Weather.HAIL).should.be.true
       @p1.isWeatherDamageImmune(Weather.SAND).should.be.true
 
+  describe "Pickpocket", ->
+    it "steals the item of an opponent that makes contact", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Pickpocket")]
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      tackle = @battle.getMove("Tackle")
+      @battle.performMove(@p2, tackle)
+      @p1.hasItem("Leftovers").should.be.true
+      @p2.hasItem("Leftovers").should.be.false
+
   describe "Plus", ->
     it "multiplies special attack by 1.5 if on the field with Minus", ->
       shared.create.call this,
