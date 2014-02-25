@@ -1523,11 +1523,11 @@ extendMove 'Role Play', ->
     'Imposter': true
     "Multitype": true
     "Trace": true
-    "Wonderguard": true
+    "Wonder Guard": true
     "Zen Mode": true
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if user.ability?.displayName isnt "Multitype" && target.ability.displayName not of bannedAbilities && user.ability isnt target.ability
+    if user.ability?.displayName != "Multitype" && target.ability.displayName not of bannedAbilities && user.ability != target.ability
       battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
       user.copyAbility(target.ability)
     else
