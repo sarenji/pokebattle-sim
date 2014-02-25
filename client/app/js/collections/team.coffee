@@ -31,6 +31,16 @@ class @Team extends Backbone.Collection
       .map((pokemon) -> pokemon.toJSON())
       .value()
 
+  # Converts JSON to a team object.
+  # Usage: team = Team.fromJSON(jsonObject, teambuilder: true)
+  @fromJSON: (json, options={}) =>
+    {pokemon} = json
+    p.teambuilder = true  for p in pokemon
+    attributes = _.clone(json)
+    attributes.teambuilder = true  if options.teambuilder
+    delete attributes.pokemon
+    return new Team(pokemon, attributes)
+
   rearrange: (arrangement) ->
     @models = (@models[index]  for index in arrangement)
     return true

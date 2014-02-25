@@ -1,11 +1,3 @@
-jsonToTeam = (json, options={}) =>
-  {pokemon} = json
-  p.teambuilder = true  for p in pokemon
-  attributes = _.clone(json)
-  attributes.teambuilder = true  if options.teambuilder
-  delete attributes.pokemon
-  return new Team(pokemon, attributes)
-
 class TeamStore
   constructor: ->
 
@@ -15,7 +7,7 @@ class TeamStore
     team = @getTeams()[idx]
 
   getTeams: (options) ->
-    _(JSON.parse(window.localStorage.getItem('teams'))).map((json) -> jsonToTeam(json, options))
+    _(JSON.parse(window.localStorage.getItem('teams'))).map((json) -> Team.fromJSON(json, options))
 
   getSelectedTeam: ->
     selectedIndex = @getSelectedTeamIndex() || 0
