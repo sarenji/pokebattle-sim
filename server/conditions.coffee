@@ -242,6 +242,7 @@ createCondition Conditions.TIMED_BATTLE,
     timerWin: (winnerIndex) ->
       @tell(Protocol.TIMER_WIN, winnerIndex)
       @emit('end', @playerIds[winnerIndex])
+      @sendUpdates()
 
 createCondition Conditions.TEAM_PREVIEW,
   attach:
