@@ -616,8 +616,6 @@ makeAbility 'Overcoat', ->
   this::isWeatherDamageImmune = -> true
 
 makeAbility 'Pickpocket', ->
-  this::isAliveCheck = -> true
-
   this::afterBeingHit = (move, user, target, damage) ->
     return  if !move.hasFlag("contact") || target.hasItem() || !user.canLoseItem()
     @battle.message "#{target.name} stole #{user.name}'s #{user.item.displayName}!"
