@@ -6836,3 +6836,18 @@ describe "BW Moves:", ->
       shared.create.call(this, team1: [Factory("Arceus", ability: "Multitype")], team2: [Factory("Toxicroak")])
       @battle.performMove(@p1, @battle.getMove('Reflect Type'))
       @p1.types.should.include "Normal"
+
+  describe "Role Play", ->
+    it "copies the target's ability", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Magikarp", ability: "Levitate")]
+      @battle.performMove(@p1, @battle.getMove('Role Play'))
+      @p1.hasAbility("Levitate").should.be.true
+
+    it "does not copy certain abilities", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), ability: "Swift Swim"]
+        team2: [Factory("Arceus", ability: "Multitype")]
+      @battle.performMove(@p1, @battle.getMove('Role Play'))
+      @p1.hasAbility("Multitype").should.be.false
