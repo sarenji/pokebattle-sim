@@ -583,6 +583,15 @@ class @TeambuilderView extends Backbone.View
       $this = $(this)
       stat = $this.data("stat")
       $this.text(pokemon.stat(stat))
+      $this.removeClass('plus-nature minus-nature')
+
+      if pokemon.natureBoost(stat) > 1
+        $this.addClass('plus-nature')
+        $this.text($this.text() + '+')
+
+      if pokemon.natureBoost(stat) < 1
+        $this.addClass('minus-nature')
+        $this.text($this.text() + '-')
 
     $view.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
     $view.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
