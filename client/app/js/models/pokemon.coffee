@@ -175,8 +175,25 @@ class @Pokemon extends Backbone.Model
     else
       Math.floor(((2 * base + iv + ev) * (level / 100) + 5) * @natureBoost(key))
 
+  # Returns the natures that this pokemon can use
+  # The natures are returned as a list of [id, value] values
+  # to populate a dropdown field.
+  # TODO: Should this be needed in more places, return Nature objects instead
   getNatures: ->
-    (nature[0].toUpperCase() + nature.substr(1)  for nature of natures)
+    natureResults = []
+    for nature, stats of natures
+      name = nature[0].toUpperCase() + nature.substr(1)
+      invertedStats = _(stats).invert()
+      
+      label = name
+      if invertedStats[PLUS]
+        # This nature has an effect, so update the label
+        plusStat = statAbbreviations[invertedStats[PLUS]]
+        minusStat = statAbbreviations[invertedStats[MINUS]]
+        label = "#{name} (+#{plusStat}, -#{minusStat})"
+
+      natureResults.push [name, label]
+    return natureResults
 
   getPBV: ->
     gen = @getGeneration()
@@ -225,6 +242,15 @@ class @Pokemon extends Backbone.Model
     delete attributes.hiddenPowerType
     delete attributes.teambuilder
     attributes
+
+# TODO: These shortenings really should be stored somewhere else.
+statAbbreviations =
+  'hp'             : 'HP'
+  'attack'         : 'Atk'
+  'defense'        : 'Def'
+  'specialAttack'  : 'SAtk'
+  'specialDefense' : 'SDef'
+  'speed'          : 'Spe'
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
