@@ -3014,17 +3014,17 @@ describe "BW Moves:", ->
 
       mock.verify()
 
-  testIdentifyMove = (moveName, type) ->
+  testIdentifyMove = (moveName, types) ->
     describe moveName, ->
       shared.shouldDoNoDamage(moveName)
       shared.shouldFailIfUsedTwice(moveName)
 
-      it "makes the target vulnerable to #{type} moves", ->
+      it "makes the target vulnerable to #{types} moves", ->
         shared.create.call(this, team2: [Factory("Spiritomb")])
-        @p2.isImmune(type).should.be.true
+        _.each(types, ((type) -> @isImmune(type).should.be.true), @p2)
         @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.has(Attachment.Identify).should.be.true
-        @p2.isImmune(type).should.be.false
+        _.each(types, ((type) -> @isImmune(type).should.be.false), @p2)
 
       it "makes the target's evasion be ignored", ->
         shared.create.call(this)
@@ -3033,9 +3033,9 @@ describe "BW Moves:", ->
         @battle.performMove(@p1, @battle.getMove(moveName))
         @p2.editBoosts().evasion.should.equal 0
 
-  testIdentifyMove("Foresight", "Normal")
-  testIdentifyMove("Odor Sleuth", "Normal")
-  testIdentifyMove("Miracle Eye", "Psychic")
+  testIdentifyMove("Foresight", ["Normal", "Fighting"])
+  testIdentifyMove("Odor Sleuth", ["Normal"])
+  testIdentifyMove("Miracle Eye", ["Psychic"])
 
   describe "Conversion", ->
     it "changes the user's type to a random type based on moves", ->

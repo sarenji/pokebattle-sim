@@ -523,14 +523,14 @@ class @Attachment.Identify extends @VolatileAttachment
   name: "IdentifyAttachment"
 
   initialize: (attributes) ->
-    {@type} = attributes
+    {@types} = attributes
 
   editBoosts: (stages) ->
     stages.evasion = 0
     stages
 
   isImmune: (type) ->
-    return false  if type == @type
+    return false  if _.contains(@types, type)
 
 class @Attachment.DefenseCurl extends @VolatileAttachment
   name: "DefenseCurl"

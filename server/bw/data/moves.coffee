@@ -228,10 +228,10 @@ makeProtectMove = (name) ->
     user.attach(Attachment.Protect)
     battle.message "#{user.name} protected itself!"
 
-makeIdentifyMove = (name, type) ->
+makeIdentifyMove = (name, types) ->
   extendMove name, ->
     @use = (battle, user, target) ->
-      if target.attach(Attachment.Identify, {type})
+      if target.attach(Attachment.Identify, {types})
         battle.message "#{target.name} was identified!"
       else
         @fail(battle)
@@ -611,7 +611,7 @@ extendMove 'Focus Punch', ->
     battle.message "#{user.name} is tightening its focus!"
     user.attach(Attachment.FocusPunch)
 
-makeIdentifyMove("Foresight", "Normal")
+makeIdentifyMove("Foresight", ["Normal", "Fighting"])
 makePickAttackMove 'Foul Play'
 makeRechargeMove 'Frenzy Plant'
 extendMove 'Fusion Flare', -> @thawsUser = true
@@ -682,7 +682,7 @@ extendMove 'Minimize', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.attach(Attachment.Minimize)
 
-makeIdentifyMove("Miracle Eye", "Psychic")
+makeIdentifyMove("Miracle Eye", ["Psychic"])
 
 extendMove 'Mirror Move', ->
   @execute = (battle, user, targets) ->
@@ -696,7 +696,7 @@ extendMove 'Mirror Move', ->
 makeWeatherRecoveryMove 'Moonlight'
 makeWeatherRecoveryMove 'Morning Sun'
 makeLevelAsDamageMove 'Night Shade'
-makeIdentifyMove("Odor Sleuth", "Normal")
+makeIdentifyMove("Odor Sleuth", ["Normal"])
 extendWithBoost 'Overheat', 'self', specialAttack: -2
 makeProtectMove 'Protect'
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
