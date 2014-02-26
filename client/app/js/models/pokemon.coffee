@@ -188,8 +188,8 @@ class @Pokemon extends Backbone.Model
       label = name
       if invertedStats[PLUS]
         # This nature has an effect, so update the label
-        plusStat = shortenedStats[invertedStats[PLUS]]
-        minusStat = shortenedStats[invertedStats[MINUS]]
+        plusStat = statAbbreviations[invertedStats[PLUS]]
+        minusStat = statAbbreviations[invertedStats[MINUS]]
         label = "#{name} (+#{plusStat}, -#{minusStat})"
 
       natureResults.push [name, label]
@@ -244,12 +244,13 @@ class @Pokemon extends Backbone.Model
     attributes
 
 # TODO: These shortenings really should be stored somewhere else.
-shortenedStats =
-  attack: "Atk"
-  defense: "Def"
-  specialAttack: "SpAtk"
-  specialDefense: "SpDef"
-  speed: "Spd"
+statAbbreviations =
+  'hp'             : 'HP'
+  'attack'         : 'Atk'
+  'defense'        : 'Def'
+  'specialAttack'  : 'SAtk'
+  'specialDefense' : 'SDef'
+  'speed'          : 'Spe'
 
 # A hash that keys a nature with the stats that it boosts.
 # Neutral natures are ignored.
