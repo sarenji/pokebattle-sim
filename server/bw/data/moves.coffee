@@ -1580,6 +1580,14 @@ extendMove 'Smack Down', ->
 
 makeStatusCureAttackMove 'SmellingSalt', Status.Paralyze
 
+extendMove 'Soak', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if (target.types.length == 1 && target.types[0] == 'Water') || target.name == 'Arceus'
+      @fail(battle)
+    else
+      target.types = [ 'Water' ]
+      battle.message "#{target.name} transformed into the Water type!"
+
 extendMove 'SonicBoom', ->
   @calculateDamage = (battle, user, target) ->
     20

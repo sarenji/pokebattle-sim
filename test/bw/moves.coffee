@@ -6879,3 +6879,31 @@ describe "BW Moves:", ->
       @p1.forme.should.equal("default")
       @battle.performMove(@p1, @battle.getMove('Relic Song'))
       @p1.forme.should.equal("default")
+
+  describe "Soak", ->
+    it "changes the target's type to Water", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp")]
+        team2: [Factory("Smeargle")]
+      @p2.types.should.not.eql ['Water']
+      @battle.performMove(@p1, @battle.getMove('Soak'))
+      @p2.types.should.eql ['Water']
+
+    it "does not affect pure Water type Pokemon", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Magikarp")]
+      @p2.types.should.eql ['Water']
+      soak = @battle.getMove("Soak")
+      mock = @sandbox.mock(soak).expects('fail').once()
+      @battle.performMove(@p1, soak)
+      mock.verify()
+
+    it "does not affect Arceus", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Arceus")]
+      soak = @battle.getMove("Soak")
+      mock = @sandbox.mock(soak).expects('fail').once()
+      @battle.performMove(@p1, soak)
+      mock.verify()
