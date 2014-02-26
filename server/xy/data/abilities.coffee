@@ -130,9 +130,6 @@ makeAbility 'Stance Change', ->
       @battle.message("Changed to #{humanized} Forme!")
     true
 
-  this::switchOut = ->
-    @pokemon.changeForme("default")  if !@pokemon.isInForme("default")
-
 makeAbility "Strong Jaw", ->
   this::modifyBasePower = (move) ->
     return 0x1800  if move.hasFlag("bite")

@@ -6851,3 +6851,31 @@ describe "BW Moves:", ->
         team2: [Factory("Arceus", ability: "Multitype")]
       @battle.performMove(@p1, @battle.getMove('Role Play'))
       @p1.hasAbility("Multitype").should.be.false
+
+  describe "Relic Song", ->
+    it "transforms Meloetta", ->
+      shared.create.call this,
+        team1: [Factory("Meloetta")]
+        team2: [Factory("Arceus")]
+      @battle.performMove(@p1, @battle.getMove('Relic Song'))
+      @p1.forme.should.equal("pirouette")
+      @battle.performMove(@p1, @battle.getMove('Relic Song'))
+      @p1.forme.should.equal("default")
+
+    it "changes Meloetta to default forme after switching out", ->
+      shared.create.call this,
+        team1: [Factory("Meloetta"), Factory("Magikarp")]
+        team2: [Factory("Arceus")]
+      @battle.performMove(@p1, @battle.getMove('Relic Song'))
+      @p1.forme.should.equal("pirouette")
+      @battle.performSwitch(@p1, 1)
+      @battle.performSwitch(@team1.first(), 1)
+      @p1.forme.should.equal("default")
+
+    it "does not transform Pokemon that are not Meloetta", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Magikarp")]
+      @p1.forme.should.equal("default")
+      @battle.performMove(@p1, @battle.getMove('Relic Song'))
+      @p1.forme.should.equal("default")
