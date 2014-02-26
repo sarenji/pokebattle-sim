@@ -37,6 +37,7 @@ class @Pokemon
     @item = Item[attributes.item?.replace(/\s+/g, '')]
     @ability = Ability[attributes.ability?.replace(/\s+/g, '')]
     @originalAbility = @ability
+    @originalForme = @forme
     @status = null
 
     @stages =
@@ -444,6 +445,7 @@ class @Pokemon
     @resetBoosts()
     @resetBlocks()
     @ability = @originalAbility
+    @changeForme(@originalForme)  if @forme != @originalForme
 
   informSwitch: (switcher) ->
     Query('informSwitch', @attachments.all(), switcher)

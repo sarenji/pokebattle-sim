@@ -1426,9 +1426,3 @@ class @Status.Burn extends @StatusAttachment
   endTurn: ->
     if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
       @battle.message "#{@pokemon.name} was hurt by its burn!"
-
-class @Attachment.RelicSong extends @VolatileAttachment
-  name: "RelicSongAttachment"
-
-  switchOut: ->
-    @pokemon.changeForme("default")
