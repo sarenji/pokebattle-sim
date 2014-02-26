@@ -1504,6 +1504,19 @@ extendMove 'Reflect Type', ->
     user.types = target.types
     battle.message "#{user.name}'s type changed to match #{target.name}'s!"
 
+extendMove 'Relic Song', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    return  if user.name != 'Meloetta'
+
+    if user.isInForme("default")
+      user.changeForme("pirouette")
+      user.attach(Attachment.RelicSong)
+    else
+      user.changeForme("default")
+      user.unattach(Attachment.RelicSong)
+
+    battle.message "Meloetta transformed!"
+
 extendMove 'Rest', ->
   @hit = (battle, user, target) ->
     if user.currentHP >= user.stat('hp') || user.has(Status.Sleep) ||
