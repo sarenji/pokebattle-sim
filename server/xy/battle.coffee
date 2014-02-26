@@ -21,6 +21,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
   # We set the original ability to this ability so that the ability
   # is not reset upon switch out.
   pokemon.originalAbility = ability
+  pokemon.originalForme = forme
 
   # Generate and display mega-evolution message
   pieces = forme.split('-').map((s) -> s[0].toUpperCase() + s.substr(1))

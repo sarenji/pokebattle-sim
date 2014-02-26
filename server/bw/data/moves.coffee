@@ -1510,10 +1510,8 @@ extendMove 'Relic Song', ->
 
     if user.isInForme("default")
       user.changeForme("pirouette")
-      user.attach(Attachment.RelicSong)
     else
       user.changeForme("default")
-      user.unattach(Attachment.RelicSong)
 
     battle.message "Meloetta transformed!"
 

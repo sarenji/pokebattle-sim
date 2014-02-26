@@ -6871,3 +6871,11 @@ describe "BW Moves:", ->
       @battle.performSwitch(@p1, 1)
       @battle.performSwitch(@team1.first(), 1)
       @p1.forme.should.equal("default")
+
+    it "does not transform Pokemon that are not Meloetta", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Magikarp")]
+      @p1.forme.should.equal("default")
+      @battle.performMove(@p1, @battle.getMove('Relic Song'))
+      @p1.forme.should.equal("default")
