@@ -696,7 +696,7 @@ extendMove 'Mirror Move', ->
 makeWeatherRecoveryMove 'Moonlight'
 makeWeatherRecoveryMove 'Morning Sun'
 makeLevelAsDamageMove 'Night Shade'
-makeIdentifyMove("Odor Sleuth", ["Normal"])
+makeIdentifyMove("Odor Sleuth", ["Normal", "Fighting"])
 extendWithBoost 'Overheat', 'self', specialAttack: -2
 makeProtectMove 'Protect'
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2

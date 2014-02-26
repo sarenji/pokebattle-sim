@@ -3034,7 +3034,7 @@ describe "BW Moves:", ->
         @p2.editBoosts().evasion.should.equal 0
 
   testIdentifyMove("Foresight", ["Normal", "Fighting"])
-  testIdentifyMove("Odor Sleuth", ["Normal"])
+  testIdentifyMove("Odor Sleuth", ["Normal", "Fighting"])
   testIdentifyMove("Miracle Eye", ["Psychic"])
 
   describe "Conversion", ->

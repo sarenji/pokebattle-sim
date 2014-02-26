@@ -530,7 +530,7 @@ class @Attachment.Identify extends @VolatileAttachment
     stages
 
   isImmune: (type) ->
-    return false  if _.contains(@types, type)
+    return false  if type in @types
 
 class @Attachment.DefenseCurl extends @VolatileAttachment
   name: "DefenseCurl"
