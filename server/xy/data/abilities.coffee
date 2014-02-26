@@ -36,7 +36,7 @@ makeNormalTypeChangeAbility = (name, newType) ->
       return type
 
     this::modifyBasePower = (move, target) ->
-      return 0x1555  if move.type == 'Normal'
+      return 0x14CD  if move.type == 'Normal'
       return 0x1000
 
 makeNormalTypeChangeAbility("Aerilate", "Flying")
@@ -49,7 +49,7 @@ makeAuraAbility = (name, type) ->
       return 0x1000  if move.getType(@battle, @pokemon, target) != type
       for pokemon in @battle.getActiveAlivePokemon()
         return 0xC00  if pokemon.hasAbility("Aura Break")
-      return 0x1555
+      return 0x1547
 
 makeAuraAbility("Dark Aura", "Dark")
 makeAuraAbility("Fairy Aura", "Fairy")
@@ -143,5 +143,5 @@ makeAbility "Symbiosis"
 
 makeAbility "Tough Claws", ->
   this::modifyBasePower = (move) ->
-    return 0x1547  if move.hasFlag("contact")
+    return 0x14CD  if move.hasFlag("contact")
     return 0x1000

@@ -54,10 +54,10 @@ describe "BW Abilities:", ->
         spy.returned(type).should.be.false
         spy.returned(ember.type).should.be.true
 
-      it "boosts Normal-type moves by x4/3", ->
+      it "boosts Normal-type moves by 1.3x", ->
         shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
         tackle = @battle.getMove('Tackle')
-        tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1555)
+        tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
 
       it "does not boost regular #{type}-type moves", ->
         shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
@@ -96,13 +96,13 @@ describe "BW Abilities:", ->
 
   testAuraAbility = (name, type) ->
     describe name, ->
-      it "raises base power of #{type} attacks by 4/3x", ->
+      it "raises base power of #{type} attacks by 1.33x", ->
         shared.create.call this,
           gen: 'xy'
           team1: [Factory("Magikarp", ability: name)]
         move = @battle.findMove (m) ->
           m.type == type && !m.isNonDamaging()
-        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1555)
+        move.modifyBasePower(@battle, @p1, @p2).should.equal(0x1547)
 
       it "decreases #{type} attacks by 3/4x if Aura Break is on the field", ->
         shared.create.call this,
@@ -384,12 +384,12 @@ describe "BW Abilities:", ->
       thunderbolt.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
   describe "Tough Claws", ->
-    it "boosts contact moves by x1.33", ->
+    it "boosts contact moves by x1.3", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory("Magikarp", ability: "Tough Claws")]
       tackle = @battle.getMove('Tackle')
-      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1547)
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
 
     it "does not boost non-contact moves", ->
       shared.create.call this,
