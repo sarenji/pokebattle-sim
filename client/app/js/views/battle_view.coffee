@@ -76,6 +76,7 @@ class @BattleView extends Backbone.View
     """
 
   renderUserInfo: =>
+    return  if !@model.teams
     locals =
       yourTeam     : @model.getTeam()
       opponentTeam : @model.getOpponentTeam()
