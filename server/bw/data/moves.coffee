@@ -1595,6 +1595,11 @@ extendMove 'Smack Down', ->
 
 makeStatusCureAttackMove 'SmellingSalt', Status.Paralyze
 
+extendMove 'Snore', ->
+  @usableWhileAsleep = true
+  @use = (battle, user, target) ->
+    @fail(battle)  if !user.has(Status.Sleep)
+
 extendMove 'Soak', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if (target.types.length == 1 && target.types[0] == 'Water') || target.name == 'Arceus'
