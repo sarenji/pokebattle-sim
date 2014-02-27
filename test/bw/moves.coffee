@@ -6907,3 +6907,11 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(soak).expects('fail').once()
       @battle.performMove(@p1, soak)
       mock.verify()
+
+  describe 'electro ball', ->
+    it 'has variable base power based on speed of user and target', ->
+      shared.create.call this,
+        team1: [Factory('Electrode', evs: {speed: 252}, nature: "Timid")]
+        team2: [Factory('Smeargle')]
+      move = @battle.getMove('Electro Ball')
+      move.basePower(@battle, @p1, @p2).should.equal 80

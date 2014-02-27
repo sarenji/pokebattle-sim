@@ -1009,6 +1009,21 @@ extendMove 'Echoed Voice', ->
     attachment = battle.get(Attachment.EchoedVoice)
     attachment.turns = 2
 
+extendMove 'Electro Ball', ->
+  @basePower = (battle, user, target) ->
+    ratio = user.stat('speed') / target.stat('speed')
+    power = 0
+    if ratio >= 4
+      power = 150
+    else if ratio >= 3
+      power = 120
+    else if ratio >= 2
+      power = 80
+    else if ratio >= 1
+      power = 60
+    else
+      power = 40
+
 extendMove 'Encore', ->
   bannedMoves =
     'Encore': true
