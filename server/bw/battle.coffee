@@ -562,6 +562,7 @@ class @Battle extends EventEmitter
 
     @requests[playerId] = validActions
     @sendRequestTo(playerId)
+    @emit('requestActions', playerId)
     return true
 
   sendRequestTo: (playerId) ->
