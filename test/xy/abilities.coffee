@@ -11,7 +11,7 @@ shared = require '../shared'
 
 require '../helpers'
 
-describe "BW Abilities:", ->
+describe "XY Abilities:", ->
   testWeatherAbility = (name, weather) ->
     describe name, ->
       it "causes #{weather} that ends after 5 turns", ->
