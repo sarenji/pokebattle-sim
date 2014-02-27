@@ -75,7 +75,7 @@ class @Move
         damage = @hit(battle, user, target, hitNumber, isDirect) || 0
         @afterHit(battle, user, target, damage, isDirect)
         totalDamage += damage
-        break  if target.isFainted()
+        break  if target.isFainted() || user.isFainted()
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 

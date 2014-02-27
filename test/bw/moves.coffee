@@ -278,7 +278,16 @@ describe 'Move:', ->
       move = new Move("multihit", minHits: 4, maxHits: 4)
       mock = @sandbox.mock(move).expects('hit').exactly(4)
 
-      move.execute(@battle, @p1, [@p2], true)
+      move.execute(@battle, @p1, [@p2])
+      mock.verify()
+
+    it 'only hits up until user faints', ->
+      shared.create.call(this, team2: [Factory('Ferrothorn', ability: 'Iron Barbs')])
+      move = new Move("multihit", minHits: 4, maxHits: 4, flags: ["contact"])
+      mock = @sandbox.mock(move).expects('hit').exactly(1)
+
+      @p1.currentHP = 1
+      move.execute(@battle, @p1, [@p2])
       mock.verify()
 
   describe "#use", ->
