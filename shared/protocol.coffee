@@ -31,3 +31,5 @@
   TIMER_WIN        : 30
   UPDATE_TIMERS    : 31
   WEATHER_CHANGE   : 32
+  RESUME_TIMER     : 33
+  PAUSE_TIMER      : 34

@@ -163,13 +163,29 @@ createCondition Conditions.TIMED_BATTLE,
       @lastActionTimes = {}
       @startTimer()
 
+    requestActions: (playerId) ->
+      # If a player has selected a move, then there's an amount of time spent
+      # between move selection and requesting another action that was "lost".
+      # We grant this back here.
+      if @lastActionTimes[playerId]
+        now = Date.now()
+        leftoverTime = now - @lastActionTimes[playerId]
+        delete @lastActionTimes[playerId]
+        @addTime(playerId, leftoverTime)
+      # In either case, we update timers and  tell people that this
+      # player's timer resumes.
+      endTimes = (@endTimeFor(id)  for id in @playerIds)
+      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+      @tell(Protocol.RESUME_TIMER, @getPlayerIndex(playerId))
+
     addAction: (playerId, action) ->
       # Record the last action for use
       @lastActionTimes[playerId] = Date.now()
+      @recalculateTimers()
 
     undoCompletedRequest: (playerId) ->
       delete @lastActionTimes[playerId]
-      @checkPlayerTimes()
+      @recalculateTimers()
 
     # Show players updated times
     beginTurn: ->
@@ -179,16 +195,9 @@ createCondition Conditions.TIMED_BATTLE,
         endTimes.push(@endTimeFor(id))
       @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
-    # Subtract the amount of time between now and a player's last action;
-    # this is time they should not be penalized for.
     continueTurn: ->
-      now = (new Date).getTime()
-      for playerId in Object.keys(@lastActionTimes)
-        leftoverTime = now - @lastActionTimes[playerId]
-        delete @lastActionTimes[playerId]
-        @addTime(playerId, leftoverTime)
-      endTimes = (@endTimeFor(id)  for id in @playerIds)
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+      for id in @playerIds
+        @tell(Protocol.PAUSE_TIMER, @getPlayerIndex(id))
 
   extend:
     DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
@@ -198,10 +207,7 @@ createCondition Conditions.TIMED_BATTLE,
 
     startTimer: (msecs) ->
       msecs ?= @DEFAULT_TIMER
-      check = () =>
-        leastRemainingTime = @checkPlayerTimes()
-        @startTimer(leastRemainingTime)  if leastRemainingTime > 0
-      @timerId = setTimeout(check, msecs)
+      @timerId = setTimeout(@declareWinner.bind(this), msecs)
       @once('end', => clearTimeout(@timerId))
 
     addTime: (id, msecs) ->
@@ -210,7 +216,18 @@ createCondition Conditions.TIMED_BATTLE,
       if remainingTime > @TIMER_CAP
         diff = remainingTime - @TIMER_CAP
         @playerTimes[id] -= diff
+      @recalculateTimers()
       @playerTimes[id]
+
+    recalculateTimers: ->
+      playerTimes = for id in @playerIds
+        if @lastActionTimes[id] then Infinity else @timeRemainingFor(id)
+      leastTime = Math.min(playerTimes...)
+      clearTimeout(@timerId)
+      if 0 < leastTime < Infinity
+        @timerId = setTimeout(@declareWinner.bind(this), leastTime)
+      else if leastTime <= 0
+        @declareWinner()
 
     timeRemainingFor: (playerId) ->
       endTime = @endTimeFor(playerId)
@@ -221,23 +238,24 @@ createCondition Conditions.TIMED_BATTLE,
       endTime = @playerTimes[playerId]
       endTime
 
-    checkPlayerTimes: ->
-      remainingTimes = []
-      timedOutPlayers = []
+    playersWithLeastTime: ->
+      losingIds = []
+      leastTimeRemaining = Infinity
       for id in @playerIds
         timeRemaining = @timeRemainingFor(id)
-        if timeRemaining <= 0
-          timedOutPlayers.push(id)
-        else
-          remainingTimes.push(timeRemaining)
+        if timeRemaining < leastTimeRemaining
+          losingIds = [ id ]
+          leastTimeRemaining = timeRemaining
+        else if timeRemaining == leastTimeRemaining
+          losingIds.push(id)
+      return losingIds
 
-      return Math.min(remainingTimes...)  if timedOutPlayers.length == 0
-
-      loser = @rng.choice(timedOutPlayers, "timer")
-      index = @getPlayerIndex(loser)
+    declareWinner: ->
+      loserIds = @playersWithLeastTime()
+      loserId = @rng.choice(loserIds, "timer")
+      index = @getPlayerIndex(loserId)
       winnerIndex = 1 - index
       @timerWin(winnerIndex)
-      return 0
 
     timerWin: (winnerIndex) ->
       @tell(Protocol.TIMER_WIN, winnerIndex)

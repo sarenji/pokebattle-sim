@@ -108,6 +108,14 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.UPDATE_TIMERS
           timers = rest
           view.updateTimers(timers, done)
+        when Protocol.PAUSE_TIMER
+          [player] = rest
+          view.pauseTimer(player)
+          done()
+        when Protocol.RESUME_TIMER
+          [player] = rest
+          view.resumeTimer(player)
+          done()
         when Protocol.MOVE_SUCCESS
           [player, slot, targetSlot] = rest
           view.moveSuccess(player, slot, targetSlot, done)

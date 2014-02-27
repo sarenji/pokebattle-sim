@@ -23,6 +23,7 @@ class @BattleView extends Backbone.View
     @listenTo(@model, 'change:finished', @handleEnd)
     @battleStartTime = $.now()
     @timers = []
+    @timerFrozenAt = []
     @timerIterations = 0
     @countdownTimers()
 
@@ -658,12 +659,14 @@ class @BattleView extends Backbone.View
     $userInfo = @$('.battle_user_info')
     $yourTimer = $userInfo.find('.left .battle-timer')
     $theirTimer = $userInfo.find('.right .battle-timer')
-    yourTime = @timers[@model.index]
-    theirTime = @timers[1 - @model.index]
+    yourIndex = @model.index
+    theirIndex = (1 - yourIndex)
     now = $.now()
+    yourTime = @timerFrozenAt[yourIndex] || (@timers[yourIndex] - now)
+    theirTime = @timerFrozenAt[theirIndex] || (@timers[theirIndex] - now)
     if yourTime && theirTime
-      @changeTimer($yourTimer, @timerFrozenAt || (yourTime - now))
-      @changeTimer($theirTimer, theirTime - now)
+      @changeTimer($yourTimer, yourTime)
+      @changeTimer($theirTimer, theirTime)
 
   countdownTimers: =>
     @renderTimers()
@@ -681,6 +684,12 @@ class @BattleView extends Backbone.View
       $timer.addClass("battle-timer-low")
     else
       $timer.removeClass("battle-timer-low")
+
+  pauseTimer: (index) =>
+    @timerFrozenAt[index] = @timers[index] - $.now()
+
+  resumeTimer: (index) =>
+    delete @timerFrozenAt[index]
 
   announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
@@ -759,12 +768,12 @@ class @BattleView extends Backbone.View
   enableButtons: (validActions) =>
     @lastValidActions = validActions || @lastValidActions
     @renderActions(@lastValidActions)
-    delete @timerFrozenAt
+    @resumeTimer(@model.index)
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
     @renderWaiting()
-    @timerFrozenAt = @timers[@model.index] - $.now()
+    @pauseTimer(@model.index)
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!</p>")
