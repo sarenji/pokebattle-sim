@@ -30,6 +30,11 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 makeTrappingMove "Infestation"
 extendWithDrain('Oblivion Wing', .75)
 
+extendMove "Parting Shot", ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    target.boost(attack: -1, specialAttack: -1, user)
+    battle.forceSwitch(user)
+
 makeChargeMove 'Phantom Force', [], "$1 vanished instantly!"
 
 extendMove "Rapid Spin", ->
