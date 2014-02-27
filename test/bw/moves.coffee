@@ -561,6 +561,42 @@ describe "BW Moves:", ->
   testRecoilMove("Wild Charge")
   testRecoilMove("Wood Hammer")
 
+  testDrainMove = (moveName) ->
+    describe moveName, ->
+      it "absorbs a percentage of the damage rounded up", ->
+        shared.create.call(this)
+        @p1.currentHP = 1
+
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        drain = move.recoil / 100
+
+        damage = (@p2.stat('hp') - @p2.currentHP)
+        (@p1.currentHP - 1).should.equal Math.ceil(damage * drain)
+
+      it 'receives a minimum of 1 HP of drain', ->
+        shared.create.call(this)
+        @p1.currentHP = @p2.currentHP = 1
+
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p1.currentHP.should.equal(2)
+
+      it "does not drain if no damage was dealt", ->
+        shared.create.call(this)
+        @p1.currentHP = 1
+        @battle.recordMove(@id2, @battle.getMove("Protect"))
+        @battle.recordMove(@id1, @battle.getMove(moveName))
+        @battle.continueTurn()
+        @p1.currentHP.should.equal(1)
+
+  testDrainMove("Absorb")
+  testDrainMove("Drain Punch")
+  testDrainMove("Giga Drain")
+  testDrainMove("Horn Leech")
+  testDrainMove("Leech Life")
+  testDrainMove("Mega Drain")
+
   describe 'Haze', ->
     shared.shouldDoNoDamage('Haze')
 

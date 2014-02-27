@@ -79,7 +79,7 @@ class @Move
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 
-    # Recoil
+    # Recoil moves
     if totalDamage > 0 && @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(totalDamage * -@recoil / 100)
       recoil = Math.max(1, recoil)
@@ -125,6 +125,13 @@ class @Move
 
   # `hit` may be overridden, but we still want to run these callbacks.
   afterHit: (battle, user, target, damage, isDirect) ->
+    # Drain moves
+    if damage > 0 && @recoil > 0
+      amount = Math.round(damage * @recoil / 100)
+      user.drain(amount, target)
+      battle.message "#{target.name} had its energy drained!"
+      battle.message "#{user.name} absorbed some HP!"
+
     if isDirect && @shouldTriggerSecondary(battle, user, target)
       @triggerSecondaryEffect(battle, user, target)
     user.afterSuccessfulHit(this, user, target, damage, isDirect)

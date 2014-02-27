@@ -47,16 +47,6 @@ for move in MoveList
           if !target.attach(effect, source: user)
             @fail(battle)
 
-extendWithDrain = (name, drainPercent=.5) ->
-  extendMove name, ->
-    oldFunc = @afterSuccessfulHit
-    @afterSuccessfulHit = (battle, user, target, damage) ->
-      amount = Math.ceil(damage * drainPercent)
-      user.drain(amount, target)
-      battle.message "#{target.name} had its energy drained!"
-      battle.message "#{user.name} absorbed some HP!"
-      oldFunc.call(this, battle, user, target, damage)
-
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
     @afterMiss = @afterFail = (battle, user, target) ->
@@ -440,7 +430,6 @@ makeTrappingMove = (name) ->
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
         user.attach(Attachment.TrapLeash, {target})
 
-extendWithDrain 'Absorb'
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'Baton Pass', ->
@@ -569,8 +558,6 @@ extendMove 'Defog', ->
         battle.message "#{opponentId}'s side of the field is cleared of entry hazards."
 
 makeProtectMove 'Detect'
-extendWithDrain 'Drain Punch'
-extendWithDrain 'Dream Eater'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
 makeEruptionMove 'Eruption'
@@ -615,7 +602,6 @@ makeIdentifyMove("Foresight", ["Normal", "Fighting"])
 makePickAttackMove 'Foul Play'
 makeRechargeMove 'Frenzy Plant'
 extendMove 'Fusion Flare', -> @thawsUser = true
-extendWithDrain 'Giga Drain'
 makeRechargeMove 'Giga Impact'
 makeWeightBased 'Grass Knot'
 extendMove 'Growth', ->
@@ -637,7 +623,6 @@ makeWeightRatioBased 'Heat Crash'
 makeWeightRatioBased 'Heavy Slam'
 makeJumpKick 'Hi Jump Kick'
 makeOneHitKOMove 'Horn Drill'
-extendWithDrain 'Horn Leech'
 makeRechargeMove 'Hydro Cannon'
 makeRechargeMove 'Hyper Beam'
 makeMomentumMove 'Ice Ball'
@@ -651,7 +636,6 @@ extendMove 'Hurricane', ->
 
 makeJumpKick 'Jump Kick'
 extendWithBoost 'Leaf Storm', 'self', specialAttack: -2
-extendWithDrain 'Leech Life'
 
 extendMove 'Leech Seed', ->
   oldWillMiss = @willMiss
@@ -674,7 +658,6 @@ extendMove 'Lucky Chant', ->
 
 makeTrappingMove "Magma Storm"
 makeMeanLookMove 'Mean Look'
-extendWithDrain 'Mega Drain'
 makeRecoveryMove 'Milk Drink'
 makeLockOnMove 'Mind Reader'
 
