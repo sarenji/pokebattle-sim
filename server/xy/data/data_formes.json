@@ -486,7 +486,7 @@
                 "Flying"
             ],
             "weight": 590,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 145
         },
         "mega": {
             "types": [
@@ -1153,7 +1153,7 @@
                 "Poison"
             ],
             "weight": 105,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 140
         }
     },
     "Ampharos": {
@@ -3152,7 +3152,7 @@
                 "Steel"
             ],
             "weight": 1495,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 130
         }
     },
     "Bayleef": {
@@ -4709,7 +4709,7 @@
                 "Flying"
             ],
             "weight": 410,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 140
         }
     },
     "Breloom": {
@@ -8829,7 +8829,7 @@
                 "Dark"
             ],
             "weight": 328,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 140
         }
     },
     "Cresselia": {
@@ -16127,7 +16127,7 @@
                 "Electric"
             ],
             "weight": 143,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 135
         }
     },
     "Garbodor": {
@@ -16792,7 +16792,7 @@
             ],
             "isBattleOnly": true,
             "weight": 405,
-            "pokeBattleValue": 230
+            "pokeBattleValue": 250
         }
     },
     "Geodude": {
@@ -18410,7 +18410,7 @@
                 "Water"
             ],
             "weight": 226,
-            "pokeBattleValue": 105
+            "pokeBattleValue": 125
         }
     },
     "Gothita": {
@@ -20149,7 +20149,7 @@
                 "Steel"
             ],
             "weight": 4300,
-            "pokeBattleValue": 200
+            "pokeBattleValue": 195
         }
     },
     "Heracross": {
@@ -20719,7 +20719,7 @@
                 "Fighting"
             ],
             "weight": 480,
-            "pokeBattleValue": 100
+            "pokeBattleValue": 125
         }
     },
     "Ho-Oh": {
@@ -21412,7 +21412,7 @@
                 "Water"
             ],
             "weight": 270,
-            "pokeBattleValue": 95
+            "pokeBattleValue": 120
         }
     },
     "Hydreigon": {
@@ -21866,7 +21866,7 @@
                 "Fighting"
             ],
             "weight": 550,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Ivysaur": {
@@ -22927,7 +22927,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1000,
-            "pokeBattleValue": 270
+            "pokeBattleValue": 290
         }
     },
     "Karrablast": {
@@ -23109,7 +23109,7 @@
             ],
             "weight": 220,
             "hiddenAbility": "Protean",
-            "pokeBattleValue": 120
+            "pokeBattleValue": 85
         }
     },
     "Keldeo": {
@@ -24530,7 +24530,7 @@
                 "Ice"
             ],
             "weight": 3250,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 230
         }
     },
     "Lairon": {
@@ -26170,7 +26170,7 @@
                 "Grass"
             ],
             "weight": 163,
-            "pokeBattleValue": 75
+            "pokeBattleValue": 110
         }
     },
     "Lillipup": {
@@ -28600,7 +28600,7 @@
                 "Flying"
             ],
             "weight": 395,
-            "pokeBattleValue": 145
+            "pokeBattleValue": 165
         }
     },
     "Manectric": {
@@ -36155,7 +36155,7 @@
             ],
             "isBattleOnly": true,
             "weight": 590,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 190
         }
     },
     "Piplup": {
@@ -37031,7 +37031,7 @@
                 "Normal"
             ],
             "weight": 325,
-            "pokeBattleValue": 120
+            "pokeBattleValue": 140
         }
     },
     "Primeape": {
@@ -38219,7 +38219,7 @@
                 "Rock"
             ],
             "weight": 1025,
-            "pokeBattleValue": 155
+            "pokeBattleValue": 125
         }
     },
     "Rapidash": {
@@ -40006,7 +40006,7 @@
                 "Fire"
             ],
             "weight": 3,
-            "pokeBattleValue": 140
+            "pokeBattleValue": 150
         },
         "mow": {
             "abilities": [
@@ -40056,7 +40056,7 @@
                 "Water"
             ],
             "weight": 3,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 170
         }
     },
     "Rufflet": {
@@ -40240,7 +40240,7 @@
                 "Ghost"
             ],
             "weight": 110,
-            "pokeBattleValue": 115
+            "pokeBattleValue": 140
         }
     },
     "Salamence": {
@@ -41042,7 +41042,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1250,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 180
         }
     },
     "Scolipede": {
@@ -43314,7 +43314,7 @@
                 "Rock"
             ],
             "weight": 205,
-            "pokeBattleValue": 80
+            "pokeBattleValue": 115
         }
     },
     "Shuppet": {
@@ -52068,7 +52068,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1555,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 190
         }
     },
     "Vespiquen": {
@@ -57136,7 +57136,7 @@
                     "U-turn": 0
                 }
             },
-            "pokeBattleValue": 80
+            "pokeBattleValue": 115
         }
     },
     "Litleo": {
@@ -57507,7 +57507,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 95
+            "pokeBattleValue": 120
         }
     },
     "Skiddo": {
@@ -59428,7 +59428,7 @@
                     "Waterfall": 0
                 }
             },
-            "pokeBattleValue": 85
+            "pokeBattleValue": 100
         }
     },
     "Helioptile": {
@@ -60585,7 +60585,7 @@
                     "Thief": 0
                 }
             },
-            "pokeBattleValue": 140
+            "pokeBattleValue": 165
         }
     },
     "Phantump": {
@@ -60758,7 +60758,7 @@
                     "X-Scissor": 0
                 }
             },
-            "pokeBattleValue": 115
+            "pokeBattleValue": 135
         }
     },
     "Pumpkaboo": {
@@ -61056,7 +61056,7 @@
             ],
             "hiddenAbility": "Insomnia",
             "weight": 390,
-            "pokeBattleValue": 110
+            "pokeBattleValue": 135
         }
     },
     "Bergmite": {
