@@ -207,6 +207,7 @@ class @TeambuilderView extends Backbone.View
 
   focusEv: (e) =>
     $input = $(e.currentTarget)
+    return  if $input.is("[type=range]")
     value = parseInt($input.val())
     $input.val("")  if value == 0
 
@@ -220,7 +221,7 @@ class @TeambuilderView extends Backbone.View
 
     pokemon = @getSelectedPokemon()
     value = pokemon.setEv(stat, value)
-    $input.val(value)
+    $input.val(value)  if not $input.is("[type=range]")
 
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
@@ -575,9 +576,15 @@ class @TeambuilderView extends Backbone.View
       $input.val(pokemon.iv(stat))
 
     $view.find(".ev-entry").each ->
+      return  if $(this).is(":focus")
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.ev(stat))
+
+    $view.find('.base-stat').each ->
+      $this = $(this)
+      stat = $this.data("stat")
+      $this.text(pokemon.base(stat))
 
     $view.find('.stat-total').each ->
       $this = $(this)
@@ -593,7 +600,11 @@ class @TeambuilderView extends Backbone.View
         $this.addClass('minus-nature')
         $this.text($this.text() + '-')
 
-    $view.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
+    remainingEvs = 508 - pokemon.getTotalEVs()
+    $view.find('.remaining-evs-amount')
+      .text(remainingEvs)
+      .toggleClass("over-limit", remainingEvs < 0)
+    
     $view.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
 
   renderMoves: (pokemon) =>

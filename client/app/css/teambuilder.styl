@@ -146,7 +146,7 @@ $pokemon-list-height = 50px
     line-height 1.5em
     height 1.5em
 
-  .stat-label, .stat-total
+  .stat-label, .stat-total, .base-stat
     width 1px // minimum possible size
 
   td:first-child
@@ -154,6 +154,14 @@ $pokemon-list-height = 50px
 
   input
     width 100%
+    text-align right
+
+  th.ev-cell, th.iv-cell
+    text-align right
+    padding-right 17px // match with value in textfield (10px from the main cell + the input padding)
+
+  td.ev-cell, td.iv-cell
+    width 60px
 
   .plus-nature
     color $positive-color
@@ -161,6 +169,16 @@ $pokemon-list-height = 50px
 
   .minus-nature
     color $negative-color
+
+  .remaining-evs
+    float left
+
+  .hidden-power
+    float right
+
+  .remaining-evs-amount.over-limit
+    color $negative-color
+    font-weight bold
 
 .teambuilder select.select-hidden-power
   width auto

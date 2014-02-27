@@ -3,9 +3,12 @@ mixin printStat(statName, keyName)
     td.stat-label
       strong #{statName}:
     td
-      input(type="text", class="ev-entry", data-stat=keyName)
-    td
-      input(type="text", class="iv-entry", data-stat=keyName)
+      input(type="range", min="0", max="252", step="4", data-stat=keyName).ev-entry
+    td.ev-cell
+      input(type="text", data-stat=keyName).ev-entry
+    td.iv-cell
+      input(type="text", data-stat=keyName).iv-entry
+    td.base-stat(data-stat=keyName)
     td.stat-total(data-stat=keyName)
 
 .meta-info.clearfix
@@ -54,8 +57,9 @@ mixin printStat(statName, keyName)
     table.stats
       thead
         th
-        th EV
-        th IV
+        th(colspan=2).ev-cell EV
+        th.iv-cell IV
+        th Base
         th Stat
       tbody
         +printStat("HP", "hp")
@@ -66,12 +70,15 @@ mixin printStat(statName, keyName)
         +printStat("Speed", "speed")
         tr
           td
-          td.total-evs
-          td(colspan="2")
-            | Hidden Power: 
-            select.select-hidden-power
-              each value, type in window.HiddenPower.BW.ivs
-                - var displayType = type[0].toUpperCase() + type.substr(1)
-                option(value=type)= displayType
+          td(colspan="5")
+            .remaining-evs
+              | Remaining EVs: 
+              span.remaining-evs-amount
+            .hidden-power
+              | Hidden Power: 
+              select.select-hidden-power
+                each value, type in window.HiddenPower.BW.ivs
+                  - var displayType = type[0].toUpperCase() + type.substr(1)
+                  option(value=type)= displayType
 
   .moves-section.clearfix
