@@ -41,6 +41,9 @@ $pane-width = $battle-width + $padding + $padding
     left 0
     right 0
     bottom 0
+    .pokemon_icons
+      margin 0 auto
+      width 80px
     .left
       bottom 20px
       left 0
@@ -274,17 +277,16 @@ $pane-width = $battle-width + $padding + $padding
     color #62CBB0
 
 .team_icons
-  width 192px
+  width 6 * 40px
 
 .pokemon_icon
   position    relative
-  width       32px
-  height      @width
+  width       40px
+  height      32px
   display     block
   margin      0 auto
-  top         -3px
   left        -4px
-  background url("http://s3.pokebattle.com/img/pokemon_icons.png") top left
+  background url("http://s3.pokebattle.com/img/pokemon_icons_40px.png") top left
   &.fainted
     opacity 0.5
 
@@ -294,7 +296,7 @@ $pane-width = $battle-width + $padding + $padding
   right 100px
   text-align center
   margin 0 auto
-  width 320px
+  width 300px
   normal-font()
   li
     position relative
@@ -320,13 +322,20 @@ $pane-width = $battle-width + $padding + $padding
   margin 10px 0
   border 1px solid #aaa
 
+  .px_40, .sortable-placeholder
+    width 40px
+    margin 0 2px
+    padding-left 0
+    padding-right 0
+    float left
+
   .submit_arrangement
     margin 10px 0 0
 
   .team_pokemon
     position relative
-    width 32px
-    height @width
+    width 40px
+    height 32px
     margin 0 auto
 
   .arrange_team
@@ -346,15 +355,7 @@ $pane-width = $battle-width + $padding + $padding
   .sortable-placeholder
     border 1px dashed #ccc
     background none
-    float left
-    // TODO: This should have the span2 style attached
-    width 41.296875px
     height 40px
-    margin-left 2.564102564102564%
-
-  // :first-child pseudo-classes don't work well with jquery.sortable
-  .first-child
-    margin-left 0
 
   .unstyled
     margin 0

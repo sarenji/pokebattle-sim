@@ -3,13 +3,15 @@ each team in [ yourTeam, opponentTeam ]
   div(class = leftOrRight)
     = team.owner
     .battle-timer
-    - for (var j = 0, len = team.length; j < len; j += 3)
-      .row-fluid
-        - for (var i = j; i < j + 3; i++)
-          - var pokemon = team.at(i)
-          if pokemon
-            .span4
-              - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
-              - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
-              - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
-              .pokemon_icon(class = faintClass, style = style, data-team = teamIndex, data-slot = i)
+    .pokemon_icons
+      - var numPerRow = 2
+      - for (var j = 0, len = team.length; j < len; j += numPerRow)
+        .row-fluid
+          - for (var i = j; i < j + numPerRow; i++)
+            - var pokemon = team.at(i)
+            if pokemon
+              .span6
+                - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
+                - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
+                - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
+                .pokemon_icon(class = faintClass, style = style, data-team = teamIndex, data-slot = i)

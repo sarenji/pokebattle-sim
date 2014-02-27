@@ -3,7 +3,7 @@ mixin displayOtherTeam(team, text)
     p= text
     ul.row-fluid.unstyled
       - team.each(function(pokemon) {
-        li.span2
+        li.px_40
           +displayPokemon(pokemon)
       - })
 
@@ -12,14 +12,14 @@ mixin displayYourTeam(team, text)
     p= text
     ul.row-fluid.unstyled
       - for (var i = 0; i < numActive; i++)
-        li.span2.lead_text
+        li.px_40.lead_text
           if numActive > 1
             | Lead #{i + 1}
           else
             | Lead
     ul.arrange_team.row-fluid.unstyled
       - yourTeam.each(function(pokemon, i) {
-        li.span2.img-polaroid
+        li.px_40.img-polaroid
           +displayPokemon(pokemon, i)
       - })
 

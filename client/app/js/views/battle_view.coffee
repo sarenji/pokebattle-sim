@@ -118,11 +118,6 @@ class @BattleView extends Backbone.View
     @$('.battle_container').append @team_preview_template(locals)
     $arrangeTeam = @$('.arrange_team')
     $arrangeTeam.sortable()
-    $arrangeTeam.on 'sortupdateplaceholder', (e, $placeholder) ->
-      $visible = $arrangeTeam.children(":visible")
-      $first = $visible.first()
-      $first.addClass('first-child')
-      $visible.not($first).removeClass('first-child')
 
   submitTeamPreview: (e) =>
     $currentTarget = $(e.currentTarget)
