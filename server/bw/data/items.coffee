@@ -2,6 +2,7 @@
 {SpeciesData} = require './pokemon'
 {Attachment, Status, VolatileAttachment} = require('../attachment')
 {Weather} = require '../../../shared/weather'
+{Protocol} = require '../../../shared/protocol'
 util = require '../util'
 
 @Item = Item = {}
@@ -222,11 +223,11 @@ makeFlavorHealingBerry 'Aguav Berry', "specialDefense"
 
 makeItem 'Air Balloon', ->
   this::initialize = ->
-    @battle.message "#{@pokemon.name} floats in the air with its #{@displayName}!"
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @displayName)
 
   this::afterBeingHit = (move, user, target) ->
     return  if move.isNonDamaging()
-    @battle.message "#{target.name}'s #{@displayName} popped!"
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @displayName)
     target.removeItem()
 
   this::isImmune = (type) ->
