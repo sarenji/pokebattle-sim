@@ -480,3 +480,14 @@ describe "XY Moves:", ->
       @p2.types = [ "Normal" ]
       toxic = @battle.getMove("Toxic")
       toxic.chanceToHit(@battle, @p1, @p2).should.equal(0)
+
+  describe "Parting Shot", ->
+    it "reduces the attack and special attack of the target by two stages", ->
+      shared.create.call(this, gen: 'xy')
+      @battle.performMove(@p1, @battle.getMove("Parting Shot"))
+      @p2.stages.should.include attack: -1, specialAttack: -1
+
+    it "forces the owner to switch", ->
+      shared.create.call(this, gen: 'xy')
+      @battle.performMove(@p1, @battle.getMove("Parting Shot"))
+      @battle.requests.should.have.property @id1
