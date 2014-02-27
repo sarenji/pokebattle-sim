@@ -6908,10 +6908,26 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, soak)
       mock.verify()
 
-  describe 'electro ball', ->
+  describe 'Electro Ball', ->
     it 'has variable base power based on speed of user and target', ->
       shared.create.call this,
         team1: [Factory('Electrode', evs: {speed: 252}, nature: "Timid")]
         team2: [Factory('Smeargle')]
       move = @battle.getMove('Electro Ball')
       move.basePower(@battle, @p1, @p2).should.equal 80
+
+  describe "Snore", ->
+    it "fails if the pokemon is awake", ->
+      shared.create.call(this)
+      snore = @battle.getMove("Snore")
+      mock = @sandbox.mock(snore).expects('fail').once()
+      @battle.performMove(@p1, snore)
+      mock.verify()
+
+    it "attacks the target when the user is asleep", ->
+      shared.create.call this,
+      snore = @battle.getMove("Snore")
+      @p1.attach(Status.Sleep)
+      mock = @sandbox.mock(snore).expects('hit').once()
+      @battle.performMove(@p1, snore)
+      mock.verify()
