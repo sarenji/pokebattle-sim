@@ -12,6 +12,8 @@ set :default_environment, {
   'PATH' => "$HOME/.nvm/v0.10.23/bin:$PATH"
 }
 
+set :branch, fetch(:branch, "master")
+
 set :node_user, "combee"
 set :deploy_to, "/home/combee/apps/pokebattle-sim"
 set :app_environment, "`cat #{shared_path}/env.txt`"
