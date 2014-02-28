@@ -34,6 +34,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .selected_gender': 'changeGender'
     'change .selected_level': 'changeLevel'
+    'change .selected_happiness': 'changeHappiness'
     'change .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'focus .ev-entry': 'focusEv'
@@ -189,6 +190,14 @@ class @TeambuilderView extends Backbone.View
     value = 1  if value < 1
     $input.val(value)
     @getSelectedPokemon().set("level", value)
+
+  changeHappiness: (e) =>
+    $input = $(e.currentTarget)
+    value = parseInt($input.val())
+    value = 100  if isNaN(value) || value > 100
+    value = 0  if value < 0
+    $input.val(value)
+    @getSelectedPokemon().set("happiness", value)
 
   changeShiny: (e) =>
     $checkbox = $(e.currentTarget)
