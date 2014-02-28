@@ -1543,6 +1543,19 @@ extendMove 'Role Play', ->
     else
       @fail(battle)
 
+extendMove 'Simple Beam', ->
+  @bannedAbilities =
+    "Multitype": true
+    "Simple": true
+    "Truant": true
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if target.ability.displayName not of @bannedAbilities
+      battle.message "#{target.name} acquired Simple!"
+      target.copyAbility(Ability.Simple)
+    else
+      @fail(battle)
+
 extendMove 'Sleep Talk', ->
   bannedMoves = [
     "Assist"
