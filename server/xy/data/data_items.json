@@ -1191,6 +1191,26 @@
         },
         "type": "berries"
     },
+    "Latiasite": {
+        "description": "If the holder is a Latias, this item allows it to Mega Evolve into Mega Latias in battle.",
+        "flingPower": 80,
+        "mega": [
+            "Latias",
+            "mega"
+        ],
+        "unreleased": true,
+        "type": "megastone"
+    },
+    "Latiosite": {
+        "description": "If the holder is a Latios, this item allows it to Mega Evolve into Mega Latios in battle.",
+        "flingPower": 80,
+        "mega": [
+            "Latias",
+            "mega"
+        ],
+        "unreleased": true,
+        "type": "megastone"
+    },
     "Lava Cookie": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,

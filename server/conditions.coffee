@@ -120,6 +120,9 @@ createCondition Conditions.UNRELEASED_BAN,
     if forme.unreleasedHidden && pokemon.ability == forme.hiddenAbility &&
         forme.hiddenAbility not in forme.abilities
       errors.push("#{prefix}: The ability #{pokemon.ability} is unreleased.")
+    # Check for unreleased Pokemon
+    if forme.unreleased
+      errors.push("#{prefix}: The Pokemon #{pokemon.name} is unreleased.")
     return errors
 
 createCondition Conditions.RATED_BATTLE,

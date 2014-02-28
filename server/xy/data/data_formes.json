@@ -25319,6 +25319,26 @@
             ],
             "weight": 400,
             "pokeBattleValue": 190
+        },
+        "mega": {
+            "types": [
+                "Dragon",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 120,
+                "hp": 80,
+                "specialAttack": 140,
+                "specialDefense": 150,
+                "speed": 110
+            },
+            "abilities": [
+                "Levitate"
+            ],
+            "isBattleOnly": true,
+            "weight": 520,
+            "pokeBattleValue": 1001
         }
     },
     "Latios": {
@@ -25419,6 +25439,26 @@
             ],
             "weight": 600,
             "pokeBattleValue": 200
+        },
+        "mega": {
+            "types": [
+                "Dragon",
+                "Psychic"
+            ],
+            "stats": {
+                "attack": 130,
+                "defense": 100,
+                "hp": 80,
+                "specialAttack": 160,
+                "specialDefense": 120,
+                "speed": 110
+            },
+            "abilities": [
+                "Levitate"
+            ],
+            "isBattleOnly": true,
+            "weight": 700,
+            "pokeBattleValue": 1001
         }
     },
     "Leafeon": {
@@ -61641,6 +61681,34 @@
                 }
             },
             "pokeBattleValue": 155
+        }
+    },
+    "Diancie": {
+        "default": {
+            "types": [
+                "Rock",
+                "Fairy"
+            ],
+            "stats": {
+                "attack": 100,
+                "defense": 150,
+                "hp": 50,
+                "specialAttack": 100,
+                "specialDefense": 150,
+                "speed": 50
+            },
+            "abilities": [
+                "Clear Body"
+            ],
+            "weight": 88,
+            "learnset": {
+                "level-up": {
+                },
+                "machine": {
+                }
+            },
+            "unreleased": true,
+            "pokeBattleValue": 1001
         }
     }
 }
