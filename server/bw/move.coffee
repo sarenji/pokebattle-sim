@@ -70,12 +70,14 @@ class @Move
         continue
       targetsHit.push(target)
       numHits = @calculateNumberOfHits(battle, user, targets)
+      wasSlept = user.has(Status.Sleep)
       for hitNumber in [1..numHits]
         isDirect = @isDirectHit(battle, user, target)
         damage = @hit(battle, user, target, hitNumber, isDirect) || 0
         @afterHit(battle, user, target, damage, isDirect)
         totalDamage += damage
-        break  if target.isFainted() || user.isFainted()
+        break  if target.isFainted() || user.isFainted() ||
+                  (!wasSlept && user.has(Status.Sleep))
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 

@@ -290,6 +290,25 @@ describe 'Move:', ->
       move.execute(@battle, @p1, [@p2])
       mock.verify()
 
+    it 'only hits up until user falls asleep', ->
+      shared.create.call(this, team2: [Factory('Shroomish', ability: 'Effect Spore')])
+      shared.biasRNG.call(this, "randInt", 'effect spore', 4)  # Never trigger
+      move = new Move("multihit", minHits: 4, maxHits: 4, flags: ["contact"])
+
+      hit = move.hit
+      times = 0
+      @sandbox.stub move, 'hit', =>
+        times++
+        if times == 2
+          shared.biasRNG.call(this, "randInt", 'effect spore', 1)  # Sleep
+        else
+          shared.biasRNG.call(this, "randInt", 'effect spore', 4)  # Nothing
+        hit.apply(move, arguments)
+
+      @p1.currentHP = 1
+      move.execute(@battle, @p1, [@p2])
+      times.should.equal(2)
+
   describe "#use", ->
     it "returns false if the target's type is immune", ->
       shared.create.call(this)
