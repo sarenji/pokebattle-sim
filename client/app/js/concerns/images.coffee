@@ -938,11 +938,11 @@ SpriteIds = {
   },
   "Latias": {
     "default": 380,
-    "mega-x": NON_DEFAULT_FORMES_OFFSET + 138,
-    "mega-y": NON_DEFAULT_FORMES_OFFSET + 139
+    "mega": NON_DEFAULT_FORMES_OFFSET + 138
   },
   "Latios": {
-    "default": 381
+    "default": 381,
+    "mega": NON_DEFAULT_FORMES_OFFSET + 139
   },
   "Leafeon": {
     "default": 470
@@ -2040,7 +2040,8 @@ SpriteIds = {
     "default": 634
   },
   "Aegislash": {
-    "default": 681
+    "default": 681,
+    "blade": NON_DEFAULT_FORMES_OFFSET + 106
   },
   "Amaura": {
     "default": 698
@@ -2169,7 +2170,8 @@ SpriteIds = {
     "default": 687
   },
   "Meowstic": {
-    "default": 678
+    "default": 678,
+    "female": NON_DEFAULT_FORMES_OFFSET + 105
   },
   "Noibat": {
     "default": 714
