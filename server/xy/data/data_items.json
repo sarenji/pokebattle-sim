@@ -1205,7 +1205,7 @@
         "description": "If the holder is a Latios, this item allows it to Mega Evolve into Mega Latios in battle.",
         "flingPower": 80,
         "mega": [
-            "Latias",
+            "Latios",
             "mega"
         ],
         "unreleased": true,
