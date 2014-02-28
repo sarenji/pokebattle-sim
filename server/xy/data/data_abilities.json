@@ -558,7 +558,7 @@
         "description": "This Pokemon can only be damaged by supereffective moves and indirect damage."
     },
     "Wonder Skin": {
-        "description": "All non-damaging moves that check accuracy have their accuracy changed to 50% when used on this Pokemon."
+        "description": "All non-damaging moves have their accuracy changed to 50% when used on this Pokemon, unless the move cannot miss."
     },
     "Zen Mode": {
         "description": "If this Pokemon is a Darmanitan, it changes to Zen Mode if it has 1/2 or less of its maximum HP at the end of a turn. If Darmanitan's HP is above 1/2 of its maximum HP at the end of a turn, it changes back to Standard Mode. If Darmanitan loses this Ability while in Zen Mode it reverts to Standard Mode immediately."
