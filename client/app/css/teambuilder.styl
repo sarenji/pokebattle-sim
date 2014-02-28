@@ -41,6 +41,41 @@ $pokemon-list-height = 50px
   .species_list
     width 100%
 
+.teambuilder .shiny-switch
+  display inline-block
+  width 14px
+  height 14px
+  margin-right 10px
+  margin-left -(@margin-right + @width)
+  vertical-align middle
+  cursor pointer
+
+  set-colors($color1, $color2)
+    .top
+      border-bottom-color $color1
+    .bottom
+      border-top-color $color2
+
+  .top
+    border-bottom 6px solid
+    border-left 6px solid transparent
+    border-right 6px solid transparent
+  .bottom    
+    border-top 6px solid
+    border-left 6px solid transparent
+    border-right 6px solid transparent 
+
+  set-colors(#555, #444)
+
+  &:hover
+    set-colors(#777, #666)
+
+  &.selected
+    set-colors(#DAD457, #999546)
+
+  &:hover.selected
+    set-colors(#999546, #615F31)
+
 .teambuilder .navigation
   position absolute
   top $header

@@ -35,7 +35,7 @@ class @TeambuilderView extends Backbone.View
     'change .selected_gender': 'changeGender'
     'change .selected_level': 'changeLevel'
     'change .selected_happiness': 'changeHappiness'
-    'change .selected_shininess': 'changeShiny'
+    'click .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
@@ -200,8 +200,8 @@ class @TeambuilderView extends Backbone.View
     @getSelectedPokemon().set("happiness", value)
 
   changeShiny: (e) =>
-    $checkbox = $(e.currentTarget)
-    @getSelectedPokemon().set("shiny", $checkbox.is(":checked"))
+    $checkbox = $(e.currentTarget).toggleClass("selected")
+    @getSelectedPokemon().set("shiny", $checkbox.is(".selected"))
 
   changeIv: (e) =>
     # todo: make changeIv and changeEv DRY
@@ -549,6 +549,7 @@ class @TeambuilderView extends Backbone.View
     $view.find(".species_list").select2('val', pokemon.get("name"))
     html = if pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: pokemon)
     $view.find(".species-info").html(html)
+    $view.find(".selected_shininess").toggleClass("selected", pokemon.get('shiny') == true)
 
   renderNonStats: (pokemon) =>
     $nonStats = @getPokemonView().find(".non-stats")
@@ -574,7 +575,6 @@ class @TeambuilderView extends Backbone.View
     populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in pokemon.getGenders()), pokemon.get("gender")
     $nonStats.find(".selected_level").val(pokemon.get("level"))
     $nonStats.find(".selected_happiness").val(pokemon.get("happiness"))
-    $nonStats.find(".selected_shininess").prop("checked", pokemon.get('shiny'))
 
   renderStats: (pokemon) =>
     $view = @getPokemonView()
