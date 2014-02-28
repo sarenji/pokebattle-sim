@@ -52,3 +52,6 @@ extendMove 'Toxic', ->
   @getAccuracy = (battle, user, target) ->
     return 0  if user.hasType("Poison")
     return @accuracy
+
+extendMove 'Worry Seed', ->
+   @bannedAbilities["Stance Change"] = true

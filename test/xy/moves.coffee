@@ -491,3 +491,14 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       @battle.performMove(@p1, @battle.getMove("Parting Shot"))
       @battle.requests.should.have.property @id1
+
+  describe "Worry Seed", ->
+    it "does not change some abilities", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Aegislash", ability: "Stance Change")]
+      worrySeed = @battle.getMove("Worry Seed")
+      mock = @sandbox.mock(worrySeed).expects('fail').once()
+      @battle.performMove(@p1, worrySeed)
+      mock.verify()

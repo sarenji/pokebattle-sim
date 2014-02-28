@@ -1780,13 +1780,13 @@ extendMove 'Wish', ->
     @fail(battle)  unless user.team.attach(Attachment.Wish, {user})
 
 extendMove 'Worry Seed', ->
-  bannedAbilities =
+  @bannedAbilities =
     "Insomnia": true
     "Multitype": true
     "Truant": true
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.ability.displayName not of bannedAbilities
+    if target.ability.displayName not of @bannedAbilities
       battle.message "#{target.name} acquired Insomnia!"
       target.copyAbility(Ability.Insomnia)
     else
