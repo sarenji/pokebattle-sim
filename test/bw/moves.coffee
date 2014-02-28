@@ -6995,3 +6995,20 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(snore).expects('hit').once()
       @battle.performMove(@p1, snore)
       mock.verify()
+
+  describe "Worry Seed", ->
+    it "changes the target's ability to Insomnia", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Magikarp", ability: "Swift Swim")]
+      @battle.performMove(@p1, @battle.getMove('Worry Seed'))
+      @p2.hasAbility("Insomnia").should.be.true
+
+    it "does not change some abilities", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle")]
+        team2: [Factory("Arceus", ability: "Multitype")]
+      worrySeed = @battle.getMove("Worry Seed")
+      mock = @sandbox.mock(worrySeed).expects('fail').once()
+      @battle.performMove(@p1, worrySeed)
+      mock.verify()
