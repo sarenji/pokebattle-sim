@@ -2,6 +2,9 @@
   - var url = window.PokemonSprite(pokemon)
   img.forme-sprite(src=url, alt="")
 .species-types
+  .shiny-switch.selected_shininess(class=(pokemon.get("shiny") ? "selected" : ""))
+    .top
+    .bottom
   each type in pokemon.getForme().types
     img(src=window.TypeSprite(type), alt=type)
     

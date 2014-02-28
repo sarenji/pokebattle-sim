@@ -4,7 +4,7 @@ class @Team extends Backbone.Collection
   initialize: (models, attributes = {}) =>
     {@name, @owner, @generation} = attributes
     @generation ?= DEFAULT_GENERATION
-    @isTeambuilder = attributes.isTeambuilder
+    @isTeambuilder = attributes.teambuilder
 
   getName: =>
     @name || "Untitled team"
@@ -35,9 +35,12 @@ class @Team extends Backbone.Collection
   # Usage: team = Team.fromJSON(jsonObject, teambuilder: true)
   @fromJSON: (json, options={}) =>
     {pokemon} = json
-    p.teambuilder = true  for p in pokemon
     attributes = _.clone(json)
-    attributes.teambuilder = true  if options.teambuilder
+
+    if options.teambuilder
+      p.teambuilder = true  for p in pokemon
+      attributes.teambuilder = true
+
     delete attributes.pokemon
     return new Team(pokemon, attributes)
 

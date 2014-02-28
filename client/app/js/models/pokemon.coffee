@@ -56,7 +56,8 @@ class @Pokemon extends Backbone.Model
 
     @set('ability', @getAbilities()[0])  unless attributes.ability
     @set('level', 100)  unless attributes.level
-    @set('happiness', 0)  unless attributes.happiness
+    @set('happiness', 100)  unless attributes.happiness
+    @set('nature', 'Hardy')  unless attributes.nature
     hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
     @set('hiddenPowerType', hiddenPowerType, silent: true)
 
@@ -143,8 +144,6 @@ class @Pokemon extends Backbone.Model
 
   setEv: (stat, value) ->
     evs = _.clone(@get("evs"))
-    total = @getTotalEVs(exclude: stat)
-    value = Math.max(Math.min(value, 510 - total), 0)
     value = value - (value % 4)
     evs[stat] = value
     @set("evs", evs)  # trigger change event
@@ -163,9 +162,12 @@ class @Pokemon extends Backbone.Model
     else
       1
 
-  stat: (key) ->
+  base: (key) ->
     forme = @getForme()
     base = forme["stats"][key]
+
+  stat: (key) ->
+    base = @base(key)
     return 1  if base == 1  # For Shedinja. key doesn't have to be hp.
     level = @get('level') || 100
     iv = @iv(key)
@@ -292,6 +294,7 @@ class @NullPokemon extends Pokemon
 
   getNatures: -> []
   getPBV: -> 0
+  base: -> 0
   stat: -> null
   iv: -> null
   ev: -> null

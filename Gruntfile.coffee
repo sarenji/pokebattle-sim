@@ -51,6 +51,7 @@ module.exports = (grunt) ->
         src: [
           "client/vendor/js/jquery.js"
           "client/vendor/js/underscore.js"
+          "client/vendor/js/backbone.js"
           "client/vendor/js/*.js"
         ]
     external_daemon:

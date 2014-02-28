@@ -34,7 +34,8 @@ class @TeambuilderView extends Backbone.View
     'change .selected_item': 'changeItem'
     'change .selected_gender': 'changeGender'
     'change .selected_level': 'changeLevel'
-    'change .selected_shininess': 'changeShiny'
+    'change .selected_happiness': 'changeHappiness'
+    'click .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
@@ -190,9 +191,17 @@ class @TeambuilderView extends Backbone.View
     $input.val(value)
     @getSelectedPokemon().set("level", value)
 
+  changeHappiness: (e) =>
+    $input = $(e.currentTarget)
+    value = parseInt($input.val())
+    value = 100  if isNaN(value) || value > 100
+    value = 0  if value < 0
+    $input.val(value)
+    @getSelectedPokemon().set("happiness", value)
+
   changeShiny: (e) =>
-    $checkbox = $(e.currentTarget)
-    @getSelectedPokemon().set("shiny", $checkbox.is(":checked"))
+    $checkbox = $(e.currentTarget).toggleClass("selected")
+    @getSelectedPokemon().set("shiny", $checkbox.is(".selected"))
 
   changeIv: (e) =>
     # todo: make changeIv and changeEv DRY
@@ -207,6 +216,7 @@ class @TeambuilderView extends Backbone.View
 
   focusEv: (e) =>
     $input = $(e.currentTarget)
+    return  if $input.is("[type=range]")
     value = parseInt($input.val())
     $input.val("")  if value == 0
 
@@ -220,7 +230,7 @@ class @TeambuilderView extends Backbone.View
 
     pokemon = @getSelectedPokemon()
     value = pokemon.setEv(stat, value)
-    $input.val(value)
+    $input.val(value)  if not $input.is("[type=range]")
 
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
@@ -539,6 +549,7 @@ class @TeambuilderView extends Backbone.View
     $view.find(".species_list").select2('val', pokemon.get("name"))
     html = if pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: pokemon)
     $view.find(".species-info").html(html)
+    $view.find(".selected_shininess").toggleClass("selected", pokemon.get('shiny') == true)
 
   renderNonStats: (pokemon) =>
     $nonStats = @getPokemonView().find(".non-stats")
@@ -564,7 +575,6 @@ class @TeambuilderView extends Backbone.View
     populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in pokemon.getGenders()), pokemon.get("gender")
     $nonStats.find(".selected_level").val(pokemon.get("level"))
     $nonStats.find(".selected_happiness").val(pokemon.get("happiness"))
-    $nonStats.find(".selected_shininess").prop("checked", pokemon.get('shiny'))
 
   renderStats: (pokemon) =>
     $view = @getPokemonView()
@@ -575,9 +585,15 @@ class @TeambuilderView extends Backbone.View
       $input.val(pokemon.iv(stat))
 
     $view.find(".ev-entry").each ->
+      return  if $(this).is(":focus")
       $input = $(this)
       stat = $input.data("stat")
       $input.val(pokemon.ev(stat))
+
+    $view.find('.base-stat').each ->
+      $this = $(this)
+      stat = $this.data("stat")
+      $this.text(pokemon.base(stat))
 
     $view.find('.stat-total').each ->
       $this = $(this)
@@ -593,7 +609,11 @@ class @TeambuilderView extends Backbone.View
         $this.addClass('minus-nature')
         $this.text($this.text() + '-')
 
-    $view.find('.total-evs').text("Total EVs: #{pokemon.getTotalEVs()}/510")
+    remainingEvs = 508 - pokemon.getTotalEVs()
+    $view.find('.remaining-evs-amount')
+      .text(remainingEvs)
+      .toggleClass("over-limit", remainingEvs < 0)
+    
     $view.find('.select-hidden-power').val(pokemon.get('hiddenPowerType'))
 
   renderMoves: (pokemon) =>
