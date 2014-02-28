@@ -2,6 +2,7 @@
 {Weather} = require('../../../shared/weather')
 {Move} = require('../move')
 {Attachment, Status} = require('../attachment')
+{Ability} = require ('./abilities')
 {Protocol} = require('../../../shared/protocol')
 {_} = require 'underscore'
 util = require '../util'
@@ -1777,6 +1778,19 @@ extendMove 'Weather Ball', ->
 extendMove 'Wish', ->
   @hit = (battle, user) ->
     @fail(battle)  unless user.team.attach(Attachment.Wish, {user})
+
+extendMove 'Worry Seed', ->
+  @bannedAbilities =
+    "Insomnia": true
+    "Multitype": true
+    "Truant": true
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if target.ability.displayName not of @bannedAbilities
+      battle.message "#{target.name} acquired Insomnia!"
+      target.copyAbility(Ability.Insomnia)
+    else
+      @fail(battle)
 
 extendMove 'Wring Out', ->
   @basePower = (battle, user, target) ->
