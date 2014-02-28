@@ -8,6 +8,14 @@ gen = require('../../../server/generations')
 should = require('should')
 
 describe 'Validations: Unreleased Ban', ->
+  it "returns an error if a pokemon is unreleased", ->
+    server = new BattleServer()
+    generation = 'xy'
+    team = [ Factory("Diancie", item: "Leftovers", moves: [ "Moonblast" ]) ]
+    conditions = [ Conditions.UNRELEASED_BAN ]
+
+    server.validateTeam(team, generation, conditions).should.not.be.empty
+
   it "returns an error if a pokemon has an unreleased item", ->
     server = new BattleServer()
     generation = 'xy'
