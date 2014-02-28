@@ -561,6 +561,28 @@ extendMove 'Defog', ->
 makeProtectMove 'Detect'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
+
+extendMove 'Entrainment', ->
+  @bannedSourceAbilities =
+    "Flower Gift": true
+    "Forecast": true
+    "Illusion": true
+    "Imposter": true
+    "Multitype": true
+    "Trace": true
+    "Zen Mode": true
+
+  @bannedTargetAbilities =
+    "Multitype": true
+    "Truant": true
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if user.ability.displayName not of @bannedSourceAbilities && target.ability.displayName not of @bannedTargetAbilities
+      battle.message "#{target.name} acquired #{user.ability.displayName}!"
+      target.copyAbility(user.ability)
+    else
+      @fail(battle)
+
 makeEruptionMove 'Eruption'
 makeExplosionMove 'Explosion'
 

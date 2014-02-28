@@ -513,3 +513,14 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(simpleBeam).expects('fail').once()
       @battle.performMove(@p1, simpleBeam)
       mock.verify()
+
+  describe "Entrainment", ->
+    it "does not change some abilities", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Aegislash", ability: "Stance Change")]
+      entrainment = @battle.getMove("Entrainment")
+      mock = @sandbox.mock(entrainment).expects('fail').once()
+      @battle.performMove(@p1, entrainment)
+      mock.verify()

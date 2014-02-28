@@ -7,6 +7,10 @@ extendMove "Defog", ->
   @selectPlayers = (battle) ->
     battle.playerIds
 
+extendMove 'Entrainment', ->
+   @bannedSourceAbilities["Stance Change"] = true
+   @bannedTargetAbilities["Stance Change"] = true
+
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
