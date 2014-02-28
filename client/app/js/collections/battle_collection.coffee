@@ -191,6 +191,7 @@ class @BattleCollection extends Backbone.Collection
     catch e
       console.error(e)
       done()
+    view.resetPopovers()
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 

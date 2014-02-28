@@ -769,6 +769,15 @@ class @BattleView extends Backbone.View
       done()
     @renderUserInfo()
 
+  resetPopovers: =>
+    for player in [0...2]
+      for slot in [0...@model.numActive]
+        $pokemon = @$pokemon(player, slot)
+        pokemon = @model.getPokemon(player, slot)
+        $sprite = $pokemon.find('.sprite')
+        $sprite.popover('destroy')
+        @popover($sprite, pokemon)
+
   enableButtons: (validActions) =>
     @lastValidActions = validActions || @lastValidActions
     @renderActions(@lastValidActions)
