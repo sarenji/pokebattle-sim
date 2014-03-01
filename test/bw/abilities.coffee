@@ -1267,6 +1267,16 @@ describe "BW Abilities:", ->
         @battle.performMove(@p1, eq)
         mock.verify()
 
+      it "cancels modifier abilities for the duration of the user's move", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp", ability: "Thick Fat")]
+        ib = @battle.getMove("Ice Beam")
+        spy = @sandbox.spy(ib, 'modifyAttack')
+        spy = spy.withArgs(@battle, @p1, @p2)
+        @battle.performMove(@p1, ib)
+        spy.returnValues[0].should.equal(0x1000)
+
       it "resets canceled abilities after the move", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
