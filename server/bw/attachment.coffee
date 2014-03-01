@@ -734,7 +734,8 @@ class @Attachment.Grudge extends @VolatileAttachment
   afterFaint: ->
     hit = @pokemon.lastHitBy
     return  if !hit
-    {pokemon, move, turn} = hit
+    {team, slot, move, turn} = hit
+    pokemon = team.at(slot)
     if pokemon.isAlive() && !move.isNonDamaging()
       pokemon.setPP(move, 0)
       @battle.message "#{pokemon.name}'s #{move.name} lost all its PP due to the grudge!"

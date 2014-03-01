@@ -401,7 +401,9 @@ class @Pokemon
     @used[move.name] = true
 
   recordHit: (pokemon, damage, move, turn, direct) ->
-    @lastHitBy = {pokemon, damage, move, turn, direct}
+    team = pokemon.team
+    slot = team.indexOf(pokemon)
+    @lastHitBy = {team, slot, damage, move, turn, direct}
 
   isImmune: (type, options = {}) ->
     b = Query.untilNotNull('isImmune', @attachments.all(), type, options.move)

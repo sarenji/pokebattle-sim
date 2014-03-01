@@ -1918,7 +1918,7 @@ describe "BW Moves:", ->
       @battle.endTurn()
       @team1.has(Attachment.Wish).should.be.false
 
-  describe "counter", ->
+  describe "Counter", ->
     it "returns double the damage if attacked by a physical move", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove('Tackle'))
@@ -1946,6 +1946,14 @@ describe "BW Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Counter'))
       mock.verify()
+
+    it "hits the pokemon who is currently in that slot, not who was", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove('U-turn'))
+      @battle.performSwitch(@p1, 1)
+      @battle.performMove(@p2, @battle.getMove('Counter'))
+      @team1.first().currentHP.should.be.lessThan(@team1.first().stat('hp'))
+      @team1.at(1).currentHP.should.equal(@team1.at(1).stat('hp'))
 
   describe "Perish Song", ->
     it "attaches to every pokemon in the field", ->

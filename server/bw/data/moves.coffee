@@ -370,7 +370,8 @@ makeRevengeMove = (moveName) ->
     @basePower = (battle, user, target) ->
       hit = user.lastHitBy
       return @power  if !hit?
-      {pokemon, move, turn} = hit
+      {team, slot, move, turn} = hit
+      pokemon = team.at(slot)
       if target == pokemon && !move.isNonDamaging() && battle.turn == turn
         2 * @power
       else
@@ -399,8 +400,11 @@ makeCounterMove = (name, multiplier, applies) ->
   extendMove name, ->
     @getTargets = (battle, user) ->
       # Return the last pokemon who hit this one, if it's alive.
-      pokemon = user.lastHitBy?.pokemon
-      return [ pokemon ]  if pokemon? && !pokemon.isFainted()
+      hit = user.lastHitBy
+      if hit
+        {team, slot} = hit
+        pokemon = team.at(slot)
+        return [ pokemon ]  if !pokemon.isFainted()
   
       # Return a random target (or none).
       pokemon = battle.getOpponents(user)

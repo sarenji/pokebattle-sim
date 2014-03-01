@@ -237,7 +237,8 @@ makeAbility "Aftermath", ->
   this::afterFaint = ->
     hit = @pokemon.lastHitBy
     return  if !hit
-    {pokemon, damage, move, turn} = hit
+    {team, slot, damage, move, turn} = hit
+    pokemon = team.at(slot)
     if move.hasFlag('contact')
       amount = (pokemon.stat('hp') >> 2)
       if pokemon.damage(amount)
