@@ -88,6 +88,8 @@ makeAbility 'Gale Wings', ->
     return priority
 
 makeAbility "Gooey", ->
+  this::isAliveCheck = -> true
+
   this::afterBeingHit = (move, user) ->
     user.boost(speed: -1, @pokemon)  if move.hasFlag("contact")
 
