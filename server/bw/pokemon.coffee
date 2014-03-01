@@ -326,6 +326,7 @@ class @Pokemon
     Query('afterFaint', @attachments.all())
 
   damage: (amount, options = {}) ->
+    amount = Math.max(1, amount)
     amount = @transformHealthChange(amount, options)
     @setHP(@currentHP - amount)
 

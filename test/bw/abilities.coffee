@@ -60,6 +60,15 @@ describe "BW Abilities:", ->
 
       (=> @p1.faint()).should.not.throw()
 
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Aftermath"), Factory("Magikarp")]
+        team2: [Factory("Shedinja")]
+      @p1.currentHP = 2
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @battle.performFaints()
+      @p2.currentHP.should.equal(0)
+
   testWeatherPreventionAbility = (name) ->
     describe name, ->
       it "causes the battle to think there is no weather", ->
@@ -188,6 +197,14 @@ describe "BW Abilities:", ->
       (@p2.stat('hp') - @p2.currentHP).should.equal(0)
       @battle.endTurn()
       (@p2.stat('hp') - @p2.currentHP).should.equal(0)
+
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Bad Dreams")]
+        team2: [Factory("Shedinja")]
+      @p2.attach(Status.Sleep)
+      @battle.endTurn()
+      @p2.currentHP.should.equal(0)
 
   testCriticalHitPreventionAbility = (name) ->
     describe name, ->
@@ -455,6 +472,21 @@ describe "BW Abilities:", ->
       @battle.setWeather(Weather.SUN)
       @battle.endTurn()
       (@p1.stat('hp') - @p1.currentHP).should.equal(@p1.stat('hp') >> 3)
+
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team1: [Factory("Shedinja", ability: "Dry Skin")]
+      @battle.setWeather(Weather.SUN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(0)
+
+    it "heals a minimum of 1 hp", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", level: 1, ability: "Dry Skin")]
+      @p1.currentHP = 1
+      @battle.setWeather(Weather.RAIN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(2)
 
   describe "Early Bird", ->
     it "halves sleep turns", ->
@@ -1002,6 +1034,13 @@ describe "BW Abilities:", ->
         @p1.currentHP = 1
         @battle.performMove(@p2, @battle.getMove("Tackle"))
         (hp - @p2.currentHP).should.equal(hp >> 3)
+
+      it "deals a minimum of 1 damage", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Shedinja")]
+        @battle.performMove(@p2, @battle.getMove("Tackle"))
+        @p2.currentHP.should.equal(0)
 
   testContactHurtAbility("Iron Barbs")
   testContactHurtAbility("Rough Skin")
@@ -1969,6 +2008,13 @@ describe "BW Abilities:", ->
       fireBlast.modifyAttack(@battle, @p1, @p2).should.equal(0x1000)
       @battle.endTurn()
       @p1.currentHP.should.equal(@p1.stat('hp'))
+
+    it "deals a minimum of 1 damage", ->
+      shared.create.call this,
+        team1: [Factory("Shedinja", ability: "Solar Power")]
+      @battle.setWeather(Weather.SUN)
+      @battle.endTurn()
+      @p1.currentHP.should.equal(0)
 
   describe "Soundproof", ->
     it "makes user immune to sound moves", ->

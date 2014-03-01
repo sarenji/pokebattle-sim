@@ -84,7 +84,6 @@ class @Move
     # Recoil moves
     if totalDamage > 0 && @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(totalDamage * -@recoil / 100)
-      recoil = Math.max(1, recoil)
       if user.damage(recoil)
         battle.message("#{user.name} was hit by recoil!")
 

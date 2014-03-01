@@ -239,7 +239,8 @@ makeAbility "Aftermath", ->
     return  if !hit
     {pokemon, damage, move, turn} = hit
     if move.hasFlag('contact')
-      if pokemon.damage(pokemon.stat('hp') >> 2)
+      amount = (pokemon.stat('hp') >> 2)
+      if pokemon.damage(amount)
         @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
 
 makeAbility 'Analytic', ->
@@ -330,11 +331,12 @@ makeAbility 'Dry Skin', ->
 
   this::endTurn = ->
     # TODO: Real message
+    amount = (@pokemon.stat('hp') >> 3)
     if @battle.hasWeather(Weather.SUN)
-      if @pokemon.damage(@pokemon.stat('hp') >> 3)
+      if @pokemon.damage(amount)
         @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
     else if @battle.hasWeather(Weather.RAIN)
-      @pokemon.heal((@pokemon.stat('hp') >> 3))
+      @pokemon.heal(amount)
       @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
 
   this::shouldBlockExecution = (move, user) ->
@@ -786,7 +788,8 @@ makeAbility 'Solar Power', ->
 
   this::endTurn = ->
     if @battle.hasWeather(Weather.SUN)
-      if @pokemon.damage(@pokemon.stat('hp') >> 3)
+      amount = (@pokemon.stat('hp') >> 3)
+      if @pokemon.damage(amount)
         # TODO: Real message
         @battle.message "#{@pokemon.name} was hurt under the sun!"
 

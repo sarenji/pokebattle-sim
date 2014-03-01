@@ -252,6 +252,18 @@ describe 'Mechanics', ->
       @p1.currentHP.should.be.lessThan @p1.stat('hp')
       @p2.currentHP.should.equal @p2.stat('hp')
 
+    it "deals a minimum of 1 damage", ->
+      shared.create.call(this, team1: [Factory("Shuckle", level: 1)])
+
+      shared.biasRNG.call(this, "randInt", 'confusion turns', 1)  # always 1 turn
+      @p1.attach(Attachment.Confusion, {@battle})
+      shared.biasRNG.call(this, "next", 'confusion', 0)  # always hits
+      @sandbox.stub(@battle.confusionMove, 'calculateDamage', -> 0)
+
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
+
+      @p1.currentHP.should.equal(@p1.stat('hp') - 1)
+
     it "snaps out of confusion after a predetermined number of turns", ->
       shared.create.call(this)
 

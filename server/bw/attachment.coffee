@@ -231,7 +231,8 @@ class @Attachment.Nightmare extends @VolatileAttachment
 
   endTurn: ->
     if @pokemon.has(Status.Sleep)
-      if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
+      amount = Math.floor(@pokemon.stat('hp') / 4)
+      if @pokemon.damage(amount)
         @battle.message "#{@pokemon.name} is locked in a nightmare!"
     else
       @pokemon.unattach(@constructor)
@@ -361,7 +362,7 @@ class @Attachment.Spikes extends @TeamAttachment
     return  if pokemon.isImmune("Ground")
     fraction = (10 - 2 * @layers)
     hp = pokemon.stat('hp')
-    damage = Math.max(1, Math.floor(hp / fraction))
+    damage = Math.floor(hp / fraction)
     if pokemon.damage(damage)
       @battle.message("#{pokemon.name} is hurt by the spikes!")
 
@@ -371,7 +372,7 @@ class @Attachment.StealthRock extends @TeamAttachment
   switchIn: (pokemon) ->
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
     hp = pokemon.stat('hp')
-    damage = Math.max(1, (hp * multiplier) >> 3)
+    damage = ((hp * multiplier) >> 3)
     if pokemon.damage(damage)
       @battle.message("Pointed stones dug into #{pokemon.name}!")
 
@@ -410,7 +411,8 @@ class @Attachment.Trap extends @VolatileAttachment
       @battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @pokemon.unattach(@constructor)
     else
-      if @pokemon.damage(Math.floor(@pokemon.stat('hp') / @getDamagePerTurn()))
+      amount = Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
+      if @pokemon.damage(amount)
         @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
       @turns -= 1
 
@@ -706,7 +708,8 @@ class @Attachment.Curse extends @VolatileAttachment
   passable: true
 
   endTurn: ->
-    if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 4))
+    amount = Math.floor(@pokemon.stat('hp') / 4)
+    if @pokemon.damage(amount)
       @battle.message "#{@pokemon.name} was afflicted by the curse!"
 
 class @Attachment.DestinyBond extends @VolatileAttachment
@@ -1373,7 +1376,7 @@ class @Status.Poison extends @StatusAttachment
 
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
-    if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
+    if @pokemon.damage(@pokemon.stat('hp') >> 3)
       @battle.message "#{@pokemon.name} was hurt by poison!"
 
 class @Status.Toxic extends @StatusAttachment
@@ -1424,5 +1427,5 @@ class @Status.Burn extends @StatusAttachment
     !pokemon.hasType("Fire")
 
   endTurn: ->
-    if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 3, 1))
+    if @pokemon.damage(@pokemon.stat('hp') >> 3)
       @battle.message "#{@pokemon.name} was hurt by its burn!"
