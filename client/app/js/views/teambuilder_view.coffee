@@ -49,13 +49,13 @@ class @TeambuilderView extends Backbone.View
 
   initialize: (attributes) =>
     @selectedPokemon = 0
-    @selectedTeam = -1
+    @selectedTeam = null
     @render()
 
   clickTeam: (e) =>
     $team = $(e.currentTarget)
-    @selectedPokemon = 0
-    @setSelectedTeam($team.data('id'))
+    team = PokeBattle.TeamStore.get($team.data('id'))
+    @setSelectedTeam(team)
 
   clickPokemon: (e) =>
     $listItem = $(e.currentTarget)
@@ -63,6 +63,8 @@ class @TeambuilderView extends Backbone.View
     @setSelectedPokemonIndex(index)
 
   attachEventsToTeam: (team) =>
+    return  if team.attachedTeambuildEvents
+
     @listenTo(team.pokemon, 'add', @renderPokemon)
     @listenTo(team.pokemon, 'change:level', @renderStats)
     @listenTo(team.pokemon, 'change:ivs', @renderStats)
@@ -81,9 +83,6 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team.pokemon, 'reset', @renderTeam)
     @listenTo(team.pokemon, 'change reset add remove', @dirty)
     @listenTo(team.pokemon, 'change reset add remove', @renderPBV)
-
-    #@listenTo(team, 'sync', @resetHeaderButtons)
-    #@listenTo(team, 'sync destroy', @renderTeams)
 
     # A temporary flag to attach until the teambuilder view is refactored
     team.attachedTeambuildEvents = true
@@ -396,21 +395,19 @@ class @TeambuilderView extends Backbone.View
   getSelectedPokemon: =>
     @getSelectedTeam().at(@selectedPokemon)
 
-  setSelectedTeam: (id) =>
-    @selectedTeam = id
+  setSelectedTeam: (team) =>
+    # Duplicate the team, so that changes don't stick until saved
+    @selectedTeam = team.clone()
+    @selectedTeam.id = team.id
+    @selectedPokemon = 0
+    @attachEventsToTeam(@selectedTeam)
     @renderTeam()
 
   getAllTeams: =>
-    teams = PokeBattle.TeamStore.models
-
-    # This is a temporary hack until the teambuilder views are refactored
-    for team in teams
-      @attachEventsToTeam(team) unless team.attachedTeambuildEvents
-
-    return teams
+    PokeBattle.TeamStore.models
 
   getSelectedTeam: =>
-    @getTeam(@selectedTeam)
+    @selectedTeam
 
   getTeam: (idx) =>
     PokeBattle.TeamStore.get(idx)
@@ -429,7 +426,6 @@ class @TeambuilderView extends Backbone.View
 
   goBackToOverview: =>
     if @_dirty
-      PokeBattle.TeamStore.fetch() # reset the teams
       @resetHeaderButtons()
     @render()
 

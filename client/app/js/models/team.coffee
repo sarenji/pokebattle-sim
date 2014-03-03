@@ -57,6 +57,11 @@ class @Team extends Backbone.Model
       .map((pokemon) -> pokemon.toJSON())
       .value()
 
+  clone: =>
+    attrs = _(@attributes).clone
+    attrs.pokemon = @pokemon.toJSON()
+    new Team(attrs)
+
   rearrange: (arrangement) ->
     @models = (@models[index]  for index in arrangement)
     @pokemon.models = @models
