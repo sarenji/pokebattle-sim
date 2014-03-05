@@ -323,6 +323,8 @@ class @BattleServer
       err.push("#{prefix}: EVs must be between 0 and 255.")
     if !Object.values(pokemon.ivs).all((iv) -> 0 <= iv <= 31)
       err.push("#{prefix}: IVs must be between 0 and 31.")
+    if Object.values(pokemon.evs).reduce(((x, y) -> x + y), 0) > 510
+      err.push("#{prefix}: EV total must be less than 510.")
     if pokemon.ability not in forme["abilities"] &&
        pokemon.ability != forme["hiddenAbility"]
       err.push("#{prefix}: Invalid ability.")
