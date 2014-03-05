@@ -12,12 +12,13 @@ class @Battle extends Backbone.Model
 
   receiveTeam: (team) =>
     @teams ?= []
-    @teams[@index].off('all', @_teamEvents)  if @teams[@index]
+    @teams[@index].pokemon.off('all', @_teamEvents)  if @teams[@index]
     @teams[@index] = @makeTeamFromJSON(team)
 
   makeTeamFromJSON: (json) =>
     team = new Team(json)
-    team.on('all', @_teamEvents)
+    team.pokemon.on('all', @_teamEvents)
+    team
 
   _teamEvents: =>
     @trigger.apply(this, arguments)

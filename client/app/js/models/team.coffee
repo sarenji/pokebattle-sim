@@ -21,8 +21,9 @@ class @Team extends Backbone.Model
     @listenTo(@pokemon, 'change', => @models = @pokemon.models)
     @listenTo(@pokemon, 'add remove reset', => @length = @pokemon.length)
 
-    # Anything listening to this team will get notified when the sub-collection updates
-    @listenTo(@pokemon, 'change', => @trigger('change'))
+    # When any event fires for the sub collection, the change event is fired for the team.
+    # To listen to pokemon directly, listen to @pokemon
+    @listenTo(@pokemon, 'add remove change', => @trigger('change'))
 
     # Do not store the raw json, but the actual nested models
     @set('pokemon', @pokemon)
