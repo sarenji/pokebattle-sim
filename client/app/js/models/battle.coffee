@@ -16,9 +16,7 @@ class @Battle extends Backbone.Model
     @teams[@index] = @makeTeamFromJSON(team)
 
   makeTeamFromJSON: (json) =>
-    pokemon = json.pokemon
-    delete json.pokemon
-    team = new Team(pokemon, json)
+    team = new Team(json)
     team.on('all', @_teamEvents)
 
   _teamEvents: =>

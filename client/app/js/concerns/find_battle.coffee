@@ -16,14 +16,19 @@
   defaultClauses = opts.defaultClauses || []
   canEditClauses = opts.canEditClauses ? true
 
-  allTeams = PokeBattle.TeamStore.getTeams()
-  selectedIndex = PokeBattle.TeamStore.getSelectedTeamIndex() || 0
+  selectedTeamId = null
+
+  getSelectedTeam = ->
+    PokeBattle.TeamStore.get(selectedTeamId) || PokeBattle.TeamStore.at(0)
 
   renderCurrentTeam = ($context) ->
     $selectTeam = $context.find('.select-team')
-    currentTeam = allTeams[selectedIndex] || allTeams[0]
-    html = JST['team_dropdown'](window: window, team: currentTeam)
-    $selectTeam.html(html)
+    if PokeBattle.TeamStore.length > 0
+      currentTeam = getSelectedTeam()
+      html = JST['team_dropdown'](window: window, team: currentTeam)
+      $selectTeam.html(html)
+    else
+      $selectTeam.html("You have no teams!")
 
   cancelChallenge = ->
     enableButtons()
@@ -55,7 +60,8 @@
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
       disableButtons()
-      teamJSON = allTeams[selectedIndex].toNonNullJSON().pokemon
+      team = getSelectedTeam()
+      teamJSON = team.toNonNullJSON().pokemon
       # Send the event
       if personId
         $clauses = $wrapper.find('input:checked[type="checkbox"]')
@@ -72,7 +78,7 @@
   $accept.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
     disableButtons()
-    teamJSON = allTeams[selectedIndex].toNonNullJSON().pokemon
+    teamJSON = getSelectedTeam().toNonNullJSON().pokemon
     PokeBattle.socket.send(acceptEventName, personId, teamJSON)
 
   $reject.on 'click.challenge', ->
@@ -80,16 +86,10 @@
     disableButtons()
     PokeBattle.socket.send(rejectEventName, personId)
 
-  if allTeams?.length > 0
-    renderCurrentTeam($wrapper)
-  else
-    $selectTeam = $wrapper.find('.select-team')
-    $selectTeam.html("You have no teams!")
-
   # Clicking the team dropdown brings down a team selection menu.
   # Also updates the allTeams collection
   $wrapper.find('.select-team').click (e) ->
-    allTeams = PokeBattle.TeamStore.getTeams()
+    allTeams = PokeBattle.TeamStore.models
     if allTeams && allTeams.length > 0
       html = JST['team_dropdown'](window: window, teams: allTeams)
       $wrapper.find('.team-dropdown').html(html)
@@ -97,7 +97,7 @@
   # Selecting a team from the menu
   $wrapper.find('.team-dropdown').on 'click', '.select-team-dropdown-item', (e) ->
     slot = $(e.currentTarget).data('slot')
-    selectedIndex = slot
+    selectedTeamId = PokeBattle.TeamStore.at(slot).id
     renderCurrentTeam($wrapper)
 
   # Selecting the format changes the dropdown.
@@ -121,3 +121,18 @@
     $checkboxes = $wrapper.find('input[type="checkbox"]')
     $checkboxes.prop('disabled', true)
     $checkboxes.closest('label').addClass('disabled')
+
+  renderCurrentTeam($wrapper)
+
+  # Called when a team has been updated
+  teamUpdated = ->
+    # If this challenge panel no longer exists, remove the callback
+    if not $.contains(document, $wrapper.get(0))
+      PokeBattle.TeamStore.off 'add remove change sync', teamUpdated
+      return
+
+    # Rerender the current team
+    renderCurrentTeam($wrapper)
+
+  # Start listening for team updated events
+  PokeBattle.TeamStore.on 'add remove sync', teamUpdated

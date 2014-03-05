@@ -26,7 +26,7 @@ class @TeambuilderView extends Backbone.View
     'click .go_back': 'goBackToOverview'
     'click .pokemon_list li': 'clickPokemon'
     'click .add_pokemon': 'addNewPokemonEvent'
-    'click .save_team': 'saveTeams'
+    'click .save_team': 'saveTeam'
     'change .species_list': 'changeSpecies'
     'change .selected-forme': 'changeForme'
     'change .selected_nature': 'changeNature'
@@ -48,17 +48,14 @@ class @TeambuilderView extends Backbone.View
     'click .move-button': 'clickSelectedMove'
 
   initialize: (attributes) =>
-    {@teams} = attributes
     @selectedPokemon = 0
-    @selectedTeam = 0
-
-    @loadTeams()
+    @selectedTeam = null
+    @render()
 
   clickTeam: (e) =>
     $team = $(e.currentTarget)
-    index = $team.index()
-    @selectedPokemon = 0
-    @setSelectedTeamIndex(index)
+    team = PokeBattle.TeamStore.get($team.data('id'))
+    @setSelectedTeam(team)
 
   clickPokemon: (e) =>
     $listItem = $(e.currentTarget)
@@ -66,57 +63,54 @@ class @TeambuilderView extends Backbone.View
     @setSelectedPokemonIndex(index)
 
   attachEventsToTeam: (team) =>
-    @listenTo(team, 'add', @renderPokemon)
-    @listenTo(team, 'change:level', @renderStats)
-    @listenTo(team, 'change:ivs', @renderStats)
-    @listenTo(team, 'change:evs', @renderStats)
-    @listenTo(team, 'change:nature', @renderStats)
-    @listenTo(team, 'change:hiddenPowerType', @renderStats)
-    @listenTo(team, 'change:shiny', @renderPokemon)
+    return  if team.attachedTeambuildEvents
+
+    @listenTo(team.pokemon, 'add', @renderPokemon)
+    @listenTo(team.pokemon, 'change:level', @renderStats)
+    @listenTo(team.pokemon, 'change:ivs', @renderStats)
+    @listenTo(team.pokemon, 'change:evs', @renderStats)
+    @listenTo(team.pokemon, 'change:nature', @renderStats)
+    @listenTo(team.pokemon, 'change:hiddenPowerType', @renderStats)
+    @listenTo(team.pokemon, 'change:shiny', @renderPokemon)
 
     # Todo: Make this perform better
-    @listenTo(team, 'change:name change:forme', (pokemon) =>
+    @listenTo(team.pokemon, 'change:name change:forme', (pokemon) =>
       @renderPokemonList()
       @renderPokemon(pokemon)
     )
 
-    @listenTo(team, 'add remove', @renderPokemonList)
-    @listenTo(team, 'reset', @renderTeam)
-    @listenTo(team, 'change reset add remove', @dirty)
-    @listenTo(team, 'change reset add remove', @renderPBV)
+    @listenTo(team.pokemon, 'add remove', @renderPokemonList)
+    @listenTo(team.pokemon, 'reset', @renderTeam)
+    @listenTo(team.pokemon, 'change reset add remove', @dirty)
+    @listenTo(team.pokemon, 'change reset add remove', @renderPBV)
 
-  loadTeams: =>
-    @teams = PokeBattle.TeamStore.getTeams(teambuilder: true)
-    @teams.map(@attachEventsToTeam)
-    @addNewTeam()  if @teams.length == 0
-    @render()
+    # A temporary flag to attach until the teambuilder view is refactored
+    team.attachedTeambuildEvents = true
 
   addEmptyPokemon: (team) =>
-    team.add(new NullPokemon())
+    team.pokemon.add(new NullPokemon())
 
   addNewTeamEvent: (e) =>
     @addNewTeam()
 
   addNewTeam: (team) =>
     team ||= new Team()
-    @teams.push(team)
     @addEmptyPokemon(team)  while team.length < 6
     @attachEventsToTeam(team)
-    @saveTeams()
+    team.save()
     @renderTeams()
 
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
-    index = $team.index()
-    @addNewTeam(@teams[index].clone())
+    id = $team.data('id')
+    @getTeam(id).clone().save()
+    @renderTeams()
     return false
 
   deleteTeam: (e) =>
     return false  if !confirm("Do you really want to delete this team?")
     $team = $(e.currentTarget).closest('.select-team')
-    index = $team.index()
-    @teams.splice(index, 1)
-    @saveTeams()
+    @getTeam($team.data('id')).destroy()
     @renderTeams()
     return false
 
@@ -124,12 +118,12 @@ class @TeambuilderView extends Backbone.View
     if $('#export-team-modal').length == 0
       $('body').append(@exportTemplate())
     $team = $(e.currentTarget).closest('.select-team')
-    index = $team.index()
-    if not @teams[index].hasNonNullPokemon()
+    id = $team.data('id')
+    if not @getTeam(id).hasNonNullPokemon()
       alert("You cannot export empty teams. Please add some pokemon first.")
       return false
 
-    teamJSON = @teams[index].toNonNullJSON()
+    teamJSON = @getTeam(id).toNonNullJSON()
     teamString = PokeBattle.exportTeam(teamJSON.pokemon)
 
     $modal = $('#export-team-modal')
@@ -139,26 +133,24 @@ class @TeambuilderView extends Backbone.View
     return false
 
   addNewPokemonEvent: =>
-    @addNewPokemon(@teams[@selectedTeam])
+    @addNewPokemon(@getSelectedTeam())
 
   addNewPokemon: (team) =>
     @addEmptyPokemon(team)
     @$('.pokemon_list li').last().click()
 
-  # TODO: phase this out: updating all teams is way too inefficient
-  # Also this is not using the TeamStore as it should
-  saveTeams: =>
-    teamJSON = @teams.map((team) -> team.toJSON())
-    # PokeBattle.socket.send('save team', teamJson)
-    window.localStorage.setItem('teams', JSON.stringify(teamJSON))
+  saveTeam: =>
+    @getSelectedTeam().save()
     @resetHeaderButtons()
 
   changeSpecies: (e) =>
+    team = @getSelectedTeam()
     species = $(e.currentTarget).val()
+
     if species
-      @replaceSelectedPokemon(new Pokemon(teambuilder: true, name: species))
+      team.replace(@selectedPokemon, new Pokemon(teambuilder: true, name: species))
     else
-      @replaceSelectedPokemon(new NullPokemon())
+      team.replace(@selectedPokemon, new NullPokemon())
 
   changeForme: (e) =>
     $forme = $(e.currentTarget)
@@ -403,17 +395,22 @@ class @TeambuilderView extends Backbone.View
   getSelectedPokemon: =>
     @getSelectedTeam().at(@selectedPokemon)
 
-  replaceSelectedPokemon: (newPokemon) =>
-    team = @getSelectedTeam()
-    team.remove(team.at(@selectedPokemon))
-    team.add(newPokemon, at: @selectedPokemon)
-
-  setSelectedTeamIndex: (index) =>
-    @selectedTeam = index
+  setSelectedTeam: (team) =>
+    # Duplicate the team, so that changes don't stick until saved
+    @selectedTeam = team.clone()
+    @selectedTeam.id = team.id
+    @selectedPokemon = 0
+    @attachEventsToTeam(@selectedTeam)
     @renderTeam()
 
+  getAllTeams: =>
+    PokeBattle.TeamStore.models
+
   getSelectedTeam: =>
-    @teams[@selectedTeam]
+    @selectedTeam
+
+  getTeam: (idx) =>
+    PokeBattle.TeamStore.get(idx)
 
   getPokemonView: () =>
     @$(".pokemon_edit")
@@ -429,7 +426,6 @@ class @TeambuilderView extends Backbone.View
 
   goBackToOverview: =>
     if @_dirty
-      @loadTeams()
       @resetHeaderButtons()
     @render()
 
@@ -448,13 +444,13 @@ class @TeambuilderView extends Backbone.View
     this
 
   renderTeams: =>
-    @$('.display_teams').html @teamsTemplate(teams: @teams, window: window)
+    @$('.display_teams').html @teamsTemplate(teams: @getAllTeams(), window: window)
     @$('.display_teams').removeClass('hidden')
     @$('.display_pokemon').addClass('hidden')
 
   renderTeam: =>
     team = @getSelectedTeam()
-    @generationChanged(team.generation || DEFAULT_GENERATION)
+    @generationChanged(team.get('generation')  || DEFAULT_GENERATION)
     @renderGeneration()
     @renderPokemonList()
     @renderPBV()
@@ -534,7 +530,9 @@ class @TeambuilderView extends Backbone.View
           $errors = $modal.find('.form-errors')
           $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
         else
-          @addNewTeam(Team.fromJSON(pokemon: pokemonJSON))
+          team = new Team(pokemon: pokemonJSON, teambuilder: true)
+          team.save()
+          @addNewTeam(team)
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false
