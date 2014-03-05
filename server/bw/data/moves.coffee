@@ -895,7 +895,7 @@ extendMove 'Beat Up', ->
         numHits++
     numHits
 
-  @basePower = (battle, user, target, hitNumber) ->
+  @basePower = (battle, user, target, hitNumber=1) ->
     index = -1
     {team} = user
     teamIndex = team.indexOf(user)

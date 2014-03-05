@@ -6454,6 +6454,13 @@ describe "BW Moves:", ->
         @battle.performMove(@p1, beatUp)
       ).should.not.throw()
 
+    it "doesn't crash when used by a pokemon with technician", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Technician")])
+      beatUp = @battle.getMove("Beat Up")
+      (=>
+        @battle.performMove(@p1, beatUp)
+      ).should.not.throw()
+
   describe "Psycho Shift", ->
     it "fails if the user doesn't have a status", ->
       shared.create.call(this)
