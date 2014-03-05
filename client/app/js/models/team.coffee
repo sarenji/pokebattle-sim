@@ -11,6 +11,7 @@ class PokemonCollection extends Backbone.Collection
 
 class @Team extends Backbone.Model
   initialize: (attrs={}, options={}) =>
+    @owner = attrs.owner
     @set('generation', DEFAULT_GENERATION)  unless attrs.generation
     @pokemon = new PokemonCollection(attrs.pokemon, team: this)
     @models = @pokemon.models
