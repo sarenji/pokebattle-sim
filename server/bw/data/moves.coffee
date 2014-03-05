@@ -563,21 +563,16 @@ extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
 makeRandomSwitchMove "Dragon Tail"
 
 extendMove 'Entrainment', ->
-  @bannedSourceAbilities =
+  bannedSourceAbilities =
     "Flower Gift": true
     "Forecast": true
     "Illusion": true
     "Imposter": true
-    "Multitype": true
     "Trace": true
     "Zen Mode": true
 
-  @bannedTargetAbilities =
-    "Multitype": true
-    "Truant": true
-
   @afterSuccessfulHit = (battle, user, target) ->
-    if user.ability.displayName not of @bannedSourceAbilities && target.ability.displayName not of @bannedTargetAbilities
+    if user.hasChangeableAbility() && user.ability.displayName not of bannedSourceAbilities && target.hasChangeableAbility() && target.ability.displayName != 'Truant'
       battle.message "#{target.name} acquired #{user.ability.displayName}!"
       target.copyAbility(user.ability)
     else
@@ -1553,26 +1548,24 @@ extendMove 'Role Play', ->
     "Forecast": true
     "Illusion": true
     'Imposter': true
-    "Multitype": true
     "Trace": true
     "Wonder Guard": true
     "Zen Mode": true
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if user.ability?.displayName != "Multitype" && target.ability.displayName not of bannedAbilities && user.ability != target.ability
+    if user.hasChangeableAbility() && target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities && user.ability != target.ability
       battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
       user.copyAbility(target.ability)
     else
       @fail(battle)
 
 extendMove 'Simple Beam', ->
-  @bannedAbilities =
-    "Multitype": true
+  bannedAbilities =
     "Simple": true
     "Truant": true
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.ability.displayName not of @bannedAbilities
+    if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
       battle.message "#{target.name} acquired Simple!"
       target.copyAbility(Ability.Simple)
     else
@@ -1815,13 +1808,12 @@ extendMove 'Wish', ->
     @fail(battle)  unless user.team.attach(Attachment.Wish, {user})
 
 extendMove 'Worry Seed', ->
-  @bannedAbilities =
+  bannedAbilities =
     "Insomnia": true
-    "Multitype": true
     "Truant": true
 
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.ability.displayName not of @bannedAbilities
+    if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
       battle.message "#{target.name} acquired Insomnia!"
       target.copyAbility(Ability.Insomnia)
     else
