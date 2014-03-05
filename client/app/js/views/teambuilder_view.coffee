@@ -40,6 +40,7 @@ class @TeambuilderView extends Backbone.View
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
     'change .ev-entry': 'changeEv'
+    'input .ev-entry[type=range]': 'changeEv'  # fix for firefox
     'change .select-hidden-power': 'changeHiddenPower'
     'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
