@@ -199,7 +199,7 @@ makeTypeAbsorbMove = (name, type) ->
   makeAbility name, ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type
-      @battle.message "#{@pokemon.name} restored its HP a little."
+      @battle.message "#{@pokemon.name}'s HP was restored."
       amount = @pokemon.stat('hp') >> 2
       @pokemon.heal(amount)
       return true
