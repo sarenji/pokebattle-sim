@@ -12,6 +12,13 @@ delete @Status.Sleep::switchOut
 # power of 3, instead of the power of 2 in previous generations.
 @Attachment.ProtectCounter::successMultiplier = 3
 
+# In XY, partial-trapping moves deal more damage at the end of each turn
+@Attachment.Trap::getDamagePerTurn = ->
+  if @user.hasItem("Binding Band")
+    6
+  else
+    8
+
 class @Attachment.KingsShield extends @VolatileAttachment
   name: "KingsShieldAttachment"
 
