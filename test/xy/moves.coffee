@@ -514,6 +514,39 @@ describe "XY Moves:", ->
       @battle.performMove(@p1, simpleBeam)
       mock.verify()
 
+  testTrappingMove = (name) ->
+    describe name, ->
+      it "deals 1/8 of the pokemon's max hp every turn", ->
+        shared.create.call this,
+          gen: 'xy'
+          team2: [Factory("Blissey")]
+        @battle.performMove(@p1, @battle.getMove(name))
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+        maxHP = @p2.stat('hp')
+        expected = maxHP - Math.floor(maxHP / 8)
+        @p2.currentHP.should.equal expected
+
+      it "deals 1/6 of the pokemon's max hp every turn if the user is holding a Binding Band", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", item: "Binding Band")]
+          team2: [Factory("Blissey")]
+        @battle.performMove(@p1, @battle.getMove(name))
+        @p2.currentHP = @p2.stat('hp')
+        @battle.endTurn()
+        maxHP = @p2.stat('hp')
+        expected = maxHP - Math.floor(maxHP / 6)
+        @p2.currentHP.should.equal expected
+
+  testTrappingMove "Bind"
+  testTrappingMove "Clamp"
+  testTrappingMove "Fire Spin"
+  testTrappingMove "Infestation"
+  testTrappingMove "Magma Storm"
+  testTrappingMove "Sand Tomb"
+  testTrappingMove "Wrap"
+
   describe "Entrainment", ->
     it "does not change some abilities", ->
       shared.create.call this,
