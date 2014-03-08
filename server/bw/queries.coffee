@@ -40,7 +40,7 @@ Query.chain = (funcName, attachments, result, args...) ->
 Query.modifiers = (funcName, attachments, args...) ->
   result = 0x1000
   for attachment in orderByPriority(attachments, funcName)
-    continue  unless funcName of attachment
-    modifier = attachment[funcName](args...)
+    continue  unless funcName of attachment && attachment.valid()
+    modifier = attachment[funcName].apply(attachment, args)
     result = Math.floor((result * modifier + 0x800) / 0x1000)
   result

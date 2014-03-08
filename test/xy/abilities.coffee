@@ -198,6 +198,16 @@ describe "XY Abilities:", ->
       @battle.performMove(@p1, thunderbolt)
       @p1.stages.should.include(speed: 0)
 
+    it "works even if the defender faints", ->
+      shared.create.call this,
+        gen: 'xy'
+        team2: [Factory("Magikarp", ability: "Gooey"), Factory("Magikarp")]
+      @p2.currentHP = 1
+      tackle = @battle.getMove('Tackle')
+      @p1.stages.should.include(speed: 0)
+      @battle.performMove(@p1, tackle)
+      @p1.stages.should.include(speed: -1)
+
   describe "Mega Launcher", ->
     it "boosts pulse moves by x1.5", ->
       shared.create.call this,

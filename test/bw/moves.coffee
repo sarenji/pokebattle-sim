@@ -1723,6 +1723,15 @@ describe "BW Moves:", ->
       @battle.endTurn()
       @p2.currentHP.should.equal(hp - 2*quarter)
 
+    it "deals 1 damage minimum", ->
+      shared.create.call(this, team2: [Factory("Shedinja")])
+      shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
+      @p2.attach(Status.Sleep)
+
+      @battle.performMove(@p1, @battle.getMove('Nightmare'))
+      @battle.endTurn()
+      @p2.currentHP.should.equal(0)
+
     it "stops the nightmare if the target wakes up", ->
       shared.create.call(this)
       shared.biasRNG.call(this, 'randInt', 'sleep turns', 3)
@@ -1909,7 +1918,7 @@ describe "BW Moves:", ->
       @battle.endTurn()
       @team1.has(Attachment.Wish).should.be.false
 
-  describe "counter", ->
+  describe "Counter", ->
     it "returns double the damage if attacked by a physical move", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove('Tackle'))
@@ -1937,6 +1946,14 @@ describe "BW Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Counter'))
       mock.verify()
+
+    it "hits the pokemon who is currently in that slot, not who was", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove('U-turn'))
+      @battle.performSwitch(@p1, 1)
+      @battle.performMove(@p2, @battle.getMove('Counter'))
+      @team1.first().currentHP.should.be.lessThan(@team1.first().stat('hp'))
+      @team1.at(1).currentHP.should.equal(@team1.at(1).stat('hp'))
 
   describe "Perish Song", ->
     it "attaches to every pokemon in the field", ->
@@ -2656,6 +2673,16 @@ describe "BW Moves:", ->
         maxHP = @p2.stat('hp')
         expected = maxHP - Math.floor(maxHP / 16)
         @p2.currentHP.should.equal expected
+
+      it "deals a minimum of 1 damage", ->
+        shared.create.call(this, team2: [Factory("Shedinja")])
+        @p2.types = [ "Normal" ]
+        move = @battle.getMove(name)
+        @sandbox.stub(move, 'calculateDamage', -> 0)
+
+        @battle.performMove(@p1, move)
+        @battle.endTurn()
+        @p2.currentHP.should.equal(0)
 
       it "lasts several turns", ->
         shared.create.call(this, team2: [Factory("Blissey")])
@@ -3703,6 +3730,15 @@ describe "BW Moves:", ->
 
       @p1.currentHP.should.equal 2
 
+    it "saps a minimum of 1 damage", ->
+      shared.create.call(this, team2: [Factory("Shedinja")])
+      move = @battle.getMove("Leech Seed")
+
+      @battle.performMove(@p1, move)
+      @battle.endTurn()
+
+      @p2.currentHP.should.equal(0)
+
     it "always misses on Grass type Pokemon", ->
       shared.create.call(this)
       move = @battle.getMove("Leech Seed")
@@ -3962,6 +3998,13 @@ describe "BW Moves:", ->
 
         @battle.endTurn()
         p.currentHP.should.equal(maxHP - 2 * quarterHP)
+
+      it "causes the opponent to lose a minimum of 1 HP per turn", ->
+        shared.create.call(this, team2: [Factory("Shedinja"), Factory("Magikarp")])
+        @p1.types = [ "Ghost" ]
+        @battle.performMove(@p1, @battle.getMove("Curse"))
+        @battle.endTurn()
+        @p2.currentHP.should.equal(0)
 
       it "can faint the user", ->
         shared.create.call(this)
@@ -6406,6 +6449,13 @@ describe "BW Moves:", ->
         team1: (Factory("Magikarp")  for i in [0...2])
       @team1.at(1).faint()
       @team1.at(0).attach(Status.Burn)
+      beatUp = @battle.getMove("Beat Up")
+      (=>
+        @battle.performMove(@p1, beatUp)
+      ).should.not.throw()
+
+    it "doesn't crash when used by a pokemon with technician", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Technician")])
       beatUp = @battle.getMove("Beat Up")
       (=>
         @battle.performMove(@p1, beatUp)

@@ -80,7 +80,7 @@ PokeBattle.messages = new PrivateMessages([])
 
 PokeBattle.events.once 'ready', ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
-  PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"), teams: [])
+  PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"))
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))
   PokeBattle.chatView = new ChatView(
     el: $('.chat_window .chat')

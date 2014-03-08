@@ -770,6 +770,7 @@ class @BattleView extends Backbone.View
     @renderUserInfo()
 
   resetPopovers: =>
+    return  if !@model.teams
     for player in [0...2]
       for slot in [0...@model.numActive]
         $pokemon = @$pokemon(player, slot)

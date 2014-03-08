@@ -143,7 +143,7 @@ describe 'XY API:', ->
         done()
 
   describe '/xy/damagecalc', ->
-    it 'should calculate damage properly', (done) ->
+    createParams = ->
       params =
         move: "Fire Punch"
         attacker: Factory("Hitmonchan", {
@@ -154,8 +154,13 @@ describe 'XY API:', ->
           })
         defender: Factory("Hitmonlee")
 
+    it 'works for an existing move', (done) ->
+      params = createParams()
       @client.put '/xy/damagecalc', params, (err, req, res, data) ->
         throw new Error(err)  if err
-        data.min.damage.should.equal(200)
-        data.max.damage.should.equal(236)
+        data.minDamage.should.equal(200)
+        data.maxDamage.should.equal(236)
+        data.basePower.should.equal(75)
+        data.moveType.should.equal("Fire")
+        data.defenderMaxHP.should.equal(241)
         done()

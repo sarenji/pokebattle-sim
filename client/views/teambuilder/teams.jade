@@ -1,7 +1,7 @@
 h2 Your teams
 .clearfix
   each team in teams
-    .left.select-team
+    .left.select-team(data-id=team.id)
       h2= team.getName()
       != window.JST['team']({team: team, window: window})
       .team-meta

@@ -2,7 +2,7 @@ mixin displayOtherTeam(team, text)
   section.battle_team_preview
     p= text
     ul.row-fluid.unstyled
-      - team.each(function(pokemon) {
+      - team.pokemon.each(function(pokemon) {
         li.px_40
           +displayPokemon(pokemon)
       - })
@@ -18,7 +18,7 @@ mixin displayYourTeam(team, text)
           else
             | Lead
     ul.arrange_team.row-fluid.unstyled
-      - yourTeam.each(function(pokemon, i) {
+      - yourTeam.pokemon.each(function(pokemon, i) {
         li.px_40.img-polaroid
           +displayPokemon(pokemon, i)
       - })

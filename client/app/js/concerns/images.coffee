@@ -1464,11 +1464,11 @@ SpriteIds = {
   },
   "Rotom": {
     "default": 479,
-    "fan": NON_DEFAULT_FORMES_OFFSET + 68,
-    "frost": NON_DEFAULT_FORMES_OFFSET + 69,
-    "heat": NON_DEFAULT_FORMES_OFFSET + 70,
-    "mow": NON_DEFAULT_FORMES_OFFSET + 71,
-    "wash": NON_DEFAULT_FORMES_OFFSET + 72
+    "fan": NON_DEFAULT_FORMES_OFFSET + 52,
+    "frost": NON_DEFAULT_FORMES_OFFSET + 53,
+    "heat": NON_DEFAULT_FORMES_OFFSET + 54,
+    "mow": NON_DEFAULT_FORMES_OFFSET + 55,
+    "wash": NON_DEFAULT_FORMES_OFFSET + 56
   },
   "Rufflet": {
     "default": 627
