@@ -144,10 +144,11 @@ attachAPIEndpoints = (server) ->
 
         # TODO: Add remaining HP or anything else that's requested
         res.send(
-          min:
-            damage: minDamage
-          max:
-            damage: maxDamage
+          moveType: move.getType(battle, attackerPokemon, defenderPokemon)
+          basePower: move.basePower(battle, attackerPokemon, defenderPokemon)
+          minDamage: minDamage
+          maxDamage: maxDamage
+          defenderMaxHP: defenderPokemon.stat('hp')
         )
 
         return next()
