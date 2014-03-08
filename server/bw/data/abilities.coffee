@@ -106,6 +106,8 @@ makeFilterAbility("Solid Rock")
 
 makeContactStatusAbility = (name, attachment) ->
   makeAbility name, ->
+    this::isAliveCheck = -> true
+
     this::afterBeingHit = (move, user) ->
       return  if !move.hasFlag("contact")
       return  if @battle.rng.next("contact status") >= .3
@@ -293,6 +295,8 @@ makeAbility "Compoundeyes", ->
 makeAbility "Contrary"
 
 makeAbility "Cursed Body", ->
+  this::isAliveCheck = -> true
+
   this::afterBeingHit = (move, user, target, damage) ->
     return  if user.has(Attachment.Substitute)
     return  if @battle.rng.next("cursed body") >= .3
@@ -350,6 +354,8 @@ makeAbility 'Dry Skin', ->
 makeAbility 'Early Bird'
 
 makeAbility 'Effect Spore', ->
+  this::isAliveCheck = -> true
+
   this::afterBeingHit = (move, user, target, damage) ->
     return  unless move.hasFlag("contact")
     switch @battle.rng.randInt(1, 10, "effect spore")
@@ -597,6 +603,8 @@ makeAbility 'Multiscale', ->
 makeAbility 'Multitype'
 
 makeAbility 'Mummy', ->
+  this::isAliveCheck = -> true
+
   this::afterBeingHit = (move, user) ->
     if move.hasFlag("contact") && user.hasChangeableAbility()
       @battle.message("#{user.name}'s Ability became Mummy!")

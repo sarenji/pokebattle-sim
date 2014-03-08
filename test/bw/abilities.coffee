@@ -370,6 +370,16 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
+    it "can work even if the defender faints", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Cursed Body"), Factory("Magikarp")]
+      shared.biasRNG.call(this, "next", "cursed body", 0)
+      @p1.currentHP = 1
+      tackle = @battle.getMove("Tackle")
+      @p2.moves = [ tackle ]
+      @battle.performMove(@p2, tackle)
+      @p2.isMoveBlocked(tackle).should.be.true
+
   describe "Defeatist", ->
     it "halves attack and special attack if HP goes under 50%", ->
       shared.create.call this,
@@ -529,6 +539,14 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, @battle.getMove('Thunderbolt'))
       @p2.has(Status.Sleep).should.be.false
 
+    it "can work even if the defender faints", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Effect Spore"), Factory("Magikarp")]
+      shared.biasRNG.call(this, "randInt", 'effect spore', 1)
+      @p1.currentHP = 1
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+      @p2.has(Status.Sleep).should.be.true
+
   testFilterAbility = (name) ->
     describe name, ->
       it "reduces the impact of super-effective moves by 25%", ->
@@ -571,6 +589,16 @@ describe "BW Abilities:", ->
         shared.biasRNG.call(this, "next", 'contact status', .3)
         @battle.performMove(@p2, @battle.getMove('Tackle'))
         @p2.has(attachment).should.be.false
+
+      it "can work even if the defender faints", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", gender: "F", ability: name), Factory("Magikarp")]
+          team2: [Factory("Magikarp", gender: "M")]
+        shared.biasRNG.call(this, "next", 'contact status', 0)
+        @p1.currentHP = 1
+        tackle = @battle.getMove('Tackle')
+        @battle.performMove(@p2, tackle)
+        @p2.has(attachment).should.be.true
 
   testContactStatusAbility("Cute Charm", Attachment.Attract)
   testContactStatusAbility("Flame Body", Status.Burn)
@@ -1466,6 +1494,15 @@ describe "BW Abilities:", ->
       @p2.hasAbility("Mummy").should.be.false
       @battle.performMove(@p2, tackle)
       @p2.hasAbility("Mummy").should.be.false
+
+    it "works even if the defender faints", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Mummy"), Factory("Magikarp")]
+      @p1.currentHP = 1
+      tackle = @battle.getMove("Tackle")
+      @p2.hasAbility("Mummy").should.be.false
+      @battle.performMove(@p2, tackle)
+      @p2.hasAbility("Mummy").should.be.true
 
   describe "Natural Cure", ->
     it "cures status upon switch out", ->
