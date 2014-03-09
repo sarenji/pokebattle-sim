@@ -37,9 +37,6 @@ makeChargeMove 'Phantom Force', [], "$1 vanished instantly!"
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
 
-extendMove 'Simple Beam', ->
-   @bannedAbilities["Stance Change"] = true
-
 makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
   user.attach(Attachment.SpikyShield)
   battle.message "#{user.name} protected itself!"
@@ -55,6 +52,3 @@ extendMove 'Toxic', ->
   @getAccuracy = (battle, user, target) ->
     return 0  if user.hasType("Poison")
     return @accuracy
-
-extendMove 'Worry Seed', ->
-   @bannedAbilities["Stance Change"] = true

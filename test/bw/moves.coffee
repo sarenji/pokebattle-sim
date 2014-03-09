@@ -7079,3 +7079,20 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(simpleBeam).expects('fail').once()
       @battle.performMove(@p1, simpleBeam)
       mock.verify()
+
+  describe "Entrainment", ->
+    it "copies the user's ability to the target", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Smeargle", ability: "Own Tempo")]
+      @battle.performMove(@p1, @battle.getMove('Entrainment'))
+      @p2.hasAbility("Swift Swim").should.be.true
+
+    it "does not copy some abilities", ->
+      shared.create.call this,
+        team1: [Factory("Arceus", ability: "Multitype")]
+        team2: [Factory("Magikarp", ability: "Swift Swim")]
+      entrainment = @battle.getMove("Entrainment")
+      mock = @sandbox.mock(entrainment).expects('fail').once()
+      @battle.performMove(@p1, entrainment)
+      mock.verify()
