@@ -8943,8 +8943,8 @@
     },
     "Smack Down": {
         "accuracy": 100,
-        "ailmentChance": 100,
-        "ailmentId": "unknown",
+        "ailmentChance": 0,
+        "ailmentId": "none",
         "damage": "physical",
         "flags": [
             "protect",

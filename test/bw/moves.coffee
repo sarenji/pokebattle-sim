@@ -5716,6 +5716,12 @@ describe "BW Moves:", ->
       tackle.willMiss(@battle, @p2, @p1).should.be.false
 
   describe "Smack Down", ->
+    it "doesn't crash on secondary effect", ->
+      shared.create.call(this, team2: [ Factory("Gyarados") ])
+      shared.biasRNG.call(this, "next", "secondary effect", 0)
+      smackDown = @battle.getMove("Smack Down")
+      (=> @battle.performMove(@p1, smackDown)).should.not.throw()
+
     it "removes target's Ground immunity", ->
       shared.create.call(this, team2: [ Factory("Gyarados") ])
       smackDown = @battle.getMove("Smack Down")
