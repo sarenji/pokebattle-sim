@@ -3175,7 +3175,7 @@
 	"Basculin": {
 		"default": {
 			"abilities": [
-				"Rock Head",
+				"Reckless",
 				"Adaptability"
 			],
 			"hiddenAbility": "Mold Breaker",
@@ -3263,9 +3263,9 @@
 			],
 			"weight": 180
 		},
-		"red-striped": {
+		"blue-striped": {
 			"abilities": [
-				"Reckless",
+				"Rock Head",
 				"Adaptability"
 			],
 			"hiddenAbility": "Mold Breaker",

@@ -89,7 +89,7 @@ class Forme:
     if name == 'altered':      name = 'default'  # Giratina
     if name == 'a':            name = 'default'  # Unown
     if name == 'west':         name = 'default'  # Shellos/Gastrodon
-    if name == 'blue-striped': name = 'default'  # Basculin
+    if name == 'red-striped':  name = 'default'  # Basculin
     if name == 'spring':       name = 'default'  # Deerling/Sawsbuck
     if name == 'land':         name = 'default'  # Shaymin
     if name == 'normal':       name = 'default'  # Deoxys/Arceus
