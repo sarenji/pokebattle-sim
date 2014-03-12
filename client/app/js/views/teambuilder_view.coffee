@@ -85,6 +85,8 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team.pokemon, 'change reset add remove', @dirty)
     @listenTo(team.pokemon, 'change reset add remove', @renderPBV)
 
+    @listenTo(team, 'change', @dirty)
+
     # A temporary flag to attach until the teambuilder view is refactored
     team.attachedTeambuildEvents = true
 
@@ -234,11 +236,11 @@ class @TeambuilderView extends Backbone.View
   changeTeamGeneration: (e) =>
     $link = $(e.currentTarget)
     generation = $link.data('generation')
-    oldGeneration = @getSelectedTeam().generation
-    if generation != oldGeneration
-      @getSelectedTeam().generation = generation
+    team = @getSelectedTeam()
+    if generation != team.get('generation')
+      team.set('generation', generation)
       @renderTeam()
-      @dirty()
+      @dirty() # renderTeam() removes dirty, so call it again
 
   generationChanged: (generation) =>
     {MoveData, SpeciesData, ItemData} = window.Generations[generation.toUpperCase()]
@@ -418,8 +420,7 @@ class @TeambuilderView extends Backbone.View
 
   blurTeamName: =>
     teamName = @$('.team_name').text()
-    @getSelectedTeam().name = teamName
-    @dirty()
+    @getSelectedTeam().set('name', teamName)
 
   keypressTeamName: (e) =>
     if e.which == 13  # [Enter]
@@ -513,7 +514,7 @@ class @TeambuilderView extends Backbone.View
       @$(".total-pbv").removeClass("red")
 
   renderGeneration: =>
-    generation = @getSelectedTeam().generation || DEFAULT_GENERATION
+    generation = @getSelectedTeam().get("generation") || DEFAULT_GENERATION
     text = @$(".change-gen-dropdown a[data-generation='#{generation}']").text()
     @$(".current-generation").text(text)
 

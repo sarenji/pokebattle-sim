@@ -60,7 +60,7 @@ class @Team extends Backbone.Model
       .value()
 
   clone: =>
-    attrs = _(@attributes).clone
+    attrs = _(@attributes).clone()
     attrs.pokemon = @pokemon.toJSON()
     new Team(attrs)
 
