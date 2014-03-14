@@ -1408,17 +1408,17 @@ class @Status.Sleep extends @StatusAttachment
     {@turns} = attributes
     if !@turns && @battle?
       @turns = @battle.rng.randInt(1, 3, "sleep turns")
-      @turns >>= 1  if @pokemon.hasAbility("Early Bird")
 
   switchOut: ->
     @counter = 0
 
   beforeMove: (move, user, targets) ->
-    if @counter == @turns
+    @counter += 1  if @pokemon.hasAbility("Early Bird")
+    @counter += 1
+    if @counter > @turns
       @pokemon.cureStatus()
     else
       @battle.message "#{@pokemon.name} is fast asleep."
-      @counter += 1
       return false  unless move.usableWhileAsleep
 
 class @Status.Burn extends @StatusAttachment

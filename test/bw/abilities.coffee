@@ -499,10 +499,12 @@ describe "BW Abilities:", ->
       @p1.currentHP.should.equal(2)
 
   describe "Early Bird", ->
-    it "halves sleep turns", ->
+    it "drops the sleep counter by 2 instead of 1", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Early Bird")])
-      shared.biasRNG.call(this, "randInt", 'sleep turns', 1)
+      shared.biasRNG.call(this, "randInt", 'sleep turns', 3)
       @p1.attach(Status.Sleep)
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
+      @p1.has(Status.Sleep).should.be.true
       @battle.performMove(@p1, @battle.getMove('Tackle'))
       @p1.has(Status.Sleep).should.be.false
 
