@@ -353,11 +353,11 @@ class @BattleView extends Backbone.View
             , 0
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
-        @addLog("#{pokemonHtml(pokemon)} became confused!")
+        @addLog("#{pokemon.get('name')} became confused!")
         done()
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
-        @addLog("#{pokemonHtml(pokemon)} floats in the air with its Air Balloon!")
+        @addLog("#{pokemon.get('name')} floats in the air with its Air Balloon!")
         done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
@@ -572,7 +572,7 @@ class @BattleView extends Backbone.View
             .then(-> $substitute.remove()).end(done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
-        @addLog("#{pokemonHtml(pokemon)}'s Air Balloon popped!")
+        @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
         done()
       when 'ConfusionAttachment'
         $pokemon.find(".pokemon-effect.confusion").remove()
