@@ -790,7 +790,7 @@ class @BattleView extends Backbone.View
     @pauseTimer(@model.index)
 
   addMoveMessage: (owner, pokemon, moveName) =>
-    @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!</p>")
+    @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -851,3 +851,6 @@ addPokemonImage = ($div, url, options = {}) ->
     options.callback?($image, left, top)  # $image, x, y
   image.src = url
   $image.appendTo($div)
+
+pokemonHtml = (pokemon) ->
+  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"

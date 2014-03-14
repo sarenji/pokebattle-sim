@@ -10,8 +10,8 @@ each team in [ yourTeam, opponentTeam ]
           - for (var i = j; i < j + numPerRow; i++)
             - var pokemon = team.at(i)
             if pokemon
-              .span6
+              .span6.icon_wrapper
                 - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
                 - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
                 - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
-                .pokemon_icon(class = faintClass, style = style, data-team = teamIndex, data-slot = i)
+                a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)

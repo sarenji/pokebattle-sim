@@ -106,7 +106,7 @@ class @TeambuilderView extends Backbone.View
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
     id = $team.data('id')
-    @getTeam(id).clone().save()
+    @getTeam(id).clone().set("id", null).save()
     @renderTeams()
     return false
 
