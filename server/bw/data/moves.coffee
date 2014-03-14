@@ -1390,6 +1390,26 @@ extendMove 'Metronome', ->
       targets = battle.getTargets(move, user)
     battle.executeMove(move, user, targets)
 
+extendMove 'Natural Gift', ->
+  oldUse = @use
+  @use = (battle, user, target) ->
+    if !user.hasItem() || user.isItemBlocked() || !user.getItem().naturalGift
+      @fail(battle)
+      return false
+
+    oldUse.call(this, battle, user, target)
+
+  @basePower = (battle, user, target) ->
+    item = user.getItem()
+    item.naturalGift.power
+
+  @getType = (battle, user, target) ->
+    item = user.getItem()
+    item.naturalGift.type
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.removeItem()
+
 extendMove 'Nature Power', ->
   @execute = (battle, user, targets) ->
     # In Wi-Fi battles, Earthquake is always chosen.
