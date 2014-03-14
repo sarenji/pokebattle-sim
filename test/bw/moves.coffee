@@ -7109,3 +7109,23 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(entrainment).expects('fail').once()
       @battle.performMove(@p1, entrainment)
       mock.verify()
+
+  describe "Natural Gift", ->
+    it "changes power and type depending on the berry held by the user", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle", item: 'Liechi Berry')]
+        team2: [Factory("Magikarp")]
+      move = @battle.getMove('Natural Gift')
+      basePower = move.basePower(@battle, @p1, @p2)
+      basePower.should.equal(80)
+      move.typeEffectiveness(@battle, @p1, @p2).should.equal(2)
+
+    it "only works with certain items", ->
+      shared.create.call this,
+        team1: [Factory("Smeargle", item: 'Leftovers')]
+      naturalGift = @battle.getMove('Natural Gift')
+      mock = @sandbox.mock(naturalGift).expects('fail').once()
+      @battle.performMove(@p1, naturalGift)
+      mock.verify()
+
+    it "should remove the item even if missing"
