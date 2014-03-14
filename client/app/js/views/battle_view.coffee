@@ -353,11 +353,11 @@ class @BattleView extends Backbone.View
             , 0
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
-        @addLog("#{pokemon.get('name')} became confused!")
+        @addLog("#{pokemonHtml(pokemon)} became confused!")
         done()
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
-        @addLog("#{pokemon.get('name')} floats in the air with its Air Balloon!")
+        @addLog("#{pokemonHtml(pokemon)} floats in the air with its Air Balloon!")
         done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
@@ -572,7 +572,7 @@ class @BattleView extends Backbone.View
             .then(-> $substitute.remove()).end(done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
-        @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
+        @addLog("#{pokemonHtml(pokemon)}'s Air Balloon popped!")
         done()
       when 'ConfusionAttachment'
         $pokemon.find(".pokemon-effect.confusion").remove()
@@ -790,7 +790,7 @@ class @BattleView extends Backbone.View
     @pauseTimer(@model.index)
 
   addMoveMessage: (owner, pokemon, moveName) =>
-    @chatView.print("<p class='move_message'>#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!</p>")
+    @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -851,3 +851,6 @@ addPokemonImage = ($div, url, options = {}) ->
     options.callback?($image, left, top)  # $image, x, y
   image.src = url
   $image.appendTo($div)
+
+pokemonHtml = (pokemon) ->
+  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"
