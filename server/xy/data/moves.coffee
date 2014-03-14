@@ -18,6 +18,10 @@ extendMove 'Knock Off', ->
     multiplier = (if target.hasTakeableItem() then 1.5 else 1.0)
     Math.floor(multiplier * @power)
 
+extendMove 'Happy Hour', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    battle.message "Everyone is caught up in the happy atmosphere!"
+
 extendMove 'Hidden Power', ->
   @basePower = -> @power
 
