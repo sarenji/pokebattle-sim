@@ -141,7 +141,8 @@ SpriteIds = {
     "default": 339
   },
   "Basculin": {
-    "default": 550
+    "default": 550,
+    "blue-striped": NON_DEFAULT_FORMES_OFFSET + 78
   },
   "Bastiodon": {
     "default": 411

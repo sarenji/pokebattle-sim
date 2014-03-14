@@ -2986,9 +2986,9 @@
             "weight": 180,
             "pokeBattleValue": 80
         },
-        "red-striped": {
+        "blue-striped": {
             "abilities": [
-                "Reckless",
+                "Rock Head",
                 "Adaptability"
             ],
             "hiddenAbility": "Mold Breaker",
@@ -57441,13 +57441,18 @@
             "learnset": {
                 "level-up": {
                     "Aromatherapy": 38,
+                    "Fairy Wind": 6,
                     "Grassy Terrain": 27,
+                    "Lucky Chant": 10,
                     "Magical Leaf": 25,
                     "Misty Terrain": 43,
                     "Moonblast": 46,
                     "Petal Blizzard": 33,
-                    "Rest": 44,
-                    "Sleep Talk": 88,
+                    "Petal Dance": 51,
+                    "Razor Leaf": 15,
+                    "SolarBeam": 58,
+                    "Tackle": 1,
+                    "Vine Whip": 1,
                     "Wish": 20
                 },
                 "machine": {
