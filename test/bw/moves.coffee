@@ -2986,16 +2986,23 @@ describe "BW Moves:", ->
       @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
       @p2.has(Attachment.LeechSeed).should.be.false
 
-    it "does not remove entry hazards if the user faints from rough skin"
-
-    it "does not remove entry hazards if the user faints from life orb", ->
-      shared.create.call(this, team2: [Factory("Magikarp", item: "Life Orb")])
+    it "does not remove entry hazards if the user faints from rough skin", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Rough Skin")])
 
       @p2.currentHP = 1
       @battle.performMove(@p1, @battle.getMove("Spikes"))
       @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
 
       @team2.has(Attachment.Spikes).should.be.true
+
+    it "does remove entry hazards if the user faints from life orb", ->
+      shared.create.call(this, team2: [Factory("Magikarp", item: "Life Orb")])
+
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("Spikes"))
+      @battle.performMove(@p2, @battle.getMove("Rapid Spin"))
+
+      @team2.has(Attachment.Spikes).should.be.false
 
   describe "Brick Break", ->
     it "shatters Light Screen", ->
