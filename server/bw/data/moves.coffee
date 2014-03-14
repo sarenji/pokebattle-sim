@@ -1484,7 +1484,7 @@ extendMove 'Rage', ->
 
 extendMove 'Rapid Spin', ->
   @entryHazards = [ Attachment.Spikes, Attachment.StealthRock, Attachment.ToxicSpikes ]
-  @afterAllHits = (battle, user) ->
+  @afterSuccessfulHit = (battle, user) ->
     # Do not remove anything if the user is fainted.
     if user.isFainted()
       return
