@@ -1167,6 +1167,7 @@ extendMove 'Haze', ->
 extendMove 'Heart Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     [user.stages, target.stages] = [target.stages, user.stages]
+    battle.message "#{user.name} switched stat changes with the target!"
 
 extendMove 'Hex', ->
   @basePower = (battle, user, target) ->
