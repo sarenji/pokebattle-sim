@@ -1356,7 +1356,7 @@
     },
     "Chatter": {
         "accuracy": 100,
-        "ailmentChance": 0,
+        "ailmentChance": 10,
         "ailmentId": "confusion",
         "damage": "special",
         "flags": [

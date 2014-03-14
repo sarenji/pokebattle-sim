@@ -1532,7 +1532,7 @@
     },
     "Chatter": {
         "accuracy": 100,
-        "ailmentChance": 0,
+        "ailmentChance": 100,
         "ailmentId": "confusion",
         "damage": "special",
         "description": "Has a 100% chance to confuse the target.",
