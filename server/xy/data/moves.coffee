@@ -38,10 +38,6 @@ extendMove 'Nature Power', ->
     triAttack = battle.getMove('Tri Attack')
     battle.executeMove(triAttack, user, targets)
 
-  @getTargets = (battle, user) ->
-    triAttack = battle.getMove('Tri Attack')
-    battle.getTargets(triAttack, user)
-
 extendMove "Parting Shot", ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(attack: -1, specialAttack: -1, user)

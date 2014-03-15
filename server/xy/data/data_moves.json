@@ -7413,7 +7413,7 @@
         "pp": 20,
         "priority": 0,
         "recoil": 0,
-        "target": "specific-move",
+        "target": "selected-pokemon",
         "type": "Normal"
     },
     "Needle Arm": {
