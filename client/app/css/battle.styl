@@ -62,21 +62,9 @@ $pane-width = $battle-width + $padding + $padding
       font-size 13px
       .icon_wrapper
         position relative
-      .icon_wrapper:hover:before
-        content: ""
-        position absolute
-        left 0
-        right 0
-        bottom 0
-        top 0
-        border-radius 5px
-        background-color #BBB8F8
-        opacity 0.5
-      .pokemon_icon
-        top 0
-        left 0
-        cursor pointer
-      
+        &:hover
+          border-radius 5px
+          background-color rgba(187, 184, 248, .5)
 
   .battle-timer
     font-size 2em
