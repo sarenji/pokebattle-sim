@@ -14,8 +14,6 @@ class @ChatView extends Backbone.View
     @chatEvent ||= "sendChat"
     @chatArgs ||= []
     @listenTo(@collection, 'add remove reset', @renderUserList)
-    @listenTo(@collection, 'add', @userJoin)
-    @listenTo(@collection, 'remove', @userLeave)
 
   # Sets the channel topic
   # TODO: Once we have rooms, create a "room" model, and make the topic
@@ -52,12 +50,6 @@ class @ChatView extends Backbone.View
   userMessage: (username, message) =>
     sanitizedMessage = $('<div/>').text(message).html()
     @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
-
-  userJoin: (user) =>
-    @updateChat("#{user.id} joined!")
-
-  userLeave: (user) =>
-    @updateChat("#{user.id} left!")
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()
