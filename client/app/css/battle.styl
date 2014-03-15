@@ -65,6 +65,25 @@ $pane-width = $battle-width + $padding + $padding
         &:hover
           border-radius 5px
           background-color rgba(187, 184, 248, .5)
+        .pokemon_hp_background
+          position absolute
+          right 6px
+          bottom 2px
+          width 4px
+          height 10px
+          border 1px solid rgba(32, 32, 32, .4)
+          background rgba(32, 32, 32, .4)
+        .pokemon_hp
+          position absolute
+          bottom 0
+          left 0
+          right 0
+          &.green
+            background #0f0
+          &.yellow
+            background #ff0
+          &.red
+            background #f00
 
   .battle-timer
     font-size 2em

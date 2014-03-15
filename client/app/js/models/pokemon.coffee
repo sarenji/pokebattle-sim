@@ -209,6 +209,13 @@ class @Pokemon extends Backbone.Model
   getPercentHP: ->
     Math.floor(100 * @get('pixels') / 48)
 
+  getHPColor: ->
+    percent = @getPercentHP()
+    switch
+      when percent < 20 then 'red'
+      when percent < 50 then 'yellow'
+      else                   'green'
+
   isFainted: ->
     @get('pixels') <= 0
 
