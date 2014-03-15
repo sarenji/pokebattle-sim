@@ -1158,17 +1158,23 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove("Memento"))
       @p2.stages.should.include attack: -2, specialAttack: -2
 
-    it "doesn't reduce stats if target is protected, but faints user", ->
+    it "doesn't reduce stats if target is protected, and doesn't faint user", ->
       shared.create.call(this)
       @battle.recordMove(@id2, @battle.getMove("Protect"))
       @battle.recordMove(@id1, @battle.getMove("Memento"))
       @battle.continueTurn()
       @p2.stages.should.not.include attack: -2, specialAttack: -2
-      @p1.isFainted().should.be.true
+      @p1.isFainted().should.be.false
 
-    it "doesn't reduce stats if target has a substitute, but faints user", ->
+    it "doesn't reduce stats if target has a substitute, and doesn't faint user", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove("Substitute"))
+      @battle.performMove(@p1, @battle.getMove("Memento"))
+      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p1.isFainted().should.be.false
+
+    it "doesn't reduce stats if target has Clear Body, but faints user", ->
+      shared.create.call(this, team2: [Factory('Magikarp', ability: 'Clear Body')])
       @battle.performMove(@p1, @battle.getMove("Memento"))
       @p2.stages.should.not.include attack: -2, specialAttack: -2
       @p1.isFainted().should.be.true

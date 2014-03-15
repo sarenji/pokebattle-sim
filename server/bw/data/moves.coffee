@@ -1321,13 +1321,9 @@ extendMove 'Me First', ->
     battle.executeMove(m, user, targets)
 
 extendMove 'Memento', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    user.faint()
-    oldExecute.call(this, battle, user, targets)
-
-  @afterSuccessfulHit = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
     target.boost(attack: -2, specialAttack: -2, user)
+    user.faint()  if isDirect
 
 extendMove 'Metronome', ->
   impossibleMoves =
