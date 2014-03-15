@@ -203,9 +203,7 @@ class @BattleView extends Backbone.View
     $oldPokemon.attr('data-slot', fromSlot)
     $newPokemon.attr('data-slot', slot)
     $newPokemon.removeClass('hidden')
-    $oldSprite = $oldPokemon.find('.sprite')
     $newSprite = $newPokemon.find('.sprite')
-    $oldSprite.popover('destroy')
     @popover($newSprite, pokemon)
 
     if @skip?
@@ -239,9 +237,11 @@ class @BattleView extends Backbone.View
 
   switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
+    $sprite = $pokemon.find('.sprite')
 
     if @skip?
       $pokemon.addClass('hidden')
+      $sprite.popover('destroy')
       done()
       return
 
@@ -251,6 +251,7 @@ class @BattleView extends Backbone.View
     move($sprite).scale(0.1).x(width / 2).y(height).duration('.15s').end()
     move($pokemon).set('opacity', 0).duration('.25s').end ->
       $pokemon.addClass('hidden').css(opacity: 1)
+      $sprite.popover('destroy')
       done()
 
   makePokeball: (x, y) =>
@@ -756,15 +757,16 @@ class @BattleView extends Backbone.View
     $pokemon = @$pokemon(player, slot)
     $sprite = $pokemon.find('.sprite')
     $image = $sprite.find('img')
-    $sprite.popover('destroy')
 
     if @skip?
+      $sprite.popover('destroy')
       $pokemon.remove()
       done()
       return
 
     move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
     move($image).set('opacity', 0).end ->
+      $sprite.popover('destroy')
       $pokemon.remove()
       done()
     @renderUserInfo()
