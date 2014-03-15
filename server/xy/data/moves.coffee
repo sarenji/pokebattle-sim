@@ -31,6 +31,13 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 
 makeTrappingMove "Infestation"
 
+extendMove 'Nature Power', ->
+  @execute = (battle, user, targets) ->
+    # In Wi-Fi battles, Tri Attack is always chosen.
+    battle.message "#{@name} turned into Tri Attack!"
+    triAttack = battle.getMove('Tri Attack')
+    battle.executeMove(triAttack, user, targets)
+
 extendMove "Parting Shot", ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(attack: -1, specialAttack: -1, user)

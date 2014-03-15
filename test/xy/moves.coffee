@@ -557,3 +557,14 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(entrainment).expects('fail').once()
       @battle.performMove(@p1, entrainment)
       mock.verify()
+
+  describe "Nature Power", ->
+    it "uses Tri Attack in Wi-Fi battles", ->
+      shared.create.call(this, gen: 'xy')
+      naturePower = @battle.getMove('Nature Power')
+      triAttack = @battle.getMove('Tri Attack')
+
+      mock = @sandbox.mock(triAttack).expects('execute').once()
+                                      .withArgs(@battle, @p1, [ @p2 ])
+      @battle.performMove(@p1, naturePower)
+      mock.verify()
