@@ -15,5 +15,6 @@ each team in [ yourTeam, opponentTeam ]
                 - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
                 - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
                 a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)
-                .pokemon_hp_background
-                  .pokemon_hp(style="height: " + (pokemon.getPercentHP()) + "%", class=pokemon.getHPColor())
+                if !pokemon.isFainted()
+                  .pokemon_hp_background
+                    .pokemon_hp(style="height: " + (pokemon.getPercentHP()) + "%", class=pokemon.getHPColor())
