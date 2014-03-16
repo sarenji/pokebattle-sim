@@ -17,8 +17,8 @@ table.table.table-hover.table-moves
       th Type
       th Cat.
       th Power
-      th Accuracy
-      th PP
+      th Acc.
+      th.pp PP
       th.description Description
   tbody
     each move in pokemon.getMovepool()
@@ -31,5 +31,5 @@ table.table.table-hover.table-moves
           img(src=window.CategorySprite(move.damage), alt=damageFriendly)
         td= (move.power == 0) ? "-" : move.power
         td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
-        td= move.pp
+        td.pp= move.pp
         td.description Description will go here

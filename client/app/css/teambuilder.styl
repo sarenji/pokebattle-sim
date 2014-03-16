@@ -355,23 +355,23 @@ textarea.imported-team, textarea.exported-team
   .teambuilder .navigation
     width 100%
 
-  @media screen and (max-height: 600px)
-    // Scroll at the teambuilder level instead of the pokemon_edit level
-    // TODO: This should kick in on tablet landscape modes, 
-    //       with large widths but small heights (ex: nexus 7)
-    .teambuilder
-      overflow auto
-      
-      .team_meta
-        position static
-        height auto
+@media screen and (max-width: 600px)
+  // Scroll at the teambuilder level instead of the pokemon_edit level
+  // TODO: This should kick in on tablet landscape modes, 
+  //       with large widths but small heights (ex: nexus 7)
+  .teambuilder
+    overflow auto
+    
+    .team_meta
+      position static
+      height auto
 
-      .navigation
-        position static
-      
-      .pokemon_edit
-        position static
-        overflow visible
+    .navigation
+      position static
+    
+    .pokemon_edit
+      position static
+      overflow visible
 
 @media screen and (max-width: 480px)
   // split species and non-stats
@@ -386,4 +386,8 @@ textarea.imported-team, textarea.exported-team
 
   // hide ev-bars
   .teambuilder .ev-range-cell
+    display none
+
+  // Hide pp cell
+  .table-moves .pp
     display none
