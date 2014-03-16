@@ -7151,3 +7151,25 @@ describe "BW Moves:", ->
       spy = @sandbox.spy(falseSwipe, 'calculateDamage')
       @battle.performMove(@p1, falseSwipe)
       spy.returned(0).should.be.false
+
+  describe "Gastro Acid", ->
+    it "suppresses the target's ability", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove("Gastro Acid"))
+      @p2.has(Attachment.AbilitySuppress).should.be.true
+      @p2.isAbilityBlocked().should.be.true
+
+    it "continues turn by turn", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove("Gastro Acid"))
+      @battle.endTurn()
+      @battle.beginTurn()
+      @p2.has(Attachment.AbilitySuppress).should.be.true
+      @p2.isAbilityBlocked().should.be.true
+
+    it "fails against some abilities", ->
+      shared.create.call(this, team2: [Factory("Arceus", ability: "Multitype")])
+      gastroAcid = @battle.getMove("Gastro Acid")
+      mock = @sandbox.mock(gastroAcid).expects('fail').once()
+      @battle.performMove(@p1, gastroAcid)
+      mock.verify()

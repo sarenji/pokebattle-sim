@@ -1266,6 +1266,7 @@ class @Attachment.Unburden extends @VolatileAttachment
   editSpeed: (speed) ->
     2 * speed
 
+# Cancels the opponent's ability for one turn
 class @Attachment.AbilityCancel extends @VolatileAttachment
   name: "AbilityCancelAttachment"
 
@@ -1279,6 +1280,19 @@ class @Attachment.AbilityCancel extends @VolatileAttachment
 
   endTurn: ->
     @pokemon.unattach(@constructor)
+
+# Suppresses the opponent's ability until they switch out
+class @Attachment.AbilitySuppress extends @VolatileAttachment
+  name: "AbilitySuppressAttachment"
+
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    return false  if !pokemon.hasChangeableAbility()
+
+  initialize: ->
+    @pokemon.blockAbility()
+
+  beginTurn: this::initialize
 
 class @Attachment.SleepClause extends @BaseAttachment
   name: "SleepClause"
