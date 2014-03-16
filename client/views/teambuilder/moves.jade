@@ -1,5 +1,9 @@
 .selected_moves
-  h2 Moves:
+  .header.clearfix
+    .moves-label.left Moves:
+    a.dex-link.right(href=pokemon.getPokedexUrl(), target='_blank')
+      ="View " + pokemon.get('name') + " Movesets"
+
   .row-fluid
     .span3
       input(type="text", value=pokemon.get("moves")[0])
