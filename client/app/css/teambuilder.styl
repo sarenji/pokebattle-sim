@@ -196,7 +196,7 @@ $pokemon-list-height = 50px
     padding-right 17px // match with value in textfield (10px from the main cell + the input padding)
 
   td.ev-cell, td.iv-cell
-    width 60px
+    width 50px
 
   .plus-nature
     color $positive-color
@@ -230,8 +230,7 @@ $pokemon-list-height = 50px
   overflow-y scroll
 
 .teambuilder .forme-sprite-box
-  width 120px
-  height @width
+  height 120px
   line-height @height
   text-align center
   .forme-sprite
@@ -355,3 +354,36 @@ textarea.imported-team, textarea.exported-team
   // Move side navigation to above
   .teambuilder .navigation
     width 100%
+
+  @media screen and (max-height: 600px)
+    // Scroll at the teambuilder level instead of the pokemon_edit level
+    // TODO: This should kick in on tablet landscape modes, 
+    //       with large widths but small heights (ex: nexus 7)
+    .teambuilder
+      overflow auto
+      
+      .team_meta
+        position static
+        height auto
+
+      .navigation
+        position static
+      
+      .pokemon_edit
+        position static
+        overflow visible
+
+@media screen and (max-width: 480px)
+  // split species and non-stats
+  .teambuilder .meta-info .left-side
+    padding-left 0
+
+  // split species and non-stats
+  .teambuilder .species, .teambuilder .non-stats
+    margin-left 0
+    width 100%
+    margin-bottom 1.5em
+
+  // hide ev-bars
+  .teambuilder .ev-range-cell
+    display none
