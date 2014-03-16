@@ -568,3 +568,17 @@ describe "XY Moves:", ->
                                       .withArgs(@battle, @p1, [ @p2 ])
       @battle.performMove(@p1, naturePower)
       mock.verify()
+
+  describe "Venom Drench", ->
+    it "lowers the target's attack, special attack, and speed by 1 stage if it is poisoned", ->
+      shared.create.call(this, gen: 'xy')
+      @p2.attach(Status.Poison)
+      @battle.performMove(@p1, @battle.getMove('Venom Drench'))
+      @p2.stages.should.include attack: -1, specialAttack: -1, speed: -1
+
+    it "fails if the target isn't poisoned", ->
+      shared.create.call(this, gen: 'xy')
+      venomDrench = @battle.getMove("Venom Drench")
+      mock = @sandbox.mock(venomDrench).expects('fail').once()
+      @battle.performMove(@p1, venomDrench)
+      mock.verify()

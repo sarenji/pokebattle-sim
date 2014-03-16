@@ -63,3 +63,11 @@ extendMove 'Toxic', ->
   @getAccuracy = (battle, user, target) ->
     return 0  if user.hasType("Poison")
     return @accuracy
+
+extendMove 'Venom Drench', ->
+  @use = (battle, user, target) ->
+    if !target.has(Status.Poison)
+      @fail(battle)
+      return false
+
+    target.boost(attack: -1, specialAttack: -1, speed: -1)
