@@ -7135,3 +7135,19 @@ describe "BW Moves:", ->
       mock.verify()
 
     it "should remove the item even if missing"
+
+  describe "False Swipe", ->
+    it "leaves the target with at least 1 HP", ->
+      shared.create.call(this)
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("False Swipe"))
+      @p2.currentHP.should.equal 1
+
+    it "does normal damage if the target has a substitute", ->
+      shared.create.call(this)
+      @p2.currentHP = 1
+      @p2.attach(Attachment.Substitute)
+      falseSwipe = @battle.getMove("False Swipe")
+      spy = @sandbox.spy(falseSwipe, 'calculateDamage')
+      @battle.performMove(@p1, falseSwipe)
+      spy.returned(0).should.be.false

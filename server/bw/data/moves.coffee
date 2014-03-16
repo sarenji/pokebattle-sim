@@ -1072,6 +1072,14 @@ extendMove 'Facade', ->
     else
       @power
 
+extendMove 'False Swipe', ->
+  @oldCalculateDamage = @calculateDamage
+  @calculateDamage = (battle, user, target, hitNumber, isDirect) ->
+    damage = @oldCalculateDamage(battle, user, target, hitNumber, isDirect)
+    if damage >= target.currentHP && isDirect
+      damage = target.currentHP - 1
+    damage
+
 extendMove 'Final Gambit', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.faint()

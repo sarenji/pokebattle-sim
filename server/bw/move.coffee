@@ -111,7 +111,7 @@ class @Move
 
   # Actually deals damage and runs hooks after hit.
   hit: (battle, user, target, hitNumber, isDirect) ->
-    damage = @calculateDamage(battle, user, target, hitNumber)
+    damage = @calculateDamage(battle, user, target, hitNumber, isDirect)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
       damage = target.damage(damage, direct: isDirect, source: "move")
@@ -173,7 +173,7 @@ class @Move
   getTargets: (battle, user) ->
     throw new Error("Move #{@name} has not implemented getTargets.")
 
-  calculateDamage: (battle, user, target, hitNumber=1) ->
+  calculateDamage: (battle, user, target, hitNumber=1, isDirect) ->
     return 0  if @basePower(battle, user, target, hitNumber) == 0
 
     user.crit = @isCriticalHit(battle, user, target)
