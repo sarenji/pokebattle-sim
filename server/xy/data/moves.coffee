@@ -59,6 +59,15 @@ makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
   else
     @fail(battle)
 
+extendMove 'Topsy-Turvy', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if target.hasBoosts()
+      for stage, value of target.stages
+        target.stages[stage] = -value
+      battle.message "#{target.name}'s stat changes were all reversed!"
+    else
+      @fail(battle)
+
 extendMove 'Toxic', ->
   @getAccuracy = (battle, user, target) ->
     return 0  if user.hasType("Poison")

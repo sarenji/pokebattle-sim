@@ -582,3 +582,24 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(venomDrench).expects('fail').once()
       @battle.performMove(@p1, venomDrench)
       mock.verify()
+
+  describe "Topsy-Turvy", ->
+    it "reverses the target's boosts", ->
+      shared.create.call(this, gen: 'xy')
+      @p2.stages.attack = 2
+      @p2.stages.defense = -3
+      @p2.stages.speed = 0
+
+      @battle.performMove(@p1, @battle.getMove('Topsy-Turvy'))
+
+      @p2.stages.should.include attack: -2
+      @p2.stages.should.include defense: 3
+      @p2.stages.should.include speed: 0
+
+    it "fails if the target has no boosts", ->
+      shared.create.call(this, gen: 'xy')
+      topsyTurvy = @battle.getMove('Topsy-Turvy')
+
+      mock = @sandbox.mock(topsyTurvy).expects('fail').once()
+      @battle.performMove(@p1, topsyTurvy)
+      mock.verify()

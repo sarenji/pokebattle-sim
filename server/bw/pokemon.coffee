@@ -183,6 +183,11 @@ class @Pokemon
       count += total  if total > 0
     count
 
+  hasBoosts: ->
+    for stage, value of @stages
+      return true  if value != 0
+    return false
+
   resetBoosts: ->
     @stages.attack = 0
     @stages.defense = 0
