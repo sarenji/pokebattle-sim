@@ -1284,6 +1284,7 @@ class @Attachment.AbilityCancel extends @VolatileAttachment
 # Suppresses the opponent's ability until they switch out
 class @Attachment.AbilitySuppress extends @VolatileAttachment
   name: "AbilitySuppressAttachment"
+  passable: true
 
   @preattach: (options, attributes) ->
     {pokemon} = attributes
