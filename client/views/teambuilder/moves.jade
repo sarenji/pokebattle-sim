@@ -26,7 +26,7 @@ table.table.table-hover.table-moves
       th.description Description
   tbody
     each move in pokemon.getMovepool()
-      tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
+      tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+|-/g, ""))
         td= move.name
         td
           img(src=window.TypeSprite(move.type), alt=move.type)
