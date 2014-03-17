@@ -14,6 +14,10 @@ class @Team
       new Pokemon(attributes)
     @attachments = new Attachments()
 
+    # Has a Pokemon from this team fainted?
+    @faintedLastTurn = false
+    @faintedThisTurn = false
+
   arrange: (arrangement) ->
     @pokemon = (@pokemon[index]  for index in arrangement)
 
