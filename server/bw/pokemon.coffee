@@ -184,10 +184,9 @@ class @Pokemon
     count
 
   hasBoosts: ->
-    boosts = false
     for stage, value of @stages
-      boosts = true  if value != 0
-    boosts
+      return true  if value != 0
+    return false
 
   resetBoosts: ->
     @stages.attack = 0
