@@ -1141,6 +1141,14 @@ extendMove 'Fury Cutter', ->
 
 makeDelayedAttackMove("Future Sight", "$1 foresaw an attack!")
 
+extendMove 'Gastro Acid', ->
+  @use = (battle, user, target) ->
+    if !target.attach(Attachment.AbilitySuppress)
+      @fail(battle)
+      return false
+
+    battle.message "#{target.name}'s ability was suppressed!"
+
 extendMove 'Gravity', ->
   @execute = (battle, user, targets) ->
     if !battle.attach(Attachment.Gravity)
