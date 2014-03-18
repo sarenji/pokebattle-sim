@@ -1,5 +1,9 @@
 .selected_moves
-  h2 Moves:
+  .header.clearfix
+    .moves-label.left Moves:
+    a.dex-link.right(href=pokemon.getPokedexUrl(), target='_blank')
+      ="View " + pokemon.get('name') + " Movesets"
+
   .row-fluid
     .span3
       input(type="text", value=pokemon.get("moves")[0])
@@ -15,19 +19,21 @@ table.table.table-hover.table-moves
     tr
       th Name
       th Type
-      th Category
+      th Cat.
       th Power
-      th Accuracy
-      th PP
+      th Acc.
+      th.pp PP
       th.description Description
   tbody
     each move in pokemon.getMovepool()
-      tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+/g, ""))
+      tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+|-/g, ""))
         td= move.name
         td
           img(src=window.TypeSprite(move.type), alt=move.type)
-        td= move.damage[0].toUpperCase() + move.damage.substr(1)
+        td
+          - var damageFriendly = move.damage[0].toUpperCase() + move.damage.substr(1)
+          img(src=window.CategorySprite(move.damage), alt=damageFriendly)
         td= (move.power == 0) ? "-" : move.power
         td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
-        td= move.pp
+        td.pp= move.pp
         td.description Description will go here

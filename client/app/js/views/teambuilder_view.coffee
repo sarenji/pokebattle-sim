@@ -279,7 +279,7 @@ class @TeambuilderView extends Backbone.View
           @filterMovesBy(moveName)
 
   filterMovesBy: (moveName) =>
-    moveName = moveName.replace(/\s+/g, "")
+    moveName = moveName.replace(/\s+|-/g, "")
     $table = @getPokemonView().find('.table-moves')
     $allMoves = $table.find('tbody tr')
     moveRegex = new RegExp(moveName, "i")

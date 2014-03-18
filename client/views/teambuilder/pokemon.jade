@@ -2,7 +2,7 @@ mixin printStat(statName, keyName)
   tr
     td.stat-label
       strong #{statName}:
-    td
+    td.ev-range-cell
       input(type="range", min="0", max="252", step="4", data-stat=keyName).ev-entry
     td.ev-cell
       input(type="text", data-stat=keyName).ev-entry
@@ -54,7 +54,8 @@ mixin printStat(statName, keyName)
     table.stats
       thead
         th
-        th(colspan=2).ev-cell EV
+        th.ev-range-cell
+        th.ev-cell EV
         th.iv-cell IV
         th Base
         th Stat
