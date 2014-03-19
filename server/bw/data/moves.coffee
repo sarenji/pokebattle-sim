@@ -1576,6 +1576,13 @@ extendMove 'Rest', ->
       return
     user.setHP(user.stat('hp'))
 
+extendMove 'Retaliate', ->
+  @basePower = (battle, user, target) ->
+    if user.team.faintedLastTurn
+      140
+    else
+      70
+
 extendMove 'Return', ->
   @basePower = -> 102
 

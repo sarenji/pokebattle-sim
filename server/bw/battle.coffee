@@ -336,6 +336,9 @@ class @Battle extends EventEmitter
         # This guarantees the user always has a move to pick.
         moves.push(@struggleMove)  if moves.length == 0
         actions.push({moves, switches, slot})
+
+        team.faintedLastTurn = team.faintedThisTurn
+        team.faintedThisTurn = false
       @requestActions(playerId, actions)
 
   # A callback done after turn order is calculated for the first time.
@@ -684,6 +687,7 @@ class @Battle extends EventEmitter
     for pokemon in @getActiveFaintedPokemon()
       continue  if pokemon.fainted
       pokemon.faint()
+      pokemon.team.faintedThisTurn = true
 
   executeMove: (move, pokemon, targets) ->
     # TODO: Send move id instead

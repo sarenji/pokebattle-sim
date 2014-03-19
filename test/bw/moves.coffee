@@ -6970,6 +6970,31 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Reflect Type'))
       @p1.types.should.include "Normal"
 
+  describe "Retaliate", ->
+    it "doubles in power if a pokemon on the user's side fainted last turn", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp"), Factory("Slaking")]
+      @p2.currentHP = 1
+      @battle.beginTurn()
+      @battle.recordMove(@id1, @battle.getMove("Aqua Jet"))
+      @battle.recordMove(@id2, @battle.getMove("Splash"))
+      @battle.continueTurn()
+      @battle.endTurn()
+      @battle.beginTurn()
+
+      retaliate = @battle.getMove("Retaliate")
+      spy = @sandbox.spy(retaliate, 'basePower')
+      @battle.performMove(@p2, retaliate)
+      spy.returned(140).should.be.true
+
+    it "deals normal power otherwise", ->
+      shared.create.call(this)
+
+      retaliate = @battle.getMove("Retaliate")
+      spy = @sandbox.spy(retaliate, 'basePower')
+      @battle.performMove(@p1, retaliate)
+      spy.returned(70).should.be.true
+
   describe "Role Play", ->
     it "copies the target's ability", ->
       shared.create.call this,
