@@ -22,15 +22,17 @@ INVERSE_RESULTS =
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
-  hash = {}
+  multi = db.multi()
   for attribute in RATINGS_ATTRIBUTES
-    do (attribute) ->
-      hash[attribute] = (callback) ->
-        db.zscore RATINGS_SUBKEYS[attribute], id, (err, score) ->
-          return callback(err)  if err
-          score ||= exports.algorithm.createPlayer()[attribute]
-          return callback(null, score)
-  async.parallel(hash, next)
+    multi = multi.zscore(RATINGS_SUBKEYS[attribute], id)
+  multi.exec (err, results) ->
+    return next(err)  if err
+    object = {}
+    for value, i in results
+      attribute = RATINGS_ATTRIBUTES[i]
+      value ||= exports.algorithm.createPlayer()[attribute]
+      object[attribute] = value
+    return next(null, object)
 
 @getRating = (id, next) ->
   id = id.toLowerCase()
@@ -40,9 +42,7 @@ INVERSE_RESULTS =
 
 @setRating = (id, newRating, next) ->
   id = id.toLowerCase()
-  @getPlayer id, (err, player) ->
-    if err then return next(err)
-    db.zadd(RATINGS_SUBKEYS['rating'], newRating, id, next)
+  db.zadd(RATINGS_SUBKEYS['rating'], newRating, id, next)
 
 @getPlayers = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
@@ -57,14 +57,13 @@ INVERSE_RESULTS =
     return next(null, players.map((p) -> p.rating))
 
 @updatePlayer = (id, object, next) ->
-  hash = {}
+  multi = db.multi()
   for attribute in RATINGS_ATTRIBUTES
-    do (attribute) ->
-      hash[attribute] = (callback) ->
-        db.zadd RATINGS_SUBKEYS[attribute], object[attribute], id, (err, ok) ->
-          return callback(err)  if err
-          return callback(null, object[attribute])
-  async.parallel(hash, next)
+    value = object[attribute]
+    multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
+  multi.exec (err, results) ->
+    return next(err)  if err
+    return next(null, object)
 
 @updatePlayers = (id, opponentId, score, next) ->
   if score not of INVERSE_RESULTS
