@@ -45,9 +45,18 @@ describe "Ratings", ->
                       ratings.updatePlayers "player5", "player2", ratings.results.WIN, ->
                         ratings.getRatings [1..6].map((i) -> "player#{i}"), (err, scores) ->
                           ratings.listRatings 1, 2, (err, results) ->
-                            results.should.eql([["player1", scores[0]], ["player3", scores[2]]])
+                            results.should.eql([
+                              {username: "player1", score: scores[0]}
+                              {username: "player3", score: scores[2]}
+                            ])
                             ratings.listRatings 2, 2, (err, results) ->
-                              results.should.eql([["player5", scores[4]], ["player2", scores[1]]])
+                              results.should.eql([
+                                {username: "player5", score: scores[4]}
+                                {username: "player2", score: scores[1]}
+                              ])
                               ratings.listRatings 3, 2, (err, results) ->
-                                results.should.eql([["player4", scores[3]], ["player6", scores[5]]])
+                                results.should.eql([
+                                  {username: "player4", score: scores[3]}
+                                  {username: "player6", score: scores[5]}
+                                ])
                                 done()

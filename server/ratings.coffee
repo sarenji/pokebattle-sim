@@ -105,5 +105,5 @@ INVERSE_RESULTS =
     return next(err)  if err
     array = []
     for i in [0...r.length] by 2
-      array.push([r[i], r[i + 1]])
+      array.push(username: r[i], score: r[i + 1])
     next(null, array)

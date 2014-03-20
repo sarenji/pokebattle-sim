@@ -43,7 +43,7 @@ ratings = require('./ratings')
       if err
         res.json(500, err.message)
       else
-        res.json(results)
+        res.json(players: results)
 
   lobby = new Room("Lobby")
   server.rooms.push(lobby)
