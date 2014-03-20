@@ -11,6 +11,7 @@ generations = require './generations'
 {Room} = require('./rooms')
 errors = require '../shared/errors'
 db = require('./database')
+ratings = require('./ratings')
 
 @createServer = (port) ->
   app = express()
@@ -34,6 +35,15 @@ db = require('./database')
 
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
+
+  app.get '/leaderboard', (req, res) ->
+    page = req.param('page')
+    perPage = req.param('per_page')
+    ratings.listRatings page, perPage, (err, results) ->
+      if err
+        res.json(500, err.message)
+      else
+        res.json(results)
 
   lobby = new Room("Lobby")
   server.rooms.push(lobby)
