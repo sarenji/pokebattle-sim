@@ -1,7 +1,13 @@
+async = require 'async'
 db = require './database'
 @algorithm = require('./glicko2')
 
 RATINGS_KEY = "ratings"
+RATINGS_ATTRIBUTES = ['rating', 'deviation', 'volatility']
+RATINGS_SUBKEYS = {}
+for attribute in RATINGS_ATTRIBUTES
+  RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
+RATINGS_PER_PAGE = 15
 GLICKO2_TAU = .2
 
 @results =
@@ -14,14 +20,17 @@ INVERSE_RESULTS =
   '0.5' : "DRAW"
   '0'   : "LOSE"
 
-parsePlayer = (p) ->
-  if p then JSON.parse(p) else exports.algorithm.createPlayer()
-
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
-  db.hget RATINGS_KEY, id, (err, json) ->
-    return next(err)  if err
-    return next(null, parsePlayer(json))
+  hash = {}
+  for attribute in RATINGS_ATTRIBUTES
+    do (attribute) ->
+      hash[attribute] = (callback) ->
+        db.zscore RATINGS_SUBKEYS[attribute], id, (err, score) ->
+          return callback(err)  if err
+          score ||= exports.algorithm.createPlayer()[attribute]
+          return callback(null, score)
+  async.parallel(hash, next)
 
 @getRating = (id, next) ->
   id = id.toLowerCase()
@@ -33,15 +42,13 @@ parsePlayer = (p) ->
   id = id.toLowerCase()
   @getPlayer id, (err, player) ->
     if err then return next(err)
-    player.rating = newRating
-    db.hset(RATINGS_KEY, id, JSON.stringify(player), next)
+    db.zadd(RATINGS_SUBKEYS['rating'], newRating, id, next)
 
 @getPlayers = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
-  db.hmget RATINGS_KEY, idArray, (err, players) ->
-    return next(err)  if err
-    players = (parsePlayer(p)  for p in players)
-    return next(null, players)
+  callbacks = idArray.map (id) =>
+    (callback) => @getPlayer(id, callback)
+  async.parallel(callbacks, next)
 
 @getRatings = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
@@ -49,30 +56,54 @@ parsePlayer = (p) ->
     return next(err)  if err
     return next(null, players.map((p) -> p.rating))
 
+@updatePlayer = (id, object, next) ->
+  hash = {}
+  for attribute in RATINGS_ATTRIBUTES
+    do (attribute) ->
+      hash[attribute] = (callback) ->
+        db.zadd RATINGS_SUBKEYS[attribute], object[attribute], id, (err, ok) ->
+          return callback(err)  if err
+          return callback(null, object[attribute])
+  async.parallel(hash, next)
+
 @updatePlayers = (id, opponentId, score, next) ->
   if score not of INVERSE_RESULTS
     return next(new Error("Invalid match result: #{score}"))
 
   id = id.toLowerCase()
   opponentId = opponentId.toLowerCase()
-  exports.getPlayer id, (err, player) ->
+  exports.getPlayer id, (err, player) =>
     return next(err)  if err
-    exports.getPlayer opponentId, (err, opponent) ->
+    exports.getPlayer opponentId, (err, opponent) =>
       return next(err)  if err
       winnerMatches = [{opponent, score}]
       loserMatches = [{opponent: player, score: 1.0 - score}]
       newWinner = exports.algorithm.calculate(player, winnerMatches, systemConstant: GLICKO2_TAU)
       newLoser = exports.algorithm.calculate(opponent, loserMatches, systemConstant: GLICKO2_TAU)
-      db.hset(RATINGS_KEY, id, JSON.stringify(newWinner))
-      db.hset(RATINGS_KEY, opponentId, JSON.stringify(newLoser))
-      return next(null, [ newWinner, newLoser ])
+      async.parallel [
+        ((callback) => @updatePlayer(id, newWinner, callback))
+        ((callback) => @updatePlayer(opponentId, newLoser, callback))
+      ], next
 
 @resetRating = (id, next) ->
-  id = id.toLowerCase()
-  db.hset(RATINGS_KEY, id, JSON.stringify(parsePlayer()), next)
+  @resetRatings([id], next)
 
 @resetRatings = (idArray, next) ->
-  playerJSON = JSON.stringify(parsePlayer())
-  hash = {}
-  hash[id.toLowerCase()] = playerJSON  for id in idArray
-  db.hmset(RATINGS_KEY, hash, next)
+  idArray = idArray.map((id) -> id.toLowerCase())
+  multi = db.multi()
+  for attribute, key of RATINGS_SUBKEYS
+    multi = multi.zrem(key, idArray)
+  multi.exec(next)
+
+@listRatings = (page = 1, perPage = RATINGS_PER_PAGE, next = ->) ->
+  if arguments.length == 2 && typeof perPage == 'function'
+    [perPage, next] = [RATINGS_PER_PAGE, perPage]
+  page -= 1
+  start = page * perPage
+  end = start + (perPage - 1)
+  db.zrevrange RATINGS_SUBKEYS['rating'], start, end, 'WITHSCORES', (err, r) ->
+    return next(err)  if err
+    array = []
+    for i in [0...r.length] by 2
+      array.push([r[i], r[i + 1]])
+    next(null, array)

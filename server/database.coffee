@@ -8,5 +8,9 @@ if process.env.REDIS_DB_URL
 else
   db = redis.createClient()
 
+if process.env.NODE_ENV == 'test'
+  # Select test database
+  db.select(1)
+
 # Export database variable
 module.exports = db
