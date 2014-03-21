@@ -2,8 +2,12 @@ require('./helpers')
 
 should = require('should')
 ratings = require('../server/ratings')
+db = require('../server/database')
 
 describe "Ratings", ->
+  afterEach (done) ->
+    db.flushdb(done)
+
   describe "#getPlayer", ->
     it "returns default information for new players", (done) ->
       ratings.getPlayer "bogus player", (err, result) ->
@@ -60,3 +64,14 @@ describe "Ratings", ->
                                   {username: "player6", score: scores[5]}
                                 ])
                                 done()
+
+  describe '#getRatio', ->
+    it "returns a hash containing the win, lose, and draw counts", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+          ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
+            ratings.getRatio "player1", (err, player1Ratio) ->
+              player1Ratio.should.eql(win: 2, lose: 1, draw: 0)
+              ratings.getRatio "player2", (err, player2Ratio) ->
+                player2Ratio.should.eql(win: 1, lose: 2, draw: 0)
+                done()

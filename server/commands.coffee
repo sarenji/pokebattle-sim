@@ -56,9 +56,11 @@ desc "Gets a single username's rating on this server. Usage: /rating username"
 makeCommand "rating", "ranking", (user, room, next, username) ->
   username ||= user.id
   ratings.getRating username, (err, rating) ->
-    if err then return user.error(errors.COMMAND_ERROR, err.message)
-    user.message("#{username}'s rating: #{rating}")
-    next(err, {username, rating})
+    ratings.getRatio username, (err, ratios) ->
+      if err then return user.error(errors.COMMAND_ERROR, err.message)
+      ratio = "(W: #{ratios.win} / L: #{ratios.lose} / T: #{ratios.draw})"
+      user.message("#{username}'s rating: #{rating} #{ratio}")
+      next(err, {username, rating})
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"
