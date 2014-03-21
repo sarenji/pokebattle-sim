@@ -31,8 +31,17 @@ class @ChatView extends Backbone.View
     @$('.users').html @userListTemplate(userList: @collection)
     this
 
+  getSelectedText: =>
+    text = ""
+    if window.getSelection
+      text = window.getSelection().toString()
+    else if document.selection && document.selection.type != "Control"
+      text = document.selection.createRange().text
+    return text
+
   focusChat: =>
-    @$('.chat_input').focus()
+    selectedText = @getSelectedText()
+    @$('.chat_input').focus()  if selectedText.length == 0
 
   sendChat: =>
     $this = @$('.chat_input')
