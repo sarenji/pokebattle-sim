@@ -1,3 +1,4 @@
+{_} = require('underscore')
 auth = require('./auth')
 ratings = require('./ratings')
 errors = require('../shared/errors')
@@ -58,8 +59,13 @@ makeCommand "rating", "ranking", (user, room, next, username) ->
   ratings.getRating username, (err, rating) ->
     ratings.getRatio username, (err, ratios) ->
       if err then return user.error(errors.COMMAND_ERROR, err.message)
-      ratio = "(W: #{ratios.win} / L: #{ratios.lose} / T: #{ratios.draw})"
-      user.message("#{username}'s rating: #{rating} #{ratio}")
+      ratio = ["Win: #{ratios.win}"]
+      if user.id == username
+        total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
+        ratio.push("Lose: #{ratios.lose}")
+        ratio.push("Tie: #{ratios.draw}")
+        ratio.push("Total: #{total}")
+      user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
       next(err, {username, rating})
 
 desc "Finds all the battles a username is playing in on this server.
