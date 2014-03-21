@@ -7645,7 +7645,7 @@
     },
     "Ominous Wind": {
         "accuracy": 100,
-        "ailmentChance": 10,
+        "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
         "description": "Has a 10% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",

@@ -6544,7 +6544,7 @@
     },
     "Ominous Wind": {
         "accuracy": 100,
-        "ailmentChance": 10,
+        "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
         "flags": [
