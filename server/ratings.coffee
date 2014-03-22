@@ -8,6 +8,7 @@ RATINGS_SUBKEYS = {}
 for attribute in RATINGS_ATTRIBUTES
   RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
 RATINGS_PER_PAGE = 15
+
 GLICKO2_TAU = .2
 
 @results =
@@ -19,6 +20,12 @@ INVERSE_RESULTS =
   '1'   : "WIN"
   '0.5' : "DRAW"
   '0'   : "LOSE"
+
+RATIOS_KEY = 'ratios'
+RATIOS_ATTRIBUTES = Object.keys(@results).map((key) -> key.toLowerCase())
+RATIOS_SUBKEYS = {}
+for attribute in RATIOS_ATTRIBUTES
+  RATIOS_SUBKEYS[attribute] = [RATIOS_KEY, attribute].join(':')
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
@@ -56,8 +63,10 @@ INVERSE_RESULTS =
     return next(err)  if err
     return next(null, players.map((p) -> p.rating))
 
-@updatePlayer = (id, object, next) ->
+@updatePlayer = (id, score, object, next) ->
   multi = db.multi()
+  attribute = INVERSE_RESULTS[score].toLowerCase()
+  multi = multi.hincrby(RATIOS_SUBKEYS[attribute], id, 1)
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
@@ -71,17 +80,18 @@ INVERSE_RESULTS =
 
   id = id.toLowerCase()
   opponentId = opponentId.toLowerCase()
+  opponentScore = 1.0 - score
   exports.getPlayer id, (err, player) =>
     return next(err)  if err
     exports.getPlayer opponentId, (err, opponent) =>
       return next(err)  if err
       winnerMatches = [{opponent, score}]
-      loserMatches = [{opponent: player, score: 1.0 - score}]
+      loserMatches = [{opponent: player, score: opponentScore}]
       newWinner = exports.algorithm.calculate(player, winnerMatches, systemConstant: GLICKO2_TAU)
       newLoser = exports.algorithm.calculate(opponent, loserMatches, systemConstant: GLICKO2_TAU)
       async.parallel [
-        ((callback) => @updatePlayer(id, newWinner, callback))
-        ((callback) => @updatePlayer(opponentId, newLoser, callback))
+        ((callback) => @updatePlayer(id, score, newWinner, callback))
+        ((callback) => @updatePlayer(opponentId, opponentScore, newLoser, callback))
       ], next
 
 @resetRating = (id, next) ->
@@ -106,3 +116,15 @@ INVERSE_RESULTS =
     for i in [0...r.length] by 2
       array.push(username: r[i], score: r[i + 1])
     next(null, array)
+
+@getRatio = (id, next) ->
+  id = id.toLowerCase()
+  multi = db.multi()
+  for attribute, key of RATIOS_SUBKEYS
+    multi = multi.hget(key, id)
+  multi.exec (err, results) ->
+    return next(err)  if err
+    hash = {}
+    for attribute, i in RATIOS_ATTRIBUTES
+      hash[attribute] = Number(results[i]) || 0
+    return next(null, hash)
