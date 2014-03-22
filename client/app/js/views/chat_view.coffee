@@ -143,7 +143,8 @@ class @ChatView extends Backbone.View
   # Escapes all HTML, but also converts links to clickable links.
   sanitize: (message) =>
     sanitizedMessage = $('<div/>').text(message).html()
-    sanitizedMessage = sanitizedMessage.replace(/(https?:\/\/\S+\.\S+)/g,
+    sanitizedMessage = sanitizedMessage.replace(
+      /\b(https?:\/\/\S+\.\S+)\b/g,
       """<a href="$1" target="_blank">$1</a>""")
     sanitizedMessage
 
