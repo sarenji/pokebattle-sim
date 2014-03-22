@@ -43,6 +43,7 @@ class @PokemonEditView extends Backbone.View
     'click .table-moves tbody tr': 'clickMoveName'
     'mousedown .table-moves': 'preventBlurMoves'
     'click .move-button': 'clickSelectedMove'
+    'click .move-button .close': 'removeSelectedMove'
 
   initialize: (attributes={}) =>
     @onPokemonChange = attributes.onPokemonChange
@@ -224,12 +225,20 @@ class @PokemonEditView extends Backbone.View
 
   clickSelectedMove: (e) =>
     $this = $(e.currentTarget)
-    $input = $("<input type='text' value='#{$this.text()}'/>")
+    moveName = $this.find('span').text()
+    $input = $("<input type='text' value='#{moveName}'/>")
     $this.replaceWith($input)
     $input.focus()
 
     # Set the current move row to active
-    $(".table-moves tr[data-move-id='#{$this.text()}']").addClass("active")
+    $(".table-moves tr[data-move-id='#{moveName}']").addClass("active")
+
+  removeSelectedMove: (e) =>
+    $this = $(e.currentTarget).parent()
+    $input = $("<input type='text'/>")
+    $this.replaceWith($input)
+    $input.focus()
+    e.stopPropagation()
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
@@ -241,7 +250,9 @@ class @PokemonEditView extends Backbone.View
       $(".table-moves .active").removeClass("active")
 
     type = @moveData[moveName].type.toLowerCase()
-    $input.replaceWith("""<div class="button move-button #{type}">#{moveName}</div>""")
+    $input.replaceWith("""
+      <div class="button move-button #{type}"><span>#{moveName}</span><div class='close'>&times;</div></div>
+    """)
     return true
 
   keydownMoves: (e) =>
