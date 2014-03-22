@@ -4,9 +4,11 @@ class @ChatView extends Backbone.View
 
   events:
     'click': 'focusChat'
-    'keydown .chat_input': 'sendChatIfEnter'
+    'keydown .chat_input': 'handleKeys'
     'click .chat_input_send': 'sendChat'
     'scroll_to_bottom': 'scrollToBottom'
+
+  MAX_USERNAME_HISTORY = 10
 
   # Takes a `collection`, which is a UserList instance.
   initialize: (options) =>
@@ -14,6 +16,10 @@ class @ChatView extends Backbone.View
     @chatEvent ||= "sendChat"
     @chatArgs ||= []
     @listenTo(@collection, 'add remove reset', @renderUserList)
+    @chatHistory = []
+    @mostRecentNames = []
+    @tabCompleteIndex = -1
+    @tabCompleteNames = []
 
   # Sets the channel topic
   # TODO: Once we have rooms, create a "room" model, and make the topic
@@ -51,16 +57,75 @@ class @ChatView extends Backbone.View
     args.push(message)
     if !PokeBattle.commands.execute(message)
       PokeBattle.socket.send(@chatEvent, args...)
+    @chatHistory.push(message)
+    delete @chatHistoryIndex
     $this.val('')
 
-  sendChatIfEnter: (e) =>
-    if e.which == 13 then @sendChat()
+  tabComplete: ($input) =>
+    cursorIndex = $input.prop('selectionStart')
+    text = $input.val()
+    if @tabCompleteNames.length > 0 && @tabCompleteCursorIndex == cursorIndex
+      @tabCompleteIndex = (@tabCompleteIndex + 1) % @tabCompleteNames.length
+    else
+      delete @tabCompleteCursorIndex
+      pieces = text[0...cursorIndex].split(' ')
+      possibleName = pieces.pop()
+      rest = pieces.join(' ')
+      rest += ' '  if pieces.length > 0  # Append a space if a word exists
+      length = possibleName.length
+      return  if length == 0
+      candidates = _.union(@mostRecentNames, @collection.pluck('id'))
+      candidates = candidates.filter (name) ->
+        name[...length].toLowerCase() == possibleName.toLowerCase()
+      return  if candidates.length == 0
+      @tabCompleteIndex = 0
+      @tabCompleteNames = candidates
+      @tabCompletePrefix = rest
+      @tabCompleteCursorIndex = cursorIndex
+    tabbedName = @tabCompleteNames[@tabCompleteIndex]
+    newPrefix = @tabCompletePrefix + tabbedName
+    newPrefixLength = newPrefix.length
+    $input.val(newPrefix + text[cursorIndex...])
+    $input[0].setSelectionRange(newPrefixLength, newPrefixLength)
+    @tabCompleteCursorIndex = newPrefixLength
+
+  handleKeys: (e) =>
+    $input = $(e.currentTarget)
+    switch e.which
+      when 13  # [Enter]
+        e.preventDefault()
+        @sendChat()
+      when 9   # [Tab]
+        e.preventDefault()
+        @tabComplete($input)
+      when 38  # [Up arrow]
+        e.preventDefault()
+        return  if @chatHistory.length == 0
+        if !@chatHistoryIndex?
+          @chatHistoryIndex = @chatHistory.length
+          @chatHistoryText = $input.val()
+        if @chatHistoryIndex > 0
+          @chatHistoryIndex -= 1
+          $input.val(@chatHistory[@chatHistoryIndex])
+      when 40  # [Down arrow]
+        e.preventDefault()
+        return  unless @chatHistoryIndex?
+        @chatHistoryIndex += 1
+        if @chatHistoryIndex == @chatHistory.length
+          $input.val(@chatHistoryText)
+          delete @chatHistoryIndex
+        else
+          $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
     sanitizedMessage = $('<div/>').text(message).html()
     sanitizedMessage = sanitizedMessage.replace(/(https?:\/\/\S+\.\S+)/g,
       """<a href="$1" target="_blank">$1</a>""")
     @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
+
+    # Record last few usernames who chatted
+    @mostRecentNames.push(username)  if username not in @mostRecentNames
+    @mostRecentNames.shift()  if @mostRecentNames.length > MAX_USERNAME_HISTORY
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()
