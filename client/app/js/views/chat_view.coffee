@@ -61,11 +61,16 @@ class @ChatView extends Backbone.View
     delete @chatHistoryIndex
     $this.val('')
 
-  tabComplete: ($input) =>
+  tabComplete: ($input, options = {}) =>
     cursorIndex = $input.prop('selectionStart')
     text = $input.val()
     if @tabCompleteNames.length > 0 && @tabCompleteCursorIndex == cursorIndex
-      @tabCompleteIndex = (@tabCompleteIndex + 1) % @tabCompleteNames.length
+      if options.reverse
+        @tabCompleteIndex = (@tabCompleteIndex + 1) % @tabCompleteNames.length
+      else
+        @tabCompleteIndex -= 1
+        if @tabCompleteIndex < 0
+          @tabCompleteIndex = @tabCompleteNames.length - 1
     else
       delete @tabCompleteCursorIndex
       pieces = text[0...cursorIndex].split(' ')
@@ -78,7 +83,10 @@ class @ChatView extends Backbone.View
       candidates = candidates.filter (name) ->
         name[...length].toLowerCase() == possibleName.toLowerCase()
       return  if candidates.length == 0
-      @tabCompleteIndex = 0
+      if options.reverse
+        @tabCompleteIndex = candidates.length - 1
+      else
+        @tabCompleteIndex = 0
       @tabCompleteNames = candidates
       @tabCompletePrefix = rest
       @tabCompleteCursorIndex = cursorIndex
@@ -97,7 +105,7 @@ class @ChatView extends Backbone.View
         @sendChat()
       when 9   # [Tab]
         e.preventDefault()
-        @tabComplete($input)
+        @tabComplete($input, reverse: e.shiftKey)
       when 38  # [Up arrow]
         e.preventDefault()
         return  if @chatHistory.length == 0
