@@ -1,3 +1,21 @@
+isMobileOrAndroid = ->
+  return true if /Mobile/i.test(window.navigator.userAgent)
+  return true if /Android/i.test(window.navigator.userAgent)
+  return false
+
+# helper which attaches selectize
+attachSelectize = ($element, options) ->
+  # Block selectize on mobile and all android operating systems (All androids are blocked due to a bug)
+  return  if isMobileOrAndroid()
+  $element.selectize(options)
+
+setSelectizeValue = ($element, value) ->
+  if isMobileOrAndroid()
+    $element.val(value)
+  else
+    $element.each ->
+      this.selectize?.addItem(value)
+
 class @PokemonEditView extends Backbone.View
   editTemplate: JST['teambuilder/pokemon']
   speciesTemplate: JST['teambuilder/species']
@@ -30,7 +48,8 @@ class @PokemonEditView extends Backbone.View
     @onPokemonChange = attributes.onPokemonChange
 
   setGeneration: (generation) =>
-    {MoveData, SpeciesData, ItemData} = window.Generations[generation.toUpperCase()]
+    @generation = window.Generations[generation.toUpperCase()]
+    {MoveData, SpeciesData, ItemData} = @generation
     @moveData = MoveData
     @speciesList = (name for name, data of SpeciesData)
     # TODO: filter irrelevant items
@@ -271,7 +290,13 @@ class @PokemonEditView extends Backbone.View
 
   render: =>
     @$el.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: @pokemon)
-    @$el.find(".species_list").select2(placeholder: "Empty", allowClear: true) # nice dropdown menu
+    attachSelectize(@$el.find(".species_list"),
+      render:
+        option: (item, escape) =>
+          pbv = PokeBattle.PBV.determinePBV(@generation, name: item.value)
+          return "<div class='clearfix'>#{item.text}<div class='pbv'>#{pbv}</div></div>"
+    )
+    attachSelectize(@$el.find(".selected_item"))
     return this
 
   renderPokemon: =>
@@ -283,7 +308,7 @@ class @PokemonEditView extends Backbone.View
 
     # Disable entering values if this is a NullPokemon
     @$el.find("input, select")
-      .not(".species_list").not('.select2-input')
+      .not(".species input, .species select")
       .prop("disabled", @pokemon.isNull)
 
     return this
@@ -298,7 +323,7 @@ class @PokemonEditView extends Backbone.View
       @$(".total-pbv").text(@teamPBV).toggleClass("red", @teamPBV > maxPBV)
 
   renderSpecies: =>
-    @$(".species_list").select2('val', @pokemon.get("name"))
+    setSelectizeValue(@$(".species_list"), @pokemon.get("name"))
     html = if @pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: @pokemon)
     @$(".species-info").html(html)
     @$(".selected_shininess").toggleClass("selected", @pokemon.get('shiny') == true)

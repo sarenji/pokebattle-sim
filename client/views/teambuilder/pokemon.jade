@@ -30,25 +30,31 @@ mixin printStat(statName, keyName)
             /1000
       .teambuilder_row
         .teambuilder_col.non-stat-label Ability:
-        select.teambuilder_col.selected_ability
+        .teambuilder_col
+          select.selected_ability
       .teambuilder_row
         .teambuilder_col.non-stat-label Nature:
-        select.teambuilder_col.selected_nature
+        .teambuilder_col
+          select.selected_nature
       .teambuilder_row
         .teambuilder_col.non-stat-label Item:
-        select.teambuilder_col.selected_item
-          option(value="")
-          each itemName in itemList
-            option(value=itemName)= itemName
+        .teambuilder_col
+          select.selected_item
+            option(value="")
+            each itemName in itemList
+              option(value=itemName)= itemName
       .teambuilder_row
         .teambuilder_col.non-stat-label Gender:
-        select.teambuilder_col.selected_gender
+        .teambuilder_col
+          select.selected_gender
       .teambuilder_row
         .teambuilder_col.non-stat-label Level:
-        input.teambuilder_col.selected_level(type="text")
+        .teambuilder_col
+          input.selected_level(type="text")
       .teambuilder_row
         .teambuilder_col.non-stat-label Happiness:
-        input.teambuilder_col.selected_happiness(type="text")
+        .teambuilder_col
+          input.selected_happiness(type="text")
 
   .right-side
     table.stats
