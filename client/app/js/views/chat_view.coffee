@@ -25,8 +25,8 @@ class @ChatView extends Backbone.View
   # TODO: Once we have rooms, create a "room" model, and make the topic
   # update by listening to the model
   setTopic: (topic) =>
-    sanitizedTopic = $('<div/>').text(topic).html()
-    @updateChat("<div class='alert alert-info'><b>Topic:</b> #{sanitizedTopic}</div>")
+    topic = @sanitize(topic)
+    @updateChat("<div class='alert alert-info'><b>Topic:</b> #{topic}</div>")
 
   render: =>
     @$el.html @template()
@@ -126,10 +126,7 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
-    sanitizedMessage = $('<div/>').text(message).html()
-    sanitizedMessage = sanitizedMessage.replace(/(https?:\/\/\S+\.\S+)/g,
-      """<a href="$1" target="_blank">$1</a>""")
-    @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
+    @updateChat("<b>#{username}:</b> #{@sanitize(message)}")
 
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
@@ -142,6 +139,13 @@ class @ChatView extends Backbone.View
 
   print: (message) =>
     @$('.messages').append(message)
+
+  # Escapes all HTML, but also converts links to clickable links.
+  sanitize: (message) =>
+    sanitizedMessage = $('<div/>').text(message).html()
+    sanitizedMessage = sanitizedMessage.replace(/(https?:\/\/\S+\.\S+)/g,
+      """<a href="$1" target="_blank">$1</a>""")
+    sanitizedMessage
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
