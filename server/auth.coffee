@@ -20,7 +20,7 @@ MUTE_KEY = "mute"
 #
 # User information is also stored in a database.
 exports.middleware = -> (req, res, next) ->
-  authenticate req.cookies.sessionid, (body) ->
+  authenticate req, (body) ->
     if !body
       redirectURL = "http://pokebattle.com/accounts/login"
       redirectURL += "?next=/sim"
@@ -46,14 +46,17 @@ exports.matchToken = (id, token, next) ->
 
 # Authenticates against the site. A user object is returned if successful, or
 # null if unsuccessful.
-authenticate = (id, next) ->
-  return next(generateUser())  if config.IS_LOCAL
+authenticate = (req, next) ->
+  id = req.cookies.sessionid
+  return next(generateUser(req))  if config.IS_LOCAL
   return next()  if !id
   request.get "http://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
     return next()  if err || res.statusCode != 200
     return next(body)
 
-generateUsername = ->
+generateUsername = (req) ->
+  name = req.param('user')
+  return name  if name
   {SpeciesData} = require './xy/data'
   randomName = (name  for name of SpeciesData)
   randomName = randomName[Math.floor(Math.random() * randomName.length)]
@@ -64,8 +67,8 @@ generateUsername = ->
 generateId = ->
   Math.floor(1000000 * Math.random())
 
-generateUser = ->
-  {id: generateId(), username: generateUsername()}
+generateUser = (req) ->
+  {id: generateId(), username: generateUsername(req)}
 
 
 # Authorization
