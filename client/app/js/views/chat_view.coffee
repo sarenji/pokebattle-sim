@@ -58,6 +58,8 @@ class @ChatView extends Backbone.View
 
   userMessage: (username, message) =>
     sanitizedMessage = $('<div/>').text(message).html()
+    sanitizedMessage = sanitizedMessage.replace(/(https?:\/\/\S+\.\S+)/g,
+      """<a href="$1" target="_blank">$1</a>""")
     @updateChat("<b>#{username}:</b> #{sanitizedMessage}")
 
   updateChat: (message) =>
