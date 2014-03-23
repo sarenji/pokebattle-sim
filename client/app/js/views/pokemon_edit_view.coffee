@@ -14,7 +14,7 @@ setSelectizeValue = ($element, value) ->
     $element.val(value)
   else
     $element.each ->
-      this.selectize?.addItem(value)
+      this.selectize?.setValue(value)
 
 class @PokemonEditView extends Backbone.View
   editTemplate: JST['teambuilder/pokemon']
@@ -311,11 +311,13 @@ class @PokemonEditView extends Backbone.View
     return this
 
   renderPokemon: =>
+    @undelegateEvents() # disable events (mostly change vevents)
     @renderSpecies()
     @renderNonStats()
     @renderStats()
     @renderMoves()
     @renderPBV()
+    @delegateEvents() # re-enable events
 
     # Disable entering values if this is a NullPokemon
     @$el.find("input, select")
@@ -359,7 +361,7 @@ class @PokemonEditView extends Backbone.View
 
     populateSelect ".selected_ability", @pokemon.getAbilities(), @pokemon.get("ability")
     populateSelect ".selected_nature", @pokemon.getNatures(), @pokemon.get("nature")
-    $nonStats.find(".selected_item").val(@pokemon.get("item"))
+    setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))
     populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in @pokemon.getGenders()), @pokemon.get("gender")
     $nonStats.find(".selected_level").val(@pokemon.get("level"))
     $nonStats.find(".selected_happiness").val(@pokemon.get("happiness"))
