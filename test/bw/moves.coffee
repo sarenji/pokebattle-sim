@@ -2758,6 +2758,26 @@ describe "BW Moves:", ->
         @p2.isSwitchBlocked().should.be.false
         @p2.has(Attachment.Trap).should.be.false
 
+      it "wears off if the user faints", ->
+        shared.create.call(this, team1: [Factory("Heatran")],  team2: [Factory("Blissey")])
+        @p1.currentHP = 1
+
+        @battle.performMove(@p1, @battle.getMove(name))
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @p2.isSwitchBlocked().should.be.true
+        @p2.has(Attachment.Trap).should.be.true
+
+        @battle.recordMove(@id2, @battle.getMove("Tackle"))
+
+        @battle.continueTurn()
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @p2.isSwitchBlocked().should.be.false
+        @p2.has(Attachment.Trap).should.be.false
+
       it "properly removes from a list of attachments", ->
         shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
 
@@ -6987,7 +7007,7 @@ describe "BW Moves:", ->
       @battle.performMove(@p2, retaliate)
       spy.returned(140).should.be.true
 
-    it "deals normal power otherwise", ->
+    it "deals normal damage otherwise", ->
       shared.create.call(this)
 
       retaliate = @battle.getMove("Retaliate")

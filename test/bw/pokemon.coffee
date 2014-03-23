@@ -148,6 +148,15 @@ describe 'Pokemon', ->
       pokemon.unattach(BaseAttachment)
       pokemon.has(BaseAttachment).should.be.false
 
+  describe '#unattachAll', ->
+    it 'removes every attachment', ->
+      pokemon = new Pokemon()
+      pokemon.attach(BaseAttachment)
+      pokemon.attach(VolatileAttachment)
+      pokemon.unattachAll()
+      pokemon.has(BaseAttachment).should.be.false
+      pokemon.has(VolatileAttachment).should.be.false
+
   describe '#blockMove', ->
     it 'adds a move to a list of blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])

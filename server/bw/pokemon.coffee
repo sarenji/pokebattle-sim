@@ -329,6 +329,9 @@ class @Pokemon
     @fainted = true
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
     Query('afterFaint', @attachments.all())
+    # TODO: Do fainted Pokémon need attachments in any case?
+    # If so, #attach will need to be revisited as well.
+    @unattachAll()
 
   damage: (amount, options = {}) ->
     amount = Math.max(1, amount)
@@ -513,6 +516,9 @@ class @Pokemon
     # TODO: Do we need to remove circular dependencies?
     # Removing them here will result in some unanticipated consequenes.
     @attachments.unattach(klass)
+
+  unattachAll: ->
+    @attachments.unattachAll()
 
   # Blocks a move for a single turn
   blockMove: (move) ->

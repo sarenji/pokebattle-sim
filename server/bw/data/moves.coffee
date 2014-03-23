@@ -405,7 +405,7 @@ makeCounterMove = (name, multiplier, applies) ->
         {team, slot} = hit
         pokemon = team.at(slot)
         return [ pokemon ]  if !pokemon.isFainted()
-  
+
       # Return a random target (or none).
       pokemon = battle.getOpponents(user)
       pokemon = pokemon.filter((p) -> !p.isFainted())
@@ -415,7 +415,7 @@ makeCounterMove = (name, multiplier, applies) ->
         [ battle.rng.choice(pokemon) ]
 
     @calculateDamage = -> 0
-  
+
     @afterSuccessfulHit = (battle, user, target) ->
       hit = user.lastHitBy
       if hit? && applies(hit.move) && hit.turn == battle.turn
