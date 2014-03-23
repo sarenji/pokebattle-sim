@@ -34,7 +34,9 @@ class @BattleCollection extends Backbone.Collection
     if queue.length == 0
       view.renderUserInfo()
       if wasAtBottom || view.skip? then view.chatView.scrollToBottom()
-      if view.skip?                then delete view.skip
+      if view.skip?
+        delete view.skip
+        view.$('.battle_pane').show()
       return
     wasAtBottom ||= view.chatView.isAtBottom()
     action = queue.shift()
@@ -205,6 +207,7 @@ class @BattleCollection extends Backbone.Collection
     createBattleWindow(this, battle)
     if log.length > 0
       battle.view.skip = 0
+      battle.view.$('.battle_pane').hide()
       @queueBattleUpdates(battle, log)
 
   joinBattle: (socket, id, user) =>
