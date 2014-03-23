@@ -108,9 +108,10 @@ makeContactStatusAbility = (name, attachment) ->
   makeAbility name, ->
     this::isAliveCheck = -> true
 
-    this::afterBeingHit = (move, user) ->
+    this::afterBeingHit = (move, user, target, damage, isDirect) ->
       return  if !move.hasFlag("contact")
       return  if @battle.rng.next("contact status") >= .3
+      return  if !isDirect
       user.attach(attachment, source: @pokemon)
 
 makeContactStatusAbility("Cute Charm", Attachment.Attract)
@@ -163,8 +164,9 @@ makeContactHurtAbility = (name) ->
   makeAbility name, ->
     this::isAliveCheck = -> true
 
-    this::afterBeingHit = (move, user, target, damage) ->
+    this::afterBeingHit = (move, user, target, damage, isDirect) ->
       return  unless move.hasFlag('contact')
+      return  unless isDirect
       amount = user.stat('hp') >> 3
       if user.damage(amount)
         @battle.message "#{user.name} was hurt!"

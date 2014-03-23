@@ -584,6 +584,15 @@ describe "BW Abilities:", ->
         @battle.performMove(@p2, @battle.getMove('Thunderbolt'))
         @p2.has(attachment).should.be.false
 
+      it "inflicts no status if the hit isn't direct", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+          team2: [Factory("Magikarp")]
+        shared.biasRNG.call(this, "next", 'contact status', 0)
+        @p1.attach(Attachment.Substitute)
+        @battle.performMove(@p2, @battle.getMove('Tackle'))
+        @p2.has(attachment).should.be.false
+
       it "has a 70% chance to do nothing", ->
         shared.create.call this,
           team1: [Factory("Magikarp", gender: "F", ability: name)]
@@ -1056,6 +1065,12 @@ describe "BW Abilities:", ->
       it "does not damage for non-contact moves", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name), Factory("Magikarp")])
         @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
+        @p2.currentHP.should.equal @p2.stat('hp')
+
+      it "does not damage for non-direct hits", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name), Factory("Magikarp")])
+        @p1.attach(Attachment.Substitute)
+        @battle.performMove(@p2, @battle.getMove("Tackle"))
         @p2.currentHP.should.equal @p2.stat('hp')
 
       it "still works even if the owner faints", ->
