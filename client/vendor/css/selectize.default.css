@@ -13,6 +13,7 @@
  *
  * @author Brian Reavis <brian@thirdroute.com>
  */
+ /* MODIFIED FOR PB */
 .selectize-control.plugin-drag_drop.multi > .selectize-input > div.ui-sortable-placeholder {
   visibility: visible !important;
   background: #f2f2f2 !important;
@@ -112,7 +113,7 @@
 .selectize-dropdown,
 .selectize-input,
 .selectize-input input {
-  color: #555; /* overriden for pb */
+  color: #555;
   font-family: inherit;
   /*font-size: 13px;*/ /* overriden for pb */
   line-height: 18px;
@@ -126,10 +127,11 @@
 }
 .selectize-input {
   border: 1px solid #d0d0d0;
-  padding: 4px 6px; /* overriden for pb */
+  padding: 4px 6px;
   display: inline-block;
   width: 100%;
   /* overflow: hidden; */ /* removing this seemed to fix sizing issues for pb */
+  height: 28px;
   position: relative;
   z-index: 1;
   -webkit-box-sizing: border-box;
@@ -257,7 +259,7 @@
   cursor: default;
 }
 .selectize-dropdown .active {
-  background-color: #f5fafd;
+  background-color: #e5eaed;
   color: #495c68;
 }
 .selectize-dropdown .active.create {
@@ -280,7 +282,6 @@
   cursor: text;
 }
 .selectize-control.single .selectize-input:after {
-  /* overriden for pb */
   content: ' ';
   display: block;
   position: absolute;
@@ -294,7 +295,6 @@
   border-color: #333 transparent transparent transparent;
 }
 .selectize-control.single .selectize-input.dropdown-active:after {
-  /* overriden for pb */
   margin-top: -4px;
   border-width: 0 4px 6px 4px;
   border-color: transparent transparent #333 transparent;
