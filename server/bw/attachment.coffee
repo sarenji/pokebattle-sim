@@ -93,7 +93,7 @@ class @BaseAttachment
   # initialize: ->
   # unattach: ->
   # calculateWeight: (weight) -> weight
-  # afterBeingHit: (move, user, target, damage) ->
+  # afterBeingHit: (move, user, target, damage, isDirect) ->
   # afterSuccessfulHit: (move, user, target, damage) ->
   # beforeMove: (move, user, targets) ->
   # isImmune: (type) ->

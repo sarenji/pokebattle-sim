@@ -495,8 +495,8 @@ class @Pokemon
     @lastHitBy = null
 
   # Hook for when the Pokemon gets hit by a move
-  afterBeingHit: (move, user, target, damage) ->
-    Query('afterBeingHit', @attachments.all(), move, user, target, damage)
+  afterBeingHit: (move, user, target, damage, isDirect) ->
+    Query('afterBeingHit', @attachments.all(), move, user, target, damage, isDirect)
 
   afterSuccessfulHit: (move, user, target, damage) ->
     Query('afterSuccessfulHit', @attachments.all(), move, user, target, damage)
