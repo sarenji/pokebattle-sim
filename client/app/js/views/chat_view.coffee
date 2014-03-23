@@ -66,11 +66,11 @@ class @ChatView extends Backbone.View
     text = $input.val()
     if @tabCompleteNames.length > 0 && @tabCompleteCursorIndex == cursorIndex
       if options.reverse
-        @tabCompleteIndex = (@tabCompleteIndex + 1) % @tabCompleteNames.length
-      else
         @tabCompleteIndex -= 1
         if @tabCompleteIndex < 0
           @tabCompleteIndex = @tabCompleteNames.length - 1
+      else
+        @tabCompleteIndex = (@tabCompleteIndex + 1) % @tabCompleteNames.length
     else
       delete @tabCompleteCursorIndex
       pieces = text[0...cursorIndex].split(' ')
