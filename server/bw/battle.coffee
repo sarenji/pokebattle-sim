@@ -68,8 +68,8 @@ class @Battle extends EventEmitter
     # Stores last move used
     @lastMove = null
 
-    # Stores last pokemon that moved
-    @lastPokemon = null
+    # Stores current pokemon moving
+    @currentPokemon = null
 
     # Stores the confusion recoil move as it may be different cross-generations
     @confusionMove = @getMove('Confusion Recoil')
@@ -380,7 +380,6 @@ class @Battle extends EventEmitter
 
   # Performs end turn effects.
   endTurn: ->
-    @lastPokemon = null
     @weatherUpkeep()
     @query("endTurn")
     for pokemon in @getActivePokemon()
@@ -411,16 +410,26 @@ class @Battle extends EventEmitter
     @tell(Protocol.END_BATTLE, winnerIndex)
     @emit('end', winnerId)
 
+  incrementFaintedCounter: ->
+    @faintedCounter = 0  unless @faintedCounter
+    @faintedCounter += 1
+    @faintedCounter
+
   getWinner: ->
     winner     = null
 
-    # If each player has the same number of pokemon alive, return null.
+    # If each player has the same number of pokemon alive, return the owner of
+    # the last pokemon that fainted earliest.
     teamLength = @getTeam(@playerIds[0]).getAlivePokemon().length
     playerSize = @playerIds.length
     count      = 1
     for i in [1...playerSize] by 1
       count++  if teamLength == @getTeam(@playerIds[i]).getAlivePokemon().length
-    return null  if count == playerSize
+    if count == playerSize
+      pokemon = _.flatten(@getTeams().map((p) -> p.pokemon))
+      # Get the owner of the pokemon that fainted last
+      pokemon = pokemon.sort((a, b) -> b.fainted - a.fainted)[0]
+      return pokemon.playerId
 
     # Otherwise, return the player with the most pokemon alive.
     length = 0
@@ -684,23 +693,22 @@ class @Battle extends EventEmitter
   performFaints: ->
     # Execute afterFaint events
     # TODO: If a Pokemon faints in an afterFaint, should it be added to this?
-    for pokemon in @getActiveFaintedPokemon()
-      continue  if pokemon.fainted
-      pokemon.faint()
+    pokemon.faint()  for pokemon in @getActiveFaintedPokemon()
 
   executeMove: (move, pokemon, targets) ->
+    @currentPokemon = pokemon
     # TODO: Send move id instead
     pokemon.tell(Protocol.MAKE_MOVE, move.name)
     move.execute(this, pokemon, targets)
 
     # Record last move.
     @lastMove = move
-    @lastPokemon = pokemon
     # TODO: Only record if none exists yet for this turn.
     pokemon.recordMove(move)
 
     # TODO: Is this the right place...?
     pokemon.resetRecords()
+    @currentPokemon = null
 
   getTargets: (move, user) ->
     {team} = user

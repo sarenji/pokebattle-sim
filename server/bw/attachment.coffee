@@ -718,7 +718,7 @@ class @Attachment.DestinyBond extends @VolatileAttachment
   isAliveCheck: -> true
 
   afterFaint: ->
-    pokemon = @battle.lastPokemon
+    pokemon = @battle.currentPokemon
     if pokemon? && pokemon.isAlive()
       pokemon.faint()
       @battle.message "#{@pokemon.name} took its attacker down with it!"

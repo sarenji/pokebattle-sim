@@ -81,6 +81,10 @@ class @Move
       if numHits > 1
         battle.message @numHitsMessage Math.min(hitNumber, numHits)
 
+    # Target faints if it has 0 HP.
+    for target in targets when target.isFainted()
+      target.faint()
+
     # Recoil moves
     if totalDamage > 0 && @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(totalDamage * -@recoil / 100)

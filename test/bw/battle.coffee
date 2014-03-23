@@ -256,9 +256,6 @@ describe 'Battle', ->
       @battle.spectators.should.have.length(length)
 
   describe "#getWinner", ->
-    it "returns null if there is no winner yet", ->
-      should.not.exist @battle.getWinner()
-
     it "returns player 1 if player 2's team has all fainted", ->
       pokemon.faint()  for pokemon in @team2.pokemon
       @battle.getWinner().should.equal(@id1)
@@ -266,6 +263,17 @@ describe 'Battle', ->
     it "returns player 2 if player 1's team has all fainted", ->
       pokemon.faint()  for pokemon in @team1.pokemon
       @battle.getWinner().should.equal(@id2)
+
+    it "declares the pokemon dying of recoil the winner", ->
+      shared.create.call this,
+        team1: [Factory('Talonflame', moves: ["Brave Bird"])]
+        team2: [Factory('Magikarp')]
+
+      @p1.currentHP = @p2.currentHP = 1
+      spy = @sandbox.spy(@battle, 'getWinner')
+      @controller.makeMove(@id1, "Brave Bird")
+      @controller.makeMove(@id2, "Splash")
+      spy.returned(@id1).should.be.true
 
   describe "#endBattle", ->
     it "cannot end multiple times", ->

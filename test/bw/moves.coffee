@@ -4100,7 +4100,6 @@ describe "BW Moves:", ->
       @p1.currentHP = 1
       @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
       @battle.performMove(@p2, @battle.getMove("Tackle"))
-      @battle.performFaints()
       @p2.isFainted().should.be.true
 
     it "causes the attacker to faint any time before the user moves again", ->
@@ -4112,7 +4111,6 @@ describe "BW Moves:", ->
       @battle.endTurn()
       @battle.beginTurn()
       @battle.performMove(@p2, @battle.getMove("Tackle"))
-      @battle.performFaints()
       @p2.isFainted().should.be.true
 
     it "does not cause attacker to faint after user moves again", ->
@@ -4122,7 +4120,6 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
       @battle.performMove(@p1, @battle.getMove("Splash"))
       @battle.performMove(@p2, @battle.getMove("Tackle"))
-      @battle.performFaints()
       @p2.isFainted().should.be.false
 
     it "does not faint attacker if pokemon fainted naturally", ->

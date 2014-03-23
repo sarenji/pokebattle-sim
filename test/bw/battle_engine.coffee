@@ -96,17 +96,8 @@ describe 'Mechanics', ->
     it "occurs when a pokemon faints normally", ->
       shared.create.call(this)
       @p2.currentHP = 1
-      @battle.performMove(@p1, @battle.getMove("Tackle"))
       spy = @sandbox.spy(@p2, 'faint')
-      @battle.endTurn()
-      spy.calledOnce.should.be.true
-
-    it "occurs once for each pokemon", ->
-      shared.create.call(this, team2: (Factory("Magikarp")  for x in [1..2]))
-      spy = @sandbox.spy(@team2.at(1), 'faint')
-      @team2.at(1).currentHP = 1
-      @controller.makeMove(@id1, "Tackle")
-      @controller.makeSwitch(@id2, 1)
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
       spy.calledOnce.should.be.true
 
   describe 'secondary effect attacks', ->
