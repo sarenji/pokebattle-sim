@@ -332,6 +332,7 @@ class @Pokemon
     # TODO: Do fainted Pokémon need attachments in any case?
     # If so, #attach will need to be revisited as well.
     @unattachAll()
+    @team.faintedThisTurn = true
 
   damage: (amount, options = {}) ->
     amount = Math.max(1, amount)

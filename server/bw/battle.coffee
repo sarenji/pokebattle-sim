@@ -687,7 +687,6 @@ class @Battle extends EventEmitter
     for pokemon in @getActiveFaintedPokemon()
       continue  if pokemon.fainted
       pokemon.faint()
-      pokemon.team.faintedThisTurn = true
 
   executeMove: (move, pokemon, targets) ->
     # TODO: Send move id instead
