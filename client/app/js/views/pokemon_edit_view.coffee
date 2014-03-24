@@ -225,7 +225,7 @@ class @PokemonEditView extends Backbone.View
     moveName = $this.find('span').text()
     $input = $("<input type='text' value='#{moveName}'/>")
     $this.replaceWith($input)
-    $input.focus()
+    $input.focus().select()
 
     # Set the current move row to active
     $(".table-moves tr[data-move-id='#{moveName}']").addClass("active")
