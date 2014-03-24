@@ -299,6 +299,15 @@ class @PokemonEditView extends Backbone.View
     $moves.first().addClass('active')
     $table.removeClass('hidden')
 
+  disableEventsAndExecute: (callback) =>
+    isOutermost = !@_eventsDisabled
+
+    @_eventsDisabled = true
+    @undelegateEvents()  if isOutermost # disable events
+    callback()
+    @delegateEvents()  if isOutermost
+    @_eventsDisabled = false  if isOutermost
+
   render: =>
     @$el.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: @pokemon)
     attachSelectize(@$el.find(".species_list"),
@@ -311,13 +320,11 @@ class @PokemonEditView extends Backbone.View
     return this
 
   renderPokemon: =>
-    @undelegateEvents() # disable events (mostly change vevents)
     @renderSpecies()
     @renderNonStats()
     @renderStats()
     @renderMoves()
     @renderPBV()
-    @delegateEvents() # re-enable events
 
     # Disable entering values if this is a NullPokemon
     @$el.find("input, select")
@@ -336,10 +343,11 @@ class @PokemonEditView extends Backbone.View
       @$(".total-pbv").text(@teamPBV).toggleClass("red", @teamPBV > maxPBV)
 
   renderSpecies: =>
-    setSelectizeValue(@$(".species_list"), @pokemon.get("name"))
-    html = if @pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: @pokemon)
-    @$(".species-info").html(html)
-    @$(".selected_shininess").toggleClass("selected", @pokemon.get('shiny') == true)
+    @disableEventsAndExecute =>
+      setSelectizeValue(@$(".species_list"), @pokemon.get("name"))
+      html = if @pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: @pokemon)
+      @$(".species-info").html(html)
+      @$(".selected_shininess").toggleClass("selected", @pokemon.get('shiny') == true)
 
   renderNonStats: =>
     $nonStats = @$el.find(".non-stats")
@@ -359,12 +367,13 @@ class @PokemonEditView extends Backbone.View
       F: "Female"
       M: "Male"
 
-    populateSelect ".selected_ability", @pokemon.getAbilities(), @pokemon.get("ability")
-    populateSelect ".selected_nature", @pokemon.getNatures(), @pokemon.get("nature")
-    setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))
-    populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in @pokemon.getGenders()), @pokemon.get("gender")
-    $nonStats.find(".selected_level").val(@pokemon.get("level"))
-    $nonStats.find(".selected_happiness").val(@pokemon.get("happiness"))
+    @disableEventsAndExecute =>
+      populateSelect ".selected_ability", @pokemon.getAbilities(), @pokemon.get("ability")
+      populateSelect ".selected_nature", @pokemon.getNatures(), @pokemon.get("nature")
+      setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))
+      populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in @pokemon.getGenders()), @pokemon.get("gender")
+      $nonStats.find(".selected_level").val(@pokemon.get("level"))
+      $nonStats.find(".selected_happiness").val(@pokemon.get("happiness"))
 
   renderStats: =>
     pokemon = @pokemon
