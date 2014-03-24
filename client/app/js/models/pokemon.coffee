@@ -56,7 +56,7 @@ class @Pokemon extends Backbone.Model
 
     @set('ability', @getAbilities()[0])  unless attributes.ability
     @set('level', 100)  unless attributes.level
-    @set('happiness', 100)  unless attributes.happiness
+    @set('happiness', 100)  if isNaN(attributes.happiness)
     @set('nature', 'Hardy')  unless attributes.nature
     hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
     @set('hiddenPowerType', hiddenPowerType, silent: true)

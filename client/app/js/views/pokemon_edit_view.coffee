@@ -24,14 +24,14 @@ class @PokemonEditView extends Backbone.View
 
   events:
     'change .species_list': 'changeSpecies'
+    'click .selected_shininess': 'changeShiny'
+    'click .selected_happiness': 'changeHappiness'
     'change .selected-forme': 'changeForme'
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
     'change .selected_gender': 'changeGender'
     'change .selected_level': 'changeLevel'
-    'change .selected_happiness': 'changeHappiness'
-    'click .selected_shininess': 'changeShiny'
     'change .iv-entry': 'changeIv'
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
@@ -81,6 +81,15 @@ class @PokemonEditView extends Backbone.View
     @pokemon = if species then new Pokemon(teambuilder: true, name: species) else new NullPokemon()
     @onPokemonChange(@pokemon)
 
+  changeShiny: (e) =>
+    $switch = $(e.currentTarget).toggleClass("selected")
+    @pokemon.set("shiny", $switch.is(".selected"))
+
+  changeHappiness: (e) =>
+    $switch = $(e.currentTarget).toggleClass("selected")
+    happiness = if $switch.is(".selected") then 0 else 100
+    @pokemon.set("happiness", happiness)
+
   changeForme: (e) =>
     $forme = $(e.currentTarget)
     @pokemon.set('forme', $forme.val())
@@ -110,18 +119,6 @@ class @PokemonEditView extends Backbone.View
     value = 1  if value < 1
     $input.val(value)
     @pokemon.set("level", value)
-
-  changeHappiness: (e) =>
-    $input = $(e.currentTarget)
-    value = parseInt($input.val())
-    value = 100  if isNaN(value) || value > 100
-    value = 0  if value < 0
-    $input.val(value)
-    @pokemon.set("happiness", value)
-
-  changeShiny: (e) =>
-    $checkbox = $(e.currentTarget).toggleClass("selected")
-    @pokemon.set("shiny", $checkbox.is(".selected"))
 
   changeIv: (e) =>
     # todo: make changeIv and changeEv DRY
@@ -348,6 +345,7 @@ class @PokemonEditView extends Backbone.View
       html = if @pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: @pokemon)
       @$(".species-info").html(html)
       @$(".selected_shininess").toggleClass("selected", @pokemon.get('shiny') == true)
+      @$(".selected_happiness").toggleClass("selected", @pokemon.get("happiness") == 0)
 
   renderNonStats: =>
     $nonStats = @$el.find(".non-stats")
@@ -373,7 +371,6 @@ class @PokemonEditView extends Backbone.View
       setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))
       populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in @pokemon.getGenders()), @pokemon.get("gender")
       $nonStats.find(".selected_level").val(@pokemon.get("level"))
-      $nonStats.find(".selected_happiness").val(@pokemon.get("happiness"))
 
   renderStats: =>
     pokemon = @pokemon

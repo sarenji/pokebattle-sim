@@ -124,6 +124,44 @@ $pokemon-list-height = 50px
   &:hover.selected
     set-colors(#999546, #615F31)
 
+.teambuilder .happiness-switch
+  display inline-block
+  position relative
+  width 14px
+  height 14px
+  margin-left 10px
+  margin-right -(@margin-left + @width)
+  cursor pointer
+  vertical-align middle
+
+  $happy = #FF3C3C
+  $unhappy = #333
+
+  &:before, &:after
+    position absolute
+    content ""
+    left 8px
+    top 0
+    width 8px
+    height 13px
+    background $happy
+    border-radius 7px 7px 0 0
+    transform rotate(-45deg)
+    transform-origin 0 100%
+  &:after
+    left 0
+    transform rotate(45deg)
+    transform-origin 100% 100%
+
+  &:hover:before, &:hover:after
+    background darken($happy, 30%)
+
+  &.selected:before, &.selected:after
+    background $unhappy
+
+  &.selected:hover:before, &.selected:hover:after
+    background lighten($unhappy, 30%)
+
 .teambuilder .team_meta
   position absolute
   top 0
