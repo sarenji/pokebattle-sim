@@ -210,7 +210,7 @@ class @PokemonEditView extends Backbone.View
     movesArray = []
     $moves = @$el.find('.selected_moves')
     $moves.find('.move-button').each ->
-      moveName = $(this).text().trim()
+      moveName = $(this).find("span").text().trim()
       if moveName != ""
         movesArray.push(moveName)
     @pokemon.set("moves", movesArray)
