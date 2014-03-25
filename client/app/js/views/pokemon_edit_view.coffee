@@ -14,7 +14,12 @@ setSelectizeValue = ($element, value) ->
     $element.val(value)
   else
     $element.each ->
-      this.selectize?.setValue(value)
+      @selectize?.setValue(value)
+
+setSelectizeDisabled = ($element, disabled) ->
+  $element.filter(".selectized").each ->
+    return  unless @selectize
+    if disabled then @selectize.disable() else @selectize.enable()
 
 class @PokemonEditView extends Backbone.View
   editTemplate: JST['teambuilder/pokemon']
@@ -324,9 +329,9 @@ class @PokemonEditView extends Backbone.View
     @renderPBV()
 
     # Disable entering values if this is a NullPokemon
-    @$el.find("input, select")
-      .not(".species input, .species select")
-      .prop("disabled", @pokemon.isNull)
+    $elements = @$el.find("input, select").not(".species input, .species select")
+    $elements.prop("disabled", @pokemon.isNull)
+    setSelectizeDisabled($elements, @pokemon.isNull)
 
     return this
 
