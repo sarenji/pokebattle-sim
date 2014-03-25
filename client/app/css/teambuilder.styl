@@ -7,6 +7,9 @@ $pokemon-list-height = 50px
   box-sizing border-box
   height 28px
 
+.teambuilder .selectize-input input
+  height 18px
+
 .teambuilder
   position absolute
   top 0
@@ -82,6 +85,10 @@ $pokemon-list-height = 50px
   .species_list
     width 100%
 
+    .pbv
+      float right
+      color #888
+
 .teambuilder .shiny-switch
   display inline-block
   width 14px
@@ -116,6 +123,44 @@ $pokemon-list-height = 50px
 
   &:hover.selected
     set-colors(#999546, #615F31)
+
+.teambuilder .happiness-switch
+  display inline-block
+  position relative
+  width 14px
+  height 14px
+  margin-left 10px
+  margin-right -(@margin-left + @width)
+  cursor pointer
+  vertical-align middle
+
+  $happy = #FF3C3C
+  $unhappy = #333
+
+  &:before, &:after
+    position absolute
+    content ""
+    left 8px
+    top 0
+    width 8px
+    height 13px
+    background $happy
+    border-radius 7px 7px 0 0
+    transform rotate(-45deg)
+    transform-origin 0 100%
+  &:after
+    left 0
+    transform rotate(45deg)
+    transform-origin 100% 100%
+
+  &:hover:before, &:hover:after
+    background darken($happy, 30%)
+
+  &.selected:before, &.selected:after
+    background $unhappy
+
+  &.selected:hover:before, &.selected:hover:after
+    background lighten($unhappy, 30%)
 
 .teambuilder .team_meta
   position absolute
@@ -257,6 +302,14 @@ $pokemon-list-height = 50px
     margin 0
     box-sizing border-box
     height 32px
+
+    .close
+      opacity .4
+      line-height 30px
+      width 20px
+      text-align center
+    .close:hover, .close:focus
+      opacity .6
 
 .teambuilder .table-moves
   border-collapse separate
