@@ -806,8 +806,8 @@ extendMove 'Super Fang', ->
     halfHP = Math.floor(target.currentHP / 2)
     Math.max(1, halfHP)
 makeWeatherRecoveryMove 'Synthesis'
-extendMove 'Teleport', (battle) ->
-  @execute = -> @fail(battle)
+extendMove 'Teleport', ->
+  @execute = (battle) -> @fail(battle)
 makeThiefMove 'Thief'
 
 extendMove 'Thunder', ->
