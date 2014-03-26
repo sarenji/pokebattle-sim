@@ -139,7 +139,7 @@ makeModCommand "unban", (user, room, next, username) ->
         return next()
 
 desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
-makeOwnerCommand "lockdown", (user, room, next, option = "on") ->
+makeAdminCommand "lockdown", (user, room, next, option = "on") ->
   if option not in [ "on", "off" ]
     user.error(errors.COMMAND_ERROR, "Usage: /lockdown [on|off]")
     return next()
@@ -147,7 +147,7 @@ makeOwnerCommand "lockdown", (user, room, next, option = "on") ->
   next()
 
 desc "Mods a username permanently. Usage: /mod username"
-makeOwnerCommand "mod", (user, room, next, username) ->
+makeAdminCommand "mod", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /mod username")
     return next()
