@@ -52,9 +52,12 @@ createCondition = (condition, effects = {}) ->
 
 createCondition Conditions.PBV_1000,
   validateTeam: (team, genData) ->
+    errors = []
     if pbv.determinePBV(genData, team) > 1000
-      return [ "Total team PBV cannot surpass 1,000." ]
-    return []
+      errors.push "Total team PBV cannot surpass 1,000."
+    if team.length != 6
+      errors.push "Your team must have 6 pokemon"
+    return errors
 
 createCondition Conditions.SLEEP_CLAUSE,
   attach:
