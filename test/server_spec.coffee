@@ -600,6 +600,11 @@ describe 'BattleServer', ->
       pokemon = Factory("Magikarp", evs: { hp: 256 })
       server.validateTeam([ pokemon ]).should.not.be.empty
 
+    it "returns non-empty if a pokemon has an ev total above 510", ->
+      server = new BattleServer()
+      pokemon = Factory("Magikarp", evs: { hp: 255, defense: 255, speed: 255 })
+      server.validateTeam([ pokemon ]).should.not.be.empty
+
     it "returns non-empty if a pokemon has bogus evs", ->
       server = new BattleServer()
       pokemon = Factory("Magikarp", evs: true)
