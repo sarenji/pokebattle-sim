@@ -10,6 +10,14 @@ ratings = require('../../server/ratings')
 {Factory} = require '../factory'
 db = require('../../server/database')
 
+generateTeam = ->
+  [ Factory("Magikarp")
+    Factory("Gyarados")
+    Factory('Hitmonchan')
+    Factory("Celebi")
+    Factory("Blissey")
+    Factory("Alakazam") ]
+
 describe "Commands", ->
   beforeEach ->
     @room = new Room()
@@ -324,10 +332,10 @@ describe "Commands", ->
           done()
 
       it "returns all battles that user is in if user is passed", (done) ->
-        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
-        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
-        @server.queuePlayer("aardvark", [ Factory("Magikarp") ])
-        @server.queuePlayer("bologna", [ Factory("Magikarp") ])
+        @server.queuePlayer(@user1.id, generateTeam()).should.be.empty
+        @server.queuePlayer(@user2.id, generateTeam()).should.be.empty
+        @server.queuePlayer("aardvark", generateTeam()).should.be.empty
+        @server.queuePlayer("bologna", generateTeam()).should.be.empty
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>
@@ -361,8 +369,8 @@ describe "Commands", ->
         mock = @sandbox.mock(@room).expects('message').once()
         spy1 = @sandbox.spy(@user1, 'send')
         spy2 = @sandbox.spy(@user2, 'send')
-        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
-        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user1.id, generateTeam()).should.be.empty
+        @server.queuePlayer(@user2.id, generateTeam()).should.be.empty
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           @user1.authority = auth.levels.ADMIN

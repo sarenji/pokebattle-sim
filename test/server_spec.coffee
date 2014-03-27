@@ -7,6 +7,14 @@ gen = require('../server/generations')
 {Factory} = require './factory'
 should = require('should')
 
+generateTeam = ->
+  [ Factory("Magikarp")
+    Factory("Gyarados")
+    Factory('Hitmonchan')
+    Factory("Celebi")
+    Factory("Blissey")
+    Factory("Alakazam") ]
+
 describe 'BattleServer', ->
   it 'can create a new battle', ->
     server = new BattleServer()
@@ -24,7 +32,7 @@ describe 'BattleServer', ->
     server.join(players[0])
     server.join(players[1])
     for player in players
-      server.queuePlayer(player.id, [Factory('Hitmonchan')])
+      server.queuePlayer(player.id, generateTeam()).should.be.empty
     server.beginBattles (err, ids) ->
       throw new Error(err.message)  if err
       return  if ids.length == 0
@@ -35,18 +43,18 @@ describe 'BattleServer', ->
   describe "#queuePlayer", ->
     it "queues players", ->
       server = new BattleServer()
-      server.queuePlayer("derp", [ Factory("Magikarp") ])
+      server.queuePlayer("derp", generateTeam()).should.be.empty
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
     it "does not queue null players", ->
       server = new BattleServer()
-      server.queuePlayer(null, [ Factory("Magikarp") ])
+      server.queuePlayer(null, generateTeam()).should.be.empty
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
-      server.queuePlayer("derp", [ Factory("Magikarp") ])
-      server.queuePlayer("derp", [ Factory("Magikarp") ])
+      server.queuePlayer("derp", generateTeam()).should.be.empty
+      server.queuePlayer("derp", generateTeam()).should.be.empty
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
   describe "#getOngoingBattles", ->
@@ -54,8 +62,8 @@ describe 'BattleServer', ->
       server = new BattleServer()
       nBattles = 3
       for i in [1..nBattles]
-        server.queuePlayer("#{2*i}", [ Factory("Magikarp") ])
-        server.queuePlayer("#{(2*i) + 1}", [ Factory("Magikarp") ])
+        server.queuePlayer("#{2*i}", generateTeam()).should.be.empty
+        server.queuePlayer("#{(2*i) + 1}", generateTeam()).should.be.empty
 
       server.beginBattles ->
         server.getOngoingBattles().should.have.length(nBattles)
@@ -67,7 +75,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -90,7 +98,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       diffGeneration = 'bw'
       diffTeam = [ Factory("Celebi") ]
@@ -138,7 +146,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = "UNRELEASED INFERNO RED AND WEIRD YELLOWISH GREEN"
       conditions = []
 
@@ -153,7 +161,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -168,7 +176,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -182,7 +190,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -199,7 +207,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -218,7 +226,7 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       generation = 'xy'
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       conditions = [ Conditions.PBV_1000 ]
 
       server.join(user)
@@ -234,7 +242,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -255,7 +263,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -272,7 +280,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -294,7 +302,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -310,7 +318,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -327,7 +335,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -343,7 +351,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -359,7 +367,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       acceptTeam = [ Factory("Mewtwo", moves: [ "Psychic" ]) ]
       generation = 'xy'
       conditions = [ Conditions.PBV_1000 ]
@@ -376,7 +384,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -392,7 +400,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -412,7 +420,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -429,7 +437,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -446,7 +454,7 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -466,7 +474,7 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       challengerId = user.id
-      team = [ Factory("Magikarp") ]
+      team = generateTeam()
       generation = 'xy'
       conditions = []
 
@@ -640,9 +648,9 @@ describe 'BattleServer', ->
     it "are recorded to be playing in which battles", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(user1, [ Factory("Magikarp") ])
-      server.queuePlayer(user2, [ Factory("Magikarp") ])
-      server.queuePlayer(user3, [ Factory("Magikarp") ])
+      server.queuePlayer(user1, generateTeam()).should.be.empty
+      server.queuePlayer(user2, generateTeam()).should.be.empty
+      server.queuePlayer(user3, generateTeam()).should.be.empty
       server.beginBattles (err, battleIds) ->
         server.getUserBattles(user1).should.eql(battleIds)
         server.getUserBattles(user2).should.eql(battleIds)
@@ -652,9 +660,9 @@ describe 'BattleServer', ->
     it "no longer records battles once they end", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(user1, [Factory("Blissey"), Factory("Skarmory")])
-      server.queuePlayer(user2, [Factory("Blissey")])
-      server.queuePlayer(user3, [Factory("Blissey")])
+      server.queuePlayer(user1, generateTeam()).should.be.empty
+      server.queuePlayer(user2, generateTeam()).should.be.empty
+      server.queuePlayer(user3, generateTeam()).should.be.empty
       server.beginBattles (err, battleIds) ->
         for battleId in battleIds
           battle = server.findBattle(battleId)
@@ -668,9 +676,9 @@ describe 'BattleServer', ->
     beforeEach (done) ->
       @server = new BattleServer()
       [ @user1, @user2, @user3 ] = [ "a", "b", "c" ]
-      @server.queuePlayer(@user1, [ Factory("Magikarp") ])
-      @server.queuePlayer(@user2, [ Factory("Magikarp"), Factory("Gyarados") ])
-      @server.queuePlayer(@user3, [ Factory("Magikarp") ])
+      @server.queuePlayer(@user1, generateTeam()).should.be.empty
+      @server.queuePlayer(@user2, generateTeam()).should.be.empty
+      @server.queuePlayer(@user3, generateTeam()).should.be.empty
       @server.queuedPlayers().should.have.length(3)
       @server.beginBattles (err, battleIds) =>
         @battleIds = battleIds
