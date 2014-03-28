@@ -1002,6 +1002,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove("Knock Off"))
       @p2.hasItem().should.be.true
 
+    it "doesn't knock off if user is fainted", ->
+      shared.create.call this,
+        team2: [Factory('Magikarp', item: "Rocky Helmet")]
+      @p1.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("Knock Off"))
+      @p2.hasItem().should.be.true
+      @p1.isFainted().should.be.true
+
   describe 'trick and switcheroo', ->
     shared.shouldDoNoDamage('Trick')
 
@@ -1445,6 +1453,16 @@ describe "BW Moves:", ->
         team1: [Factory('Magikarp')]
         team2: [Factory('Magikarp', item: "Air Mail")]
       item2 = @p2.item
+      @battle.performMove(@p1, @battle.getMove('Thief'))
+      should.not.exist @p1.item
+      @p2.item.should.equal item2
+
+    it "should not steal the target's item if user is fainted", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Leftovers", ability: "Iron Barbs")]
+      item2 = @p2.item
+      @p1.currentHP = 1
       @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
       @p2.item.should.equal item2
@@ -2626,6 +2644,23 @@ describe "BW Moves:", ->
           mock.expects("switch").never()
 
         @team2.at(0).setHP(1)
+        @battle.performMove(@p1, move)
+
+        mock.verify()
+
+      it "does not force a switch if the user faints", ->
+        shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Magikarp", ability: "Iron Barbs"), Factory("Abra")])
+
+        move = @battle.getMove(moveName)
+
+        mock = @sandbox.mock(@team2)
+        # Whirlwind, Roar
+        if !move.isNonDamaging()
+          mock.expects("switch").never()
+        else
+          mock.expects("switch").once()
+
+        @p1.currentHP = 1
         @battle.performMove(@p1, move)
 
         mock.verify()
@@ -4883,6 +4918,17 @@ describe "BW Moves:", ->
         @battle.performMove(@p1, move)
         @p2.hasStatus().should.be.false
 
+      it "does not cure #{status.name} if the user faints", ->
+        shared.create.call(this, team2: [Factory("Magikarp", ability: "Iron Barbs")])
+
+        move = @battle.getMove(moveName)
+
+        @p1.currentHP = 1
+        @p2.attach(status)
+        @p2.has(status).should.be.true
+        @battle.performMove(@p1, move)
+        @p2.hasStatus().should.be.true
+
   testStatusCureAttackMove("Wake-Up Slap", Status.Sleep)
   testStatusCureAttackMove("SmellingSalt", Status.Paralyze)
 
@@ -6441,14 +6487,23 @@ describe "BW Moves:", ->
       @p2.hasItem().should.be.false
       @p1.stages.should.include(speed: 1)
 
-    it "does not eat the target's berry if the target fainted", ->
+    it "does eat the target's berry if the target fainted", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Salac Berry")]
       bugBite = @battle.getMove("Bug Bite")
       @p2.currentHP = 1
       @battle.performMove(@p1, bugBite)
       @p2.isFainted().should.be.true
-      @p1.stages.should.not.include(speed: 1)
+      @p1.stages.should.include(speed: 1)
+
+    it "does not eat the target's berry if the user fainted", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Salac Berry", ability: "Iron Barbs")]
+      bugBite = @battle.getMove("Bug Bite")
+      @p1.currentHP = 1
+      @battle.performMove(@p1, bugBite)
+      @p1.isFainted().should.be.true
+      @p2.hasItem().should.be.true
 
   describe "Beat Up", ->
     it "deals 1 less hit for each unhealthy member in the user's party", ->
