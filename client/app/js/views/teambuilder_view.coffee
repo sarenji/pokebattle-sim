@@ -196,6 +196,23 @@ class @TeambuilderView extends Backbone.View
     @$('.display_teams').html @teamsTemplate(teams: @getAllTeams(), window: window)
     @$('.display_teams').removeClass('hidden')
     @$('.display_pokemon').addClass('hidden')
+
+    $teamList = @$('.teams-list')
+    $teamList.sortable().on('drag', ->
+      # Fix the placeholder size (TODO: Make this a general easy to apply fix)
+      $dragged = $teamList.find('.sortable-dragging')
+      $placeholder = $teamList.find('.sortable-placeholder')
+      if $dragged && $placeholder && not $placeholder.data('resized')
+        $placeholder
+          .outerWidth($dragged.outerWidth(true))
+          .outerHeight($dragged.outerHeight(true))
+          .css(float: 'left')
+          .data('resized', true)
+    ).bind('sortupdate', (e, ui) ->
+        $team = ui.item
+        PokeBattle.TeamStore.moveTeam($team.data('id'), $team.index())
+    )
+
     this
 
   renderTeam: =>

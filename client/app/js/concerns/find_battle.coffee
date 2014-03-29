@@ -19,7 +19,9 @@
   selectedTeamId = null
 
   getSelectedTeam = ->
-    PokeBattle.TeamStore.get(selectedTeamId) || PokeBattle.TeamStore.at(0)
+    team = PokeBattle.TeamStore.get(selectedTeamId) || PokeBattle.TeamStore.at(0)
+    selectedTeamId = team?.id  # Update in case selectedTeamId == null
+    team
 
   renderCurrentTeam = ($context) ->
     $selectTeam = $context.find('.select-team')
