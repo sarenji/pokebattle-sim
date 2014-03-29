@@ -200,14 +200,14 @@ class @TeambuilderView extends Backbone.View
     $teamList = @$('.teams-list')
     $teamList.sortable().on('drag', ->
       # Fix the placeholder size (TODO: Make this a general easy to apply fix)
-      # TODO: Figure out why this is needed here, but not in the pokemon list
       $dragged = $teamList.find('.sortable-dragging')
       $placeholder = $teamList.find('.sortable-placeholder')
-      if $dragged && $placeholder && not $placeholder.data('resized')
+      if $dragged && $placeholder && !$placeholder.data('resized')
         $placeholder
-          .outerWidth($dragged.outerWidth(true))
-          .outerHeight($dragged.outerHeight(true))
-          .css(float: 'left')
+          .addClass($dragged.attr('class'))
+          .width($dragged.width())
+          .height($dragged.height())
+          .css("visibility", "hidden")
           .data('resized', true)
     ).bind('sortupdate', (e, ui) ->
       $team = ui.item
@@ -229,7 +229,7 @@ class @TeambuilderView extends Backbone.View
 
   renderPokemonList: =>
     team = @getSelectedTeam()
-    $navigation= @$(".navigation")
+    $navigation = @$(".navigation")
     $navigation.html @pokemonListTemplate(window: window, pokemonList: team.models)
     $navigation.find("li").eq(@selectedPokemon).addClass("active")
 
