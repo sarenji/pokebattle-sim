@@ -746,6 +746,9 @@ makeAbility 'Sheer Force', ->
     return 0x14CD  if move.hasSecondaryEffect()
     return 0x1000
 
+# Hardcoded in Move#shouldTriggerSecondary
+makeAbility 'Shield Dust'
+
 makeAbility 'Simple', ->
   this::transformBoosts = (boosts) ->
     newBoosts = {}

@@ -1970,7 +1970,31 @@ describe "BW Abilities:", ->
     it "does not activate Rowap Berry?"
 
   describe "Shield Dust", ->
-    it "prevents secondary effects"
+    it "prevents secondary effects", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Shield Dust")]
+      shared.biasRNG.call(this, 'next', 'secondary effect', 0)  # always happens
+      @battle.performMove(@p1, @battle.getMove("Zap Cannon"))
+      @p2.has(Status.Paralyze).should.be.false
+
+    it "prevents secondary flinches", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Shield Dust")]
+      shared.biasRNG.call(this, 'randInt', 'flinch', 0)  # 100% chance
+      @battle.performMove(@p1, @battle.getMove("Iron Head"))
+      @p2.has(Attachment.Flinch).should.be.false
+
+    it "prevents secondary boosts against the target", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Shield Dust")]
+      @battle.performMove(@p1, @battle.getMove("Acid Spray"))
+      @p2.stages.should.include(specialDefense: 0)
+
+    it "does not prevent secondary boosts for the user", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Shield Dust")]
+      @battle.performMove(@p1, @battle.getMove("Flame Charge"))
+      @p1.stages.should.include(speed: 1)
 
   describe "Simple", ->
     it "doubles stat boosts, negative and positive", ->
