@@ -3,6 +3,7 @@ $(document).on 'click', '.open_pm', ->
   $this = $(this)
   message = PokeBattle.messages.add(id: $this.data('user-id'))
   message.trigger('open', message)
+  message.trigger('focus', message)
 
 # Receive private message events
 PokeBattle.events.on 'privateMessage', (fromUserId, messageText) ->

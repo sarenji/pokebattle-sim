@@ -14,6 +14,7 @@ class @PrivateMessagesView extends Backbone.View
   initialize: =>
     @numPopups = 0
     @listenTo(@collection, 'open', @createPopup)
+    @listenTo(@collection, 'focus', @focusPopup)
     @listenTo(@collection, 'receive', @receiveMessage)
     @listenTo(@collection, 'close', @closePopup)
     @listenTo(@collection, 'minimize', @minimizePopup)
@@ -35,6 +36,11 @@ class @PrivateMessagesView extends Backbone.View
       @addLogMessages($html, message.getLog())
       @numPopups += 1
     $html
+
+  focusPopup: (message) =>
+    id = message.id
+    $popup = @$findPopup(id)
+    $popup.find('.chat_input').focus()
 
   closePopup: (message) =>
     username = message.id
