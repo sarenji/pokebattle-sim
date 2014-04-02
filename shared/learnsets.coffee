@@ -194,8 +194,9 @@ checkMove = (looper, pokemon, move) ->
     # If the Pokemon can learn Sketch, then by golly, it can learn anything!
     # ... Except Chatter and Struggle. NOTE: Bogus moves are considered valid,
     # so you must take care of them at a higher level.
+    # Unreleased event moves are also unsketchable until release.
     return true  if learnset["level-up"]?["Sketch"] <= level &&
-                    move not in [ "Chatter", "Struggle" ]
+                    move not in [ "Chatter", "Diamond Storm", "Struggle" ]
   return true  if checksOut
 
   # TODO: Skip unavailable Pokemon (due to being a generation later).
