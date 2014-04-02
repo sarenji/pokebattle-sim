@@ -12,6 +12,7 @@ generations = require './generations'
 errors = require '../shared/errors'
 db = require('./database')
 ratings = require('./ratings')
+alts = require('./alts')
 
 @createServer = (port) ->
   app = express()
@@ -71,6 +72,9 @@ ratings = require('./ratings')
             connections.broadcast('joinChatroom', user.toJSON())  if numConnections == 1
             user.send('listChatroom', lobby.userJSON())
             server.join(user)
+
+            alts.listUserAlts user.id, (err, alts) ->
+              user.send('altList', alts)
 
             db.hget "topic", "main", (err, topic) ->
               user.send('topic', topic)  if topic
@@ -135,6 +139,18 @@ ratings = require('./ratings')
 
     'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
+
+    ##############
+    # ALTS #
+    ##############
+
+    'createAlt': (user, altName) ->
+      altname = altName?.trim()
+      if !alts.isAltNameValid(altName)
+        user.error(errors.INVALID_ALT_NAME, "Invalid Alt Name")
+      alts.createAlt user.id, altName, (err, success) ->
+        user.error(errors.INVALID_ALT_NAME, err.message)  if err
+        user.send('altCreated', altName)  if success
 
     ###########
     # BATTLES #

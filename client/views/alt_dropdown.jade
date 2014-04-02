@@ -1,0 +1,13 @@
+li
+  a.select-alt-dropdown-item
+    div
+      = username
+      span.no-alt-label (no alt)
+each alt in alts
+  li
+    a.select-alt-dropdown-item
+      div= alt
+if alts.length < 5
+  li
+    a.add-alt-dropdown-item
+      div + Add Alt

@@ -47,6 +47,10 @@
   enableButtons = ->
     $buttons.removeClass('disabled')
 
+  toggleAltInput = (visible) ->
+    $wrapper.find('.alt-input').toggleClass("hidden", !visible)
+    $wrapper.find('.alt-dropdown-section').toggleClass("hidden", visible)
+
   enableButtons()
 
   $wrapper.html(JST['new_battle']({window, defaultClauses}))
@@ -86,6 +90,26 @@
     disableButtons()
     PokeBattle.socket.send(rejectEventName, personId)
 
+  # Clicking the alts dropdown brings down an alt selection dropdown menu
+  $wrapper.find('.select-alt').click (e) ->
+    html = JST['alt_dropdown'](alts: PokeBattle.alts.listAlts(), username: "TEMP USERNAME")
+    $wrapper.find('.alt-dropdown').html(html)
+
+  # Selecting an alt from the dropdown 
+  $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
+    # TODO: ACTUALLY SELECT THE ALT
+    $wrapper.find('.select-alt').html($(this).html())
+
+  # When add alt is clicked, show the alt input form
+  $wrapper.find('.alt-dropdown').on 'click', '.add-alt-dropdown-item', (e) ->
+    toggleAltInput(true)
+
+  # Clicking the Add Alt Button
+  $wrapper.find('.alt-input button').click (e) ->
+    altName = $('.alt-input input').val().trim()
+    PokeBattle.alts.createAlt(altName)
+    toggleAltInput(false)
+
   # Clicking the team dropdown brings down a team selection menu.
   # Also updates the allTeams collection
   $wrapper.find('.select-team').click (e) ->
@@ -106,7 +130,7 @@
     format = $target.data('format')
     $selectFormat.text($target.text())
     $selectFormat.data('format', format)
-
+  
   # Auto-select format.
   if generation
     # If a generation is passed, auto-select it.
