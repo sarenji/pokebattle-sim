@@ -4,8 +4,12 @@ should = require 'should'
 {BattleQueue} = require('../server/queue')
 db = require('../server/database')
 ratings = require('../server/ratings')
+db = require('../server/database')
 
 describe 'BattleQueue', ->
+  afterEach (done) ->
+    db.flushdb(done)
+
   it 'should be empty by default', ->
     new BattleQueue().should.be.empty
 
@@ -94,28 +98,22 @@ describe 'BattleQueue', ->
         done()
 
     it "returns an array of pairs in the order of their rating", (done) ->
-      args = []
-      createPlayer = (rating) ->
-        player = ratings.algorithm.createPlayer()
-        player.rating = rating
-        JSON.stringify(player)
-      args.push("batman", createPlayer(1))
-      args.push("superman", createPlayer(4))
-      args.push("flash", createPlayer(3))
-      args.push("spiderman", createPlayer(2))
-      db.hmset("ratings", args...)
-      queue = new BattleQueue()
-      queue.add('batman')
-      queue.add('superman')
-      queue.add('flash')
-      queue.add('spiderman')
-      queue.pairPlayers (err, results) ->
-        should.not.exist(err)
-        should.exist(results)
-        results.should.be.instanceOf(Array)
-        results.should.have.length(2)
-        results = results.map (result) ->
-          Object.keys(result)
-        results.should.eql [[ "batman", "spiderman" ]
-                            [ "flash", "superman"   ]]
-        done()
+      ratings.setRating "batman", 1, ->
+        ratings.setRating "superman", 4, ->
+          ratings.setRating "flash", 3, ->
+            ratings.setRating "spiderman", 2, ->
+              queue = new BattleQueue()
+              queue.add('batman')
+              queue.add('superman')
+              queue.add('flash')
+              queue.add('spiderman')
+              queue.pairPlayers (err, results) ->
+                should.not.exist(err)
+                should.exist(results)
+                results.should.be.instanceOf(Array)
+                results.should.have.length(2)
+                results = results.map (result) ->
+                  Object.keys(result)
+                results.should.eql [[ "batman", "spiderman" ]
+                                    [ "flash", "superman"   ]]
+                done()

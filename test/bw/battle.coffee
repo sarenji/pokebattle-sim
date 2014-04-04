@@ -12,12 +12,16 @@ require '../helpers'
 shared = require('../shared')
 should = require 'should'
 sinon = require 'sinon'
+db = require('../../server/database')
 
 describe 'Battle', ->
   beforeEach ->
     shared.create.call this,
       team1: [Factory('Hitmonchan'), Factory('Heracross')]
       team2: [Factory('Hitmonchan'), Factory('Heracross')]
+
+  afterEach (done) ->
+    db.flushdb(done)
 
   it 'starts at turn 1', ->
     @battle.turn.should.equal 1
