@@ -34,3 +34,9 @@ ALTS_KEY = "alts"
       # Add it to the list of user's alts, and then call next
       db.rpush altListKey, altName, ->
         next(null, true)
+
+# Checks if the user owns a particular alt name.
+@isAltOwnedBy = (userId, altName, next) ->
+  db.hget ALTS_KEY, altName, (err, assignedUserId) ->
+    return next(err)  if err
+    next(err, assignedUserId == userId)

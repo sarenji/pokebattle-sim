@@ -8,7 +8,8 @@ describe "Alts", ->
 
   describe '#createAlt', ->
     it 'creates a new alt', (done) ->
-      alts.createAlt "player1", "test", ->
+      alts.createAlt "player1", "test", (err) ->
+        should.not.exist(err)
         alts.listUserAlts "player1", (err, results) ->
           results.length.should.eql 1
           done()
@@ -41,3 +42,26 @@ describe "Alts", ->
           alts.listUserAlts "player1", (err, alts) ->
             ["test1", "test2"].should.eql(alts)
             done()
+
+  describe '#isAltOwnedBy', ->
+    it 'returns false if the user does not own the alt', (done) ->
+      alts.isAltOwnedBy "player1", "test", (err, result) ->
+        should.not.exist(err)
+        result.should.be.false
+
+        # make it so another user owns the alt. It should still be false
+        alts.createAlt "anotherguy", "test", (err) ->
+          should.not.exist(err)
+          alts.isAltOwnedBy "player1", "test", (err, result) ->
+            should.not.exist(err)
+            result.should.be.false
+            done()
+
+    it 'returns true if the user owns the alt', (done) ->
+      # make it so another user owns the alt. It should still be false
+      alts.createAlt "player1", "test", (err) ->
+        should.not.exist(err)
+        alts.isAltOwnedBy "player1", "test", (err, result) ->
+          should.not.exist(err)
+          result.should.be.true
+          done()
