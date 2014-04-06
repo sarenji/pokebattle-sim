@@ -2330,6 +2330,31 @@
         "target": "user",
         "type": "Fighting"
     },
+    "Diamond Storm": {
+        "accuracy": 95,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "physical",
+        "description": "Has a 50% chance to raise the user's Defense by 1 stage.",
+        "flags": [
+            "protect",
+            "mirror"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 100,
+        "pp": 5,
+        "priority": 0,
+        "recoil": 0,
+        "target": "all-opponents",
+        "type": "Rock",
+        "secondaryBoostChance": 50,
+        "secondaryBoostStats": {
+            "defense": 1
+        },
+        "secondaryBoostTarget": "self"
+    },
     "Dig": {
         "accuracy": 100,
         "ailmentChance": 0,
