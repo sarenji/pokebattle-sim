@@ -17,6 +17,7 @@
   canEditClauses = opts.canEditClauses ? true
 
   selectedTeamId = null
+  selectedAlt = null
 
   getSelectedTeam = ->
     PokeBattle.TeamStore.get(selectedTeamId) || PokeBattle.TeamStore.at(0)
@@ -71,9 +72,9 @@
         $clauses = $wrapper.find('input:checked[type="checkbox"]')
         clauses = []
         $clauses.each(-> clauses.push(parseInt($(this).val(), 10)))
-        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses)
+        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses, selectedAlt)
       else
-        PokeBattle.socket.send(eventName, format, teamJSON)
+        PokeBattle.socket.send(eventName, format, teamJSON, selectedAlt)
       $button.addClass('disabled').trigger('challenge')
     else
       cancelChallenge()
@@ -83,7 +84,7 @@
     return  if $(this).hasClass('disabled')
     disableButtons()
     teamJSON = getSelectedTeam().toNonNullJSON().pokemon
-    PokeBattle.socket.send(acceptEventName, personId, teamJSON)
+    PokeBattle.socket.send(acceptEventName, personId, teamJSON, selectedAlt)
 
   $reject.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
@@ -97,7 +98,8 @@
 
   # Selecting an alt from the dropdown 
   $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
-    # TODO: ACTUALLY SELECT THE ALT
+    selectedAlt = $(this).data('alt-name')
+    console.log(selectedAlt)
     $wrapper.find('.select-alt').html($(this).html())
 
   # When add alt is clicked, show the alt input form

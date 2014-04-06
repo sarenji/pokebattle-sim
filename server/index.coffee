@@ -170,15 +170,14 @@ alts = require('./alts')
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
 
-    'findBattle': (user, generation, team) ->
+    'findBattle': (user, generation, team, altName=null) ->
       if generation not in generations.SUPPORTED_GENERATIONS
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return
 
-      validationErrors = server.queuePlayer(user.id, team, generation)
-      if validationErrors.length > 0
-        user.error(errors.FIND_BATTLE, validationErrors)
-        return
+      server.queuePlayer user.id, team, generation, altName, (validationErrors) ->
+        if validationErrors.length > 0
+          user.error(errors.FIND_BATTLE, validationErrors)
 
     'cancelFindBattle': (user, generation) ->
       server.removePlayer(user.id, generation)
