@@ -93,13 +93,12 @@
 
   # Clicking the alts dropdown brings down an alt selection dropdown menu
   $wrapper.find('.select-alt').click (e) ->
-    html = JST['alt_dropdown'](alts: PokeBattle.alts.listAlts(), username: "TEMP USERNAME")
+    html = JST['alt_dropdown'](alts: PokeBattle.alts.listAlts(), username: PokeBattle.username)
     $wrapper.find('.alt-dropdown').html(html)
 
   # Selecting an alt from the dropdown 
   $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
     selectedAlt = $(this).data('alt-name')
-    console.log(selectedAlt)
     $wrapper.find('.select-alt').html($(this).html())
 
   # When add alt is clicked, show the alt input form
@@ -107,9 +106,13 @@
     toggleAltInput(true)
 
   # Clicking the Add Alt Button
-  $wrapper.find('.alt-input button').click (e) ->
+  $wrapper.find('.alt-input .add-button').click (e) ->
     altName = $('.alt-input input').val().trim()
     PokeBattle.alts.createAlt(altName)
+    toggleAltInput(false)
+
+  # Clicking the Cancel Add Alt Button
+  $wrapper.find('.alt-input .cancel-button').click (e) ->
     toggleAltInput(false)
 
   # Clicking the team dropdown brings down a team selection menu.
@@ -133,6 +136,9 @@
     $selectFormat.text($target.text())
     $selectFormat.data('format', format)
   
+  # Select non-alt option
+  $wrapper.find('.select-alt').html(JST['alt_dropdown'](alt: null, username: PokeBattle.username))
+
   # Auto-select format.
   if generation
     # If a generation is passed, auto-select it.

@@ -64,6 +64,10 @@ html
       (function() {
         var TOKEN = "#{user.token}";
         var ID = "#{user.id}";
+        var USERNAME = "#{user.username}"
+
+        PokeBattle.userId = ID;
+        PokeBattle.username = USERNAME;
         PokeBattle.events.on("connect", function() {
           PokeBattle.socket.send('login', ID, TOKEN);
         });
