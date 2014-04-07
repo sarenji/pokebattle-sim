@@ -5,8 +5,10 @@ ALTS_KEY = "alts"
 
 # Runs basic username validation for alts
 @isAltNameValid = (altName) ->
-  if !altName || altName == ""
-    return false
+  return false  if !altName
+
+  altName = altName.trim()
+  return false  if altName == ""
   # TODO: check alphanumeric, space, _, -
   return true
 
