@@ -56,7 +56,15 @@ alts = require('./alts')
     'login': (user, id, token) ->
       auth.matchToken id, token, (err, json) ->
         if err then return user.error(errors.INVALID_SESSION)
-        user.id = json.username
+
+        # REFACTOR INCOMING: The simulator currently uses user.id as the username of the user,
+        # there is no such as a numeric id. Eventually, we want to switch to a separated id/name system
+        # user.id will still be the same thing in the meantime, but now user._id and user.name will exist too.
+        # Eventually, once all uses of .id in the server are changed to ._id, replace all ._id -> .id
+        user.id = json.username   # will become deprecated
+        user._id = json.id        # user id
+        user.name = json.username # username
+
         auth.getBanTTL user.id, (err, ttl) ->
           if err
             return user.error(errors.INVALID_SESSION)
