@@ -5,12 +5,14 @@ require 'sugar'
 class @BattleQueue
   constructor: ->
     @queue = {}
+    @queuedAlts = {}
     @length = 0
 
-  add: (playerId, team) ->
+  add: (playerId, team, altName=null) ->
     return false  if !playerId
     return false  if playerId of @queue
     @queue[playerId] = team
+    @queuedAlts[playerId] = altName
     @length += 1
     return true
 
@@ -20,9 +22,14 @@ class @BattleQueue
       if playerId of @queue
         delete @queue[playerId]
         @length -= 1
+      if playerId of @queuedAlts
+        delete @queuedAlts[playerId]
 
   queuedPlayers: ->
     Object.keys(@queue)
+
+  getAltForPlayer: (playerId) ->
+    @queuedAlts[playerId]
 
   size: ->
     @length

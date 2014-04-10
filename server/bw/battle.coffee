@@ -11,6 +11,7 @@ Query = require './queries'
 
 require 'sugar'
 
+# Represents a single ongoing battle
 class @Battle extends EventEmitter
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
   Moves: Moves
@@ -91,6 +92,9 @@ class @Battle extends EventEmitter
 
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
+
+    # Maps player id -> alt name.
+    @altMappings = attributes.alts || {}
 
     # Populates @playerIds and creates the teams for each player
     for playerId, team of players

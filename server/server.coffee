@@ -166,24 +166,31 @@ class @BattleServer
 
   beginBattles: (next) ->
     for generation in gen.SUPPORTED_GENERATIONS
-      @queues[generation].pairPlayers (err, pairs) =>
+      queue = @queues[generation]
+      queue.pairPlayers (err, pairs) =>
         if err then return next(err)
 
         # Create a battle for each pair
         battleIds = []
         for pair in pairs
-          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
+          # TODO: Either put alts in the pair itself or generate this elsewhere
+          alts = {}
+          for playerId, team of pair
+            alt = queue.getAltForPlayer(playerId)
+            alts[playerId] = alt  if alt
+
+          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS, alts)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, conditions = []) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, conditions = [], alts={}) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
     playerIds = Object.keys(pair)
     battleId = @generateBattleId(playerIds)
-    battle = new Battle(battleId, pair, conditions: _.clone(conditions))
+    battle = new Battle(battleId, pair, conditions: _.clone(conditions), alts: alts)
     @battles[battleId] = new BattleController(battle)
     for playerId in playerIds
       # Add users to spectators
