@@ -776,7 +776,6 @@ class @Battle extends EventEmitter
 
   addSpectator: (spectator) ->
     return  if spectator in @spectators
-    spectator = new User(spectator.id)  if spectator not instanceof User
     @spectators.push(spectator)
     index = @getPlayerIndex(spectator.id)
     # Get rid of non-unique spectators?
