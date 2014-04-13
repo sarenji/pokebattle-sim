@@ -6,7 +6,7 @@ if alts
         span.no-alt-label (no alt)
   each alt in alts
     li
-      a.select-alt-dropdown-item
+      a.select-alt-dropdown-item(data-alt-name=alt)
         div= alt
   if alts.length < 5
     li

@@ -6,6 +6,8 @@ class @User
       [ @socket, @connections ] = args
     else if args.length == 3
       [ @id, @socket, @connections ] = args
+    else if args.length == 4
+      [ @id, @socket, @connections, @name ] = args
 
   toJSON: ->
     json = {
@@ -28,3 +30,14 @@ class @User
 
   close: ->
     @socket?.close()
+
+# A fake user created to mask an alt's identity
+class @MaskedUser extends @User
+  constructor: (original, altName) ->
+    @original = original
+    super(original.id, original.socket, original.connections, altName)
+
+  toJSON: ->
+    superJson = super()
+    superJson.id = @name  # conceal the original id
+    superJson

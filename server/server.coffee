@@ -145,7 +145,7 @@ class @BattleServer
         err = ["The server is locked. No new battles can start at this time."]
       else
         err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-        @queues[generation].add(playerId, team)  if err.length == 0
+        @queues[generation].add(playerId, team, altName)  if err.length == 0
       
       validationCallback(err)  if validationCallback
 

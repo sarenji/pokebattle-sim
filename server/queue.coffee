@@ -22,8 +22,10 @@ class @BattleQueue
       if playerId of @queue
         delete @queue[playerId]
         @length -= 1
-      if playerId of @queuedAlts
-        delete @queuedAlts[playerId]
+
+      # TODO: Re-enable when pair players returns the alt as part of the result
+      #if playerId of @queuedAlts
+      #  delete @queuedAlts[playerId]
 
   queuedPlayers: ->
     Object.keys(@queue)

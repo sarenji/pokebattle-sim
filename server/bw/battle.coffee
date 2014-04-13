@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{User} = require '../user'
+{User, MaskedUser} = require '../user'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
 {Team} = require './team'
@@ -96,10 +96,16 @@ class @Battle extends EventEmitter
     # Maps player id -> alt name.
     @altMappings = attributes.alts || {}
 
+    # Player ids where the id has been replaced with the alt name
+    @maskedPlayerIds = []
+
     # Populates @playerIds and creates the teams for each player
     for playerId, team of players
+      maskedName = @altMappings[playerId] || playerId
       @playerIds.push(playerId)
-      @teams[playerId] = new Team(this, playerId, team, @numActive)
+      @maskedPlayerIds.push(maskedName)
+      # TODO: Get the actual player object and use player.name
+      @teams[playerId] = new Team(this, playerId, maskedName, team, @numActive)
 
     # Holds battle state information
     @replacing = false
@@ -775,24 +781,33 @@ class @Battle extends EventEmitter
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
   addSpectator: (spectator) ->
-    return  if spectator in @spectators
+    return  if @spectators.some((s) -> s.id == spectator.id)
+    
+    # Mask the spectator with the alt name if relevant
+    altName = @altMappings[spectator.id]
+    if altName
+      spectator = new MaskedUser(spectator, altName)
+
     @spectators.push(spectator)
     index = @getPlayerIndex(spectator.id)
+
     # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectateBattle',
       @id, @generation, @numActive,
-      index, @playerIds, spectators, @log)
+      index, @maskedPlayerIds, spectators, @log)
+
     if spectator.id in @playerIds
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
+    
     # TODO: Only do if spectator id has not joined yet.
-    @broadcast('joinBattle', @id, spectator.id)
+    @broadcast('joinBattle', @id, spectator.name)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, spectator.id)
+        @broadcast('leaveBattle', @id, spectator.name)
         break
 
   forfeit: (id) ->
