@@ -306,13 +306,7 @@ class @BattleView extends Backbone.View
     else if moveData['power'] > 0
       # Non-contact attacking move
       # Projectile
-      $projectile = $('<div/>').addClass('projectile')
-      $projectile.addClass(moveData['type'].toLowerCase())
-      $projectile.appendTo(@$(".battle_pane"))
-      $projectile.css(
-        top: a.top + (($attacker.height() - $projectile.height()) >> 1)
-        left: a.left + (($attacker.width() - $projectile.width()) >> 1)
-      )
+      $projectile = @$projectile($attacker, moveData)
       [transX, transY] = [(d.left - a.left), (d.top - a.top)]
       $projectile
         .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200, 'easeOutCubic')
@@ -325,13 +319,7 @@ class @BattleView extends Backbone.View
     else if player != targetPlayer || slot != targetSlot
       # This is a non-attacking move that affects another pokemon
       # S-shaped movement
-      $projectile = $('<div/>').addClass('projectile')
-      $projectile.addClass(moveData['type'].toLowerCase())
-      $projectile.appendTo(@$(".battle_pane"))
-      $projectile.css(
-        top: a.top + (($attacker.height() - $projectile.height()) >> 1)
-        left: a.left + (($attacker.width() - $projectile.width()) >> 1)
-      )
+      $projectile = @$projectile($attacker, moveData)
       [transX, transY] = [(d.left - a.left), (d.top - a.top)]
       $projectile
         .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
@@ -813,6 +801,16 @@ class @BattleView extends Backbone.View
 
   $sprite: (player, slot) =>
     @$pokemon(player, slot).find('.sprite')
+
+  $projectile: ($pokemon, moveData) =>
+    $projectile = $('<div/>').addClass('projectile')
+    $projectile.addClass(moveData['type'].toLowerCase())
+    $projectile.appendTo(@$(".battle_pane"))
+    $projectile.css(
+      top: a.top + (($pokemon.height() - $projectile.height()) >> 1)
+      left: a.left + (($pokemon.width() - $projectile.width()) >> 1)
+    )
+    $projectile
 
   isFront: (player) =>
     @model.index != player
