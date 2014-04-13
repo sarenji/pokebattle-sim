@@ -67,8 +67,12 @@ class @BattleController
     @battle.removeSpectator(spectator)
 
   messageSpectators: (user, message) ->
+    # Is this user have an alt? If so use the masked user instead
+    if @battle.altMappings[user.id]
+      user = @battle.spectators.find((s) -> s.id == user.id)
+
     for spectator in @battle.spectators
-      spectator.send('updateBattleChat', @battle.id, user.id, message)
+      spectator.send('updateBattleChat', @battle.id, user.name, message)
 
   rawMessage: (message) ->
     for spectator in @battle.spectators
