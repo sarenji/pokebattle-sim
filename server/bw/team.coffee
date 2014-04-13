@@ -126,5 +126,5 @@ class @Team
 
   toJSON: (options = {}) -> {
     "pokemon": @pokemon.map (p) -> p.toJSON(options)
-    "owner": @playerId
+    "owner": @playerName
   }
