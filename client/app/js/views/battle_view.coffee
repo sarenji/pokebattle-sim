@@ -290,6 +290,7 @@ class @BattleView extends Backbone.View
 
     if 'contact' in moveData.flags
       # Simple attack animation
+      # Tackling the opponent
       [targetPlayer, targetSlot] = targetSlots[0]
       $attacker = @$sprite(player, slot)
       $defender = @$sprite(targetPlayer, targetSlot)
@@ -297,9 +298,14 @@ class @BattleView extends Backbone.View
       scale = (if a.top < d.top then 1.3 else 1/1.3)
       $attacker
         .transition(x: d.left - a.left, y: d.top - a.top, scale: scale, 250, 'in')
-        .transition(x: 0, y: 0, scale: 1, 250, 'out', done)
+        .transition(x: 0, y: 0, scale: 1, 250, 'out')
+      $defender.delay(400)
+        .transition(x: -4, 0, 'linear').delay(50)
+        .transition(x: 4, 0, 'linear').delay(50)
+        .transition(x: 0, 0, 'linear', done)
     else if moveData['power'] > 0
       # Non-contact attacking move
+      # Projectile
       [targetPlayer, targetSlot] = targetSlots[0]
       $attacker = @$sprite(player, slot)
       $defender = @$sprite(targetPlayer, targetSlot)
@@ -313,12 +319,20 @@ class @BattleView extends Backbone.View
       )
       [transX, transY] = [(d.left - a.left), (d.top - a.top)]
       $projectile
-        .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 250, 'easeOutCubic')
-        .transition x: transX, y: transY, scale: scale, 250, 'easeOutCubic', ->
-          $projectile.remove()
-          done()
+        .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200, 'easeOutCubic')
+        .transition(x: transX, y: transY, scale: scale, 200, 'easeOutCubic')
+        .transition(opacity: 0, 100, -> $projectile.remove())
+      $defender.delay(400)
+        .transition(x: -4, 0, 'linear').delay(50)
+        .transition(x: 4, 0, 'linear').delay(50)
+        .transition(x: 0, 0, 'linear', done)
     else
-      done()
+      # Side-to-side movement
+      $attacker = @$sprite(player, slot)
+      $attacker
+        .transition(x: -16, 125, 'easeInOutSine')
+        .transition(x: 16, 250, 'easeInOutSine')
+        .transition(x: 0, 125, 'easeInOutSine', done)
 
   cancelSuccess: (done) =>
     @enableButtons()
