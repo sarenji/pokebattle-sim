@@ -288,14 +288,14 @@ class @BattleView extends Backbone.View
       done()
       return
 
+    [targetPlayer, targetSlot] = targetSlots[0]
+    $attacker = @$sprite(player, slot)
+    $defender = @$sprite(targetPlayer, targetSlot)
+    [a, d] = [$attacker.position(), $defender.position()]
+    scale = (if a.top < d.top then 1.3 else 1/1.3)
     if 'contact' in moveData.flags
       # Simple attack animation
       # Tackling the opponent
-      [targetPlayer, targetSlot] = targetSlots[0]
-      $attacker = @$sprite(player, slot)
-      $defender = @$sprite(targetPlayer, targetSlot)
-      [a, d] = [$attacker.position(), $defender.position()]
-      scale = (if a.top < d.top then 1.3 else 1/1.3)
       $attacker
         .transition(x: d.left - a.left, y: d.top - a.top, scale: scale, 250, 'in')
         .transition(x: 0, y: 0, scale: 1, 250, 'out')
@@ -306,10 +306,6 @@ class @BattleView extends Backbone.View
     else if moveData['power'] > 0
       # Non-contact attacking move
       # Projectile
-      [targetPlayer, targetSlot] = targetSlots[0]
-      $attacker = @$sprite(player, slot)
-      $defender = @$sprite(targetPlayer, targetSlot)
-      [a, d] = [$attacker.position(), $defender.position()]
       $projectile = $('<div/>').addClass('projectile')
       $projectile.addClass(moveData['type'].toLowerCase())
       $projectile.appendTo(@$(".battle_pane"))
@@ -326,6 +322,22 @@ class @BattleView extends Backbone.View
         .transition(x: -4, 0, 'linear').delay(50)
         .transition(x: 4, 0, 'linear').delay(50)
         .transition(x: 0, 0, 'linear', done)
+    else if player != targetPlayer || slot != targetSlot
+      # This is a non-attacking move that affects another pokemon
+      # S-shaped movement
+      $projectile = $('<div/>').addClass('projectile')
+      $projectile.addClass(moveData['type'].toLowerCase())
+      $projectile.appendTo(@$(".battle_pane"))
+      $projectile.css(
+        top: a.top + (($attacker.height() - $projectile.height()) >> 1)
+        left: a.left + (($attacker.width() - $projectile.width()) >> 1)
+      )
+      [transX, transY] = [(d.left - a.left), (d.top - a.top)]
+      $projectile
+        .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
+        .transition(x: transX / 3, y: transY * 2 / 3, 100, 'easeInOutSine')
+        .transition(x: transX, y: transY, 150, 'easeInOutSine')
+        .transition(opacity: 0, 100, 'easeInOutSine', done)
     else
       # Side-to-side movement
       $attacker = @$sprite(player, slot)
