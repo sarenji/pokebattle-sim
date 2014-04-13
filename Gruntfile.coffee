@@ -108,6 +108,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-concurrent')
   grunt.loadNpmTasks('grunt-external-daemon')
   grunt.registerTask('heroku:production', 'concurrent:compile')
+  grunt.registerTask('heroku:development', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
 
   grunt.registerTask 'scrape:pokemon', 'Scrape pokemon data from Veekun', ->
