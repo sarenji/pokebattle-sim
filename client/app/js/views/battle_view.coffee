@@ -1,6 +1,5 @@
 class @BattleView extends Backbone.View
   battle_template: JST['battle']
-  pokemon_template: JST['battle_pokemon']
   user_info_template: JST['battle_user_info']
   action_template: JST['battle_actions']
   team_preview_template: JST['battle_team_preview']
@@ -48,7 +47,7 @@ class @BattleView extends Backbone.View
     this
 
   # TODO: Support 2v2
-  renderActions: (validActions) =>
+  renderActions: (validActions = []) =>
     locals =
       yourTeam     : @model.getTeam()
       validActions : validActions[0] || {}
@@ -128,9 +127,7 @@ class @BattleView extends Backbone.View
     indices = for element in @$('.arrange_team .pokemon_icon')
       $(element).data('index')
     @model.arrangeTeam(indices)
-    move($teamPreview)
-      .set('opacity', 0).duration('.25s')
-      .end(=> @removeTeamPreview())
+    $teamPreview.transition(opacity: 0, 250, => @removeTeamPreview())
 
   removeTeamPreview: =>
     $teamPreview = @$('.battle_teams')
@@ -139,6 +136,7 @@ class @BattleView extends Backbone.View
   addImages: ($images, callback) =>
     $images ||= @$('.preload')
     battle = @model
+    self = this
     $images.each ->
       $this = $(this)
       front = $this.closest('.pokemon').hasClass('top')
@@ -149,7 +147,7 @@ class @BattleView extends Backbone.View
       {id}  = window.Generations[gen].SpeciesData[name]
       url   = PokemonSprite(id, forme, front: front, shiny: shiny)
       scale = if front then 1 else 1.3
-      addPokemonImage($this, url, scale: scale, callback: callback)
+      self.addPokemonImage($this, url, scale: scale, callback: callback)
 
   changeHP: (player, slot, oldPixels, done) =>
     $pokemon = @$pokemon(player, slot)
@@ -226,13 +224,13 @@ class @BattleView extends Backbone.View
     $pokeball.css(opacity: 1)
     releasePokemon = =>
       $pokeball.css(opacity: 0)
-      move($newSprite)
-        .y(-15).scale(.1).duration(0).then()
-        .scale(10).duration('.25s').then()
-        .y(15).duration('.25s').ease('ease-out').pop().pop().end =>
+      $newSprite
+        .transition(y: -15, scale: .1, 0)
+        .transition(scale: 1, 250)
+        .transition y: 15, 250, 'out', =>
           @removePokeball($pokeball)
           done()
-      move($newPokemon).set('opacity', 1).end()
+      $newPokemon.transition(opacity: 1)
     setTimeout(releasePokemon, 250)
 
   switchOut: (player, slot, done) =>
@@ -248,8 +246,8 @@ class @BattleView extends Backbone.View
     $sprite = $pokemon.find('.sprite')
     width = $sprite.width()
     height = $sprite.height()
-    move($sprite).scale(0.1).x(width / 2).y(height).duration('.15s').end()
-    move($pokemon).set('opacity', 0).duration('.25s').end ->
+    $sprite.transition(scale: 0.1, x: width / 2, y: height, 150)
+    $pokemon.transition opacity: 0, 250, ->
       $pokemon.addClass('hidden').css(opacity: 1)
       $sprite.popover('destroy')
       done()
@@ -279,8 +277,48 @@ class @BattleView extends Backbone.View
     @lastMove = moveName
     done()
 
-  moveSuccess: (player, slot, targetSlot, done) =>
-    done()
+  moveSuccess: (player, slot, targetSlots, moveName, done) =>
+    return done()  if @skip?
+
+    gen = @model.get('generation').toUpperCase()
+    moveData = window.Generations[gen]?.MoveData[moveName]
+    if !moveData
+      console.error("Could not display animation for #{moveName} as it does not
+        exist in #{gen}.")
+      done()
+      return
+
+    if 'contact' in moveData.flags
+      # Simple attack animation
+      [targetPlayer, targetSlot] = targetSlots[0]
+      $attacker = @$sprite(player, slot)
+      $defender = @$sprite(targetPlayer, targetSlot)
+      [a, d] = [$attacker.position(), $defender.position()]
+      scale = (if a.top < d.top then 1.3 else 1/1.3)
+      $attacker
+        .transition(x: d.left - a.left, y: d.top - a.top, scale: scale, 250, 'in')
+        .transition(x: 0, y: 0, scale: 1, 250, 'out', done)
+    else if moveData['power'] > 0
+      # Non-contact attacking move
+      [targetPlayer, targetSlot] = targetSlots[0]
+      $attacker = @$sprite(player, slot)
+      $defender = @$sprite(targetPlayer, targetSlot)
+      [a, d] = [$attacker.position(), $defender.position()]
+      $projectile = $('<div/>').addClass('projectile')
+      $projectile.addClass(moveData['type'].toLowerCase())
+      $projectile.appendTo(@$(".battle_pane"))
+      $projectile.css(
+        top: a.top + (($attacker.height() - $projectile.height()) >> 1)
+        left: a.left + (($attacker.width() - $projectile.width()) >> 1)
+      )
+      [transX, transY] = [(d.left - a.left), (d.top - a.top)]
+      $projectile
+        .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 250, 'easeOutCubic')
+        .transition x: transX, y: transY, scale: scale, 250, 'easeOutCubic', ->
+          $projectile.remove()
+          done()
+    else
+      done()
 
   cancelSuccess: (done) =>
     @enableButtons()
@@ -330,7 +368,7 @@ class @BattleView extends Backbone.View
         position = $sprite.position()
         substituteUrl = (if @isFront(player) then "substitute" else "subback")
         substituteUrl = "http://sprites.pokecheck.org/o/#{substituteUrl}.gif"
-        addPokemonImage $pokemon, substituteUrl, callback: ($image) =>
+        @addPokemonImage $pokemon, substituteUrl, callback: ($image) =>
           $image.addClass('substitute')
           width = $image.width()
           height = $image.height()
@@ -346,11 +384,10 @@ class @BattleView extends Backbone.View
             $image.css(left: x, top: y - yOffset)
             $image.appendTo($pokemon)
             setTimeout ->
-              move($image)
-                .y( yOffset).ease('ease-in-quad').duration('.2s').then()
-                .y(-yOffset >> 3).ease('ease-out-quad').duration('.1s').then()
-                .y( yOffset >> 3).ease('ease-in-quad').duration('.1s').then()
-                .pop().pop().pop().end(done)
+              $image
+                .transition(y: yOffset, 200, 'easeInQuad')
+                .transition(y: -yOffset >> 3, 100, 'easeOutQuad')
+                .transition(y: yOffset >> 3, 100, 'easeInQuad', done)
             , 0
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
@@ -569,8 +606,9 @@ class @BattleView extends Backbone.View
           $substitute.remove()
           done()
         else
-          move($substitute).set('opacity', 0).y(300)
-            .then(-> $substitute.remove()).end(done)
+          $substitute.transition y: 300, opacity: 0, ->
+            $substitute.remove()
+            done()
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
         @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
@@ -764,8 +802,7 @@ class @BattleView extends Backbone.View
       done()
       return
 
-    move($image).set('top', '100%').duration('.25s').ease('ease-in').end()
-    move($image).set('opacity', 0).end ->
+    $image.transition y: 100, opacity: 0, 250, 'ease-in', ->
       $sprite.popover('destroy')
       $pokemon.remove()
       done()
@@ -836,23 +873,32 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(@model.index, 0)
     pokemon.set('megaEvolve', $target.hasClass("pressed"))
 
-addPokemonImage = ($div, url, options = {}) ->
-  scale = options.scale || 1
-  image = new Image()
-  $image = $(image)
-  $image.load ->
-    {width, height} = image
-    if scale != 1
-      width  *= scale
-      height *= scale
-      $image.width(width)
-      $image.height(height)
-    top  = ($div.height() - height) >> 1
-    left = ($div.width() - width) >> 1
-    $image.css(position: 'absolute', top: top, left: left)
-    options.callback?($image, left, top)  # $image, x, y
-  image.src = url
-  $image.appendTo($div)
+  addPokemonImage: ($div, url, options = {}) ->
+    scale = options.scale || 1
+    image = new Image()
+    $image = $(image)
+    $image.load =>
+      {width, height} = image
+      if scale != 1
+        width  *= scale
+        height *= scale
+        $image.width(width)
+        $image.height(height)
+      $div.height(height)
+      $div.width(width)
+      $pokemon = $div.closest('.pokemon')
+      [player, slot] = [$pokemon.data('team'), $pokemon.data('slot')]
+      if player == @model.index
+        [x, y] = [96, 208]
+      else
+        [x, y] = [332, 108]
+      x -= (width >> 1)
+      y -= (height >> 1)
+      $div.css(top: y, left: x)
+      # $image.css(position: 'absolute', top: top, left: left)
+      options.callback?($image, left, top)  # $image, x, y
+    image.src = url
+    $image.appendTo($div)
 
 pokemonHtml = (pokemon) ->
   "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"

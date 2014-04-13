@@ -5,6 +5,10 @@ outline-text(clr = #000)
 divide(a, b)
   a / b
 
+create-projectile(clr)
+  trans-clr = rgba(black, 0)
+  background radial-gradient(ellipse at center, lighten(clr, 50%) 0%, clr 50%, trans-clr 51%, trans-clr 100%)
+
 $padding = 10px
 $battle-width = 600px
 $battle-height = 300px
@@ -128,23 +132,23 @@ $pane-width = $battle-width + $padding + $padding
         .sprite
           bottom   0
           left     0
-          width    188px
-          height   @width
           &.fade
-            left    @left - 20px
-            opacity .3
+            img
+              position absolute
+              left     -20px
+              opacity  .3
       &.top
         .pokemon-info
           top         20%
           right       188px
         .sprite
           top      60px
-          right    20px
-          width    96px
-          height   @width
+          left     284px
           &.fade
-            right   @right - 20px
-            opacity .3
+            img
+              position absolute
+              right    -20px
+              opacity  .3
 
     .pokemon-info
       position      absolute
@@ -221,9 +225,9 @@ $pane-width = $battle-width + $padding + $padding
               background #a53
     .sprite
       position absolute
-      transition .5s ease-out
       pointer-events visible
       img
+        position absolute
         max-width none
   .pokemon
     position absolute
@@ -274,6 +278,47 @@ $pane-width = $battle-width + $padding + $padding
     background url("http://s3.pokebattle.com/img/battle/sticky_web.png")
     width 150px
     height 151px
+
+  .projectile
+    position absolute
+    width 64px
+    height @width
+    &.normal
+      create-projectile($normal)
+    &.fire
+      create-projectile($fire)
+    &.water
+      create-projectile($water)
+    &.electric
+      create-projectile($electric)
+    &.grass
+      create-projectile($grass)
+    &.ice
+      create-projectile($ice)
+    &.fighting
+      create-projectile($fighting)
+    &.poison
+      create-projectile($poison)
+    &.ground
+      create-projectile($ground)
+    &.flying
+      create-projectile($flying)
+    &.psychic
+      create-projectile($psychic)
+    &.bug
+      create-projectile($bug)
+    &.rock
+      create-projectile($rock)
+    &.ghost
+      create-projectile($ghost)
+    &.dragon
+      create-projectile($dragon)
+    &.dark
+      create-projectile($dark)
+    &.steel
+      create-projectile($steel)
+    &.fairy
+      create-projectile($fairy)
 
 .moves
   .button

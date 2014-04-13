@@ -119,8 +119,8 @@ class @BattleCollection extends Backbone.Collection
           view.resumeTimer(player)
           done()
         when Protocol.MOVE_SUCCESS
-          [player, slot, targetSlot] = rest
-          view.moveSuccess(player, slot, targetSlot, done)
+          [player, slot, targetSlots, moveName] = rest
+          view.moveSuccess(player, slot, targetSlots, moveName, done)
         when Protocol.EFFECT_END
           [player, slot, effect] = rest
           view.endEffect(player, slot, effect, done)
@@ -191,6 +191,7 @@ class @BattleCollection extends Backbone.Collection
         else
           done()
     catch e
+      throw e  if document.domain == 'localhost'
       console.error(e)
       done()
     view.resetPopovers()
