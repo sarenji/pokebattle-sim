@@ -303,7 +303,8 @@ class @BattleView extends Backbone.View
     $attacker = @$sprite(player, slot)
     $defender = @$sprite(targetPlayer, targetSlot)
     [a, d] = [$attacker.position(), $defender.position()]
-    scale = (if a.top < d.top then 1.3 else 1/1.3)
+    front = (a.top < d.top)
+    scale = (if front then 1.3 else 1/1.3)
     if 'contact' in moveData.flags
       # Simple attack animation
       # Tackling the opponent
@@ -311,9 +312,8 @@ class @BattleView extends Backbone.View
         .transition(x: d.left - a.left, y: d.top - a.top, scale: scale, 250, 'in')
         .transition(x: 0, y: 0, scale: 1, 250, 'out')
       $defender.delay(400)
-        .transition(x: -4, 0, 'linear').delay(50)
-        .transition(x: 4, 0, 'linear').delay(50)
-        .transition(x: 0, 0, 'linear', done)
+        .transition(x: (if front then -16 else 8), 50, 'easeOutCubic')
+        .transition(x: 0, 50, 'easeInOutCubic', done)
     else if moveData['power'] > 0
       # Non-contact attacking move
       # Projectile
