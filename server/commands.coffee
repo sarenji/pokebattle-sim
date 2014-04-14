@@ -1,3 +1,4 @@
+{_} = require('underscore')
 auth = require('./auth')
 ratings = require('./ratings')
 errors = require('../shared/errors')
@@ -56,9 +57,16 @@ desc "Gets a single username's rating on this server. Usage: /rating username"
 makeCommand "rating", "ranking", (user, room, next, username) ->
   username ||= user.id
   ratings.getRating username, (err, rating) ->
-    if err then return user.error(errors.COMMAND_ERROR, err.message)
-    user.message("#{username}'s rating: #{rating}")
-    next(err, {username, rating})
+    ratings.getRatio username, (err, ratios) ->
+      if err then return user.error(errors.COMMAND_ERROR, err.message)
+      ratio = ["Win: #{ratios.win}"]
+      if user.id == username
+        total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
+        ratio.push("Lose: #{ratios.lose}")
+        ratio.push("Tie: #{ratios.draw}")
+        ratio.push("Total: #{total}")
+      user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
+      next(err, {username, rating})
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"
