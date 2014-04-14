@@ -33,6 +33,7 @@ class @BattleCollection extends Backbone.Collection
     queue = @updateQueue[battle.id]
     if queue.length == 0
       view.renderUserInfo()
+      view.resetPopovers()
       if wasAtBottom || view.skip? then view.chatView.scrollToBottom()
       if view.skip?
         delete view.skip
@@ -47,7 +48,11 @@ class @BattleCollection extends Backbone.Collection
     done = () =>
       return  if done.called
       done.called = true
-      @_updateBattle.call(this, battle, wasAtBottom)
+      if view.skip?
+        @_updateBattle.call(this, battle, wasAtBottom)
+      else
+        # setTimeout 0 lets the browser breathe.
+        setTimeout(@_updateBattle.bind(this, battle, wasAtBottom), 0)
 
     try
       switch type
@@ -193,7 +198,6 @@ class @BattleCollection extends Backbone.Collection
       throw e  if document.domain == 'localhost'
       console.error(e)
       done()
-    view.resetPopovers()
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
