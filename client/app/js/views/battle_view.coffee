@@ -864,9 +864,23 @@ class @BattleView extends Backbone.View
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
+    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!")
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
+
+  addSummary: (message) =>
+    return  if @skip?
+    $summary = @$('.battle_summary')
+    $summary.show()
+    $p = $("<p/>").html(message).hide()
+    $summary.append($p)
+    $p.slideDown()
+    setTimeout((->
+      $p.slideUp ->
+        $p.remove()
+        $summary.hide()  if $summary.children().length == 0
+    ), 3000)
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")

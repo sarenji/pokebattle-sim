@@ -13,6 +13,7 @@ $padding = 10px
 $battle-width = 600px
 $battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
+$screen-width = 400px
 
 .battle_window .chat
   left $pane-width
@@ -119,7 +120,7 @@ $pane-width = $battle-width + $padding + $padding
 
   .battle_pane
     position      absolute
-    width         400px
+    width         $screen-width
     height        $battle-height
     top           0
     left          100px
@@ -316,6 +317,21 @@ $pane-width = $battle-width + $padding + $padding
       create-projectile($steel)
     &.fairy
       create-projectile($fairy)
+
+  .battle_summary
+    position absolute
+    bottom 0
+    left 0
+    right 0
+    background rgba(black, .5)
+    color white
+    padding 10px
+    display none
+    text-shadow none
+    p
+      width $screen-width
+      margin-left auto
+      margin-right @margin-left
 
 .moves
   .button
