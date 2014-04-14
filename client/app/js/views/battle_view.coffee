@@ -364,7 +364,8 @@ class @BattleView extends Backbone.View
     $sprite.fadeOut =>
       $sprite.remove()
       @renderPokemon $spriteContainer, ($image) ->
-        $image.hide().fadeIn(done)
+        $image.hide().fadeIn()
+      done()
 
   changeWeather: (newWeather, done) =>
     $overlays = @$('.battle_overlays')
