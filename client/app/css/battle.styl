@@ -130,25 +130,19 @@ $pane-width = $battle-width + $padding + $padding
           bottom      30%
           left        188px
         .sprite
-          bottom   0
-          left     0
           &.fade
-            img
-              position absolute
-              left     -20px
-              opacity  .3
+            position absolute
+            left     -20px
+            opacity  .3
       &.top
         .pokemon-info
           top         20%
           right       188px
         .sprite
-          top      60px
-          left     284px
           &.fade
-            img
-              position absolute
-              right    -20px
-              opacity  .3
+            position absolute
+            left     20px
+            opacity  .3
 
     .pokemon-info
       position      absolute
@@ -225,7 +219,10 @@ $pane-width = $battle-width + $padding + $padding
               background #a53
     .sprite
       position absolute
+      top 0
+      left 0
       pointer-events visible
+      transition left 1s ease
       img
         position absolute
         max-width none
