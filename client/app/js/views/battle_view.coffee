@@ -336,7 +336,9 @@ class @BattleView extends Backbone.View
         .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
         .transition(x: transX / 3, y: transY * 2 / 3, 100, 'easeInOutSine')
         .transition(x: transX, y: transY, 150, 'easeInOutSine')
-        .transition(opacity: 0, 100, 'easeInOutSine', done)
+        .transition opacity: 0, 100, 'easeInOutSine', ->
+          $projectile.remove()
+          done()
     else
       # Side-to-side movement
       $attacker = @$sprite(player, slot)
@@ -344,6 +346,21 @@ class @BattleView extends Backbone.View
         .transition(x: -16, 125, 'easeInOutSine')
         .transition(x: 16, 250, 'easeInOutSine')
         .transition(x: 0, 125, 'easeInOutSine', done)
+
+  activateAbility: (player, slot, abilityName, done) =>
+    return done()  if @skip?
+
+    pokemon = @model.getPokemon(player, slot)
+    isFront = @isFront(player)
+    $ability = $('<div/>').addClass('ability_activation')
+    $ability.html("#{pokemon.get('name')}'s <strong>#{abilityName}</strong>")
+    $ability.addClass((if isFront then 'front' else 'back'))
+    $ability.width(1)
+    $ability.appendTo(@$('.battle_pane'))
+    $ability.transition opacity: 1, width: 150, 100, 'easeInQuad', ->
+      setTimeout(done, 400)
+      $ability.delay(3000).transition opacity: 0, 300, 'easeInQuad', ->
+        $ability.remove()
 
   cancelSuccess: (done) =>
     @enableButtons()

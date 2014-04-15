@@ -192,6 +192,11 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.CANCEL_SUCCESS
           view.cancelSuccess(done)
+        when Protocol.ACTIVATE_ABILITY
+          [player, slot, ability] = rest
+          pokemon = battle.getPokemon(player, slot)
+          pokemon.set('ability', ability)
+          view.activateAbility(player, slot, ability, done)
         else
           done()
     catch e

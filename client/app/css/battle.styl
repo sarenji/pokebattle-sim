@@ -281,6 +281,7 @@ $screen-width = 400px
     position absolute
     width 64px
     height @width
+    pointer-events none
     &.normal
       create-projectile($normal)
     &.fire
@@ -330,6 +331,28 @@ $screen-width = 400px
     padding 10px
     p
       margin 0
+
+  .ability_activation
+    position absolute
+    width 150px
+    background rgba(black, .5)
+    text-align center
+    opacity 0
+    color white
+    outline-text()
+    pointer-events none
+    $radius = 4px
+    strong
+      font-size 1.2em
+      display block
+    &.front
+      border-radius $radius 0 0 $radius
+      top 64px
+      right 0
+    &.back
+      border-radius 0 $radius $radius 0
+      bottom 64px
+      left 0
 
 .moves
   .button
