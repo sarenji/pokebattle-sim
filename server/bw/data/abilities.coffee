@@ -576,9 +576,7 @@ makeAbility 'Leaf Guard', ->
 
 makeAbility 'Levitate', ->
   this::isImmune = (type) ->
-    if type == 'Ground'
-      @pokemon.activateAbility()
-      return true
+    return true  if type == 'Ground'
 
 makeAbility 'Light Metal', ->
   this::calculateWeight = (weight) ->
