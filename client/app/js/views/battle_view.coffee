@@ -937,6 +937,21 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(@model.index, 0)
     pokemon.set('megaEvolve', $target.hasClass("pressed"))
 
+  preloadImages: =>
+    front = @isFront(@model.index)
+    gen   = @model.get('generation').toUpperCase()
+    teams = _.map @model.teams, (team) ->
+      for pokemon in team.models
+        name  = pokemon.get('name')
+        forme = pokemon.get('forme')
+        shiny = pokemon.get('shiny')
+        {id}  = window.Generations[gen].SpeciesData[name]
+        PokemonSprite(id, forme, front: front, shiny: shiny)
+    pokemonUrls = _.flatten(teams)
+    for pokemonUrl in pokemonUrls
+      image = new Image()
+      image.src = pokemonUrl
+
   addPokemonImage: ($div, url, options = {}) =>
     scale = options.scale || 1
     image = new Image()

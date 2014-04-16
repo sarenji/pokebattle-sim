@@ -151,6 +151,7 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Handle non-team-preview
           [teams] = rest
           battle.receiveTeams(teams)
+          view.preloadImages()
           if !battle.get('spectating')
             PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, battle.id)
           done()
