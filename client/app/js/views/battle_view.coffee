@@ -305,7 +305,15 @@ class @BattleView extends Backbone.View
     [a, d] = [$attacker.position(), $defender.position()]
     front = (a.top < d.top)
     scale = (if front then 1.3 else 1/1.3)
-    if 'contact' in moveData.flags
+    if moveName == 'Earthquake'
+      $attacker.add($defender).each (index) ->
+        callback = (if index == 0 then done else undefined)
+        $(this).transition(x: -75, 62.5, 'easeInOutCubic')
+          .transition(x: 75, 125, 'easeInOutCubic')
+          .transition(x: -30, 125, 'easeInOutCubic')
+          .transition(x: 30, 125, 'easeInOutCubic')
+          .transition(x: 0, 62.5, 'easeInOutCubic', callback)
+    else if 'contact' in moveData.flags
       # Simple attack animation
       # Tackling the opponent
       $attacker
