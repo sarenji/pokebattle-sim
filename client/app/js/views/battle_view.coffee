@@ -939,14 +939,19 @@ class @BattleView extends Backbone.View
 
   preloadImages: =>
     front = @isFront(@model.index)
-    gen   = @model.get('generation').toUpperCase()
+    gen   = window.Generations[@model.get('generation').toUpperCase()]
     teams = _.map @model.teams, (team) ->
       for pokemon in team.models
         name  = pokemon.get('name')
         forme = pokemon.get('forme')
         shiny = pokemon.get('shiny')
-        {id}  = window.Generations[gen].SpeciesData[name]
-        PokemonSprite(id, forme, front: front, shiny: shiny)
+        {id}  = gen.SpeciesData[name]
+        formes = gen.FormeData[name]
+        formeNames = _.keys(formes)
+        formeNames = _.filter formeNames, (formeName) ->
+          forme == formeName || formes[forme].isBattleOnly
+        for formeName in formeNames
+          PokemonSprite(id, formeName, front: front, shiny: shiny)
     pokemonUrls = _.flatten(teams)
     for pokemonUrl in pokemonUrls
       image = new Image()
