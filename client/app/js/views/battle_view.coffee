@@ -190,7 +190,7 @@ class @BattleView extends Backbone.View
     percentText += "%"
     $hp = $('<span/>').addClass("percentage #{kind}").text(percentText)
     $hp.hide().appendTo(@$('.battle_pane'))
-    x -= ($sprite.width() - $hp.width()) / 2
+    x -= $hp.width() / 2
     y -= $sprite.height() / 3
     $hp.css(position: 'absolute', top: y, left: x).show()
     if percent >= 0
