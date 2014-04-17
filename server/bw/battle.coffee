@@ -354,6 +354,7 @@ class @Battle extends EventEmitter
     # Clean the completed requests
     @completedRequests = {}
 
+    @tell(Protocol.CONTINUE_TURN)
     @emit('continueTurn')
 
     @determineTurnOrder()

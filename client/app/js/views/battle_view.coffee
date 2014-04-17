@@ -949,16 +949,14 @@ class @BattleView extends Backbone.View
       html = $p.html()
       $p.html("#{html} #{message}")
     $p.slideDown(200)
-    setTimeout((->
-      $p.slideUp ->
-        $p.remove()
-        $summary.hide()  if $summary.children().length == 0
-    ), 3000)
-    $p
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
     @model.set('turn', turn)
+    done()
+
+  continueTurn: (done) =>
+    @$('.battle_summary').empty().hide()
     done()
 
   makeMove: (e) =>

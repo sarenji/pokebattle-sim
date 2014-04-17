@@ -92,6 +92,8 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.START_TURN
           [turn] = rest
           view.beginTurn(turn, done)
+        when Protocol.CONTINUE_TURN
+          view.continueTurn(done)
         when Protocol.RAW_MESSAGE
           [message] = rest
           view.addLog("#{message}<br>")
