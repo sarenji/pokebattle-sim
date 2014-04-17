@@ -126,6 +126,9 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.MOVE_SUCCESS
           [player, slot, targetSlots, moveName] = rest
           view.moveSuccess(player, slot, targetSlots, moveName, done)
+        when Protocol.CANNED_TEXT
+          cannedInteger = rest.splice(0, 1)
+          view.cannedText(cannedInteger, rest, done)
         when Protocol.EFFECT_END
           [player, slot, effect] = rest
           view.endEffect(player, slot, effect, done)

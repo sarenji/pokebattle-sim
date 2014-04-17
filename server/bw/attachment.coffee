@@ -135,7 +135,7 @@ class @Attachment.Flinch extends @VolatileAttachment
   name: "FlinchAttachment"
 
   beforeMove: (move, user, targets) ->
-    @battle.message "#{@pokemon.name} flinched!"
+    @battle.cannedText('FLINCH', @pokemon)
     @pokemon.boost(speed: 1)  if @pokemon.hasAbility("Steadfast")
     false
 
@@ -155,13 +155,13 @@ class @Attachment.Confusion extends @VolatileAttachment
     @pokemon?.tell(Protocol.POKEMON_UNATTACH, @name)
 
   beforeMove: (move, user, targets) ->
-    @battle.message "#{@pokemon.name} is confused!"
+    @battle.cannedText('IS_CONFUSED', @pokemon)
     @turn++
     if @turn > @turns
-      @battle.message "#{@pokemon.name} snapped out of confusion!"
+      @battle.cannedText('CONFUSION_END', @pokemon)
       @pokemon.unattach(@constructor)
     else if @battle.rng.next('confusion') < 0.5
-      @battle.message "#{@pokemon.name} hurt itself in confusion!"
+      @battle.cannedText('CONFUSION_HURT_SELF', @pokemon)
       damage = @battle.confusionMove.calculateDamage(@battle, user, user)
       user.damage(damage, source: "move")
       return false

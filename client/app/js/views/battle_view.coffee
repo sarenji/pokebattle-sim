@@ -355,6 +355,33 @@ class @BattleView extends Backbone.View
         .transition(x: 16, 250, 'easeInOutSine')
         .transition(x: 0, 125, 'easeInOutSine', done)
 
+  cannedText: (cannedInteger, args, done) =>
+    cannedTextName = CannedMapReverse[cannedInteger]
+    cannedText = @getCannedText(cannedTextName, args)
+    @addLog(cannedText)
+    done()
+
+  getCannedText: (cannedTextName, args) ->
+    cannedText = 'Please refresh to see this text!'
+    genIndex   = ALL_GENERATIONS.indexOf(@model.get('generation'))
+    language   = 'en'
+    # Run through inheritance chain of generations to find the canned text
+    for i in [genIndex..0] by -1
+      generation = ALL_GENERATIONS[i]
+      if CannedMap[generation]?[language]?[cannedTextName]
+        cannedText = CannedMap[generation][language][cannedTextName]
+        break
+    # Replace special characters in the canned text with the arguments
+    cannedText.replace /\$(p|\d+)/g, (match, p1) =>
+      switch p1
+        when 'p'
+          [player, slot] = args.splice(0, 2)
+          pokemon = @model.getPokemon(player, slot)
+          pokemon.get('name')
+        else
+          text = args.splice(0, 1)
+          text
+
   activateAbility: (player, slot, abilityName, done) =>
     return done()  if @skip?
 

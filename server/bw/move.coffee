@@ -58,7 +58,7 @@ class @Move
   execute: (battle, user, targets) ->
     # TODO: Test the below 3 lines.
     if targets.length == 0
-      battle.message "But there was no target..."
+      battle.cannedText('NO_TARGET')
       return
 
     targetsHit = []
@@ -93,7 +93,7 @@ class @Move
     if totalDamage > 0 && @recoil < 0 && !user.hasAbility("Rock Head")
       recoil = Math.round(totalDamage * -@recoil / 100)
       if user.damage(recoil)
-        battle.message("#{user.name} was hit by recoil!")
+        battle.cannedText('RECOIL', user)
 
     # If the move hit 1+ times, query the user's afterAllHits event.
     # If the user is affected by Sheer Force, these are all ignored.
@@ -108,12 +108,12 @@ class @Move
   # If `use` returns false, the `hit` hook is never called.
   use: (battle, user, target, hitNumber) ->
     if target.isImmune(@getType(battle, user, target), user: user, move: this)
-      battle.message "But it doesn't affect #{target.name}..."
+      battle.cannedText('IMMUNITY', target)
       @afterFail(battle, user, target)
       return false
 
     if @willMiss(battle, user, target)
-      battle.message "#{target.name} avoided the attack!"
+      battle.cannedText('MOVE_MISS', target)
       @afterMiss(battle, user, target)
       return false
 
@@ -126,7 +126,7 @@ class @Move
       if damage != 0
         # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
-        battle.message "#{target.name} took #{percent}% damage!"
+        battle.cannedText('GOT_HIT', target, percent)
       else
         currentHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
         damage = previousHP - Math.max(0, currentHP)
@@ -138,8 +138,8 @@ class @Move
     if damage > 0 && @recoil > 0
       amount = Math.round(damage * @recoil / 100)
       user.drain(amount, target)
-      battle.message "#{target.name} had its energy drained!"
-      battle.message "#{user.name} absorbed some HP!"
+      battle.cannedText('DRAIN', target)
+      battle.cannedText('ABSORB', user)
 
     if isDirect && @shouldTriggerSecondary(battle, user, target)
       @triggerSecondaryEffect(battle, user, target)
@@ -172,7 +172,7 @@ class @Move
 
   # A hook that executes once a move fails.
   fail: (battle) ->
-    battle.message "But it failed!"
+    battle.cannedText('MOVE_FAIL')
 
   numHitsMessage: (hitNumber) ->
     return "Hit #{hitNumber} time(s)!"
@@ -199,12 +199,12 @@ class @Move
     damage = target.editDamage(this, damage)
 
     if effectiveness < 1
-      battle.message "It's not very effective..."
+      battle.cannedText('NOT_VERY_EFFECTIVE')
     else if effectiveness > 1
-      battle.message "It's super effective!"
+      battle.cannedText('SUPER_EFFECTIVE')
 
     if user.crit
-      battle.message "A critical hit!"
+      battle.cannedText('CRITICAL_HIT')
       target.informCriticalHit()
     damage
 

@@ -6,6 +6,7 @@
 {Weather} = require '../../shared/weather'
 {Attachment, Attachments, Status} = require './attachment'
 {Protocol} = require '../../shared/protocol'
+{CannedText} = require('../../shared/canned_text')
 Query = require './queries'
 {EventEmitter} = require 'events'
 
@@ -828,6 +829,16 @@ class @Battle extends EventEmitter
     # Now clean-up.
     for id of @queues
       delete @queues[id]
+
+  cannedText: (type, args...) ->
+    newArgs = []
+    # Convert any Pokemon in the arguments to its respective player/slot.
+    for arg in args
+      if arg instanceof Pokemon
+        newArgs.push(@getPlayerIndex(arg.playerId), arg.team.indexOf(arg))
+      else
+        newArgs.push(arg)
+    @tell(Protocol.CANNED_TEXT, CannedText[type], newArgs...)
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"
