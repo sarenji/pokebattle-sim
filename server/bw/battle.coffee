@@ -261,18 +261,18 @@ class @Battle extends EventEmitter
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
-    message = switch weatherName
-      when Weather.SUN  then "The sunlight turned harsh!"
-      when Weather.RAIN then "It started to rain!"
-      when Weather.SAND then "A sandstorm kicked up!"
-      when Weather.HAIL then "It started to hail!"
+    cannedText = switch weatherName
+      when Weather.SUN  then "SUN_START"
+      when Weather.RAIN then "RAIN_START"
+      when Weather.SAND then "SAND_START"
+      when Weather.HAIL then "HAIL_START"
       else
         switch @weather
-          when Weather.SUN  then "The sunlight faded."
-          when Weather.RAIN then "The rain stopped."
-          when Weather.SAND then "The sandstorm subsided."
-          when Weather.HAIL then "The hail stopped."
-    @message(message)  if message
+          when Weather.SUN  then "SUN_END"
+          when Weather.RAIN then "RAIN_END"
+          when Weather.SAND then "SAND_END"
+          when Weather.HAIL then "HAIL_END"
+    @cannedText(cannedText)  if cannedText
     @weather = weatherName
     @weatherDuration = turns
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
@@ -283,12 +283,10 @@ class @Battle extends EventEmitter
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
 
-  weatherMessage: ->
+  weatherCannedText: ->
     switch @weather
-      when Weather.SAND
-        "The sandstorm rages."
-      when Weather.HAIL
-        "The hail crashes down."
+      when Weather.SAND then "SAND_CONTINUE"
+      when Weather.HAIL then "HAIL_CONTINUE"
 
   weatherUpkeep: ->
     if @weatherDuration == 1
@@ -296,8 +294,8 @@ class @Battle extends EventEmitter
     else if @weatherDuration > 1
       @weatherDuration--
 
-    message = @weatherMessage()
-    @message(message)  if message?
+    cannedText = @weatherCannedText()
+    @cannedText(cannedText)  if cannedText?
 
     activePokemon = @getActivePokemon().filter((p) -> !p.isFainted())
     for pokemon in activePokemon
@@ -305,10 +303,10 @@ class @Battle extends EventEmitter
       damage = pokemon.stat('hp') >> 4
       if @hasWeather(Weather.HAIL)
         if pokemon.damage(damage)
-          @message "#{pokemon.name} is buffeted by the hail!"
+          @cannedText('HAIL_HURT', pokemon)
       else if @hasWeather(Weather.SAND)
         if pokemon.damage(damage)
-          @message "#{pokemon.name} is buffeted by the sandstorm!"
+          @cannedText('SAND_HURT', pokemon)
 
   hasWeatherCancelAbilityOnField: ->
     _.any @getActivePokemon(), (pokemon) ->
@@ -671,12 +669,12 @@ class @Battle extends EventEmitter
   performMove: (pokemon, move) ->
     targets = @getTargets(move, pokemon)
 
-    @message "#{pokemon.name} has no moves left!"  if move == @struggleMove
+    @cannedText('NO_MOVES_LEFT', pokemon)  if move == @struggleMove
 
     if pokemon.pp(move) <= 0
       # TODO: Send move id instead
       pokemon.tell(Protocol.MAKE_MOVE, move.name)
-      @message "But there was no PP left for the move!"
+      @cannedText('NO_PP_LEFT')
       # TODO: Is this the right place...?
       pokemon.resetRecords()
     else
