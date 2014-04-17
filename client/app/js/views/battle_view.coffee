@@ -359,9 +359,22 @@ class @BattleView extends Backbone.View
     cannedTextName = CannedMapReverse[cannedInteger]
     cannedText = @getCannedText(cannedTextName, args)
     @addLog(cannedText)
-    done()
+    @actOnCannedText(cannedTextName, cannedText, done)
 
-  getCannedText: (cannedTextName, args) ->
+  # Some canned text requires special actions.
+  # For example, misses require a delay, and also prints to the battle pane.
+  actOnCannedText: (cannedTextName, cannedText, done) =>
+    switch cannedTextName
+      when 'MOVE_MISS', 'MOVE_FAIL', 'IMMUNITY'
+        @addSummary(cannedText)
+        setTimeout(done, 500)
+      when 'CRITICAL_HIT', 'SUPER_EFFECTIVE', 'NOT_VERY_EFFECTIVE'
+        @addSummary(cannedText)
+        done()
+      else
+        done()
+
+  getCannedText: (cannedTextName, args) =>
     cannedText = 'Please refresh to see this text!'
     genIndex   = ALL_GENERATIONS.indexOf(@model.get('generation'))
     language   = 'en'
@@ -918,23 +931,30 @@ class @BattleView extends Backbone.View
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
-    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!")
+    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!", newline: true)
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
 
-  addSummary: (message) =>
+  addSummary: (message, options = {}) =>
     return  if @skip?
     $summary = @$('.battle_summary')
     $summary.show()
-    $p = $("<p/>").html(message).hide()
-    $summary.append($p)
-    $p.slideDown()
+    $p = $summary.children().last()
+    if $p.length == 0 || $p.is('.newline') || options.newline
+      $p = $("<p/>").html(message).hide()
+      $p.addClass('newline')  if options.newline
+      $p.appendTo($summary)
+    else
+      html = $p.html()
+      $p.html("#{html} #{message}")
+    $p.slideDown(200)
     setTimeout((->
       $p.slideUp ->
         $p.remove()
         $summary.hide()  if $summary.children().length == 0
     ), 3000)
+    $p
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
