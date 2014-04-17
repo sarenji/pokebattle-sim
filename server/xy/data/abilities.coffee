@@ -12,6 +12,7 @@ makeWeatherAbility = (name, weather) ->
         when Weather.HAIL then "Hail"
         else throw new Error("#{weather} ability not supported.")
 
+      @pokemon.activateAbility()
       move = @battle.getMove(moveName)
       move.changeWeather(@battle, @pokemon)
 
@@ -25,7 +26,9 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 # Overcoat now also prevents powder moves from working.
 Ability.Overcoat::shouldBlockExecution = (move, user) ->
-    return true  if move.hasFlag("powder")
+    if move.hasFlag("powder")
+      @pokemon.activateAbility()
+      return true
 
 # New ability interfaces
 
@@ -64,7 +67,9 @@ makeAbility "Aura Break"
 
 makeAbility 'Bulletproof', ->
   this::isImmune = (type, move) ->
-    return true  if move?.hasFlag('bullet')
+    if move?.hasFlag('bullet')
+      @pokemon.activateAbility()
+      return true
 
 # TODO: Cheek Pouch
 makeAbility "Cheek Pouch"
@@ -72,6 +77,7 @@ makeAbility "Cheek Pouch"
 makeAbility "Competitive", ->
   this::afterEachBoost = (boostAmount, source) ->
     return  if source.team == @pokemon.team
+    @pokemon.activateAbility()
     @pokemon.boost(specialAttack: 2)  if boostAmount < 0
 
 # TODO: Flower Veil
@@ -91,7 +97,9 @@ makeAbility "Gooey", ->
   this::isAliveCheck = -> true
 
   this::afterBeingHit = (move, user) ->
-    user.boost(speed: -1, @pokemon)  if move.hasFlag("contact")
+    if move.hasFlag("contact")
+      user.boost(speed: -1, @pokemon)
+      @pokemon.activateAbility()
 
 # TODO: Grass Pelt
 makeAbility "Grass Pelt"
@@ -119,6 +127,7 @@ makeAbility 'Protean', ->
     type = move.getType(@battle, user, targets[0])
     return  if user.types.length == 1 && user.types[0] == type
     user.types = [ type ]
+    @pokemon.activateAbility()
     @battle.message "#{user.name} transformed into the #{type} type!"
 
 makeAbility 'Stance Change', ->
@@ -127,6 +136,7 @@ makeAbility 'Stance Change', ->
       when !move.isNonDamaging() then "blade"
       when move == @battle.getMove("King's Shield") then "default"
     if newForme && !@pokemon.isInForme(newForme) && @pokemon.name == 'Aegislash'
+      @pokemon.activateAbility()
       @pokemon.changeForme(newForme)
       humanized = (if newForme == "blade" then "Blade" else "Shield")
       @battle.message("Changed to #{humanized} Forme!")

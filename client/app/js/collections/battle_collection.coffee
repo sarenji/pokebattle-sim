@@ -33,6 +33,7 @@ class @BattleCollection extends Backbone.Collection
     queue = @updateQueue[battle.id]
     if queue.length == 0
       view.renderUserInfo()
+      view.resetPopovers()
       if wasAtBottom || view.skip? then view.chatView.scrollToBottom()
       if view.skip?
         delete view.skip
@@ -47,7 +48,11 @@ class @BattleCollection extends Backbone.Collection
     done = () =>
       return  if done.called
       done.called = true
-      @_updateBattle.call(this, battle, wasAtBottom)
+      if view.skip?
+        @_updateBattle.call(this, battle, wasAtBottom)
+      else
+        # setTimeout 0 lets the browser breathe.
+        setTimeout(@_updateBattle.bind(this, battle, wasAtBottom), 0)
 
     try
       switch type
@@ -87,6 +92,8 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.START_TURN
           [turn] = rest
           view.beginTurn(turn, done)
+        when Protocol.CONTINUE_TURN
+          view.continueTurn(done)
         when Protocol.RAW_MESSAGE
           [message] = rest
           view.addLog("#{message}<br>")
@@ -119,8 +126,11 @@ class @BattleCollection extends Backbone.Collection
           view.resumeTimer(player)
           done()
         when Protocol.MOVE_SUCCESS
-          [player, slot, targetSlot] = rest
-          view.moveSuccess(player, slot, targetSlot, done)
+          [player, slot, targetSlots, moveName] = rest
+          view.moveSuccess(player, slot, targetSlots, moveName, done)
+        when Protocol.CANNED_TEXT
+          cannedInteger = rest.splice(0, 1)
+          view.cannedText(cannedInteger, rest, done)
         when Protocol.EFFECT_END
           [player, slot, effect] = rest
           view.endEffect(player, slot, effect, done)
@@ -146,6 +156,7 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Handle non-team-preview
           [teams] = rest
           battle.receiveTeams(teams)
+          view.preloadImages()
           if !battle.get('spectating')
             PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, battle.id)
           done()
@@ -167,8 +178,7 @@ class @BattleCollection extends Backbone.Collection
           pokemon = battle.getPokemon(player, slot)
           pokemon.set('name', newSpecies)
           pokemon.set('forme', newForme)
-          view.changeSprite(player, slot, newSpecies, newForme)
-          done()
+          view.changeSprite(player, slot, newSpecies, newForme, done)
         when Protocol.BOOSTS
           [player, slot, deltaBoosts] = rest
           view.boost(player, slot, deltaBoosts, done)
@@ -188,12 +198,17 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.CANCEL_SUCCESS
           view.cancelSuccess(done)
+        when Protocol.ACTIVATE_ABILITY
+          [player, slot, ability] = rest
+          pokemon = battle.getPokemon(player, slot)
+          pokemon.set('ability', ability)
+          view.activateAbility(player, slot, ability, done)
         else
           done()
     catch e
       console.error(e)
       done()
-    view.resetPopovers()
+      throw e  if document.domain == 'localhost'
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 

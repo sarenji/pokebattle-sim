@@ -569,6 +569,9 @@ class @Pokemon
     for move in @validMoves()
       @blockMove(move)  if move != moveToLock
 
+  activateAbility: ->
+    @tell(Protocol.ACTIVATE_ABILITY, @ability.displayName)
+
   tell: (protocol, args...) ->
     return  unless @battle
     args = [ @battle.getPlayerIndex(@playerId), @team.indexOf(this), args... ]
