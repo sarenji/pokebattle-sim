@@ -206,9 +206,9 @@ class @BattleCollection extends Backbone.Collection
         else
           done()
     catch e
-      throw e  if document.domain == 'localhost'
       console.error(e)
       done()
+      throw e  if document.domain == 'localhost'
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
