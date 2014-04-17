@@ -177,20 +177,20 @@ class @Attachment.Disable extends @VolatileAttachment
   initialize: (attributes) ->
     @blockedMove = @pokemon.lastMove
     @turns = 4
-    @battle.message("#{@pokemon.name}'s #{@blockedMove.name} was disabled!")
+    @battle.cannedText('DISABLE_START', @pokemon, @blockedMove.name)
 
   beginTurn: ->
     @pokemon.blockMove(@blockedMove)
 
   beforeMove: (move, user, target) ->
     if move == @blockedMove
-      @battle.message "#{@pokemon.name}'s #{move.name} is disabled!"
+      @battle.cannedText('DISABLE_CONTINUE', @pokemon, move.name)
       return false
 
   endTurn: ->
     @turns--
     if @turns == 0
-      @battle.message "#{@pokemon.name} is no longer disabled!"
+      @battle.cannedText('DISABLE_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.Yawn extends @VolatileAttachment
@@ -202,7 +202,7 @@ class @Attachment.Yawn extends @VolatileAttachment
 
   initialize: ->
     @turn = 0
-    @battle.message("#{@pokemon.name} grew drowsy!")
+    @battle.cannedText('YAWN_BEGIN', @pokemon)
 
   endTurn: ->
     @turn += 1
@@ -253,13 +253,13 @@ class @Attachment.Taunt extends @VolatileAttachment
   beforeMove: (move, user, targets) ->
     # TODO: user is always == pokemon. Will this change?
     if user == @pokemon && move.power == 0
-      @battle.message "#{@pokemon.name} can't use #{move.name} after the taunt!"
+      @battle.cannedText('TAUNT_PREVENT', @pokemon, move.name)
       return false
 
   endTurn: ->
     @turn++
     if @turn >= @turns
-      @battle.message "#{@pokemon.name}'s taunt wore off!"
+      @battle.cannedText('TAUNT_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.Tailwind extends @TeamAttachment
@@ -275,7 +275,7 @@ class @Attachment.Tailwind extends @TeamAttachment
   endTurn: ->
     @turn++
     if @turn >= @turns
-      @battle.message "The tailwind petered out!"
+      @battle.cannedText('TAILWIND_END')
       @team.unattach(@constructor)
 
 class @Attachment.Wish extends @TeamAttachment
@@ -294,7 +294,7 @@ class @Attachment.Wish extends @TeamAttachment
     if @turn >= @turns
       pokemon = @team.at(@slot)
       if !pokemon.isFainted()
-        @battle.message "#{@wisherName}'s wish came true!"
+        @battle.cannedText('WISH_END', @wisherName)
         pokemon.heal(@amount)
       @team.unattach(@constructor)
 
@@ -305,11 +305,11 @@ class @Attachment.PerishSong extends @VolatileAttachment
   initialize: ->
     @turns = 4
     @turn = 0
-    @battle.message("All Pokemon hearing the song will faint in three turns!")
+    @battle.cannedText('PERISH_SONG_START')
 
   endTurn: ->
     @turn++
-    @battle.message "#{@pokemon.name}'s perish count fell to #{@turns - @turn}!"
+    @battle.cannedText('PERISH_SONG_CONTINUE', @pokemon, @turns - @turn)
     if @turn >= @turns
       @pokemon.faint()
       @pokemon.unattach(@constructor)
@@ -341,14 +341,14 @@ class @Attachment.Encore extends @VolatileAttachment
   endTurn: ->
     @turn++
     if @turn >= @turns || @pokemon.pp(@move) == 0
-      @battle.message("#{@pokemon.name}'s Encore ended!")
+      @battle.cannedText('ENCORE_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.Torment extends @VolatileAttachment
   name: "TormentAttachment"
 
   initialize: ->
-    @battle.message("#{@pokemon.name} was subjected to torment!")
+    @battle.cannedText('TORMENT_START', @pokemon)
 
   beginTurn: ->
     @pokemon.blockMove(@pokemon.lastMove)  if @pokemon.lastMove?
@@ -364,7 +364,7 @@ class @Attachment.Spikes extends @TeamAttachment
     hp = pokemon.stat('hp')
     damage = Math.floor(hp / fraction)
     if pokemon.damage(damage)
-      @battle.message("#{pokemon.name} is hurt by the spikes!")
+      @battle.cannedText('SPIKES_HURT', pokemon)
 
 class @Attachment.StealthRock extends @TeamAttachment
   name: "StealthRockAttachment"
@@ -374,7 +374,7 @@ class @Attachment.StealthRock extends @TeamAttachment
     hp = pokemon.stat('hp')
     damage = ((hp * multiplier) >> 3)
     if pokemon.damage(damage)
-      @battle.message("Pointed stones dug into #{pokemon.name}!")
+      @battle.cannedText('STEALTH_ROCK_HURT', pokemon)
 
 class @Attachment.ToxicSpikes extends @TeamAttachment
   name: "ToxicSpikesAttachment"
@@ -384,7 +384,7 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
   switchIn: (pokemon) ->
     if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
       name = @battle.getOwner(pokemon)
-      @battle.message "The poison spikes disappeared from around #{name}'s team's feet!"
+      @battle.cannedText('TOXIC_SPIKES_END', @battle.getPlayerIndex(name))
       @team.unattach(@constructor)
 
     return  if pokemon.isImmune("Poison") || pokemon.isImmune("Ground")
@@ -408,12 +408,11 @@ class @Attachment.Trap extends @VolatileAttachment
     # For the first numTurns turns it will damage, and at numTurns + 1 it will wear off.
     # Therefore, if @turns = 5, this attachment should actually last for 6 turns.
     if @turns == 0
-      @battle.message "#{@pokemon.name} was freed from #{@moveName}!"
       @pokemon.unattach(@constructor)
     else
       amount = Math.floor(@pokemon.stat('hp') / @getDamagePerTurn())
       if @pokemon.damage(amount)
-        @battle.message "#{@pokemon.name} is hurt by #{@moveName}!"
+        @battle.cannedText('TRAP_HURT', @pokemon, @moveName)
       @turns -= 1
 
   getDamagePerTurn: ->
@@ -423,6 +422,7 @@ class @Attachment.Trap extends @VolatileAttachment
       16
 
   unattach: ->
+    @battle.cannedText('TRAP_END', @pokemon, @moveName)
     @user.unattach(Attachment.TrapLeash)
     delete @user
 
@@ -654,7 +654,7 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   initialize: (attributes) ->
     {@team} = attributes.source
     @slot = @team.indexOf(attributes.source)
-    @battle.message("#{@pokemon.name} was seeded!")
+    @battle.cannedText('LEECH_SEED_START', @pokemon)
 
   endTurn: ->
     user = @team.at(@slot)
@@ -663,7 +663,7 @@ class @Attachment.LeechSeed extends @VolatileAttachment
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
     if @pokemon.damage(damage)
       user.drain(damage, @pokemon)
-      @battle.message "#{@pokemon.name}'s health is sapped by Leech Seed!"
+      @battle.cannedText('LEECH_SEED_HURT', @pokemon)
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
   name: "ProtectCounterAttachment"
@@ -685,7 +685,7 @@ class @Attachment.Protect extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
-      @battle.message "#{@pokemon.name} protected itself!"
+      @battle.cannedText("PROTECT_CONTINUE", @pokemon)
       return true
 
   endTurn: ->
@@ -721,7 +721,7 @@ class @Attachment.DestinyBond extends @VolatileAttachment
     pokemon = @battle.currentPokemon
     if pokemon? && pokemon.isAlive()
       pokemon.faint()
-      @battle.message "#{@pokemon.name} took its attacker down with it!"
+      @battle.cannedText('DESTINY_BOND_CONTINUE', @pokemon)
 
   beforeMove: (move, user, targets) ->
     @pokemon.unattach(@constructor)
@@ -784,10 +784,10 @@ class @Attachment.Substitute extends @VolatileAttachment
 
     @hp -= damage
     if @hp <= 0
-      @battle.message "#{@pokemon.name}'s substitute faded!"
+      @battle.cannedText('SUBSTITUTE_END', @pokemon)
       @hp = 0
     else
-      @battle.message "The substitute took damage for #{@pokemon.name}!"
+      @battle.cannedText('SUBSTITUTE_HURT', @pokemon)
     return 0
 
   failsOnSub: (move, user) ->
@@ -1017,7 +1017,7 @@ class @Attachment.MagicCoat extends @VolatileAttachment
     return  if user.get(Attachment.MagicCoat)?.bounced
     return  if @bounced
     @bounced = true
-    @battle.message "#{@pokemon.name} bounced the #{move.name} back!"
+    @battle.cannedText('BOUNCE_MOVE', @pokemon, move.name)
     move.execute(@battle, @pokemon, [ user ])
     return true
 
@@ -1030,7 +1030,7 @@ class @Attachment.MagicCoat extends @VolatileAttachment
     for p in @team.getActiveAlivePokemon()
       continue  unless p.has(Attachment.MagicCoat)
       @bounced = true
-      @battle.message "#{p.name} bounced the #{move.name} back!"
+      @battle.cannedText('BOUNCE_MOVE', p, move.name)
       @battle.executeMove(move, p, [ userId ])
       return true
 
@@ -1099,7 +1099,7 @@ class @Attachment.Rampage extends @VolatileAttachment
   endTurn: ->
     @turn++
     if @turn >= @turns
-      @battle.message "#{@pokemon.name} became confused due to fatigue!"
+      @battle.cannedText('FATIGUE', @pokemon)
       @pokemon.attach(Attachment.Confusion)
       @pokemon.unattach(@constructor)
     else
@@ -1118,7 +1118,7 @@ class @Attachment.TrickRoom extends @BattleAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      @battle.message "The twisted dimensions returned to normal!"
+      @battle.cannedText('TRICK_ROOM_END')
       @battle.unattach(@constructor)
 
 class @Attachment.Transform extends @VolatileAttachment
@@ -1333,20 +1333,7 @@ class @StatusAttachment extends @BaseAttachment
   initialize: (attributes = {}) ->
     # We store the source for use in other places, like Sleep Clause.
     {@source} = attributes
-    wasStatused = switch @constructor
-      when Status.Paralyze
-        "was paralyzed"
-      when Status.Freeze
-        "was frozen"
-      when Status.Poison
-        "was poisoned"
-      when Status.Toxic
-        "was badly poisoned"
-      when Status.Sleep
-        "fell asleep"
-      when Status.Burn
-        "was burned"
-    @battle?.message "#{@pokemon.name} #{wasStatused}!"
+    @battle?.cannedText("#{@constructor.name.toUpperCase()}_START", @pokemon)
     @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   @worksOn: (battle, pokemon) ->
@@ -1361,7 +1348,7 @@ class @Status.Paralyze extends @StatusAttachment
 
   beforeMove: (move, user, targets) ->
     if @battle.rng.next('paralyze chance') < .25
-      @battle.message "#{@pokemon.name} is fully paralyzed!"
+      @battle.cannedText('PARALYZE_CONTINUE', @pokemon)
       return false
 
   editSpeed: (stat) ->
@@ -1377,7 +1364,7 @@ class @Status.Freeze extends @StatusAttachment
     if move.thawsUser || @battle.rng.next('unfreeze chance') < .2
       @pokemon.cureStatus()
     else
-      @battle.message "#{@pokemon.name} is frozen solid!"
+      @battle.cannedText('FREEZE_CONTINUE', @pokemon)
       return false
 
   afterBeingHit: (move, user, target) ->
@@ -1393,7 +1380,7 @@ class @Status.Poison extends @StatusAttachment
   endTurn: ->
     return  if @pokemon.hasAbility("Poison Heal")
     if @pokemon.damage(@pokemon.stat('hp') >> 3)
-      @battle.message "#{@pokemon.name} was hurt by poison!"
+      @battle.cannedText('POISON_CONTINUE', @pokemon)
 
 class @Status.Toxic extends @StatusAttachment
   name: "Toxic"
@@ -1412,7 +1399,7 @@ class @Status.Toxic extends @StatusAttachment
     @counter = Math.min(@counter + 1, 15)
     return  if @pokemon.hasAbility("Poison Heal")
     if @pokemon.damage(Math.max(@pokemon.stat('hp') >> 4, 1) * @counter)
-      @battle.message "#{@pokemon.name} was hurt by poison!"
+      @battle.cannedText('POISON_CONTINUE', @pokemon)
 
 class @Status.Sleep extends @StatusAttachment
   name: "Sleep"
@@ -1433,7 +1420,7 @@ class @Status.Sleep extends @StatusAttachment
     if @counter > @turns
       @pokemon.cureStatus()
     else
-      @battle.message "#{@pokemon.name} is fast asleep."
+      @battle.cannedText('SLEEP_CONTINUE', @pokemon)
       return false  unless move.usableWhileAsleep
 
 class @Status.Burn extends @StatusAttachment
@@ -1444,4 +1431,4 @@ class @Status.Burn extends @StatusAttachment
 
   endTurn: ->
     if @pokemon.damage(@pokemon.stat('hp') >> 3)
-      @battle.message "#{@pokemon.name} was hurt by its burn!"
+      @battle.cannedText('BURN_CONTINUE', @pokemon)

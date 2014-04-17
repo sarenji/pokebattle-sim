@@ -378,8 +378,11 @@ class @BattleView extends Backbone.View
           [player, slot] = args.splice(0, 2)
           pokemon = @model.getPokemon(player, slot)
           pokemon.get('name')
+        when 't'
+          [player] = args.splice(0, 1)
+          @model.getTeam(player).owner
         else
-          text = args.splice(0, 1)
+          [text] = args.splice(0, 1)
           text
 
   activateAbility: (player, slot, abilityName, done) =>
