@@ -24,6 +24,25 @@ describe "Sleep Clause", ->
     @team2.at(0).has(Status.Sleep).should.be.false
     @team2.at(1).has(Status.Sleep).should.be.true
 
+  it "prevents Sleep from Yawn", ->
+    conditions = [ Conditions.SLEEP_CLAUSE ]
+    team1 = [ Factory("Magikarp"), Factory("Magikarp") ]
+    team2 = [ Factory("Magikarp"), Factory("Magikarp") ]
+    shared.create.call(this, {conditions, team1, team2})
+
+    yawn = @battle.getMove("Yawn")
+    @battle.performMove(@p1, yawn)
+    @battle.endTurn()
+    @battle.endTurn()
+    @battle.performSwitch(@p2, 1)
+
+    @battle.performMove(@p1, yawn)
+    @battle.endTurn()
+    @battle.endTurn()
+
+    @team2.at(0).has(Status.Sleep).should.be.false
+    @team2.at(1).has(Status.Sleep).should.be.true
+
   it "doesn't prevent other statuses", ->
     conditions = [ Conditions.SLEEP_CLAUSE ]
     team1 = [ Factory("Magikarp"), Factory("Magikarp") ]

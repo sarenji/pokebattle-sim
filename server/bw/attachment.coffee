@@ -200,14 +200,15 @@ class @Attachment.Yawn extends @VolatileAttachment
     {pokemon} = attributes
     return false  if pokemon.hasStatus()
 
-  initialize: ->
+  initialize: (attributes = {}) ->
+    {@source} = attributes
     @turn = 0
     @battle.cannedText('YAWN_BEGIN', @pokemon)
 
   endTurn: ->
     @turn += 1
     if @turn == 2
-      @pokemon.attach(Status.Sleep)
+      @pokemon.attach(Status.Sleep, {@source})
       @pokemon.unattach(@constructor)
 
 # TODO: Does weight get lowered if speed does not change?
