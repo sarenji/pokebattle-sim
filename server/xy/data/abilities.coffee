@@ -128,7 +128,7 @@ makeAbility 'Protean', ->
     return  if user.types.length == 1 && user.types[0] == type
     user.types = [ type ]
     @pokemon.activateAbility()
-    @battle.message "#{user.name} transformed into the #{type} type!"
+    @battle.cannedText('TRANSFORM_TYPE', user, type)
 
 makeAbility 'Stance Change', ->
   this::beforeMove = (move, user, targets) ->

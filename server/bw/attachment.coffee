@@ -244,6 +244,7 @@ class @Attachment.Taunt extends @VolatileAttachment
     @turns = 4
     @turns = 3  if @battle.willMove(@pokemon)
     @turn = 0
+    @battle.cannedText('TAUNT_START', @pokemon)
 
   beginTurn: ->
     for move in @pokemon.moves
@@ -381,10 +382,14 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   maxLayers: 2
 
+  initialize: ->
+    id = @team.playerId
+    @battle.cannedText('TOXIC_SPIKES_START', @battle.getPlayerIndex(id))
+
   switchIn: (pokemon) ->
     if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
-      name = @battle.getOwner(pokemon)
-      @battle.cannedText('TOXIC_SPIKES_END', @battle.getPlayerIndex(name))
+      id = @battle.getOwner(pokemon)
+      @battle.cannedText('TOXIC_SPIKES_END', @battle.getPlayerIndex(id))
       @team.unattach(@constructor)
 
     return  if pokemon.isImmune("Poison") || pokemon.isImmune("Ground")
@@ -499,11 +504,15 @@ class @Attachment.Screen extends @TeamAttachment
   initialize: (attributes) ->
     {user} = attributes
     @turns = (if user?.hasItem("Light Clay") then 8 else 5)
+    @team.tell(Protocol.TEAM_ATTACH, @name)
 
   endTurn: ->
     @turns--
     if @turns == 0
       @team.unattach(@constructor)
+
+  unattach: ->
+    @team.tell(Protocol.TEAM_UNATTACH, @name)
 
 class @Attachment.Reflect extends @Attachment.Screen
   name: "ReflectAttachment"
@@ -683,6 +692,9 @@ class @Attachment.ProtectCounter extends @VolatileAttachment
 class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
 
+  initialize: ->
+    @battle.cannedText("PROTECT_CONTINUE", @pokemon)
+
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
       @battle.cannedText("PROTECT_CONTINUE", @pokemon)
@@ -716,6 +728,9 @@ class @Attachment.DestinyBond extends @VolatileAttachment
   name: "DestinyBondAttachment"
 
   isAliveCheck: -> true
+
+  initialize: ->
+    @battle.cannedText('DESTINY_BOND_START', @pokemon)
 
   afterFaint: ->
     pokemon = @battle.currentPokemon
@@ -1118,8 +1133,10 @@ class @Attachment.TrickRoom extends @BattleAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      @battle.cannedText('TRICK_ROOM_END')
       @battle.unattach(@constructor)
+
+  unattach: ->
+    @battle.cannedText('TRICK_ROOM_END')
 
 class @Attachment.Transform extends @VolatileAttachment
   name: "TransformAttachment"
