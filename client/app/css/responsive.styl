@@ -11,7 +11,7 @@
     margin 0 auto!important
 
   #sections
-    visibility: hidden
+    visibility hidden
 
   #leftmenu
     display block
@@ -37,3 +37,14 @@
 
   #content
     left 0
+
+@media screen and (max-width: 767px)
+  .chat_window
+    .main_buttons
+      width 100%
+    .chat
+      display none
+
+  .battle_window
+    .chat
+      display none

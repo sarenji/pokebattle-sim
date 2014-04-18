@@ -10,8 +10,10 @@ $battle-width = 600px
 $battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
 
-.battle_window .chat
-  left $pane-width
+.battle_window
+  overflow-y auto
+  .chat
+    left $pane-width
 
 .battle
   position absolute
@@ -280,6 +282,8 @@ $pane-width = $battle-width + $padding + $padding
     display block
     float none
     margin 0 0 5px
+    &.hidden
+      display none
 
 .switches
   .button
