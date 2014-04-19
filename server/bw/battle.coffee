@@ -34,7 +34,7 @@ class @Battle extends EventEmitter
       action: (action) ->
         @performMove(action.pokemon, action.move)
 
-  constructor: (@id, players, attributes = {}) ->
+  constructor: (@id, @players, attributes = {}) ->
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
@@ -93,19 +93,15 @@ class @Battle extends EventEmitter
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
 
-    # Maps player id -> alt name.
-    @altMappings = attributes.alts || {}
-
-    # Player ids where the id has been replaced with the alt name
-    @maskedPlayerIds = []
+    # Holds all player names.
+    @playerNames = []
 
     # Populates @playerIds and creates the teams for each player
-    for playerId, team of players
-      maskedName = @altMappings[playerId] || playerId
-      @playerIds.push(playerId)
-      @maskedPlayerIds.push(maskedName)
+    for player in @players
+      @playerIds.push(player.id)
+      @playerNames.push(player.name)
       # TODO: Get the actual player object and use player.name
-      @teams[playerId] = new Team(this, playerId, maskedName, team, @numActive)
+      @teams[player.id] = new Team(this, player.id, player.name, player.team, @numActive)
 
     # Holds battle state information
     @replacing = false
@@ -783,10 +779,9 @@ class @Battle extends EventEmitter
   addSpectator: (spectator) ->
     return  if @spectators.some((s) -> s.id == spectator.id)
     
-    # Mask the spectator with the alt name if relevant
-    altName = @altMappings[spectator.id]
-    if altName
-      spectator = new MaskedUser(spectator, altName)
+    # If this is a player, mask the spectator in case this is an alt
+    player = @players.find((p) -> p.id == spectator.id)
+    spectator = spectator.maskName(player.name)  if player
 
     @spectators.push(spectator)
     index = @getPlayerIndex(spectator.id)
@@ -795,9 +790,10 @@ class @Battle extends EventEmitter
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectateBattle',
       @id, @generation, @numActive,
-      index, @maskedPlayerIds, spectators, @log)
+      index, @playerNames, spectators, @log)
 
-    if spectator.id in @playerIds
+    # If this is a player, send them their own team
+    if player
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     
     # TODO: Only do if spectator id has not joined yet.

@@ -1,3 +1,5 @@
+{_} = require 'underscore'
+
 class @User
   constructor: (args...) ->
     if args.length == 1
@@ -13,7 +15,7 @@ class @User
 
   toJSON: ->
     json = {
-      'id': @id
+      'id': @name
     }
     json['authority'] = @authority  if @authority
     json
@@ -33,13 +35,14 @@ class @User
   close: ->
     @socket?.close()
 
-# A fake user created to mask an alt's identity
-class @MaskedUser extends @User
-  constructor: (original, altName) ->
-    @original = original
-    super(original.id, original.socket, original.connections, altName)
+  # Returns a new user object where the name has been masked (useful for alts)
+  maskName: (name) ->
+    newUser = new User()
 
-  toJSON: ->
-    superJson = super()
-    superJson.id = @name  # conceal the original id
-    superJson
+    # Copy over all properties.
+    for key, value of this
+      newUser[key] = value
+
+    newUser.original = this
+    newUser.name = name
+    return newUser

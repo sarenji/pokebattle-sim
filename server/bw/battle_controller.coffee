@@ -67,9 +67,10 @@ class @BattleController
     @battle.removeSpectator(spectator)
 
   messageSpectators: (user, message) ->
-    # Is this user have an alt? If so use the masked user instead
-    if @battle.altMappings[user.id]
-      user = @battle.spectators.find((s) -> s.id == user.id)
+    # Find the user in the battle just in case its masked
+    # If it doesn't exist, this means its an outside user
+    userInBattle = @battle.spectators.find((s) -> s.id == user.id)
+    user = userInBattle  if userInBattle
 
     for spectator in @battle.spectators
       spectator.send('updateBattleChat', @battle.id, user.name, message)

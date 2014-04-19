@@ -5,14 +5,14 @@ require 'sugar'
 class @BattleQueue
   constructor: ->
     @queue = {}
-    @queuedAlts = {}
     @length = 0
 
-  add: (playerId, team, altName=null) ->
+  # Adds a player to the queue.
+  # "name" can either be the real name, or an alt
+  add: (playerId, name, team) ->
     return false  if !playerId
     return false  if playerId of @queue
-    @queue[playerId] = team
-    @queuedAlts[playerId] = altName
+    @queue[playerId] = {id: playerId, name, team}
     @length += 1
     return true
 
@@ -23,15 +23,8 @@ class @BattleQueue
         delete @queue[playerId]
         @length -= 1
 
-      # TODO: Re-enable when pair players returns the alt as part of the result
-      #if playerId of @queuedAlts
-      #  delete @queuedAlts[playerId]
-
   queuedPlayers: ->
     Object.keys(@queue)
-
-  getAltForPlayer: (playerId) ->
-    @queuedAlts[playerId]
 
   size: ->
     @length
@@ -50,7 +43,7 @@ class @BattleQueue
       # Get the list of players sorted by rating
       for rating, i in ratings
         id = ids[i]
-        sortedPlayers.push([ {playerId: id, team: @queue[id]}, rating ])
+        sortedPlayers.push([@queue[id], rating ])
       sortedPlayers.sort((a, b) -> a[1] - b[1])
       sortedPlayers = sortedPlayers.map((array) -> array[0])
 
@@ -59,13 +52,10 @@ class @BattleQueue
         first = sortedPlayers[i]
         second = sortedPlayers[i + 1]
         continue  unless first && second
-        pair = {}
-        pair[first.playerId] = first.team
-        pair[second.playerId] = second.team
-        pairs.push(pair)
+        pairs.push([first, second])
 
         # Remove paired players from the queue
-        @remove(Object.keys(pair))
+        @remove([first.id, second.id])
 
       # Return the list of paired players
       next(null, pairs)

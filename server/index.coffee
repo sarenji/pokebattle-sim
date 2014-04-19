@@ -185,7 +185,7 @@ alts = require('./alts')
         return
 
       # Note: If altName == null, then isAltOwnedBy will return true
-      alts.isAltOwnedBy playerId, altName, (err, valid) =>
+      alts.isAltOwnedBy user.id, altName, (err, valid) =>
         if not valid
           user.error(errors.FIND_BATTLE, [ "You do not own this alt"])
         else

@@ -375,11 +375,11 @@ describe 'Battle', ->
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->
-      battle = new Battle('id', @players)
+      battle = new Battle('id', [])
       battle.hasStarted().should.be.false
 
     it "returns true if the battle has started", ->
-      battle = new Battle('id', @players)
+      battle = new Battle('id', [])
       battle.begin()
       battle.hasStarted().should.be.true
 

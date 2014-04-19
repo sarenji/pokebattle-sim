@@ -85,7 +85,7 @@ class @BattleServer
       return false
 
     @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {generation, team, conditions}
+    @challenges[player.id][challengeeId] = {generation, team, conditions, challengerName: player.name}
     @users.send(challengeeId, "challenge", player.id, generation, conditions)
     return true
 
@@ -102,9 +102,10 @@ class @BattleServer
       player.error(errors.FIND_BATTLE, err)
       return null
 
-    teams = {}
-    teams[challengerId] = challenge.team
-    teams[player.id] = team
+    teams = [
+      {id: challengerId, name: challenge.challengerName, team: challenge.team}
+      {id: player.id, name: player.name, team: team }
+    ]
 
     id = @createBattle(challenge.generation, teams, challenge.conditions)
     @users.send(player.id, "challengeSuccess", challengerId)
@@ -142,11 +143,15 @@ class @BattleServer
   # Adds the player to the queue. Note that there is no validation on whether altName
   # is correct, so make 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
+    return  if not playerId
+
     if @isLockedDown()
       err = ["The server is locked. No new battles can start at this time."]
     else
       err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-      @queues[generation].add(playerId, team, altName)  if err.length == 0
+      if err.length == 0
+        name = @users.get(playerId)[0]?.name
+        @queues[generation].add(playerId, altName || name, team)
       return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
@@ -166,24 +171,18 @@ class @BattleServer
         # Create a battle for each pair
         battleIds = []
         for pair in pairs
-          # TODO: Either put alts in the pair itself or generate this elsewhere
-          alts = {}
-          for playerId, team of pair
-            alt = queue.getAltForPlayer(playerId)
-            alts[playerId] = alt  if alt
-
-          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS, alts)
+          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
           battleIds.push(id)
         next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, conditions = [], alts={}) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, pair = [], conditions = []) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    playerIds = Object.keys(pair)
+    playerIds = pair.map((user) -> user.id)
     battleId = @generateBattleId(playerIds)
-    battle = new Battle(battleId, pair, conditions: _.clone(conditions), alts: alts)
+    battle = new Battle(battleId, pair, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
     for playerId in playerIds
       # Add users to spectators
