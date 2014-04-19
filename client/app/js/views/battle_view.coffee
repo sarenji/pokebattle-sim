@@ -977,8 +977,11 @@ class @BattleView extends Backbone.View
     done()
 
   continueTurn: (done) =>
+    $battleWindow = @$el.closest('.battle_window')
     @$('.battle_summary').empty().hide()
-    @$el.closest('.battle_window').scrollTop(0)
+    offset = @$('.battle_pane').offset().top + $battleWindow.scrollTop()
+    offset -= $battleWindow.offset().top
+    $battleWindow.scrollTop(offset)
     done()
 
   makeMove: (e) =>
