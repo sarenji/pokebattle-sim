@@ -2095,6 +2095,9 @@ SpriteIds = {
   "Delphox": {
     "default": 655
   },
+  "Diancie": {
+    "default": 719
+  },
   "Diggersby": {
     "default": 660
   },

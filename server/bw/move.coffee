@@ -273,6 +273,7 @@ class @Move
   shouldTriggerSecondary: (battle, user, target) ->
     return false  if !@hasSecondaryEffect()
     return false  if user.hasAbility("Sheer Force")
+    return false  if target.hasAbility("Shield Dust") && @secondaryBoostTarget != 'self'
     return true
 
   triggerSecondaryEffect: (battle, user, target) ->

@@ -104,7 +104,7 @@ makeStatusCureAttackMove = (moveName, status) ->
       if target.has(status) then 2 * @power else @power
 
     @afterSuccessfulHit = (battle, user, target) ->
-      target.cureStatus(status)
+      target.cureStatus(status)  unless user.isFainted()
 
 makeOneHitKOMove = (name) ->
   extendMove name, ->
@@ -227,10 +227,18 @@ makeIdentifyMove = (name, types) ->
         @fail(battle)
         false
 
+makePluckMove = (name) ->
+  extendMove name, ->
+    @afterSuccessfulHit = (battle, user, target) ->
+      item = target.getItem()
+      if user.isAlive() && item?.type == 'berries'
+        item.eat(battle, user)
+        target.removeItem()
+
 makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      return  if user.hasItem() || !target.canLoseItem()
+      return  if user.hasItem() || !target.canLoseItem() || user.isFainted()
       battle.cannedText('THIEF_START', user, target, target.item)
       user.setItem(target.item)
       target.removeItem()
@@ -265,7 +273,7 @@ makeDelayedAttackMove = (name, message) ->
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      return  if target.isFainted() == true
+      return  if target.isFainted() || user.isFainted()
       return  if target.shouldPhase(battle, user) == false
       {team}  = target
       benched = team.getAliveBenchedPokemon()
@@ -461,6 +469,7 @@ extendMove 'Blizzard', ->
     return @accuracy
 
 makeMeanLookMove 'Block'
+makePluckMove 'Bug Bite'
 
 extendMove 'Camouflage', ->
   @use = (battle, user, target) ->
@@ -702,6 +711,7 @@ makeWeatherRecoveryMove 'Morning Sun'
 makeLevelAsDamageMove 'Night Shade'
 makeIdentifyMove("Odor Sleuth", ["Normal", "Fighting"])
 extendWithBoost 'Overheat', 'self', specialAttack: -2
+makePluckMove 'Pluck'
 makeProtectMove 'Protect'
 extendWithBoost 'Psycho Boost', 'self', specialAttack: -2
 makePickDefenseMove 'Psyshock'
@@ -944,13 +954,6 @@ extendMove 'Brine', ->
       2 * @power
     else
       @power
-
-extendMove 'Bug Bite', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    item = target.getItem()
-    if target.isAlive() && item?.type == 'berries'
-      item.eat(battle, user)
-      target.removeItem()
 
 extendMove 'Copycat', ->
   @execute = (battle, user, targets) ->
@@ -1231,7 +1234,7 @@ extendMove 'Judgment', ->
 
 extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
-    if target.hasItem() && target.canLoseItem() && isDirect
+    if user.isAlive() && target.hasItem() && target.canLoseItem() && isDirect
       battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
       target.removeItem()
 

@@ -15,8 +15,10 @@ $battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
 $screen-width = 400px
 
-.battle_window .chat
-  left $pane-width
+.battle_window
+  overflow-y auto
+  .chat
+    left $pane-width
 
 .battle
   position absolute
@@ -49,9 +51,12 @@ $screen-width = 400px
     .pokemon_icons
       margin 0 auto
       width 80px
-      .span6:last-child
-        position relative
-        top 6px
+      .icon_wrapper
+        width 40px
+        float left
+        &:nth-child(even)
+          position relative
+          top 6px
     .left
       bottom 20px
       left 0
@@ -365,6 +370,8 @@ $screen-width = 400px
     display block
     float none
     margin 0 0 5px
+    &.hidden
+      display none
 
 .switches
   .button
