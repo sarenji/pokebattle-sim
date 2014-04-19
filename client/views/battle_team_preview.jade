@@ -19,7 +19,7 @@ mixin displayYourTeam(team, text)
             | Lead
     ul.arrange_team.row-fluid.unstyled
       - yourTeam.pokemon.each(function(pokemon, i) {
-        li.px_40.img-polaroid
+        li.px_40.img-polaroid.arrange_pokemon
           +displayPokemon(pokemon, i)
       - })
 
@@ -41,6 +41,6 @@ mixin displayPokemon(pokemon, i)
   - var yourTeam = teams[yourIndex]
   +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
   if !isSpectating
-    +displayYourTeam(yourTeam, "Drag and rearrange your team:")
+    +displayYourTeam(yourTeam, "Click Pokemon to switch them around:")
   else
     +displayOtherTeam(yourTeam, yourTeam.owner + "'s team:")
