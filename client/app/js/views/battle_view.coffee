@@ -802,6 +802,11 @@ class @BattleView extends Backbone.View
     @model.set('turn', turn)
     done()
 
+  continueTurn: (done) =>
+    @$('.battle_summary').empty().hide()
+    @$('.battle_window').scrollTop(0)
+    done()
+
   makeMove: (e) =>
     $target = $(e.currentTarget)
     moveName = $target.data('move-id')
