@@ -9,7 +9,11 @@ class @BattleView extends Backbone.View
     'click .switch': 'switchPokemon'
     'click .mega-evolve': 'megaEvolve'
     'click .cancel': 'cancelAction'
+
+    # After battle ends
     'click .save-log': 'saveLog'
+    'click .return-to-lobby': 'returnToLobby'
+
     # Team arrangement
     'click .arrange_pokemon' : 'togglePokemonOrSwitch'
     'click .submit_arrangement': 'submitTeamPreview'
@@ -864,7 +868,8 @@ class @BattleView extends Backbone.View
   handleEnd: (battle, end) =>
     @disableButtons()
     @$('.battle_actions').html """
-    <div class="button big save-log">Save Log</div>
+    <div class="button big save-log">Save log</div>
+    <div class="button return-to-lobby block center">Return to lobby</div>
     """
     clearTimeout(@countdownTimersId)
 
@@ -882,6 +887,9 @@ class @BattleView extends Backbone.View
     fileName += ".txt"
     blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
+
+  returnToLobby: =>
+    PokeBattle.navigation.focusLobby()
 
   $pokemon: (player, slot) =>
     if arguments.length == 1
