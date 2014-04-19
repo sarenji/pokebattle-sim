@@ -133,17 +133,22 @@ alts = require('./alts')
     # CHALLENGES #
     ##############
 
-    'challenge': (user, challengeeId, generation, team, conditions) ->
-      server.registerChallenge(user, challengeeId, generation, team, conditions)
+    'challenge': (user, challengeeId, generation, team, conditions, altName) ->
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+        return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
+        server.registerChallenge(user, challengeeId, generation, team, conditions, altName)
 
     'cancelChallenge': (user, challengeeId) ->
       server.cancelChallenge(user, challengeeId)
 
-    'acceptChallenge': (user, challengerId, team) ->
-      battleId = server.acceptChallenge(user, challengerId, team)
-      if battleId
-        lobby.message("""Challenge: <span class="fake_link spectate"
-        data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
+    'acceptChallenge': (user, challengerId, team, altName) ->
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+        return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
+        
+        battleId = server.acceptChallenge(user, challengerId, team, altName)
+        if battleId
+          lobby.message("""Challenge: <span class="fake_link spectate"
+          data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
 
     'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
@@ -185,9 +190,9 @@ alts = require('./alts')
         return
 
       # Note: If altName == null, then isAltOwnedBy will return true
-      alts.isAltOwnedBy user.id, altName, (err, valid) =>
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
         if not valid
-          user.error(errors.FIND_BATTLE, [ "You do not own this alt"])
+          user.error(errors.INVALID_ALT_NAME, "You do not own this alt")
         else
           validationErrors = server.queuePlayer(user.id, team, generation, altName)
           if validationErrors.length > 0

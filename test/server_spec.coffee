@@ -423,6 +423,21 @@ describe 'BattleServer', ->
       server.acceptChallenge(other, "bogus dude", team)
       mock.verify()
 
+    it "overrides the user's name with the alt name in battle", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      team = [ Factory("Magikarp") ]
+      generation = 'xy'
+      conditions = []
+
+      server.join(user)
+      server.join(other)
+      server.registerChallenge(user, other.id, generation, team, conditions, "Bruce Wayne")
+      battleId = server.acceptChallenge(other, user.id, team, "Jason Todd")
+      battle = server.findBattle(battleId)
+      battle.battle.playerNames.should.eql ["Bruce Wayne", "Jason Todd"]
+
   describe "#leave", ->
     it "removes challenges by that player", ->
       server = new BattleServer()

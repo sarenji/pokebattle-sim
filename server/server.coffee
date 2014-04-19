@@ -59,7 +59,7 @@ class @BattleServer
     if @users.remove(player) == 0
       @stopChallenges(player)
 
-  registerChallenge: (player, challengeeId, generation, team, conditions) ->
+  registerChallenge: (player, challengeeId, generation, team, conditions, altName) ->
     if @isLockedDown()
       errorMessage = "The server is locked. No new battles can start at this time."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
@@ -85,11 +85,11 @@ class @BattleServer
       return false
 
     @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {generation, team, conditions, challengerName: player.name}
+    @challenges[player.id][challengeeId] = {generation, team, conditions, challengerName: player.name, altName}
     @users.send(challengeeId, "challenge", player.id, generation, conditions)
     return true
 
-  acceptChallenge: (player, challengerId, team) ->
+  acceptChallenge: (player, challengerId, team, altName) ->
     if !@challenges[challengerId]?[player.id]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
@@ -103,8 +103,8 @@ class @BattleServer
       return null
 
     teams = [
-      {id: challengerId, name: challenge.challengerName, team: challenge.team}
-      {id: player.id, name: player.name, team: team }
+      {id: challengerId, name: challenge.altName || challenge.challengerName, team: challenge.team}
+      {id: player.id, name: altName || player.name, team: team }
     ]
 
     id = @createBattle(challenge.generation, teams, challenge.conditions)
