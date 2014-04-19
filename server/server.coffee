@@ -11,7 +11,7 @@ learnsets = require '../shared/learnsets'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
-alts = require('./alts')
+alts = require './alts'
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
@@ -139,22 +139,15 @@ class @BattleServer
       if @challenges[challengerId][playerId]
         @rejectChallenge(player, challengerId)
 
-  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName, validationCallback) ->
-    startQueuing = =>
-      if @isLockedDown()
-        err = ["The server is locked. No new battles can start at this time."]
-      else
-        err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-        @queues[generation].add(playerId, team, altName)  if err.length == 0
-      
-      validationCallback(err)  if validationCallback
-
-    if altName
-        # In practice, this should always be valid, so don't bother showing error messages
-        alts.isAltOwnedBy playerId, altName, (err, valid) ->
-          startQueuing()  if valid
-      else
-        startQueuing()
+  # Adds the player to the queue. Note that there is no validation on whether altName
+  # is correct, so make 
+  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
+    if @isLockedDown()
+      err = ["The server is locked. No new battles can start at this time."]
+    else
+      err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
+      @queues[generation].add(playerId, team, altName)  if err.length == 0
+      return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
     @queues[generation].queuedPlayers()

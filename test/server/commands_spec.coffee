@@ -9,6 +9,7 @@ auth = require('../../server/auth')
 ratings = require('../../server/ratings')
 {Factory} = require '../factory'
 db = require('../../server/database')
+async = require 'async'
 
 describe "Commands", ->
   beforeEach ->

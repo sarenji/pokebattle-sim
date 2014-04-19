@@ -38,7 +38,9 @@ ALTS_KEY = "alts"
         next(null, true)
 
 # Checks if the user owns a particular alt name.
+# Always returns true if altName is null (meaning no alt)
 @isAltOwnedBy = (userId, altName, next) ->
+  return next(undefined, true)  if not altName
   db.hget ALTS_KEY, altName, (err, assignedUserId) ->
     return next(err)  if err
     next(err, assignedUserId == userId)

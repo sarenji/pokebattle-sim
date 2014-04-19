@@ -65,3 +65,8 @@ describe "Alts", ->
           should.not.exist(err)
           result.should.be.true
           done()
+
+    it 'returns true on null alt name', (done) ->
+      alts.isAltOwnedBy "player1", null, (err, result) ->
+        result.should.be.true
+        done()

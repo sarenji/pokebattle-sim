@@ -2,10 +2,12 @@ class @User
   constructor: (args...) ->
     if args.length == 1
       [ @id ] = args
+      @name = @id
     else if args.length == 2
       [ @socket, @connections ] = args
     else if args.length == 3
       [ @id, @socket, @connections ] = args
+      @name = @id
     else if args.length == 4
       [ @id, @socket, @connections, @name ] = args
 

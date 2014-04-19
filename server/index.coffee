@@ -184,9 +184,14 @@ alts = require('./alts')
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return
 
-      server.queuePlayer user.id, team, generation, altName, (validationErrors) ->
-        if validationErrors.length > 0
-          user.error(errors.FIND_BATTLE, validationErrors)
+      # Note: If altName == null, then isAltOwnedBy will return true
+      alts.isAltOwnedBy playerId, altName, (err, valid) =>
+        if not valid
+          user.error(errors.FIND_BATTLE, [ "You do not own this alt"])
+        else
+          validationErrors = server.queuePlayer(user.id, team, generation, altName)
+          if validationErrors.length > 0
+            user.error(errors.FIND_BATTLE, validationErrors)
 
     'cancelFindBattle': (user, generation) ->
       server.removePlayer(user.id, generation)
