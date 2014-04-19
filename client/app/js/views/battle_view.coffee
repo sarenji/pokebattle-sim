@@ -957,7 +957,7 @@ class @BattleView extends Backbone.View
 
   continueTurn: (done) =>
     @$('.battle_summary').empty().hide()
-    @$('.battle_window').scrollTop(0)
+    @$el.closest('.battle_window').scrollTop(0)
     done()
 
   makeMove: (e) =>
