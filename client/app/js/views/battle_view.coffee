@@ -9,8 +9,10 @@ class @BattleView extends Backbone.View
     'click .switch': 'switchPokemon'
     'click .mega-evolve': 'megaEvolve'
     'click .cancel': 'cancelAction'
-    'click .submit_arrangement': 'submitTeamPreview'
     'click .save-log': 'saveLog'
+    # Team arrangement
+    'click .arrange_pokemon' : 'togglePokemonOrSwitch'
+    'click .submit_arrangement': 'submitTeamPreview'
 
   initialize: =>
     @selected = null
@@ -142,8 +144,24 @@ class @BattleView extends Backbone.View
       isSpectating : @model.get('spectating')
       window       : window
     @$('.battle_container').append @team_preview_template(locals)
-    $arrangeTeam = @$('.arrange_team')
-    $arrangeTeam.sortable()
+
+  togglePokemonOrSwitch: (e) =>
+    $currentTarget = $(e.currentTarget)
+    $activePokemon = @$('.arrange_pokemon.active')
+    if $currentTarget.is('.active')
+      $activePokemon.removeClass('active')
+    else if $activePokemon.length > 0
+      $activePokemon.removeClass('active')
+      @swapElements($currentTarget.get(0), $activePokemon.get(0))
+    else
+      $currentTarget.addClass('active')
+
+  swapElements: (element1, element2) ->
+    [parent1, next1] = [element1.parentNode, element1.nextSibling]
+    [parent2, next2] = [element2.parentNode, element2.nextSibling]
+
+    parent1.insertBefore(element2, next1)
+    parent2.insertBefore(element1, next2)
 
   submitTeamPreview: (e) =>
     $currentTarget = $(e.currentTarget)
