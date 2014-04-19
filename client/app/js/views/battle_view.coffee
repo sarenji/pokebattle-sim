@@ -842,19 +842,22 @@ class @BattleView extends Backbone.View
 
   announceWinner: (player, done) =>
     {owner} = @model.getTeam(player)
-    @chatView.print("<h3>#{owner} won!</h3>")
-    @model.set('finished', true)
-    done()
+    message = "#{owner} won!"
+    @announceWin(message, done)
 
   announceForfeit: (player, done) =>
     {owner} = @model.getTeam(player)
-    @chatView.print("<h3>#{owner} has forfeited!</h3>")
-    @model.set('finished', true)
-    done()
+    message = "#{owner} has forfeited!"
+    @announceWin(message, done)
 
   announceTimer: (player, done) =>
     {owner} = @model.getTeam(player)
-    @chatView.print("<h3>#{owner} was given the timer win!</h3>")
+    message = "#{owner} was given the timer win!"
+    @announceWin(message, done)
+
+  announceWin: (message, done) =>
+    @chatView.print("<h3>#{message}</h3>")
+    @addSummary(message, newline: true)
     @model.set('finished', true)
     done()
 
