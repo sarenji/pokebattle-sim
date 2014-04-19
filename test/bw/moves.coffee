@@ -7270,3 +7270,11 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(gastroAcid).expects('fail').once()
       @battle.performMove(@p1, gastroAcid)
       mock.verify()
+
+  describe "Helping Hand", ->
+    it "fails if there is no target", ->
+      shared.create.call(this)
+      helpingHand = @battle.getMove("Helping Hand")
+      mock = @sandbox.mock(helpingHand).expects('fail').once()
+      @battle.performMove(@p1, helpingHand)
+      mock.verify()

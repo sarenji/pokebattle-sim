@@ -56,10 +56,13 @@ class @Move
   # Only override this method if the move does not need to be
   # recorded on the enemy pokemon.
   execute: (battle, user, targets) ->
-    # TODO: Test the below 3 lines.
-    if targets.length == 0
-      battle.message "But there was no target..."
-      return
+    # If there are no targets, then the move should automatically fail.
+    # For example, Helping Hand may not have a target.
+    return @fail(battle)  if targets.length == 0
+    # If there were targets, but they are all no longer alive, then the engine
+    # outputs a stock message and quits move execution.
+    targets = targets.filter((p) -> p.isAlive())
+    return battle.message("But there was no target...")  if targets.length == 0
 
     targetsHit = []
     totalDamage = 0

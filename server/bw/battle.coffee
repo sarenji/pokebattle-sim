@@ -717,6 +717,9 @@ class @Battle extends EventEmitter
         [ user ]
       when 'user-or-ally'
         [ @rng.choice(team.getActivePokemon()) ]
+      when 'ally'
+        # TODO: Actually get selected Pokemon from client
+        team.getAdjacent(user)
       when 'all-opponents'
         @getOpponents(user)
       when 'selected-pokemon'
@@ -739,7 +742,7 @@ class @Battle extends EventEmitter
       else
         throw new Error("Unimplemented target: #{move.target}.")
     if move.target != 'opponents-field'
-      targets = targets.filter((p) -> p && !p.isFainted())
+      targets = targets.filter((p) -> p)
     return targets
 
   getMove: (moveName) ->
