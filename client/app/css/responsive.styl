@@ -45,6 +45,46 @@
     .chat
       display none
 
+  // Shrink battle window
+  .battle
+    width 420px
+    margin 0 auto
+    right 0
+  .battle_window
+    .battle_container
+      width 400px
+      height 400px
+    .battle_pane
+      left 0
+      top 50px
+    .battle_teams
+      left 50px
+      right @left
+      top 50px
+    .battle_user_info
+      .left
+        bottom 0
+      .right
+        top 0
+      .left, .right
+        width 100%
+        left 0
+        .battle-timer
+          display inline-block
+          margin-right 10px
+        .pokemon_icons
+          display inline-block
+          vertical-align bottom
+          width auto
+          position relative
+          top -4px
+          .icon_wrapper:nth-child(even)
+            top 0
+    .moves.span8, .switches.span4
+      width 100%
+      margin-left 0
+
+@media screen and (max-width: 980px)
   .battle_window
     .chat
       display none
