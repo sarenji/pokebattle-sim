@@ -21,7 +21,7 @@ table.table.table-hover.table-moves
       th Type
       th Cat.
       th Power
-      th Acc.
+      th.acc Acc.
       th.pp PP
       th.description Description
   tbody
@@ -34,6 +34,6 @@ table.table.table-hover.table-moves
           - var damageFriendly = move.damage[0].toUpperCase() + move.damage.substr(1)
           img(src=window.CategorySprite(move.damage), alt=damageFriendly)
         td= (move.power == 0) ? "-" : move.power
-        td= (move.accuracy == 0) ? "-" : move.accuracy + '%'
+        td.acc= (move.accuracy == 0) ? "-" : move.accuracy + '%'
         td.pp= move.pp
         td.description Description will go here

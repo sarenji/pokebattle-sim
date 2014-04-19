@@ -400,6 +400,11 @@ textarea.imported-team, textarea.exported-team
   .table-moves .description
     display none
 
+  // Make selected moves take up the entire row
+  .teambuilder .selected_moves .span3
+    width 100%
+    margin-left 0
+
 @media screen and (max-width: 800px)
   // Move side navigation to above
   .teambuilder .navigation li, teambuilder .navigation .nav-button
@@ -450,6 +455,7 @@ textarea.imported-team, textarea.exported-team
   .teambuilder .ev-range-cell
     display none
 
-  // Hide pp cell
-  .table-moves .pp
-    display none
+  // Hide pp and acc cells
+  .table-moves
+    .pp, .acc
+      display none
