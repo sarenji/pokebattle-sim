@@ -12,6 +12,11 @@ class @BattleController
   getPlayerIds: ->
     @battle.playerIds
 
+  # Returns all the names of players participating in this battle. 
+  # These names may be masked by alts
+  getPlayerNames: ->
+    @battle.playerNames
+
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
   makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->

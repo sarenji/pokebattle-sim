@@ -178,8 +178,8 @@ alts = require('./alts')
       currentTime = Date.now()
       battleMetadata = ([
           controller.battle.id,
-          controller.battle.playerIds[0],
-          controller.battle.playerIds[1],
+          controller.battle.playerNames[0],
+          controller.battle.playerNames[1],
           currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
@@ -265,7 +265,7 @@ alts = require('./alts')
       if err then return
       for id in battleIds
         battle = server.findBattle(id)
-        playerNames = battle.getPlayerIds()
+        playerNames = battle.getPlayerNames()
         message = """Ladder match: <span class="fake_link spectate"
         data-battle-id="#{id}">#{playerNames.join(" vs. ")}</span>!"""
         lobby.message(message)
