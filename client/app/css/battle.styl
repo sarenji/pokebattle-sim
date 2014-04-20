@@ -109,14 +109,16 @@ $screen-width = 400px
       left 0
       right 0
       bottom 0
-      &.rain
-        background rgba(0, 48, 196, .3)
-      &.hail
-        background rgba(128, 255, 255, .3)
-      &.sand
-        background rgba(128, 64, 0, .3)
-      &.sun
-        background rgba(255, 196, 64, .3)
+      &.weather
+        opacity 0
+        &.rain
+          background rgba(0, 48, 196, .3)
+        &.hail
+          background rgba(128, 255, 255, .3)
+        &.sand
+          background rgba(128, 64, 0, .3)
+        &.sun
+          background rgba(255, 196, 64, .3)
 
   .battle_pane
     position      absolute

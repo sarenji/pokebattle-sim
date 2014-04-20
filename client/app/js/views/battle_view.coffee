@@ -436,7 +436,7 @@ class @BattleView extends Backbone.View
 
   changeWeather: (newWeather, done) =>
     $overlays = @$('.battle_overlays')
-    $overlays.find('.weather').animate(opacity: 0, 500, -> $(this).remove())
+    $overlays.find('.weather').transition(opacity: 0, 500, -> $(this).remove())
     $weather = switch newWeather
       when Weather.RAIN
         $overlays.append($("<div/>").addClass("battle_overlay weather rain"))
@@ -447,7 +447,7 @@ class @BattleView extends Backbone.View
       when Weather.HAIL
         $overlays.append($("<div/>").addClass("battle_overlay weather hail"))
       else $()
-    $weather.css(opacity: 0).animate(opacity: 1, 500)
+    $weather.transition(opacity: 1, 500)
     done()
 
   attachPokemon: (player, slot, attachment, done) =>
