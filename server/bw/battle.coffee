@@ -797,7 +797,7 @@ class @Battle extends EventEmitter
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
     
     # TODO: Only do if spectator id has not joined yet.
-    @broadcast('joinBattle', @id, spectator.name)
+    @broadcast('joinBattle', @id, spectator)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
