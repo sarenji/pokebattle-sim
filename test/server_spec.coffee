@@ -38,11 +38,6 @@ describe 'BattleServer', ->
       server.queuePlayer("derp", [ Factory("Magikarp") ])
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
-    it "does not queue null players", ->
-      server = new BattleServer()
-      server.queuePlayer(null, [ Factory("Magikarp") ])
-      server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
-
     it "does not queue players already queued", ->
       server = new BattleServer()
       server.queuePlayer("derp", [ Factory("Magikarp") ])

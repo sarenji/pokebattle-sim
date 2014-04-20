@@ -143,8 +143,6 @@ class @BattleServer
   # Adds the player to the queue. Note that there is no validation on whether altName
   # is correct, so make 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
-    return  if not playerId
-
     if @isLockedDown()
       err = ["The server is locked. No new battles can start at this time."]
     else
