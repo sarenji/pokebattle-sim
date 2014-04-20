@@ -1,3 +1,5 @@
-- userList.each(function(user) {
-  li.fake_link.open_pm(data-user-id=user.id)= user.getDisplayName()
-- })
+for user in userList
+  if user.isAlt()
+    li= user.getDisplayName()
+  else
+    li.fake_link.open_pm(data-user-id=user.id)= user.getDisplayName()

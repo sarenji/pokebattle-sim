@@ -37,12 +37,18 @@ class @User
 
   # Returns a new user object where the name has been masked (useful for alts)
   maskName: (name) ->
-    newUser = new User()
+    return this  if name == @name
 
     # Copy over all properties.
+    newUser = new User()
+    newUser.original = this
     for key, value of this
       newUser[key] = value
 
-    newUser.original = this
+    newUser.toJSON = ->
+      json = @original.toJSON.apply(this, arguments)
+      json.isAlt = true
+      json
+
     newUser.name = name
     return newUser
