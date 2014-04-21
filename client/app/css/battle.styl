@@ -284,42 +284,9 @@ $screen-width = 400px
     width 64px
     height @width
     pointer-events none
-    &.normal
-      create-projectile($normal)
-    &.fire
-      create-projectile($fire)
-    &.water
-      create-projectile($water)
-    &.electric
-      create-projectile($electric)
-    &.grass
-      create-projectile($grass)
-    &.ice
-      create-projectile($ice)
-    &.fighting
-      create-projectile($fighting)
-    &.poison
-      create-projectile($poison)
-    &.ground
-      create-projectile($ground)
-    &.flying
-      create-projectile($flying)
-    &.psychic
-      create-projectile($psychic)
-    &.bug
-      create-projectile($bug)
-    &.rock
-      create-projectile($rock)
-    &.ghost
-      create-projectile($ghost)
-    &.dragon
-      create-projectile($dragon)
-    &.dark
-      create-projectile($dark)
-    &.steel
-      create-projectile($steel)
-    &.fairy
-      create-projectile($fairy)
+    for $array in $types
+      &.{$array[0]}
+        create-projectile($array[1])
 
   .battle_summary
     position absolute
