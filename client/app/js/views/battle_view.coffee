@@ -355,7 +355,10 @@ class @BattleView extends Backbone.View
         .transition(x: 16, 250, 'easeInOutSine')
         .transition(x: 0, 125, 'easeInOutSine', done)
 
-  cannedText: (cannedInteger, args, done) =>
+  cannedText: (cannedString, args...) =>
+    @parseCannedText(CannedText[cannedString], args, ->)
+
+  parseCannedText: (cannedInteger, args, done) =>
     cannedTextName = CannedMapReverse[cannedInteger]
     cannedText = @getCannedText(cannedTextName, args)
     @addLog(cannedText)
@@ -365,13 +368,14 @@ class @BattleView extends Backbone.View
   # For example, misses require a delay, and also prints to the battle pane.
   actOnCannedText: (cannedTextName, cannedText, done) =>
     switch cannedTextName
-      when 'MOVE_MISS', 'MOVE_FAIL', 'IMMUNITY'
+      when 'MOVE_MISS', 'JUMP_KICK_MISS', 'MOVE_FAIL', 'IMMUNITY'
         @addSummary(cannedText)
         setTimeout(done, 500)
       when 'CRITICAL_HIT', 'SUPER_EFFECTIVE', 'NOT_VERY_EFFECTIVE'
         @addSummary(cannedText)
         done()
       else
+        @addSummary(cannedText, newline: true)
         done()
 
   getCannedText: (cannedTextName, args) =>
@@ -481,6 +485,9 @@ class @BattleView extends Backbone.View
         @addPokemonEffect($pokemon, "confusion", "Confusion")
         @addLog("#{pokemon.get('name')} became confused!")
         done()
+      when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
+        @cannedText('PROTECT_CONTINUE', player, slot)
+        @attachScreen(player, slot, 'pink', 0, done)
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
         @addLog("#{pokemon.get('name')} floats in the air with its Air Balloon!")
@@ -612,10 +619,38 @@ class @BattleView extends Backbone.View
             .delay(1000).animate(opacity: .2)
           $battlePane.prepend($div)
           setTimeout(done, 500)
+      when "ReflectAttachment"
+        @cannedText('REFLECT_START', player)
+        @attachScreen(player, 'blue', 10, done)
+      when "LightScreenAttachment"
+        @cannedText('LIGHT_SCREEN_START', player)
+        @attachScreen(player, 'yellow', 5, done)
       else
         done()
 
   attachBattle: (attachment, done) =>
+    done()
+
+  attachScreen: (player, slot, klass, offset, done=->) =>
+    if arguments.length == 4
+      [slot, klass, offset, done] = [null, slot, klass, offset]
+    finalSize = 100
+    halfSize = (finalSize >> 1)
+    $screen = $("<div/>").addClass("team-screen #{klass} field-#{player}")
+    $screen.addClass("slot-#{slot}")  if slot
+    [x, y] = @getPokemonPosition(player, 0)
+    x += offset
+    y += offset
+    $screen.css(left: x, top: y).appendTo(@$('.battle_pane'))
+    $screen
+      .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
+      .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic', done)
+
+  unattachScreen: (player, slot, klass, done=->) =>
+    selector = ".team-screen.#{klass}.field-#{player}"
+    selector += ".slot-#{slot}"  if slot
+    $selector = @$(selector)
+    $selector.fadeOut(500, -> $selector.remove())
     done()
 
   boost: (player, slot, deltaBoosts, done) =>
@@ -697,6 +732,8 @@ class @BattleView extends Backbone.View
           $substitute.transition y: 300, opacity: 0, ->
             $substitute.remove()
             done()
+      when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
+        @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
         @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
@@ -776,6 +813,12 @@ class @BattleView extends Backbone.View
       when "StickyWebAttachment"
         $battlePane.find(".field-#{player}.team-sticky-web").remove()
         done()
+      when 'ReflectAttachment'
+        @cannedText('REFLECT_END', player)
+        @unattachScreen(player, 'blue', done)
+      when 'LightScreenAttachment'
+        @cannedText('LIGHT_SCREEN_END', player)
+        @unattachScreen(player, 'yellow', done)
       else
         done()
 
@@ -931,7 +974,7 @@ class @BattleView extends Backbone.View
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
-    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!", newline: true)
+    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!", newline: true, big: true)
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -944,6 +987,7 @@ class @BattleView extends Backbone.View
     if $p.length == 0 || $p.is('.newline') || options.newline
       $p = $("<p/>").html(message).hide()
       $p.addClass('newline')  if options.newline
+      $p.addClass('big')  if options.big
       $p.appendTo($summary)
     else
       html = $p.html()

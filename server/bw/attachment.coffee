@@ -505,7 +505,6 @@ class @Attachment.Screen extends @TeamAttachment
   initialize: (attributes) ->
     {user} = attributes
     @turns = (if user?.hasItem("Light Clay") then 8 else 5)
-    @team.tell(Protocol.TEAM_ATTACH, @name)
 
   endTurn: ->
     @turns--
@@ -694,7 +693,7 @@ class @Attachment.Protect extends @VolatileAttachment
   name: "ProtectAttachment"
 
   initialize: ->
-    @battle.cannedText("PROTECT_CONTINUE", @pokemon)
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
@@ -703,6 +702,9 @@ class @Attachment.Protect extends @VolatileAttachment
 
   endTurn: ->
     @pokemon.unattach(@constructor)
+
+  unattach: ->
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
 
 class @Attachment.Endure extends @VolatileAttachment
   name: "EndureAttachment"

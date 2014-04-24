@@ -89,6 +89,11 @@ CannedText =
       TRANSFORM_INTO: '$p transformed into $p!'
       TRANSFORM_TYPE: "$p transformed into the $y type!"
       ACQUIRE_ABILITY: "$p acquired $a!"
+      REFLECT_START: "Reflect raised $t's team defense!"
+      LIGHT_SCREEN_START: "Light Screen raised $t's team special defense!"
+      REFLECT_END: "Reflect wore off!"
+      LIGHT_SCREEN_END: "Light Screen wore off!"
+      STICKY_WEB_CONTINUE: "$p was caught in a sticky web!"
 
 cannedMap = {}
 cannedMapReverse = {}
