@@ -859,6 +859,10 @@ class @BattleView extends Backbone.View
     message = "#{owner} was given the timer win!"
     @announceWin(message, done)
 
+  announceExpiration: (done) =>
+    message = "The battle expired!"
+    @announceWin(message, done)
+
   announceWin: (message, done) =>
     @chatView.print("<h3>#{message}</h3>")
     @addSummary(message, newline: true)

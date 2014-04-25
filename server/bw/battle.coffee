@@ -104,9 +104,12 @@ class @Battle extends EventEmitter
 
     @once 'end', (winnerId) ->
       @finished = true
+      @setExpiration()
 
     # Store when the battle was created
     @createdAt = Date.now()
+
+    @setExpiration()
 
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
@@ -810,6 +813,24 @@ class @Battle extends EventEmitter
     @tell(Protocol.FORFEIT_BATTLE, index)
     winnerId = @playerIds[1 - index]
     @emit('end', winnerId)
+
+  expire: ->
+    return  if @expired
+    @expired = true
+    @tell(Protocol.BATTLE_EXPIRED)
+    @emit('end')  if !@finished
+
+  setExpiration: ->
+    clearTimeout(@expirationId)  if @expirationId
+    @expirationId = setTimeout((=> @expire()  unless @expired), @getTTL())
+
+  getTTL: ->
+    if @isOver()
+      # 48 hours
+      48 * 60 * 60 * 1000
+    else
+      # 24 hours
+      24 * 60 * 60 * 1000
 
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->

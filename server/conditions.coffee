@@ -131,6 +131,7 @@ createCondition Conditions.UNRELEASED_BAN,
 createCondition Conditions.RATED_BATTLE,
   attach:
     end: (winnerId) ->
+      return  if !winnerId
       index = @getPlayerIndex(winnerId)
       loserId = @playerIds[1 - index]
       ratings = require './ratings'
