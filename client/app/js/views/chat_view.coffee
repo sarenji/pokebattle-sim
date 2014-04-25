@@ -16,6 +16,8 @@ class @ChatView extends Backbone.View
     @chatEvent ||= "sendChat"
     @chatArgs ||= []
     @listenTo(@collection, 'add remove reset', @renderUserList)
+    @listenTo(@collection, 'add', @userJoin)
+    @listenTo(@collection, 'remove', @userLeave)
     @chatHistory = []
     @mostRecentNames = []
     @tabCompleteIndex = -1
@@ -131,6 +133,12 @@ class @ChatView extends Backbone.View
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
     @mostRecentNames.shift()  if @mostRecentNames.length > MAX_USERNAME_HISTORY
+
+  userJoin: (user) =>
+    @updateChat("#{user.id} joined!")
+
+  userLeave: (user) =>
+    @updateChat("#{user.id} left!")
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()
