@@ -73,6 +73,7 @@ class @BattleView extends Backbone.View
     @chatView = new ChatView(
       el: @$('.chat')
       collection: @model.spectators
+      noisy: true
       chatEvent: 'sendBattleChat'
       chatArgs: [ @model.id ]
     ).render().renderUserList()

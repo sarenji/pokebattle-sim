@@ -57,6 +57,9 @@ class @BattleServer
   leave: (player) ->
     if @users.remove(player) == 0
       @stopChallenges(player)
+      for battleId of @userBattles[player.id]
+        battle = @battles[battleId]
+        battle.removeSpectator(player)
 
   registerChallenge: (player, challengeeId, generation, team, conditions) ->
     if @isLockedDown()

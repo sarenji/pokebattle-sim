@@ -94,7 +94,7 @@ db = require('./database')
       if lobby.removeUser(user) == 0  # No more connections.
         user.broadcast('leaveChatroom', user.id)
         connections.trigger(user, "cancelFindBattle")
-        # TODO: Remove from battles as well
+
 
     ####################
     # PRIVATE MESSAGES #
