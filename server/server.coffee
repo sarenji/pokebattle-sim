@@ -1,5 +1,6 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
+Limiter = require 'ratelimiter'
 
 {User} = require('./user')
 {BattleQueue} = require './queue'
@@ -11,6 +12,7 @@ learnsets = require '../shared/learnsets'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
+db = require('./database')
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
@@ -41,6 +43,9 @@ class @BattleServer
     # A hash mapping ids to users
     @users = new SocketHash()
 
+    # A hash mapping ids to a hash of limiters.
+    @limiters = {}
+
     @rooms = []
 
     # Battles can start.
@@ -48,18 +53,34 @@ class @BattleServer
 
   join: (player) ->
     @users.add(player)
+    @showTopic(player)
+    @limiters[player.id] ?= {}
     for battleId of @userBattles[player.id]
       battle = @battles[battleId]
       battle.addSpectator(player)
       battle.sendRequestTo(player.id)
       battle.sendUpdates()
 
+  showTopic: (player) ->
+    db.hget "topic", "main", (err, topic) ->
+      player.send('topic', topic)  if topic
+
   leave: (player) ->
     if @users.remove(player) == 0
       @stopChallenges(player)
+      delete @limiters[player.id]
       for battleId of @userBattles[player.id]
         battle = @battles[battleId]
         battle.removeSpectator(player)
+
+  limit: (player, kind, options, next) ->
+    attributes =
+      max: options.max
+      duration: options.duration
+      id: player.id
+      db: db
+    @limiters[player.id][kind] ?= new Limiter(attributes)
+    @limiters[player.id][kind].get(next)
 
   registerChallenge: (player, challengeeId, generation, team, conditions) ->
     if @isLockedDown()
@@ -239,7 +260,7 @@ class @BattleServer
       if ttl == -2
         room.userMessage(user, message)
       else
-        # is muted
+        user.message("You are muted for another #{ttl} seconds!")
 
   setAuthority: (user, newAuthority) ->
     if user instanceof User
