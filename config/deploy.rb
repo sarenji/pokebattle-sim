@@ -21,14 +21,5 @@ set :app_command, "start.js"
 role :web, "sim.pokebattle.com"
 role :app, "sim.pokebattle.com"
 
-namespace :sim do
-  desc "compiles all assets"
-  task :compile do
-    run "cd #{release_path} && grunt concurrent:compile"
-  end
-end
-
-after "node:install_packages", "sim:compile"
-
 # clean up old releases on each deploy
 after "deploy", "deploy:cleanup"

@@ -114,6 +114,8 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.TIMER_WIN
           [winner] = rest
           view.announceTimer(winner, done)
+        when Protocol.BATTLE_EXPIRED
+          view.announceExpiration(done)
         when Protocol.UPDATE_TIMERS
           timers = rest
           view.updateTimers(timers, done)

@@ -4,9 +4,9 @@ html
     meta(http-equiv="X-UA-Compatible", content="IE=Edge")
     meta(name="viewport", content="width=device-width")
     title PokeBattle
-    link(rel="icon", type="image/png", href="http://s3.pokebattle.com/img/favicon.png")
-    link(rel="stylesheet", href="/css/vendor.min.css")
-    link(rel="stylesheet", href="/css/main.css")
+    link(rel="icon", type="image/png", href="//s3.pokebattle.com/img/favicon.png")
+    link(rel="stylesheet", href=asset_path("css/vendor.css"))
+    link(rel="stylesheet", href=asset_path("css/main.css"))
   body
     .loading-container
       .loading-message Loading...
@@ -50,10 +50,10 @@ html
         #teambuilder-section.window.hidden
         #battle-list-section.window.hidden
     #messages
-    script(src='/js/data.js')
-    script(src='/js/vendor.js')
-    script(src='/js/templates.js')
-    script(src='/js/app.js')
+    script(src=asset_path('js/data.js'))
+    script(src=asset_path('js/vendor.js'))
+    script(src=asset_path('js/templates.js'))
+    script(src=asset_path('js/app.js'))
     script.
       // quicker click response on mobile devices
       $(document).ready(function() {
