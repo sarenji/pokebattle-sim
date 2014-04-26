@@ -10,6 +10,7 @@ auth = require('./auth')
 generations = require './generations'
 {Room} = require('./rooms')
 errors = require '../shared/errors'
+assets = require('../assets')
 
 @createServer = (port) ->
   app = express()
@@ -26,6 +27,9 @@ errors = require '../shared/errors'
   app.use(express.methodOverride())
   app.use(app.router)
   app.use(express.static(path.join(__dirname, "../public")))
+
+  # Helpers
+  app.locals.asset_path = assets.getAbsolute
 
   # Routing
   renderHomepage = (req, res) ->

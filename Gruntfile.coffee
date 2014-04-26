@@ -1,7 +1,7 @@
 {exec} = require('child_process')
-crypto = require('crypto')
-fs = require('fs')
 path = require('path')
+
+assets = require('./assets')
 
 # asset paths (note: without public/ in front)
 assetPaths = '''
@@ -123,12 +123,9 @@ module.exports = (grunt) ->
         cwd: "public/"
         expand: true
         src: assetPaths
-        dest: 'sim/'
+        dest: assets.S3_ASSET_PREFIX
         rename: (dest, src) ->
-          contents = fs.readFileSync("public/#{src}")
-          hash = crypto.createHash('md5').update(contents).digest('hex')
-          extName = path.extname(src)
-          "#{dest}#{src[0...-extName.length]}-#{hash}#{extName}"
+          assets.get(src)
 
   grunt.loadNpmTasks('grunt-contrib-jade')
   grunt.loadNpmTasks('grunt-contrib-stylus')
@@ -149,7 +146,6 @@ module.exports = (grunt) ->
     exec(cmd, this.async())
 
   grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
-    fs = require('fs')
     {GenerationJSON} = require './server/generations'
     EventPokemon = require './shared/event_pokemon.json'
     contents = """var Generations = #{JSON.stringify(GenerationJSON)};
