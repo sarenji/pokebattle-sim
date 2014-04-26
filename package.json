@@ -25,7 +25,8 @@
     "grunt-contrib-cssmin": "~0.6.2",
     "restify": "~2.6.1",
     "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz",
-    "ratelimiter": "~1.0.1"
+    "ratelimiter": "~1.0.1",
+    "grunt-aws": "~0.3.0"
   },
   "devDependencies": {
     "should": "~1.2.x",

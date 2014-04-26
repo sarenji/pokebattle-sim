@@ -1,4 +1,19 @@
 {exec} = require('child_process')
+crypto = require('crypto')
+fs = require('fs')
+path = require('path')
+
+# asset paths (note: without public/ in front)
+assetPaths = '''
+js/data.js
+js/vendor.js
+js/templates.js
+js/app.js
+css/main.css
+css/vendor.css
+'''.trim().split(/\s+/)
+# Transform them using proper slashes
+assetPaths = assetPaths.map (assetPath) -> assetPath.split('/').join(path.sep)
 
 module.exports = (grunt) ->
   grunt.initConfig
@@ -15,8 +30,8 @@ module.exports = (grunt) ->
           client: true
           compileDebug: false
           processName: (fileName) ->
-            path = 'client/views/'
-            index = fileName.lastIndexOf(path) + path.length
+            templatePath = 'client/views/'
+            index = fileName.lastIndexOf(templatePath) + templatePath.length
             fileName = fileName.substr(index)
             fileName.substr(0, fileName.indexOf('.'))
         files:
@@ -42,7 +57,7 @@ module.exports = (grunt) ->
     cssmin:
       combine:
         files:
-          'public/css/vendor.min.css' : [
+          'public/css/vendor.css' : [
             'client/vendor/css/**/*.css'
           ]
     concat:
@@ -97,6 +112,23 @@ module.exports = (grunt) ->
             'Gemfile.lock'
             'dump.rdb'
           ]
+    aws: grunt.file.readJSON("aws_config.json")
+    s3:
+      options:
+        accessKeyId: "<%= aws.accessKeyId %>"
+        secretAccessKey: "<%= aws.secretAccessKey %>"
+        bucket: "s3.pokebattle.com"
+        region: 'us-west-2'
+      build:
+        cwd: "public/"
+        expand: true
+        src: assetPaths
+        dest: 'sim/'
+        rename: (dest, src) ->
+          contents = fs.readFileSync("public/#{src}")
+          hash = crypto.createHash('md5').update(contents).digest('hex')
+          extName = path.extname(src)
+          "#{dest}#{src[0...-extName.length]}-#{hash}#{extName}"
 
   grunt.loadNpmTasks('grunt-contrib-jade')
   grunt.loadNpmTasks('grunt-contrib-stylus')
@@ -107,6 +139,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
   grunt.loadNpmTasks('grunt-external-daemon')
+  grunt.loadNpmTasks('grunt-aws')
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('heroku:development', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
@@ -122,3 +155,6 @@ module.exports = (grunt) ->
     contents = """var Generations = #{JSON.stringify(GenerationJSON)};
     var EventPokemon = #{JSON.stringify(EventPokemon)}"""
     grunt.file.write('./public/js/data.js', contents)
+
+  grunt.registerTask 'assets:deploy', 'Compiles and uploads all assets', ->
+    grunt.task.run(['concurrent:compile', 's3:build'])
