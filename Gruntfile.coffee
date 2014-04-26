@@ -76,6 +76,11 @@ module.exports = (grunt) ->
         ]
     external_daemon:
       cmd: "redis-server"
+    exec:
+      capistrano:
+        cmd: 'bundle && bundle exec cap deploy'
+      scrape:
+        cmd: ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
     watch:
       templates:
         files: ['client/views/**/*.jade']
@@ -142,13 +147,12 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-concurrent')
   grunt.loadNpmTasks('grunt-external-daemon')
   grunt.loadNpmTasks('grunt-aws')
+  grunt.loadNpmTasks('grunt-exec')
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('heroku:development', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
 
-  grunt.registerTask 'scrape:pokemon', 'Scrape pokemon data from Veekun', ->
-    cmd = ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
-    exec(cmd, this.async())
+  grunt.registerTask('scrape:pokemon', 'exec:scrape')
 
   grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
     {GenerationJSON} = require './server/generations'
@@ -157,5 +161,9 @@ module.exports = (grunt) ->
     var EventPokemon = #{JSON.stringify(EventPokemon)}"""
     grunt.file.write('./public/js/data.js', contents)
 
-  grunt.registerTask 'assets:deploy', 'Compiles and uploads all assets', ->
+  grunt.registerTask 'deploy:assets', 'Compiles and uploads all assets', ->
     grunt.task.run(['concurrent:compile', 's3:build'])
+
+  grunt.registerTask('deploy:server', 'exec:capistrano')
+
+  grunt.registerTask('deploy', ['deploy:assets', 'deploy:server'])
