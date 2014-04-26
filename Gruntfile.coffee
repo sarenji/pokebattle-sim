@@ -16,6 +16,11 @@ css/vendor.css
 assetPaths = assetPaths.map (assetPath) -> assetPath.split('/').join(path.sep)
 
 module.exports = (grunt) ->
+  awsConfigPath = 'aws_config.json'
+  if !grunt.file.exists(awsConfigPath)
+    grunt.file.copy("#{awsConfigPath}.example", awsConfigPath)
+  awsJSON = grunt.file.readJSON(awsConfigPath)
+
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     concurrent:
@@ -112,7 +117,7 @@ module.exports = (grunt) ->
             'Gemfile.lock'
             'dump.rdb'
           ]
-    aws: grunt.file.readJSON("aws_config.json")
+    aws: awsJSON
     s3:
       options:
         accessKeyId: "<%= aws.accessKeyId %>"
