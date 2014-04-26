@@ -129,17 +129,17 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
-    @updateChat("<b>#{username}:</b> #{@sanitize(message)}")
+    @updateChat("#{@timestamp()} <b>#{username}:</b> #{@sanitize(message)}")
 
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
     @mostRecentNames.shift()  if @mostRecentNames.length > MAX_USERNAME_HISTORY
 
   userJoin: (user) =>
-    @updateChat("#{user.id} joined!")
+    @updateChat("#{@timestamp()} #{user.id} joined!")
 
   userLeave: (user) =>
-    @updateChat("#{user.id} left!")
+    @updateChat("#{@timestamp()} #{user.id} left!")
 
   updateChat: (message) =>
     wasAtBottom = @isAtBottom()
@@ -148,6 +148,16 @@ class @ChatView extends Backbone.View
 
   print: (message) =>
     @$('.messages').append(message)
+
+  timestamp: =>
+    date = new Date()
+    hours = date.getHours()
+    minutes = date.getMinutes()
+    seconds = date.getSeconds()
+
+    minutes = "00#{minutes}".substr(-2)
+    seconds = "00#{seconds}".substr(-2)
+    "[#{hours}:#{minutes}:#{seconds}]"
 
   # Escapes all HTML, but also converts links to clickable links.
   sanitize: (message) =>
