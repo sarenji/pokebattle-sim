@@ -44,12 +44,12 @@ CannedText =
       TAILWIND_END: "The tailwind petered out!"
       ENCORE_END: "$p's Encore ended!"
       TORMENT_START: "$p was subjected to Torment!"
-      SPIKES_START: "Spikes were scattered all around $t's team's feet!"
+      SPIKES_START: "Spikes were scattered all around $ts's feet!"
       SPIKES_HURT: "$p is hurt by the spikes!"
-      STEALTH_ROCK_START: "Pointed stones float in the air around $t's team!"
+      STEALTH_ROCK_START: "Pointed stones float in the air around $ts!"
       STEALTH_ROCK_HURT: "$p is hurt by the spikes!"
-      TOXIC_SPIKES_START: "Poison spikes were scattered all around $t's team's feet!"
-      TOXIC_SPIKES_END: "The poison spikes disappeared from around $t's team's feet!"
+      TOXIC_SPIKES_START: "Poison spikes were scattered all around $ts's feet!"
+      TOXIC_SPIKES_END: "The poison spikes disappeared from around $ts's feet!"
       TRAP_HURT: "$p is hurt by $m!"
       TRAP_END: "$p was freed from $m!"
       LEECH_SEED_START: "$p was seeded!"
@@ -89,6 +89,11 @@ CannedText =
       TRANSFORM_INTO: '$p transformed into $p!'
       TRANSFORM_TYPE: "$p transformed into the $y type!"
       ACQUIRE_ABILITY: "$p acquired $a!"
+      REFLECT_START: "Reflect raised $ts's defense!"
+      LIGHT_SCREEN_START: "Light Screen raised $ts's special defense!"
+      REFLECT_END: "$ts's Reflect wore off!"
+      LIGHT_SCREEN_END: "$ts's Light Screen wore off!"
+      STICKY_WEB_CONTINUE: "$p was caught in a sticky web!"
 
 cannedMap = {}
 cannedMapReverse = {}

@@ -1252,9 +1252,7 @@ extendMove 'Last Resort', ->
 
 extendMove 'Light Screen', ->
   @execute = (battle, user, opponents) ->
-    if user.team.attach(Attachment.LightScreen, {user})
-      battle.message "A screen came up!"
-    else
+    if !user.team.attach(Attachment.LightScreen, {user})
       @fail(battle)
 
 extendMove 'Healing Wish', ->
@@ -1544,9 +1542,7 @@ extendMove 'Rapid Spin', ->
 
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
-    if user.team.attach(Attachment.Reflect, {user})
-      battle.message "A screen came up!"
-    else
+    if !user.team.attach(Attachment.Reflect, {user})
       @fail(battle)
 
 extendMove 'Reflect Type', ->

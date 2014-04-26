@@ -114,14 +114,16 @@ $screen-width = 400px
       left 0
       right 0
       bottom 0
-      &.rain
-        background rgba(0, 48, 196, .3)
-      &.hail
-        background rgba(128, 255, 255, .3)
-      &.sand
-        background rgba(128, 64, 0, .3)
-      &.sun
-        background rgba(255, 196, 64, .3)
+      &.weather
+        opacity 0
+        &.rain
+          background rgba(0, 48, 196, .3)
+        &.hail
+          background rgba(128, 255, 255, .3)
+        &.sand
+          background rgba(128, 64, 0, .3)
+        &.sun
+          background rgba(255, 196, 64, .3)
 
   .battle_pane
     position      absolute
@@ -282,47 +284,26 @@ $screen-width = 400px
     width 150px
     height 151px
 
+  .team-screen
+    position absolute
+    opacity .5
+    width 1px
+    height @width
+    &.rounded
+      border-radius 100%
+    for $pair in ('blue' $water) ('yellow' $electric) ('pink' $fairy)
+      &.{$pair[0]}
+        border 1px solid darken($pair[1], 20%)
+        background-color $pair[1]
+
   .projectile
     position absolute
     width 64px
     height @width
     pointer-events none
-    &.normal
-      create-projectile($normal)
-    &.fire
-      create-projectile($fire)
-    &.water
-      create-projectile($water)
-    &.electric
-      create-projectile($electric)
-    &.grass
-      create-projectile($grass)
-    &.ice
-      create-projectile($ice)
-    &.fighting
-      create-projectile($fighting)
-    &.poison
-      create-projectile($poison)
-    &.ground
-      create-projectile($ground)
-    &.flying
-      create-projectile($flying)
-    &.psychic
-      create-projectile($psychic)
-    &.bug
-      create-projectile($bug)
-    &.rock
-      create-projectile($rock)
-    &.ghost
-      create-projectile($ghost)
-    &.dragon
-      create-projectile($dragon)
-    &.dark
-      create-projectile($dark)
-    &.steel
-      create-projectile($steel)
-    &.fairy
-      create-projectile($fairy)
+    for $array in $types
+      &.{$array[0]}
+        create-projectile($array[1])
 
   .battle_summary
     position absolute
@@ -337,7 +318,7 @@ $screen-width = 400px
     p
       margin 0
       font-size .8125em
-      &.newline
+      &.big
         font-size 1em
         margin-top 4px
         &:first-child
