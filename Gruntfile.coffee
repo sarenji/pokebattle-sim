@@ -1,6 +1,26 @@
 {exec} = require('child_process')
+path = require('path')
+
+assets = require('./assets')
+
+# asset paths (note: without public/ in front)
+assetPaths = '''
+js/data.js
+js/vendor.js
+js/templates.js
+js/app.js
+css/main.css
+css/vendor.css
+'''.trim().split(/\s+/)
+# Transform them using proper slashes
+assetPaths = assetPaths.map (assetPath) -> assetPath.split('/').join(path.sep)
 
 module.exports = (grunt) ->
+  awsConfigPath = 'aws_config.json'
+  if !grunt.file.exists(awsConfigPath)
+    grunt.file.copy("#{awsConfigPath}.example", awsConfigPath)
+  awsJSON = grunt.file.readJSON(awsConfigPath)
+
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     concurrent:
@@ -15,8 +35,8 @@ module.exports = (grunt) ->
           client: true
           compileDebug: false
           processName: (fileName) ->
-            path = 'client/views/'
-            index = fileName.lastIndexOf(path) + path.length
+            templatePath = 'client/views/'
+            index = fileName.lastIndexOf(templatePath) + templatePath.length
             fileName = fileName.substr(index)
             fileName.substr(0, fileName.indexOf('.'))
         files:
@@ -42,7 +62,7 @@ module.exports = (grunt) ->
     cssmin:
       combine:
         files:
-          'public/css/vendor.min.css' : [
+          'public/css/vendor.css' : [
             'client/vendor/css/**/*.css'
           ]
     concat:
@@ -56,6 +76,11 @@ module.exports = (grunt) ->
         ]
     external_daemon:
       cmd: "redis-server"
+    exec:
+      capistrano:
+        cmd: 'bundle && bundle exec cap deploy'
+      scrape:
+        cmd: ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
     watch:
       templates:
         files: ['client/views/**/*.jade']
@@ -97,6 +122,20 @@ module.exports = (grunt) ->
             'Gemfile.lock'
             'dump.rdb'
           ]
+    aws: awsJSON
+    s3:
+      options:
+        accessKeyId: "<%= aws.accessKeyId %>"
+        secretAccessKey: "<%= aws.secretAccessKey %>"
+        bucket: "s3.pokebattle.com"
+        region: 'us-west-2'
+      build:
+        cwd: "public/"
+        expand: true
+        src: assetPaths
+        dest: assets.S3_ASSET_PREFIX
+        rename: (dest, src) ->
+          assets.get(src)
 
   grunt.loadNpmTasks('grunt-contrib-jade')
   grunt.loadNpmTasks('grunt-contrib-stylus')
@@ -107,18 +146,24 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
   grunt.loadNpmTasks('grunt-external-daemon')
+  grunt.loadNpmTasks('grunt-aws')
+  grunt.loadNpmTasks('grunt-exec')
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('heroku:development', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
 
-  grunt.registerTask 'scrape:pokemon', 'Scrape pokemon data from Veekun', ->
-    cmd = ". ./venv/bin/activate && cd ./scrapers/bw && python pokemon.py"
-    exec(cmd, this.async())
+  grunt.registerTask('scrape:pokemon', 'exec:scrape')
 
   grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
-    fs = require('fs')
     {GenerationJSON} = require './server/generations'
     EventPokemon = require './shared/event_pokemon.json'
     contents = """var Generations = #{JSON.stringify(GenerationJSON)};
     var EventPokemon = #{JSON.stringify(EventPokemon)}"""
     grunt.file.write('./public/js/data.js', contents)
+
+  grunt.registerTask 'deploy:assets', 'Compiles and uploads all assets', ->
+    grunt.task.run(['concurrent:compile', 's3:build'])
+
+  grunt.registerTask('deploy:server', 'exec:capistrano')
+
+  grunt.registerTask('deploy', ['deploy:assets', 'deploy:server'])

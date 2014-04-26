@@ -8,6 +8,7 @@ public/js/
 pokebattle-db
 .nodemonignore
 .vagrant/
+aws_config.json
 
 *.sublime-project
 *.sublime-workspace

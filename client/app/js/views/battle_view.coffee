@@ -73,6 +73,7 @@ class @BattleView extends Backbone.View
     @chatView = new ChatView(
       el: @$('.chat')
       collection: @model.spectators
+      noisy: true
       chatEvent: 'sendBattleChat'
       chatArgs: [ @model.id ]
     ).render().renderUserList()
@@ -857,6 +858,10 @@ class @BattleView extends Backbone.View
   announceTimer: (player, done) =>
     {owner} = @model.getTeam(player)
     message = "#{owner} was given the timer win!"
+    @announceWin(message, done)
+
+  announceExpiration: (done) =>
+    message = "The battle expired!"
     @announceWin(message, done)
 
   announceWin: (message, done) =>
