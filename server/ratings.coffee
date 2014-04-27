@@ -3,22 +3,19 @@ db = require './database'
 @algorithm = require('./elo')
 
 RATINGS_KEY = "ratings"
-RATINGS_ATTRIBUTES = ['rating']
+RATINGS_ATTRIBUTES = Object.keys(@algorithm.createPlayer())
 RATINGS_SUBKEYS = {}
 for attribute in RATINGS_ATTRIBUTES
   RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
 RATINGS_PER_PAGE = 15
-GLICKO2_TAU = .2
+
+ALGORITHM_OPTIONS =
+  systemConstant: 0.2  # Glicko2 tau
 
 @results =
   WIN  : 1
   DRAW : 0.5  # In earlier generations, it's possible to draw.
   LOSE : 0
-
-INVERSE_RESULTS =
-  '1'   : "WIN"
-  '0.5' : "DRAW"
-  '0'   : "LOSE"
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
@@ -66,7 +63,7 @@ INVERSE_RESULTS =
     return next(null, object)
 
 @updatePlayers = (id, opponentId, score, next) ->
-  if score not of INVERSE_RESULTS
+  if score < 0 || score > 1
     return next(new Error("Invalid match result: #{score}"))
 
   id = id.toLowerCase()
@@ -77,11 +74,11 @@ INVERSE_RESULTS =
       return next(err)  if err
       winnerMatches = [{opponent, score}]
       loserMatches = [{opponent: player, score: 1.0 - score}]
-      newWinner = exports.algorithm.calculate(player, winnerMatches, systemConstant: GLICKO2_TAU)
-      newLoser = exports.algorithm.calculate(opponent, loserMatches, systemConstant: GLICKO2_TAU)
+      newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
+      newLoser = exports.algorithm.calculate(opponent, loserMatches, ALGORITHM_OPTIONS)
       async.parallel [
-        ((callback) => @updatePlayer(id, newWinner, callback))
-        ((callback) => @updatePlayer(opponentId, newLoser, callback))
+        @updatePlayer.bind(this, id, newWinner)
+        @updatePlayer.bind(this, opponentId, newLoser)
       ], next
 
 @resetRating = (id, next) ->

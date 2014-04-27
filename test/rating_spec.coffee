@@ -2,8 +2,12 @@ require('./helpers')
 
 should = require('should')
 ratings = require('../server/ratings')
+db = require('../server/database')
 
 describe "Ratings", ->
+  afterEach (done) ->
+    db.flushdb(done)
+
   describe "#getPlayer", ->
     it "returns default information for new players", (done) ->
       ratings.getPlayer "bogus player", (err, result) ->
@@ -33,30 +37,18 @@ describe "Ratings", ->
 
   describe "#listRatings", ->
     it "returns a list of ratings", (done) ->
-      # 1 > 3 > 5 > 2 > 4 > 6
+      r = []
+      # 1 > 3 > 2
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.updatePlayers "player3", "player4", ratings.results.WIN, ->
-          ratings.updatePlayers "player5", "player6", ratings.results.WIN, ->
-            ratings.updatePlayers "player1", "player3", ratings.results.WIN, ->
-              ratings.updatePlayers "player3", "player5", ratings.results.WIN, ->
-                ratings.updatePlayers "player1", "player5", ratings.results.WIN, ->
-                  ratings.updatePlayers "player2", "player4", ratings.results.WIN, ->
-                    ratings.updatePlayers "player4", "player6", ratings.results.WIN, ->
-                      ratings.updatePlayers "player5", "player2", ratings.results.WIN, ->
-                        ratings.getRatings [1..6].map((i) -> "player#{i}"), (err, scores) ->
-                          ratings.listRatings 1, 2, (err, results) ->
-                            results.should.eql([
-                              {username: "player1", score: scores[0]}
-                              {username: "player3", score: scores[2]}
-                            ])
-                            ratings.listRatings 2, 2, (err, results) ->
-                              results.should.eql([
-                                {username: "player5", score: scores[4]}
-                                {username: "player2", score: scores[1]}
-                              ])
-                              ratings.listRatings 3, 2, (err, results) ->
-                                results.should.eql([
-                                  {username: "player4", score: scores[3]}
-                                  {username: "player6", score: scores[5]}
-                                ])
-                                done()
+        ratings.updatePlayers "player3", "player2", ratings.results.WIN, ->
+          ratings.getRatings [1..3].map((i) -> "player#{i}"), (err, scores) ->
+            ratings.listRatings 1, 2, (err, results) ->
+              r = r.concat(results)
+              ratings.listRatings 2, 2, (err, results) ->
+                r = r.concat(results)
+                r.should.eql([
+                  {username: "player1", score: scores[0]}
+                  {username: "player3", score: scores[2]}
+                  {username: "player2", score: scores[1]}
+                ])
+                done()
