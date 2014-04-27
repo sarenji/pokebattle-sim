@@ -25,7 +25,8 @@
     "grunt-contrib-cssmin": "~0.6.2",
     "restify": "~2.6.1",
     "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "elo-rank": "~0.2.2"
   },
   "devDependencies": {
     "should": "~1.2.x",

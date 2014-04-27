@@ -1,9 +1,9 @@
 async = require 'async'
 db = require './database'
-@algorithm = require('./glicko2')
+@algorithm = require('./elo')
 
 RATINGS_KEY = "ratings"
-RATINGS_ATTRIBUTES = ['rating', 'deviation', 'volatility']
+RATINGS_ATTRIBUTES = ['rating']
 RATINGS_SUBKEYS = {}
 for attribute in RATINGS_ATTRIBUTES
   RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
