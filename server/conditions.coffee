@@ -3,6 +3,7 @@
 {Protocol} = require('../shared/protocol')
 pbv = require('../shared/pokebattle_values')
 gen = require('./generations')
+alts = require('./alts')
 
 ConditionHash = {}
 
@@ -131,19 +132,24 @@ createCondition Conditions.RATED_BATTLE,
       index = @getPlayerIndex(winnerId)
       loserId = @playerIds[1 - index]
       ratings = require './ratings'
+      
+      winner = @getPlayer(winnerId)
+      loser = @getPlayer(loserId)
+
+      winnerId = alts.idForAlt(winner.id, winner.name)  if winner.attributes?.isAlt
+      loserId = alts.idForAlt(loser.id, loser.name)  if loser.attributes?.isAlt
+
       ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
         ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
           return @message "An error occurred updating rankings :("  if err
           
-          name = @players.find((p) -> p.id == winnerId).name
           oldRating = Math.floor(oldRatings[0])
           newRating = Math.floor(result[0].rating)
-          @message "#{name}'s rating: #{oldRating} -> #{newRating}"
+          @message "#{winner.name}'s rating: #{oldRating} -> #{newRating}"
           
-          name = @players.find((p) -> p.id == loserId).name
           oldRating = Math.floor(oldRatings[1])
           newRating = Math.floor(result[1].rating)
-          @message "#{name}: #{oldRating} -> #{newRating}"
+          @message "#{loser.name}: #{oldRating} -> #{newRating}"
           
           @emit('ratingsUpdated')
           @sendUpdates()

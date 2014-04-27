@@ -143,6 +143,9 @@ class @Battle extends EventEmitter
     index = @playerIds.indexOf(playerId)
     return (if index == -1 then null else index)
 
+  getPlayer: (playerId) ->
+    @players.find((p) -> p.id == playerId)
+
   getTeam: (playerId) ->
     @teams[playerId]
 

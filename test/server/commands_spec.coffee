@@ -325,10 +325,10 @@ describe "Commands", ->
           done()
 
       it "returns all battles that user is in if user is passed", (done) ->
-        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
-        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
-        @server.queuePlayer("aardvark", [ Factory("Magikarp") ])
-        @server.queuePlayer("bologna", [ Factory("Magikarp") ])
+        @server.queuePlayer(@user1.id, "name1", [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, "name2", [ Factory("Magikarp") ])
+        @server.queuePlayer("aardvark", "name3", [ Factory("Magikarp") ])
+        @server.queuePlayer("bologna", "name4", [ Factory("Magikarp") ])
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>

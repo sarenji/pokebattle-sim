@@ -1,4 +1,5 @@
 ratings = require('./ratings')
+alts = require('./alts')
 require 'sugar'
 
 # A queue of users waiting for a battle
@@ -9,10 +10,10 @@ class @BattleQueue
 
   # Adds a player to the queue.
   # "name" can either be the real name, or an alt
-  add: (playerId, name, team) ->
+  add: (playerId, name, team, attributes={}) ->
     return false  if !playerId
     return false  if playerId of @queue
-    @queue[playerId] = {id: playerId, name, team}
+    @queue[playerId] = {id: playerId, name, team, attributes}
     @length += 1
     return true
 
@@ -32,7 +33,15 @@ class @BattleQueue
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.
   pairPlayers: (next) ->
-    ids = @queuedPlayers()
+    ids = []
+    alteredQueue = {}  # a duplicate of the queued object to map back from altered ids -> objects
+    for key, queued of @queue
+      id = queued.id
+      id = alts.idForAlt(queued.id, queued.name)  if queued.attributes.isAlt
+      
+      alteredQueue[id] = queued  # the id may have been altered
+      ids.push(id)
+
     return next(null, [])  if ids.length == 0
     ratings.getRatings ids, (err, ratings) =>
       if err then return next(err, null)
@@ -43,7 +52,7 @@ class @BattleQueue
       # Get the list of players sorted by rating
       for rating, i in ratings
         id = ids[i]
-        sortedPlayers.push([@queue[id], rating ])
+        sortedPlayers.push([alteredQueue[id], rating ])
       sortedPlayers.sort((a, b) -> a[1] - b[1])
       sortedPlayers = sortedPlayers.map((array) -> array[0])
 

@@ -5,6 +5,8 @@ should = require 'should'
 db = require('../server/database')
 ratings = require('../server/ratings')
 db = require('../server/database')
+alts = require('../server/alts')
+async = require('async')
 
 describe 'BattleQueue', ->
   afterEach (done) ->
@@ -97,16 +99,16 @@ describe 'BattleQueue', ->
         results.should.have.length(2)
         done()
 
-    it 'returns id/name/team objects', (done) ->
+    it 'returns id/name/team/attribute objects', (done) ->
       queue = new BattleQueue()
-      queue.add('batman', 'Bruce Wayne', [])
-      queue.add('superman', 'Clark Kent', [])
+      queue.add('batman', 'Bruce Wayne', [], superpowers: false)
+      queue.add('superman', 'Clark Kent', [], reporter: true)
       queue.pairPlayers (err, results) ->
         should.not.exist(err)
         should.exist(results)
         results.should.eql [[
-          {id: 'batman', name: 'Bruce Wayne', team: []}
-          {id: 'superman', name: 'Clark Kent', team: []}
+          {id: 'batman', name: 'Bruce Wayne', team: [], attributes: {superpowers: false} }
+          {id: 'superman', name: 'Clark Kent', team: [], attributes: {reporter: true} }
         ]]
         done()
 
@@ -129,3 +131,36 @@ describe 'BattleQueue', ->
                 results.should.eql [[ "batman", "spiderman" ]
                                     [ "flash", "superman"   ]]
                 done()
+
+    it "returns a different ordering for alts ratings", (done) ->
+      users = [
+        ["batman", "Bruce Wayne", 1, 1]
+        ["superman", "Clark Kent", 4, 4]
+        ["flash", "Wally West", 3, 2]
+        ["spiderman", "Peter Parker", 2, 3]
+      ]
+
+      ratingTasks = []
+      for user in users 
+        # non-alt
+        ratingTasks.push ratings.setRating.bind(null, user[0], user[2])
+        
+        # alt
+        altId = alts.idForAlt(user[0], user[1])
+        ratingTasks.push ratings.setRating.bind(this, altId, user[3])
+
+      async.series ratingTasks, ->
+        queue = new BattleQueue()        
+        queue.add(user[0])  for user in users
+        queue.pairPlayers (err, results) ->
+          should.not.exist(err)
+          results = results.map((result) -> [result[0].id, result[1].id])
+          results.should.eql [[ "batman", "spiderman" ], [ "flash", "superman" ]]
+
+          # now test alts getting added   
+          queue.add(user[0], user[1], null, isAlt: true)  for user in users
+          queue.pairPlayers (err, results) ->
+            should.not.exist(err)
+            results = results.map((result) -> [result[0].id, result[1].id])
+            results.should.eql [["batman", "flash"], ["spiderman", "superman"]]
+            done()

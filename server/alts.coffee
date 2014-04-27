@@ -44,3 +44,6 @@ ALTS_KEY = "alts"
   db.hget ALTS_KEY, altName, (err, assignedUserId) ->
     return next(err)  if err
     next(err, assignedUserId == userId)
+
+@idForAlt = (id, altName) ->
+  "#{id}:#{altName}"

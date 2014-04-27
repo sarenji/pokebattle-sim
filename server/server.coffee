@@ -4,6 +4,7 @@
 {User} = require('./user')
 {BattleQueue} = require './queue'
 {SocketHash} = require './socket_hash'
+async = require('async')
 gen = require './generations'
 auth = require('./auth')
 learnsets = require '../shared/learnsets'
@@ -103,8 +104,18 @@ class @BattleServer
       return null
 
     teams = [
-      {id: challengerId, name: challenge.altName || challenge.challengerName, team: challenge.team}
-      {id: player.id, name: altName || player.name, team: team }
+      {
+        id: challengerId,
+        name: challenge.altName || challenge.challengerName,
+        team: challenge.team,
+        attributes: { isAlt: challenge.altName? }
+      }
+      {
+        id: player.id,
+        name: altName || player.name,
+        team: team,
+        attributes: { isAlt: altName? }
+      }
     ]
 
     id = @createBattle(challenge.generation, teams, challenge.conditions)
@@ -149,7 +160,7 @@ class @BattleServer
       err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
       if err.length == 0
         name = @users.get(playerId)[0]?.name
-        @queues[generation].add(playerId, altName || name, team)
+        @queues[generation].add(playerId, altName || name, team, isAlt: altName?)
       return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
@@ -161,17 +172,20 @@ class @BattleServer
     return true
 
   beginBattles: (next) ->
-    for generation in gen.SUPPORTED_GENERATIONS
-      queue = @queues[generation]
-      queue.pairPlayers (err, pairs) =>
-        if err then return next(err)
+    array = for generation in gen.SUPPORTED_GENERATIONS
+      (callback) =>
+        @queues[generation].pairPlayers (err, pairs) =>
+          if err then return next(err)
 
-        # Create a battle for each pair
-        battleIds = []
-        for pair in pairs
-          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
-          battleIds.push(id)
-        next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
+          # Create a battle for each pair
+          battleIds = []
+          for pair in pairs
+            id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
+            battleIds.push(id)
+          callback(null, battleIds)
+    async.parallel array, (err, battleIds) ->
+      return next(err)  if err
+      next(null, _.flatten(battleIds))
     return true
 
   # Creates a battle and returns its battleId
