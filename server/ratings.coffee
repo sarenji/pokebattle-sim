@@ -35,7 +35,7 @@ ALGORITHM_OPTIONS =
   id = id.toLowerCase()
   exports.getPlayer id, (err, player) ->
     return next(err)  if err
-    return next(null, player.rating)
+    return next(null, Number(player.rating))
 
 @setRating = (id, newRating, next) ->
   id = id.toLowerCase()
@@ -51,7 +51,7 @@ ALGORITHM_OPTIONS =
   idArray = idArray.map((id) -> id.toLowerCase())
   exports.getPlayers idArray, (err, players) ->
     return next(err)  if err
-    return next(null, players.map((p) -> p.rating))
+    return next(null, players.map((p) -> Number(p.rating)))
 
 @updatePlayer = (id, object, next) ->
   multi = db.multi()
