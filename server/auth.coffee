@@ -22,7 +22,7 @@ MUTE_KEY = "mute"
 exports.middleware = -> (req, res, next) ->
   authenticate req, (body) ->
     if !body
-      redirectURL = "http://pokebattle.com/accounts/login"
+      redirectURL = "https://pokebattle.com/accounts/login"
       redirectURL += "?next=/sim"
       return res.redirect(redirectURL)
     req.user = _.clone(body)
@@ -50,7 +50,7 @@ authenticate = (req, next) ->
   id = req.cookies.sessionid
   return next(generateUser(req))  if config.IS_LOCAL
   return next()  if !id
-  request.get "http://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
+  request.get "https://pokebattle.com/api/v1/user/#{id}", (err, res, body) ->
     return next()  if err || res.statusCode != 200
     return next(body)
 

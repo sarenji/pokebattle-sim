@@ -26,13 +26,13 @@
   kind += "-s"  if shiny
   id    = "000#{id}".substr(-3)
   if forme && forme != 'default' then id += "-#{forme}"
-  "http://s3.pokebattle.com/pksprites/#{kind}/#{id}.gif"
+  "//s3.pokebattle.com/pksprites/#{kind}/#{id}.gif"
 
 @TypeSprite = (type) ->
-  "http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
+  "//s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
 
 @CategorySprite = (type) ->
-  "http://s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
+  "//s3.pokebattle.com/img/types/#{type.toLowerCase()}.png"
 
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)

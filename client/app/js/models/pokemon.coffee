@@ -243,7 +243,7 @@ class @Pokemon extends Backbone.Model
 
     slugSpecies = slugify(@get('name'))
     slugForme = slugify(@get('forme'))
-    "http://www.pokebattle.com/dex/pokemon/#{slugSpecies}/#{slugForme}"
+    "//pokebattle.com/dex/pokemon/#{slugSpecies}/#{slugForme}"
 
   toJSON: ->
     attributes = _.clone(@attributes)

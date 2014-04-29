@@ -351,7 +351,7 @@ class @BattleView extends Backbone.View
         $sprite.addClass('fade')
         position = $sprite.position()
         substituteUrl = (if @isFront(player) then "substitute" else "subback")
-        substituteUrl = "http://sprites.pokecheck.org/o/#{substituteUrl}.gif"
+        substituteUrl = "//sprites.pokecheck.org/o/#{substituteUrl}.gif"
         addPokemonImage $pokemon, substituteUrl, callback: ($image) =>
           $image.addClass('substitute')
           width = $image.width()
