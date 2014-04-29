@@ -21,6 +21,7 @@ set :app_command, "start.js"
 role :web, "sim.pokebattle.com"
 role :app, "sim.pokebattle.com"
 
+# Necessary to calculate MD5 hash of assets
 namespace :sim do
   desc "compiles all assets"
   task :compile do

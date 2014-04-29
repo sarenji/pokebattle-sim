@@ -5,10 +5,15 @@ outline-text(clr = #000)
 divide(a, b)
   a / b
 
+create-projectile(clr)
+  trans-clr = rgba(black, 0)
+  background radial-gradient(ellipse at center, lighten(clr, 50%) 0%, clr 50%, trans-clr 51%, trans-clr 100%)
+
 $padding = 10px
 $battle-width = 600px
 $battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
+$screen-width = 400px
 
 .battle_window
   overflow-y auto
@@ -109,18 +114,20 @@ $pane-width = $battle-width + $padding + $padding
       left 0
       right 0
       bottom 0
-      &.rain
-        background rgba(0, 48, 196, .3)
-      &.hail
-        background rgba(128, 255, 255, .3)
-      &.sand
-        background rgba(128, 64, 0, .3)
-      &.sun
-        background rgba(255, 196, 64, .3)
+      &.weather
+        opacity 0
+        &.rain
+          background rgba(0, 48, 196, .3)
+        &.hail
+          background rgba(128, 255, 255, .3)
+        &.sand
+          background rgba(128, 64, 0, .3)
+        &.sun
+          background rgba(255, 196, 64, .3)
 
   .battle_pane
     position      absolute
-    width         400px
+    width         $screen-width
     height        $battle-height
     top           0
     left          100px
@@ -128,28 +135,22 @@ $pane-width = $battle-width + $padding + $padding
     .pokemon
       &.bottom
         .pokemon-info
-          bottom      30%
-          left        188px
+          bottom      35%
+          left        200px
         .sprite
-          bottom   0
-          left     0
-          width    188px
-          height   @width
           &.fade
-            left    @left - 20px
-            opacity .3
+            position absolute
+            left     -20px
+            opacity  .3
       &.top
         .pokemon-info
           top         20%
           right       188px
         .sprite
-          top      60px
-          right    20px
-          width    96px
-          height   @width
           &.fade
-            right   @right - 20px
-            opacity .3
+            position absolute
+            left     20px
+            opacity  .3
 
     .pokemon-info
       position      absolute
@@ -226,9 +227,12 @@ $pane-width = $battle-width + $padding + $padding
               background #a53
     .sprite
       position absolute
-      transition .5s ease-out
+      top 0
+      left 0
       pointer-events visible
+      transition left 1s ease
       img
+        position absolute
         max-width none
   .pokemon
     position absolute
@@ -279,6 +283,68 @@ $pane-width = $battle-width + $padding + $padding
     background url("//s3.pokebattle.com/img/battle/sticky_web.png")
     width 150px
     height 151px
+
+  .team-screen
+    position absolute
+    opacity .5
+    width 1px
+    height @width
+    &.rounded
+      border-radius 100%
+    for $pair in ('blue' $water) ('yellow' $electric) ('pink' $fairy)
+      &.{$pair[0]}
+        border 1px solid darken($pair[1], 20%)
+        background-color $pair[1]
+
+  .projectile
+    position absolute
+    width 64px
+    height @width
+    pointer-events none
+    for $array in $types
+      &.{$array[0]}
+        create-projectile($array[1])
+
+  .battle_summary
+    position absolute
+    bottom 0
+    left 100px
+    right @left
+    background rgba(black, .5)
+    color white
+    display none
+    text-shadow none
+    padding 4px 10px
+    p
+      margin 0
+      font-size .8125em
+      &.big
+        font-size 1em
+        margin-top 4px
+        &:first-child
+          margin-top 0
+
+  .ability_activation
+    position absolute
+    width 150px
+    background rgba(black, .5)
+    text-align center
+    opacity 0
+    color white
+    outline-text()
+    pointer-events none
+    $radius = 4px
+    strong
+      font-size 1.2em
+      display block
+    &.front
+      border-radius $radius 0 0 $radius
+      top 64px
+      right 0
+    &.back
+      border-radius 0 $radius $radius 0
+      bottom 64px
+      left 0
 
 .moves
   .button

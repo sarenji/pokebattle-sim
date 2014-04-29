@@ -4,8 +4,9 @@
 {Pokemon} = require './pokemon'
 {Team} = require './team'
 {Weather} = require '../../shared/weather'
-{Attachment, Attachments, Status} = require './attachment'
+{Attachment, Attachments, Status, BaseAttachment} = require './attachment'
 {Protocol} = require '../../shared/protocol'
+{CannedText} = require('../../shared/canned_text')
 Query = require './queries'
 {EventEmitter} = require 'events'
 
@@ -103,9 +104,12 @@ class @Battle extends EventEmitter
 
     @once 'end', (winnerId) ->
       @finished = true
+      @resetExpiration()
 
     # Store when the battle was created
     @createdAt = Date.now()
+
+    @resetExpiration()
 
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
@@ -260,18 +264,18 @@ class @Battle extends EventEmitter
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
-    message = switch weatherName
-      when Weather.SUN  then "The sunlight turned harsh!"
-      when Weather.RAIN then "It started to rain!"
-      when Weather.SAND then "A sandstorm kicked up!"
-      when Weather.HAIL then "It started to hail!"
+    cannedText = switch weatherName
+      when Weather.SUN  then "SUN_START"
+      when Weather.RAIN then "RAIN_START"
+      when Weather.SAND then "SAND_START"
+      when Weather.HAIL then "HAIL_START"
       else
         switch @weather
-          when Weather.SUN  then "The sunlight faded."
-          when Weather.RAIN then "The rain stopped."
-          when Weather.SAND then "The sandstorm subsided."
-          when Weather.HAIL then "The hail stopped."
-    @message(message)  if message
+          when Weather.SUN  then "SUN_END"
+          when Weather.RAIN then "RAIN_END"
+          when Weather.SAND then "SAND_END"
+          when Weather.HAIL then "HAIL_END"
+    @cannedText(cannedText)  if cannedText
     @weather = weatherName
     @weatherDuration = turns
     pokemon.informWeather(@weather)  for pokemon in @getActiveAlivePokemon()
@@ -282,12 +286,10 @@ class @Battle extends EventEmitter
     weather = (if @hasWeatherCancelAbilityOnField() then Weather.NONE else @weather)
     weatherName == weather
 
-  weatherMessage: ->
+  weatherCannedText: ->
     switch @weather
-      when Weather.SAND
-        "The sandstorm rages."
-      when Weather.HAIL
-        "The hail crashes down."
+      when Weather.SAND then "SAND_CONTINUE"
+      when Weather.HAIL then "HAIL_CONTINUE"
 
   weatherUpkeep: ->
     if @weatherDuration == 1
@@ -295,8 +297,8 @@ class @Battle extends EventEmitter
     else if @weatherDuration > 1
       @weatherDuration--
 
-    message = @weatherMessage()
-    @message(message)  if message?
+    cannedText = @weatherCannedText()
+    @cannedText(cannedText)  if cannedText?
 
     activePokemon = @getActivePokemon().filter((p) -> !p.isFainted())
     for pokemon in activePokemon
@@ -304,10 +306,10 @@ class @Battle extends EventEmitter
       damage = pokemon.stat('hp') >> 4
       if @hasWeather(Weather.HAIL)
         if pokemon.damage(damage)
-          @message "#{pokemon.name} is buffeted by the hail!"
+          @cannedText('HAIL_HURT', pokemon)
       else if @hasWeather(Weather.SAND)
         if pokemon.damage(damage)
-          @message "#{pokemon.name} is buffeted by the sandstorm!"
+          @cannedText('SAND_HURT', pokemon)
 
   hasWeatherCancelAbilityOnField: ->
     _.any @getActivePokemon(), (pokemon) ->
@@ -355,6 +357,7 @@ class @Battle extends EventEmitter
     # Clean the completed requests
     @completedRequests = {}
 
+    @tell(Protocol.CONTINUE_TURN)
     @emit('continueTurn')
 
     @determineTurnOrder()
@@ -670,12 +673,12 @@ class @Battle extends EventEmitter
   performMove: (pokemon, move) ->
     targets = @getTargets(move, pokemon)
 
-    @message "#{pokemon.name} has no moves left!"  if move == @struggleMove
+    @cannedText('NO_MOVES_LEFT', pokemon)  if move == @struggleMove
 
     if pokemon.pp(move) <= 0
       # TODO: Send move id instead
       pokemon.tell(Protocol.MAKE_MOVE, move.name)
-      @message "But there was no PP left for the move!"
+      @cannedText('NO_PP_LEFT')
       # TODO: Is this the right place...?
       pokemon.resetRecords()
     else
@@ -814,6 +817,24 @@ class @Battle extends EventEmitter
     winnerId = @playerIds[1 - index]
     @emit('end', winnerId)
 
+  expire: ->
+    return  if @expired
+    @expired = true
+    @tell(Protocol.BATTLE_EXPIRED)
+    @emit('end')  if !@finished
+
+  resetExpiration: ->
+    clearTimeout(@expirationId)  if @expirationId
+    @expirationId = setTimeout((=> @expire()  unless @expired), @makeTTL())
+
+  makeTTL: ->
+    if @isOver()
+      # 48 hours
+      48 * 60 * 60 * 1000
+    else
+      # 24 hours
+      24 * 60 * 60 * 1000
+
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->
     s.send.apply(s, arguments)  for s in @spectators
@@ -831,6 +852,18 @@ class @Battle extends EventEmitter
     # Now clean-up.
     for id of @queues
       delete @queues[id]
+
+  cannedText: (type, args...) ->
+    newArgs = []
+    # Convert any Pokemon in the arguments to its respective player/slot.
+    for arg in args
+      if arg instanceof Pokemon
+        newArgs.push(@getPlayerIndex(arg.playerId), arg.team.indexOf(arg))
+      else if _.isObject(arg) && arg.prototype instanceof BaseAttachment
+        newArgs.push(arg.displayName)
+      else
+        newArgs.push(arg)
+    @tell(Protocol.CANNED_TEXT, CannedText[type], newArgs...)
 
   toString: ->
     "[Battle id:#{@id} turn:#{@turn} weather:#{@weather}]"

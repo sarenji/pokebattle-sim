@@ -10,7 +10,7 @@ auth = require('./auth')
 generations = require './generations'
 {Room} = require('./rooms')
 errors = require '../shared/errors'
-db = require('./database')
+assets = require('../assets')
 
 @createServer = (port) ->
   app = express()
@@ -27,6 +27,9 @@ db = require('./database')
   app.use(express.methodOverride())
   app.use(app.router)
   app.use(express.static(path.join(__dirname, "../public")))
+
+  # Helpers
+  app.locals.asset_path = assets.getAbsolute
 
   # Routing
   renderHomepage = (req, res) ->
@@ -62,18 +65,23 @@ db = require('./database')
             user.send('listChatroom', lobby.userJSON())
             server.join(user)
 
-            db.hget "topic", "main", (err, topic) ->
-              user.send('topic', topic)  if topic
-
     'sendChat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
-      if message[0] == '/'
-        [ command, args... ] = message.split(/\s+/)
-        command = command.substr(1)
-        args = args.join(' ').split(/,/g)
-        commands.executeCommand(server, user, lobby, command, args...)
-      else
-        server.userMessage(lobby, user, message)
+      server.limit user, 'chat', max: 10, duration: 3000, (err, limit) ->
+        if !limit.remaining
+          auth.getMuteTTL user.id, (err, ttl) ->
+            if ttl == -2
+              server.mute(user.id, "[AUTOMATED] Triggered chat rate-limit.", 3 * 60)
+              lobby.message("#{user.id} was muted because they were spamming.")
+            else
+              user.message("You are muted for another #{ttl} seconds!")
+        else if message[0] == '/'
+          [ command, args... ] = message.split(/\s+/)
+          command = command.substr(1)
+          args = args.join(' ').split(/,/g)
+          commands.executeCommand(server, user, lobby, command, args...)
+        else
+          server.userMessage(lobby, user, message)
 
     'sendBattleChat': (user, battleId, message) ->
       return  unless message?.replace(/\s+/, '').length > 0
@@ -94,7 +102,7 @@ db = require('./database')
       if lobby.removeUser(user) == 0  # No more connections.
         user.broadcast('leaveChatroom', user.id)
         connections.trigger(user, "cancelFindBattle")
-        # TODO: Remove from battles as well
+
 
     ####################
     # PRIVATE MESSAGES #

@@ -428,3 +428,46 @@ describe 'Battle', ->
       mock.withArgs(@id1, Protocol.REQUEST_ACTIONS)
       @battle.sendRequestTo(@id1)
       mock.verify()
+
+  describe "expiration", ->
+    beforeEach ->
+      shared.create.call(this)
+
+    it "ends ongoing battles after 24 hours", ->
+      time = 24 * 60 * 60 * 1000
+      @clock.tick(time)
+      @battle.isOver().should.be.true
+
+    it "sends BATTLE_EXPIRED after 48 hours after battle end", ->
+      time = 48 * 60 * 60 * 1000
+      delta = 5000
+      spy = @sandbox.spy(@battle, 'tell').withArgs(Protocol.BATTLE_EXPIRED)
+      @clock.tick(delta)
+      @battle.forfeit(@id1)
+      @battle.isOver().should.be.true
+      spy.withArgs(Protocol.BATTLE_EXPIRED).called.should.be.false
+
+      @battle.tell.restore()
+      spy = @sandbox.spy(@battle, 'tell').withArgs(Protocol.BATTLE_EXPIRED)
+      @clock.tick(time)
+      @battle.isOver().should.be.true
+      spy.withArgs(Protocol.BATTLE_EXPIRED).calledOnce.should.be.true
+
+    it "doesn't call 'expire' if expiring twice", ->
+      firstExpire = 24 * 60 * 60 * 1000
+      secondExpire = 48 * 60 * 60 * 1000
+      spy = @sandbox.spy(@battle, 'expire')
+      @clock.tick(firstExpire)
+      @battle.isOver().should.be.true
+      @clock.tick(secondExpire)
+      spy.calledOnce.should.be.true
+
+    it "doesn't call 'end' twice", ->
+      longExpire = 48 * 60 * 60 * 1000
+      spy = @sandbox.spy()
+      @battle.on('end', spy)
+      @battle.forfeit(@id1)
+      @battle.isOver().should.be.true
+
+      @clock.tick(longExpire)
+      spy.calledOnce.should.be.true

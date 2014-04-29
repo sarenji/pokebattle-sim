@@ -23,6 +23,7 @@ makeWeatherPreventionAbility = (name) ->
     @preventsWeather = true
 
     this::switchIn = ->
+      @pokemon.activateAbility()
       @battle.message "The effects of weather disappeared."
 
 makeWeatherPreventionAbility("Air Lock")
@@ -86,6 +87,7 @@ makeLowHealthAbility("Swarm", "Bug")
 makeWeatherAbility = makeWeatherAbility ? (name, weather) ->
   makeAbility name, ->
     this::switchIn = ->
+      @pokemon.activateAbility()
       @battle.setWeather(weather)
 
 makeWeatherAbility("Drizzle", Weather.RAIN)
@@ -112,6 +114,7 @@ makeContactStatusAbility = (name, attachment) ->
       return  if !move.hasFlag("contact")
       return  if @battle.rng.next("contact status") >= .3
       return  if !isDirect
+      @pokemon.activateAbility()
       user.attach(attachment, source: @pokemon)
 
 makeContactStatusAbility("Cute Charm", Attachment.Attract)
@@ -141,13 +144,16 @@ makeHugePowerAbility("Pure Power")
 makeAttachmentImmuneAbility = (name, immuneAttachments) ->
   makeAbility name, ->
     this::shouldAttach = (attachment) ->
-      # TODO: Message that you're immune
-      return attachment not in immuneAttachments
+      if attachment in immuneAttachments
+        @pokemon.activateAbility()
+        return false
+      return true
 
     this::update = ->
       for attachment in immuneAttachments
         if @pokemon.unattach(attachment)
           # TODO: end message
+          @pokemon.activateAbility()
           @battle.message "#{@pokemon.name} no longer has #{attachment.name}."
 
 makeAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
@@ -168,6 +174,7 @@ makeContactHurtAbility = (name) ->
       return  unless move.hasFlag('contact')
       return  unless isDirect
       amount = user.stat('hp') >> 3
+      @pokemon.activateAbility()
       if user.damage(amount)
         @battle.message "#{user.name} was hurt!"
 
@@ -180,6 +187,7 @@ makeRedirectAndBoostAbility = (name, type) ->
     # TODO: Type-immunities should come before ability immunities.
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type
+      @pokemon.activateAbility()
       @pokemon.boost(specialAttack: 1)  unless @pokemon.isImmune(type)
       return true
 
@@ -190,6 +198,7 @@ makeTypeImmuneAbility = (name, type, stat) ->
   makeAbility name, ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type
+      @pokemon.activateAbility()
       @battle.message "#{@pokemon.name}'s #{name} increased its #{stat}!"
       hash = {}
       hash[stat] = 1
@@ -203,6 +212,7 @@ makeTypeAbsorbMove = (name, type) ->
   makeAbility name, ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type
+      @pokemon.activateAbility()
       @battle.message "#{@pokemon.name}'s HP was restored."
       amount = @pokemon.stat('hp') >> 2
       @pokemon.heal(amount)
@@ -215,6 +225,7 @@ makeAbilityCancelAbility = (name, phrase) ->
   makeAbility name, ->
     this::switchIn = ->
       # TODO: Send canned text instead
+      @pokemon.activateAbility()
       @battle.message(phrase.replace("$1", @pokemon.name))
 
     this::beforeMove = (move, pokemon, targets) ->
@@ -245,6 +256,7 @@ makeAbility "Aftermath", ->
     pokemon = team.at(slot)
     if move.hasFlag('contact')
       amount = (pokemon.stat('hp') >> 2)
+      @pokemon.activateAbility()
       if pokemon.damage(amount)
         @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
 
@@ -254,6 +266,7 @@ makeAbility 'Analytic', ->
 
 makeAbility "Anger Point", ->
   this::informCriticalHit = ->
+    @pokemon.activateAbility()
     @battle.message "#{@pokemon.name} maxed its Attack!"
     @pokemon.boost(attack: 12)
 
@@ -264,6 +277,7 @@ makeAbility "Anticipation", ->
     for move in moves
       effectiveness = util.typeEffectiveness(move.type, @pokemon.types) > 1
       if effectiveness || move.hasFlag("ohko")
+        @pokemon.activateAbility()
         @battle.message "#{@pokemon.name} shuddered!"
         break
 
@@ -279,6 +293,7 @@ makeAbility "Bad Dreams", ->
     for opponent in opponents
       continue  unless opponent.has(Status.Sleep)
       amount = opponent.stat('hp') >> 3
+      @pokemon.activateAbility()
       if opponent.damage(amount)
         @battle.message "#{opponent.name} is tormented!"
 
@@ -286,6 +301,7 @@ makeAbility "Color Change", ->
   this::afterBeingHit = (move, user, target, damage) ->
     {type} = move
     if !move.isNonDamaging() && !target.hasType(type)
+      @pokemon.activateAbility()
       @battle.message "#{target.name}'s Color Change made it the #{type} type!"
       target.types = [ type ]
 
@@ -302,6 +318,7 @@ makeAbility "Cursed Body", ->
   this::afterBeingHit = (move, user, target, damage) ->
     return  if user.has(Attachment.Substitute)
     return  if @battle.rng.next("cursed body") >= .3
+    @pokemon.activateAbility()
     @battle.message "#{user.name}'s #{move.name} was disabled!"
     user.blockMove(move)
 
@@ -316,6 +333,7 @@ makeAbility 'Defeatist', ->
 makeAbility 'Defiant', ->
   this::afterEachBoost = (boostAmount, source) ->
     return  if source.team == @pokemon.team
+    @pokemon.activateAbility()
     @pokemon.boost(attack: 2)  if boostAmount < 0
 
 makeAbility 'Download', ->
@@ -324,7 +342,7 @@ makeAbility 'Download', ->
     return  if opponents.length == 0
     totalDef = opponents.reduce(((s, p) -> s + p.stat('defense')), 0)
     totalSpDef = opponents.reduce(((s, p) -> s + p.stat('specialDefense')), 0)
-    # TODO: Ability activation
+    @pokemon.activateAbility()
     if totalSpDef <= totalDef
       @pokemon.boost(specialAttack: 1)
       @battle.message "#{@pokemon.name}'s Download boosted its Special Attack!"
@@ -340,14 +358,17 @@ makeAbility 'Dry Skin', ->
     # TODO: Real message
     amount = (@pokemon.stat('hp') >> 3)
     if @battle.hasWeather(Weather.SUN)
+      @pokemon.activateAbility()
       if @pokemon.damage(amount)
         @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
     else if @battle.hasWeather(Weather.RAIN)
+      @pokemon.activateAbility()
       @pokemon.heal(amount)
       @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
 
   this::shouldBlockExecution = (move, user) ->
     return  if move.getType(@battle, user, @pokemon) != 'Water'
+    @pokemon.activateAbility()
     @pokemon.heal((@pokemon.stat('hp') >> 2))
     @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
     return true
@@ -363,17 +384,21 @@ makeAbility 'Effect Spore', ->
     switch @battle.rng.randInt(1, 10, "effect spore")
       when 1
         if user.attach(Status.Sleep)
+          @pokemon.activateAbility()
           @battle.message "#{user.name} fell asleep!"
       when 2
         if user.attach(Status.Paralyze)
+          @pokemon.activateAbility()
           @battle.message "#{user.name} was paralyzed!"
       when 3
         if user.attach(Status.Poison)
+          @pokemon.activateAbility()
           @battle.message "#{user.name} was poisoned!"
 
 makeAbility 'Flash Fire', ->
   this::shouldBlockExecution = (move, user) ->
     return  if move.getType(@battle, user, @pokemon) != 'Fire'
+    @pokemon.activateAbility()
     @battle.message "The power of #{@pokemon.name}'s Fire-type moves rose!"
     @pokemon.attach(Attachment.FlashFire)
     return true
@@ -424,6 +449,7 @@ makeAbility 'Forewarn', ->
     possibles = moves.filter((m) -> consider(m) == maxPower)
     finalMove = @battle.rng.choice(possibles, "forewarn")
     pokemon = opponents.find((p) -> finalMove in p.moves)
+    @pokemon.activateAbility()
     @battle.message "It was alerted to #{pokemon.name}'s #{finalMove.name}!"
 
 makeAbility 'Friend Guard', ->
@@ -438,6 +464,7 @@ makeAbility "Frisk", ->
     # TODO: Do you select from opponents with items, or all alive opponents?
     opponent  = @battle.rng.choice(opponents, "frisk")
     if opponent.hasItem()
+      @pokemon.activateAbility()
       item = opponent.getItem()
       @battle.message "#{@pokemon.name} frisked its target and found one #{item.displayName}!"
 
@@ -455,13 +482,16 @@ makeAbility 'Harvest', ->
     shouldHarvest = @battle.hasWeather(Weather.SUN)
     shouldHarvest ||= @battle.rng.randInt(0, 1, "harvest") == 1
     if shouldHarvest
+      @pokemon.activateAbility()
       @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.displayName}!"
       @pokemon.setItem(@pokemon.lastItem)
 
 makeAbility 'Healer', ->
   this::endTurn = ->
     for adjacent in @pokemon.team.getAdjacent(@pokemon)
-      if @battle.rng.randInt(1, 10, "healer") <= 3 then adjacent.cureStatus()
+      if @battle.rng.randInt(1, 10, "healer") <= 3
+        @pokemon.activateAbility()
+        adjacent.cureStatus()
 
 makeAbility 'Heatproof', ->
   this::modifyBasePowerTarget = (move, user) ->
@@ -486,11 +516,13 @@ makeAbility 'Hustle', ->
 makeAbility "Hydration", ->
   this::endTurn = ->
     if @battle.hasWeather(Weather.RAIN) && @pokemon.hasStatus()
+      @pokemon.activateAbility()
       @pokemon.cureStatus()
 
 makeAbility 'Ice Body', ->
   this::endTurn = ->
     if @battle.hasWeather(Weather.HAIL)
+      @pokemon.activateAbility()
       @battle.message "#{@pokemon.name}'s Ice Body restored its HP a little."
       amount = @pokemon.stat('hp') >> 4
       @pokemon.heal(amount)
@@ -506,6 +538,7 @@ makeAbility 'Imposter', ->
     index = @team.indexOf(@pokemon)
     opponent = opponents[index]
     return  if !opponent || opponent.has(Attachment.Substitute)
+    @pokemon.activateAbility()
     @pokemon.attach(Attachment.Transform, target: opponent)
 
 # Hardcoded in Move#isDirectHit
@@ -517,6 +550,7 @@ makeAbility 'Intimidate', ->
     opponents = @battle.getOpponents(@pokemon)
     for opponent in opponents
       unless opponent.has(Attachment.Substitute)
+        @pokemon.activateAbility()
         opponent.boost(attack: -1, @pokemon)
 
 makeAbility 'Iron Fist', ->
@@ -526,6 +560,7 @@ makeAbility 'Iron Fist', ->
 makeAbility 'Justified', ->
   this::afterBeingHit = (move, user) ->
     if !move.isNonDamaging() && move.getType(@battle, user, @pokemon) == 'Dark'
+      @pokemon.activateAbility()
       @pokemon.boost(attack: 1)
 
 makeAbility 'Klutz', ->
@@ -534,7 +569,10 @@ makeAbility 'Klutz', ->
 
 makeAbility 'Leaf Guard', ->
   this::shouldAttach = (attachment) ->
-    return false  if attachment.status && @battle.hasWeather(Weather.SUN)
+    if attachment.status && @battle.hasWeather(Weather.SUN)
+      @pokemon.activateAbility()
+      return false
+    return true
 
 makeAbility 'Levitate', ->
   this::isImmune = (type) ->
@@ -591,11 +629,14 @@ makeAbility 'Moody', ->
     boosts = {}
     boosts[raiseStat] = 2   if raiseStat
     boosts[lowerStat] = -1  if lowerStat
+    @pokemon.activateAbility()
     @pokemon.boost(boosts)
 
 makeAbility 'Moxie', ->
   this::afterSuccessfulHit = (move, user, target) ->
-    if target.isFainted() then @pokemon.boost(attack: 1)
+    if target.isFainted()
+      @pokemon.activateAbility()
+      @pokemon.boost(attack: 1)
 
 makeAbility 'Multiscale', ->
   this::modifyDamageTarget = ->
@@ -609,6 +650,7 @@ makeAbility 'Mummy', ->
 
   this::afterBeingHit = (move, user) ->
     if move.hasFlag("contact") && user.hasChangeableAbility()
+      @pokemon.activateAbility()
       @battle.message("#{user.name}'s Ability became Mummy!")
       user.copyAbility(@constructor)
 
@@ -631,6 +673,7 @@ makeAbility 'Overcoat', ->
 makeAbility 'Pickpocket', ->
   this::afterBeingHit = (move, user, target, damage) ->
     return  if !move.hasFlag("contact") || target.hasItem() || !user.canLoseItem()
+    @pokemon.activateAbility()
     @battle.message "#{target.name} stole #{user.name}'s #{user.item.displayName}!"
     target.setItem(user.item)
     user.removeItem()
@@ -647,6 +690,7 @@ makeAbility 'Poison Heal', ->
   # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
   this::endTurn = ->
     if @pokemon.has(Status.Poison) || @pokemon.has(Status.Toxic)
+      @pokemon.activateAbility()
       amount = @pokemon.stat('hp') >> 3
       @pokemon.heal(amount)
 
@@ -658,6 +702,7 @@ makeAbility 'Prankster', ->
 # PP deduction hardcoded in Battle
 makeAbility 'Pressure', ->
   this::switchIn = ->
+    @pokemon.activateAbility()
     @battle.message "#{@pokemon.name} is exerting its pressure!"
 
 # Speed drop negation hardcoded into Attachment.Paralyze
@@ -668,6 +713,7 @@ makeAbility 'Quick Feet', ->
 makeAbility 'Rain Dish', ->
   this::endTurn = ->
     return  unless @battle.hasWeather(Weather.RAIN)
+    @pokemon.activateAbility()
     @battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
     amount = @pokemon.stat('hp') >> 4
     @pokemon.heal(amount)
@@ -676,6 +722,7 @@ makeAbility 'Rattled', ->
   this::afterBeingHit = (move, user) ->
     type = move.getType(@battle, user, @pokemon)
     if type in [ "Bug", "Ghost", "Dark" ]
+      @pokemon.activateAbility()
       @pokemon.boost(speed: 1)
 
 makeAbility 'Reckless', ->
@@ -765,6 +812,7 @@ makeAbility 'Slow Start', ->
     @turns = 5
 
   this::switchIn = ->
+    @pokemon.activateAbility()
     @battle.message "#{@pokemon.name} can't get it going!"
 
   this::endTurn = ->
@@ -803,6 +851,7 @@ makeAbility 'Solar Power', ->
   this::endTurn = ->
     if @battle.hasWeather(Weather.SUN)
       amount = (@pokemon.stat('hp') >> 3)
+      @pokemon.activateAbility()
       if @pokemon.damage(amount)
         # TODO: Real message
         @battle.message "#{@pokemon.name} was hurt under the sun!"
@@ -830,12 +879,14 @@ makeAbility 'Sturdy', ->
   this::editDamage = (damage, move) ->
     if @pokemon.currentHP == @pokemon.stat('hp')
       if damage >= @pokemon.currentHP
+        @pokemon.activateAbility()
         @battle.message "#{@pokemon.name} endured the hit!"
         return @pokemon.currentHP - 1
     return damage
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (phaser) ->
+    @pokemon.activateAbility()
     @battle.message "#{@pokemon.name} anchors itself!"
     return false
 
@@ -887,6 +938,7 @@ makeAbility 'Trace', ->
     return  if abilities.length == 0
     ability = @battle.rng.choice(abilities, "trace")
     # TODO: Display whose ability it traced.
+    @pokemon.activateAbility()
     @battle.message("It traced the foe's #{ability.displayName}!")
     @pokemon.copyAbility(ability)
 
@@ -897,6 +949,7 @@ makeAbility 'Truant', ->
   this::beforeMove = ->
     @truanted = !@truanted
     if @truanted
+      @pokemon.activateAbility()
       @battle.message "#{@pokemon.name} is loafing around!"
       return false
 
@@ -927,4 +980,5 @@ makeAbility 'Wonder Guard', ->
     return  if move == @battle.getMove("Struggle")
     return  if move.isNonDamaging()
     return  if move.typeEffectiveness(@battle, user, @pokemon) > 1
+    @pokemon.activateAbility()
     return true

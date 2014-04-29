@@ -68,42 +68,9 @@ button-bg(clr)
     color #fff
     &:hover
       background linear-gradient(top, #0088cc, #0066cc)
-  &.normal
-    button-bg($normal)
-  &.fire
-    button-bg($fire)
-  &.water
-    button-bg($water)
-  &.electric
-    button-bg($electric)
-  &.grass
-    button-bg($grass)
-  &.ice
-    button-bg($ice)
-  &.fighting
-    button-bg($fighting)
-  &.poison
-    button-bg($poison)
-  &.ground
-    button-bg($ground)
-  &.flying
-    button-bg($flying)
-  &.psychic
-    button-bg($psychic)
-  &.bug
-    button-bg($bug)
-  &.rock
-    button-bg($rock)
-  &.ghost
-    button-bg($ghost)
-  &.dragon
-    button-bg($dragon)
-  &.dark
-    button-bg($dark)
-  &.steel
-    button-bg($steel)
-  &.fairy
-    button-bg($fairy)
+  for $array in $types
+    &.{$array[0]}
+      button-bg($array[1])
   &.disabled, &.disabled:hover
     background  #333
     border-color #000

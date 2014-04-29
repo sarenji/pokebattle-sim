@@ -53,7 +53,7 @@ makeJumpKick = (name, recoilPercent=.5) ->
     @afterMiss = @afterFail = (battle, user, target) ->
       maxHP = user.stat('hp')
       user.damage(Math.floor(maxHP / 2))
-      battle.message("#{user.name} kept going and crashed!")
+      battle.cannedText('JUMP_KICK_MISS', user)
 
 makeWeightBased = (name) ->
   extendMove name, ->
@@ -126,7 +126,7 @@ makeRecoveryMove = (name) ->
         return false
       amount = Math.round(hpStat / 2)
       percent = Math.floor(100 * amount / hpStat)
-      battle.message "#{target.name} recovered #{percent}% HP!"
+      battle.cannedText('RECOVER_HP', target, percent)
       target.heal(amount)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
@@ -148,7 +148,7 @@ makeWeatherRecoveryMove = (name) ->
       else
         util.roundHalfDown(hpStat / 4)
       percent = Math.floor(100 * amount / hpStat)
-      battle.message "#{target.name} recovered #{percent}% HP!"
+      battle.cannedText('RECOVER_HP', target, percent)
       target.heal(amount)
 
 makeTrickMove = (name) ->
@@ -163,12 +163,12 @@ makeTrickMove = (name) ->
         return false
       uItem = user.removeItem()
       tItem = target.removeItem()
-      battle.message "#{user.name} switched items with its target!"
+      battle.cannedText('TRICK_START', user)
       if tItem
-        battle.message "#{user.name} obtained one #{tItem.displayName}!"
+        battle.cannedText('TRICK_END', user, tItem)
         user.setItem(tItem)
       if uItem
-        battle.message "#{target.name} obtained one #{uItem.displayName}!"
+        battle.cannedText('TRICK_END', target, uItem)
         target.setItem(uItem)
 
 makeExplosionMove = (name) ->
@@ -217,7 +217,6 @@ makeOpponentFieldMove = (name, func) ->
 makeProtectMove = (name) ->
   makeProtectCounterMove name, (battle, user, targets) ->
     user.attach(Attachment.Protect)
-    battle.message "#{user.name} protected itself!"
 
 makeIdentifyMove = (name, types) ->
   extendMove name, ->
@@ -240,7 +239,7 @@ makeThiefMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
       return  if user.hasItem() || !target.canLoseItem() || user.isFainted()
-      battle.message "#{user.name} stole #{target.name}'s #{target.item.displayName}!"
+      battle.cannedText('THIEF_START', user, target, target.item)
       user.setItem(target.item)
       target.removeItem()
 
@@ -508,7 +507,7 @@ makeTrappingMove "Clamp"
 extendMove 'Clear Smog', ->
   @afterSuccessfulHit = (battle, user, target) ->
     target.resetBoosts()
-    battle.message "#{target.name}'s stat changes were removed!"
+    battle.cannedText('RESET_STATS', target)
 
 extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
 
@@ -569,7 +568,7 @@ extendMove 'Defog', ->
           hazardRemoved = true
 
       if hazardRemoved
-        battle.message "#{opponentId}'s side of the field is cleared of entry hazards."
+        battle.cannedText('CLEAR_HAZARDS', battle.getPlayerIndex(opponentId))
 
 makeProtectMove 'Detect'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
@@ -586,7 +585,7 @@ extendMove 'Entrainment', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if user.hasChangeableAbility() && user.ability.displayName not of bannedSourceAbilities && target.hasChangeableAbility() && target.ability.displayName != 'Truant'
-      battle.message "#{target.name} acquired #{user.ability.displayName}!"
+      battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
       target.copyAbility(user.ability)
     else
       @fail(battle)
@@ -991,7 +990,6 @@ extendMove 'Curse', ->
 extendMove 'Destiny Bond', ->
   @hit = (battle, user) ->
     user.attach(Attachment.DestinyBond)
-    battle.message "#{user.name} is trying to take its foe down with it!"
 
 makeDelayedAttackMove("Doom Desire", "$1 chose Doom Desire as its destiny!")
 
@@ -1181,7 +1179,7 @@ extendMove 'Haze', ->
     user.resetBoosts()
     for target in targets
       target.resetBoosts()
-    battle.message "All stat changes were eliminated!"
+    battle.cannedText('RESET_ALL_STATS')
 
 extendMove 'Heart Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1254,9 +1252,7 @@ extendMove 'Last Resort', ->
 
 extendMove 'Light Screen', ->
   @execute = (battle, user, opponents) ->
-    if user.team.attach(Attachment.LightScreen, {user})
-      battle.message "A screen came up!"
-    else
+    if !user.team.attach(Attachment.LightScreen, {user})
       @fail(battle)
 
 extendMove 'Healing Wish', ->
@@ -1534,21 +1530,19 @@ extendMove 'Rapid Spin', ->
 
     if hazardRemoved
       id = battle.getOwner(user)
-      battle.message "#{id}'s side of the field is cleared of entry hazards."
+      battle.cannedText('CLEAR_HAZARDS', battle.getPlayerIndex(id))
 
     # Remove trapping moves like fire-spin
     trap = user.unattach(Attachment.Trap)
-    battle.message "#{user.name} was freed from #{trap.moveName}!"  if trap
+    battle.cannedText('FREE_FROM', user, trap.moveName)  if trap
 
     # Remove leech seed
     leechSeed = user.unattach(Attachment.LeechSeed)
-    battle.message "#{user.name} was freed from Leech Seed!"  if leechSeed
+    battle.cannedText('FREE_FROM', user, "Leech Seed")  if leechSeed
 
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
-    if user.team.attach(Attachment.Reflect, {user})
-      battle.message "A screen came up!"
-    else
+    if !user.team.attach(Attachment.Reflect, {user})
       @fail(battle)
 
 extendMove 'Reflect Type', ->
@@ -1569,7 +1563,7 @@ extendMove 'Relic Song', ->
     else
       user.changeForme("default")
 
-    battle.message "Meloetta transformed!"
+    battle.cannedText('TRANSFORM', user)
 
 extendMove 'Rest', ->
   @hit = (battle, user, target) ->
@@ -1613,7 +1607,7 @@ extendMove 'Simple Beam', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.message "#{target.name} acquired Simple!"
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
       target.copyAbility(Ability.Simple)
     else
       @fail(battle)
@@ -1670,7 +1664,7 @@ extendMove 'Soak', ->
       @fail(battle)
     else
       target.types = [ 'Water' ]
-      battle.message "#{target.name} transformed into the Water type!"
+      battle.cannedText('TRANSFORM_TYPE', target, 'Water')
 
 extendMove 'SonicBoom', ->
   @calculateDamage = (battle, user, target) ->
@@ -1679,7 +1673,7 @@ extendMove 'SonicBoom', ->
 makeOpponentFieldMove 'Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if team.attach(Attachment.Spikes)
-    battle.message "#{@name} were scattered all around #{opponentId}'s team's feet!"
+    battle.cannedText('SPIKES_START', battle.getPlayerIndex(opponentId))
   else
     @fail(battle)
 
@@ -1696,7 +1690,7 @@ extendMove 'Spite', ->
 makeOpponentFieldMove 'Stealth Rock', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if team.attach(Attachment.StealthRock)
-    battle.message "Pointed stones float in the air around #{opponentId}'s team!"
+    battle.cannedText('STEALTH_ROCK_START', battle.getPlayerIndex(opponentId))
   else
     @fail(battle)
 
@@ -1716,18 +1710,18 @@ extendMove 'Substitute', ->
   @execute = (battle, user, targets) ->
     dmg = user.stat('hp') >> 2
     if dmg >= user.currentHP || dmg == 0
-      battle.message "It was too weak to make a substitute!"
+      battle.cannedText('SUBSTITUTE_WEAK')
       @fail(battle)
       return
 
     if user.has(Attachment.Substitute)
-      battle.message "#{user.name} already has a substitute!"
+      battle.cannedText('SUBSTITUTE_EXISTS', user)
       @fail(battle)
       return
 
     user.damage(dmg, source: "move")
     user.attach(Attachment.Substitute, hp: dmg, battle: battle)
-    battle.message "#{user.name} put in a substitute!"
+    battle.cannedText('SUBSTITUTE_START', user)
 
   @fail = (battle) ->
 
@@ -1765,9 +1759,7 @@ extendMove 'Tailwind', ->
 
 extendMove 'Taunt', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    if target.attach(Attachment.Taunt, battle)
-      battle.message "#{target.name} fell for the taunt!"
-    else
+    if !target.attach(Attachment.Taunt, battle)
       @fail(battle)
 
 extendMove 'Techno Blast', ->
@@ -1786,9 +1778,7 @@ extendMove 'Techno Blast', ->
 
 makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
-  if team.attach(Attachment.ToxicSpikes)
-    battle.message "Poison spikes were scattered all around #{opponentId}'s team's feet!"
-  else
+  if !team.attach(Attachment.ToxicSpikes)
     @fail(battle)
 
 extendMove 'Transform', ->
@@ -1796,14 +1786,13 @@ extendMove 'Transform', ->
     if !user.attach(Attachment.Transform, {target})
       @fail(battle)
       return false
-    battle.message "#{user.name} tranformed into #{target.name}!"
+    battle.cannedText('TRANSFORM_INTO', user, target)
 
 extendMove 'Trick Room', ->
   @execute = (battle, user, targets) ->
     if battle.attach(Attachment.TrickRoom)
-      battle.message "#{user.name} twisted the dimensions!"
+      battle.cannedText('TRICK_ROOM_START', user)
     else
-      battle.message "The twisted dimensions returned to normal!"
       battle.unattach(Attachment.TrickRoom)
 
 extendMove 'Trump Card', ->
@@ -1861,7 +1850,7 @@ extendMove 'Worry Seed', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.message "#{target.name} acquired Insomnia!"
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
       target.copyAbility(Ability.Insomnia)
     else
       @fail(battle)
