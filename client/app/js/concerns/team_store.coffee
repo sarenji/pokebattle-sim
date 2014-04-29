@@ -7,6 +7,15 @@ class TeamStore extends Backbone.Collection
     teams = @getTeams()
     @reset(teams)
 
+  # Moves a team with the given id to the new index, and persist
+  # the change.
+  moveTeam: (id, newIndex) ->
+    team = @get(id)
+    @remove(id)
+    @add(team, at: newIndex)
+    @setTeams(@models)
+
+
   #####################################################
   # NOTE: These following methods are not part of the official interface,
   #       and are used to transition to saving teams on the server

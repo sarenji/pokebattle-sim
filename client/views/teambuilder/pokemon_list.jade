@@ -1,12 +1,14 @@
-each pokemon, i in pokemonList
-  li(data-pokemon-index=i, data-pokemon-cid=pokemon.cid)
-    - var style = window.PokemonIconBackground(pokemon)
-    .pokemon_icon(style=style)
-    .pokemon-middle
-      if pokemon.isNull
-        em Empty
-      else
-        = pokemon.get("name")
-        .pokemon-pbv
-          | PBV: 
-          span.pbv-value= pokemon.getPBV()
+ul.pokemon_list.clearfix
+  each pokemon, i in pokemonList
+    li(data-pokemon-cid=pokemon.cid)
+      - var style = window.PokemonIconBackground(pokemon)
+      .pokemon_icon(style=style)
+      .pokemon-middle
+        if pokemon.isNull
+          em Empty
+        else
+          = pokemon.get("name")
+          .pokemon-pbv
+            | PBV: 
+            span.pbv-value= pokemon.getPBV()
+  .nav-button.add_pokemon + Add Pokemon

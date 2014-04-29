@@ -196,6 +196,24 @@ class @TeambuilderView extends Backbone.View
     @$('.display_teams').html @teamsTemplate(teams: @getAllTeams(), window: window)
     @$('.display_teams').removeClass('hidden')
     @$('.display_pokemon').addClass('hidden')
+
+    $teamList = @$('.teams-list')
+    $teamList.sortable().on('drag', ->
+      # Fix the placeholder size (TODO: Make this a general easy to apply fix)
+      $dragged = $teamList.find('.sortable-dragging')
+      $placeholder = $teamList.find('.sortable-placeholder')
+      if $dragged && $placeholder && !$placeholder.data('resized')
+        $placeholder
+          .addClass($dragged.attr('class'))
+          .width($dragged.width())
+          .height($dragged.height())
+          .css("visibility", "hidden")
+          .data('resized', true)
+    ).bind('sortupdate', (e, ui) ->
+      $team = ui.item
+      PokeBattle.TeamStore.moveTeam($team.data('id'), $team.index())
+    )
+
     this
 
   renderTeam: =>
@@ -211,9 +229,9 @@ class @TeambuilderView extends Backbone.View
 
   renderPokemonList: =>
     team = @getSelectedTeam()
-    $pokemon_list = @$(".pokemon_list").empty()
-    $pokemon_list.html @pokemonListTemplate(window: window, pokemonList: team.models)
-    $pokemon_list.find("li[data-pokemon-index=#{@selectedPokemon}]").addClass("active")
+    $navigation = @$(".navigation")
+    $navigation.html @pokemonListTemplate(window: window, pokemonList: team.models)
+    $navigation.find("li").eq(@selectedPokemon).addClass("active")
 
     # NOTE: this isn't be used, and just amounts to hiding the button, however
     # we may re-enable this functionality in the future
@@ -222,6 +240,19 @@ class @TeambuilderView extends Backbone.View
       @$(".add_pokemon").show()
     else
       @$(".add_pokemon").hide()
+
+    @$(".pokemon_list").sortable().bind('sortupdate', (e, ui) =>
+      $pokemonListItem = ui.item
+      newIndex = $pokemonListItem.index()
+
+      selectedPokemon = @getSelectedPokemon()
+      movedPokemon = team.pokemon.get($pokemonListItem.data('pokemon-cid'))
+
+      team.pokemon.remove(movedPokemon, silent: true)
+      team.pokemon.add(movedPokemon, at: newIndex, silent: true)
+      @selectedPokemon = @$(".pokemon_list li[data-pokemon-cid=#{selectedPokemon.cid}]").index()
+      @dirty()
+    )
 
   renderPokemon: (pokemon) =>
     @pokemonEditView.setPokemon(pokemon)
