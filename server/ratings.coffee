@@ -2,6 +2,8 @@ async = require 'async'
 db = require './database'
 @algorithm = require('./elo')
 
+USERS_RATED_KEY = "users:rated"
+USERS_ACTIVE_KEY = "users:active"
 RATINGS_KEY = "ratings"
 RATINGS_ATTRIBUTES = Object.keys(@algorithm.createPlayer())
 RATINGS_SUBKEYS = {}
@@ -16,6 +18,11 @@ ALGORITHM_OPTIONS =
   WIN  : 1
   DRAW : 0.5  # In earlier generations, it's possible to draw.
   LOSE : 0
+
+@setActive = (idArray, next) ->
+  idArray = [idArray]  if idArray not instanceof Array
+  idArray = idArray.map((id) -> id.toLowerCase())
+  db.sadd(USERS_ACTIVE_KEY, idArray, next)
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
@@ -39,7 +46,19 @@ ALGORITHM_OPTIONS =
 
 @setRating = (id, newRating, next) ->
   id = id.toLowerCase()
-  db.zadd(RATINGS_SUBKEYS['rating'], newRating, id, next)
+  multi = db.multi()
+  multi = multi.sadd(USERS_RATED_KEY, id)
+  multi = multi.zadd(RATINGS_SUBKEYS['rating'], newRating, id)
+  multi.exec(next)
+
+@setRatings = (idArray, newRatingArray, next) ->
+  idArray = idArray.map((id) -> id.toLowerCase())
+  multi = db.multi()
+  multi = multi.sadd(USERS_RATED_KEY, idArray)
+  for id, i in idArray
+    newRating = newRatingArray[i]
+    multi = multi.zadd(RATINGS_SUBKEYS['rating'], newRating, id)
+  multi.exec(next)
 
 @getPlayers = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
@@ -54,13 +73,13 @@ ALGORITHM_OPTIONS =
     return next(null, players.map((p) -> Number(p.rating)))
 
 @updatePlayer = (id, object, next) ->
+  id = id.toLowerCase()
   multi = db.multi()
+  multi = multi.sadd(USERS_RATED_KEY, id)
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
-  multi.exec (err, results) ->
-    return next(err)  if err
-    return next(null, object)
+  multi.exec(next)
 
 @updatePlayers = (id, opponentId, score, next) ->
   if score < 0 || score > 1
@@ -87,19 +106,20 @@ ALGORITHM_OPTIONS =
 @resetRatings = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
   multi = db.multi()
+  multi = multi.srem(USERS_RATED_KEY, idArray)
   for attribute, key of RATINGS_SUBKEYS
     multi = multi.zrem(key, idArray)
   multi.exec(next)
 
-@listRatings = (page = 1, perPage = RATINGS_PER_PAGE, next = ->) ->
+@listRatings = (page = 1, perPage = RATINGS_PER_PAGE, next) ->
   if arguments.length == 2 && typeof perPage == 'function'
     [perPage, next] = [RATINGS_PER_PAGE, perPage]
   page -= 1
   start = page * perPage
   end = start + (perPage - 1)
   db.zrevrange RATINGS_SUBKEYS['rating'], start, end, 'WITHSCORES', (err, r) ->
-    return next(err)  if err
+    return next?(err)  if err
     array = []
     for i in [0...r.length] by 2
       array.push(username: r[i], score: r[i + 1])
-    next(null, array)
+    next?(null, array)
