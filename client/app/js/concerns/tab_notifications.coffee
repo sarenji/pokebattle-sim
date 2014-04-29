@@ -45,7 +45,7 @@ PokeBattle.notifyUser = (type, identifier) =>
 
   if type.showDesktop
     notification = notify.createNotification type.title,
-      icon: "/images/logo/pb_red.png"
+      icon: "//s3.pokebattle.com/logo/pb_red.png"
       body: type.body
       tag: "PokeBattle_#{type.prefix}_#{identifier}"
 
@@ -55,4 +55,3 @@ $(window).focus ->
   $.flashTitle(false)
   notification.close()  for notification in notifications
   notifications = []
-  
