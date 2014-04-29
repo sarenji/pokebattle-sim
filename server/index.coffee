@@ -1,7 +1,6 @@
+http = require 'http'
 express = require 'express'
 path = require 'path'
-fs = require 'fs'
-{_} = require 'underscore'
 require 'sugar'
 
 {BattleServer} = require './server'
@@ -13,8 +12,10 @@ generations = require './generations'
 errors = require '../shared/errors'
 db = require('./database')
 
-buildServer = (protocolServer, app) ->
-  server = new BattleServer()
+@createServer = (port) ->
+  app = express()
+  httpServer = http.createServer(app)
+  httpServer.battleServer = server = new BattleServer()
 
   # Configuration
   app.set("views", "client")
@@ -38,7 +39,7 @@ buildServer = (protocolServer, app) ->
   server.rooms.push(lobby)
 
   # Start responding to websocket clients
-  connections = new ConnectionServer(protocolServer, lobby, prefix: '/socket')
+  connections = new ConnectionServer(httpServer, lobby, prefix: '/socket')
 
   connections.addEvents
     'login': (user, id, token) ->
@@ -228,23 +229,6 @@ buildServer = (protocolServer, app) ->
 
   battleSearch()
 
+  httpServer.listen(port)
 
-@createServer = (port) ->
-  app = express()
-
-  sslOptions =
-    key:  'server.key'
-    cert: 'server.crt'
-  if _.every(_.values(sslOptions), (fileName) -> fs.exists(fileName))
-    https = require 'https'
-    for key, fileName of sslOptions
-      sslOptions[key] = fs.readFileSync(fileName)
-    protocolServer = https.createServer(sslOptions, app)
-  else
-    http = require 'http'
-    protocolServer = http.createServer(app)
-
-  buildServer(protocolServer, app)
-
-  protocolServer.listen(port)
-  protocolServer
+  httpServer

@@ -26,16 +26,9 @@ namespace :sim do
   task :compile do
     run "cd #{release_path} && grunt concurrent:compile"
   end
-
-  task :symlink do
-    %w[server.key server.crt].each do |ssl_path|
-      run "ln -s #{shared_path}/#{ssl_path} #{release_path}/#{ssl_path}"
-    end
-  end
 end
 
 after "node:install_packages", "sim:compile"
-after "deploy:update_code", "sim:symlink"
 
 # clean up old releases on each deploy
 after "deploy", "deploy:cleanup"
