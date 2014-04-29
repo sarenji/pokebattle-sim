@@ -1,6 +1,7 @@
 require './helpers'
 
 should = require 'should'
+async = require 'async'
 {BattleQueue} = require('../server/queue')
 db = require('../server/database')
 ratings = require('../server/ratings')
@@ -60,9 +61,6 @@ describe 'BattleQueue', ->
       queue.queuedPlayers().should.have.length 1
 
   describe '#pairPlayers', ->
-    afterEach (done) ->
-      db.flushdb(done)
-
     it 'takes players out of the queue', (done) ->
       queue = new BattleQueue()
       queue.add('batman')
@@ -94,28 +92,22 @@ describe 'BattleQueue', ->
         done()
 
     it "returns an array of pairs in the order of their rating", (done) ->
-      args = []
-      createPlayer = (rating) ->
-        player = ratings.algorithm.createPlayer()
-        player.rating = rating
-        JSON.stringify(player)
-      args.push("batman", createPlayer(1))
-      args.push("superman", createPlayer(4))
-      args.push("flash", createPlayer(3))
-      args.push("spiderman", createPlayer(2))
-      db.hmset("ratings", args...)
-      queue = new BattleQueue()
-      queue.add('batman')
-      queue.add('superman')
-      queue.add('flash')
-      queue.add('spiderman')
-      queue.pairPlayers (err, results) ->
-        should.not.exist(err)
-        should.exist(results)
-        results.should.be.instanceOf(Array)
-        results.should.have.length(2)
-        results = results.map (result) ->
-          Object.keys(result)
-        results.should.eql [[ "batman", "spiderman" ]
-                            [ "flash", "superman"   ]]
-        done()
+      scores = [["batman", 1], ["superman", 4], ["flash", 3], ["spiderman", 2]]
+      callbacks = for [player, score] in scores
+        ratings.setRating.bind(ratings, player, score)
+      async.parallel callbacks, ->
+        queue = new BattleQueue()
+        queue.add('batman')
+        queue.add('superman')
+        queue.add('flash')
+        queue.add('spiderman')
+        queue.pairPlayers (err, results) ->
+          should.not.exist(err)
+          should.exist(results)
+          results.should.be.instanceOf(Array)
+          results.should.have.length(2)
+          results = results.map (result) ->
+            Object.keys(result)
+          results.should.eql [[ "batman", "spiderman" ]
+                              [ "flash", "superman"   ]]
+          done()

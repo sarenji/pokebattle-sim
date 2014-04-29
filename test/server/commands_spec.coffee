@@ -32,9 +32,6 @@ describe "Commands", ->
     @server.join(@user1)
     @server.join(@user2)
 
-  afterEach (done) ->
-    db.flushdb(done)
-
   describe "#executeCommand", ->
     describe "an invalid command", ->
       it "returns an error to the user", ->

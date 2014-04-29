@@ -24,7 +24,10 @@
     "grunt-external-daemon": "~1.1.0",
     "grunt-contrib-cssmin": "~0.6.2",
     "restify": "~2.6.1",
-    "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz"
+    "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz",
+    "async": "~0.2.10",
+    "elo-rank": "~0.2.2",
+    "node-schedule": "~0.1.13"
   },
   "devDependencies": {
     "should": "~1.2.x",

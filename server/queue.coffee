@@ -35,28 +35,30 @@ class @BattleQueue
     ratings.getRatings ids, (err, ratings) =>
       if err then return next(err, null)
 
-      pairs = []
-      sortedPlayers = []
+      ratings.setActive ids, (err) =>
+        if err then return next(err, null)
+        pairs = []
+        sortedPlayers = []
 
-      # Get the list of players sorted by rating
-      for rating, i in ratings
-        id = ids[i]
-        sortedPlayers.push([ {playerId: id, team: @queue[id]}, rating ])
-      sortedPlayers.sort((a, b) -> a[1] - b[1])
-      sortedPlayers = sortedPlayers.map((array) -> array[0])
+        # Get the list of players sorted by rating
+        for rating, i in ratings
+          id = ids[i]
+          sortedPlayers.push([ {playerId: id, team: @queue[id]}, rating ])
+        sortedPlayers.sort((a, b) -> a[1] - b[1])
+        sortedPlayers = sortedPlayers.map((array) -> array[0])
 
-      # Populate pair array
-      for i in [0...sortedPlayers.length] by 2
-        first = sortedPlayers[i]
-        second = sortedPlayers[i + 1]
-        continue  unless first && second
-        pair = {}
-        pair[first.playerId] = first.team
-        pair[second.playerId] = second.team
-        pairs.push(pair)
+        # Populate pair array
+        for i in [0...sortedPlayers.length] by 2
+          first = sortedPlayers[i]
+          second = sortedPlayers[i + 1]
+          continue  unless first && second
+          pair = {}
+          pair[first.playerId] = first.team
+          pair[second.playerId] = second.team
+          pairs.push(pair)
 
-        # Remove paired players from the queue
-        @remove(Object.keys(pair))
+          # Remove paired players from the queue
+          @remove(Object.keys(pair))
 
-      # Return the list of paired players
-      next(null, pairs)
+        # Return the list of paired players
+        next(null, pairs)
