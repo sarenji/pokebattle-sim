@@ -108,13 +108,13 @@ class @BattleServer
         id: challengerId,
         name: challenge.altName || challenge.challengerName,
         team: challenge.team,
-        attributes: { isAlt: challenge.altName? }
+        ratingKey: alts.uniqueId(challengerId, challenge.altName)
       }
       {
         id: player.id,
         name: altName || player.name,
         team: team,
-        attributes: { isAlt: altName? }
+        ratingKey: alts.uniqueId(player.id, altName)
       }
     ]
 
@@ -160,7 +160,8 @@ class @BattleServer
       err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
       if err.length == 0
         name = @users.get(playerId)[0]?.name
-        @queues[generation].add(playerId, altName || name, team, isAlt: altName?)
+        ratingKey = alts.uniqueId(playerId, altName)
+        @queues[generation].add(playerId, altName || name, team, ratingKey)
       return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->

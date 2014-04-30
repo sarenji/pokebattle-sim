@@ -136,8 +136,8 @@ createCondition Conditions.RATED_BATTLE,
       winner = @getPlayer(winnerId)
       loser = @getPlayer(loserId)
 
-      winnerId = alts.idForAlt(winner.id, winner.name)  if winner.attributes?.isAlt
-      loserId = alts.idForAlt(loser.id, loser.name)  if loser.attributes?.isAlt
+      winnerId = winner.ratingKey
+      loserId = loser.ratingKey
 
       ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
         ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>

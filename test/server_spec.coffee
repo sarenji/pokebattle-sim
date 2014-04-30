@@ -7,6 +7,8 @@ gen = require('../server/generations')
 {Factory} = require './factory'
 should = require('should')
 
+alts = require('../server/alts')
+
 describe 'BattleServer', ->
   it 'can create a new battle', ->
     server = new BattleServer()
@@ -407,7 +409,7 @@ describe 'BattleServer', ->
       battle = @server.findBattle(battleId)
       battle.battle.playerNames.should.eql ["Bruce Wayne", "Jason Todd"]
 
-    it "sets the battle attribute isAlt to true if an alt is set", ->
+    it "sets the rating key to be the unique alt id if there is an alt", ->
       initServer.call(this)
       team = [ Factory("Magikarp") ]
       generation = 'xy'
@@ -416,20 +418,9 @@ describe 'BattleServer', ->
       @server.registerChallenge(@user, @other.id, generation, team, conditions, "Bruce Wayne")
       battleId = @server.acceptChallenge(@other, @user.id, team, "Jason Todd")
       battle = @server.findBattle(battleId)
-      battle.battle.getPlayer("Batman").attributes.isAlt.should.be.true
-      battle.battle.getPlayer("Robin").attributes.isAlt.should.be.true
 
-    it "sets the battle attribute isAlt to false if there is no alt", ->
-      initServer.call(this)
-      team = [ Factory("Magikarp") ]
-      generation = 'xy'
-      conditions = []
-
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
-      battleId = @server.acceptChallenge(@other, @user.id, team)
-      battle = @server.findBattle(battleId)
-      battle.battle.getPlayer("Batman").attributes.isAlt.should.be.false
-      battle.battle.getPlayer("Robin").attributes.isAlt.should.be.false
+      battle.battle.getPlayer("Batman").ratingKey.should.equal alts.uniqueId(@user.id, "Bruce Wayne")
+      battle.battle.getPlayer("Robin").ratingKey.should.equal alts.uniqueId(@other.id, "Jason Todd")
 
   describe "#leave", ->
     it "removes challenges by that player", ->

@@ -30,8 +30,8 @@ build = (context, opts={}) ->
   team2   = opts.team2 || [Factory('Magikarp'), Factory('Magikarp')]
   conditions = opts.conditions
   players = [
-    {id: context.id1, name: context.id1, team: team1}
-    {id: context.id2, name: context.id2, team: team2}
+    {id: context.id1, name: context.id1, team: team1, ratingKey: context.id1}
+    {id: context.id2, name: context.id2, team: team2, ratingKey: context.id2}
   ]
   numActive = opts.numActive || 1
   context.battle = new Battle('id', players, {numActive, conditions})

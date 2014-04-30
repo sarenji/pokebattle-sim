@@ -45,5 +45,8 @@ ALTS_KEY = "alts"
     return next(err)  if err
     next(err, assignedUserId == userId)
 
-@idForAlt = (id, altName) ->
+# Generates a unique id for a given id + altName combination.
+# If altName is null, the original id is returned
+@uniqueId = (id, altName) ->
+  return id  if not altName
   "#{id}:#{altName}"

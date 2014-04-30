@@ -99,16 +99,16 @@ describe 'BattleQueue', ->
         results.should.have.length(2)
         done()
 
-    it 'returns id/name/team/attribute objects', (done) ->
+    it 'returns id/name/team/ratingkeyobjects', (done) ->
       queue = new BattleQueue()
-      queue.add('batman', 'Bruce Wayne', [], superpowers: false)
-      queue.add('superman', 'Clark Kent', [], reporter: true)
+      queue.add('batman', 'Bruce Wayne', [], 'bat')
+      queue.add('superman', 'Clark Kent', [], 'supes')
       queue.pairPlayers (err, results) ->
         should.not.exist(err)
         should.exist(results)
         results.should.eql [[
-          {id: 'batman', name: 'Bruce Wayne', team: [], attributes: {superpowers: false} }
-          {id: 'superman', name: 'Clark Kent', team: [], attributes: {reporter: true} }
+          {id: 'batman', name: 'Bruce Wayne', team: [], ratingKey: 'bat' }
+          {id: 'superman', name: 'Clark Kent', team: [], ratingKey: 'supes' }
         ]]
         done()
 
@@ -146,7 +146,7 @@ describe 'BattleQueue', ->
         ratingTasks.push ratings.setRating.bind(null, user[0], user[2])
         
         # alt
-        altId = alts.idForAlt(user[0], user[1])
+        altId = alts.uniqueId(user[0], user[1])
         ratingTasks.push ratings.setRating.bind(this, altId, user[3])
 
       async.series ratingTasks, ->
@@ -158,7 +158,7 @@ describe 'BattleQueue', ->
           results.should.eql [[ "batman", "spiderman" ], [ "flash", "superman" ]]
 
           # now test alts getting added   
-          queue.add(user[0], user[1], null, isAlt: true)  for user in users
+          queue.add(user[0], user[1], null, alts.uniqueId(user[0], user[1]))  for user in users
           queue.pairPlayers (err, results) ->
             should.not.exist(err)
             results = results.map((result) -> [result[0].id, result[1].id])
