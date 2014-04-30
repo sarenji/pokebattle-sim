@@ -8,7 +8,7 @@ auth = require('../../server/auth')
 {Room} = require('../../server/rooms')
 ratings = require('../../server/ratings')
 {Factory} = require '../factory'
-db = require('../../server/database')
+redis = require('../../server/redis')
 
 generateTeam = ->
   [ Factory("Magikarp")
@@ -33,7 +33,7 @@ describe "Commands", ->
     @server.join(@user2)
 
   afterEach (done) ->
-    db.flushdb(done)
+    redis.flushdb(done)
 
   describe "#executeCommand", ->
     describe "an invalid command", ->

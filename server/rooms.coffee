@@ -1,5 +1,5 @@
 {SocketHash} = require('./socket_hash')
-db = require('./database')
+redis = require('./redis')
 errors = require('../shared/errors')
 
 class @Room
@@ -29,7 +29,7 @@ class @Room
   # TODO: Or rather, it shouldn't work for battle rooms. Once a distinction is
   # possible, block it for battle rooms
   setTopic: (topic) ->
-    db.hset "topic", "main", topic
+    redis.hset "topic", "main", topic
     @send('topic', topic)  if topic
 
   has: (id) ->

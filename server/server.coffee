@@ -12,7 +12,7 @@ learnsets = require '../shared/learnsets'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
-db = require('./database')
+redis = require('./redis')
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
@@ -62,7 +62,7 @@ class @BattleServer
       battle.sendUpdates()
 
   showTopic: (player) ->
-    db.hget "topic", "main", (err, topic) ->
+    redis.hget "topic", "main", (err, topic) ->
       player.send('topic', topic)  if topic
 
   leave: (player) ->
@@ -78,7 +78,7 @@ class @BattleServer
       max: options.max
       duration: options.duration
       id: player.id
-      db: db
+      db: redis
     @limiters[player.id][kind] ?= new Limiter(attributes)
     @limiters[player.id][kind].get(next)
 

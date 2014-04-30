@@ -1,4 +1,4 @@
-db = require './database'
+redis = require './redis'
 @algorithm = require('./glicko2')
 
 RATINGS_KEY = "ratings"
@@ -19,7 +19,7 @@ parsePlayer = (p) ->
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
-  db.hget RATINGS_KEY, id, (err, json) ->
+  redis.hget RATINGS_KEY, id, (err, json) ->
     return next(err)  if err
     return next(null, parsePlayer(json))
 
@@ -34,11 +34,11 @@ parsePlayer = (p) ->
   @getPlayer id, (err, player) ->
     if err then return next(err)
     player.rating = newRating
-    db.hset(RATINGS_KEY, id, JSON.stringify(player), next)
+    redis.hset(RATINGS_KEY, id, JSON.stringify(player), next)
 
 @getPlayers = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
-  db.hmget RATINGS_KEY, idArray, (err, players) ->
+  redis.hmget RATINGS_KEY, idArray, (err, players) ->
     return next(err)  if err
     players = (parsePlayer(p)  for p in players)
     return next(null, players)
@@ -63,16 +63,16 @@ parsePlayer = (p) ->
       loserMatches = [{opponent: player, score: 1.0 - score}]
       newWinner = exports.algorithm.calculate(player, winnerMatches, systemConstant: GLICKO2_TAU)
       newLoser = exports.algorithm.calculate(opponent, loserMatches, systemConstant: GLICKO2_TAU)
-      db.hset(RATINGS_KEY, id, JSON.stringify(newWinner))
-      db.hset(RATINGS_KEY, opponentId, JSON.stringify(newLoser))
+      redis.hset(RATINGS_KEY, id, JSON.stringify(newWinner))
+      redis.hset(RATINGS_KEY, opponentId, JSON.stringify(newLoser))
       return next(null, [ newWinner, newLoser ])
 
 @resetRating = (id, next) ->
   id = id.toLowerCase()
-  db.hset(RATINGS_KEY, id, JSON.stringify(parsePlayer()), next)
+  redis.hset(RATINGS_KEY, id, JSON.stringify(parsePlayer()), next)
 
 @resetRatings = (idArray, next) ->
   playerJSON = JSON.stringify(parsePlayer())
   hash = {}
   hash[id.toLowerCase()] = playerJSON  for id in idArray
-  db.hmset(RATINGS_KEY, hash, next)
+  redis.hmset(RATINGS_KEY, hash, next)
