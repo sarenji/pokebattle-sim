@@ -74,6 +74,8 @@ module.exports = (grunt) ->
           "client/vendor/js/backbone.js"
           "client/vendor/js/*.js"
         ]
+    knexmigrate:
+      config: require('./knex_config')
     external_daemon:
       cmd: "redis-server"
     exec:
@@ -148,6 +150,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-external-daemon')
   grunt.loadNpmTasks('grunt-aws')
   grunt.loadNpmTasks('grunt-exec')
+  grunt.loadNpmTasks('grunt-knex-migrate')
+
   grunt.registerTask('heroku:production', 'concurrent:compile')
   grunt.registerTask('heroku:development', 'concurrent:compile')
   grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])

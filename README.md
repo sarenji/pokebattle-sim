@@ -34,6 +34,12 @@ When you install PostgreSQL, you should create a database for pokebattle, called
 CREATE DATABASE pokebattle_sim;
 ```
 
+Next, you must migrate the database. Simply run:
+
+```bash
+grunt knexmigrate:latest
+```
+
 ## Run server
 
 We use [Grunt](http://gruntjs.com/) to handle our development. First, you must `npm install -g grunt-cli` to get the grunt runner. Then you can type
@@ -83,7 +89,7 @@ mocha
 
 ## Deployment
 
-First, you must get SSH access to the server. Next, you must get S3  To deploy:
+First, you must get SSH access to the server. Next, you must get S3 access. Copy over `aws_config.json.example` to `aws_config.json` and fill out the necessary information. Then, to deploy:
 
 ```bash
 grunt deploy

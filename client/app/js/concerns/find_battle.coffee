@@ -128,11 +128,11 @@
   teamUpdated = ->
     # If this challenge panel no longer exists, remove the callback
     if not $.contains(document, $wrapper.get(0))
-      PokeBattle.TeamStore.off 'add remove change sync', teamUpdated
+      PokeBattle.TeamStore.off 'add remove change reset', teamUpdated
       return
 
     # Rerender the current team
     renderCurrentTeam($wrapper)
 
   # Start listening for team updated events
-  PokeBattle.TeamStore.on 'add remove sync', teamUpdated
+  PokeBattle.TeamStore.on 'add remove change reset', teamUpdated

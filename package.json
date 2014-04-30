@@ -30,7 +30,8 @@
     "grunt-exec": "~0.4.5",
     "knex": "~0.5.13",
     "bookshelf": "~0.6.10",
-    "pg": "~3.0.3"
+    "pg": "~3.0.3",
+    "grunt-knex-migrate": "0.0.2"
   },
   "devDependencies": {
     "should": "~1.2.x",

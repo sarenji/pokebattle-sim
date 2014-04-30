@@ -1,20 +1,6 @@
 h2 Your teams
-.clearfix
+.teambuilder_teams.clearfix
   each team in teams
-    .left.select-team(data-id=team.id)
-      h2= team.getName()
-      != window.JST['team']({team: team, window: window})
-      .team-meta
-        span.fake_link.export-team
-          span.icon-upload
-          |  Export
-        |  | 
-        span.fake_link.clone-team
-          span.icon-copy
-          |  Clone
-        |  | 
-        span.fake_link.delete-team
-          span.icon-remove
-          |  Delete
+    != window.JST['teambuilder/team']({team: team, window: window})
 .button.button-primary.add-new-team Add new team
 .button.import-team Import
