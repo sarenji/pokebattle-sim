@@ -51,6 +51,17 @@
   toggleAltInput = (visible) ->
     $wrapper.find('.alt-input').toggleClass("hidden", !visible)
     $wrapper.find('.alt-dropdown-section').toggleClass("hidden", visible)
+    $wrapper.find('.alt-input input').focus()  if visible
+
+  isAttachedToDom = ->
+    $.contains(document, $wrapper.get(0))
+
+  altCreatedEvent = ->
+    return PokeBattle.events.off('altCreated', altCreatedEvent)  unless isAttachedToDom()
+    $wrapper.find('.alt-input input').val("")
+    toggleAltInput(false)
+
+  PokeBattle.events.on 'altCreated', altCreatedEvent
 
   enableButtons()
 
@@ -107,9 +118,8 @@
 
   # Clicking the Add Alt Button
   $wrapper.find('.alt-input .add-button').click (e) ->
-    altName = $('.alt-input input').val().trim()
+    altName = $wrapper.find('.alt-input input').val().trim()
     PokeBattle.alts.createAlt(altName)
-    toggleAltInput(false)
 
   # Clicking the Cancel Add Alt Button
   $wrapper.find('.alt-input .cancel-button').click (e) ->
@@ -159,7 +169,7 @@
   # Called when a team has been updated
   teamUpdated = ->
     # If this challenge panel no longer exists, remove the callback
-    if not $.contains(document, $wrapper.get(0))
+    if not isAttachedToDom()
       PokeBattle.TeamStore.off 'add remove change sync', teamUpdated
       return
 
