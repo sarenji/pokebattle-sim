@@ -1,17 +1,17 @@
 class @TeambuilderView extends Backbone.View
   template: JST['teambuilder/main']
+  teamTemplate: JST['teambuilder/team']
   teamsTemplate: JST['teambuilder/teams']
   pokemonListTemplate: JST['teambuilder/pokemon_list']
   importTemplate: JST['modals/import_team']
   exportTemplate: JST['modals/export_team']
-  teamTemplate: JST['team']
 
   events:
     # Team view
     'click .add-new-team': 'addNewTeamEvent'
     'click .export-team': 'exportTeam'
     'click .clone-team': 'cloneTeam'
-    'click .delete-team': 'deleteTeam'
+    'click .delete-team': 'deleteTeamEvent'
     'click .select-team': 'clickTeam'
     'click .import-team': 'renderImportTeamModal'
 
@@ -29,6 +29,12 @@ class @TeambuilderView extends Backbone.View
     @selectedTeam = null
 
     @render()
+
+    @listenTo(PokeBattle.TeamStore, 'reset', @resetTeams)
+    @listenTo(PokeBattle.TeamStore, 'add', @addNewTeam)
+    @listenTo(PokeBattle.TeamStore, 'remove', @deleteTeam)
+    @listenTo(PokeBattle.TeamStore, 'change:id', @changeTeamId)
+    @listenTo(PokeBattle.TeamStore, 'reset', @renderTeams)
 
     @pokemonEditView = new PokemonEditView(
       el: @$('.pokemon_edit')
@@ -60,9 +66,10 @@ class @TeambuilderView extends Backbone.View
     )
 
     @listenTo(team.pokemon, 'add remove', @renderPokemonList)
-    @listenTo(team.pokemon, 'reset', @renderTeam)
+    @listenTo(team.pokemon, 'reset', (=> @changeTeam(team)))
     @listenTo(team.pokemon, 'change reset add remove', @dirty)
-    @listenTo(team.pokemon, 'change reset add remove', @renderPBV)
+    @listenTo(team.pokemon, 'change add remove', @renderPBV)
+    @listenTo(team.pokemon, 'reset', (=> @renderPBV()))
 
     @listenTo(team, 'change', @dirty)
 
@@ -73,28 +80,44 @@ class @TeambuilderView extends Backbone.View
     team.pokemon.add(new NullPokemon())
 
   addNewTeamEvent: (e) =>
-    @addNewTeam()
+    team = new Team()
+    PokeBattle.TeamStore.add(team)
+    team.save()
 
   addNewTeam: (team) =>
-    team ||= new Team()
+    @$('.teambuilder_teams').append @teamTemplate({team, window})
     @addEmptyPokemon(team)  while team.length < 6
     @attachEventsToTeam(team)
-    team.save()
-    @renderTeams()
+
+  resetTeams: (teamStore) =>
+    teamStore.forEach (team) =>
+      @attachEventsToTeam(team)
 
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
     id = $team.data('id')
-    @getTeam(id).clone().set("id", null).save()
-    @renderTeams()
+    clone = @getTeam(id).clone().set("id", null)
+    PokeBattle.TeamStore.add(clone)
+    clone.save()
     return false
 
-  deleteTeam: (e) =>
+  deleteTeamEvent: (e) =>
     return false  if !confirm("Do you really want to delete this team?")
     $team = $(e.currentTarget).closest('.select-team')
-    @getTeam($team.data('id')).destroy()
-    @renderTeams()
+    team = @getTeam($team.data('id'))
+    PokeBattle.TeamStore.remove(team)
+    team.destroy()
     return false
+
+  deleteTeam: (team) =>
+    @$(".select-team[data-id=#{team.id}]").remove()
+
+  changeTeam: (team) =>
+    html = $(@teamTemplate({team, window})).html()
+    @$(".select-team[data-cid=#{team.cid}]").html(html)
+
+  changeTeamId: (team) =>
+    @$(".select-team[data-cid=#{team.cid}]").attr('data-id', team.id)
 
   exportTeam: (e) =>
     if $('#export-team-modal').length == 0
@@ -122,7 +145,10 @@ class @TeambuilderView extends Backbone.View
     @$('.pokemon_list li').last().click()
 
   saveTeam: =>
-    @getSelectedTeam().save()
+    clone = @getSelectedTeam()
+    team = PokeBattle.TeamStore.get(clone.id)
+    team.pokemon.reset(clone.pokemon.toJSON())
+    team.save(clone.attributes)
     @resetHeaderButtons()
 
   changeTeamGeneration: (e) =>
@@ -153,6 +179,7 @@ class @TeambuilderView extends Backbone.View
     # Duplicate the team, so that changes don't stick until saved
     @selectedTeam = team.clone()
     @selectedTeam.id = team.id
+    @selectedTeam.cid = team.cid
     @selectedPokemon = 0
     @attachEventsToTeam(@selectedTeam)
     @renderTeam()
@@ -175,14 +202,11 @@ class @TeambuilderView extends Backbone.View
       @$('.team_name').blur()
 
   goBackToOverview: =>
-    if @_dirty
-      @resetHeaderButtons()
-    @renderTeams()
+    @showTeams()
 
   dirty: =>
     @$('.go_back').text('Discard changes')
     @$('.save_team').removeClass('disabled')
-    @_dirty = true
 
   resetHeaderButtons: =>
     @$('.go_back').text('Back')
@@ -194,13 +218,17 @@ class @TeambuilderView extends Backbone.View
 
   renderTeams: =>
     @$('.display_teams').html @teamsTemplate(teams: @getAllTeams(), window: window)
+    @showTeams()
+    this
+
+  showTeams: =>
     @$('.display_teams').removeClass('hidden')
     @$('.display_pokemon').addClass('hidden')
-    this
 
   renderTeam: =>
     team = @getSelectedTeam()
     @pokemonEditView.setGeneration(team.get('generation')  || DEFAULT_GENERATION)
+    @resetHeaderButtons()
     @renderGeneration()
     @renderPokemonList()
     @renderPBV()
@@ -256,8 +284,8 @@ class @TeambuilderView extends Backbone.View
           $errors.html("<ul>#{listErrors}</ul>").removeClass('hidden')
         else
           team = new Team(pokemon: pokemonJSON, teambuilder: true)
+          PokeBattle.TeamStore.add(team)
           team.save()
-          @addNewTeam(team)
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false

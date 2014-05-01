@@ -1,12 +1,20 @@
-redis = require 'redis'
+Bookshelf = require('bookshelf')
+config = require('../knex_config').database
 
-# Connect to redis
-if process.env.REDIS_DB_URL
-  parts = require("url").parse(process.env.REDIS_DB_URL)
-  db = redis.createClient(parts.port, parts.hostname)
-  db.auth(parts.auth.split(":")[1])  if parts.auth
-else
-  db = redis.createClient()
+Bookshelf.PG = PG = Bookshelf.initialize(config)
 
-# Export database variable
-module.exports = db
+Team = PG.Model.extend
+  tableName: 'teams'
+  hasTimestamps: ['created_at', 'updated_at']
+
+  toJSON: -> {
+      id: @id
+      name: @get('name')
+      generation: @get('generation')
+      pokemon: JSON.parse(@get('contents'))
+    }
+
+Teams = PG.Collection.extend
+  model: Team
+
+module.exports = {Team, Teams}

@@ -12,15 +12,33 @@ cd pokebattle-sim
 npm install
 ```
 
+Next, you need to install two dependencies: redis and PostgreSQL 9.1.
+
 ### Redis
 
-You also need to install redis. On Mac OS X with homebrew, you can do:
+On Mac OS X with homebrew, you can do:
 
 ```bash
 brew install redis
 ```
 
 On Windows, there is a Redis port that works fairly well: https://github.com/rgl/redis/downloads
+
+### PostgreSQL
+
+PostgreSQL has installable versions for every major OS. In particular, for Mac OS X, there is Postgres.app.
+
+When you install PostgreSQL, you should create a database for pokebattle, called `pokebattle_sim`. The syntax is:
+
+```sql
+CREATE DATABASE pokebattle_sim;
+```
+
+Next, you must migrate the database. Simply run:
+
+```bash
+grunt knexmigrate:latest
+```
 
 ## Run server
 
@@ -30,7 +48,7 @@ We use [Grunt](http://gruntjs.com/) to handle our development. First, you must `
 grunt
 ```
 
-to automatically compile all client-side files and run nodemon for you.
+to automatically compile all client-side files and run `nodemon` for you.
 
 ### Vagrant (Windows-only, optional)
 
@@ -58,6 +76,9 @@ vagrant destroy
 
 ```bash
 npm test
+# or
+npm install -g mocha
+mocha
 ```
 
 Or if you're in the Vagrant VM, you can just run
@@ -65,6 +86,16 @@ Or if you're in the Vagrant VM, you can just run
 ```bash
 mocha
 ```
+
+## Deployment
+
+First, you must get SSH access to the server. Next, you must get S3 access. Copy over `aws_config.json.example` to `aws_config.json` and fill out the necessary information. Then, to deploy:
+
+```bash
+grunt deploy
+```
+
+This will do all the work for you.
 
 ## Guide
 

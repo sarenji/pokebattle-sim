@@ -2,7 +2,7 @@ require './helpers'
 
 should = require 'should'
 {BattleQueue} = require('../server/queue')
-db = require('../server/database')
+redis = require('../server/redis')
 ratings = require('../server/ratings')
 
 describe 'BattleQueue', ->
@@ -61,7 +61,7 @@ describe 'BattleQueue', ->
 
   describe '#pairPlayers', ->
     afterEach (done) ->
-      db.flushdb(done)
+      redis.flushdb(done)
 
     it 'takes players out of the queue', (done) ->
       queue = new BattleQueue()
@@ -103,7 +103,7 @@ describe 'BattleQueue', ->
       args.push("superman", createPlayer(4))
       args.push("flash", createPlayer(3))
       args.push("spiderman", createPlayer(2))
-      db.hmset("ratings", args...)
+      redis.hmset("ratings", args...)
       queue = new BattleQueue()
       queue.add('batman')
       queue.add('superman')

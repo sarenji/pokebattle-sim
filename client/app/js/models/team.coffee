@@ -19,12 +19,12 @@ class @Team extends Backbone.Model
     @length = @pokemon.length
 
     # update certain attributes when the pokemon collection is changed
-    @listenTo(@pokemon, 'change', => @models = @pokemon.models)
+    @listenTo(@pokemon, 'change reset', => @models = @pokemon.models)
     @listenTo(@pokemon, 'add remove reset', => @length = @pokemon.length)
 
     # When any event fires for the sub collection, the change event is fired for the team.
     # To listen to pokemon directly, listen to @pokemon
-    @listenTo(@pokemon, 'add remove change', => @trigger('change'))
+    @listenTo(@pokemon, 'add remove change reset', => @trigger('change'))
 
     # Do not store the raw json, but the actual nested models
     @set('pokemon', @pokemon)
@@ -32,12 +32,13 @@ class @Team extends Backbone.Model
   getName: =>
     @get('name') || "Untitled team"
 
-  toJSON: => {
-      id: @id
-      name: @get('name')
-      generation: @get('generation')
-      pokemon: @pokemon.toJSON()
-    }
+  toJSON: =>
+    json = {}
+    json['id'] = @id  if @id
+    json['name'] = @get('name')
+    json['generation'] = @get('generation')
+    json['pokemon'] = @pokemon.toJSON()
+    json
 
   # Returns the pokemon at a particular index. Delegates to the internal pokemon collection
   at: (idx) => @pokemon.at(idx)
@@ -86,10 +87,9 @@ class @Team extends Backbone.Model
   hasNonNullPokemon: =>
     _(@models).some((model) -> not model.isNull)
 
-  save: =>
-    PokeBattle.TeamStore.saveTeam(this)
-    @trigger('sync')
-
-  destroy: =>
-    PokeBattle.TeamStore.destroyTeam(this)
-    @trigger('destroy')
+  sync: (method) =>
+    switch method
+      when 'create', 'patch', 'update'
+        PokeBattle.socket.send('saveTeam', @toJSON(), @cid)
+      when 'delete'
+        PokeBattle.socket.send('destroyTeam', @id)

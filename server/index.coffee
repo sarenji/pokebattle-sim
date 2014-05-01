@@ -1,6 +1,7 @@
 http = require 'http'
 express = require 'express'
 path = require 'path'
+{_} = require 'underscore'
 require 'sugar'
 
 {BattleServer} = require './server'
@@ -11,6 +12,7 @@ generations = require './generations'
 {Room} = require('./rooms')
 errors = require '../shared/errors'
 assets = require('../assets')
+database = require('./database')
 
 @createServer = (port) ->
   app = express()
@@ -49,6 +51,7 @@ assets = require('../assets')
       auth.matchToken id, token, (err, json) ->
         if err then return user.error(errors.INVALID_SESSION)
         user.id = json.username
+        user._id = id
         auth.getBanTTL user.id, (err, ttl) ->
           if err
             return user.error(errors.INVALID_SESSION)
@@ -92,9 +95,6 @@ assets = require('../assets')
 
       battle.messageSpectators(user, message)
 
-    'saveTeam': (user, team) ->
-      console.log(team) # todo: implement this
-
     'close': (user) ->
       # Do nothing if this user never logged in.
       return  if !user.id?
@@ -103,6 +103,33 @@ assets = require('../assets')
         user.broadcast('leaveChatroom', user.id)
         connections.trigger(user, "cancelFindBattle")
 
+    #########
+    # TEAMS #
+    #########
+
+    # Takes a temporary id and team JSON. Saves to server, and returns the real
+    # unique id that was persisted onto the DB.
+    'saveTeam': (user, team, cid) ->
+      attributes = _.pick(team, 'id', 'name', 'generation')
+      attributes['trainer_id'] = user._id
+      attributes['contents'] = JSON.stringify(team.pokemon)
+      new database.Team(attributes)
+        .save().then (team) ->
+          user.send('teamSaved', cid, team.id)
+
+    'requestTeams': (user) ->
+      new database.Teams()
+        .query('where', trainer_id: user._id)
+        .query('orderBy', 'created_at')
+        .fetch()
+        .then (teams) ->
+          user.send('receiveTeams', teams.toJSON())
+
+    'destroyTeam': (user, teamId) ->
+      new database.Team(trainer_id: user._id, id: teamId)
+        .fetch(columns: ['id'])
+        .then (team) ->
+          team?.destroy()
 
     ####################
     # PRIVATE MESSAGES #
