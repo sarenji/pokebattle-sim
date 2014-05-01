@@ -120,6 +120,7 @@ database = require('./database')
     'requestTeams': (user) ->
       new database.Teams()
         .query('where', trainer_id: user._id)
+        .query('orderBy', 'created_at')
         .fetch()
         .then (teams) ->
           user.send('receiveTeams', teams.toJSON())
