@@ -630,13 +630,23 @@ describe 'BattleServer', ->
 
     it "returns non-empty if a pokemon cannot have its forme"
 
+  describe "#beginBattles", ->
+    it "creates a battle per pair", (done) ->
+      server = new BattleServer()
+      for i in [1..4]
+        server.join(new User("user#{i}"))  
+        server.queuePlayer("user#{i}", [ Factory("Magikarp") ])
+      server.beginBattles (err, battleIds) ->
+        battleIds.length.should.equal(2)
+        done()
+
   describe "users", ->
     it "are recorded to be playing in which battles", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
-      server.queuePlayer(user1, user1, [ Factory("Magikarp") ])
-      server.queuePlayer(user2, user2, [ Factory("Magikarp") ])
-      server.queuePlayer(user3, user3, [ Factory("Magikarp") ])
+      server.queuePlayer(user1, [ Factory("Magikarp") ])
+      server.queuePlayer(user2, [ Factory("Magikarp") ])
+      server.queuePlayer(user3, [ Factory("Magikarp") ])
       server.beginBattles (err, battleIds) ->
         server.getUserBattles(user1).should.eql(battleIds)
         server.getUserBattles(user2).should.eql(battleIds)

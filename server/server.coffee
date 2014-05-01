@@ -177,9 +177,9 @@ class @BattleServer
 
   beginBattles: (next) ->
     array = for generation in gen.SUPPORTED_GENERATIONS
-      (callback) =>
+      do (generation) => (callback) =>
         @queues[generation].pairPlayers (err, pairs) =>
-          if err then return next(err)
+          if err then return callback(err)
 
           # Create a battle for each pair
           battleIds = []
