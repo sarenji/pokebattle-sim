@@ -10,10 +10,9 @@ class @BattleQueue
 
   # Adds a player to the queue.
   # "name" can either be the real name, or an alt
-  add: (playerId, name, team, ratingKey) ->
+  add: (playerId, name, team, ratingKey=playerId) ->
     return false  if !playerId
     return false  if playerId of @queue
-    ratingKey = playerId  if not ratingKey
     @queue[playerId] = {id: playerId, name, team, ratingKey}
     @length += 1
     return true

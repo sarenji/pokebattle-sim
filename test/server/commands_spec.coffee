@@ -325,15 +325,25 @@ describe "Commands", ->
           done()
 
       it "returns all battles that user is in if user is passed", (done) ->
-        @server.queuePlayer(@user1.id, "name1", [ Factory("Magikarp") ])
-        @server.queuePlayer(@user2.id, "name2", [ Factory("Magikarp") ])
-        @server.queuePlayer("aardvark", "name3", [ Factory("Magikarp") ])
-        @server.queuePlayer("bologna", "name4", [ Factory("Magikarp") ])
+        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ])
         @server.beginBattles (err, battleIds) =>
           if err then throw err
-          commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>
+          commands.executeCommand @server, @user1, @room, "battles", @user2.name, (err, battleIds) =>
             if err then throw err
-            battleIds.should.eql(@server.getUserBattles(@user2.id))
+            battleIds.should.eql(@server.getVisibleUserBattles(@user2.name))
+            battleIds.length.should.equal(1)
+            done()
+
+      it "does not include alts in the battle list", (done) ->
+        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ], "Im an Alt")
+        @server.beginBattles (err, battleIds) =>
+          if err then throw err
+          commands.executeCommand @server, @user1, @room, "battles", @user2.name, (err, battleIds) =>
+            if err then throw err
+            battleIds.should.eql(@server.getVisibleUserBattles(@user2.name))
+            battleIds.length.should.equal(0)
             done()
 
     describe "topic", ->

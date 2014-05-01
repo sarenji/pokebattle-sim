@@ -74,7 +74,7 @@ makeCommand "battles", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /battles username")
     return next(new Error("Incorrect usage"))
-  battleIds = @getUserBattles(username)
+  battleIds = @getVisibleUserBattles(username)
   links = battleIds.map (id) ->
     "<span class='fake_link spectate' data-battle-id='#{id}'>#{id[...6]}</span>"
   user.message("#{username}'s battles: #{links.join(" | ")}")

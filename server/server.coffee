@@ -36,6 +36,9 @@ class @BattleServer
     # A hash mapping users to battles.
     @userBattles = {}
 
+    # same as user battles, but indexed by name and does not include alts
+    @visibleUserBattles = {}
+
     # A hash mapping user ids to challenges
     # challenges[challengeeId][challengerId] = {generation: 'xy', team: []}
     @challenges = {}
@@ -197,15 +200,22 @@ class @BattleServer
     battleId = @generateBattleId(playerIds)
     battle = new Battle(battleId, pair, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
-    for playerId in playerIds
+    for player in pair
       # Add users to spectators
-      @users.iterate playerId, (user) ->
+      @users.iterate player.id, (user) ->
         battle.addSpectator(user)
 
       # Add/remove player ids to/from user battles
-      @userBattles[playerId] ?= {}
-      @userBattles[playerId][battleId] = true
-      battle.on 'end', @removeUserBattle.bind(this, playerId, battleId)
+      @userBattles[player.id] ?= {}
+      @userBattles[player.id][battleId] = true
+      
+      # Add the player to the list if its not an alt
+      if player.id == player.ratingKey  # hacky - but no alternative right now
+        @visibleUserBattles[player.name] ?= {}
+        @visibleUserBattles[player.name][battleId] = true
+      
+      battle.on 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
+    
     @battles[battleId].beginBattle()
     battleId
 
@@ -224,12 +234,17 @@ class @BattleServer
   getUserBattles: (userId) ->
     (id  for id, value of @userBattles[userId])
 
+  # Returns all non-alt battles the user is playing in
+  getVisibleUserBattles: (username) ->
+    (id  for id, value of @visibleUserBattles[username])
+
   getOngoingBattles: ->
     # TODO: This is very inefficient. Improve this.
     _.chain(@battles).values().reject((b) -> b.battle.isOver()).value()
 
-  removeUserBattle: (userId, battleId) ->
+  removeUserBattle: (userId, username, battleId) ->
     delete @userBattles[userId][battleId]
+    delete @visibleUserBattles[username][battleId]
 
   # A length of -1 denotes a permanent ban.
   ban: (username, reason, length = -1) ->
