@@ -12,11 +12,14 @@ generations = require './generations'
 errors = require '../shared/errors'
 db = require('./database')
 ratings = require('./ratings')
+schedule = require('./schedule')
 
 @createServer = (port) ->
   app = express()
   httpServer = http.createServer(app)
   httpServer.battleServer = server = new BattleServer()
+
+  schedule.createScheduler()
 
   # Configuration
   app.set("views", "client")
