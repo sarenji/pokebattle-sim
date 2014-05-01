@@ -29,9 +29,15 @@ namespace :sim do
   task :compile do
     run "cd #{release_path} && grunt concurrent:compile"
   end
+
+  desc "migrates the database"
+  task :migrate do
+    run "cd #{release_path} && grunt knexmigrate:latest"
+  end
 end
 
 after "node:install_packages", "sim:compile"
+after "deploy:update_code", "sim:migrate"
 
 # clean up old releases on each deploy
 after "deploy", "deploy:cleanup"
