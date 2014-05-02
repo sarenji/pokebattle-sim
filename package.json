@@ -32,9 +32,10 @@
     "bookshelf": "~0.6.10",
     "pg": "~3.0.3",
     "grunt-knex-migrate": "0.0.2",
-    "async": "~0.2.10",
+    "async": "~0.7.0",
     "elo-rank": "~0.2.2",
-    "node-schedule": "~0.1.13"
+    "node-schedule": "~0.1.13",
+    "grunt-cli": "~0.1.13"
   },
   "devDependencies": {
     "should": "~1.2.x",
