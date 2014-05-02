@@ -265,30 +265,35 @@ $screen-width = 400px
     background url("//media.pokebattle.com/img/battle/stealth_rock.png")
     width 28px
     height 35px
+    pointer-events none
 
   .team-toxic-spikes
     position absolute
     background url("//media.pokebattle.com/img/battle/toxic_spikes.png")
     width 21px
     height 21px
+    pointer-events none
 
   .team-spikes
     position absolute
     background url("//media.pokebattle.com/img/battle/spikes.png")
     width 21px
     height 21px
+    pointer-events none
 
   .team-sticky-web
     position absolute
     background url("//media.pokebattle.com/img/battle/sticky_web.png")
     width 150px
     height 151px
+    pointer-events none
 
   .team-screen
     position absolute
     opacity .5
     width 1px
     height @width
+    pointer-events none
     &.rounded
       border-radius 100%
     for $pair in ('blue' $water) ('yellow' $electric) ('pink' $fairy)
