@@ -47,11 +47,6 @@ describe 'BattleServer', ->
       server.queuePlayer("derp", generateTeam()).should.be.empty
       server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
 
-    it "does not queue null players", ->
-      server = new BattleServer()
-      server.queuePlayer(null, generateTeam()).should.be.empty
-      server.queues[gen.DEFAULT_GENERATION].size().should.equal(0)
-
     it "does not queue players already queued", ->
       server = new BattleServer()
       server.queuePlayer("derp", generateTeam()).should.be.empty
@@ -653,7 +648,7 @@ describe 'BattleServer', ->
       server = new BattleServer()
       for i in [1..4]
         server.join(new User("user#{i}"))  
-        server.queuePlayer("user#{i}", [ Factory("Magikarp") ])
+        server.queuePlayer("user#{i}", generateTeam())
       server.beginBattles (err, battleIds) ->
         battleIds.length.should.equal(2)
         done()
