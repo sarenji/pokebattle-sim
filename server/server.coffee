@@ -5,6 +5,7 @@ Limiter = require 'ratelimiter'
 {User} = require('./user')
 {BattleQueue} = require './queue'
 {SocketHash} = require './socket_hash'
+async = require('async')
 gen = require './generations'
 auth = require('./auth')
 learnsets = require '../shared/learnsets'
@@ -13,6 +14,7 @@ pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
 redis = require('./redis')
+alts = require './alts'
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
@@ -35,6 +37,9 @@ class @BattleServer
 
     # A hash mapping users to battles.
     @userBattles = {}
+
+    # same as user battles, but indexed by name and does not include alts
+    @visibleUserBattles = {}
 
     # A hash mapping user ids to challenges
     # challenges[challengeeId][challengerId] = {generation: 'xy', team: []}
@@ -82,7 +87,7 @@ class @BattleServer
     @limiters[player.id][kind] ?= new Limiter(attributes)
     @limiters[player.id][kind].get(next)
 
-  registerChallenge: (player, challengeeId, generation, team, conditions) ->
+  registerChallenge: (player, challengeeId, generation, team, conditions, altName) ->
     if @isLockedDown()
       errorMessage = "The server is locked. No new battles can start at this time."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
@@ -108,11 +113,11 @@ class @BattleServer
       return false
 
     @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {generation, team, conditions}
+    @challenges[player.id][challengeeId] = {generation, team, conditions, challengerName: player.name, altName}
     @users.send(challengeeId, "challenge", player.id, generation, conditions)
     return true
 
-  acceptChallenge: (player, challengerId, team) ->
+  acceptChallenge: (player, challengerId, team, altName) ->
     if !@challenges[challengerId]?[player.id]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
@@ -125,9 +130,20 @@ class @BattleServer
       player.error(errors.FIND_BATTLE, err)
       return null
 
-    teams = {}
-    teams[challengerId] = challenge.team
-    teams[player.id] = team
+    teams = [
+      {
+        id: challengerId,
+        name: challenge.altName || challenge.challengerName,
+        team: challenge.team,
+        ratingKey: alts.uniqueId(challengerId, challenge.altName)
+      }
+      {
+        id: player.id,
+        name: altName || player.name,
+        team: team,
+        ratingKey: alts.uniqueId(player.id, altName)
+      }
+    ]
 
     id = @createBattle(challenge.generation, teams, challenge.conditions)
     @users.send(player.id, "challengeSuccess", challengerId)
@@ -162,12 +178,17 @@ class @BattleServer
       if @challenges[challengerId][playerId]
         @rejectChallenge(player, challengerId)
 
-  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION) ->
+  # Adds the player to the queue. Note that there is no validation on whether altName
+  # is correct, so make 
+  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
     if @isLockedDown()
-      return ["The server is locked. No new battles can start at this time."]
+      err = ["The server is locked. No new battles can start at this time."]
     else
       err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
-      @queues[generation].add(playerId, team)  if err.length == 0
+      if err.length == 0
+        name = @users.get(playerId)[0]?.name
+        ratingKey = alts.uniqueId(playerId, altName)
+        @queues[generation].add(playerId, altName || name, team, ratingKey)
       return err
 
   queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
@@ -179,35 +200,46 @@ class @BattleServer
     return true
 
   beginBattles: (next) ->
-    for generation in gen.SUPPORTED_GENERATIONS
-      @queues[generation].pairPlayers (err, pairs) =>
-        if err then return next(err)
+    array = for generation in gen.SUPPORTED_GENERATIONS
+      do (generation) => (callback) =>
+        @queues[generation].pairPlayers (err, pairs) =>
+          if err then return callback(err)
 
-        # Create a battle for each pair
-        battleIds = []
-        for pair in pairs
-          id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
-          battleIds.push(id)
-        next(null, battleIds)  if battleIds.length > 0  # Skip blank generations
+          # Create a battle for each pair
+          battleIds = []
+          for pair in pairs
+            id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
+            battleIds.push(id)
+          callback(null, battleIds)
+    async.parallel array, (err, battleIds) ->
+      return next(err)  if err
+      next(null, _.flatten(battleIds))
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, pair = {}, conditions = []) ->
+  createBattle: (generation = gen.DEFAULT_GENERATION, pair = [], conditions = []) ->
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    playerIds = Object.keys(pair)
+    playerIds = pair.map((user) -> user.id)
     battleId = @generateBattleId(playerIds)
     battle = new Battle(battleId, pair, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
-    for playerId in playerIds
+    for player in pair
       # Add users to spectators
-      @users.iterate playerId, (user) ->
+      @users.iterate player.id, (user) ->
         battle.addSpectator(user)
 
       # Add/remove player ids to/from user battles
-      @userBattles[playerId] ?= {}
-      @userBattles[playerId][battleId] = true
-      battle.on 'end', @removeUserBattle.bind(this, playerId, battleId)
+      @userBattles[player.id] ?= {}
+      @userBattles[player.id][battleId] = true
+      
+      # Add the player to the list if its not an alt
+      if player.id == player.ratingKey  # hacky - but no alternative right now
+        @visibleUserBattles[player.name] ?= {}
+        @visibleUserBattles[player.name][battleId] = true
+      
+      battle.on 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
+    
     @battles[battleId].beginBattle()
     battleId
 
@@ -226,12 +258,17 @@ class @BattleServer
   getUserBattles: (userId) ->
     (id  for id, value of @userBattles[userId])
 
+  # Returns all non-alt battles the user is playing in
+  getVisibleUserBattles: (username) ->
+    (id  for id, value of @visibleUserBattles[username])
+
   getOngoingBattles: ->
     # TODO: This is very inefficient. Improve this.
     _.chain(@battles).values().reject((b) -> b.battle.isOver()).value()
 
-  removeUserBattle: (userId, battleId) ->
+  removeUserBattle: (userId, username, battleId) ->
     delete @userBattles[userId][battleId]
+    delete @visibleUserBattles[username][battleId]
 
   # A length of -1 denotes a permanent ban.
   ban: (username, reason, length = -1) ->

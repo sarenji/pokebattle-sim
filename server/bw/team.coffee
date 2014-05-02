@@ -5,7 +5,7 @@
 Query = require('./queries')
 
 class @Team
-  constructor: (@battle, @playerId, pokemon, @numActive) ->
+  constructor: (@battle, @playerId, @playerName, pokemon, @numActive) ->
     @pokemon = pokemon.map (attributes) =>
       # TODO: Is there a nicer way of doing these injections?
       attributes.battle = @battle
@@ -66,7 +66,7 @@ class @Team
     playerIndex = @battle.getPlayerIndex(@playerId)
     @battle.removeRequest(@playerId, index)
     @battle.cancelAction(pokemon)
-    @battle.message "#{@playerId} withdrew #{pokemon.name}!"
+    @battle.message "#{@playerName} withdrew #{pokemon.name}!"
     @battle.tell(Protocol.SWITCH_OUT, playerIndex, index)
     p.informSwitch(pokemon)  for p in @battle.getOpponents(pokemon)
     @switchOut(pokemon)
@@ -77,7 +77,7 @@ class @Team
     [ a, b ] = [ @indexOf(pokemon), toPosition ]
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     newPokemon = @at(a)
-    @battle.message "#{@playerId} sent out #{newPokemon.name}!"
+    @battle.message "#{@playerName} sent out #{newPokemon.name}!"
     newPokemon.tell(Protocol.SWITCH_IN, b)
     newPokemon
 
@@ -130,5 +130,5 @@ class @Team
 
   toJSON: (options = {}) -> {
     "pokemon": @pokemon.map (p) -> p.toJSON(options)
-    "owner": @playerId
+    "owner": @playerName
   }

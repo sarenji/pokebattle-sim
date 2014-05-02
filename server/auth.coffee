@@ -28,14 +28,14 @@ exports.middleware = -> (req, res, next) ->
     req.user = _.clone(body)
     hmac = crypto.createHmac('sha256', config.SECRET_KEY)
     req.user.token = hmac.update("#{req.user.id}").digest('hex')
-    redis.hset(USER_KEY, body.id, JSON.stringify(body), next)
+    redis.shard('hset', USER_KEY, req.user.id, JSON.stringify(body), next)
 
 # If the id and token match, the associated user object is returned.
 exports.matchToken = (id, token, next) ->
   hmac = crypto.createHmac('sha256', config.SECRET_KEY)
   if hmac.update("#{id}").digest('hex') != token
     return next(new Error("Invalid session!"))
-  redis.hget USER_KEY, id, (err, jsonString) ->
+  redis.shard 'hget', USER_KEY, id, (err, jsonString) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
     return next(new Error("Invalid session!"))  if !json

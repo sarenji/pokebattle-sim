@@ -38,6 +38,37 @@
     background #ccc
     cursor auto
 
+.alt-input
+  $button-size = 65px
+  $num-buttons = 2
+  $alt-input-height = 38px
+  width 100%
+  padding-right ($button-size * $num-buttons)
+  box-sizing border-box
+
+  .input-wrapper
+    width 100%
+    float left
+    input
+      width 100%
+      box-sizing border-box
+      height $alt-input-height
+      border-radius 4px 0 0 4px
+      margin-bottom 0
+
+  .buttons-wrapper
+    margin-right -($button-size * $num-buttons)
+    float left
+    .btn
+      width $button-size
+      box-sizing border-box
+      height $alt-input-height
+      padding 0
+      border-radius 0
+      margin-left -1px
+    .btn:last-child
+      border-radius 0 4px 4px 0
+
 .challenge_clauses
   list-style none
   margin 0

@@ -1,6 +1,7 @@
 require('../helpers')
 
 should = require('should')
+async = require 'async'
 commands = require('../../server/commands')
 auth = require('../../server/auth')
 {User} = require('../../server/user')
@@ -31,9 +32,6 @@ describe "Commands", ->
     @server.rooms.push(@room)
     @server.join(@user1)
     @server.join(@user2)
-
-  afterEach (done) ->
-    redis.flushdb(done)
 
   describe "#executeCommand", ->
     describe "an invalid command", ->
@@ -338,9 +336,21 @@ describe "Commands", ->
         @server.queuePlayer("bologna", generateTeam()).should.be.empty
         @server.beginBattles (err, battleIds) =>
           if err then throw err
-          commands.executeCommand @server, @user1, @room, "battles", @user2.id, (err, battleIds) =>
+          commands.executeCommand @server, @user1, @room, "battles", @user2.name, (err, battleIds) =>
             if err then throw err
-            battleIds.should.eql(@server.getUserBattles(@user2.id))
+            battleIds.should.eql(@server.getVisibleUserBattles(@user2.name))
+            battleIds.length.should.equal(1)
+            done()
+
+      it "does not include alts in the battle list", (done) ->
+        @server.queuePlayer(@user1.id, [ Factory("Magikarp") ])
+        @server.queuePlayer(@user2.id, [ Factory("Magikarp") ], "Im an Alt")
+        @server.beginBattles (err, battleIds) =>
+          if err then throw err
+          commands.executeCommand @server, @user1, @room, "battles", @user2.name, (err, battleIds) =>
+            if err then throw err
+            battleIds.should.eql(@server.getVisibleUserBattles(@user2.name))
+            battleIds.length.should.equal(0)
             done()
 
     describe "topic", ->

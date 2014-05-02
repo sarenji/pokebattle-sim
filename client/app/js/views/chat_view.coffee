@@ -37,7 +37,7 @@ class @ChatView extends Backbone.View
 
   renderUserList: =>
     @$('.user_count').text "Users (#{@collection.length})"
-    @$('.users').html @userListTemplate(userList: @collection)
+    @$('.users').html @userListTemplate(userList: @collection.models)
     this
 
   getSelectedText: =>

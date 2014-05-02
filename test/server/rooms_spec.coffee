@@ -41,9 +41,9 @@ describe "A server room:", ->
       room.addUser(user1 = new User("aaaa"))
       room.addUser(user2 = new User("bbbb"))
       mock1 = @sandbox.mock(user1).expects('send')
-      mock1.withArgs("updateChat", user1.id, "hello").once()
+      mock1.withArgs("updateChat", user1.name, "hello").once()
       mock2 = @sandbox.mock(user2).expects('send').once()
-      mock2.withArgs("updateChat", user1.id, "hello").once()
+      mock2.withArgs("updateChat", user1.name, "hello").once()
 
       room.userMessage(user1, "hello")
       mock1.verify()
