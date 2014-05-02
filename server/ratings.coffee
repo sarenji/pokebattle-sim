@@ -24,6 +24,12 @@ ALGORITHM_OPTIONS =
   idArray = idArray.map((id) -> id.toLowerCase())
   db.sadd(USERS_ACTIVE_KEY, idArray, next)
 
+RATIOS_KEY = 'ratios'
+RATIOS_ATTRIBUTES = Object.keys(@results).map((key) -> key.toLowerCase())
+RATIOS_SUBKEYS = {}
+for attribute in RATIOS_ATTRIBUTES
+  RATIOS_SUBKEYS[attribute] = [RATIOS_KEY, attribute].join(':')
+
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
   multi = db.multi()
@@ -35,7 +41,7 @@ ALGORITHM_OPTIONS =
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
       value ||= exports.algorithm.createPlayer()[attribute]
-      object[attribute] = value
+      object[attribute] = parseFloat(value) # redis returns the value as a string, so parse it
     return next(null, object)
 
 @getRating = (id, next) ->
@@ -72,9 +78,14 @@ ALGORITHM_OPTIONS =
     return next(err)  if err
     return next(null, players.map((p) -> Number(p.rating)))
 
-@updatePlayer = (id, object, next) ->
+@updatePlayer = (id, score, object, next) ->
   id = id.toLowerCase()
   multi = db.multi()
+  attribute = switch score
+    when 1 then 'win'
+    when 0 then 'lose'
+    else 'draw'
+  multi = multi.hincrby(RATIOS_SUBKEYS[attribute], id, 1)
   multi = multi.sadd(USERS_RATED_KEY, id)
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
@@ -87,17 +98,18 @@ ALGORITHM_OPTIONS =
 
   id = id.toLowerCase()
   opponentId = opponentId.toLowerCase()
+  opponentScore = 1.0 - score
   exports.getPlayer id, (err, player) =>
     return next(err)  if err
     exports.getPlayer opponentId, (err, opponent) =>
       return next(err)  if err
       winnerMatches = [{opponent, score}]
-      loserMatches = [{opponent: player, score: 1.0 - score}]
+      loserMatches = [{opponent: player, score: opponentScore}]
       newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
       newLoser = exports.algorithm.calculate(opponent, loserMatches, ALGORITHM_OPTIONS)
       async.parallel [
-        @updatePlayer.bind(this, id, newWinner)
-        @updatePlayer.bind(this, opponentId, newLoser)
+        @updatePlayer.bind(this, id, score, newWinner)
+        @updatePlayer.bind(this, opponentId, opponentScore, newLoser)
       ], next
 
 @resetRating = (id, next) ->
@@ -121,5 +133,19 @@ ALGORITHM_OPTIONS =
     return next?(err)  if err
     array = []
     for i in [0...r.length] by 2
-      array.push(username: r[i], score: r[i + 1])
-    next?(null, array)
+      username = r[i]
+      score = Number(r[i + 1])  # redis returns scores as strings
+      array.push(username: username, score: score)
+    next(null, array)
+
+@getRatio = (id, next) ->
+  id = id.toLowerCase()
+  multi = db.multi()
+  for attribute, key of RATIOS_SUBKEYS
+    multi = multi.hget(key, id)
+  multi.exec (err, results) ->
+    return next(err)  if err
+    hash = {}
+    for attribute, i in RATIOS_ATTRIBUTES
+      hash[attribute] = Number(results[i]) || 0
+    return next(null, hash)

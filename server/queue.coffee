@@ -1,4 +1,5 @@
 ratings = require('./ratings')
+alts = require('./alts')
 require 'sugar'
 
 # A queue of users waiting for a battle
@@ -7,10 +8,12 @@ class @BattleQueue
     @queue = {}
     @length = 0
 
-  add: (playerId, team) ->
+  # Adds a player to the queue.
+  # "name" can either be the real name, or an alt
+  add: (playerId, name, team, ratingKey=playerId) ->
     return false  if !playerId
     return false  if playerId of @queue
-    @queue[playerId] = team
+    @queue[playerId] = {id: playerId, name, team, ratingKey}
     @length += 1
     return true
 
@@ -30,20 +33,23 @@ class @BattleQueue
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.
   pairPlayers: (next) ->
-    ids = @queuedPlayers()
-    return next(null, [])  if ids.length == 0
-    ratings.getRatings ids, (err, ratings) =>
+    queueByRatingKey = {}  # a duplicate of the queued object to map back from altered ratingKeys -> objects
+    queueByRatingKey[player.ratingKey] = player  for id, player of @queue
+    ratingKeys = Object.keys(queueByRatingKey)
+
+    return next(null, [])  if ratingKeys.length == 0
+    ratings.getRatings ratingKeys, (err, returnedRatings) =>
       if err then return next(err, null)
 
-      ratings.setActive ids, (err) =>
+      ratings.setActive ratingKeys, (err) =>
         if err then return next(err, null)
         pairs = []
         sortedPlayers = []
 
         # Get the list of players sorted by rating
-        for rating, i in ratings
-          id = ids[i]
-          sortedPlayers.push([ {playerId: id, team: @queue[id]}, rating ])
+        for rating, i in returnedRatings
+          player = queueByRatingKey[ratingKeys[i]]
+          sortedPlayers.push([ player, rating ])
         sortedPlayers.sort((a, b) -> a[1] - b[1])
         sortedPlayers = sortedPlayers.map((array) -> array[0])
 
@@ -52,13 +58,10 @@ class @BattleQueue
           first = sortedPlayers[i]
           second = sortedPlayers[i + 1]
           continue  unless first && second
-          pair = {}
-          pair[first.playerId] = first.team
-          pair[second.playerId] = second.team
-          pairs.push(pair)
+          pairs.push([first, second])
 
           # Remove paired players from the queue
-          @remove(Object.keys(pair))
+          @remove([first.id, second.id])
 
         # Return the list of paired players
         next(null, pairs)
