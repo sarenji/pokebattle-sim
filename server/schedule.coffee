@@ -20,8 +20,10 @@ DECAY_AMOUNT = 10
       ratings.getRatings ids, (err, oldRatings) ->
         return  if err
         newRatings = oldRatings.map (rating) ->
-          rating -= 10
-          Math.max(rating, DEFAULT_RATING)
+          if rating < DEFAULT_RATING
+            rating
+          else
+            Math.max(rating - 10, DEFAULT_RATING)
         ratings.setRatings ids, newRatings, ->
           job.emit('finished')
 
