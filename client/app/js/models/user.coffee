@@ -11,3 +11,6 @@ class @User extends Backbone.Model
   getDisplayName: =>
     authorityString = AuthorityMap[@get('authority')] ? ""
     "#{authorityString}#{@get('id')}"
+
+  isAlt: =>
+    @get('isAlt')

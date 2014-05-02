@@ -212,7 +212,7 @@ class @BattleCollection extends Backbone.Collection
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
-    battle.spectators.add(id: user)
+    battle.spectators.add(user)
 
   leaveBattle: (socket, id, user) =>
     battle = @get(id)

@@ -43,6 +43,10 @@ PokeBattle.events.on "error", (type, args...) ->
       [ toUser, messageText ] = args
       message = PokeBattle.messages.get(toUser)
       message.add(toUser, messageText, type: "error")
+    when e.INVALID_ALT_NAME
+      [ messageText ] = args
+      alert(messageText)
+      PokeBattle.events.trigger("invalidAltName")
     else
       console.log("Received error: #{type}")
       console.log("  with content: #{args}")

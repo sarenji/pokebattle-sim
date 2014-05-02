@@ -17,6 +17,7 @@
   canEditClauses = opts.canEditClauses ? true
 
   selectedTeamId = null
+  selectedAlt = null
 
   getSelectedTeam = ->
     PokeBattle.TeamStore.get(selectedTeamId) || PokeBattle.TeamStore.at(0)
@@ -47,6 +48,21 @@
   enableButtons = ->
     $buttons.removeClass('disabled')
 
+  toggleAltInput = (visible) ->
+    $wrapper.find('.alt-input').toggleClass("hidden", !visible)
+    $wrapper.find('.alt-dropdown-section').toggleClass("hidden", visible)
+    $wrapper.find('.alt-input input').focus()  if visible
+
+  isAttachedToDom = ->
+    $.contains(document, $wrapper.get(0))
+
+  altCreatedEvent = ->
+    return PokeBattle.events.off('altCreated', altCreatedEvent)  unless isAttachedToDom()
+    $wrapper.find('.alt-input input').val("")
+    toggleAltInput(false)
+
+  PokeBattle.events.on 'altCreated', altCreatedEvent
+
   enableButtons()
 
   $wrapper.html(JST['new_battle']({window, defaultClauses}))
@@ -67,9 +83,9 @@
         $clauses = $wrapper.find('input:checked[type="checkbox"]')
         clauses = []
         $clauses.each(-> clauses.push(parseInt($(this).val(), 10)))
-        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses)
+        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses, selectedAlt)
       else
-        PokeBattle.socket.send(eventName, format, teamJSON)
+        PokeBattle.socket.send(eventName, format, teamJSON, selectedAlt)
       $button.addClass('disabled').trigger('challenge')
     else
       cancelChallenge()
@@ -79,12 +95,35 @@
     return  if $(this).hasClass('disabled')
     disableButtons()
     teamJSON = getSelectedTeam().toNonNullJSON().pokemon
-    PokeBattle.socket.send(acceptEventName, personId, teamJSON)
+    PokeBattle.socket.send(acceptEventName, personId, teamJSON, selectedAlt)
 
   $reject.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
     disableButtons()
     PokeBattle.socket.send(rejectEventName, personId)
+
+  # Clicking the alts dropdown brings down an alt selection dropdown menu
+  $wrapper.find('.select-alt').click (e) ->
+    html = JST['alt_dropdown'](alts: PokeBattle.alts.listAlts(), username: PokeBattle.username)
+    $wrapper.find('.alt-dropdown').html(html)
+
+  # Selecting an alt from the dropdown 
+  $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
+    selectedAlt = $(this).data('alt-name')
+    $wrapper.find('.select-alt').html($(this).html())
+
+  # When add alt is clicked, show the alt input form
+  $wrapper.find('.alt-dropdown').on 'click', '.add-alt-dropdown-item', (e) ->
+    toggleAltInput(true)
+
+  # Clicking the Add Alt Button
+  $wrapper.find('.alt-input .add-button').click (e) ->
+    altName = $wrapper.find('.alt-input input').val().trim()
+    PokeBattle.alts.createAlt(altName)
+
+  # Clicking the Cancel Add Alt Button
+  $wrapper.find('.alt-input .cancel-button').click (e) ->
+    toggleAltInput(false)
 
   # Clicking the team dropdown brings down a team selection menu.
   # Also updates the allTeams collection
@@ -106,6 +145,9 @@
     format = $target.data('format')
     $selectFormat.text($target.text())
     $selectFormat.data('format', format)
+  
+  # Select non-alt option
+  $wrapper.find('.select-alt').html(JST['alt_dropdown'](alt: null, username: PokeBattle.username))
 
   # Auto-select format.
   if generation
@@ -127,7 +169,7 @@
   # Called when a team has been updated
   teamUpdated = ->
     # If this challenge panel no longer exists, remove the callback
-    if not $.contains(document, $wrapper.get(0))
+    if not isAttachedToDom()
       PokeBattle.TeamStore.off 'add remove change sync', teamUpdated
       return
 

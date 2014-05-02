@@ -17,7 +17,7 @@ class @Room
     @users.remove(user)
 
   userMessage: (user, message) ->
-    @send('updateChat', user.id, message)
+    @send('updateChat', user.name, message)
 
   message: (message) ->
     @send('rawMessage', message)

@@ -1,5 +1,5 @@
 {_} = require 'underscore'
-{User} = require '../user'
+{User, MaskedUser} = require '../user'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
 {Team} = require './team'
@@ -11,6 +11,7 @@ Query = require './queries'
 
 require 'sugar'
 
+# Represents a single ongoing battle
 class @Battle extends EventEmitter
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
   Moves: Moves
@@ -33,7 +34,7 @@ class @Battle extends EventEmitter
       action: (action) ->
         @performMove(action.pokemon, action.move)
 
-  constructor: (@id, players, attributes = {}) ->
+  constructor: (@id, @players, attributes = {}) ->
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
@@ -92,10 +93,15 @@ class @Battle extends EventEmitter
     # Holds all playerIds. The location in this array is the player's index.
     @playerIds = []
 
+    # Holds all player names.
+    @playerNames = []
+
     # Populates @playerIds and creates the teams for each player
-    for playerId, team of players
-      @playerIds.push(playerId)
-      @teams[playerId] = new Team(this, playerId, team, @numActive)
+    for player in @players
+      @playerIds.push(player.id)
+      @playerNames.push(player.name)
+      # TODO: Get the actual player object and use player.name
+      @teams[player.id] = new Team(this, player.id, player.name, player.team, @numActive)
 
     # Holds battle state information
     @replacing = false
@@ -136,6 +142,9 @@ class @Battle extends EventEmitter
   getPlayerIndex: (playerId) ->
     index = @playerIds.indexOf(playerId)
     return (if index == -1 then null else index)
+
+  getPlayer: (playerId) ->
+    @players.find((p) -> p.id == playerId)
 
   getTeam: (playerId) ->
     @teams[playerId]
@@ -771,25 +780,33 @@ class @Battle extends EventEmitter
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
   addSpectator: (spectator) ->
-    return  if spectator in @spectators
-    spectator = new User(spectator.id)  if spectator not instanceof User
+    return  if @spectators.some((s) -> s.id == spectator.id)
+    
+    # If this is a player, mask the spectator in case this is an alt
+    player = @players.find((p) -> p.id == spectator.id)
+    spectator = spectator.maskName(player.name)  if player
+
     @spectators.push(spectator)
     index = @getPlayerIndex(spectator.id)
+
     # Get rid of non-unique spectators?
     spectators = @spectators.map((s) -> s.toJSON())
     spectator.send('spectateBattle',
       @id, @generation, @numActive,
-      index, @playerIds, spectators, @log)
-    if spectator.id in @playerIds
+      index, @playerNames, spectators, @log)
+
+    # If this is a player, send them their own team
+    if player
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
+    
     # TODO: Only do if spectator id has not joined yet.
-    @broadcast('joinBattle', @id, spectator.id)
+    @broadcast('joinBattle', @id, spectator)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
       if s.id == spectator.id
         @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, spectator.id)
+        @broadcast('leaveBattle', @id, spectator.name)
         break
 
   forfeit: (id) ->

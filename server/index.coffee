@@ -12,6 +12,7 @@ generations = require './generations'
 errors = require '../shared/errors'
 db = require('./database')
 ratings = require('./ratings')
+alts = require('./alts')
 
 @createServer = (port) ->
   app = express()
@@ -55,7 +56,15 @@ ratings = require('./ratings')
     'login': (user, id, token) ->
       auth.matchToken id, token, (err, json) ->
         if err then return user.error(errors.INVALID_SESSION)
-        user.id = json.username
+
+        # REFACTOR INCOMING: The simulator currently uses user.id as the username of the user,
+        # there is no such as a numeric id. Eventually, we want to switch to a separated id/name system
+        # user.id will still be the same thing in the meantime, but now user._id and user.name will exist too.
+        # Eventually, once all uses of .id in the server are changed to ._id, replace all ._id -> .id
+        user.id = json.username   # will become deprecated
+        user._id = json.id        # user id
+        user.name = json.username # username
+
         auth.getBanTTL user.id, (err, ttl) ->
           if err
             return user.error(errors.INVALID_SESSION)
@@ -71,6 +80,9 @@ ratings = require('./ratings')
             connections.broadcast('joinChatroom', user.toJSON())  if numConnections == 1
             user.send('listChatroom', lobby.userJSON())
             server.join(user)
+
+            alts.listUserAlts user.id, (err, alts) ->
+              user.send('altList', alts)
 
             db.hget "topic", "main", (err, topic) ->
               user.send('topic', topic)  if topic
@@ -121,20 +133,38 @@ ratings = require('./ratings')
     # CHALLENGES #
     ##############
 
-    'challenge': (user, challengeeId, generation, team, conditions) ->
-      server.registerChallenge(user, challengeeId, generation, team, conditions)
+    'challenge': (user, challengeeId, generation, team, conditions, altName) ->
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+        return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
+        server.registerChallenge(user, challengeeId, generation, team, conditions, altName)
 
     'cancelChallenge': (user, challengeeId) ->
       server.cancelChallenge(user, challengeeId)
 
-    'acceptChallenge': (user, challengerId, team) ->
-      battleId = server.acceptChallenge(user, challengerId, team)
-      if battleId
-        lobby.message("""Challenge: <span class="fake_link spectate"
-        data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
+    'acceptChallenge': (user, challengerId, team, altName) ->
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+        return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
+        
+        battleId = server.acceptChallenge(user, challengerId, team, altName)
+        if battleId
+          lobby.message("""Challenge: <span class="fake_link spectate"
+          data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
 
     'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
+
+    ##############
+    # ALTS #
+    ##############
+
+    'createAlt': (user, altName) ->
+      altname = altName?.trim()
+      if !alts.isAltNameValid(altName)
+        user.error(errors.INVALID_ALT_NAME, "Invalid Alt Name")
+        return
+      alts.createAlt user.id, altName.trim(), (err, success) ->
+        user.error(errors.INVALID_ALT_NAME, err.message)  if err
+        user.send('altCreated', altName)  if success
 
     ###########
     # BATTLES #
@@ -148,21 +178,25 @@ ratings = require('./ratings')
       currentTime = Date.now()
       battleMetadata = ([
           controller.battle.id,
-          controller.battle.playerIds[0],
-          controller.battle.playerIds[1],
+          controller.battle.playerNames[0],
+          controller.battle.playerNames[1],
           currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
 
-    'findBattle': (user, generation, team) ->
+    'findBattle': (user, generation, team, altName=null) ->
       if generation not in generations.SUPPORTED_GENERATIONS
         user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
         return
 
-      validationErrors = server.queuePlayer(user.id, team, generation)
-      if validationErrors.length > 0
-        user.error(errors.FIND_BATTLE, validationErrors)
-        return
+      # Note: If altName == null, then isAltOwnedBy will return true
+      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+        if not valid
+          user.error(errors.INVALID_ALT_NAME, "You do not own this alt")
+        else
+          validationErrors = server.queuePlayer(user.id, team, generation, altName)
+          if validationErrors.length > 0
+            user.error(errors.FIND_BATTLE, validationErrors)
 
     'cancelFindBattle': (user, generation) ->
       server.removePlayer(user.id, generation)
@@ -231,7 +265,7 @@ ratings = require('./ratings')
       if err then return
       for id in battleIds
         battle = server.findBattle(id)
-        playerNames = battle.getPlayerIds()
+        playerNames = battle.getPlayerNames()
         message = """Ladder match: <span class="fake_link spectate"
         data-battle-id="#{id}">#{playerNames.join(" vs. ")}</span>!"""
         lobby.message(message)

@@ -1,4 +1,16 @@
 p
+  strong Alt:
+.alt-input.clearfix.hidden
+  .input-wrapper
+    input(type="text")
+  .buttons-wrapper
+    button.btn.add-button Add
+    button.btn.cancel-button Cancel
+.alt-dropdown-section.dropdown
+  .select.select-alt(data-toggle="dropdown")
+  ul.dropdown-menu.alt-dropdown(role = "menu")
+  
+p
   strong Format:
 .dropdown
   .select.select-format(data-toggle = "dropdown")
@@ -7,6 +19,7 @@ p
       a.select-format-dropdown-item(data-format="xy") Pokebank XY
     li
       a.select-format-dropdown-item(data-format="bw") Pokemon BW
+
 p
   strong Select a team:
 .dropdown

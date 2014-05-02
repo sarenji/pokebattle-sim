@@ -38,7 +38,7 @@ for attribute in RATIOS_ATTRIBUTES
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
       value ||= exports.algorithm.createPlayer()[attribute]
-      object[attribute] = value
+      object[attribute] = parseFloat(value) # redis returns the value as a string, so parse it
     return next(null, object)
 
 @getRating = (id, next) ->
@@ -114,7 +114,9 @@ for attribute in RATIOS_ATTRIBUTES
     return next(err)  if err
     array = []
     for i in [0...r.length] by 2
-      array.push(username: r[i], score: r[i + 1])
+      username = r[i]
+      score = parseFloat(r[i + 1])  # redis returns scores as strings
+      array.push(username: username, score: score)
     next(null, array)
 
 @getRatio = (id, next) ->
