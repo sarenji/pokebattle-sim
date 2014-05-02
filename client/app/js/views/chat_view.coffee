@@ -157,7 +157,7 @@ class @ChatView extends Backbone.View
 
     minutes = "00#{minutes}".substr(-2)
     seconds = "00#{seconds}".substr(-2)
-    "[#{hours}:#{minutes}:#{seconds}]"
+    "<span class='monospace'>[#{hours}:#{minutes}:#{seconds}]</span>"
 
   # Escapes all HTML, but also converts links to clickable links.
   sanitize: (message) =>
