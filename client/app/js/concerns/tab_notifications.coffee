@@ -45,7 +45,7 @@ PokeBattle.notifyUser = (type, identifier) =>
 
   if type.showDesktop
     notification = notify.createNotification type.title,
-      icon: "//s3.pokebattle.com/logo/pb_red.png"
+      icon: "//media.pokebattle.com/logo/pb_red.png"
       body: type.body
       tag: "PokeBattle_#{type.prefix}_#{identifier}"
 

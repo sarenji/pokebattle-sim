@@ -18,7 +18,7 @@ get = (src, options = {}) ->
   cache[src]
 
 getAbsolute = (src, options = {}) ->
-  prefix = (if config.IS_LOCAL then "" else "//s3.pokebattle.com")
+  prefix = (if config.IS_LOCAL then "" else "//media.pokebattle.com")
   "#{prefix}/#{get(src, options)}"
 
 module.exports = {S3_ASSET_PREFIX, get, getAbsolute}
