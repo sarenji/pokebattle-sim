@@ -797,11 +797,13 @@ class @Battle extends EventEmitter
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
   addSpectator: (spectator) ->
-    return  if @spectators.some((s) -> s.id == spectator.id)
-    
+    return  if spectator in @spectators
     # If this is a player, mask the spectator in case this is an alt
     player = @players.find((p) -> p.id == spectator.id)
     spectator = spectator.maskName(player.name)  if player
+
+    if !@spectators.some((s) -> s.id == spectator.id)
+      @broadcast('joinBattle', @id, spectator)
 
     @spectators.push(spectator)
     index = @getPlayerIndex(spectator.id)
@@ -815,9 +817,6 @@ class @Battle extends EventEmitter
     # If this is a player, send them their own team
     if player
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
-    
-    # TODO: Only do if spectator id has not joined yet.
-    @broadcast('joinBattle', @id, spectator)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators
