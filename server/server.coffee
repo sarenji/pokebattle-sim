@@ -268,7 +268,7 @@ class @BattleServer
 
   removeUserBattle: (userId, username, battleId) ->
     delete @userBattles[userId][battleId]
-    delete @visibleUserBattles[username][battleId]
+    delete @visibleUserBattles[username]?[battleId]
 
   # A length of -1 denotes a permanent ban.
   ban: (username, reason, length = -1) ->
