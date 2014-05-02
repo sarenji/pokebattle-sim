@@ -1,5 +1,5 @@
 sinon = require 'sinon'
-db = require '../server/database'
+redis = require '../server/redis'
 
 process.env.NODE_ENV = 'test'
 
@@ -10,4 +10,4 @@ beforeEach ->
 afterEach (done) ->
   @clock.restore()
   @sandbox.restore()
-  db.flushdb(done)
+  redis.flushdb(done)

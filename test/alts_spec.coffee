@@ -1,11 +1,7 @@
 should = require('should')
 alts = require('../server/alts')
-db = require('../server/database')
 
 describe "Alts", ->
-  afterEach (done) ->
-    db.flushdb(done)
-
   describe '#createAlt', ->
     it 'creates a new alt', (done) ->
       alts.createAlt "player1", "test", (err) ->

@@ -5,7 +5,6 @@ async = require 'async'
 {BattleQueue} = require('../server/queue')
 redis = require('../server/redis')
 ratings = require('../server/ratings')
-db = require('../server/database')
 alts = require('../server/alts')
 async = require('async')
 

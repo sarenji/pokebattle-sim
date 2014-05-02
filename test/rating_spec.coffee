@@ -2,12 +2,8 @@ require('./helpers')
 
 should = require('should')
 ratings = require('../server/ratings')
-db = require('../server/database')
 
 describe "Ratings", ->
-  afterEach (done) ->
-    db.flushdb(done)
-
   describe "#getPlayer", ->
     it "returns default information for new players", (done) ->
       ratings.getPlayer "bogus player", (err, result) ->

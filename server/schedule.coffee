@@ -1,6 +1,6 @@
 schedule = require('node-schedule')
 ratings = require('./ratings')
-db = require('./database')
+redis = require('./redis')
 
 DEFAULT_RATING = ratings.algorithm.createPlayer().rating
 DECAY_AMOUNT = 10
@@ -11,7 +11,7 @@ DECAY_AMOUNT = 10
   jobs.push schedule.scheduleJob hour: 0, minute: 0, second: 0, ->
     # TODO: Turn into a lua script
     job = this
-    multi = db.multi()
+    multi = redis.multi()
     multi = multi.sdiff('users:rated', 'users:active')
     multi = multi.del('users:active')
     multi.exec (err, results) ->
