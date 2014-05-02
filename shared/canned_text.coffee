@@ -94,6 +94,7 @@ CannedText =
       REFLECT_END: "$ts's Reflect wore off!"
       LIGHT_SCREEN_END: "$ts's Light Screen wore off!"
       STICKY_WEB_CONTINUE: "$p was caught in a sticky web!"
+      RATING_UPDATE: "$p's rating: $1 -> $2"
 
 cannedMap = {}
 cannedMapReverse = {}

@@ -149,11 +149,11 @@ createCondition Conditions.RATED_BATTLE,
           
           oldRating = Math.floor(oldRatings[0])
           newRating = Math.floor(result[0])
-          @message "#{winner.name}'s rating: #{oldRating} -> #{newRating}"
+          @cannedText(winnerId, oldRating, newRating)
           
           oldRating = Math.floor(oldRatings[1])
           newRating = Math.floor(result[1])
-          @message "#{loser.name}: #{oldRating} -> #{newRating}"
+          @cannedText(loserId, oldRating, newRating)
           
           @emit('ratingsUpdated')
           @sendUpdates()
