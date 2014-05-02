@@ -99,18 +99,20 @@ for attribute in RATIOS_ATTRIBUTES
   id = id.toLowerCase()
   opponentId = opponentId.toLowerCase()
   opponentScore = 1.0 - score
-  exports.getPlayer id, (err, player) =>
+  exports.getPlayers [id, opponentId], (err, results) =>
     return next(err)  if err
-    exports.getPlayer opponentId, (err, opponent) =>
+    [player, opponent] = results
+    winnerMatches = [{opponent, score}]
+    loserMatches = [{opponent: player, score: opponentScore}]
+    newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
+    newLoser = exports.algorithm.calculate(opponent, loserMatches, ALGORITHM_OPTIONS)
+    async.parallel [
+      @updatePlayer.bind(this, id, score, newWinner)
+      @updatePlayer.bind(this, opponentId, opponentScore, newLoser)
+    ], (err, results) =>
       return next(err)  if err
-      winnerMatches = [{opponent, score}]
-      loserMatches = [{opponent: player, score: opponentScore}]
-      newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
-      newLoser = exports.algorithm.calculate(opponent, loserMatches, ALGORITHM_OPTIONS)
-      async.parallel [
-        @updatePlayer.bind(this, id, score, newWinner)
-        @updatePlayer.bind(this, opponentId, opponentScore, newLoser)
-      ], next
+      @getRatings([id, opponentId], next)
+
 
 @resetRating = (id, next) ->
   @resetRatings([id], next)

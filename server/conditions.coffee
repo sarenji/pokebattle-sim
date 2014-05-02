@@ -148,11 +148,11 @@ createCondition Conditions.RATED_BATTLE,
           return @message "An error occurred updating rankings :("  if err
           
           oldRating = Math.floor(oldRatings[0])
-          newRating = Math.floor(result[0].rating)
+          newRating = Math.floor(result[0])
           @message "#{winner.name}'s rating: #{oldRating} -> #{newRating}"
           
           oldRating = Math.floor(oldRatings[1])
-          newRating = Math.floor(result[1].rating)
+          newRating = Math.floor(result[1])
           @message "#{loser.name}: #{oldRating} -> #{newRating}"
           
           @emit('ratingsUpdated')
