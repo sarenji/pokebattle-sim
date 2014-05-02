@@ -65,11 +65,11 @@ generateUsername = (req) ->
   randomName += "Fan" + Math.floor(Math.random() * 10000)
   randomName
 
-generateId = ->
-  Math.floor(1000000 * Math.random())
+generateId = (req) ->
+  req.param('id') || Math.floor(1000000 * Math.random())
 
 generateUser = (req) ->
-  {id: generateId(), username: generateUsername(req)}
+  {id: generateId(req), username: generateUsername(req)}
 
 
 # Authorization
