@@ -37,7 +37,7 @@ namespace :sim do
 end
 
 after "node:install_packages", "sim:compile"
-after "deploy:update_code", "sim:migrate"
+after "node:install_packages", "sim:migrate"
 
 # clean up old releases on each deploy
 after "deploy", "deploy:cleanup"
