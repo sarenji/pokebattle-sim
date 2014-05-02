@@ -47,7 +47,7 @@ CannedText =
       SPIKES_START: "Spikes were scattered all around $ts's feet!"
       SPIKES_HURT: "$p is hurt by the spikes!"
       STEALTH_ROCK_START: "Pointed stones float in the air around $ts!"
-      STEALTH_ROCK_HURT: "$p is hurt by the spikes!"
+      STEALTH_ROCK_HURT: "Pointed stones dug into $p!"
       TOXIC_SPIKES_START: "Poison spikes were scattered all around $ts's feet!"
       TOXIC_SPIKES_END: "The poison spikes disappeared from around $ts's feet!"
       TRAP_HURT: "$p is hurt by $m!"
