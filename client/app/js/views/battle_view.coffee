@@ -1093,10 +1093,11 @@ class @BattleView extends Backbone.View
         formes = gen.FormeData[name]
         formeNames = _.keys(formes)
         formeNames = _.filter formeNames, (formeName) ->
-          forme == formeName || formes[forme].isBattleOnly
+          forme == formeName || formes[formeName].isBattleOnly
         for formeName in formeNames
           PokemonSprite(id, formeName, front: front, shiny: shiny)
-    pokemonUrls = _.flatten(teams)
+    # First pokemon of each team is loaded first, then second, etc.
+    pokemonUrls = _.flatten(_.zip(teams...))
     for pokemonUrl in pokemonUrls
       image = new Image()
       image.src = pokemonUrl
