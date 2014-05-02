@@ -16,6 +16,7 @@ database = require('./database')
 redis = require('./redis')
 ratings = require('./ratings')
 schedule = require('./schedule')
+config = require('./config')
 alts = require('./alts')
 
 @createServer = (port) ->
@@ -143,9 +144,9 @@ alts = require('./alts')
           user.send('teamSaved', cid, team.id)
 
     'requestTeams': (user) ->
-      new database.Teams()
-        .query('where', trainer_id: user._id)
-        .query('orderBy', 'created_at')
+      q = new database.Teams()
+      q = q.query('where', trainer_id: user._id)  unless config.IS_LOCAL
+      q = q.query('orderBy', 'created_at')
         .fetch()
         .then (teams) ->
           user.send('receiveTeams', teams.toJSON())
