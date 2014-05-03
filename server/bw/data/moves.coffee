@@ -272,7 +272,8 @@ makeDelayedAttackMove = (name, message) ->
 
 makeRandomSwitchMove = (name) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target) ->
+    @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+      return  if !isDirect
       return  if target.isFainted() || user.isFainted()
       return  if target.shouldPhase(battle, user) == false
       {team}  = target

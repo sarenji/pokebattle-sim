@@ -2648,6 +2648,21 @@ describe "BW Moves:", ->
 
         mock.verify()
 
+      it "does not force a switch if the hit was indirect", ->
+        shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Magikarp"), Factory("Abra")])
+
+        move = @battle.getMove(moveName)
+
+        mock = @sandbox.mock(@team2)
+        # Whirlwind, Roar
+        if !move.isNonDamaging()
+          mock.expects("switch").never()
+
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.performMove(@p1, move)
+
+        mock.verify()
+
       it "does not force a switch if the user faints", ->
         shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Magikarp", ability: "Iron Barbs"), Factory("Abra")])
 
