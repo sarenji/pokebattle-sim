@@ -14,9 +14,10 @@ if process.env.NODE_ENV == 'test'
 
 determineShardSize = (next) ->
   return next(determineShardSize.SHARD_SIZE)  if determineShardSize.SHARD_SIZE
-  db.config 'get', 'hash-max-zipmap-entries', (err, size) ->
+  db.config 'get', 'hash-max-zipmap-entries', (err, results) ->
     throw err  if err
-    determineShardSize.SHARD_SIZE = size
+    [key, size] = results  if results
+    determineShardSize.SHARD_SIZE = (if size then Number(size) else 1024)
     next(determineShardSize.SHARD_SIZE)
 
 determineShardSize.SHARD_SIZE = null
