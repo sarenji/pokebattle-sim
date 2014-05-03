@@ -196,6 +196,17 @@ makeAdminCommand "wall", "announce", (user, room, next, pieces...) ->
   @announce("<strong>#{user.id}:</strong> #{message}")
   next()
 
+desc "Evaluates a script in the context of the server."
+makeOwnerCommand "eval", (user, room, next, pieces...) ->
+  source = pieces.join(',')
+  return next()  if !source
+  try
+    result = (new Function("var inspect = require('util').inspect; with(this) { return #{source} }")).call(this)
+    user.message("> #{result}")
+  catch e
+    user.message("ERROR: #{e.message}")
+  next()
+
 desc "Displays all commands available. Usage: /help"
 makeCommand "help", (user, room, next, commandName) ->
   message = []
