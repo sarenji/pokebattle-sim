@@ -48,6 +48,7 @@ class @User
     newUser.toJSON = ->
       json = @original.toJSON.apply(this, arguments)
       json.isAlt = true
+      json.authority = undefined
       json
 
     newUser.name = name
