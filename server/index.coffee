@@ -302,7 +302,7 @@ alts = require('./alts')
 
   battleSearch = ->
     server.beginBattles (err, battleIds) ->
-      if err then return
+      return console.error(err)  if err
       for id in battleIds
         battle = server.findBattle(id)
         playerNames = battle.getPlayerNames()
