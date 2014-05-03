@@ -201,7 +201,7 @@ makeOwnerCommand "eval", (user, room, next, pieces...) ->
   source = pieces.join(',')
   return next()  if !source
   try
-    result = (new Function("var inspect = require('util').inspect; with(this) { return #{source} }")).call(this)
+    result = (new Function("with(this) { return #{source} }")).call(this)
     user.message("> #{result}")
   catch e
     user.message("ERROR: #{e.message}")
