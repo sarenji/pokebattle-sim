@@ -97,6 +97,10 @@ CannedText =
       STICKY_WEB_CONTINUE: "$p was caught in a sticky web!"
       STICKY_WEB_END: "The sticky web has disappeared from beneath $ts's feet!"
       RATING_UPDATE: "$t's rating: $1 -> $2"
+      KNOCK_OFF: "$p knocked off $p's $i!"
+      PAIN_SPLIT: "The battlers shared their pain!"
+      PAY_DAY: "Coins were scattered everywhere!"
+      PSYCH_UP: "$p copied $p's stat changes!"
 
 cannedMap = {}
 cannedMapReverse = {}

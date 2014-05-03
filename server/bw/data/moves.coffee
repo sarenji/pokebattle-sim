@@ -1230,7 +1230,7 @@ extendMove 'Judgment', ->
 extendMove 'Knock Off', ->
   @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
     if user.isAlive() && target.hasItem() && target.canLoseItem() && isDirect
-      battle.message "#{user.name} knocked off #{target.name}'s #{target.getItem().displayName}!"
+      battle.cannedText('KNOCK_OFF', user, target, target.getItem())
       target.removeItem()
 
 extendMove 'Last Resort', ->
@@ -1433,11 +1433,11 @@ extendMove 'Pain Split', ->
     averageHP = Math.floor((user.currentHP + target.currentHP) / 2)
     user.setHP(averageHP)
     target.setHP(averageHP)
-    battle.message "The battlers shared their pain!"
+    battle.cannedText('PAIN_SPLIT')
 
 extendMove 'Pay Day', ->
   @afterSuccessfulHit = (battle, user, target) ->
-    battle.message "Coins were scattered everywhere!"
+    battle.cannedText('PAY_DAY')
 
 extendMove 'Payback', ->
   @basePower = (battle, user, target) ->
@@ -1484,7 +1484,7 @@ extendMove 'Psych Up', ->
   @use = (battle, user, target) ->
     for stage, value of target.stages
       user.stages[stage] = value
-    battle.message "#{user.name} copied #{target.name}'s stat changes!"
+    battle.cannedText('PSYCH_UP', user, target)
 
 extendMove 'Psycho Shift', ->
   @afterSuccessfulHit = (battle, user, target) ->
