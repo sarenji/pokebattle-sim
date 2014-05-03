@@ -50,3 +50,9 @@ ALTS_KEY = "alts"
 @uniqueId = (id, altName) ->
   return id  if not altName
   "#{id}:#{altName}"
+
+# The inverse of uniqueId
+@getIdOwner = (uniqueId) ->
+  index = uniqueId.indexOf(':')
+  return uniqueId  if index < 0
+  uniqueId.substr(0, index)

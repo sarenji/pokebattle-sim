@@ -66,3 +66,14 @@ describe "Alts", ->
       alts.isAltOwnedBy "player1", null, (err, result) ->
         result.should.be.true
         done()
+
+  describe '#getIdOwner', ->
+    it 'reverses #uniqueId', ->
+      id = "atestId"
+      uniqueId = alts.uniqueId(id, "altName")
+      uniqueId.should.not.equal(id)
+      alts.getIdOwner(uniqueId).should.equal(id)
+
+    it 'returns the given id if the id does not belong to an alt', ->
+      id = "atestId"
+      alts.getIdOwner(id).should.equal(id)

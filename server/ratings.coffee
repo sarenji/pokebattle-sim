@@ -1,5 +1,6 @@
 redis = require './redis'
 async = require 'async'
+alts = require './alts'
 @algorithm = require('./elo')
 
 USERS_RATED_KEY = "users:rated"
@@ -9,6 +10,7 @@ RATINGS_ATTRIBUTES = Object.keys(@algorithm.createPlayer())
 RATINGS_SUBKEYS = {}
 for attribute in RATINGS_ATTRIBUTES
   RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
+RATINGS_MAXKEY = "ratings:max"
 RATINGS_PER_PAGE = 15
 
 ALGORITHM_OPTIONS =
@@ -30,6 +32,30 @@ RATIOS_SUBKEYS = {}
 for attribute in RATIOS_ATTRIBUTES
   RATIOS_SUBKEYS[attribute] = [RATIOS_KEY, attribute].join(':')
 
+# Used internally by the ratings system to update
+# the max rating of user when a rating changes
+# Id can either be the actual id, or an alt id
+updateMaxRating = (id, next) =>
+  id = alts.getIdOwner(id).toLowerCase()
+  alts.listUserAlts id, (err, altNames) =>
+    return next(err)  if err
+    
+    # Retrieve a list of all rating Keys
+    ids = (alts.uniqueId(id, name) for name in altNames)
+    ids.push(id)
+
+    async.map ids, @getRating, (err, results) ->
+      return next(err)  if err
+      max = Math.max.apply(null, results)
+      redis.zadd(RATINGS_MAXKEY, max, id)
+      next(null)
+
+# Update the max ratings for multiple players
+updateMaxRatings = (ids, next) ->
+  ops = ids.map (id) ->
+    (callback) -> updateMaxRating(id, callback)
+  async.parallel ops, next
+
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
   multi = redis.multi()
@@ -41,7 +67,7 @@ for attribute in RATIOS_ATTRIBUTES
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
       value ||= exports.algorithm.createPlayer()[attribute]
-      object[attribute] = parseFloat(value) # redis returns the value as a string, so parse it
+      object[attribute] = Number(value)
     return next(null, object)
 
 @getRating = (id, next) ->
@@ -50,12 +76,16 @@ for attribute in RATIOS_ATTRIBUTES
     return next(err)  if err
     return next(null, Number(player.rating))
 
-@setRating = (id, newRating, next) ->
+# Returns the maximum rating for a user among that user and his/her alts
+@getMaxRating = (id, next) ->
   id = id.toLowerCase()
-  multi = redis.multi()
-  multi = multi.sadd(USERS_RATED_KEY, id)
-  multi = multi.zadd(RATINGS_SUBKEYS['rating'], newRating, id)
-  multi.exec(next)
+  redis.zscore RATINGS_MAXKEY, id, (err, rating) ->
+    return next(err)  if err
+    rating ||= exports.algorithm.createPlayer().rating
+    next(null, Number(rating))
+
+@setRating = (id, newRating, next) =>
+  @setRatings([id], [newRating], next)
 
 @setRatings = (idArray, newRatingArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
@@ -64,7 +94,9 @@ for attribute in RATIOS_ATTRIBUTES
   for id, i in idArray
     newRating = newRatingArray[i]
     multi = multi.zadd(RATINGS_SUBKEYS['rating'], newRating, id)
-  multi.exec(next)
+  multi.exec (err) ->
+    next(err)  if err
+    updateMaxRatings(idArray, next)
 
 @getPlayers = (idArray, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
@@ -90,7 +122,9 @@ for attribute in RATIOS_ATTRIBUTES
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
-  multi.exec(next)
+  multi.exec (err) ->
+    next(err)  if err
+    updateMaxRating(id, next)
 
 @updatePlayers = (id, opponentId, score, next) ->
   if score < 0 || score > 1
@@ -113,7 +147,6 @@ for attribute in RATIOS_ATTRIBUTES
       return next(err)  if err
       @getRatings([id, opponentId], next)
 
-
 @resetRating = (id, next) ->
   @resetRatings([id], next)
 
@@ -123,7 +156,9 @@ for attribute in RATIOS_ATTRIBUTES
   multi = multi.srem(USERS_RATED_KEY, idArray)
   for attribute, key of RATINGS_SUBKEYS
     multi = multi.zrem(key, idArray)
-  multi.exec(next)
+  multi.exec (err) ->
+    next(err)  if err
+    updateMaxRatings(idArray, next)
 
 @listRatings = (page = 1, perPage = RATINGS_PER_PAGE, next) ->
   if arguments.length == 2 && typeof perPage == 'function'
@@ -131,7 +166,7 @@ for attribute in RATIOS_ATTRIBUTES
   page -= 1
   start = page * perPage
   end = start + (perPage - 1)
-  redis.zrevrange RATINGS_SUBKEYS['rating'], start, end, 'WITHSCORES', (err, r) ->
+  redis.zrevrange RATINGS_MAXKEY, start, end, 'WITHSCORES', (err, r) ->
     return next?(err)  if err
     array = []
     for i in [0...r.length] by 2
