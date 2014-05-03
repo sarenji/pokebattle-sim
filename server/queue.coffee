@@ -38,13 +38,11 @@ class @BattleQueue
     ratingKeys = Object.keys(queueByRatingKey)
 
     return next(null, [])  if ratingKeys.length == 0
-    console.log("Attempting to get ratings: #{ratingKeys}")
     ratings.getRatings ratingKeys, (err, returnedRatings) =>
       if err then return next(err, null)
 
-      console.log("Attempting to set active: #{ratingKeys}")
-
       ratings.setActive ratingKeys, (err) =>
+        console.log("DID WE SET ACTIVE OR WHAT", err)
         if err then return next(err, null)
         pairs = []
         sortedPlayers = []
