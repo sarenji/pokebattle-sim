@@ -186,8 +186,9 @@ alts = require('./alts')
         
         battleId = server.acceptChallenge(user, challengerId, team, altName)
         if battleId
+          playerNames = server.findBattle(battleId).getPlayerNames()
           lobby.message("""Challenge: <span class="fake_link spectate"
-          data-battle-id="#{battleId}">#{challengerId} vs. #{user.id}</span>!""")
+          data-battle-id="#{battleId}">#{playerNames[0]} vs. #{playerNames[1]}</span>!""")
 
     'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
