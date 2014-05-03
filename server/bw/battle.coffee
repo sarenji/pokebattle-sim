@@ -652,6 +652,7 @@ class @Battle extends EventEmitter
     @pokemonActions = array.map (elem) => elem[0]
 
   actionPriority: (action) ->
+    throw new Error("Could not find action!")  if !action
     @actionMap[action.type]["priority"].call(this, action)
 
   hasActionsLeft: ->
