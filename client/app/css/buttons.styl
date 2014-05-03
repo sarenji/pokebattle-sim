@@ -62,12 +62,18 @@ button-bg(clr)
       position absolute
       top 0
       right 1em
-  &.button-primary
+  &.button_blue
     background linear-gradient(top, #0066cc, #0044cc)
     text-shadow 0 -1px rgba(0, 0, 0, .3)
     color #fff
     &:hover
       background linear-gradient(top, #0088cc, #0066cc)
+  &.button_red
+    background linear-gradient(top, #cc6600, #cc4400)
+    text-shadow 0 -1px rgba(0, 0, 0, .3)
+    color #fff
+    &:hover
+      background linear-gradient(top, #cc8800, #cc6600)
   for $array in $types
     &.{$array[0]}
       button-bg($array[1])
