@@ -76,7 +76,7 @@ CannedText =
       POISON_CONTINUE: "$p was hurt by poison!"
       SLEEP_CONTINUE: "$p is fast asleep."
       BURN_CONTINUE: "$p was hurt by its burn!"
-      RECOVER_HP: "$p recovered $1 HP!"
+      RECOVER_HP: "$p recovered $1% HP!"
       TRICK_START: "$p switched items with its target!"
       TRICK_END: "$p obtained one $i!"
       THIEF_START: "$p stole $p's $i!"
