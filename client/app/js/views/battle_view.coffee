@@ -390,6 +390,7 @@ class @BattleView extends Backbone.View
   # Some canned text requires special actions.
   # For example, misses require a delay, and also prints to the battle pane.
   actOnCannedText: (cannedTextName, cannedText, done) =>
+    return done()  if @skip?
     switch cannedTextName
       when 'MOVE_MISS', 'JUMP_KICK_MISS', 'MOVE_FAIL', 'IMMUNITY'
         @addSummary(cannedText)
@@ -671,9 +672,13 @@ class @BattleView extends Backbone.View
     x += offset
     y += offset
     $screen.css(left: x, top: y).appendTo(@$('.battle_pane'))
-    $screen
-      .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
-      .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic', done)
+    if @skip?
+      $screen.css(width: finalSize, height: finalSize)
+      done()
+    else
+      $screen
+        .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
+        .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic', done)
 
   unattachScreen: (player, slot, klass, done=->) =>
     selector = ".team-screen.#{klass}.field-#{player}"
