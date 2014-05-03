@@ -17,7 +17,7 @@ determineShardSize = (next) ->
   db.config 'get', 'hash-max-zipmap-entries', (err, results) ->
     throw err  if err
     [key, size] = results  if results
-    determineShardSize.SHARD_SIZE = (if size then Number(size) else 1024)
+    determineShardSize.SHARD_SIZE = (if size then Number(size) else 512)
     next(determineShardSize.SHARD_SIZE)
 
 determineShardSize.SHARD_SIZE = null
