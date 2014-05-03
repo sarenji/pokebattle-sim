@@ -1,5 +1,6 @@
 redis = require './redis'
 async = require 'async'
+{_} = require 'underscore'
 @algorithm = require('./elo')
 
 USERS_RATED_KEY = "users:rated"
@@ -20,7 +21,9 @@ ALGORITHM_OPTIONS =
   LOSE : 0
 
 @setActive = (idArray, next) ->
-  idArray = [idArray]  if idArray not instanceof Array
+  console.log("Trying to set active: #{idArray}")
+  console.log(require('util').inspect(idArray))
+  idArray = [idArray]  unless _.isArray(idArray)
   idArray = idArray.map((id) -> id.toLowerCase())
   redis.sadd(USERS_ACTIVE_KEY, idArray, next)
 

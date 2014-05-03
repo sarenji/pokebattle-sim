@@ -41,6 +41,7 @@ class @BattleQueue
     ratings.getRatings ratingKeys, (err, returnedRatings) =>
       if err then return next(err, null)
 
+      console.log require('util').inspect(ratingKeys)
       ratings.setActive ratingKeys, (err) =>
         console.log("DID WE SET ACTIVE OR WHAT", err)
         if err then return next(err, null)
