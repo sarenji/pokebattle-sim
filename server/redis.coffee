@@ -12,24 +12,13 @@ if process.env.NODE_ENV == 'test'
   # Select test database
   db.select(1)
 
-determineShardSize = (next) ->
-  return next(determineShardSize.SHARD_SIZE)  if determineShardSize.SHARD_SIZE
-  db.config 'get', 'hash-max-zipmap-entries', (err, results) ->
-    throw err  if err
-    [key, size] = results  if results
-    determineShardSize.SHARD_SIZE = (if size then Number(size) else 512)
-    next(determineShardSize.SHARD_SIZE)
-
-determineShardSize.SHARD_SIZE = null
-
 db.shard = (command, key, id, args...) ->
   if command[0] != 'h'
     throw new Error('Sharding does not work with non-hashes.')
-  id = Number(id)
-  determineShardSize (size) ->
-    [division, remainder] = [ Math.floor(id / size), (id % size) ]
-    key = [ key, division ].join(':')
-    db[command](key, remainder, args...)
+  [id, size] = [Number(id), 512]
+  [division, remainder] = [ Math.floor(id / size), (id % size) ]
+  key = [ key, division ].join(':')
+  db[command](key, remainder, args...)
 
 # Export database variable
 module.exports = db
