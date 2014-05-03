@@ -165,6 +165,8 @@ class @ChatView extends Backbone.View
     sanitizedMessage = sanitizedMessage.replace(
       /\b(https?:\/\/\S+\.\S+)\b/g,
       """<a href="$1" target="_blank">$1</a>""")
+    sanitizedMessage = sanitizedMessage.replace(
+      /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
     sanitizedMessage
 
   # Returns true if the chat is scrolled to the bottom of the screen.
