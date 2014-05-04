@@ -822,7 +822,18 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "randInt", "harvest", 1)
       @p1.removeItem()
       @battle.endTurn()
-      @p1.hasItem("Flying Gem").should.be.false
+      @p1.hasItem("Salac Berry").should.be.false
+
+    it "uses a regained Berry immediately if the condition is right", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Sitrus Berry", ability: "Harvest")]
+      shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.useItem()
+      @p1.currentHP = 1
+      @p1.hasItem("Sitrus Berry").should.be.false
+      @battle.endTurn()
+      @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
+      @p1.hasItem("Sitrus Berry").should.be.false
 
   describe "Healer", ->
     it "has a 30% chance of healing an adjacent ally's status", ->

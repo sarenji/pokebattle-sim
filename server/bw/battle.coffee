@@ -396,6 +396,7 @@ class @Battle extends EventEmitter
     @query("endTurn")
     for pokemon in @getActivePokemon()
       pokemon.turnsActive += 1
+      pokemon.update()
     @checkForReplacements()
 
   attach: (klass, options = {}) ->
