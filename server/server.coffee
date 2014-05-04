@@ -106,6 +106,11 @@ class @BattleServer
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
 
+    # Do not allow rated battles.
+    if _.find(conditions, (c) -> c == Conditions.RATED_BATTLE)
+      player.error(errors.FIND_BATTLE, 'You cannot issue a rated challenge.')
+      return false
+
     err = @validateTeam(team, generation, conditions)
     if err.length > 0
       # TODO: Use a modal error instead

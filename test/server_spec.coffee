@@ -97,7 +97,8 @@ describe 'BattleServer', ->
       team = generateTeam()
       generation = 'xy'
       diffGeneration = 'bw'
-      diffTeam = [ Factory("Celebi") ]
+      diffTeam = generateTeam()
+      diffTeam[0] = Factory("Celebi")
 
       server.join(user)
       server.join(other)
@@ -126,10 +127,24 @@ describe 'BattleServer', ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")
-      challengeeId = other.id
       generation = 'xy'
-      team = [ Factory("Arceus", moves: [ "Recover" ]) ]
+      team = generateTeam()
+      team[0] = Factory("Arceus", moves: [ "Recover" ])
       conditions = [ Conditions.PBV_1000 ]
+
+      server.join(user)
+      server.join(other)
+      mock = @sandbox.mock(user).expects('error').once()
+      server.registerChallenge(user, other.id, generation, team, conditions)
+      mock.verify()
+
+    it "returns an error on a rated challenge", ->
+      server = new BattleServer()
+      user = new User("Batman")
+      other = new User("Robin")
+      generation = 'xy'
+      team = generateTeam()
+      conditions = [ Conditions.RATED_BATTLE ]
 
       server.join(user)
       server.join(other)

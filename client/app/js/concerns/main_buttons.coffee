@@ -19,7 +19,7 @@ $ ->
       Conditions.RATED_BATTLE
       Conditions.TIMED_BATTLE
     ]
-    canEditClauses: false
+    blockedClauses: true
 
   $mainButtons.find('.find_battle').on 'challenge', ->
     $this = $(this)

@@ -14,7 +14,7 @@
   generation = opts.generation
   personId = opts.personId
   defaultClauses = opts.defaultClauses || []
-  canEditClauses = opts.canEditClauses ? true
+  blockedClauses = opts.blockedClauses ? false
 
   selectedTeamId = null
   selectedAlt = null
@@ -159,8 +159,12 @@
     # Auto-select first available format.
     $wrapper.find('.format-dropdown a').first().click()
 
-  if !canEditClauses
+  if blockedClauses
     $checkboxes = $wrapper.find('input[type="checkbox"]')
+    if blockedClauses != true
+      $checkboxes = $checkboxes.filter ->
+        clause = Number($(this).data('clause'))
+        clause in blockedClauses
     $checkboxes.prop('disabled', true)
     $checkboxes.closest('label').addClass('disabled')
 

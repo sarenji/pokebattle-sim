@@ -34,5 +34,5 @@ ul.challenge_clauses.well
     - var checked = (defaultClauses.indexOf(value) >= 0)
     li
       label
-        input(type = "checkbox", value = value, checked = checked)
+        input(type = "checkbox", value = value, checked = checked, data-clause = value)
         |  #{window.HumanizedConditions['en'][clause]}

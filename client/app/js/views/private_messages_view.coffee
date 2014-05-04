@@ -175,7 +175,7 @@ class @PrivateMessagesView extends Backbone.View
         Conditions.OHKO_CLAUSE
         Conditions.UNRELEASED_BAN
       ]
-      canEditClauses: !conditions?
+      blockedClauses: conditions? || [Conditions.RATED_BATTLE]
     $popup.find('.popup_messages').addClass('small')
     $challenge.removeClass('hidden')
     $challenge
