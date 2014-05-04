@@ -4,7 +4,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
-  @selectPlayers = (battle, user, target) ->
+  @selectPokemon = (battle, user, target) ->
     [ target, user ]
 
 extendMove 'Facade', ->

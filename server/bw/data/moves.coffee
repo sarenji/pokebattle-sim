@@ -553,7 +553,7 @@ extendMove 'Defog', ->
     Attachment.ToxicSpikes
   ]
 
-  @selectPlayers = (battle, user, target) ->
+  @selectPokemon = (battle, user, target) ->
     [ target ]
 
   @afterSuccessfulHit = (battle, user, target) ->
@@ -561,7 +561,7 @@ extendMove 'Defog', ->
     target.team.unattach(Attachment.Reflect)
     target.team.unattach(Attachment.LightScreen)
 
-    for pokemon in @selectPlayers(battle, user, target)
+    for pokemon in @selectPokemon(battle, user, target)
       for hazard in @entryHazards
         pokemon.team.unattach(hazard)
 
