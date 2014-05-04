@@ -211,7 +211,7 @@ desc "Displays all commands available. Usage: /help"
 makeCommand "help", (user, room, next, commandName) ->
   message = []
   for name, description of HelpDescriptions
-    message.push(description)
+    message.push("<b>/#{name}:</b> #{description}")
   message = message.join("<br>")
   user.message(message)
   next(null, message)
