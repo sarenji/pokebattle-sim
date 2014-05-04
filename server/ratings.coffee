@@ -95,7 +95,7 @@ updateMaxRatings = (ids, next) ->
     newRating = newRatingArray[i]
     multi = multi.zadd(RATINGS_SUBKEYS['rating'], newRating, id)
   multi.exec (err) ->
-    next(err)  if err
+    return next(err)  if err
     updateMaxRatings(idArray, next)
 
 @getPlayers = (idArray, next) ->
@@ -123,7 +123,7 @@ updateMaxRatings = (ids, next) ->
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
   multi.exec (err) ->
-    next(err)  if err
+    return next(err)  if err
     updateMaxRating(id, next)
 
 @updatePlayers = (id, opponentId, score, next) ->
@@ -157,7 +157,7 @@ updateMaxRatings = (ids, next) ->
   for attribute, key of RATINGS_SUBKEYS
     multi = multi.zrem(key, idArray)
   multi.exec (err) ->
-    next(err)  if err
+    return next(err)  if err
     updateMaxRatings(idArray, next)
 
 @listRatings = (page = 1, perPage = RATINGS_PER_PAGE, next) ->

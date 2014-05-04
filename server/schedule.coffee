@@ -15,16 +15,18 @@ DECAY_AMOUNT = 10
     multi = multi.sdiff('users:rated', 'users:active')
     multi = multi.del('users:active')
     multi.exec (err, results) ->
-      return  if err
+      throw new Error(err)  if err
       [ids, didDelete] = results
+      return job.emit('finished')  if ids.length == 0
       ratings.getRatings ids, (err, oldRatings) ->
-        return  if err
+        throw new Error(err)  if err
         newRatings = oldRatings.map (rating) ->
           if rating < DEFAULT_RATING
             rating
           else
             Math.max(rating - 10, DEFAULT_RATING)
-        ratings.setRatings ids, newRatings, ->
+        ratings.setRatings ids, newRatings, (err) ->
+          throw new Error(err)  if err
           job.emit('finished')
 
   return jobs

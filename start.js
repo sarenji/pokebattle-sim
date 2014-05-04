@@ -11,5 +11,6 @@ switch (process.env.POKEBATTLE_ENV) {
   default:
     var PORT = process.env.PORT || 8000;
     require('./server').createServer(PORT);
+    require('./server/schedule').createScheduler();
     break;
 }

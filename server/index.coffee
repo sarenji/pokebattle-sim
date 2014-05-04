@@ -15,7 +15,6 @@ assets = require('../assets')
 database = require('./database')
 redis = require('./redis')
 ratings = require('./ratings')
-schedule = require('./schedule')
 config = require('./config')
 alts = require('./alts')
 
@@ -23,8 +22,6 @@ alts = require('./alts')
   app = express()
   httpServer = http.createServer(app)
   httpServer.battleServer = server = new BattleServer()
-
-  schedule.createScheduler()
 
   # Configuration
   app.set("views", "client")
