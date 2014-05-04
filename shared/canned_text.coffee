@@ -107,13 +107,20 @@ cannedMapReverse = {}
 allTexts = []
 counter = 0
 
+cannedTextNames = []
 for generationName, generation of CannedText
   for language, cannedTexts of generation
     for cannedTextName in Object.keys(cannedTexts)
-      if cannedTextName not of cannedMap
-        cannedMap[cannedTextName] = counter
-        cannedMapReverse[counter] = cannedTextName
-        counter += 1
+      if cannedTextName not in cannedTextNames
+        cannedTextNames.push(cannedTextName)
+
+# Sort canned text, so that the integers are consistent everywhere.
+cannedTextNames.sort()
+
+for cannedTextName, i in cannedTextNames
+  counter = (i + 1)
+  cannedMap[cannedTextName] = counter
+  cannedMapReverse[counter] = cannedTextName
 
 this.CannedText = cannedMap
 this.CannedMap = CannedText
