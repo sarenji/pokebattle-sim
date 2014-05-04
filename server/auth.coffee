@@ -21,6 +21,8 @@ MUTE_KEY = "mute"
 # User information is also stored in redis.
 exports.middleware = -> (req, res, next) ->
   return next()  if req.path.match(/^\/css|^\/js|^\/fonts/)
+  return next()  if req.path == '/leaderboard'  # add some proper site authentication later instead
+  
   authenticate req, (body) ->
     if !body
       redirectURL = "https://pokebattle.com/accounts/login"
