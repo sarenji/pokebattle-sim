@@ -261,7 +261,7 @@ class @BattleView extends Backbone.View
         .transition(scale: 1, 250)
         .transition y: 0, 250, 'out', =>
           @removePokeball($pokeball)
-          done()
+      setTimeout(done, 500)
       $newPokemon.transition(opacity: 1)
     setTimeout(releasePokemon, 250)
 
@@ -282,7 +282,7 @@ class @BattleView extends Backbone.View
       $pokemon.addClass('hidden').css(opacity: 1)
       $sprite.popover('destroy')
       $sprite.transition(scale: 1, x: 0, y: 0, 0)
-      done()
+    setTimeout(done, 250)
 
   makePokeball: (x, y) =>
     $pokeball = $("""<div class="pokeball"/>""")
@@ -329,12 +329,12 @@ class @BattleView extends Backbone.View
     scale = (if front then 1.3 else 1/1.3)
     if moveName == 'Earthquake'
       $attacker.add($defender).each (index) ->
-        callback = (if index == 0 then done else undefined)
         $(this).transition(x: -75, 62.5, 'easeInOutCubic')
           .transition(x: 75, 125, 'easeInOutCubic')
           .transition(x: -30, 125, 'easeInOutCubic')
           .transition(x: 30, 125, 'easeInOutCubic')
-          .transition(x: 0, 62.5, 'easeInOutCubic', callback)
+          .transition(x: 0, 62.5, 'easeInOutCubic')
+      setTimeout(done, 500)
     else if 'contact' in moveData.flags
       # Simple attack animation
       # Tackling the opponent
@@ -343,11 +343,12 @@ class @BattleView extends Backbone.View
         .transition(x: 0, y: 0, scale: 1, 250, 'out')
       $defender.delay(400)
         .transition(x: (if front then -16 else 8), 50, 'easeOutCubic')
-        .transition(x: 0, 50, 'easeInOutCubic', done)
+        .transition(x: 0, 50, 'easeInOutCubic')
+      setTimeout(done, 500)
     else if moveData['power'] > 0
       # Non-contact attacking move
       # Projectile
-      $projectile = @$projectile($attacker, moveData)
+      $projectile = @$projectile(player, slot, moveData)
       [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
         .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200, 'easeOutCubic')
@@ -356,11 +357,12 @@ class @BattleView extends Backbone.View
       $defender.delay(400)
         .transition(x: -4, 0, 'linear').delay(50)
         .transition(x: 4, 0, 'linear').delay(50)
-        .transition(x: 0, 0, 'linear', done)
+        .transition(x: 0, 0, 'linear')
+      setTimeout(done, 500)
     else if player != targetPlayer || slot != targetSlot
       # This is a non-attacking move that affects another pokemon
       # S-shaped movement
-      $projectile = @$projectile($attacker, moveData)
+      $projectile = @$projectile(player, slot, moveData)
       [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
         .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
@@ -368,14 +370,15 @@ class @BattleView extends Backbone.View
         .transition(x: transX, y: transY, 150, 'easeInOutSine')
         .transition opacity: 0, 100, 'easeInOutSine', ->
           $projectile.remove()
-          done()
+      setTimeout(done, 500)
     else
       # Side-to-side movement
       $attacker = @$sprite(player, slot)
       $attacker
         .transition(x: -16, 125, 'easeInOutSine')
         .transition(x: 16, 250, 'easeInOutSine')
-        .transition(x: 0, 125, 'easeInOutSine', done)
+        .transition(x: 0, 125, 'easeInOutSine')
+      setTimeout(done, 500)
 
   cannedText: (cannedString, args...) =>
     @parseCannedText(CannedText[cannedString], args, ->)
@@ -442,9 +445,9 @@ class @BattleView extends Backbone.View
     $ability.width(1)
     $ability.appendTo(@$('.battle_pane'))
     $ability.transition opacity: 1, width: 150, 100, 'easeInQuad', ->
-      setTimeout(done, 400)
       $ability.delay(3000).transition opacity: 0, 300, 'easeInQuad', ->
         $ability.remove()
+    setTimeout(done, 500)
 
   cancelSuccess: (done) =>
     @enableButtons()
@@ -516,8 +519,9 @@ class @BattleView extends Backbone.View
               .transition(y: -yOffset, 0)
               .transition(y: 0, 200, 'easeInQuad')
               .transition(y: -yOffset >> 3, 100, 'easeOutQuad')
-              .transition(y: 0, 100, 'easeInQuad', done)
+              .transition(y: 0, 100, 'easeInQuad')
           , 0
+          setTimeout(done, 500)
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
         @addLog("#{pokemon.get('name')} became confused!")
@@ -685,7 +689,8 @@ class @BattleView extends Backbone.View
     else
       $screen
         .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
-        .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic', done)
+        .transition(hght: finalSize, y: -halfSize, 250, 'easeInOutCubic')
+      setTimeout(done, 500)
 
   unattachScreen: (player, slot, klass, done=->) =>
     selector = ".team-screen.#{klass}.field-#{player}"
@@ -770,9 +775,9 @@ class @BattleView extends Backbone.View
           $substitute.remove()
           done()
         else
-          $substitute.transition y: 300, opacity: 0, ->
+          $substitute.transition y: 300, opacity: 0, 300, ->
             $substitute.remove()
-            done()
+          setTimeout(done, 300)
       when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
         @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
@@ -998,7 +1003,7 @@ class @BattleView extends Backbone.View
     $sprite.transition y: 100, opacity: 0, 250, 'ease-in', ->
       $sprite.popover('destroy')
       $sprite.remove()
-      done()
+    setTimeout(done, 250)
     @renderUserInfo()
 
   resetPopovers: =>
