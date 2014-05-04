@@ -694,6 +694,8 @@ class @BattleView extends Backbone.View
       setTimeout(done, 500)
 
   unattachScreen: (player, slot, klass, done=->) =>
+    if arguments.length == 3
+      [slot, klass, done] = [null, slot, klass]
     selector = ".team-screen.#{klass}.field-#{player}"
     selector += ".slot-#{slot}"  if slot
     $selector = @$(selector)
