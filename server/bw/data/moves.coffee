@@ -554,22 +554,16 @@ extendMove 'Defog', ->
   ]
 
   @selectPlayers = (battle, user, target) ->
-    [ battle.getOwner(target) ]
+    [ target ]
 
   @afterSuccessfulHit = (battle, user, target) ->
     target.boost(evasion: -1, user)
     target.team.unattach(Attachment.Reflect)
     target.team.unattach(Attachment.LightScreen)
 
-    for opponentId in @selectPlayers(battle, user, target)
-      hazardRemoved = false
-      team = battle.getTeam(opponentId)
+    for pokemon in @selectPlayers(battle, user, target)
       for hazard in @entryHazards
-        if team.unattach(hazard)
-          hazardRemoved = true
-
-      if hazardRemoved
-        battle.cannedText('CLEAR_HAZARDS', battle.getPlayerIndex(opponentId))
+        pokemon.team.unattach(hazard)
 
 makeProtectMove 'Detect'
 extendWithBoost 'Draco Meteor', 'self', specialAttack: -2
@@ -1524,22 +1518,14 @@ extendMove 'Rapid Spin', ->
 
     team = user.team
 
-    hazardRemoved = false
     for hazard in @entryHazards
-      if team.unattach(hazard)
-        hazardRemoved = true
-
-    if hazardRemoved
-      id = battle.getOwner(user)
-      battle.cannedText('CLEAR_HAZARDS', battle.getPlayerIndex(id))
+      team.unattach(hazard)
 
     # Remove trapping moves like fire-spin
-    trap = user.unattach(Attachment.Trap)
-    battle.cannedText('FREE_FROM', user, trap.moveName)  if trap
+    user.unattach(Attachment.Trap)
 
     # Remove leech seed
-    leechSeed = user.unattach(Attachment.LeechSeed)
-    battle.cannedText('FREE_FROM', user, "Leech Seed")  if leechSeed
+    user.unattach(Attachment.LeechSeed)
 
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
@@ -1673,9 +1659,7 @@ extendMove 'SonicBoom', ->
 
 makeOpponentFieldMove 'Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
-  if team.attach(Attachment.Spikes)
-    battle.cannedText('SPIKES_START', battle.getPlayerIndex(opponentId))
-  else
+  if !team.attach(Attachment.Spikes)
     @fail(battle)
 
 extendMove 'Spite', ->
@@ -1690,9 +1674,7 @@ extendMove 'Spite', ->
 
 makeOpponentFieldMove 'Stealth Rock', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
-  if team.attach(Attachment.StealthRock)
-    battle.cannedText('STEALTH_ROCK_START', battle.getPlayerIndex(opponentId))
-  else
+  if !team.attach(Attachment.StealthRock)
     @fail(battle)
 
 extendMove 'Struggle', ->

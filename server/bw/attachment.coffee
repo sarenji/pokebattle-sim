@@ -360,6 +360,10 @@ class @Attachment.Spikes extends @TeamAttachment
 
   maxLayers: 3
 
+  initialize: ->
+    id = @team.playerId
+    @battle.cannedText('SPIKES_START', @battle.getPlayerIndex(id))
+
   switchIn: (pokemon) ->
     return  if pokemon.isImmune("Ground")
     fraction = (10 - 2 * @layers)
@@ -368,8 +372,16 @@ class @Attachment.Spikes extends @TeamAttachment
     if pokemon.damage(damage)
       @battle.cannedText('SPIKES_HURT', pokemon)
 
+  unattach: ->
+    id = @team.playerId
+    @battle.cannedText('SPIKES_END', @battle.getPlayerIndex(id))
+
 class @Attachment.StealthRock extends @TeamAttachment
   name: "StealthRockAttachment"
+
+  initialize: ->
+    id = @team.playerId
+    @battle.cannedText('STEALTH_ROCK_START', @battle.getPlayerIndex(id))
 
   switchIn: (pokemon) ->
     multiplier = util.typeEffectiveness("Rock", pokemon.types)
@@ -377,6 +389,10 @@ class @Attachment.StealthRock extends @TeamAttachment
     damage = ((hp * multiplier) >> 3)
     if pokemon.damage(damage)
       @battle.cannedText('STEALTH_ROCK_HURT', pokemon)
+
+  unattach: ->
+    id = @team.playerId
+    @battle.cannedText('STEALTH_ROCK_END', @battle.getPlayerIndex(id))
 
 class @Attachment.ToxicSpikes extends @TeamAttachment
   name: "ToxicSpikesAttachment"
@@ -389,8 +405,6 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
 
   switchIn: (pokemon) ->
     if pokemon.hasType("Poison") && !pokemon.isImmune("Ground")
-      id = @battle.getOwner(pokemon)
-      @battle.cannedText('TOXIC_SPIKES_END', @battle.getPlayerIndex(id))
       @team.unattach(@constructor)
 
     return  if pokemon.isImmune("Poison") || pokemon.isImmune("Ground")
@@ -399,6 +413,10 @@ class @Attachment.ToxicSpikes extends @TeamAttachment
       pokemon.attach(Status.Poison)
     else
       pokemon.attach(Status.Toxic)
+
+  unattach: ->
+    id = @team.playerId
+    @battle.cannedText('TOXIC_SPIKES_END', @battle.getPlayerIndex(id))
 
 # A trap created by Fire Spin, Magma Storm, Bind, Clamp, etc
 class @Attachment.Trap extends @VolatileAttachment
@@ -428,7 +446,7 @@ class @Attachment.Trap extends @VolatileAttachment
       16
 
   unattach: ->
-    @battle.cannedText('TRAP_END', @pokemon, @moveName)
+    @battle.cannedText('FREE_FROM', @pokemon, @moveName)
     @user.unattach(Attachment.TrapLeash)
     delete @user
 
@@ -673,6 +691,9 @@ class @Attachment.LeechSeed extends @VolatileAttachment
     if @pokemon.damage(damage)
       user.drain(damage, @pokemon)
       @battle.cannedText('LEECH_SEED_HURT', @pokemon)
+
+  unattach: ->
+    @battle.cannedText('FREE_FROM', @pokemon, "Leech Seed")
 
 class @Attachment.ProtectCounter extends @VolatileAttachment
   name: "ProtectCounterAttachment"
