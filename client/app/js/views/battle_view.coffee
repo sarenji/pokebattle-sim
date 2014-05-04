@@ -685,6 +685,7 @@ class @BattleView extends Backbone.View
     $screen.css(left: x, top: y).appendTo(@$('.battle_pane'))
     if @skip?
       $screen.css(width: finalSize, height: finalSize)
+      $screen.css(x: -halfSize, y: -halfSize)
       done()
     else
       $screen
