@@ -31,6 +31,7 @@ class @BattleCollection extends Backbone.Collection
   _updateBattle: (battle, wasAtBottom) =>
     view = battle.view
     queue = @updateQueue[battle.id]
+    return  if !queue  # closed battle in the middle of getting updates
     if queue.length == 0
       view.renderUserInfo()
       view.resetPopovers()
