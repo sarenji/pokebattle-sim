@@ -22,6 +22,12 @@ class @Battle extends EventEmitter
 
   generation: 'bw'
 
+  # 1 hour
+  ONGOING_BATTLE_TTL: 1 * 60 * 60 * 1000
+
+  # 30 minutes
+  ENDED_BATTLE_TTL: 30 * 60 * 1000
+
   actionMap:
     switch:
       priority: -> 10
@@ -847,11 +853,9 @@ class @Battle extends EventEmitter
 
   makeTTL: ->
     if @isOver()
-      # 48 hours
-      48 * 60 * 60 * 1000
+      @ENDED_BATTLE_TTL
     else
-      # 24 hours
-      24 * 60 * 60 * 1000
+      @ONGOING_BATTLE_TTL
 
   # Proxies arguments the `send` function for all spectators.
   broadcast: ->

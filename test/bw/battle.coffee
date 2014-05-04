@@ -431,13 +431,13 @@ describe 'Battle', ->
     beforeEach ->
       shared.create.call(this)
 
-    it "ends ongoing battles after 24 hours", ->
-      time = 24 * 60 * 60 * 1000
+    it "ends ongoing battles after a specific amount", ->
+      time = Battle::ONGOING_BATTLE_TTL
       @clock.tick(time)
       @battle.isOver().should.be.true
 
-    it "sends BATTLE_EXPIRED after 48 hours after battle end", ->
-      time = 48 * 60 * 60 * 1000
+    it "sends BATTLE_EXPIRED after a specific amount after battle end", ->
+      time = Battle::ENDED_BATTLE_TTL
       delta = 5000
       spy = @sandbox.spy(@battle, 'tell').withArgs(Protocol.BATTLE_EXPIRED)
       @clock.tick(delta)
