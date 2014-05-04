@@ -459,11 +459,13 @@ class @BattleView extends Backbone.View
 
     if @skip?
       @renderPokemon $spriteContainer, ->
+        $sprite.popover('destroy')
         $sprite.remove()
       done()
       return
 
     $sprite.fadeOut =>
+      $sprite.popover('destroy')
       $sprite.remove()
       @renderPokemon $spriteContainer, ($image) ->
         $image.hide().fadeIn(done)
