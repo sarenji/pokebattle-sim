@@ -1068,8 +1068,10 @@ class @BattleView extends Backbone.View
       console.log "Cannot use #{moveName}."
       return
     console.log "Making move #{moveName}"
+    pokemon = @model.getPokemon(@model.index, 0)
     @model.makeMove(moveName)
     @disableButtons()
+    @afterSelection(pokemon)
 
   switchPokemon: (e) =>
     $target = $(e.currentTarget)
@@ -1079,21 +1081,28 @@ class @BattleView extends Backbone.View
       return
     console.log "Switching to #{toSlot}"
     toSlot = parseInt(toSlot, 10)
+    pokemon = @model.getPokemon(@model.index, 0)
     @model.makeSwitch(toSlot)
     @disableButtons()
+    @afterSelection(pokemon)
 
   cancelAction: (e) =>
     @$('.battle_actions').html """
     <div class="well well-battle-actions">Canceling...</div>
     """
 
+    pokemon = @model.getPokemon(@model.index, 0)
     @model.makeCancel()
+    @afterSelection(pokemon)
 
   megaEvolve: (e) =>
     $target = $(e.currentTarget)
     $target.toggleClass('pressed')
     pokemon = @model.getPokemon(@model.index, 0)
     pokemon.set('megaEvolve', $target.hasClass("pressed"))
+
+  afterSelection: (pokemon) =>
+    pokemon.set('megaEvolve', false)
 
   preloadImages: =>
     front = @isFront(@model.index)
