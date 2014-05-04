@@ -12,7 +12,7 @@ describe "Ratings", ->
         should.not.exist(err)
         should.exist(result)
         result.should.be.instanceOf(Object)
-        result.should.eql(ratings.algorithm.createPlayer())
+        result.should.include(rating: 0)
         done()
 
     it "returns information for an existing player", (done) ->
@@ -29,8 +29,10 @@ describe "Ratings", ->
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
         ratings.resetRating "player1", ->
           ratings.getRatings [ "player1", "player2" ], (err, results) ->
-            results[0].should.eql ratings.algorithm.createPlayer().rating
-            results[1].should.be.lessThan(results[0])
+            results[0].should.equal(0)
+            results[1].should.not.equal(0)
+            defaultRating = ratings.algorithm.createPlayer().rating
+            results[1].should.be.lessThan(defaultRating)
             done()
 
   describe "#getMaxRating", ->
@@ -80,18 +82,18 @@ describe "Ratings", ->
 
     it "does not include alts", (done) ->
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.updatePlayers "player1:altName", "player2", ratings.results.WIN, ->
+        altName = alts.uniqueId('player1', 'altName')
+        ratings.updatePlayers altName, "player2", ratings.results.WIN, ->
           ratings.listRatings 0, 100, (err, results) ->
             results.length.should.equal(2)
-            results.some((r) -> r.username == "player1:altName").should.be.false
+            results.some((r) -> r.username == altName).should.be.false
             done()
 
     it "returns the max rating for a user and their alts", (done) ->
       # Operations to create alts and then set the rating
       altOps = [["alt1", 5], ["alt2", 30]].map (pair) -> 
         (callback) -> 
-          altName = pair[0]
-          rating = pair[1]
+          [altName, rating] = pair
           alts.createAlt "user", altName, ->
             ratings.setRating(alts.uniqueId("user", altName), rating, callback)
 

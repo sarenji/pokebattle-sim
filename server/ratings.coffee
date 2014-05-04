@@ -65,7 +65,7 @@ updateMaxRatings = (ids, next) ->
     object = {}
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
-      value ||= exports.algorithm.createPlayer()[attribute]
+      value ||= 0
       object[attribute] = Number(value)
     return next(null, object)
 
@@ -80,7 +80,7 @@ updateMaxRatings = (ids, next) ->
   id = id.toLowerCase()
   redis.zscore RATINGS_MAXKEY, id, (err, rating) ->
     return next(err)  if err
-    rating ||= exports.algorithm.createPlayer().rating
+    rating ||= 0
     next(null, Number(rating))
 
 @setRating = (id, newRating, next) =>
@@ -135,6 +135,9 @@ updateMaxRatings = (ids, next) ->
   exports.getPlayers [id, opponentId], (err, results) =>
     return next(err)  if err
     [player, opponent] = results
+    defaultRating = @algorithm.createPlayer().rating
+    player.rating ||= defaultRating
+    opponent.rating ||= defaultRating
     winnerMatches = [{opponent, score}]
     loserMatches = [{opponent: player, score: opponentScore}]
     newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)

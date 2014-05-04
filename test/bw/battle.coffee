@@ -315,9 +315,8 @@ describe 'Battle', ->
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.equal(defaultPlayer.rating)
-            rating2.rating.should.equal(defaultPlayer.rating)
+            rating1.rating.should.equal(0)
+            rating2.rating.should.equal(0)
             done()
 
       ratings.resetRatings [ @id1, @id2 ], =>
@@ -371,9 +370,8 @@ describe 'Battle', ->
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.equal(defaultPlayer.rating)
-            rating2.rating.should.equal(defaultPlayer.rating)
+            rating1.rating.should.equal(0)
+            rating2.rating.should.equal(0)
             done()
       ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
 

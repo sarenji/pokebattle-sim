@@ -3,6 +3,8 @@ redis = require './redis'
 ALT_LIMIT = 5
 ALTS_KEY = "alts"
 
+# NOTE: Alt names should not be lowercased, but user ids should be.
+
 # Runs basic username validation for alts
 @isAltNameValid = (altName) ->
   return false  if !altName
@@ -15,6 +17,7 @@ ALTS_KEY = "alts"
 # Retrieves a list of alts registered to the user
 # next is a callback with args (error, altsList)
 @listUserAlts = (userId, next) ->
+  userId = userId.toLowerCase()
   redis.lrange "#{userId}:alts", 0, -1, (err, alts) ->
     return next(err)  if err
     next(null, alts)
@@ -23,6 +26,7 @@ ALTS_KEY = "alts"
 # next is a callback with args (error, success)
 # TODO: Should this use a transaction?
 @createAlt = (userId, altName, next) ->
+  userId = userId.toLowerCase()
   altListKey = "#{userId}:alts"
   redis.llen altListKey, (err, amount) ->
     return next(err) if err
@@ -41,6 +45,7 @@ ALTS_KEY = "alts"
 # Always returns true if altName is null (meaning no alt)
 @isAltOwnedBy = (userId, altName, next) ->
   return next(undefined, true)  if not altName
+  userId = userId.toLowerCase()
   redis.hget ALTS_KEY, altName, (err, assignedUserId) ->
     return next(err)  if err
     next(err, assignedUserId == userId)
@@ -53,6 +58,4 @@ ALTS_KEY = "alts"
 
 # The inverse of uniqueId
 @getIdOwner = (uniqueId) ->
-  index = uniqueId.indexOf(':')
-  return uniqueId  if index < 0
-  uniqueId.substr(0, index)
+  uniqueId.split(':')[0]

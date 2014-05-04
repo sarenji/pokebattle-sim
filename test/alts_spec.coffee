@@ -13,20 +13,20 @@ describe "Alts", ->
 
   describe '#createAlt', ->
     it 'creates a new alt', (done) ->
-      alts.createAlt "player1", "test", (err) ->
+      alts.createAlt "player1", "TEST", (err) ->
         should.not.exist(err)
         alts.listUserAlts "player1", (err, results) ->
           results.length.should.eql 1
           done()
 
     it 'fails if the alt name is already being used', (done) ->
-      alts.createAlt "player1", "test", ->
-        alts.createAlt "player1", "test", (err) ->
+      alts.createAlt "player1", "TEST", ->
+        alts.createAlt "player1", "TEST", (err) ->
           should.exist(err)
           done()
 
     it 'fails if the user already has 5 alts', (done) ->
-      alts.createAlt "player1", "test1", (err) ->
+      alts.createAlt "player1", "TEST1", (err) ->
         should.not.exist(err)
         alts.createAlt "player1", "test2", (err) ->
           should.not.exist(err)
@@ -42,10 +42,10 @@ describe "Alts", ->
 
   describe '#listUserAlts', ->
     it 'returns the same number of alts that were created', (done) ->
-      alts.createAlt "player1", "test1", (err) ->
+      alts.createAlt "player1", "TEST1", (err) ->
         alts.createAlt "player1", "test2", (err) ->
           alts.listUserAlts "player1", (err, alts) ->
-            ["test1", "test2"].should.eql(alts)
+            ["TEST1", "test2"].should.eql(alts)
             done()
 
   describe '#isAltOwnedBy', ->
