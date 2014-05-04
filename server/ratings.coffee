@@ -166,7 +166,7 @@ updateMaxRatings = (ids, next) ->
   start = page * perPage
   end = start + (perPage - 1)
   redis.zrevrange RATINGS_MAXKEY, start, end, 'WITHSCORES', (err, r) ->
-    return next?(err)  if err
+    return next(err)  if err
     array = []
     for i in [0...r.length] by 2
       username = r[i]

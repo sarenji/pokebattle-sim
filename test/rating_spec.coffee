@@ -70,6 +70,14 @@ describe "Ratings", ->
                 ])
                 done()
 
+    it "returns up to the maximum per page", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers "player3", "player4", ratings.results.WIN, ->
+          ratings.listRatings 1, 2, (err, results) ->
+            should.not.exist(err)
+            results.should.have.length(2)
+            done()
+
     it "does not include alts", (done) ->
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
         ratings.updatePlayers "player1:altName", "player2", ratings.results.WIN, ->
