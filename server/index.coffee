@@ -93,7 +93,7 @@ alts = require('./alts')
 
     'sendChat': (user, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
-      server.limit user, 'chat', max: 10, duration: 3000, (err, limit) ->
+      server.limit user, 'chat', max: 5, duration: 1500, (err, limit) ->
         if !limit.remaining
           auth.getMuteTTL user.id, (err, ttl) ->
             if ttl == -2
