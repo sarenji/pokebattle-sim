@@ -4,8 +4,8 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
-  @selectPlayers = (battle) ->
-    battle.playerIds
+  @selectPokemon = (battle, user, target) ->
+    [ target, user ]
 
 extendMove 'Facade', ->
   @burnCalculation = -> 1
@@ -54,9 +54,7 @@ makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
 
 makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
-  if team.attach(Attachment.StickyWeb)
-    battle.message "A sticky web spreads out beneath #{opponentId} team's feet!"
-  else
+  if !team.attach(Attachment.StickyWeb)
     @fail(battle)
 
 extendMove 'Topsy-Turvy', ->

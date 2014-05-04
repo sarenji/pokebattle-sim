@@ -46,9 +46,17 @@ class @Attachment.SpikyShield extends @VolatileAttachment
 class @Attachment.StickyWeb extends @TeamAttachment
   name: "StickyWebAttachment"
 
+  initialize: ->
+    id = @team.playerId
+    @battle.cannedText('STICKY_WEB_START', @battle.getPlayerIndex(id))
+
   switchIn: (pokemon) ->
     if !pokemon.isImmune("Ground")
       @battle.cannedText('STICKY_WEB_CONTINUE', pokemon)
       # The source is not actually an opposing Pokemon, but in order for Defiant
       # to work properly, the source should not be the pokemon itself.
       pokemon.boost(speed: -1, @battle.getAllOpponents(pokemon)[0])
+
+  unattach: ->
+    id = @team.playerId
+    @battle.cannedText('STICKY_WEB_END', @battle.getPlayerIndex(id))

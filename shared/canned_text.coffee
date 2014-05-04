@@ -46,12 +46,13 @@ CannedText =
       TORMENT_START: "$p was subjected to Torment!"
       SPIKES_START: "Spikes were scattered all around $ts's feet!"
       SPIKES_HURT: "$p is hurt by the spikes!"
+      SPIKES_END: "The spikes disappeared from around $ts's feet!"
       STEALTH_ROCK_START: "Pointed stones float in the air around $ts!"
       STEALTH_ROCK_HURT: "Pointed stones dug into $p!"
+      STEALTH_ROCK_END: "The pointed stones disappeared from around $ts!"
       TOXIC_SPIKES_START: "Poison spikes were scattered all around $ts's feet!"
       TOXIC_SPIKES_END: "The poison spikes disappeared from around $ts's feet!"
       TRAP_HURT: "$p is hurt by $m!"
-      TRAP_END: "$p was freed from $m!"
       LEECH_SEED_START: "$p was seeded!"
       LEECH_SEED_HURT: "$p's health is sapped by Leech Seed!"
       PROTECT_CONTINUE: "$p protected itself!"
@@ -83,7 +84,6 @@ CannedText =
       RESET_STATS: "$p's stat changes were removed!"
       RESET_ALL_STATS: "All stat changes were eliminated!"
       JUMP_KICK_MISS: "$p kept going and crashed!"
-      CLEAR_HAZARDS: "$t's side of the field is cleared of entry hazards."
       FREE_FROM: "$p was freed from $1!"
       TRANSFORM: '$p transformed!'
       TRANSFORM_INTO: '$p transformed into $p!'
@@ -93,7 +93,9 @@ CannedText =
       LIGHT_SCREEN_START: "Light Screen raised $ts's special defense!"
       REFLECT_END: "$ts's Reflect wore off!"
       LIGHT_SCREEN_END: "$ts's Light Screen wore off!"
+      STICKY_WEB_START: "A sticky web has been laid out beneath $ts's feet!"
       STICKY_WEB_CONTINUE: "$p was caught in a sticky web!"
+      STICKY_WEB_END: "The sticky web has disappeared from beneath $ts's feet!"
       RATING_UPDATE: "$t's rating: $1 -> $2"
 
 cannedMap = {}
