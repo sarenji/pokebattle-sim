@@ -1135,7 +1135,7 @@ class @Attachment.Rampage extends @VolatileAttachment
     @pokemon.blockSwitch()
     @pokemon.lockMove(@move)
 
-  endTurn: ->
+  afterMove: ->
     @turn++
     if @turn >= @turns
       @battle.cannedText('FATIGUE', @pokemon)
