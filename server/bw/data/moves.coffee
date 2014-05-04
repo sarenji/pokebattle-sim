@@ -693,7 +693,7 @@ extendMove 'Minimize', ->
 makeIdentifyMove("Miracle Eye", ["Psychic"])
 
 extendMove 'Mirror Move', ->
-  @execute = (battle, user, targets) ->
+  @hit = (battle, user, targets) ->
     target = targets[0]
     move = target.lastMove
     if !move? || !move.hasFlag("mirror")
