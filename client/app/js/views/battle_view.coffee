@@ -689,7 +689,7 @@ class @BattleView extends Backbone.View
     else
       $screen
         .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
-        .transition(hght: finalSize, y: -halfSize, 250, 'easeInOutCubic')
+        .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic')
       setTimeout(done, 500)
 
   unattachScreen: (player, slot, klass, done=->) =>
