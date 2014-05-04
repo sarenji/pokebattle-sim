@@ -44,10 +44,9 @@ updateMaxRating = (id, next) =>
     ids = (alts.uniqueId(id, name) for name in altNames)
     ids.push(id)
 
-    async.map ids, @getRating, (err, results) ->
+    @getRatings ids, (err, results) ->
       return next(err)  if err
-      max = Math.max.apply(null, results)
-      redis.zadd(RATINGS_MAXKEY, max, id)
+      redis.zadd(RATINGS_MAXKEY, Math.max(results...), id)
       next(null)
 
 # Update the max ratings for multiple players
