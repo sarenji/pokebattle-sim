@@ -10,12 +10,13 @@
   UNRELEASED_BAN : 9
 
 @HumanizedConditions =
-  TEAM_PREVIEW   : "Team Preview"
-  SLEEP_CLAUSE   : "Sleep Clause"
-  RATED_BATTLE   : "Rated Battle"
-  PBV_1000       : "1,000 PBV Limit"
-  TIMED_BATTLE   : "Timed Battle"
-  SPECIES_CLAUSE : "Species Clause"
-  EVASION_CLAUSE : "Evasion Clause"
-  OHKO_CLAUSE    : "One-Hit KO Clause"
-  UNRELEASED_BAN : "Unreleased Ban"
+  en:
+    TEAM_PREVIEW   : "Team Preview"
+    SLEEP_CLAUSE   : "Sleep Clause"
+    RATED_BATTLE   : "Rated Battle"
+    PBV_1000       : "1,000 PBV Limit"
+    TIMED_BATTLE   : "Timed Battle"
+    SPECIES_CLAUSE : "Species Clause"
+    EVASION_CLAUSE : "Evasion Clause"
+    OHKO_CLAUSE    : "One-Hit KO Clause"
+    UNRELEASED_BAN : "Unreleased Ban"
