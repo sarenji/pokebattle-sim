@@ -9,7 +9,7 @@ ALTS_KEY = "alts"
 
   altName = altName.trim()
   return false  if altName == ""
-  # TODO: check alphanumeric, space, _, -
+  return false  if not altName.match(/^[-_ a-zA-Z0-9]+$/)
   return true
 
 # Retrieves a list of alts registered to the user
@@ -50,3 +50,9 @@ ALTS_KEY = "alts"
 @uniqueId = (id, altName) ->
   return id  if not altName
   "#{id}:#{altName}"
+
+# The inverse of uniqueId
+@getIdOwner = (uniqueId) ->
+  index = uniqueId.indexOf(':')
+  return uniqueId  if index < 0
+  uniqueId.substr(0, index)

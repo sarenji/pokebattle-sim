@@ -2,6 +2,8 @@ require('./helpers')
 
 should = require('should')
 ratings = require('../server/ratings')
+async = require('async')
+alts = require('../server/alts')
 
 describe "Ratings", ->
   describe "#getPlayer", ->
@@ -31,6 +33,25 @@ describe "Ratings", ->
             results[1].should.be.lessThan(results[0])
             done()
 
+  describe "#getMaxRating", ->
+    it "returns the rating of a user if there's no alts", (done) ->
+      ratings.setRating "user", 25, (err) ->
+        ratings.getMaxRating "user", (err, result) ->
+          result.should.equal(25)
+          done()
+
+    it "returns the maximum rating of a user and their alts", (done) ->
+      altOps = ["alt1","alt2"].map (altName) -> 
+        (callback) -> alts.createAlt("user", altName, callback)
+      
+      async.parallel altOps, ->
+        ratings.setRating "user", 25, (err) ->
+          ratings.setRating alts.uniqueId("user", "alt1"), 5, (err) ->
+            ratings.setRating alts.uniqueId("user", "alt2"), 30, (err) ->
+              ratings.getMaxRating "user", (err, result) ->
+                result.should.equal(30)
+                done()
+
   describe "#listRatings", ->
     it "returns a list of ratings", (done) ->
       r = []
@@ -48,6 +69,29 @@ describe "Ratings", ->
                   {username: "player2", score: scores[1]}
                 ])
                 done()
+
+    it "does not include alts", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers "player1:altName", "player2", ratings.results.WIN, ->
+          ratings.listRatings 0, 100, (err, results) ->
+            results.length.should.equal(2)
+            results.some((r) -> r.username == "player1:altName").should.be.false
+            done()
+
+    it "returns the max rating for a user and their alts", (done) ->
+      # Operations to create alts and then set the rating
+      altOps = [["alt1", 5], ["alt2", 30]].map (pair) -> 
+        (callback) -> 
+          altName = pair[0]
+          rating = pair[1]
+          alts.createAlt "user", altName, ->
+            ratings.setRating(alts.uniqueId("user", altName), rating, callback)
+
+      async.parallel altOps, ->
+        ratings.setRating "user", 15, ->
+          ratings.listRatings 0, 100, (err, results) ->
+            results.should.eql([{username: "user", score: 30}])
+            done()
 
   describe '#getRatio', ->
     it "returns a hash containing the win, lose, and draw counts", (done) ->

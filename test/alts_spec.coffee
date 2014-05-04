@@ -2,6 +2,15 @@ should = require('should')
 alts = require('../server/alts')
 
 describe "Alts", ->
+  describe '#isAltNameValid', ->
+    it 'allows alphanumeric and - and _ characters', ->
+      alts.isAltNameValid("Hello im-DA_best251").should.be.true
+
+    it 'blocks invalid alt names', ->
+      alts.isAltNameValid().should.be.false
+      alts.isAltNameValid("").should.be.false
+      alts.isAltNameValid("itsme:").should.be.false
+
   describe '#createAlt', ->
     it 'creates a new alt', (done) ->
       alts.createAlt "player1", "test", (err) ->
@@ -66,3 +75,14 @@ describe "Alts", ->
       alts.isAltOwnedBy "player1", null, (err, result) ->
         result.should.be.true
         done()
+
+  describe '#getIdOwner', ->
+    it 'reverses #uniqueId', ->
+      id = "atestId"
+      uniqueId = alts.uniqueId(id, "altName")
+      uniqueId.should.not.equal(id)
+      alts.getIdOwner(uniqueId).should.equal(id)
+
+    it 'returns the given id if the id does not belong to an alt', ->
+      id = "atestId"
+      alts.getIdOwner(id).should.equal(id)
