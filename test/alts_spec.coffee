@@ -2,6 +2,15 @@ should = require('should')
 alts = require('../server/alts')
 
 describe "Alts", ->
+  describe '#isAltNameValid', ->
+    it 'allows alphanumeric and - and _ characters', ->
+      alts.isAltNameValid("Hello im-DA_best251").should.be.true
+
+    it 'blocks invalid alt names', ->
+      alts.isAltNameValid().should.be.false
+      alts.isAltNameValid("").should.be.false
+      alts.isAltNameValid("itsme:").should.be.false
+
   describe '#createAlt', ->
     it 'creates a new alt', (done) ->
       alts.createAlt "player1", "test", (err) ->
