@@ -245,9 +245,7 @@ class @BattleView extends Backbone.View
       return
 
     # Create and position pokeball
-    pos = $newSprite.position()
-    x = pos.left + $newSprite.width() / 2 - 11
-    y = pos.top + $newSprite.height() / 3
+    [x, y] = @getPokemonPosition(player, slot)
     $pokeball = @makePokeball(x, y)
     $pokeball.css(opacity: 0)
     $pokeball.appendTo(@$(".battle_pane"))
@@ -325,8 +323,9 @@ class @BattleView extends Backbone.View
     [targetPlayer, targetSlot] = targetSlots[0]
     $attacker = @$sprite(player, slot)
     $defender = @$sprite(targetPlayer, targetSlot)
-    [a, d] = [$attacker.position(), $defender.position()]
-    front = (a.top < d.top)
+    [ax, ay] = @getPokemonPosition(player, slot)
+    [dx, dy] = @getPokemonPosition(targetPlayer, targetSlot)
+    front = @isFront(player)
     scale = (if front then 1.3 else 1/1.3)
     if moveName == 'Earthquake'
       $attacker.add($defender).each (index) ->
@@ -340,7 +339,7 @@ class @BattleView extends Backbone.View
       # Simple attack animation
       # Tackling the opponent
       $attacker
-        .transition(x: d.left - a.left, y: d.top - a.top, scale: scale, 250, 'in')
+        .transition(x: dx - ax, y: dy - ay, scale: scale, 250, 'in')
         .transition(x: 0, y: 0, scale: 1, 250, 'out')
       $defender.delay(400)
         .transition(x: (if front then -16 else 8), 50, 'easeOutCubic')
@@ -349,7 +348,7 @@ class @BattleView extends Backbone.View
       # Non-contact attacking move
       # Projectile
       $projectile = @$projectile($attacker, moveData)
-      [transX, transY] = [(d.left - a.left), (d.top - a.top)]
+      [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
         .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200, 'easeOutCubic')
         .transition(x: transX, y: transY, scale: scale, 200, 'easeOutCubic')
@@ -362,7 +361,7 @@ class @BattleView extends Backbone.View
       # This is a non-attacking move that affects another pokemon
       # S-shaped movement
       $projectile = @$projectile($attacker, moveData)
-      [transX, transY] = [(d.left - a.left), (d.top - a.top)]
+      [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
         .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
         .transition(x: transX / 3, y: transY * 2 / 3, 100, 'easeInOutSine')
@@ -465,10 +464,16 @@ class @BattleView extends Backbone.View
       return
 
     $sprite.fadeOut 200, =>
-      $sprite.popover('destroy')
-      $sprite.remove()
       @renderPokemon $spriteContainer, ($image) ->
-        $image.hide().fadeIn(200, done)
+        $sprite.popover('destroy')
+        $sprite.remove()
+        $image.hide().fadeIn(200)
+
+    # Don't waste time changing the sprite if we can't see it.
+    if @model.getPokemon(player, slot).isFainted()
+      done()
+    else
+      setTimeout(done, 400)
 
   changeWeather: (newWeather, done) =>
     $overlays = @$('.battle_overlays')
@@ -969,15 +974,12 @@ class @BattleView extends Backbone.View
   $sprite: (player, slot) =>
     @$spriteContainer(player, slot).find('img')
 
-  $projectile: ($pokemon, moveData) =>
+  $projectile: (player, slot, moveData) =>
     $projectile = $('<div/>').addClass('projectile')
     $projectile.addClass(moveData['type'].toLowerCase())
     $projectile.appendTo(@$(".battle_pane"))
-    pos = $pokemon.position()
-    $projectile.css(
-      top: pos.top + (($pokemon.height() - $projectile.height()) >> 1)
-      left: pos.left + (($pokemon.width() - $projectile.width()) >> 1)
-    )
+    [x, y] = @getPokemonPosition(player, slot)
+    $projectile.css(left: x, top: y)
     $projectile
 
   isFront: (player) =>

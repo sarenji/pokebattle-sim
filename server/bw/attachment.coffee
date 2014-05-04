@@ -1168,6 +1168,7 @@ class @Attachment.Transform extends @VolatileAttachment
     !target.has(Attachment.Transform)
 
   initialize: (attributes) ->
+    @pokemon.activateAbility()
     {target} = attributes
     # Save old data
     {@ability, @moves, @stages, @baseStats, @evs} = @pokemon

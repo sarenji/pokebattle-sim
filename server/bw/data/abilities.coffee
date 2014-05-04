@@ -538,7 +538,6 @@ makeAbility 'Imposter', ->
     index = @team.indexOf(@pokemon)
     opponent = opponents[index]
     return  if !opponent || opponent.has(Attachment.Substitute)
-    @pokemon.activateAbility()
     @pokemon.attach(Attachment.Transform, target: opponent)
 
 # Hardcoded in Move#isDirectHit
