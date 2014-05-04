@@ -717,9 +717,7 @@ class @Attachment.Protect extends @VolatileAttachment
     @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   shouldBlockExecution: (move, user) ->
-    if move.hasFlag("protect")
-      @battle.cannedText("PROTECT_CONTINUE", @pokemon)
-      return true
+    return true  if move.hasFlag("protect")
 
   endTurn: ->
     @pokemon.unattach(@constructor)

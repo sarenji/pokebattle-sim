@@ -22,6 +22,9 @@ delete @Status.Sleep::switchOut
 class @Attachment.KingsShield extends @VolatileAttachment
   name: "KingsShieldAttachment"
 
+  initialize: ->
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
+
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect") && !move.isNonDamaging()
       @battle.cannedText('PROTECT_CONTINUE', @pokemon)
@@ -31,8 +34,14 @@ class @Attachment.KingsShield extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
+  unattach: ->
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
+
 class @Attachment.SpikyShield extends @VolatileAttachment
   name: "SpikyShieldAttachment"
+
+  initialize: ->
+    @pokemon.tell(Protocol.POKEMON_ATTACH, @name)
 
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
@@ -42,6 +51,9 @@ class @Attachment.SpikyShield extends @VolatileAttachment
 
   endTurn: ->
     @pokemon.unattach(@constructor)
+
+  unattach: ->
+    @pokemon.tell(Protocol.POKEMON_UNATTACH, @name)
 
 class @Attachment.StickyWeb extends @TeamAttachment
   name: "StickyWebAttachment"
