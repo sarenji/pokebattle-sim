@@ -1875,6 +1875,14 @@ describe "BW Abilities:", ->
       @battle.beginTurn()
       @p2.isSwitchBlocked().should.be.true
 
+    it "does not affect foes with Shadow Tag", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Shadow Tag")]
+        team2: [Factory("Magikarp", ability: "Shadow Tag")]
+      @p2.isSwitchBlocked().should.be.false
+      @battle.beginTurn()
+      @p2.isSwitchBlocked().should.be.false
+
   describe "Shed Skin", ->
     it "has a 30% chance of removing its status effect at end of turn", ->
       shared.create.call this,

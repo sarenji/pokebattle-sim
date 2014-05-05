@@ -779,7 +779,7 @@ makeAbility 'Shadow Tag', ->
   this::beginTurn = this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
     for opponent in opponents
-      opponent.blockSwitch()
+      opponent.blockSwitch()  if opponent.ability?.displayName != 'Shadow Tag'
 
 makeAbility 'Shed Skin', ->
   this::endTurn = ->
