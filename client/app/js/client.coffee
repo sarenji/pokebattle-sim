@@ -16,6 +16,8 @@ class @Socket
       @connectionAttempts = 0
 
     @socket.onmessage = (data) =>
+      console.log "Received data: #{data}"
+
       # todo: error handling. If there's a syntax error here, its because of Json.parse
       data = JSON.parse(data.data)
       @handleEvent(data.messageType, data.data)
@@ -25,9 +27,8 @@ class @Socket
       @closed = true
 
   handleEvent: (type, data) =>
-    console.log "Received event #{type}"
-
     data ?= []
+
     for callback in (@callbacks[type] || [])
       callback.apply(this, [this].concat(data))
 
