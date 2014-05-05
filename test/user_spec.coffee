@@ -9,11 +9,12 @@ describe "Users", ->
       user = user.maskName("testName")
       user.name.should.equal "testName"
 
-    it "modifies toJSON() to hide name / authority information", ->
+    it "modifies toJSON() to hide id / name / authority information", ->
       user = new User()
       user.authority = auth.levels.OWNER
       maskedUser = user.maskName("testName")
       maskedJson = maskedUser.toJSON()
 
-      maskedJson.id.should.equal "testName"
+      maskedJson.name.should.equal "testName"
+      should.not.exist maskedJson.id
       should.not.exist maskedJson.authority

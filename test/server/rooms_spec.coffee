@@ -68,7 +68,7 @@ describe "A server room:", ->
       room = new Room()
       room.addUser(user1 = new User("aaaa"))
       room.addUser(user2 = new User("bbbb"))
-      room.userJSON().should.eql([ {id: user1.id}, {id: user2.id} ])
+      room.userJSON().should.eql([ user1.toJSON(), user2.toJSON() ])
 
   describe "#send", ->
     it "broadcasts to every single user, including ones on the same account", ->
