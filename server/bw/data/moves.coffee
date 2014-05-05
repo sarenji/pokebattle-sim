@@ -826,6 +826,7 @@ extendMove 'Thunder Wave', ->
 makeTrickMove 'Trick'
 extendWithBoost 'V-create', 'self', defense: -1, specialDefense: -1, speed: -1
 makeEruptionMove 'Water Spout'
+makeTrappingMove "Whirlpool"
 makeRandomSwitchMove "Whirlwind"
 makeTrappingMove "Wrap"
 

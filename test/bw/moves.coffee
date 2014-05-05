@@ -2867,6 +2867,7 @@ describe "BW Moves:", ->
   testTrappingMove "Fire Spin"
   testTrappingMove "Magma Storm"
   testTrappingMove "Sand Tomb"
+  testTrappingMove "Whirlpool"
   testTrappingMove "Wrap"
 
   describe "Attract", ->
