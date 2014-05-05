@@ -66,28 +66,29 @@ makeCommand "rating", "ranking", (user, room, next, username) ->
         ratio.push("Tie: #{ratios.draw}")
         ratio.push("Total: #{total}")
       user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
-      next(err, {username, rating})
+      next()
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"
 makeCommand "battles", (user, room, next, username) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /battles username")
-    return next(new Error("Incorrect usage"))
+    return next()
   battleIds = @getVisibleUserBattles(username)
   links = battleIds.map (id) ->
     "<span class='fake_link spectate' data-battle-id='#{id}'>#{id[...6]}</span>"
   user.message("#{username}'s battles: #{links.join(" | ")}")
-  next(null, battleIds)
+  next()
 
-desc "Mutes a username for 10 minutes. The reason is optional. Usage: /mute username [reason]"
+desc "Mutes a username for 10 minutes. The reason is optional. Usage: /mute username, reason"
 makeModCommand "mute", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /mute username [reason]")
+    user.error(errors.COMMAND_ERROR, "Usage: /mute username, reason")
     return next()
-  @mute(username, reason.join(','), 10 * 60)
+  reason = reason.join(',').trim()
+  @mute(username, reason, 10 * 60)
   message = "#{user.id} muted #{username} for 10 minutes"
-  message += " (#{reason.join(',')})"  if reason.length > 0
+  message += " (#{reason})"  if reason.length > 0
   room.message(message)
   next()
 
@@ -106,28 +107,30 @@ makeModCommand "unmute", (user, room, next, username) ->
       room.message(message)
       next()
 
-desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username [reason]"
+desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username, reason"
 makeModCommand "kick", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /kick username [reason]")
+    user.error(errors.COMMAND_ERROR, "Usage: /kick username,reason")
     return next()
   else if !room.has(username)
     user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
     return next()
-  @ban(username, reason.join(','), 3 * 60)
+  reason = reason.join(',').trim()
+  @ban(username, reason, 3 * 60)
   message = "#{user.id} kicked #{username} for 3 minutes"
-  message += " (#{reason.join(',')})"  if reason.length > 0
+  message += " (#{reason})"  if reason.length > 0
   room.message(message)
   next()
 
-desc "Bans a username. The reason is optional. Usage: /ban username, [reason]"
+desc "Bans a username. The reason is optional. Usage: /ban username, reason"
 makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /ban username, [reason]")
+    user.error(errors.COMMAND_ERROR, "Usage: /ban username, reason")
     return next()
+  reason = reason.join(',').trim()
   @ban(username, reason)
   message = "#{user.id} banned #{username}"
-  message += " (#{reason.join(',')})"  if reason.length > 0
+  message += " (#{reason})"  if reason.length > 0
   room.message(message)
   next()
 
@@ -160,9 +163,11 @@ makeAdminCommand "mod", (user, room, next, username) ->
     user.error(errors.COMMAND_ERROR, "Usage: /mod username")
     return next()
   auth.setAuth username, auth.levels.MOD, (err, result) =>
-    if err then return next(err)
+    if err
+      user.error(errors.COMMAND_ERROR, err.message)
+      return next()
     @setAuthority(username, auth.levels.MOD)
-    return next(null, result)
+    return next()
 
 desc "Admins a username permanently. Usage: /admin username"
 makeOwnerCommand "admin", (user, room, next, username) ->
@@ -170,9 +175,11 @@ makeOwnerCommand "admin", (user, room, next, username) ->
     user.error(errors.COMMAND_ERROR, "Usage: /admin username")
     return next()
   auth.setAuth username, auth.levels.ADMIN, (err, result) =>
-    if err then return next(err)
+    if err
+      user.error(errors.COMMAND_ERROR, err.message)
+      return next()
     @setAuthority(username, auth.levels.ADMIN)
-    return next(null, result)
+    return next()
 
 desc "Deauthes a username permanently. Usage: /deauth username"
 makeOwnerCommand "deauth", (user, room, next, username) ->
@@ -180,9 +187,11 @@ makeOwnerCommand "deauth", (user, room, next, username) ->
     user.error(errors.COMMAND_ERROR, "Usage: /deauth username")
     return next()
   auth.setAuth username, auth.levels.USER, (err, result) =>
-    if err then return next(err)
+    if err
+      user.error(errors.COMMAND_ERROR, err.message)
+      return next()
     @setAuthority(username, auth.levels.USER)
-    return next(null, result)
+    return next()
 
 desc "Changes the topic message. Usage: /topic message"
 makeAdminCommand "topic", (user, room, next, topicPieces...) ->
@@ -204,7 +213,7 @@ makeOwnerCommand "eval", (user, room, next, pieces...) ->
     result = (new Function("with(this) { return #{source} }")).call(this)
     user.message("> #{result}")
   catch e
-    user.message("ERROR: #{e.message}")
+    user.error(errors.COMMAND_ERROR, "EVAL ERROR: #{e.message}")
   next()
 
 desc "Displays all commands available. Usage: /help"
@@ -214,4 +223,4 @@ makeCommand "help", (user, room, next, commandName) ->
     message.push("<b>/#{name}:</b> #{description}")
   message = message.join("<br>")
   user.message(message)
-  next(null, message)
+  next()
