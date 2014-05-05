@@ -693,13 +693,12 @@ extendMove 'Minimize', ->
 makeIdentifyMove("Miracle Eye", ["Psychic"])
 
 extendMove 'Mirror Move', ->
-  @hit = (battle, user, targets) ->
-    target = targets[0]
+  @hit = (battle, user, target) ->
     move = target.lastMove
     if !move? || !move.hasFlag("mirror")
       @fail(battle)
       return false
-    battle.executeMove(move, user, targets)
+    battle.executeMove(move, user, battle.getTargets(move, user))
 
 makeWeatherRecoveryMove 'Moonlight'
 makeWeatherRecoveryMove 'Morning Sun'
