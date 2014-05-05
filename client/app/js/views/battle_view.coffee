@@ -415,7 +415,7 @@ class @BattleView extends Backbone.View
         cannedText = CannedMap[generation][language][cannedTextName]
         break
     # Replace special characters in the canned text with the arguments
-    cannedText.replace /\$([a-z]+|\d+)/g, (match, p1) =>
+    cannedText.replace /\$([a-z]+|\d+)/g, (match, p1, index) =>
       switch p1
         when 'p'
           [player, slot] = args.splice(0, 2)
@@ -426,10 +426,14 @@ class @BattleView extends Backbone.View
           @model.getTeam(player).owner
         when 'ts'
           [player] = args.splice(0, 1)
-          if @isFront(player)
+          text = if @isFront(player)
             "the opposing team"
           else
             "your team"
+
+          # Capitalize the text if necessary
+          text = "#{text[0].toUpperCase}#{text[1...]}"  if index == 0
+          text
         else
           [text] = args.splice(0, 1)
           text
