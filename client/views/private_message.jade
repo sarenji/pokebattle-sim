@@ -1,8 +1,8 @@
-.popup(data-user-id=id)
+.popup(data-user-id=user.id)
   .title
     .title_name
       span.icon.icon-bubbles
-      |  #{title}
+      |  #{user.get('name')}
     .title_buttons
       .title_button.title_minimize
         .icon.icon-minus
@@ -11,6 +11,7 @@
   .popup_body
     .popup_menu.clearfix
       .popup_menu_button.challenge_button Challenge
+      a.popup_menu_button.grey(href = user.profileUrl(), target = "_blank") See profile
     .challenge.hidden
     .popup_messages
     .chat_input_pane

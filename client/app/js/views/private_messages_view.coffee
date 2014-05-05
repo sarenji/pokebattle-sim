@@ -26,10 +26,11 @@ class @PrivateMessagesView extends Backbone.View
     @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
 
   createPopup: (message) =>
-    title = id = message.id
+    id = message.id
+    user = PokeBattle.userList.get(id)
     $html = @$findPopup(id)
     if @$findPopup(id).length == 0
-      $html = $(@messageTemplate({window, id, title}))
+      $html = $(@messageTemplate({window, user}))
 
       @$el.append($html)
       @positionPopup($html, @numPopups)
