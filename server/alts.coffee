@@ -2,6 +2,7 @@ redis = require './redis'
 
 ALT_LIMIT = 5
 ALTS_KEY = "alts"
+MAX_ALT_LENGTH = 15
 
 # NOTE: Alt names should not be lowercased, but user ids should be.
 
@@ -10,7 +11,7 @@ ALTS_KEY = "alts"
   return false  if !altName
 
   altName = altName.trim()
-  return false  if altName == ""
+  return false  if altName.length == 0 || altName.length > MAX_ALT_LENGTH
   return false  if not altName.match(/^[-_ a-zA-Z0-9]+$/)
   return true
 
