@@ -149,6 +149,9 @@ class @ChatView extends Backbone.View
   print: (message) =>
     @$('.messages').append(message)
 
+  clear: =>
+    @$('.messages').empty()
+
   timestamp: =>
     date = new Date()
     hours = date.getHours()

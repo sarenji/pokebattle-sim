@@ -47,3 +47,6 @@ makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
   else
     # The PM is opened without a message.
     message.trigger('open', message)
+
+makeCommand "clear", ->
+  PokeBattle.chatView.clear()
