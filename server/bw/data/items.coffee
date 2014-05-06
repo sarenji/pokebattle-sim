@@ -411,6 +411,7 @@ makeItem 'Mental Herb', ->
     for effectName in [ 'Attract', 'Taunt', 'Encore', 'Torment', 'Disable' ]
       attachment = Attachment[effectName]
       if pokemon.has(attachment)
+        battle.cannedText('MENTAL_HERB', pokemon)
         pokemon.unattach(attachment)
         return true
     return false
@@ -551,7 +552,7 @@ makeItem 'White Herb', ->
     triggered = false
     for stat, boost of pokemon.stages
       if boost < 0
-        battle.message "#{pokemon.name} restored its status using its #{@displayName}!"
+        battle.cannedText('WHITE_HERB', pokemon)
         triggered = true
         pokemon.stages[stat] = 0
     return triggered
