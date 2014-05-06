@@ -411,6 +411,7 @@ makeItem 'Mental Herb', ->
     for effectName in [ 'Attract', 'Taunt', 'Encore', 'Torment', 'Disable' ]
       attachment = Attachment[effectName]
       if pokemon.has(attachment)
+        battle.message "#{pokemon.name} used its Mental Herb to come back to its senses!"
         pokemon.unattach(attachment)
         return true
     return false
