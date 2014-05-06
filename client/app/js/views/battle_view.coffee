@@ -432,7 +432,7 @@ class @BattleView extends Backbone.View
             "your team"
 
           # Capitalize the text if necessary
-          text = "#{text[0].toUpperCase}#{text[1...]}"  if index == 0
+          text = "#{text[0].toUpperCase()}#{text[1...]}"  if index == 0
           text
         else
           [text] = args.splice(0, 1)
