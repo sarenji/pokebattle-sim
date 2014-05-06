@@ -195,7 +195,7 @@ alts = require('./alts')
     ##############
 
     'createAlt': (user, altName) ->
-      altName = altName?.trim()
+      altName = String(altName).trim()
       if !alts.isAltNameValid(altName)
         return user.error(errors.INVALID_ALT_NAME, "Invalid Alt Name")
       alts.createAlt user.id, altName, (err, success) ->

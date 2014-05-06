@@ -21,7 +21,7 @@ class @SocketHash
     return length
 
   contains: (socketId) ->
-    socketId = socketId.toLowerCase()
+    socketId = String(socketId).toLowerCase()
     @sockets[socketId]?
 
   containsSocket: (socket) ->
@@ -44,12 +44,12 @@ class @SocketHash
       socket.error(args...)
 
   iterate: (socketId, iter) ->
-    socketId = socketId.toLowerCase()
+    socketId = String(socketId).toLowerCase()
     for socket in @get(socketId)
       iter(socket)
 
   get: (socketId) ->
-    socketId = socketId.toLowerCase()
+    socketId = String(socketId).toLowerCase()
     return @sockets[socketId] || []
 
   values: ->
@@ -59,7 +59,7 @@ class @SocketHash
     sockets
 
   close: (id) ->
-    id = id.toLowerCase()
+    id = String(id).toLowerCase()
     for socket in @get(id)
       socket.close()
     delete @sockets[id]
