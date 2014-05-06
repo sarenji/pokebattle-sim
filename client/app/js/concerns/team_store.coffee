@@ -5,6 +5,7 @@ PokeBattle.TeamStore = new TeamStore()
 
 PokeBattle.socket.addEvents
   receiveTeams: (socket, teams) ->
+    teams.map((team) -> team.teambuilder = true)
     PokeBattle.TeamStore.reset(teams)
 
   teamSaved: (socket, cid, teamId) ->

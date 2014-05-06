@@ -133,7 +133,6 @@ class @PokemonEditView extends Backbone.View
     if isNaN(value) || value > 31 || value < 0
       value = 31
 
-    @pokemon = @pokemon
     @pokemon.setIv(stat, value)
 
   focusEv: (e) =>
@@ -156,7 +155,6 @@ class @PokemonEditView extends Backbone.View
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
     type = $input.val()
-    @pokemon = @pokemon
     @pokemon.set('hiddenPowerType', type.toLowerCase())
 
   # Prevents the blurMoves event from activating for the duration of
