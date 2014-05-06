@@ -14,9 +14,9 @@ class @User
       [ @id, @socket, @connections, @name ] = args
 
   toJSON: ->
-    json = {}
-    json['id'] = @_id
-    json['name'] = @name
+    json = {
+      'id': @name
+    }
     json['authority'] = @authority  if @authority
     json
 

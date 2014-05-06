@@ -2,7 +2,6 @@ $body-color = rgba(223, 231, 232, .5)
 $background-color = #f3f3f3
 $positive-color = #38AB46
 $negative-color = #DC4E48
-$grey = #333
 
 $normal = #A9A57A
 $fire = #E28544
@@ -24,11 +23,3 @@ $steel = #B7BACF
 $fairy = #F7B5F7
 
 $types = ('normal' $normal) ('fire' $fire) ('water' $water) ('electric' $electric) ('grass' $grass) ('ice' $ice) ('fighting' $fighting) ('poison' $poison) ('ground' $ground) ('flying' $flying) ('psychic' $psychic) ('bug' $bug) ('rock' $rock) ('ghost' $ghost) ('dragon' $dragon) ('dark' $dark) ('steel' $steel) ('fairy' $fairy)
-
-define-color($color-name, $color-value)
-  .{$color-name}
-    color $color-value
-    &:hover
-      color $color-value
-
-define-color('grey', $grey)

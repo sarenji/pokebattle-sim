@@ -10,13 +10,7 @@ class @User extends Backbone.Model
 
   getDisplayName: =>
     authorityString = AuthorityMap[@get('authority')] ? ""
-    "#{authorityString}#{@get('name')}"
+    "#{authorityString}#{@get('id')}"
 
   isAlt: =>
     @get('isAlt')
-
-  profileUrl: =>
-    "//pokebattle.com/users/#{@id}/#{slugify(@get('name'))}"
-
-slugify = (str) ->
-  str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/\-{2,}/g, '-')

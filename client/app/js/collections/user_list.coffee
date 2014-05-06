@@ -4,8 +4,8 @@ class @UserList extends Backbone.Collection
   comparator: (a, b) =>
     aAuthority = a.get('authority')
     bAuthority = b.get('authority')
-    aName = a.get('name').toLowerCase()
-    bName = b.get('name').toLowerCase()
+    aName = "#{a.id}".toLowerCase()
+    bName = "#{b.id}".toLowerCase()
     if aAuthority < bAuthority      then  1
     else if aAuthority > bAuthority then -1
     else if aName < bName           then -1
