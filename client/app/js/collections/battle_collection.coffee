@@ -46,6 +46,9 @@ class @BattleCollection extends Backbone.Collection
     protocol = (key  for key, value of Protocol when value == type)[0]
     console.log "Received protocol: #{protocol}"
 
+    doneTimeout = ->
+      setTimeout(done, 0)
+
     done = () =>
       return  if done.called
       done.called = true
@@ -92,9 +95,9 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.START_TURN
           [turn] = rest
-          view.beginTurn(turn, done)
+          view.beginTurn(turn, doneTimeout)
         when Protocol.CONTINUE_TURN
-          view.continueTurn(done)
+          view.continueTurn(doneTimeout)
         when Protocol.RAW_MESSAGE
           [message] = rest
           view.addLog("#{message}<br>")
