@@ -61768,5 +61768,176 @@
             "unreleased": true,
             "pokeBattleValue": 1001
         }
+    },
+    "Hoopa": {
+        "default": {
+            "types": [
+                "Psychic",
+                "Ghost"
+            ],
+            "stats": {
+                "attack": 110,
+                "defense": 60,
+                "hp": 80,
+                "specialAttack": 150,
+                "specialDefense": 130,
+                "speed": 70
+            },
+            "abilities": [
+                "Magician"
+            ],
+            "weight": 90,
+            "learnset": {
+                "level-up": {
+                    "Ally Switch": 1,
+                    "Astonish": 6,
+                    "Confusion": 1,
+                    "Destiny Bond": 1,
+                    "Guard Split": 35,
+                    "Hyperspace Hole": 1,
+                    "Light Screen": 19,
+                    "Magic Coat": 10,
+                    "Phantom Force": 46,
+                    "Power Split": 29,
+                    "Psybeam": 15,
+                    "Psychic": 75,
+                    "Shadow Ball": 68,
+                    "Skill Swap": 25,
+                    "Trick": 1,
+                    "Trick Room": 55,
+                    "Wonder Room": 50
+                },
+                "machine": {
+                    "Brick Break": 0,
+                    "Calm Mind": 0,
+                    "Charge Beam": 0,
+                    "Confide": 0,
+                    "Double Team": 0,
+                    "Dream Eater": 0,
+                    "Embargo": 0,
+                    "Energy Ball": 0,
+                    "Facade": 0,
+                    "Flash": 0,
+                    "Fling": 0,
+                    "Focus Blast": 0,
+                    "Frustration": 0,
+                    "Giga Impact": 0,
+                    "Grass Knot": 0,
+                    "Hidden Power": 0,
+                    "Hyper Beam": 0,
+                    "Light Screen": 0,
+                    "Power-Up Punch": 0,
+                    "Protect": 0,
+                    "Psych Up": 0,
+                    "Psychic": 0,
+                    "Psyshock": 0,
+                    "Quash": 0,
+                    "Rain Dance": 0,
+                    "Reflect": 0,
+                    "Rest": 0,
+                    "Return": 0,
+                    "Round": 0,
+                    "Safeguard": 0,
+                    "Shadow Ball": 0,
+                    "Sleep Talk": 0,
+                    "Substitute": 0,
+                    "Sunny Day": 0,
+                    "Swagger": 0,
+                    "Taunt": 0,
+                    "Thief": 0,
+                    "Thunder Wave": 0,
+                    "Thunderbolt": 0,
+                    "Torment": 0,
+                    "Toxic": 0,
+                    "Trick Room": 0
+                }
+            },
+            "unreleased": true,
+            "pokeBattleValue": 1001
+        }
+    },
+    "Volcanion": {
+        "default": {
+            "types": [
+                "Fire",
+                "Water"
+            ],
+            "stats": {
+                "attack": 110,
+                "defense": 120,
+                "hp": 80,
+                "specialAttack": 130,
+                "specialDefense": 90,
+                "speed": 70
+            },
+            "abilities": [
+                "Water Absorb"
+            ],
+            "weight": 1950,
+            "learnset": {
+                "level-up": {
+                    "Body Slam": 46,
+                    "Explosion": 76,
+                    "Flame Charge": 15,
+                    "Flare Blitz": 1,
+                    "Haze": 11,
+                    "Hydro Pump": 50,
+                    "Mist": 8,
+                    "Overheat": 65,
+                    "Scald": 32,
+                    "Steam Eruption": 1,
+                    "Stomp": 28,
+                    "Take Down": 1,
+                    "Water Pulse": 21,
+                    "Weather Ball": 40
+                },
+                "machine": {
+                    "Brick Break": 0,
+                    "Bulldoze": 0,
+                    "Confide": 0,
+                    "Cut": 0,
+                    "Double Team": 0,
+                    "Earthquake": 0,
+                    "Explosion": 0,
+                    "Facade": 0,
+                    "Fire Blast": 0,
+                    "Flame Charge": 0,
+                    "Flamethrower": 0,
+                    "Flash Cannon": 0,
+                    "Fling": 0,
+                    "Focus Blast": 0,
+                    "Frustration": 0,
+                    "Giga Impact": 0,
+                    "Gyro Ball": 0,
+                    "Hidden Power": 0,
+                    "Hyper Beam": 0,
+                    "Incinerate": 0,
+                    "Overheat": 0,
+                    "Protect": 0,
+                    "Rest": 0,
+                    "Return": 0,
+                    "Roar": 0,
+                    "Rock Slide": 0,
+                    "Rock Smash": 0,
+                    "Round": 0,
+                    "Sandstorm": 0,
+                    "Scald": 0,
+                    "Sleep Talk": 0,
+                    "Sludge Bomb": 0,
+                    "Sludge Wave": 0,
+                    "Smack Down": 0,
+                    "SolarBeam": 0,
+                    "Stone Edge": 0,
+                    "Strength": 0,
+                    "Substitute": 0,
+                    "Sunny Day": 0,
+                    "Swagger": 0,
+                    "Toxic": 0,
+                    "Will-O-Wisp": 0
+                }
+            },
+            "unreleased": true,
+            "pokeBattleValue": 1001
+        }
     }
 }

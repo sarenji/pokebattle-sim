@@ -196,7 +196,7 @@ checkMove = (looper, pokemon, move) ->
     # so you must take care of them at a higher level.
     # Unreleased event moves are also unsketchable until release.
     return true  if learnset["level-up"]?["Sketch"] <= level &&
-                    move not in [ "Chatter", "Diamond Storm", "Struggle" ]
+                    move not in [ "Chatter", "Diamond Storm", "Hyperspace Hole", "Steam Eruption", "Struggle" ]
   return true  if checksOut
 
   # TODO: Skip unavailable Pokemon (due to being a generation later).
