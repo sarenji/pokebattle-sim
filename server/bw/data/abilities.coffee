@@ -211,7 +211,7 @@ makeTypeImmuneAbility("Sap Sipper", "Grass", "attack")
 makeTypeAbsorbMove = (name, type) ->
   makeAbility name, ->
     this::shouldBlockExecution = (move, user) ->
-      return  if move.getType(@battle, user, @pokemon) != type
+      return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
       @battle.message "#{@pokemon.name}'s HP was restored."
       amount = @pokemon.stat('hp') >> 2
