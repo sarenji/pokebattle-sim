@@ -1,6 +1,5 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
-Limiter = require 'ratelimiter'
 
 {User} = require('./user')
 {BattleQueue} = require './queue'
@@ -48,9 +47,6 @@ class @BattleServer
     # A hash mapping ids to users
     @users = new SocketHash()
 
-    # A hash mapping ids to a hash of limiters.
-    @limiters = {}
-
     @rooms = []
 
     # Battles can start.
@@ -59,7 +55,6 @@ class @BattleServer
   join: (player) ->
     @users.add(player)
     @showTopic(player)
-    @limiters[player.id] ?= {}
     for battleId of @userBattles[player.id]
       battle = @battles[battleId]
       battle.addSpectator(player)
@@ -73,19 +68,9 @@ class @BattleServer
   leave: (player) ->
     if @users.remove(player) == 0
       @stopChallenges(player)
-      delete @limiters[player.id]
       for battleId of @userBattles[player.id]
         battle = @battles[battleId]
         battle.removeSpectator(player)
-
-  limit: (player, kind, options, next) ->
-    attributes =
-      max: options.max
-      duration: options.duration
-      id: player.id
-      db: redis
-    @limiters[player.id][kind] ?= new Limiter(attributes)
-    @limiters[player.id][kind].get(next)
 
   registerChallenge: (player, challengeeId, generation, team, conditions, altName) ->
     if @isLockedDown()
