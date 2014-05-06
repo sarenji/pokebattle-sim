@@ -1,4 +1,5 @@
 {_} = require('underscore')
+alts = require('./alts')
 auth = require('./auth')
 ratings = require('./ratings')
 errors = require('../shared/errors')
@@ -204,6 +205,27 @@ makeAdminCommand "wall", "announce", (user, room, next, pieces...) ->
   return next()  if !message
   @announce("<strong>#{user.id}:</strong> #{message}")
   next()
+
+desc "Finds all alts associated with a username, or the main username of an alt"
+makeModCommand "whois", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /whois username")
+    return next()
+
+  messages = []
+  alts.getAltOwner username, (err, ownerName) ->
+    if err
+      user.error(errors.COMMAND_ERROR, err.message)
+      return next()
+    ownerName ?= username
+    messages.push("<b>Main account:</b> #{ownerName}")
+    alts.listUserAlts username, (err, alts) ->
+      if err
+        user.error(errors.COMMAND_ERROR, err.message)
+        return next()
+      messages.push("<b>Alts:</b> #{alts.join(', ')}")  if alts.length > 0
+      user.message(messages.join(' | '))
+      return next()
 
 desc "Evaluates a script in the context of the server."
 makeOwnerCommand "eval", (user, room, next, pieces...) ->

@@ -3,6 +3,7 @@ require('../helpers')
 should = require('should')
 async = require 'async'
 commands = require('../../server/commands')
+alts = require('../../server/alts')
 auth = require('../../server/auth')
 {User} = require('../../server/user')
 {BattleServer} = require('../../server/server')
@@ -53,7 +54,7 @@ describe "Commands", ->
       it "returns the user's rating to the user without arguments", (done) ->
         spy = @sandbox.spy(@user1, 'message')
         commands.executeCommand @server, @user1, @room, "rating", =>
-          spy.calledOnce.should.be.true
+          spy.callCount.should.equal(1)
           spy.firstCall.args[0].should.include(@user1.name)
           spy.firstCall.args[0].should.include(user1Rating)
           done()
@@ -61,8 +62,8 @@ describe "Commands", ->
       it "returns someone's rating to the user as an argument", (done) ->
         spy = @sandbox.spy(@user1, 'message')
         commands.executeCommand @server, @user1, @room, "rating", @user2.id, =>
-          spy.calledOnce.should.be.true
-          spy.calledOnce.should.be.true
+          spy.callCount.should.equal(1)
+          spy.callCount.should.equal(1)
           spy.firstCall.args[0].should.include(@user2.name)
           spy.firstCall.args[0].should.include(user2Rating)
           done()
@@ -336,7 +337,7 @@ describe "Commands", ->
           battleIds.length.should.equal(2)
           spy = @sandbox.spy(@user1, 'message')
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
-            spy.calledOnce.should.be.true
+            spy.callCount.should.equal(1)
             spy.firstCall.args[0].should.include(@user2.name)
             spy.firstCall.args[0].should.include(battleIds[0])
             spy.firstCall.args[0].should.not.include(@user1.name)
@@ -351,7 +352,7 @@ describe "Commands", ->
           spy = @sandbox.spy(@user1, 'message')
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
             if err then throw err
-            spy.calledOnce.should.be.true
+            spy.callCount.should.equal(1)
             spy.firstCall.args[0].should.include(@user2.name)
             done()
 
@@ -413,13 +414,36 @@ describe "Commands", ->
           mock.verify()
           done()
 
+    describe "whois", ->
+      beforeEach (done) ->
+        async.parallel([
+          alts.createAlt.bind(alts, @user1.name, 'alt1')
+          alts.createAlt.bind(alts, @user1.name, 'alt2')
+        ], done)
+
+      it "returns an error if insufficient authority", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').once()
+        commands.executeCommand @server, @user1, @room, "whois", @user1.name, =>
+          mock.verify()
+          done()
+
+      it "returns a list of alts and the main account", (done) ->
+        @user1.authority = auth.levels.MOD
+        spy = @sandbox.spy(@user1, 'message')
+        commands.executeCommand @server, @user1, @room, "whois", @user1.name, =>
+          spy.callCount.should.equal(1)
+          spy.firstCall.args[0].should.include(@user1.name)
+          spy.firstCall.args[0].should.include("alt1")
+          spy.firstCall.args[0].should.include("alt2")
+          done()
+
     describe "help", ->
       it "messages all available commands to that user", (done) ->
         spy = @sandbox.spy(@user1, 'message')
         mock = @sandbox.mock(@user2).expects('message').never()
         commandNames = (name  for name of commands.HelpDescriptions)
         commands.executeCommand @server, @user1, @room, "help", ->
-          spy.calledOnce.should.be.true
+          spy.callCount.should.equal(1)
           for commandName in commandNames
             spy.firstCall.args[0].should.include(commandName)
           mock.verify()

@@ -49,7 +49,12 @@ MAX_ALT_LENGTH = 15
   userId = userId.toLowerCase()
   redis.hget ALTS_KEY, altName, (err, assignedUserId) ->
     return next(err)  if err
-    next(err, assignedUserId == userId)
+    next(null, assignedUserId == userId)
+
+@getAltOwner = (altName, next) ->
+  redis.hget ALTS_KEY, altName, (err, assignedUserId) ->
+    return next(err)  if err
+    return next(null, assignedUserId)
 
 # Generates a unique id for a given id + altName combination.
 # If altName is null, the original id is returned
