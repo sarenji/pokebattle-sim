@@ -2547,6 +2547,15 @@ describe "BW Abilities:", ->
         @battle.performMove(@p2, typedMove)
         @p1.currentHP.should.equal(1 + (@p1.stat('hp') >> 2))
 
+      it "does not activate for the user's moves", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = @battle.MoveList.find (m) ->
+          m.target == 'user' && m.type == type
+        @p1.currentHP = 1
+        @battle.performMove(@p1, typedMove)
+        @p1.currentHP.should.equal(1)
+
   testTypeAbsorbMove("Water Absorb", "Water")
   testTypeAbsorbMove("Volt Absorb", "Electric")
 
