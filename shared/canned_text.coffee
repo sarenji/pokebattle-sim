@@ -101,6 +101,8 @@ CannedText =
       PAIN_SPLIT: "The battlers shared their pain!"
       PAY_DAY: "Coins were scattered everywhere!"
       PSYCH_UP: "$p copied $p's stat changes!"
+      MENTAL_HERB: "$p used its Mental Herb to come back to its senses!"
+      WHITE_HERB: "$p restored its status using its White Herb!"
 
 cannedMap = {}
 cannedMapReverse = {}
