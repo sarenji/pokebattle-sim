@@ -280,7 +280,7 @@ makeTypeResistBerry 'Coba Berry', 'Flying'
 makeTypeResistBerry 'Colbur Berry', 'Dark'
 
 makePinchBerry 'Custap Berry', 'afterTurnOrder', (battle, eater) ->
-  battle.cannedText('MOVE_FIRST', eater, 'Custap Berry')
+  battle.cannedText('MOVE_FIRST', eater, this)
   battle.bump(eater)
 
 makeWeatherItem 'Damp Rock', Weather.RAIN
@@ -463,7 +463,7 @@ makeGemItem 'Psychic Gem', 'Psychic'
 makeItem 'Quick Claw', ->
   this::afterTurnOrder = ->
     if @battle.rng.next("quick claw") < .2
-      @battle.cannedText('MOVE_FIRST', @pokemon, 'Quick Claw')
+      @battle.cannedText('MOVE_FIRST', @pokemon, @displayName)
       @battle.bump(@pokemon)
 
 makeStatusCureBerry 'Rawst Berry', Status.Burn
