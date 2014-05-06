@@ -2843,6 +2843,14 @@
         "generation": 6,
         "id": 679
     },
+    "Hoopa": {
+        "eggGroups": [
+            "undiscovered"
+        ],
+        "genderRatio": -1,
+        "generation": 6,
+        "id": 720
+    },
     "Hoothoot": {
         "eggGroups": [
             "flying"
@@ -6905,6 +6913,14 @@
         "genderRatio": 0,
         "generation": 3,
         "id": 313
+    },
+    "Volcanion": {
+        "eggGroups": [
+            "undiscovered"
+        ],
+        "genderRatio": -1,
+        "generation": 6,
+        "id": 721
     },
     "Volcarona": {
         "eggGroups": [

@@ -5558,6 +5558,23 @@
         "target": "all-opponents",
         "type": "Normal"
     },
+    "Hyperspace Hole": {
+        "accuracy": 0,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "special",
+        "description": "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
+        "flags": [],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 80,
+        "pp": 5,
+        "priority": 0,
+        "recoil": 0,
+        "target": "selected-pokemon",
+        "type": "Psychic"
+    },
     "Hypnosis": {
         "accuracy": 60,
         "ailmentChance": 0,
@@ -10857,6 +10874,27 @@
         "recoil": 0,
         "target": "opponents-field",
         "type": "Rock"
+    },
+    "Steam Eruption": {
+        "accuracy": 95,
+        "ailmentChance": 30,
+        "ailmentId": "burn",
+        "damage": "special",
+        "description": "Has a 30% chance to burn the target.",
+        "flags": [
+            "protect",
+            "mirror",
+            "defrost"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 110,
+        "pp": 5,
+        "priority": 0,
+        "recoil": 0,
+        "target": "selected-pokemon",
+        "type": "Water"
     },
     "Steamroller": {
         "accuracy": 100,

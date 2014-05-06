@@ -2164,6 +2164,9 @@ SpriteIds = {
   "Honedge": {
     "default": 679
   },
+  "Hoopa": {
+    "default": 720
+  },
   "Inkay": {
     "default": 686
   },
@@ -2245,6 +2248,9 @@ SpriteIds = {
   },
   "Vivillon": {
     "default": 666
+  },
+  "Volcanion": {
+    "default": 721
   },
   "Xerneas": {
     "default": 716
