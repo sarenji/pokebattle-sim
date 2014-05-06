@@ -50,3 +50,36 @@ makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
 
 makeCommand "clear", ->
   PokeBattle.chatView.clear()
+
+makeCommand "pbv", (pokemon...) ->
+  pokemon = _(pokemon).map(findPokemon)
+  messages = []
+  total = 0
+  for array in pokemon
+    [speciesName, formeName] = array
+    if formeName == 'default'
+      pokemonName = speciesName
+    else
+      pokemonName = speciesName
+      pokemonName += ' '
+      pokemonName += formeName.split('-')
+        .map((n) -> n[0].toUpperCase() + n[1...])
+        .join('-')
+    pbv = PokeBattle.PBV.determinePBV(window.Generations.XY,
+      name: speciesName, forme: formeName)
+    total += pbv
+    messages.push("#{pokemonName}: #{pbv}")
+  messages.push("Total: #{total}")  if pokemon.length > 1
+  PokeBattle.chatView.updateChat("<b>PBV:</b> #{messages.join(' | ')}")
+
+# Finds the most lenient match possible.
+findPokemon = (pokemonName) ->
+  pokemonName = pokemonName.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
+  for speciesName, speciesData of window.Generations.XY.FormeData
+    for formeName of speciesData
+      name = speciesName
+      name += formeName  unless formeName == 'default'
+      name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
+      return [speciesName, formeName]  if pokemonName == name
+  # Return last match
+  [speciesName, formeName]
