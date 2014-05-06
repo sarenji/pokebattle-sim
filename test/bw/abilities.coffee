@@ -347,17 +347,31 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "next", "cursed body", 0)
       tackle = @battle.getMove("Tackle")
       @p2.moves = [ tackle ]
+      @p2.resetAllPP()
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.true
 
-    it "does not disable if behind a substitute", ->
+    it "does not disable if attacker is behind a substitute", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Cursed Body")]
       shared.biasRNG.call(this, "next", "cursed body", 0)
       tackle = @battle.getMove("Tackle")
       substitute = @battle.getMove("Substitute")
       @p2.moves = [ tackle ]
+      @p2.resetAllPP()
       @battle.performMove(@p2, substitute)
+      @battle.performMove(@p2, tackle)
+      @p2.isMoveBlocked(tackle).should.be.false
+
+    it "does not disable if defender is behind a substitute", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Cursed Body")]
+      shared.biasRNG.call(this, "next", "cursed body", 0)
+      tackle = @battle.getMove("Tackle")
+      substitute = @battle.getMove("Substitute")
+      @p2.moves = [ tackle ]
+      @p2.resetAllPP()
+      @battle.performMove(@p1, substitute)
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
@@ -367,6 +381,7 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "next", "cursed body", .3)
       tackle = @battle.getMove("Tackle")
       @p2.moves = [ tackle ]
+      @p2.resetAllPP()
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.false
 
@@ -377,8 +392,48 @@ describe "BW Abilities:", ->
       @p1.currentHP = 1
       tackle = @battle.getMove("Tackle")
       @p2.moves = [ tackle ]
+      @p2.resetAllPP()
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.true
+
+    it "lasts some turns", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Cursed Body")]
+      shared.biasRNG.call(this, "next", "cursed body", 0)
+      tackle = @battle.getMove("Tackle")
+      @p2.moves = [ tackle ]
+      @p2.resetAllPP()
+      @battle.performMove(@p2, tackle)
+      for x in [1..2]
+        @battle.endTurn()
+        @battle.beginTurn()
+      @p2.isMoveBlocked(tackle).should.be.true
+
+    it "cannot stack with Disable", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Cursed Body")]
+      shared.biasRNG.call(this, "next", "cursed body", 1)  # do not trigger
+      tackle = @battle.getMove("Tackle")
+      @p2.moves = [ tackle ]
+      @p2.resetAllPP()
+      @battle.performMove(@p2, tackle)
+      @battle.performMove(@p1, @battle.getMove('Disable'))
+      @p2.isMoveBlocked(tackle).should.be.true
+
+      # Disable lasts 4 turns, so go to the last turn.
+      for x in [1..3]
+        @battle.endTurn()
+        @battle.beginTurn()
+        @p2.isMoveBlocked(tackle).should.be.true
+
+      shared.biasRNG.call(this, "next", "cursed body", 0)
+      @battle.performMove(@p2, tackle)
+      @p2.isMoveBlocked(tackle).should.be.true
+
+      # Disable should end.
+      @battle.endTurn()
+      @battle.beginTurn()
+      @p2.isMoveBlocked(tackle).should.be.false
 
   describe "Defeatist", ->
     it "halves attack and special attack if HP goes under 50%", ->

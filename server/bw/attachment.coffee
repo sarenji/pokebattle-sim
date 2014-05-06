@@ -171,13 +171,14 @@ class @Attachment.Disable extends @VolatileAttachment
 
   @preattach: (options, attributes) ->
     {pokemon} = attributes
-    move = pokemon.lastMove
+    move = options.move ? pokemon.lastMove
     return false  if !move? || !pokemon.knows(move) || pokemon.pp(move) <= 0
 
-  initialize: (attributes) ->
-    @blockedMove = @pokemon.lastMove
+  initialize: (attributes = {}) ->
+    @blockedMove = attributes.move ? @pokemon.lastMove
     @turns = 4
     @battle.cannedText('DISABLE_START', @pokemon, @blockedMove.name)
+    @pokemon.blockMove(@blockedMove)
 
   beginTurn: ->
     @pokemon.blockMove(@blockedMove)

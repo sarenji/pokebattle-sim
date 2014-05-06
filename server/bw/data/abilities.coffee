@@ -315,12 +315,13 @@ makeAbility "Contrary"
 makeAbility "Cursed Body", ->
   this::isAliveCheck = -> true
 
-  this::afterBeingHit = (move, user, target, damage) ->
+  this::afterBeingHit = (move, user, target, damage, isDirect) ->
+    return  if !isDirect
     return  if user.has(Attachment.Substitute)
     return  if @battle.rng.next("cursed body") >= .3
+    return  if user.has(Attachment.Disable)
     @pokemon.activateAbility()
-    @battle.message "#{user.name}'s #{move.name} was disabled!"
-    user.blockMove(move)
+    user.attach(Attachment.Disable, {move})
 
 # Implementation is done in moves.coffee, specifically makeExplosionMove.
 makeAbility 'Damp'
