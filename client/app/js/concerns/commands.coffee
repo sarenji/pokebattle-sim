@@ -56,6 +56,7 @@ makeCommand "pbv", (pokemon...) ->
   messages = []
   total = 0
   for array in pokemon
+    continue  if array.length == 0
     [speciesName, formeName] = array
     if formeName == 'default'
       pokemonName = speciesName
@@ -69,8 +70,11 @@ makeCommand "pbv", (pokemon...) ->
       name: speciesName, forme: formeName)
     total += pbv
     messages.push("#{pokemonName}: #{pbv}")
-  messages.push("Total: #{total}")  if pokemon.length > 1
-  PokeBattle.chatView.updateChat("<b>PBV:</b> #{messages.join(' | ')}")
+  if messages.length == 0
+    PokeBattle.chatView.updateChat("<b>PBV error:</b> Enter valid Pokemon.")
+  else
+    messages.push("Total: #{total}")  if messages.length > 1
+    PokeBattle.chatView.updateChat("<b>PBV:</b> #{messages.join(' | ')}")
 
 # Finds the most lenient match possible.
 findPokemon = (pokemonName) ->
@@ -81,5 +85,5 @@ findPokemon = (pokemonName) ->
       name += formeName  unless formeName == 'default'
       name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
       return [speciesName, formeName]  if pokemonName == name
-  # Return last match
-  [speciesName, formeName]
+  # Return blank match
+  []
