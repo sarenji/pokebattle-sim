@@ -18,6 +18,8 @@ ratings = require('./ratings')
 config = require('./config')
 alts = require('./alts')
 
+MAX_MESSAGE_LENGTH = 250
+
 @createServer = (port) ->
   app = express()
   httpServer = http.createServer(app)
@@ -92,7 +94,9 @@ alts = require('./alts')
               user.send('altList', alts)
 
     'sendChat': (user, message) ->
-      return  unless typeof message == "string" && message.trim().length > 0
+      return  if typeof message != "string"
+      return  if message.trim().length == 0
+      return  if message.length > MAX_MESSAGE_LENGTH
       if message[0] == '/'
         [ command, args... ] = message.split(/\s+/)
         command = command.substr(1)
@@ -102,7 +106,9 @@ alts = require('./alts')
         server.userMessage(lobby, user, message)
 
     'sendBattleChat': (user, battleId, message) ->
-      return  unless message?.replace(/\s+/, '').length > 0
+      return  if typeof message != "string"
+      return  if message.trim().length == 0
+      return  if message.length > MAX_MESSAGE_LENGTH
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
