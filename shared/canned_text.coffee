@@ -103,6 +103,7 @@ CannedText =
       PSYCH_UP: "$p copied $p's stat changes!"
       MENTAL_HERB: "$p used its Mental Herb to come back to its senses!"
       WHITE_HERB: "$p restored its status using its White Herb!"
+      MOVE_FIRST: "$p's $i let it move first!"
 
 cannedMap = {}
 cannedMapReverse = {}
