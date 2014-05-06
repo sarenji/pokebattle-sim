@@ -32,7 +32,7 @@ alts = require('./alts')
   app.use(auth.middleware())
   app.use(express.methodOverride())
   app.use(app.router)
-  app.use(express.static(path.join(__dirname, "../public")))
+  app.use(express.static(path.join(__dirname, "../public")))  if config.IS_LOCAL
 
   # Helpers
   app.locals.asset_path = assets.getAbsolute
