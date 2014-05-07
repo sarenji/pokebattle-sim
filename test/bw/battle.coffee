@@ -167,6 +167,13 @@ describe 'Battle', ->
       queue[0].pokemon.should.eql @p2
       queue[1].pokemon.should.eql @p1
 
+    it "is a no-op if no actions", ->
+      queue = @battle.determineTurnOrder()
+
+      queue.should.have.length(0)
+      @battle.bump(@p1)
+      queue.should.have.length(0)
+
   describe "#delay", ->
     it "delays a pokemon to the end of its priority bracket", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
@@ -196,6 +203,13 @@ describe 'Battle', ->
       queue.should.have.length(2)
       queue[0].pokemon.should.eql @p2
       queue[1].pokemon.should.eql @p1
+
+    it "is a no-op if no actions", ->
+      queue = @battle.determineTurnOrder()
+
+      queue.should.have.length(0)
+      @battle.delay(@p1)
+      queue.should.have.length(0)
 
   describe "#weatherUpkeep", ->
     it "does not damage Pokemon if a weather-cancel ability is on the field", ->

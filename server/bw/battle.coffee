@@ -234,6 +234,7 @@ class @Battle extends EventEmitter
   bump: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
+      return  if !action
       bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
@@ -250,6 +251,7 @@ class @Battle extends EventEmitter
   delay: (pokemon, bracket) ->
     if !bracket?
       action = @getAction(pokemon)
+      return  if !action
       bracket = @actionPriority(action)
 
     # Find the priority segment associated with this pokemon
