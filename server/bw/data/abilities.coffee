@@ -649,7 +649,7 @@ makeAbility 'Mummy', ->
   this::isAliveCheck = -> true
 
   this::afterBeingHit = (move, user) ->
-    if move.hasFlag("contact") && user.hasChangeableAbility()
+    if move.hasFlag("contact") && user.hasChangeableAbility() && !user.hasAbility("Mummy")
       @pokemon.activateAbility()
       @battle.message("#{user.name}'s Ability became Mummy!")
       user.copyAbility(@constructor)
