@@ -3,7 +3,6 @@ ratings = require('./ratings')
 redis = require('./redis')
 
 DEFAULT_RATING = ratings.algorithm.createPlayer().rating
-DECAY_AMOUNT = 10
 
 @createScheduler = ->
   jobs = []
@@ -24,7 +23,7 @@ DECAY_AMOUNT = 10
           if rating < DEFAULT_RATING
             rating
           else
-            Math.max(rating - 10, DEFAULT_RATING)
+            Math.max(rating - ratings.DECAY_AMOUNT, DEFAULT_RATING)
         ratings.setRatings ids, newRatings, (err) ->
           throw new Error(err)  if err
           job.emit('finished')

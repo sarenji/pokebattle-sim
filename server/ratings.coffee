@@ -2,6 +2,7 @@ redis = require './redis'
 async = require 'async'
 alts = require './alts'
 @algorithm = require('./elo')
+@DECAY_AMOUNT = 5
 
 USERS_RATED_KEY = "users:rated"
 USERS_ACTIVE_KEY = "users:active"

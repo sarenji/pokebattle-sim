@@ -28,7 +28,7 @@ describe 'Scheduler', ->
       async.parallel @callbacks, =>
         ratings.getRatings players, (err, newRatings) =>
           throw err  if err
-          newRatings.should.eql(oldRatings.map((r) -> r - 10))
+          newRatings.should.eql(oldRatings.map((r) -> r - ratings.DECAY_AMOUNT))
           done()
       @clock.tick(2000)
 
