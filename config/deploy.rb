@@ -27,7 +27,7 @@ role :app, "sim.pokebattle.com"
 namespace :sim do
   desc "compiles all assets"
   task :compile do
-    run "cd #{release_path} && ./node_modules/grunt-cli/bin/grunt concurrent:compile"
+    run "cd #{release_path} && ./node_modules/grunt-cli/bin/grunt compile"
   end
 
   desc "migrates the database"
