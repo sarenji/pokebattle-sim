@@ -34,7 +34,8 @@
     "async": "~0.7.0",
     "elo-rank": "~0.2.2",
     "node-schedule": "~0.1.13",
-    "grunt-cli": "~0.1.13"
+    "grunt-cli": "~0.1.13",
+    "heapdump": "~0.2.7"
   },
   "devDependencies": {
     "should": "~1.2.x",
