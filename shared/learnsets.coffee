@@ -18,6 +18,17 @@ switchableFormes = [
   "Shaymin"
 ]
 
+unsketchableMoves = [
+  "Chatter"
+  "Diamond Storm"
+  "Hyperspace Hole"
+  "Light of Ruin"
+  "Steam Eruption"
+  "Struggle"
+  "Thousand Arrows"
+  "Thousand Waves"
+]
+
 mustLearnMove =
   "Mamoswine"  : "AncientPower"
   "Yanmega"    : "AncientPower"
@@ -96,7 +107,7 @@ self.learnableMoves = (Generations, pokemon, forGeneration) ->
     # If the learnset includes Sketch, then we include every move.
     if learnset["level-up"]?["Sketch"]
       for moveName of Generations[getGenerationFromInt(forGeneration)].MoveData
-        if moveName not in [ "Chatter", "Struggle" ]
+        if moveName not in unsketchableMoves
           learnable.push(moveName)
 
   _.chain(learnable).flatten().sort().unique().value()
@@ -196,7 +207,7 @@ checkMove = (looper, pokemon, move) ->
     # so you must take care of them at a higher level.
     # Unreleased event moves are also unsketchable until release.
     return true  if learnset["level-up"]?["Sketch"] <= level &&
-                    move not in [ "Chatter", "Diamond Storm", "Hyperspace Hole", "Steam Eruption", "Struggle" ]
+                    move not in unsketchableMoves
   return true  if checksOut
 
   # TODO: Skip unavailable Pokemon (due to being a generation later).

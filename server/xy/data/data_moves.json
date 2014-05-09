@@ -455,7 +455,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "A random move among those known by the user's party members is selected for use. Does not select Assist, Bestow, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dragon Tail, Endure, Feint, Focus Punch, Follow Me, Helping Hand, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Rage Powder, Sketch, Sleep Talk, Snatch, Struggle, Switcheroo, Thief, Transform, or Trick.",
+        "description": "A random move among those known by the user's party members is selected for use. Does not select Assist, Belch, Bestow, Bounce, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dig, Dive, Dragon Tail, Endure, Feint, Fly, Focus Punch, Follow Me, Helping Hand, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Phantom Force, Protect, Rage Powder, Roar, Shadow Force, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -833,7 +833,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "contact",
             "protect",
@@ -1104,7 +1104,7 @@
         "ailmentChance": 30,
         "ailmentId": "paralysis",
         "damage": "physical",
-        "description": "Has a 30% chance to paralyze the target. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thunder, and Twister. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn.",
+        "description": "Has a 30% chance to paralyze the target. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thousand Arrows, Thunder, and Twister. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn.",
         "flags": [
             "contact",
             "charge",
@@ -1128,7 +1128,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -1599,7 +1599,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "contact",
             "protect",
@@ -1839,7 +1839,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "The user uses the last move used by any Pokemon, including itself. Fails if no move has been used, or if the last move used was Assist, Bestow, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dragon Tail, Endure, Feint, Focus Punch, Follow Me, Helping Hand, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Rage Powder, Sketch, Sleep Talk, Snatch, Struggle, Switcheroo, Thief, Transform, or Trick.",
+        "description": "The user uses the last move used by any Pokemon, including itself. Fails if no move has been used, or if the last move used was Assist, Belch, Bestow, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dragon Tail, Endure, Feint, Focus Punch, Follow Me, Helping Hand, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Rage Powder, Roar, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -2572,7 +2572,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -3701,7 +3701,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "protect",
             "mirror"
@@ -3851,7 +3851,7 @@
         "ailmentChance": 10,
         "ailmentId": "burn",
         "damage": "physical",
-        "description": "Has a 10% chance to burn the target. The user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "Has a 10% chance to burn the target. If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -3977,7 +3977,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thunder, and Twister. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn.",
+        "description": "This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thousand Arrows, Thunder, and Twister. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn.",
         "flags": [
             "contact",
             "charge",
@@ -4630,7 +4630,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "For 5 turns, the terrain becomes Grassy Terrain. During the effect, the power of Grass-type attacks used by grounded Pokemon is multiplied by 1.5 and grounded Pokemon have 1/16 of their maximum HP, rounded down, restored at the end of each turn, including the last turn. Camouflage transforms the user into a Grass type, Nature Power becomes Energy Ball, and Secret Power has a 30% chance to cause sleep. Fails if the current terrain is Grassy Terrain.",
+        "description": "For 5 turns, the terrain becomes Grassy Terrain. During the effect, the power of Grass-type attacks used by grounded Pokemon is multiplied by 1.5, the power of Bulldoze, Earthquake, and Magnitude used against grounded Pokemon is multiplied by 0.5, and grounded Pokemon have 1/16 of their maximum HP, rounded down, restored at the end of each turn, including the last turn. Camouflage transforms the user into a Grass type, Nature Power becomes Energy Ball, and Secret Power has a 30% chance to cause sleep. Fails if the current terrain is Grassy Terrain.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -4950,7 +4950,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -4971,7 +4971,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 1/2 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/2 the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -5564,7 +5564,9 @@
         "ailmentId": "none",
         "damage": "special",
         "description": "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
-        "flags": [],
+        "flags": [
+            "mirror"
+        ],
         "flinchChance": 0,
         "maxHits": 1,
         "minHits": 1,
@@ -5853,7 +5855,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "contact",
             "protect",
@@ -6317,6 +6319,26 @@
         "target": "selected-pokemon",
         "type": "Ghost"
     },
+    "Light of Ruin": {
+        "accuracy": 90,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "special",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/2 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "flags": [
+            "protect",
+            "mirror"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 140,
+        "pp": 5,
+        "priority": 0,
+        "recoil": -50,
+        "target": "selected-pokemon",
+        "type": "Fairy"
+    },
     "Light Screen": {
         "accuracy": 0,
         "ailmentChance": 0,
@@ -6566,7 +6588,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "protect",
             "mirror"
@@ -6607,7 +6629,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "For 5 turns, the user is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Ability Arena Trap as long as it remains active. If the user uses Baton Pass, the replacement will gain the effect. Ingrain, Smack Down, and Iron Ball override this move if the user is under any of their effects. Fails if the user is already under this effect or the effects of Ingrain or Smack Down.",
+        "description": "For 5 turns, the user is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Ability Arena Trap as long as it remains active. If the user uses Baton Pass, the replacement will gain the effect. Ingrain, Smack Down, Thousand Arrows, and Iron Ball override this move if the user is under any of their effects. Fails if the user is already under this effect or the effects of Ingrain, Smack Down, or Thousand Arrows.",
         "flags": [
             "snatch",
             "gravity"
@@ -6667,7 +6689,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "The user and its party members are protected from damaging attacks made by other Pokemon, including allies, during this turn. This move modifies the same 1/X chance of being successful used by other protection moves, where X starts at 1 and triples each time this move is successfully used, but does not use the chance to check for failure. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails unless it is the user's first turn on the field, if the user moves last this turn, or if this move is already in effect for the user's side",
+        "description": "The user and its party members are protected from damaging attacks made by other Pokemon, including allies, during this turn. Fails unless it is the user's first turn on the field, if the user moves last this turn, or if this move is already in effect for the user's side.",
         "flags": [
             "snatch"
         ],
@@ -7027,7 +7049,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "Raises the user's evasiveness by 2 stages. Whether or not the user's evasiveness was changed, Body Slam, Dragon Rush, Flying Press, Phantom Force, Steamroller, and Stomp will not check accuracy and have their damage doubled if used against the user while it is active.",
+        "description": "Raises the user's evasiveness by 2 stages. Whether or not the user's evasiveness was changed, Body Slam, Dragon Rush, Flying Press, Phantom Force, Shadow Force, Steamroller, and Stomp will not check accuracy and have their damage doubled if used against the user while it is active.",
         "flags": [
             "snatch"
         ],
@@ -9321,7 +9343,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "The user's Ability changes to match the target's Ability. Fails if the user's Ability is Multitype or already matches the target, or if the target's Ability is Flower Gift, Forecast, Illusion, Imposter, Multitype, Stance Change, Trace, Wonder Guard, or Zen Mode.",
+        "description": "The user's Ability changes to match the target's Ability. Fails if the user's Ability is Multitype, Stance Change, or already matches the target, or if the target's Ability is Flower Gift, Forecast, Illusion, Imposter, Multitype, Stance Change, Trace, Wonder Guard, or Zen Mode.",
         "flags": [
             "authentic"
         ],
@@ -9502,7 +9524,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "protect",
             "mirror"
@@ -9564,7 +9586,7 @@
         "ailmentChance": 30,
         "ailmentId": "burn",
         "damage": "special",
-        "description": "Has a 30% chance to burn the target.",
+        "description": "Has a 30% chance to burn the target. The target thaws out if it is frozen.",
         "flags": [
             "protect",
             "mirror",
@@ -9854,7 +9876,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn.",
+        "description": "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks. The user cannot make a move between turns. If the user is holding a Power Herb, the move completes in one turn. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
         "flags": [
             "contact",
             "charge",
@@ -10215,7 +10237,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "This attack takes the target into the air with the user on the first turn and executes on the second. Pokemon weighing 200kg or more cannot be lifted. On the first turn, the user and the target avoid all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thunder, and Twister. The user and the target cannot make a move between turns, but the target can select a move to use. This move cannot damage Flying-type Pokemon. Fails on the first turn if the target is an ally or if the target has a substitute.",
+        "description": "This attack takes the target into the air with the user on the first turn and executes on the second. Pokemon weighing 200kg or more cannot be lifted. On the first turn, the user and the target avoid all attacks other than Gust, Hurricane, Sky Uppercut, Smack Down, Thousand Arrows, Thunder, and Twister. The user and the target cannot make a move between turns, but the target can select a move to use. This move cannot damage Flying-type Pokemon. Fails on the first turn if the target is an ally or if the target has a substitute.",
         "flags": [
             "contact",
             "charge",
@@ -10880,7 +10902,7 @@
         "ailmentChance": 30,
         "ailmentId": "burn",
         "damage": "special",
-        "description": "Has a 30% chance to burn the target.",
+        "description": "Has a 30% chance to burn the target. The target thaws out if it is frozen.",
         "flags": [
             "protect",
             "mirror",
@@ -11183,7 +11205,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -11645,7 +11667,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -11728,7 +11750,7 @@
         "ailmentChance": 0,
         "ailmentId": "telekinesis",
         "damage": "non-damaging",
-        "description": "For 3 turns, the target cannot avoid any attacks made against it, other than OHKO moves, as long as it remains active. During the effect, the target is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Ability Arena Trap as long as it remains active. If the target uses Baton Pass, the replacement will gain the effect. Ingrain, Smack Down, and Iron Ball override this move if the target is under any of their effects. Fails if the target is already under this effect or the effects of Ingrain or Smack Down.",
+        "description": "For 3 turns, the target cannot avoid any attacks made against it, other than OHKO moves, as long as it remains active. During the effect, the target is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Ability Arena Trap as long as it remains active. If the target uses Baton Pass, the replacement will gain the effect. Ingrain, Smack Down, Thousand Arrows, and Iron Ball override this move if the target is under any of their effects. Fails if the target is already under this effect or the effects of Ingrain, Smack Down, or Thousand Arrows.",
         "flags": [
             "protect",
             "reflectable",
@@ -11782,6 +11804,46 @@
         "recoil": 0,
         "target": "selected-pokemon",
         "type": "Dark"
+    },
+    "Thousand Arrows": {
+        "accuracy": 100,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "physical",
+        "description": "This move can hit airborne Pokemon, which includes Flying-type Pokemon, Pokemon with the Ability Levitate, Pokemon holding an Air Balloon, and Pokemon under the effect of Magnet Rise or Telekinesis. This move can hit a target using Bounce, Fly, or Sky Drop. If this move hits a target under the effect of Bounce, Fly, Magnet Rise, or Telekinesis, the effect ends. If the target is a Flying type that has not used Roost this turn or a Pokemon with the Ability Levitate, it loses its immunity to Ground-type attacks and the Ability Arena Trap as long as it remains active. During the effect, Magnet Rise fails for the target and Telekinesis fails against the target.",
+        "flags": [
+            "protect",
+            "mirror"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 90,
+        "pp": 10,
+        "priority": 0,
+        "recoil": 0,
+        "target": "all-opponents",
+        "type": "Ground"
+    },
+    "Thousand Waves": {
+        "accuracy": 100,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "physical",
+        "description": "Prevents the target from switching out. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. If the target leaves the field using Baton Pass, the replacement will remain trapped. The effect ends if the user leaves the field.",
+        "flags": [
+            "protect",
+            "mirror"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 90,
+        "pp": 10,
+        "priority": 0,
+        "recoil": 0,
+        "target": "all-opponents",
+        "type": "Ground"
     },
     "Thrash": {
         "accuracy": 100,
@@ -12430,7 +12492,7 @@
         "ailmentChance": 10,
         "ailmentId": "paralysis",
         "damage": "physical",
-        "description": "Has a 10% chance to paralyze the target. The user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "Has a 10% chance to paralyze the target. If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -12492,7 +12554,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
-        "description": "If one of the user's allies chose to use Fire Pledge or Grass Pledge this turn and has not moved yet, it takes its turn immediately after the user and the user's move does nothing. If combined with Fire Pledge, the ally uses Water Pledge with 150 Base Power and a rainbow appears on the user's side for 4 turns, which doubles secondary effect chances but does not stack with the Ability Serene Grace. If combined with Grass Pledge, the ally uses Grass Pledge with 150 Base Power and a swamp appears on the target's side for 4 turns, which halves the Speed of each Pokemon on that side. When used as a combined move, this move gains STAB no matter what the user's type is. This move does not consume the user's Water Gem.",
+        "description": "If one of the user's allies chose to use Fire Pledge or Grass Pledge this turn and has not moved yet, it takes its turn immediately after the user and the user's move does nothing. If combined with Fire Pledge, the ally uses Water Pledge with 150 Base Power and a rainbow appears on the user's side for 4 turns, which doubles secondary effect chances but does not stack with the Ability Serene Grace. If combined with Grass Pledge, the ally uses Grass Pledge with 150 Base Power and a swamp appears on the target's side for 4 turns, which halves the Speed of each Pokemon on that side. When used as a combined move, this move gains STAB no matter what the user's type is. This move does not consume the user's Water Gem, and cannot be redirected by the Ability Storm Drain.",
         "flags": [
             "protect",
             "mirror"
@@ -12633,7 +12695,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "special",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "protect",
             "mirror"
@@ -12693,7 +12755,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -12819,7 +12881,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "The user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+        "description": "If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
         "flags": [
             "contact",
             "protect",
@@ -12885,7 +12947,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "physical",
-        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin. This effect is not stackable or reset by using this or another partial-trapping move.",
+        "description": "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
         "flags": [
             "contact",
             "protect",

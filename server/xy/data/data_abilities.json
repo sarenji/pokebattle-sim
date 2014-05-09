@@ -267,7 +267,7 @@
         "description": "If an active ally has this Ability or the Ability Plus, this Pokemon's Special Attack is multiplied by 1.5."
     },
     "Mold Breaker": {
-        "description": "This Pokemon's moves ignore the target's Ability if it could modify the effectiveness."
+        "description": "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
     },
     "Moody": {
         "description": "This Pokemon has a random stat raised by 2 stages and another stat lowered by 1 stage at the end of each turn."
@@ -498,7 +498,7 @@
         "description": "This Pokemon does not take damage from attacks made by its allies."
     },
     "Teravolt": {
-        "description": "This Pokemon's moves ignore the target's Ability if it could modify the effectiveness."
+        "description": "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
     },
     "Thick Fat": {
         "description": "If a Pokemon uses a Fire- or Ice-type attack against this Pokemon, that Pokemon's attacking stat is halved while using the attack."
@@ -522,7 +522,7 @@
         "description": "This Pokemon skips every other turn instead of using a move."
     },
     "Turboblaze": {
-        "description": "This Pokemon's moves ignore the target's Ability if it could modify the effectiveness."
+        "description": "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
     },
     "Unaware": {
         "description": "This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage."
