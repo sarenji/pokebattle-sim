@@ -19,7 +19,6 @@ module.exports = (grunt) ->
   awsConfigPath = 'aws_config.json'
   if !grunt.file.exists(awsConfigPath)
     grunt.file.copy("#{awsConfigPath}.example", awsConfigPath)
-  awsJSON = grunt.file.readJSON(awsConfigPath)
 
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -59,6 +58,22 @@ module.exports = (grunt) ->
             "client/app/js/concerns/**/*.coffee"
             "client/app/js/**/*.coffee"
           ]
+    uglify:
+      options:
+        compress: true
+        warn: false
+      vendor:
+        files:
+          'public/js/vendor.js': 'public/js/vendor.js'
+      coffee:
+        files:
+          'public/js/app.js': 'public/js/app.js'
+      jade:
+        files:
+          "public/js/templates.js": "public/js/templates.js"
+      json:
+        files:
+          'public/js/data.js': 'public/js/data.js'
     cssmin:
       combine:
         files:
@@ -86,22 +101,22 @@ module.exports = (grunt) ->
     watch:
       templates:
         files: ['client/views/**/*.jade']
-        tasks: 'jade'
+        tasks: ['jade', 'uglify:jade']
       css:
         files: ['client/**/*.styl']
         tasks: 'stylus'
       js:
         files: ['client/app/**/*.coffee', 'shared/**/*.coffee']
-        tasks: 'coffee'
+        tasks: ['coffee', 'uglify:coffee']
       vendor:
         files: ['client/vendor/js/**/*.js']
-        tasks: 'concat'
+        tasks: ['concat', 'uglify:vendor']
       vendor_css:
         files: ['client/vendor/css/**/*.css']
         tasks: 'cssmin'
       json:
         files: ['**/*.json','!**/node_modules/**']
-        tasks: 'compile:json'
+        tasks: ['compile:json', 'uglify:json']
     nodemon:
       development:
         options:
@@ -124,7 +139,7 @@ module.exports = (grunt) ->
             'Gemfile.lock'
             'dump.rdb'
           ]
-    aws: awsJSON
+    aws: grunt.file.readJSON(awsConfigPath)
     s3:
       options:
         accessKeyId: "<%= aws.accessKeyId %>"
@@ -145,6 +160,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-contrib-cssmin')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
   grunt.loadNpmTasks('grunt-external-daemon')
@@ -152,9 +168,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-exec')
   grunt.loadNpmTasks('grunt-knex-migrate')
 
-  grunt.registerTask('heroku:production', 'concurrent:compile')
-  grunt.registerTask('heroku:development', 'concurrent:compile')
-  grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
+  grunt.registerTask('compile', ['concurrent:compile', 'uglify'])
+
+  grunt.registerTask('heroku:production', 'compile')
+  grunt.registerTask('heroku:development', 'compile')
+  grunt.registerTask('default', ['compile', 'concurrent:server'])
 
   grunt.registerTask('scrape:pokemon', 'exec:scrape')
 
@@ -166,7 +184,7 @@ module.exports = (grunt) ->
     grunt.file.write('./public/js/data.js', contents)
 
   grunt.registerTask 'deploy:assets', 'Compiles and uploads all assets', ->
-    grunt.task.run(['concurrent:compile', 's3:build'])
+    grunt.task.run(['compile', 's3:build'])
 
   grunt.registerTask('deploy:server', 'exec:capistrano')
 
