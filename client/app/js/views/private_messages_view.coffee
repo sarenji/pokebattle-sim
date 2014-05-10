@@ -2,7 +2,8 @@ class @PrivateMessagesView extends Backbone.View
   messageTemplate: JST['private_message']
 
   events:
-    "keypress .chat_input"  : "sendMessageEvent"
+    "keypress .chat_input"  : "keyPressEvent"
+    "keyup .chat_input"  : "keyUpEvent"
     "click .challenge_button, .cancel_challenge" : "toggleChallengeEvent"
     "click .popup_messages" : "focusChatEvent"
     "click .title_minimize" : "minimizePopupEvent"
@@ -184,7 +185,7 @@ class @PrivateMessagesView extends Backbone.View
   # EVENTS #
   ##########
 
-  sendMessageEvent: (e) =>
+  keyPressEvent: (e) =>
     switch e.which
       when 13 # [ Enter ]
         $input = $(e.currentTarget)
@@ -194,6 +195,11 @@ class @PrivateMessagesView extends Backbone.View
         PokeBattle.socket.send('privateMessage', message.id, text)
         message.add("Me", text)
         $input.val('')
+
+  keyUpEvent: (e) =>
+    switch e.which
+      when 27 # [ Esc ]
+        @closePopupEvent(e)
 
   minimizePopupEvent: (e) =>
     message = @messageFromPopup(e.currentTarget)
