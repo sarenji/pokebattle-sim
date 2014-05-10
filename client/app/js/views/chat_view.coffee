@@ -9,6 +9,7 @@ class @ChatView extends Backbone.View
     'scroll_to_bottom': 'scrollToBottom'
 
   MAX_USERNAME_HISTORY = 10
+  MAX_MESSAGES_LENGTH = 500
 
   # Takes a `collection`, which is a UserList instance.
   initialize: (options) =>
@@ -162,8 +163,15 @@ class @ChatView extends Backbone.View
     wasAtBottom = @isAtBottom()
     klass = []
     klass.push('bg-blue')  if options.highlight
-    @print("<p class='#{klass.join(' ')}'>#{message}</p>")
+    @print("<p class='chat_message #{klass.join(' ')}'>#{message}</p>")
+    @cleanChat()
     if wasAtBottom then @scrollToBottom()
+
+  cleanChat: =>
+    $messages = @$('.chat_message')
+    numToRemove = ($messages.length - MAX_MESSAGES_LENGTH)
+    if numToRemove > 0
+      $messages.slice(0, numToRemove).remove()
 
   announce: (klass, message) =>
     wasAtBottom = @isAtBottom()
