@@ -129,8 +129,9 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
+    highlight = (message.toLowerCase().indexOf(PokeBattle.username.toLowerCase())) != -1
     username = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
-    @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}")
+    @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}", {highlight})
 
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
@@ -156,9 +157,11 @@ class @ChatView extends Backbone.View
   userLeave: (user) =>
     @updateChat("#{@timestamp()} #{user.id} left!")
 
-  updateChat: (message) =>
+  updateChat: (message, options = {}) =>
     wasAtBottom = @isAtBottom()
-    @print("<p>#{message}</p>")
+    klass = []
+    klass.push('bg-blue')  if options.highlight
+    @print("<p class='#{klass.join(' ')}'>#{message}</p>")
     if wasAtBottom then @scrollToBottom()
 
   announce: (klass, message) =>
