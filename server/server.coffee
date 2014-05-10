@@ -282,7 +282,7 @@ class @BattleServer
   announce: (message) ->
     rawMessage = """<div class="alert alert-info">#{message}</div>"""
     for room in @rooms
-      room.announce(rawMessage)
+      room.announce("warning", rawMessage)
     for battleId, battle of @battles
       battle.rawMessage(rawMessage)
 
