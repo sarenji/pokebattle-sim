@@ -303,7 +303,7 @@ MAX_RANK_DISPLAYED = 50
         playerIds = battle.getPlayerIds()
         ratings.getRanks playerIds, (err, ranks) ->
           ranks = _.compact(ranks)
-          if 1 <= Math.min(ranks...) <= MAX_RANK_DISPLAYED
+          if 1 <= Math.max(ranks...) <= MAX_RANK_DISPLAYED
             playerNames = battle.getPlayerNames()
             playerNames = playerNames.map((p, i) -> "#{p} (Rank ##{ranks[i]})")
             message = """A high-level match is being played!
