@@ -22,6 +22,9 @@ class @Room
   message: (message) ->
     @send('rawMessage', message)
 
+  announce: (klass, message) ->
+    @send('announce', klass, message)
+
   send: ->
     @users.broadcast.apply(@users, arguments)
 

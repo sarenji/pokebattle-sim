@@ -66,6 +66,9 @@ PokeBattle.socket.addEvents
   'rawMessage': (socket, message) ->
     PokeBattle.chatView.updateChat(message)
 
+  'announce': (socket, klass, message) ->
+    PokeBattle.chatView.announce(klass, message)
+
   'joinChatroom': (socket, userJSON) ->
     PokeBattle.userList.add(userJSON)
 

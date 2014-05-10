@@ -74,7 +74,7 @@ makeCommand "rating", "ranking", "rank", (user, room, next, username) ->
       ratio.push("Lose: #{ratios.lose}")
       ratio.push("Tie: #{ratios.draw}")
       ratio.push("Total: #{total}")
-    user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
+    user.announce('success', "#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
     next()
 
 desc "Finds all the battles a username is playing in on this server.
@@ -86,7 +86,11 @@ makeCommand "battles", (user, room, next, username) ->
   battleIds = @getVisibleUserBattles(username)
   links = battleIds.map (id) ->
     "<span class='fake_link spectate' data-battle-id='#{id}'>#{id[...6]}</span>"
-  user.message("#{username}'s battles: #{links.join(" | ")}")
+  message = if battleIds.length == 0
+      "#{username} is not playing any battles."
+    else
+      "#{username}'s battles: #{links.join(" | ")}"
+  user.announce('success', message)
   next()
 
 desc "Mutes a username for 10 minutes. The reason is optional. Usage: /mute username, reason"
@@ -98,7 +102,7 @@ makeModCommand "mute", (user, room, next, username, reason...) ->
   @mute(username, reason, 10 * 60)
   message = "#{user.id} muted #{username} for 10 minutes"
   message += " (#{reason})"  if reason.length > 0
-  room.message(message)
+  room.announce('warning', message)
   next()
 
 desc "Unmutes a username. Usage: /unmute username"
@@ -113,7 +117,7 @@ makeModCommand "unmute", (user, room, next, username) ->
     else
       @unmute(username)
       message = "#{user.id} unmuted #{username}"
-      room.message(message)
+      room.announce('warning', message)
       next()
 
 desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username, reason"
@@ -128,7 +132,7 @@ makeModCommand "kick", (user, room, next, username, reason...) ->
   @ban(username, reason, 3 * 60)
   message = "#{user.id} kicked #{username} for 3 minutes"
   message += " (#{reason})"  if reason.length > 0
-  room.message(message)
+  room.announce('warning', message)
   next()
 
 desc "Bans a username. The reason is optional. Usage: /ban username, reason"
@@ -140,7 +144,7 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
   @ban(username, reason)
   message = "#{user.id} banned #{username}"
   message += " (#{reason})"  if reason.length > 0
-  room.message(message)
+  room.announce('warning', message)
   next()
 
 desc "Unbans a username. Usage: /unban username"
@@ -155,7 +159,7 @@ makeModCommand "unban", (user, room, next, username) ->
     else
       @unban username, =>
         message = "#{user.id} unbanned #{username}"
-        room.message(message)
+        room.announce('warning', message)
         return next()
 
 desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
@@ -232,7 +236,7 @@ makeModCommand "whois", (user, room, next, username) ->
         user.error(errors.COMMAND_ERROR, err.message)
         return next()
       messages.push("<b>Alts:</b> #{alts.join(', ')}")  if alts.length > 0
-      user.message(messages.join(' | '))
+      user.announce('success', messages.join(' | '))
       return next()
 
 desc "Evaluates a script in the context of the server."
@@ -241,7 +245,7 @@ makeOwnerCommand "eval", (user, room, next, pieces...) ->
   return next()  if !source
   try
     result = (new Function("with(this) { return #{source} }")).call(this)
-    user.message("> #{result}")
+    user.announce('success', "> #{result}")
   catch e
     user.error(errors.COMMAND_ERROR, "EVAL ERROR: #{e.message}")
   next()
@@ -252,5 +256,5 @@ makeCommand "help", (user, room, next, commandName) ->
   for name, description of HelpDescriptions
     message.push("<b>/#{name}:</b> #{description}")
   message = message.join("<br>")
-  user.message(message)
+  user.announce('success', message)
   next()

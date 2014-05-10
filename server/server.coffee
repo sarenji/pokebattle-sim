@@ -280,9 +280,9 @@ class @BattleServer
     auth.unmute(username)
 
   announce: (message) ->
-    rawMessage = """<div class="alert alert-warning">#{message}</div>"""
+    rawMessage = """<div class="alert alert-info">#{message}</div>"""
     for room in @rooms
-      room.message(rawMessage)
+      room.announce(rawMessage)
     for battleId, battle of @battles
       battle.rawMessage(rawMessage)
 
@@ -291,7 +291,7 @@ class @BattleServer
       if ttl == -2
         room.userMessage(user, message)
       else
-        user.message("You are muted for another #{ttl} seconds!")
+        user.announce('warning', "You are muted for another #{ttl} seconds!")
 
   setAuthority: (user, newAuthority) ->
     if user instanceof User

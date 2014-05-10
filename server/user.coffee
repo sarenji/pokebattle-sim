@@ -32,6 +32,9 @@ class @User
   message: (msg) ->
     @send("rawMessage", msg)
 
+  announce: (klass, msg) ->
+    @send("announce", klass, msg)
+
   close: ->
     @socket?.close()
 
