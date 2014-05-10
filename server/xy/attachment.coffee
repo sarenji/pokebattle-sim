@@ -27,7 +27,6 @@ class @Attachment.KingsShield extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect") && !move.isNonDamaging()
-      @battle.cannedText('PROTECT_CONTINUE', @pokemon)
       if move.hasFlag("contact") then user.boost(attack: -2, @pokemon)
       return true
 
@@ -45,7 +44,6 @@ class @Attachment.SpikyShield extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if move.hasFlag("protect")
-      @battle.cannedText('PROTECT_CONTINUE', @pokemon)
       if move.hasFlag("contact") then user.damage(user.stat('hp') >> 3)
       return true
 
