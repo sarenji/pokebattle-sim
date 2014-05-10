@@ -129,7 +129,13 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
-    @updateChat("#{@timestamp()} <b>#{username}:</b> #{@sanitize(message)}")
+    hex = (parseInt(
+      parseInt(username, 36)
+      .toExponential().slice(2,-5), 10) & 0xFFFFFF
+    ).toString(16).toUpperCase()
+    hex = "000000#{hex}".slice(-6)
+    username = "<b style='color: ##{hex}'>#{username}:</b>"
+    @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}")
 
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
