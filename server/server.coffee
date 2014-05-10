@@ -172,7 +172,7 @@ class @BattleServer
   # is correct, so make 
   queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
     if @isLockedDown()
-      err = ["The server is locked. No new battles can start at this time."]
+      err = ["The server is restarting. No new battles can start at this time."]
     else
       err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
       if err.length == 0
