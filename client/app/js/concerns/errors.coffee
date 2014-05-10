@@ -38,7 +38,7 @@ PokeBattle.events.on "error", (type, args...) ->
       alert(errors)
     when e.COMMAND_ERROR
       [ message ] = args
-      PokeBattle.chatView.updateChat(message)
+      PokeBattle.chatView.announce('error', message)
     when e.PRIVATE_MESSAGE
       [ toUser, messageText ] = args
       message = PokeBattle.messages.get(toUser)

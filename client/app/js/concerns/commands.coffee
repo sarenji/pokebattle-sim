@@ -61,17 +61,23 @@ makeCommand "pbv", (pokemon...) ->
     pbv = PokeBattle.PBV.determinePBV(window.Generations.XY,
       name: speciesName, forme: formeName)
     total += pbv
-    messages.push("#{formatName(speciesName, formeName)}: #{pbv}")
+    dexEntry = "pokemon/#{slugify(speciesName)}/#{slugify(formeName)}"
+    icon = pokemonIcon(speciesName, formeName)
+    formattedName = formatName(speciesName, formeName)
+    messages.push("#{linkToDex(dexEntry, icon + formattedName)}: #{pbv}")
   if messages.length == 0
-    PokeBattle.chatView.updateChat("<b>PBV error:</b> Enter valid Pokemon.")
+    PokeBattle.chatView.announce('error',
+      "<b>PBV error:</b> Enter valid Pokemon.")
   else
     messages.push("Total: #{total}")  if messages.length > 1
-    PokeBattle.chatView.updateChat("<b>PBV:</b> #{messages.join(' | ')}")
+    PokeBattle.chatView.announce('success',
+      "<b>PBV:</b> #{messages.join(' | ')}")
 
 makeCommand "data", "dex", (pokemon) ->
   pokemon = findPokemon(pokemon)
   if pokemon.length == 0
-    PokeBattle.chatView.updateChat("<b>Data error:</b> Enter a valid Pokemon.")
+    PokeBattle.chatView.announce("error",
+      "<b>Data error:</b> Enter a valid Pokemon.</div>")
     return
 
   [speciesName, formeName] = pokemon
@@ -80,31 +86,27 @@ makeCommand "data", "dex", (pokemon) ->
   {types, abilities, hiddenAbility, stats} = forme
 
   # Format abilities
+  abilities = _.clone(abilities)
   abilities.push(hiddenAbility)  if hiddenAbility?
-  abilities = _(abilities).map (a) ->
-    "<a href='//pokebattle.com/dex/abilities/#{slugify(a)}'
-    target='_blank'>#{a}</a>"
+  abilities = _(abilities).map((a) -> linkToDex("abilities/#{slugify(a)}", a))
   abilities = abilities.join('/')
   abilities += " (H)"  if hiddenAbility?
 
   # Format types, stats, and icon
   types = _(types).map (t) ->
-    "<a href='//pokebattle.com/dex/types/#{slugify(t)}'
-    target='_blank'><img src='#{window.TypeSprite(t)}' alt='#{t}'/></a>"
+    linkToDex("types/#{slugify(t)}",
+      "<img src='#{window.TypeSprite(t)}' alt='#{t}'/>")
   stats = [ stats.hp, stats.attack, stats.defense,
             stats.specialAttack, stats.specialDefense, stats.speed ]
-  style = window.PokemonIconBackground(speciesName, formeName)
 
   # Build data
-  message = """<div class="alert alert-success clearfix">
-      <b><span class="pokemon_icon left" style="#{style}"></span>
-      #{formatName(speciesName, formeName)}:</b> #{types.join('')} |
-      #{abilities} | #{stats.join('/')} |
-      #{_(stats).reduce((a, b) -> a + b)} BST | <a target="_blank"
-      href="//pokebattle.com/dex/pokemon/#{speciesSlug}/#{formeSlug}">
-      See dex entry &raquo;</a>
-    </div>"""
-  PokeBattle.chatView.updateChat(message)
+  message = """<b>#{pokemonIcon(speciesName, formeName, "left")}
+    #{formatName(speciesName, formeName)}:</b> #{types.join('')} |
+    #{abilities} | #{stats.join('/')} |
+    #{_(stats).reduce((a, b) -> a + b)} BST |
+    #{linkToDex("pokemon/#{speciesSlug}/#{formeSlug}", "See dex entry &raquo;")}
+    """
+  PokeBattle.chatView.announce('success', message)
 
 # Finds the most lenient match possible.
 findPokemon = (pokemonName) ->
@@ -131,3 +133,10 @@ formatName = (speciesName, formeName) ->
       .map((n) -> n[0].toUpperCase() + n[1...])
       .join('-')
   return pokemonName
+
+linkToDex = (slug, text) ->
+  "<a href='//pokebattle.com/dex/#{slug}' target='_blank'>#{text}</a>"
+
+pokemonIcon = (speciesName, formeName, classes="") ->
+  style = window.PokemonIconBackground(speciesName, formeName)
+  """<span class="pokemon_icon #{classes}" style="#{style}"></span>"""

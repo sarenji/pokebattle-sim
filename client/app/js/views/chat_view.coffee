@@ -146,6 +146,11 @@ class @ChatView extends Backbone.View
     @print("<p>#{message}</p>")
     if wasAtBottom then @scrollToBottom()
 
+  announce: (klass, message) =>
+    wasAtBottom = @isAtBottom()
+    @print("<div class='alert alert-#{klass} clearfix'>#{message}</div>")
+    if wasAtBottom then @scrollToBottom()
+
   print: (message) =>
     @$('.messages').append(message)
 
