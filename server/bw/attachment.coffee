@@ -1193,7 +1193,6 @@ class @Attachment.Transform extends @VolatileAttachment
     # Restore old data
     @pokemon.ability   = @ability
     @pokemon.moves     = @moves
-    @pokemon.stages    = @stages
     @pokemon.types     = @types
     @pokemon.gender    = @gender
     @pokemon.weight    = @weight
@@ -1201,6 +1200,7 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.maxPPHash = @maxPPHash
     @pokemon.baseStats = @baseStats
     @pokemon.evs       = @evs
+    @pokemon.setBoosts(@stages)
     @pokemon.changeSprite(@pokemon.name, @pokemon.forme)
     @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
