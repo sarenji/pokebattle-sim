@@ -280,11 +280,10 @@ class @BattleServer
     auth.unmute(username)
 
   announce: (message) ->
-    rawMessage = """<div class="alert alert-info">#{message}</div>"""
     for room in @rooms
-      room.announce("warning", rawMessage)
+      room.announce("warning", message)
     for battleId, battle of @battles
-      battle.rawMessage(rawMessage)
+      battle.rawMessage("""<div class="alert alert-warning">#{message}</div>""")
 
   userMessage: (room, user, message) ->
     auth.getMuteTTL user.id, (err, ttl) ->
