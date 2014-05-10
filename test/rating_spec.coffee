@@ -113,3 +113,18 @@ describe "Ratings", ->
               ratings.getRatio "player2", (err, player2Ratio) ->
                 player2Ratio.should.eql(win: 1, lose: 2, draw: 0)
                 done()
+
+  describe '#getRank', ->
+    it "returns the rank of a player", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+        ratings.getRank "player1", (err, rank) ->
+          rank.should.equal(1)
+          ratings.getRank "player2", (err, rank) ->
+            rank.should.equal(2)
+            ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
+              ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
+                ratings.getRank "player1", (err, rank) ->
+                  rank.should.equal(2)
+                  ratings.getRank "player2", (err, rank) ->
+                    rank.should.equal(1)
+                    done()

@@ -1,4 +1,5 @@
 {_} = require('underscore')
+async = require('async')
 alts = require('./alts')
 auth = require('./auth')
 ratings = require('./ratings')
@@ -55,19 +56,26 @@ makeOwnerCommand = (commandNames..., func) ->
 #######################
 
 desc "Gets a single username's rating on this server. Usage: /rating username"
-makeCommand "rating", "ranking", (user, room, next, username) ->
+makeCommand "rating", "ranking", "rank", (user, room, next, username) ->
   username ||= user.id
-  ratings.getRating username, (err, rating) ->
-    ratings.getRatio username, (err, ratios) ->
-      if err then return user.error(errors.COMMAND_ERROR, err.message)
-      ratio = ["Win: #{ratios.win}"]
-      if user.id == username
-        total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
-        ratio.push("Lose: #{ratios.lose}")
-        ratio.push("Tie: #{ratios.draw}")
-        ratio.push("Total: #{total}")
-      user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
-      next()
+  async.parallel [
+    ratings.getRating.bind(ratings, username)
+    ratings.getRank.bind(ratings, username)
+    ratings.getRatio.bind(ratings, username)
+  ], (err, results) ->
+    return user.error(errors.COMMAND_ERROR, err.message)  if err
+    [rating, rank, ratios] = results
+    ratio = []
+    rank ?= "Unranked"
+    ratio.push("Rank: #{rank}")
+    ratio.push("Win: #{ratios.win}")
+    if user.id == username
+      total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
+      ratio.push("Lose: #{ratios.lose}")
+      ratio.push("Tie: #{ratios.draw}")
+      ratio.push("Total: #{total}")
+    user.message("#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
+    next()
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"

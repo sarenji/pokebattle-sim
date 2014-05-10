@@ -110,6 +110,13 @@ updateMaxRatings = (ids, next) ->
     return next(err)  if err
     return next(null, players.map((p) -> Number(p.rating)))
 
+@getRank = (id, next) ->
+  id = id.toLowerCase()
+  redis.zrevrank RATINGS_SUBKEYS['rating'], id, (err, rank) ->
+    return next(err)  if err
+    return next(null, null)  if !rank?
+    return next(null, rank + 1)  # rank starts at 0
+
 @updatePlayer = (id, score, object, next) ->
   id = id.toLowerCase()
   multi = redis.multi()
