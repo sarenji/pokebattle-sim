@@ -556,10 +556,11 @@ makeItem 'White Herb', ->
     boosts = {}
     for stat, boost of pokemon.stages
       if boost < 0
-        battle.cannedText('WHITE_HERB', pokemon)
         triggered = true
         boosts[stat] = 0
-    pokemon.setBoosts(boosts)  if triggered
+    if triggered
+      pokemon.setBoosts(boosts)
+      battle.cannedText('WHITE_HERB', pokemon)
     return triggered
 
   this::update = ->

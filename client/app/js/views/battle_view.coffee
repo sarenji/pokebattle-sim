@@ -706,7 +706,7 @@ class @BattleView extends Backbone.View
     $selector.fadeOut(500, -> $selector.remove())
     done()
 
-  boost: (player, slot, deltaBoosts) =>
+  boost: (player, slot, deltaBoosts, options = {}) =>
     pokemon = @model.getPokemon(player, slot)
     pokemonName = pokemon.get('name')
     stages = pokemon.get('stages')
@@ -716,8 +716,9 @@ class @BattleView extends Backbone.View
       previous = stages[stat]
       stages[stat] += delta
       # Boost log message
-      message = @makeBoostMessage(pokemonName, stat, delta, stages[stat])
-      @addLog(message)  if message
+      unless options.silent
+        message = @makeBoostMessage(pokemonName, stat, delta, stages[stat])
+        @addLog(message)  if message
       # Boost in the view
       abbreviatedStat = switch stat
         when "attack" then "Att"
@@ -817,8 +818,9 @@ class @BattleView extends Backbone.View
   setBoosts: (player, slot, boosts) =>
     pokemon = @model.getPokemon(player, slot)
     stages = pokemon.get('stages')
-    for stat, amount of boosts
-      @boost(player, slot, amount - stages[stat])
+    for stat of boosts
+      boosts[stat] -= stages[stat]
+    @boost(player, slot, boosts, silent: true)
 
   resetBoosts: (player, slot) =>
     pokemon = @model.getPokemon(player, slot)
