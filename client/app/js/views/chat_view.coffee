@@ -129,6 +129,7 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
+    username = @collection.get(username)?.getDisplayName() || username
     highlight = (message.toLowerCase().indexOf(PokeBattle.username.toLowerCase())) != -1
     username = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
     @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}", {highlight})
