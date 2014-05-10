@@ -304,9 +304,11 @@ MAX_RANK_DISPLAYED = 50
         ratings.getRanks playerIds, (err, ranks) ->
           ranks = _.compact(ranks)
           if 1 <= Math.max(ranks...) <= MAX_RANK_DISPLAYED
+            playerNames = battle.getPlayerNames()
+            playerNames = playerNames.map((p, i) -> "#{p} (Rank ##{ranks[i]})")
             message = """A high-level match is being played!
             <span class="fake_link spectate" data-battle-id="#{id}">
-            #{battle.getPlayerNames().join(" vs. ")}</span>!"""
+              #{playerNames.join(" vs. ")}</span>!"""
             lobby.message(message)
     setTimeout(battleSearch, 5 * 1000)
 
