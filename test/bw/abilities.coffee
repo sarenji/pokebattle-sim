@@ -351,6 +351,17 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, tackle)
       @p2.isMoveBlocked(tackle).should.be.true
 
+    it "does not disable the owner", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Cursed Body")]
+      shared.biasRNG.call(this, "next", "cursed body", 0)
+      recover = @battle.getMove("Recover")
+      @p1.moves = [ recover ]
+      @p1.resetAllPP()
+      @p1.currentHP = 1
+      @battle.performMove(@p1, recover)
+      @p1.isMoveBlocked(recover).should.be.false
+
     it "does not disable if attacker is behind a substitute", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Cursed Body")]

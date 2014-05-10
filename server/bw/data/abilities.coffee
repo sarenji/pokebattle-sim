@@ -317,6 +317,7 @@ makeAbility "Cursed Body", ->
 
   this::afterBeingHit = (move, user, target, damage, isDirect) ->
     return  if !isDirect
+    return  if user == target
     return  if user.has(Attachment.Substitute)
     return  if @battle.rng.next("cursed body") >= .3
     return  if user.has(Attachment.Disable)
