@@ -52,20 +52,20 @@ describe "Commands", ->
           ratings.setRating(@user2.id, user2Rating, done)
 
       it "returns the user's rating to the user without arguments", (done) ->
-        spy = @sandbox.spy(@user1, 'message')
+        spy = @sandbox.spy(@user1, 'announce')
         commands.executeCommand @server, @user1, @room, "rating", =>
           spy.callCount.should.equal(1)
-          spy.firstCall.args[0].should.include(@user1.name)
-          spy.firstCall.args[0].should.include(user1Rating)
+          spy.firstCall.args[1].should.include(@user1.name)
+          spy.firstCall.args[1].should.include(user1Rating)
           done()
 
       it "returns someone's rating to the user as an argument", (done) ->
-        spy = @sandbox.spy(@user1, 'message')
+        spy = @sandbox.spy(@user1, 'announce')
         commands.executeCommand @server, @user1, @room, "rating", @user2.id, =>
           spy.callCount.should.equal(1)
           spy.callCount.should.equal(1)
-          spy.firstCall.args[0].should.include(@user2.name)
-          spy.firstCall.args[0].should.include(user2Rating)
+          spy.firstCall.args[1].should.include(@user2.name)
+          spy.firstCall.args[1].should.include(user2Rating)
           done()
 
     describe "kick", ->
@@ -335,13 +335,13 @@ describe "Commands", ->
         @server.beginBattles (err, battleIds) =>
           if err then throw err
           battleIds.length.should.equal(2)
-          spy = @sandbox.spy(@user1, 'message')
+          spy = @sandbox.spy(@user1, 'announce')
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
             spy.callCount.should.equal(1)
-            spy.firstCall.args[0].should.include(@user2.name)
-            spy.firstCall.args[0].should.include(battleIds[0])
-            spy.firstCall.args[0].should.not.include(@user1.name)
-            spy.firstCall.args[0].should.not.include(battleIds[1])
+            spy.firstCall.args[1].should.include(@user2.name)
+            spy.firstCall.args[1].should.include(battleIds[0])
+            spy.firstCall.args[1].should.not.include(@user1.name)
+            spy.firstCall.args[1].should.not.include(battleIds[1])
             done()
 
       it "does not include alts in the battle list", (done) ->
@@ -349,11 +349,11 @@ describe "Commands", ->
         @server.queuePlayer(@user2.id, [ Factory("Magikarp") ], "Im an Alt")
         @server.beginBattles (err, battleIds) =>
           if err then throw err
-          spy = @sandbox.spy(@user1, 'message')
+          spy = @sandbox.spy(@user1, 'announce')
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
             if err then throw err
             spy.callCount.should.equal(1)
-            spy.firstCall.args[0].should.include(@user2.name)
+            spy.firstCall.args[1].should.include(@user2.name)
             done()
 
     describe "topic", ->
@@ -379,7 +379,7 @@ describe "Commands", ->
           done()
 
       it "messages all rooms and all battles", (done) ->
-        mock = @sandbox.mock(@room).expects('message').once()
+        mock = @sandbox.mock(@room).expects('announce').once()
         spy1 = @sandbox.spy(@user1, 'send')
         spy2 = @sandbox.spy(@user2, 'send')
         @server.queuePlayer(@user1.id, generateTeam()).should.be.empty
@@ -429,22 +429,22 @@ describe "Commands", ->
 
       it "returns a list of alts and the main account", (done) ->
         @user1.authority = auth.levels.MOD
-        spy = @sandbox.spy(@user1, 'message')
+        spy = @sandbox.spy(@user1, 'announce')
         commands.executeCommand @server, @user1, @room, "whois", @user1.name, =>
           spy.callCount.should.equal(1)
-          spy.firstCall.args[0].should.include(@user1.name)
-          spy.firstCall.args[0].should.include("alt1")
-          spy.firstCall.args[0].should.include("alt2")
+          spy.firstCall.args[1].should.include(@user1.name)
+          spy.firstCall.args[1].should.include("alt1")
+          spy.firstCall.args[1].should.include("alt2")
           done()
 
     describe "help", ->
       it "messages all available commands to that user", (done) ->
-        spy = @sandbox.spy(@user1, 'message')
-        mock = @sandbox.mock(@user2).expects('message').never()
+        spy = @sandbox.spy(@user1, 'announce')
+        mock = @sandbox.mock(@user2).expects('announce').never()
         commandNames = (name  for name of commands.HelpDescriptions)
         commands.executeCommand @server, @user1, @room, "help", ->
           spy.callCount.should.equal(1)
           for commandName in commandNames
-            spy.firstCall.args[0].should.include(commandName)
+            spy.firstCall.args[1].should.include(commandName)
           mock.verify()
           done()
