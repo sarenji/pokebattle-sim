@@ -27,7 +27,6 @@ extendMove 'Hidden Power', ->
 
 makeProtectCounterMove "King's Shield", (battle, user, targets) ->
   user.attach(Attachment.KingsShield)
-  battle.message "#{user.name} protected itself!"
 
 makeTrappingMove "Infestation"
 
@@ -50,7 +49,6 @@ extendMove "Rapid Spin", ->
 
 makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
   user.attach(Attachment.SpikyShield)
-  battle.message "#{user.name} protected itself!"
 
 makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
@@ -60,8 +58,10 @@ makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
 extendMove 'Topsy-Turvy', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasBoosts()
+      boosts = {}
       for stage, value of target.stages
-        target.stages[stage] = -value
+        boosts[stage] = -value
+      target.setBoosts(boosts)
       battle.message "#{target.name}'s stat changes were all reversed!"
     else
       @fail(battle)

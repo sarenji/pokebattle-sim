@@ -187,10 +187,16 @@ class @BattleCollection extends Backbone.Collection
           view.changeSprite(player, slot, newSpecies, newForme, done)
         when Protocol.BOOSTS
           [player, slot, deltaBoosts] = rest
-          view.boost(player, slot, deltaBoosts, done)
+          view.boost(player, slot, deltaBoosts)
+          done()
+        when Protocol.SET_BOOSTS
+          [player, slot, boosts] = rest
+          view.setBoosts(player, slot, boosts)
+          done()
         when Protocol.RESET_BOOSTS
           [player, slot] = rest
-          view.resetBoosts(player, slot, done)
+          view.resetBoosts(player, slot)
+          done()
         when Protocol.MOVESET_UPDATE
           [player, slot, movesetJSON] = rest
           pokemon = battle.getPokemon(player, slot)

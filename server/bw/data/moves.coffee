@@ -1160,9 +1160,16 @@ extendMove 'Gravity', ->
 
 extendMove 'Guard Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
+    triggered = false
+    userBoosts = {}
+    targetBoosts = {}
     for stat in [ 'defense', 'specialDefense' ]
-      stats = [ target.stages[stat], user.stages[stat] ]
-      [ user.stages[stat], target.stages[stat] ] = stats
+      userBoosts[stat] = target.stages[stat]
+      targetBoosts[stat] = user.stages[stat]
+      triggered = true  if target.stages[stat] != 0 || user.stages[stat] != 0
+    if triggered
+      user.setBoosts(userBoosts)
+      target.setBoosts(targetBoosts)
 
 extendMove 'Gyro Ball', ->
   @basePower = (battle, user, target) ->
@@ -1448,9 +1455,16 @@ extendMove 'Payback', ->
 
 extendMove 'Power Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
+    triggered = false
+    userBoosts = {}
+    targetBoosts = {}
     for stat in [ 'attack', 'specialAttack' ]
-      stats = [ target.stages[stat], user.stages[stat] ]
-      [ user.stages[stat], target.stages[stat] ] = stats
+      userBoosts[stat] = target.stages[stat]
+      targetBoosts[stat] = user.stages[stat]
+      triggered = true  if target.stages[stat] != 0 || user.stages[stat] != 0
+    if triggered
+      user.setBoosts(userBoosts)
+      target.setBoosts(targetBoosts)
 
 extendMove 'Present', ->
   @basePower = (battle, user, target) ->
@@ -1482,8 +1496,10 @@ extendMove 'Psywave', ->
 
 extendMove 'Psych Up', ->
   @use = (battle, user, target) ->
+    boosts = {}
     for stage, value of target.stages
-      user.stages[stage] = value
+      boosts[stage] = value
+    user.setBoosts(boosts)
     battle.cannedText('PSYCH_UP', user, target)
 
 extendMove 'Psycho Shift', ->

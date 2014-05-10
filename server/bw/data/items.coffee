@@ -553,11 +553,13 @@ makeTypeBoostItem 'Wave Incense', 'Water'
 makeItem 'White Herb', ->
   this.activate = (battle, pokemon) ->
     triggered = false
+    boosts = {}
     for stat, boost of pokemon.stages
       if boost < 0
         battle.cannedText('WHITE_HERB', pokemon)
         triggered = true
-        pokemon.stages[stat] = 0
+        boosts[stat] = 0
+    pokemon.setBoosts(boosts)  if triggered
     return triggered
 
   this::update = ->

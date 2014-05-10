@@ -706,7 +706,7 @@ class @BattleView extends Backbone.View
     $selector.fadeOut(500, -> $selector.remove())
     done()
 
-  boost: (player, slot, deltaBoosts, done) =>
+  boost: (player, slot, deltaBoosts) =>
     pokemon = @model.getPokemon(player, slot)
     pokemonName = pokemon.get('name')
     stages = pokemon.get('stages')
@@ -738,7 +738,6 @@ class @BattleView extends Backbone.View
         $effect.removeClass('negative')
       else # amount == 0
         $effect.remove()
-    done()
     true
 
   makeBoostMessage: (pokemonName, stat, amount, currentBoost) ->
@@ -815,12 +814,17 @@ class @BattleView extends Backbone.View
       else
         done()
 
-  resetBoosts: (player, slot, done) =>
+  setBoosts: (player, slot, boosts) =>
+    pokemon = @model.getPokemon(player, slot)
+    stages = pokemon.get('stages')
+    for stat, amount of boosts
+      @boost(player, slot, amount - stages[stat])
+
+  resetBoosts: (player, slot) =>
     pokemon = @model.getPokemon(player, slot)
     pokemon.resetBoosts()
     $pokemon = @$pokemon(player, slot)
     $pokemon.find('.boost').remove()
-    done()
 
   handleStatus: (pokemon, status) =>
     $pokemon = @$pokemon(pokemon)

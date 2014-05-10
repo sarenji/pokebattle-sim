@@ -188,6 +188,12 @@ class @Pokemon
       return true  if value != 0
     return false
 
+  # Sets boosts, but also send a message to clients
+  setBoosts: (boosts) ->
+    for stat, amount of boosts
+      @stages[stat] = amount
+    @tell(Protocol.SET_BOOSTS, boosts)
+
   resetBoosts: ->
     @stages.attack = 0
     @stages.defense = 0
