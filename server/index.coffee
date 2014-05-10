@@ -19,6 +19,7 @@ config = require('./config')
 alts = require('./alts')
 
 MAX_MESSAGE_LENGTH = 250
+MAX_RANK_DISPLAYED = 50
 
 @createServer = (port) ->
   app = express()
@@ -299,10 +300,16 @@ MAX_MESSAGE_LENGTH = 250
       if err then return
       for id in battleIds
         battle = server.findBattle(id)
-        playerNames = battle.getPlayerNames()
-        message = """Ladder match: <span class="fake_link spectate"
-        data-battle-id="#{id}">#{playerNames.join(" vs. ")}</span>!"""
-        lobby.message(message)
+        playerIds = battle.getPlayerIds()
+        ratings.getRanks playerIds, (err, ranks) ->
+          ranks = _.compact(ranks)
+          if 1 <= Math.min(ranks...) <= MAX_RANK_DISPLAYED
+            playerNames = battle.getPlayerNames()
+            playerNames = playerNames.map((p, i) -> "#{p} (Rank ##{ranks[i]})")
+            message = """A high-level match is being played!
+            <span class="fake_link spectate" data-battle-id="#{id}">
+              #{playerNames.join(" vs. ")}</span>!"""
+            lobby.message(message)
     setTimeout(battleSearch, 5 * 1000)
 
   battleSearch()
