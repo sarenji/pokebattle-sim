@@ -1180,10 +1180,10 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.weight = target.weight
     # The rest aren't.
     @pokemon.moves     = _.clone(target.moves)
-    @pokemon.stages    = _.clone(target.stages)
     @pokemon.types     = _.clone(target.types)
     @pokemon.evs       = _.extend({}, target.evs, hp: @pokemon.evs.hp)
     @pokemon.baseStats = _.extend({}, target.baseStats, hp: @pokemon.baseStats.hp)
+    @pokemon.setBoosts(target.stages)
     @pokemon.resetAllPP(5)
     # Send updated information to the client
     @pokemon.changeSprite(target.name, target.forme)
