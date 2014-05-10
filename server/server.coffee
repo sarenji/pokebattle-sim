@@ -228,7 +228,8 @@ class @BattleServer
         @visibleUserBattles[player.name] ?= {}
         @visibleUserBattles[player.name][battleId] = true
       
-      battle.on 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
+      battle.once 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
+      battle.once 'expire', @removeBattle.bind(this, battleId)
     
     @battles[battleId].beginBattle()
     battleId
@@ -259,6 +260,9 @@ class @BattleServer
   removeUserBattle: (userId, username, battleId) ->
     delete @userBattles[userId][battleId]
     delete @visibleUserBattles[username]?[battleId]
+
+  removeBattle: (battleId) ->
+    delete @battles[battleId]
 
   # A length of -1 denotes a permanent ban.
   ban: (username, reason, length = -1) ->

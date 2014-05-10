@@ -848,6 +848,7 @@ class @Battle extends EventEmitter
     @expired = true
     @tell(Protocol.BATTLE_EXPIRED)
     @emit('end')  if !@finished
+    @emit('expire')
 
   resetExpiration: ->
     clearTimeout(@expirationId)  if @expirationId
