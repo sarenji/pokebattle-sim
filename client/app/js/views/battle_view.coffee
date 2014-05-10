@@ -205,25 +205,29 @@ class @BattleView extends Backbone.View
 
   floatPercent: (player, slot, percent) =>
     return  if @skip?
-    $sprite = @$sprite(player, slot)
-    [x, y] = @getPokemonPosition(player, slot)
     kind = (if percent >= 0 then "" else "red")
     percentText = "#{percent}"
     percentText = "+#{percentText}"  if percent >= 0
     percentText += "%"
-    $hp = $('<span/>').addClass("percentage #{kind}").text(percentText)
-    $hp.hide().appendTo(@$('.battle_pane'))
-    x -= $hp.width() / 2
-    y -= $sprite.height() / 3
-    $hp.css(position: 'absolute', top: y, left: x).show()
-    if percent >= 0
-      $hp.transition(top: "-=30", 1000, 'easeOutCubic')
-      $hp.delay(1000)
-      $hp.transition(opacity: 0, 1000, -> $hp.remove())
+    @floatText(player, slot, percentText, kind)
+
+  floatText: (player, slot, text, kind = "") =>
+    return  if @skip?
+    $sprite = @$sprite(player, slot)
+    [x, y] = @getPokemonPosition(player, slot)
+    $text = $('<span/>').addClass("percentage #{kind}").text(text)
+    $text.hide().appendTo(@$('.battle_pane'))
+    x -= $text.width() / 2
+    y -= 20
+    $text.css(position: 'absolute', top: y, left: x).show()
+    if kind == 'red'
+      $text.transition(top: "+=30", 1000, 'easeOutCubic')
+      $text.delay(1000)
+      $text.transition(opacity: 0, 1000, -> $text.remove())
     else
-      $hp.transition(top: "+=30", 1000, 'easeOutCubic')
-      $hp.delay(1000)
-      $hp.transition(opacity: 0, 1000, -> $hp.remove())
+      $text.transition(top: "-=30", 1000, 'easeOutCubic')
+      $text.delay(1000)
+      $text.transition(opacity: 0, 1000, -> $text.remove())
 
   switchIn: (player, slot, fromSlot, done) =>
     $oldPokemon = @$pokemon(player, slot)
@@ -712,6 +716,8 @@ class @BattleView extends Backbone.View
     stages = pokemon.get('stages')
     $pokemon = @$pokemon(player, slot)
     $effects = $pokemon.find('.pokemon-effects')
+    posFloatText = []
+    negFloatText = []
     for stat, delta of deltaBoosts
       previous = stages[stat]
       stages[stat] += delta
@@ -719,6 +725,7 @@ class @BattleView extends Backbone.View
       unless options.silent
         message = @makeBoostMessage(pokemonName, stat, delta, stages[stat])
         @addLog(message)  if message
+
       # Boost in the view
       abbreviatedStat = switch stat
         when "attack" then "Att"
@@ -731,14 +738,23 @@ class @BattleView extends Backbone.View
         else stat
       amount = stages[stat]
       amount = "+#{amount}"  if amount > 0
-      abbreviatedStat = "#{amount} #{abbreviatedStat}"
-      $effect = @addPokemonEffect($pokemon, "boost #{stat}", abbreviatedStat)
+      finalStat = "#{amount} #{abbreviatedStat}"
+      $effect = @addPokemonEffect($pokemon, "boost #{stat}", finalStat)
       if amount < 0
         $effect.addClass('negative')
+        negFloatText.push("#{delta} #{abbreviatedStat}")
       else if amount > 0
         $effect.removeClass('negative')
+        posFloatText.push("+#{delta} #{abbreviatedStat}")
       else # amount == 0
         $effect.remove()
+
+    # Boost text messages
+    if options.floatText
+      if negFloatText.length > 0
+        @floatText(player, slot, negFloatText.join('/'), 'red')
+      if posFloatText.length > 0
+        @floatText(player, slot, posFloatText.join('/'))
     true
 
   makeBoostMessage: (pokemonName, stat, amount, currentBoost) ->

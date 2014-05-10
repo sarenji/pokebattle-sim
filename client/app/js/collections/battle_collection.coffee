@@ -187,7 +187,7 @@ class @BattleCollection extends Backbone.Collection
           view.changeSprite(player, slot, newSpecies, newForme, done)
         when Protocol.BOOSTS
           [player, slot, deltaBoosts] = rest
-          view.boost(player, slot, deltaBoosts)
+          view.boost(player, slot, deltaBoosts, floatText: true)
           done()
         when Protocol.SET_BOOSTS
           [player, slot, boosts] = rest
