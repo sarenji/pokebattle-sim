@@ -89,10 +89,10 @@ mocha
 
 ## Deployment
 
-First, you must get SSH access to the server. Next, you must get S3 access. Copy over `aws_config.json.example` to `aws_config.json` and fill out the necessary information. Then, to deploy:
+First, you must get SSH access to the server. Then, to deploy:
 
 ```bash
-grunt deploy
+cap deploy
 ```
 
 This will do all the work for you.

@@ -25,9 +25,20 @@ role :app, "sim.pokebattle.com"
 
 # Necessary to calculate MD5 hash of assets
 namespace :sim do
-  desc "compiles all assets"
-  task :compile do
-    run "cd #{release_path} && ./node_modules/grunt-cli/bin/grunt compile"
+  desc "sets up necessary files"
+  task :setup do
+    warn 'Copy aws_config.json to the server\'s shared folder.'
+    warn 'An example file is located at aws_config.json.example'
+  end
+
+  desc "symlinks all necessary files"
+  task :symlink do
+    run "ln -fs #{shared_path}/aws_config.json #{release_path}/aws_config.json"
+  end
+
+  desc "compiles and deploys all assets"
+  task :deploy_assets do
+    run "cd #{release_path} && ./node_modules/grunt-cli/bin/grunt deploy:assets"
   end
 
   desc "migrates the database"
@@ -36,7 +47,9 @@ namespace :sim do
   end
 end
 
-after "node:install_packages", "sim:compile"
+after "deploy:setup", "sim:setup"
+after "node:install_packages", "sim:symlink"
+after "node:install_packages", "sim:deploy_assets"
 after "node:install_packages", "sim:migrate"
 
 # clean up old releases on each deploy

@@ -101,22 +101,22 @@ module.exports = (grunt) ->
     watch:
       templates:
         files: ['client/views/**/*.jade']
-        tasks: ['jade', 'uglify:jade']
+        tasks: 'jade'
       css:
         files: ['client/**/*.styl']
         tasks: 'stylus'
       js:
         files: ['client/app/**/*.coffee', 'shared/**/*.coffee']
-        tasks: ['coffee', 'uglify:coffee']
+        tasks: 'coffee'
       vendor:
         files: ['client/vendor/js/**/*.js']
-        tasks: ['concat', 'uglify:vendor']
+        tasks: 'concat'
       vendor_css:
         files: ['client/vendor/css/**/*.css']
         tasks: 'cssmin'
       json:
         files: ['**/*.json','!**/node_modules/**']
-        tasks: ['compile:json', 'uglify:json']
+        tasks: 'compile:json'
     nodemon:
       development:
         options:
@@ -172,7 +172,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask('heroku:production', 'compile')
   grunt.registerTask('heroku:development', 'compile')
-  grunt.registerTask('default', ['compile', 'concurrent:server'])
+  grunt.registerTask('default', ['concurrent:compile', 'concurrent:server'])
 
   grunt.registerTask('scrape:pokemon', 'exec:scrape')
 
