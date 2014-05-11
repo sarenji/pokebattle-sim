@@ -98,7 +98,8 @@ MAX_RANK_DISPLAYED = 100
       return  if message.trim().length == 0
       return  if message.length > MAX_MESSAGE_LENGTH
       if message[0] == '/'
-        [ wholeMatch, command, args ] = message.match(/^(\S+)\s+(.*)$/)
+        command = message.replace(/\s+.*$/, '')
+        args = message.substr(command.length).replace(/^\s+/, '')
         command = command.substr(1)
         args = args.split(',')
         commands.executeCommand(server, user, lobby, command, args...)
