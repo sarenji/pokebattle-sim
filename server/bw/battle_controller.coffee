@@ -1,4 +1,5 @@
 conditions = require '../conditions'
+{_} = require 'underscore'
 
 # Abstracts out sending messages from player to battle.
 # Makes the Battle smoothly go into the next turn
