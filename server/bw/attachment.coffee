@@ -1305,7 +1305,11 @@ class @Attachment.Unburden extends @VolatileAttachment
   name: "UnburdenAttachment"
 
   editSpeed: (speed) ->
-    2 * speed
+    if @pokemon.hasAbility("Unburden") && !@pokemon.hasItem()
+      2 * speed
+    else
+      @pokemon.unattach(@constructor)
+      speed
 
 # Cancels the opponent's ability for one turn
 class @Attachment.AbilityCancel extends @VolatileAttachment
