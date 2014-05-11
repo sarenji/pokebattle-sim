@@ -2502,6 +2502,48 @@ describe "BW Abilities:", ->
       @p1.removeItem()
       @p1.stat('speed').should.equal(2 * speed)
 
+    it "activates when its item is swapped for no item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Unburden")]
+      speed = @p1.stat('speed')
+      trick = @battle.getMove("Trick")
+      @battle.performMove(@p2, trick)
+      @p1.stat('speed').should.equal(2 * speed)
+
+    it "does not activate when its item is swapped for another item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Unburden")]
+        team2: [Factory("Magikarp", item: "Water Gem")]
+      speed = @p1.stat('speed')
+      trick = @battle.getMove("Trick")
+      @battle.performMove(@p2, trick)
+      @p1.stat('speed').should.equal(speed)
+      @p1.has(Attachment.Unburden).should.be.false
+
+    it "deactivates if it gains another item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Unburden")]
+        team2: [Factory("Magikarp", item: "Water Gem")]
+      speed = @p1.stat('speed')
+      @p1.removeItem()
+      @p1.stat('speed').should.equal(2 * speed)
+      trick = @battle.getMove("Trick")
+      @battle.performMove(@p2, trick)
+      @p1.stat('speed').should.equal(speed)
+      @p1.has(Attachment.Unburden).should.be.false
+
+    it "deactivates if it loses this Ability", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Flying Gem", ability: "Unburden")]
+        team2: [Factory("Magikarp", ability: "Run Away")]
+      speed = @p1.stat('speed')
+      @p1.removeItem()
+      @p1.stat('speed').should.equal(2 * speed)
+      rolePlay = @battle.getMove("Role Play")
+      @battle.performMove(@p1, rolePlay)
+      @p1.stat('speed').should.equal(speed)
+      @p1.has(Attachment.Unburden).should.be.false
+
   describe "Unnerve", ->
     it "prevents held berries from being eaten", ->
       shared.create.call this,
