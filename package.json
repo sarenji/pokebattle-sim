@@ -35,7 +35,6 @@
     "elo-rank": "~0.2.2",
     "node-schedule": "~0.1.13",
     "grunt-cli": "~0.1.13",
-    "heapdump": "~0.2.7",
     "grunt-contrib-uglify": "~0.4.0"
   },
   "devDependencies": {
