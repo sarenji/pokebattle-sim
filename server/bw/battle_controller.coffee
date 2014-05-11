@@ -78,7 +78,7 @@ class @BattleController
   messageSpectators: (user, message) ->
     # Find the user in the battle just in case its masked
     # If it doesn't exist, this means its an outside user
-    userInBattle = @battle.spectators.find((s) -> s.id == user.id)
+    userInBattle = _(@battle.spectators).find((s) -> s.id == user.id)
     user = userInBattle  if userInBattle
 
     for spectator in @battle.spectators
