@@ -19,7 +19,7 @@ config = require('./config')
 alts = require('./alts')
 
 MAX_MESSAGE_LENGTH = 250
-MAX_RANK_DISPLAYED = 50
+MAX_RANK_DISPLAYED = 100
 
 @createServer = (port) ->
   app = express()
