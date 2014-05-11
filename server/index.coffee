@@ -302,8 +302,9 @@ MAX_RANK_DISPLAYED = 100
         battle = server.findBattle(id)
         playerIds = battle.getPlayerIds()
         ratingKeys = playerIds.map((id) -> battle.getPlayer(id).ratingKey)
-        ratings.getRanks ratingKeys, (err, ranks) ->
-          ranks = _.compact(ranks)
+        ratings.getRanks ratingKeys, (err, fullRanks) ->
+          ranks = _.compact(fullRanks)
+          return  unless ranks.length == fullRanks.length
           if 1 <= Math.max(ranks...) <= MAX_RANK_DISPLAYED
             playerNames = battle.getPlayerNames()
             playerNames = playerNames.map((p, i) -> "#{p} (Rank ##{ranks[i]})")
