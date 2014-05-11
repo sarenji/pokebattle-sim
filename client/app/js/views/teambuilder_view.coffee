@@ -120,8 +120,6 @@ class @TeambuilderView extends Backbone.View
     @$(".select-team[data-cid=#{team.cid}]").attr('data-id', team.id)
 
   exportTeam: (e) =>
-    if $('#export-team-modal').length == 0
-      $('body').append(@exportTemplate())
     $team = $(e.currentTarget).closest('.select-team')
     id = $team.data('id')
     if not @getTeam(id).hasNonNullPokemon()
@@ -131,6 +129,8 @@ class @TeambuilderView extends Backbone.View
     teamJSON = @getTeam(id).toNonNullJSON()
     teamString = PokeBattle.exportTeam(teamJSON.pokemon)
 
+    if $('#export-team-modal').length == 0
+      $('body').append(@exportTemplate())
     $modal = $('#export-team-modal')
     $modal.find('.exported-team').val(teamString)
     $modal.modal('show')
