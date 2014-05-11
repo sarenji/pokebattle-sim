@@ -8,6 +8,10 @@ class @BattleController
     conditions.attach(this)
     @battle.emit('initialize')
 
+  # Returns the player associated with an id
+  getPlayer: (playerId) ->
+    @battle.getPlayer(playerId)
+
   # Returns all the player ids participating in this battle.
   getPlayerIds: ->
     @battle.playerIds
