@@ -12,6 +12,7 @@ MAX_ALT_LENGTH = 15
 
   altName = altName.trim()
   return false  if altName.length == 0 || altName.length > MAX_ALT_LENGTH
+  return false  if altName.match(/\ \ /)
   return false  if not altName.match(/^[-_ a-zA-Z0-9]+$/)
   return true
 

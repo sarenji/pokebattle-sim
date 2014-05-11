@@ -12,6 +12,7 @@ describe "Alts", ->
       alts.isAltNameValid().should.be.false
       alts.isAltNameValid("").should.be.false
       alts.isAltNameValid("itsme:").should.be.false
+      alts.isAltNameValid("Blue  Kirby").should.be.false
       alts.isAltNameValid(("a"  for x in [0...16]).join('')).should.be.false
 
   describe '#createAlt', ->
