@@ -618,8 +618,7 @@ class @Pokemon
       "forme"     : @forme
       "shiny"     : @shiny == true
     return base  if options.hidden
-    base = Object.merge base, @movesetJSON()
-    base = Object.merge base,
+    _.extend base, @movesetJSON(),
       "hp"        : @currentHP
       "maxHP"     : @stat('hp')
       "ivs"       :

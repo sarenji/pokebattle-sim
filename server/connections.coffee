@@ -1,6 +1,6 @@
+{_} = require 'underscore'
 sockjs = require 'sockjs'
 {User} = require './user'
-require 'sugar'
 
 # A wrapper for sockjs which manages multiple connections with a higher level of abstraction.
 # Todo: Don't use array parameters and use object parameters instead
@@ -37,7 +37,10 @@ class @ConnectionServer
 
       socket.on 'close', =>
         if intervalId then clearTimeout(intervalId)
-        @users.remove((u) -> u == user)
+        for i in [0...@users.length] by 1
+          if @users[i] == user
+            @users.splice(i, 1)
+            i -= 1
         for callback in @callbacks['close']
           callback.call(user, user)
         delete user.connections

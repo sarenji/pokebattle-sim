@@ -1,6 +1,5 @@
 ratings = require('./ratings')
 alts = require('./alts')
-require 'sugar'
 
 # A queue of users waiting for a battle
 class @BattleQueue

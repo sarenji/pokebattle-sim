@@ -1,5 +1,4 @@
 require './helpers'
-require 'sugar'
 
 should = require 'should'
 {PokeBattle} = require '../client/app/js/concerns/team_parsing'

@@ -10,8 +10,6 @@
 Query = require './queries'
 {EventEmitter} = require 'events'
 
-require 'sugar'
-
 # Represents a single ongoing battle
 class @Battle extends EventEmitter
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
@@ -154,7 +152,7 @@ class @Battle extends EventEmitter
     return (if index == -1 then null else index)
 
   getPlayer: (playerId) ->
-    @players.find((p) -> p.id == playerId)
+    _(@players).find((p) -> p.id == playerId)
 
   getTeam: (playerId) ->
     @teams[playerId]
@@ -462,7 +460,7 @@ class @Battle extends EventEmitter
     return winner
 
   isOver: ->
-    @finished || @playerIds.any((id) => @getTeam(id).getAlivePokemon().length == 0)
+    @finished || _(@playerIds).any((id) => @getTeam(id).getAlivePokemon().length == 0)
 
   hasStarted: ->
     @turn >= 1
@@ -809,10 +807,10 @@ class @Battle extends EventEmitter
   addSpectator: (spectator) ->
     return  if spectator in @spectators
     # If this is a player, mask the spectator in case this is an alt
-    player = @players.find((p) -> p.id == spectator.id)
+    player = _(@players).find((p) -> p.id == spectator.id)
     spectator = spectator.maskName(player.name)  if player
 
-    if !@spectators.some((s) -> s.id == spectator.id)
+    if !_(@spectators).some((s) -> s.id == spectator.id)
       @broadcast('joinBattle', @id, spectator)
 
     @spectators.push(spectator)

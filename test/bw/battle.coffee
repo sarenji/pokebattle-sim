@@ -12,6 +12,7 @@ require '../helpers'
 shared = require('../shared')
 should = require 'should'
 sinon = require 'sinon'
+{_} = require 'underscore'
 
 describe 'Battle', ->
   beforeEach ->
@@ -40,7 +41,7 @@ describe 'Battle', ->
   describe '#recordMove', ->
     it "records a player's move", ->
       @battle.recordMove(@id1, @battle.getMove('Tackle'))
-      action = @battle.pokemonActions.find((a) => a.pokemon == @p1)
+      action = _(@battle.pokemonActions).find((a) => a.pokemon == @p1)
       should.exist(action)
       action.should.have.property("move")
       action.move.should.equal @battle.getMove('Tackle')
@@ -77,7 +78,7 @@ describe 'Battle', ->
   describe '#recordSwitch', ->
     it "records a player's switch", ->
       @battle.recordSwitch(@id1, 1)
-      action = @battle.pokemonActions.find((a) => a.pokemon == @p1)
+      action = _(@battle.pokemonActions).find((a) => a.pokemon == @p1)
       should.exist(action)
       action.should.have.property("to")
       action.to.should.equal 1

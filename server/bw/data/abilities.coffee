@@ -1,7 +1,7 @@
+{_} = require 'underscore'
 {Attachment, Status, VolatileAttachment} = require '../attachment'
 {Weather} = require '../../../shared/weather'
 util = require '../util'
-require 'sugar'
 
 @Ability = Ability = {}
 
@@ -273,7 +273,7 @@ makeAbility "Anger Point", ->
 makeAbility "Anticipation", ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    moves = (opponent.moves  for opponent in opponents).flatten()
+    moves = _(opponent.moves  for opponent in opponents).flatten()
     for move in moves
       effectiveness = util.typeEffectiveness(move.type, @pokemon.types) > 1
       if effectiveness || move.hasFlag("ohko")
@@ -446,11 +446,11 @@ makeAbility 'Forewarn', ->
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
     return  if opponents.length == 0
-    moves = (opponent.moves  for opponent in opponents).flatten()
+    moves = _(opponent.moves  for opponent in opponents).flatten()
     maxPower = Math.max(moves.map((m) -> consider(m))...)
     possibles = moves.filter((m) -> consider(m) == maxPower)
     finalMove = @battle.rng.choice(possibles, "forewarn")
-    pokemon = opponents.find((p) -> finalMove in p.moves)
+    pokemon = _(opponents).find((p) -> finalMove in p.moves)
     @pokemon.activateAbility()
     @battle.message "It was alerted to #{pokemon.name}'s #{finalMove.name}!"
 
@@ -934,7 +934,7 @@ makeAbility 'Trace', ->
 
   this::switchIn = ->
     opponents = @battle.getOpponents(@pokemon)
-    abilities = (opponent.ability  for opponent in opponents).compact()
+    abilities = _(opponent.ability  for opponent in opponents).compact()
     abilities = abilities.filter((a) -> a.displayName not of bannedAbilities)
     return  if abilities.length == 0
     ability = @battle.rng.choice(abilities, "trace")

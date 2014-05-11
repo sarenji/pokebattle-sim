@@ -326,7 +326,7 @@ class @BattleServer
 
     err = team.map (pokemon, i) =>
       @validatePokemon(conditions, pokemon, i + 1, generation)
-    return err.flatten()
+    return _.flatten(err)
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
   # otherwise.
@@ -373,11 +373,11 @@ class @BattleServer
       err.push("#{prefix}: Invalid evs.")
     if (typeof pokemon.ivs != "object")
       err.push("#{prefix}: Invalid ivs.")
-    if !Object.values(pokemon.evs).all((ev) -> 0 <= ev <= 255)
+    if !_.chain(pokemon.evs).values().all((ev) -> 0 <= ev <= 255).value()
       err.push("#{prefix}: EVs must be between 0 and 255.")
-    if !Object.values(pokemon.ivs).all((iv) -> 0 <= iv <= 31)
+    if !_.chain(pokemon.ivs).values().all((iv) -> 0 <= iv <= 31).value()
       err.push("#{prefix}: IVs must be between 0 and 31.")
-    if Object.values(pokemon.evs).reduce(((x, y) -> x + y), 0) > 510
+    if _.values(pokemon.evs).reduce(((x, y) -> x + y), 0) > 510
       err.push("#{prefix}: EV total must be less than 510.")
     if pokemon.ability not in forme["abilities"] &&
        pokemon.ability != forme["hiddenAbility"]

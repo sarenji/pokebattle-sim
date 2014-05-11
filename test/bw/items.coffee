@@ -158,7 +158,7 @@ describe "BW Items:", ->
       it "boosts the special attack of the target by 1 if hit by a #{type} move", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        move = @battle.MoveList.find (m) ->
+        move = _(@battle.MoveList).find (m) ->
             m.type == type && !m.isNonDamaging()
         @battle.performMove(@p1, move)
         @p2.stages[stat].should.equal 1
@@ -166,7 +166,7 @@ describe "BW Items:", ->
       it "is one-time use", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        move = @battle.MoveList.find (m) ->
+        move = _(@battle.MoveList).find (m) ->
             m.type == type && !m.isNonDamaging()
         @battle.performMove(@p1, move)
         should.not.exist @p2.item
@@ -174,7 +174,7 @@ describe "BW Items:", ->
       it "doesn't boost target's special attack if not hit by a #{type} move", ->
         shared.create.call this,
           team2: [Factory("Ferrothorn", item: itemName)]
-        move = @battle.MoveList.find (m) ->
+        move = _(@battle.MoveList).find (m) ->
             m.type != type && !m.isNonDamaging()
         @battle.performMove(@p1, move)
         @p2.stages[stat].should.equal 0

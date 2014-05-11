@@ -2,7 +2,6 @@ http = require 'http'
 express = require 'express'
 path = require 'path'
 {_} = require 'underscore'
-require 'sugar'
 
 {BattleServer} = require './server'
 {ConnectionServer} = require './connections'

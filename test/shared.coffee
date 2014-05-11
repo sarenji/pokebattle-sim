@@ -1,7 +1,5 @@
 {Factory} = require './factory'
 
-require 'sugar'
-
 shouldDoNoDamage = (moveName, battleOptions) ->
   it 'does no damage', ->
     create.call(this, battleOptions)
