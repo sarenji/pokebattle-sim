@@ -179,12 +179,7 @@ MAX_RANK_DISPLAYED = 100
     'acceptChallenge': (user, challengerId, team, altName) ->
       alts.isAltOwnedBy user.id, altName, (err, valid) ->
         return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
-        
-        battleId = server.acceptChallenge(user, challengerId, team, altName)
-        if battleId
-          playerNames = server.findBattle(battleId).getPlayerNames()
-          lobby.message("""Challenge: <span class="fake_link spectate"
-          data-battle-id="#{battleId}">#{playerNames[0]} vs. #{playerNames[1]}</span>!""")
+        server.acceptChallenge(user, challengerId, team, altName)
 
     'rejectChallenge': (user, challengerId, team) ->
       server.rejectChallenge(user, challengerId)
