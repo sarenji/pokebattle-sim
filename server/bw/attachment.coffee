@@ -1291,7 +1291,7 @@ class @Attachment.BatonPass extends @TeamAttachment
       attachment.battle = pokemon.battle
       attachment.attached = true
       pokemon.attachments.attachments.push(attachment)
-    pokemon.boost(@stages)
+    pokemon.setBoosts(@stages)
     @team.unattach(@constructor)
 
 class @Attachment.FlashFire extends @VolatileAttachment
