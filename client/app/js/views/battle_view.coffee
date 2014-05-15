@@ -1106,6 +1106,13 @@ class @BattleView extends Backbone.View
       html = $p.html()
       $p.html("#{html} #{message}")
     $p.slideDown(200)
+    # Remove the summaries over time if we can see the full log.
+    return  unless @chatView.$el.is(':visible')
+    removeP = ->
+      $p.slideUp 200, ->
+        $p.remove()
+        $summary.hide()  if $summary.is(':empty')
+    setTimeout(removeP, 4000)
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
