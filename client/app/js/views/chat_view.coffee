@@ -57,9 +57,9 @@ class @ChatView extends Backbone.View
     $this = @$('.chat_input')
     message = $this.val()
     return  unless message?.replace(/\s+$/).length > 0
-    args = _.clone(@chatArgs)
-    args.push(message)
     if !PokeBattle.commands.execute(message)
+      args = _.clone(@chatArgs)
+      args.push(message)
       PokeBattle.socket.send(@chatEvent, args...)
     @chatHistory.push(message)
     delete @chatHistoryIndex
@@ -130,11 +130,15 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
-    username = @collection.get(username)?.getDisplayName() || username
+    user = @collection.get(username)
+    username = user?.getDisplayName() || username
     yourName = PokeBattle.username
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
     username = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
     @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}", {highlight})
+
+    # We might want to run something based on the message, e.g. !pbv from a mod.
+    @handleMessage(user, message)
 
     # Record last few usernames who chatted
     @mostRecentNames.push(username)  if username not in @mostRecentNames
@@ -153,6 +157,12 @@ class @ChatView extends Backbone.View
     s = (hash % 25) + 75
     l = 50
     "hsl(#{h}, #{s}%, #{l}%)"
+
+  handleMessage: (user, message) =>
+    authority = user?.get('authority')
+    # TODO: no magic constants. '1' is a regular user.
+    if authority > 1 && message.split(/\s/, 1)[0] in ['!pbv', '!data']
+      PokeBattle.commands.execute(message.replace(/^\!/, '/'))
 
   userJoin: (user) =>
     @updateChat("#{@timestamp()} #{user.id} joined!")
