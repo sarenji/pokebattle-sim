@@ -1,0 +1,23 @@
+p
+  strong Base Power:
+  if move.power == 0
+    |  &mdash;
+  else
+    |  #{move.power}
+p
+  strong Accuracy:
+  if move.accuracy == 0
+    |  &mdash;
+  else
+    |  #{move.accuracy}%
+
+if move.priority != 0
+  p
+    strong Priority:
+    if move.priority > 0
+      |  +#{move.priority}
+    else
+      |  #{move.priority}
+p
+  strong Description:
+  |  #{move.description}

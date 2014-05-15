@@ -95,17 +95,27 @@ class @BattleView extends Backbone.View
       if !pokemon.canMegaEvolve()
         $button.addClass('disabled')
 
+    $actions.find('.move.button').each (i, el) =>
+      $this = $(el)
+      moveName = $this.data('move-id')
+      gen = @model.get('generation').toUpperCase()
+      moveData = window.Generations[gen]?.MoveData[moveName]
+      @movePopover($this, moveName, moveData)
+
     $actions.find('.switch.button').each (i, el) =>
       $this = $(el)
       slot = $this.data('slot')
       pokemon = @model.getPokemon(@model.index, slot)
-      @popover($this, pokemon)
+      @pokemonPopover($this, pokemon)
     this
 
   renderWaiting: =>
-    @$('.battle_actions').html """
-    <div class="well well-battle-actions">Waiting for opponent... <a class="cancel">Cancel</a></div>
-    """
+    $actions = @$('.battle_actions')
+    $actions.find('.move.button').popover('destroy')
+    $actions.html """<div class="well well-battle-actions">
+      Waiting for opponent...
+      <a class="cancel">Cancel</a>
+    </div>"""
 
   renderUserInfo: =>
     return  if !@model.teams
@@ -123,23 +133,41 @@ class @BattleView extends Backbone.View
       team = $this.data('team')
       slot = $this.data('slot')
       pokemon = @model.getPokemon(team, slot)
-      @popover($this, pokemon)
+      @pokemonPopover($this, pokemon)
     @renderTimers()
     this
 
-  popover: ($this, pokemon) =>
+  movePopover: ($this, moveName, move) =>
+    {type, damage} = move
+    damageFriendly = move.damage[0].toUpperCase() + move.damage.substr(1)
+    displayName = []
+    displayName.push(moveName)
+    displayName.push("""<img src="#{TypeSprite(type)}" alt="#{type}"/>
+      <img src="#{CategorySprite(move.damage)}" alt="#{damageFriendly}"/>""")
+    options =
+      title: displayName.join('<br>')
+      html: true
+      content: JST['move_hover_info']({window, move})
+      trigger: 'hover'
+      animation: false
+      placement: 'top'
+      container: 'body'
+    $this.popover(options)
+
+  pokemonPopover: ($this, pokemon) =>
     displayName = pokemon.get('name')
     displayName += " @ #{pokemon.get('item')}"  if pokemon.has('item')
     displayName += "<br>"
     for type in pokemon.getForme().types
       displayName += """<img src="#{TypeSprite(type)}" alt="#{type}"/>"""
-    $this.popover
+    options =
       title: displayName
       html: true
       content: JST['battle_hover_info']({window, pokemon})
       trigger: 'hover'
       animation: false
-      container: "body"
+      container: 'body'
+    $this.popover(options)
 
   renderTeamPreview: =>
     locals =
@@ -240,7 +268,7 @@ class @BattleView extends Backbone.View
     $oldPokemon.attr('data-slot', fromSlot)
     $newPokemon.attr('data-slot', slot)
     $newPokemon.removeClass('hidden')
-    @popover($newSprite, pokemon)
+    @pokemonPopover($newSprite, pokemon)
 
     if @skip?
       $oldPokemon.css(opacity: 0)
@@ -1043,7 +1071,7 @@ class @BattleView extends Backbone.View
         pokemon = @model.getPokemon(player, slot)
         $sprite = @$sprite(player, slot)
         $sprite.popover('destroy')
-        @popover($sprite, pokemon)
+        @pokemonPopover($sprite, pokemon)
 
   enableButtons: (validActions) =>
     @lastValidActions = validActions || @lastValidActions
