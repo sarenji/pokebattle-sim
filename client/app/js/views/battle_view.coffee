@@ -429,6 +429,11 @@ class @BattleView extends Backbone.View
       when 'MOVE_MISS', 'JUMP_KICK_MISS', 'MOVE_FAIL', 'IMMUNITY'
         @addSummary(cannedText)
         setTimeout(done, 500)
+      when 'PARALYZE_CONTINUE', 'FREEZE_CONTINUE', 'SLEEP_CONTINUE',\
+            'SUN_END', 'RAIN_END', 'SAND_END', 'HAIL_END',\
+            'SAND_CONTINUE', 'HAIL_CONTINUE'
+        @addSummary(cannedText, newline: true)
+        done()
       else
         @addSummary(cannedText)
         done()
