@@ -429,11 +429,8 @@ class @BattleView extends Backbone.View
       when 'MOVE_MISS', 'JUMP_KICK_MISS', 'MOVE_FAIL', 'IMMUNITY'
         @addSummary(cannedText)
         setTimeout(done, 500)
-      when 'GOT_HIT', 'CRITICAL_HIT', 'SUPER_EFFECTIVE', 'NOT_VERY_EFFECTIVE'
-        @addSummary(cannedText)
-        done()
       else
-        @addSummary(cannedText, newline: true)
+        @addSummary(cannedText)
         done()
 
   getCannedText: (cannedTextName, args) =>
