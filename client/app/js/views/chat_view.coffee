@@ -134,14 +134,18 @@ class @ChatView extends Backbone.View
     username = user?.getDisplayName() || username
     yourName = PokeBattle.username
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
-    username = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
-    @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}", {highlight})
+
+    # Render the chat message
+    u = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
+    @updateChat("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
 
     # We might want to run something based on the message, e.g. !pbv from a mod.
     @handleMessage(user, message)
 
     # Record last few usernames who chatted
-    @mostRecentNames.push(username)  if username not in @mostRecentNames
+    index = @mostRecentNames.indexOf(username)
+    @mostRecentNames.splice(index, 1)  if index != -1
+    @mostRecentNames.push(username)
     @mostRecentNames.shift()  if @mostRecentNames.length > MAX_USERNAME_HISTORY
 
   userColor: (username) =>
