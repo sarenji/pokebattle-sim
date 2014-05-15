@@ -131,7 +131,8 @@ class @ChatView extends Backbone.View
 
   userMessage: (username, message) =>
     username = @collection.get(username)?.getDisplayName() || username
-    highlight = (message.toLowerCase().indexOf(PokeBattle.username.toLowerCase())) != -1
+    yourName = PokeBattle.username
+    highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
     username = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
     @updateChat("#{@timestamp()} #{username} #{@sanitize(message)}", {highlight})
 
