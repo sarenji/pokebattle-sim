@@ -17,7 +17,9 @@ PokeBattle.socket.addEvents
     for remoteTeam in remoteTeams when remoteTeam.id in ids
       remoteJSON = remoteTeam.toJSON()
       localTeam = PokeBattle.TeamStore.get(remoteTeam.id)
-      localJSON = new Team(localTeam.previousAttributes()).toJSON()
+      unsavedTeam = localTeam.clone()
+      unsavedTeam.set(localTeam.previousAttributes(), silent: true)
+      localJSON = unsavedTeam.toJSON()
       if !_.isEqual(remoteJSON, localJSON)
         # Whoa! Versions are different! Let's ask the user what to do.
         teamText = PokeBattle.exportTeam(remoteJSON.pokemon)
