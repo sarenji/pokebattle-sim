@@ -926,6 +926,16 @@ describe "BW Items:", ->
       @p1.hasItem().should.be.true
       @p2.should.equal target
 
+    it "activates and is used up even if the forced switch is prevented", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Red Card")]
+        team2: [Factory("Magikarp", ability: "Suction Cups"), Factory("Abra")]
+
+      target = @p2
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p1.hasItem().should.be.false
+      @p2.should.equal target
+
   describe "Shell Bell", ->
     it "restores 1/8 of damage dealt to target", ->
       shared.create.call(this, team1: [Factory("Magikarp", item: "Shell Bell")])

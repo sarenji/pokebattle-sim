@@ -475,10 +475,11 @@ makeItem 'Red Card', ->
     benched  = user.team.getAliveBenchedPokemon()
     return  if benched.length == 0
     @battle.message "#{@pokemon.name} held up its Red Card against #{user.name}!"
+    @pokemon.useItem()
+    return  if user.shouldPhase(@battle, @pokemon) == false
     pokemon = @battle.rng.choice(benched)
     index = user.team.indexOf(pokemon)
     user.team.switch(user, index)
-    @pokemon.useItem()
 
 makeTypeResistBerry 'Rindo Berry', 'Grass'
 makeGemItem 'Rock Gem', 'Rock'
