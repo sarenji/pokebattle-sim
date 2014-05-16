@@ -51,6 +51,8 @@ module.exports = (grunt) ->
           'public/js/app.js': [
             "client/app/js/init.coffee"
             "shared/**/*.coffee"
+            "client/app/js/models/pokemon.coffee"
+            "client/app/js/models/team.coffee"
             "client/app/js/models/**/*.coffee"
             "client/app/js/collections/**/*.coffee"
             "client/app/js/views/**/*.coffee"

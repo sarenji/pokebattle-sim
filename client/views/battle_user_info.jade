@@ -1,16 +1,17 @@
 each team in [ yourTeam, opponentTeam ]
   - var leftOrRight = (team === yourTeam ? 'left' : 'right')
+  - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
   div(class = leftOrRight)
-    .owner_name= team.owner
+    .owner_name= team.get('owner')
     .battle-timer
     .pokemon_icons
-      - for (var i = 0, len = team.length; i < len; i += 1)
-        - var pokemon = team.at(i)
+      - var teamPokemon = team.get('pokemon')
+      - for (var i = 0, len = teamPokemon.length; i < len; i += 1)
+        - var pokemon = teamPokemon.at(i)
         if pokemon
           .icon_wrapper
             - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
             - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
-            - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
             a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)
             if !pokemon.isFainted()
               .pokemon_hp_background

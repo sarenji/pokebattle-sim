@@ -174,11 +174,11 @@
   teamUpdated = ->
     # If this challenge panel no longer exists, remove the callback
     if not isAttachedToDom()
-      PokeBattle.TeamStore.off 'add remove change reset', teamUpdated
+      PokeBattle.TeamStore.off 'add remove reset saved', teamUpdated
       return
 
     # Rerender the current team
     renderCurrentTeam($wrapper)
 
   # Start listening for team updated events
-  PokeBattle.TeamStore.on 'add remove change reset', teamUpdated
+  PokeBattle.TeamStore.on 'add remove reset saved', teamUpdated

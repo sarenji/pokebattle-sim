@@ -6,6 +6,6 @@
       = team.getPBV()
   | /1000
 .team_icons.clearfix
-  each pokemon, i in team.models
+  each pokemon, i in team.get('pokemon').models
     - var style = window.PokemonIconBackground(pokemon)
     .left.pokemon_icon(data-index = i, style = style)

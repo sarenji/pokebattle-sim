@@ -118,7 +118,6 @@ class @BattleView extends Backbone.View
     </div>"""
 
   renderUserInfo: =>
-    return  if !@model.teams
     locals =
       yourTeam     : @model.getTeam()
       opponentTeam : @model.getOpponentTeam()
@@ -171,10 +170,7 @@ class @BattleView extends Backbone.View
 
   renderTeamPreview: =>
     locals =
-      teams        : @model.teams
-      numActive    : @model.numActive
-      yourIndex    : @model.index
-      isSpectating : @model.get('spectating')
+      battle       : @model
       window       : window
     @$('.battle_container').append @team_preview_template(locals)
 
@@ -335,7 +331,7 @@ class @BattleView extends Backbone.View
     $pokeball.remove()
 
   logMove: (player, slot, moveName, done) =>
-    {owner} = @model.getTeam(player)
+    owner = @model.getTeam(player).get('owner')
     pokemon = @model.getPokemon(player, slot)
     @addMoveMessage(owner, pokemon, moveName)
     @lastMove = moveName
@@ -457,7 +453,7 @@ class @BattleView extends Backbone.View
           pokemon.get('name')
         when 't'
           [player] = args.splice(0, 1)
-          @model.getTeam(player).owner
+          @model.getTeam(player).get('owner')
         when 'ts'
           [player] = args.splice(0, 1)
           text = if @isFront(player)
@@ -971,17 +967,17 @@ class @BattleView extends Backbone.View
     delete @timerFrozenAt[index]
 
   announceWinner: (player, done) =>
-    {owner} = @model.getTeam(player)
+    owner = @model.getTeam(player).get('owner')
     message = "#{owner} won!"
     @announceWin(message, done)
 
   announceForfeit: (player, done) =>
-    {owner} = @model.getTeam(player)
+    owner = @model.getTeam(player).get('owner')
     message = "#{owner} has forfeited!"
     @announceWin(message, done)
 
   announceTimer: (player, done) =>
-    {owner} = @model.getTeam(player)
+    owner = @model.getTeam(player).get('owner')
     message = "#{owner} was given the timer win!"
     @announceWin(message, done)
 
@@ -1013,7 +1009,7 @@ class @BattleView extends Backbone.View
       log.push $this.text()
       log.push ""  if isHeader
     log = [ log.join('\n') ]
-    fileName = (team.owner  for team in @model.teams).join(" vs ")
+    fileName = (team.get('owner')  for team in @model.teams).join(" vs ")
     fileName += ".txt"
     blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
@@ -1173,8 +1169,8 @@ class @BattleView extends Backbone.View
   preloadImages: =>
     front = @isFront(@model.index)
     gen   = window.Generations[@model.get('generation').toUpperCase()]
-    teams = _.map @model.teams, (team) ->
-      for pokemon in team.models
+    teams = @model.get('teams').map (team) ->
+      team.get('pokemon').forEach (pokemon) ->
         name  = pokemon.get('name')
         forme = pokemon.get('forme')
         shiny = pokemon.get('shiny')

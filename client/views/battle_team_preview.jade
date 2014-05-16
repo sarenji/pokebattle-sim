@@ -2,7 +2,7 @@ mixin displayOtherTeam(team, text)
   section.battle_team_preview
     p= text
     ul.row-fluid.unstyled
-      - team.pokemon.each(function(pokemon) {
+      - team.get('pokemon').each(function(pokemon) {
         li.px_40
           +displayPokemon(pokemon)
       - })
@@ -11,14 +11,14 @@ mixin displayYourTeam(team, text)
   section.battle_team_preview
     p= text
     ul.row-fluid.unstyled
-      - for (var i = 0; i < numActive; i++)
+      - for (var i = 0; i < battle.numActive; i++)
         li.px_40.lead_text
-          if numActive > 1
+          if battle.numActive > 1
             | Lead #{i + 1}
           else
             | Lead
     ul.arrange_team.row-fluid.unstyled
-      - yourTeam.pokemon.each(function(pokemon, i) {
+      - yourTeam.get('pokemon').each(function(pokemon, i) {
         li.px_40.img-polaroid.arrange_pokemon
           +displayPokemon(pokemon, i)
       - })
@@ -37,10 +37,10 @@ mixin displayPokemon(pokemon, i)
     .level Lv.#{pokemon.get('level')}
 
 .battle_teams
-  - var theirTeam = teams[1 - yourIndex]
-  - var yourTeam = teams[yourIndex]
-  +displayOtherTeam(theirTeam, theirTeam.owner + "'s team:")
-  if !isSpectating
+  - var theirTeam = battle.getOpponentTeam()
+  - var yourTeam = battle.getTeam()
+  +displayOtherTeam(theirTeam, theirTeam.get('owner') + "'s team:")
+  if !battle.get('spectating')
     +displayYourTeam(yourTeam, "Click Pokemon to switch them around:")
   else
-    +displayOtherTeam(yourTeam, yourTeam.owner + "'s team:")
+    +displayOtherTeam(yourTeam, yourTeam.get('owner') + "'s team:")

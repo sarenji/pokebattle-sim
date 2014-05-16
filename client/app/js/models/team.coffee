@@ -1,33 +1,22 @@
 class PokemonCollection extends Backbone.Collection
-  initialize: (attrs, options) =>
-    @team = options.team
-
   model: (attrs, options) =>
     if attrs.name
-      attrs.teambuilder = @team.get('teambuilder')
+      attrs.teambuilder = @parents[0].get('teambuilder')
       return new Pokemon(attrs, options)
     else
       return new NullPokemon()
 
-class @Team extends Backbone.Model
+class @Team extends Backbone.AssociatedModel
+  relations: [
+    type: Backbone.Many
+    key:  'pokemon'
+    collectionType: PokemonCollection
+  ]
+
   initialize: (attrs={}, options={}) =>
     @owner = attrs.owner
     @set('generation', DEFAULT_GENERATION)  unless attrs.generation
     @set('teambuilder', true)  if options.teambuilder
-    @pokemon = new PokemonCollection(attrs.pokemon, team: this)
-    @models = @pokemon.models
-    @length = @pokemon.length
-
-    # update certain attributes when the pokemon collection is changed
-    @listenTo(@pokemon, 'change reset', => @models = @pokemon.models)
-    @listenTo(@pokemon, 'add remove reset', => @length = @pokemon.length)
-
-    # When any event fires for the sub collection, the change event is fired for the team.
-    # To listen to pokemon directly, listen to @pokemon
-    @listenTo(@pokemon, 'add remove change reset', => @trigger('change'))
-
-    # Do not store the raw json, but the actual nested models
-    @set('pokemon', @pokemon)
 
   getName: =>
     @get('name') || "Untitled team"
@@ -37,38 +26,37 @@ class @Team extends Backbone.Model
     json['id'] = @id  if @id
     json['name'] = @get('name')
     json['generation'] = @get('generation')
-    json['pokemon'] = @pokemon.toJSON()
+    json['pokemon'] = @get('pokemon').toJSON()
     json
 
   # Returns the pokemon at a particular index. Delegates to the internal pokemon collection
-  at: (idx) => @pokemon.at(idx)
+  at: (idx) => @get('pokemon').at(idx)
 
   # Returns which index the pokemon is in
-  indexOf: (idx) => @pokemon.indexOf(idx)
+  indexOf: (idx) => @get('pokemon').indexOf(idx)
 
   # Replace a pokemon at a particular index for another
   replace: (idx, newPokemon) =>
-    @pokemon.remove(@pokemon.at(idx))
-    @pokemon.add(newPokemon, at: idx)
+    @get('pokemon').remove(@get('pokemon').at(idx))
+    @get('pokemon').add(newPokemon, at: idx)
 
   # Equivalent to toJSON, but omits NullPokemon
   toNonNullJSON: =>
     id: @id
     name: @get('name')
     generation: @get('generation')
-    pokemon: _.chain(@models)
+    pokemon: @get('pokemon')
       .reject((pokemon) -> pokemon.isNull)
       .map((pokemon) -> pokemon.toJSON())
-      .value()
 
   clone: =>
     attrs = _(@attributes).clone()
-    attrs.pokemon = @pokemon.toJSON()
+    attrs.pokemon = @get('pokemon').toJSON()
     new Team(attrs)
 
   rearrange: (arrangement) ->
-    @models = (@models[index]  for index in arrangement)
-    @pokemon.models = @models
+    pokemon = @get('pokemon')
+    pokemon.reset((pokemon.models[index]  for index in arrangement))
     return true
 
   getGeneration: (generation) ->
@@ -78,14 +66,14 @@ class @Team extends Backbone.Model
 
   getPBV: =>
     gen = @getGeneration()
-    pokemonList = _(@models).pluck("attributes")
-    PokeBattle.PBV.determinePBV(gen, pokemonList)
+    pokemon = @get('pokemon').toJSON()
+    PokeBattle.PBV.determinePBV(gen, pokemon)
 
   getNonNullPokemon: =>
-    _(@models).where(isNull: false)
+    @get('pokemon').where(isNull: false)
 
   hasNonNullPokemon: =>
-    _(@models).some((model) -> not model.isNull)
+    @get('pokemon').some((pokemon) -> not pokemon.isNull)
 
   sync: (method) =>
     switch method

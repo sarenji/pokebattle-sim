@@ -1,6 +1,6 @@
 - for (var i = 0; i < 2; i++)
   - var pokemonClass = (i === yourIndex ? " bottom" : " top")
-  - var team = (i === yourIndex ? yourTeam : opponentTeam)
+  - var team = (i === yourIndex ? yourTeam : opponentTeam).get('pokemon')
   - for (var j = 0, len = team.length; j < len; j++)
     .pokemon.hidden(class = pokemonClass, data-team = i, data-slot = j)
       != window.JST['battle_pokemon']({pokemon: team.at(j)})

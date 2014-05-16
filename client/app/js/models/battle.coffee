@@ -1,27 +1,31 @@
-class @Battle extends Backbone.Model
+class Teams extends Backbone.Collection
+  model: Team
+
+class @Battle extends Backbone.AssociatedModel
+  relations: [
+    type: Backbone.Many
+    key:  'teams'
+    relatedModel: Team
+    collectionType: Teams
+  ]
+
   initialize: (attributes) =>
     {@socket, @numActive, @index, spectators} = attributes
     @spectators = new UserList(spectators || [])
     @set('notifications', 0)
     @set('turn', 0)
+    @set('teams', [{hidden: true}, {hidden: true}])
 
-  receiveTeams: (teams) =>
-    @teams ?= []
-    for team, i in teams
-      @teams[i] = @makeTeamFromJSON(team)
+  receiveTeams: (receivedTeams) =>
+    teams = @get('teams')
+    for receivedTeam, i in receivedTeams
+      receivedTeam.hidden = true
+      team = teams.at(i)
+      team.set(receivedTeam)  if team.get('hidden')
 
   receiveTeam: (team) =>
-    @teams ?= []
-    @teams[@index].pokemon.off('all', @_teamEvents)  if @teams[@index]
-    @teams[@index] = @makeTeamFromJSON(team)
-
-  makeTeamFromJSON: (json) =>
-    team = new Team(json)
-    team.pokemon.on('all', @_teamEvents)
-    team
-
-  _teamEvents: =>
-    @trigger.apply(this, arguments)
+    teams = @get('teams')
+    teams.at(@index).unset('hidden', silent: true).set(team)
 
   makeMove: (moveName, forSlot) =>
     pokemon = @getPokemon(@index, forSlot)
@@ -42,10 +46,10 @@ class @Battle extends Backbone.Model
     [you[fromIndex], you[toIndex]] = [you[toIndex], you[fromIndex]]
 
   getTeam: (playerIndex = @index) =>
-    @teams[playerIndex]
+    @get("teams").at(playerIndex)
 
   getOpponentTeam: (playerIndex = @index) =>
-    @teams[1 - playerIndex]
+    @get("teams").at(1 - playerIndex)
 
   getPokemon: (playerIndex, slot = 0) =>
     team = @getTeam(playerIndex)

@@ -47,10 +47,11 @@ mixin moveButton(forPokemon, i)
 
 .switches.span4
   h2 Pokemon
-  - for (var j = 0, len = yourTeam.length; j < len; j += 3)
+  - var teamPokemon = yourTeam.get('pokemon')
+  - for (var j = 0, len = teamPokemon.length; j < len; j += 3)
     .row-fluid
       - for (var i = j; i < j + 3; i++)
-        - var pokemon = yourTeam.at(i)
+        - var pokemon = teamPokemon.at(i)
         - var isEnabled = validSwitches.indexOf(i) !== -1
         - var disabledClass = (!isEnabled ? 'disabled' : '')
         if pokemon

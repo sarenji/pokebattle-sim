@@ -1,0 +1,14 @@
+.teams-differ-modal.modal.hide
+  .modal-header
+    button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+    h3 Our teams differ!
+  .modal-body
+    p
+      strong Your copy of this team differs from ours!
+    p
+      | Perhaps you edited this team on a different computer? Or disconnected
+      |  during a save? Either way, this is the team we have:
+    textarea.remote-team.textarea_modal= teamText
+  .modal-footer
+    button.button.button_blue(data-dismiss="modal", aria-hidden="true") Keep local changes
+    button.button.button_override Use remote version

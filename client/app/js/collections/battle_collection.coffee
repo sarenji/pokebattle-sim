@@ -79,7 +79,7 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Get Pokemon data, infer which Pokemon it is.
           # Currently, it cheats with `fromSlot`.
           [player, toSlot, fromSlot] = rest
-          team = battle.getTeam(player).models
+          team = battle.getTeam(player).get('pokemon').models
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
           view.switchIn(player, toSlot, fromSlot, done)
@@ -172,7 +172,7 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.REARRANGE_TEAMS
           arrangements = rest
-          for team, i in battle.teams
+          battle.get('teams').forEach (team, i) ->
             team.rearrange(arrangements[i])
           done()
         when Protocol.RECEIVE_TEAM

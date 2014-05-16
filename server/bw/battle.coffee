@@ -123,9 +123,6 @@ class @Battle extends EventEmitter
 
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
-    for playerId in @playerIds
-      @tellPlayer(playerId, Protocol.RECEIVE_TEAM, @getTeam(playerId).toJSON())
-
     if @listeners('beforeStart').length > 0
       @emit('beforeStart')
     else

@@ -35,6 +35,10 @@ class @TeambuilderView extends Backbone.View
     @listenTo(PokeBattle.TeamStore, 'remove', @deleteTeam)
     @listenTo(PokeBattle.TeamStore, 'change:id', @changeTeamId)
     @listenTo(PokeBattle.TeamStore, 'reset', @renderTeams)
+    @listenTo PokeBattle.TeamStore, 'render', (team) =>
+      return  if team.id != @getSelectedTeam().id
+      @renderTeams()
+      @setSelectedTeam(team)
 
     @pokemonEditView = new PokemonEditView(
       el: @$('.pokemon_edit')
@@ -57,27 +61,24 @@ class @TeambuilderView extends Backbone.View
   attachEventsToTeam: (team) =>
     return  if team.attachedTeambuildEvents
 
-    @listenTo(team.pokemon, 'add', @renderPokemon)
+    @listenTo(team, 'add:pokemon', @renderPokemon)
 
     # Todo: Make this perform better
-    @listenTo(team.pokemon, 'change:name change:forme', (pokemon) =>
+    @listenTo(team, 'change:pokemon[*].name change:pokemon[*].forme', (pokemon) =>
       @renderPokemonList()
       @renderPokemon(pokemon)
     )
 
-    @listenTo(team.pokemon, 'add remove', @renderPokemonList)
-    @listenTo(team.pokemon, 'reset', (=> @changeTeam(team)))
-    @listenTo(team.pokemon, 'change reset add remove', @dirty)
-    @listenTo(team.pokemon, 'change add remove', @renderPBV)
-    @listenTo(team.pokemon, 'reset', (=> @renderPBV()))
-
-    @listenTo(team, 'change', @dirty)
+    @listenTo(team, 'add:pokemon remove:pokemon', @renderPokemonList)
+    @listenTo(team, 'reset:pokemon', (=> @changeTeam(team)))
+    @listenTo(team, 'change nested-change reset:pokemon add:pokemon remove:pokemon', @dirty)
+    @listenTo(team, 'change:pokemon[*] reset:pokemon add:pokemon remove:pokemon', @renderPBV)
 
     # A temporary flag to attach until the teambuilder view is refactored
     team.attachedTeambuildEvents = true
 
   addEmptyPokemon: (team) =>
-    team.pokemon.add(new NullPokemon())
+    team.get('pokemon').add(new NullPokemon())
 
   addNewTeamEvent: (e) =>
     team = new Team()
@@ -147,8 +148,8 @@ class @TeambuilderView extends Backbone.View
   saveTeam: =>
     clone = @getSelectedTeam()
     team = PokeBattle.TeamStore.get(clone.id)
-    team.pokemon.reset(clone.pokemon.toJSON())
-    team.save(clone.attributes)
+    team.save(clone.toJSON(), silent: true)
+    team.trigger('saved', team)
     @resetHeaderButtons()
 
   changeTeamGeneration: (e) =>
@@ -202,7 +203,7 @@ class @TeambuilderView extends Backbone.View
       @$('.team_name').blur()
 
   goBackToOverview: =>
-    @showTeams()
+    @renderTeams()
 
   dirty: =>
     @$('.go_back').text('Discard changes')
@@ -218,12 +219,9 @@ class @TeambuilderView extends Backbone.View
 
   renderTeams: =>
     @$('.display_teams').html @teamsTemplate(teams: @getAllTeams(), window: window)
-    @showTeams()
-    this
-
-  showTeams: =>
     @$('.display_teams').removeClass('hidden')
     @$('.display_pokemon').addClass('hidden')
+    this
 
   renderTeam: =>
     team = @getSelectedTeam()
@@ -240,7 +238,7 @@ class @TeambuilderView extends Backbone.View
   renderPokemonList: =>
     team = @getSelectedTeam()
     $pokemon_list = @$(".pokemon_list").empty()
-    $pokemon_list.html @pokemonListTemplate(window: window, pokemonList: team.models)
+    $pokemon_list.html @pokemonListTemplate(window: window, pokemonList: team.get('pokemon').models)
     $pokemon_list.find("li[data-pokemon-index=#{@selectedPokemon}]").addClass("active")
 
     # NOTE: this isn't be used, and just amounts to hiding the button, however
