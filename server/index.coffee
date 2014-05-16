@@ -20,6 +20,12 @@ alts = require('./alts')
 MAX_MESSAGE_LENGTH = 250
 MAX_RANK_DISPLAYED = 100
 
+# A MD5 hash of all the JavaScript files used by the client. This is passed to
+# each new connection via the .jade template, and when the client connects. If
+# the two versions differ, the server had restarted at some point and now is
+# serving new client files.
+CLIENT_VERSION = assets.getVersion()
+
 @createServer = (port) ->
   app = express()
   httpServer = http.createServer(app)
@@ -41,7 +47,7 @@ MAX_RANK_DISPLAYED = 100
 
   # Routing
   renderHomepage = (req, res) ->
-    res.render 'index.jade', user: req.user
+    res.render('index.jade', user: req.user, CLIENT_VERSION: CLIENT_VERSION)
 
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
@@ -62,6 +68,9 @@ MAX_RANK_DISPLAYED = 100
   connections = new ConnectionServer(httpServer, lobby, prefix: '/socket')
 
   connections.addEvents
+    'connection': (user) ->
+      user.send('version', CLIENT_VERSION)
+
     'login': (user, id, token) ->
       auth.matchToken id, token, (err, json) ->
         if err then return user.error(errors.INVALID_SESSION)

@@ -7,8 +7,7 @@ PokeBattle.events.on "error", (type, args...) ->
         title: "Your login timed out!"
         body: """To access the simulator, you need to
           <a href="//pokebattle.com/accounts/login">login again</a>."""
-      $modal = $(JST['modals/errors'](options)).appendTo($('body'))
-      $modal.modal('show')
+      $modal = PokeBattle.modal('modals/errors', options)
       $modal.find('.modal-footer button').first().focus()
       PokeBattle.cancelReconnection()
 
@@ -25,8 +24,7 @@ PokeBattle.events.on "error", (type, args...) ->
       options =
         title: "You have been banned!"
         body: body
-      $modal = $(JST['modals/errors'](options)).appendTo($('body'))
-      $modal.modal('show')
+      $modal = PokeBattle.modal('modals/errors', options)
       $modal.find('.modal-footer button').first().focus()
       PokeBattle.cancelReconnection()
 

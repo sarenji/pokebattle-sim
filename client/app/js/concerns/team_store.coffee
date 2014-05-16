@@ -24,11 +24,7 @@ PokeBattle.socket.addEvents
         # Whoa! Versions are different! Let's ask the user what to do.
         teamText = PokeBattle.exportTeam(remoteJSON.pokemon)
         domId = "teams-differ-#{remoteTeam.id}"
-        $modal = $("##{domId}")
-        if $modal.length == 0
-          $modal = $(JST['modals/teams_differ']({teamText}))
-          $modal.prop('id', domId).appendTo($('body'))
-        $modal.modal('show')
+        $modal = PokeBattle.modal('modals/teams_differ', domId, {teamText})
         $modal.find('textarea').first().focus()
         do (localTeam, remoteJSON) ->
           # We want to override the current version with the one on the server.

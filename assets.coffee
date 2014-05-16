@@ -6,6 +6,8 @@ config = require('./server/config')
 
 cache = {}
 
+cachedVersion = null
+
 S3_ASSET_PREFIX = 'sim/'
 
 get = (src, options = {}) ->
@@ -21,4 +23,13 @@ getAbsolute = (src, options = {}) ->
   prefix = (if config.IS_LOCAL then "" else "//media.pokebattle.com")
   "#{prefix}/#{get(src, options)}"
 
-module.exports = {S3_ASSET_PREFIX, get, getAbsolute}
+# Returns a MD5 hash representing the version of the assets.
+getVersion = ->
+  return cachedVersion  if cachedVersion
+  hash = crypto.createHash('md5')
+  for path in fs.readdirSync('public/js')
+    hash = hash.update(fs.readFileSync("public/js/#{path}"))
+  cachedVersion = hash.digest('hex')
+  cachedVersion
+
+module.exports = {S3_ASSET_PREFIX, get, getAbsolute, getVersion}

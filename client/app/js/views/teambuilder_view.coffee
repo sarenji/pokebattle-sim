@@ -3,8 +3,6 @@ class @TeambuilderView extends Backbone.View
   teamTemplate: JST['teambuilder/team']
   teamsTemplate: JST['teambuilder/teams']
   pokemonListTemplate: JST['teambuilder/pokemon_list']
-  importTemplate: JST['modals/import_team']
-  exportTemplate: JST['modals/export_team']
 
   events:
     # Team view
@@ -130,11 +128,8 @@ class @TeambuilderView extends Backbone.View
     teamJSON = @getTeam(id).toNonNullJSON()
     teamString = PokeBattle.exportTeam(teamJSON.pokemon)
 
-    if $('#export-team-modal').length == 0
-      $('body').append(@exportTemplate())
-    $modal = $('#export-team-modal')
+    $modal = PokeBattle.modal('modals/export_team')
     $modal.find('.exported-team').val(teamString)
-    $modal.modal('show')
     $modal.find('textarea, input').first().focus().select()
     return false
 
@@ -268,10 +263,7 @@ class @TeambuilderView extends Backbone.View
     @$(".current-generation").text(text)
 
   renderImportTeamModal: =>
-    # Add the import team modal if it doesn't exist
-    if $('#import-team-modal').length == 0
-      $('body').append(@importTemplate())
-      $modal = $('#import-team-modal')
+    $modal = PokeBattle.modal 'modals/import_team', ($modal) =>
       $modal.on 'click', '.import-team-submit', (e) =>
         teamString = $modal.find('.imported-team').val()
         pokemonJSON = PokeBattle.parseTeam(teamString)
@@ -287,10 +279,7 @@ class @TeambuilderView extends Backbone.View
           $modal.find('.imported-team').val("")
           $modal.modal('hide')
         return false
-
-    $modal = $('#import-team-modal')
-    $modal.modal('show')
-    $modal.find('textarea, input').first().focus()
+    $modal.find('.imported-team').first().focus()
 
   validateImportedTeam: (json) =>
     errors = []

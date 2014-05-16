@@ -28,10 +28,7 @@ $ ->
       .removeClass("icon-globe")
 
   $mainButtons.find('.display_credits').click ->
-    if $('#credits-modal').length == 0
-      $('body').append(JST['modals/credits']())
-    $modal = $('#credits-modal')
-    $modal.modal('show')
+    $modal = PokeBattle.modal('modals/credits')
     $modal.find('.modal-footer button').first().focus()
 
 # Depresss Find Battle once one is found

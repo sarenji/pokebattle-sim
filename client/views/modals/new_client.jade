@@ -1,0 +1,13 @@
+#new_client.modal.hide
+  .modal-header
+    button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+    h3 A new client appeared!
+  .modal-body
+    p
+      strong Your client is outdated!
+      |  Please refresh to upgrade to the latest version of the client. If you
+      |  choose not to refresh, you may see odd behavior. If you were editing
+      |  a team, you should save the team first, then manually refresh.
+  .modal-footer
+    button.button.button_blue.button_refresh Refresh
+    button.button(data-dismiss="modal", aria-hidden="true") I'll refresh later
