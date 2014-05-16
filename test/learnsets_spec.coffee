@@ -214,6 +214,12 @@ describe "Learnsets:", ->
       moveset = [ "Softboiled" ]
       @checkMoveset(6, moveset).should.be.true
 
+  testLearnset "Gliscor", ->
+    it "cannot learn Defog if it has Poison Heal", ->
+      @pokemon.ability = "Poison Heal"
+      moveset = [ "Defog" ]
+      @checkMoveset(6, moveset).should.be.false
+
   describe "learnableMoves", ->
     it "returns all possible learnable moves for a pokemon", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
