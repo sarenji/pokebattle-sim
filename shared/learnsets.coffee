@@ -53,20 +53,26 @@ getGenerationFromInt = (generationInteger) ->
 # learnsets. The iterator function takes one parameter, `learnset`, the learnset
 # for a given generation for the Pokemon's current forme.
 #
-# All generations that can be used are taken into consideration.
+# All generations that can be used are taken into consideration. If the Pokemon
+# has a hidden ability, but the generation doesn't support it, the iterator
+# skips over that gneration.
 loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
   minimumGeneration = getMinimumGeneration(forGeneration)
-  {name, forme} = pokemon
+  {name, forme, ability} = pokemon
   formeName = forme || "default"
   # Find pre-evolutions and formes
   thePokemon = []
   theFormes = [ formeName ]
   {SpeciesData, FormeData} = Generations[getGenerationFromInt(forGeneration)]
+  finalForme = FormeData[name][formeName]
   while name
     thePokemon.push(name)
     if name in switchableFormes && name not in theFormes
       theFormes.push((forme  for forme of FormeData[name])...)
     name = SpeciesData[name].evolvedFrom
+
+  hasHiddenAbility = (ability == finalForme.hiddenAbility &&
+                      ability not in finalForme.abilities)
 
   # Loop through pre-evolutions and formes
   for name in thePokemon
@@ -81,11 +87,18 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
         formeName = "default"  if formeName not of FormeData[name]
         # The current forme may not have a learnset (Zen mode, megas), so we
         # do another check to see if it has a learnset. If not, use default.
-        formeName = "default"  if !FormeData[name][formeName].learnset
-        learnset = FormeData[name][formeName]?.learnset
+        forme = FormeData[name][formeName]
+        formeName = "default"  if !forme.learnset
+        learnset = forme.learnset
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
-        if iterator(learnset, name, formeName) == true then return true
+
+        # Skip if this Pokemon's ability is hidden and the forme in this
+        # generation does not support that ability. Hidden abilities are only
+        # obtainable within one generation.
+        if hasHiddenAbility && finalForme.hiddenAbility != forme.hiddenAbility
+          continue
+        return true  if iterator(learnset, name, formeName, generation) == true
   return false
 
 # Returns an array of moves that this Pokemon can learn for a given generation.
@@ -172,9 +185,8 @@ self.checkMoveset = (Generations, pokemon, generation, moves) ->
     return true  if leftoverMoves.length == dreamWorldMoves.length
   return true  if checksOut
 
-  # This makes it so if the remaining moves are all egg moves, the moveset is
-  # valid. That's false, but it's permissive. Later, factor in chain-breeding.
-  # TODO: Check chain-breeding.
+  # If the remaining moves are all egg moves, the moveset is valid.
+  # TODO: Check chain-breeding for gens 5 and under.
   eggMoves = []
   looper (learnset) ->
     return  if !learnset['egg']
@@ -188,6 +200,7 @@ self.checkMoveset = (Generations, pokemon, generation, moves) ->
   return false  if eggMoves.length == 4 && mustLearnMove[pokemon.name]
   return true  if eggMoves.length == leftoverMoves.length
 
+  # This Pokemon cannot learn all these moves. Sorry.
   return false
 
 # Checks a single move to see if the Pokemon can learn it through level-up,

@@ -1,5 +1,6 @@
 require './helpers'
 
+{_} = require('underscore')
 learnsets = require('../shared/learnsets')
 {GenerationJSON} = require '../server/generations'
 
@@ -201,6 +202,16 @@ describe "Learnsets:", ->
   testLearnset "Gengar", ->
     it "learns Sludge Wave from dream world", ->
       moveset = [ "Sludge Wave" ]
+      @checkMoveset(6, moveset).should.be.true
+
+  testLearnset "Clefable", ->
+    it "cannot learn Softboiled if it has Unaware", ->
+      @pokemon.ability = "Unaware"
+      moveset = [ "Softboiled" ]
+      @checkMoveset(6, moveset).should.be.false
+
+    it "can learn Softboiled normally", ->
+      moveset = [ "Softboiled" ]
       @checkMoveset(6, moveset).should.be.true
 
   describe "learnableMoves", ->
