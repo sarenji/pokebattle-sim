@@ -71,6 +71,8 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
       theFormes.push((forme  for forme of FormeData[name])...)
     name = SpeciesData[name].evolvedFrom
 
+  # The Pokemon may not have a default ability (due to tests, etc)
+  ability ?= finalForme.abilities[0]
   hasHiddenAbility = (ability == finalForme.hiddenAbility &&
                       ability not in finalForme.abilities)
 
@@ -93,11 +95,9 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
         # Skip if this Pokemon has no learnset for this generation.
         continue  if !learnset
 
-        # Skip if this Pokemon's ability is hidden and the forme in this
-        # generation does not support that ability. Hidden abilities are only
-        # obtainable within one generation.
-        if hasHiddenAbility && finalForme.hiddenAbility != forme.hiddenAbility
-          continue
+        # Skip if this Pokemon's ability is hidden and this generation has no
+        # hidden abilities for this forme.
+        continue  if hasHiddenAbility && !forme.hiddenAbility?
         return true  if iterator(learnset, name, formeName, generation) == true
   return false
 
