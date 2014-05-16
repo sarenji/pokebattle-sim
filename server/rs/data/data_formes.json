@@ -5,7 +5,6 @@
 				"Synchronize",
 				"Inner Focus"
 			],
-			"hiddenAbility": "Magic Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -92,7 +91,6 @@
 				"Pressure",
 				"Super Luck"
 			],
-			"hiddenAbility": "Justified",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -195,7 +193,6 @@
 				"Rock Head",
 				"Pressure"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -281,7 +278,6 @@
 				"Sturdy",
 				"Rock Head"
 			],
-			"hiddenAbility": "Heavy Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -384,7 +380,6 @@
 				"Run Away",
 				"Pickup"
 			],
-			"hiddenAbility": "Skill Link",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -487,7 +482,6 @@
 				"Synchronize",
 				"Inner Focus"
 			],
-			"hiddenAbility": "Magic Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -576,7 +570,6 @@
 			"abilities": [
 				"Natural Cure"
 			],
-			"hiddenAbility": "Cloud Nine",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -659,7 +652,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Plus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -736,7 +728,6 @@
 			"abilities": [
 				"Battle Armor"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -814,7 +805,6 @@
 				"Intimidate",
 				"Shed Skin"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -886,7 +876,6 @@
 				"Intimidate",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Justified",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -952,7 +941,6 @@
 				"Swarm",
 				"Insomnia"
 			],
-			"hiddenAbility": "Sniper",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1019,7 +1007,6 @@
 			"abilities": [
 				"Battle Armor"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1096,7 +1083,6 @@
 				"Sturdy",
 				"Rock Head"
 			],
-			"hiddenAbility": "Heavy Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -1181,7 +1167,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Snow Cloak",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1255,7 +1240,6 @@
 				"Thick Fat",
 				"Huge Power"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1337,7 +1321,6 @@
 				"Thick Fat",
 				"Huge Power"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -1410,7 +1393,6 @@
 			"abilities": [
 				"Rock Head"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -1567,7 +1549,6 @@
 				"Insomnia",
 				"Frisk"
 			],
-			"hiddenAbility": "Cursed Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1647,7 +1628,6 @@
 				"Oblivious",
 				"Anticipation"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -1723,7 +1703,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Leaf Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1796,7 +1775,6 @@
 			"abilities": [
 				"Swarm"
 			],
-			"hiddenAbility": "Rivalry",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1863,7 +1841,6 @@
 			"abilities": [
 				"Swarm"
 			],
-			"hiddenAbility": "Sniper",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1931,7 +1908,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Light Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -1958,7 +1934,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Healer",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2020,7 +1995,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -2095,7 +2069,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2181,7 +2154,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Speed Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2272,7 +2244,6 @@
 				"Natural Cure",
 				"Serene Grace"
 			],
-			"hiddenAbility": "Healer",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2374,7 +2345,6 @@
 				"Effect Spore",
 				"Poison Heal"
 			],
-			"hiddenAbility": "Technician",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2458,7 +2428,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Chlorophyll",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -2540,7 +2509,6 @@
 			"abilities": [
 				"Compoundeyes"
 			],
-			"hiddenAbility": "Tinted Lens",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2612,7 +2580,6 @@
 			"abilities": [
 				"Sand Veil"
 			],
-			"hiddenAbility": "Water Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -2696,7 +2663,6 @@
 			"abilities": [
 				"Sand Veil"
 			],
-			"hiddenAbility": "Water Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2779,7 +2745,6 @@
 				"Magma Armor",
 				"Solid Rock"
 			],
-			"hiddenAbility": "Anger Point",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -2856,7 +2821,6 @@
 			"abilities": [
 				"Rough Skin"
 			],
-			"hiddenAbility": "Speed Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -2933,7 +2897,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Shed Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -3269,7 +3232,6 @@
 			"abilities": [
 				"Shield Dust"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -3377,7 +3339,6 @@
 				"Natural Cure",
 				"Serene Grace"
 			],
-			"hiddenAbility": "Healer",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -3486,7 +3447,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Solar Power",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -3578,7 +3538,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Solar Power",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -3671,7 +3630,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Solar Power",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -3754,7 +3712,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Leaf Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -3918,7 +3875,6 @@
 				"Volt Absorb",
 				"Illuminate"
 			],
-			"hiddenAbility": "Water Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -3993,7 +3949,6 @@
 			"abilities": [
 				"Shell Armor"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -4143,7 +4098,6 @@
 				"Cute Charm",
 				"Magic Guard"
 			],
-			"hiddenAbility": "Unaware",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4237,7 +4191,6 @@
 				"Cute Charm",
 				"Magic Guard"
 			],
-			"hiddenAbility": "Friend Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4339,7 +4292,6 @@
 				"Cute Charm",
 				"Magic Guard"
 			],
-			"hiddenAbility": "Friend Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -4432,7 +4384,6 @@
 				"Shell Armor",
 				"Skill Link"
 			],
-			"hiddenAbility": "Overcoat",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4498,7 +4449,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Speed Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4584,7 +4534,6 @@
 				"Hyper Cutter",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Adaptability",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -4671,7 +4620,6 @@
 				"Hustle",
 				"Natural Cure"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -4764,7 +4712,6 @@
 			"abilities": [
 				"Suction Cups"
 			],
-			"hiddenAbility": "Storm Drain",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4837,7 +4784,6 @@
 				"Hyper Cutter",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Adaptability",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4921,7 +4867,6 @@
 			"abilities": [
 				"Inner Focus"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -4993,7 +4938,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -5078,7 +5022,6 @@
 				"Rock Head",
 				"Lightningrod"
 			],
-			"hiddenAbility": "Battle Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -5173,7 +5116,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Flash Fire",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -5250,7 +5192,6 @@
 				"Cute Charm",
 				"Normalize"
 			],
-			"hiddenAbility": "Wonder Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -5328,7 +5269,6 @@
 				"Vital Spirit",
 				"Hustle"
 			],
-			"hiddenAbility": "Insomnia",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -5758,7 +5698,6 @@
 				"Thick Fat",
 				"Hydration"
 			],
-			"hiddenAbility": "Ice Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -5829,7 +5768,6 @@
 				"Sand Veil",
 				"Arena Trap"
 			],
-			"hiddenAbility": "Sand Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -5906,7 +5844,6 @@
 			"abilities": [
 				"Limber"
 			],
-			"hiddenAbility": "Imposter",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -5933,7 +5870,6 @@
 				"Run Away",
 				"Early Bird"
 			],
-			"hiddenAbility": "Tangled Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6002,7 +5938,6 @@
 				"Run Away",
 				"Early Bird"
 			],
-			"hiddenAbility": "Tangled Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -6075,7 +6010,6 @@
 			"abilities": [
 				"Sturdy"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6145,7 +6079,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Marvel Scale",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6221,7 +6154,6 @@
 			"abilities": [
 				"Inner Focus"
 			],
-			"hiddenAbility": "Multiscale",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6319,7 +6251,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Marvel Scale",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -6404,7 +6335,6 @@
 				"Insomnia",
 				"Forewarn"
 			],
-			"hiddenAbility": "Inner Focus",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -6500,7 +6430,6 @@
 				"Sand Veil",
 				"Arena Trap"
 			],
-			"hiddenAbility": "Sand Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6572,7 +6501,6 @@
 				"Serene Grace",
 				"Run Away"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -6843,7 +6771,6 @@
 			"abilities": [
 				"Shield Dust"
 			],
-			"hiddenAbility": "Compoundeyes",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -6912,7 +6839,6 @@
 				"Run Away",
 				"Adaptability"
 			],
-			"hiddenAbility": "Anticipation",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -6984,7 +6910,6 @@
 				"Intimidate",
 				"Shed Skin"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7061,7 +6986,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Vital Spirit",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7142,7 +7066,6 @@
 				"Static",
 				"Lightningrod"
 			],
-			"hiddenAbility": "Minus",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7220,7 +7143,6 @@
 				"Soundproof",
 				"Static"
 			],
-			"hiddenAbility": "Aftermath",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7290,7 +7212,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Vital Spirit",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7376,7 +7297,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Flash Fire",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7452,7 +7372,6 @@
 				"Synchronize",
 				"Synchronize"
 			],
-			"hiddenAbility": "Magic Bounce",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7528,7 +7447,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Harvest",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7612,7 +7530,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Harvest",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7683,7 +7600,6 @@
 			"abilities": [
 				"Soundproof"
 			],
-			"hiddenAbility": "Scrappy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7776,7 +7692,6 @@
 				"Keen Eye",
 				"Inner Focus"
 			],
-			"hiddenAbility": "Defiant",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7855,7 +7770,6 @@
 			"abilities": [
 				"Keen Eye"
 			],
-			"hiddenAbility": "Sniper",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -7920,7 +7834,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Adaptability",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -7987,7 +7900,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8074,7 +7986,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Plus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8150,7 +8061,6 @@
 				"Flash Fire",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Guts",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8221,7 +8131,6 @@
 				"Levitate",
 				"Levitate"
 			],
-			"hiddenAbility": "Levitate",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8299,7 +8208,6 @@
 			"abilities": [
 				"Sturdy"
 			],
-			"hiddenAbility": "Overcoat",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8375,7 +8283,6 @@
 				"Run Away",
 				"Keen Eye"
 			],
-			"hiddenAbility": "Frisk",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8462,7 +8369,6 @@
 				"Synchronize",
 				"Trace"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8720,7 +8626,6 @@
 				"Rock Head",
 				"Sturdy"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -8808,7 +8713,6 @@
 				"Inner Focus",
 				"Early Bird"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -8900,7 +8804,6 @@
 				"Inner Focus",
 				"Ice Body"
 			],
-			"hiddenAbility": "Moody",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -8978,7 +8881,6 @@
 				"Hyper Cutter",
 				"Sand Veil"
 			],
-			"hiddenAbility": "Immunity",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -9060,7 +8962,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Stench",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9123,7 +9024,6 @@
 			"abilities": [
 				"Inner Focus"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9195,7 +9095,6 @@
 				"Swift Swim",
 				"Water Veil"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -9270,7 +9169,6 @@
 				"Damp",
 				"Cloud Nine"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9356,7 +9254,6 @@
 				"Rock Head",
 				"Sturdy"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9442,7 +9339,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9513,7 +9409,6 @@
 				"Intimidate",
 				"Quick Feet"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9610,7 +9505,6 @@
 				"Rock Head",
 				"Sturdy"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9693,7 +9587,6 @@
 				"Stench",
 				"Sticky Hold"
 			],
-			"hiddenAbility": "Poison Touch",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -9874,7 +9767,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Unburden",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -9959,7 +9851,6 @@
 				"Intimidate",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Justified",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -10038,7 +9929,6 @@
 				"Thick Fat",
 				"Own Tempo"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10127,7 +10017,6 @@
 				"Liquid Ooze",
 				"Sticky Hold"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -10216,7 +10105,6 @@
 			"abilities": [
 				"Intimidate"
 			],
-			"hiddenAbility": "Moxie",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10296,7 +10184,6 @@
 				"Thick Fat",
 				"Guts"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10454,7 +10341,6 @@
 				"Swarm",
 				"Guts"
 			],
-			"hiddenAbility": "Moxie",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -10537,7 +10423,6 @@
 				"Keen Eye",
 				"Iron Fist"
 			],
-			"hiddenAbility": "Inner Focus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10619,7 +10504,6 @@
 				"Limber",
 				"Reckless"
 			],
-			"hiddenAbility": "Unburden",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10699,7 +10583,6 @@
 				"Intimidate",
 				"Technician"
 			],
-			"hiddenAbility": "Steadfast",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10773,7 +10656,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -10863,7 +10745,6 @@
 				"Insomnia",
 				"Keen Eye"
 			],
-			"hiddenAbility": "Tinted Lens",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -10944,7 +10825,6 @@
 				"Chlorophyll",
 				"Leaf Guard"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11019,7 +10899,6 @@
 				"Swift Swim",
 				"Sniper"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11093,7 +10972,6 @@
 				"Early Bird",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11173,7 +11051,6 @@
 				"Early Bird",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11260,7 +11137,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Water Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11330,7 +11206,6 @@
 				"Insomnia",
 				"Forewarn"
 			],
-			"hiddenAbility": "Inner Focus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11419,7 +11294,6 @@
 			"abilities": [
 				"Cute Charm"
 			],
-			"hiddenAbility": "Friend Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11505,7 +11379,6 @@
 				"Oblivious",
 				"Tinted Lens"
 			],
-			"hiddenAbility": "Prankster",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -11594,7 +11467,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Chlorophyll",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11666,7 +11538,6 @@
 			"abilities": [
 				"Cute Charm"
 			],
-			"hiddenAbility": "Friend Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11849,7 +11720,6 @@
 				"Volt Absorb",
 				"Volt Absorb"
 			],
-			"hiddenAbility": "Quick Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11922,7 +11792,6 @@
 				"Chlorophyll",
 				"Leaf Guard"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -11989,7 +11858,6 @@
 				"Oblivious",
 				"Forewarn"
 			],
-			"hiddenAbility": "Dry Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12079,7 +11947,6 @@
 				"Swift Swim",
 				"Battle Armor"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -12164,7 +12031,6 @@
 				"Swift Swim",
 				"Battle Armor"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12250,7 +12116,6 @@
 				"Synchronize",
 				"Inner Focus"
 			],
-			"hiddenAbility": "Magic Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12338,7 +12203,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Shed Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12366,7 +12230,6 @@
 				"Early Bird",
 				"Scrappy"
 			],
-			"hiddenAbility": "Inner Focus",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -12581,7 +12444,6 @@
 				"Swift Swim",
 				"Sniper"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12649,7 +12511,6 @@
 				"Hyper Cutter",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12726,7 +12587,6 @@
 				"Synchronize",
 				"Trace"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -12889,7 +12749,6 @@
 				"Hyper Cutter",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13056,7 +12915,6 @@
 				"Sturdy",
 				"Rock Head"
 			],
-			"hiddenAbility": "Heavy Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -13136,7 +12994,6 @@
 				"Volt Absorb",
 				"Illuminate"
 			],
-			"hiddenAbility": "Water Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -13208,7 +13065,6 @@
 				"Water Absorb",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13299,7 +13155,6 @@
 			"abilities": [
 				"Guts"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13563,7 +13418,6 @@
 				"Swarm",
 				"Early Bird"
 			],
-			"hiddenAbility": "Iron Fist",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -13641,7 +13495,6 @@
 				"Swarm",
 				"Early Bird"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13723,7 +13576,6 @@
 				"Own Tempo",
 				"Oblivious"
 			],
-			"hiddenAbility": "Cloud Nine",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13832,7 +13684,6 @@
 			"abilities": [
 				"Suction Cups"
 			],
-			"hiddenAbility": "Storm Drain",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -13906,7 +13757,6 @@
 				"Pickup",
 				"Gluttony"
 			],
-			"hiddenAbility": "Quick Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -13991,7 +13841,6 @@
 				"Swift Swim",
 				"Rain Dish"
 			],
-			"hiddenAbility": "Own Tempo",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14074,7 +13923,6 @@
 				"Swift Swim",
 				"Rain Dish"
 			],
-			"hiddenAbility": "Own Tempo",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -14151,7 +13999,6 @@
 			"abilities": [
 				"Soundproof"
 			],
-			"hiddenAbility": "Scrappy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14242,7 +14089,6 @@
 				"Swift Swim",
 				"Rain Dish"
 			],
-			"hiddenAbility": "Own Tempo",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14325,7 +14171,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Multiscale",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14497,7 +14342,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -14571,7 +14415,6 @@
 				"Guts",
 				"No Guard"
 			],
-			"hiddenAbility": "Steadfast",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14656,7 +14499,6 @@
 				"Guts",
 				"No Guard"
 			],
-			"hiddenAbility": "Steadfast",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14740,7 +14582,6 @@
 				"Guts",
 				"No Guard"
 			],
-			"hiddenAbility": "Steadfast",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -14832,7 +14673,6 @@
 			"abilities": [
 				"Flame Body"
 			],
-			"hiddenAbility": "Vital Spirit",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -14914,7 +14754,6 @@
 				"Magma Armor",
 				"Flame Body"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -14988,7 +14827,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15016,7 +14854,6 @@
 			"abilities": [
 				"Flame Body"
 			],
-			"hiddenAbility": "Vital Spirit",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15092,7 +14929,6 @@
 				"Magnet Pull",
 				"Sturdy"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15160,7 +14996,6 @@
 				"Magnet Pull",
 				"Sturdy"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15229,7 +15064,6 @@
 				"Thick Fat",
 				"Guts"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -15322,7 +15156,6 @@
 				"Static",
 				"Lightningrod"
 			],
-			"hiddenAbility": "Minus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15394,7 +15227,6 @@
 				"Vital Spirit",
 				"Anger Point"
 			],
-			"hiddenAbility": "Defiant",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -15494,7 +15326,6 @@
 				"Swift Swim",
 				"Water Absorb"
 			],
-			"hiddenAbility": "Water Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -15572,7 +15403,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Plus",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -15646,7 +15476,6 @@
 				"Thick Fat",
 				"Huge Power"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -15737,7 +15566,6 @@
 				"Rock Head",
 				"Lightningrod"
 			],
-			"hiddenAbility": "Battle Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15824,7 +15652,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15910,7 +15737,6 @@
 			"abilities": [
 				"Intimidate"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -15983,7 +15809,6 @@
 				"Hyper Cutter",
 				"Intimidate"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -16078,7 +15903,6 @@
 			"abilities": [
 				"Pure Power"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16170,7 +15994,6 @@
 			"abilities": [
 				"Pure Power"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -16266,7 +16089,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Leaf Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16342,7 +16164,6 @@
 				"Pickup",
 				"Technician"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -16430,7 +16251,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Light Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16517,7 +16337,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Light Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16604,7 +16423,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Shed Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16761,7 +16579,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16870,7 +16687,6 @@
 				"Intimidate",
 				"Quick Feet"
 			],
-			"hiddenAbility": "Moxie",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -16945,7 +16761,6 @@
 			"abilities": [
 				"Marvel Scale"
 			],
-			"hiddenAbility": "Cute Charm",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -17019,7 +16834,6 @@
 				"Thick Fat",
 				"Scrappy"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -17283,7 +17097,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Flame Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -17355,7 +17168,6 @@
 				"Soundproof",
 				"Filter"
 			],
-			"hiddenAbility": "Technician",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -17460,7 +17272,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -17545,7 +17356,6 @@
 				"Stench",
 				"Sticky Hold"
 			],
-			"hiddenAbility": "Poison Touch",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -17628,7 +17438,6 @@
 				"Insomnia",
 				"Super Luck"
 			],
-			"hiddenAbility": "Prankster",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -17713,7 +17522,6 @@
 				"Synchronize",
 				"Early Bird"
 			],
-			"hiddenAbility": "Magic Bounce",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -17799,7 +17607,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -17895,7 +17702,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -17992,7 +17798,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18078,7 +17883,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18163,7 +17967,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18240,7 +18043,6 @@
 				"Poison Point",
 				"Rivalry"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18315,7 +18117,6 @@
 			"abilities": [
 				"Compoundeyes"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18388,7 +18189,6 @@
 			"abilities": [
 				"Flash Fire"
 			],
-			"hiddenAbility": "Drought",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18450,7 +18250,6 @@
 			"abilities": [
 				"Speed Boost"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18526,7 +18325,6 @@
 				"Insomnia",
 				"Keen Eye"
 			],
-			"hiddenAbility": "Tinted Lens",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18599,7 +18397,6 @@
 				"Sturdy",
 				"Magnet Pull"
 			],
-			"hiddenAbility": "Sand Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18684,7 +18481,6 @@
 				"Oblivious",
 				"Simple"
 			],
-			"hiddenAbility": "Own Tempo",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18765,7 +18561,6 @@
 				"Chlorophyll",
 				"Early Bird"
 			],
-			"hiddenAbility": "Pickpocket",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18849,7 +18644,6 @@
 				"Suction Cups",
 				"Sniper"
 			],
-			"hiddenAbility": "Moody",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -18924,7 +18718,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -18996,7 +18789,6 @@
 				"Swift Swim",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19079,7 +18871,6 @@
 				"Swift Swim",
 				"Shell Armor"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19156,7 +18947,6 @@
 				"Rock Head",
 				"Sturdy"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19239,7 +19029,6 @@
 				"Effect Spore",
 				"Dry Skin"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19321,7 +19110,6 @@
 				"Effect Spore",
 				"Dry Skin"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19393,7 +19181,6 @@
 			"abilities": [
 				"Keen Eye"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19468,7 +19255,6 @@
 				"Limber",
 				"Technician"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19550,7 +19336,6 @@
 			"abilities": [
 				"Pickup"
 			],
-			"hiddenAbility": "Sand Veil",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19626,7 +19411,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19707,7 +19491,6 @@
 				"Keen Eye",
 				"Tangled Feet"
 			],
-			"hiddenAbility": "Big Pecks",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19774,7 +19557,6 @@
 				"Keen Eye",
 				"Tangled Feet"
 			],
-			"hiddenAbility": "Big Pecks",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19840,7 +19622,6 @@
 				"Keen Eye",
 				"Tangled Feet"
 			],
-			"hiddenAbility": "Big Pecks",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -19912,7 +19693,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -19994,7 +19774,6 @@
 				"Oblivious",
 				"Snow Cloak"
 			],
-			"hiddenAbility": "Thick Fat",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20069,7 +19848,6 @@
 			"abilities": [
 				"Sturdy"
 			],
-			"hiddenAbility": "Overcoat",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -20150,7 +19928,6 @@
 				"Hyper Cutter",
 				"Mold Breaker"
 			],
-			"hiddenAbility": "Moxie",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -20311,7 +20088,6 @@
 				"Water Absorb",
 				"Damp"
 			],
-			"hiddenAbility": "Drizzle",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20390,7 +20166,6 @@
 				"Water Absorb",
 				"Damp"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -20468,7 +20243,6 @@
 				"Water Absorb",
 				"Damp"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20549,7 +20323,6 @@
 				"Water Absorb",
 				"Damp"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20632,7 +20405,6 @@
 				"Run Away",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Flame Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -20707,7 +20479,6 @@
 				"Run Away",
 				"Quick Feet"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -20788,7 +20559,6 @@
 				"Trace",
 				"Download"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20866,7 +20636,6 @@
 				"Trace",
 				"Download"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -20945,7 +20714,6 @@
 				"Vital Spirit",
 				"Anger Point"
 			],
-			"hiddenAbility": "Defiant",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21037,7 +20805,6 @@
 				"Damp",
 				"Cloud Nine"
 			],
-			"hiddenAbility": "Swift Swim",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -21130,7 +20897,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Shed Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21201,7 +20967,6 @@
 				"Damp",
 				"Water Absorb"
 			],
-			"hiddenAbility": "Unaware",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21288,7 +21053,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Flash Fire",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21361,7 +21125,6 @@
 				"Poison Point",
 				"Swift Swim"
 			],
-			"hiddenAbility": "Intimidate",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -21444,7 +21207,6 @@
 			"abilities": [
 				"Static"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21520,7 +21282,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Volt Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21597,7 +21358,6 @@
 				"Synchronize",
 				"Trace"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -21688,7 +21448,6 @@
 				"Run Away",
 				"Flash Fire"
 			],
-			"hiddenAbility": "Flame Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21757,7 +21516,6 @@
 				"Run Away",
 				"Guts"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -21836,7 +21594,6 @@
 				"Run Away",
 				"Guts"
 			],
-			"hiddenAbility": "Hustle",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22012,7 +21769,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Ice Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -22097,7 +21853,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Sturdy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -22182,7 +21937,6 @@
 			"abilities": [
 				"Clear Body"
 			],
-			"hiddenAbility": "Light Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -22269,7 +22023,6 @@
 				"Swift Swim",
 				"Rock Head"
 			],
-			"hiddenAbility": "Sturdy",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22356,7 +22109,6 @@
 				"Hustle",
 				"Sniper"
 			],
-			"hiddenAbility": "Moody",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22437,7 +22189,6 @@
 				"Lightningrod",
 				"Rock Head"
 			],
-			"hiddenAbility": "Reckless",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -22532,7 +22283,6 @@
 				"Lightningrod",
 				"Rock Head"
 			],
-			"hiddenAbility": "Reckless",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22625,7 +22375,6 @@
 				"Natural Cure",
 				"Poison Point"
 			],
-			"hiddenAbility": "Leaf Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22709,7 +22458,6 @@
 				"Keen Eye",
 				"Stall"
 			],
-			"hiddenAbility": "Prankster",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22808,7 +22556,6 @@
 			"abilities": [
 				"Intimidate"
 			],
-			"hiddenAbility": "Moxie",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -22892,7 +22639,6 @@
 			"abilities": [
 				"Sand Veil"
 			],
-			"hiddenAbility": "Sand Rush",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -22981,7 +22727,6 @@
 			"abilities": [
 				"Sand Veil"
 			],
-			"hiddenAbility": "Sand Rush",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23061,7 +22806,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Unburden",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23150,7 +22894,6 @@
 				"Swarm",
 				"Technician"
 			],
-			"hiddenAbility": "Light Metal",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23224,7 +22967,6 @@
 				"Swarm",
 				"Technician"
 			],
-			"hiddenAbility": "Steadfast",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -23305,7 +23047,6 @@
 				"Poison Point",
 				"Sniper"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23371,7 +23112,6 @@
 				"Swift Swim",
 				"Water Veil"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23440,7 +23180,6 @@
 				"Thick Fat",
 				"Ice Body"
 			],
-			"hiddenAbility": "Oblivious",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23521,7 +23260,6 @@
 				"Chlorophyll",
 				"Early Bird"
 			],
-			"hiddenAbility": "Pickpocket",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -23597,7 +23335,6 @@
 				"Thick Fat",
 				"Hydration"
 			],
-			"hiddenAbility": "Ice Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -23674,7 +23411,6 @@
 				"Run Away",
 				"Keen Eye"
 			],
-			"hiddenAbility": "Frisk",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -23765,7 +23501,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -23844,7 +23579,6 @@
 			"abilities": [
 				"Rough Skin"
 			],
-			"hiddenAbility": "Speed Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23924,7 +23658,6 @@
 			"abilities": [
 				"Wonder Guard"
 			],
-			"hiddenAbility": "Wonder Guard",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -23995,7 +23728,6 @@
 			"abilities": [
 				"Rock Head"
 			],
-			"hiddenAbility": "Overcoat",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -24072,7 +23804,6 @@
 				"Shell Armor",
 				"Skill Link"
 			],
-			"hiddenAbility": "Overcoat",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24147,7 +23878,6 @@
 				"Chlorophyll",
 				"Early Bird"
 			],
-			"hiddenAbility": "Pickpocket",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -24226,7 +23956,6 @@
 				"Effect Spore",
 				"Poison Heal"
 			],
-			"hiddenAbility": "Quick Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24300,7 +24029,6 @@
 				"Sturdy",
 				"Gluttony"
 			],
-			"hiddenAbility": "Contrary",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24373,7 +24101,6 @@
 				"Insomnia",
 				"Frisk"
 			],
-			"hiddenAbility": "Cursed Body",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24456,7 +24183,6 @@
 			"abilities": [
 				"Shed Skin"
 			],
-			"hiddenAbility": "Shed Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -24483,7 +24209,6 @@
 				"Keen Eye",
 				"Sturdy"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24564,7 +24289,6 @@
 				"Chlorophyll",
 				"Leaf Guard"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -24630,7 +24354,6 @@
 				"Cute Charm",
 				"Normalize"
 			],
-			"hiddenAbility": "Wonder Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -24909,7 +24632,6 @@
 				"Oblivious",
 				"Own Tempo"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -25008,7 +24730,6 @@
 				"Oblivious",
 				"Own Tempo"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -25106,7 +24827,6 @@
 				"Oblivious",
 				"Own Tempo"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25202,7 +24922,6 @@
 				"Magma Armor",
 				"Flame Body"
 			],
-			"hiddenAbility": "Weak Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25275,7 +24994,6 @@
 				"Own Tempo",
 				"Technician"
 			],
-			"hiddenAbility": "Moody",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -25302,7 +25020,6 @@
 				"Oblivious",
 				"Forewarn"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25394,7 +25111,6 @@
 				"Inner Focus",
 				"Keen Eye"
 			],
-			"hiddenAbility": "Pickpocket",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25495,7 +25211,6 @@
 				"Immunity",
 				"Thick Fat"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25602,7 +25317,6 @@
 				"Inner Focus",
 				"Ice Body"
 			],
-			"hiddenAbility": "Moody",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25675,7 +25389,6 @@
 				"Intimidate",
 				"Run Away"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25858,7 +25571,6 @@
 			"abilities": [
 				"Keen Eye"
 			],
-			"hiddenAbility": "Sniper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -25933,7 +25645,6 @@
 				"Thick Fat",
 				"Ice Body"
 			],
-			"hiddenAbility": "Oblivious",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26023,7 +25734,6 @@
 				"Swarm",
 				"Insomnia"
 			],
-			"hiddenAbility": "Sniper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26098,7 +25808,6 @@
 				"Own Tempo",
 				"Tangled Feet"
 			],
-			"hiddenAbility": "Contrary",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26203,7 +25912,6 @@
 				"Thick Fat",
 				"Own Tempo"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26286,7 +25994,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26379,7 +26086,6 @@
 				"Intimidate",
 				"Frisk"
 			],
-			"hiddenAbility": "Sap Sipper",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26468,7 +26174,6 @@
 				"Illuminate",
 				"Natural Cure"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26542,7 +26247,6 @@
 				"Illuminate",
 				"Natural Cure"
 			],
-			"hiddenAbility": "Analytic",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26618,7 +26322,6 @@
 				"Rock Head",
 				"Sturdy"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26698,7 +26401,6 @@
 				"Sturdy",
 				"Rock Head"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -26784,7 +26486,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Water Absorb",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26863,7 +26564,6 @@
 				"Chlorophyll",
 				"Solar Power"
 			],
-			"hiddenAbility": "Early Bird",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -26930,7 +26630,6 @@
 				"Chlorophyll",
 				"Solar Power"
 			],
-			"hiddenAbility": "Early Bird",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27002,7 +26701,6 @@
 			"abilities": [
 				"Swift Swim"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27077,7 +26775,6 @@
 			"abilities": [
 				"Natural Cure"
 			],
-			"hiddenAbility": "Cloud Nine",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27157,7 +26854,6 @@
 				"Liquid Ooze",
 				"Sticky Hold"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27242,7 +26938,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Damp",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27332,7 +27027,6 @@
 			"abilities": [
 				"Guts"
 			],
-			"hiddenAbility": "Scrappy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27400,7 +27094,6 @@
 				"Oblivious",
 				"Snow Cloak"
 			],
-			"hiddenAbility": "Thick Fat",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27483,7 +27176,6 @@
 			"abilities": [
 				"Guts"
 			],
-			"hiddenAbility": "Scrappy",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27558,7 +27250,6 @@
 				"Chlorophyll",
 				"Leaf Guard"
 			],
-			"hiddenAbility": "Regenerator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27639,7 +27330,6 @@
 				"Intimidate",
 				"Anger Point"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27717,7 +27407,6 @@
 				"Pickup",
 				"Quick Feet"
 			],
-			"hiddenAbility": "Honey Gather",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27815,7 +27504,6 @@
 				"Clear Body",
 				"Liquid Ooze"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -27894,7 +27582,6 @@
 				"Clear Body",
 				"Liquid Ooze"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -27966,7 +27653,6 @@
 				"Hustle",
 				"Serene Grace"
 			],
-			"hiddenAbility": "Super Luck",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28062,7 +27748,6 @@
 				"Hustle",
 				"Serene Grace"
 			],
-			"hiddenAbility": "Super Luck",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -28157,7 +27842,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Speed Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28241,7 +27925,6 @@
 			"abilities": [
 				"White Smoke"
 			],
-			"hiddenAbility": "Shell Armor",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28318,7 +28001,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28409,7 +28091,6 @@
 				"Hyper Cutter",
 				"Arena Trap"
 			],
-			"hiddenAbility": "Sheer Force",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28481,7 +28162,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Unburden",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28573,7 +28253,6 @@
 				"Chlorophyll",
 				"Solar Power"
 			],
-			"hiddenAbility": "Harvest",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28657,7 +28336,6 @@
 			"abilities": [
 				"Blaze"
 			],
-			"hiddenAbility": "Flash Fire",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -28739,7 +28417,6 @@
 			"abilities": [
 				"Sand Stream"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -28836,7 +28513,6 @@
 				"Guts",
 				"Steadfast"
 			],
-			"hiddenAbility": "Vital Spirit",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -28906,7 +28582,6 @@
 				"Synchronize",
 				"Synchronize"
 			],
-			"hiddenAbility": "Inner Focus",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29007,7 +28682,6 @@
 				"Guts",
 				"Quick Feet"
 			],
-			"hiddenAbility": "Unnerve",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29098,7 +28772,6 @@
 				"Water Absorb",
 				"Water Absorb"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29174,7 +28847,6 @@
 				"Shield Dust",
 				"Tinted Lens"
 			],
-			"hiddenAbility": "Wonder Skin",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29246,7 +28918,6 @@
 				"Compoundeyes",
 				"Tinted Lens"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -29319,7 +28990,6 @@
 			"abilities": [
 				"Overgrow"
 			],
-			"hiddenAbility": "Chlorophyll",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29396,7 +29066,6 @@
 				"Levitate",
 				"Levitate"
 			],
-			"hiddenAbility": "Levitate",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29468,7 +29137,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29623,7 +29291,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Effect Spore",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29686,7 +29353,6 @@
 				"Illuminate",
 				"Swarm"
 			],
-			"hiddenAbility": "Prankster",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -29776,7 +29442,6 @@
 				"Soundproof",
 				"Static"
 			],
-			"hiddenAbility": "Aftermath",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -29845,7 +29510,6 @@
 			"abilities": [
 				"Flash Fire"
 			],
-			"hiddenAbility": "Drought",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -29923,7 +29587,6 @@
 				"Water Veil",
 				"Oblivious"
 			],
-			"hiddenAbility": "Pressure",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -30010,7 +29673,6 @@
 				"Water Veil",
 				"Oblivious"
 			],
-			"hiddenAbility": "Pressure",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30088,7 +29750,6 @@
 				"Thick Fat",
 				"Ice Body"
 			],
-			"hiddenAbility": "Oblivious",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30169,7 +29830,6 @@
 			"abilities": [
 				"Torrent"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30251,7 +29911,6 @@
 			"abilities": [
 				"Shield Dust"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30279,7 +29938,6 @@
 			"abilities": [
 				"Chlorophyll"
 			],
-			"hiddenAbility": "Gluttony",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30417,7 +30075,6 @@
 				"Oblivious",
 				"Anticipation"
 			],
-			"hiddenAbility": "Hydration",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30493,7 +30150,6 @@
 			"abilities": [
 				"Soundproof"
 			],
-			"hiddenAbility": "Rattled",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -30582,7 +30238,6 @@
 			"abilities": [
 				"Cute Charm"
 			],
-			"hiddenAbility": "Frisk",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30671,7 +30326,6 @@
 			"abilities": [
 				"Keen Eye"
 			],
-			"hiddenAbility": "Rain Dish",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -30747,7 +30401,6 @@
 			"abilities": [
 				"Shadow Tag"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30777,7 +30430,6 @@
 				"Damp",
 				"Water Absorb"
 			],
-			"hiddenAbility": "Unaware",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -30865,7 +30517,6 @@
 			"abilities": [
 				"Shield Dust"
 			],
-			"hiddenAbility": "Run Away",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30893,7 +30544,6 @@
 			"abilities": [
 				"Shadow Tag"
 			],
-			"hiddenAbility": "Telepathy",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -30926,7 +30576,6 @@
 				"Synchronize",
 				"Early Bird"
 			],
-			"hiddenAbility": "Magic Bounce",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -31004,7 +30653,6 @@
 				"Speed Boost",
 				"Compoundeyes"
 			],
-			"hiddenAbility": "Frisk",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -31080,7 +30728,6 @@
 			"abilities": [
 				"Immunity"
 			],
-			"hiddenAbility": "Toxic Boost",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -31186,7 +30833,6 @@
 			"abilities": [
 				"Pressure"
 			],
-			"hiddenAbility": "Lightningrod",
 			"isBattleOnly": false,
 			"learnset": {
 				"level-up": {
@@ -31260,7 +30906,6 @@
 				"Pickup",
 				"Gluttony"
 			],
-			"hiddenAbility": "Quick Feet",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
@@ -31348,7 +30993,6 @@
 			"abilities": [
 				"Inner Focus"
 			],
-			"hiddenAbility": "Infiltrator",
 			"isBattleOnly": false,
 			"learnset": {
 				"egg": {
