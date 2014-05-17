@@ -139,10 +139,12 @@ class @BattleView extends Backbone.View
   movePopover: ($this, moveName, move) =>
     {type, damage} = move
     damageFriendly = move.damage[0].toUpperCase() + move.damage.substr(1)
+    targetFriendly = move.target[0].toUpperCase() + move.target.substr(1)
     displayName = []
     displayName.push(moveName)
     displayName.push("""<img src="#{TypeSprite(type)}" alt="#{type}"/>
-      <img src="#{CategorySprite(move.damage)}" alt="#{damageFriendly}"/>""")
+      <img src="#{CategorySprite(move.damage)}" alt="#{damageFriendly}"/>
+      <img src="#{TargetSprite(move)}" alt="#{targetFriendly}"/>""")
     options =
       title: displayName.join('<br>')
       html: true

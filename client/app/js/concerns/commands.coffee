@@ -90,7 +90,7 @@ dataPokemon = (pokemon) ->
   [speciesName, formeName] = pokemon
   [speciesSlug, formeSlug] = [slugify(speciesName), slugify(formeName)]
   forme = window.Generations.XY.FormeData[speciesName][formeName]
-  {types, abilities, hiddenAbility, stats} = forme
+  {types, abilities, hiddenAbility, stats, pokeBattleValue} = forme
 
   # Format abilities
   abilities = _.clone(abilities)
@@ -109,8 +109,8 @@ dataPokemon = (pokemon) ->
   # Build data
   message = """<b>#{pokemonIcon(speciesName, formeName, "left")}
     #{formatName(speciesName, formeName)}:</b> #{types.join('')} |
-    #{abilities} | #{stats.join('/')} |
-    #{_(stats).reduce((a, b) -> a + b)} BST |
+    #{abilities}<br />#{stats.join(' / ')} |
+    #{_(stats).reduce((a, b) -> a + b)} BST | PBV: #{pokeBattleValue}
     #{linkToDex("pokemon/#{speciesSlug}/#{formeSlug}", "See dex entry &raquo;")}
     """
   PokeBattle.chatView.announce('success', message)
@@ -118,7 +118,10 @@ dataPokemon = (pokemon) ->
 dataItem = (itemName) ->
   item = window.Generations.XY.ItemData[itemName]
   message = "<b>#{itemName}:</b> #{item.description}"
+  message += " Natural Gift is #{item.naturalGift.type} type
+    and has #{item.naturalGift.power} base power."  if item.naturalGift
   message += " Fling has #{item.flingPower} base power."  if item.flingPower
+  message += " Currently unreleased in Gen 6."  if item.unreleased
   PokeBattle.chatView.announce('success', message)
 
 dataMove = (moveName) ->
@@ -127,11 +130,18 @@ dataMove = (moveName) ->
     "<img src='#{window.TypeSprite(move.type)}' alt='#{move.type}'/>")
   category = """<img src="#{CategorySprite(move.damage)}"
     alt="#{move.damage}"/>"""
+  target = """<img src="#{TargetSprite(move)}"
+    alt="#{move.target}"/>"""
+  power = move.power || "&mdash;"
+  acc = move.accuracy || "&mdash;"
+  maxpp = Math.floor(move.pp * 8/5)
   if move.priority > 0
     priority = "+#{move.priority}"
   else if move.priority < 0
     priority = move.priority
-  message = """<b>#{moveName}:</b> #{type} #{category} """
+  message = """<b>#{moveName}:</b> #{type} #{category} #{target} """
+  message += "<b>Power:</b> #{power} <b>Acc:</b> #{acc} <b>PP:</b> #{move.pp} (max #{maxpp})"
+  message += "<br />"
   message += "Priority #{priority}. "  if priority
   message += move.description
   message += " "
