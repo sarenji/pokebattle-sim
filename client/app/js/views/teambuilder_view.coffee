@@ -84,8 +84,8 @@ class @TeambuilderView extends Backbone.View
     team.save()
 
   addNewTeam: (team) =>
+    @addEmptyPokemon(team)  while team.get('pokemon').length < 6
     @$('.teambuilder_teams').append @teamTemplate({team, window})
-    @addEmptyPokemon(team)  while team.length < 6
     @attachEventsToTeam(team)
 
   resetTeams: (teamStore) =>

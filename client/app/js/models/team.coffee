@@ -17,6 +17,7 @@ class @Team extends Backbone.AssociatedModel
     @owner = attrs.owner
     @set('generation', DEFAULT_GENERATION)  unless attrs.generation
     @set('teambuilder', true)  if options.teambuilder
+    @set('pokemon', [])  unless attrs.pokemon
 
   getName: =>
     @get('name') || "Untitled team"
