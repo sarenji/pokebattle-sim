@@ -218,9 +218,9 @@ createCondition Conditions.TIMED_BATTLE,
         @tell(Protocol.PAUSE_TIMER, @getPlayerIndex(id))
 
   extend:
-    DEFAULT_TIMER: 5 * 60 * 1000  # five minutes
-    TIMER_PER_TURN_INCREASE: 20 * 1000  # twenty seconds
-    TIMER_CAP: 5 * 60 * 1000  # five minutes
+    DEFAULT_TIMER: 3 * 60 * 1000  # three minutes
+    TIMER_PER_TURN_INCREASE: 15 * 1000  # fifteen seconds
+    TIMER_CAP: 3 * 60 * 1000  # three minutes
     TEAM_PREVIEW_TIMER: 1.5 * 60 * 1000  # 1 minute and 30 seconds
 
     startTimer: (msecs) ->
