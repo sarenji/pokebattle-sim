@@ -27,8 +27,8 @@ getAbsolute = (src, options = {}) ->
 getVersion = ->
   return cachedVersion  if cachedVersion
   hash = crypto.createHash('md5')
-  for path in fs.readdirSync('public/js')
-    hash = hash.update(fs.readFileSync("public/js/#{path}"))
+  for jsPath in fs.readdirSync('public/js')
+    hash = hash.update(fs.readFileSync("public/js/#{jsPath}"))
   cachedVersion = hash.digest('hex')
   cachedVersion
 
