@@ -56,7 +56,7 @@ makeCommand "pbv", (pokemon...) ->
   messages = []
   total = 0
   for array in pokemon
-    continue  if array.length == 0
+    continue  unless array
     [speciesName, formeName] = array
     pbv = PokeBattle.PBV.determinePBV(window.Generations.XY,
       name: speciesName, forme: formeName)
@@ -73,13 +73,20 @@ makeCommand "pbv", (pokemon...) ->
     PokeBattle.chatView.announce('success',
       "<b>PBV:</b> #{messages.join(' | ')}")
 
-makeCommand "data", "dex", (pokemon) ->
-  pokemon = findPokemon(pokemon)
-  if pokemon.length == 0
+makeCommand "data", "dex", (query) ->
+  if (pokemon = findPokemon(query))
+    dataPokemon(pokemon)
+  else if (item = findItem(query))
+    dataItem(item)
+  else if (move = findMove(query))
+    dataMove(move)
+  else if (ability = findAbility(query))
+    dataAbility(ability)
+  else
     PokeBattle.chatView.announce("error",
-      "<b>Data error:</b> Enter a valid Pokemon.</div>")
-    return
+      "<b>Data error:</b> Enter a valid Pokemon, item, move, or ability.</div>")
 
+dataPokemon = (pokemon) ->
   [speciesName, formeName] = pokemon
   [speciesSlug, formeSlug] = [slugify(speciesName), slugify(formeName)]
   forme = window.Generations.XY.FormeData[speciesName][formeName]
@@ -108,20 +115,79 @@ makeCommand "data", "dex", (pokemon) ->
     """
   PokeBattle.chatView.announce('success', message)
 
+dataItem = (itemName) ->
+  item = window.Generations.XY.ItemData[itemName]
+  message = "<b>#{itemName}:</b> #{item.description}"
+  message += " Fling has #{item.flingPower} base power."  if item.flingPower
+  PokeBattle.chatView.announce('success', message)
+
+dataMove = (moveName) ->
+  move = window.Generations.XY.MoveData[moveName]
+  type = linkToDex("types/#{slugify(move.type)}",
+    "<img src='#{window.TypeSprite(move.type)}' alt='#{move.type}'/>")
+  category = """<img src="#{CategorySprite(move.damage)}"
+    alt="#{move.damage}"/>"""
+  if move.priority > 0
+    priority = "+#{move.priority}"
+  else if move.priority < 0
+    priority = move.priority
+  message = """<b>#{moveName}:</b> #{type} #{category} """
+  message += "Priority #{priority}. "  if priority
+  message += move.description
+  message += " "
+  message += linkToDex("moves/#{slugify(moveName)}",
+    "See who learns this move &raquo;")
+  PokeBattle.chatView.announce('success', message)
+
+dataAbility = (abilityName) ->
+  ability = window.Generations.XY.AbilityData[abilityName]
+  message = """<b>#{abilityName}:</b> #{ability.description}
+    #{linkToDex("abilities/#{slugify(abilityName)}",
+      "See who obtains this ability &raquo;")}"""
+  PokeBattle.chatView.announce('success', message)
+
 # Finds the most lenient match possible.
 findPokemon = (pokemonName) ->
-  pokemonName = pokemonName.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
+  pokemonName = normalize(pokemonName)
   for speciesName, speciesData of window.Generations.XY.FormeData
     for formeName of speciesData
       name = speciesName
       name += formeName  unless formeName == 'default'
-      name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
-      return [speciesName, formeName]  if pokemonName == name
+      name = normalize(name)
+      name += name
+      return [speciesName, formeName]  if name.indexOf(pokemonName) != -1
   # Return blank match
-  []
+  null
+
+# Finds the most lenient match possible.
+findItem = (itemName) ->
+  normalized = normalize(itemName)
+  for name of window.Generations.XY.ItemData
+    return name  if normalized == normalize(name)
+  # Return blank match
+  null
+
+# Finds the most lenient match possible.
+findMove = (moveName) ->
+  normalized = normalize(moveName)
+  for name of window.Generations.XY.MoveData
+    return name  if normalized == normalize(name)
+  # Return blank match
+  null
+
+# Finds the most lenient match possible.
+findAbility = (abilityName) ->
+  normalized = normalize(abilityName)
+  for name of window.Generations.XY.AbilityData
+    return name  if normalized == normalize(name)
+  # Return blank match
+  null
 
 slugify = (str) ->
   str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/\-{2,}/g, '-')
+
+normalize = (str) ->
+  str.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '')
 
 formatName = (speciesName, formeName) ->
   if formeName == 'default'
