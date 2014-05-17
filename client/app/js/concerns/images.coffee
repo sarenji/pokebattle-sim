@@ -34,6 +34,11 @@
 @CategorySprite = (type) ->
   "//media.pokebattle.com/img/types/#{type.toLowerCase()}.png"
 
+@TargetSprite = (move) ->
+  target = move.target
+  target = "distance"  if "distance" in move["flags"]
+  "//media.pokebattle.com/img/targets/#{target.toLowerCase()}.png"
+
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
 NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
