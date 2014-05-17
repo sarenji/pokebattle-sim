@@ -24,7 +24,7 @@ class @BattleView extends Backbone.View
     @lastMove = null
     @skip     = null
     @renderChat()
-    @listenTo(@model, 'change:status', @handleStatus)
+    @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:finished', @handleEnd)
     @battleStartTime = $.now()
     @timers = []
@@ -1009,7 +1009,7 @@ class @BattleView extends Backbone.View
       log.push $this.text()
       log.push ""  if isHeader
     log = [ log.join('\n') ]
-    fileName = (team.get('owner')  for team in @model.teams).join(" vs ")
+    fileName = (@model.get('teams').map((team) -> team.get('owner'))).join(" vs ")
     fileName += ".txt"
     blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
@@ -1020,12 +1020,12 @@ class @BattleView extends Backbone.View
   $pokemon: (player, slot) =>
     if arguments.length == 1
       pokemon = player
-      for team, i in @model.teams
+      @model.get('teams').forEach (team, i) ->
         index = team.indexOf(pokemon)
         if index != -1
           player = i
           slot = index
-          break
+          return
     @$(".pokemon[data-team='#{player}'][data-slot='#{slot}']")
 
   $spriteContainer: (player, slot) =>
