@@ -164,8 +164,9 @@ class @ChatView extends Backbone.View
 
   handleMessage: (user, message) =>
     authority = user?.get('authority')
+    printableCommands = ['!pbv', '!data', '/pbv', '/data']
     # TODO: no magic constants. '1' is a regular user.
-    if authority > 1 && message.split(/\s/, 1)[0] in ['!pbv', '!data']
+    if authority > 1 && message.split(/\s/, 1)[0] in printableCommands
       PokeBattle.commands.execute(message.replace(/^\!/, '/'))
 
   userJoin: (user) =>
