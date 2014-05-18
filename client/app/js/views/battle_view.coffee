@@ -951,8 +951,12 @@ class @BattleView extends Backbone.View
     $frozenTimer = $info.find('.frozen-timer')
     timeRemaining = @timers[index] - $.now() + @timerUpdatedAt[index]
 
+    if !timeRemaining? || isNaN(timeRemaining)
+      $remainingTimer.text("??:??")
+    else
+      $remainingTimer.text PokeBattle.humanizeTime(timeRemaining)
+
     # Change timer class
-    $remainingTimer.text PokeBattle.humanizeTime(timeRemaining)
     if timeRemaining <= 1 * 60 * 1000
       $frozenTimer.addClass("battle-timer-low")
       $remainingTimer.addClass("battle-timer-low")
