@@ -161,24 +161,28 @@ createCondition Conditions.RATED_BATTLE,
 createCondition Conditions.TIMED_BATTLE,
   attach:
     initialize: ->
-      previewTime = Date.now() + @TEAM_PREVIEW_TIMER
+      @playerTimes = {}
+      @lastActionTimes = {}
+      now = Date.now()
+
+      # Set up initial values
+      for id in @playerIds
+        @playerTimes[id] = now + @TEAM_PREVIEW_TIMER
+
+      # Set up timers and event listeners
       check = () =>
         @startBattle()
         @sendUpdates()
       @teamPreviewTimerId = setTimeout(check, @TEAM_PREVIEW_TIMER)
       @once('end', => clearTimeout(@teamPreviewTimerId))
       @once('start', => clearTimeout(@teamPreviewTimerId))
-      endTimes = (previewTime  for playerId in @playerIds)
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
 
     start: ->
       nowTime = Date.now()
-      @playerTimes = {}
       for id in @playerIds
         @playerTimes[id] = nowTime + @DEFAULT_TIMER
         # Remove first turn since we'll be increasing it again.
         @playerTimes[id] -= @TIMER_PER_TURN_INCREASE
-      @lastActionTimes = {}
       @startTimer()
 
     requestActions: (playerId) ->
@@ -190,11 +194,8 @@ createCondition Conditions.TIMED_BATTLE,
         leftoverTime = now - @lastActionTimes[playerId]
         delete @lastActionTimes[playerId]
         @addTime(playerId, leftoverTime)
-      # In either case, we update timers and  tell people that this
-      # player's timer resumes.
-      endTimes = (@endTimeFor(id)  for id in @playerIds)
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
-      @tell(Protocol.RESUME_TIMER, @getPlayerIndex(playerId))
+      # In either case, we tell people that this player's timer resumes.
+      @send('resumeTimer', @id, @getPlayerIndex(playerId))
 
     addAction: (playerId, action) ->
       # Record the last action for use
@@ -207,15 +208,26 @@ createCondition Conditions.TIMED_BATTLE,
 
     # Show players updated times
     beginTurn: ->
-      endTimes = []
+      remainingTimes = []
       for id in @playerIds
         @addTime(id, @TIMER_PER_TURN_INCREASE)
-        endTimes.push(@endTimeFor(id))
-      @tell(Protocol.UPDATE_TIMERS, endTimes...)
+        remainingTimes.push(@timeRemainingFor(id))
+      @send('updateTimers', @id, remainingTimes)
 
     continueTurn: ->
       for id in @playerIds
-        @tell(Protocol.PAUSE_TIMER, @getPlayerIndex(id))
+        @send('pauseTimer', @id, @getPlayerIndex(id))
+
+    spectateBattle: (user) ->
+      playerId = user.id
+      remainingTimes = (@timeRemainingFor(id)  for id in @playerIds)
+      user.send('updateTimers', @id, remainingTimes)
+
+      # Pause timer for players who have already chosen a move.
+      if @hasCompletedRequests(playerId)
+        index = @getPlayerIndex(playerId)
+        timeSinceLastAction = Date.now() - @lastActionTimes[playerId]
+        user.send('pauseTimer', @id, index, timeSinceLastAction)
 
   extend:
     DEFAULT_TIMER: 3 * 60 * 1000  # three minutes
@@ -248,13 +260,9 @@ createCondition Conditions.TIMED_BATTLE,
         @declareWinner()
 
     timeRemainingFor: (playerId) ->
-      endTime = @endTimeFor(playerId)
+      endTime = @playerTimes[playerId]
       nowTime = @lastActionTimes[playerId] || Date.now()
       return endTime - nowTime
-
-    endTimeFor: (playerId) ->
-      endTime = @playerTimes[playerId]
-      endTime
 
     playersWithLeastTime: ->
       losingIds = []

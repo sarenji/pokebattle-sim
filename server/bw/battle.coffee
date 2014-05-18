@@ -274,6 +274,11 @@ class @Battle extends EventEmitter
     @queues[id] ?= []
     @queues[id].push(args)
 
+  # Sends a message to every spectator.
+  send: ->
+    for spectator in @spectators
+      spectator.send.apply(spectator, arguments)
+
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
     cannedText = switch weatherName
@@ -556,6 +561,9 @@ class @Battle extends EventEmitter
         return action
     return null
 
+  hasCompletedRequests: (playerId) ->
+    @completedRequests[playerId]?.length > 0
+
   getAction: (pokemon) ->
     for action in @pokemonActions
       if action.pokemon == pokemon && action.type in [ 'move', 'switch' ]
@@ -822,6 +830,8 @@ class @Battle extends EventEmitter
     # If this is a player, send them their own team
     if player
       @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
+
+    @emit('spectateBattle', spectator)
 
   removeSpectator: (spectator) ->
     for s, i in @spectators

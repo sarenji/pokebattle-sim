@@ -119,11 +119,11 @@ describe "Battle timer", ->
       @battle.recordMove(@id1, @battle.getMove("Splash"))
       @battle.recordMove(@id2, @battle.getMove("Splash"))
 
-      spy = @sandbox.spy(@battle, 'tell')
+      spy = @sandbox.spy(@battle, 'send')
       @battle.continueTurn()
-      spy.calledWith(Protocol.UPDATE_TIMERS).should.be.false
+      spy.calledWith('updateTimers').should.be.false
       @battle.beginTurn()
-      spy.calledWith(Protocol.UPDATE_TIMERS).should.be.true
+      spy.calledWith('updateTimers').should.be.true
 
     it "gets cleared if the battle ends prematurely", ->
       @battle.endBattle()

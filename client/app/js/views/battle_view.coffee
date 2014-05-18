@@ -19,15 +19,16 @@ class @BattleView extends Backbone.View
     'click .submit_arrangement': 'submitTeamPreview'
 
   initialize: =>
-    @selected = null
     @chatView = null
     @lastMove = null
     @skip     = null
     @renderChat()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:finished', @handleEnd)
+    @listenTo(PokeBattle.battles, 'remove', @handleRemoval)
     @battleStartTime = $.now()
     @timers = []
+    @timerUpdatedAt = []
     @timerFrozenAt = []
     @timerIterations = 0
     @countdownTimers()
@@ -928,45 +929,75 @@ class @BattleView extends Backbone.View
   unattachBattle: (effect, done) =>
     done()
 
-  updateTimers: (timers, done) =>
-    @timers = timers
-    done()
+  updateTimers: (timers) =>
+    now = $.now()
+    for timer, index in timers
+      @timers[index] = timer
+      @timerUpdatedAt[index] = now
 
   renderTimers: =>
-    $userInfo = @$('.battle_user_info')
-    $yourTimer = $userInfo.find('.left .battle-timer')
-    $theirTimer = $userInfo.find('.right .battle-timer')
-    yourIndex = @model.index
-    theirIndex = (1 - yourIndex)
-    now = $.now()
-    yourTime = @timerFrozenAt[yourIndex] || (@timers[yourIndex] - now)
-    theirTime = @timerFrozenAt[theirIndex] || (@timers[theirIndex] - now)
-    if yourTime && theirTime
-      @changeTimer($yourTimer, yourTime)
-      @changeTimer($theirTimer, theirTime)
+    for i in [0..1]
+      @renderTimer(i)
 
   countdownTimers: =>
     @renderTimers()
-    now = $.now()
-    keepRunning = (Math.min(@timers...) - now) > 0
-    return  if !keepRunning
     diff = ($.now() - @battleStartTime - @timerIterations * 1000)
     @timerIterations++
     @countdownTimersId = setTimeout(@countdownTimers, 1000 - diff)
 
-  changeTimer: ($timer, timeRemaining) =>
-    timeRemaining = 0  if timeRemaining < 0
-    $timer.text PokeBattle.humanizeTime(timeRemaining)
-    if timeRemaining <= 1 * 60 * 1000
-      $timer.addClass("battle-timer-low")
-    else
-      $timer.removeClass("battle-timer-low")
+  renderTimer: (index) =>
+    $info = @$playerInfo(index)
+    $remainingTimer = $info.find('.remaining-timer')
+    $frozenTimer = $info.find('.frozen-timer')
+    timeRemaining = @timers[index] - $.now() + @timerUpdatedAt[index]
 
-  pauseTimer: (index) =>
-    @timerFrozenAt[index] = @timers[index] - $.now()
+    # Change timer class
+    $remainingTimer.text PokeBattle.humanizeTime(timeRemaining)
+    if timeRemaining <= 1 * 60 * 1000
+      $frozenTimer.addClass("battle-timer-low")
+      $remainingTimer.addClass("battle-timer-low")
+    else
+      $frozenTimer.removeClass("battle-timer-low")
+      $remainingTimer.removeClass("battle-timer-low")
+
+    # Ensure frozen timer displays right
+    if @timerFrozenAt[index]
+      $frozenTimer.text PokeBattle.humanizeTime(@timerFrozenAt[index])
+      $frozenTimer.removeClass('hidden')
+      $remainingTimer.addClass('battle-timer-small')
+      if @showSecondaryTimer
+        $remainingTimer.removeClass('hidden')
+      else
+        $remainingTimer.addClass('hidden')
+    else
+      $frozenTimer.addClass('hidden')
+      $remainingTimer.removeClass('battle-timer-small hidden')
+
+  # There are two ways your timer can stop:
+  # 1. When you have no actions and you're waiting. e.g. opponent used U-turn.
+  # 2. When you select a move.
+  # The two cases differ; only display a secondary timer in the 2nd case.
+  pauseTimer: (index, timeSinceLastAction) =>
+    now = $.now()
+    @timerFrozenAt[index] = @timers[index] - (now - @timerUpdatedAt[index])
+
+    # Update timerUpdatedAt, because it only knows about when the timers are
+    # were updated locally.
+    @timerUpdatedAt[index] -= timeSinceLastAction  if timeSinceLastAction
+
+    @showSecondaryTimer = timeSinceLastAction?
+    @renderTimer(index)
 
   resumeTimer: (index) =>
     delete @timerFrozenAt[index]
+    @renderTimer(index)
+
+  $playerInfo: (index) =>
+    $userInfo = @$('.battle_user_info')
+    if index == @model.index
+      return $userInfo.find('.left')
+    else
+      return $userInfo.find('.right')
 
   announceWinner: (player, done) =>
     owner = @model.getTeam(player).get('owner')
@@ -1000,6 +1031,10 @@ class @BattleView extends Backbone.View
     <div class="button return-to-lobby block center">Return to lobby</div>
     """
     clearTimeout(@countdownTimersId)
+
+  handleRemoval: (battle) =>
+    if battle == @model
+      @remove()
 
   saveLog: =>
     log = []
@@ -1075,13 +1110,13 @@ class @BattleView extends Backbone.View
 
   enableButtons: (validActions) =>
     @lastValidActions = validActions || @lastValidActions
-    @renderActions(@lastValidActions)
-    @resumeTimer(@model.index)
+    if @lastValidActions?
+      @renderActions(@lastValidActions)
+      @resumeTimer(@model.index)
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
     @renderWaiting()
-    @pauseTimer(@model.index)
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
@@ -1134,7 +1169,6 @@ class @BattleView extends Backbone.View
     console.log "Making move #{moveName}"
     pokemon = @model.getPokemon(@model.index, 0)
     @model.makeMove(moveName)
-    @disableButtons()
     @afterSelection(pokemon)
 
   switchPokemon: (e) =>
@@ -1147,7 +1181,6 @@ class @BattleView extends Backbone.View
     toSlot = parseInt(toSlot, 10)
     pokemon = @model.getPokemon(@model.index, 0)
     @model.makeSwitch(toSlot)
-    @disableButtons()
     @afterSelection(pokemon)
 
   cancelAction: (e) =>
@@ -1157,7 +1190,7 @@ class @BattleView extends Backbone.View
 
     pokemon = @model.getPokemon(@model.index, 0)
     @model.makeCancel()
-    @afterSelection(pokemon)
+    @afterAction(pokemon)
 
   megaEvolve: (e) =>
     $target = $(e.currentTarget)
@@ -1166,6 +1199,11 @@ class @BattleView extends Backbone.View
     pokemon.set('megaEvolve', $target.hasClass("pressed"))
 
   afterSelection: (pokemon) =>
+    @disableButtons()
+    @pauseTimer(@model.index, 0)
+    @afterAction(pokemon)
+
+  afterAction: (pokemon) =>
     pokemon.set('megaEvolve', false)
 
   preloadImages: =>
@@ -1209,6 +1247,10 @@ class @BattleView extends Backbone.View
       [96, 208]
     else
       [332, 108]
+
+  remove: =>
+    clearTimeout(@countdownTimersId)
+    super()
 
 pokemonHtml = (pokemon) ->
   "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"

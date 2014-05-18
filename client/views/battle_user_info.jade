@@ -3,7 +3,8 @@ each team in [ yourTeam, opponentTeam ]
   - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
   div(class = leftOrRight)
     .owner_name= team.get('owner')
-    .battle-timer
+    .battle-timer.frozen-timer.hidden
+    .battle-timer.remaining-timer
     .pokemon_icons
       - var teamPokemon = team.get('pokemon')
       - for (var i = 0, len = teamPokemon.length; i < len; i += 1)

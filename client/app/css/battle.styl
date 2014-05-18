@@ -100,6 +100,12 @@ $screen-width = 400px
     font-size 2em
     &.battle-timer-low
       color #f33
+    &.battle-timer-small
+      font-size 1em
+      &:before
+        content: '('
+      &:after
+        content: ')'
 
   .battle_overlays
     position absolute

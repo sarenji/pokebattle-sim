@@ -7,6 +7,9 @@ class @BattleCollection extends Backbone.Collection
       'spectateBattle': @spectateBattle
       'joinBattle': @joinBattle
       'leaveBattle': @leaveBattle
+      'updateTimers': @updateTimers
+      'resumeTimer': @resumeTimer
+      'pauseTimer': @pauseTimer
     @updateQueue = {}
     @on 'add', (model) =>
       @updateQueue[model.id] = []
@@ -120,17 +123,6 @@ class @BattleCollection extends Backbone.Collection
           view.announceTimer(winner, done)
         when Protocol.BATTLE_EXPIRED
           view.announceExpiration(done)
-        when Protocol.UPDATE_TIMERS
-          timers = rest
-          view.updateTimers(timers, done)
-        when Protocol.PAUSE_TIMER
-          [player] = rest
-          view.pauseTimer(player)
-          done()
-        when Protocol.RESUME_TIMER
-          [player] = rest
-          view.resumeTimer(player)
-          done()
         when Protocol.MOVE_SUCCESS
           [player, slot, targetSlots, moveName] = rest
           view.moveSuccess(player, slot, targetSlots, moveName, done)
@@ -250,6 +242,27 @@ class @BattleCollection extends Backbone.Collection
       console.log "Received events for #{id}, but no longer in battle!"
       return
     battle.spectators.remove(id: user)
+
+  updateTimers: (socket, id, timers) =>
+    battle = @get(id)
+    if !battle
+      console.log "Received events for #{id}, but no longer in battle!"
+      return
+    battle.view.updateTimers(timers)
+
+  resumeTimer: (socket, id, player) =>
+    battle = @get(id)
+    if !battle
+      console.log "Received events for #{id}, but no longer in battle!"
+      return
+    battle.view.resumeTimer(player)
+
+  pauseTimer: (socket, id, player, timeSinceLastAction) =>
+    battle = @get(id)
+    if !battle
+      console.log "Received events for #{id}, but no longer in battle!"
+      return
+    battle.view.pauseTimer(player, timeSinceLastAction)
 
 createBattleWindow = (collection, battle) ->
   $battle = $(JST['battle_window'](battle: battle, window: window))
