@@ -170,6 +170,18 @@ makeAdminCommand "lockdown", (user, room, next, option = "on") ->
   if option == 'on' then @lockdown() else @unlockdown()
   next()
 
+desc "Drivers a username permanently. Usage: /driver username"
+makeAdminCommand "driver", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /driver username")
+    return next()
+  auth.setAuth username, auth.levels.DRIVER, (err, result) =>
+    if err
+      user.error(errors.COMMAND_ERROR, err.message)
+      return next()
+    @setAuthority(username, auth.levels.DRIVER)
+    return next()
+
 desc "Mods a username permanently. Usage: /mod username"
 makeAdminCommand "mod", (user, room, next, username) ->
   if !username

@@ -113,6 +113,29 @@ describe "Commands", ->
           mock2.verify()
           done()
 
+    describe "driver", ->
+      it "returns an error if insufficient authority", (done) ->
+        mock1 = @sandbox.mock(@user1).expects('error').once()
+        mock2 = @sandbox.mock(@user2).expects('error').never()
+        commands.executeCommand @server, @user1, @room, "driver", @user2.id, ->
+          mock1.verify()
+          mock2.verify()
+          done()
+
+      it "drivers a user if owner", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "driver", @user2.id, =>
+          @user2.should.have.property("authority")
+          @user2.authority.should.equal(auth.levels.DRIVER)
+          done()
+
+      it "does not crash if user isn't on yet", (done) ->
+        @user1.authority = auth.levels.OWNER
+        commands.executeCommand @server, @user1, @room, "driver", @offline.id, =>
+          auth.getAuth @offline.id, (err, result) ->
+            result.should.equal(auth.levels.DRIVER)
+            done()
+
     describe "mod", ->
       it "returns an error if insufficient authority", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
