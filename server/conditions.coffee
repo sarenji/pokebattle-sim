@@ -113,6 +113,13 @@ createCondition Conditions.OHKO_CLAUSE,
 
     return errors
 
+createCondition Conditions.PRANKSTER_SWAGGER_CLAUSE,
+  validatePokemon: (pokemon, genData, prefix) ->
+    errors = []
+    if "Swagger" in pokemon.moves && "Prankster" == pokemon.ability
+      errors.push("#{prefix}: A Pokemon can't have both Prankster and Swagger.")
+    return errors
+
 createCondition Conditions.UNRELEASED_BAN,
   validatePokemon: (pokemon, genData, prefix) ->
     # Check for unreleased items

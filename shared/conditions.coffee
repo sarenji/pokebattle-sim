@@ -8,6 +8,7 @@
   EVASION_CLAUSE : 7
   OHKO_CLAUSE    : 8
   UNRELEASED_BAN : 9
+  PRANKSTER_SWAGGER_CLAUSE : 10
 
 @HumanizedConditions =
   en:
@@ -20,3 +21,4 @@
     EVASION_CLAUSE : "Evasion Clause"
     OHKO_CLAUSE    : "One-Hit KO Clause"
     UNRELEASED_BAN : "Unreleased Ban"
+    PRANKSTER_SWAGGER_CLAUSE : "Prankster + Swagger Clause"

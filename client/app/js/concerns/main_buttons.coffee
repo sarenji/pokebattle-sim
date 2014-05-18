@@ -14,6 +14,7 @@ $ ->
       Conditions.EVASION_CLAUSE
       Conditions.SPECIES_CLAUSE
       Conditions.OHKO_CLAUSE
+      Conditions.PRANKSTER_SWAGGER_CLAUSE
       Conditions.UNRELEASED_BAN
       Conditions.PBV_1000
       Conditions.RATED_BATTLE
