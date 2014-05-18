@@ -304,7 +304,7 @@ class @BattleServer
     @canBattlesStart = false
     for user in @users.values()
       @stopChallenges(user)
-    @announce("<strong>The server is restarting!</strong> All battles are locked: No new battles may start at this time.")
+    @announce("<strong>The server is restarting!</strong> We'll be pushing some updates. All battles are locked: Please finish your battles, and no new battles may start at this time.")
 
   unlockdown: ->
     @canBattlesStart = true
