@@ -17,6 +17,12 @@ class @BattleCollection extends Backbone.Collection
       delete @updateQueue[model.id]
       PokeBattle.socket.send('leaveBattle', model.id)
 
+  isPlaying: =>
+    @find((battle) -> battle.isPlaying())?
+
+  playingBattles: =>
+    @filter((battle) -> battle.isPlaying())
+
   updateBattle: (socket, battleId, actions) =>
     battle = @get(battleId)
     if !battle

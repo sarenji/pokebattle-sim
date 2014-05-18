@@ -9,6 +9,10 @@ class @Battle extends Backbone.AssociatedModel
     collectionType: Teams
   ]
 
+  defaults:
+    spectating: true
+    finished: false
+
   initialize: (attributes) =>
     {@socket, @numActive, @index, spectators} = attributes
     @spectators = new UserList(spectators || [])
@@ -54,6 +58,12 @@ class @Battle extends Backbone.AssociatedModel
   getPokemon: (playerIndex, slot = 0) =>
     team = @getTeam(playerIndex)
     team.at(slot)
+
+  isPlaying: =>
+    !@get('finished') && !@get('spectating')
+
+  forfeit: =>
+    PokeBattle.socket.send('forfeit', @id)
 
   # TODO: Opponent switch. Use some logic to determine whether the switch is
   # to a previously seen Pokemon or a new Pokemon. In the latter case, we

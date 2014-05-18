@@ -72,11 +72,10 @@ class @SidebarView extends Backbone.View
     $navItem = $(e.currentTarget).closest('.nav_item')
     battleId = $navItem.data('battle-id')
     battle   = PokeBattle.battles.get(battleId)
-    # If player is not a spectator and battle is not done, prompt
-    if !battle.get('finished') && !battle.get('spectating')
-      if !confirm("Are you sure you want to forfeit this battle?") then return
+    if battle.isPlaying()
+      return  if !confirm("Are you sure you want to forfeit this battle?")
+      battle.forfeit()
     PokeBattle.battles.remove(battle)
-    PokeBattle.socket.send('forfeit', battleId)  if !battle.get('spectating')
     false
 
   focusBattle: (e) =>
