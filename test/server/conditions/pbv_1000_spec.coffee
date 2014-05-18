@@ -43,7 +43,7 @@ describe 'Validations: PBV 1000', ->
 
     stub = @sandbox.stub(pbv, 'determinePBV', -> 335)
 
-    server.validateTeam(team, generation, conditions).should.be.empty
+    server.validateTeam(team, generation, conditions).should.not.be.empty
 
   it "returns no error if the team is under 1000 PBV", ->
     server = new BattleServer()
