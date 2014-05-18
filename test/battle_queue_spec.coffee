@@ -62,6 +62,29 @@ describe 'BattleQueue', ->
       queue.queuedPlayers().should.includeEql(dude)
       queue.queuedPlayers().should.have.length 1
 
+  describe '#hasRecentlyMatched', ->
+    it "returns false if two players have not queued", ->
+      queue = new BattleQueue()
+      queue.hasRecentlyMatched("p1", "p2").should.be.false
+
+    it "returns true if two players have queued", ->
+      queue = new BattleQueue()
+      queue.addRecentMatch("p1", "p2")
+      queue.hasRecentlyMatched("p1", "p2").should.be.true
+
+    it "is not affected by ordering", ->
+      queue = new BattleQueue()
+      queue.addRecentMatch("p1", "p2")
+      queue.hasRecentlyMatched("p1", "p2").should.be.true
+      queue.hasRecentlyMatched("p2", "p1").should.be.true
+
+    it "returns false if 30 minutes has passed since two players have queued", ->
+      queue = new BattleQueue()
+      queue.addRecentMatch("p1", "p2")
+      queue.hasRecentlyMatched("p1", "p2").should.be.true
+      @clock.tick(31 * 60 * 1000)
+      queue.hasRecentlyMatched("p1", "p2").should.be.false
+
   describe '#pairPlayers', ->
     it 'takes players out of the queue', (done) ->
       queue = new BattleQueue()
@@ -112,10 +135,7 @@ describe 'BattleQueue', ->
         ratings.setRating.bind(ratings, player, score)
       async.parallel callbacks, ->
         queue = new BattleQueue()
-        queue.add('batman')
-        queue.add('superman')
-        queue.add('flash')
-        queue.add('spiderman')
+        queue.add(pair[0])  for pair in scores
         queue.pairPlayers (err, results) ->
           should.not.exist(err)
           should.exist(results)
@@ -126,6 +146,30 @@ describe 'BattleQueue', ->
           results.should.eql [[ "batman", "spiderman" ]
                               [ "flash", "superman"   ]]
           done()
+
+    it "does not match the same players twice", (done) ->
+      scores = [["batman", 1], ["superman", 4], ["flash", 3], ["spiderman", 2]]
+      callbacks = for [player, score] in scores
+        ratings.setRating.bind(ratings, player, score)
+      async.parallel callbacks, ->
+        queue = new BattleQueue()
+        queue.add(pair[0])  for pair in scores
+        queue.pairPlayers (err, results) ->
+          should.not.exist(err)
+          results = results.map (result) ->
+            [result[0].id, result[1].id]
+          results.should.eql [[ "batman", "spiderman" ]
+                              [ "flash", "superman"   ]]
+
+          # now perform round two: Should get different results
+          queue.add(pair[0])  for pair in scores
+          queue.pairPlayers (err, results) ->
+            should.not.exist(err)
+            results = results.map (result) ->
+              [result[0].id, result[1].id]
+            results.should.eql [[ "batman", "flash" ]
+                              [ "spiderman", "superman" ]]
+            done()
 
     it "returns a different ordering for alts ratings", (done) ->
       users = [
