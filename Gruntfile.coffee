@@ -57,6 +57,7 @@ module.exports = (grunt) ->
             "client/app/js/collections/**/*.coffee"
             "client/app/js/views/**/*.coffee"
             "client/app/js/client.coffee"
+            "client/app/js/helpers/**/*.coffee"
             "client/app/js/concerns/**/*.coffee"
             "client/app/js/**/*.coffee"
           ]

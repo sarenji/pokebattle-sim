@@ -1,7 +1,7 @@
 require './helpers'
 
 should = require 'should'
-{PokeBattle} = require '../client/app/js/concerns/team_parsing'
+{PokeBattle} = require '../client/app/js/helpers/team_parsing'
 
 describe "Client", ->
   describe "parsing teams", ->
