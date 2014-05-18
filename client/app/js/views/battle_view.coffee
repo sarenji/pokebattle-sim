@@ -951,7 +951,7 @@ class @BattleView extends Backbone.View
     $frozenTimer = $info.find('.frozen-timer')
     timeRemaining = @timers[index] - $.now() + @timerUpdatedAt[index]
 
-    if !timeRemaining? || isNaN(timeRemaining)
+    if !timeRemaining && timeRemaining != 0  # Falsy, but not 0.
       $remainingTimer.addClass('hidden')
     else
       $remainingTimer.removeClass('hidden')
