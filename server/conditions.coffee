@@ -60,6 +60,17 @@ createCondition Conditions.PBV_1000,
       errors.push "Your team must have 6 pokemon"
     return errors
 
+  validatePokemon: (pokemon, genData, prefix) ->
+    errors = []
+    MAX_INDIVIDUAL_PBV = Math.floor(1000 / 3)
+    individualPBV = pbv.determinePBV(genData, pokemon)
+
+    if individualPBV > MAX_INDIVIDUAL_PBV
+      errors.push "#{prefix}: This Pokemon's PBV is #{individualPBV}. Individual
+        PBVs cannot go over 1/3 the total (over #{MAX_INDIVIDUAL_PBV} PBV)."
+
+    return errors
+
 createCondition Conditions.SLEEP_CLAUSE,
   attach:
     initialize: ->
