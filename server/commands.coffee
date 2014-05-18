@@ -20,9 +20,18 @@ parseArguments = (args) ->
   hash
 
 makeCommand = (commandNames..., func) ->
-  HelpDescriptions[commandNames[0]] = desc.lastDescription || ""
+  authority = func.authority || auth.levels.USER
+  HelpDescriptions[authority] ?= {}
   for commandName in commandNames
     Commands[commandName] = func
+
+  # Generate description
+  description = ""
+  if commandNames.length > 1
+    aliases = commandNames[1...].map((n) -> "/#{n}").join(', ')
+    description += " <i>Also #{aliases}. </i>"
+  description += desc.lastDescription
+  HelpDescriptions[authority][commandNames[0]] = description
   delete desc.lastDescription
 
 makeModCommand = (commandNames..., func) ->
@@ -260,13 +269,4 @@ makeOwnerCommand "eval", (user, room, next, pieces...) ->
     user.announce('success', "> #{result}")
   catch e
     user.error(errors.COMMAND_ERROR, "EVAL ERROR: #{e.message}")
-  next()
-
-desc "Displays all commands available. Usage: /help"
-makeCommand "help", (user, room, next, commandName) ->
-  message = []
-  for name, description of HelpDescriptions
-    message.push("<b>/#{name}:</b> #{description}")
-  message = message.join("<br>")
-  user.announce('success', message)
   next()

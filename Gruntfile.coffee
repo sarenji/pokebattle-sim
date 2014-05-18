@@ -118,7 +118,12 @@ module.exports = (grunt) ->
         files: ['client/vendor/css/**/*.css']
         tasks: 'cssmin'
       json:
-        files: ['**/*.json','!**/node_modules/**']
+        files: [
+          '**/*.json'
+          '!**/node_modules/**'
+          'server/generations'
+          'server/commands'
+        ]
         tasks: 'compile:json'
     nodemon:
       development:
@@ -182,8 +187,10 @@ module.exports = (grunt) ->
   grunt.registerTask 'compile:json', 'Compile all data JSON into one file', ->
     {GenerationJSON} = require './server/generations'
     EventPokemon = require './shared/event_pokemon.json'
-    contents = """var Generations = #{JSON.stringify(GenerationJSON)};
-    var EventPokemon = #{JSON.stringify(EventPokemon)}"""
+    {HelpDescriptions} = require './server/commands'
+    contents = """var Generations = #{JSON.stringify(GenerationJSON)},
+    EventPokemon = #{JSON.stringify(EventPokemon)},
+    HelpDescriptions = #{JSON.stringify(HelpDescriptions)};"""
     grunt.file.write('./public/js/data.js', contents)
 
   grunt.registerTask 'deploy:assets', 'Compiles and uploads all assets', ->

@@ -459,15 +459,3 @@ describe "Commands", ->
           spy.firstCall.args[1].should.include("alt1")
           spy.firstCall.args[1].should.include("alt2")
           done()
-
-    describe "help", ->
-      it "messages all available commands to that user", (done) ->
-        spy = @sandbox.spy(@user1, 'announce')
-        mock = @sandbox.mock(@user2).expects('announce').never()
-        commandNames = (name  for name of commands.HelpDescriptions)
-        commands.executeCommand @server, @user1, @room, "help", ->
-          spy.callCount.should.equal(1)
-          for commandName in commandNames
-            spy.firstCall.args[1].should.include(commandName)
-          mock.verify()
-          done()

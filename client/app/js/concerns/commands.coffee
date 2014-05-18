@@ -2,9 +2,22 @@ PokeBattle.commands ?= {}
 
 Commands = {}
 
+desc = (description) ->
+  desc.lastDescription = description
+
 makeCommand = (commandNames..., func) ->
   for commandName in commandNames
     Commands[commandName] = func
+
+  # Generate description
+  description = ""
+  if commandNames.length > 1
+    aliases = commandNames[1...].map((n) -> "/#{n}").join(', ')
+    description += " <i>Also #{aliases}. </i>"
+  description += desc.lastDescription
+  # TODO: Hardcoded user level
+  HelpDescriptions['1'][commandNames[0]] = description
+  delete desc.lastDescription
 
 parseCommand = (line) ->
   [ commandName, args... ] = line.split(/\s+/)
@@ -26,6 +39,26 @@ PokeBattle.commands.execute = (line) ->
   command(args...)
   return true
 
+desc 'Displays a list of all commands.'
+makeCommand "help", "h", ->
+  user = PokeBattle.userList.get(PokeBattle.username)
+  return  unless user
+
+  for level, descriptions of HelpDescriptions
+    level = Number(level)
+    continue  if user.get('authority') < level
+
+    message = []
+    # TODO: Hardcoded levels
+    authLevels = {1: "USER", 2: "DRIVER", 3: "MOD", 4: "ADMIN", 5: "OWNER"}
+    humanLevel = authLevels[level]
+    message.push("<b>#{humanLevel} COMMANDS:</b>")
+    for name, description of descriptions
+      message.push("<b>/#{name}:</b> #{description}")
+    message = message.join("<br>")
+    PokeBattle.chatView.announce('success', message)
+
+desc 'Opens the challenge for a specific user. Usage: /challenge username'
 makeCommand "challenge", "chall", "c", (username) ->
   if !username
     PokeBattle.events.trigger("error", "Usage: /challenge username")
@@ -33,10 +66,11 @@ makeCommand "challenge", "chall", "c", (username) ->
   message = PokeBattle.messages.add(id: username)
   message.openChallenge(username)
 
+desc 'Private messages a certain user. Usage: /message username, message'
 makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
   username = username?.trim()
   if !username
-    PokeBattle.events.trigger("error", "Usage: /message user name[, message]")
+    PokeBattle.events.trigger("error", "Usage: /message username, message")
     return
   message = PokeBattle.messages.add(id: username)
 
@@ -48,9 +82,11 @@ makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
     # The PM is opened without a message.
     message.trigger('open', message)
 
+desc 'Clears the chat.'
 makeCommand "clear", ->
   PokeBattle.chatView.clear()
 
+desc 'Displays how much PBV a Pokemon is worth. Usage: /pbv pkmn1, pkmn2, ...'
 makeCommand "pbv", (pokemon...) ->
   pokemon = _(pokemon).map(findPokemon)
   messages = []
@@ -73,6 +109,7 @@ makeCommand "pbv", (pokemon...) ->
     PokeBattle.chatView.announce('success',
       "<b>PBV:</b> #{messages.join(' | ')}")
 
+desc 'Looks up information about a Pokemon, move, item, or ability.'
 makeCommand "data", "dex", (query) ->
   if (pokemon = findPokemon(query))
     dataPokemon(pokemon)
