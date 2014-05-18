@@ -952,8 +952,9 @@ class @BattleView extends Backbone.View
     timeRemaining = @timers[index] - $.now() + @timerUpdatedAt[index]
 
     if !timeRemaining? || isNaN(timeRemaining)
-      $remainingTimer.text("??:??")
+      $remainingTimer.addClass('hidden')
     else
+      $remainingTimer.removeClass('hidden')
       $remainingTimer.text PokeBattle.humanizeTime(timeRemaining)
 
     # Change timer class
