@@ -1397,11 +1397,7 @@ extendMove 'Metronome', ->
     battle.message "Waggling a finger let it use #{move.name}!"
 
     # Determine new targets
-    if move.target == 'selected-pokemon'
-      pokemon = battle.getOpponents(user)
-      targets = [ battle.rng.choice(pokemon) ]
-    else
-      targets = battle.getTargets(move, user)
+    targets = battle.getTargets(move, user)
     battle.executeMove(move, user, targets)
 
 extendMove 'Natural Gift', ->
