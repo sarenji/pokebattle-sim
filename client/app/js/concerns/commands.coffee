@@ -8,7 +8,7 @@ makeCommand = (commandNames..., func) ->
 
 parseCommand = (line) ->
   [ commandName, args... ] = line.split(/\s+/)
-  if commandName[0] == '/' && commandName[1] != '/'
+  if commandName[0] == '/'
     # It's a command. Remove leading slash
     commandName = commandName[1...]
     args = args.join(' ').split(/,/g)

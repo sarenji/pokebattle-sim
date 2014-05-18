@@ -106,7 +106,10 @@ CLIENT_VERSION = assets.getVersion()
       return  if typeof message != "string"
       return  if message.trim().length == 0
       return  if message.length > MAX_MESSAGE_LENGTH
-      if message[0] == '/'
+      if message[0] == '/' && message[1] == '/'
+        message = message[1...]
+        server.userMessage(lobby, user, message)
+      else if message[0] == '/'
         command = message.replace(/\s+.*$/, '')
         args = message.substr(command.length).replace(/^\s+/, '')
         command = command.substr(1)
