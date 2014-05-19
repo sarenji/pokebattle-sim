@@ -59,8 +59,7 @@ makeAuraAbility("Fairy Aura", "Fairy")
 
 # New unique abilities
 
-# TODO: Aroma Veil
-makeAbility "Aroma Veil"
+makeAttachmentImmuneAbility("Aroma Veil", [Attachment.Disable, Attachment.Encore, Attachment.Taunt, Attachment.Torment])
 
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
