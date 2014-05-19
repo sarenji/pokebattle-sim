@@ -233,7 +233,7 @@ makeAdminCommand "topic", (user, room, next, topicPieces...) ->
   next()
 
 desc "Announces something to the entire server. Usage: /wall message"
-makeAdminCommand "wall", "announce", (user, room, next, pieces...) ->
+makeModCommand "wall", "announce", (user, room, next, pieces...) ->
   message = pieces.join(',')
   return next()  if !message
   @announce("<strong>#{user.id}:</strong> #{message}")
