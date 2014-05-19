@@ -141,7 +141,7 @@ makeHugePowerAbility = (name) ->
 makeHugePowerAbility("Huge Power")
 makeHugePowerAbility("Pure Power")
 
-makeAttachmentImmuneAbility = (name, immuneAttachments) ->
+makeAttachmentImmuneAbility = (name, immuneAttachments, options = {}) ->
   makeAbility name, ->
     this::shouldAttach = (attachment) ->
       if attachment in immuneAttachments
@@ -149,15 +149,17 @@ makeAttachmentImmuneAbility = (name, immuneAttachments) ->
         return false
       return true
 
-    this::update = ->
-      for attachment in immuneAttachments
-        if @pokemon.unattach(attachment)
-          # TODO: end message
-          @pokemon.activateAbility()
-          @battle.message "#{@pokemon.name} no longer has #{attachment.name}."
+    shouldCure = options.cure ? true
+    if shouldCure
+      this::update = ->
+        for attachment in immuneAttachments
+          if @pokemon.unattach(attachment)
+            # TODO: end message
+            @pokemon.activateAbility()
+            @battle.message "#{@pokemon.name} no longer has #{attachment.name}."
 
 makeAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
-makeAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
+makeAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch], cure: false)
 makeAttachmentImmuneAbility("Insomnia", [Status.Sleep])
 makeAttachmentImmuneAbility("Limber", [Status.Paralyze])
 makeAttachmentImmuneAbility("Magma Armor", [Status.Freeze])
