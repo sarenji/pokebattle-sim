@@ -120,7 +120,7 @@ findPokemonAtPBV = (pbv) ->
   if messages.length > 0
     plural = if messages.length == 1 then "is" else "are"
     messages.unshift("There #{plural} #{counter} Pokemon with a PBV of
-      #{pbv} or less.")
+      #{pbv} or less")
   messages
 
 findTotalPBV = (pokemon) ->
