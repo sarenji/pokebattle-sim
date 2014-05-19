@@ -88,7 +88,7 @@ makeCommand "clear", ->
 
 desc 'Displays how much PBV a Pokemon is worth, or displays all Pokemon at or under a particular PBV. Usage: /pbv pkmn1, pkmn2, OR /pbv number'
 makeCommand "pbv", (pokemon...) ->
-  pbv = Number(pokemon)
+  pbv = Number(pokemon[0])
   if !isNaN(pbv)
     messages = findPokemonAtPBV(pbv)
   else
