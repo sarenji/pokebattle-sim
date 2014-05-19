@@ -2,6 +2,7 @@
     "Ability Capsule": {
         "description": "Allows a Pokemon with one of its two standard Abilities to change to the other when used.",
         "flingPower": 0,
+        "spriteId": 376,
         "type": "medicine"
     },
     "Abomasite": {
@@ -11,6 +12,7 @@
             "Abomasnow",
             "mega"
         ],
+        "spriteId": 404,
         "type": "megastone"
     },
     "Absolite": {
@@ -20,16 +22,19 @@
             "Absol",
             "mega"
         ],
+        "spriteId": 407,
         "type": "megastone"
     },
     "Absorb Bulb": {
         "description": "Raises the holder's Special Attack by 1 stage when damaged by a Water-type attack. Single use.",
         "flingPower": 30,
+        "spriteId": 329,
         "type": "misc"
     },
     "Adamant Orb": {
         "description": "If the holder is a Dialga, its Steel- and Dragon-type attacks have their power multiplied by 1.2.",
         "flingPower": 60,
+        "spriteId": 118,
         "type": "misc"
     },
     "Aerodactylite": {
@@ -39,6 +44,7 @@
             "Aerodactyl",
             "mega"
         ],
+        "spriteId": 402,
         "type": "megastone"
     },
     "Aggronite": {
@@ -48,6 +54,7 @@
             "Aggron",
             "mega"
         ],
+        "spriteId": 397,
         "type": "megastone"
     },
     "Aguav Berry": {
@@ -57,18 +64,14 @@
             "power": 80,
             "type": "Dragon"
         },
+        "spriteId": 145,
         "type": "berries"
     },
     "Air Balloon": {
         "description": "The holder is immune to Ground-type attacks, Spikes, Toxic Spikes, and Sticky Web. Pops when the holder is hit by a damaging move. If popped, it cannot be regained with Recycle.",
         "flingPower": 10,
+        "spriteId": 325,
         "type": "misc"
-    },
-    "Air Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Alakazite": {
         "description": "If the holder is an Alakazam, this item allows it to Mega Evolve into Mega Alakazam in battle.",
@@ -77,7 +80,14 @@
             "Alakazam",
             "mega"
         ],
+        "spriteId": 409,
         "type": "megastone"
+    },
+    "Amaze Mulch": {
+        "description": "No competitive use. Used to grow Berries.",
+        "flingPower": 30,
+        "spriteId": 385,
+        "type": "misc"
     },
     "Ampharosite": {
         "description": "If the holder is an Ampharos, this item allows it to Mega Evolve into Mega Ampharos in battle.",
@@ -86,16 +96,19 @@
             "Ampharos",
             "mega"
         ],
+        "spriteId": 388,
         "type": "megastone"
     },
     "Amulet Coin": {
         "description": "No competitive use. Doubles prize money if the holder participates in battle. Stacks with Happy Hour but not itself or Luck Incense.",
         "flingPower": 30,
+        "spriteId": 206,
         "type": "misc"
     },
     "Antidote": {
         "description": "No competitive use. The selected Pokemon has its poison cured.",
         "flingPower": 30,
+        "spriteId": 18,
         "type": "medicine"
     },
     "Apicot Berry": {
@@ -105,11 +118,13 @@
             "power": 100,
             "type": "Ground"
         },
+        "spriteId": 188,
         "type": "berries"
     },
     "Armor Fossil": {
         "description": "Can be revived into a Shieldon.",
         "flingPower": 100,
+        "spriteId": 104,
         "type": "misc"
     },
     "Aspear Berry": {
@@ -119,16 +134,19 @@
             "power": 80,
             "type": "Ice"
         },
+        "spriteId": 136,
         "type": "berries"
     },
     "Assault Vest": {
         "description": "The holder's Special Defense is multiplied by 1.5, but it can only select attacking moves.",
         "flingPower": 80,
+        "spriteId": 374,
         "type": "misc"
     },
     "Awakening": {
         "description": "No competitive use. The selected Pokemon wakes up.",
         "flingPower": 30,
+        "spriteId": 21,
         "type": "medicine"
     },
     "Babiri Berry": {
@@ -138,11 +156,13 @@
             "power": 80,
             "type": "Steel"
         },
+        "spriteId": 182,
         "type": "berries"
     },
     "BalmMushroom": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 361,
         "type": "misc"
     },
     "Banettite": {
@@ -152,13 +172,8 @@
             "Banette",
             "mega"
         ],
+        "spriteId": 398,
         "type": "megastone"
-    },
-    "Bead Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Belue Berry": {
         "description": "No competitive use.",
@@ -167,56 +182,67 @@
             "power": 100,
             "type": "Electric"
         },
+        "spriteId": 166,
         "type": "berries"
     },
     "Berry Juice": {
         "description": "The holder restores 20 HP when it has 1/2 or less of its maximum HP. Single use.",
         "flingPower": 30,
+        "spriteId": 43,
         "type": "medicine"
     },
     "Big Mushroom": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 87,
         "type": "misc"
     },
     "Big Nugget": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 362,
         "type": "misc"
     },
     "Big Pearl": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 89,
         "type": "misc"
     },
     "Big Root": {
         "description": "The holder restores 1.3 times the normal HP, rounded half down, from draining moves, Aqua Ring, Ingrain, and Leech Seed.",
         "flingPower": 10,
+        "spriteId": 279,
         "type": "misc"
     },
     "Binding Band": {
         "description": "The holder's partial-trapping moves deal 1/6 of the target's maximum HP, rounded down, at the end of each turn instead of 1/8.",
         "flingPower": 30,
+        "spriteId": 328,
         "type": "misc"
     },
     "Black Belt": {
         "description": "The holder's Fighting-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 224,
         "type": "misc"
     },
     "Black Flute": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 68,
         "type": "misc"
     },
     "Black Sludge": {
         "description": "The holder restores 1/16 of its maximum HP, rounded down, at the end of each turn if it is a Poison type, or loses 1/8 of its maximum HP, rounded down, at the end of each turn if it is not a Poison type.",
         "flingPower": 30,
+        "spriteId": 264,
         "type": "misc"
     },
     "BlackGlasses": {
         "description": "The holder's Dark-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 223,
         "type": "misc"
     },
     "Blastoisinite": {
@@ -226,6 +252,7 @@
             "Blastoise",
             "mega"
         ],
+        "spriteId": 391,
         "type": "megastone"
     },
     "Blazikenite": {
@@ -235,27 +262,25 @@
             "Blaziken",
             "mega"
         ],
+        "spriteId": 394,
         "type": "megastone"
-    },
-    "Bloom Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Blue Flute": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 65,
         "type": "battle"
     },
     "Blue Scarf": {
         "description": "No competitive use. Increases the holder's Beauty.",
         "flingPower": 10,
+        "spriteId": 244,
         "type": "misc"
     },
     "Blue Shard": {
         "description": "No competitive use. Used to pay certain Move Tutors.",
         "flingPower": 30,
+        "spriteId": 73,
         "type": "misc"
     },
     "Bluk Berry": {
@@ -265,99 +290,103 @@
             "power": 90,
             "type": "Fire"
         },
+        "spriteId": 148,
         "type": "berries"
     },
     "Boost Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 384,
         "type": "misc"
-    },
-    "Brick Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "BridgeMail D": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 128,
         "type": "mail"
     },
     "BridgeMail M": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 131,
         "type": "mail"
     },
     "BridgeMail S": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 127,
         "type": "mail"
     },
     "BridgeMail T": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 129,
         "type": "mail"
     },
     "BridgeMail V": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 130,
         "type": "mail"
     },
     "BrightPowder": {
         "description": "The accuracy of attacks against the holder is multiplied by 0.9.",
         "flingPower": 10,
+        "spriteId": 196,
         "type": "misc"
-    },
-    "Bubble Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Bug Gem": {
         "description": "The holder's first successful Bug-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 342,
         "type": "misc"
     },
     "Burn Drive": {
         "description": "The holder's Techno Blast is Fire type.",
         "flingPower": 70,
+        "spriteId": 115,
         "type": "misc"
     },
     "Burn Heal": {
         "description": "No competitive use. The selected Pokemon has its burn healed.",
         "flingPower": 30,
+        "spriteId": 19,
         "type": "medicine"
     },
     "Calcium": {
         "description": "No competitive use. The selected Pokemon has its Special Attack EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 49,
         "type": "medicine"
     },
     "Carbos": {
         "description": "No competitive use. The selected Pokemon has its Speed EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 48,
         "type": "medicine"
     },
     "Casteliacone": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 372,
         "type": "medicine"
     },
     "Cell Battery": {
         "description": "Raises the holder's Attack by 1 stage when damaged by an Electric-type attack. Single use.",
         "flingPower": 30,
+        "spriteId": 330,
         "type": "misc"
     },
     "Charcoal": {
         "description": "The holder's Fire-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 232,
         "type": "misc"
     },
     "Charizardite X": {
@@ -367,6 +396,7 @@
             "Charizard",
             "mega-x"
         ],
+        "spriteId": 390,
         "type": "megastone"
     },
     "Charizardite Y": {
@@ -376,6 +406,7 @@
             "Charizard",
             "mega-y"
         ],
+        "spriteId": 408,
         "type": "megastone"
     },
     "Charti Berry": {
@@ -385,6 +416,7 @@
             "power": 80,
             "type": "Rock"
         },
+        "spriteId": 178,
         "type": "berries"
     },
     "Cheri Berry": {
@@ -394,11 +426,13 @@
             "power": 80,
             "type": "Fire"
         },
+        "spriteId": 132,
         "type": "berries"
     },
     "Cherish Ball": {
         "description": "No competitive use. A rare Poke Ball that has been crafted to commemorate an occasion.",
         "flingPower": 0,
+        "spriteId": 16,
         "type": "pokeballs"
     },
     "Chesto Berry": {
@@ -408,6 +442,7 @@
             "power": 80,
             "type": "Water"
         },
+        "spriteId": 133,
         "type": "berries"
     },
     "Chilan Berry": {
@@ -417,26 +452,31 @@
             "power": 80,
             "type": "Normal"
         },
+        "spriteId": 183,
         "type": "berries"
     },
     "Chill Drive": {
         "description": "The holder's Techno Blast is Ice type.",
         "flingPower": 70,
+        "spriteId": 116,
         "type": "misc"
     },
     "Choice Band": {
         "description": "The holder's Attack is multiplied by 1.5, but it can only use the first move it executes.",
         "flingPower": 10,
+        "spriteId": 203,
         "type": "misc"
     },
     "Choice Scarf": {
         "description": "The holder's Speed is multiplied by 1.5, but it can only use the first move it executes.",
         "flingPower": 10,
+        "spriteId": 270,
         "type": "misc"
     },
     "Choice Specs": {
         "description": "The holder's Special Attack is multiplied by 1.5, but it can only use the first move it executes.",
         "flingPower": 10,
+        "spriteId": 280,
         "type": "misc"
     },
     "Chople Berry": {
@@ -446,21 +486,25 @@
             "power": 80,
             "type": "Fighting"
         },
+        "spriteId": 172,
         "type": "berries"
     },
     "Claw Fossil": {
         "description": "Can be revived into an Anorith.",
         "flingPower": 100,
+        "spriteId": 100,
         "type": "misc"
     },
     "Cleanse Tag": {
         "description": "No competitive use. Lowers the wild encounter rate if held by the lead Pokemon.",
         "flingPower": 30,
+        "spriteId": 207,
         "type": "misc"
     },
     "Clever Wing": {
         "description": "No competitive use. The selected Pokemon has its Special Defense EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 353,
         "type": "medicine"
     },
     "Coba Berry": {
@@ -470,6 +514,7 @@
             "power": 80,
             "type": "Flying"
         },
+        "spriteId": 175,
         "type": "berries"
     },
     "Colbur Berry": {
@@ -479,11 +524,13 @@
             "power": 80,
             "type": "Dark"
         },
+        "spriteId": 181,
         "type": "berries"
     },
     "Comet Shard": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 364,
         "type": "misc"
     },
     "Cornn Berry": {
@@ -493,11 +540,13 @@
             "power": 90,
             "type": "Bug"
         },
+        "spriteId": 158,
         "type": "berries"
     },
     "Cover Fossil": {
         "description": "Can be revived into a Tirtouga.",
         "flingPower": 100,
+        "spriteId": 356,
         "type": "misc"
     },
     "Custap Berry": {
@@ -508,109 +557,123 @@
             "power": 100,
             "type": "Ghost"
         },
+        "spriteId": 193,
         "type": "berries"
     },
     "Damp Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 96,
         "type": "misc"
     },
     "Damp Rock": {
         "description": "The holder's use of Rain Dance lasts 8 turns instead of 5. Does affect the Ability Drizzle.",
         "flingPower": 60,
+        "spriteId": 268,
         "type": "misc"
     },
     "Dark Gem": {
         "description": "The holder's first successful Dark-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 346,
         "type": "misc"
     },
     "Dawn Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 80,
+        "spriteId": 109,
         "type": "misc"
     },
     "DeepSeaScale": {
         "description": "If the holder is a Clamperl, its Special Defense is doubled.",
         "flingPower": 30,
+        "spriteId": 210,
         "type": "misc"
     },
     "DeepSeaTooth": {
         "description": "If the holder is a Clamperl, its Special Attack is doubled.",
         "flingPower": 90,
+        "spriteId": 209,
         "type": "misc"
     },
     "Destiny Knot": {
         "description": "If the holder becomes infatuated with another Pokemon, that Pokemon becomes infatuated with the holder.",
         "flingPower": 10,
+        "spriteId": 263,
         "type": "misc"
     },
     "Dire Hit": {
         "description": "No competitive use. The selected Pokemon has its critical hit ratio raised by 2 stages.",
         "flingPower": 30,
+        "spriteId": 56,
         "type": "battle"
     },
     "Discount Coupon": {
-	    "description": "No competitive use. Used to buy clothing items at half price for one purchase.",
+        "description": "No competitive use. Used to buy clothing items at half price for one purchase.",
         "flingPower": 10,
+        "spriteId": 419,
         "type": "misc"
     },
     "Dive Ball": {
         "description": "No competitive use. A Poke Ball that works especially well on Pokemon that live underwater.",
         "flingPower": 0,
+        "spriteId": 7,
         "type": "pokeballs"
     },
     "Dome Fossil": {
         "description": "Can be revived into a Kabuto.",
         "flingPower": 100,
+        "spriteId": 102,
         "type": "misc"
     },
     "Douse Drive": {
         "description": "The holder's Techno Blast is Water type.",
         "flingPower": 70,
+        "spriteId": 113,
         "type": "misc"
     },
     "Draco Plate": {
         "description": "The holder's Dragon-type attacks have their power multiplied by 1.2. The holder's Judgment is Dragon type.",
         "flingPower": 90,
+        "spriteId": 294,
         "type": "misc"
     },
     "Dragon Fang": {
         "description": "The holder's Dragon-type attacks have their power multiplied by 1.2.",
         "flingPower": 70,
+        "spriteId": 233,
         "type": "misc"
     },
     "Dragon Gem": {
         "description": "The holder's first successful Dragon-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 345,
         "type": "misc"
     },
     "Dragon Scale": {
         "description": "No competitive use. Evolves Seadra into Kingdra when traded.",
         "flingPower": 30,
+        "spriteId": 218,
         "type": "misc"
     },
     "Dread Plate": {
         "description": "The holder's Dark-type attacks have their power multiplied by 1.2. The holder's Judgment is Dark type.",
         "flingPower": 90,
+        "spriteId": 295,
         "type": "misc"
     },
     "Dream Ball": {
         "description": "A special Poke Ball that appears out of nowhere in a bag at the Entree Forest.",
         "flingPower": 0,
+        "spriteId": 359,
         "type": "pokeballs"
-    },
-    "Dream Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Dubious Disc": {
         "description": "No competitive use. Evolves Porygon2 into Porygon-Z when traded.",
         "flingPower": 50,
+        "spriteId": 307,
         "type": "misc"
     },
     "Durin Berry": {
@@ -620,110 +683,129 @@
             "power": 100,
             "type": "Water"
         },
+        "spriteId": 165,
         "type": "berries"
     },
     "Dusk Ball": {
         "description": "A Poke Ball that makes it easier to catch wild Pokemon at night or in caves.",
         "flingPower": 0,
+        "spriteId": 13,
         "type": "pokeballs"
     },
     "Dusk Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 80,
+        "spriteId": 108,
         "type": "misc"
     },
     "Earth Plate": {
         "description": "The holder's Ground-type attacks have their power multiplied by 1.2. The holder's Judgment is Ground type.",
         "flingPower": 90,
+        "spriteId": 288,
         "type": "misc"
     },
     "Eject Button": {
         "description": "If the holder is hit and has HP remaining, it immediately switches out with a chosen ally. Single use.",
         "flingPower": 30,
+        "spriteId": 331,
         "type": "misc"
     },
     "Electirizer": {
         "description": "No competitive use. Evolves Electabuzz into Electivire when traded.",
         "flingPower": 80,
+        "spriteId": 305,
         "type": "misc"
     },
     "Electric Gem": {
         "description": "The holder's first successful Electric-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 334,
         "type": "misc"
     },
     "Elixir": {
         "description": "No competitive use. The selected Pokemon has 10 PP restored to each of its moves.",
         "flingPower": 30,
+        "spriteId": 40,
         "type": "medicine"
     },
     "Energy Root": {
         "description": "No competitive use. The selected Pokemon has 200 HP restored, but has its Happiness lowered.",
         "flingPower": 30,
+        "spriteId": 35,
         "type": "medicine"
     },
     "EnergyPowder": {
         "description": "No competitive use. The selected Pokemon has 50 HP restored, but has its Happiness lowered.",
         "flingPower": 30,
+        "spriteId": 34,
         "type": "medicine"
     },
     "Enigma Berry": {
         "description": "The holder restores 1/4 of its maximum HP, rounded down, after it is hit by a supereffective move. Single use.",
         "flingPower": 10,
-        "unreleased": true,
         "naturalGift": {
             "power": 100,
             "type": "Bug"
         },
+        "spriteId": 191,
         "type": "berries"
     },
     "Escape Rope": {
         "description": "No competitive use. Used to quickly return to the entrance of a cave or dungeon.",
         "flingPower": 30,
+        "spriteId": 78,
         "type": "misc"
     },
     "Ether": {
         "description": "No competitive use. The selected Pokemon has 10 PP restored to a chosen move.",
         "flingPower": 30,
+        "spriteId": 38,
         "type": "medicine"
     },
     "Everstone": {
         "description": "No competitive use. Prevents the holder from evolving. Passes down the holder's Nature when breeding.",
         "flingPower": 30,
+        "spriteId": 212,
         "type": "misc"
     },
     "Eviolite": {
         "description": "If the holder's species can evolve, its Defense and Special Defense are multiplied by 1.5.",
         "flingPower": 40,
+        "spriteId": 322,
         "type": "misc"
     },
     "Expert Belt": {
         "description": "The holder's supereffective attacks against other Pokemon have their damage multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 251,
         "type": "misc"
     },
-    "Fab Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
+    "Fairy Gem": {
+        "description": "The holder's first successful Fairy-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
-        "type": "mail"
+        "spriteId": 425,
+        "type": "misc"
     },
     "Fast Ball": {
         "description": "A Poke Ball that makes it easier to catch Pokemon which are quick to run away.",
         "flingPower": 0,
+        "spriteId": 311,
         "type": "pokeballs"
     },
     "Favored Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 121,
         "type": "mail"
     },
     "Fighting Gem": {
         "description": "The holder's first successful Fighting-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 337,
         "type": "misc"
     },
     "Figy Berry": {
@@ -733,89 +815,99 @@
             "power": 80,
             "type": "Bug"
         },
+        "spriteId": 142,
         "type": "berries"
     },
     "Fire Gem": {
         "description": "The holder's first successful Fire-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 332,
         "type": "misc"
     },
     "Fire Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 82,
         "type": "misc"
     },
     "Fist Plate": {
         "description": "The holder's Fighting-type attacks have their power multiplied by 1.2. The holder's Judgment is Fighting type.",
         "flingPower": 90,
+        "spriteId": 286,
         "type": "misc"
-    },
-    "Flame Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Flame Orb": {
         "description": "At the end of each turn, this item attempts to burn the holder.",
         "flingPower": 30,
+        "spriteId": 256,
         "type": "misc"
     },
     "Flame Plate": {
         "description": "The holder's Fire-type attacks have their power multiplied by 1.2. The holder's Judgment is Fire type.",
         "flingPower": 90,
+        "spriteId": 281,
         "type": "misc"
     },
     "Float Stone": {
         "description": "The holder's weight is halved.",
         "flingPower": 30,
+        "spriteId": 323,
         "type": "misc"
     },
     "Fluffy Tail": {
         "description": "No competitive use. Used to end a wild battle.",
         "flingPower": 30,
+        "spriteId": 64,
         "type": "misc"
     },
     "Flying Gem": {
         "description": "The holder's first successful Flying-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 340,
         "type": "misc"
     },
     "Focus Band": {
         "description": "The holder has a 10% chance to survive an attack that would knock it out it with 1 HP.",
         "flingPower": 10,
+        "spriteId": 213,
         "type": "misc"
     },
     "Focus Sash": {
         "description": "If the holder's HP is full, it will survive an attack that would knock it out with 1 HP. Single use.",
         "flingPower": 10,
+        "spriteId": 258,
         "type": "misc"
     },
     "Fresh Water": {
         "description": "No competitive use. The selected Pokemon has 50 HP restored.",
         "flingPower": 30,
+        "spriteId": 30,
         "type": "medicine"
     },
     "Friend Ball": {
         "description": "A Poke Ball that makes caught Pokemon more friendly.",
         "flingPower": 0,
+        "spriteId": 316,
         "type": "pokeballs"
     },
     "Full Heal": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 27,
         "type": "medicine"
     },
     "Full Incense": {
         "description": "The holder moves last in its priority bracket.",
         "flingPower": 10,
+        "spriteId": 299,
         "type": "misc"
     },
     "Full Restore": {
         "description": "No competitive use. The selected Pokemon has all of its HP restored and its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 23,
         "type": "medicine"
     },
     "Ganlon Berry": {
@@ -825,6 +917,7 @@
             "power": 100,
             "type": "Ice"
         },
+        "spriteId": 185,
         "type": "berries"
     },
     "Garchompite": {
@@ -834,6 +927,7 @@
             "Garchomp",
             "mega"
         ],
+        "spriteId": 413,
         "type": "megastone"
     },
     "Gardevoirite": {
@@ -843,6 +937,7 @@
             "Gardevoir",
             "mega"
         ],
+        "spriteId": 387,
         "type": "megastone"
     },
     "Gengarite": {
@@ -852,61 +947,58 @@
             "Gengar",
             "mega"
         ],
+        "spriteId": 386,
         "type": "megastone"
     },
     "Genius Wing": {
         "description": "No competitive use. The selected Pokemon has its Special Attack EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 352,
         "type": "medicine"
     },
     "Ghost Gem": {
         "description": "The holder's first successful Ghost-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 344,
         "type": "misc"
-    },
-    "Glitter Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Gooey Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 98,
         "type": "misc"
     },
     "Grass Gem": {
         "description": "The holder's first successful Grass-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 335,
         "type": "misc"
-    },
-    "Grass Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Great Ball": {
         "description": "A high-performance Ball that provides a higher catch rate than a Poke Ball.",
         "flingPower": 0,
+        "spriteId": 3,
         "type": "pokeballs"
     },
     "Green Scarf": {
         "description": "No competitive use. Increases the holder's Smartness.",
         "flingPower": 10,
+        "spriteId": 246,
         "type": "misc"
     },
     "Green Shard": {
         "description": "No competitive use. Used to pay certain Move Tutors.",
         "flingPower": 30,
+        "spriteId": 75,
         "type": "misc"
     },
     "Greet Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 120,
         "type": "mail"
     },
     "Grepa Berry": {
@@ -916,32 +1008,38 @@
             "power": 90,
             "type": "Flying"
         },
+        "spriteId": 156,
         "type": "berries"
     },
     "Grip Claw": {
         "description": "The holder's partial-trapping moves always last 7 turns.",
         "flingPower": 90,
+        "spriteId": 269,
         "type": "misc"
     },
     "Griseous Orb": {
         "description": "If the holder is a Giratina, its Ghost- and Dragon-type attacks have their power multiplied by 1.2.",
         "flingPower": 0,
+        "spriteId": 112,
         "type": "misc"
     },
     "Ground Gem": {
         "description": "The holder's first successful Ground-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 339,
         "type": "misc"
     },
     "Growth Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 95,
         "type": "misc"
     },
     "Guard Spec.": {
         "description": "No competitive use. Prevents the party from having their stat stages lowered for 5 turns when used in battle.",
         "flingPower": 30,
+        "spriteId": 55,
         "type": "battle"
     },
     "Gyaradosite": {
@@ -951,11 +1049,13 @@
             "Gyarados",
             "mega"
         ],
+        "spriteId": 406,
         "type": "megastone"
     },
     "HP Up": {
         "description": "No competitive use. The selected Pokemon has its HP EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 45,
         "type": "medicine"
     },
     "Haban Berry": {
@@ -965,58 +1065,55 @@
             "power": 80,
             "type": "Dragon"
         },
+        "spriteId": 180,
         "type": "berries"
-    },
-    "Harbor Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Hard Stone": {
         "description": "The holder's Rock-type attacks have their power multiplied by 1.2.",
         "flingPower": 100,
+        "spriteId": 221,
         "type": "misc"
     },
     "Heal Ball": {
         "description": "A remedial Poke Ball that restores the caught Pokemon's HP and status problem.",
         "flingPower": 0,
+        "spriteId": 14,
         "type": "pokeballs"
     },
     "Heal Powder": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured, but has its Happiness lowered.",
         "flingPower": 30,
+        "spriteId": 36,
         "type": "medicine"
     },
     "Health Wing": {
         "description": "No competitive use. The selected Pokemon has its HP EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 349,
         "type": "medicine"
-    },
-    "Heart Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Heart Scale": {
         "description": "No competitive use. Used to pay Move Reminders.",
         "flingPower": 30,
+        "spriteId": 93,
         "type": "misc"
     },
     "Heat Rock": {
         "description": "The holder's use of Sunny Day lasts 8 turns instead of 5. Does affect the Ability Drought.",
         "flingPower": 60,
+        "spriteId": 267,
         "type": "misc"
     },
     "Heavy Ball": {
         "description": "A Poke Ball for catching very heavy Pokemon.",
         "flingPower": 0,
+        "spriteId": 314,
         "type": "pokeballs"
     },
     "Helix Fossil": {
         "description": "Can be revived into an Omanyte.",
         "flingPower": 100,
+        "spriteId": 101,
         "type": "misc"
     },
     "Heracronite": {
@@ -1026,6 +1123,7 @@
             "Heracross",
             "mega"
         ],
+        "spriteId": 410,
         "type": "megastone"
     },
     "Hondew Berry": {
@@ -1035,11 +1133,13 @@
             "power": 90,
             "type": "Ground"
         },
+        "spriteId": 155,
         "type": "berries"
     },
     "Honey": {
         "description": "No competitive use. Used to encounter Pokemon in hordes.",
         "flingPower": 30,
+        "spriteId": 94,
         "type": "misc"
     },
     "Houndoominite": {
@@ -1049,11 +1149,13 @@
             "Houndoom",
             "mega"
         ],
+        "spriteId": 396,
         "type": "megastone"
     },
     "Hyper Potion": {
         "description": "No competitive use. The selected Pokemon has 200 HP restored.",
         "flingPower": 30,
+        "spriteId": 25,
         "type": "medicine"
     },
     "Iapapa Berry": {
@@ -1063,53 +1165,63 @@
             "power": 80,
             "type": "Dark"
         },
+        "spriteId": 146,
         "type": "berries"
     },
     "Ice Gem": {
         "description": "The holder's first successful Ice-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 336,
         "type": "misc"
     },
     "Ice Heal": {
         "description": "No competitive use. The selected Pokemon thaws out.",
         "flingPower": 30,
+        "spriteId": 20,
         "type": "medicine"
     },
     "Icicle Plate": {
         "description": "The holder's Ice-type attacks have their power multiplied by 1.2. The holder's Judgment is Ice type.",
         "flingPower": 90,
+        "spriteId": 285,
         "type": "misc"
     },
     "Icy Rock": {
         "description": "The holder's use of Hail lasts 8 turns instead of 5. Does affect the Ability Snow Warning.",
         "flingPower": 40,
+        "spriteId": 265,
         "type": "misc"
     },
     "Inquiry Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 124,
         "type": "mail"
     },
     "Insect Plate": {
         "description": "The holder's Bug-type attacks have their power multiplied by 1.2. The holder's Judgment is Bug type.",
         "flingPower": 90,
+        "spriteId": 291,
         "type": "misc"
     },
     "Iron": {
         "description": "No competitive use. The selected Pokemon has its Defense EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 47,
         "type": "medicine"
     },
     "Iron Ball": {
         "description": "The holder's Speed is halved and it becomes grounded. Flying-type holders take neutral damage from Ground-type attacks regardless of their other type(s).",
         "flingPower": 130,
+        "spriteId": 261,
         "type": "misc"
     },
     "Iron Plate": {
         "description": "The holder's Steel-type attacks have their power multiplied by 1.2. The holder's Judgment is Steel type.",
         "flingPower": 90,
+        "spriteId": 296,
         "type": "misc"
     },
     "Jaboca Berry": {
@@ -1120,11 +1232,13 @@
             "power": 100,
             "type": "Dragon"
         },
+        "spriteId": 194,
         "type": "berries"
     },
     "Jaw Fossil": {
         "description": "Can be revived into a Tyrunt.",
         "flingPower": 100,
+        "spriteId": 423,
         "type": "misc"
     },
     "Kangaskhanite": {
@@ -1134,6 +1248,7 @@
             "Kangaskhan",
             "mega"
         ],
+        "spriteId": 405,
         "type": "megastone"
     },
     "Kasib Berry": {
@@ -1143,6 +1258,7 @@
             "power": 80,
             "type": "Ghost"
         },
+        "spriteId": 179,
         "type": "berries"
     },
     "Kebia Berry": {
@@ -1152,6 +1268,7 @@
             "power": 80,
             "type": "Poison"
         },
+        "spriteId": 173,
         "type": "berries"
     },
     "Kee Berry": {
@@ -1161,6 +1278,7 @@
             "power": 100,
             "type": "Fairy"
         },
+        "spriteId": 417,
         "type": "berries"
     },
     "Kelpsy Berry": {
@@ -1170,16 +1288,19 @@
             "power": 90,
             "type": "Fighting"
         },
+        "spriteId": 153,
         "type": "berries"
     },
     "King's Rock": {
         "description": "The holder's attacks without a chance to flinch gain a 10% chance to flinch.",
         "flingPower": 30,
+        "spriteId": 204,
         "type": "misc"
     },
     "Lagging Tail": {
         "description": "The holder moves last in its priority bracket.",
         "flingPower": 10,
+        "spriteId": 262,
         "type": "misc"
     },
     "Lansat Berry": {
@@ -1189,6 +1310,7 @@
             "power": 100,
             "type": "Flying"
         },
+        "spriteId": 189,
         "type": "berries"
     },
     "Latiasite": {
@@ -1199,6 +1321,7 @@
             "mega"
         ],
         "unreleased": true,
+        "spriteId": 414,
         "type": "megastone"
     },
     "Latiosite": {
@@ -1209,31 +1332,37 @@
             "mega"
         ],
         "unreleased": true,
+        "spriteId": 415,
         "type": "megastone"
     },
     "Lava Cookie": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 42,
         "type": "medicine"
     },
     "Lax Incense": {
         "description": "The accuracy of attacks against the holder is multiplied by 0.9.",
         "flingPower": 10,
+        "spriteId": 238,
         "type": "misc"
     },
     "Leaf Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 85,
         "type": "misc"
     },
     "Leftovers": {
         "description": "The holder restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
         "flingPower": 10,
+        "spriteId": 217,
         "type": "misc"
     },
     "Lemonade": {
         "description": "No competitive use. The selected Pokemon has 80 HP restored.",
         "flingPower": 30,
+        "spriteId": 32,
         "type": "medicine"
     },
     "Leppa Berry": {
@@ -1243,11 +1372,13 @@
             "power": 80,
             "type": "Fighting"
         },
+        "spriteId": 137,
         "type": "berries"
     },
     "Level Ball": {
         "description": "A Poke Ball for catching Pokemon that are a lower level than your own.",
         "flingPower": 0,
+        "spriteId": 312,
         "type": "pokeballs"
     },
     "Liechi Berry": {
@@ -1257,32 +1388,38 @@
             "power": 100,
             "type": "Grass"
         },
+        "spriteId": 184,
         "type": "berries"
     },
     "Life Orb": {
         "description": "The holder's attacks have their damage multiplied by 1.3 in exchange for losing 1/10 of its maximum HP, rounded down, after an attack.",
         "flingPower": 30,
+        "spriteId": 253,
         "type": "misc"
     },
     "Light Ball": {
         "description": "If the holder is a Pikachu, its Attack and Special Attack are doubled.",
         "flingPower": 30,
+        "spriteId": 219,
         "type": "misc"
     },
     "Light Clay": {
         "description": "The holder's use of Light Screen or Reflect lasts 8 turns instead of 5.",
         "flingPower": 30,
+        "spriteId": 252,
         "type": "misc"
     },
     "Like Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 125,
         "type": "mail"
     },
     "Love Ball": {
         "description": "A Poke Ball for catching Pokemon that are the opposite gender of your Pokemon.",
         "flingPower": 0,
+        "spriteId": 315,
         "type": "pokeballs"
     },
     "Lucarionite": {
@@ -1292,21 +1429,25 @@
             "Lucario",
             "mega"
         ],
+        "spriteId": 403,
         "type": "megastone"
     },
     "Luck Incense": {
         "description": "No competitive use. Doubles prize money if the holder participates in battle. Stacks with Happy Hour but not itself or Amulet Coin.",
         "flingPower": 10,
+        "spriteId": 302,
         "type": "misc"
     },
     "Lucky Egg": {
         "description": "No competitive use. Experience points gained by the holder are multiplied by 1.5.",
         "flingPower": 30,
+        "spriteId": 214,
         "type": "misc"
     },
     "Lucky Punch": {
         "description": "If the holder is a Chansey, its critical hit ratio is raised by 2 stages.",
         "flingPower": 40,
+        "spriteId": 239,
         "type": "misc"
     },
     "Lum Berry": {
@@ -1316,46 +1457,55 @@
             "power": 80,
             "type": "Flying"
         },
+        "spriteId": 140,
         "type": "berries"
     },
     "Luminous Moss": {
         "description": "Raises the holder's Special Defense by 1 stage when damaged by a Water-type attack. Single use.",
         "flingPower": 30,
+        "spriteId": 379,
         "type": "misc"
     },
     "Lumiose Galette": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 421,
         "type": "medicine"
     },
     "Lure Ball": {
         "description": "A Poke Ball for catching Pokemon hooked by a Rod when fishing.",
         "flingPower": 0,
+        "spriteId": 313,
         "type": "pokeballs"
     },
     "Lustrous Orb": {
         "description": "If the holder is a Palkia, its Water- and Dragon-type attacks have their power multiplied by 1.2.",
         "flingPower": 60,
+        "spriteId": 119,
         "type": "misc"
     },
     "Luxury Ball": {
         "description": "A comfortable Poke Ball that makes a caught wild Pokemon quickly grow friendly.",
         "flingPower": 0,
+        "spriteId": 11,
         "type": "pokeballs"
     },
     "Macho Brace": {
         "description": "The holder's Speed is halved.",
         "flingPower": 60,
+        "spriteId": 198,
         "type": "misc"
     },
     "Magmarizer": {
         "description": "No competitive use. Evolves Magmar into Magmortar when traded.",
         "flingPower": 80,
+        "spriteId": 306,
         "type": "misc"
     },
     "Magnet": {
         "description": "The holder's Electric-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 225,
         "type": "misc"
     },
     "Mago Berry": {
@@ -1365,6 +1515,7 @@
             "power": 80,
             "type": "Ghost"
         },
+        "spriteId": 144,
         "type": "berries"
     },
     "Magost Berry": {
@@ -1374,6 +1525,7 @@
             "power": 90,
             "type": "Rock"
         },
+        "spriteId": 159,
         "type": "berries"
     },
     "Manectite": {
@@ -1383,6 +1535,7 @@
             "Manectric",
             "mega"
         ],
+        "spriteId": 412,
         "type": "megastone"
     },
     "Maranga Berry": {
@@ -1392,11 +1545,13 @@
             "power": 100,
             "type": "Dark"
         },
+        "spriteId": 418,
         "type": "berries"
     },
     "Master Ball": {
         "description": "The best Ball with the ultimate performance. It will catch any wild Pokemon.",
         "flingPower": 0,
+        "spriteId": 1,
         "type": "pokeballs"
     },
     "Mawilite": {
@@ -1406,43 +1561,44 @@
             "Mawile",
             "mega"
         ],
+        "spriteId": 411,
         "type": "megastone"
     },
     "Max Elixir": {
         "description": "No competitive use. The selected Pokemon has all of its PP restored to each of its moves.",
         "flingPower": 30,
+        "spriteId": 41,
         "type": "medicine"
     },
     "Max Ether": {
         "description": "No competitive use. The selected Pokemon has all of its PP restored to a chosen move.",
         "flingPower": 30,
+        "spriteId": 39,
         "type": "medicine"
     },
     "Max Potion": {
         "description": "No competitive use. The selected Pokemon has all of its HP restored.",
         "flingPower": 30,
+        "spriteId": 24,
         "type": "medicine"
     },
     "Max Repel": {
         "description": "No competitive use. Prevents wild Pokemon below the level of the lead Pokemon from appearing for 250 steps.",
         "flingPower": 30,
+        "spriteId": 77,
         "type": "misc"
     },
     "Max Revive": {
         "description": "No competitive use. The selected Pokemon is revived from fainting and has all of its HP restored.",
         "flingPower": 30,
+        "spriteId": 29,
         "type": "medicine"
     },
     "Meadow Plate": {
         "description": "The holder's Grass-type attacks have their power multiplied by 1.2. The holder's Judgment is Grass type.",
         "flingPower": 90,
+        "spriteId": 284,
         "type": "misc"
-    },
-    "Mech Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Medichamite": {
         "description": "If the holder is a Medicham, this item allows it to Mega Evolve into Mega Medicham in battle.",
@@ -1451,26 +1607,31 @@
             "Medicham",
             "mega"
         ],
+        "spriteId": 395,
         "type": "megastone"
     },
     "Mental Herb": {
         "description": "The holder is cured if affected by Attract, Disable, Encore, Heal Block, Taunt, or Torment. Single use.",
         "flingPower": 10,
+        "spriteId": 202,
         "type": "misc"
     },
     "Metal Coat": {
         "description": "The holder's Steel-type attacks have their power multiplied by 1.2. Evolves Onix into Steelix and Scyther into Scizor when traded.",
         "flingPower": 30,
+        "spriteId": 216,
         "type": "misc"
     },
     "Metal Powder": {
         "description": "If the holder is a Ditto that hasn't Transformed, its Defense is doubled.",
         "flingPower": 10,
+        "spriteId": 240,
         "type": "misc"
     },
     "Metronome": {
         "description": "The holder's attacks have their damage increased by the number of consecutive turns it uses the same attack successfully multiplied by 0.2, with a maximum of double damage after 5 turns.",
         "flingPower": 30,
+        "spriteId": 260,
         "type": "misc"
     },
     "Mewtwonite X": {
@@ -1480,6 +1641,7 @@
             "Mewtwo",
             "mega-x"
         ],
+        "spriteId": 392,
         "type": "megastone"
     },
     "Mewtwonite Y": {
@@ -1489,6 +1651,7 @@
             "Mewtwo",
             "mega-y"
         ],
+        "spriteId": 393,
         "type": "megastone"
     },
     "Micle Berry": {
@@ -1499,52 +1662,55 @@
             "power": 100,
             "type": "Rock"
         },
+        "spriteId": 192,
         "type": "berries"
     },
     "Mind Plate": {
         "description": "The holder's Psychic-type attacks have their power multiplied by 1.2. The holder's Judgment is Psychic type.",
         "flingPower": 90,
+        "spriteId": 290,
         "type": "misc"
     },
     "Miracle Seed": {
         "description": "The holder's Grass-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 222,
         "type": "misc"
     },
     "Moomoo Milk": {
         "description": "No competitive use. The selected Pokemon has 100 HP restored.",
         "flingPower": 30,
+        "spriteId": 33,
         "type": "medicine"
     },
     "Moon Ball": {
         "description": "A Poke Ball for catching Pokemon that evolve using the Moon Stone.",
         "flingPower": 0,
+        "spriteId": 317,
         "type": "pokeballs"
     },
     "Moon Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 81,
         "type": "misc"
-    },
-    "Mosaic Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Muscle Band": {
         "description": "The holder's physical attacks have their power multiplied by 1.1.",
         "flingPower": 10,
+        "spriteId": 249,
         "type": "misc"
     },
     "Muscle Wing": {
         "description": "No competitive use. The selected Pokemon has its Attack EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 350,
         "type": "medicine"
     },
     "Mystic Water": {
         "description": "The holder's Water-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 226,
         "type": "misc"
     },
     "Nanab Berry": {
@@ -1554,21 +1720,25 @@
             "power": 90,
             "type": "Water"
         },
+        "spriteId": 149,
         "type": "berries"
     },
     "Nest Ball": {
         "description": "A Poke Ball that works especially well on weaker Pokemon in the wild.",
         "flingPower": 0,
+        "spriteId": 8,
         "type": "pokeballs"
     },
     "Net Ball": {
         "description": "A Poke Ball that works especially well on Water- and Bug-type Pokemon.",
         "flingPower": 0,
+        "spriteId": 6,
         "type": "pokeballs"
     },
     "NeverMeltIce": {
         "description": "The holder's Ice-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 229,
         "type": "misc"
     },
     "Nomel Berry": {
@@ -1578,16 +1748,19 @@
             "power": 90,
             "type": "Dragon"
         },
+        "spriteId": 161,
         "type": "berries"
     },
     "Normal Gem": {
         "description": "The holder's first successful Normal-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
+        "spriteId": 348,
         "type": "misc"
     },
     "Nugget": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 92,
         "type": "misc"
     },
     "Occa Berry": {
@@ -1597,26 +1770,31 @@
             "power": 80,
             "type": "Fire"
         },
+        "spriteId": 167,
         "type": "berries"
     },
     "Odd Incense": {
         "description": "The holder's Psychic-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 297,
         "type": "misc"
     },
     "Odd Keystone": {
         "description": "No competitive use. Once used to summon Spiritomb.",
         "flingPower": 80,
+        "spriteId": 111,
         "type": "misc"
     },
     "Old Amber": {
         "description": "Can be revived into an Aerodactyl.",
         "flingPower": 100,
+        "spriteId": 103,
         "type": "misc"
     },
     "Old Gateau": {
         "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
         "flingPower": 30,
+        "spriteId": 54,
         "type": "medicine"
     },
     "Oran Berry": {
@@ -1626,27 +1804,25 @@
             "power": 80,
             "type": "Poison"
         },
+        "spriteId": 138,
         "type": "berries"
-    },
-    "Orange Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Oval Stone": {
         "description": "No competitive use. Evolves Happiny into Chansey when leveled up during the day.",
         "flingPower": 80,
+        "spriteId": 110,
         "type": "misc"
     },
     "PP Max": {
         "description": "No competitive use. The selected Pokemon has a chosen move's maximum PP raised to the maximum PP for that move.",
         "flingPower": 30,
+        "spriteId": 53,
         "type": "medicine"
     },
     "PP Up": {
         "description": "No competitive use. The selected Pokemon has a chosen move's maximum PP raised.",
         "flingPower": 30,
+        "spriteId": 51,
         "type": "medicine"
     },
     "Pamtre Berry": {
@@ -1656,21 +1832,25 @@
             "power": 90,
             "type": "Steel"
         },
+        "spriteId": 163,
         "type": "berries"
     },
     "Park Ball": {
         "description": "A special Poke Ball for the Pal Park.",
         "flingPower": 0,
+        "spriteId": 319,
         "type": "pokeballs"
     },
     "Parlyz Heal": {
         "description": "No competitive use. The selected Pokemon is cured of paralysis.",
         "flingPower": 30,
+        "spriteId": 22,
         "type": "medicine"
     },
     "Pass Orb": {
         "description": "No competitive use. Acts as a currency for getting Pass Powers.",
         "flingPower": 30,
+        "spriteId": 358,
         "type": "misc"
     },
     "Passho Berry": {
@@ -1680,6 +1860,7 @@
             "power": 80,
             "type": "Water"
         },
+        "spriteId": 168,
         "type": "berries"
     },
     "Payapa Berry": {
@@ -1689,16 +1870,19 @@
             "power": 80,
             "type": "Psychic"
         },
+        "spriteId": 176,
         "type": "berries"
     },
     "Pearl": {
         "description": "No competitive use. Can be sold cheaply.",
         "flingPower": 30,
+        "spriteId": 88,
         "type": "misc"
     },
     "Pearl String": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 363,
         "type": "misc"
     },
     "Pecha Berry": {
@@ -1708,6 +1892,7 @@
             "power": 80,
             "type": "Electric"
         },
+        "spriteId": 134,
         "type": "berries"
     },
     "Persim Berry": {
@@ -1717,6 +1902,7 @@
             "power": 80,
             "type": "Ground"
         },
+        "spriteId": 139,
         "type": "berries"
     },
     "Petaya Berry": {
@@ -1726,6 +1912,7 @@
             "power": 100,
             "type": "Poison"
         },
+        "spriteId": 187,
         "type": "berries"
     },
     "Pinap Berry": {
@@ -1735,11 +1922,13 @@
             "power": 90,
             "type": "Grass"
         },
+        "spriteId": 151,
         "type": "berries"
     },
     "Pink Scarf": {
         "description": "No competitive use. Increases the holder's Cuteness.",
         "flingPower": 10,
+        "spriteId": 245,
         "type": "misc"
     },
     "Pinsirite": {
@@ -1749,42 +1938,50 @@
             "Pinsir",
             "mega"
         ],
+        "spriteId": 401,
         "type": "megastone"
     },
     "Pixie Plate": {
         "description": "The holder's Fairy-type attacks have their power multiplied by 1.2. The holder's Judgment is Fairy type.",
         "flingPower": 90,
+        "spriteId": 375,
         "type": "misc"
     },
     "Plume Fossil": {
         "description": "Can be revived into an Archen.",
         "flingPower": 100,
+        "spriteId": 357,
         "type": "misc"
     },
     "Poison Barb": {
         "description": "The holder's Poison-type attacks have their power multiplied by 1.2.",
         "flingPower": 70,
+        "spriteId": 228,
         "type": "misc"
     },
     "Poison Gem": {
         "description": "The holder's first successful Poison-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 338,
         "type": "misc"
     },
     "Pok\u00e9 Ball": {
         "description": "A device for catching wild Pokemon. It is designed as a capsule system.",
         "flingPower": 0,
+        "spriteId": 4,
         "type": "pokeballs"
     },
     "Pok\u00e9 Doll": {
         "description": "No competitive use. Used to end a wild battle.",
         "flingPower": 30,
+        "spriteId": 63,
         "type": "misc"
     },
     "Pok\u00e9 Toy": {
         "description": "No competitive use. Used to end a wild battle.",
         "flingPower": 30,
+        "spriteId": 360,
         "type": "misc"
     },
     "Pomeg Berry": {
@@ -1794,82 +1991,98 @@
             "power": 90,
             "type": "Ice"
         },
+        "spriteId": 152,
         "type": "berries"
     },
     "Potion": {
         "description": "No competitive use. The selected Pokemon has 20 HP restored.",
         "flingPower": 30,
+        "spriteId": 17,
         "type": "medicine"
     },
     "Power Anklet": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 276,
         "type": "misc"
     },
     "Power Band": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 275,
         "type": "misc"
     },
     "Power Belt": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 273,
         "type": "misc"
     },
     "Power Bracer": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 272,
         "type": "misc"
     },
     "Power Herb": {
         "description": "The holder's two-turn moves complete in one turn (except Sky Drop). Single use.",
         "flingPower": 10,
+        "spriteId": 254,
         "type": "misc"
     },
     "Power Lens": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 274,
         "type": "misc"
     },
     "Power Weight": {
         "description": "The holder's Speed is halved.",
         "flingPower": 70,
+        "spriteId": 277,
         "type": "misc"
     },
     "Premier Ball": {
         "description": "A rare Poke Ball that has been crafted to commemorate an event.",
         "flingPower": 0,
+        "spriteId": 12,
         "type": "pokeballs"
     },
     "Pretty Wing": {
         "description": "No competitive use. Can be sold cheaply.",
         "flingPower": 20,
+        "spriteId": 355,
         "type": "misc"
     },
     "Prism Scale": {
         "description": "No competitive use. Evolves Feebas into Milotic when traded.",
         "flingPower": 30,
+        "spriteId": 321,
         "type": "misc"
     },
     "Protector": {
         "description": "No competitive use. Evolves Rhydon into Rhyperior when traded.",
         "flingPower": 80,
+        "spriteId": 304,
         "type": "misc"
     },
     "Protein": {
         "description": "No competitive use. The selected Pokemon has its Attack EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 46,
         "type": "medicine"
     },
     "Psychic Gem": {
         "description": "The holder's first successful Psychic-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 341,
         "type": "misc"
     },
     "Pure Incense": {
         "description": "No competitive use. Lowers the wild encounter rate if held by the lead Pokemon.",
         "flingPower": 10,
+        "spriteId": 303,
         "type": "misc"
     },
     "Qualot Berry": {
@@ -1879,27 +2092,32 @@
             "power": 90,
             "type": "Poison"
         },
+        "spriteId": 154,
         "type": "berries"
     },
     "Quick Ball": {
         "description": "A Poke Ball that provides a better catch rate at the start of a wild encounter.",
         "flingPower": 0,
+        "spriteId": 15,
         "type": "pokeballs"
     },
     "Quick Claw": {
         "description": "Each turn, the holder has a 20% chance to move first in its priority bracket.",
         "flingPower": 80,
+        "spriteId": 200,
         "type": "misc"
     },
     "Quick Powder": {
         "description": "If the holder is a Ditto that hasn't Transformed, its Speed is doubled.",
         "flingPower": 10,
+        "spriteId": 257,
         "type": "misc"
     },
     "RSVP Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 122,
         "type": "mail"
     },
     "Rabuta Berry": {
@@ -1909,16 +2127,25 @@
             "power": 90,
             "type": "Ghost"
         },
+        "spriteId": 160,
         "type": "berries"
+    },
+    "RageCandyBar": {
+        "description": "No competitive use. The selected Pokemon has 20 HP restored.",
+        "flingPower": 30,
+        "spriteId": 320,
+        "type": "medicine"
     },
     "Rare Bone": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 100,
+        "spriteId": 106,
         "type": "misc"
     },
     "Rare Candy": {
         "description": "No competitive use. The selected Pokemon has its level raised by 1.",
         "flingPower": 30,
+        "spriteId": 50,
         "type": "medicine"
     },
     "Rawst Berry": {
@@ -1928,16 +2155,19 @@
             "power": 80,
             "type": "Grass"
         },
+        "spriteId": 135,
         "type": "berries"
     },
     "Razor Claw": {
         "description": "The holder's critical hit ratio is raised by 1 stage.",
         "flingPower": 80,
+        "spriteId": 309,
         "type": "misc"
     },
     "Razor Fang": {
         "description": "The holder's attacks without a chance to flinch gain a 10% chance to flinch.",
         "flingPower": 30,
+        "spriteId": 310,
         "type": "misc"
     },
     "Razz Berry": {
@@ -1947,108 +2177,122 @@
             "power": 80,
             "type": "Steel"
         },
+        "spriteId": 147,
         "type": "berries"
     },
     "Reaper Cloth": {
         "description": "No competitive use. Evolves Dusclops into Dusknoir when traded.",
         "flingPower": 10,
+        "spriteId": 308,
         "type": "misc"
     },
     "Red Card": {
         "description": "If the holder is hit and both it and the attacker have HP remaining, it forces the attacker to switch out to a random ally. Single use.",
         "flingPower": 10,
+        "spriteId": 326,
         "type": "misc"
     },
     "Red Flute": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 67,
         "type": "battle"
     },
     "Red Scarf": {
         "description": "No competitive use. Increases the holder's Coolness.",
         "flingPower": 10,
+        "spriteId": 243,
         "type": "misc"
     },
     "Red Shard": {
         "description": "No competitive use. Used to pay certain Move Tutors.",
         "flingPower": 30,
+        "spriteId": 72,
         "type": "misc"
     },
     "Relic Band": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 369,
         "type": "misc"
     },
     "Relic Copper": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 365,
         "type": "misc"
     },
     "Relic Crown": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 371,
         "type": "misc"
     },
     "Relic Gold": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 367,
         "type": "misc"
     },
     "Relic Silver": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 366,
         "type": "misc"
     },
     "Relic Statue": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 370,
         "type": "misc"
     },
     "Relic Vase": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 368,
         "type": "misc"
     },
     "Repeat Ball": {
         "description": "A Poke Ball that works well on Pokemon species that were previously caught.",
         "flingPower": 0,
+        "spriteId": 9,
         "type": "pokeballs"
     },
     "Repel": {
         "description": "No competitive use. Prevents wild Pokemon below the level of the lead Pokemon from appearing for 100 steps.",
         "flingPower": 30,
+        "spriteId": 79,
         "type": "misc"
     },
     "Reply Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 126,
         "type": "mail"
     },
     "Resist Wing": {
         "description": "No competitive use. The selected Pokemon has its Defense EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 351,
         "type": "medicine"
-    },
-    "Retro Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Revival Herb": {
         "description": "No competitive use. The selected Pokemon is revived from fainting and has all of its HP restored, but has its Happiness lowered.",
         "flingPower": 30,
+        "spriteId": 37,
         "type": "medicine"
     },
     "Revive": {
         "description": "No competitive use. The selected Pokemon is revived from fainting and has 1/2 of its maximum HP restored, rounded down.",
         "flingPower": 30,
+        "spriteId": 28,
         "type": "medicine"
     },
     "Rich Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 382,
         "type": "misc"
     },
     "Rindo Berry": {
@@ -2058,37 +2302,44 @@
             "power": 80,
             "type": "Grass"
         },
+        "spriteId": 170,
         "type": "berries"
     },
     "Ring Target": {
         "description": "The holder's type immunities granted solely by its typing are negated.",
         "flingPower": 10,
+        "spriteId": 327,
         "type": "misc"
     },
     "Rock Gem": {
         "description": "The holder's first successful Rock-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 343,
         "type": "misc"
     },
     "Rock Incense": {
         "description": "The holder's Rock-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 298,
         "type": "misc"
     },
     "Rocky Helmet": {
         "description": "If the holder is hit by a contact move, the attacker loses 1/6 of its maximum HP, rounded down.",
         "flingPower": 60,
+        "spriteId": 324,
         "type": "misc"
     },
     "Root Fossil": {
         "description": "Can be revived into a Lileep.",
         "flingPower": 100,
+        "spriteId": 99,
         "type": "misc"
     },
     "Rose Incense": {
         "description": "The holder's Grass-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 301,
         "type": "misc"
     },
     "Roseli Berry": {
@@ -2098,6 +2349,7 @@
             "power": 80,
             "type": "Fairy"
         },
+        "spriteId": 416,
         "type": "berries"
     },
     "Rowap Berry": {
@@ -2108,31 +2360,37 @@
             "power": 100,
             "type": "Dark"
         },
+        "spriteId": 195,
         "type": "berries"
     },
     "Sachet": {
         "description": "No competitive use. Evolves Spritzee into Aromatisse when traded.",
         "flingPower": 80,
+        "spriteId": 378,
         "type": "misc"
     },
     "Sacred Ash": {
         "description": "No competitive use. All Pokemon in the party are revived from fainting and have all of their HP restored.",
         "flingPower": 30,
+        "spriteId": 44,
         "type": "medicine"
     },
     "Safari Ball": {
         "description": "A special Poke Ball that is used only in the Safari Zone and Great Marsh.",
         "flingPower": 0,
+        "spriteId": 5,
         "type": "pokeballs"
     },
     "Safety Goggles": {
         "description": "The holder is immune to powder moves and damage from Sandstorm or Hail.",
         "flingPower": 80,
+        "spriteId": 381,
         "type": "misc"
     },
     "Sail Fossil": {
         "description": "Can be revived into an Amaura.",
         "flingPower": 100,
+        "spriteId": 424,
         "type": "misc"
     },
     "Salac Berry": {
@@ -2142,6 +2400,7 @@
             "power": 100,
             "type": "Fighting"
         },
+        "spriteId": 186,
         "type": "berries"
     },
     "Scizorite": {
@@ -2151,57 +2410,68 @@
             "Scizor",
             "mega"
         ],
+        "spriteId": 400,
         "type": "megastone"
     },
     "Scope Lens": {
         "description": "The holder's critical hit ratio is raised by 1 stage.",
         "flingPower": 30,
+        "spriteId": 215,
         "type": "misc"
     },
     "Sea Incense": {
         "description": "The holder's Water-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 237,
         "type": "misc"
     },
-    "Shadow Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
+    "Shalour Sable": {
+        "description": "No competitive use. The selected Pokemon has its major status condition and confusion cured.",
+        "flingPower": 30,
         "unreleased": true,
-        "type": "mail"
+        "spriteId": 422,
+        "type": "medicine"
     },
     "Sharp Beak": {
         "description": "The holder's Flying-type attacks have their power multiplied by 1.2.",
         "flingPower": 50,
+        "spriteId": 227,
         "type": "misc"
     },
     "Shed Shell": {
         "description": "The holder can choose to switch out even when trapped by another Pokemon.",
         "flingPower": 10,
+        "spriteId": 278,
         "type": "misc"
     },
     "Shell Bell": {
         "description": "After an attack by the holder, it restores 1/8 of the damage in HP dealt to other Pokemon.",
         "flingPower": 30,
+        "spriteId": 236,
         "type": "misc"
     },
     "Shiny Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 80,
+        "spriteId": 107,
         "type": "misc"
     },
     "Shoal Salt": {
         "description": "No competitive use.",
         "flingPower": 30,
+        "spriteId": 70,
         "type": "misc"
     },
     "Shoal Shell": {
         "description": "No competitive use.",
         "flingPower": 30,
+        "spriteId": 71,
         "type": "misc"
     },
     "Shock Drive": {
         "description": "The holder's Techno Blast is Electric type.",
         "flingPower": 70,
+        "spriteId": 114,
         "type": "misc"
     },
     "Shuca Berry": {
@@ -2211,16 +2481,19 @@
             "power": 80,
             "type": "Ground"
         },
+        "spriteId": 174,
         "type": "berries"
     },
     "Silk Scarf": {
         "description": "The holder's Normal-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 234,
         "type": "misc"
     },
     "SilverPowder": {
         "description": "The holder's Bug-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 205,
         "type": "misc"
     },
     "Sitrus Berry": {
@@ -2230,69 +2503,68 @@
             "power": 80,
             "type": "Psychic"
         },
+        "spriteId": 141,
         "type": "berries"
     },
     "Skull Fossil": {
         "description": "Can be revived into a Cranidos.",
         "flingPower": 100,
+        "spriteId": 105,
         "type": "misc"
     },
     "Sky Plate": {
         "description": "The holder's Flying-type attacks have their power multiplied by 1.2. The holder's Judgment is Flying type.",
         "flingPower": 90,
+        "spriteId": 289,
         "type": "misc"
     },
     "Smoke Ball": {
         "description": "No competitive use. The holder can always run from wild battles.",
         "flingPower": 30,
+        "spriteId": 211,
         "type": "misc"
     },
     "Smooth Rock": {
         "description": "The holder's use of Sandstorm lasts 8 turns instead of 5. Does affect the Ability Sand Stream.",
         "flingPower": 10,
+        "spriteId": 266,
         "type": "misc"
-    },
-    "Snow Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Snowball": {
         "description": "Raises the holder's Attack by 1 stage when damaged by an Ice-type attack. Single use.",
         "flingPower": 30,
+        "spriteId": 380,
         "type": "misc"
     },
     "Soda Pop": {
         "description": "No competitive use. The selected Pokemon has 60 HP restored.",
         "flingPower": 30,
+        "spriteId": 31,
         "type": "medicine"
     },
     "Soft Sand": {
         "description": "The holder's Ground-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 220,
         "type": "misc"
     },
     "Soothe Bell": {
         "description": "No competitive use. Whenever the holder gains Happiness, it is multiplied by 1.5.",
         "flingPower": 10,
+        "spriteId": 201,
         "type": "misc"
     },
     "Soul Dew": {
         "description": "If the holder is a Latias or a Latios, its Special Attack and Special Defense are multiplied by 1.5.",
         "flingPower": 30,
         "unreleased": true,
+        "spriteId": 208,
         "type": "misc"
-    },
-    "Space Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Spell Tag": {
         "description": "The holder's Ghost-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 230,
         "type": "misc"
     },
     "Spelon Berry": {
@@ -2302,36 +2574,43 @@
             "power": 90,
             "type": "Dark"
         },
+        "spriteId": 162,
         "type": "berries"
     },
     "Splash Plate": {
         "description": "The holder's Water-type attacks have their power multiplied by 1.2. The holder's Judgment is Water type.",
         "flingPower": 90,
+        "spriteId": 282,
         "type": "misc"
     },
     "Spooky Plate": {
         "description": "The holder's Ghost-type attacks have their power multiplied by 1.2. The holder's Judgment is Ghost type.",
         "flingPower": 90,
+        "spriteId": 293,
         "type": "misc"
     },
     "Sport Ball": {
         "description": "A special Poke Ball for the Bug-Catching Contest.",
         "flingPower": 0,
+        "spriteId": 318,
         "type": "pokeballs"
     },
     "Stable Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 97,
         "type": "misc"
     },
     "Star Piece": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 91,
         "type": "misc"
     },
     "Stardust": {
         "description": "No competitive use. Can be sold cheaply.",
         "flingPower": 30,
+        "spriteId": 90,
         "type": "misc"
     },
     "Starf Berry": {
@@ -2341,68 +2620,74 @@
             "power": 100,
             "type": "Psychic"
         },
+        "spriteId": 190,
         "type": "berries"
     },
     "Steel Gem": {
         "description": "The holder's first successful Steel-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 347,
         "type": "misc"
-    },
-    "Steel Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Stick": {
         "description": "If the holder is a Farfetch'd, its critical hit ratio is raised by 2 stages.",
         "flingPower": 60,
+        "spriteId": 242,
         "type": "misc"
     },
     "Sticky Barb": {
         "description": "The holder loses 1/8 of its maximum HP, rounded down, at the end of each turn. An attacker making contact with the holder receives this item if it is not currently holding one.",
         "flingPower": 80,
+        "spriteId": 271,
         "type": "misc"
     },
     "Stone Plate": {
         "description": "The holder's Rock-type attacks have their power multiplied by 1.2. The holder's Judgment is Rock type.",
         "flingPower": 90,
+        "spriteId": 292,
         "type": "misc"
     },
     "Strange Souvenir": {
         "description": "No competitive use. Something mysterious!",
         "flingPower": 30,
+        "spriteId": 420,
         "type": "misc"
     },
     "Sun Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 80,
         "type": "misc"
     },
     "Super Potion": {
         "description": "No competitive use. The selected Pokemon has 50 HP restored.",
         "flingPower": 30,
+        "spriteId": 26,
         "type": "medicine"
     },
     "Super Repel": {
         "description": "No competitive use. Prevents wild Pokemon below the level of the lead Pokemon from appearing for 200 steps.",
         "flingPower": 30,
+        "spriteId": 76,
         "type": "misc"
     },
     "Surprise Mulch": {
         "description": "No competitive use. Used to grow Berries.",
         "flingPower": 30,
+        "spriteId": 383,
         "type": "misc"
     },
     "Sweet Heart": {
         "description": "No competitive use. The selected Pokemon has 20 HP restored.",
         "flingPower": 30,
+        "spriteId": 117,
         "type": "medicine"
     },
     "Swift Wing": {
         "description": "No competitive use. The selected Pokemon has its Speed EV raised by 1.",
         "flingPower": 20,
+        "spriteId": 354,
         "type": "medicine"
     },
     "Tamato Berry": {
@@ -2412,6 +2697,7 @@
             "power": 90,
             "type": "Psychic"
         },
+        "spriteId": 157,
         "type": "berries"
     },
     "Tanga Berry": {
@@ -2421,59 +2707,56 @@
             "power": 80,
             "type": "Bug"
         },
+        "spriteId": 177,
         "type": "berries"
     },
     "Thanks Mail": {
         "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 123,
         "type": "mail"
     },
     "Thick Club": {
         "description": "If the holder is a Cubone or a Marowak, its Attack is doubled.",
         "flingPower": 90,
+        "spriteId": 241,
         "type": "misc"
     },
     "Thunderstone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 83,
         "type": "misc"
     },
     "Timer Ball": {
         "description": "A Poke Ball that becomes better the more turns there are in a battle.",
         "flingPower": 0,
+        "spriteId": 10,
         "type": "pokeballs"
     },
     "TinyMushroom": {
         "description": "No competitive use. Can be sold cheaply.",
         "flingPower": 30,
+        "spriteId": 86,
         "type": "misc"
     },
     "Toxic Orb": {
         "description": "At the end of each turn, this item attempts to badly poison the holder.",
         "flingPower": 30,
+        "spriteId": 255,
         "type": "misc"
     },
     "Toxic Plate": {
         "description": "The holder's Poison-type attacks have their power multiplied by 1.2. The holder's Judgment is Poison type.",
         "flingPower": 90,
+        "spriteId": 287,
         "type": "misc"
-    },
-    "Tropic Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
-    },
-    "Tunnel Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "TwistedSpoon": {
         "description": "The holder's Psychic-type attacks have their power multiplied by 1.2.",
         "flingPower": 30,
+        "spriteId": 231,
         "type": "misc"
     },
     "Tyranitarite": {
@@ -2483,16 +2766,19 @@
             "Tyranitar",
             "mega"
         ],
+        "spriteId": 399,
         "type": "megastone"
     },
     "Ultra Ball": {
         "description": "An ultra-performance Ball that provides a higher catch rate than a Great Ball.",
         "flingPower": 0,
+        "spriteId": 2,
         "type": "pokeballs"
     },
     "Up-Grade": {
         "description": "No competitive use. Evolves Porygon into Porygon2 when traded.",
         "flingPower": 30,
+        "spriteId": 235,
         "type": "misc"
     },
     "Venusaurite": {
@@ -2502,6 +2788,7 @@
             "Venusaur",
             "mega"
         ],
+        "spriteId": 389,
         "type": "megastone"
     },
     "Wacan Berry": {
@@ -2511,17 +2798,20 @@
             "power": 80,
             "type": "Electric"
         },
+        "spriteId": 169,
         "type": "berries"
     },
     "Water Gem": {
         "description": "The holder's first successful Water-type attack has its power multiplied by 1.3. Single use.",
         "flingPower": 0,
         "unreleased": true,
+        "spriteId": 333,
         "type": "misc"
     },
     "Water Stone": {
         "description": "No competitive use. An evolutionary item to be used on certain Pokemon.",
         "flingPower": 30,
+        "spriteId": 84,
         "type": "misc"
     },
     "Watmel Berry": {
@@ -2531,22 +2821,19 @@
             "power": 100,
             "type": "Fire"
         },
+        "spriteId": 164,
         "type": "berries"
     },
     "Wave Incense": {
         "description": "The holder's Water-type attacks have their power multiplied by 1.2.",
         "flingPower": 10,
+        "spriteId": 300,
         "type": "misc"
-    },
-    "Wave Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "Weakness Policy": {
         "description": "Raises the holder's Attack and Special Attack by 2 stages after it is hit by a supereffective move. Single use.",
         "flingPower": 80,
+        "spriteId": 373,
         "type": "misc"
     },
     "Wepear Berry": {
@@ -2556,26 +2843,31 @@
             "power": 90,
             "type": "Electric"
         },
+        "spriteId": 150,
         "type": "berries"
     },
     "Whipped Dream": {
         "description": "No competitive use. Evolves Swirlix into Slurpuff when traded.",
         "flingPower": 80,
+        "spriteId": 377,
         "type": "misc"
     },
     "White Flute": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 69,
         "type": "misc"
     },
     "White Herb": {
         "description": "Restores all of the holder's lowered stat stages to 0 whenever one of its stat stages is less than 0. Single use.",
         "flingPower": 10,
+        "spriteId": 197,
         "type": "misc"
     },
     "Wide Lens": {
         "description": "The accuracy of attacks by the holder is multiplied by 1.1.",
         "flingPower": 10,
+        "spriteId": 248,
         "type": "misc"
     },
     "Wiki Berry": {
@@ -2585,47 +2877,49 @@
             "power": 80,
             "type": "Rock"
         },
+        "spriteId": 143,
         "type": "berries"
     },
     "Wise Glasses": {
         "description": "The holder's special attacks have their power multiplied by 1.1.",
         "flingPower": 10,
+        "spriteId": 250,
         "type": "misc"
-    },
-    "Wood Mail": {
-        "description": "This item cannot be taken or stolen from the holder. Knock Off can remove it.",
-        "flingPower": 0,
-        "unreleased": true,
-        "type": "mail"
     },
     "X Accuracy": {
         "description": "No competitive use. The selected Pokemon has its accuracy raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 60,
         "type": "battle"
     },
     "X Attack": {
         "description": "No competitive use. The selected Pokemon has its Attack raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 57,
         "type": "battle"
     },
     "X Defend": {
         "description": "No competitive use. The selected Pokemon has its Defense raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 58,
         "type": "battle"
     },
     "X Sp. Def": {
         "description": "No competitive use. The selected Pokemon has its Special Defense raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 62,
         "type": "battle"
     },
     "X Special": {
         "description": "No competitive use. The selected Pokemon has its Special Attack raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 61,
         "type": "battle"
     },
     "X Speed": {
         "description": "No competitive use. The selected Pokemon has its Speed raised by 1 stage in battle.",
         "flingPower": 30,
+        "spriteId": 59,
         "type": "battle"
     },
     "Yache Berry": {
@@ -2635,36 +2929,43 @@
             "power": 80,
             "type": "Ice"
         },
+        "spriteId": 171,
         "type": "berries"
     },
     "Yellow Flute": {
         "description": "No competitive use. Can be sold for a high price.",
         "flingPower": 30,
+        "spriteId": 66,
         "type": "battle"
     },
     "Yellow Scarf": {
         "description": "No competitive use. Increases the holder's Toughness.",
         "flingPower": 10,
+        "spriteId": 247,
         "type": "misc"
     },
     "Yellow Shard": {
         "description": "No competitive use. Used to pay certain Move Tutors.",
         "flingPower": 30,
+        "spriteId": 74,
         "type": "misc"
     },
     "Zap Plate": {
         "description": "The holder's Electric-type attacks have their power multiplied by 1.2. The holder's Judgment is Electric type.",
         "flingPower": 90,
+        "spriteId": 283,
         "type": "misc"
     },
     "Zinc": {
         "description": "No competitive use. The selected Pokemon has its Special Defense EV raised by 10.",
         "flingPower": 30,
+        "spriteId": 52,
         "type": "medicine"
     },
     "Zoom Lens": {
         "description": "The accuracy of attacks by the holder is multiplied by 1.2 if it moves after the target.",
         "flingPower": 10,
+        "spriteId": 259,
         "type": "misc"
     }
 }
