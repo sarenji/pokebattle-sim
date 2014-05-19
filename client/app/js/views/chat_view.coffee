@@ -214,10 +214,18 @@ class @ChatView extends Backbone.View
   sanitize: (message) =>
     sanitizedMessage = $('<div/>').text(message).html()
     sanitizedMessage = sanitizedMessage.replace(
-      /\b(https?:\/\/\S+\.\S+)\b/g,
-      """<a href="$1" target="_blank">$1</a>""")
-    sanitizedMessage = sanitizedMessage.replace(
       /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
+    sanitizedMessage = URI.withinString sanitizedMessage, (url) ->
+      uri = URI(url)
+      [host, path] = [uri.host(), uri.path()]
+      battleRegex = /^\/battles\/([a-fA-F0-9]+)$/i
+      $a = $("<a/>").prop('href', url).prop('target', '_blank').text(url)
+
+      if host == URI(window.location.href).host() && battleRegex.test(path)
+        battleId = path.match(battleRegex)[1]
+        $a.addClass('spectate').attr('data-battle-id', battleId)
+
+      return $a.wrap("<div/>").parent().html()
     sanitizedMessage
 
   # Returns true if the chat is scrolled to the bottom of the screen.
