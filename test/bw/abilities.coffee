@@ -1052,7 +1052,7 @@ describe "BW Abilities:", ->
       @p1.copyAbility(Ability.Imposter)
       spy.called.should.be.false
 
-  testAttachmentImmuneAbility = (name, attachments) ->
+  testAttachmentImmuneAbility = (name, attachments, options = {}) ->
     describe name, ->
       it "prevents the pokemon from receiving a specific attachment", ->
         shared.create.call this,
@@ -1062,20 +1062,22 @@ describe "BW Abilities:", ->
           should.not.exist @p1.attach(attachment, source: @p2)
           @p1.has(attachment).should.be.false
 
-      it "removes the attachment if the pokemon already has it", ->
-        shared.create.call this,
-          team1: [Factory("Magikarp", gender: "F")]
-          team2: [Factory("Magikarp", gender: "M")]
-        for attachment in attachments
-          @p1.attach(attachment, source: @p2)
-          @p1.has(attachment).should.be.true
-          @p1.copyAbility(Ability[name.replace(/\s+/g, '')])
-          @p1.update()
-          @p1.has(attachment).should.be.false
-          @p1.copyAbility(null)
+      shouldCure = options.cure ? true
+      if shouldCure
+        it "removes the attachment if the pokemon already has it", ->
+          shared.create.call this,
+            team1: [Factory("Magikarp", gender: "F")]
+            team2: [Factory("Magikarp", gender: "M")]
+          for attachment in attachments
+            @p1.attach(attachment, source: @p2)
+            @p1.has(attachment).should.be.true
+            @p1.copyAbility(Ability[name.replace(/\s+/g, '')])
+            @p1.update()
+            @p1.has(attachment).should.be.false
+            @p1.copyAbility(null)
 
   testAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
-  testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch])
+  testAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch], cure: false)
   testAttachmentImmuneAbility("Insomnia", [Status.Sleep])
   testAttachmentImmuneAbility("Limber", [Status.Paralyze])
   testAttachmentImmuneAbility("Magma Armor", [Status.Freeze])

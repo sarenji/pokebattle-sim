@@ -419,7 +419,7 @@ describe "XY Abilities:", ->
       @battle.performMove(@p2, tackle)
       @p2.hasAbility("Mummy").should.be.false
 
-  testAttachmentImmuneAbility = (name, attachments) ->
+  testAttachmentImmuneAbility = (name, attachments, options = {}) ->
     describe name, ->
       it "prevents the pokemon from receiving a specific attachment", ->
         shared.create.call this,
@@ -430,4 +430,22 @@ describe "XY Abilities:", ->
           should.not.exist @p1.attach(attachment, source: @p2)
           @p1.has(attachment).should.be.false
 
-  testAttachmentImmuneAbility("Aroma Veil", [Attachment.Disable, Attachment.Encore, Attachment.Taunt, Attachment.Torment])
+      shouldCure = options.cure ? true
+      if shouldCure
+        it "removes the attachment if the pokemon already has it", ->
+          shared.create.call this,
+            gen: 'xy'
+            team1: [Factory("Magikarp", gender: "F")]
+            team2: [Factory("Magikarp", gender: "M")]
+          for attachment in attachments
+            @p1.attach(attachment, source: @p2)
+            @p1.has(attachment).should.be.true
+            @p1.copyAbility(Ability[name.replace(/\s+/g, '')])
+            @p1.update()
+            @p1.has(attachment).should.be.false
+            @p1.copyAbility(null)
+
+  testAttachmentImmuneAbility("Aroma Veil", [Attachment.Attract, Attachment.Disable,
+    Attachment.Encore, Attachment.Taunt, Attachment.Torment], cure: false)
+  testAttachmentImmuneAbility("Oblivious", [Attachment.Attract, Attachment.Taunt])
+  testAttachmentImmuneAbility("Sweet Veil", [Status.Sleep], cure: false)

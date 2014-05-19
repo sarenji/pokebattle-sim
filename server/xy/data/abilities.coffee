@@ -24,6 +24,9 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 # Retcon old abilities
 
+# Oblivious now also prevents and cures Taunt
+makeAttachmentImmuneAbility("Oblivious", [Attachment.Attract, Attachment.Taunt])
+
 # Overcoat now also prevents powder moves from working.
 Ability.Overcoat::shouldBlockExecution = (move, user) ->
     if move.hasFlag("powder")
@@ -59,7 +62,8 @@ makeAuraAbility("Fairy Aura", "Fairy")
 
 # New unique abilities
 
-makeAttachmentImmuneAbility("Aroma Veil", [Attachment.Disable, Attachment.Encore, Attachment.Taunt, Attachment.Torment])
+makeAttachmentImmuneAbility("Aroma Veil", [Attachment.Attract, Attachment.Disable,
+  Attachment.Encore, Attachment.Taunt, Attachment.Torment], cure: false) # TODO: Add Heal Block
 
 # Implemented in makeAuraAbility
 makeAbility "Aura Break"
@@ -147,7 +151,7 @@ makeAbility "Strong Jaw", ->
     return 0x1000
 
 # TODO: Sweet Veil (2v2)
-makeAttachmentImmuneAbility "Sweet Veil", [Status.Sleep]
+makeAttachmentImmuneAbility("Sweet Veil", [Status.Sleep], cure: false)
 
 # TODO: Symbiosis
 makeAbility "Symbiosis"
