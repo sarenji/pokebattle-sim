@@ -152,6 +152,8 @@ Aliases =
     "Thunder Stone"   :  "Thunderstone"
     "Tiny Mushroom"   :  "TinyMushroom"
     "Twisted Spoon"   :  "TwistedSpoon"
+    "X Defense"       :  "X Defend"
+    "X Sp. Atk"       :  "X Special"
 
 statsHash =
   'hp'   : 'hp'
