@@ -86,8 +86,44 @@ desc 'Clears the chat.'
 makeCommand "clear", ->
   PokeBattle.chatView.clear()
 
-desc 'Displays how much PBV a Pokemon is worth. Usage: /pbv pkmn1, pkmn2, ...'
+desc 'Displays how much PBV a Pokemon is worth, or displays all Pokemon at or under a particular PBV. Usage: /pbv pkmn1, pkmn2, OR /pbv number'
 makeCommand "pbv", (pokemon...) ->
+  pbv = Number(pokemon)
+  if !isNaN(pbv)
+    messages = findPokemonAtPBV(pbv)
+  else
+    messages = findTotalPBV(pokemon)
+
+  if messages.length == 0
+    PokeBattle.chatView.announce('error',
+      "<b>PBV error:</b> Enter valid Pokemon or PBV.")
+  else
+    PokeBattle.chatView.announce('success',
+      "<b>PBV:</b> #{messages.join('; ')}")
+
+findPokemonAtPBV = (pbv) ->
+  messages = []
+  counter = 0
+  for speciesName, formes of window.Generations.XY.FormeData
+    for formeName, formeData of formes
+      if formeData.pokeBattleValue <= pbv
+        counter += 1
+        dexEntry = "pokemon/#{slugify(speciesName)}/#{slugify(formeName)}"
+        icon = pokemonIcon(speciesName, formeName)
+        formattedName = formatName(speciesName, formeName)
+        messages.push("#{linkToDex(dexEntry, icon + formattedName)}:
+          #{formeData.pokeBattleValue}")
+  if messages.length > 10
+    messages = _.sample(messages, 10)
+    messages.push("<a href='//www.pokebattle.com/dex/pokemon/?pbv=<#{pbv + 1}'
+      target='_blank'>See more Pokemon &raquo;</a>")
+  if messages.length > 0
+    plural = if messages.length == 1 then "is" else "are"
+    messages.unshift("There #{plural} #{counter} Pokemon with a PBV of
+      #{pbv} or less.")
+  messages
+
+findTotalPBV = (pokemon) ->
   pokemon = _(pokemon).map(findPokemon)
   messages = []
   total = 0
@@ -101,13 +137,8 @@ makeCommand "pbv", (pokemon...) ->
     icon = pokemonIcon(speciesName, formeName)
     formattedName = formatName(speciesName, formeName)
     messages.push("#{linkToDex(dexEntry, icon + formattedName)}: #{pbv}")
-  if messages.length == 0
-    PokeBattle.chatView.announce('error',
-      "<b>PBV error:</b> Enter valid Pokemon.")
-  else
-    messages.push("Total: #{total}")  if messages.length > 1
-    PokeBattle.chatView.announce('success',
-      "<b>PBV:</b> #{messages.join(' | ')}")
+  messages.push("Total: #{total}")  if messages.length > 1
+  messages
 
 desc 'Looks up information about a Pokemon, move, item, or ability.'
 makeCommand "data", "dex", (query) ->
