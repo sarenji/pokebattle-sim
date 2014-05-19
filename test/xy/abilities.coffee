@@ -418,3 +418,16 @@ describe "XY Abilities:", ->
       @p2.hasAbility("Mummy").should.be.false
       @battle.performMove(@p2, tackle)
       @p2.hasAbility("Mummy").should.be.false
+
+  testAttachmentImmuneAbility = (name, attachments) ->
+    describe name, ->
+      it "prevents the pokemon from receiving a specific attachment", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", gender: "F", ability: name)]
+          team2: [Factory("Magikarp", gender: "M")]
+        for attachment in attachments
+          should.not.exist @p1.attach(attachment, source: @p2)
+          @p1.has(attachment).should.be.false
+
+  testAttachmentImmuneAbility("Aroma Veil", [Attachment.Disable, Attachment.Encore, Attachment.Taunt, Attachment.Torment])
