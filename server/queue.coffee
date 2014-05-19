@@ -7,6 +7,16 @@ class QueuedPlayer
     @range = 100
     @rating = null  # needs to be updated by getRatings
 
+  intersectsWith: (other) ->
+    leftMin = @rating - (@range / 2)
+    leftMax = @rating + (@range / 2)
+    rightMin = other.rating - (other.range / 2)
+    rightMax = other.rating + (other.range / 2)
+
+    return false  if leftMin > rightMax
+    return false  if leftMax < rightMin
+    true
+
 # A queue of users waiting for a battle
 class @BattleQueue
   constructor: ->
@@ -95,12 +105,16 @@ class @BattleQueue
         for rightIdx in [(leftIdx + 1)...sortedPlayers.length]
           continue  if alreadyMatched[rightIdx]
 
-          leftPlayer = sortedPlayers[leftIdx].player
-          rightPlayer = sortedPlayers[rightIdx].player
+          left = sortedPlayers[leftIdx]
+          right = sortedPlayers[rightIdx]
+          leftPlayer = left.player
+          rightPlayer = right.player
 
+          # Continue if these two players already played
           continue  if @hasRecentlyMatched(leftPlayer.id, rightPlayer.id)
 
-          # TODO: START CHECKING RATING DIFF. IF ITS TOO GREAT, BREAK OUT
+          # If the rating difference is too large break out, we have no possible match for left
+          break  unless left.intersectsWith(right)
 
           # Everything checks out, so make the pair and break out
           pairs.push([leftPlayer, rightPlayer])
@@ -108,6 +122,9 @@ class @BattleQueue
           @addRecentMatch(leftPlayer.id, rightPlayer.id)
           alreadyMatched[leftIdx] = alreadyMatched[rightIdx] = true
           break
+
+      # Expand the range of all unmatched players
+      queued.range += 50  for id, queued of @queue
 
       # Return the list of paired players
       next(null, pairs)

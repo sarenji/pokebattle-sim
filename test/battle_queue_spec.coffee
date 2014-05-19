@@ -171,6 +171,25 @@ describe 'BattleQueue', ->
                               [ "spiderman", "superman" ]]
             done()
 
+    it "does not match players with a large rating gap until it expands", (done) ->
+      scores = [["batman", 900], ["superman", 1005]]
+      callbacks = for [player, score] in scores
+        ratings.setRating.bind(ratings, player, score)
+      async.parallel callbacks, ->
+        queue = new BattleQueue()
+        queue.add(pair[0])  for pair in scores
+
+        # first run - no matches should be found
+        queue.pairPlayers (err, results) ->
+          should.not.exist(err)
+          results.should.have.length 0
+
+          # second run - should have found a match
+          queue.pairPlayers (err, results) ->
+            should.not.exist(err)
+            results.should.have.length 1
+            done()
+
     it "returns a different ordering for alts ratings", (done) ->
       users = [
         ["batman", "Bruce Wayne", 1, 1]
