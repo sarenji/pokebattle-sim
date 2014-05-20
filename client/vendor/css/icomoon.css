@@ -66,3 +66,9 @@
 .icon-checkmark-circle:before {
   content: "\e60d";
 }
+.icon-close:before {
+  content: "\e6fd";
+}
+.icon-minus:before {
+  content: "\e701";
+}
