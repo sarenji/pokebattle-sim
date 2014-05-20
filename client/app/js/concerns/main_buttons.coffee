@@ -26,7 +26,7 @@ $ ->
     $this = $(this)
     $this.find('.find-icon')
       .addClass('icon-spinner spinner-anim')
-      .removeClass("icon-globe")
+      .removeClass("icon-earth")
 
   $mainButtons.find('.display_credits').click ->
     $modal = PokeBattle.modal('modals/credits')
@@ -39,7 +39,7 @@ depressFindBattle = ->
   $button.removeClass("disabled")
   $button.find('.find-icon')
     .removeClass("icon-spinner spinner-anim")
-    .addClass("icon-globe")
+    .addClass("icon-earth")
   $mainButtons.find('.find_battle_select_team .select').removeClass('disabled')
 
 $(window).load ->

@@ -1,10 +1,31 @@
 ratings = require('./ratings')
 alts = require('./alts')
 
+INITIAL_RANGE = 100
+RANGE_INCREMENT = 100
+
+class QueuedPlayer
+  constructor: (player) ->
+    @player = player
+    @range = INITIAL_RANGE
+    @rating = null  # needs to be updated by getRatings
+
+  intersectsWith: (other) ->
+    leftMin = @rating - (@range / 2)
+    leftMax = @rating + (@range / 2)
+    rightMin = other.rating - (other.range / 2)
+    rightMax = other.rating + (other.range / 2)
+
+    return false  if leftMin > rightMax
+    return false  if leftMax < rightMin
+    true
+
 # A queue of users waiting for a battle
 class @BattleQueue
   constructor: ->
     @queue = {}
+    @newPlayers = []
+    @recentlyMatched = {}
     @length = 0
 
   # Adds a player to the queue.
@@ -12,7 +33,11 @@ class @BattleQueue
   add: (playerId, name, team, ratingKey=playerId) ->
     return false  if !playerId
     return false  if playerId of @queue
-    @queue[playerId] = {id: playerId, name, team, ratingKey}
+
+    playerObject = {id: playerId, name, team, ratingKey}
+    player = new QueuedPlayer(playerObject)
+    @queue[playerId] = player
+    @newPlayers.push(player)
     @length += 1
     return true
 
@@ -26,41 +51,84 @@ class @BattleQueue
   queuedPlayers: ->
     Object.keys(@queue)
 
+  hasUserId: (playerId) ->
+    @queue[playerId]?
+
+  hasRecentlyMatched: (player1Id, player2Id) ->
+    players = [player1Id, player2Id].sort()
+    key = "#{players[0]}:#{players[1]}"
+    @recentlyMatched[key]?
+
+  addRecentMatch: (player1Id, player2Id) ->
+    players = [player1Id, player2Id].sort()
+    key = "#{players[0]}:#{players[1]}"
+    @recentlyMatched[key] = true
+    setTimeout((=> delete @recentlyMatched[key]), 30 * 60 * 1000) # expire in 30 minutes
+
   size: ->
     @length
+
+  # An internal function which loads ratings for newly queued players
+  # and removes them from the newly queued list
+  updateNewPlayers: (next) ->
+    ratingKeys = (queued.player.ratingKey for queued in @newPlayers)
+    return next(null)  if ratingKeys.length == 0
+    
+    ratings.getRatings ratingKeys, (err, returnedRatings) =>
+      if err then return next(err)
+
+      ratings.setActive ratingKeys, (err) =>
+        if err then return next(err)
+
+        # Update the ratings in the player objects
+        for rating, i in returnedRatings
+          continue  unless @hasUserId(@newPlayers[i].player.id)
+          @newPlayers[i].rating = rating
+
+        # reset the new players list, we're done
+        @newPlayers.splice(0, @newPlayers.length)  
+        next(null)
 
   # Returns an array of pairs. Each pair is a queue object that contains
   # a player and team key, corresponding to the player socket and player's team.
   pairPlayers: (next) ->
-    queueByRatingKey = {}  # a duplicate of the queued object to map back from altered ratingKeys -> objects
-    queueByRatingKey[player.ratingKey] = player  for id, player of @queue
-    ratingKeys = Object.keys(queueByRatingKey)
+    return next(null, [])  if @size() == 0
 
-    return next(null, [])  if ratingKeys.length == 0
-    ratings.getRatings ratingKeys, (err, returnedRatings) =>
+    @updateNewPlayers (err) =>
       if err then return next(err, null)
+      
+      sortedPlayers = (queued for id, queued of @queue)
+      sortedPlayers.sort((a, b) -> a.rating - b.rating)
 
-      ratings.setActive ratingKeys, (err) =>
-        if err then return next(err, null)
-        pairs = []
-        sortedPlayers = []
+      alreadyMatched = (false for [0...sortedPlayers.length])
 
-        # Get the list of players sorted by rating
-        for rating, i in returnedRatings
-          player = queueByRatingKey[ratingKeys[i]]
-          sortedPlayers.push([ player, rating ])
-        sortedPlayers.sort((a, b) -> a[1] - b[1])
-        sortedPlayers = sortedPlayers.map((array) -> array[0])
+      pairs = []
+      for leftIdx in [0...sortedPlayers.length]
+        continue  if alreadyMatched[leftIdx]
 
-        # Populate pair array
-        for i in [0...sortedPlayers.length] by 2
-          first = sortedPlayers[i]
-          second = sortedPlayers[i + 1]
-          continue  unless first && second
-          pairs.push([first, second])
+        for rightIdx in [(leftIdx + 1)...sortedPlayers.length]
+          continue  if alreadyMatched[rightIdx]
 
-          # Remove paired players from the queue
-          @remove([first.id, second.id])
+          left = sortedPlayers[leftIdx]
+          right = sortedPlayers[rightIdx]
+          leftPlayer = left.player
+          rightPlayer = right.player
 
-        # Return the list of paired players
-        next(null, pairs)
+          # Continue if these two players already played
+          continue  if @hasRecentlyMatched(leftPlayer.id, rightPlayer.id)
+
+          # If the rating difference is too large break out, we have no possible match for left
+          break  unless left.intersectsWith(right)
+
+          # Everything checks out, so make the pair and break out
+          pairs.push([leftPlayer, rightPlayer])
+          @remove([leftPlayer.id, rightPlayer.id])
+          @addRecentMatch(leftPlayer.id, rightPlayer.id)
+          alreadyMatched[leftIdx] = alreadyMatched[rightIdx] = true
+          break
+
+      # Expand the range of all unmatched players
+      queued.range += RANGE_INCREMENT  for id, queued of @queue
+
+      # Return the list of paired players
+      next(null, pairs)
