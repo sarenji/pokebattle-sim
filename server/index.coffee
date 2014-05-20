@@ -33,7 +33,7 @@ CLIENT_VERSION = assets.getVersion()
 
   # Configuration
   app.set("views", "client")
-  app.use(express.logger())
+  app.use(express.logger())  if config.IS_LOCAL
   app.use(express.compress())  # gzip
   app.use(express.bodyParser())
   app.use(express.cookieParser())
