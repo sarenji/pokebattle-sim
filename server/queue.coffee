@@ -1,10 +1,13 @@
 ratings = require('./ratings')
 alts = require('./alts')
 
+INITIAL_RANGE = 100
+RANGE_INCREMENT = 100
+
 class QueuedPlayer
   constructor: (player) ->
     @player = player
-    @range = 100
+    @range = INITIAL_RANGE
     @rating = null  # needs to be updated by getRatings
 
   intersectsWith: (other) ->
@@ -53,12 +56,12 @@ class @BattleQueue
 
   hasRecentlyMatched: (player1Id, player2Id) ->
     players = [player1Id, player2Id].sort()
-    key = "#{players[0]}_#{players[1]}"
+    key = "#{players[0]}:#{players[1]}"
     @recentlyMatched[key]?
 
   addRecentMatch: (player1Id, player2Id) ->
     players = [player1Id, player2Id].sort()
-    key = "#{players[0]}_#{players[1]}"
+    key = "#{players[0]}:#{players[1]}"
     @recentlyMatched[key] = true
     setTimeout((=> delete @recentlyMatched[key]), 30 * 60 * 1000) # expire in 30 minutes
 
@@ -82,7 +85,8 @@ class @BattleQueue
           continue  unless @hasUserId(@newPlayers[i].player.id)
           @newPlayers[i].rating = rating
 
-        @newPlayers = []  # reset the new players list, we're done
+        # reset the new players list, we're done
+        @newPlayers.splice(0, @newPlayers.length)  
         next(null)
 
   # Returns an array of pairs. Each pair is a queue object that contains
@@ -124,7 +128,7 @@ class @BattleQueue
           break
 
       # Expand the range of all unmatched players
-      queued.range += 50  for id, queued of @queue
+      queued.range += RANGE_INCREMENT  for id, queued of @queue
 
       # Return the list of paired players
       next(null, pairs)
