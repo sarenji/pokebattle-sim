@@ -31,7 +31,7 @@ describe 'Validations: OHKO Clause', ->
     server = new BattleServer()
     generation = 'xy'
     team = [
-      Factory("Magikarp", moves: [ "Bullshit" ])
+      Factory("Magikarp", moves: [ "GHOSTFACE KILLAH" ])
       Factory("Gyarados", moves: [ "Dragon Dance" ])
     ]
     conditions = [ Conditions.OHKO_CLAUSE ]

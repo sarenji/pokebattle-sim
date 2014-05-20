@@ -537,7 +537,7 @@ describe 'BattleServer', ->
       server = new BattleServer()
       pokemon = Factory("Hitmonchan", moves: true)
       server.validateTeam([ pokemon ]).should.not.be.empty
-      pokemon = Factory("Hitmonchan", moves: ["Bullshit"])
+      pokemon = Factory("Hitmonchan", moves: ["Super Powerful Punch"])
       server.validateTeam([ pokemon ]).should.not.be.empty
 
     it "returns non-empty if a team member has an illegal moveset", ->

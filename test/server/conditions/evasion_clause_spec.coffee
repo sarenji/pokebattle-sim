@@ -39,7 +39,7 @@ describe 'Validations: Evasion Clause', ->
     server = new BattleServer()
     generation = 'xy'
     team = [
-      Factory("Magikarp", moves: [ "Bullshit" ])
+      Factory("Magikarp", moves: [ "GHOSTFACE KILLAH" ])
       Factory("Gyarados", moves: [ "Dragon Dance" ])
     ]
     conditions = [ Conditions.EVASION_CLAUSE ]
