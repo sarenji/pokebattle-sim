@@ -389,7 +389,8 @@ class @BattleServer
     else if !(1 <= pokemon.moves.length <= 4)
       err.push("#{prefix}: Must have 1 to 4 moves.")
     else if !_(pokemon.moves).all((name) -> MoveData[name]?)
-      err.push("#{prefix}: Invalid move name.")
+      invalidMove = _(pokemon.moves).find((name) -> !MoveData[name]?)
+      err.push("#{prefix}: Invalid move name: #{invalidMove}")
     else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
                         gen.GENERATION_TO_INT[generation], pokemon.moves)
       err.push("#{prefix}: Invalid moveset.")
