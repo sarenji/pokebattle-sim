@@ -48,6 +48,16 @@ describe "XY Items:", ->
       @p1.hasItem().should.be.true
       @p1.stages.should.include(attack: 0, specialAttack: 0)
 
+    it "not used if the wearer is behind a substitute", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory('Magikarp', item: 'Weakness Policy')]
+      @p1.attach(Attachment.Substitute, hp: 1)
+      thunderbolt = @battle.getMove("Thunderbolt")
+      @battle.performMove(@p2, thunderbolt)
+      @p1.hasItem().should.be.true
+      @p1.stages.should.include(attack: 0, specialAttack: 0)
+
   describe "Assault Vest", ->
     it "blocks non-damaging moves", ->
       shared.create.call this,

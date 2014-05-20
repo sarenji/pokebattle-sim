@@ -45,8 +45,8 @@ makeItem "Safety Goggles", ->
     return true  if move.hasFlag("powder")
 
 makeItem "Weakness Policy", ->
-  this::afterBeingHit = (move, user) ->
-    if !move.isNonDamaging() &&
+  this::afterBeingHit = (move, user, target, damage, isDirect) ->
+    if isDirect && !move.isNonDamaging() &&
         move.typeEffectiveness(@battle, user, @pokemon) > 1
       @pokemon.boost(attack: 2, specialAttack: 2)
       @pokemon.useItem()
