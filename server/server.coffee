@@ -333,7 +333,7 @@ class @BattleServer
   # otherwise.
   validatePokemon: (conditions, pokemon, slot, generation = gen.DEFAULT_GENERATION) ->
     genData = gen.GenerationJSON[generation.toUpperCase()]
-    {SpeciesData, FormeData} = genData
+    {SpeciesData, FormeData, MoveData} = genData
     err = []
     prefix = "Slot ##{slot}"
 
@@ -388,6 +388,8 @@ class @BattleServer
     # TODO: 4 is a magic constant
     else if !(1 <= pokemon.moves.length <= 4)
       err.push("#{prefix}: Must have 1 to 4 moves.")
+    else if !_(pokemon.moves).all((name) -> MoveData[name]?)
+      err.push("#{prefix}: Invalid move name.")
     else if !learnsets.checkMoveset(gen.GenerationJSON, pokemon,
                         gen.GENERATION_TO_INT[generation], pokemon.moves)
       err.push("#{prefix}: Invalid moveset.")
