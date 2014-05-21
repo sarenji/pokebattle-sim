@@ -23,6 +23,7 @@ parseArguments = (args) ->
 # and the second element is the reason.
 parseLengthAndReason = (reasons) ->
   length = null
+  return [null, '']  if reasons.length == 0
   possibleLength = reasons[0].trim()
   if /^[\dmshdyMw]+$/.test(possibleLength)
     length = parseLength(possibleLength)
@@ -49,22 +50,21 @@ parseLength = (length) ->
       when 'y'
         time += first * 60 * 60 * 24 * 30 * 12
       else  # minutes by default
-        time += first * 60 * 60
+        time += first * 60
   return time
 
-prettyPrintTime = (minutes) ->
-  units = ["minute", "hour", "day", "week", "month", "year"]
-  intervals = [60, 24, 7, 4, 12, Infinity]
+prettyPrintTime = (seconds) ->
+  units = ["second", "minute", "hour", "day", "week", "month", "year"]
+  intervals = [60, 60, 24, 7, 4, 12, Infinity]
   times = []
-  minutes *= 60
   for interval, i in intervals
-    remainder = (minutes % interval)
-    minutes = Math.floor(minutes / interval)
-    break  if minutes == 0
+    remainder = (seconds % interval)
+    seconds = Math.floor(seconds / interval)
     unit = units[i]
-    unit += 's'  if unit != 1
-    times.push("#{remainder} #{unit}")
-  return times.join(", ")
+    unit += 's'  if remainder != 1
+    times.push("#{remainder} #{unit}")  if remainder > 0
+    break  if seconds == 0
+  return times.reverse().join(", ")
 
 makeCommand = (commandNames..., func) ->
   authority = func.authority || auth.levels.USER
