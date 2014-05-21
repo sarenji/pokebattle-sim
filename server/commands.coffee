@@ -222,6 +222,21 @@ makeModCommand "unban", (user, room, next, username) ->
         room.announce('warning', message)
         return next()
 
+desc "Finds the current ips under use by a user"
+makeModCommand "ip", (user, room, next, username) ->
+  if !username
+    user.error(errors.COMMAND_ERROR, "Usage: /ip username")
+    return next()
+  sockets = @users.get(username)
+  ips = sockets.map (socket) ->
+    socket = socket.socket
+    tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(/\s*,\s*/)
+    tempIPs.unshift(socket.remoteAddress)
+    tempIPs.filter((ip) -> ip).join(',')
+  ips = _.chain(ips).compact().unique().value()
+  user.announce('success', "#{username}'s IP addresses: #{ips.join(', ')}")
+  next()
+
 desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
 makeAdminCommand "lockdown", (user, room, next, option = "on") ->
   if option not in [ "on", "off" ]
