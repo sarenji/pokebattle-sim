@@ -761,6 +761,20 @@ describe "BW Items:", ->
             amount = @p1.stat(stat)
             amount.should.equal(pokemonStats[i])
 
+      it "shouldn't raise the proper stats given the pokemon is Transformed", ->
+          shared.create.call this,
+            team1: [Factory(species)]
+            team2: [Factory("Magikarp")]
+
+          @p1.attach(Attachment.Transform, target: @p2)
+          stats = (stat  for stat of statsHash)
+          pokemonStats = (@p1.stat(stat)  for stat in stats)
+
+          @p1.setItem(Item[itemName.replace(/\s+/g, '')])
+
+          for stat, i in stats
+            amount = @p1.stat(stat)
+            amount.should.equal(pokemonStats[i])
 
   testSpeciesBoostingItem("Soul Dew", ["Latios", "Latias"],
     specialAttack: 1.5, specialDefense: 1.5)

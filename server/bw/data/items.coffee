@@ -168,7 +168,8 @@ makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
       capitalizedStat = stat[0].toUpperCase() + stat.substr(1)
       # TODO: Use modifiers
       this::["edit#{capitalizedStat}"] = (stat) ->
-        if @pokemon.species in speciesArray
+        isTransformed = @pokemon.has(Attachment.Transform)
+        if @pokemon.species in speciesArray && !isTransformed
           Math.floor(stat * boost)
         else
           stat
