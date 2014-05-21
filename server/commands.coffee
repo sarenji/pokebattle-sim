@@ -19,6 +19,53 @@ parseArguments = (args) ->
   hash.args = args
   hash
 
+# Returns a 2-tuple, where the first element is the length (null for no length)
+# and the second element is the reason.
+parseLengthAndReason = (reasons) ->
+  length = null
+  possibleLength = reasons[0].trim()
+  if /^[\dmshdyMw]+$/.test(possibleLength)
+    length = parseLength(possibleLength)
+    reasons = reasons[1...]
+  return [length, reasons.join(',').trim()]
+
+parseLength = (length) ->
+  time = 0
+  for member in length.match(/\d+[mshdyMw]?/g)
+    first = parseInt(member, 10)  # Truncates any letter after the number
+    last  = member.substr(-1)
+    switch last
+      when 's'
+        time += first
+      when 'h'
+        time += first * 60 * 60
+      when 'd'
+        time += first * 60 * 60 * 24
+        break;
+      when 'w'
+        time += first * 60 * 60 * 24 * 7
+      when 'M'
+        time += first * 60 * 60 * 24 * 30
+      when 'y'
+        time += first * 60 * 60 * 24 * 30 * 12
+      else  # minutes by default
+        time += first * 60 * 60
+  return time
+
+prettyPrintTime = (minutes) ->
+  units = ["minute", "hour", "day", "week", "month", "year"]
+  intervals = [60, 24, 7, 4, 12, Infinity]
+  times = []
+  minutes *= 60
+  for interval, i in intervals
+    remainder = (minutes % interval)
+    minutes = Math.floor(minutes / interval)
+    break  if minutes == 0
+    unit = units[i]
+    unit += 's'  if unit != 1
+    times.push("#{remainder} #{unit}")
+  return times.join(", ")
+
 makeCommand = (commandNames..., func) ->
   authority = func.authority || auth.levels.USER
   HelpDescriptions[authority] ?= {}
@@ -102,14 +149,16 @@ makeCommand "battles", (user, room, next, username) ->
   user.announce('success', message)
   next()
 
-desc "Mutes a username for 10 minutes. The reason is optional. Usage: /mute username, reason"
+desc "Default length is 10 minutes, up to a maximum of two days. To specify different lengths, use 1m2h3d4w (minute, hour, day, week). Usage: /mute username, length, reason"
 makeModCommand "mute", (user, room, next, username, reason...) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /mute username, reason")
     return next()
-  reason = reason.join(',').trim()
-  @mute(username, reason, 10 * 60)
-  message = "#{user.id} muted #{username} for 10 minutes"
+  [length, reason] = parseLengthAndReason(reason)
+  length = 10 * 60  if !length? || length <= 0
+  length = Math.min(parseLength("2d"), length)  # max of two days
+  @mute(username, reason, length)
+  message = "#{user.id} muted #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
@@ -144,14 +193,16 @@ makeModCommand "kick", (user, room, next, username, reason...) ->
   room.announce('warning', message)
   next()
 
-desc "Bans a username. The reason is optional. Usage: /ban username, reason"
+desc "Default length is one hour, up to a maximum of one day. To specify different lengths, use 1m2h3d (minute, hour, day). Usage: /ban username, length, reason"
 makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
     user.error(errors.COMMAND_ERROR, "Usage: /ban username, reason")
     return next()
-  reason = reason.join(',').trim()
-  @ban(username, reason)
-  message = "#{user.id} banned #{username}"
+  [length, reason] = parseLengthAndReason(reason)
+  length = 60 * 60  if !length? || length <= 0
+  length = Math.min(parseLength("1d"), length)  # max of one day
+  @ban(username, reason, length)
+  message = "#{user.id} banned #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()

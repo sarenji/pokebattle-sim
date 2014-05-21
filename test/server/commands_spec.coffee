@@ -223,7 +223,7 @@ describe "Commands", ->
           mock2.verify()
           auth.getBanTTL @user2.id, (err, ttl) ->
             should.exist(ttl)
-            ttl.should.equal(-1)
+            ttl.should.equal(60 * 60)
             done()
 
       it "bans a user even if user isn't on yet", (done) ->
@@ -233,7 +233,37 @@ describe "Commands", ->
           mock1.verify()
           auth.getBanTTL @offline.id, (err, ttl) ->
             should.exist(ttl)
-            ttl.should.equal(-1)
+            ttl.should.equal(60 * 60)
+            done()
+
+      it "bans a user for a specified amount of time", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, "23h", =>
+          mock.verify()
+          auth.getBanTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(23 * 60 * 60)
+            done()
+
+      it "defaults to an hour if banning for zero minutes", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, "0", =>
+          mock.verify()
+          auth.getBanTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(60 * 60)
+            done()
+
+      it "cannot ban over one day", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "ban", @user2.id, "1y", =>
+          mock.verify()
+          auth.getBanTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(1 * 24 * 60 * 60)
             done()
 
     describe "unban", ->
@@ -301,6 +331,36 @@ describe "Commands", ->
           auth.getMuteTTL @offline.id, (err, ttl) ->
             should.exist(ttl)
             ttl.should.equal(10 * 60)
+            done()
+
+      it "mutes a user for a specified amount of time", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, "23h", =>
+          mock.verify()
+          auth.getMuteTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(23 * 60 * 60)
+            done()
+
+      it "defaults to 10 if muting for zero minutes", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, "0", =>
+          mock.verify()
+          auth.getMuteTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(10 * 60)
+            done()
+
+      it "cannot mute over two days", (done) ->
+        mock = @sandbox.mock(@user1).expects('error').never()
+        @user1.authority = auth.levels.MOD
+        commands.executeCommand @server, @user1, @room, "mute", @user2.id, "1y", =>
+          mock.verify()
+          auth.getMuteTTL @user2.id, (err, ttl) ->
+            should.exist(ttl)
+            ttl.should.equal(2 * 24 * 60 * 60)
             done()
 
     describe "unmute", ->
