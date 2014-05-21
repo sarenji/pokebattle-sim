@@ -152,7 +152,7 @@ makeCommand "battles", (user, room, next, username) ->
 desc "Default length is 10 minutes, up to a maximum of two days. To specify different lengths, use 1m2h3d4w (minute, hour, day, week). Usage: /mute username, length, reason"
 makeModCommand "mute", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /mute username, reason")
+    user.error(errors.COMMAND_ERROR, "Usage: /mute username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
   length = 10 * 60  if !length? || length <= 0
@@ -196,7 +196,7 @@ makeModCommand "kick", (user, room, next, username, reason...) ->
 desc "Default length is one hour, up to a maximum of one day. To specify different lengths, use 1m2h3d (minute, hour, day). Usage: /ban username, length, reason"
 makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /ban username, reason")
+    user.error(errors.COMMAND_ERROR, "Usage: /ban username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
   length = 60 * 60  if !length? || length <= 0
