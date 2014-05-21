@@ -230,10 +230,10 @@ makeModCommand "ip", (user, room, next, username) ->
   sockets = @users.get(username)
   ips = sockets.map (socket) ->
     socket = socket.socket
-    tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(/\s*,\s*/)
+    tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(',')
     tempIPs.unshift(socket.remoteAddress)
-    tempIPs.filter((ip) -> ip).map((ip) -> ip.trim()).join(',')
-  ips = _.chain(ips).compact().unique().value()
+    tempIPs.filter((ip) -> ip).map((ip) -> ip.trim())
+  ips = _.chain(ips).flatten().compact().unique().value()
   user.announce('success', "#{username}'s IP addresses: #{ips.join(', ')}")
   next()
 
