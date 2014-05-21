@@ -232,7 +232,7 @@ makeModCommand "ip", (user, room, next, username) ->
     socket = socket.socket
     tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(/\s*,\s*/)
     tempIPs.unshift(socket.remoteAddress)
-    tempIPs.filter((ip) -> ip).join(',')
+    tempIPs.filter((ip) -> ip).map((ip) -> ip.trim()).join(',')
   ips = _.chain(ips).compact().unique().value()
   user.announce('success', "#{username}'s IP addresses: #{ips.join(', ')}")
   next()
