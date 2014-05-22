@@ -28,6 +28,18 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.UNRELEASED_BAN
 ]
 
+ALLOWED_CHALLENGE_CONDITIONS = [
+  Conditions.TEAM_PREVIEW
+  Conditions.PBV_1000
+  Conditions.TIMED_BATTLE
+  Conditions.SLEEP_CLAUSE
+  Conditions.EVASION_CLAUSE
+  Conditions.SPECIES_CLAUSE
+  Conditions.PRANKSTER_SWAGGER_CLAUSE
+  Conditions.OHKO_CLAUSE
+  Conditions.UNRELEASED_BAN
+]
+
 class @BattleServer
   constructor: ->
     @queues = {}
@@ -92,9 +104,9 @@ class @BattleServer
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
 
-    # Do not allow rated battles.
-    if _.find(conditions, (c) -> c == Conditions.RATED_BATTLE)
-      player.error(errors.FIND_BATTLE, 'You cannot issue a rated challenge.')
+    # Do not allow rated battles or other unallowed conditions.
+    if _.difference(conditions, ALLOWED_CHALLENGE_CONDITIONS).length > 0
+      player.error(errors.FIND_BATTLE, 'This battle cannot have certain conditions.')
       return false
 
     err = @validateTeam(team, generation, conditions)
