@@ -62,7 +62,12 @@ class @Move
     # If there were targets, but they are all no longer alive, then the engine
     # outputs a stock message and quits move execution.
     targets = targets.filter((p) -> p.isAlive())
-    battle.cannedText('NO_TARGET')  if targets.length == 0
+    if targets.length == 0
+      battle.cannedText('NO_TARGET')
+      return
+
+    # The move is executing. Run a hook.
+    @executing(battle, user, targets)
 
     targetsHit = []
     totalDamage = 0
@@ -152,6 +157,9 @@ class @Move
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn, isDirect)
+
+  # A hook that runs when the move is finally executing.
+  executing: (battle, user, targets) ->
 
   # A hook that executes after a pokemon has been successfully damaged by
   # a standard move. If execute is overriden, this will not execute.

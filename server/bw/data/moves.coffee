@@ -1005,7 +1005,7 @@ extendMove 'Echoed Voice', ->
     layers = battle.get(Attachment.EchoedVoice)?.layers || 0
     @power * (layers + 1)
 
-  @afterSuccessfulHit = (battle, user, target) ->
+  @executing = (battle, user, targets) ->
     battle.attach(Attachment.EchoedVoice)
     attachment = battle.get(Attachment.EchoedVoice)
     attachment.turns = 2

@@ -5973,6 +5973,19 @@ describe "BW Moves:", ->
       echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
       echoedVoice.basePower(@battle, @p2, @p1).should.equal(80)
 
+    it "does not reset even if missing", ->
+      shared.create.call(this)
+      echoedVoice = @battle.getMove("Echoed Voice")
+
+      @battle.performMove(@p1, echoedVoice)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(80)
+
+      @sandbox.stub(echoedVoice, 'willMiss', -> true)
+      @battle.performMove(@p1, echoedVoice)
+      @battle.endTurn()
+      echoedVoice.basePower(@battle, @p1, @p2).should.equal(120)
+
   describe "Struggle", ->
     it "deals typless damage", ->
       shared.create.call(this)
