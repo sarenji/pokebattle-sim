@@ -36,7 +36,8 @@
 
 @TargetSprite = (move) ->
   target = move.target
-  target = "distance"  if "distance" in move["flags"]
+  if "distance" in move["flags"] && target == "selected-pokemon"
+    target = "distance"
   "//media.pokebattle.com/img/targets/#{target.toLowerCase()}.png"
 
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
