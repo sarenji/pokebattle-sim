@@ -343,7 +343,7 @@ class @PokemonEditView extends Backbone.View
     @$(".individual-pbv").text(individualPBV)
 
     team = @pokemon.getTeam()
-    if team.hasPBV()
+    if team && team.hasPBV()
       pbv = team.getPBV()
       maxPBV = team.getMaxPBV()
       @$(".total-pbv").text(pbv).toggleClass("red", pbv > maxPBV)
