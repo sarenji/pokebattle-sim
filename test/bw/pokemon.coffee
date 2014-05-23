@@ -321,12 +321,12 @@ describe 'Pokemon', ->
       pokemon = new Pokemon(item: "Acro Bike")
       pokemon.hasTakeableItem().should.be.false
 
-    it "returns false if the pokemon has Multitype and a plate", ->
-      pokemon = new Pokemon(ability: "Multitype", item: "Draco Plate")
+    it "returns false if the pokemon is Arceus with a plate", ->
+      pokemon = new Pokemon(name: "Arceus", item: "Draco Plate")
       pokemon.hasTakeableItem().should.be.false
 
-    it "returns false if the pokemon is Giratina-O", ->
-      pokemon = new Pokemon(name: "Giratina", forme: "origin", item: "Griseous Orb")
+    it "returns false if the pokemon is Giratina with a Griseous Orb", ->
+      pokemon = new Pokemon(name: "Giratina", item: "Griseous Orb")
       pokemon.hasTakeableItem().should.be.false
 
     it "returns false if the pokemon is Genesect with a Drive item", ->

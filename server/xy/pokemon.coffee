@@ -14,13 +14,13 @@ oldBlockSwitch = @Pokemon::blockSwitch
 @Pokemon::blockSwitch = ->
   oldBlockSwitch.apply(this, arguments)  if !@hasType("Ghost")
 
-oldHasTakeableItem = @Pokemon::hasTakeableItem
-@Pokemon::hasTakeableItem = ->
-  return false  if oldHasTakeableItem.apply(this, arguments) == false
-  if @item.type == 'megastone'
+oldHasSpeciesItem = @Pokemon::hasSpeciesItem
+@Pokemon::hasSpeciesItem = (pokemon) ->
+  return true  if oldHasSpeciesItem.apply(this, arguments) == true
+  if @item?.type == 'megastone'
     [ species, forme ] = @item.mega
-    return false  if @name == species
-  return true
+    return true  if pokemon.name == species
+  return false
 
 # Powder moves no longer affect Grass-type Pokemon.
 oldShouldBlockExecution = @Pokemon::shouldBlockExecution
