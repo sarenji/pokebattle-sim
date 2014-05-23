@@ -191,6 +191,7 @@ class @ChatView extends Backbone.View
 
   announce: (klass, message) =>
     wasAtBottom = @isAtBottom()
+    message = @linkify(message)
     @print("<div class='alert alert-#{klass} clearfix'>#{message}</div>")
     if wasAtBottom then @scrollToBottom()
 
@@ -215,7 +216,10 @@ class @ChatView extends Backbone.View
     sanitizedMessage = $('<div/>').text(message).html()
     sanitizedMessage = sanitizedMessage.replace(
       /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
-    sanitizedMessage = URI.withinString sanitizedMessage, (url) ->
+    @linkify(sanitizedMessage)
+
+  linkify: (message) =>
+    message = URI.withinString message, (url) ->
       uri = URI(url)
       [host, path] = [uri.host(), uri.path()]
       battleRegex = /^\/battles\/([a-fA-F0-9]+)$/i
@@ -226,7 +230,7 @@ class @ChatView extends Backbone.View
         $a.addClass('spectate').attr('data-battle-id', battleId)
 
       return $a.wrap("<div/>").parent().html()
-    sanitizedMessage
+    message
 
   # Returns true if the chat is scrolled to the bottom of the screen.
   # This also returns true if the messages are hidden.
