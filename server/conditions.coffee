@@ -51,25 +51,29 @@ createCondition = (condition, effects = {}) ->
     errors.push(validator(pokemon, genData, prefix)...)
   return errors
 
-createCondition Conditions.PBV_1000,
-  validateTeam: (team, genData) ->
-    errors = []
-    if pbv.determinePBV(genData, team) > 1000
-      errors.push "Total team PBV cannot surpass 1,000."
-    if team.length != 6
-      errors.push "Your team must have 6 pokemon"
-    return errors
+createPBVCondition = (totalPBV) ->
+  createCondition Conditions["PBV_#{totalPBV}"],
+    validateTeam: (team, genData) ->
+      errors = []
+      if pbv.determinePBV(genData, team) > totalPBV
+        errors.push "Total team PBV cannot surpass #{totalPBV}."
+      if team.length != 6
+        errors.push "Your team must have 6 pokemon."
+      return errors
 
-  validatePokemon: (pokemon, genData, prefix) ->
-    errors = []
-    MAX_INDIVIDUAL_PBV = Math.floor(1000 / 3)
-    individualPBV = pbv.determinePBV(genData, pokemon)
+    validatePokemon: (pokemon, genData, prefix) ->
+      errors = []
+      MAX_INDIVIDUAL_PBV = Math.floor(totalPBV / 3)
+      individualPBV = pbv.determinePBV(genData, pokemon)
 
-    if individualPBV > MAX_INDIVIDUAL_PBV
-      errors.push "#{prefix}: This Pokemon's PBV is #{individualPBV}. Individual
-        PBVs cannot go over 1/3 the total (over #{MAX_INDIVIDUAL_PBV} PBV)."
+      if individualPBV > MAX_INDIVIDUAL_PBV
+        errors.push "#{prefix}: This Pokemon's PBV is #{individualPBV}. Individual
+          PBVs cannot go over 1/3 the total (over #{MAX_INDIVIDUAL_PBV} PBV)."
 
-    return errors
+      return errors
+
+createPBVCondition(1000)
+createPBVCondition(500)
 
 createCondition Conditions.SLEEP_CLAUSE,
   attach:
