@@ -30,8 +30,9 @@ p
 p
   strong Clauses:
 ul.challenge_clauses.well
-  for value, clause in window.Conditions
+  for value in window.SelectableConditions
     - var checked = (defaultClauses.indexOf(value) >= 0)
+    - var clause = window._.invert(window.Conditions)[value]
     li
       label
         input(type = "checkbox", value = value, checked = checked, data-clause = value)

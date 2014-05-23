@@ -173,6 +173,9 @@ class @BattleServer
   queuePlayer: (playerId, team, format = DEFAULT_FORMAT, altName) ->
     if @isLockedDown()
       err = ["The server is restarting. No new battles can start at this time."]
+    else if format != DEFAULT_FORMAT
+      # TODO: Implement ratings for other formats
+      err = ["The server doesn't support this ladder at this time. Please ask for challenges instead."]
     else
       err = @validateTeam(team, format, FIND_BATTLE_CONDITIONS)
       if err.length == 0
