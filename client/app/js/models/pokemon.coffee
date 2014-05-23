@@ -137,6 +137,9 @@ class @Pokemon extends Backbone.Model
       total += value  if stat != options.exclude
     total
 
+  getTeam: =>
+    @collection?.parents[0]
+
   setIv: (stat, value) ->
     ivs = _.clone(@get("ivs"))
     ivs[stat] = value

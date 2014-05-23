@@ -226,17 +226,13 @@ CLIENT_VERSION = assets.getVersion()
         ] for controller in server.getOngoingBattles())
       user.send('battleList', battleMetadata)
 
-    'findBattle': (user, generation, team, altName=null) ->
-      if generation not in generations.SUPPORTED_GENERATIONS
-        user.error(errors.FIND_BATTLE, [ "Invalid generation: #{generation}" ])
-        return
-
+    'findBattle': (user, format, team, altName=null) ->
       # Note: If altName == null, then isAltOwnedBy will return true
       alts.isAltOwnedBy user.id, altName, (err, valid) ->
         if not valid
           user.error(errors.INVALID_ALT_NAME, "You do not own this alt")
         else
-          validationErrors = server.queuePlayer(user.id, team, generation, altName)
+          validationErrors = server.queuePlayer(user.id, team, format, altName)
           if validationErrors.length > 0
             user.error(errors.FIND_BATTLE, validationErrors)
 

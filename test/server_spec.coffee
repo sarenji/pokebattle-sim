@@ -2,7 +2,7 @@ require './helpers'
 
 {BattleServer} = require('../server/server')
 {User} = require('../server/user')
-{Conditions} = require '../shared/conditions'
+{Conditions, DEFAULT_FORMAT} = require '../shared/conditions'
 {Factory} = require './factory'
 alts = require('../server/alts')
 should = require('should')
@@ -16,13 +16,6 @@ generateTeam = ->
     Factory("Alakazam") ]
 
 describe 'BattleServer', ->
-  beforeEach ->
-    @__format = BattleServer.DEFAULT_FORMAT
-    BattleServer.DEFAULT_FORMAT = 'xy'
-
-  afterEach ->
-    BattleServer.DEFAULT_FORMAT = @__format
-
   it 'can create a new battle', ->
     server = new BattleServer()
     battleId = server.createBattle()
@@ -51,13 +44,13 @@ describe 'BattleServer', ->
     it "queues players", ->
       server = new BattleServer()
       server.queuePlayer("derp", generateTeam()).should.be.empty
-      server.queues[BattleServer.DEFAULT_FORMAT].size().should.equal(1)
+      server.queues[DEFAULT_FORMAT].size().should.equal(1)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
       server.queuePlayer("derp", generateTeam()).should.be.empty
       server.queuePlayer("derp", generateTeam()).should.be.empty
-      server.queues[BattleServer.DEFAULT_FORMAT].size().should.equal(1)
+      server.queues[DEFAULT_FORMAT].size().should.equal(1)
 
   describe "#getOngoingBattles", ->
     it "returns one object for each queued battle", (done) ->
@@ -513,7 +506,7 @@ describe 'BattleServer', ->
 
     it "returns empty if given a non-empty array containing Pokemon", ->
       server = new BattleServer()
-      server.validateTeam([ Factory("Hitmontop") ]).should.be.empty
+      server.validateTeam(generateTeam()).should.be.empty
 
     it "returns non-empty if given an empty array", ->
       server = new BattleServer()
@@ -526,35 +519,41 @@ describe 'BattleServer', ->
 
     it "returns non-empty if a team member has a fake species name", ->
       server = new BattleServer()
-      invalidPokemon = {name: "NOTREALMON"}
-      server.validateTeam([ invalidPokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = {name: "NOTREALMON"}
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a team member has no moveset", ->
       server = new BattleServer()
-      pokemon = Factory("Hitmonchan", moves: null)
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Hitmonchan", moves: null)
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a team member has an empty moveset", ->
       server = new BattleServer()
-      pokemon = Factory("Hitmonchan", moves: [])
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Hitmonchan", moves: [])
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a team member has a bogus moveset", ->
       server = new BattleServer()
-      pokemon = Factory("Hitmonchan", moves: true)
-      server.validateTeam([ pokemon ]).should.not.be.empty
-      pokemon = Factory("Hitmonchan", moves: ["Super Powerful Punch"])
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Hitmonchan", moves: true)
+      server.validateTeam(team).should.not.be.empty
+      team[0] = Factory("Hitmonchan", moves: ["Super Powerful Punch"])
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a team member has an illegal moveset", ->
       server = new BattleServer()
-      pokemon = Factory("Raichu", moves: [ "Volt Tackle", "Encore" ])
-      server.validateTeam([ pokemon ], 'bw').should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Raichu", moves: [ "Volt Tackle", "Encore" ])
+      server.validateTeam(team, 'bw').should.not.be.empty
 
     # TODO: 4 is a magic constant
     it "returns non-empty if a pokemon has more than 4 moves", ->
       server = new BattleServer()
-      pokemon = Factory "Hitmonchan",
+      team = generateTeam()
+      team[0] = Factory "Hitmonchan",
         moves:  [
                   "Ice Punch"
                   "Fire Punch"
@@ -562,114 +561,136 @@ describe 'BattleServer', ->
                   "Mach Punch"
                   "Rapid Spin"
                 ]
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a move it can't learn", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", moves: [ "Fissure" ])
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", moves: [ "Fissure" ])
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a fake move", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", moves: [ "Splash", "Armageddon" ])
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", moves: [ "Splash", "Armageddon" ])
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an ability it can't have", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", ability: "Wonder Guard")
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", ability: "Wonder Guard")
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a bogus ability", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", ability: "Being Batman")
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", ability: "Being Batman")
+      server.validateTeam(team).should.not.be.empty
 
     it "returns empty if a pokemon has a hidden ability", ->
       server = new BattleServer()
-      pokemon = Factory("Cloyster", ability: "Overcoat")
-      server.validateTeam([ pokemon ]).should.be.empty
+      team = generateTeam()
+      team[0] = Factory("Cloyster", ability: "Overcoat")
+      server.validateTeam(team).should.be.empty
 
     it "returns non-empty if a pokemon has a level below 1", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", level: 0)
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", level: 0)
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a bogus level", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", level: "hi")
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", level: "hi")
+      server.validateTeam(team).should.not.be.empty
 
     # TODO: 100 is a magic constant
     it "returns non-empty if a pokemon has a level over 100", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", level: 101)
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", level: 101)
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an iv below 0", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", ivs: { hp: -1 })
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", ivs: { hp: -1 })
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an iv above 31", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", ivs: { hp: 32 })
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", ivs: { hp: 32 })
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has bogus ivs", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", ivs: true)
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", ivs: true)
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an ev below 0", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", evs: { hp: -1 })
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", evs: { hp: -1 })
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an ev above 255", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", evs: { hp: 256 })
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", evs: { hp: 256 })
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an ev total above 510", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", evs: { hp: 255, defense: 255, speed: 255 })
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", evs: { hp: 255, defense: 255, speed: 255 })
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has bogus evs", ->
       server = new BattleServer()
-      pokemon = Factory("Magikarp", evs: true)
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Magikarp", evs: true)
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has an invalid gender", ->
       server = new BattleServer()
-      pokemon = Factory("Metagross", gender: "Alien")
-      server.validateTeam([ pokemon ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Metagross", gender: "Alien")
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a gender it can't have", ->
       server = new BattleServer()
-      metagross = Factory("Metagross", gender: "F")
-      blissey = Factory("Blissey", gender: "M")
-      gallade = Factory("Gallade", gender: "F")
-      server.validateTeam([ metagross ]).should.not.be.empty
-      server.validateTeam([ blissey ]).should.not.be.empty
-      server.validateTeam([ gallade ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Metagross", gender: "F")
+      server.validateTeam(team).should.not.be.empty
+
+      team = generateTeam()
+      team[0] = Factory("Blissey", gender: "M")
+      server.validateTeam(team).should.not.be.empty
+
+      team = generateTeam()
+      team[0] = Factory("Gallade", gender: "F")
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a bogus forme", ->
       server = new BattleServer()
-      blissey = Factory("Blissey", forme: "Super Ultra Mega Blissey")
-      server.validateTeam([ blissey ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Blissey", forme: "Super Ultra Mega Blissey")
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon has a battle-only forme", ->
       server = new BattleServer()
-      meloetta = Factory("Meloetta", forme: "pirouette", moves: ["Relic Song"])
-      server.validateTeam([ meloetta ]).should.not.be.empty
+      team = generateTeam()
+      team[0] = Factory("Meloetta", forme: "pirouette", moves: ["Relic Song"])
+      server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a pokemon cannot have its forme"
 
     it "returns non-empty if the format is fake", ->
       server = new BattleServer()
-      meloetta = Factory("Meloetta", moves: ["Relic Song"])
-      server.validateTeam([ meloetta ], 'bogusformat').should.not.be.empty
+      server.validateTeam(generateTeam(), 'bogusformat').should.not.be.empty
 
   describe "#beginBattles", ->
     it "creates a battle per pair", (done) ->

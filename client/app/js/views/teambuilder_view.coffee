@@ -14,7 +14,7 @@ class @TeambuilderView extends Backbone.View
     'click .import-team': 'renderImportTeamModal'
 
     # Teambuild view
-    'click .change-gen-dropdown a': 'changeTeamGeneration'
+    'click .change-format-dropdown a': 'changeTeamFormat'
     'blur .team_name': 'blurTeamName'
     'keypress .team_name': 'keypressTeamName'
     'click .go_back': 'goBackToOverview'
@@ -34,9 +34,9 @@ class @TeambuilderView extends Backbone.View
     @listenTo(PokeBattle.TeamStore, 'change:id', @changeTeamId)
     @listenTo(PokeBattle.TeamStore, 'reset', @renderTeams)
     @listenTo PokeBattle.TeamStore, 'render', (team) =>
-      return  if team.id != @getSelectedTeam().id
       @renderTeams()
-      @setSelectedTeam(team)
+      if @getSelectedTeam() && team.id == @getSelectedTeam().id
+        @setSelectedTeam(team)
 
     @pokemonEditView = new PokemonEditView(
       el: @$('.pokemon_edit')
@@ -147,12 +147,12 @@ class @TeambuilderView extends Backbone.View
     team.trigger('saved', team)
     @resetHeaderButtons()
 
-  changeTeamGeneration: (e) =>
+  changeTeamFormat: (e) =>
     $link = $(e.currentTarget)
-    generation = $link.data('generation')
+    format = $link.data('format')
     team = @getSelectedTeam()
-    if generation != team.get('generation')
-      team.set('generation', generation)
+    if format != team.get('generation')
+      team.set('generation', format)
       @renderTeam()
       @dirty() # renderTeam() removes dirty, so call it again
 
@@ -220,11 +220,10 @@ class @TeambuilderView extends Backbone.View
 
   renderTeam: =>
     team = @getSelectedTeam()
-    @pokemonEditView.setGeneration(team.get('generation')  || DEFAULT_GENERATION)
+    @pokemonEditView.setFormat(team.get('generation')  || DEFAULT_FORMAT)
     @resetHeaderButtons()
-    @renderGeneration()
+    @renderFormat()
     @renderPokemonList()
-    @renderPBV()
     @setSelectedPokemonIndex(@selectedPokemon)
     @$('.team_name').text(team.getName())
     @$('.display_teams').addClass('hidden')
@@ -257,10 +256,11 @@ class @TeambuilderView extends Backbone.View
     @pokemonEditView.setTeamPBV(totalPBV)
     @pokemonEditView.renderPBV()
 
-  renderGeneration: =>
-    generation = @getSelectedTeam().get("generation") || DEFAULT_GENERATION
-    text = @$(".change-gen-dropdown a[data-generation='#{generation}']").text()
-    @$(".current-generation").text(text)
+  renderFormat: =>
+    format = @getSelectedTeam().get("generation")
+    format = DEFAULT_FORMAT  if format not of Formats
+    text = @$(".change-format-dropdown a[data-format='#{format}']").text()
+    @$(".current-format").text(text)
 
   renderImportTeamModal: =>
     $modal = PokeBattle.modal 'modals/import_team', ($modal) =>

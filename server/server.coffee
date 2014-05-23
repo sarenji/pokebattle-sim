@@ -8,7 +8,7 @@ async = require('async')
 gen = require './generations'
 auth = require('./auth')
 learnsets = require '../shared/learnsets'
-{Conditions, SelectableConditions} = require '../shared/conditions'
+{Conditions, SelectableConditions, Formats, DEFAULT_FORMAT} = require '../shared/conditions'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
@@ -18,7 +18,6 @@ alts = require './alts'
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
   Conditions.RATED_BATTLE
-  Conditions.PBV_1000
   Conditions.TIMED_BATTLE
   Conditions.SLEEP_CLAUSE
   Conditions.EVASION_CLAUSE
@@ -28,23 +27,10 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.UNRELEASED_BAN
 ]
 
-FORMATS =
-  xy1000:
-    generation: 'xy'
-    conditions: [ Conditions.PBV_1000 ]
-  xy:
-    generation: 'xy'
-    conditions: []
-  bw:
-    generation: 'bw'
-    conditions: []
-
 class @BattleServer
-  @DEFAULT_FORMAT: 'xy1000'
-
   constructor: ->
     @queues = {}
-    for format of FORMATS
+    for format of Formats
       @queues[format] = new BattleQueue()
     @battles = {}
 
@@ -184,7 +170,7 @@ class @BattleServer
 
   # Adds the player to the queue. Note that there is no validation on whether altName
   # is correct, so make 
-  queuePlayer: (playerId, team, format = BattleServer.DEFAULT_FORMAT, altName) ->
+  queuePlayer: (playerId, team, format = DEFAULT_FORMAT, altName) ->
     if @isLockedDown()
       err = ["The server is restarting. No new battles can start at this time."]
     else
@@ -195,16 +181,16 @@ class @BattleServer
         @queues[format].add(playerId, altName || name, team, ratingKey)
       return err
 
-  queuedPlayers: (format = BattleServer.DEFAULT_FORMAT) ->
+  queuedPlayers: (format = DEFAULT_FORMAT) ->
     @queues[format].queuedPlayers()
 
-  removePlayer: (playerId, format = BattleServer.DEFAULT_FORMAT) ->
+  removePlayer: (playerId, format = DEFAULT_FORMAT) ->
     return false  if format not of @queues
     @queues[format].remove(playerId)
     return true
 
   beginBattles: (next) ->
-    array = for format in Object.keys(FORMATS)
+    array = for format in Object.keys(Formats)
       do (format) => (callback) =>
         @queues[format].pairPlayers (err, pairs) =>
           if err then return callback(err)
@@ -221,8 +207,8 @@ class @BattleServer
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (format = BattleServer.DEFAULT_FORMAT, pair = [], conditions = []) ->
-    format = FORMATS[format]
+  createBattle: (format = DEFAULT_FORMAT, pair = [], conditions = []) ->
+    format = Formats[format]
     generation = format.generation
     conditions = conditions.concat(format.conditions)
     {Battle} = require("../server/#{generation}/battle")
@@ -331,9 +317,9 @@ class @BattleServer
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
-  validateTeam: (team, format = BattleServer.DEFAULT_FORMAT, conditions = []) ->
-    return [ "Invalid format: #{format}." ]  if format not of FORMATS
-    format = FORMATS[format]
+  validateTeam: (team, format = DEFAULT_FORMAT, conditions = []) ->
+    return [ "Invalid format: #{format}." ]  if format not of Formats
+    format = Formats[format]
     return [ "Invalid team format." ]  if team not instanceof Array
     return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
     conditions = conditions.concat(format.conditions)

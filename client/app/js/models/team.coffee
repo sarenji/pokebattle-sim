@@ -60,8 +60,13 @@ class @Team extends Backbone.AssociatedModel
     pokemon.reset((pokemon.models[index]  for index in arrangement))
     return true
 
+  getFormat: =>
+    format = @get('generation')  # TODO: Migrate to format
+    format = DEFAULT_FORMAT  if format not of Formats
+    Formats[format]
+
   getGeneration: (generation) ->
-    gen = @get('generation') || DEFAULT_GENERATION
+    gen = generation || @getFormat().generation
     gen = gen.toUpperCase()
     window.Generations[gen]
 
@@ -69,6 +74,18 @@ class @Team extends Backbone.AssociatedModel
     gen = @getGeneration()
     pokemon = @get('pokemon').toJSON()
     PokeBattle.PBV.determinePBV(gen, pokemon)
+
+  getMaxPBV: =>
+    {conditions} = @getFormat()
+    if Conditions.PBV_1000 in conditions
+      1000
+    else if Conditions.PBV_500 in conditions
+      500
+    else
+      0
+
+  hasPBV: =>
+    @getMaxPBV() > 0
 
   getNonNullPokemon: =>
     @get('pokemon').where(isNull: false)

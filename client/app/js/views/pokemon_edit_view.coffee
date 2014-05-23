@@ -53,6 +53,11 @@ class @PokemonEditView extends Backbone.View
   initialize: (attributes={}) =>
     @onPokemonChange = attributes.onPokemonChange
 
+  setFormat: (format) =>
+    format = Formats[format] || Formats[DEFAULT_FORMAT]
+    @setGeneration(format.generation)
+    # TODO: Set PBV limit based on conditions
+
   setGeneration: (generation) =>
     @generation = window.Generations[generation.toUpperCase()]
     {MoveData, SpeciesData, ItemData} = @generation
@@ -309,7 +314,7 @@ class @PokemonEditView extends Backbone.View
     @_eventsDisabled = false  if isOutermost
 
   render: =>
-    @$el.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList, pokemon: @pokemon)
+    @$el.html @editTemplate(window: window, speciesList: @speciesList, itemList: @itemList)
     attachSelectize(@$el.find(".species_list"),
       render:
         option: (item, escape) =>
@@ -334,13 +339,15 @@ class @PokemonEditView extends Backbone.View
     return this
 
   renderPBV: =>
-    if @pokemon
-      individualPBV = @pokemon.getPBV()
-      @$(".individual-pbv").text(individualPBV)
+    individualPBV = @pokemon.getPBV()
+    @$(".individual-pbv").text(individualPBV)
 
-    if @teamPBV
-      maxPBV = 1000 # temporary
-      @$(".total-pbv").text(@teamPBV).toggleClass("red", @teamPBV > maxPBV)
+    team = @pokemon.getTeam()
+    if team.hasPBV()
+      pbv = team.getPBV()
+      maxPBV = team.getMaxPBV()
+      @$(".total-pbv").text(pbv).toggleClass("red", pbv > maxPBV)
+      @$(".max-pbv").text(maxPBV)
 
   renderSpecies: =>
     @disableEventsAndExecute =>
