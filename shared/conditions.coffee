@@ -10,6 +10,17 @@
   UNRELEASED_BAN : 9
   PRANKSTER_SWAGGER_CLAUSE : 10
 
+@SelectableConditions = [
+  @Conditions.TEAM_PREVIEW
+  @Conditions.TIMED_BATTLE
+  @Conditions.SLEEP_CLAUSE
+  @Conditions.EVASION_CLAUSE
+  @Conditions.SPECIES_CLAUSE
+  @Conditions.PRANKSTER_SWAGGER_CLAUSE
+  @Conditions.OHKO_CLAUSE
+  @Conditions.UNRELEASED_BAN
+]
+
 @HumanizedConditions =
   en:
     TEAM_PREVIEW   : "Team Preview"

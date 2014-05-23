@@ -1,7 +1,6 @@
 require './helpers'
 
 {BattleServer} = require('../server/server')
-gen = require('../server/generations')
 {User} = require('../server/user')
 {Conditions} = require '../shared/conditions'
 {Factory} = require './factory'
@@ -17,6 +16,13 @@ generateTeam = ->
     Factory("Alakazam") ]
 
 describe 'BattleServer', ->
+  beforeEach ->
+    @__format = BattleServer.DEFAULT_FORMAT
+    BattleServer.DEFAULT_FORMAT = 'xy'
+
+  afterEach ->
+    BattleServer.DEFAULT_FORMAT = @__format
+
   it 'can create a new battle', ->
     server = new BattleServer()
     battleId = server.createBattle()
@@ -45,13 +51,13 @@ describe 'BattleServer', ->
     it "queues players", ->
       server = new BattleServer()
       server.queuePlayer("derp", generateTeam()).should.be.empty
-      server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
+      server.queues[BattleServer.DEFAULT_FORMAT].size().should.equal(1)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
       server.queuePlayer("derp", generateTeam()).should.be.empty
       server.queuePlayer("derp", generateTeam()).should.be.empty
-      server.queues[gen.DEFAULT_GENERATION].size().should.equal(1)
+      server.queues[BattleServer.DEFAULT_FORMAT].size().should.equal(1)
 
   describe "#getOngoingBattles", ->
     it "returns one object for each queued battle", (done) ->
@@ -72,21 +78,21 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, challengeeId, generation, team, conditions)
+      server.registerChallenge(user, challengeeId, format, team, conditions)
       server.challenges.should.have.property(user.id)
       server.challenges[user.id].should.have.property(challengeeId)
 
       challenge = server.challenges[user.id][challengeeId]
       challenge.should.have.property("team")
-      challenge.should.have.property("generation")
+      challenge.should.have.property("format")
       challenge.should.have.property("conditions")
       challenge.team.should.equal(team)
-      challenge.generation.should.equal(generation)
+      challenge.format.should.equal(format)
       challenge.conditions.should.equal(conditions)
 
     it "does not override old challenges", ->
@@ -95,18 +101,18 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
-      diffGeneration = 'bw'
+      format = 'xy1000'
+      diffFormat = 'xy500'
       diffTeam = generateTeam()
       diffTeam[0] = Factory("Celebi")
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, challengeeId, generation, team)
-      server.registerChallenge(user, challengeeId, diffGeneration, diffTeam)
+      server.registerChallenge(user, challengeeId, format, team)
+      server.registerChallenge(user, challengeeId, diffFormat, diffTeam)
 
       challenge = server.challenges[user.id][challengeeId]
-      challenge.generation.should.equal(generation)
+      challenge.format.should.equal(format)
       challenge.team.should.equal(team)
 
     it "returns an error if the team is invalid", ->
@@ -114,20 +120,20 @@ describe 'BattleServer', ->
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      generation = 'xy'
+      format = 'xy1000'
 
       server.join(user)
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       team = []
-      server.registerChallenge(user, other.id, generation, team)
+      server.registerChallenge(user, other.id, format, team)
       mock.verify()
 
     it "returns an error if the team is over 1000 PBV with 1000 PBV clause", ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")
-      generation = 'xy'
+      format = 'xy1000'
       team = generateTeam()
       team[0] = Factory("Arceus", moves: [ "Recover" ])
       conditions = [ Conditions.PBV_1000 ]
@@ -135,36 +141,36 @@ describe 'BattleServer', ->
       server.join(user)
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock.verify()
 
     it "returns an error on a rated challenge", ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")
-      generation = 'xy'
+      format = 'xy1000'
       team = generateTeam()
       conditions = [ Conditions.RATED_BATTLE ]
 
       server.join(user)
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock.verify()
 
-    it "returns an error if the generation is invalid", ->
+    it "returns an error if the format is invalid", ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = "UNRELEASED INFERNO RED AND WEIRD YELLOWISH GREEN"
+      format = "UNRELEASED INFERNO RED AND WEIRD YELLOWISH GREEN"
       conditions = []
 
       server.join(user)
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock.verify()
 
     it "returns an error if the challengee is offline", ->
@@ -173,13 +179,13 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       # server.join(other)  # Other must be offline.
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock.verify()
 
     it "returns an error if you challenge yourself", ->
@@ -188,12 +194,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, user.id, generation, team, conditions)
+      server.registerChallenge(user, user.id, format, team, conditions)
       mock.verify()
 
     it "sends an error if a challenge already exists for that pair", ->
@@ -202,15 +208,15 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
 
       mock = @sandbox.mock(other).expects('error').once()
-      server.registerChallenge(other, user.id, generation, team, conditions)
+      server.registerChallenge(other, user.id, format, team, conditions)
       mock.verify()
 
     it "sends a 'challenge' event to the challengee", ->
@@ -219,24 +225,24 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'challenge', user.id,
-        generation, conditions)
-      server.registerChallenge(user, challengeeId, generation, team, conditions)
+        format, conditions)
+      server.registerChallenge(user, challengeeId, format, team, conditions)
       spy.withArgs(challengeeId, 'challenge', user.id,
-        generation, conditions).calledOnce.should.be.true
+        format, conditions).calledOnce.should.be.true
 
     it "returns an error if the server is locked down", ->
       server = new BattleServer()
       user = new User("Batman")
       other = new User("Robin")
       challengeeId = other.id
-      generation = 'xy'
+      format = 'xy1000'
       team = generateTeam()
       conditions = [ Conditions.PBV_1000 ]
 
@@ -244,7 +250,7 @@ describe 'BattleServer', ->
       server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       server.lockdown()
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock.verify()
 
   describe "#cancelChallenge", ->
@@ -254,7 +260,7 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
@@ -262,7 +268,7 @@ describe 'BattleServer', ->
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'cancelChallenge', user.id)
       spy.withArgs(user.id, 'cancelChallenge', challengeeId)
-      server.registerChallenge(user, challengeeId, generation, team, conditions)
+      server.registerChallenge(user, challengeeId, format, team, conditions)
       server.cancelChallenge(user, challengeeId)
       spy.withArgs(challengeeId, 'cancelChallenge', user.id)
         .calledOnce.should.be.true
@@ -275,12 +281,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       should.exist server.challenges[user.id][other.id]
       server.cancelChallenge(user, other.id)
       should.not.exist server.challenges[user.id][other.id]
@@ -292,12 +298,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
 
       spy = @sandbox.spy(server.users, 'send')
       spy.withArgs(challengeeId, 'rejectChallenge', user.id)
@@ -314,12 +320,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       should.exist server.challenges[user.id][other.id]
       server.rejectChallenge(other, user.id)
       should.not.exist server.challenges[user.id][other.id]
@@ -330,12 +336,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       mock = @sandbox.mock(other).expects('error').once()
       server.rejectChallenge(other, "bogus dude")
       mock.verify()
@@ -351,10 +357,10 @@ describe 'BattleServer', ->
     it "creates a battle with the teams given by both players", ->
       initServer.call(this)
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
       
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
+      @server.registerChallenge(@user, @other.id, format, team, conditions)
       mock = @sandbox.mock(@server).expects('createBattle').once()
       @server.acceptChallenge(@other, @user.id, team)
       mock.verify()
@@ -362,10 +368,10 @@ describe 'BattleServer', ->
     it "returns an error to a player if their team is invalid", ->
       initServer.call(this)
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
+      @server.registerChallenge(@user, @other.id, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
       @server.acceptChallenge(@other, @user.id, [])
       mock.verify()
@@ -375,10 +381,10 @@ describe 'BattleServer', ->
       team = generateTeam()
       acceptTeam = generateTeam()
       acceptTeam[0] = Factory("Mewtwo", moves: [ "Psychic" ])
-      generation = 'xy'
+      format = 'xy1000'
       conditions = [ Conditions.PBV_1000 ]
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
+      @server.registerChallenge(@user, @other.id, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
       @server.acceptChallenge(@other, @user.id, acceptTeam)
       mock.verify()
@@ -386,10 +392,10 @@ describe 'BattleServer', ->
     it "removes the challenge from the internal hash", ->
       initServer.call(this)
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
+      @server.registerChallenge(@user, @other.id, format, team, conditions)
       should.exist @server.challenges[@user.id][@other.id]
       @server.acceptChallenge(@other, @user.id, team)
       should.not.exist @server.challenges[@user.id][@other.id]
@@ -398,10 +404,10 @@ describe 'BattleServer', ->
       initServer.call(this)
       challengeeId = @other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, challengeeId, generation, team, conditions)
+      @server.registerChallenge(@user, challengeeId, format, team, conditions)
 
       spy = @sandbox.spy(@server.users, 'send')
       spy.withArgs(@user.id, 'challengeSuccess', challengeeId)
@@ -413,32 +419,32 @@ describe 'BattleServer', ->
     it "returns an error if no such challenge exists", ->
       initServer.call(this)
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions)
+      @server.registerChallenge(@user, @other.id, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
       @server.acceptChallenge(@other, "bogus dude", team)
       mock.verify()
 
     it "overrides the user's name with the alt name in battle", ->
       initServer.call(this)
-      team = [ Factory("Magikarp") ]
-      generation = 'xy'
+      team = generateTeam()
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions, "Bruce Wayne")
+      @server.registerChallenge(@user, @other.id, format, team, conditions, "Bruce Wayne")
       battleId = @server.acceptChallenge(@other, @user.id, team, "Jason Todd")
       battle = @server.findBattle(battleId)
       battle.battle.playerNames.should.eql ["Bruce Wayne", "Jason Todd"]
 
     it "sets the rating key to be the unique alt id if there is an alt", ->
       initServer.call(this)
-      team = [ Factory("Magikarp") ]
-      generation = 'xy'
+      team = generateTeam()
+      format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, generation, team, conditions, "Bruce Wayne")
+      @server.registerChallenge(@user, @other.id, format, team, conditions, "Bruce Wayne")
       battleId = @server.acceptChallenge(@other, @user.id, team, "Jason Todd")
       battle = @server.findBattle(battleId)
 
@@ -452,12 +458,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(user, other.id, generation, team, conditions)
+      server.registerChallenge(user, other.id, format, team, conditions)
       should.exist server.challenges[user.id]
       should.exist server.challenges[user.id][other.id]
       server.leave(user)
@@ -469,12 +475,12 @@ describe 'BattleServer', ->
       other = new User("Robin")
       challengeeId = other.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(other, user.id, generation, team, conditions)
+      server.registerChallenge(other, user.id, format, team, conditions)
       should.exist server.challenges[other.id]
       should.exist server.challenges[other.id][user.id]
       server.leave(user)
@@ -489,12 +495,12 @@ describe 'BattleServer', ->
       challengeeId = other.id
       challengerId = user.id
       team = generateTeam()
-      generation = 'xy'
+      format = 'xy1000'
       conditions = []
 
       server.join(user)
       server.join(other)
-      server.registerChallenge(other, user.id, generation, team, conditions)
+      server.registerChallenge(other, user.id, format, team, conditions)
       should.exist server.challenges[challengeeId]
       should.exist server.challenges[challengeeId][challengerId]
       server.lockdown()
@@ -659,6 +665,11 @@ describe 'BattleServer', ->
       server.validateTeam([ meloetta ]).should.not.be.empty
 
     it "returns non-empty if a pokemon cannot have its forme"
+
+    it "returns non-empty if the format is fake", ->
+      server = new BattleServer()
+      meloetta = Factory("Meloetta", moves: ["Relic Song"])
+      server.validateTeam([ meloetta ], 'bogusformat').should.not.be.empty
 
   describe "#beginBattles", ->
     it "creates a battle per pair", (done) ->

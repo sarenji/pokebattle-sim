@@ -8,7 +8,7 @@ async = require('async')
 gen = require './generations'
 auth = require('./auth')
 learnsets = require '../shared/learnsets'
-{Conditions} = require '../shared/conditions'
+{Conditions, SelectableConditions} = require '../shared/conditions'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
@@ -28,23 +28,24 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.UNRELEASED_BAN
 ]
 
-ALLOWED_CHALLENGE_CONDITIONS = [
-  Conditions.TEAM_PREVIEW
-  Conditions.PBV_1000
-  Conditions.TIMED_BATTLE
-  Conditions.SLEEP_CLAUSE
-  Conditions.EVASION_CLAUSE
-  Conditions.SPECIES_CLAUSE
-  Conditions.PRANKSTER_SWAGGER_CLAUSE
-  Conditions.OHKO_CLAUSE
-  Conditions.UNRELEASED_BAN
-]
+FORMATS =
+  xy1000:
+    generation: 'xy'
+    conditions: [ Conditions.PBV_1000 ]
+  xy:
+    generation: 'xy'
+    conditions: []
+  bw:
+    generation: 'bw'
+    conditions: []
 
 class @BattleServer
+  @DEFAULT_FORMAT: 'xy1000'
+
   constructor: ->
     @queues = {}
-    for generation in gen.SUPPORTED_GENERATIONS
-      @queues[generation] = new BattleQueue()
+    for format of FORMATS
+      @queues[format] = new BattleQueue()
     @battles = {}
 
     # A hash mapping users to battles.
@@ -85,7 +86,7 @@ class @BattleServer
         battle = @battles[battleId]
         battle.removeSpectator(player)
 
-  registerChallenge: (player, challengeeId, generation, team, conditions, altName) ->
+  registerChallenge: (player, challengeeId, format, team, conditions, altName) ->
     if @isLockedDown()
       errorMessage = "The server is locked. No new battles can start at this time."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
@@ -105,19 +106,19 @@ class @BattleServer
       return false
 
     # Do not allow rated battles or other unallowed conditions.
-    if _.difference(conditions, ALLOWED_CHALLENGE_CONDITIONS).length > 0
+    if _.difference(conditions, SelectableConditions).length > 0
       player.error(errors.FIND_BATTLE, 'This battle cannot have certain conditions.')
       return false
 
-    err = @validateTeam(team, generation, conditions)
+    err = @validateTeam(team, format, conditions)
     if err.length > 0
       # TODO: Use a modal error instead
       player.error(errors.FIND_BATTLE, err)
       return false
 
     @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {generation, team, conditions, challengerName: player.name, altName}
-    @users.send(challengeeId, "challenge", player.id, generation, conditions)
+    @challenges[player.id][challengeeId] = {format, team, conditions, challengerName: player.name, altName}
+    @users.send(challengeeId, "challenge", player.id, format, conditions)
     return true
 
   acceptChallenge: (player, challengerId, team, altName) ->
@@ -127,7 +128,7 @@ class @BattleServer
       return null
 
     challenge = @challenges[challengerId][player.id]
-    err = @validateTeam(team, challenge.generation, challenge.conditions)
+    err = @validateTeam(team, challenge.format, challenge.conditions)
     if err.length > 0
       # TODO: Use a modal error instead
       player.error(errors.FIND_BATTLE, err)
@@ -148,7 +149,7 @@ class @BattleServer
       }
     ]
 
-    id = @createBattle(challenge.generation, teams, challenge.conditions)
+    id = @createBattle(challenge.format, teams, challenge.conditions)
     @users.send(player.id, "challengeSuccess", challengerId)
     @users.send(challengerId, "challengeSuccess", player.id)
     delete @challenges[challengerId][player.id]
@@ -183,35 +184,35 @@ class @BattleServer
 
   # Adds the player to the queue. Note that there is no validation on whether altName
   # is correct, so make 
-  queuePlayer: (playerId, team, generation = gen.DEFAULT_GENERATION, altName) ->
+  queuePlayer: (playerId, team, format = BattleServer.DEFAULT_FORMAT, altName) ->
     if @isLockedDown()
       err = ["The server is restarting. No new battles can start at this time."]
     else
-      err = @validateTeam(team, generation, FIND_BATTLE_CONDITIONS)
+      err = @validateTeam(team, format, FIND_BATTLE_CONDITIONS)
       if err.length == 0
         name = @users.get(playerId)[0]?.name
         ratingKey = alts.uniqueId(playerId, altName)
-        @queues[generation].add(playerId, altName || name, team, ratingKey)
+        @queues[format].add(playerId, altName || name, team, ratingKey)
       return err
 
-  queuedPlayers: (generation = gen.DEFAULT_GENERATION) ->
-    @queues[generation].queuedPlayers()
+  queuedPlayers: (format = BattleServer.DEFAULT_FORMAT) ->
+    @queues[format].queuedPlayers()
 
-  removePlayer: (playerId, generation = gen.DEFAULT_GENERATION) ->
-    return false  if generation not of @queues
-    @queues[generation].remove(playerId)
+  removePlayer: (playerId, format = BattleServer.DEFAULT_FORMAT) ->
+    return false  if format not of @queues
+    @queues[format].remove(playerId)
     return true
 
   beginBattles: (next) ->
-    array = for generation in gen.SUPPORTED_GENERATIONS
-      do (generation) => (callback) =>
-        @queues[generation].pairPlayers (err, pairs) =>
+    array = for format in Object.keys(FORMATS)
+      do (format) => (callback) =>
+        @queues[format].pairPlayers (err, pairs) =>
           if err then return callback(err)
 
           # Create a battle for each pair
           battleIds = []
           for pair in pairs
-            id = @createBattle(generation, pair, FIND_BATTLE_CONDITIONS)
+            id = @createBattle(format, pair, FIND_BATTLE_CONDITIONS)
             battleIds.push(id)
           callback(null, battleIds)
     async.parallel array, (err, battleIds) ->
@@ -220,7 +221,10 @@ class @BattleServer
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (generation = gen.DEFAULT_GENERATION, pair = [], conditions = []) ->
+  createBattle: (format = BattleServer.DEFAULT_FORMAT, pair = [], conditions = []) ->
+    format = FORMATS[format]
+    generation = format.generation
+    conditions = conditions.concat(format.conditions)
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
     playerIds = pair.map((user) -> user.id)
@@ -327,18 +331,19 @@ class @BattleServer
 
   # Returns an empty array if the given team is valid, an array of errors
   # otherwise.
-  validateTeam: (team, generation = gen.DEFAULT_GENERATION, conditions = []) ->
+  validateTeam: (team, format = BattleServer.DEFAULT_FORMAT, conditions = []) ->
+    return [ "Invalid format: #{format}." ]  if format not of FORMATS
+    format = FORMATS[format]
     return [ "Invalid team format." ]  if team not instanceof Array
     return [ "Team must have 1 to 6 Pokemon." ]  unless 1 <= team.length <= 6
-    if generation not in gen.SUPPORTED_GENERATIONS
-      return [ "Invalid generation: #{generation}." ]
-    genData = gen.GenerationJSON[generation.toUpperCase()]
+    conditions = conditions.concat(format.conditions)
+    genData = gen.GenerationJSON[format.generation.toUpperCase()]
 
     err = require('./conditions').validateTeam(conditions, team, genData)
     return err  if err.length > 0
 
     err = team.map (pokemon, i) =>
-      @validatePokemon(conditions, pokemon, i + 1, generation)
+      @validatePokemon(conditions, pokemon, i + 1, format.generation)
     return _.flatten(err)
 
   # Returns an empty array if the given Pokemon is valid, an array of errors
