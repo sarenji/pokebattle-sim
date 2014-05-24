@@ -39,6 +39,15 @@ $header_size = 52px
 #leftmenu
   display none
 
+#leftmenu a 
+  color #fff
+  padding 5px
+  margin-left 15px
+  &:hover
+    border-radius 5px
+    background #D94E47
+    text-decoration none
+
 #rightmenu {
     margin-left: -40px;
 }
@@ -58,11 +67,8 @@ nav a {
     color: #fff;
     text-decoration: none;
 }
-#leftmenu a {
-    background: #605D55;
-    margin-left: 20px;
-}
-nav a:hover, nav li:hover, #leftmenu a:hover {
+
+nav a:hover, nav li:hover {
     background: #D94E47;
     color: #6C2724;
     text-decoration none
