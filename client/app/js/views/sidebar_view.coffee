@@ -2,19 +2,28 @@ class @SidebarView extends Backbone.View
   template: JST['navigation']
 
   events:
-    "click .logo" : "focusLobby"
-    "click .nav_battles li" : 'focusBattle'
-    "click .nav_rooms li"   : 'focusRoom'
-    "click .nav_battles .close" : 'leaveBattle'
+    "click .logo" : "focusLobbyEvent"
+    "click .nav_rooms li"   : 'focusRoomEvent'
+    "click .nav_battles li" : 'focusBattleEvent'
+    "click .nav_messages li": 'focusMessageEvent'
+    "click .nav_battles .close" : 'leaveBattleEvent'
+    "click .nav_messages .close" : 'closeMessageEvent'
     "click .nav_teambuilder": 'showTeambuilder'
     "click .nav_battle_list": 'showBattleList'
 
   initialize: (attributes) =>
     @currentWindow = null
+    
     @listenTo(PokeBattle.battles, 'add', @addBattle)
     @listenTo(PokeBattle.battles, 'remove', @removeBattle)
     @listenTo(PokeBattle.battles, 'reset', @resetBattles)
     @listenTo(PokeBattle.battles, 'change:notifications', @renderNotifications)
+
+    @listenTo(PokeBattle.messages, 'open receive', @addMessage)
+    @listenTo(PokeBattle.messages, 'close', @removeMessage)
+    @listenTo(PokeBattle.messages, 'reset', @resetMessages)
+    @listenTo(PokeBattle.messages, 'change:notifications', @renderMessageNotifications)
+    
     @render()
 
   showTeambuilder: =>
@@ -68,7 +77,41 @@ class @SidebarView extends Backbone.View
     for battle in battles
       @addBattle(battle)
 
-  leaveBattle: (e) =>
+  addMessage: (message) =>
+    # This event can trigger on already opened messages, so we need to verify
+    return  if @$(".nav_item[data-message-id='#{message.id}']").length
+
+    @$(".header_messages, .nav_messages").removeClass("hidden")
+    $li = $("""<li class="nav_item fake_link" data-message-id="#{message.id}">
+      <div class="nav_meta">
+        <div class="notifications hidden">0</div>
+        <div class="close">x</div>
+      </div>#{message.id}</li>""")
+    $li.appendTo(@$('.nav_messages'))
+    @renderMessageNotifications(message)
+
+  removeMessage: (message) =>
+    @$(".nav_item[data-message-id='#{message.id}']").remove()
+
+    # If there are no messages, remove the header
+    # Note: We can't check the collection directly since messages are never actually removed from it
+    if @$('.nav_messages li').length == 0
+      @$(".header_messages").addClass("hidden")
+
+  resetMessages: (messages) =>
+    @addMessage(message)  for message in messages
+
+  renderMessageNotifications: (message) =>
+    $notifications = @$("[data-message-id='#{message.id}'] .notifications")
+
+    notificationCount = message.get('notifications')
+    if notificationCount > 0
+      $notifications.text(notificationCount)
+      $notifications.removeClass('hidden')
+    else
+      $notifications.addClass('hidden')
+
+  leaveBattleEvent: (e) =>
     $navItem = $(e.currentTarget).closest('.nav_item')
     battleId = $navItem.data('battle-id')
     battle   = PokeBattle.battles.get(battleId)
@@ -78,13 +121,19 @@ class @SidebarView extends Backbone.View
     PokeBattle.battles.remove(battle)
     false
 
-  focusBattle: (e) =>
+  closeMessageEvent: (e) =>
+    $navItem = $(e.currentTarget).closest('.nav_item')
+    messageId = $navItem.data('message-id')
+    message = PokeBattle.messages.get(messageId)
+    message.trigger('close', message)
+
+  focusBattleEvent: (e) =>
     $this = $(e.currentTarget)
     @resetNotifications($this)
     battleId = $this.data('battle-id')
     @changeWindowToBattle(battleId)
 
-  focusLobby: (e) =>
+  focusLobbyEvent: (e) =>
     # TODO: Clean this up once rooms are implemented
     # right now it duplicates part of focusRoom()
     $lobbyLink = @$(".nav_rooms li").first()
@@ -93,13 +142,20 @@ class @SidebarView extends Backbone.View
     @changeWindowTo($room, $lobbyLink)
     PokeBattle.router.navigate("")
 
-  focusRoom: (e) =>
+  focusRoomEvent: (e) =>
     $this = $(e.currentTarget)
     @resetNotifications($this)
     # TODO: Remove hardcoding once rooms are implemented
     $room = $('.chat_window')
     @changeWindowTo($room, $this)
     PokeBattle.router.navigate("")
+
+  focusMessageEvent: (e) =>
+    $navItem = $(e.currentTarget).closest('.nav_item')
+    messageId = $navItem.data('message-id')
+    message = PokeBattle.messages.get(messageId)
+    message.trigger('show', message)
+    message.trigger('focus', message)
 
   changeWindowTo: ($toSelector, $navItem) =>
     # Show window, hide others

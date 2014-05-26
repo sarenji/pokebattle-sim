@@ -1,17 +1,21 @@
+MAX_LOG_LENGTH = 50
+
 class @PrivateMessage extends Backbone.Model
   initialize: =>
     @clear()
+    @set('notifications', 0)
 
   add: (username, message, opts = {}) =>
-    @trigger("receive", @id, username, message, opts)
+    @set('notifications', @get('notifications') + 1)  if username == @id
+    @trigger("receive", this, @id, username, message, opts)
 
     log = @get('log')
     log.push({username, message, opts})
 
     # todo: Do not hardcode max log length
     # Trim the log size. Use 2x log length to reduce how often this happens
-    if log.length > 100
-      log.splice(0, log.length - 50)
+    if log.length > (2 * MAX_LOG_LENGTH)
+      log.splice(0, log.length - MAX_LOG_LENGTH)
 
   clear: =>
     @set('log', [])
