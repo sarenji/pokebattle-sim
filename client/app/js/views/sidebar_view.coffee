@@ -58,7 +58,7 @@ class @SidebarView extends Backbone.View
     $li = $("""<li class="nav_item fake_link" data-battle-id="#{battle.id}">
       <div class="nav_meta">
         <div class="notifications hidden">0</div>
-        <div class="close">x</div>
+        <div class="close">&times;</div>
       </div>#{battle.get('playerIds').join(' VS ')}</li>""")
     $li.appendTo(@$('.nav_battles'))
     $li.click()
@@ -85,7 +85,7 @@ class @SidebarView extends Backbone.View
     $li = $("""<li class="nav_item fake_link" data-message-id="#{message.id}">
       <div class="nav_meta">
         <div class="notifications hidden">0</div>
-        <div class="close">x</div>
+        <div class="close">&times;</div>
       </div>#{message.id}</li>""")
     $li.appendTo(@$('.nav_messages'))
     @renderMessageNotifications(message)
