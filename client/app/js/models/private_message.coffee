@@ -12,7 +12,6 @@ class @PrivateMessage extends Backbone.Model
     log = @get('log')
     log.push({username, message, opts})
 
-    # todo: Do not hardcode max log length
     # Trim the log size. Use 2x log length to reduce how often this happens
     if log.length > (2 * MAX_LOG_LENGTH)
       log.splice(0, log.length - MAX_LOG_LENGTH)
