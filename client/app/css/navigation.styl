@@ -72,9 +72,11 @@ h1
       right 0
       font-size .714em
     .notifications, .close
-      padding 2px 6px
-      height 14px
+      height 1.3em * (1em / .714em) // 1.3 height adjusted by the nav_meta font size
+      width @height
       line-height @height
+      text-align center
+      margin-top 0.1em // the container is 1.5em and the contents are 1.3em
       margin-right 5px
       float left
       opacity 1

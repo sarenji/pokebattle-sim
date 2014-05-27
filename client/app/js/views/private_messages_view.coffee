@@ -19,9 +19,11 @@ class @PrivateMessagesView extends Backbone.View
     @listenTo(@collection, 'receive', @receiveMessage)
     @listenTo(@collection, 'close', @closePopup)
     @listenTo(@collection, 'minimize', @minimizePopup)
+    @listenTo(@collection, 'show', @showPopup)
     @listenTo(@collection, 'openChallenge', @openChallenge)
     @listenTo(@collection, 'cancelChallenge', @cancelChallenge)
     @listenTo(@collection, 'closeChallenge', @closeChallenge)
+    @listenTo(@collection, 'focus show', @resetNotifications)
 
     @listenTo(PokeBattle.userList, 'add', @notifyJoin)
     @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
@@ -52,8 +54,12 @@ class @PrivateMessagesView extends Backbone.View
   minimizePopup: (message) =>
     username = message.id
     $popup = @$findPopup(username)
-    $body = $popup.find('.popup_body')
-    $body.toggleClass('hidden')
+    $popup.addClass('hidden')
+
+  showPopup: (message) =>
+    username = message.id
+    $popup = @$findPopup(username)
+    $popup.removeClass('hidden')
 
   # todo: make this and receiveMessage construct messages from a common source
   addLogMessages: ($popup, log) =>
@@ -70,7 +76,7 @@ class @PrivateMessagesView extends Backbone.View
     @scrollToBottom($popup)
 
   # todo: make this and addLogMessages construct messages from a common source
-  receiveMessage: (messageId, username, message, options) =>
+  receiveMessage: (messageModel, messageId, username, message, options) =>
     $popup = @$findOrCreatePopup(messageId)
     $messages = $popup.find('.popup_messages')
     wasAtBottom = @isAtBottom($popup)
@@ -82,6 +88,8 @@ class @PrivateMessagesView extends Backbone.View
       if username != "Me" && !$popup.find('.chat_input').is(":focus")
         $popup.addClass('new_message')
         PokeBattle.notifyUser(PokeBattle.NotificationTypes.PRIVATE_MESSAGE, username)
+      else
+        @resetNotifications(messageModel)
       $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom($popup)
 
@@ -105,6 +113,9 @@ class @PrivateMessagesView extends Backbone.View
     $challenge = $popup.find('.challenge')
     $challenge.addClass('hidden')
     $popup.find('.popup_messages').removeClass('small')
+
+  resetNotifications: (message) =>
+    message.set('notifications', 0)
 
   notifyJoin: (user) =>
     message = @collection.get(user.id)
@@ -239,3 +250,4 @@ class @PrivateMessagesView extends Backbone.View
   focusPopupEvent: (e) =>
     $popup = @$closestPopup(e.currentTarget)
     $popup.removeClass('new_message')
+    @resetNotifications(@collection.get($popup.data('user-id')))
