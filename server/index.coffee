@@ -127,7 +127,12 @@ CLIENT_VERSION = assets.getVersion()
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.messageSpectators(user, message)
+      # TODO: Use `userMessage` instead once rooms are implemented
+      auth.getMuteTTL user.id, (err, ttl) ->
+        if ttl == -2
+          battle.messageSpectators(user, message)
+        else
+          user.announce('warning', "You are muted for another #{ttl} seconds!")
 
     'close': (user) ->
       # Do nothing if this user never logged in.
