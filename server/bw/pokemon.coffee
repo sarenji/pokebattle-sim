@@ -306,13 +306,18 @@ class @Pokemon
     @item = null
     oldItem
 
+  hasSpeciesItem: (pokemon) ->
+    name = pokemon.name
+    return true  if name == 'Arceus' && @item?.plate
+    return true  if name == 'Giratina' && @item?.displayName == 'Griseous Orb'
+    return true  if name == 'Genesect' && /Drive$/.test(@item?.displayName)
+    false
+
   hasTakeableItem: ->
     return false  if !@hasItem()
     return false  if @item.type == 'mail'
     return false  if @item.type == 'key'
-    return false  if @hasAbility("Multitype") && @item.plate
-    return false  if @name == 'Giratina' && @forme == 'origin'
-    return false  if @name == 'Genesect' && /Drive$/.test(@item.displayName)
+    return false  if @hasSpeciesItem(this)
     true
 
   # This differs from hasTakeableItem by virtue of Sticky Hold

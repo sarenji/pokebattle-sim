@@ -1037,12 +1037,12 @@ describe "BW Moves:", ->
       @p2.item.should.equal item1
       @p1.item.should.equal item2
 
-    it "fails if the user has Sticky Hold", ->
+    it "does not fail if the user has Sticky Hold", ->
       shared.create.call this,
         team1: [Factory('Alakazam', ability: "Sticky Hold", item: 'Stick')]
-        team2: [Factory('Gastrodon', item: "Leftovers")]
+        team2: [Factory('Magikarp', item: "Leftovers")]
       trick = @battle.getMove('Trick')
-      mock = @sandbox.mock(trick).expects('fail').once()
+      mock = @sandbox.mock(trick).expects('fail').never()
       @battle.performMove(@p1, trick)
       mock.verify()
 
@@ -1092,17 +1092,26 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, trick)
       mock.verify()
 
-    it "fails if the user is Giratina-O", ->
+    it "fails if the user is Giratina with a Griseous Orb", ->
       shared.create.call this,
-        team1: [Factory('Giratina', forme: "origin")]
+        team1: [Factory('Giratina', item: "Griseous Orb")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
       @battle.performMove(@p1, trick)
       mock.verify()
 
-    it "fails if the target is Giratina-O", ->
+    it "fails if the target is Giratina with a Griseous Orb", ->
       shared.create.call this,
-        team2: [Factory('Giratina', forme: "origin")]
+        team2: [Factory('Giratina', forme: "origin", item: "Griseous Orb")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@p1, trick)
+      mock.verify()
+
+    it "fails if the user has a Griseous Orb and the target is Giratina", ->
+      shared.create.call this,
+        team1: [Factory('Alakazam', item: "Griseous Orb")]
+        team2: [Factory('Giratina', item: "Leftovers")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
       @battle.performMove(@p1, trick)
@@ -1117,19 +1126,37 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, trick)
       mock.verify()
 
-    it "fails if the user has Multitype with a plate item", ->
+    it "fails if the user is Arceus with a plate item", ->
       shared.create.call this,
-        team1: [Factory('Magikarp', ability: "Multitype", item: "Grass Plate")]
+        team1: [Factory('Arceus', item: "Meadow Plate")]
         team2: [Factory('Magikarp')]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
       @battle.performMove(@p1, trick)
       mock.verify()
 
-    it "fails if the target has Multitype with a plate item", ->
+    it "fails if the target is Arceus with a plate item", ->
       shared.create.call this,
         team1: [Factory('Magikarp')]
-        team2: [Factory('Magikarp', ability: "Multitype", item: "Grass Plate")]
+        team2: [Factory('Arceus', item: "Meadow Plate")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@p1, trick)
+      mock.verify()
+
+    it "fails if the user has a plate item and the target is Arceus", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Meadow Plate")]
+        team2: [Factory('Arceus', item: "Leftovers")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@p1, trick)
+      mock.verify()
+
+    it "fails if the user is Arceus and the target has a plate item", ->
+      shared.create.call this,
+        team1: [Factory('Arceus', item: "Leftovers")]
+        team2: [Factory('Magikarp', item: "Meadow Plate")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
       @battle.performMove(@p1, trick)
@@ -1148,6 +1175,24 @@ describe "BW Moves:", ->
       shared.create.call this,
         team1: [Factory('Genesect', item: "Burn Drive")]
         team2: [Factory('Magikarp')]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@p1, trick)
+      mock.verify()
+
+    it "fails if the user has a Drive item and the target is Genesect", ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Burn Drive")]
+        team2: [Factory('Genesect', item: "Leftovers")]
+      trick = @battle.getMove('Trick')
+      mock = @sandbox.mock(trick).expects('fail').once()
+      @battle.performMove(@p1, trick)
+      mock.verify()
+
+    it "fails if the user is Genesect and the target has a Drive item", ->
+      shared.create.call this,
+        team1: [Factory('Genesect', item: "Leftovers")]
+        team2: [Factory('Magikarp', item: "Chill Drive")]
       trick = @battle.getMove('Trick')
       mock = @sandbox.mock(trick).expects('fail').once()
       @battle.performMove(@p1, trick)
@@ -1414,10 +1459,10 @@ describe "BW Moves:", ->
       should.not.exist @p1.item
       @p2.item.should.equal item2
 
-    it "should not steal target's item if target has Multitype and a plate", ->
+    it "should not steal target's item if target is Arceus with a plate", ->
       shared.create.call this,
         team1: [Factory('Magikarp')]
-        team2: [Factory('Magikarp', item: "Draco Plate", ability: "Multitype")]
+        team2: [Factory('Arceus', item: "Draco Plate")]
       item2 = @p2.item
       @battle.performMove(@p1, @battle.getMove('Thief'))
       should.not.exist @p1.item
