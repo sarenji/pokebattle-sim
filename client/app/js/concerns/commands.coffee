@@ -114,9 +114,9 @@ findPokemonAtPBV = (pbv) ->
         messages.push("#{linkToDex(dexEntry, icon + formattedName)}:
           #{formeData.pokeBattleValue}")
   if messages.length > 10
-    messages = _.sample(messages, 10)
-    messages.push("<a href='//www.pokebattle.com/dex/pokemon/?pbv=<#{pbv + 1}'
-      target='_blank'>See more Pokemon &raquo;</a>")
+    messages = _.sample(messages, 10)    
+    messages.push(linkToDex("pokemon/?pbv=<#{pbv + 1}", 
+      "See more Pokemon &raquo;"))    
   if messages.length > 0
     plural = if messages.length == 1 then "is" else "are"
     messages.unshift("There #{plural} #{counter} Pokemon with a PBV of
