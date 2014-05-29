@@ -55,11 +55,14 @@ class @PrivateMessagesView extends Backbone.View
     username = message.id
     $popup = @$findPopup(username)
     $popup.addClass('hidden')
+    @repositionPopups()
 
   showPopup: (message) =>
     username = message.id
     $popup = @$findPopup(username)
+    @$el.append($popup)
     $popup.removeClass('hidden')
+    @repositionPopups()
 
   # todo: make this and receiveMessage construct messages from a common source
   addLogMessages: ($popup, log) =>
@@ -148,7 +151,7 @@ class @PrivateMessagesView extends Backbone.View
     $popup.css(left: leftOffset + index * $popup.outerWidth(true))
 
   repositionPopups: =>
-    @$(".popup").each (index, self) =>
+    @$(".popup:visible").each (index, self) =>
       @positionPopup($(self), index)
 
   $findPopup: (id) =>
