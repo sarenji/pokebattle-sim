@@ -111,6 +111,15 @@ class @SidebarView extends Backbone.View
     else
       $notifications.addClass('hidden')
 
+  focusLobby: =>
+    # TODO: Clean this up once rooms are implemented
+    # right now it duplicates part of focusRoom()
+    $lobbyLink = @$(".nav_rooms li").first()
+    @resetNotifications($lobbyLink)
+    $room = $('.chat_window')
+    @changeWindowTo($room, $lobbyLink)
+    PokeBattle.router.navigate("")
+
   leaveBattleEvent: (e) =>
     $navItem = $(e.currentTarget).closest('.nav_item')
     battleId = $navItem.data('battle-id')
@@ -134,13 +143,7 @@ class @SidebarView extends Backbone.View
     @changeWindowToBattle(battleId)
 
   focusLobbyEvent: (e) =>
-    # TODO: Clean this up once rooms are implemented
-    # right now it duplicates part of focusRoom()
-    $lobbyLink = @$(".nav_rooms li").first()
-    @resetNotifications($lobbyLink)
-    $room = $('.chat_window')
-    @changeWindowTo($room, $lobbyLink)
-    PokeBattle.router.navigate("")
+    @focusLobby()
 
   focusRoomEvent: (e) =>
     $this = $(e.currentTarget)
