@@ -70,8 +70,10 @@ class @SidebarView extends Backbone.View
     $battle.remove()
     if PokeBattle.battles.size() == 0
       @$(".header_battles, .nav_battles").addClass('hidden')
-    $next = $navItems.eq(index - 1)
-    $next.click()
+      PokeBattle.navigation.focusLobby()
+    else
+      $next = $navItems.eq(index).add($navItems.eq(index - 1))
+      $next.first().click()
 
   resetBattles: (battles) =>
     for battle in battles
