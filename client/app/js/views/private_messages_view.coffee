@@ -64,7 +64,8 @@ class @PrivateMessagesView extends Backbone.View
   # todo: make this and receiveMessage construct messages from a common source
   addLogMessages: ($popup, log) =>
     messageHtml = ""
-    for {username, message, opts} in log 
+    for {username, message, opts} in log
+      username = "Me"  if username == PokeBattle.username
       if opts.type == 'error'
         messageHtml += "<p class='privmsg-error log-message'>#{message}</p>"
       else if opts.type == 'alert'
@@ -80,6 +81,7 @@ class @PrivateMessagesView extends Backbone.View
     $popup = @$findOrCreatePopup(messageId)
     $messages = $popup.find('.popup_messages')
     wasAtBottom = @isAtBottom($popup)
+    username = "Me"  if username == PokeBattle.username
     if options.type == 'error'
       $messages.append("<p class='privmsg-error'>#{message}</p>")
     else if options.type == 'alert'
@@ -205,7 +207,6 @@ class @PrivateMessagesView extends Backbone.View
         text = $input.val()
         return  if text.length == 0
         PokeBattle.socket.send('privateMessage', message.id, text)
-        message.add("Me", text)
         $input.val('')
 
   keyUpEvent: (e) =>

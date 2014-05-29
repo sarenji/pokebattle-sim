@@ -6,8 +6,8 @@ $(document).on 'click', '.open_pm', ->
   message.trigger('focus', message)
 
 # Receive private message events
-PokeBattle.events.on 'privateMessage', (fromUserId, messageText) ->
-  message = PokeBattle.messages.add(id: fromUserId)
+PokeBattle.events.on 'privateMessage', (messageId, fromUserId, messageText) ->
+  message = PokeBattle.messages.add(id: messageId)
   message.add(fromUserId, messageText)
 
 # Challenges

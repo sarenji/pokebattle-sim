@@ -177,7 +177,8 @@ CLIENT_VERSION = assets.getVersion()
     'privateMessage': (user, toUser, message) ->
       return  unless typeof message == "string" && message.trim().length > 0
       if server.users.contains(toUser)
-        server.users.send(toUser, 'privateMessage', user.id, message)
+        server.users.send(toUser, 'privateMessage', user.id, user.id, message)
+        server.users.send(user.id, 'privateMessage', toUser, user.id, message)
       else
         user.error(errors.PRIVATE_MESSAGE, toUser, "This user is offline.")
 

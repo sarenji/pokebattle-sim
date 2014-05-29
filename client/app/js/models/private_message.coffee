@@ -2,7 +2,7 @@ MAX_LOG_LENGTH = 50
 
 class @PrivateMessage extends Backbone.Model
   initialize: =>
-    @clear()
+    @loadLog()
     @set('notifications', 0)
 
   add: (username, message, opts = {}) =>
@@ -16,8 +16,7 @@ class @PrivateMessage extends Backbone.Model
     if log.length > (2 * MAX_LOG_LENGTH)
       log.splice(0, log.length - MAX_LOG_LENGTH)
 
-  clear: =>
-    @set('log', [])
+    @saveLog()
 
   openChallenge: (args...) =>
     @trigger("openChallenge", args...)
@@ -32,6 +31,20 @@ class @PrivateMessage extends Backbone.Model
     log = @get('log')
     if log.length > 50
       log.splice(0, log.length - 50)
+    return log
 
-    log
+  loadLog: =>
+    try
+      log = JSON.parse(window.localStorage.getItem(@logKey())) || []
+      @set('log', log)
+    catch
+      @set('log', [])
 
+  saveLog: =>
+    try
+      window.localStorage.setItem(@logKey(), JSON.stringify(@getLog()))
+
+  logKey: =>
+    key = [ @id, PokeBattle.username ]
+    key.sort()
+    key.join(':')

@@ -77,7 +77,6 @@ makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
   if messages.length > 0
     text = messages.join(',')
     PokeBattle.socket.send('privateMessage', message.id, text)
-    message.add("Me", text)
   else
     # The PM is opened without a message.
     message.trigger('open', message)
