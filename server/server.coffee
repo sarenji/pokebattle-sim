@@ -364,7 +364,7 @@ class @BattleServer
       err.push("#{prefix}: #{pokemon.forme} forme is battle-only.")
       return err
 
-    unless 0 < pokemon.name.length < MAX_NICKNAME_LENGTH
+    unless 0 < pokemon.name.length <= MAX_NICKNAME_LENGTH
       err.push("#{prefix}: Nickname cannot be blank or be
                 #{MAX_NICKNAME_LENGTH} characters or higher.")
       return err
