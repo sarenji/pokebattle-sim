@@ -160,6 +160,7 @@ class @Pokemon
   # Example: pokemon.boost(specialAttack: 1, evasion: 2)
   #
   boost: (boosts, source = this) ->
+    return false  if @isFainted()
     boosts = Query.chain('transformBoosts', @attachments.all(), _.clone(boosts), source)
     deltaBoosts = {}
     didBoost = false
