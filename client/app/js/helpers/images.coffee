@@ -1,11 +1,11 @@
-@PokemonIconBackground = (name, forme) ->
-  if not (typeof name == "string")
-    pokemon = name
-    name = pokemon.name || pokemon.get?("name")
+@PokemonIconBackground = (species, forme) ->
+  if not (typeof species == "string")
+    pokemon = species
+    species = pokemon.species || pokemon.get?("species")
     forme = pokemon.forme || pokemon.get?("forme")
   
-  if name  
-    id = SpriteIds[name][forme] || SpriteIds[name]["default"]
+  if species
+    id = SpriteIds[species][forme] || SpriteIds[species]["default"]
   else
     id = 0
 

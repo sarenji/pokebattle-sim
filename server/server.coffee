@@ -27,6 +27,8 @@ FIND_BATTLE_CONDITIONS = [
   Conditions.UNRELEASED_BAN
 ]
 
+MAX_NICKNAME_LENGTH = 15
+
 class @BattleServer
   constructor: ->
     @queues = {}
@@ -343,23 +345,36 @@ class @BattleServer
     err = []
     prefix = "Slot ##{slot}"
 
-    if !pokemon.name
+    if !pokemon.species
       err.push("#{prefix}: No species given.")
       return err
-    species = SpeciesData[pokemon.name]
+    species = SpeciesData[pokemon.species]
     if !species
-      err.push("#{prefix}: Invalid species: #{pokemon.name}.")
+      err.push("#{prefix}: Invalid species: #{pokemon.species}.")
       return err
 
-    prefix += " (#{pokemon.name})"
+    prefix += " (#{pokemon.species})"
     @normalizePokemon(pokemon, generation)
-    forme = FormeData[pokemon.name][pokemon.forme]
+    forme = FormeData[pokemon.species][pokemon.forme]
     if !forme
       err.push("#{prefix}: Invalid forme: #{pokemon.forme}.")
       return err
 
     if forme.isBattleOnly
       err.push("#{prefix}: #{pokemon.forme} forme is battle-only.")
+      return err
+
+    unless 0 < pokemon.name.length < MAX_NICKNAME_LENGTH
+      err.push("#{prefix}: Nickname cannot be blank or be
+                #{MAX_NICKNAME_LENGTH} characters or higher.")
+      return err
+
+    if pokemon.name != pokemon.species && pokemon.name of SpeciesData
+      err.push("#{prefix}: Nickname cannot be another Pokemon's name.")
+      return err
+
+    if /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/.test(pokemon.name)
+      err.push("#{prefix}: Nickname cannot contain some special characters.")
       return err
 
     if isNaN(pokemon.level)
@@ -404,13 +419,14 @@ class @BattleServer
     return err
 
   # Normalizes a Pokemon by setting default values where applicable.
-  # Assumes that the Pokemon is a real Pokemon (i.e. its name is valid)
+  # Assumes that the Pokemon is a real Pokemon (i.e. its species/forme is valid)
   normalizePokemon: (pokemon, generation = gen.DEFAULT_GENERATION) ->
     {SpeciesData, FormeData} = gen.GenerationJSON[generation.toUpperCase()]
     pokemon.forme   ?= "default"
-    pokemon.ability ?= FormeData[pokemon.name][pokemon.forme]?["abilities"][0]
+    pokemon.name    ?= pokemon.species
+    pokemon.ability ?= FormeData[pokemon.species][pokemon.forme]?["abilities"][0]
     if !pokemon.gender?
-      {genderRatio} = SpeciesData[pokemon.name]
+      {genderRatio} = SpeciesData[pokemon.species]
       if genderRatio == -1 then pokemon.gender = "Genderless"
       else if Math.random() < (genderRatio / 8) then pokemon.gender = "F"
       else pokemon.gender = "M"

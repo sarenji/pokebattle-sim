@@ -2,16 +2,16 @@
 
 factories = {}
 
-@Factory = Factory = (name, attributes={}) ->
-  if name not of factories
-    Factory.register(name)
-  cloned = _.clone(factories[name])
+@Factory = Factory = (species, attributes={}) ->
+  if species not of factories
+    Factory.register(species)
+  cloned = _.clone(factories[species])
   _.extend(cloned, attributes)
 
-Factory.register = (name, attributes={}) ->
+Factory.register = (species, attributes={}) ->
   cloned = _.clone(attributes)
-  _.defaults(cloned, name: name)
-  factories[name] = cloned
+  _.defaults(cloned, species: species)
+  factories[species] = cloned
 
 Factory.register 'Hitmontop',
   ability: 'Technician'

@@ -62,7 +62,7 @@ class @TeambuilderView extends Backbone.View
     @listenTo(team, 'add:pokemon', @renderPokemon)
 
     # Todo: Make this perform better
-    @listenTo(team, 'change:pokemon[*].name change:pokemon[*].forme', (pokemon) =>
+    @listenTo(team, 'change:pokemon[*].species change:pokemon[*].forme', (pokemon) =>
       @renderPokemonList()
       @renderPokemon(pokemon)
     )
@@ -283,10 +283,10 @@ class @TeambuilderView extends Backbone.View
 
   validateImportedTeam: (json) =>
     errors = []
-    pokemonNames = (pokemon.name  for pokemon in json)
+    pokemonSpecies = (pokemon.species  for pokemon in json)
     {SpeciesData} = window.Generations[DEFAULT_GENERATION.toUpperCase()]
-    pokemonNames = pokemonNames.filter((name) -> name not of SpeciesData)
-    if pokemonNames.length > 0
-      errors.push(pokemonNames.map((n) -> "#{n} is not a valid Pokemon.")...)
+    pokemonSpecies = pokemonSpecies.filter((s) -> s not of SpeciesData)
+    if pokemonSpecies.length > 0
+      errors.push(pokemonSpecies.map((n) -> "#{n} is not a valid Pokemon.")...)
       return errors
     return errors

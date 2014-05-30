@@ -117,12 +117,12 @@ describe "Team preview", ->
     shared.create.call(this, {conditions, team1, team2})
     @controller.arrangeTeam(@id1, [ 0, 2, 1 ])
     @controller.arrangeTeam(@id2, [ 2, 0, 1 ])
-    @team1.at(0).name.should.equal("Magikarp")
-    @team1.at(1).name.should.equal("Celebi")
-    @team1.at(2).name.should.equal("Gyarados")
-    @team2.at(0).name.should.equal("Celebi")
-    @team2.at(1).name.should.equal("Magikarp")
-    @team2.at(2).name.should.equal("Gyarados")
+    @team1.at(0).species.should.equal("Magikarp")
+    @team1.at(1).species.should.equal("Celebi")
+    @team1.at(2).species.should.equal("Gyarados")
+    @team2.at(0).species.should.equal("Celebi")
+    @team2.at(1).species.should.equal("Magikarp")
+    @team2.at(2).species.should.equal("Gyarados")
 
   it "is isomorphic", ->
     conditions = [ Conditions.TEAM_PREVIEW ]
@@ -133,4 +133,4 @@ describe "Team preview", ->
     @controller.arrangeTeam(@id1, [ 2, 0, 1 ])
     @controller.arrangeTeam(@id1, [ 2, 0, 1 ])
     @controller.arrangeTeam(@id2, [ 2, 0, 1 ])
-    @team1.pokemon.map((p) -> p.name).should.eql(arrangedTeamNames)
+    @team1.pokemon.map((p) -> p.species).should.eql(arrangedTeamNames)

@@ -29,6 +29,7 @@ class @PokemonEditView extends Backbone.View
 
   events:
     'change .species_list': 'changeSpecies'
+    'change .selected_nickname': 'changeNickname'
     'click .selected_shininess': 'changeShiny'
     'click .selected_happiness': 'changeHappiness'
     'change .selected-forme': 'changeForme'
@@ -62,9 +63,9 @@ class @PokemonEditView extends Backbone.View
     @generation = window.Generations[generation.toUpperCase()]
     {MoveData, SpeciesData, ItemData} = @generation
     @moveData = MoveData
-    @speciesList = (name for name, data of SpeciesData)
+    @speciesList = (species for species, data of SpeciesData)
     # TODO: filter irrelevant items
-    @itemList = (_(name for name, data of ItemData).sort())
+    @itemList = (_(itemName for itemName, data of ItemData).sort())
     
     @render()
 
@@ -88,8 +89,15 @@ class @PokemonEditView extends Backbone.View
   changeSpecies: (e) =>
     return  if not @onPokemonChange
     species = $(e.currentTarget).val()
-    @pokemon = if species then new Pokemon(teambuilder: true, name: species) else new NullPokemon()
+    @pokemon = if species
+        new Pokemon(teambuilder: true, species: species)
+      else
+        new NullPokemon()
     @onPokemonChange(@pokemon)
+
+  changeNickname: (e) =>
+    $input = $(e.currentTarget)
+    @pokemon.set("name", $input.val())
 
   changeShiny: (e) =>
     $switch = $(e.currentTarget).toggleClass("selected")
@@ -124,7 +132,7 @@ class @PokemonEditView extends Backbone.View
 
   changeLevel: (e) =>
     $input = $(e.currentTarget)
-    value = parseInt($input.val())
+    value = parseInt($input.val(), 10)
     value = 100  if isNaN(value) || value > 100
     value = 1  if value < 1
     $input.val(value)
@@ -134,7 +142,7 @@ class @PokemonEditView extends Backbone.View
     # todo: make changeIv and changeEv DRY
     $input = $(e.currentTarget)
     stat = $input.data("stat")
-    value = parseInt($input.val())
+    value = parseInt($input.val(), 10)
     if isNaN(value) || value > 31 || value < 0
       value = 31
 
@@ -143,14 +151,14 @@ class @PokemonEditView extends Backbone.View
   focusEv: (e) =>
     $input = $(e.currentTarget)
     return  if $input.is("[type=range]")
-    value = parseInt($input.val())
+    value = parseInt($input.val(), 10)
     $input.val("")  if value == 0
 
   changeEv: (e) =>
     # todo: make changeIv and changeEv DRY
     $input = $(e.currentTarget)
     stat = $input.data("stat")
-    value = parseInt($input.val())
+    value = parseInt($input.val(), 10)
     value = 252  if value > 252
     value = 0  if isNaN(value) || value < 0
 
@@ -318,7 +326,7 @@ class @PokemonEditView extends Backbone.View
     attachSelectize(@$el.find(".species_list"),
       render:
         option: (item, escape) =>
-          pbv = PokeBattle.PBV.determinePBV(@generation, name: item.value)
+          pbv = PokeBattle.PBV.determinePBV(@generation, species: item.value)
           return "<div class='clearfix'>#{item.text}<div class='pbv'>#{pbv}</div></div>"
     )
     attachSelectize(@$el.find(".selected_item"))
@@ -351,7 +359,7 @@ class @PokemonEditView extends Backbone.View
 
   renderSpecies: =>
     @disableEventsAndExecute =>
-      setSelectizeValue(@$(".species_list"), @pokemon.get("name"))
+      setSelectizeValue(@$(".species_list"), @pokemon.get("species"))
       html = if @pokemon.isNull then "" else @speciesTemplate(window: window, pokemon: @pokemon)
       @$(".species-info").html(html)
       @$(".selected_shininess").toggleClass("selected", @pokemon.get('shiny') == true)
@@ -376,6 +384,7 @@ class @PokemonEditView extends Backbone.View
       M: "Male"
 
     @disableEventsAndExecute =>
+      $nonStats.find(".selected_nickname").val(@pokemon.get("name"))
       populateSelect ".selected_ability", @pokemon.getAbilities(), @pokemon.get("ability")
       populateSelect ".selected_nature", @pokemon.getNatures(), @pokemon.get("nature")
       setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))

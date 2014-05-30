@@ -6,7 +6,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
   return false  if !@hasItem()
   return false  if @item.type != 'megastone'
   [ species, forme ] = @item.mega
-  return false  if @name != species || @forme != 'default'
+  return false  if @species != species || @forme != 'default'
   return false  if @team?.filter((p) -> /^mega/.test(p.forme)).length > 0
   return true
 
@@ -19,7 +19,7 @@ oldHasTakeableItem = @Pokemon::hasTakeableItem
   return false  if oldHasTakeableItem.apply(this, arguments) == false
   if @item.type == 'megastone'
     [ species, forme ] = @item.mega
-    return false  if @name == species
+    return false  if @species == species
   return true
 
 # Powder moves no longer affect Grass-type Pokemon.

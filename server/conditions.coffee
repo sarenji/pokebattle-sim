@@ -85,7 +85,7 @@ createCondition Conditions.SLEEP_CLAUSE,
 createCondition Conditions.SPECIES_CLAUSE,
   validateTeam: (team, genData) ->
     errors = []
-    species = team.map((p) -> p.name)
+    species = team.map((p) -> p.species)
     species.sort()
     for i in [1...species.length]
       speciesName = species[i - 1]
@@ -142,13 +142,13 @@ createCondition Conditions.UNRELEASED_BAN,
     if pokemon.item && genData.ItemData[pokemon.item]?.unreleased
       errors.push("#{prefix}: The item '#{pokemon.item}' is unreleased.")
     # Check for unreleased abilities
-    forme = genData.FormeData[pokemon.name][pokemon.forme || "default"]
+    forme = genData.FormeData[pokemon.species][pokemon.forme || "default"]
     if forme.unreleasedHidden && pokemon.ability == forme.hiddenAbility &&
         forme.hiddenAbility not in forme.abilities
       errors.push("#{prefix}: The ability #{pokemon.ability} is unreleased.")
     # Check for unreleased Pokemon
     if forme.unreleased
-      errors.push("#{prefix}: The Pokemon #{pokemon.name} is unreleased.")
+      errors.push("#{prefix}: The Pokemon #{pokemon.species} is unreleased.")
     return errors
 
 createCondition Conditions.RATED_BATTLE,

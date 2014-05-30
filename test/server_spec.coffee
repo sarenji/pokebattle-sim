@@ -520,7 +520,7 @@ describe 'BattleServer', ->
     it "returns non-empty if a team member has a fake species name", ->
       server = new BattleServer()
       team = generateTeam()
-      team[0] = {name: "NOTREALMON"}
+      team[0] = {species: "NOTREALMON"}
       server.validateTeam(team).should.not.be.empty
 
     it "returns non-empty if a team member has no moveset", ->
@@ -691,6 +691,30 @@ describe 'BattleServer', ->
     it "returns non-empty if the format is fake", ->
       server = new BattleServer()
       server.validateTeam(generateTeam(), 'bogusformat').should.not.be.empty
+
+    it "returns non-empty if a pokemon's nickname matches another species", ->
+      server = new BattleServer()
+      team = generateTeam()
+      team[0].name = "Latios"
+      server.validateTeam(team).should.not.be.empty
+
+    it "returns non-empty if a pokemon's nickname is blank", ->
+      server = new BattleServer()
+      team = generateTeam()
+      team[0].name = ""
+      server.validateTeam(team).should.not.be.empty
+
+    it "returns non-empty if a pokemon's nickname contains illegal chars", ->
+      server = new BattleServer()
+      team = generateTeam()
+      team[0].name = "some chars \uFE20 are illegal"
+      server.validateTeam(team).should.not.be.empty
+
+    it "returns non-empty if a pokemon's nickname is past a certain length", ->
+      server = new BattleServer()
+      team = generateTeam()
+      team[0].name = ("A"  for x in [0...50]).join('')
+      server.validateTeam(team).should.not.be.empty
 
   describe "#beginBattles", ->
     it "creates a battle per pair", (done) ->

@@ -1,6 +1,5 @@
 class @Pokemon extends Backbone.Model
   defaults: =>
-    name: 'Bulbasaur'
     moves: []
     pixels: 48
     ivs:
@@ -19,7 +18,12 @@ class @Pokemon extends Backbone.Model
       speed: 0
 
   initialize: (attributes={}) ->
-    @set('forme', 'default')  unless attributes.forme
+    # History lesson: We stored species under `name`. Now that we support
+    # nicknames, we need the `name` freed up. However, teams are saved to the
+    # server using the old scheme. Therefore we need to do a simple check for
+    # the existence of `species`; if it exists, do nothing. If not, use `name`.
+    @set('species', @get('name'))  if !@has('species') && @has('name')
+    @set('forme', 'default')  unless @has('forme')
     @normalizeStats(@get('ivs'), 31)
     @normalizeStats(@get('evs'), 0)
     @resetBoosts()
@@ -29,7 +33,7 @@ class @Pokemon extends Backbone.Model
     return  if @get('teambuilder') != true
 
     # Set to default forme and ability when the species changes
-    @on 'change:name', =>
+    @on 'change:species', =>
       @set('forme', 'default')
       @set('ability', @getAbilities()[0], silent: true)
       @set('item', null, silent: true)
@@ -84,17 +88,17 @@ class @Pokemon extends Backbone.Model
     window.Generations[gen]
 
   getSpecies: ->
-    @getGeneration().SpeciesData[@get('name')]
+    @getGeneration().SpeciesData[@get('species')]
 
   getItem: ->
     @getGeneration().ItemData[@get('item')]
 
   getForme: (forme, generation) ->
     forme ||= @get('forme')
-    @getGeneration(generation).FormeData[@get('name')]?[forme]
+    @getGeneration(generation).FormeData[@get('species')]?[forme]
 
   getFormes: ->
-    (forme  for forme of @getGeneration().FormeData[@get('name')])
+    (forme  for forme of @getGeneration().FormeData[@get('species')])
 
   # Returns all non-battle only formes
   getSelectableFormes: ->
@@ -233,7 +237,7 @@ class @Pokemon extends Backbone.Model
     item = @getItem()
     return false  if item.type != 'megastone'
     [ species, forme ] = item.mega
-    return false  if @get('name') != species || @get('forme') != 'default'
+    return false  if @get('species') != species || @get('forme') != 'default'
     return true
 
   # Returns the complete web address to the pokedex link for this pokemon.
@@ -244,7 +248,7 @@ class @Pokemon extends Backbone.Model
     slugify = (str) ->
       str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/\-{2,}/g, '-')
 
-    slugSpecies = slugify(@get('name'))
+    slugSpecies = slugify(@get('species'))
     slugForme = slugify(@get('forme'))
     "//pokebattle.com/dex/pokemon/#{slugSpecies}/#{slugForme}"
 
@@ -298,7 +302,7 @@ natures =
 
 class @NullPokemon extends Pokemon
   initialize: ->
-    @set('name', null)
+    @set('species', null)
     @set('forme', 'default')
     @isNull = true
 

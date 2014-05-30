@@ -130,7 +130,7 @@ findTotalPBV = (pokemon) ->
     continue  unless array
     [speciesName, formeName] = array
     pbv = PokeBattle.PBV.determinePBV(window.Generations.XY,
-      name: speciesName, forme: formeName)
+      species: speciesName, forme: formeName)
     total += pbv
     dexEntry = "pokemon/#{slugify(speciesName)}/#{slugify(formeName)}"
     icon = pokemonIcon(speciesName, formeName)

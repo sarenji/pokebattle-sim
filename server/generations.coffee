@@ -75,7 +75,7 @@ for gen in @ALL_GENERATIONS
   thisGen = @GenerationJSON[gen.toUpperCase()]
   for pokemonName, pokemonData of thisGen.FormeData
     for formeName, formeData of pokemonData
-      pokemon = {name: pokemonName, forme: formeName}
+      pokemon = {species: pokemonName, forme: formeName}
 
       # Add moves
       moves = learnsets.learnableMoves(@GenerationJSON, pokemon, @GENERATION_TO_INT[gen])

@@ -6,7 +6,7 @@ self.determinePBV = (genData, pokemonArray) ->
   if pokemonArray not instanceof Array then pokemonArray = [ pokemonArray ]
   total = 0
   for pokemon in pokemonArray
-    species = pokemon.name
+    species = pokemon.species
     forme = pokemon.forme || "default"
     item = pokemon.item
     speciesData = genData?.FormeData[species]

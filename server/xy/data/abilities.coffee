@@ -138,7 +138,7 @@ makeAbility 'Stance Change', ->
     newForme = switch
       when !move.isNonDamaging() then "blade"
       when move == @battle.getMove("King's Shield") then "default"
-    if newForme && !@pokemon.isInForme(newForme) && @pokemon.name == 'Aegislash'
+    if newForme && !@pokemon.isInForme(newForme) && @pokemon.species == 'Aegislash'
       @pokemon.activateAbility()
       @pokemon.changeForme(newForme)
       humanized = (if newForme == "blade" then "Blade" else "Shield")

@@ -52,14 +52,14 @@ class @BattleView extends Backbone.View
       $this = $(this)
       $pokemon = $this.closest('.pokemon')
       [player, slot] = [$pokemon.data('team'), $pokemon.data('slot')]
-      front = $pokemon.hasClass('top')
-      name  = $this.data('name')
-      forme = $this.data('forme')
-      shiny = $this.data('shiny')
-      gen   = battle.get('generation').toUpperCase()
-      {id}  = window.Generations[gen].SpeciesData[name]
-      url   = PokemonSprite(id, forme, front: front, shiny: shiny)
-      scale = if front then 1 else 1.3
+      front   = $pokemon.hasClass('top')
+      species = $this.data('species')
+      forme   = $this.data('forme')
+      shiny   = $this.data('shiny')
+      gen     = battle.get('generation').toUpperCase()
+      {id}    = window.Generations[gen].SpeciesData[species]
+      url     = PokemonSprite(id, forme, front: front, shiny: shiny)
+      scale   = if front then 1 else 1.3
       self.addPokemonImage $this, url, scale: scale, callback: ($image) ->
         image = $image[0]
         {width, height} = image
@@ -157,7 +157,7 @@ class @BattleView extends Backbone.View
     $this.popover(options)
 
   pokemonPopover: ($this, pokemon) =>
-    displayName = pokemon.get('name')
+    displayName = pokemon.get('species')
     displayName += " @ #{pokemon.get('item')}"  if pokemon.has('item')
     displayName += "<br>"
     for type in pokemon.getForme().types
@@ -493,7 +493,7 @@ class @BattleView extends Backbone.View
   changeSprite: (player, slot, species, forme, done) =>
     $spriteContainer = @$spriteContainer(player, slot)
     $sprite = @$sprite(player, slot)
-    $spriteContainer.data('name', species)
+    $spriteContainer.data('species', species)
     $spriteContainer.data('forme', forme)
 
     if @skip?
@@ -1216,11 +1216,11 @@ class @BattleView extends Backbone.View
     gen   = window.Generations[@model.get('generation').toUpperCase()]
     teams = @model.get('teams').map (team) ->
       team.get('pokemon').forEach (pokemon) ->
-        name  = pokemon.get('name')
-        forme = pokemon.get('forme')
-        shiny = pokemon.get('shiny')
-        {id}  = gen.SpeciesData[name]
-        formes = gen.FormeData[name]
+        species = pokemon.get('species')
+        forme   = pokemon.get('forme')
+        shiny   = pokemon.get('shiny')
+        {id}    = gen.SpeciesData[species]
+        formes  = gen.FormeData[species]
         formeNames = _.keys(formes)
         formeNames = _.filter formeNames, (formeName) ->
           forme == formeName || formes[formeName].isBattleOnly
@@ -1258,4 +1258,4 @@ class @BattleView extends Backbone.View
     super()
 
 pokemonHtml = (pokemon) ->
-  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"
+  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('species')}</a>"

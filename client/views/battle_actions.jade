@@ -57,4 +57,4 @@ mixin moveButton(forPokemon, i)
         if pokemon
           .span4
             .switch.button(class = disabledClass, data-slot = i)
-              .pokemon_icon(style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme')))
+              .pokemon_icon(style = window.PokemonIconBackground(pokemon))

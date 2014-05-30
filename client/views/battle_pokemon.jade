@@ -2,7 +2,7 @@
 - var color = ((percent <= 25) ? "#f00" : (percent <= 50) ? "#ff0" : "#0f0")
 - var style = "width: " + percent + "%"
 - var greenStyle = style + "; background-color: " + color
-a.sprite.preload(href=pokemon.getPokedexUrl(), target='_blank', data-name = pokemon.get('name'), data-forme = pokemon.get('forme'), data-shiny = (pokemon.get('shiny') ? "true" : "false"))
+a.sprite.preload(href=pokemon.getPokedexUrl(), target='_blank', data-species = pokemon.get('species'), data-forme = pokemon.get('forme'), data-shiny = (pokemon.get('shiny') ? "true" : "false"))
 .pokemon-info
   span.pokemon-meta
     span.pokemon-name= pokemon.get('name')

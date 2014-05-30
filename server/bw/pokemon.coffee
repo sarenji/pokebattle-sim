@@ -15,13 +15,13 @@ class @Pokemon
     @team     = attributes.team
     @playerId = attributes.playerId
 
-    @name = attributes.name || 'Missingno'
-    @species = SpeciesData[@name]
+    @species = attributes.species || "Missingno"
+    @name = attributes.name || @species
     @forme = attributes.forme || "default"
     @level = attributes.level || 100
     @gender = attributes.gender || "Genderless"
     @shiny = attributes.shiny
-    @nfe = (@species?.evolvesInto?.length > 0)
+    @nfe = (SpeciesData[@species]?.evolvesInto?.length > 0)
 
     @attachments = new Attachments()
     @resetForme()
@@ -66,7 +66,7 @@ class @Pokemon
     @fainted = 0
 
   getForme: (newForme) ->
-    availableFormes = FormeData[@name] || {}
+    availableFormes = FormeData[@species] || {}
     availableFormes[newForme || @forme]
 
   isInForme: (forme) ->
@@ -87,7 +87,7 @@ class @Pokemon
 
   changeSprite: (newSpecies, newForme) ->
     if arguments.length == 1
-      [newSpecies, newForme] = [@name, newSpecies]
+      [newSpecies, newForme] = [@species, newSpecies]
     @tell(Protocol.SPRITE_CHANGE, newSpecies, newForme)
 
   iv: (stat) -> (if stat of @ivs then @ivs[stat] else 31)
@@ -311,8 +311,8 @@ class @Pokemon
     return false  if @item.type == 'mail'
     return false  if @item.type == 'key'
     return false  if @hasAbility("Multitype") && @item.plate
-    return false  if @name == 'Giratina' && @forme == 'origin'
-    return false  if @name == 'Genesect' && /Drive$/.test(@item.displayName)
+    return false  if @species == 'Giratina' && @forme == 'origin'
+    return false  if @species == 'Genesect' && /Drive$/.test(@item.displayName)
     true
 
   # This differs from hasTakeableItem by virtue of Sticky Hold
@@ -599,7 +599,7 @@ class @Pokemon
     moves
 
   toString: ->
-    "[Pokemon name:#{@name} hp:#{@currentHP}/#{@stat('hp')}]"
+    "[Pokemon species:#{@species} hp:#{@currentHP}/#{@stat('hp')}]"
 
   movesetJSON: ->
     return {
@@ -611,6 +611,7 @@ class @Pokemon
 
   toJSON: (options = {}) ->
     base =
+      "species"   : @species
       "name"      : @name
       "level"     : @level
       "gender"    : @gender

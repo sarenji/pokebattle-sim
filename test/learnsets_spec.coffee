@@ -8,7 +8,7 @@ describe "Learnsets:", ->
   testLearnset = (pokemon, func) ->
     describe pokemon, ->
       beforeEach ->
-        @pokemon = {name: pokemon}
+        @pokemon = {species: pokemon}
         @checkMoveset = learnsets.checkMoveset.bind(
           learnsets, GenerationJSON, @pokemon)
 
@@ -223,22 +223,22 @@ describe "Learnsets:", ->
   describe "learnableMoves", ->
     it "returns all possible learnable moves for a pokemon", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Deoxys"}, 6)
+      moves = learnableMoves({species: "Deoxys"}, 6)
       moves.should.include("Superpower")
 
     it "returns event moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Genesect"}, 6)
+      moves = learnableMoves({species: "Genesect"}, 6)
       moves.should.include("Shift Gear")
 
     it "returns dream world moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Gengar"}, 6)
+      moves = learnableMoves({species: "Gengar"}, 6)
       moves.should.include("Sludge Wave")
 
     it "returns valid moves for battle-only formes", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Darmanitan", forme: "zen"}, 6)
+      moves = learnableMoves({species: "Darmanitan", forme: "zen"}, 6)
 
       # Only Darmanitan can learn this move; Darumaka can't.
       moves.should.include("Bulk Up")
@@ -248,7 +248,7 @@ describe "Learnsets:", ->
 
     it "does not take into account nonstandard learnsets", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Rotom"}, 6)
+      moves = learnableMoves({species: "Rotom"}, 6)
       moves.should.not.include("Overheat")
       moves.should.not.include("Leaf Storm")
       moves.should.not.include("Hydro Pump")
@@ -257,7 +257,7 @@ describe "Learnsets:", ->
 
     it "lets pokemon learn nonstandard learnsets if they are of that forme", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Rotom", forme: "wash"}, 6)
+      moves = learnableMoves({species: "Rotom", forme: "wash"}, 6)
       moves.should.not.include("Overheat")
       moves.should.not.include("Leaf Storm")
       moves.should.include("Hydro Pump")
@@ -266,7 +266,7 @@ describe "Learnsets:", ->
 
     it "returns all moves except Struggle and Chatter if can learn Sketch", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
-      moves = learnableMoves({name: "Smeargle"}, 6)
+      moves = learnableMoves({species: "Smeargle"}, 6)
       moves.should.not.include("Struggle")
       moves.should.not.include("Chatter")
       moves.should.include("Sacred Fire")

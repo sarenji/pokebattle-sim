@@ -83,7 +83,7 @@ describe 'Mechanics', ->
       @controller.makeMove(@id1, 'Psychic')
       @controller.makeMove(@id2, 'Mach Punch')
       @controller.makeSwitch(@id2, 1)
-      @team2.first().name.should.equal 'Heracross'
+      @team2.first().species.should.equal 'Heracross'
 
     it "occurs when a pokemon faints from passive damage", ->
       shared.create.call(this)

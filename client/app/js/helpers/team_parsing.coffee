@@ -15,8 +15,9 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
       pokemon = {}
       team.push(pokemon)
 
-      # Ignore nicknames for now
-      pokemonLine    = RegExp.$1  if pokemonLine.match(/.*?\s*\((.*)\)/)
+      if pokemonLine.match(/(.*?)\s*\((.*)\)/)
+        pokemon.name = RegExp.$1
+        pokemonLine  = RegExp.$2
       convertNameToSpeciesAndForme(pokemon, pokemonLine.trim())
       pokemon.gender = gender[1]  if gender  # (M) and (F)
       pokemon.item   = item    if item
@@ -70,13 +71,20 @@ HiddenPower = (if module? then require('../../../../shared/hidden_power') else w
   for pokemon in json
     s.push("")
 
-    # Pokemon name
-    name = pokemon.name
+    species = pokemon.species
     if pokemon.forme && pokemon.forme != "default"
-      name += "-#{pokemon.forme[0].toUpperCase()}"
-    name += " (#{pokemon.gender})"  if pokemon.gender
-    name += " @ #{pokemon.item}"  if pokemon.item
-    s.push(name)
+      species += "-#{pokemon.forme[0].toUpperCase()}"
+
+    mainLine = []
+    if pokemon.name
+      mainLine.push(pokemon.name)
+      mainLine.push("(#{species})")
+    else
+      mainLine.push(species)
+
+    mainLine.push("(#{pokemon.gender})")  if pokemon.gender
+    mainLine.push("@ #{pokemon.item}")    if pokemon.item
+    s.push(mainLine.join(' '))
 
     # Ability
     s.push("Ability: #{pokemon.ability}")  if pokemon.ability
@@ -176,79 +184,79 @@ reverseStatsHash =
   'specialDefense' : 'SDef'
   'speed'          : 'Spe'
 
-convertNameToSpeciesAndForme = (pokemon, name) ->
-  if name.match(/(Thundurus|Landorus|Tornadus)\-T(herian)?/i)
-    pokemon.name = RegExp.$1
+convertNameToSpeciesAndForme = (pokemon, species) ->
+  if species.match(/(Thundurus|Landorus|Tornadus)\-T(herian)?/i)
+    pokemon.species = RegExp.$1
     pokemon.forme = 'therian'
-  else if name.match(/Shaymin-S(ky)?/i)
-    pokemon.name = "Shaymin"
+  else if species.match(/Shaymin-S(ky)?/i)
+    pokemon.species = "Shaymin"
     pokemon.forme = 'sky'
-  else if name.match(/Giratina-O(rigin)?/i)
-    pokemon.name = "Giratina"
+  else if species.match(/Giratina-O(rigin)?/i)
+    pokemon.species = "Giratina"
     pokemon.forme = 'origin'
-  else if name.match(/Arceus(\-.*)?/)
-    pokemon.name = "Arceus"
-  else if name.match(/Kyurem-B(lack)?/)
-    pokemon.name = "Kyurem"
+  else if species.match(/Arceus(\-.*)?/)
+    pokemon.species = "Arceus"
+  else if species.match(/Kyurem-B(lack)?/)
+    pokemon.species = "Kyurem"
     pokemon.forme = "black"
-  else if name.match(/Kyurem-W(hite)?/)
-    pokemon.name = "Kyurem"
+  else if species.match(/Kyurem-W(hite)?/)
+    pokemon.species = "Kyurem"
     pokemon.forme = "white"
-  else if name.match(/Rotom-W|Rotom-Wash/)
-    pokemon.name = "Rotom"
+  else if species.match(/Rotom-W|Rotom-Wash/)
+    pokemon.species = "Rotom"
     pokemon.forme = "wash"
-  else if name.match(/Rotom-S|Rotom-Fan/)
-    pokemon.name = "Rotom"
+  else if species.match(/Rotom-S|Rotom-Fan/)
+    pokemon.species = "Rotom"
     pokemon.forme = "fan"
-  else if name.match(/Rotom-H|Rotom-Heat/)
-    pokemon.name = "Rotom"
+  else if species.match(/Rotom-H|Rotom-Heat/)
+    pokemon.species = "Rotom"
     pokemon.forme = "heat"
-  else if name.match(/Rotom-F|Rotom-Frost/)
-    pokemon.name = "Rotom"
+  else if species.match(/Rotom-F|Rotom-Frost/)
+    pokemon.species = "Rotom"
     pokemon.forme = "frost"
-  else if name.match(/Rotom-C|Rotom-Mow/)
-    pokemon.name = "Rotom"
+  else if species.match(/Rotom-C|Rotom-Mow/)
+    pokemon.species = "Rotom"
     pokemon.forme = "mow"
-  else if name.match(/Deoxys-A|Deoxys-Attack/)
-    pokemon.name = "Deoxys"
+  else if species.match(/Deoxys-A|Deoxys-Attack/)
+    pokemon.species = "Deoxys"
     pokemon.forme = "attack"
-  else if name.match(/Deoxys-D|Deoxys-Defense/)
-    pokemon.name = "Deoxys"
+  else if species.match(/Deoxys-D|Deoxys-Defense/)
+    pokemon.species = "Deoxys"
     pokemon.forme = "defense"
-  else if name.match(/Deoxys-S|Deoxys-Speed/)
-    pokemon.name = "Deoxys"
+  else if species.match(/Deoxys-S|Deoxys-Speed/)
+    pokemon.species = "Deoxys"
     pokemon.forme = "speed"
-  else if name.match(/Basculin-Blue-Striped|Basculin-A/)
-    pokemon.name = "Basculin"
+  else if species.match(/Basculin-Blue-Striped|Basculin-A/)
+    pokemon.species = "Basculin"
     pokemon.forme = "blue-striped"
-  else if name.match(/Keldeo-Resolute|Keldeo-R/)
-    pokemon.name = "Keldeo"
+  else if species.match(/Keldeo-Resolute|Keldeo-R/)
+    pokemon.species = "Keldeo"
     pokemon.forme = "resolute"
-  else if name.match(/Shellos-East/)
-    pokemon.name = "Shellos"
+  else if species.match(/Shellos-East/)
+    pokemon.species = "Shellos"
     # TODO: Read east forme
     pokemon.forme = "default"
-  else if name.match(/Gastrodon-East/)
-    pokemon.name = "Gastrodon"
+  else if species.match(/Gastrodon-East/)
+    pokemon.species = "Gastrodon"
     # TODO: Read east forme
     pokemon.forme = "default"
-  else if name.match(/Wormadam-Sandy|Wormadam-G/)
-    pokemon.name = "Wormadam"
+  else if species.match(/Wormadam-Sandy|Wormadam-G/)
+    pokemon.species = "Wormadam"
     pokemon.forme = "sandy"
-  else if name.match(/Wormadam-Trash|Wormadam-S/)
-    pokemon.name = "Wormadam"
+  else if species.match(/Wormadam-Trash|Wormadam-S/)
+    pokemon.species = "Wormadam"
     pokemon.forme = "trash"
-  else if name.match(/Deerling-.*/)
-    pokemon.name = "Deerling"
+  else if species.match(/Deerling-.*/)
+    pokemon.species = "Deerling"
     # TODO: Read other formes
     pokemon.forme = null
-  else if name.match(/Sawsbuck-.*/)
-    pokemon.name = "Sawsbuck"
+  else if species.match(/Sawsbuck-.*/)
+    pokemon.species = "Sawsbuck"
     # TODO: Read other formes
     pokemon.forme = null
-  else if name.match(/Unown-.*/)
-    pokemon.name = "Unown"
+  else if species.match(/Unown-.*/)
+    pokemon.species = "Unown"
     # TODO: Read other formes
     pokemon.forme = null
   else
-    pokemon.name = name
+    pokemon.species = species

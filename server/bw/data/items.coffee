@@ -1,5 +1,4 @@
 @ItemData = ItemData = require './data_items.json'
-{SpeciesData} = require './pokemon'
 {Attachment, Status, VolatileAttachment} = require('../attachment')
 {Weather} = require '../../../shared/weather'
 {Protocol} = require '../../../shared/protocol'
@@ -101,7 +100,6 @@ makeStatusCureBerry = (name, statuses...) ->
       if @constructor.eat(@battle, @pokemon) then @pokemon.useItem()
 
 makeOrbItem = (name, species) ->
-  species = SpeciesData[species]
   makeItem name, ->
     this::modifyBasePower = (move, target) ->
       if @pokemon.species == species && move.type in @pokemon.types
@@ -161,8 +159,6 @@ makeWeatherItem = (name, weather) ->
     @lengthensWeather = weather
 
 makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
-  speciesArray = speciesArray.map (species) ->
-    SpeciesData[species]
   makeItem name, ->
     for stat, boost of statsHash
       capitalizedStat = stat[0].toUpperCase() + stat.substr(1)
@@ -175,7 +171,6 @@ makeSpeciesBoostingItem = (name, speciesArray, statsHash) ->
           stat
 
 makeSpeciesCriticalItem = (name, species) ->
-  species = SpeciesData[species]
   makeItem name, ->
     this::criticalModifier = (sum) ->
       sum + (if @pokemon.species == species then 2 else 0)

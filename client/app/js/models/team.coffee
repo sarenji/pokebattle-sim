@@ -1,6 +1,10 @@
 class PokemonCollection extends Backbone.Collection
   model: (attrs, options) =>
-    if attrs.name
+    # History lesson: We stored species under `name`. Now that we support
+    # nicknames, we need the `name` freed up. However, teams are saved to the
+    # server using the old scheme. Therefore we need to do a simple check for
+    # the existence of `species`; if it exists, do nothing. If not, use `name`.
+    if attrs.name || attrs.species
       attrs.teambuilder = @parents[0].get('teambuilder')
       return new Pokemon(attrs, options)
     else

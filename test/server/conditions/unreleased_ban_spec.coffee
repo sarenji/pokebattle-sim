@@ -64,7 +64,7 @@ describe 'Validations: Unreleased Ban', ->
     server = new BattleServer()
     format = 'xy1000'
     team = generateTeam()
-    team[0] = {name: "I'm a totally fake Pokemon."}
+    team[0] = {species: "I'm a totally fake Pokemon."}
     conditions = [ Conditions.UNRELEASED_BAN ]
 
     (-> server.validateTeam(team, format, conditions)).should.not.throw()

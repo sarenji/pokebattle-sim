@@ -12,7 +12,7 @@ each team in [ yourTeam, opponentTeam ]
         if pokemon
           .icon_wrapper
             - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
-            - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
+            - var style = window.PokemonIconBackground(pokemon)
             a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)
             if !pokemon.isFainted()
               .pokemon_hp_background

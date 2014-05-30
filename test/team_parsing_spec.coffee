@@ -46,7 +46,7 @@ EVs: 252 SpA / 176 SpD
       team = PokeBattle.parseTeam(@teamString)
 
       pokemon = team[0]
-      pokemon.name.should.equal("Swampert")
+      pokemon.species.should.equal("Swampert")
       pokemon.should.not.have.property('gender')
       pokemon.item.should.equal("Leftovers")
       pokemon.ability.should.equal("Torrent")
@@ -59,7 +59,8 @@ EVs: 252 SpA / 176 SpD
       pokemon.moves.should.eql([ "Surf", "Ice Beam", "Earthquake", "Protect"])
 
       pokemon = team[1]
-      pokemon.name.should.equal("Blissey")
+      pokemon.name.should.equal("Poop")
+      pokemon.species.should.equal("Blissey")
       pokemon.gender.should.equal("F")
       pokemon.item.should.equal("Leftovers")
       pokemon.ability.should.equal("Natural Cure")
@@ -72,7 +73,7 @@ EVs: 252 SpA / 176 SpD
       pokemon.moves.should.eql(["Seismic Toss", "Aromatherapy"])
 
       pokemon = team[2]
-      pokemon.name.should.equal("Skarmory")
+      pokemon.species.should.equal("Skarmory")
       pokemon.gender.should.equal("M")
       pokemon.should.not.have.property('item')
       pokemon.should.not.have.property('ability')
@@ -85,7 +86,7 @@ EVs: 252 SpA / 176 SpD
       pokemon.should.not.have.property('moves')
 
       pokemon = team[3]
-      pokemon.name.should.equal("Tyranitar")
+      pokemon.species.should.equal("Tyranitar")
       pokemon.should.not.have.property('gender')
       pokemon.should.not.have.property('nature')
       pokemon.level.should.equal(1)
@@ -98,7 +99,7 @@ EVs: 252 SpA / 176 SpD
       pokemon.ability.should.eql("Lightningrod")
 
       pokemon = team[4]
-      pokemon.name.should.equal("Articuno")
+      pokemon.species.should.equal("Articuno")
       pokemon.should.not.have.property('gender')
       pokemon.should.not.have.property('item')
       pokemon.should.not.have.property('ability')
@@ -112,7 +113,7 @@ EVs: 252 SpA / 176 SpD
       pokemon.moves.should.eql(['Hidden Power'])
 
       pokemon = team[5]
-      pokemon.name.should.equal("Claydol")
+      pokemon.species.should.equal("Claydol")
       pokemon.evs.should.eql(specialAttack: 252, specialDefense: 176)
 
   describe "parsing formes", ->
@@ -214,8 +215,8 @@ EVs: 252 SpA / 176 SpD
       for member, i in team
         [species, forme] = formes[teamFormes[i]]
         should.exist(member)
-        member.should.have.property('name')
-        member.name.should.equal(species)
+        member.should.have.property('species')
+        member.species.should.equal(species)
         if forme
           member.should.have.property('forme')
           member.forme.should.equal(forme)
@@ -224,7 +225,7 @@ EVs: 252 SpA / 176 SpD
     it "exports properly", ->
       team = [
         {
-          name: "Pikachu"
+          species: "Pikachu"
           moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
           item: "Light Ball"
           ability: "Lightningrod"
@@ -236,7 +237,8 @@ EVs: 252 SpA / 176 SpD
           evs: { hp: 4, specialAttack: 252, speed: 252 }
         }
         {
-          name: "Kyurem"
+          name: "Kyboo"
+          species: "Kyurem"
           forme: "black"
           item: "Choice Band"
           nature: "Adamant"
@@ -258,7 +260,7 @@ Happiness: 20
 - Hidden Power
 - Grass Knot
 
-Kyurem-B @ Choice Band
+Kyboo (Kyurem-B) @ Choice Band
 Ability: Turboblaze
 Adamant nature
 - Ice Beam

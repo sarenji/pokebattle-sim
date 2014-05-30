@@ -5,39 +5,39 @@ shared = require '../shared'
 
 defaultTeam = [
   {
-    name: "Pikachu"
+    species: "Pikachu"
     moves: ["Substitute", "Thunderbolt", "Hidden Power", "Grass Knot"]
     item: "Light Ball"
     ability: "Lightningrod"
     gender: "F"
   }
   {
-    name: "Hitmonchan"
+    species: "Hitmonchan"
     moves: ["Close Combat", "Mach Punch", "Ice Punch", "ThunderPunch"]
     item: "Life Orb"
     ability: "Iron Fist"
     gender: "M"
   }
   {
-    name: "Charizard"
+    species: "Charizard"
     item: "Choice Specs"
     moves: ["Fire Blast", "Air Slash", "Hidden Power", "Focus Blast"]
     ability: "Blaze"
   }
   {
-    name: "Dragonite"
+    species: "Dragonite"
     item: "Leftovers"
     moves: ["Dragon Dance", "Outrage", "Fire Punch", "ExtremeSpeed"]
     ability: "Multiscale"
   }
   {
-    name: "Politoed"
+    species: "Politoed"
     item: "Leftovers"
     moves: ["Scald", "Ice Beam", "Protect", "Toxic"]
     ability: "Drizzle"
   }
   {
-    name: "Haunter"
+    species: "Haunter"
     item: "Leftovers"
     moves: ["Substitute", "Disable", "Shadow Ball", "Focus Blast"]
     ability: "Levitate"
@@ -84,7 +84,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
-      @team2.first().name.should.equal("Hitmonchan")
+      @team2.first().species.should.equal("Hitmonchan")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
@@ -93,7 +93,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
-      @team2.first().name.should.equal("Charizard")
+      @team2.first().species.should.equal("Charizard")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
@@ -120,7 +120,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
-      @team2.first().name.should.equal("Politoed")
+      @team2.first().species.should.equal("Politoed")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
@@ -146,7 +146,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints.
       @battle.turn.should.equal(1)
-      @team2.first().name.should.equal("Hitmonchan")
+      @team2.first().species.should.equal("Hitmonchan")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 
@@ -155,7 +155,7 @@ describe "BW: Integration:", ->
 
       # Nothing happens except the Pokemon faints, again.
       @battle.turn.should.equal(1)
-      @team2.first().name.should.equal("Politoed")
+      @team2.first().species.should.equal("Politoed")
       @team2.first().isFainted().should.be.true
       @battle.areAllRequestsCompleted().should.be.false
 

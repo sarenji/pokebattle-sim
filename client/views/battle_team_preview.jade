@@ -27,7 +27,7 @@ mixin displayYourTeam(team, text)
 
 mixin displayPokemon(pokemon, i)
   .team_pokemon
-    - var style = window.PokemonIconBackground(pokemon.get('name'), pokemon.get('forme'))
+    - var style = window.PokemonIconBackground(pokemon)
     .pokemon_icon(data-index = i, style = style)
   if pokemon.get('gender') === 'F'
     .gender.gender_female &#9792;

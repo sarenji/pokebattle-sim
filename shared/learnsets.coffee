@@ -58,18 +58,18 @@ getGenerationFromInt = (generationInteger) ->
 # skips over that gneration.
 loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
   minimumGeneration = getMinimumGeneration(forGeneration)
-  {name, forme, ability} = pokemon
+  {species, forme, ability} = pokemon
   formeName = forme || "default"
   # Find pre-evolutions and formes
   thePokemon = []
   theFormes = [ formeName ]
   {SpeciesData, FormeData} = Generations[getGenerationFromInt(forGeneration)]
-  finalForme = FormeData[name][formeName]
-  while name
-    thePokemon.push(name)
-    if name in switchableFormes && name not in theFormes
-      theFormes.push((forme  for forme of FormeData[name])...)
-    name = SpeciesData[name].evolvedFrom
+  finalForme = FormeData[species][formeName]
+  while species
+    thePokemon.push(species)
+    if species in switchableFormes && species not in theFormes
+      theFormes.push((forme  for forme of FormeData[species])...)
+    species = SpeciesData[species].evolvedFrom
 
   # The Pokemon may not have a default ability (due to tests, etc)
   ability ?= finalForme.abilities[0]
@@ -77,19 +77,19 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
                       ability not in finalForme.abilities)
 
   # Loop through pre-evolutions and formes
-  for name in thePokemon
+  for species in thePokemon
     for formeName in theFormes
       # Loop through all available generations
       for generation in [minimumGeneration..forGeneration]
         {FormeData} = Generations[getGenerationFromInt(generation)]
         # Skip if this pokemon has no data.
-        continue  if !FormeData[name]?
+        continue  if !FormeData[species]?
         # Since we check pre-evos, the pre-evo may not have the forme that its
         # parent has. We check if no forme exists; if so, we revert to default.
-        formeName = "default"  if formeName not of FormeData[name]
+        formeName = "default"  if formeName not of FormeData[species]
         # The current forme may not have a learnset (Zen mode, megas), so we
         # do another check to see if it has a learnset. If not, use default.
-        forme = FormeData[name][formeName]
+        forme = FormeData[species][formeName]
         formeName = "default"  if !forme.learnset
         learnset = forme.learnset
         # Skip if this Pokemon has no learnset for this generation.
@@ -98,15 +98,15 @@ loopLearnsets = (Generations, pokemon, forGeneration, iterator) ->
         # Skip if this Pokemon's ability is hidden and this generation has no
         # hidden abilities for this forme.
         continue  if hasHiddenAbility && !forme.hiddenAbility?
-        return true  if iterator(learnset, name, formeName, generation) == true
+        return true  if iterator(learnset, species, formeName, generation) == true
   return false
 
 # Returns an array of moves that this Pokemon can learn for a given generation.
 self.learnableMoves = (Generations, pokemon, forGeneration) ->
   learnable = []
-  loopLearnsets Generations, pokemon, forGeneration, (learnset, pokemonName, formeName) ->
+  loopLearnsets Generations, pokemon, forGeneration, (learnset, pokemonSpecies, formeName) ->
     # Push event moves
-    events = EventPokemon[pokemonName] || []
+    events = EventPokemon[pokemonSpecies] || []
     events = events.filter((event) -> event.forme == formeName)
     for event in events
       learnable.push(event.moves)
@@ -131,15 +131,15 @@ self.learnableMoves = (Generations, pokemon, forGeneration) ->
 # Returns true if the moveset is valid, false otherwise.
 self.checkMoveset = (Generations, pokemon, generation, moves) ->
   looper = loopLearnsets.bind(null, Generations, pokemon, generation)
-  pokemonName = pokemon.name
+  pokemonSpecies = pokemon.species
   pokemonForme = pokemon.forme || "default"
   pokemonLevel = (pokemon.level || 100)
   {FormeData} = Generations[getGenerationFromInt(generation)]
-  forme = FormeData[pokemonName][pokemonForme]
+  forme = FormeData[pokemonSpecies][pokemonForme]
 
   # In gen 4, pokemon must know *all* moves inside the `form-change` learnset.
   if generation == 4
-    rsForme = Generations.DP.FormeData[pokemonName]?[pokemonForme] || {}
+    rsForme = Generations.DP.FormeData[pokemonSpecies]?[pokemonForme] || {}
     learnset = rsForme.learnset?['form-change'] || {}
     for move, level of learnset
       return false  if move not in moves || pokemonLevel < level
@@ -156,8 +156,8 @@ self.checkMoveset = (Generations, pokemon, generation, moves) ->
 
   # Check against event Pokemon
   # TODO: Event Pokemon require more stringent checks, e.g. gender/ability etc.
-  checksOut = looper (learnset, pokemonName, formeName) ->
-    events = EventPokemon[pokemonName] || []
+  checksOut = looper (learnset, pokemonSpecies, formeName) ->
+    events = EventPokemon[pokemonSpecies] || []
     events = events.filter((event) -> event.forme == formeName)
     for event in events
       lsetLeftovers = leftoverMoves.filter (move) ->
@@ -197,7 +197,7 @@ self.checkMoveset = (Generations, pokemon, generation, moves) ->
   # If the Pokemon has to know a certain move to evolve, check the egg moves
   # since you cannot have a moveset made completely of pure egg moves.
   # A magic constant of 4 is used to imitate the game's maximum of 4 moves.
-  return false  if eggMoves.length == 4 && mustLearnMove[pokemon.name]
+  return false  if eggMoves.length == 4 && mustLearnMove[pokemon.species]
   return true  if eggMoves.length == leftoverMoves.length
 
   # This Pokemon cannot learn all these moves. Sorry.

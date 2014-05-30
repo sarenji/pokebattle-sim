@@ -60,14 +60,14 @@ describe 'Move:', ->
 
     it "is 3 if the attacker is Farfetch'd with a Stick", ->
       battle = new Battle('1', [])
-      attacker = new Pokemon(name: "Farfetch'd", item: 'Stick')
+      attacker = new Pokemon(species: "Farfetch'd", item: 'Stick')
       defender = new Pokemon()
       attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3
 
     it "is 3 if the attacker is Chansey with a Lucky Punch", ->
       battle = new Battle('1', [])
-      attacker = new Pokemon(name: "Chansey", item: 'Lucky Punch')
+      attacker = new Pokemon(species: "Chansey", item: 'Lucky Punch')
       defender = new Pokemon()
       attacker.activate()
       new Move().criticalHitLevel(battle, attacker, defender).should.equal 3

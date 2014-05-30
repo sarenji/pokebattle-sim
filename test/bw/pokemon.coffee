@@ -9,11 +9,11 @@ require '../helpers'
 should = require 'should'
 
 describe 'Pokemon', ->
-  it 'should have a name of Missingno by default', ->
-    new Pokemon().name.should.equal 'Missingno'
+  it 'should have a species of Missingno by default', ->
+    new Pokemon().species.should.equal 'Missingno'
 
-  it 'can change the default name', ->
-    new Pokemon(name: 'Pikachu').name.should.equal 'Pikachu'
+  it 'can change the default species', ->
+    new Pokemon(species: 'Pikachu').species.should.equal 'Pikachu'
 
   it 'should have a level of 100 by default', ->
     new Pokemon().level.should.equal 100
@@ -244,13 +244,13 @@ describe 'Pokemon', ->
       pokemon.has(Status.Paralyze).should.be.false
 
     it "sets the status of the pokemon", ->
-      for name, status of Status
+      for species, status of Status
         pokemon = new Pokemon()
         pokemon.attach(status)
         pokemon.status.should.equal(status)
 
     it "sets the corresponding attachment on the pokemon", ->
-      for name, status of Status
+      for species, status of Status
         pokemon = new Pokemon()
         pokemon.attach(status)
         pokemon.has(status).should.be.true
@@ -293,7 +293,7 @@ describe 'Pokemon', ->
   describe "#cureStatus", ->
     it "removes all statuses if no argument is passed", ->
       pokemon = new Pokemon()
-      for name, status of Status
+      for species, status of Status
         pokemon.attach(status)
         pokemon.cureStatus()
         pokemon.hasStatus().should.be.false
@@ -326,11 +326,11 @@ describe 'Pokemon', ->
       pokemon.hasTakeableItem().should.be.false
 
     it "returns false if the pokemon is Giratina-O", ->
-      pokemon = new Pokemon(name: "Giratina", forme: "origin", item: "Griseous Orb")
+      pokemon = new Pokemon(species: "Giratina", forme: "origin", item: "Griseous Orb")
       pokemon.hasTakeableItem().should.be.false
 
     it "returns false if the pokemon is Genesect with a Drive item", ->
-      pokemon = new Pokemon(name: "Genesect", item: "Burn Drive")
+      pokemon = new Pokemon(species: "Genesect", item: "Burn Drive")
       pokemon.hasTakeableItem().should.be.false
 
   describe "#isWeatherDamageImmune", ->
@@ -393,13 +393,13 @@ describe 'Pokemon', ->
 
   describe '#changeForme', ->
     it "changes the Pokemon's forme from one to another", ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       pokemon.forme.should.equal('default')
       pokemon.changeForme('sky')
       pokemon.forme.should.equal('sky')
 
     it 'changes base stats if applicable', ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       pokemon.baseStats.should.eql(
         attack: 100, defense: 100, hp: 100,
         specialAttack: 100, specialDefense: 100, speed: 100)
@@ -409,26 +409,26 @@ describe 'Pokemon', ->
         specialAttack: 120, specialDefense: 75, speed: 127)
 
     it 'changes weight if applicable', ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       pokemon.weight.should.equal(21)
       pokemon.changeForme('sky')
       pokemon.weight.should.equal(52)
 
     it 'changes type if applicable', ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       pokemon.types.should.eql([ 'Grass' ])
       pokemon.changeForme('sky')
       pokemon.types.should.eql([ 'Grass', 'Flying' ])
 
     it 'does nothing if the new forme is an invalid forme', ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       pokemon.forme.should.equal('default')
       pokemon.changeForme('batman')
       pokemon.forme.should.equal('default')
 
   describe "#toJSON", ->
     it "can hide information", ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       json = pokemon.toJSON(hidden: true)
       json.should.not.have.property("hp")
       json.should.not.have.property("maxHP")
@@ -439,7 +439,7 @@ describe 'Pokemon', ->
       json.should.not.have.property("ivs")
 
     it "shows all information otherwise", ->
-      pokemon = new Pokemon(name: 'Shaymin')
+      pokemon = new Pokemon(species: 'Shaymin')
       json = pokemon.toJSON()
       json.should.have.property("hp")
       json.should.have.property("maxHP")
