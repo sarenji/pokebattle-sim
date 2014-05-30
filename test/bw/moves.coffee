@@ -2862,6 +2862,17 @@ describe "BW Moves:", ->
 
         @p2.has(Attachment.Trap).should.be.false
 
+      it "does not start the effect if it hits a substitute", ->
+        shared.create.call(this, team2: [Factory("Blissey")])
+
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.performMove(@p1, @battle.getMove(name))
+        @battle.endTurn()
+
+        @p2.isSwitchBlocked().should.be.false
+        @p2.has(Attachment.Trap).should.be.false
+        @p1.has(Attachment.TrapLeash).should.be.false
+
   testTrappingMove "Bind"
   testTrappingMove "Clamp"
   testTrappingMove "Fire Spin"
