@@ -433,8 +433,8 @@ makeCounterMove = (name, multiplier, applies) ->
 
 makeTrappingMove = (name) ->
   extendMove name, ->
-    @afterSuccessfulHit = (battle, user, target) ->
-      unless target.has(Attachment.Trap)
+    @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+      if !target.has(Attachment.Trap) && isDirect
         turns = if !user.hasItem("Grip Claw")
           battle.rng.randInt(4, 5, "trapping move")
         else
