@@ -13,7 +13,6 @@ class @PrivateMessagesView extends Backbone.View
     "focus .popup" : "focusPopupEvent"
 
   initialize: =>
-    @numPopups = 0
     @listenTo(@collection, 'open', @createPopup)
     @listenTo(@collection, 'focus', @focusPopup)
     @listenTo(@collection, 'receive', @receiveMessage)
@@ -35,9 +34,8 @@ class @PrivateMessagesView extends Backbone.View
       $html = $(@messageTemplate({window, id, title}))
 
       @$el.append($html)
-      @positionPopup($html, @numPopups)
+      @positionPopup($html, @$(".popup:visible").length - 1)
       @addLogMessages($html, message.getLog())
-      @numPopups += 1
     $html
 
   focusPopup: (message) =>
@@ -49,7 +47,6 @@ class @PrivateMessagesView extends Backbone.View
     username = message.id
     @$findPopup(username).remove()
     @repositionPopups()
-    @numPopups -= 1
 
   minimizePopup: (message) =>
     username = message.id
@@ -62,6 +59,7 @@ class @PrivateMessagesView extends Backbone.View
     $popup = @$findPopup(username)
     @$el.append($popup)
     $popup.removeClass('hidden')
+    @scrollToBottom($popup)
     @repositionPopups()
 
   # todo: make this and receiveMessage construct messages from a common source
