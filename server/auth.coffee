@@ -4,7 +4,7 @@ crypto = require('crypto')
 
 request = require 'request'
 authHeaders = {AUTHUSER: process.env.AUTHUSER, AUTHTOKEN: process.env.AUTHTOKEN}
-request = request.defaults(json: true, headers: authHeaders)
+request = request.defaults(json: true, headers: authHeaders, timeout: 30 * 1000)
 
 config = require './config'
 redis = require './redis'
