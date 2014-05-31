@@ -1526,6 +1526,66 @@
           }
         }
       }
+    },
+    "primus-emitter": {
+      "version": "3.0.2",
+      "from": "primus-emitter@3.0.2",
+      "resolved": "https://registry.npmjs.org/primus-emitter/-/primus-emitter-3.0.2.tgz"
+    },
+    "primus": {
+      "version": "2.2.4",
+      "from": "https://registry.npmjs.org/primus/-/primus-2.2.4.tgz",
+      "resolved": "https://registry.npmjs.org/primus/-/primus-2.2.4.tgz",
+      "dependencies": {
+        "access-control": {
+          "version": "0.0.4",
+          "from": "access-control@0.0.x",
+          "dependencies": {
+            "ms": {
+              "version": "0.6.2",
+              "from": "ms@~0.6.2"
+            }
+          }
+        },
+        "eventemitter3": {
+          "version": "0.1.2",
+          "from": "eventemitter3@0.1.x"
+        },
+        "forwarded-for": {
+          "version": "0.0.0",
+          "from": "forwarded-for@0.0.x"
+        },
+        "fusing": {
+          "version": "0.2.1",
+          "from": "fusing@0.2.x",
+          "dependencies": {
+            "predefine": {
+              "version": "0.1.1",
+              "from": "predefine@0.1.x",
+              "dependencies": {
+                "extendable": {
+                  "version": "0.0.6",
+                  "from": "extendable@0.0.x"
+                }
+              }
+            }
+          }
+        },
+        "load": {
+          "version": "1.0.1",
+          "from": "load@1.0.x"
+        },
+        "setheader": {
+          "version": "0.0.4",
+          "from": "setheader@0.0.x",
+          "dependencies": {
+            "debug": {
+              "version": "0.7.4",
+              "from": "debug@0.7.x"
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -73,9 +73,9 @@ testEveryMove = (allMoves, gen) ->
             it "boosts properly", ->
               create.call(this, gen: gen)
               target = (if move.primaryBoostTarget == 'self' then @p1 else @p2)
-              target.stages.should.not.include(move.primaryBoostStats)
+              target.stages.should.not.containEql(move.primaryBoostStats)
               @battle.performMove(@p1, move)
-              target.stages.should.include(move.primaryBoostStats)
+              target.stages.should.containEql(move.primaryBoostStats)
 
             if move.primaryBoostTarget == 'self'
               it "can never miss self", ->

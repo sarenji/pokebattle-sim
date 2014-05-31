@@ -113,25 +113,42 @@ makeOwnerCommand = (commandNames..., func) ->
 
 desc "Gets a single username's rating on this server. Usage: /rating username"
 makeCommand "rating", "ranking", "rank", (user, room, next, username) ->
-  username ||= user.id
-  async.parallel [
-    ratings.getRating.bind(ratings, username)
-    ratings.getRank.bind(ratings, username)
-    ratings.getRatio.bind(ratings, username)
-  ], (err, results) ->
-    return user.error(errors.COMMAND_ERROR, err.message)  if err
-    [rating, rank, ratios] = results
-    ratio = []
-    rank ?= "Unranked"
-    ratio.push("Rank: #{rank}")
-    ratio.push("Win: #{ratios.win}")
-    if user.id == username
-      total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
-      ratio.push("Lose: #{ratios.lose}")
-      ratio.push("Tie: #{ratios.draw}")
-      ratio.push("Total: #{total}")
-    user.announce('success', "#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
-    next()
+  username ||= user.name
+  alts.getAltOwner username, (err, owner) ->
+    altKey = alts.uniqueId(owner, username)
+    commands = [
+      ratings.getRating.bind(ratings, username)
+      ratings.getRank.bind(ratings, username)
+      ratings.getRatio.bind(ratings, username)
+    ]
+    commands.push(ratings.getRating.bind(ratings, altKey),
+                  ratings.getRank.bind(ratings, altKey),
+                  ratings.getRatio.bind(ratings, altKey))  if owner?
+    async.parallel commands, (err, results) ->
+      return user.error(errors.COMMAND_ERROR, err.message)  if err
+      messages = []
+      messages.push collectRatingResults(username, results[...3], isOwner: username == user.name)
+      messages.push collectRatingResults("(Alt) #{username}", results[3...], isOwner: owner == user.name)  if owner?
+      messages = _.compact(messages)
+      if messages.length == 0
+        user.announce('error', "Could not find rating for #{username}.")
+      else
+        user.announce('success', "#{messages.join('<br>')}")
+      next()
+
+collectRatingResults = (username, results, options = {}) ->
+  isOwner = options.isOwner ? false
+  [rating, rank, ratios] = results
+  return  if !rating
+  ratio = []
+  ratio.push("Rank: #{rank}")
+  ratio.push("Win: #{ratios.win}")
+  if isOwner
+    total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
+    ratio.push("Lose: #{ratios.lose}")
+    ratio.push("Tie: #{ratios.draw}")
+    ratio.push("Total: #{total}")
+  "<b>#{username}'s rating:</b> #{rating} (#{ratio.join(' / ')})"
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"
@@ -181,21 +198,6 @@ makeModCommand "unmute", (user, room, next, username) ->
       room.announce('warning', message)
       next()
 
-desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username, reason"
-makeModCommand "kick", (user, room, next, username, reason...) ->
-  if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /kick username,reason")
-    return next()
-  else if !room.has(username)
-    user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
-    return next()
-  reason = reason.join(',').trim()
-  @ban(username, reason, 3 * 60)
-  message = "#{user.id} kicked #{username} for 3 minutes"
-  message += " (#{reason})"  if reason.length > 0
-  room.announce('warning', message)
-  next()
-
 desc "Default length is one hour, up to a maximum of one day. To specify different lengths, use 1m2h3d (minute, hour, day). Usage: /ban username, length, reason"
 makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
@@ -229,18 +231,23 @@ makeModCommand "unban", (user, room, next, username) ->
         return next()
 
 desc "Finds the current ips under use by a user"
-makeModCommand "ip", (user, room, next, username) ->
-  if !username
+makeModCommand "ip", (user, room, next, nameOrIp) ->
+  if !nameOrIp
     user.error(errors.COMMAND_ERROR, "Usage: /ip username")
     return next()
-  sockets = @users.get(username)
-  ips = sockets.map (socket) ->
-    socket = socket.socket
-    tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(',')
-    tempIPs.unshift(socket.remoteAddress)
-    tempIPs.filter((ip) -> ip).map((ip) -> ip.trim())
-  ips = _.chain(ips).flatten().compact().unique().value()
-  user.announce('success', "#{username}'s IP addresses: #{ips.join(', ')}")
+  user = @users.get(nameOrIp)
+  if user
+    ips = user.sparks.map((spark) -> spark.address.ip)
+    ips = _.chain(ips).compact().unique().value()
+    user.announce('success', "#{nameOrIp}'s IP addresses: #{ips.join(', ')}")
+  else
+    users = []
+    for user in @users.getUsers()
+      for spark in user.sparks
+        if spark.address.ip == nameOrIp
+          users.push(user.name)
+          break
+    user.announce('success', "Users with IP #{nameOrIp}: #{users.join(', ')}")
   next()
 
 desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
@@ -251,10 +258,10 @@ makeAdminCommand "lockdown", (user, room, next, option = "on") ->
   if option == 'on' then @lockdown() else @unlockdown()
   next()
 
-desc "Drivers a username permanently. Usage: /driver username"
-makeAdminCommand "driver", (user, room, next, username) ->
+desc "Voices a username permanently. Usage: /voice username"
+makeAdminCommand "voice", "driver", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /driver username")
+    user.error(errors.COMMAND_ERROR, "Usage: /voice username")
     return next()
   auth.setAuth username, auth.levels.DRIVER, (err, result) =>
     if err

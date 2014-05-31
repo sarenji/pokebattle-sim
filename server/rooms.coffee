@@ -1,20 +1,36 @@
-{SocketHash} = require('./socket_hash')
+{_} = require('underscore')
+{EventEmitter} = require('events')
 redis = require('./redis')
 errors = require('../shared/errors')
 
-class @Room
+class @Room extends EventEmitter
   constructor: (@name) ->
-    @users = new SocketHash()
+    @users = {}
+    @userCounts = {}
+    @sparks = []
 
-  # Adds a user to this room.
-  # Returns the number of connections that this user has.
-  addUser: (user) ->
-    @users.add(user)
+  add: (spark) ->
+    @send('joinChatroom', spark.user.toJSON())  unless @users[spark.user.id]
+    @sparks.push(spark)
 
-  # Removes a user from this room.
-  # Returns the number of remaining connections this user has.
-  removeUser: (user) ->
-    @users.remove(user)
+    userId = spark.user.id
+    if userId not of @users
+      @userCounts[userId] = 1
+      @users[userId] = spark.user
+    else
+      @userCounts[userId] += 1
+    spark.send('listChatroom', @toJSON())
+
+  remove: (spark) ->
+    index = @sparks.indexOf(spark.user)
+    @sparks.splice(index, 1)  if index
+
+    userId = spark.user.id
+    @userCounts[userId] -= 1
+    if @userCounts[userId] == 0
+      @send('leaveChatroom', spark.user.name)
+      delete @users[userId]
+      delete @userCounts[userId]
 
   userMessage: (user, message) ->
     @send('updateChat', user.name, message)
@@ -26,7 +42,7 @@ class @Room
     @send('announce', klass, message)
 
   send: ->
-    @users.broadcast.apply(@users, arguments)
+    user.send.apply(user, arguments)  for name, user of @users
 
   # Set the room's topic. Does not work for battle rooms.
   # TODO: Or rather, it shouldn't work for battle rooms. Once a distinction is
@@ -35,8 +51,6 @@ class @Room
     redis.hset "topic", "main", topic
     @send('topic', topic)  if topic
 
-  has: (id) ->
-    @users.contains(id)
-
-  userJSON: ->
-    @users.toJSON()
+  toJSON: ->
+    for name, user of @users
+      user.toJSON()

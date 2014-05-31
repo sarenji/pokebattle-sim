@@ -19,7 +19,7 @@ MAX_ALT_LENGTH = 15
 # Retrieves a list of alts registered to the user
 # next is a callback with args (error, altsList)
 @listUserAlts = (userId, next) ->
-  userId = userId.toLowerCase()
+  userId = String(userId).toLowerCase()
   redis.lrange "#{userId}:alts", 0, -1, (err, alts) ->
     return next(err)  if err
     next(null, alts)
@@ -28,7 +28,7 @@ MAX_ALT_LENGTH = 15
 # next is a callback with args (error, success)
 # TODO: Should this use a transaction?
 @createAlt = (userId, altName, next) ->
-  userId = userId.toLowerCase()
+  userId = String(userId).toLowerCase()
   altListKey = "#{userId}:alts"
   redis.llen altListKey, (err, amount) ->
     return next(err) if err
@@ -47,7 +47,7 @@ MAX_ALT_LENGTH = 15
 # Always returns true if altName is null (meaning no alt)
 @isAltOwnedBy = (userId, altName, next) ->
   return next(undefined, true)  if not altName
-  userId = userId.toLowerCase()
+  userId = String(userId).toLowerCase()
   redis.hget ALTS_KEY, altName, (err, assignedUserId) ->
     return next(err)  if err
     next(null, assignedUserId == userId)

@@ -1,99 +1,76 @@
 require '../helpers'
 
+{BattleServer} = require('../../server/server')
 {Room} = require '../../server/rooms'
 {User} = require '../../server/user'
 
 describe "A server room:", ->
-  describe "#addUser", ->
-    it "returns the number of connections with that id", ->
-      room = new Room()
-      room.addUser(new User("derp")).should.equal(1)
-      room.addUser(new User("derp")).should.equal(2)
-      room.addUser(new User("herp")).should.equal(1)
-
-  describe "#removeUser", ->
-    it "returns the number of remaining connections with that id", ->
-      room = new Room()
-      room.addUser(user1 = new User("derp"))
-      room.addUser(user2 = new User("derp"))
-      room.removeUser(user1).should.equal(1)
-      room.removeUser(user1).should.equal(1)
-      room.removeUser(user2).should.equal(0)
-      room.removeUser(user2).should.equal(0)
+  beforeEach ->
+    @server = new BattleServer()
+    @spark1 = @stubSpark()
+    @spark2 = @stubSpark()
+    @user1 = @server.findOrCreateUser(id: 1, name: 'aaaa', @spark1)
+    @user2 = @server.findOrCreateUser(id: 2, name: 'bbbb', @spark2)
+    @room = new Room()
+    @room.add(@spark1)
+    @room.add(@spark2)
 
   describe "#message", ->
     it "sends a message to all users in that room", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("bbbb"))
-      mock1 = @sandbox.mock(user1)
+      mock1 = @sandbox.mock(@user1)
       mock1.expects('send').withArgs("rawMessage", "hello").once()
-      mock2 = @sandbox.mock(user2)
+      mock2 = @sandbox.mock(@user2)
       mock2.expects('send').withArgs("rawMessage", "hello").once()
 
-      room.message("hello")
+      @room.message("hello")
       mock1.verify()
       mock2.verify()
 
   describe "#userMessage", ->
     it "sends a message to all users in that room", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("bbbb"))
-      mock1 = @sandbox.mock(user1).expects('send')
-      mock1.withArgs("updateChat", user1.name, "hello").once()
-      mock2 = @sandbox.mock(user2).expects('send').once()
-      mock2.withArgs("updateChat", user1.name, "hello").once()
+      mock1 = @sandbox.mock(@user1).expects('send')
+      mock1.withArgs("updateChat", @user1.name, "hello").once()
+      mock2 = @sandbox.mock(@user2).expects('send').once()
+      mock2.withArgs("updateChat", @user1.name, "hello").once()
 
-      room.userMessage(user1, "hello")
+      @room.userMessage(@user1, "hello")
       mock1.verify()
       mock2.verify()
 
   describe "#setTopic", ->
     it "sends a topic message to all users in that room", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("bbbb"))
-      mock1 = @sandbox.mock(user1).expects('send')
+      mock1 = @sandbox.mock(@user1).expects('send')
       mock1.withArgs("topic", "a test").once()
-      mock2 = @sandbox.mock(user2).expects('send').once()
+      mock2 = @sandbox.mock(@user2).expects('send').once()
       mock2.withArgs("topic", "a test").once()
 
-      room.setTopic("a test")
+      @room.setTopic("a test")
       mock1.verify()
       mock2.verify()
 
   describe "#userJSON", ->
     it "returns an array containing the JSON of all users", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("bbbb"))
-      room.userJSON().should.eql([ {id: user1.id}, {id: user2.id} ])
+      @room.toJSON().should.eql([ @user1.toJSON(), @user2.toJSON() ])
 
   describe "#send", ->
     it "broadcasts to every single user, including ones on the same account", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("aaaa"))
-      mock1 = @sandbox.mock(user1).expects('send').withArgs('hello').once()
-      mock2 = @sandbox.mock(user2).expects('send').withArgs('hello').once()
-      room.send("hello")
+      mock1 = @sandbox.mock(@user1).expects('send').withArgs('hello').once()
+      mock2 = @sandbox.mock(@user2).expects('send').withArgs('hello').once()
+      @room.send("hello")
       mock1.verify()
       mock2.verify()
 
-    it "stops broadcasting to users that leave", ->
-      room = new Room()
-      room.addUser(user1 = new User("aaaa"))
-      room.addUser(user2 = new User("aaaa"))
-      mock1 = @sandbox.mock(user1).expects('send').withArgs('hello').never()
-      mock2 = @sandbox.mock(user2).expects('send').withArgs('hello').once()
+    it "stops broadcasting to sparks that leave", ->
+      spy1 = @sandbox.spy(@user1, 'send')
+      spy2 = @sandbox.spy(@user2, 'send')
 
-      room.removeUser(user1)
-      room.send("hello")
+      @room.remove(@spark1)
+      @room.send("hello")
 
-      mock1.verify()
-      mock2.verify()
+      spy1.withArgs('hello').called.should.be.false
+      spy2.withArgs('hello').calledOnce.should.be.true
 
-      room.removeUser(user1)
-      mock1.verify()
-      mock2.verify()
+      @room.remove(@spark2)
+      @room.send("hello")
+      spy1.withArgs('hello').called.should.be.false
+      spy2.withArgs('hello').calledOnce.should.be.true

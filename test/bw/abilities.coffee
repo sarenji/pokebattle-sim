@@ -105,7 +105,7 @@ describe "BW Abilities:", ->
       @sandbox.stub(tackle, 'isCriticalHit', -> true)
       @p1.stages.attack.should.equal(0)
       @battle.performMove(@p2, tackle)
-      @p1.stages.should.include(attack: 6)
+      @p1.stages.should.containEql(attack: 6)
 
     it "doesn't maximize attack on non-critical hits", ->
       shared.create.call this,
@@ -114,7 +114,7 @@ describe "BW Abilities:", ->
       @sandbox.stub(tackle, 'isCriticalHit', -> false)
       @p1.stages.attack.should.equal(0)
       @battle.performMove(@p2, tackle)
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
 
   describe "Anticipation", ->
     it "shows a message if an opponent has a super-effective move", ->
@@ -239,7 +239,7 @@ describe "BW Abilities:", ->
         boosts = {}
         boosts[stat] = -1  for stat in allBoosts
         @p1.boost(boosts)
-        @p1.stages.should.include(boosts)
+        @p1.stages.should.containEql(boosts)
 
   testBoostProtectionAbility("Big Pecks", [ "defense" ])
   testBoostProtectionAbility("Clear Body")
@@ -336,9 +336,9 @@ describe "BW Abilities:", ->
       leafStorm = @battle.getMove("Leaf Storm")
       growl     = @battle.getMove("Growl")
       @battle.performMove(@p1, leafStorm)
-      @p1.stages.should.include(specialAttack: 2)
+      @p1.stages.should.containEql(specialAttack: 2)
       @battle.performMove(@p2, growl)
-      @p1.stages.should.include(attack: 1)
+      @p1.stages.should.containEql(attack: 1)
 
   describe "Cursed Body", ->
     it "has a 30% chance to disable an attacker's last move", ->
@@ -468,39 +468,39 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Defiant")]
       @p1.boost(defense: -1, @p2)
-      @p1.stages.should.include(attack: 2)
+      @p1.stages.should.containEql(attack: 2)
       @p1.boost(attack: -1, defense: -2, evasion: 1, @p2)
-      @p1.stages.should.include(attack: 5)
+      @p1.stages.should.containEql(attack: 5)
 
     it "does not boost attack if the stat was self-lowered", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Defiant")]
       @battle.performMove(@p1, @battle.getMove("Close Combat"))
-      @p1.stages.should.include(attack: 0, defense: -1, specialDefense: -1)
+      @p1.stages.should.containEql(attack: 0, defense: -1, specialDefense: -1)
 
   describe "Download", ->
     it "raises attack if foes have total defense < total sp.def", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
         team2: [Factory("Abomasnow")]
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
       @p1.copyAbility(Ability.Download)
-      @p1.stages.should.include(attack: 1)
+      @p1.stages.should.containEql(attack: 1)
 
     it "raises special attack if foes have total sp.def <= total def", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
         team2: [Factory("Celebi")]
-      @p1.stages.should.include(specialAttack: 0)
+      @p1.stages.should.containEql(specialAttack: 0)
       @p1.copyAbility(Ability.Download)
-      @p1.stages.should.include(specialAttack: 1)
+      @p1.stages.should.containEql(specialAttack: 1)
 
     it "does not raise anything if all foes have fainted", ->
       shared.create.call(this)
       @p2.faint()
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
       @p1.copyAbility(Ability.Download)
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
 
   testWeatherAbility = (name, weather) ->
     describe name, ->
@@ -829,10 +829,10 @@ describe "BW Abilities:", ->
     it "makes berries activate at 50% HP", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Gluttony")]
-      @p1.stages.should.include(speed: 0)
+      @p1.stages.should.containEql(speed: 0)
       @p1.currentHP >>= 1
       @p1.update()
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
 
   describe "Guts", ->
     it "multiplies attack by x1.5 if statused", ->
@@ -1090,21 +1090,21 @@ describe "BW Abilities:", ->
     it "lowers the attack of all foe pokemon", ->
       shared.create.call this,
         team1: [ Factory("Magikarp", ability: "Intimidate") ]
-      @p2.stages.should.include(attack: -1)
+      @p2.stages.should.containEql(attack: -1)
 
     it "does not lower attack of Pokemon behind Substitute", ->
       shared.create.call this,
         team1: [ Factory("Magikarp") ]
       @p2.attach(Attachment.Substitute, hp: (@p2.currentHP >> 2))
       @p1.copyAbility(Ability.Intimidate)
-      @p2.stages.should.include(attack: 0)
+      @p2.stages.should.containEql(attack: 0)
 
     it "lowers attack simultaneously on all begin-turn switch-ins", ->
       shared.create.call this,
         team1: (Factory("Magikarp", ability: "Intimidate")  for x in [1..2])
         team2: (Factory("Magikarp", ability: "Intimidate")  for x in [1..2])
-      @p1.stages.should.include(attack: -1)
-      @p2.stages.should.include(attack: -1)
+      @p1.stages.should.containEql(attack: -1)
+      @p2.stages.should.containEql(attack: -1)
       @p1.faint()
       @p2.faint()
       @battle.requestFaintedReplacements()
@@ -1112,8 +1112,8 @@ describe "BW Abilities:", ->
       @controller.makeSwitch(@id2, 1)
       @team1.first().should.not.equal(@p1)
       @team2.first().should.not.equal(@p2)
-      @team1.first().stages.should.include(attack: -1)
-      @team2.first().stages.should.include(attack: -1)
+      @team1.first().stages.should.containEql(attack: -1)
+      @team2.first().stages.should.containEql(attack: -1)
 
   describe "Infiltrator", ->
     it "ignores Reflect", ->
@@ -1183,17 +1183,17 @@ describe "BW Abilities:", ->
   describe "Justified", ->
     it "boosts attack by 1 after being hit by a Dark move", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
       @battle.performMove(@p2, @battle.getMove("Tackle"))
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
       @battle.performMove(@p2, @battle.getMove("Crunch"))
-      @p1.stages.should.include(attack: 1)
+      @p1.stages.should.containEql(attack: 1)
 
     it "doesn't boost attack if the move is non-damaging", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
       @battle.performMove(@p1, @battle.getMove("Nasty Plot"))
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
 
   describe "Klutz", ->
     it "disables user's item upon switch-in", ->
@@ -1253,7 +1253,7 @@ describe "BW Abilities:", ->
         typedMove = _(@battle.MoveList).find (m) ->
           !m.isNonDamaging() && m.type == type
         @battle.performMove(@p2, typedMove)
-        @p1.stages.should.include(specialAttack: 1)
+        @p1.stages.should.containEql(specialAttack: 1)
 
       it "does not boost special attack on #{type}-type moves if immune", ->
         shared.create.call this,
@@ -1262,7 +1262,7 @@ describe "BW Abilities:", ->
           !m.isNonDamaging() && m.type == type
         @sandbox.stub(@p1, 'isImmune', -> true)
         @battle.performMove(@p2, typedMove)
-        @p1.stages.should.include(specialAttack: 0)
+        @p1.stages.should.containEql(specialAttack: 0)
 
       it "does nothing otherwise", ->
         shared.create.call this,
@@ -1271,7 +1271,7 @@ describe "BW Abilities:", ->
         mock = @sandbox.mock(tackle).expects('hit').once()
         @battle.performMove(@p2, tackle)
         mock.verify()
-        @p1.stages.should.include(specialAttack: 0)
+        @p1.stages.should.containEql(specialAttack: 0)
 
   testRedirectAndBoostAbility("Lightningrod", "Electric")
   testRedirectAndBoostAbility("Storm Drain", "Water")
@@ -1475,14 +1475,14 @@ describe "BW Abilities:", ->
       shared.biasRNG.call(this, "randInt", "moody raise", 1)
       shared.biasRNG.call(this, "randInt", "moody lower", 0)
       @battle.endTurn()
-      @p1.stages.should.include(attack: -1, defense: 2)
+      @p1.stages.should.containEql(attack: -1, defense: 2)
 
     it "never raises and lowers the same stat in a single turn", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
       shared.biasRNG.call(this, "randInt", "moody raise", 0)
       shared.biasRNG.call(this, "randInt", "moody lower", 0)
       @battle.endTurn()
-      @p1.stages.should.include(attack: 2, defense: -1)
+      @p1.stages.should.containEql(attack: 2, defense: -1)
 
     it "does not choose individual stats at max/min", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
@@ -1491,7 +1491,7 @@ describe "BW Abilities:", ->
       @p1.boost(defense: 6)
       @p1.boost(attack: -6)
       @battle.endTurn()
-      @p1.stages.should.include(defense: 5, speed: 2)
+      @p1.stages.should.containEql(defense: 5, speed: 2)
 
     it "does not try to raise a null stat", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Moody")])
@@ -1544,9 +1544,9 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Moxie")]
       tackle = @battle.getMove("Tackle")
       @p2.currentHP = 1
-      @p1.stages.should.include(attack: 0)
+      @p1.stages.should.containEql(attack: 0)
       @battle.performMove(@p1, tackle)
-      @p1.stages.should.include(attack: 1)
+      @p1.stages.should.containEql(attack: 1)
 
   describe "Multiscale", ->
     it "takes half damage at full HP", ->
@@ -1916,11 +1916,11 @@ describe "BW Abilities:", ->
       @sandbox.stub(acid, "baseDamage", -> 1)
 
       @battle.performMove(@p1, acid)
-      @p2.stages.should.include(specialDefense: 0)
+      @p2.stages.should.containEql(specialDefense: 0)
 
       @p1.copyAbility(Ability.SereneGrace)
       @battle.performMove(@p1, acid)
-      @p2.stages.should.include(specialDefense: -1)
+      @p2.stages.should.containEql(specialDefense: -1)
 
     it "doubles the chance of flinches happening", ->
       shared.create.call(this)
@@ -1999,7 +1999,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sheer Force", item: "Life Orb")]
       @battle.performMove(@p1, @battle.getMove("Charge Beam"))
-      @p1.stages.should.include(specialAttack: 0)
+      @p1.stages.should.containEql(specialAttack: 0)
 
     it "does not apply to primary boosts", ->
       shared.create.call this,
@@ -2007,7 +2007,7 @@ describe "BW Abilities:", ->
       cc = @battle.getMove("Close Combat")
       cc.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
       @battle.performMove(@p1, cc)
-      @p1.stages.should.include(defense: -1, specialDefense: -1)
+      @p1.stages.should.containEql(defense: -1, specialDefense: -1)
 
     it "receives no life orb recoil", ->
       shared.create.call this,
@@ -2075,19 +2075,19 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", ability: "Shield Dust")]
       @battle.performMove(@p1, @battle.getMove("Acid Spray"))
-      @p2.stages.should.include(specialDefense: 0)
+      @p2.stages.should.containEql(specialDefense: 0)
 
     it "does not prevent secondary boosts for the user", ->
       shared.create.call this,
         team2: [Factory("Magikarp", ability: "Shield Dust")]
       @battle.performMove(@p1, @battle.getMove("Flame Charge"))
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
 
   describe "Simple", ->
     it "doubles stat boosts, negative and positive", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Simple")])
       @battle.performMove(@p1, @battle.getMove("Curse"))
-      @p1.stages.should.include(attack: 2, defense: 2, speed: -2)
+      @p1.stages.should.containEql(attack: 2, defense: 2, speed: -2)
 
   describe "Slow Start", ->
     it "halves attack and speed", ->
@@ -2194,23 +2194,23 @@ describe "BW Abilities:", ->
     it "boosts speed at the end of every turn", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Speed Boost")]
-      @p1.stages.should.include(speed: 0)
+      @p1.stages.should.containEql(speed: 0)
       @battle.endTurn()
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
       @battle.endTurn()
-      @p1.stages.should.include(speed: 2)
+      @p1.stages.should.containEql(speed: 2)
 
     it "boosts speed the turn after a pokemon is freshly switched in", ->
       shared.create.call this,
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Speed Boost")]
       @battle.performSwitch(@p1, 1)
-      @team1.first().stages.should.include(speed: 0)
+      @team1.first().stages.should.containEql(speed: 0)
       @battle.endTurn()
-      @team1.first().stages.should.include(speed: 0)
+      @team1.first().stages.should.containEql(speed: 0)
       @battle.endTurn()
-      @team1.first().stages.should.include(speed: 1)
+      @team1.first().stages.should.containEql(speed: 1)
       @battle.endTurn()
-      @team1.first().stages.should.include(speed: 2)
+      @team1.first().stages.should.containEql(speed: 2)
 
     it "boosts speed the turn after a pokemon is replaced", ->
       shared.create.call this,
@@ -2220,11 +2220,11 @@ describe "BW Abilities:", ->
       @controller.makeMove(@id2, "Tackle")
       @controller.makeSwitch(@id1, 1)
       @battle.turn.should.equal(2)
-      @team1.first().stages.should.include(speed: 0)
+      @team1.first().stages.should.containEql(speed: 0)
       @battle.endTurn()
-      @team1.first().stages.should.include(speed: 1)
+      @team1.first().stages.should.containEql(speed: 1)
       @battle.endTurn()
-      @team1.first().stages.should.include(speed: 2)
+      @team1.first().stages.should.containEql(speed: 2)
 
   describe "Sticky Hold", ->
     it "prevents items from being taken", ->
@@ -2271,7 +2271,7 @@ describe "BW Abilities:", ->
       tackle = @battle.getMove("Tackle")
       @p1.attach(Attachment.Flinch)
       @p1.beforeMove(tackle, @p1, [ @p2 ])
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
 
   describe "Sturdy", ->
     it "prevents the user from being OHKOed at full HP", ->
@@ -2553,10 +2553,10 @@ describe "BW Abilities:", ->
         team2: [Factory("Magikarp", item: "Salac Berry")]
       @p2.currentHP = 1
       @p2.update()
-      @p2.stages.should.include(speed: 0)
+      @p2.stages.should.containEql(speed: 0)
       @battle.beginTurn()
       @p2.update()
-      @p2.stages.should.include(speed: 0)
+      @p2.stages.should.containEql(speed: 0)
 
     it "does not prevent regular item usage", ->
       shared.create.call this,
@@ -2570,7 +2570,7 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Unnerve")]
       @battle.performMove(@p2, @battle.getMove("Bug Bite"))
-      @p2.stages.should.include(speed: 1)
+      @p2.stages.should.containEql(speed: 1)
 
   describe "Victory Star", ->
     it "increases accuracy of moves by 10%", ->
@@ -2620,14 +2620,14 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp", ability: "Weak Armor")]
       tackle = @battle.getMove("Tackle")
       @battle.performMove(@p2, tackle)
-      @p1.stages.should.include(defense: -1, speed: 1)
+      @p1.stages.should.containEql(defense: -1, speed: 1)
 
     it "does nothing on any other kind of move", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Weak Armor")]
       willOWisp = @battle.getMove("Will-O-Wisp")
       @battle.performMove(@p2, willOWisp)
-      @p1.stages.should.include(defense: 0, speed: 0)
+      @p1.stages.should.containEql(defense: 0, speed: 0)
 
   describe "Wonder Guard", ->
     it "renders the Pokemon immune to non-super-effective moves", ->

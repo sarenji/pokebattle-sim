@@ -273,7 +273,7 @@ class @Battle extends EventEmitter
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectatorIds = _.unique(@spectators.map((s) -> s.id))
+    spectatorIds = _.unique(@spectators.map((s) -> s.name))
     @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
     @log.push(args)
     true
@@ -819,36 +819,36 @@ class @Battle extends EventEmitter
           else throw new Error("Unrecognized unknown ailment for #{move.name}")
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
-  addSpectator: (spectator) ->
-    return  if spectator in @spectators
+  addSpectator: (spark) ->
+    user = spark.user
+    index = null
+
     # If this is a player, mask the spectator in case this is an alt
-    player = _(@players).find((p) -> p.id == spectator.id)
-    spectator = spectator.maskName(player.name)  if player
+    player = _(@players).find((p) -> p.name == user.name)
+    if player
+      user = user.maskName(player.name)
+      index = @getPlayerIndex(player.id)
 
-    if !_(@spectators).some((s) -> s.id == spectator.id)
-      @broadcast('joinBattle', @id, spectator)
+    if user.id not in @spectators.map((s) -> s.id)
+      @broadcast('joinBattle', @id, user.toJSON())
+      @spectators.push(user)
 
-    @spectators.push(spectator)
-    index = @getPlayerIndex(spectator.id)
-
-    # Get rid of non-unique spectators?
-    spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectateBattle',
-      @id, @generation, @numActive,
-      index, @playerNames, spectators, @log)
+    user.send('spectateBattle',
+      @id, @generation, @numActive, index,
+      @playerNames, @spectators.map((s) -> s.toJSON()), @log)
 
     # If this is a player, send them their own team
     if player
-      @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
+      @tellPlayer(player.id, Protocol.RECEIVE_TEAM, @getTeam(player.id).toJSON())
 
-    @emit('spectateBattle', spectator)
+    @emit('spectateBattle', user)
 
-  removeSpectator: (spectator) ->
+  removeSpectator: (spark) ->
     for s, i in @spectators
-      if s.id == spectator.id
+      if (s.original || s) == spark.user
         @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, spectator.name)
-        break
+        @broadcast('leaveBattle', @id, s.name)
+        i -= 1
 
   forfeit: (id) ->
     return  if @isOver()
@@ -881,17 +881,11 @@ class @Battle extends EventEmitter
 
   # Sends battle updates to each spectator.
   sendUpdates: ->
-    # Send battle updates to each spectator. Keep in mind that multiple
-    # spectators can belong to a single id, due to multiple clients.
-    # This is why we cleanup after all spectators are iterated through.
-    for spectator in @spectators
-      queue = @queues[spectator.id]
+    for user in @spectators
+      queue = @queues[user.name]
       continue  if !queue || queue.length == 0
-      spectator.send('updateBattle', @id, queue)
-
-    # Now clean-up.
-    for id of @queues
-      delete @queues[id]
+      user.send('updateBattle', @id, queue)
+      delete @queues[user.name]
 
   cannedText: (type, args...) ->
     newArgs = []

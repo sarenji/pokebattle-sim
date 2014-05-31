@@ -35,10 +35,12 @@
     "node-schedule": "~0.1.13",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-uglify": "~0.4.0",
-    "nodetime": "~0.8.15"
+    "nodetime": "~0.8.15",
+    "primus-emitter": "~3.0.2",
+    "primus": "https://registry.npmjs.org/primus/-/primus-2.2.4.tgz"
   },
   "devDependencies": {
-    "should": "~1.2.x",
+    "should": "~4.0.x",
     "mocha": "~1.10.x",
     "sinon": "~1.7.x"
   },

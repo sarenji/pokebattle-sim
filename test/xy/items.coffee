@@ -18,9 +18,9 @@ describe "XY Items:", ->
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Weakness Policy')]
       thunderbolt = @battle.getMove("Thunderbolt")
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
       @battle.performMove(@p2, thunderbolt)
-      @p1.stages.should.include(attack: 2, specialAttack: 2)
+      @p1.stages.should.containEql(attack: 2, specialAttack: 2)
 
     it "is consumed after use", ->
       shared.create.call this,
@@ -37,7 +37,7 @@ describe "XY Items:", ->
       ember = @battle.getMove("Ember")
       @battle.performMove(@p2, ember)
       @p1.hasItem().should.be.true
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
 
     it "is not used if hit by a super-effective move that is non-damaging", ->
       shared.create.call this,
@@ -46,7 +46,7 @@ describe "XY Items:", ->
       thunderWave = @battle.getMove("Thunder Wave")
       @battle.performMove(@p2, thunderWave)
       @p1.hasItem().should.be.true
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
 
     it "not used if the wearer is behind a substitute", ->
       shared.create.call this,
@@ -56,7 +56,7 @@ describe "XY Items:", ->
       thunderbolt = @battle.getMove("Thunderbolt")
       @battle.performMove(@p2, thunderbolt)
       @p1.hasItem().should.be.true
-      @p1.stages.should.include(attack: 0, specialAttack: 0)
+      @p1.stages.should.containEql(attack: 0, specialAttack: 0)
 
   describe "Assault Vest", ->
     it "blocks non-damaging moves", ->
@@ -93,9 +93,9 @@ describe "XY Items:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Kee Berry')]
-      @p1.stages.should.include(defense: 0)
+      @p1.stages.should.containEql(defense: 0)
       @battle.performMove(@p2, @battle.getMove("Tackle"))
-      @p1.stages.should.include(defense: 1)
+      @p1.stages.should.containEql(defense: 1)
 
     it "is consumed after use", ->
       shared.create.call this,
@@ -110,9 +110,9 @@ describe "XY Items:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [Factory('Magikarp', item: 'Maranga Berry')]
-      @p1.stages.should.include(specialDefense: 0)
+      @p1.stages.should.containEql(specialDefense: 0)
       @battle.performMove(@p2, @battle.getMove("Ember"))
-      @p1.stages.should.include(specialDefense: 1)
+      @p1.stages.should.containEql(specialDefense: 1)
 
     it "is consumed after use", ->
       shared.create.call this,

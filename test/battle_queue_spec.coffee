@@ -10,7 +10,7 @@ async = require('async')
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->
-    new BattleQueue().should.be.empty
+    new BattleQueue().should.have.length(0)
 
   describe '#add', ->
     it 'queues a new player', ->
@@ -59,7 +59,7 @@ describe 'BattleQueue', ->
       queue = new BattleQueue()
       dude = 'dude'
       queue.add(dude)
-      queue.queuedPlayers().should.includeEql(dude)
+      queue.queuedPlayers().should.containEql(dude)
       queue.queuedPlayers().should.have.length 1
 
   describe '#hasRecentlyMatched', ->

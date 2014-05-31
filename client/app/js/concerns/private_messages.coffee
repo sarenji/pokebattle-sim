@@ -6,26 +6,26 @@ $(document).on 'click', '.open_pm', ->
   message.trigger('focus', message)
 
 # Receive private message events
-PokeBattle.events.on 'privateMessage', (messageId, fromUserId, messageText) ->
+PokeBattle.primus.on 'privateMessage', (messageId, fromUserId, messageText) ->
   message = PokeBattle.messages.add(id: messageId)
   message.add(fromUserId, messageText)
 
 # Challenges
-PokeBattle.events.on 'challenge', (fromUserId, generation, conditions) ->
+PokeBattle.primus.on 'challenge', (fromUserId, generation, conditions) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.add(fromUserId, "You have been challenged!", type: "alert")
   message.openChallenge(fromUserId, generation, conditions)
 
-PokeBattle.events.on 'cancelChallenge', (fromUserId) ->
+PokeBattle.primus.on 'cancelChallenge', (fromUserId) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.add(fromUserId, "The challenge was canceled!", type: "alert")
   message.closeChallenge(fromUserId)
 
-PokeBattle.events.on 'rejectChallenge', (fromUserId) ->
+PokeBattle.primus.on 'rejectChallenge', (fromUserId) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.add(fromUserId, "The challenge was rejected!", type: "alert")
   message.closeChallenge(fromUserId)
 
-PokeBattle.events.on 'challengeSuccess', (fromUserId) ->
+PokeBattle.primus.on 'challengeSuccess', (fromUserId) ->
   message = PokeBattle.messages.add(id: fromUserId)
   message.closeChallenge(fromUserId)

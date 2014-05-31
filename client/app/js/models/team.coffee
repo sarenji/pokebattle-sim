@@ -100,6 +100,6 @@ class @Team extends Backbone.AssociatedModel
   sync: (method) =>
     switch method
       when 'create', 'patch', 'update'
-        PokeBattle.socket.send('saveTeam', @toJSON(), @cid)
+        PokeBattle.primus.send('saveTeam', @toJSON(), @cid)
       when 'delete'
-        PokeBattle.socket.send('destroyTeam', @id)
+        PokeBattle.primus.send('destroyTeam', @id)

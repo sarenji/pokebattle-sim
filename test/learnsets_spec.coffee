@@ -224,50 +224,50 @@ describe "Learnsets:", ->
     it "returns all possible learnable moves for a pokemon", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Deoxys"}, 6)
-      moves.should.include("Superpower")
+      moves.should.containEql("Superpower")
 
     it "returns event moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Genesect"}, 6)
-      moves.should.include("Shift Gear")
+      moves.should.containEql("Shift Gear")
 
     it "returns dream world moves", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Gengar"}, 6)
-      moves.should.include("Sludge Wave")
+      moves.should.containEql("Sludge Wave")
 
     it "returns valid moves for battle-only formes", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Darmanitan", forme: "zen"}, 6)
 
       # Only Darmanitan can learn this move; Darumaka can't.
-      moves.should.include("Bulk Up")
+      moves.should.containEql("Bulk Up")
 
       # Egg move.
-      moves.should.include("Encore")
+      moves.should.containEql("Encore")
 
     it "does not take into account nonstandard learnsets", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Rotom"}, 6)
-      moves.should.not.include("Overheat")
-      moves.should.not.include("Leaf Storm")
-      moves.should.not.include("Hydro Pump")
-      moves.should.not.include("Blizzard")
-      moves.should.not.include("Air Slash")
+      moves.should.not.containEql("Overheat")
+      moves.should.not.containEql("Leaf Storm")
+      moves.should.not.containEql("Hydro Pump")
+      moves.should.not.containEql("Blizzard")
+      moves.should.not.containEql("Air Slash")
 
     it "lets pokemon learn nonstandard learnsets if they are of that forme", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Rotom", forme: "wash"}, 6)
-      moves.should.not.include("Overheat")
-      moves.should.not.include("Leaf Storm")
-      moves.should.include("Hydro Pump")
-      moves.should.not.include("Blizzard")
-      moves.should.not.include("Air Slash")
+      moves.should.not.containEql("Overheat")
+      moves.should.not.containEql("Leaf Storm")
+      moves.should.containEql("Hydro Pump")
+      moves.should.not.containEql("Blizzard")
+      moves.should.not.containEql("Air Slash")
 
     it "returns all moves except Struggle and Chatter if can learn Sketch", ->
       learnableMoves = learnsets.learnableMoves.bind(learnsets, GenerationJSON)
       moves = learnableMoves({species: "Smeargle"}, 6)
-      moves.should.not.include("Struggle")
-      moves.should.not.include("Chatter")
-      moves.should.include("Sacred Fire")
-      moves.should.include("Aeroblast")
+      moves.should.not.containEql("Struggle")
+      moves.should.not.containEql("Chatter")
+      moves.should.containEql("Sacred Fire")
+      moves.should.containEql("Aeroblast")

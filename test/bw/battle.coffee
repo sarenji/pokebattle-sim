@@ -2,20 +2,18 @@ require '../helpers'
 
 {Attachment} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
-{BattleController} = require('../../server/bw/battle_controller')
-{Pokemon} = require('../../server/bw/pokemon')
 {Weather} = require('../../shared/weather')
 {Conditions} = require '../../shared/conditions'
 {Factory} = require('../factory')
-{User} = require('../../server/user')
+{BattleServer} = require('../../server/server')
 {Protocol} = require '../../shared/protocol'
 shared = require('../shared')
 should = require 'should'
-sinon = require 'sinon'
 {_} = require 'underscore'
 
 describe 'Battle', ->
   beforeEach ->
+    @server = new BattleServer()
     shared.create.call this,
       team1: [Factory('Hitmonchan'), Factory('Heracross')]
       team2: [Factory('Hitmonchan'), Factory('Heracross')]
@@ -229,45 +227,50 @@ describe 'Battle', ->
 
   describe "#addSpectator", ->
     it "adds the spectator to an internal array", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
-      @battle.spectators.should.include(spectator)
+      @battle.spectators.should.containEql(spectator)
 
     it "gives the spectator battle information", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       spy = @sandbox.spy(spectator, 'send')
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "receives the correct set of initial teams", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       spy = @sandbox.spy(spectator, 'send')
       teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
       @team1.switch(@p1, 1)
 
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "does not add a spectator twice", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
 
   describe "#removeSpectator", ->
     it "removes the spectator from the array", ->
-      spectator = new User("guy")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "guy", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
-      @battle.removeSpectator(spectator)
+      @battle.removeSpectator(connection)
       @battle.spectators.should.have.length(length)
 
   describe "#getWinner", ->
@@ -409,9 +412,9 @@ describe 'Battle', ->
       should.exist(attachments)
       attachments = attachments.map((a) -> a.constructor)
       attachments.length.should.be.greaterThan(2)
-      attachments.should.include(Attachment.TrickRoom)
-      attachments.should.include(Attachment.Reflect)
-      attachments.should.include(Attachment.Ingrain)
+      attachments.should.containEql(Attachment.TrickRoom)
+      attachments.should.containEql(Attachment.Reflect)
+      attachments.should.containEql(Attachment.Ingrain)
 
   describe "#query", ->
     it "queries all attachments attached to a specific event", ->

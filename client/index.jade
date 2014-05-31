@@ -66,13 +66,11 @@ html
       (function() {
         var TOKEN = "#{user.token}";
         var ID = #{user.id};
-        var USERNAME = "#{user.username}"
+        var USERNAME = "#{user.name}"
 
         PokeBattle.userId = ID;
         PokeBattle.username = USERNAME;
-        PokeBattle.events.on("connect", function() {
-          PokeBattle.socket.send('login', ID, TOKEN);
-        });
+        PokeBattle.primus.send('login', ID, TOKEN);
       }).call(this);
 
       //- For Typekit

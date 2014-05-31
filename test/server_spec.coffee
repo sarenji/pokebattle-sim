@@ -1,7 +1,6 @@
 require './helpers'
 
 {BattleServer} = require('../server/server')
-{User} = require('../server/user')
 {Conditions, DEFAULT_FORMAT} = require '../shared/conditions'
 {Factory} = require './factory'
 alts = require('../server/alts')
@@ -22,17 +21,18 @@ describe 'BattleServer', ->
     server.battles.should.have.ownProperty battleId
 
   it "sends the 'spectateBattle' event for each matched player", (done) ->
-    players = [ new User('abc'), new User('def') ]
+    server = new BattleServer()
+    players = []
+    players.push server.findOrCreateUser(id: 1, name: 'abc', @stubSpark())
+    players.push server.findOrCreateUser(id: 2, name: 'def', @stubSpark())
+
     spies = []
     for player in players
       spy = @sandbox.spy(player, 'send')
       spies.push(spy)
 
-    server = new BattleServer()
-    server.join(players[0])
-    server.join(players[1])
     for player in players
-      server.queuePlayer(player.id, generateTeam()).should.be.empty
+      server.queuePlayer(player.name, generateTeam()).should.be.empty
     server.beginBattles (err, ids) ->
       throw new Error(err.message)  if err
       return  if ids.length == 0
@@ -43,13 +43,15 @@ describe 'BattleServer', ->
   describe "#queuePlayer", ->
     it "queues players", ->
       server = new BattleServer()
-      server.queuePlayer("derp", generateTeam()).should.be.empty
+      derp = server.findOrCreateUser(id: 1, name: 'derp', @stubSpark())
+      server.queuePlayer(derp.name, generateTeam()).should.be.empty
       server.queues[DEFAULT_FORMAT].size().should.equal(1)
 
     it "does not queue players already queued", ->
       server = new BattleServer()
-      server.queuePlayer("derp", generateTeam()).should.be.empty
-      server.queuePlayer("derp", generateTeam()).should.be.empty
+      derp = server.findOrCreateUser(id: 1, name: 'derp', @stubSpark())
+      server.queuePlayer(derp.name, generateTeam()).should.be.empty
+      server.queuePlayer(derp.name, generateTeam()).should.be.empty
       server.queues[DEFAULT_FORMAT].size().should.equal(1)
 
   describe "#getOngoingBattles", ->
@@ -57,8 +59,12 @@ describe 'BattleServer', ->
       server = new BattleServer()
       nBattles = 3
       for i in [1..nBattles]
-        server.queuePlayer("#{2*i}", generateTeam()).should.be.empty
-        server.queuePlayer("#{(2*i) + 1}", generateTeam()).should.be.empty
+        first = 2 * i
+        second = (2 * i) + 1
+        server.findOrCreateUser(id: first, name: String(first), @stubSpark())
+        server.findOrCreateUser(id: second, name: String(second), @stubSpark())
+        server.queuePlayer(String(first), generateTeam()).should.be.empty
+        server.queuePlayer(String(second), generateTeam()).should.be.empty
 
       server.beginBattles ->
         server.getOngoingBattles().should.have.length(nBattles)
@@ -67,20 +73,17 @@ describe 'BattleServer', ->
   describe "#registerChallenge", ->
     it "registers a challenge to a player", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, challengeeId, format, team, conditions)
-      server.challenges.should.have.property(user.id)
-      server.challenges[user.id].should.have.property(challengeeId)
+      server.registerChallenge(user, other.name, format, team, conditions)
+      server.challenges.should.have.property(user.name)
+      server.challenges[user.name].should.have.property(other.name)
 
-      challenge = server.challenges[user.id][challengeeId]
+      challenge = server.challenges[user.name][other.name]
       challenge.should.have.property("team")
       challenge.should.have.property("format")
       challenge.should.have.property("conditions")
@@ -90,251 +93,211 @@ describe 'BattleServer', ->
 
     it "does not override old challenges", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       diffFormat = 'xy500'
       diffTeam = generateTeam()
       diffTeam[0] = Factory("Celebi")
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, challengeeId, format, team)
-      server.registerChallenge(user, challengeeId, diffFormat, diffTeam)
+      server.registerChallenge(user, other.name, format, team)
+      server.registerChallenge(user, other.name, diffFormat, diffTeam)
 
-      challenge = server.challenges[user.id][challengeeId]
+      challenge = server.challenges[user.name][other.name]
       challenge.format.should.equal(format)
       challenge.team.should.equal(team)
 
     it "returns an error if the team is invalid", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       format = 'xy1000'
 
-      server.join(user)
-      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       team = []
-      server.registerChallenge(user, other.id, format, team)
+      server.registerChallenge(user, other.name, format, team)
       mock.verify()
 
     it "returns an error if the team is over 1000 PBV with 1000 PBV clause", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       format = 'xy1000'
       team = generateTeam()
       team[0] = Factory("Arceus", moves: [ "Recover" ])
       conditions = [ Conditions.PBV_1000 ]
 
-      server.join(user)
-      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
       mock.verify()
 
     it "returns an error on a rated challenge", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       format = 'xy1000'
       team = generateTeam()
       conditions = [ Conditions.RATED_BATTLE ]
 
-      server.join(user)
-      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
       mock.verify()
 
     it "returns an error if the format is invalid", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = "UNRELEASED INFERNO RED AND WEIRD YELLOWISH GREEN"
       conditions = []
 
-      server.join(user)
-      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
       mock.verify()
 
     it "returns an error if the challengee is offline", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      # server.join(other)  # Other must be offline.
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, "husk", format, team, conditions)
       mock.verify()
 
     it "returns an error if you challenge yourself", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
       mock = @sandbox.mock(user).expects('error').once()
-      server.registerChallenge(user, user.id, format, team, conditions)
+      server.registerChallenge(user, user.name, format, team, conditions)
       mock.verify()
 
     it "sends an error if a challenge already exists for that pair", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
 
       mock = @sandbox.mock(other).expects('error').once()
-      server.registerChallenge(other, user.id, format, team, conditions)
+      server.registerChallenge(other, user.name, format, team, conditions)
       mock.verify()
 
     it "sends a 'challenge' event to the challengee", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      spy = @sandbox.spy(server.users, 'send')
-      spy.withArgs(challengeeId, 'challenge', user.id,
-        format, conditions)
-      server.registerChallenge(user, challengeeId, format, team, conditions)
-      spy.withArgs(challengeeId, 'challenge', user.id,
-        format, conditions).calledOnce.should.be.true
+      otherSpy = @sandbox.spy(other, 'send')
+      otherSpy.withArgs('challenge', user.name, format, conditions)
+
+      server.registerChallenge(user, other.name, format, team, conditions)
+
+      otherSpy.withArgs('challenge', user.name, format, conditions)
+        .calledOnce.should.be.true
 
     it "returns an error if the server is locked down", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       format = 'xy1000'
       team = generateTeam()
       conditions = [ Conditions.PBV_1000 ]
 
-      server.join(user)
-      server.join(other)
       mock = @sandbox.mock(user).expects('error').once()
       server.lockdown()
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
       mock.verify()
 
   describe "#cancelChallenge", ->
     it "sends a 'cancelChallenge' to both the challengee and challenger", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      spy = @sandbox.spy(server.users, 'send')
-      spy.withArgs(challengeeId, 'cancelChallenge', user.id)
-      spy.withArgs(user.id, 'cancelChallenge', challengeeId)
-      server.registerChallenge(user, challengeeId, format, team, conditions)
-      server.cancelChallenge(user, challengeeId)
-      spy.withArgs(challengeeId, 'cancelChallenge', user.id)
-        .calledOnce.should.be.true
-      spy.withArgs(user.id, 'cancelChallenge', challengeeId)
-        .calledOnce.should.be.true
+      userSpy = @sandbox.spy(user, 'send')
+      userSpy.withArgs('cancelChallenge', other.name)
+      otherSpy = @sandbox.spy(other, 'send')
+      otherSpy.withArgs('cancelChallenge', user.name)
+
+      server.registerChallenge(user, other.name, format, team, conditions)
+      server.cancelChallenge(user, other.name)
+
+      userSpy.withArgs('cancelChallenge', other.name).calledOnce.should.be.true
+      otherSpy.withArgs('cancelChallenge', user.name).calledOnce.should.be.true
 
     it "removes the challenge from the internal hash", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
-      should.exist server.challenges[user.id][other.id]
-      server.cancelChallenge(user, other.id)
-      should.not.exist server.challenges[user.id][other.id]
+      server.registerChallenge(user, other.name, format, team, conditions)
+      should.exist server.challenges[user.name][other.name]
+      server.cancelChallenge(user, other.name)
+      should.not.exist server.challenges[user.name][other.name]
 
   describe "#rejectChallenge", ->
     it "sends a 'rejectChallenge' to the challengee and challenger", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
 
-      spy = @sandbox.spy(server.users, 'send')
-      spy.withArgs(challengeeId, 'rejectChallenge', user.id)
-      spy.withArgs(user.id, 'rejectChallenge', challengeeId)
-      server.rejectChallenge(other, user.id)
-      spy.withArgs(challengeeId, 'rejectChallenge', user.id)
-        .calledOnce.should.be.true
-      spy.withArgs(user.id, 'rejectChallenge', challengeeId)
-        .calledOnce.should.be.true
+      userSpy = @sandbox.spy(user, 'send')
+      userSpy.withArgs('rejectChallenge', other.name)
+      otherSpy = @sandbox.spy(other, 'send')
+      otherSpy.withArgs('rejectChallenge', user.name)
+
+      server.rejectChallenge(other, user.name)
+
+      userSpy.withArgs('rejectChallenge', other.name).calledOnce.should.be.true
+      otherSpy.withArgs('rejectChallenge', user.name).calledOnce.should.be.true
 
     it "removes the challenge from the internal hash", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
-      should.exist server.challenges[user.id][other.id]
-      server.rejectChallenge(other, user.id)
-      should.not.exist server.challenges[user.id][other.id]
+      server.registerChallenge(user, other.name, format, team, conditions)
+      should.exist server.challenges[user.name][other.name]
+      server.rejectChallenge(other, user.name)
+      should.not.exist server.challenges[user.name][other.name]
 
     it "returns an error if no such challenge exists", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
+      server.registerChallenge(user, other.name, format, team, conditions)
       mock = @sandbox.mock(other).expects('error').once()
       server.rejectChallenge(other, "bogus dude")
       mock.verify()
@@ -342,10 +305,8 @@ describe 'BattleServer', ->
   describe "#acceptChallenge", ->
     initServer = ->
       @server = new BattleServer()
-      @user = new User("Batman")
-      @other = new User("Robin")
-      @server.join(@user)
-      @server.join(@other)
+      @user = @server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      @other = @server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
 
     it "creates a battle with the teams given by both players", ->
       initServer.call(this)
@@ -353,9 +314,9 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
       
-      @server.registerChallenge(@user, @other.id, format, team, conditions)
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
       mock = @sandbox.mock(@server).expects('createBattle').once()
-      @server.acceptChallenge(@other, @user.id, team)
+      @server.acceptChallenge(@other, @user.name, team)
       mock.verify()
 
     it "returns an error to a player if their team is invalid", ->
@@ -364,9 +325,9 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions)
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
-      @server.acceptChallenge(@other, @user.id, [])
+      @server.acceptChallenge(@other, @user.name, [])
       mock.verify()
 
     it "returns an error to a player if their team violates clauses", ->
@@ -377,9 +338,9 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = [ Conditions.PBV_1000 ]
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions)
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
-      @server.acceptChallenge(@other, @user.id, acceptTeam)
+      @server.acceptChallenge(@other, @user.name, acceptTeam)
       mock.verify()
 
     it "removes the challenge from the internal hash", ->
@@ -388,26 +349,27 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions)
-      should.exist @server.challenges[@user.id][@other.id]
-      @server.acceptChallenge(@other, @user.id, team)
-      should.not.exist @server.challenges[@user.id][@other.id]
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
+      should.exist @server.challenges[@user.name][@other.name]
+      @server.acceptChallenge(@other, @user.name, team)
+      should.not.exist @server.challenges[@user.name][@other.name]
 
     it "sends a 'challengeSuccess' event to both players", ->
       initServer.call(this)
-      challengeeId = @other.id
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, challengeeId, format, team, conditions)
+      userSpy = @sandbox.spy(@user, 'send')
+      userSpy.withArgs('challengeSuccess', @other.name)
+      otherSpy = @sandbox.spy(@other, 'send')
+      otherSpy.withArgs('challengeSuccess', @user.name)
 
-      spy = @sandbox.spy(@server.users, 'send')
-      spy.withArgs(@user.id, 'challengeSuccess', challengeeId)
-      spy.withArgs(@challengeeId, 'challengeSuccess', @user.id)
-      @server.acceptChallenge(@other, @user.id, team)
-      spy.withArgs(@user.id, 'challengeSuccess', challengeeId).calledOnce.should.be.true
-      spy.withArgs(challengeeId, 'challengeSuccess', @user.id).calledOnce.should.be.true
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
+      @server.acceptChallenge(@other, @user.name, team)
+
+      userSpy.withArgs('challengeSuccess', @other.name).calledOnce.should.be.true
+      otherSpy.withArgs('challengeSuccess', @user.name).calledOnce.should.be.true
 
     it "returns an error if no such challenge exists", ->
       initServer.call(this)
@@ -415,7 +377,7 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions)
+      @server.registerChallenge(@user, @other.name, format, team, conditions)
       mock = @sandbox.mock(@other).expects('error').once()
       @server.acceptChallenge(@other, "bogus dude", team)
       mock.verify()
@@ -426,8 +388,8 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions, "Bruce Wayne")
-      battleId = @server.acceptChallenge(@other, @user.id, team, "Jason Todd")
+      @server.registerChallenge(@user, @other.name, format, team, conditions, "Bruce Wayne")
+      battleId = @server.acceptChallenge(@other, @user.name, team, "Jason Todd")
       battle = @server.findBattle(battleId)
       battle.battle.playerNames.should.eql ["Bruce Wayne", "Jason Todd"]
 
@@ -437,67 +399,57 @@ describe 'BattleServer', ->
       format = 'xy1000'
       conditions = []
 
-      @server.registerChallenge(@user, @other.id, format, team, conditions, "Bruce Wayne")
-      battleId = @server.acceptChallenge(@other, @user.id, team, "Jason Todd")
+      @server.registerChallenge(@user, @other.name, format, team, conditions, "Bruce Wayne")
+      battleId = @server.acceptChallenge(@other, @user.name, team, "Jason Todd")
       battle = @server.findBattle(battleId)
 
-      battle.battle.getPlayer("Batman").ratingKey.should.equal alts.uniqueId(@user.id, "Bruce Wayne")
-      battle.battle.getPlayer("Robin").ratingKey.should.equal alts.uniqueId(@other.id, "Jason Todd")
+      battle.battle.getPlayer("Batman").ratingKey.should.equal alts.uniqueId(@user.name, "Bruce Wayne")
+      battle.battle.getPlayer("Robin").ratingKey.should.equal alts.uniqueId(@other.name, "Jason Todd")
 
   describe "#leave", ->
     it "removes challenges by that player", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", spark = @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(user, other.id, format, team, conditions)
-      should.exist server.challenges[user.id]
-      should.exist server.challenges[user.id][other.id]
-      server.leave(user)
-      should.not.exist server.challenges[user.id]
+      server.registerChallenge(user, other.name, format, team, conditions)
+      should.exist server.challenges[user.name]
+      should.exist server.challenges[user.name][other.name]
+      server.leave(spark)
+      should.not.exist server.challenges[user.name]
 
     it "removes challenges to that player", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", spark = @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(other, user.id, format, team, conditions)
-      should.exist server.challenges[other.id]
-      should.exist server.challenges[other.id][user.id]
-      server.leave(user)
-      should.exist server.challenges[other.id]
-      should.not.exist server.challenges[other.id][user.id]
+      server.registerChallenge(other, user.name, format, team, conditions)
+      should.exist server.challenges[other.name]
+      should.exist server.challenges[other.name][user.name]
+      server.leave(spark)
+      should.exist server.challenges[other.name]
+      should.not.exist server.challenges[other.name][user.name]
 
   describe "#lockdown", ->
     it "cancels all challenges", ->
       server = new BattleServer()
-      user = new User("Batman")
-      other = new User("Robin")
-      challengeeId = other.id
-      challengerId = user.id
+      user = server.findOrCreateUser(id: 1, name: "Batman", @stubSpark())
+      other = server.findOrCreateUser(id: 2, name: "Robin", @stubSpark())
       team = generateTeam()
       format = 'xy1000'
       conditions = []
 
-      server.join(user)
-      server.join(other)
-      server.registerChallenge(other, user.id, format, team, conditions)
-      should.exist server.challenges[challengeeId]
-      should.exist server.challenges[challengeeId][challengerId]
+      server.registerChallenge(other, user.name, format, team, conditions)
+      should.exist server.challenges[other.name]
+      should.exist server.challenges[other.name][user.name]
       server.lockdown()
-      should.not.exist server.challenges[challengeeId]
+      should.not.exist server.challenges[other.name]
 
   describe "#validateTeam", ->
     it "returns non-empty if given anything that's not an array", ->
@@ -720,7 +672,7 @@ describe 'BattleServer', ->
     it "creates a battle per pair", (done) ->
       server = new BattleServer()
       for i in [1..4]
-        server.join(new User("user#{i}"))  
+        server.findOrCreateUser(id: i, name: "user#{i}", @stubSpark())
         server.queuePlayer("user#{i}", generateTeam())
       server.beginBattles (err, battleIds) ->
         battleIds.length.should.equal(2)
@@ -730,6 +682,8 @@ describe 'BattleServer', ->
     it "are recorded to be playing in which battles", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
+      for name, i in [ user1, user2, user3 ]
+        server.findOrCreateUser(id: i, name: name, @stubSpark())
       server.queuePlayer(user1, generateTeam()).should.be.empty
       server.queuePlayer(user2, generateTeam()).should.be.empty
       server.queuePlayer(user3, generateTeam()).should.be.empty
@@ -742,6 +696,8 @@ describe 'BattleServer', ->
     it "no longer records battles once they end", (done) ->
       server = new BattleServer()
       [ user1, user2, user3 ] = [ "a", "b", "c" ]
+      for name, i in [ user1, user2, user3 ]
+        server.findOrCreateUser(id: i, name: name, @stubSpark())
       server.queuePlayer(user1, generateTeam()).should.be.empty
       server.queuePlayer(user2, generateTeam()).should.be.empty
       server.queuePlayer(user3, generateTeam()).should.be.empty
@@ -758,6 +714,8 @@ describe 'BattleServer', ->
     beforeEach (done) ->
       @server = new BattleServer()
       [ @user1, @user2, @user3 ] = [ "a", "b", "c" ]
+      for name, i in [ @user1, @user2, @user3 ]
+        @server.findOrCreateUser(id: i, name: name, @stubSpark())
       @server.queuePlayer(@user1, generateTeam()).should.be.empty
       @server.queuePlayer(@user2, generateTeam()).should.be.empty
       @server.queuePlayer(@user3, generateTeam()).should.be.empty

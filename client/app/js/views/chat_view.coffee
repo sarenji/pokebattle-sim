@@ -60,7 +60,7 @@ class @ChatView extends Backbone.View
     if !PokeBattle.commands.execute(message)
       args = _.clone(@chatArgs)
       args.push(message)
-      PokeBattle.socket.send(@chatEvent, args...)
+      PokeBattle.primus.send(@chatEvent, args...)
     @chatHistory.push(message)
     delete @chatHistoryIndex
     $this.val('')

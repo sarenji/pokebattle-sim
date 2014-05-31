@@ -1,82 +1,33 @@
-# A wrapper around the sockjs socket to support a higher level of abstraction
-# Todo: Move this somewhere else
-class @Socket
-  constructor: (socket) ->
-    @closed = true
-    @callbacks = {}
-    @reconnect(socket)
-    @connectionAttempts = 0
+PokeBattle.primus = Primus.connect()
 
-  reconnect: (socket) =>
-    return  if !@closed
-    @closed = false
-    @socket = socket
-    @socket.onopen = =>
-      @handleEvent('connect')
-      @connectionAttempts = 0
+PokeBattle.primus.on 'listChatroom', (users) ->
+  PokeBattle.userList.reset(users)
 
-    @socket.onmessage = (data) =>
-      console.log "Received data: #{data}"
+PokeBattle.primus.on 'updateChat', (username, data) ->
+  PokeBattle.chatView.userMessage(username, data)
 
-      # todo: error handling. If there's a syntax error here, its because of Json.parse
-      data = JSON.parse(data.data)
-      @handleEvent(data.messageType, data.data)
+PokeBattle.primus.on 'updateBattleChat', (battleId, username, data) ->
+  chatView = PokeBattle.battles.get(battleId).view.chatView
+  chatView.userMessage(username, data)
 
-    @socket.onclose = =>
-      @handleEvent('close')
-      @closed = true
+PokeBattle.primus.on 'rawBattleMessage', (battleId, message) ->
+  chatView = PokeBattle.battles.get(battleId).view.chatView
+  chatView.updateChat(message)
 
-  handleEvent: (type, data) =>
-    data ?= []
+PokeBattle.primus.on 'rawMessage', (message) ->
+  PokeBattle.chatView.updateChat(message)
 
-    for callback in (@callbacks[type] || [])
-      callback.apply(this, [this].concat(data))
+PokeBattle.primus.on 'announce', (klass, message) ->
+  PokeBattle.chatView.announce(klass, message)
 
-    PokeBattle.events.trigger(type, data...)
+PokeBattle.primus.on 'joinChatroom', (userJSON) ->
+  PokeBattle.userList.add(userJSON)
 
-  on: (type, callback) ->
-    @callbacks[type] ?= []
-    @callbacks[type].push(callback)
+PokeBattle.primus.on 'leaveChatroom', (userJSON) ->
+  PokeBattle.userList.remove(userJSON)
 
-  addEvents: (events) ->
-    @on(type, callback) for type, callback of events
-
-  send: (type, data...) ->
-    @socket.send(JSON.stringify(messageType: type, data: data))
-
-PokeBattle.ready = false
-PokeBattle.socket = new Socket(new SockJS('/socket'))
-PokeBattle.socket.addEvents
-  'connect': (socket) ->
-
-  'listChatroom': (socket, users) ->
-    PokeBattle.userList.reset(users)
-
-  'updateChat': (socket, username, data) ->
-    PokeBattle.chatView.userMessage(username, data)
-
-  'updateBattleChat': (socket, battleId, username, data) ->
-    chatView = PokeBattle.battles.get(battleId).view.chatView
-    chatView.userMessage(username, data)
-
-  'rawBattleMessage': (socket, battleId, message) ->
-    chatView = PokeBattle.battles.get(battleId).view.chatView
-    chatView.updateChat(message)
-
-  'rawMessage': (socket, message) ->
-    PokeBattle.chatView.updateChat(message)
-
-  'announce': (socket, klass, message) ->
-    PokeBattle.chatView.announce(klass, message)
-
-  'joinChatroom': (socket, userJSON) ->
-    PokeBattle.userList.add(userJSON)
-
-  'leaveChatroom': (socket, userJSON) ->
-    PokeBattle.userList.remove(userJSON)
-
-  'topic': (socket, topic) ->
-    PokeBattle.chatView.setTopic(topic)
+PokeBattle.primus.on 'topic', (topic) ->
+  PokeBattle.chatView.setTopic(topic)
 
 PokeBattle.userList = new UserList()
 PokeBattle.battles = new BattleCollection([])

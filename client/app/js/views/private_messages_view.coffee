@@ -207,7 +207,7 @@ class @PrivateMessagesView extends Backbone.View
         message = @messageFromPopup(e.currentTarget)
         text = $input.val()
         return  if text.length == 0
-        PokeBattle.socket.send('privateMessage', message.id, text)
+        PokeBattle.primus.send('privateMessage', message.id, text)
         $input.val('')
 
   keyUpEvent: (e) =>

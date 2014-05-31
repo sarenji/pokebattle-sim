@@ -1,4 +1,4 @@
-PokeBattle.events.on 'version', (version) ->
+PokeBattle.primus.on 'version', (version) ->
   if version != PokeBattle.CLIENT_VERSION
     $modal = PokeBattle.modal 'modals/new_client', ($modal) ->
       $modal.on 'click', '.button_refresh', ->

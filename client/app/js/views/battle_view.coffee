@@ -1258,4 +1258,4 @@ class @BattleView extends Backbone.View
     super()
 
 pokemonHtml = (pokemon) ->
-  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('species')}</a>"
+  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"

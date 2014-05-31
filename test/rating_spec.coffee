@@ -12,7 +12,7 @@ describe "Ratings", ->
         should.not.exist(err)
         should.exist(result)
         result.should.be.instanceOf(Object)
-        result.should.include(rating: 0)
+        result.should.containEql(rating: 0)
         done()
 
     it "returns information for an existing player", (done) ->

@@ -1,17 +1,28 @@
 {_} = require 'underscore'
 
 class @User
-  constructor: (args...) ->
-    if args.length == 1
-      [ @id ] = args
-      @name = @id
-    else if args.length == 2
-      [ @socket, @connections ] = args
-    else if args.length == 3
-      [ @id, @socket, @connections ] = args
-      @name = @id
-    else if args.length == 4
-      [ @id, @socket, @connections, @name ] = args
+  constructor: (attributes) ->
+    if _.isObject(attributes)
+      {@id, @name, @authority} = attributes
+    else
+      @id = attributes
+    @name ?= @id
+    @sparks = []
+
+  addSpark: (spark) ->
+    unless @hasSpark(spark)
+      @sparks.push(spark)
+      spark.user = this
+
+  removeSpark: (spark) ->
+    index = @sparks.indexOf(spark)
+    @sparks.splice(index, 1)  if index != -1
+
+  hasSpark: (spark) ->
+    spark in @sparks
+
+  hasSparks: ->
+    @sparks.length >= 1
 
   toJSON: ->
     json = {
@@ -20,14 +31,11 @@ class @User
     json['authority'] = @authority  if @authority
     json
 
-  send: (type, data...) ->
-    @socket?.write(JSON.stringify(messageType: type, data: data))
-
-  broadcast: (args...) ->
-    user.send(args...)  for user in @connections.users when this != user
+  send: ->
+    spark.send.apply(spark, arguments)  for spark in @sparks
 
   error: (args...) ->
-    @send("error", args...)
+    @send("errorMessage", args...)
 
   message: (msg) ->
     @send("rawMessage", msg)
@@ -36,7 +44,7 @@ class @User
     @send("announce", klass, msg)
 
   close: ->
-    @socket?.close()
+    spark.close()  for spark in @sparks
 
   # Returns a new user object where the name has been masked (useful for alts)
   maskName: (name) ->
