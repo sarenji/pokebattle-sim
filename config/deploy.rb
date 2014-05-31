@@ -27,15 +27,13 @@ role :app, "sim.pokebattle.com"
 namespace :sim do
   desc "sets up necessary files"
   task :setup do
-    warn 'Copy aws_config.json and newrelic.js to the server\'s shared folder.'
-    warn 'An example file is located at aws_config.json.example and'
-    warn 'newrelic.js.example'
+    warn 'Copy aws_config.json to the server\'s shared folder.'
+    warn 'An example file is located at aws_config.json.example'
   end
 
   desc "symlinks all necessary files"
   task :symlink do
     run "ln -fs #{shared_path}/aws_config.json #{release_path}/aws_config.json"
-    run "ln -fs #{shared_path}/newrelic.js #{release_path}/newrelic.js"
   end
 
   desc "compiles and deploys all assets"

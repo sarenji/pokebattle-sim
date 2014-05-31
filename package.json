@@ -34,8 +34,7 @@
     "elo-rank": "~0.2.2",
     "node-schedule": "~0.1.13",
     "grunt-cli": "~0.1.13",
-    "grunt-contrib-uglify": "~0.4.0",
-    "newrelic": "~1.7.0"
+    "grunt-contrib-uglify": "~0.4.0"
   },
   "devDependencies": {
     "should": "~1.2.x",
