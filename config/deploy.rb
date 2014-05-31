@@ -27,13 +27,15 @@ role :app, "sim.pokebattle.com"
 namespace :sim do
   desc "sets up necessary files"
   task :setup do
-    warn 'Copy aws_config.json to the server\'s shared folder.'
-    warn 'An example file is located at aws_config.json.example'
+    warn 'Copy aws_config.json and nodetime.json to the server\'s shared'
+    warn 'folder. An example file is located at aws_config.json.example and'
+    warn 'nodetime.json.example'
   end
 
   desc "symlinks all necessary files"
   task :symlink do
     run "ln -fs #{shared_path}/aws_config.json #{release_path}/aws_config.json"
+    run "ln -fs #{shared_path}/nodetime.json #{release_path}/nodetime.json"
   end
 
   desc "compiles and deploys all assets"

@@ -34,7 +34,8 @@
     "elo-rank": "~0.2.2",
     "node-schedule": "~0.1.13",
     "grunt-cli": "~0.1.13",
-    "grunt-contrib-uglify": "~0.4.0"
+    "grunt-contrib-uglify": "~0.4.0",
+    "nodetime": "~0.8.15"
   },
   "devDependencies": {
     "should": "~1.2.x",
