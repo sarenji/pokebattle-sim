@@ -1508,49 +1508,22 @@
         }
       }
     },
-    "newrelic": {
-      "version": "1.7.0",
-      "from": "newrelic@",
-      "resolved": "https://registry.npmjs.org/newrelic/-/newrelic-1.7.0.tgz",
+    "nodetime": {
+      "version": "0.8.15",
+      "from": "nodetime@",
+      "resolved": "https://registry.npmjs.org/nodetime/-/nodetime-0.8.15.tgz",
       "dependencies": {
-        "bunyan": {
-          "version": "0.14.6",
-          "from": "bunyan@0.14.6",
-          "resolved": "https://registry.npmjs.org/bunyan/-/bunyan-0.14.6.tgz"
-        },
-        "continuation-local-storage": {
-          "version": "3.0.0",
-          "from": "continuation-local-storage@^3.0.0",
+        "nodetime-native": {
+          "version": "0.1.0",
+          "from": "nodetime-native@0.1.0",
+          "resolved": "https://registry.npmjs.org/nodetime-native/-/nodetime-native-0.1.0.tgz",
           "dependencies": {
-            "emitter-listener": {
-              "version": "1.0.1",
-              "from": "emitter-listener@1.0.1",
-              "resolved": "https://registry.npmjs.org/emitter-listener/-/emitter-listener-1.0.1.tgz",
-              "dependencies": {
-                "shimmer": {
-                  "version": "1.0.0",
-                  "from": "shimmer@1.0.0",
-                  "resolved": "https://registry.npmjs.org/shimmer/-/shimmer-1.0.0.tgz"
-                }
-              }
-            },
-            "async-listener": {
-              "version": "0.4.5",
-              "from": "async-listener@0.4.5",
-              "resolved": "https://registry.npmjs.org/async-listener/-/async-listener-0.4.5.tgz",
-              "dependencies": {
-                "shimmer": {
-                  "version": "1.0.0",
-                  "from": "shimmer@1.0.0",
-                  "resolved": "https://registry.npmjs.org/shimmer/-/shimmer-1.0.0.tgz"
-                }
-              }
+            "bindings": {
+              "version": "1.2.0",
+              "from": "bindings@*",
+              "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.2.0.tgz"
             }
           }
-        },
-        "yakaa": {
-          "version": "1.0.0",
-          "from": "yakaa@^1.0.0"
         }
       }
     }
