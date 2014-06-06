@@ -1,6 +1,7 @@
 {_} = require 'underscore'
 sockjs = require 'sockjs'
 {User} = require './user'
+logger = require './logger'
 
 # A wrapper for sockjs which manages multiple connections with a higher level of abstraction.
 # Todo: Don't use array parameters and use object parameters instead
@@ -53,6 +54,7 @@ class @ConnectionServer
     @callbacks[type].push(callback)
 
   trigger: (user, eventName, args...) ->
+    logger.log('ConnectionServer#trigger', eventName: eventName, args: args)
     for callback in (@callbacks[eventName] || [])
       callback.apply(user, [user, args...])
 
