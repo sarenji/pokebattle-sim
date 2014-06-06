@@ -9,6 +9,7 @@
 {CannedText} = require('../../shared/canned_text')
 Query = require './queries'
 {EventEmitter} = require 'events'
+logger = require '../logger'
 
 # Represents a single ongoing battle
 class @Battle extends EventEmitter
@@ -120,6 +121,13 @@ class @Battle extends EventEmitter
     @createdAt = Date.now()
 
     @resetExpiration()
+
+    @logger = logger.withContext(battleId: @id)
+
+  # Creates a new log messages with context
+  debug: (message, context) ->
+    # TODO: Add more context. Elements such as the turn.
+    @logger.log(message, context)
 
   begin: ->
     @tell(Protocol.INITIALIZE, @getTeams().map((t) -> t.toJSON(hidden: true)))
@@ -721,6 +729,8 @@ class @Battle extends EventEmitter
     pokemon.faint()  for pokemon in @getActiveFaintedPokemon()
 
   executeMove: (move, pokemon, targets) ->
+    @debug('Battle#executeMove', move: move.name, attacker: pokemon.species)
+
     @currentPokemon = pokemon
     # TODO: Send move id instead
     pokemon.tell(Protocol.MAKE_MOVE, move.name)
