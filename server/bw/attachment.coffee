@@ -1186,7 +1186,7 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.setBoosts(target.stages)
     @pokemon.resetAllPP(5)
     # Send updated information to the client
-    @pokemon.changeSprite(target.name, target.forme)
+    @pokemon.changeSprite(target.species, target.forme)
     @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
   unattach: ->
@@ -1201,7 +1201,7 @@ class @Attachment.Transform extends @VolatileAttachment
     @pokemon.baseStats = @baseStats
     @pokemon.evs       = @evs
     @pokemon.setBoosts(@stages)
-    @pokemon.changeSprite(@pokemon.name, @pokemon.forme)
+    @pokemon.changeSprite(@pokemon.species, @pokemon.forme)
     @pokemon.tellPlayer(Protocol.MOVESET_UPDATE, @pokemon.movesetJSON())
 
 class @Attachment.Fling extends @VolatileAttachment
