@@ -85,7 +85,7 @@ desc 'Clears the chat.'
 makeCommand "clear", ->
   PokeBattle.chatView.clear()
 
-desc 'Displays how much PBV a Pokemon is worth, or displays all Pokemon at or under a particular PBV. Usage: /pbv pkmn1, pkmn2, OR /pbv number'
+desc 'Displays a Pokemon\'s PokeBattle value, or displays all Pokemon at or under a particular PBV. Usage: /pbv pkmn1, pkmn2, OR /pbv number'
 makeCommand "pbv", (pokemon...) ->
   pbv = Number(pokemon[0])
   if !isNaN(pbv)
@@ -170,15 +170,20 @@ dataPokemon = (pokemon) ->
   types = _(types).map (t) ->
     linkToDex("types/#{slugify(t)}",
       "<img src='#{window.TypeSprite(t)}' alt='#{t}'/>")
+  statNames = [ 'HP', 'Attack', 'Defense', 'Sp.Attack', 'Sp.Defense', 'Speed']
   stats = [ stats.hp, stats.attack, stats.defense,
             stats.specialAttack, stats.specialDefense, stats.speed ]
+  statsText = _.map(_.zip(statNames, stats), (a) -> a.join(': ')).join(' / ')
 
   # Build data
-  message = """<b>#{pokemonIcon(speciesName, formeName, "left")}
-    #{formatName(speciesName, formeName)}:</b> #{types.join('')} |
-    #{abilities}<br />#{stats.join(' / ')} |
-    #{_(stats).reduce((a, b) -> a + b)} BST | PBV: #{pokeBattleValue}
+  message = """#{pokemonIcon(speciesName, formeName, "left")}
+    <p class="ml3">
+    <b>#{formatName(speciesName, formeName)}:</b> #{types.join('')} |
+    #{abilities}<br />#{statsText} |
+    #{_(stats).reduce((a, b) -> a + b)} <abbr title="Base Stat Total">BST</abbr>
+    | <abbr title="PokeBattle Value">PBV</abbr>: #{pokeBattleValue}
     #{linkToDex("pokemon/#{speciesSlug}/#{formeSlug}", "See dex entry &raquo;")}
+    </p>
     """
   PokeBattle.chatView.announce('success', message)
 
