@@ -3452,6 +3452,38 @@ describe "BW Moves:", ->
         @battle.beginTurn()
         @p2.isSwitchBlocked().should.be.true
 
+      it "wears off if the user faints", ->
+        shared.create.call(this)
+        @p1.currentHP = 1
+
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @p2.isSwitchBlocked().should.be.true
+        @p2.has(Attachment.MeanLook).should.be.true
+
+        @battle.recordMove(@id2, @battle.getMove("Tackle"))
+
+        @battle.continueTurn()
+        @battle.endTurn()
+        @battle.beginTurn()
+
+        @p2.isSwitchBlocked().should.be.false
+        @p2.has(Attachment.MeanLook).should.be.false
+
+      it "wears off if the user switches", ->
+        shared.create.call(this, team1: [Factory("Blissey"), Factory("Magikarp")])
+
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.endTurn()
+
+        @controller.makeSwitch(@id1, 1)
+        @controller.makeMove(@id2, "Splash")
+
+        @p2.isSwitchBlocked().should.be.false
+        @p2.has(Attachment.MeanLook).should.be.false
+
   testMeanLookMove("Block")
   testMeanLookMove("Mean Look")
   testMeanLookMove("Spider Web")

@@ -317,7 +317,7 @@ makeStompMove = (name) ->
 makeMeanLookMove = (name) ->
   extendMove name, ->
     @afterSuccessfulHit = (battle, user, target) ->
-      if target.attach(Attachment.MeanLook)
+      if target.attach(Attachment.MeanLook, user: user)
         battle.message "#{target.name} can no longer escape!"
       else
         @fail(battle)
@@ -441,7 +441,6 @@ makeTrappingMove = (name) ->
           7
 
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
-        user.attach(Attachment.TrapLeash, {target})
 
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 

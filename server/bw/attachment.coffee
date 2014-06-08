@@ -425,6 +425,7 @@ class @Attachment.Trap extends @VolatileAttachment
 
   initialize: (attributes) ->
     {@moveName, @user, @turns} = attributes
+    @user.attach(Attachment.TrapLeash, target: @pokemon)
 
   beginTurn: ->
     @pokemon.blockSwitch()
@@ -612,8 +613,26 @@ class @Attachment.Minimize extends @VolatileAttachment
 class @Attachment.MeanLook extends @VolatileAttachment
   name: "MeanLookAttachment"
 
+  initialize: (attributes) ->
+    {@user} = attributes
+    @user.attach(Attachment.MeanLookLeash, target: @pokemon)
+
   beginTurn: ->
     @pokemon.blockSwitch()
+
+  unattach: ->
+    @user.unattach(Attachment.MeanLookLeash)
+    delete @user
+
+class @Attachment.MeanLookLeash extends @VolatileAttachment
+  name: "MeanLookAttachment"
+
+  initialize: (attributes) ->
+    {@target} = attributes
+
+  unattach: ->
+    @target.unattach(Attachment.MeanLook)
+    delete @target
 
 class @Attachment.Recharge extends @VolatileAttachment
   name: "RechargeAttachment"
