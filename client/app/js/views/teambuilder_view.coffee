@@ -60,10 +60,6 @@ class @TeambuilderView extends Backbone.View
     return  if team.attachedTeambuildEvents
 
     @listenTo(team, 'add:pokemon', @renderPokemon)
-    @listenTo(team, 'change:pokemon[*].name', (pokemon) => 
-      name = pokemon.get('name') || pokemon.get('species')
-      @$(".pokemon_list li[data-pokemon-cid=#{pokemon.cid}] .name").text(name)
-    )
 
     # Todo: Make this perform better
     @listenTo(team, 'change:pokemon[*].species change:pokemon[*].forme', (pokemon) =>

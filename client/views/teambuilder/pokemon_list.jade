@@ -6,7 +6,7 @@ each pokemon, i in pokemonList
       if pokemon.isNull
         em.name Empty
       else
-        .name= pokemon.get("name") || pokemon.get("species")
+        .name= pokemon.get("species")
         .pokemon-pbv
           | PBV: 
           span.pbv-value= pokemon.getPBV()
