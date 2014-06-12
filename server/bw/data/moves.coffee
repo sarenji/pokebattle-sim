@@ -505,9 +505,10 @@ makeRandomSwitchMove "Circle Throw"
 makeTrappingMove "Clamp"
 
 extendMove 'Clear Smog', ->
-  @afterSuccessfulHit = (battle, user, target) ->
-    target.resetBoosts()
-    battle.cannedText('RESET_STATS', target)
+  @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+    if isDirect
+      target.resetBoosts()
+      battle.cannedText('RESET_STATS', target)
 
 extendWithBoost 'Close Combat', 'self', defense: -1, specialDefense: -1
 

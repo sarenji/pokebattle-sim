@@ -3561,6 +3561,19 @@ describe "BW Moves:", ->
       }
       @p2.stages.should.eql neutralBoosts
 
+    it "does not reset stats if it hits a substitute", ->
+      shared.create.call(this)
+      @p2.attach(Attachment.Substitute, hp: 1)
+      # Create artificial boosts.
+      @p2.stages.defense = -3
+      @p2.stages.specialAttack = 4
+      @battle.performMove(@p1, @battle.getMove("Clear Smog"))
+      neutralBoosts = {
+        attack: 0, defense: 0, specialAttack: 0, specialDefense: 0,
+        speed: 0, evasion: 0, accuracy: 0
+      }
+      @p2.stages.should.not.eql neutralBoosts
+
   testMomentumMove = (moveName) ->
     describe moveName, ->
       it "prevents the user from switching", ->
