@@ -8,6 +8,12 @@ delete @Status.Sleep::switchOut
 @Status.Paralyze.worksOn = (battle, pokemon) ->
   !pokemon.hasType("Electric")
 
+# In XY, Scald and Steam Eruption thaw the target
+@Status.Freeze::afterBeingHit = (move, user, target) ->
+  if !move.isNonDamaging() && move.type == 'Fire' ||
+      move.name in ["Scald", "Steam Eruption"]
+    @pokemon.cureStatus()
+
 # In XY, Protect-like moves have a chance of success corresponding to the
 # power of 3, instead of the power of 2 in previous generations.
 @Attachment.ProtectCounter::successMultiplier = 3
