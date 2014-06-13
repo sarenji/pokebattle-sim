@@ -188,7 +188,7 @@ makeRedirectAndBoostAbility = (name, type) ->
     # TODO: This should be implemented as isImmune instead.
     # TODO: Type-immunities should come before ability immunities.
     this::shouldBlockExecution = (move, user) ->
-      return  if move.getType(@battle, user, @pokemon) != type
+      return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
       @pokemon.boost(specialAttack: 1)  unless @pokemon.isImmune(type)
       return true
@@ -199,7 +199,7 @@ makeRedirectAndBoostAbility("Storm Drain", "Water")
 makeTypeImmuneAbility = (name, type, stat) ->
   makeAbility name, ->
     this::shouldBlockExecution = (move, user) ->
-      return  if move.getType(@battle, user, @pokemon) != type
+      return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
       @battle.message "#{@pokemon.name}'s #{name} increased its #{stat}!"
       hash = {}
@@ -371,7 +371,7 @@ makeAbility 'Dry Skin', ->
       @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
 
   this::shouldBlockExecution = (move, user) ->
-    return  if move.getType(@battle, user, @pokemon) != 'Water'
+    return  if move.getType(@battle, user, @pokemon) != 'Water' || user == @pokemon
     @pokemon.activateAbility()
     @pokemon.heal((@pokemon.stat('hp') >> 2))
     @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
@@ -401,7 +401,7 @@ makeAbility 'Effect Spore', ->
 
 makeAbility 'Flash Fire', ->
   this::shouldBlockExecution = (move, user) ->
-    return  if move.getType(@battle, user, @pokemon) != 'Fire'
+    return  if move.getType(@battle, user, @pokemon) != 'Fire' || user == @pokemon
     @pokemon.activateAbility()
     @battle.message "The power of #{@pokemon.name}'s Fire-type moves rose!"
     @pokemon.attach(Attachment.FlashFire)
@@ -724,7 +724,7 @@ makeAbility 'Rain Dish', ->
 makeAbility 'Rattled', ->
   this::afterBeingHit = (move, user) ->
     type = move.getType(@battle, user, @pokemon)
-    if type in [ "Bug", "Ghost", "Dark" ]
+    if type in [ "Bug", "Ghost", "Dark" ] && !move.isNonDamaging()
       @pokemon.activateAbility()
       @pokemon.boost(speed: 1)
 
@@ -910,6 +910,7 @@ makeAbility 'Technician', ->
 
 makeAbility 'Telepathy', ->
   this::shouldBlockExecution = (move, user) ->
+    return  if move.isNonDamaging() || user == @pokemon
     return  if user not in @team.pokemon
     @battle.message "#{@pokemon.name} avoids attacks by its ally Pokemon!"
     return true
@@ -981,7 +982,7 @@ makeAbility 'Weak Armor', ->
 makeAbility 'Wonder Guard', ->
   this::shouldBlockExecution = (move, user) ->
     return  if move == @battle.getMove("Struggle")
-    return  if move.isNonDamaging()
+    return  if move.isNonDamaging() || user == @pokemon
     return  if move.typeEffectiveness(@battle, user, @pokemon) > 1
     @pokemon.activateAbility()
     return true

@@ -525,6 +525,12 @@ describe "BW Abilities:", ->
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p1.currentHP.should.be.lessThan(1 + (@p1.stat('hp') >> 2))
 
+    it "does not get healed by self-targeting water moves", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
+      @p1.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("Aqua Ring"))
+      @p1.currentHP.should.equal(1)
+
     it "gets healed 1/8 HP end of turn in Rain", ->
       shared.create.call(this, team1: [Factory("Magikarp", ability: "Dry Skin")])
       @p1.currentHP = 1
@@ -1255,6 +1261,14 @@ describe "BW Abilities:", ->
         @battle.performMove(@p2, typedMove)
         @p1.stages.should.include(specialAttack: 1)
 
+      it "does not boost special attack if the user is the target", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: name)]
+        typedMove = _(@battle.MoveList).find (m) ->
+          m.target == 'user' && m.type == type
+        @battle.performMove(@p1, typedMove)
+        @p1.stages.should.include(specialAttack: 0)
+
       it "does not boost special attack on #{type}-type moves if immune", ->
         shared.create.call this,
           team1: [Factory("Magikarp", ability: name)]
@@ -1526,6 +1540,13 @@ describe "BW Abilities:", ->
         @battle.performMove(@p2, typedMove)
         @p1.stages[stat].should.equal(1)
 
+      it "does not increase #{stat} by 1 if the user is the target", ->
+        shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
+        typedMove = _(@battle.MoveList).find (m) ->
+          m.target == 'user' && m.type == type
+        @battle.performMove(@p1, typedMove)
+        @p1.stages[stat].should.equal(0)
+
       it "does nothing otherwise", ->
         shared.create.call(this, team1: [Factory("Magikarp", ability: name)])
         typedMove = _(@battle.MoveList).find (m) ->
@@ -1774,6 +1795,15 @@ describe "BW Abilities:", ->
           @p1.stages.speed.should.equal(0)
           @battle.performMove(@p2, typedMove)
           @p1.stages.speed.should.equal(1)
+
+      it "does not raise speed by 1 when hit by a non-damaging #{type} move", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: "Rattled")]
+        typedMove = _(@battle.MoveList).find (m) ->
+          m.isNonDamaging() && m.type == type
+        @p1.stages.speed.should.equal(0)
+        @battle.performMove(@p2, typedMove)
+        @p1.stages.speed.should.equal(0)
 
   describe "Reckless", ->
     it "gives a 1.2x boost to recoil moves", ->
