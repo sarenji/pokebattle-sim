@@ -275,7 +275,6 @@ class @Pokemon
   # TODO: really ugly copying of ability
   copyAbility: (ability) ->
     if @ability
-      @get(@ability).switchOut?()
       @unattach(@ability)
     @ability = ability
     @attach(@ability).switchIn?()  if @ability

@@ -74,6 +74,17 @@ describe "XY Battle:", ->
       should.exist(@p1.ability)
       @p1.ability.should.equal(Ability.ParentalBond)
 
+    it "does not activate a switchout ability while changing ability", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [ Factory("Gardevoir", ability: "Regenerator", item: "Gardevoirite") ]
+      @p1.currentHP = 1
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.continueTurn()
+      should.exist(@p1.ability)
+      @p1.ability.should.equal(Ability.Pixilate)
+      @p1.currentHP.should.equal 1
+
     it "retains the changed ability upon switching back in", ->
       shared.create.call this,
         gen: 'xy'
