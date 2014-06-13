@@ -1385,7 +1385,7 @@ class @StatusAttachment extends @BaseAttachment
     if !force
       return false  if pokemon.hasStatus()
       return false  unless @worksOn(battle, pokemon)
-      if source && this in [ Status.Toxic, Status.Burn, Status.Poison ] && pokemon.hasAbility("Synchronize")
+      if source && this in [ Status.Toxic, Status.Burn, Status.Poison, Status.Paralyze ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon
         source.attach(this)  # Do not attach source
         battle.message "#{pokemon.name} synchronized its status with #{source.name}!"

@@ -2338,8 +2338,8 @@ describe "BW Abilities:", ->
     it "afflicts the source of a status with the same status", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Synchronize")]
-      @p1.attach(Status.Burn, source: @p2)
-      @p2.has(Status.Burn).should.be.true
+      @p1.attach(Status.Paralyze, source: @p2)
+      @p2.has(Status.Paralyze).should.be.true
 
     it "doesn't attempt to afflict target if target is self", ->
       shared.create.call this,
