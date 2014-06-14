@@ -692,6 +692,10 @@ makeAbility 'Plus', ->
 makeAbility 'Poison Heal', ->
   # Poison damage neutralization is hardcoded in Attachment.Poison and Toxic.
   this::endTurn = ->
+    # Return early so that:
+    # 1. We don't trigger ability activation if the pokemon won't be healed.
+    # 2. Ability activation must happen before HP animation.
+    return  if @pokemon.currentHP == @pokemon.stat('hp')
     if @pokemon.has(Status.Poison) || @pokemon.has(Status.Toxic)
       @pokemon.activateAbility()
       amount = @pokemon.stat('hp') >> 3
