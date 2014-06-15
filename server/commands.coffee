@@ -156,7 +156,10 @@ makeModCommand "mute", (user, room, next, username, reason...) ->
     return next()
   [length, reason] = parseLengthAndReason(reason)
   length = 10 * 60  if !length? || length <= 0
-  length = Math.min(parseLength("2d"), length)  # max of two days
+  if user.authority >= auth.levels.ADMIN
+    length = Math.min(parseLength("2w"), length)  # max of two weeks
+  else
+    length = Math.min(parseLength("2d"), length)  # max of two days
   @mute(username, reason, length)
   message = "#{user.id} muted #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
@@ -200,7 +203,10 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
     return next()
   [length, reason] = parseLengthAndReason(reason)
   length = 60 * 60  if !length? || length <= 0
-  length = Math.min(parseLength("1d"), length)  # max of one day
+  if user.authority >= auth.levels.ADMIN
+    length = Math.min(parseLength("1w"), length)  # max of one week
+  else
+    length = Math.min(parseLength("1d"), length)  # max of one day
   @ban(username, reason, length)
   message = "#{user.id} banned #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
