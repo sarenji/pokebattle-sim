@@ -53,7 +53,7 @@ makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
 makeOpponentFieldMove 'Sticky Web', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if !team.attach(Attachment.StickyWeb)
-    @fail(battle)
+    @fail(battle, user)
 
 extendMove 'Topsy-Turvy', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -64,7 +64,7 @@ extendMove 'Topsy-Turvy', ->
       target.setBoosts(boosts)
       battle.message "#{target.name}'s stat changes were all reversed!"
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Toxic', ->
   @getAccuracy = (battle, user, target) ->
@@ -74,7 +74,7 @@ extendMove 'Toxic', ->
 extendMove 'Venom Drench', ->
   @use = (battle, user, target) ->
     if !target.has(Status.Poison)
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     target.boost(attack: -1, specialAttack: -1, speed: -1)

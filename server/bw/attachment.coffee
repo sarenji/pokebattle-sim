@@ -853,7 +853,7 @@ class @Attachment.Substitute extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if @failsOnSub(move, user)
-      move.fail(@battle)
+      move.fail(@battle, user)
       return true
 
   afterBeingHit: (move, user, target) ->
@@ -919,7 +919,7 @@ class @Attachment.Ingrain extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if move == @battle.getMove("Telekinesis")
-      move.fail(@battle)
+      move.fail(@battle, user)
       return true
 
   isImmune: (type) ->
@@ -1124,7 +1124,7 @@ class @Attachment.SmackDown extends @VolatileAttachment
 
   shouldBlockExecution: (move, user) ->
     if move in [ @battle.getMove("Telekinesis"), @battle.getMove("Magnet Rise") ]
-      move.fail(@battle)
+      move.fail(@battle, user)
       return true
 
 class @Attachment.EchoedVoice extends @BattleAttachment

@@ -26,7 +26,7 @@ oldHasTakeableItem = @Pokemon::hasTakeableItem
 oldShouldBlockExecution = @Pokemon::shouldBlockExecution
 @Pokemon::shouldBlockExecution = (move, user) ->
   if move.hasFlag("powder") && @hasType("Grass")
-    move.fail(@battle)
+    move.fail(@battle, user)
     return true
   oldShouldBlockExecution.apply(this, arguments)
 
