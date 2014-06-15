@@ -46,7 +46,7 @@ for move in MoveList
         if @ailmentId != 'none' && @ailmentChance == 0
           effect = battle.getAilmentEffect(this)
           if !target.attach(effect, source: user)
-            @fail(battle)
+            @fail(battle, user)
 
 makeJumpKick = (name, recoilPercent=.5) ->
   extendMove name, ->
@@ -122,7 +122,7 @@ makeRecoveryMove = (name) ->
     @use = (battle, user, target) ->
       hpStat = target.stat('hp')
       if target.currentHP == hpStat
-        @fail(battle)
+        @fail(battle, user)
         return false
       amount = Math.round(hpStat / 2)
       percent = Math.floor(100 * amount / hpStat)
@@ -159,7 +159,7 @@ makeTrickMove = (name) ->
       if (user.hasItem() && !user.hasTakeableItem()) ||
           (target.hasItem() && !target.canLoseItem()) ||
           (!target.hasItem() && !user.hasItem())
-        @fail(battle)
+        @fail(battle, user)
         return false
       uItem = user.removeItem()
       tItem = target.removeItem()
@@ -179,9 +179,9 @@ makeExplosionMove = (name) ->
         user.faint()
         oldExecute.call(this, battle, user, targets)
       else
-        @fail(battle)
+        @fail(battle, user)
 
-    @fail = (battle) ->
+    @fail = (battle, user) ->
       battle.message "#{user.name} cannot use #{@name}!"
 
 makeProtectCounterMove = (name, callback) ->
@@ -190,7 +190,7 @@ makeProtectCounterMove = (name, callback) ->
       # Protect fails if the user is the last to move.
       if !battle.hasActionsLeft()
         user.unattach(Attachment.ProtectCounter)
-        @fail(battle)
+        @fail(battle, user)
         return
 
       # Calculate and roll chance of success
@@ -199,7 +199,7 @@ makeProtectCounterMove = (name, callback) ->
       chance = attachment.successChance()
       if battle.rng.randInt(1, chance, "protect") > 1
         user.unattach(Attachment.ProtectCounter)
-        @fail(battle)
+        @fail(battle, user)
         return
 
       # Success!
@@ -224,7 +224,7 @@ makeIdentifyMove = (name, types) ->
       if target.attach(Attachment.Identify, {types})
         battle.message "#{target.name} was identified!"
       else
-        @fail(battle)
+        @fail(battle, user)
         false
 
 makePluckMove = (name) ->
@@ -266,7 +266,7 @@ makeDelayedAttackMove = (name, message) ->
       # These moves pick a single target.
       target = targets[0]
       if !target.team.attach(Attachment.DelayedAttack, user: user, move: this)
-        @fail(battle)
+        @fail(battle, user)
         return
       battle.message message.replace("$1", user.name)
 
@@ -303,7 +303,7 @@ makeLockOnMove = (name) ->
       if user.attach(Attachment.LockOn, {target})
         battle.message "#{user.name} locked onto #{target.name}."
       else
-        @fail(battle)
+        @fail(battle, user)
         return false
 
 makeStompMove = (name) ->
@@ -320,7 +320,7 @@ makeMeanLookMove = (name) ->
       if target.attach(Attachment.MeanLook, user: user)
         battle.message "#{target.name} can no longer escape!"
       else
-        @fail(battle)
+        @fail(battle, user)
         return false
 
 makeChargeMove = (name, args...) ->
@@ -391,7 +391,7 @@ makeWeatherMove = (name, weatherType) ->
       if !battle.hasWeather(weatherType)
         @changeWeather(battle, user)
       else
-        @fail(battle)
+        @fail(battle, user)
 
     @changeWeather = (battle, user) ->
       length = 5
@@ -429,7 +429,7 @@ makeCounterMove = (name, multiplier, applies) ->
       if hit? && applies(hit.move) && hit.turn == battle.turn
         target.damage(multiplier * hit.damage, direct: false, source: "move")
       else
-        @fail(battle)
+        @fail(battle, user)
 
 makeTrappingMove = (name) ->
   extendMove name, ->
@@ -448,7 +448,7 @@ extendMove 'Baton Pass', ->
   @execute = (battle, user, targets) ->
     slot = user.team.indexOf(user)
     if !battle.forceSwitch(user)
-      @fail(battle)
+      @fail(battle, user)
       return
 
     # Copy!
@@ -482,7 +482,7 @@ extendMove 'Captivate', ->
   @use = (battle, user, target) ->
     if (!(user.gender == 'M' && target.gender == 'F') &&
         !(user.gender == 'F' && target.gender == 'M'))
-      @fail(battle)
+      @fail(battle, user)
     else
       target.boost(specialAttack: -2, user)
 
@@ -521,7 +521,7 @@ extendMove 'Conversion', ->
     types = _.difference(moveTypes, types)
     type = battle.rng.choice(types, "conversion types")
     if !type?
-      @fail(battle)
+      @fail(battle, user)
       return false
     target.types = [ type ]
 
@@ -529,7 +529,7 @@ extendMove 'Conversion 2', ->
   @use = (battle, user, target) ->
     {lastMove} = target
     if !lastMove?
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     moveType = lastMove.type
@@ -583,7 +583,7 @@ extendMove 'Entrainment', ->
       battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
       target.copyAbility(user.ability)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 makeEruptionMove 'Eruption'
 makeExplosionMove 'Explosion'
@@ -593,7 +593,7 @@ extendMove 'Fake Out', ->
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
     if user.turnsActive > 1
-      @fail(battle)
+      @fail(battle, user)
       return false
 
 extendMove 'Feint', ->
@@ -615,7 +615,7 @@ extendMove 'Focus Energy', ->
       # TODO: Real message
       battle.message "#{user.name} began to focus!"
     else
-      @fail(battle)
+      @fail(battle, user)
       false
 
 extendMove 'Focus Punch', ->
@@ -679,7 +679,7 @@ extendMove 'Lucky Chant', ->
       battle.message "The Lucky Chant shielded #{battle.getOwner(user)}'s " +
                      "team from critical hits!"
     else
-      @fail(battle)
+      @fail(battle, user)
 
 makeTrappingMove "Magma Storm"
 makeMeanLookMove 'Mean Look'
@@ -696,7 +696,7 @@ extendMove 'Mirror Move', ->
   @hit = (battle, user, target) ->
     move = target.lastMove
     if !move? || !move.hasFlag("mirror")
-      @fail(battle)
+      @fail(battle, user)
       return false
     battle.executeMove(move, user, battle.getTargets(move, user))
 
@@ -717,7 +717,7 @@ makeRecoveryMove 'Recover'
 extendMove 'Refresh', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !target.cureStatus()
-      @fail(battle)
+      @fail(battle, user)
 
 makeRevengeMove 'Revenge'
 makeReversalMove 'Reversal'
@@ -747,7 +747,7 @@ extendMove 'Spit Up', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.has(Attachment.Stockpile)
-      @fail(battle)
+      @fail(battle, user)
       return false
     oldUse.call(this, battle, user, target)
 
@@ -772,7 +772,7 @@ extendMove 'Stockpile', ->
     if user.attach(Attachment.Stockpile)
       user.boost(defense: 1, specialDefense: 1)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 makeStompMove 'Stomp'
 makeBasePowerBoostMove 'Stored Power', 20, 860, 'user'
@@ -783,7 +783,7 @@ extendMove 'Swallow', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.has(Attachment.Stockpile)
-      @fail(battle)
+      @fail(battle, user)
       return false
     oldUse.call(this, battle, user, target)
 
@@ -810,7 +810,7 @@ extendMove 'Super Fang', ->
     Math.max(1, halfHP)
 makeWeatherRecoveryMove 'Synthesis'
 extendMove 'Teleport', ->
-  @execute = (battle) -> @fail(battle)
+  @execute = (battle, user) -> @fail(battle, user)
 makeThiefMove 'Thief'
 
 extendMove 'Thunder', ->
@@ -867,7 +867,7 @@ extendMove 'Assist', ->
     moves   = _.flatten(pokemon.map((p) -> p.moves))
     moves   = moves.filter((move) -> move.name not of bannedMoves)
     if moves.length == 0
-      @fail(battle)
+      @fail(battle, user)
     else
       move = battle.rng.choice(moves, "assist")
       battle.executeMove(move, user, battle.getTargets(move, user))
@@ -904,7 +904,7 @@ extendMove 'Acupressure', ->
       hash[randomStat] = 2
       target.boost(hash)
     else
-      @fail(battle)
+      @fail(battle, user)
       return false
 
 extendMove 'Beat Up', ->
@@ -931,7 +931,7 @@ extendMove 'Belly Drum', ->
   @use = (battle, user, target) ->
     halfHP = Math.floor(user.stat('hp') / 2)
     if user.currentHP <= halfHP || !user.boost(attack: 12)
-      @fail(battle)
+      @fail(battle, user)
       return false
     else
       user.damage(halfHP, source: "move")
@@ -956,7 +956,7 @@ extendMove 'Copycat', ->
     if move? && move != battle.getMove('Copycat')
       battle.executeMove(move, user, battle.getTargets(move, user))
     else
-      @fail(battle)
+      @fail(battle, user)
 
 
 makeCounterMove('Counter', 2, (move) -> move.isPhysical())
@@ -996,7 +996,7 @@ extendMove 'Dream Eater', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !target.has(Status.Sleep)
-      @fail(battle)
+      @fail(battle, user)
       return false
     oldUse.call(this, battle, user, target)
 
@@ -1035,23 +1035,23 @@ extendMove 'Encore', ->
     'Transform': true
   @afterSuccessfulHit = (battle, user, target) ->
     if !target.lastMove?
-      @fail(battle)
+      @fail(battle, user)
     else if target.lastMove.name of bannedMoves
-      @fail(battle)
+      @fail(battle, user)
     else if target.pp(target.lastMove) == 0
-      @fail(battle)
+      @fail(battle, user)
     else if target.attach(Attachment.Encore)
       if battle.willMove(target)
         battle.changeMove(target, target.lastMove)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Endeavor', ->
   oldUse = @use
   @use = (battle, user, target) ->
     return false  if oldUse.call(this, battle, user, target) == false
     if target.currentHP < user.currentHP
-      @fail(battle)
+      @fail(battle, user)
       return false
 
   @calculateDamage = (battle, user, target) ->
@@ -1096,7 +1096,7 @@ extendMove 'Fling', ->
   @use = (battle, user, target) ->
     fling = user.get(Attachment.Fling)
     if !fling?.item
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     oldUse.call(this, battle, user, target)
@@ -1140,7 +1140,7 @@ makeDelayedAttackMove("Future Sight", "$1 foresaw an attack!")
 extendMove 'Gastro Acid', ->
   @use = (battle, user, target) ->
     if !target.attach(Attachment.AbilitySuppress)
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     battle.message "#{target.name}'s ability was suppressed!"
@@ -1148,7 +1148,7 @@ extendMove 'Gastro Acid', ->
 extendMove 'Gravity', ->
   @execute = (battle, user, targets) ->
     if !battle.attach(Attachment.Gravity)
-      @fail(battle)
+      @fail(battle, user)
       return
     battle.message "Gravity intensified!"
     for target in targets
@@ -1222,7 +1222,7 @@ extendMove 'Imprison', ->
     if target.attach(Attachment.Imprison, {battle, moves})
       battle.message "#{target.name} sealed the opponent's moves!"
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Incinerate', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1244,18 +1244,18 @@ extendMove 'Last Resort', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if this not in user.moves || user.moves.length <= 1
-      @fail(battle)
+      @fail(battle, user)
       return false
     for moveName in _.without(user.moves, this).map((m) -> m.name)
       if moveName not of user.used
-        @fail(battle)
+        @fail(battle, user)
         return false
     oldUse.call(this, battle, user, target)
 
 extendMove 'Light Screen', ->
   @execute = (battle, user, opponents) ->
     if !user.team.attach(Attachment.LightScreen, {user})
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Healing Wish', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1263,7 +1263,7 @@ extendMove 'Healing Wish', ->
       target.faint()
       target.team.attach(Attachment.HealingWish)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Lunar Dance', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1271,7 +1271,7 @@ extendMove 'Lunar Dance', ->
       target.faint()
       target.team.attach(Attachment.LunarDance)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Magic Coat', ->
   @afterSuccessfulHit = (battle, user, target) ->
@@ -1283,7 +1283,7 @@ extendMove 'Magnet Rise', ->
     if target.attach(Attachment.MagnetRise)
       battle.message "#{target.name} is now floating in the air!"
     else
-      @fail(battle)
+      @fail(battle, user)
       return false
 
 extendMove 'Magnitude', ->
@@ -1332,7 +1332,7 @@ extendMove 'Me First', ->
     target = targets[0]  # Me First is a single-target move
     m = battle.peekMove(target)
     if !battle.willMove(target) || m.isNonDamaging() || bannedMoves[m.name]
-      @fail(battle)
+      @fail(battle, user)
       return false
     user.attach(Attachment.MeFirst)
     battle.executeMove(m, user, targets)
@@ -1404,7 +1404,7 @@ extendMove 'Natural Gift', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.hasItem() || user.isItemBlocked() || !user.getItem().naturalGift
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     oldUse.call(this, battle, user, target)
@@ -1501,7 +1501,7 @@ extendMove 'Psych Up', ->
 extendMove 'Psycho Shift', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !user.hasStatus() || target.hasStatus()
-      @fail(battle)
+      @fail(battle, user)
       return false
     status = user.status
     user.cureStatus()
@@ -1542,12 +1542,12 @@ extendMove 'Rapid Spin', ->
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
     if !user.team.attach(Attachment.Reflect, {user})
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Reflect Type', ->
   @use = (battle, user, target) ->
     if user.hasAbility("Multitype")
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     user.types = target.types
@@ -1568,7 +1568,7 @@ extendMove 'Rest', ->
   @hit = (battle, user, target) ->
     if user.currentHP >= user.stat('hp') || user.has(Status.Sleep) ||
         !user.attach(Status.Sleep, turns: 2, force: true)
-      @fail(battle)
+      @fail(battle, user)
       return
     user.setHP(user.stat('hp'))
 
@@ -1597,7 +1597,7 @@ extendMove 'Role Play', ->
       battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
       user.copyAbility(target.ability)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Simple Beam', ->
   bannedAbilities =
@@ -1609,7 +1609,7 @@ extendMove 'Simple Beam', ->
       battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
       target.copyAbility(Ability.Simple)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Sleep Talk', ->
   bannedMoves = [
@@ -1631,7 +1631,7 @@ extendMove 'Sleep Talk', ->
   @execute = (battle, user) ->
     viableMoves = user.moves.filter((move) -> move.name not in bannedMoves)
     if viableMoves.length == 0 || !user.has(Status.Sleep)
-      @fail(battle)
+      @fail(battle, user)
       return
     moveIndex = battle.rng.randInt(0, viableMoves.length - 1, "sleep talk")
     move = viableMoves[moveIndex]
@@ -1652,7 +1652,7 @@ extendMove 'Snore', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !user.has(Status.Sleep)
-      @fail(battle)
+      @fail(battle, user)
       return false
     else
       oldUse.call(this, battle, user, target)
@@ -1660,7 +1660,7 @@ extendMove 'Snore', ->
 extendMove 'Soak', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if (target.types.length == 1 && target.types[0] == 'Water') || target.name == 'Arceus'
-      @fail(battle)
+      @fail(battle, user)
     else
       target.types = [ 'Water' ]
       battle.cannedText('TRANSFORM_TYPE', target, 'Water')
@@ -1672,14 +1672,14 @@ extendMove 'SonicBoom', ->
 makeOpponentFieldMove 'Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if !team.attach(Attachment.Spikes)
-    @fail(battle)
+    @fail(battle, user)
 
 extendMove 'Spite', ->
   @execute = (battle, user, opponents) ->
     for opponent in opponents
       move = opponent.lastMove
       if !move || !opponent.knows(move) || opponent.pp(move) == 0
-        @fail(battle)
+        @fail(battle, user)
         return
       opponent.reducePP(move, 4)
       battle.message "It reduced the PP of #{opponent.name}!"
@@ -1687,7 +1687,7 @@ extendMove 'Spite', ->
 makeOpponentFieldMove 'Stealth Rock', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if !team.attach(Attachment.StealthRock)
-    @fail(battle)
+    @fail(battle, user)
 
 extendMove 'Struggle', ->
   @type = '???'
@@ -1706,12 +1706,12 @@ extendMove 'Substitute', ->
     dmg = user.stat('hp') >> 2
     if dmg >= user.currentHP || dmg == 0
       battle.cannedText('SUBSTITUTE_WEAK')
-      @fail(battle)
+      @fail(battle, user)
       return
 
     if user.has(Attachment.Substitute)
       battle.cannedText('SUBSTITUTE_EXISTS', user)
-      @fail(battle)
+      @fail(battle, user)
       return
 
     user.damage(dmg, source: "move")
@@ -1724,7 +1724,7 @@ extendMove 'Sucker Punch', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if !battle.willMove(target) || battle.peekMove(target).isNonDamaging()
-      @fail(battle)
+      @fail(battle, user)
       return false
     else
       oldUse.call(this, battle, user, target)
@@ -1738,7 +1738,7 @@ extendMove 'Synchronoise', ->
   oldUse = @use
   @use = (battle, user, target) ->
     if _.every(user.types, (type) -> type not in target.types)
-      @fail(battle)
+      @fail(battle, user)
       return false
     return oldUse.call(this, battle, user, target)
 
@@ -1746,7 +1746,7 @@ extendMove 'Tailwind', ->
   @execute = (battle, user, targets) ->
     team = user.team
     if team.has(Attachment.Tailwind)
-      @fail(battle)
+      @fail(battle, user)
       return false
 
     team.attach(Attachment.Tailwind)
@@ -1755,7 +1755,7 @@ extendMove 'Tailwind', ->
 extendMove 'Taunt', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !target.attach(Attachment.Taunt, battle)
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Techno Blast', ->
   @getType = (battle, user, target) ->
@@ -1774,12 +1774,12 @@ extendMove 'Techno Blast', ->
 makeOpponentFieldMove 'Toxic Spikes', (battle, user, opponentId) ->
   team = battle.getTeam(opponentId)
   if !team.attach(Attachment.ToxicSpikes)
-    @fail(battle)
+    @fail(battle, user)
 
 extendMove 'Transform', ->
   @afterSuccessfulHit = (battle, user, target) ->
     if !user.attach(Attachment.Transform, {target})
-      @fail(battle)
+      @fail(battle, user)
       return false
     battle.cannedText('TRANSFORM_INTO', user, target)
 
@@ -1836,7 +1836,7 @@ extendMove 'Weather Ball', ->
 
 extendMove 'Wish', ->
   @hit = (battle, user) ->
-    @fail(battle)  unless user.team.attach(Attachment.Wish, {user})
+    @fail(battle, user)  unless user.team.attach(Attachment.Wish, {user})
 
 extendMove 'Worry Seed', ->
   bannedAbilities =
@@ -1848,7 +1848,7 @@ extendMove 'Worry Seed', ->
       battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
       target.copyAbility(Ability.Insomnia)
     else
-      @fail(battle)
+      @fail(battle, user)
 
 extendMove 'Wring Out', ->
   @basePower = (battle, user, target) ->

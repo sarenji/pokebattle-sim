@@ -58,7 +58,7 @@ class @Move
   execute: (battle, user, targets) ->
     # If there are no targets, then the move should automatically fail.
     # For example, Helping Hand may not have a target.
-    return @fail(battle)  if targets.length == 0
+    return @fail(battle, user)  if targets.length == 0
     # If there were targets, but they are all no longer alive, then the engine
     # outputs a stock message and quits move execution.
     targets = targets.filter((p) -> p.isAlive())
@@ -182,7 +182,7 @@ class @Move
     return !target.has(Attachment.Substitute)
 
   # A hook that executes once a move fails.
-  fail: (battle) ->
+  fail: (battle, user) ->
     battle.cannedText('MOVE_FAIL')
 
   numHitsMessage: (hitNumber) ->
