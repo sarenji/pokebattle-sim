@@ -7100,7 +7100,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, defog)
       @p2.team.has(Attachment.ToxicSpikes).should.be.false
 
-    it "removes Safeguard on target's side"
+    it "removes Safeguard on target's side", ->
+      shared.create.call(this, gen: 'bw')
+      defog = @battle.getMove("Defog")
+      @battle.performMove(@p2, @battle.getMove("Safeguard"))
+      @p2.team.has(Attachment.Safeguard).should.be.true
+      @battle.performMove(@p1, defog)
+      @p2.team.has(Attachment.Safeguard).should.be.false
+
     it "removes Mist on target's side"
 
   describe "Refresh", ->
@@ -7212,6 +7219,41 @@ describe "BW Moves:", ->
       @p1.forme.should.equal("default")
       @battle.performMove(@p1, @battle.getMove('Relic Song'))
       @p1.forme.should.equal("default")
+
+  describe "Safeguard", ->
+    it "protects the user's team from status", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove("Safeguard"))
+      @battle.performMove(@p2, @battle.getMove("Thunder Wave"))
+      @p1.has(Status.Paralyze).should.be.false
+
+    it "protects the user's team from confusion", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove("Safeguard"))
+      @battle.performMove(@p2, @battle.getMove("Confuse Ray"))
+      @p1.has(Attachment.Confusion).should.be.false
+
+    it "doesn't protect against status inflicted by the user", ->
+      shared.create.call(this)
+      @p1.team.attach(Attachment.Safeguard)
+      @p1.setHP(1)
+      @battle.performMove(@p1, @battle.getMove("Rest"))
+      @p1.has(Status.Sleep).should.be.true
+
+    it "protects against yawn being inflicted", ->
+      shared.create.call(this)
+      @p1.team.attach(Attachment.Safeguard)
+      @battle.performMove(@p2, @battle.getMove("Yawn"))
+      @p1.has(Attachment.Yawn).should.be.false
+
+    it "doesn't prevent yawn's effect", ->
+      shared.create.call(this)
+      @battle.performMove(@p1, @battle.getMove('Yawn'))
+      @battle.endTurn()
+      @p2.has(Status.Sleep).should.be.false
+      @p2.team.attach(Attachment.Safeguard)
+      @battle.endTurn()
+      @p2.has(Status.Sleep).should.be.true
 
   describe "Soak", ->
     it "changes the target's type to Water", ->
