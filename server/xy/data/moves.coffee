@@ -17,6 +17,8 @@ extendMove 'Fell Stinger', ->
 extendMove 'Freeze-Dry', ->
   @superEffectiveAgainst = "Water"
 
+makeChargeMove 'Geomancy', "$1 is absorbing power!"
+
 extendMove 'Knock Off', ->
   @basePower = (battle, user, target) ->
     multiplier = (if target.hasTakeableItem() then 1.5 else 1.0)
