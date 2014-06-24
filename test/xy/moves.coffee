@@ -603,3 +603,15 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(topsyTurvy).expects('fail').once()
       @battle.performMove(@p1, topsyTurvy)
       mock.verify()
+
+  describe "Fell Stinger", ->
+    it "raises the user's Attack 2 stages if the target faints", ->
+      shared.create.call(this, gen: 'xy')
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
+      @p1.stages.should.include attack: 2
+
+    it "does not raise the user's Attack 2 stages otherwise", ->
+      shared.create.call(this, gen: 'xy')
+      @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
+      @p1.stages.should.include attack: 0
