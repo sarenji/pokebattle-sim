@@ -10,6 +10,10 @@ extendMove "Defog", ->
 extendMove 'Facade', ->
   @burnCalculation = -> 1
 
+extendMove 'Fell Stinger', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    user.boost(attack: 2)  if target.isFainted()
+
 extendMove 'Freeze-Dry', ->
   @superEffectiveAgainst = "Water"
 
