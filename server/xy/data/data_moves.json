@@ -4476,7 +4476,13 @@
         "priority": 0,
         "recoil": 0,
         "target": "user",
-        "type": "Fairy"
+        "type": "Fairy",
+        "primaryBoostStats": {
+            "specialAttack": 2,
+            "specialDefense": 2,
+            "speed": 2
+        },
+        "primaryBoostTarget": "self"
     },
     "Giga Drain": {
         "accuracy": 100,
