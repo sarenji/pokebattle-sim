@@ -70,7 +70,9 @@ html
 
         PokeBattle.userId = ID;
         PokeBattle.username = USERNAME;
-        PokeBattle.primus.send('login', ID, TOKEN);
+        PokeBattle.primus.on('open', function() {
+          PokeBattle.primus.send('login', ID, TOKEN);
+        });
       }).call(this);
 
       //- For Typekit

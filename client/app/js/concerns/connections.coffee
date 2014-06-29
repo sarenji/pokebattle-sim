@@ -1,7 +1,7 @@
 $body = $("body")
 $popup = $('#popup')
 
-PokeBattle.primus.on 'connection', ->
+PokeBattle.primus.on 'open', ->
   $popup.hide()
 
 PokeBattle.primus.on 'reconnecting', (opts) ->
@@ -11,13 +11,11 @@ PokeBattle.primus.on 'reconnecting', (opts) ->
     $div = $('<span/>')
       .addClass('alert')
       .html("<strong>You lost your connection to PokeBattle!</strong>
-        <span class='reconnect-text'>
-          Reconnecting in
-          <span class='reconnect-timer'>#{seconds}</span>
-          seconds...
-        </span>")
+        <span class='reconnect-text'></span>")
       .appendTo($popup)
     $popup.appendTo($body)
+  $popup.find('.reconnect-text').html("""Reconnecting in
+    <span class='reconnect-timer'>#{seconds}</span> seconds...""")
   $popup.fadeIn(250)
   $body.data('seconds', seconds)
   reconnectTimer($popup)
@@ -26,7 +24,6 @@ reconnectTimer = ($popup) ->
   seconds = $body.data('seconds') ? 1
   if seconds == 0
     $popup.find('.reconnect-text').text("Reconnecting...")
-    PokeBattle.primus = Primus.connect()
   else
     time  = "#{Math.floor(seconds / 60)}:"
     time += "00#{seconds % 60}".substr(-2)
