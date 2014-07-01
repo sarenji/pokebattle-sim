@@ -22,7 +22,7 @@ class QueuedPlayer
 
 # A queue of users waiting for a battle
 class @BattleQueue
-  constructor: ->
+  constructor: (@format) ->
     @queue = {}
     @newPlayers = []
     @recentlyMatched = {}
@@ -74,10 +74,10 @@ class @BattleQueue
     ratingKeys = (queued.player.ratingKey for queued in @newPlayers)
     return next(null)  if ratingKeys.length == 0
     
-    ratings.getRatings ratingKeys, (err, returnedRatings) =>
+    ratings.getRatings @format, ratingKeys, (err, returnedRatings) =>
       if err then return next(err)
 
-      ratings.setActive ratingKeys, (err) =>
+      ratings.setActive @format, ratingKeys, (err) =>
         if err then return next(err)
 
         # Update the ratings in the player objects

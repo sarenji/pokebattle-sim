@@ -6,6 +6,8 @@ scheduler = require('../../server/schedule')
 
 require '../helpers'
 
+FORMAT = require('../../shared/conditions').LADDER_FORMATS[0]
+
 describe 'Scheduler', ->
   beforeEach ->
     date = new Date()
@@ -24,9 +26,9 @@ describe 'Scheduler', ->
     oldRatings = [ 2000, 4000 ]
     oldGuyRating = 2000
     oldLadyRating = 4000
-    ratings.setRatings players, oldRatings, =>
+    ratings.setRatings FORMAT, players, oldRatings, =>
       async.parallel @callbacks, =>
-        ratings.getRatings players, (err, newRatings) =>
+        ratings.getRatings FORMAT, players, (err, newRatings) =>
           throw err  if err
           newRatings.should.eql(oldRatings.map((r) -> r - ratings.DECAY_AMOUNT))
           done()
@@ -34,9 +36,9 @@ describe 'Scheduler', ->
 
   it 'does not decay the minimum rating possible', (done) ->
     minRating = ratings.algorithm.createPlayer().rating
-    ratings.setRating 'sonic', minRating, =>
+    ratings.setRating FORMAT, 'sonic', minRating, =>
       async.parallel @callbacks, =>
-        ratings.getRating 'sonic', (err, rating) =>
+        ratings.getRating FORMAT, 'sonic', (err, rating) =>
           throw err  if err
           rating.should.equal(minRating)
           done()
@@ -47,10 +49,10 @@ describe 'Scheduler', ->
     oldRatings = [ 2000, 4000 ]
     oldGuyRating = 2000
     oldLadyRating = 4000
-    ratings.setActive players, =>
-      ratings.setRatings players, oldRatings, =>
+    ratings.setActive FORMAT, players, =>
+      ratings.setRatings FORMAT, players, oldRatings, =>
         async.parallel @callbacks, =>
-          ratings.getRatings players, (err, newRatings) =>
+          ratings.getRatings FORMAT, players, (err, newRatings) =>
             throw err  if err
             newRatings.should.eql(oldRatings)
             done()

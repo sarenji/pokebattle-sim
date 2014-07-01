@@ -14,6 +14,8 @@ should = require 'should'
 sinon = require 'sinon'
 {_} = require 'underscore'
 
+FORMAT = 'xy1000'
+
 describe 'Battle', ->
   beforeEach ->
     shared.create.call this,
@@ -309,14 +311,14 @@ describe 'Battle', ->
         conditions: [ Conditions.RATED_BATTLE ]
       ratings = require('../../server/ratings')
       @battle.on "ratingsUpdated", =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
+        ratings.getPlayer FORMAT, @id1, (err, rating1) =>
+          ratings.getPlayer FORMAT, @id2, (err, rating2) =>
             defaultPlayer = ratings.algorithm.createPlayer()
             rating1.rating.should.be.greaterThan(defaultPlayer.rating)
             rating2.rating.should.be.lessThan(defaultPlayer.rating)
             done()
 
-      ratings.resetRatings [ @id1, @id2 ], =>
+      ratings.resetRatings FORMAT, [ @id1, @id2 ], =>
         @p2.currentHP = 1
         mock = @sandbox.mock(@controller)
         @controller.makeMove(@id1, 'Mach Punch')
@@ -328,8 +330,8 @@ describe 'Battle', ->
         team2: [Factory('Mew')]
       ratings = require('../../server/ratings')
       @battle.on 'end', =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
+        ratings.getPlayer FORMAT, @id1, (err, rating1) =>
+          ratings.getPlayer FORMAT, @id2, (err, rating2) =>
             rating1.rating.should.equal(0)
             rating2.rating.should.equal(0)
             done()
@@ -372,23 +374,23 @@ describe 'Battle', ->
         conditions: [ Conditions.RATED_BATTLE ]
       ratings = require('../../server/ratings')
       @battle.on "ratingsUpdated", =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
+        ratings.getPlayer FORMAT, @id1, (err, rating1) =>
+          ratings.getPlayer FORMAT, @id2, (err, rating2) =>
             defaultPlayer = ratings.algorithm.createPlayer()
             rating1.rating.should.be.greaterThan(defaultPlayer.rating)
             rating2.rating.should.be.lessThan(defaultPlayer.rating)
             done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
+      ratings.resetRatings(FORMAT, [ @id1, @id2 ], => @battle.forfeit(@id2))
 
     it "doesn't update the winner and losers' ratings if not a rated battle", (done) ->
       ratings = require('../../server/ratings')
       @battle.on 'end', =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
+        ratings.getPlayer FORMAT, @id1, (err, rating1) =>
+          ratings.getPlayer FORMAT, @id2, (err, rating2) =>
             rating1.rating.should.equal(0)
             rating2.rating.should.equal(0)
             done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
+      ratings.resetRatings(FORMAT, [ @id1, @id2 ], => @battle.forfeit(@id2))
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->

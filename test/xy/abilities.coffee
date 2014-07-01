@@ -54,6 +54,11 @@ describe "XY Abilities:", ->
         spy.returned(type).should.be.false
         spy.returned(ember.type).should.be.true
 
+      it "does not change Hidden Power moves used by attacker", ->
+        shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
+        hiddenPower = @battle.getMove('Hidden Power')
+        hiddenPower.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+
       it "boosts Normal-type moves by 1.3x", ->
         shared.create.call(this, gen: 'xy', team1: [Factory("Magikarp", ability: name)])
         tackle = @battle.getMove('Tackle')

@@ -24,6 +24,7 @@ class @ChatView extends Backbone.View
     @mostRecentNames = []
     @tabCompleteIndex = -1
     @tabCompleteNames = []
+    @ignoreSpectators = true
 
   # Sets the channel topic
   # TODO: Once we have rooms, create a "room" model, and make the topic

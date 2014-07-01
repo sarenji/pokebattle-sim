@@ -8,7 +8,7 @@ async = require('async')
 gen = require './generations'
 auth = require('./auth')
 learnsets = require '../shared/learnsets'
-{Conditions, SelectableConditions, Formats, DEFAULT_FORMAT} = require '../shared/conditions'
+{Conditions, SelectableConditions, Formats, DEFAULT_FORMAT, LADDER_FORMATS} = require '../shared/conditions'
 pbv = require '../shared/pokebattle_values'
 config = require './config'
 errors = require '../shared/errors'
@@ -33,7 +33,7 @@ class @BattleServer
   constructor: ->
     @queues = {}
     for format of Formats
-      @queues[format] = new BattleQueue()
+      @queues[format] = new BattleQueue(format)
     @battles = {}
 
     # A hash mapping users to battles.
@@ -175,9 +175,8 @@ class @BattleServer
   queuePlayer: (playerId, team, format = DEFAULT_FORMAT, altName) ->
     if @isLockedDown()
       err = ["The server is restarting. No new battles can start at this time."]
-    else if format != DEFAULT_FORMAT
-      # TODO: Implement ratings for other formats
-      err = ["The server doesn't support this ladder at this time. Please ask for challenges instead."]
+    else if format not in LADDER_FORMATS
+      err = ["The server doesn't support this ladder at this time."]
     else
       err = @validateTeam(team, format, FIND_BATTLE_CONDITIONS)
       if err.length == 0

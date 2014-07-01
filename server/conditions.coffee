@@ -165,8 +165,8 @@ createCondition Conditions.RATED_BATTLE,
       winnerId = winner.ratingKey
       loserId = loser.ratingKey
 
-      ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
-        ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
+      ratings.getRatings @format, [ winnerId, loserId ], (err, oldRatings) =>
+        ratings.updatePlayers @format, winnerId, loserId, ratings.results.WIN, (err, result) =>
           return @message "An error occurred updating rankings :("  if err
           
           oldRating = Math.floor(oldRatings[0])

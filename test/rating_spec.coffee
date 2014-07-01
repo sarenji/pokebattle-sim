@@ -4,11 +4,12 @@ should = require('should')
 ratings = require('../server/ratings')
 async = require('async')
 alts = require('../server/alts')
+LADDER = require('../shared/conditions').LADDER_FORMATS[0]
 
 describe "Ratings", ->
   describe "#getPlayer", ->
-    it "returns default information for new players", (done) ->
-      ratings.getPlayer "bogus player", (err, result) ->
+    it "returns default information for new players on a ladder", (done) ->
+      ratings.getPlayer LADDER, "bogus player", (err, result) ->
         should.not.exist(err)
         should.exist(result)
         result.should.be.instanceOf(Object)
@@ -16,8 +17,8 @@ describe "Ratings", ->
         done()
 
     it "returns information for an existing player", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.getPlayer "player1", (err, result) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.getPlayer LADDER, "player1", (err, result) ->
           should.not.exist(err)
           should.exist(result)
           result.should.be.instanceOf(Object)
@@ -26,9 +27,9 @@ describe "Ratings", ->
 
   describe "#resetRating", ->
     it "resets the rating of a player", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.resetRating "player1", ->
-          ratings.getRatings [ "player1", "player2" ], (err, results) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.resetRating LADDER, "player1", ->
+          ratings.getRatings LADDER, [ "player1", "player2" ], (err, results) ->
             results[0].should.equal(0)
             results[1].should.not.equal(0)
             defaultRating = ratings.algorithm.createPlayer().rating
@@ -37,8 +38,8 @@ describe "Ratings", ->
 
   describe "#getMaxRating", ->
     it "returns the rating of a user if there's no alts", (done) ->
-      ratings.setRating "user", 25, (err) ->
-        ratings.getMaxRating "user", (err, result) ->
+      ratings.setRating LADDER, "user", 25, (err) ->
+        ratings.getMaxRating LADDER, "user", (err, result) ->
           result.should.equal(25)
           done()
 
@@ -47,10 +48,10 @@ describe "Ratings", ->
         (callback) -> alts.createAlt("user", altName, callback)
       
       async.parallel altOps, ->
-        ratings.setRating "user", 25, (err) ->
-          ratings.setRating alts.uniqueId("user", "alt1"), 5, (err) ->
-            ratings.setRating alts.uniqueId("user", "alt2"), 30, (err) ->
-              ratings.getMaxRating "user", (err, result) ->
+        ratings.setRating LADDER, "user", 25, (err) ->
+          ratings.setRating LADDER, alts.uniqueId("user", "alt1"), 5, (err) ->
+            ratings.setRating LADDER, alts.uniqueId("user", "alt2"), 30, (err) ->
+              ratings.getMaxRating LADDER, "user", (err, result) ->
                 result.should.equal(30)
                 done()
 
@@ -58,9 +59,9 @@ describe "Ratings", ->
     it "returns a list of ratings", (done) ->
       r = []
       # 1 > 3 > 2
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.updatePlayers "player3", "player2", ratings.results.WIN, ->
-          ratings.getRatings [1..3].map((i) -> "player#{i}"), (err, scores) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers LADDER, "player3", "player2", ratings.results.WIN, ->
+          ratings.getRatings LADDER, [1..3].map((i) -> "player#{i}"), (err, scores) ->
             ratings.listRatings 1, 2, (err, results) ->
               r = r.concat(results)
               ratings.listRatings 2, 2, (err, results) ->
@@ -73,18 +74,18 @@ describe "Ratings", ->
                 done()
 
     it "returns up to the maximum per page", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.updatePlayers "player3", "player4", ratings.results.WIN, ->
-          ratings.listRatings 1, 2, (err, results) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers LADDER, "player3", "player4", ratings.results.WIN, ->
+          ratings.listRatings LADDER, 1, 2, (err, results) ->
             should.not.exist(err)
             results.should.have.length(2)
             done()
 
     it "does not include alts", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
         altName = alts.uniqueId('player1', 'altName')
-        ratings.updatePlayers altName, "player2", ratings.results.WIN, ->
-          ratings.listRatings 0, 100, (err, results) ->
+        ratings.updatePlayers LADDER, altName, "player2", ratings.results.WIN, ->
+          ratings.listRatings LADDER, 0, 100, (err, results) ->
             results.length.should.equal(2)
             results.some((r) -> r.username == altName).should.be.false
             done()
@@ -95,36 +96,36 @@ describe "Ratings", ->
         (callback) -> 
           [altName, rating] = pair
           alts.createAlt "user", altName, ->
-            ratings.setRating(alts.uniqueId("user", altName), rating, callback)
+            ratings.setRating(LADDER, alts.uniqueId("user", altName), rating, callback)
 
       async.parallel altOps, ->
-        ratings.setRating "user", 15, ->
-          ratings.listRatings 0, 100, (err, results) ->
+        ratings.setRating LADDER, "user", 15, ->
+          ratings.listRatings LADDER, 0, 100, (err, results) ->
             results.should.eql([{username: "user", score: 30}])
             done()
 
   describe '#getRatio', ->
     it "returns a hash containing the win, lose, and draw counts", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-          ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
-            ratings.getRatio "player1", (err, player1Ratio) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+          ratings.updatePlayers LADDER, "player2", "player1", ratings.results.WIN, ->
+            ratings.getRatio LADDER, "player1", (err, player1Ratio) ->
               player1Ratio.should.eql(win: 2, lose: 1, draw: 0)
-              ratings.getRatio "player2", (err, player2Ratio) ->
+              ratings.getRatio LADDER, "player2", (err, player2Ratio) ->
                 player2Ratio.should.eql(win: 1, lose: 2, draw: 0)
                 done()
 
   describe '#getRank', ->
     it "returns the rank of a player", (done) ->
-      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
-        ratings.getRank "player1", (err, rank) ->
+      ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
+        ratings.getRank LADDER, "player1", (err, rank) ->
           rank.should.equal(1)
-          ratings.getRank "player2", (err, rank) ->
+          ratings.getRank LADDER, "player2", (err, rank) ->
             rank.should.equal(2)
-            ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
-              ratings.updatePlayers "player2", "player1", ratings.results.WIN, ->
-                ratings.getRank "player1", (err, rank) ->
+            ratings.updatePlayers LADDER, "player2", "player1", ratings.results.WIN, ->
+              ratings.updatePlayers LADDER, "player2", "player1", ratings.results.WIN, ->
+                ratings.getRank LADDER, "player1", (err, rank) ->
                   rank.should.equal(2)
-                  ratings.getRank "player2", (err, rank) ->
+                  ratings.getRank LADDER, "player2", (err, rank) ->
                     rank.should.equal(1)
                     done()

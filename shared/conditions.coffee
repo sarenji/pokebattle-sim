@@ -43,3 +43,4 @@
     conditions: [ @Conditions.PBV_500 ]
 
 @DEFAULT_FORMAT = 'xy1000'
+@LADDER_FORMATS = ['xy1000', 'xy500']
