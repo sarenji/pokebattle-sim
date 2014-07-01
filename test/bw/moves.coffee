@@ -3271,6 +3271,7 @@ describe "BW Moves:", ->
 
   describe "Conversion 2", ->
     it "fails if the target has not yet moved", ->
+      shared.create.call(this)
       move = @battle.getMove("Conversion 2")
       mock = @sandbox.mock(move).expects('fail').once()
 
@@ -3279,6 +3280,7 @@ describe "BW Moves:", ->
       mock.verify()
 
     it "changes user's type to one resisting or is immune to target's move", ->
+      shared.create.call(this)
       @p1.types = [ "Normal" ]
 
       move = @battle.getMove("Ember")
