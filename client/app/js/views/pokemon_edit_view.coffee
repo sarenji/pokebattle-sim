@@ -382,13 +382,15 @@ class @PokemonEditView extends Backbone.View
     displayedGenders =
       F: "Female"
       M: "Male"
+      Genderless: "Genderless"
 
     @disableEventsAndExecute =>
+      genders = ([g, displayedGenders[g]] for g in @pokemon.getGenders())
       $nonStats.find(".selected_nickname").val(@pokemon.get("name"))
       populateSelect ".selected_ability", @pokemon.getAbilities(), @pokemon.get("ability")
       populateSelect ".selected_nature", @pokemon.getNatures(), @pokemon.get("nature")
       setSelectizeValue(@$(".selected_item"), @pokemon.get("item"))
-      populateSelect ".selected_gender", ([g, displayedGenders[g]] for g in @pokemon.getGenders()), @pokemon.get("gender")
+      populateSelect ".selected_gender", genders, @pokemon.get("gender")
       $nonStats.find(".selected_level").val(@pokemon.get("level"))
 
   renderStats: =>

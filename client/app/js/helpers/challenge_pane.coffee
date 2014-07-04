@@ -75,8 +75,12 @@
     format = $selectFormat.data('format')
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
-      disableButtons()
       team = getSelectedTeam()
+      unless team
+        alert("You need to create a team using the Teambuilder before you can battle.")
+        return
+
+      disableButtons()
       teamJSON = team.toNonNullJSON().pokemon
       # Send the event
       if personId
@@ -93,8 +97,12 @@
   # Implement accept/reject buttons.
   $accept.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
+    team = getSelectedTeam()
+    unless team
+      alert("You need to create a team using the Teambuilder before you can battle.")
+      return
     disableButtons()
-    teamJSON = getSelectedTeam().toNonNullJSON().pokemon
+    teamJSON = team.toNonNullJSON().pokemon
     PokeBattle.socket.send(acceptEventName, personId, teamJSON, selectedAlt)
 
   $reject.on 'click.challenge', ->

@@ -4,9 +4,9 @@ each pokemon, i in pokemonList
     .pokemon_icon(style=style)
     .pokemon-middle
       if pokemon.isNull
-        em Empty
+        em.name Empty
       else
-        = pokemon.get("name")
+        .name= pokemon.get("species")
         .pokemon-pbv
           | PBV: 
           span.pbv-value= pokemon.getPBV()

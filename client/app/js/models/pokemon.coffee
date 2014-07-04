@@ -32,21 +32,6 @@ class @Pokemon extends Backbone.Model
     # Skip teambuilder-specific properties.
     return  if @get('teambuilder') != true
 
-    # Set to default forme and ability when the species changes
-    @on 'change:species', =>
-      @set('forme', 'default')
-      @set('ability', @getAbilities()[0], silent: true)
-      @set('item', null, silent: true)
-      @set('level', 100, silent: true)
-      @set('happiness', 100, silent: true)
-      @set('gender', @getGenders()[0], silent: true)
-      @get('ivs')[stat] = 31  for stat of @get('ivs')
-      @get('evs')[stat] = 0   for stat of @get('evs')
-      @set('moves', [], silent: true)
-
-      hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
-      @set('hiddenPowerType', hiddenPowerType, silent: true)
-
     @on 'change:ivs', (model, ivs)=>
       type = HiddenPower.BW.type(ivs).toLowerCase()
       @set("hiddenPowerType", type, silent: true)
@@ -64,6 +49,11 @@ class @Pokemon extends Backbone.Model
     @set('nature', 'Hardy')  unless attributes.nature
     hiddenPowerType = HiddenPower.BW.type(@get('ivs')).toLowerCase()
     @set('hiddenPowerType', hiddenPowerType, silent: true)
+
+    # If there is no gender set and only one possiblity, set the gender
+    unless @has('gender')
+      genders = @getGenders()
+      @set('gender', genders[0], silent: true) if genders.length == 1
 
   resetBoosts: ->
     @set 'stages',
