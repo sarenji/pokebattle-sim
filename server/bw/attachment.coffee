@@ -151,6 +151,11 @@ class @Attachment.Confusion extends @VolatileAttachment
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
     @turn = 0
 
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    {source} = options
+    return false  if (pokemon.team?.has(Attachment.Safeguard) && source != pokemon)
+
   unattach: ->
     @pokemon?.tell(Protocol.POKEMON_UNATTACH, @name)
 
@@ -200,6 +205,7 @@ class @Attachment.Yawn extends @VolatileAttachment
   @preattach: (options, attributes) ->
     {pokemon} = attributes
     return false  if pokemon.hasStatus()
+    return false  if pokemon.team.has(Attachment.Safeguard)
 
   initialize: (attributes = {}) ->
     {@source} = attributes
@@ -209,7 +215,7 @@ class @Attachment.Yawn extends @VolatileAttachment
   endTurn: ->
     @turn += 1
     if @turn == 2
-      @pokemon.attach(Status.Sleep, {@source})
+      @pokemon.attach(Status.Sleep, {@source, bypassSafeguard: true})
       @pokemon.unattach(@constructor)
 
 # TODO: Does weight get lowered if speed does not change?
@@ -238,6 +244,20 @@ class @Attachment.Nightmare extends @VolatileAttachment
         @battle.message "#{@pokemon.name} is locked in a nightmare!"
     else
       @pokemon.unattach(@constructor)
+
+class @Attachment.Safeguard extends @TeamAttachment
+  name: "SafeguardAttachment"
+
+  initialize: (attributes) ->
+    {@source} = attributes
+    @turns = 5
+    @turn = 0
+
+  endTurn: ->
+    @turn++
+    if @turn >= @turns
+      @battle.cannedText('SAFEGUARD_END', @source)
+      @team.unattach(@constructor)
 
 class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
@@ -1380,10 +1400,11 @@ class @StatusAttachment extends @BaseAttachment
 
   @preattach: (options, attributes) ->
     {battle, pokemon} = attributes
-    {source, force} = options
+    {source, force, bypassSafeguard} = options
     force ?= false
     if !force
       return false  if pokemon.hasStatus()
+      return false  if (pokemon.team?.has(Attachment.Safeguard) && source != pokemon && !bypassSafeguard)
       return false  unless @worksOn(battle, pokemon)
       if source && this in [ Status.Toxic, Status.Burn, Status.Poison, Status.Paralyze ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon

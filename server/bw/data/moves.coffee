@@ -560,6 +560,7 @@ extendMove 'Defog', ->
     target.boost(evasion: -1, user)
     target.team.unattach(Attachment.Reflect)
     target.team.unattach(Attachment.LightScreen)
+    target.team.unattach(Attachment.Safeguard)
 
     for pokemon in @selectPokemon(battle, user, target)
       for hazard in @entryHazards
@@ -1598,6 +1599,15 @@ extendMove 'Role Play', ->
       user.copyAbility(target.ability)
     else
       @fail(battle, user)
+
+extendMove 'Safeguard', ->
+  @hit = (battle, user, target) ->
+    team = user.team
+    if !team.attach(Attachment.Safeguard, {source: user})
+      @fail(battle)
+      return false
+
+    battle.cannedText('SAFEGUARD_START', user)
 
 extendMove 'Simple Beam', ->
   bannedAbilities =

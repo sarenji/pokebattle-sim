@@ -104,6 +104,8 @@ CannedText =
       MENTAL_HERB: "$p used its Mental Herb to come back to its senses!"
       WHITE_HERB: "$p restored its status using its White Herb!"
       MOVE_FIRST: "$p's $i let it move first!"
+      SAFEGUARD_START: "$t's team became cloaked in a mystical veil!"
+      SAFEGUARD_END: "$t's Safeguard wore off!"
 
 cannedMap = {}
 cannedMapReverse = {}
