@@ -28,9 +28,13 @@ On Windows, there is a Redis port that works fairly well: https://github.com/rgl
 
 PostgreSQL has installable versions for every major OS. In particular, for Mac OS X, there is Postgres.app.
 
-When you install PostgreSQL, you should create a database for pokebattle, called `pokebattle_sim`. The syntax is:
+When you install PostgreSQL, you should create a database for pokebattle, called `pokebattle_sim`. You can do this two ways:
 
-```sql
+```bash
+# command-line:
+$ createdb pokebattle_sim
+
+# or via SQL client:
 CREATE DATABASE pokebattle_sim;
 ```
 
@@ -39,6 +43,8 @@ Next, you must migrate the database. Simply run:
 ```bash
 grunt knexmigrate:latest
 ```
+
+If you get an error complaining that the `postgres` role doesn't exist, run this: `createuser -s -r postgres`.
 
 ## Run server
 
