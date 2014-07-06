@@ -1102,7 +1102,8 @@ extendMove 'Fling', ->
 
     oldUse.call(this, battle, user, target)
 
-  @afterSuccessfulHit = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+    return  unless isDirect
     {item} = user.get(Attachment.Fling)
     switch item.displayName
       when "Poison Barb"

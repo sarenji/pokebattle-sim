@@ -6563,6 +6563,15 @@ describe "BW Moves:", ->
       @battle.continueTurn()
       @p2.stages.speed.should.equal(1)
 
+    it "does not activate an item effect when hitting a substitute", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Toxic Orb")]
+      fling = @battle.getMove("Fling")
+      @p2.attach(Attachment.Substitute, hp: 1)
+      @battle.recordMove(@id1, fling)
+      @battle.continueTurn()
+      @p2.has(Status.Toxic).should.be.false
+
     it "loses the user's item", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Poison Barb")]
