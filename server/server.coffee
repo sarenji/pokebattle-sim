@@ -57,7 +57,7 @@ class @BattleServer
   # Creates a new user or finds an existing one, and adds a spark to it
   findOrCreateUser: (json, spark) ->
     user = @users.get(json.name)
-    user = @users.add(json, spark)  unless user?
+    user = @users.add(json, spark)
     user
 
   join: (spark) ->

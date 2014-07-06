@@ -710,6 +710,15 @@ describe 'BattleServer', ->
         server.getUserBattles(user3).should.be.empty
         done()
 
+    it "can join multiple times", ->
+      server = new BattleServer()
+      server.findOrCreateUser(id: 1, name: "hey", spark1 = @stubSpark())
+      server.join(spark1)
+      (=>
+        server.findOrCreateUser(id: 1, name: "hey", spark2 = @stubSpark())
+        server.join(spark2)
+      ).should.not.throw()
+
   describe "a battle", ->
     beforeEach (done) ->
       @server = new BattleServer()
