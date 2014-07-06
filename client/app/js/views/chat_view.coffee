@@ -136,7 +136,8 @@ class @ChatView extends Backbone.View
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
 
     # Render the chat message
-    u = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
+    u = "<b class='open_pm fake_link' data-user-id=#{username}
+      style='color: #{@userColor(username)}'>#{username}:</b>"
     @updateChat("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
 
     # We might want to run something based on the message, e.g. !pbv from a mod.
