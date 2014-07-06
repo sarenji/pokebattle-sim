@@ -143,13 +143,13 @@ CLIENT_VERSION = assets.getVersion()
 
     # Takes a temporary id and team JSON. Saves to server, and returns the real
     # unique id that was persisted onto the DB.
-    spark.on 'saveTeam', (team, cid) ->
+    spark.on 'saveTeam', (team, callback) ->
       attributes = _.pick(team, 'id', 'name', 'generation')
       attributes['trainer_id'] = user.id
       attributes['contents'] = JSON.stringify(team.pokemon)
       new database.Team(attributes)
         .save().then (team) ->
-          user.send('teamSaved', cid, team.id)
+          callback(team.id)
 
     spark.on 'requestTeams', ->
       q = new database.Teams()
@@ -160,9 +160,14 @@ CLIENT_VERSION = assets.getVersion()
           user.send('receiveTeams', teams.toJSON())
 
     spark.on 'destroyTeam', (teamId) ->
-      new database.Team(trainer_id: user.id, id: teamId)
+      attributes = {
+        id: teamId
+      }
+      attributes['trainer_id'] = user.id  unless config.IS_LOCAL
+      new database.Team(attributes)
         .fetch(columns: ['id'])
         .then (team) ->
+          # If there is no team, the user doesn't own it.
           team?.destroy()
 
     ####################

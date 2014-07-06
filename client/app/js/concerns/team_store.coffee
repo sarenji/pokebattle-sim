@@ -1,6 +1,35 @@
 class TeamStore extends Backbone.Collection
   model: Team
 
+  initialize: ->
+    @on('add remove reset saving saved', @saveLocally)
+    @loadLocally()
+
+  unsavedTeams: =>
+    @filter((team) -> !team.id)
+
+  # Only locally save teams without an id.
+  saveLocally: =>
+    teams = @unsavedTeams()
+    json = _.map(teams, (team) -> team.toJSON())
+    try
+      window.localStorage.setItem('local_teams', JSON.stringify(json))
+    catch
+      console.error("Failed to save teams locally.")
+
+  loadLocally: =>
+    try
+      json = window.localStorage.getItem('local_teams')
+      return  unless json
+      teams = JSON.parse(json)
+      @add(teams)  if teams.length > 0
+    catch
+      console.error("Failed to load teams locally.")
+
+  saveRemotely: =>
+    teams = @unsavedTeams()
+    team.save()  for team in teams
+
 PokeBattle.TeamStore = new TeamStore()
 
 PokeBattle.primus.on 'receiveTeams', (remoteTeams) ->
@@ -36,13 +65,6 @@ PokeBattle.primus.on 'receiveTeams', (remoteTeams) ->
 
   # Now, add teams we haven't seen yet to the store.
   PokeBattle.TeamStore.add(remoteTeams)
-
-PokeBattle.primus.on 'teamSaved', (cid, teamId) ->
-    team = PokeBattle.TeamStore.get(cid)
-    if !team
-      console.error("Could not find team #{cid}")
-    else
-      team.set('id', teamId)
 
 PokeBattle.primus.on 'loginSuccess', ->
   PokeBattle.primus.send('requestTeams')
