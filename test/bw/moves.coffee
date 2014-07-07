@@ -4249,6 +4249,19 @@ describe "BW Moves:", ->
       @battle.performMove(@p2, @battle.getMove("Tackle"))
       @p2.isFainted().should.be.false
 
+    it "does not cause attacker to faint after user attempts to move again", ->
+      shared.create.call(this)
+
+      @p1.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove("Destiny Bond"))
+
+      @battle.endTurn()
+      @battle.beginTurn()
+      @p1.attach(Status.Sleep)
+      @battle.performMove(@p1, @battle.getMove("Tackle"))
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p2.isFainted().should.be.false
+
     it "does not faint attacker if pokemon fainted naturally", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove("Tackle"))

@@ -9,6 +9,7 @@ Priorities.beforeMove ?= [
   # Things that should happen no matter what
   Attachment.Pursuit
   Attachment.Fling
+  Attachment.DestinyBond
 
   # Order-dependent
   Status.Freeze
@@ -28,7 +29,6 @@ Priorities.beforeMove ?= [
   Attachment.FocusPunch
   Attachment.Recharge
   Attachment.Metronome
-  Attachment.DestinyBond
   Attachment.Grudge
   Attachment.Rage
   Attachment.Charging
@@ -106,7 +106,6 @@ Priorities.endTurn ?= [
   Attachment.Reflect
   Attachment.LightScreen
   Attachment.Screen
-  # Attachment.Safeguard
   # Attachment.Mist
   Attachment.Safeguard
   Attachment.Tailwind
