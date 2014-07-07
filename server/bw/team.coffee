@@ -77,7 +77,10 @@ class @Team
     [ a, b ] = [ @indexOf(pokemon), toPosition ]
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
     newPokemon = @at(a)
-    @battle.message "#{@playerName} sent out #{newPokemon.name}!"
+    pokemonName = newPokemon.name
+    if pokemonName != newPokemon.species
+      pokemonName += " (#{newPokemon.species})"
+    @battle.message "#{@playerName} sent out #{pokemonName}!"
     newPokemon.tell(Protocol.SWITCH_IN, b)
     newPokemon
 
