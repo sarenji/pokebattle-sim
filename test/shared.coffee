@@ -32,7 +32,7 @@ build = (context, opts={}) ->
     {id: context.id2, name: context.id2, team: team2, ratingKey: context.id2}
   ]
   numActive = opts.numActive || 1
-  context.battle = new Battle('id', players, {numActive, conditions})
+  context.battle = new Battle(createId(), players, {numActive, conditions})
   context.controller = new BattleController(context.battle)
   context.team1  = context.battle.getTeam(context.id1)
   context.team2  = context.battle.getTeam(context.id2)
@@ -48,6 +48,9 @@ build = (context, opts={}) ->
   biasRNG.call(context, 'randInt', 'flinch', 99)  # No flinch (unless fake out)
   # moves that call other moves also get new targets
   biasRNG.call(context, 'randInt', 'selected pokemon target', 0)
+
+createId = ->
+  Math.random().toString(16).substr(2)
 
 create = (opts={}) ->
   build(this, opts)
