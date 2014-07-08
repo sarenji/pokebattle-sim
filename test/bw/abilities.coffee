@@ -1479,6 +1479,16 @@ describe "BW Abilities:", ->
         sr = @battle.getMove("Stealth Rock")
         (=> @battle.performMove(@p1, sr)).should.not.throw()
 
+      it "ignores Unaware", ->
+        shared.create.call this,
+          team1: [Factory("Haxorus", ability: name)]
+          team2: [Factory("Quagsire", ability: "Unaware")]
+
+        @p1.boost(attack: 2)
+        spy = @sandbox.spy(@p1, "editBoosts").withArgs(sinon.match(ignoreOffense: false))
+        @battle.performMove(@p1, @battle.getMove("Outrage"))
+        spy.returned(sinon.match(attack: 2)).should.be.true
+
   testAbilityCancelAbility("Mold Breaker")
   testAbilityCancelAbility("Teravolt")
   testAbilityCancelAbility("Turboblaze")
