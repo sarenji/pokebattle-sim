@@ -211,6 +211,7 @@ class @Pokemon
 
   hasAbility: (ability) ->
     return false  unless @ability
+    return false  if @isAbilityBlocked()
     if typeof ability == 'string'
       @ability.displayName == ability
     else
