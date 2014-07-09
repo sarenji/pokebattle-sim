@@ -75,11 +75,11 @@ CLIENT_VERSION = assets.getVersion()
       auth.matchToken id, token, (err, json) ->
         if err then return spark.send('errorMessage', errors.INVALID_SESSION)
 
-        auth.getBanTTL id, (err, ttl) ->
+        auth.getBanTTL json.name, (err, ttl) ->
           if err
             return spark.send('errorMessage', errors.INVALID_SESSION)
           else if ttl != -2  # -2 means the ban does not exist
-            auth.getBanReason id, (err, reason) ->
+            auth.getBanReason json.name, (err, reason) ->
               spark.send('errorMessage', errors.BANNED, reason, Number(ttl))
               spark.close()
               return
