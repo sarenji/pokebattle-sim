@@ -33,7 +33,7 @@ PokeBattle.userList = new UserList()
 PokeBattle.battles = new BattleCollection([])
 PokeBattle.messages = new PrivateMessages([])
 
-PokeBattle.events.once 'ready', ->
+$ ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"))
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))

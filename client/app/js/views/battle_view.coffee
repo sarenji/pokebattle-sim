@@ -1215,7 +1215,7 @@ class @BattleView extends Backbone.View
     front = @isFront(@model.index)
     gen   = window.Generations[@model.get('generation').toUpperCase()]
     teams = @model.get('teams').map (team) ->
-      team.get('pokemon').forEach (pokemon) ->
+      team.get('pokemon').map (pokemon) ->
         species = pokemon.get('species')
         forme   = pokemon.get('forme')
         shiny   = pokemon.get('shiny')

@@ -845,7 +845,6 @@ class @Battle extends EventEmitter
 
   removeSpectator: (spark) ->
     user = spark.user
-    return  if user.hasSparks()
 
     for s, i in @spectators
       if user == (s.original ? s)
