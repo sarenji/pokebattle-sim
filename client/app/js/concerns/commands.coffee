@@ -40,7 +40,7 @@ PokeBattle.commands.execute = (line) ->
   return true
 
 desc 'Displays a list of all commands.'
-makeCommand "help", "h", ->
+makeCommand "commands", "help", "h", ->
   user = PokeBattle.userList.get(PokeBattle.username)
   return  unless user
 
