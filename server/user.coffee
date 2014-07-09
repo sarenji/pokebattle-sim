@@ -44,7 +44,7 @@ class @User
     @send("announce", klass, msg)
 
   close: ->
-    spark.close()  for spark in @sparks
+    spark.end()  for spark in @sparks
 
   # Returns a new user object where the name has been masked (useful for alts)
   maskName: (name) ->
