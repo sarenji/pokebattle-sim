@@ -81,7 +81,7 @@ CLIENT_VERSION = assets.getVersion()
           else if ttl != -2  # -2 means the ban does not exist
             auth.getBanReason json.name, (err, reason) ->
               spark.send('errorMessage', errors.BANNED, reason, Number(ttl))
-              spark.close()
+              spark.end()
               return
           else
             user = server.findOrCreateUser(json, spark)
