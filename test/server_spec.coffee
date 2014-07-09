@@ -2,6 +2,7 @@ require './helpers'
 
 {BattleServer} = require('../server/server')
 {Conditions, DEFAULT_FORMAT} = require '../shared/conditions'
+{Protocol} = require '../shared/protocol'
 {Factory} = require './factory'
 alts = require('../server/alts')
 should = require('should')
@@ -718,6 +719,42 @@ describe 'BattleServer', ->
         server.findOrCreateUser(id: 1, name: "hey", spark2 = @stubSpark())
         server.join(spark2)
       ).should.not.throw()
+
+    it "records battles they're under an alt in", (done) ->
+      server = new BattleServer()
+      [ user1, user2 ] = [ "a", "b" ]
+      for name, i in [ user1, user2 ]
+        server.findOrCreateUser(id: i, name: name, @stubSpark())
+      server.queuePlayer(user1, generateTeam(), null, 'alt1').should.be.empty
+      server.queuePlayer(user2, generateTeam(), null, 'alt2').should.be.empty
+      server.beginBattles (err, battleIds) ->
+        server.getUserBattles(user1).should.not.be.empty
+        server.getUserBattles(user2).should.not.be.empty
+        done()
+
+    it "auto-rejoin battles they're under an alt in", (done) ->
+      server = new BattleServer()
+      [ user1, user2 ] = [ "a", "b" ]
+      server.findOrCreateUser(id: 1, name: user1, spark1 = @stubSpark())
+      server.findOrCreateUser(id: 2, name: user2, spark2 = @stubSpark())
+      server.queuePlayer(user1, generateTeam(), null, 'alt1').should.be.empty
+      server.queuePlayer(user2, generateTeam(), null, 'alt2').should.be.empty
+      server.beginBattles (err, battleIds) =>
+        [battleId] = battleIds
+        battle = server.findBattle(battleId).battle
+
+        # test spark1
+        spy = @sandbox.spy(battle, 'tellPlayer').withArgs(user1, Protocol.RECEIVE_TEAM)
+        server.join(spark1)
+        spy.calledOnce.should.be.true
+        battle.tellPlayer.restore()
+
+        # test spark2
+        spy = @sandbox.spy(battle, 'tellPlayer').withArgs(user2, Protocol.RECEIVE_TEAM)
+        server.join(spark2)
+        spy.calledOnce.should.be.true
+        battle.tellPlayer.restore()
+        done()
 
   describe "a battle", ->
     beforeEach (done) ->

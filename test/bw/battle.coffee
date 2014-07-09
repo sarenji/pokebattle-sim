@@ -10,6 +10,7 @@ require '../helpers'
 shared = require('../shared')
 should = require 'should'
 {_} = require 'underscore'
+ratings = require('../../server/ratings')
 
 describe 'Battle', ->
   beforeEach ->
@@ -310,7 +311,6 @@ describe 'Battle', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
         conditions: [ Conditions.RATED_BATTLE ]
-      ratings = require('../../server/ratings')
       @battle.on "ratingsUpdated", =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
@@ -319,17 +319,15 @@ describe 'Battle', ->
             rating2.rating.should.be.lessThan(defaultPlayer.rating)
             done()
 
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
+      @p2.currentHP = 1
+      mock = @sandbox.mock(@controller)
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
 
     it "doesn't update ratings if an unrated battle", (done) ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      ratings = require('../../server/ratings')
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
@@ -337,11 +335,10 @@ describe 'Battle', ->
             rating2.rating.should.equal(0)
             done()
 
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
+      @p2.currentHP = 1
+      mock = @sandbox.mock(@controller)
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
 
   describe "#forfeit", ->
     it "prematurely ends the battle", ->
@@ -368,30 +365,14 @@ describe 'Battle', ->
       @battle.forfeit(@id1)
       @battle.isOver().should.be.true
 
-    it "updates the winner and losers' ratings if a rated battle", (done) ->
-      shared.create.call this,
-        team1: [Factory('Hitmonchan')]
-        team2: [Factory('Mew')]
-        conditions: [ Conditions.RATED_BATTLE ]
-      ratings = require('../../server/ratings')
-      @battle.on "ratingsUpdated", =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
-            rating2.rating.should.be.lessThan(defaultPlayer.rating)
-            done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
-
     it "doesn't update the winner and losers' ratings if not a rated battle", (done) ->
-      ratings = require('../../server/ratings')
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
             rating1.rating.should.equal(0)
             rating2.rating.should.equal(0)
             done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
+      @battle.forfeit(@id2)
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->
@@ -487,3 +468,20 @@ describe 'Battle', ->
 
       @clock.tick(longExpire)
       spy.calledOnce.should.be.true
+
+describe "Rated battles", ->
+  beforeEach ->
+    shared.create.call this,
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
+        conditions: [ Conditions.RATED_BATTLE ]
+
+  it "updates the winner and losers' ratings", (done) ->
+    @battle.on "ratingsUpdated", =>
+      ratings.getPlayer @id1, (err, rating1) =>
+        ratings.getPlayer @id2, (err, rating2) =>
+          defaultPlayer = ratings.algorithm.createPlayer()
+          rating1.rating.should.be.greaterThan(defaultPlayer.rating)
+          rating2.rating.should.be.lessThan(defaultPlayer.rating)
+          done()
+    @battle.forfeit(@id2)

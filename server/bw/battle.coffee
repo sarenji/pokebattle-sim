@@ -824,7 +824,7 @@ class @Battle extends EventEmitter
     index = null
 
     # If this is a player, mask the spectator in case this is an alt
-    player = _(@players).find((p) -> p.name == user.name)
+    player = _(@players).find((p) -> p.id == user.name)
     if player
       user = user.maskName(player.name)
       index = @getPlayerIndex(player.id)
