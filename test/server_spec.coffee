@@ -756,6 +756,40 @@ describe 'BattleServer', ->
         battle.tellPlayer.restore()
         done()
 
+    it "automatically leaves a battle when leaving the server", (done) ->
+      server = new BattleServer()
+      [ user1, user2 ] = [ "a", "b" ]
+      server.findOrCreateUser(id: 1, name: user1, spark1 = @stubSpark())
+      server.findOrCreateUser(id: 2, name: user2, spark2 = @stubSpark())
+      server.join(spark1)
+      server.join(spark2)
+      server.queuePlayer(user1, generateTeam(), null, 'alt1').should.be.empty
+      server.queuePlayer(user2, generateTeam(), null, 'alt2').should.be.empty
+      server.beginBattles (err, battleIds) =>
+        [battleId] = battleIds
+        battle = server.findBattle(battleId).battle
+
+        # test spark1
+        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark1)
+        broadcastSpy = @sandbox.spy(battle, 'broadcast')
+        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt1')
+        server.leave(spark1)
+        spy.calledOnce.should.be.true
+        broadcastSpy.calledOnce.should.be.true
+        battle.removeSpectator.restore()
+        battle.broadcast.restore()
+
+        # test spark2
+        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark2)
+        broadcastSpy = @sandbox.spy(battle, 'broadcast')
+        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt2')
+        server.leave(spark2)
+        spy.calledOnce.should.be.true
+        broadcastSpy.calledOnce.should.be.true
+        battle.removeSpectator.restore()
+        battle.broadcast.restore()
+        done()
+
   describe "a battle", ->
     beforeEach (done) ->
       @server = new BattleServer()

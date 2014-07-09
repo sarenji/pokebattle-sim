@@ -844,11 +844,14 @@ class @Battle extends EventEmitter
     @emit('spectateBattle', user)
 
   removeSpectator: (spark) ->
+    user = spark.user
+    return  if user.hasSparks()
+
     for s, i in @spectators
-      if (s.original || s) == spark.user
+      if user == (s.original ? s)
         @spectators.splice(i, 1)
         @broadcast('leaveBattle', @id, s.name)
-        i -= 1
+        break
 
   forfeit: (id) ->
     return  if @isOver()
