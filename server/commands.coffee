@@ -178,7 +178,7 @@ makeModCommand "mute", (user, room, next, username, reason...) ->
   else
     length = Math.min(parseLength("2d"), length)  # max of two days
   @mute(username, reason, length)
-  message = "#{user.id} muted #{username} for #{prettyPrintTime(length)}"
+  message = "#{user.name} muted #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
@@ -194,7 +194,7 @@ makeModCommand "unmute", (user, room, next, username) ->
       return next()
     else
       @unmute(username)
-      message = "#{user.id} unmuted #{username}"
+      message = "#{user.name} unmuted #{username}"
       room.announce('warning', message)
       next()
 
@@ -210,7 +210,7 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
   else
     length = Math.min(parseLength("1d"), length)  # max of one day
   @ban(username, reason, length)
-  message = "#{user.id} banned #{username} for #{prettyPrintTime(length)}"
+  message = "#{user.name} banned #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
@@ -226,7 +226,7 @@ makeModCommand "unban", (user, room, next, username) ->
       return next()
     else
       @unban username, =>
-        message = "#{user.id} unbanned #{username}"
+        message = "#{user.name} unbanned #{username}"
         room.announce('warning', message)
         return next()
 
@@ -315,7 +315,7 @@ desc "Announces something to the entire server. Usage: /wall message"
 makeModCommand "wall", "announce", (user, room, next, pieces...) ->
   message = pieces.join(',')
   return next()  if !message
-  @announce("<strong>#{user.id}:</strong> #{message}")
+  @announce("<strong>#{user.name}:</strong> #{message}")
   next()
 
 desc "Finds all alts associated with a username, or the main username of an alt"
