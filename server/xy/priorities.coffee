@@ -42,6 +42,47 @@ Priorities.beforeMove ?= [
   Ability.Turboblaze
 ]
 
+Priorities.switchIn ?= [
+  Attachment.BatonPass
+
+  # Order-dependent
+  Ability.Unnerve
+  Attachment.HealingWish
+  Attachment.LunarDance
+  Attachment.StickyWeb
+  Attachment.StealthRock
+  Attachment.Spikes
+  Attachment.ToxicSpikes
+
+  # TODO: Are these in the correct order?
+  Ability.AirLock
+  Ability.CloudNine
+  Ability.Chlorophyll
+  Ability.SwiftSwim
+  Ability.SandRush
+  Ability.Drizzle
+  Ability.Drought
+  Ability.SandStream
+  Ability.SnowWarning
+  Ability.MoldBreaker
+  Ability.Teravolt
+  Ability.Turboblaze
+  Ability.Anticipation
+  Ability.ArenaTrap
+  Ability.Download
+  Ability.Forewarn
+  Ability.Frisk
+  Ability.Imposter
+  Ability.Intimidate
+  Ability.Klutz
+  Ability.MagicBounce
+  Ability.MagnetPull
+  Ability.Pressure
+  Ability.ShadowTag
+  Ability.SlowStart
+  Ability.Trace
+]
+
 Priorities.endTurn = [
   # Non-order-dependent
   Attachment.AbilityCancel
