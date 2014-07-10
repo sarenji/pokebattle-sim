@@ -1997,6 +1997,17 @@ describe "BW Moves:", ->
       @team1.first().currentHP.should.be.lessThan(@team1.first().stat('hp'))
       @team1.at(1).currentHP.should.equal(@team1.at(1).stat('hp'))
 
+    it "doesn't activate Rough Skin if it fails", ->
+      shared.create.call this,
+        team2: [Factory("Garchomp", ability: "Rough Skin")]
+
+      counter = @battle.getMove("Counter")
+      mock = @sandbox.mock(counter)
+      mock.expects('fail').once()
+      @battle.performMove(@p1, counter)
+      mock.verify()
+      @p1.currentHP.should.equal(@p1.stat('hp'))
+
   describe "Perish Song", ->
     it "attaches to every pokemon in the field", ->
       shared.create.call(this)

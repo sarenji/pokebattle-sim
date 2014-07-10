@@ -424,12 +424,15 @@ makeCounterMove = (name, multiplier, applies) ->
 
     @calculateDamage = -> 0
 
-    @afterSuccessfulHit = (battle, user, target) ->
+    oldUse = @use
+    @use = (battle, user, target) ->
+      return  if oldUse.call(this, battle, user, target) == false
       hit = user.lastHitBy
       if hit? && applies(hit.move) && hit.turn == battle.turn
         target.damage(multiplier * hit.damage, direct: false, source: "move")
       else
         @fail(battle, user)
+        return false
 
 makeTrappingMove = (name) ->
   extendMove name, ->
