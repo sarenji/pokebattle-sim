@@ -168,7 +168,7 @@ describe "Commands", ->
     describe "ban", ->
       it "returns an error if insufficient authority", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
-        mock2 = @sandbox.mock(@user2).expects('error').never()
+        mock2 = @sandbox.mock(@spark2).expects('end').never()
         commands.executeCommand @server, @user1, @room, "ban", @user2.name, ->
           mock1.verify()
           mock2.verify()
@@ -176,7 +176,7 @@ describe "Commands", ->
 
       it "bans a user if mod", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').never()
-        mock2 = @sandbox.mock(@user2).expects('close').once()
+        mock2 = @sandbox.mock(@spark2).expects('end').once()
         @user1.authority = auth.levels.MOD
         commands.executeCommand @server, @user1, @room, "ban", @user2.name, =>
           mock1.verify()
