@@ -273,7 +273,7 @@ class @Battle extends EventEmitter
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectatorIds = _.unique(@spectators.map((s) -> s.name))
+    spectatorIds = _.unique(@spectators.map((s) -> s.original?.name || s.name))
     @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
     @log.push(args)
     true
@@ -884,10 +884,11 @@ class @Battle extends EventEmitter
   # Sends battle updates to each spectator.
   sendUpdates: ->
     for user in @spectators
-      queue = @queues[user.name]
+      userName = user.original?.name || user.name
+      queue = @queues[userName]
       continue  if !queue || queue.length == 0
       user.send('updateBattle', @id, queue)
-      delete @queues[user.name]
+      delete @queues[userName]
 
   cannedText: (type, args...) ->
     newArgs = []
