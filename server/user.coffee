@@ -24,11 +24,16 @@ class @User
   hasSparks: ->
     @sparks.length >= 1
 
-  toJSON: ->
+  toJSON: (options = {}) ->
+    displayedName = options.alt ? @name
+    isAlt = (displayedName != @name)
     json = {
-      'id': @name
+      'id': displayedName
     }
-    json['authority'] = @authority  if @authority
+    if isAlt
+      json['isAlt'] = true
+    else
+      json['authority'] = @authority  if @authority
     json
 
   send: ->
@@ -45,22 +50,3 @@ class @User
 
   close: ->
     spark.end()  for spark in @sparks
-
-  # Returns a new user object where the name has been masked (useful for alts)
-  maskName: (name) ->
-    return this  if name == @name
-
-    # Copy over all properties.
-    newUser = new User()
-    newUser.original = this
-    for key, value of this
-      newUser[key] = value
-
-    newUser.toJSON = ->
-      json = @original.toJSON.apply(this, arguments)
-      json.isAlt = true
-      json.authority = undefined
-      json
-
-    newUser.name = name
-    return newUser

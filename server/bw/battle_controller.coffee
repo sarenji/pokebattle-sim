@@ -77,13 +77,10 @@ class @BattleController
     @battle.removeSpectator(spectator)
 
   messageSpectators: (user, message) ->
-    # Find the user in the battle just in case its masked
-    # If it doesn't exist, this means its an outside user
-    userInBattle = _(@battle.spectators).find((s) -> s.id == user.id)
-    user = userInBattle  if userInBattle
-
+    # In case the user is an alt.
+    userName = @battle.getPlayerName(user.name)
     for spectator in @battle.spectators
-      spectator.send('updateBattleChat', @battle.id, user.name, message)
+      spectator.send('updateBattleChat', @battle.id, userName, message)
 
   rawMessage: (message) ->
     for spectator in @battle.spectators

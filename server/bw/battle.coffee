@@ -156,6 +156,10 @@ class @Battle extends EventEmitter
     index = @playerIds.indexOf(playerId)
     return (if index == -1 then null else index)
 
+  getPlayerName: (playerId) ->
+    index = @getPlayerIndex(playerId)
+    return (if index == -1 then playerId else @playerNames[index])
+
   getPlayer: (playerId) ->
     _(@players).find((p) -> p.id == playerId)
 
@@ -273,7 +277,7 @@ class @Battle extends EventEmitter
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectatorIds = _.unique(@spectators.map((s) -> s.original?.name || s.name))
+    spectatorIds = _.unique(@spectators.map((s) -> s.name))
     @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
     @log.push(args)
     true
@@ -821,21 +825,19 @@ class @Battle extends EventEmitter
 
   addSpectator: (spark) ->
     user = spark.user
-    index = null
 
     # If this is a player, mask the spectator in case this is an alt
     player = _(@players).find((p) -> p.id == user.name)
-    if player
-      user = user.maskName(player.name)
-      index = @getPlayerIndex(player.id)
 
-    if user.id not in @spectators.map((s) -> s.id)
-      @broadcast('joinBattle', @id, user.toJSON())
+    index = (if player then @getPlayerIndex(player.id) else null)
+
+    if user not in @spectators
+      @broadcast('joinBattle', @id, user.toJSON(alt: @getPlayerName(user.name)))
       @spectators.push(user)
 
     user.send('spectateBattle',
       @id, @generation, @numActive, index,
-      @playerNames, @spectators.map((s) -> s.toJSON()), @log)
+      @playerNames, @spectatorsToJSON(), @log)
 
     # If this is a player, send them their own team
     if player
@@ -847,10 +849,14 @@ class @Battle extends EventEmitter
     user = spark.user
 
     for s, i in @spectators
-      if user == (s.original ? s)
+      if user == s
         @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, s.name)
+        @broadcast('leaveBattle', @id, @getPlayerName(s.name))
         break
+
+  spectatorsToJSON: (user) ->
+    @spectators.map (s) =>
+      s.toJSON(alt: @getPlayerName(s.name))
 
   forfeit: (id) ->
     return  if @isOver()
@@ -884,7 +890,7 @@ class @Battle extends EventEmitter
   # Sends battle updates to each spectator.
   sendUpdates: ->
     for user in @spectators
-      userName = user.original?.name || user.name
+      userName = user.name
       queue = @queues[userName]
       continue  if !queue || queue.length == 0
       user.send('updateBattle', @id, queue)
