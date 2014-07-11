@@ -337,7 +337,7 @@ class @BattleView extends Backbone.View
     $pokeball.remove()
 
   logMove: (player, slot, moveName, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     pokemon = @model.getPokemon(player, slot)
     @addMoveMessage(owner, pokemon, moveName)
     @lastMove = moveName
@@ -456,10 +456,10 @@ class @BattleView extends Backbone.View
         when 'p'
           [player, slot] = args.splice(0, 2)
           pokemon = @model.getPokemon(player, slot)
-          pokemon.getName()
+          pokemon.escape('name')
         when 't'
           [player] = args.splice(0, 1)
-          @model.getTeam(player).get('owner')
+          @model.getTeam(player).escape('owner')
         when 'ts'
           [player] = args.splice(0, 1)
           text = if @isFront(player)
@@ -480,7 +480,7 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(player, slot)
     isFront = @isFront(player)
     $ability = $('<div/>').addClass('ability_activation')
-    $ability.html("#{pokemon.getName()}'s <strong>#{abilityName}</strong>")
+    $ability.html("#{pokemon.escape('name')}'s <strong>#{abilityName}</strong>")
     $ability.addClass((if isFront then 'front' else 'back'))
     $ability.width(1)
     $ability.appendTo(@$('.battle_pane'))
@@ -564,14 +564,14 @@ class @BattleView extends Backbone.View
           setTimeout(done, 500)
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
-        @addLog("#{pokemon.getName()} became confused!")
+        @addLog("#{pokemon.escape('name')} became confused!")
         done()
       when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
         @cannedText('PROTECT_CONTINUE', player, slot)
         @attachScreen(player, slot, 'pink', 0, done)
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
-        @addLog("#{pokemon.getName()} floats in the air with its Air Balloon!")
+        @addLog("#{pokemon.escape('name')} floats in the air with its Air Balloon!")
         done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
@@ -744,7 +744,7 @@ class @BattleView extends Backbone.View
 
   boost: (player, slot, deltaBoosts, options = {}) =>
     pokemon = @model.getPokemon(player, slot)
-    pokemonName = pokemon.getName()
+    pokemonName = pokemon.escape('name')
     stages = pokemon.get('stages')
     $pokemon = @$pokemon(player, slot)
     $effects = $pokemon.find('.pokemon-effects')
@@ -837,7 +837,7 @@ class @BattleView extends Backbone.View
         @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
-        @addLog("#{pokemon.getName()}'s Air Balloon popped!")
+        @addLog("#{pokemon.escape('name')}'s Air Balloon popped!")
         done()
       when 'ConfusionAttachment'
         $pokemon.find(".pokemon-effect.confusion").remove()
@@ -1008,17 +1008,17 @@ class @BattleView extends Backbone.View
       return $userInfo.find('.right')
 
   announceWinner: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} won!"
     @announceWin(message, done)
 
   announceForfeit: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} has forfeited!"
     @announceWin(message, done)
 
   announceTimer: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} was given the timer win!"
     @announceWin(message, done)
 
@@ -1054,7 +1054,7 @@ class @BattleView extends Backbone.View
       log.push $this.text()
       log.push ""  if isHeader
     log = [ log.join('\n') ]
-    fileName = (@model.get('teams').map((team) -> team.get('owner'))).join(" vs ")
+    fileName = (@model.get('teams').map((team) -> team.escape('owner'))).join(" vs ")
     fileName += ".txt"
     blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
@@ -1127,8 +1127,8 @@ class @BattleView extends Backbone.View
     @renderWaiting()
 
   addMoveMessage: (owner, pokemon, moveName) =>
-    @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
-    @addSummary("#{owner}'s #{pokemon.getName()} used <strong>#{moveName}</strong>!", newline: true, big: true)
+    @chatView.print("<p class='move_message'>#{owner}'s #{@pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
+    @addSummary("#{owner}'s #{pokemon.escape('name')} used <strong>#{moveName}</strong>!", newline: true, big: true)
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -1154,12 +1154,6 @@ class @BattleView extends Backbone.View
         $p.remove()
         $summary.hide()  if $summary.is(':empty')
     setTimeout(removeP, 4000)
-
-  sanitize: (message) =>
-    sanitizedMessage = $('<div/>').text(message).html()
-    sanitizedMessage = sanitizedMessage.replace(
-      /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
-    sanitizedMessage
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
@@ -1266,5 +1260,6 @@ class @BattleView extends Backbone.View
     clearTimeout(@countdownTimersId)
     super()
 
-pokemonHtml = (pokemon) ->
-  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.getName()}</a>"
+  pokemonHtml: (pokemon) =>
+    "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}'
+      target='_blank'>#{pokemon.escape('name')}</a>"
