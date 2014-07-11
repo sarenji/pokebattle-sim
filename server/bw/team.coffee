@@ -66,7 +66,6 @@ class @Team
     playerIndex = @battle.getPlayerIndex(@playerId)
     @battle.removeRequest(@playerId, index)
     @battle.cancelAction(pokemon)
-    @battle.message "#{@playerName} withdrew #{pokemon.name}!"
     @battle.tell(Protocol.SWITCH_OUT, playerIndex, index)
     p.informSwitch(pokemon)  for p in @battle.getOpponents(pokemon)
     @switchOut(pokemon)
@@ -76,13 +75,9 @@ class @Team
   replace: (pokemon, toPosition) ->
     [ a, b ] = [ @indexOf(pokemon), toPosition ]
     [@pokemon[a], @pokemon[b]] = [@pokemon[b], @pokemon[a]]
-    newPokemon = @at(a)
-    pokemonName = newPokemon.name
-    if pokemonName != newPokemon.species
-      pokemonName += " (#{newPokemon.species})"
-    @battle.message "#{@playerName} sent out #{pokemonName}!"
-    newPokemon.tell(Protocol.SWITCH_IN, b)
-    newPokemon
+    theSwitch = @at(a)
+    theSwitch.tell(Protocol.SWITCH_IN, b)
+    theSwitch
 
   shouldBlockFieldExecution: (move, user) ->
     Query.untilTrue('shouldBlockFieldExecution', @attachments.all(), move, user)

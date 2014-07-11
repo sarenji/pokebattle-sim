@@ -137,6 +137,8 @@ CannedText =
       PICKPOCKET: "$p stole $p's $i!"
       SLOW_START_START: "$p can't get it going!"
       SLOW_START_END: "$p finally got its act together!"
+      WITHDREW: "$t withdrew $p!"
+      SENT_OUT: "$t sent out $p!"
 
 cannedMap = {}
 cannedMapReverse = {}

@@ -82,6 +82,12 @@ class @Pokemon extends Backbone.Model
     for stat in stats
       hash[stat] ?= defaultValue
 
+  getName: ->
+    sanitizedName = $('<div/>').text(@get('name')).html()
+    sanitizedName = sanitizedName.replace(
+      /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
+    sanitizedName
+
   getGeneration: (generation) ->
     gen = generation || @collection?.generation || DEFAULT_GENERATION
     gen = gen.toUpperCase()

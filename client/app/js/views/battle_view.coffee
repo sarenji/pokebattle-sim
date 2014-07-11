@@ -269,6 +269,8 @@ class @BattleView extends Backbone.View
     $newPokemon.removeClass('hidden')
     @pokemonPopover($newSprite, pokemon)
 
+    @cannedText('SENT_OUT', player, player, slot)
+
     if @skip?
       $oldPokemon.css(opacity: 0)
       $newPokemon.css(opacity: 1)
@@ -299,6 +301,7 @@ class @BattleView extends Backbone.View
   switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
     $sprite = @$sprite(player, slot)
+    @cannedText('WITHDREW', player, player, slot)
 
     if @skip?
       $pokemon.addClass('hidden')
@@ -453,7 +456,7 @@ class @BattleView extends Backbone.View
         when 'p'
           [player, slot] = args.splice(0, 2)
           pokemon = @model.getPokemon(player, slot)
-          pokemon.get('name')
+          pokemon.getName()
         when 't'
           [player] = args.splice(0, 1)
           @model.getTeam(player).get('owner')
@@ -477,7 +480,7 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(player, slot)
     isFront = @isFront(player)
     $ability = $('<div/>').addClass('ability_activation')
-    $ability.html("#{pokemon.get('name')}'s <strong>#{abilityName}</strong>")
+    $ability.html("#{pokemon.getName()}'s <strong>#{abilityName}</strong>")
     $ability.addClass((if isFront then 'front' else 'back'))
     $ability.width(1)
     $ability.appendTo(@$('.battle_pane'))
@@ -561,14 +564,14 @@ class @BattleView extends Backbone.View
           setTimeout(done, 500)
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
-        @addLog("#{pokemon.get('name')} became confused!")
+        @addLog("#{pokemon.getName()} became confused!")
         done()
       when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
         @cannedText('PROTECT_CONTINUE', player, slot)
         @attachScreen(player, slot, 'pink', 0, done)
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
-        @addLog("#{pokemon.get('name')} floats in the air with its Air Balloon!")
+        @addLog("#{pokemon.getName()} floats in the air with its Air Balloon!")
         done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
@@ -741,7 +744,7 @@ class @BattleView extends Backbone.View
 
   boost: (player, slot, deltaBoosts, options = {}) =>
     pokemon = @model.getPokemon(player, slot)
-    pokemonName = pokemon.get('name')
+    pokemonName = pokemon.getName()
     stages = pokemon.get('stages')
     $pokemon = @$pokemon(player, slot)
     $effects = $pokemon.find('.pokemon-effects')
@@ -834,7 +837,7 @@ class @BattleView extends Backbone.View
         @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
-        @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
+        @addLog("#{pokemon.getName()}'s Air Balloon popped!")
         done()
       when 'ConfusionAttachment'
         $pokemon.find(".pokemon-effect.confusion").remove()
@@ -1125,7 +1128,7 @@ class @BattleView extends Backbone.View
 
   addMoveMessage: (owner, pokemon, moveName) =>
     @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
-    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!", newline: true, big: true)
+    @addSummary("#{owner}'s #{pokemon.getName()} used <strong>#{moveName}</strong>!", newline: true, big: true)
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -1151,6 +1154,12 @@ class @BattleView extends Backbone.View
         $p.remove()
         $summary.hide()  if $summary.is(':empty')
     setTimeout(removeP, 4000)
+
+  sanitize: (message) =>
+    sanitizedMessage = $('<div/>').text(message).html()
+    sanitizedMessage = sanitizedMessage.replace(
+      /[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
+    sanitizedMessage
 
   beginTurn: (turn, done) =>
     @chatView.print("<h2>Turn #{turn}</h2>")
@@ -1258,4 +1267,4 @@ class @BattleView extends Backbone.View
     super()
 
 pokemonHtml = (pokemon) ->
-  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('name')}</a>"
+  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.getName()}</a>"
