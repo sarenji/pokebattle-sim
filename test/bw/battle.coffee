@@ -238,7 +238,7 @@ describe 'Battle', ->
     it "gives the spectator battle information", ->
       connection = @stubSpark()
       spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
-      spy = @sandbox.spy(spectator, 'send')
+      spy = @sandbox.spy(connection, 'send')
       @battle.addSpectator(connection)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
@@ -247,7 +247,7 @@ describe 'Battle', ->
     it "receives the correct set of initial teams", ->
       connection = @stubSpark()
       spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
-      spy = @sandbox.spy(spectator, 'send')
+      spy = @sandbox.spy(connection, 'send')
       teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
       @team1.switch(@p1, 1)
 

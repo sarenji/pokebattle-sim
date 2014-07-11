@@ -29,7 +29,7 @@ describe 'BattleServer', ->
 
     spies = []
     for player in players
-      spy = @sandbox.spy(player, 'send')
+      spy = @sandbox.spy(player.sparks[0], 'send')
       spies.push(spy)
 
     for player in players

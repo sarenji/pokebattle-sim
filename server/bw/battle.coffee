@@ -835,15 +835,14 @@ class @Battle extends EventEmitter
       @broadcast('joinBattle', @id, user.toJSON(alt: @getPlayerName(user.name)))
       @spectators.push(user)
 
-    user.send('spectateBattle',
+    spark.send('spectateBattle',
       @id, @generation, @numActive, index,
       @playerNames, @spectatorsToJSON(), @log)
 
     # If this is a player, send them their own team
     if player
-      @tellPlayer(player.id, Protocol.RECEIVE_TEAM, @getTeam(player.id).toJSON())
-
-    @emit('spectateBattle', user)
+      teamJSON = @getTeam(player.id).toJSON()
+      @tellPlayer(player.id, Protocol.RECEIVE_TEAM, teamJSON)
 
   removeSpectator: (spark) ->
     user = spark.user
