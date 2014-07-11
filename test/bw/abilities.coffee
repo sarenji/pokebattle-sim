@@ -4,6 +4,7 @@ require '../helpers'
 {Battle} = require('../../server/bw/battle')
 {Pokemon} = require('../../server/bw/pokemon')
 {Weather} = require('../../shared/weather')
+{Item} = require('../../server/bw/data/items')
 {Ability} = require '../../server/bw/data/abilities'
 util = require '../../server/bw/util'
 {Factory} = require '../factory'
@@ -122,33 +123,33 @@ describe "BW Abilities:", ->
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Anticipation")]
         team2: [Factory("Pikachu", moves: ["Thunderbolt"])]
 
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @battle.performSwitch(@p1, 1)
-      spy.calledWithMatch('shuddered').should.be.true
+      spy.calledWithMatch('ANTICIPATION').should.be.true
 
     it "shows a message if an opponent has an OHKO move", ->
       shared.create.call this,
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Anticipation")]
         team2: [Factory("Lapras", moves: ["Sheer Cold"])]
 
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @battle.performSwitch(@p1, 1)
-      spy.calledWithMatch('shuddered').should.be.true
+      spy.calledWithMatch('ANTICIPATION').should.be.true
 
     it "doesn't show a message otherwise", ->
       shared.create.call this,
         team1: [Factory("Magikarp"), Factory("Magikarp", ability: "Anticipation")]
 
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @battle.performSwitch(@p1, 1)
-      spy.calledWithMatch('shuddered').should.be.false
+      spy.calledWithMatch('ANTICIPATION').should.be.false
 
     it "displays nothing when no opponents left", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
         team2: [Factory("Magikarp"), Factory("Magikarp")]
       @p2.faint()
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @p1.copyAbility(Ability.Anticipation)
       spy.called.should.be.false
 
@@ -779,16 +780,17 @@ describe "BW Abilities:", ->
 
     it "alerts user about a foe's move with the highest base power", ->
       shared.build(this, team1: [Factory("Magikarp", ability: "Forewarn")])
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @controller.beginBattle()
-      spy.calledWithMatch('Tackle').should.be.true
+      tackle = @battle.getMove("Tackle")
+      spy.calledWith('FOREWARN', @p2, tackle).should.be.true
 
     it "displays nothing when no opponents left", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
         team2: [Factory("Magikarp"), Factory("Magikarp")]
       @p2.faint()
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @p1.copyAbility(Ability.Forewarn)
       spy.called.should.be.false
 
@@ -812,16 +814,16 @@ describe "BW Abilities:", ->
       shared.build this,
         team1: [Factory("Magikarp", ability: "Frisk")]
         team2: [Factory("Magikarp", item: "Leftovers")]
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @controller.beginBattle()
-      spy.calledWithMatch('Leftovers').should.be.true
+      spy.calledWithMatch('FRISK').should.be.true
 
     it "displays nothing when no opponents left", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
         team2: [Factory("Magikarp"), Factory("Magikarp")]
       @p2.faint()
-      spy = @sandbox.spy(@battle, 'message')
+      spy = @sandbox.spy(@battle, 'cannedText')
       @p1.copyAbility(Ability.Frisk)
       spy.called.should.be.false
 
@@ -1046,11 +1048,10 @@ describe "BW Abilities:", ->
     it "does not transform if no one is alive", ->
       shared.create.call this,
         team1: [Factory("Magikarp")]
-        team2: [Factory("Magikarp"), Factory("Magikarp")]
+        team2: [Factory("Magikarp"), Factory("Celebi")]
       @p2.faint()
-      spy = @sandbox.spy(@battle, 'message')
       @p1.copyAbility(Ability.Imposter)
-      spy.called.should.be.false
+      @p1.has(Attachment.Transform).should.be.false
 
   testAttachmentImmuneAbility = (name, attachments, options = {}) ->
     describe name, ->
@@ -1417,7 +1418,7 @@ describe "BW Abilities:", ->
     describe name, ->
       it "emits a catchphrase when switching in or activating", ->
         shared.create.call(this)
-        mock = @sandbox.mock(@battle).expects('message').once()
+        mock = @sandbox.mock(@battle).expects('cannedText').once()
         @p1.copyAbility(Ability[name.replace(/\s+/, '')])
         mock.verify()
 

@@ -125,8 +125,7 @@ makeRecoveryMove = (name) ->
         @fail(battle, user)
         return false
       amount = Math.round(hpStat / 2)
-      percent = Math.floor(100 * amount / hpStat)
-      battle.cannedText('RECOVER_HP', target, percent)
+      battle.cannedText('RECOVER_HP', target)
       target.heal(amount)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->

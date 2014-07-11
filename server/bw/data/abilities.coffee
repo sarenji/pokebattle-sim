@@ -24,7 +24,7 @@ makeWeatherPreventionAbility = (name) ->
 
     this::switchIn = ->
       @pokemon.activateAbility()
-      @battle.message "The effects of weather disappeared."
+      @battle.cannedText('WEATHER_DISABLED')
 
 makeWeatherPreventionAbility("Air Lock")
 makeWeatherPreventionAbility("Cloud Nine")
@@ -45,7 +45,7 @@ makeBoostProtectionAbility = (name, protection) ->
         if (!protection || stat in protection) && boosts[stat] < 0
           didProtect = true
           boosts[stat] = 0
-      # TODO: Print message
+      @pokemon.activateAbility()  if didProtect
       boosts
 
 makeBoostProtectionAbility("Big Pecks", [ "defense" ])
@@ -153,10 +153,9 @@ makeAttachmentImmuneAbility = (name, immuneAttachments, options = {}) ->
     if shouldCure
       this::update = ->
         for attachment in immuneAttachments
-          if @pokemon.unattach(attachment)
-            # TODO: end message
+          if @pokemon.has(attachment)
             @pokemon.activateAbility()
-            @battle.message "#{@pokemon.name} no longer has #{attachment.name}."
+            @pokemon.unattach(attachment)
 
 makeAttachmentImmuneAbility("Immunity", [Status.Poison, Status.Toxic])
 makeAttachmentImmuneAbility("Inner Focus", [Attachment.Flinch], cure: false)
@@ -178,7 +177,7 @@ makeContactHurtAbility = (name) ->
       amount = user.stat('hp') >> 3
       @pokemon.activateAbility()
       if user.damage(amount)
-        @battle.message "#{user.name} was hurt!"
+        @battle.cannedText('POKEMON_HURT', user)
 
 makeContactHurtAbility("Iron Barbs")
 makeContactHurtAbility("Rough Skin")
@@ -215,7 +214,7 @@ makeTypeAbsorbMove = (name, type) ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
-      @battle.message "#{@pokemon.name}'s HP was restored."
+      @battle.cannedText('RECOVER_HP', @pokemon)
       amount = @pokemon.stat('hp') >> 2
       @pokemon.heal(amount)
       return true
@@ -223,12 +222,11 @@ makeTypeAbsorbMove = (name, type) ->
 makeTypeAbsorbMove("Water Absorb", "Water")
 makeTypeAbsorbMove("Volt Absorb", "Electric")
 
-makeAbilityCancelAbility = (name, phrase) ->
+makeAbilityCancelAbility = (name, cannedText) ->
   makeAbility name, ->
     this::switchIn = ->
-      # TODO: Send canned text instead
       @pokemon.activateAbility()
-      @battle.message(phrase.replace("$1", @pokemon.name))
+      @battle.cannedText(cannedText, @pokemon)
 
     this::beforeMove = (move, pokemon, targets) ->
       for target in targets
@@ -240,9 +238,9 @@ makeAbilityCancelAbility = (name, phrase) ->
         continue  if !@battle.isPokemon(target)
         target.unattach(Attachment.AbilityCancel)
 
-makeAbilityCancelAbility('Mold Breaker', "$1 breaks the mold!")
-makeAbilityCancelAbility('Teravolt', "$1 is radiating a bursting aura!")
-makeAbilityCancelAbility('Turboblaze', "$1 is radiating a blazing aura!")
+makeAbilityCancelAbility('Mold Breaker', 'MOLD_BREAKER')
+makeAbilityCancelAbility('Teravolt', 'TERAVOLT')
+makeAbilityCancelAbility('Turboblaze', 'TURBOBLAZE')
 
 # Unique Abilities
 
@@ -259,8 +257,8 @@ makeAbility "Aftermath", ->
     if move.hasFlag('contact')
       amount = (pokemon.stat('hp') >> 2)
       @pokemon.activateAbility()
-      if pokemon.damage(amount)
-        @battle.message "The #{@pokemon.name}'s Aftermath dealt damage to #{pokemon.name}!"
+      pokemon.damage(amount)
+      @battle.cannedText('POKEMON_HURT', pokemon)
 
 makeAbility 'Analytic', ->
   this::modifyBasePower = ->
@@ -280,7 +278,7 @@ makeAbility "Anticipation", ->
       effectiveness = util.typeEffectiveness(move.type, @pokemon.types) > 1
       if effectiveness || move.hasFlag("ohko")
         @pokemon.activateAbility()
-        @battle.message "#{@pokemon.name} shuddered!"
+        @battle.cannedText('ANTICIPATION', @pokemon)
         break
 
 makeAbility "Arena Trap", ->
@@ -297,14 +295,14 @@ makeAbility "Bad Dreams", ->
       amount = opponent.stat('hp') >> 3
       @pokemon.activateAbility()
       if opponent.damage(amount)
-        @battle.message "#{opponent.name} is tormented!"
+        @battle.cannedText('BAD_DREAMS', opponent)
 
 makeAbility "Color Change", ->
   this::afterBeingHit = (move, user, target, damage) ->
     {type} = move
     if !move.isNonDamaging() && !target.hasType(type)
       @pokemon.activateAbility()
-      @battle.message "#{target.name}'s Color Change made it the #{type} type!"
+      @battle.cannedText('COLOR_CHANGE', target, type)
       target.types = [ type ]
 
 makeAbility "Compoundeyes", ->
@@ -349,32 +347,26 @@ makeAbility 'Download', ->
     @pokemon.activateAbility()
     if totalSpDef <= totalDef
       @pokemon.boost(specialAttack: 1)
-      @battle.message "#{@pokemon.name}'s Download boosted its Special Attack!"
     else
       @pokemon.boost(attack: 1)
-      @battle.message "#{@pokemon.name}'s Download boosted its Attack!"
 
 makeAbility 'Dry Skin', ->
   this::modifyBasePowerTarget = (move, user) ->
     if move.getType(@battle, user, @pokemon) == 'Fire' then 0x1400 else 0x1000
 
   this::endTurn = ->
-    # TODO: Real message
     amount = (@pokemon.stat('hp') >> 3)
     if @battle.hasWeather(Weather.SUN)
       @pokemon.activateAbility()
-      if @pokemon.damage(amount)
-        @battle.message "#{@pokemon.name}'s Dry Skin hurts under the sun!"
+      @pokemon.damage(amount)
     else if @battle.hasWeather(Weather.RAIN)
       @pokemon.activateAbility()
       @pokemon.heal(amount)
-      @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
 
   this::shouldBlockExecution = (move, user) ->
     return  if move.getType(@battle, user, @pokemon) != 'Water'
     @pokemon.activateAbility()
     @pokemon.heal((@pokemon.stat('hp') >> 2))
-    @battle.message "#{@pokemon.name}'s Dry Skin restored its HP a little!"
     return true
 
 # Implementation is in Attachment.Sleep
@@ -389,22 +381,21 @@ makeAbility 'Effect Spore', ->
       when 1
         if user.attach(Status.Sleep)
           @pokemon.activateAbility()
-          @battle.message "#{user.name} fell asleep!"
       when 2
         if user.attach(Status.Paralyze)
           @pokemon.activateAbility()
-          @battle.message "#{user.name} was paralyzed!"
       when 3
         if user.attach(Status.Poison)
           @pokemon.activateAbility()
-          @battle.message "#{user.name} was poisoned!"
 
 makeAbility 'Flash Fire', ->
   this::shouldBlockExecution = (move, user) ->
     return  if move.getType(@battle, user, @pokemon) != 'Fire'
-    @pokemon.activateAbility()
-    @battle.message "The power of #{@pokemon.name}'s Fire-type moves rose!"
-    @pokemon.attach(Attachment.FlashFire)
+    if @pokemon.attach(Attachment.FlashFire)
+      @pokemon.activateAbility()
+      @battle.cannedText('FLASH_FIRE', @pokemon)
+    else
+      @battle.cannedText('IMMUNITY', @pokemon)
     return true
 
 makeAbility 'Forecast'
@@ -454,7 +445,7 @@ makeAbility 'Forewarn', ->
     finalMove = @battle.rng.choice(possibles, "forewarn")
     pokemon = _(opponents).find((p) -> finalMove in p.moves)
     @pokemon.activateAbility()
-    @battle.message "It was alerted to #{pokemon.name}'s #{finalMove.name}!"
+    @battle.cannedText('FOREWARN', pokemon, finalMove)
 
 makeAbility 'Friend Guard', ->
   this::modifyDamageTarget = (move, user) ->
@@ -470,7 +461,7 @@ makeAbility "Frisk", ->
     if opponent.hasItem()
       @pokemon.activateAbility()
       item = opponent.getItem()
-      @battle.message "#{@pokemon.name} frisked its target and found one #{item.displayName}!"
+      @battle.cannedText('FRISK', @pokemon, item)
 
 # Implemented in items.coffee; makePinchBerry
 makeAbility "Gluttony"
@@ -487,7 +478,7 @@ makeAbility 'Harvest', ->
     shouldHarvest ||= @battle.rng.randInt(0, 1, "harvest") == 1
     if shouldHarvest
       @pokemon.activateAbility()
-      @battle.message "#{@pokemon.name} harvested one #{@pokemon.lastItem.displayName}!"
+      @battle.cannedText('HARVEST', @pokemon, @pokemon.lastItem)
       @pokemon.setItem(@pokemon.lastItem)
 
 makeAbility 'Healer', ->
@@ -527,7 +518,6 @@ makeAbility 'Ice Body', ->
   this::endTurn = ->
     if @battle.hasWeather(Weather.HAIL)
       @pokemon.activateAbility()
-      @battle.message "#{@pokemon.name}'s Ice Body restored its HP a little."
       amount = @pokemon.stat('hp') >> 4
       @pokemon.heal(amount)
 
@@ -541,7 +531,8 @@ makeAbility 'Imposter', ->
     opponents = @battle.getAllOpponents(@pokemon)
     index = @team.indexOf(@pokemon)
     opponent = opponents[index]
-    return  if !opponent || opponent.has(Attachment.Substitute)
+    return  if !opponent
+    return  if opponent.isFainted() || opponent.has(Attachment.Substitute)
     @pokemon.attach(Attachment.Transform, target: opponent)
 
 # Hardcoded in Move#isDirectHit
@@ -654,7 +645,7 @@ makeAbility 'Mummy', ->
   this::afterBeingHit = (move, user) ->
     if move.hasFlag("contact") && user.hasChangeableAbility() && !user.hasAbility("Mummy")
       @pokemon.activateAbility()
-      @battle.message("#{user.name}'s Ability became Mummy!")
+      @battle.cannedText('MUMMY', user)
       user.copyAbility(@constructor)
 
 makeAbility 'Natural Cure', ->
@@ -677,7 +668,7 @@ makeAbility 'Pickpocket', ->
   this::afterBeingHit = (move, user, target, damage) ->
     return  if !move.hasFlag("contact") || target.hasItem() || !user.canLoseItem()
     @pokemon.activateAbility()
-    @battle.message "#{target.name} stole #{user.name}'s #{user.item.displayName}!"
+    @battle.cannedText('PICKPOCKET', target, user, user.item)
     target.setItem(user.item)
     user.removeItem()
 
@@ -710,7 +701,7 @@ makeAbility 'Prankster', ->
 makeAbility 'Pressure', ->
   this::switchIn = ->
     @pokemon.activateAbility()
-    @battle.message "#{@pokemon.name} is exerting its pressure!"
+    @battle.cannedText('PRESSURE', @pokemon)
 
 # Speed drop negation hardcoded into Attachment.Paralyze
 makeAbility 'Quick Feet', ->
@@ -721,7 +712,6 @@ makeAbility 'Rain Dish', ->
   this::endTurn = ->
     return  unless @battle.hasWeather(Weather.RAIN)
     @pokemon.activateAbility()
-    @battle.message "#{@pokemon.name}'s Rain Dish restored its HP a little."
     amount = @pokemon.stat('hp') >> 4
     @pokemon.heal(amount)
 
@@ -820,12 +810,12 @@ makeAbility 'Slow Start', ->
 
   this::switchIn = ->
     @pokemon.activateAbility()
-    @battle.message "#{@pokemon.name} can't get it going!"
+    @battle.cannedText('SLOW_START_START', @pokemon)
 
   this::endTurn = ->
     @turns -= 1
     if @turns == 0
-      @battle.message "#{@pokemon.name} finally got its act together!"
+      @battle.cannedText('SLOW_START_END', @pokemon)
 
   this::modifyAttack = (move, target) ->
     return 0x800  if move.isPhysical() && @turns > 0
@@ -859,9 +849,8 @@ makeAbility 'Solar Power', ->
     if @battle.hasWeather(Weather.SUN)
       amount = (@pokemon.stat('hp') >> 3)
       @pokemon.activateAbility()
-      if @pokemon.damage(amount)
-        # TODO: Real message
-        @battle.message "#{@pokemon.name} was hurt under the sun!"
+      @pokemon.damage(amount)
+      @battle.cannedText('POKEMON_HURT', @pokemon)
 
 makeAbility 'Soundproof', ->
   this::isImmune = (type, move) ->
@@ -887,14 +876,14 @@ makeAbility 'Sturdy', ->
     if @pokemon.currentHP == @pokemon.stat('hp')
       if damage >= @pokemon.currentHP
         @pokemon.activateAbility()
-        @battle.message "#{@pokemon.name} endured the hit!"
+        @battle.cannedText('ENDURE', @pokemon)
         return @pokemon.currentHP - 1
     return damage
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (phaser) ->
     @pokemon.activateAbility()
-    @battle.message "#{@pokemon.name} anchors itself!"
+    @battle.cannedText('ANCHOR', @pokemon)
     return false
 
 # Hardcoded in Move#criticalHitLevel
@@ -915,7 +904,8 @@ makeAbility 'Technician', ->
 makeAbility 'Telepathy', ->
   this::shouldBlockExecution = (move, user) ->
     return  if user not in @team.pokemon
-    @battle.message "#{@pokemon.name} avoids attacks by its ally Pokemon!"
+    @pokemon.activateAbility()
+    @battle.cannedText('AVOID_ALLIES', @pokemon)
     return true
 
 makeAbility 'Thick Fat', ->
@@ -946,7 +936,7 @@ makeAbility 'Trace', ->
     ability = @battle.rng.choice(abilities, "trace")
     # TODO: Display whose ability it traced.
     @pokemon.activateAbility()
-    @battle.message("It traced the foe's #{ability.displayName}!")
+    @battle.cannedText('TRACE', ability)
     @pokemon.copyAbility(ability)
 
 makeAbility 'Truant', ->
@@ -957,7 +947,7 @@ makeAbility 'Truant', ->
     @truanted = !@truanted
     if @truanted
       @pokemon.activateAbility()
-      @battle.message "#{@pokemon.name} is loafing around!"
+      @battle.cannedText('TRUANT', @pokemon)
       return false
 
 # Hardcoded in Move
