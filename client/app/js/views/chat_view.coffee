@@ -180,6 +180,7 @@ class @ChatView extends Backbone.View
     wasAtBottom = @isAtBottom()
     klass = []
     klass.push('bg-blue')  if options.highlight
+    klass.push(options.class)  if options.class
     @print("<p class='chat_message #{klass.join(' ')}'>#{message}</p>")
     @cleanChat()
     if wasAtBottom then @scrollToBottom()
