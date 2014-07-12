@@ -505,7 +505,6 @@ class @BattleView extends Backbone.View
     $weather = switch newWeather
       when Weather.RAIN
         $weather = $("<div/>").addClass("battle_overlay weather rain")
-        $overlays.append($weather)
         for i in [0...100]
           dropLeft = _.random(-300, overlayWidth)
           dropTop = _.random(-2 * overlayHeight - 100, overlayHeight)
@@ -513,10 +512,10 @@ class @BattleView extends Backbone.View
           $drop = $('<div class="drop"></div>')
           $drop.css(left: dropLeft, top: dropTop)
           $weather.append($drop)
+        $overlays.append($weather)
         $weather
       when Weather.SUN
         $weather = $("<div/>").addClass("battle_overlay weather sun")
-        $overlays.append($weather)
         for i in [0...10]
           millisecs = Math.floor(Math.random() * 3000) + 'ms'
           $ray = $('<div class="ray"></div>')
@@ -529,6 +528,7 @@ class @BattleView extends Backbone.View
             'animation-delay': millisecs
           })
           $weather.append($ray)
+        $overlays.append($weather)
         $weather
       when Weather.SAND
         $weather = $("<div/>").addClass("battle_overlay weather sand")
