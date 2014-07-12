@@ -20,7 +20,6 @@ switchableFormes = [
 
 unsketchableMoves = [
   "Chatter"
-  "Diamond Storm"
   "Hyperspace Hole"
   "Light of Ruin"
   "Steam Eruption"
