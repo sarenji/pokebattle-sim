@@ -370,7 +370,7 @@ makeItem 'Leftovers', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
     return  if maxHP == @pokemon.currentHP
-    @battle.cannedText('ITEM_RESTORE', @pokemon.name, @constructor)
+    @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
     amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     @pokemon.heal(amount)
