@@ -546,7 +546,21 @@ class @BattleView extends Backbone.View
           ), Math.floor(Math.random() * 3000))
         $weather
       when Weather.SAND
-        $overlays.append($("<div/>").addClass("battle_overlay weather sand"))
+        $weather = $("<div/>").addClass("battle_overlay weather sand")
+        [width, height] = [$overlays.width(), $overlays.height()]
+        [overlayWidth, overlayHeight] = [600, 600]
+        streams = []
+        for x in [-(2 * width)..width] by overlayWidth
+          for y in [-(2 * height)...height] by overlayHeight
+            percentX = Math.floor(100 * x / width) + "%"
+            percentY = Math.floor(100 * y / height) + "%"
+            streams.push([percentX, percentY])
+        for [left, top] in streams
+          $sand = $('<div class="sand_overlay"/>')
+          $sand.css({left, top})
+          $weather.append($sand)
+        $overlays.append($weather)
+        $weather
       when Weather.HAIL
         $overlays.append($("<div/>").addClass("battle_overlay weather hail"))
       else $()

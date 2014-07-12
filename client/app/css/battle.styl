@@ -127,7 +127,7 @@ $screen-width = 400px
         &.hail
           background rgba(128, 255, 255, .3)
         &.sand
-          background rgba(128, 64, 0, .3)
+          background linear-gradient(top, rgba(128, 64, 0, .5), rgba(64, 32, 48, .7))
         &.sun
           background rgba(255, 196, 64, .3)
 
@@ -504,9 +504,21 @@ $screen-width = 400px
   animation fade-in-out 3s ease infinite
 
 @keyframes fade-in-out
-  0%
+  0%, 100%
     opacity 0
   50%
     opacity .3
+
+.sand_overlay
+  absolute top left
+  background url("//media.pokebattle.com/img/battle/weather_sand.png")
+  width 600px
+  height 600px
+  opacity .5
+  animation sandstorm .5s linear infinite
+
+@keyframes sandstorm
+  0%
+    transform translate(0, 0)
   100%
-    opacity 0
+    transform translate(200%, 100%)
