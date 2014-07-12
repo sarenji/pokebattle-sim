@@ -1,4 +1,4 @@
 $(document).on 'click', '.spectate', ->
   battleId = $(this).data('battle-id')
-  PokeBattle.socket.send('spectateBattle', battleId)
+  PokeBattle.router.navigate("battles/#{battleId}", trigger: true)
   return false

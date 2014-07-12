@@ -44,7 +44,7 @@ describe 'XY API:', ->
         throw new Error(err)  if err
         data.should.be.an.instanceOf(Object)
         data.should.have.property("pokemon")
-        data.pokemon.should.includeEql(["Genesect", "default"])
+        data.pokemon.should.containEql(["Genesect", "default"])
         done()
 
     it 'takes into account pre-evolution moves', (done) ->
@@ -52,7 +52,7 @@ describe 'XY API:', ->
         throw new Error(err)  if err
         data.should.be.an.instanceOf(Object)
         data.should.have.property("pokemon")
-        data.pokemon.should.includeEql(["Tyranitar", "default"])
+        data.pokemon.should.containEql(["Tyranitar", "default"])
         done()
 
   describe '/xy/abilities', ->
@@ -78,9 +78,9 @@ describe 'XY API:', ->
         throw new Error(err)  if err
         data.should.be.an.instanceOf(Object)
         data.should.have.property("pokemon")
-        res.headers['content-type'].should.include("charset=utf8")
-        data.pokemon.should.includeEql(["Nidoran♀", "default"])
-        data.pokemon.should.includeEql(["Nidoran♂", "default"])
+        res.headers['content-type'].should.containEql("charset=utf8")
+        data.pokemon.should.containEql(["Nidoran♀", "default"])
+        data.pokemon.should.containEql(["Nidoran♂", "default"])
         done()
 
   describe '/xy/types', ->
@@ -89,7 +89,7 @@ describe 'XY API:', ->
         throw new Error(err)  if err
         data.should.be.an.instanceOf(Object)
         data.should.have.property("types")
-        data.types.should.include("Fairy")
+        data.types.should.containEql("Fairy")
         done()
 
   describe '/xy/types/:name', ->
@@ -98,7 +98,7 @@ describe 'XY API:', ->
         throw new Error(err)  if err
         data.should.be.an.instanceOf(Object)
         data.should.have.property("pokemon")
-        data.pokemon.should.includeEql(["Greninja", "default"])
+        data.pokemon.should.containEql(["Greninja", "default"])
         done()
 
   describe '/xy/pokemon', ->
@@ -128,7 +128,7 @@ describe 'XY API:', ->
         data.should.be.an.instanceOf(Object)
         data.should.have.property("moves")
         data.moves.should.be.an.instanceOf(Array)
-        data.moves.should.include("Fire Blast")
+        data.moves.should.containEql("Fire Blast")
         done()
 
   describe '/xy/pokemon/:name/:forme/moves', ->
@@ -138,8 +138,8 @@ describe 'XY API:', ->
         data.should.be.an.instanceOf(Object)
         data.should.have.property("moves")
         data.moves.should.be.an.instanceOf(Array)
-        data.moves.should.include("Hydro Pump")
-        data.moves.should.not.include("Overheat")
+        data.moves.should.containEql("Hydro Pump")
+        data.moves.should.not.containEql("Overheat")
         done()
 
   describe '/xy/damagecalc', ->

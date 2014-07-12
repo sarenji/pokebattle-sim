@@ -2,20 +2,19 @@ require '../helpers'
 
 {Attachment} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
-{BattleController} = require('../../server/bw/battle_controller')
-{Pokemon} = require('../../server/bw/pokemon')
 {Weather} = require('../../shared/weather')
 {Conditions} = require '../../shared/conditions'
 {Factory} = require('../factory')
-{User} = require('../../server/user')
+{BattleServer} = require('../../server/server')
 {Protocol} = require '../../shared/protocol'
 shared = require('../shared')
 should = require 'should'
-sinon = require 'sinon'
 {_} = require 'underscore'
+ratings = require('../../server/ratings')
 
 describe 'Battle', ->
   beforeEach ->
+    @server = new BattleServer()
     shared.create.call this,
       team1: [Factory('Hitmonchan'), Factory('Heracross')]
       team2: [Factory('Hitmonchan'), Factory('Heracross')]
@@ -229,45 +228,50 @@ describe 'Battle', ->
 
   describe "#addSpectator", ->
     it "adds the spectator to an internal array", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
-      @battle.spectators.should.include(spectator)
+      @battle.spectators.should.containEql(spectator)
 
     it "gives the spectator battle information", ->
-      spectator = new User("derp")
-      spy = @sandbox.spy(spectator, 'send')
-      @battle.addSpectator(spectator)
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
+      spy = @sandbox.spy(connection, 'send')
+      @battle.addSpectator(connection)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "receives the correct set of initial teams", ->
-      spectator = new User("derp")
-      spy = @sandbox.spy(spectator, 'send')
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
+      spy = @sandbox.spy(connection, 'send')
       teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
       @team1.switch(@p1, 1)
 
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       spectators = @battle.spectators.map((s) -> s.toJSON())
       {id, numActive, log} = @battle
       spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
 
     it "does not add a spectator twice", ->
-      spectator = new User("derp")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
 
   describe "#removeSpectator", ->
     it "removes the spectator from the array", ->
-      spectator = new User("guy")
+      connection = @stubSpark()
+      spectator = @server.findOrCreateUser(id: 1, name: "guy", connection)
       length = @battle.spectators.length
-      @battle.addSpectator(spectator)
+      @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
-      @battle.removeSpectator(spectator)
+      @battle.removeSpectator(connection)
       @battle.spectators.should.have.length(length)
 
   describe "#getWinner", ->
@@ -307,38 +311,33 @@ describe 'Battle', ->
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
         conditions: [ Conditions.RATED_BATTLE ]
-      ratings = require('../../server/ratings')
       @battle.on "ratingsUpdated", =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
-            rating2.rating.should.be.lessThan(defaultPlayer.rating)
+            rating1.rating.should.be.greaterThan(ratings.DEFAULT_RATING)
+            rating2.rating.should.be.lessThan(ratings.DEFAULT_RATING)
             done()
 
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
+      @p2.currentHP = 1
+      mock = @sandbox.mock(@controller)
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
 
     it "doesn't update ratings if an unrated battle", (done) ->
       shared.create.call this,
         team1: [Factory('Hitmonchan')]
         team2: [Factory('Mew')]
-      ratings = require('../../server/ratings')
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            rating1.rating.should.equal(0)
-            rating2.rating.should.equal(0)
+            rating1.rating.should.equal(ratings.DEFAULT_RATING)
+            rating2.rating.should.equal(ratings.DEFAULT_RATING)
             done()
 
-      ratings.resetRatings [ @id1, @id2 ], =>
-        @p2.currentHP = 1
-        mock = @sandbox.mock(@controller)
-        @controller.makeMove(@id1, 'Mach Punch')
-        @controller.makeMove(@id2, 'Psychic')
+      @p2.currentHP = 1
+      mock = @sandbox.mock(@controller)
+      @controller.makeMove(@id1, 'Mach Punch')
+      @controller.makeMove(@id2, 'Psychic')
 
   describe "#forfeit", ->
     it "prematurely ends the battle", ->
@@ -365,30 +364,14 @@ describe 'Battle', ->
       @battle.forfeit(@id1)
       @battle.isOver().should.be.true
 
-    it "updates the winner and losers' ratings if a rated battle", (done) ->
-      shared.create.call this,
-        team1: [Factory('Hitmonchan')]
-        team2: [Factory('Mew')]
-        conditions: [ Conditions.RATED_BATTLE ]
-      ratings = require('../../server/ratings')
-      @battle.on "ratingsUpdated", =>
-        ratings.getPlayer @id1, (err, rating1) =>
-          ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
-            rating2.rating.should.be.lessThan(defaultPlayer.rating)
-            done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
-
     it "doesn't update the winner and losers' ratings if not a rated battle", (done) ->
-      ratings = require('../../server/ratings')
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            rating1.rating.should.equal(0)
-            rating2.rating.should.equal(0)
+            rating1.rating.should.equal(ratings.DEFAULT_RATING)
+            rating2.rating.should.equal(ratings.DEFAULT_RATING)
             done()
-      ratings.resetRatings([ @id1, @id2 ], => @battle.forfeit(@id2))
+      @battle.forfeit(@id2)
 
   describe "#hasStarted", ->
     it "returns false if the battle has not started", ->
@@ -409,9 +392,9 @@ describe 'Battle', ->
       should.exist(attachments)
       attachments = attachments.map((a) -> a.constructor)
       attachments.length.should.be.greaterThan(2)
-      attachments.should.include(Attachment.TrickRoom)
-      attachments.should.include(Attachment.Reflect)
-      attachments.should.include(Attachment.Ingrain)
+      attachments.should.containEql(Attachment.TrickRoom)
+      attachments.should.containEql(Attachment.Reflect)
+      attachments.should.containEql(Attachment.Ingrain)
 
   describe "#query", ->
     it "queries all attachments attached to a specific event", ->
@@ -484,3 +467,20 @@ describe 'Battle', ->
 
       @clock.tick(longExpire)
       spy.calledOnce.should.be.true
+
+describe "Rated battles", ->
+  beforeEach ->
+    shared.create.call this,
+        team1: [Factory('Hitmonchan')]
+        team2: [Factory('Mew')]
+        conditions: [ Conditions.RATED_BATTLE ]
+
+  it "updates the winner and losers' ratings", (done) ->
+    @battle.on "ratingsUpdated", =>
+      ratings.getPlayer @id1, (err, rating1) =>
+        ratings.getPlayer @id2, (err, rating2) =>
+          defaultPlayer = ratings.algorithm.createPlayer()
+          rating1.rating.should.be.greaterThan(defaultPlayer.rating)
+          rating2.rating.should.be.lessThan(defaultPlayer.rating)
+          done()
+    @battle.forfeit(@id2)

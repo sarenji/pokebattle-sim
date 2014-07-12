@@ -14,7 +14,7 @@ class @Battle extends Backbone.AssociatedModel
     finished: false
 
   initialize: (attributes) =>
-    {@socket, @numActive, @index, spectators} = attributes
+    {@numActive, @index, spectators} = attributes
     @spectators = new UserList(spectators || [])
     @set('notifications', 0)
     @set('turn', 0)
@@ -33,17 +33,17 @@ class @Battle extends Backbone.AssociatedModel
 
   makeMove: (moveName, forSlot) =>
     pokemon = @getPokemon(@index, forSlot)
-    @socket.send('sendMove', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
+    PokeBattle.primus.send('sendMove', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
     pokemon.set('megaEvolve', false)
 
   makeSwitch: (toSlot, forSlot) =>
-    @socket.send('sendSwitch', @id, toSlot, forSlot, @get('turn'))
+    PokeBattle.primus.send('sendSwitch', @id, toSlot, forSlot, @get('turn'))
 
   makeCancel: =>
-    @socket.send 'sendCancelAction', @id, @get('turn')
+    PokeBattle.primus.send 'sendCancelAction', @id, @get('turn')
 
   arrangeTeam: (arrangement) =>
-    @socket.send 'arrangeTeam', @id, arrangement
+    PokeBattle.primus.send 'arrangeTeam', @id, arrangement
 
   switch: (fromIndex, toIndex) =>
     you = @getTeam().pokemon
@@ -63,14 +63,11 @@ class @Battle extends Backbone.AssociatedModel
     !@get('finished') && !@get('spectating')
 
   forfeit: =>
-    PokeBattle.socket.send('forfeit', @id)
+    PokeBattle.primus.send('forfeit', @id)
 
   # TODO: Opponent switch. Use some logic to determine whether the switch is
   # to a previously seen Pokemon or a new Pokemon. In the latter case, we
   # should reveal a previously unknown Pokeball if it's not a Wi-Fi battle.
-
-  emit: (args...) =>
-    @socket(args...)
 
   notify: =>
     @set('notifications', @get('notifications') + 1)

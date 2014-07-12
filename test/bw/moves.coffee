@@ -480,7 +480,7 @@ describe "BW Moves:", ->
         team1: [Factory('Gyarados')]
         team2: [Factory('Hitmonchan')]
       @battle.performMove(@p1, @battle.getMove('Dragon Dance'))
-      @p1.stages.should.include attack: 1, speed: 1
+      @p1.stages.should.containEql attack: 1, speed: 1
 
     it "affects type-immune pokemon", ->
       shared.create.call this,
@@ -493,7 +493,7 @@ describe "BW Moves:", ->
       shared.create.call(this, team1: (Factory("Magikarp")  for x in [1..2]))
       @battle.performMove(@p1, @battle.getMove('Dragon Dance'))
       @battle.performSwitch(@p1, 1)
-      @p1.stages.should.include(attack: 0, speed: 0)
+      @p1.stages.should.containEql(attack: 0, speed: 0)
 
   describe 'a pokemon using a damaging move that also boosts stats on hit', ->
     it "deals damage and boosts stats", ->
@@ -538,7 +538,7 @@ describe "BW Moves:", ->
       attack = @p1.stat('attack')
       speed  = @p1.stat('speed')
       @battle.performMove(@p1, @battle.getMove('AncientPower'))
-      @p1.stages.should.include {
+      @p1.stages.should.containEql {
         attack: 1, defense: 1, speed: 1, specialAttack: 1, specialDefense: 1
       }
 
@@ -809,7 +809,7 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, disable)
       @battle.beginTurn()
 
-      @p2.validMoves().should.not.include(move)
+      @p2.validMoves().should.not.containEql(move)
       @p2.validMoves().should.have.length(@p2.moves.length - 1)
 
     it 'wears off after 4 turns', ->
@@ -1182,27 +1182,27 @@ describe "BW Moves:", ->
     it "reduces the attack and special attack of the target by two stages", ->
       shared.create.call(this)
       @battle.performMove(@p1, @battle.getMove("Memento"))
-      @p2.stages.should.include attack: -2, specialAttack: -2
+      @p2.stages.should.containEql attack: -2, specialAttack: -2
 
     it "doesn't reduce stats if target is protected, and doesn't faint user", ->
       shared.create.call(this)
       @battle.recordMove(@id2, @battle.getMove("Protect"))
       @battle.recordMove(@id1, @battle.getMove("Memento"))
       @battle.continueTurn()
-      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p2.stages.should.not.containEql attack: -2, specialAttack: -2
       @p1.isFainted().should.be.false
 
     it "doesn't reduce stats if target has a substitute, and doesn't faint user", ->
       shared.create.call(this)
       @battle.performMove(@p2, @battle.getMove("Substitute"))
       @battle.performMove(@p1, @battle.getMove("Memento"))
-      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p2.stages.should.not.containEql attack: -2, specialAttack: -2
       @p1.isFainted().should.be.false
 
     it "doesn't reduce stats if target has Clear Body, but faints user", ->
       shared.create.call(this, team2: [Factory('Magikarp', ability: 'Clear Body')])
       @battle.performMove(@p1, @battle.getMove("Memento"))
-      @p2.stages.should.not.include attack: -2, specialAttack: -2
+      @p2.stages.should.not.containEql attack: -2, specialAttack: -2
       @p1.isFainted().should.be.true
 
   describe 'magnitude', ->
@@ -1727,8 +1727,8 @@ describe "BW Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Heart Swap'))
 
-      @p1.stages.should.include speed: -2
-      @p2.stages.should.include attack: 2
+      @p1.stages.should.containEql speed: -2
+      @p2.stages.should.containEql attack: 2
 
   describe 'Nightmare', ->
     shared.shouldDoNoDamage('Nightmare')
@@ -1888,7 +1888,7 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Taunt'))
       @battle.beginTurn()
       requestedMoves = @battle.requestFor(@p2).moves
-      requestedMoves.should.not.include 'Splash'
+      requestedMoves.should.not.containEql 'Splash'
 
   for moveName in [ "U-turn", "Volt Switch" ]
     do (moveName) ->
@@ -4193,7 +4193,7 @@ describe "BW Moves:", ->
         p.types = [ "Normal" ]
 
         @battle.performMove(@p1, @battle.getMove("Curse"))
-        p.stages.should.include attack: 1, defense: 1, speed: -1
+        p.stages.should.containEql attack: 1, defense: 1, speed: -1
 
   testBasePowerBoostMove = (moveName, rawBasePower, maxBasePower, which) ->
     describe moveName, ->
@@ -4420,8 +4420,8 @@ describe "BW Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Power Swap'))
 
-      @p1.stages.should.include attack: 2, specialAttack: 6, speed: 1
-      @p2.stages.should.include attack: 1, specialAttack: -3, defense: -1
+      @p1.stages.should.containEql attack: 2, specialAttack: 6, speed: 1
+      @p2.stages.should.containEql attack: 1, specialAttack: -3, defense: -1
 
   describe 'Guard Swap', ->
     it 'swaps defense and special defense boosts with the target', ->
@@ -4431,8 +4431,8 @@ describe "BW Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Guard Swap'))
 
-      @p1.stages.should.include defense: -1, specialDefense: 6, attack: 1
-      @p2.stages.should.include defense: 1, specialDefense: -3, speed: 2
+      @p1.stages.should.containEql defense: -1, specialDefense: 6, attack: 1
+      @p2.stages.should.containEql defense: 1, specialDefense: -3, speed: 2
 
   describe 'Spite', ->
     it 'reduces the last move used by the target by 4', ->
@@ -4768,9 +4768,9 @@ describe "BW Moves:", ->
       shared.create.call(this)
       stockpile = @battle.getMove("Stockpile")
 
-      @p1.stages.should.include defense: 0, specialDefense: 0
+      @p1.stages.should.containEql defense: 0, specialDefense: 0
       @battle.performMove(@p1, stockpile)
-      @p1.stages.should.include defense: 1, specialDefense: 1
+      @p1.stages.should.containEql defense: 1, specialDefense: 1
 
     it "cannot raise if stockpile is at its limit", ->
       shared.create.call(this)
@@ -4779,9 +4779,9 @@ describe "BW Moves:", ->
       for i in [0...Attachment.Stockpile::maxLayers]
         @p1.attach(Attachment.Stockpile)
 
-      @p1.stages.should.include defense: 0, specialDefense: 0
+      @p1.stages.should.containEql defense: 0, specialDefense: 0
       @battle.performMove(@p1, stockpile)
-      @p1.stages.should.include defense: 0, specialDefense: 0
+      @p1.stages.should.containEql defense: 0, specialDefense: 0
 
     it "fails if stockpile is at its limit", ->
       shared.create.call(this)
@@ -4842,9 +4842,9 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
       @p1.attach(Attachment.Stockpile)
 
-      @p1.stages.should.include defense: 0, specialDefense: 0
+      @p1.stages.should.containEql defense: 0, specialDefense: 0
       @battle.performMove(@p1, spitUp)
-      @p1.stages.should.include defense: -2, specialDefense: -2
+      @p1.stages.should.containEql defense: -2, specialDefense: -2
 
   describe 'Swallow', ->
     it 'fails if user has no stockpiles', ->
@@ -4900,9 +4900,9 @@ describe "BW Moves:", ->
       @p1.attach(Attachment.Stockpile)
       @p1.attach(Attachment.Stockpile)
 
-      @p1.stages.should.include defense: 0, specialDefense: 0
+      @p1.stages.should.containEql defense: 0, specialDefense: 0
       @battle.performMove(@p1, swallow)
-      @p1.stages.should.include defense: -2, specialDefense: -2
+      @p1.stages.should.containEql defense: -2, specialDefense: -2
 
   describe 'Rage', ->
     it "raises the user's attack if hit by a move", ->
@@ -6355,7 +6355,7 @@ describe "BW Moves:", ->
       @p2.boost(attack: 3, speed: -2, accuracy: 1)
 
       @battle.performMove(@p1, transform)
-      @p1.stages.should.include(attack: 3, speed: -2, accuracy: 1)
+      @p1.stages.should.containEql(attack: 3, speed: -2, accuracy: 1)
 
     it "copies the target's ability", ->
       shared.create.call this,
@@ -6569,7 +6569,7 @@ describe "BW Moves:", ->
       @p2.boost(attack: 1, accuracy: -2)
       @battle.recordMove(@id1, fling)
       @battle.continueTurn()
-      @p2.stages.should.include(attack: 1, accuracy: 0)
+      @p2.stages.should.containEql(attack: 1, accuracy: 0)
 
     it "inflicts Poison on the target if Poison Barb is held", ->
       shared.create.call this,
@@ -6623,7 +6623,7 @@ describe "BW Moves:", ->
       bugBite = @battle.getMove("Bug Bite")
       @battle.performMove(@p1, bugBite)
       @p2.hasItem().should.be.false
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
 
     it "does eat the target's berry if the target fainted", ->
       shared.create.call this,
@@ -6632,7 +6632,7 @@ describe "BW Moves:", ->
       @p2.currentHP = 1
       @battle.performMove(@p1, bugBite)
       @p2.isFainted().should.be.true
-      @p1.stages.should.include(speed: 1)
+      @p1.stages.should.containEql(speed: 1)
 
     it "does not eat the target's berry if the user fainted", ->
       shared.create.call this,
@@ -6810,8 +6810,8 @@ describe "BW Moves:", ->
           @p2.moves = [ move ]
           @battle.performMove(@p1, gravity)
           @battle.beginTurn()
-          @p1.validMoves().should.not.include(move)
-          @p2.validMoves().should.not.include(move)
+          @p1.validMoves().should.not.containEql(move)
+          @p2.validMoves().should.not.containEql(move)
 
         it "prevents the execution of #{moveName}", ->
           shared.create.call(this)
@@ -6899,7 +6899,7 @@ describe "BW Moves:", ->
       @p1.boost(attack: 1, evasion: -3)
       @battle.performMove(@p1, batonPass)
       @battle.performSwitch(@team1.first(), 1)
-      @team1.first().stages.should.include(attack: 1, evasion: -3)
+      @team1.first().stages.should.containEql(attack: 1, evasion: -3)
 
   describe "Thunder Wave", ->
     it "is affected by immunities", ->
@@ -7093,7 +7093,7 @@ describe "BW Moves:", ->
       shared.create.call(this, gen: 'bw')
       defog = @battle.getMove("Defog")
       @battle.performMove(@p1, defog)
-      @p2.stages.should.include(evasion: -1)
+      @p2.stages.should.containEql(evasion: -1)
 
     it "removes Reflect on target's side", ->
       shared.create.call(this, gen: 'bw')
@@ -7167,25 +7167,25 @@ describe "BW Moves:", ->
       @p1.attach(Status.Burn)
       spy = @sandbox.spy(@battle, 'message')
       @battle.performMove(@p1, refresh)
-      spy.args.join(',').should.include("#{@p1.name} healed its burn!")
+      spy.args.join(',').should.containEql("#{@p1.name} healed its burn!")
 
   describe "Growth", ->
     it "boosts the pokemon's stats", ->
       shared.create.call(this, gen: 'bw')
       @battle.setWeather(Weather.SUN)
       @battle.performMove(@p1, @battle.getMove('Growth'))
-      @p1.stages.should.include attack: 2, specialAttack: 2
+      @p1.stages.should.containEql attack: 2, specialAttack: 2
 
   describe "Reflect Type", ->
     it "copies the target's types", ->
       shared.create.call(this, team1: [Factory("Magikarp")], team2: [Factory("Charmander")])
       @battle.performMove(@p1, @battle.getMove('Reflect Type'))
-      @p1.types.should.include "Fire"
+      @p1.types.should.containEql "Fire"
 
     it "fails if the user has multitype", ->
       shared.create.call(this, team1: [Factory("Arceus", ability: "Multitype")], team2: [Factory("Toxicroak")])
       @battle.performMove(@p1, @battle.getMove('Reflect Type'))
-      @p1.types.should.include "Normal"
+      @p1.types.should.containEql "Normal"
 
   describe "Retaliate", ->
     it "doubles in power if a pokemon on the user's side fainted last turn", ->

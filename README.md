@@ -78,10 +78,10 @@ mocha
 First, you must get SSH access to the server. Then, to deploy:
 
 ```bash
-cap deploy
+cap staging deploy
+# test on staging
+cap production deploy
 ```
-
-This will do all the work for you.
 
 ## Guide
 

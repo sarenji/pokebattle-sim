@@ -61,7 +61,7 @@ makeCommand "commands", "help", "h", ->
 desc 'Opens the challenge for a specific user. Usage: /challenge username'
 makeCommand "challenge", "chall", "c", (username) ->
   if !username
-    PokeBattle.events.trigger("error", "Usage: /challenge username")
+    PokeBattle.events.trigger("errorMessage", "Usage: /challenge username")
     return
   message = PokeBattle.messages.add(id: username)
   message.openChallenge(username)
@@ -70,13 +70,13 @@ desc 'Private messages a certain user. Usage: /message username, message'
 makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
   username = username?.trim()
   if !username
-    PokeBattle.events.trigger("error", "Usage: /message username, message")
+    PokeBattle.events.trigger("errorMessage", "Usage: /message username, msg")
     return
   message = PokeBattle.messages.add(id: username)
 
   if messages.length > 0
     text = messages.join(',')
-    PokeBattle.socket.send('privateMessage', message.id, text)
+    PokeBattle.primus.send('privateMessage', message.id, text)
   else
     # The PM is opened without a message.
     message.trigger('open', message)

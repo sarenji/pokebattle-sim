@@ -33,6 +33,8 @@ class @TeambuilderView extends Backbone.View
     @listenTo(PokeBattle.TeamStore, 'remove', @deleteTeam)
     @listenTo(PokeBattle.TeamStore, 'change:id', @changeTeamId)
     @listenTo(PokeBattle.TeamStore, 'reset', @renderTeams)
+    @listenTo(PokeBattle.TeamStore, 'saving', @renderSaving)
+    @listenTo(PokeBattle.TeamStore, 'saved', @renderSaved)
     @listenTo PokeBattle.TeamStore, 'render', (team) =>
       @renderTeams()
       if @getSelectedTeam() && team.id == @getSelectedTeam().id
@@ -48,7 +50,7 @@ class @TeambuilderView extends Backbone.View
 
   clickTeam: (e) =>
     $team = $(e.currentTarget)
-    team = PokeBattle.TeamStore.get($team.data('id'))
+    team = PokeBattle.TeamStore.get($team.data('cid'))
     @setSelectedTeam(team)
 
   clickPokemon: (e) =>
@@ -94,8 +96,8 @@ class @TeambuilderView extends Backbone.View
 
   cloneTeam: (e) =>
     $team = $(e.currentTarget).closest('.select-team')
-    id = $team.data('id')
-    clone = @getTeam(id).clone().set("id", null)
+    cid = $team.data('cid')
+    clone = @getTeam(cid).clone().set("id", null)
     PokeBattle.TeamStore.add(clone)
     clone.save()
     return false
@@ -103,13 +105,13 @@ class @TeambuilderView extends Backbone.View
   deleteTeamEvent: (e) =>
     return false  if !confirm("Do you really want to delete this team?")
     $team = $(e.currentTarget).closest('.select-team')
-    team = @getTeam($team.data('id'))
+    team = @getTeam($team.data('cid'))
     PokeBattle.TeamStore.remove(team)
     team.destroy()
     return false
 
   deleteTeam: (team) =>
-    @$(".select-team[data-id=#{team.id}]").remove()
+    @$(".select-team[data-cid=#{team.cid}]").remove()
 
   changeTeam: (team) =>
     html = $(@teamTemplate({team, window})).html()
@@ -144,7 +146,6 @@ class @TeambuilderView extends Backbone.View
     clone = @getSelectedTeam()
     team = PokeBattle.TeamStore.get(clone.id)
     team.save(clone.toJSON(), silent: true)
-    team.trigger('saved', team)
     @resetHeaderButtons()
 
   changeTeamFormat: (e) =>
@@ -290,3 +291,11 @@ class @TeambuilderView extends Backbone.View
       errors.push(pokemonSpecies.map((n) -> "#{n} is not a valid Pokemon.")...)
       return errors
     return errors
+
+  renderSaving: (team) =>
+    $team = $(".select-team[data-cid='#{team.cid}']")
+    $team.find('.show_spinner').removeClass('hidden')
+
+  renderSaved: (team) =>
+    $team = $(".select-team[data-cid='#{team.cid}']")
+    $team.find('.show_spinner').addClass('hidden')

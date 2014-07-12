@@ -161,7 +161,7 @@ describe 'Pokemon', ->
     it 'adds a move to a list of blocked moves', ->
       pokemon = new Pokemon(moves: ['Earthquake'])
       pokemon.blockMove(Moves['Earthquake'])
-      pokemon.blockedMoves.should.include Moves['Earthquake']
+      pokemon.blockedMoves.should.containEql Moves['Earthquake']
 
   describe '#isMoveBlocked', ->
     it 'returns true if the move is blocked', ->

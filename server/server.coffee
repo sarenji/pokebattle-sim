@@ -3,7 +3,7 @@
 
 {User} = require('./user')
 {BattleQueue} = require './queue'
-{SocketHash} = require './socket_hash'
+{UserStore} = require './user_store'
 async = require('async')
 gen = require './generations'
 auth = require('./auth')
@@ -47,32 +47,38 @@ class @BattleServer
     @challenges = {}
 
     # A hash mapping ids to users
-    @users = new SocketHash()
+    @users = new UserStore()
 
     @rooms = []
 
     # Battles can start.
     @unlockdown()
 
-  join: (player) ->
-    @users.add(player)
-    @showTopic(player)
-    for battleId of @userBattles[player.id]
+  # Creates a new user or finds an existing one, and adds a spark to it
+  findOrCreateUser: (json, spark) ->
+    user = @users.get(json.name)
+    user = @users.add(json, spark)
+    user
+
+  join: (spark) ->
+    @showTopic(spark)
+    for battleId of @userBattles[spark.user.name]
       battle = @battles[battleId]
-      battle.addSpectator(player)
-      battle.sendRequestTo(player.id)
+      battle.addSpectator(spark)
+      battle.sendRequestTo(spark.user.name)
       battle.sendUpdates()
+    return spark
+
+  leave: (spark) ->
+    for room in @rooms
+      room.remove(spark)
+    @users.remove(spark)
+    return  if spark.user.hasSparks()
+    @stopChallenges(spark.user)
 
   showTopic: (player) ->
     redis.hget "topic", "main", (err, topic) ->
       player.send('topic', topic)  if topic
-
-  leave: (player) ->
-    if @users.remove(player) == 0
-      @stopChallenges(player)
-      for battleId of @userBattles[player.id]
-        battle = @battles[battleId]
-        battle.removeSpectator(player)
 
   registerChallenge: (player, challengeeId, format, team, conditions, altName) ->
     if @isLockedDown()
@@ -83,12 +89,12 @@ class @BattleServer
       errorMessage = "This user is offline."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
-    else if player.id == challengeeId
+    else if player.name == challengeeId
       errorMessage = "You cannot challenge yourself."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
-    else if @challenges[player.id]?[challengeeId] ||
-            @challenges[challengeeId]?[player.id]
+    else if @challenges[player.name]?[challengeeId] ||
+            @challenges[challengeeId]?[player.name]
       errorMessage = "A challenge already exists between you two."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
@@ -104,18 +110,19 @@ class @BattleServer
       player.error(errors.FIND_BATTLE, err)
       return false
 
-    @challenges[player.id] ?= {}
-    @challenges[player.id][challengeeId] = {format, team, conditions, challengerName: player.name, altName}
-    @users.send(challengeeId, "challenge", player.id, format, conditions)
+    @challenges[player.name] ?= {}
+    @challenges[player.name][challengeeId] = {format, team, conditions, challengerName: player.name, altName}
+    challengee = @users.get(challengeeId)
+    challengee.send("challenge", player.name, format, conditions)
     return true
 
   acceptChallenge: (player, challengerId, team, altName) ->
-    if !@challenges[challengerId]?[player.id]?
+    if !@challenges[challengerId]?[player.name]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
       return null
 
-    challenge = @challenges[challengerId][player.id]
+    challenge = @challenges[challengerId][player.name]
     err = @validateTeam(team, challenge.format, challenge.conditions)
     if err.length > 0
       # TODO: Use a modal error instead
@@ -130,39 +137,42 @@ class @BattleServer
         ratingKey: alts.uniqueId(challengerId, challenge.altName)
       }
       {
-        id: player.id,
+        id: player.name,
         name: altName || player.name,
         team: team,
-        ratingKey: alts.uniqueId(player.id, altName)
+        ratingKey: alts.uniqueId(player.name, altName)
       }
     ]
 
     id = @createBattle(challenge.format, teams, challenge.conditions)
-    @users.send(player.id, "challengeSuccess", challengerId)
-    @users.send(challengerId, "challengeSuccess", player.id)
-    delete @challenges[challengerId][player.id]
+    challenger = @users.get(challengerId)
+    challenger.send("challengeSuccess", player.name)
+    player.send("challengeSuccess", challengerId)
+    delete @challenges[challengerId][player.name]
     return id
 
   rejectChallenge: (player, challengerId) ->
-    if !@challenges[challengerId]?[player.id]?
+    if !@challenges[challengerId]?[player.name]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengerId, errorMessage)
       return false
-    delete @challenges[challengerId][player.id]
-    @users.send(player.id, "rejectChallenge", challengerId)
-    @users.send(challengerId, "rejectChallenge", player.id)
+    delete @challenges[challengerId][player.name]
+    player.send("rejectChallenge", challengerId)
+    challenger = @users.get(challengerId)
+    challenger.send("rejectChallenge", player.name)
 
   cancelChallenge: (player, challengeeId) ->
-    if !@challenges[player.id]?[challengeeId]?
+    if !@challenges[player.name]?[challengeeId]?
       errorMessage = "The challenge no longer exists."
       player.error(errors.PRIVATE_MESSAGE, challengeeId, errorMessage)
       return false
-    delete @challenges[player.id][challengeeId]
-    @users.send(player.id, "cancelChallenge", challengeeId)
-    @users.send(challengeeId, "cancelChallenge", player.id)
+    delete @challenges[player.name][challengeeId]
+    player.send("cancelChallenge", challengeeId)
+    challengee = @users.get(challengeeId)
+    challengee.send("cancelChallenge", player.name)
 
   stopChallenges: (player) ->
-    playerId = player.id
+    playerId = player.name
     for challengeeId of @challenges[playerId]
       @cancelChallenge(player, challengeeId)
     delete @challenges[playerId]
@@ -181,7 +191,7 @@ class @BattleServer
     else
       err = @validateTeam(team, format, FIND_BATTLE_CONDITIONS)
       if err.length == 0
-        name = @users.get(playerId)[0]?.name
+        name = @users.get(playerId).name
         ratingKey = alts.uniqueId(playerId, altName)
         @queues[format].add(playerId, altName || name, team, ratingKey)
       return err
@@ -218,14 +228,15 @@ class @BattleServer
     conditions = conditions.concat(format.conditions)
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
-    playerIds = pair.map((user) -> user.id)
+    playerIds = pair.map((user) -> user.name)
     battleId = @generateBattleId(playerIds)
     battle = new Battle(battleId, pair, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
     for player in pair
-      # Add users to spectators
-      @users.iterate player.id, (user) ->
-        battle.addSpectator(user)
+      # Add user to spectators
+      # TODO: player.id should be using player.name, but alts present a problem.
+      user = @users.get(player.id)
+      battle.addSpectator(spark)  for spark in user.sparks
 
       # Add/remove player ids to/from user battles
       @userBattles[player.id] ?= {}
@@ -233,8 +244,8 @@ class @BattleServer
       
       # Add the player to the list if its not an alt
       if player.id == player.ratingKey  # hacky - but no alternative right now
-        @visibleUserBattles[player.name] ?= {}
-        @visibleUserBattles[player.name][battleId] = true
+        @visibleUserBattles[player.id] ?= {}
+        @visibleUserBattles[player.id][battleId] = true
       
       battle.once 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
       battle.once 'expire', @removeBattle.bind(this, battleId)
@@ -275,8 +286,9 @@ class @BattleServer
   # A length of -1 denotes a permanent ban.
   ban: (username, reason, length = -1) ->
     auth.ban(username, reason, length)
-    @users.error(username, errors.BANNED, reason, length)
-    @users.close(username)
+    if user = @users.get(username)
+      user.error(errors.BANNED, reason, length)
+      user.close()
 
   unban: (username, next) ->
     auth.unban(username, next)
@@ -294,22 +306,19 @@ class @BattleServer
       battle.rawMessage("""<div class="alert alert-warning">#{message}</div>""")
 
   userMessage: (room, user, message) ->
-    auth.getMuteTTL user.id, (err, ttl) ->
+    auth.getMuteTTL user.name, (err, ttl) ->
       if ttl == -2
         room.userMessage(user, message)
       else
         user.announce('warning', "You are muted for another #{ttl} seconds!")
 
   setAuthority: (user, newAuthority) ->
-    if user instanceof User
-      user.authority = newAuthority
-    else
-      for user in @users.get(user)
-        user.authority = newAuthority
+    user = @users.get(user)  if user not instanceof User
+    user.authority = newAuthority  if user
 
   lockdown: ->
     @canBattlesStart = false
-    for user in @users.values()
+    for user in @users.getUsers()
       @stopChallenges(user)
     @announce("<strong>The server is restarting!</strong> We'll be pushing some updates. All battles are locked: Please finish your battles, and no new battles may start at this time.")
 

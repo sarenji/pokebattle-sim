@@ -146,9 +146,11 @@ class @Attachment.Confusion extends @VolatileAttachment
   name: "ConfusionAttachment"
   passable: true
 
-  initialize: (attributes) ->
+  initialize: (attributes = {}) ->
+    cannedText = attributes.cannedText ? 'CONFUSION_START'
     @turns = @battle?.rng.randInt(1, 4, "confusion turns") || 1
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
+    @battle?.cannedText(cannedText, @pokemon)
     @turn = 0
 
   @preattach: (options, attributes) ->
@@ -1176,8 +1178,7 @@ class @Attachment.Rampage extends @VolatileAttachment
   afterMove: ->
     @turn++
     if @turn >= @turns
-      @battle.cannedText('FATIGUE', @pokemon)
-      @pokemon.attach(Attachment.Confusion)
+      @pokemon.attach(Attachment.Confusion, cannedText: 'FATIGUE')
       @pokemon.unattach(@constructor)
     else
       # afterSuccessfulHit increases the number of layers. If the number of

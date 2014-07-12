@@ -2,20 +2,19 @@ class @BattleCollection extends Backbone.Collection
   model: Battle
 
   initialize: (models, options) =>
-    PokeBattle.socket.addEvents
-      'updateBattle': @updateBattle
-      'spectateBattle': @spectateBattle
-      'joinBattle': @joinBattle
-      'leaveBattle': @leaveBattle
-      'updateTimers': @updateTimers
-      'resumeTimer': @resumeTimer
-      'pauseTimer': @pauseTimer
+    PokeBattle.primus.on('updateBattle', @updateBattle)
+    PokeBattle.primus.on('spectateBattle', @spectateBattle)
+    PokeBattle.primus.on('joinBattle', @joinBattle)
+    PokeBattle.primus.on('leaveBattle', @leaveBattle)
+    PokeBattle.primus.on('updateTimers', @updateTimers)
+    PokeBattle.primus.on('resumeTimer', @resumeTimer)
+    PokeBattle.primus.on('pauseTimer', @pauseTimer)
     @updateQueue = {}
     @on 'add', (model) =>
       @updateQueue[model.id] = []
     @on 'remove', (model) =>
       delete @updateQueue[model.id]
-      PokeBattle.socket.send('leaveBattle', model.id)
+      PokeBattle.primus.send('leaveBattle', model.id)
 
   isPlaying: =>
     @find((battle) -> battle.isPlaying())?
@@ -23,7 +22,7 @@ class @BattleCollection extends Backbone.Collection
   playingBattles: =>
     @filter((battle) -> battle.isPlaying())
 
-  updateBattle: (socket, battleId, actions) =>
+  updateBattle: (battleId, actions) =>
     battle = @get(battleId)
     if !battle
       console.log "Received events for #{battleId}, but no longer in battle!"
@@ -222,12 +221,12 @@ class @BattleCollection extends Backbone.Collection
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
 
-  spectateBattle: (socket, id, generation, numActive, index, playerIds, spectators, log) =>
+  spectateBattle: (id, generation, numActive, index, playerIds, spectators, log) =>
     console.log "SPECTATING BATTLE #{id}."
     isSpectating = (if index? then false else true)
     # If not playing, pick a random index; it doesn't matter.
     index ?= Math.floor(2 * Math.random())
-    battle = new Battle({id, generation, numActive, socket, index, playerIds, spectators})
+    battle = new Battle({id, generation, numActive, index, playerIds, spectators})
     battle.set('spectating', isSpectating)
     createBattleWindow(this, battle)
     if log.length > 0
@@ -235,35 +234,35 @@ class @BattleCollection extends Backbone.Collection
       battle.view.$('.battle_pane').hide()
       @queueBattleUpdates(battle, log)
 
-  joinBattle: (socket, id, user) =>
+  joinBattle: (id, user) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
     battle.spectators.add(user)
 
-  leaveBattle: (socket, id, user) =>
+  leaveBattle: (id, user) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
     battle.spectators.remove(id: user)
 
-  updateTimers: (socket, id, timers) =>
+  updateTimers: (id, timers) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
     battle.view.updateTimers(timers)
 
-  resumeTimer: (socket, id, player) =>
+  resumeTimer: (id, player) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"
       return
     battle.view.resumeTimer(player)
 
-  pauseTimer: (socket, id, player, timeSinceLastAction) =>
+  pauseTimer: (id, player, timeSinceLastAction) =>
     battle = @get(id)
     if !battle
       console.log "Received events for #{id}, but no longer in battle!"

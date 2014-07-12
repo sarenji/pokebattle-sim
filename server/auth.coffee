@@ -28,6 +28,11 @@ exports.middleware = -> (req, res, next) ->
       redirectURL = "https://pokebattle.com/accounts/login"
       redirectURL += "?next=/sim"
       return res.redirect(redirectURL)
+    # The remote URL returns `username`, but we'd like a more unified interface,
+    # so we replace `username` with `name`.
+    body.name = body.username
+    delete body.username
+
     req.user = _.clone(body)
     hmac = crypto.createHmac('sha256', config.SECRET_KEY)
     req.user.token = hmac.update("#{req.user.id}").digest('hex')
@@ -42,7 +47,7 @@ exports.matchToken = (id, token, next) ->
     if err then return next(err)
     json = JSON.parse(jsonString)
     return next(new Error("Invalid session!"))  if !json
-    exports.getAuth json.username, (err, authLevel) ->
+    exports.getAuth json.name, (err, authLevel) ->
       if err then return next(err)
       json.authority = authLevel
       return next(null, json)
@@ -88,39 +93,39 @@ exports.levels =
 LEVEL_VALUES = (value  for key, value of exports.levels)
 
 exports.getAuth = (id, next) ->
-  id = id.toLowerCase()
+  id = String(id).toLowerCase()
   redis.hget AUTH_KEY, id, (err, auth) ->
     if err then return next(err)
     auth = parseInt(auth, 10) || exports.levels.USER
     next(null, auth)
 
 exports.setAuth = (id, newAuthLevel, next) ->
-  id = id.toLowerCase()
+  id = String(id).toLowerCase()
   if newAuthLevel not in LEVEL_VALUES
     next(new Error("Incorrect auth level: #{newAuthLevel}"))
   redis.hset(AUTH_KEY, id, newAuthLevel, next)
 
 # Ban
 # Length is in seconds.
-exports.ban = (username, reason, length, next) ->
-  username = username.toLowerCase()
-  key = "#{BANS_KEY}:#{username}"
+exports.ban = (id, reason, length, next) ->
+  id = id.toLowerCase()
+  key = "#{BANS_KEY}:#{id}"
   if length > 0
     redis.setex(key, length, reason, next)
   else
     redis.set(key, reason, next)
 
-exports.unban = (username, next) ->
-  username = username.toLowerCase()
-  redis.del("#{BANS_KEY}:#{username}", next)
+exports.unban = (id, next) ->
+  id = String(id).toLowerCase()
+  redis.del("#{BANS_KEY}:#{id}", next)
 
-exports.getBanReason = (username, next) ->
-  username = username.toLowerCase()
-  redis.get("#{BANS_KEY}:#{username}", next)
+exports.getBanReason = (id, next) ->
+  id = String(id).toLowerCase()
+  redis.get("#{BANS_KEY}:#{id}", next)
 
-exports.getBanTTL = (username, next) ->
-  username = username.toLowerCase()
-  key = "#{BANS_KEY}:#{username}"
+exports.getBanTTL = (id, next) ->
+  id = String(id).toLowerCase()
+  key = "#{BANS_KEY}:#{id}"
   redis.exists key, (err, result) ->
     if !result
       # In older versions of Redis, TTL returns -1 if key doesn't exist.
@@ -130,22 +135,22 @@ exports.getBanTTL = (username, next) ->
 
 # Mute
 # Length is in seconds.
-exports.mute = (username, reason, length, next) ->
-  username = username.toLowerCase()
-  key = "#{MUTE_KEY}:#{username}"
+exports.mute = (id, reason, length, next) ->
+  id = String(id).toLowerCase()
+  key = "#{MUTE_KEY}:#{id}"
   if length > 0
     redis.setex(key, length, reason, next)
   else
     redis.set(key, reason, next)
 
-exports.unmute = (username, next) ->
-  username = username.toLowerCase()
-  key = "#{MUTE_KEY}:#{username}"
+exports.unmute = (id, next) ->
+  id = String(id).toLowerCase()
+  key = "#{MUTE_KEY}:#{id}"
   redis.del(key, next)
 
-exports.getMuteTTL = (username, next) ->
-  username = username.toLowerCase()
-  key = "#{MUTE_KEY}:#{username}"
+exports.getMuteTTL = (id, next) ->
+  id = String(id).toLowerCase()
+  key = "#{MUTE_KEY}:#{id}"
   redis.exists key, (err, result) ->
     if !result
       # In older versions of Redis, TTL returns -1 if key doesn't exist.

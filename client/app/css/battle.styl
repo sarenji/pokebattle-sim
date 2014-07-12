@@ -114,6 +114,7 @@ $screen-width = 400px
     right 0
     bottom 0
     pointer-events none
+    overflow hidden
     .battle_overlay
       position absolute
       top 0
@@ -126,7 +127,7 @@ $screen-width = 400px
         &.hail
           background rgba(128, 255, 255, .3)
         &.sand
-          background rgba(128, 64, 0, .3)
+          background linear-gradient(top, rgba(128, 64, 0, .5), rgba(64, 32, 48, .7))
         &.sun
           background rgba(255, 196, 64, .3)
 
@@ -478,3 +479,54 @@ $screen-width = 400px
 .save-log
   display block
   text-align center
+
+.drop
+  background linear-gradient(top, rgba($water, .7), rgba(255, 255, 255, 0.3))
+  width 1px
+  height 89px
+  position absolute
+  top 0
+  transform rotate(-20deg)
+  animation fall .63s linear infinite
+
+@keyframes fall
+  to
+    margin-top 2 * $battle-height
+    margin-left 2 * $battle-height * .36
+
+.ray
+  position absolute
+  background rgba(230, 192, 70, .5)
+  width ($battle-width / 10)
+  height 100%
+  transition all 1000ms ease
+  transform rotate(360deg) skewX(30deg)
+  animation fade-in-out 3s ease infinite
+
+@keyframes fade-in-out
+  0%, 100%
+    opacity 0
+  50%
+    opacity .3
+
+.sand_overlay
+  absolute top left
+  background url("//media.pokebattle.com/img/battle/weather_sand.png")
+  width 600px
+  height 600px
+  opacity .5
+  animation sandstorm .5s linear infinite
+
+@keyframes sandstorm
+  0%
+    transform translate(0, 0)
+  100%
+    transform translate(200%, 100%)
+
+.hailstone
+  position absolute
+  border-radius 4px
+  width 10px
+  height @width
+  background rgba(230, 200, 255, .5)
+  animation fall .4s linear infinite

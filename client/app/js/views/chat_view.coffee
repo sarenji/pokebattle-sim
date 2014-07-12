@@ -60,7 +60,7 @@ class @ChatView extends Backbone.View
     if !PokeBattle.commands.execute(message)
       args = _.clone(@chatArgs)
       args.push(message)
-      PokeBattle.socket.send(@chatEvent, args...)
+      PokeBattle.primus.send(@chatEvent, args...)
     @chatHistory.push(message)
     delete @chatHistoryIndex
     $this.val('')
@@ -136,7 +136,8 @@ class @ChatView extends Backbone.View
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
 
     # Render the chat message
-    u = "<b style='color: #{@userColor(username)}'>#{username}:</b>"
+    u = "<b class='open_pm fake_link' data-user-id=#{username}
+      style='color: #{@userColor(username)}'>#{username}:</b>"
     @updateChat("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
 
     # We might want to run something based on the message, e.g. !pbv from a mod.
@@ -179,6 +180,7 @@ class @ChatView extends Backbone.View
     wasAtBottom = @isAtBottom()
     klass = []
     klass.push('bg-blue')  if options.highlight
+    klass.push(options.class)  if options.class
     @print("<p class='chat_message #{klass.join(' ')}'>#{message}</p>")
     @cleanChat()
     if wasAtBottom then @scrollToBottom()

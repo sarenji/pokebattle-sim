@@ -47,4 +47,5 @@ $(window).load ->
     if !battle.get('spectating')
       depressFindBattle()
 
+  PokeBattle.primus.on 'findBattleCanceled', depressFindBattle
   PokeBattle.events.on 'findBattleCanceled', depressFindBattle

@@ -269,6 +269,8 @@ class @BattleView extends Backbone.View
     $newPokemon.removeClass('hidden')
     @pokemonPopover($newSprite, pokemon)
 
+    @cannedText('SENT_OUT', player, player, slot)
+
     if @skip?
       $oldPokemon.css(opacity: 0)
       $newPokemon.css(opacity: 1)
@@ -299,6 +301,7 @@ class @BattleView extends Backbone.View
   switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
     $sprite = @$sprite(player, slot)
+    @cannedText('WITHDREW', player, player, slot)
 
     if @skip?
       $pokemon.addClass('hidden')
@@ -334,7 +337,7 @@ class @BattleView extends Backbone.View
     $pokeball.remove()
 
   logMove: (player, slot, moveName, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     pokemon = @model.getPokemon(player, slot)
     @addMoveMessage(owner, pokemon, moveName)
     @lastMove = moveName
@@ -453,10 +456,10 @@ class @BattleView extends Backbone.View
         when 'p'
           [player, slot] = args.splice(0, 2)
           pokemon = @model.getPokemon(player, slot)
-          pokemon.get('name')
+          pokemon.escape('name')
         when 't'
           [player] = args.splice(0, 1)
-          @model.getTeam(player).get('owner')
+          @model.getTeam(player).escape('owner')
         when 'ts'
           [player] = args.splice(0, 1)
           text = if @isFront(player)
@@ -477,7 +480,7 @@ class @BattleView extends Backbone.View
     pokemon = @model.getPokemon(player, slot)
     isFront = @isFront(player)
     $ability = $('<div/>').addClass('ability_activation')
-    $ability.html("#{pokemon.get('name')}'s <strong>#{abilityName}</strong>")
+    $ability.html("#{pokemon.escape('name')}'s <strong>#{abilityName}</strong>")
     $ability.addClass((if isFront then 'front' else 'back'))
     $ability.width(1)
     $ability.appendTo(@$('.battle_pane'))
@@ -520,13 +523,60 @@ class @BattleView extends Backbone.View
     $overlays.find('.weather').transition(opacity: 0, 500, -> $(this).remove())
     $weather = switch newWeather
       when Weather.RAIN
-        $overlays.append($("<div/>").addClass("battle_overlay weather rain"))
+        $weather = $("<div/>").addClass("battle_overlay weather rain")
+        $overlays.append($weather)
+        for i in [0...100]
+          setTimeout((->
+            dropLeft = _.random(-300, $overlays.width())
+            dropTop = _.random(- 3 * $overlays.height() - 100, -100)
+
+            $drop = $('<div class="drop"></div>')
+            $drop.css(left: dropLeft, top: dropTop)
+            $weather.append($drop)
+          ), Math.floor(Math.random() * 630))
+        $weather
       when Weather.SUN
-        $overlays.append($("<div/>").addClass("battle_overlay weather sun"))
+        $weather = $("<div/>").addClass("battle_overlay weather sun")
+        $overlays.append($weather)
+        for i in [0...10]
+          setTimeout((->
+            $ray = $('<div class="ray"></div>')
+            $ray.css(left: Math.floor(Math.random() * $overlays.width()))
+            $weather.append($ray)
+          ), Math.floor(Math.random() * 3000))
+        $weather
       when Weather.SAND
-        $overlays.append($("<div/>").addClass("battle_overlay weather sand"))
+        $weather = $("<div/>").addClass("battle_overlay weather sand")
+        [width, height] = [$overlays.width(), $overlays.height()]
+        [overlayWidth, overlayHeight] = [600, 600]
+        streams = []
+        for x in [-(2 * width)..width] by overlayWidth
+          for y in [-(2 * height)...height] by overlayHeight
+            percentX = Math.floor(100 * x / width) + "%"
+            percentY = Math.floor(100 * y / height) + "%"
+            streams.push([percentX, percentY])
+        for [left, top] in streams
+          $sand = $('<div class="sand_overlay"/>')
+          $sand.css({left, top})
+          $weather.append($sand)
+        $overlays.append($weather)
+        $weather
       when Weather.HAIL
-        $overlays.append($("<div/>").addClass("battle_overlay weather hail"))
+        $weather = $("<div/>").addClass("battle_overlay weather hail")
+        $overlays.append($weather)
+        for i in [0...100]
+          setTimeout((->
+            hailstoneLeft = _.random(-300, $overlays.width())
+            hailstoneTop = _.random(-$overlays.height(), -10)
+
+            $hailstone = $('<div class="hailstone"></div>')
+            size = Math.floor(Math.random() * 5) + 5
+            $hailstone.width(size)
+            $hailstone.height(size)
+            $hailstone.css(left: hailstoneLeft, top: hailstoneTop)
+            $weather.append($hailstone)
+          ), Math.floor(Math.random() * 400))
+        $weather
       else $()
     $weather.transition(opacity: 1, 500)
     done()
@@ -561,14 +611,14 @@ class @BattleView extends Backbone.View
           setTimeout(done, 500)
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
-        @addLog("#{pokemon.get('name')} became confused!")
+        @addLog("#{pokemon.escape('name')} became confused!")
         done()
       when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
         @cannedText('PROTECT_CONTINUE', player, slot)
         @attachScreen(player, slot, 'pink', 0, done)
       when 'Air Balloon'
         @addPokemonEffect($pokemon, "balloon", "Balloon")
-        @addLog("#{pokemon.get('name')} floats in the air with its Air Balloon!")
+        @addLog("#{pokemon.escape('name')} floats in the air with its Air Balloon!")
         done()
       when 'Paralyze'
         pokemon.set('status', 'paralyze')
@@ -741,7 +791,7 @@ class @BattleView extends Backbone.View
 
   boost: (player, slot, deltaBoosts, options = {}) =>
     pokemon = @model.getPokemon(player, slot)
-    pokemonName = pokemon.get('name')
+    pokemonName = pokemon.escape('name')
     stages = pokemon.get('stages')
     $pokemon = @$pokemon(player, slot)
     $effects = $pokemon.find('.pokemon-effects')
@@ -834,7 +884,7 @@ class @BattleView extends Backbone.View
         @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
         $pokemon.find(".pokemon-effect.balloon").remove()
-        @addLog("#{pokemon.get('name')}'s Air Balloon popped!")
+        @addLog("#{pokemon.escape('name')}'s Air Balloon popped!")
         done()
       when 'ConfusionAttachment'
         $pokemon.find(".pokemon-effect.confusion").remove()
@@ -1005,17 +1055,17 @@ class @BattleView extends Backbone.View
       return $userInfo.find('.right')
 
   announceWinner: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} won!"
     @announceWin(message, done)
 
   announceForfeit: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} has forfeited!"
     @announceWin(message, done)
 
   announceTimer: (player, done) =>
-    owner = @model.getTeam(player).get('owner')
+    owner = @model.getTeam(player).escape('owner')
     message = "#{owner} was given the timer win!"
     @announceWin(message, done)
 
@@ -1051,7 +1101,7 @@ class @BattleView extends Backbone.View
       log.push $this.text()
       log.push ""  if isHeader
     log = [ log.join('\n') ]
-    fileName = (@model.get('teams').map((team) -> team.get('owner'))).join(" vs ")
+    fileName = (@model.get('teams').map((team) -> team.escape('owner'))).join(" vs ")
     fileName += ".txt"
     blob = new Blob(log, type: "text/plain;charset=utf-8", endings: "native")
     saveAs(blob, fileName)
@@ -1124,8 +1174,8 @@ class @BattleView extends Backbone.View
     @renderWaiting()
 
   addMoveMessage: (owner, pokemon, moveName) =>
-    @chatView.print("<p class='move_message'>#{owner}'s #{pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
-    @addSummary("#{owner}'s #{pokemon.get('name')} used <strong>#{moveName}</strong>!", newline: true, big: true)
+    @chatView.print("<p class='move_message'>#{owner}'s #{@pokemonHtml(pokemon)} used <strong>#{moveName}</strong>!</p>")
+    @addSummary("#{owner}'s #{pokemon.escape('name')} used <strong>#{moveName}</strong>!", newline: true, big: true)
 
   addLog: (message) =>
     @chatView.print("<p>#{message}</p>")
@@ -1215,7 +1265,7 @@ class @BattleView extends Backbone.View
     front = @isFront(@model.index)
     gen   = window.Generations[@model.get('generation').toUpperCase()]
     teams = @model.get('teams').map (team) ->
-      team.get('pokemon').forEach (pokemon) ->
+      team.get('pokemon').map (pokemon) ->
         species = pokemon.get('species')
         forme   = pokemon.get('forme')
         shiny   = pokemon.get('shiny')
@@ -1257,5 +1307,6 @@ class @BattleView extends Backbone.View
     clearTimeout(@countdownTimersId)
     super()
 
-pokemonHtml = (pokemon) ->
-  "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}' target='_blank'>#{pokemon.get('species')}</a>"
+  pokemonHtml: (pokemon) =>
+    "<a class='pokemon-link' href='#{pokemon.getPokedexUrl()}'
+      target='_blank'>#{pokemon.escape('name')}</a>"

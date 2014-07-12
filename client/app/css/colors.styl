@@ -3,6 +3,9 @@ $background-color = #f3f3f3
 $positive-color = #38AB46
 $negative-color = #DC4E48
 
+$grey = #666
+$yellow = #b92
+
 $normal = #A9A57A
 $fire = #E28544
 $water = #6A97ED
@@ -25,4 +28,16 @@ $fairy = #F7B5F7
 $types = ('normal' $normal) ('fire' $fire) ('water' $water) ('electric' $electric) ('grass' $grass) ('ice' $ice) ('fighting' $fighting) ('poison' $poison) ('ground' $ground) ('flying' $flying) ('psychic' $psychic) ('bug' $bug) ('rock' $rock) ('ghost' $ghost) ('dragon' $dragon) ('dark' $dark) ('steel' $steel) ('fairy' $fairy)
 
 .bg-blue
-  background-color: lighten($ice, 50%)
+  background-color lighten($ice, 50%)
+
+.bg-faded-white
+  background rgba(white, .5)
+
+.red
+  color $negative-color
+
+.yellow
+  color $yellow
+
+.grey
+  color $grey

@@ -1,4 +1,4 @@
-.left.select-team(data-id=team.id, data-cid=team.cid)
+.left.select-team.relative.rounded(data-id=team.id, data-cid=team.cid)
   h2= team.getName()
   != window.JST['team_small']({team: team, window: window})
   .team-meta
@@ -13,3 +13,5 @@
     span.fake_link.delete-team
       span.icon-remove
       |  Delete
+  .show_spinner.fill.bg-faded-white.rounded.hidden
+    != window.JST['spinner']()
