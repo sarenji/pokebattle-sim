@@ -562,7 +562,21 @@ class @BattleView extends Backbone.View
         $overlays.append($weather)
         $weather
       when Weather.HAIL
-        $overlays.append($("<div/>").addClass("battle_overlay weather hail"))
+        $weather = $("<div/>").addClass("battle_overlay weather hail")
+        $overlays.append($weather)
+        for i in [0...100]
+          setTimeout((->
+            hailstoneLeft = _.random(-300, $overlays.width())
+            hailstoneTop = _.random(-$overlays.height(), -10)
+
+            $hailstone = $('<div class="hailstone"></div>')
+            size = Math.floor(Math.random() * 5) + 5
+            $hailstone.width(size)
+            $hailstone.height(size)
+            $hailstone.css(left: hailstoneLeft, top: hailstoneTop)
+            $weather.append($hailstone)
+          ), Math.floor(Math.random() * 400))
+        $weather
       else $()
     $weather.transition(opacity: 1, 500)
     done()
