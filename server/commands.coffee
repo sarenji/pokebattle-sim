@@ -139,9 +139,8 @@ makeCommand "rating", "ranking", "rank", (user, room, next, username) ->
 collectRatingResults = (username, results, options = {}) ->
   isOwner = options.isOwner ? false
   [rating, rank, ratios] = results
-  return  if !rating
+  return  if !rank
   ratio = []
-  rank ||= "Unranked"
   ratio.push("Rank: #{rank}")
   ratio.push("Win: #{ratios.win}")
   if isOwner
