@@ -69,12 +69,10 @@ class @BattleCollection extends Backbone.Collection
     try
       switch type
         when Protocol.CHANGE_HP
-          [player, slot, newPixels] = rest
+          [player, slot, newPercent] = rest
           pokemon = battle.getPokemon(player, slot)
-          oldPixels = pokemon.get('pixels')
-          pokemon.set('pixels', newPixels)
-          # TODO: Have this be called automatically.
-          view.changeHP(player, slot, oldPixels, done)
+          pokemon.set('percent', newPercent)
+          if view.skip? then done() else setTimeout(done, 500)
         when Protocol.CHANGE_EXACT_HP
           [player, slot, newHP] = rest
           pokemon = battle.getPokemon(player, slot)

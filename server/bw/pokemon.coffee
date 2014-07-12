@@ -407,10 +407,9 @@ class @Pokemon
     @currentHP = Math.max(@currentHP, 0)
     delta = oldHP - @currentHP
     if delta != 0
-      pixels = Math.floor(48 * @currentHP / @stat('hp'))
-      pixels = 1  if pixels == 0 && @isAlive()
-      @battle?.tell(Protocol.CHANGE_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), pixels)
-      @battle?.tellPlayer(@playerId, Protocol.CHANGE_EXACT_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), @currentHP)
+      percent = Math.ceil(100 * @currentHP / @stat('hp'))
+      @tell(Protocol.CHANGE_HP, percent)
+      @tellPlayer(Protocol.CHANGE_EXACT_HP, @currentHP)
     delta
 
   recordMove: (move) ->

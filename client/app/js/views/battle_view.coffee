@@ -24,6 +24,7 @@ class @BattleView extends Backbone.View
     @skip     = null
     @renderChat()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
+    @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
     @listenTo(@model, 'change:finished', @handleEnd)
     @listenTo(PokeBattle.battles, 'remove', @handleRemoval)
     @battleStartTime = $.now()
@@ -208,27 +209,6 @@ class @BattleView extends Backbone.View
   removeTeamPreview: =>
     $teamPreview = @$('.battle_teams')
     $teamPreview.remove()
-
-  changeHP: (player, slot, oldPixels, done) =>
-    $pokemon = @$pokemon(player, slot)
-    $info = $pokemon.find(".pokemon-info")
-    $hp = $info.find('.hp')
-    $allHP = $info.find('.hp')
-    $hpText = $info.find('.hp-text')
-    pokemon = @model.getPokemon(player, slot)
-    percent = pokemon.getPercentHP()
-    percent = Math.max(percent, 0)
-    if percent <= 20
-      $hp.css(backgroundColor: "#f00")
-    else if percent <= 50
-      $hp.css(backgroundColor: "#ff0")
-    else
-      $hp.css(backgroundColor: "#0f0")
-    $allHP.width("#{percent}%")
-    $hpText.text("#{percent}%")
-    deltaPercent = Math.floor(100 * (pokemon.get('pixels') - oldPixels) / 48)
-    @floatPercent(player, slot, deltaPercent)
-    if @skip? then done() else setTimeout(done, 500)
 
   floatPercent: (player, slot, percent) =>
     return  if @skip?
@@ -924,6 +904,24 @@ class @BattleView extends Backbone.View
     $pokemon = @$pokemon(player, slot)
     $pokemon.find('.boost').remove()
 
+  handlePercent: (pokemon) =>
+    $pokemon = @$pokemon(pokemon)
+    $info = $pokemon.find(".pokemon-info")
+    $allHP = $info.find('.hp')
+    $hpText = $info.find('.hp-text')
+    percent = pokemon.getPercentHP()
+    if percent <= 20
+      $allHP.css(backgroundColor: "#f00")
+    else if percent <= 50
+      $allHP.css(backgroundColor: "#ff0")
+    else
+      $allHP.css(backgroundColor: "#0f0")
+    $allHP.width("#{percent}%")
+    $hpText.text("#{percent}%")
+    deltaPercent = (percent - pokemon.previous('percent'))
+    [player, slot] = [$pokemon.data('team'), $pokemon.data('slot')]
+    @floatPercent(player, slot, deltaPercent)
+
   handleStatus: (pokemon, status) =>
     $pokemon = @$pokemon(pokemon)
     if status?
@@ -1113,10 +1111,10 @@ class @BattleView extends Backbone.View
   $pokemon: (player, slot) =>
     if arguments.length == 1
       pokemon = player
-      @model.get('teams').forEach (team, i) ->
+      @model.get('teams').forEach (team, playerIndex) ->
         index = team.indexOf(pokemon)
         if index != -1
-          player = i
+          player = playerIndex
           slot = index
           return
     @$(".pokemon[data-team='#{player}'][data-slot='#{slot}']")

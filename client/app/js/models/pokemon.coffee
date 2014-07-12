@@ -1,7 +1,7 @@
 class @Pokemon extends Backbone.Model
   defaults: =>
     moves: []
-    pixels: 48
+    percent: 100
     ivs:
       hp: 31
       attack: 31
@@ -210,7 +210,7 @@ class @Pokemon extends Backbone.Model
     @set('pp', array)
 
   getPercentHP: ->
-    Math.floor(100 * @get('pixels') / 48)
+    Math.max(@get('percent'), 0)
 
   getHPColor: ->
     percent = @getPercentHP()
@@ -220,7 +220,7 @@ class @Pokemon extends Backbone.Model
       else                   'green'
 
   isFainted: ->
-    @get('pixels') <= 0
+    @get('percent') <= 0
 
   getStatus: ->
     status = @get('status')
