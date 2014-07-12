@@ -493,3 +493,20 @@ $screen-width = 400px
   to
     margin-top 2 * $battle-height
     margin-left 2 * $battle-height * .36
+
+.ray
+  position absolute
+  background rgba(230, 192, 70, .5)
+  width ($battle-width / 10)
+  height 100%
+  transition all 1000ms ease
+  transform rotate(360deg) skewX(30deg)
+  animation fade-in-out 3s ease infinite
+
+@keyframes fade-in-out
+  0%
+    opacity 0
+  50%
+    opacity .3
+  100%
+    opacity 0
