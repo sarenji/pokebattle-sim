@@ -12,7 +12,7 @@ describe "Ratings", ->
         should.not.exist(err)
         should.exist(result)
         result.should.be.instanceOf(Object)
-        result.should.containEql(rating: 0)
+        result.should.containEql(rating: ratings.DEFAULT_RATING)
         done()
 
     it "returns information for an existing player", (done) ->
@@ -21,7 +21,7 @@ describe "Ratings", ->
           should.not.exist(err)
           should.exist(result)
           result.should.be.instanceOf(Object)
-          result.rating.should.be.greaterThan(ratings.algorithm.createPlayer().rating)
+          result.rating.should.be.greaterThan(ratings.DEFAULT_RATING)
           done()
 
   describe "#resetRating", ->
@@ -29,10 +29,9 @@ describe "Ratings", ->
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
         ratings.resetRating "player1", ->
           ratings.getRatings [ "player1", "player2" ], (err, results) ->
-            results[0].should.equal(0)
-            results[1].should.not.equal(0)
-            defaultRating = ratings.algorithm.createPlayer().rating
-            results[1].should.be.lessThan(defaultRating)
+            results[0].should.equal(ratings.DEFAULT_RATING)
+            results[1].should.not.equal(ratings.DEFAULT_RATING)
+            results[1].should.be.lessThan(ratings.DEFAULT_RATING)
             done()
 
   describe "#getMaxRating", ->

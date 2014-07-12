@@ -314,9 +314,8 @@ describe 'Battle', ->
       @battle.on "ratingsUpdated", =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            defaultPlayer = ratings.algorithm.createPlayer()
-            rating1.rating.should.be.greaterThan(defaultPlayer.rating)
-            rating2.rating.should.be.lessThan(defaultPlayer.rating)
+            rating1.rating.should.be.greaterThan(ratings.DEFAULT_RATING)
+            rating2.rating.should.be.lessThan(ratings.DEFAULT_RATING)
             done()
 
       @p2.currentHP = 1
@@ -331,8 +330,8 @@ describe 'Battle', ->
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            rating1.rating.should.equal(0)
-            rating2.rating.should.equal(0)
+            rating1.rating.should.equal(ratings.DEFAULT_RATING)
+            rating2.rating.should.equal(ratings.DEFAULT_RATING)
             done()
 
       @p2.currentHP = 1
@@ -369,8 +368,8 @@ describe 'Battle', ->
       @battle.on 'end', =>
         ratings.getPlayer @id1, (err, rating1) =>
           ratings.getPlayer @id2, (err, rating2) =>
-            rating1.rating.should.equal(0)
-            rating2.rating.should.equal(0)
+            rating1.rating.should.equal(ratings.DEFAULT_RATING)
+            rating2.rating.should.equal(ratings.DEFAULT_RATING)
             done()
       @battle.forfeit(@id2)
 

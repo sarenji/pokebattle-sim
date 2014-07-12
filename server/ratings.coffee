@@ -4,10 +4,12 @@ alts = require './alts'
 @algorithm = require('./elo')
 @DECAY_AMOUNT = 5
 
+DEFAULT_PLAYER = @algorithm.createPlayer()
+
 USERS_RATED_KEY = "users:rated"
 USERS_ACTIVE_KEY = "users:active"
 RATINGS_KEY = "ratings"
-RATINGS_ATTRIBUTES = Object.keys(@algorithm.createPlayer())
+RATINGS_ATTRIBUTES = Object.keys(DEFAULT_PLAYER)
 RATINGS_SUBKEYS = {}
 for attribute in RATINGS_ATTRIBUTES
   RATINGS_SUBKEYS[attribute] = [RATINGS_KEY, attribute].join(':')
@@ -16,6 +18,8 @@ RATINGS_PER_PAGE = 15
 
 ALGORITHM_OPTIONS =
   systemConstant: 0.2  # Glicko2 tau
+
+@DEFAULT_RATING = DEFAULT_PLAYER['rating']
 
 @results =
   WIN  : 1
@@ -66,7 +70,7 @@ updateMaxRatings = (ids, next) ->
     object = {}
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
-      value ||= 0
+      value ||= DEFAULT_PLAYER[attribute]
       object[attribute] = Number(value)
     return next(null, object)
 
@@ -155,9 +159,6 @@ updateMaxRatings = (ids, next) ->
   exports.getPlayers [id, opponentId], (err, results) =>
     return next(err)  if err
     [player, opponent] = results
-    defaultRating = @algorithm.createPlayer().rating
-    player.rating ||= defaultRating
-    opponent.rating ||= defaultRating
     winnerMatches = [{opponent, score}]
     loserMatches = [{opponent: player, score: opponentScore}]
     newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
