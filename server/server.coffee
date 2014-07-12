@@ -320,7 +320,7 @@ class @BattleServer
     @canBattlesStart = false
     for user in @users.getUsers()
       @stopChallenges(user)
-    @announce("<strong>The server is restarting!</strong> We'll be pushing some updates. All battles are locked: Please finish your battles, and no new battles may start at this time.")
+    @announce("<strong>The server is restarting!</strong> We're waiting for all battles to finish to push some updates. No new battles may start at this time.")
 
   unlockdown: ->
     @canBattlesStart = true
