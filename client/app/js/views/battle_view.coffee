@@ -1268,9 +1268,9 @@ class @BattleView extends Backbone.View
     pokemon.set('megaEvolve', false)
 
   preloadImages: =>
-    front = @isFront(@model.index)
     gen   = window.Generations[@model.get('generation').toUpperCase()]
-    teams = @model.get('teams').map (team) ->
+    teams = @model.get('teams').map (team, playerIndex) =>
+      front = @isFront(playerIndex)
       team.get('pokemon').map (pokemon) ->
         species = pokemon.get('species')
         forme   = pokemon.get('forme')
