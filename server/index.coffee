@@ -147,7 +147,7 @@ CLIENT_VERSION = assets.getVersion()
       attributes['contents'] = JSON.stringify(team.pokemon)
       new database.Team(attributes)
         .save().then (team) ->
-          callback(team.id)
+          callback?(team.id)
 
     spark.on 'requestTeams', ->
       q = new database.Teams()
@@ -229,7 +229,7 @@ CLIENT_VERSION = assets.getVersion()
           controller.battle.playerNames[1],
           currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
-      callback(battleMetadata)
+      callback?(battleMetadata)
 
     spark.on 'findBattle', (format, team, altName=null) ->
       # Note: If altName == null, then isAltOwnedBy will return true
@@ -252,7 +252,7 @@ CLIENT_VERSION = assets.getVersion()
         return
 
       battle.makeMove(user.name, moveName, slot, forTurn, options)
-      callback()
+      callback?()
     
     spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
       battle = server.findBattle(battleId)
@@ -261,7 +261,7 @@ CLIENT_VERSION = assets.getVersion()
         return
 
       battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
-      callback()
+      callback?()
 
     spark.on 'sendCancelAction', (battleId, forTurn) ->
       battle = server.findBattle(battleId)
