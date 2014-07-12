@@ -141,6 +141,7 @@ collectRatingResults = (username, results, options = {}) ->
   [rating, rank, ratios] = results
   return  if !rating
   ratio = []
+  rank ||= "Unranked"
   ratio.push("Rank: #{rank}")
   ratio.push("Win: #{ratios.win}")
   if isOwner
