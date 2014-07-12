@@ -264,16 +264,6 @@ describe 'Battle', ->
       @battle.addSpectator(connection)
       @battle.spectators.should.have.length(length + 1)
 
-  describe "#removeSpectator", ->
-    it "removes the spectator from the array", ->
-      connection = @stubSpark()
-      spectator = @server.findOrCreateUser(id: 1, name: "guy", connection)
-      length = @battle.spectators.length
-      @battle.addSpectator(connection)
-      @battle.spectators.should.have.length(length + 1)
-      @battle.removeSpectator(connection)
-      @battle.spectators.should.have.length(length)
-
   describe "#getWinner", ->
     it "returns player 1 if player 2's team has all fainted", ->
       pokemon.faint()  for pokemon in @team2.pokemon

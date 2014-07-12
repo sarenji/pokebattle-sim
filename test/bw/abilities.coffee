@@ -1268,7 +1268,7 @@ describe "BW Abilities:", ->
         typedMove = _(@battle.MoveList).find (m) ->
           m.target == 'user' && m.type == type
         @battle.performMove(@p1, typedMove)
-        @p1.stages.should.include(specialAttack: 0)
+        @p1.stages.should.containEql(specialAttack: 0)
 
       it "does not boost special attack on #{type}-type moves if immune", ->
         shared.create.call this,

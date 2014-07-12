@@ -643,9 +643,9 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       @p2.currentHP = 1
       @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
-      @p1.stages.should.include attack: 2
+      @p1.stages.should.containEql attack: 2
 
     it "does not raise the user's Attack 2 stages otherwise", ->
       shared.create.call(this, gen: 'xy')
       @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
-      @p1.stages.should.include attack: 0
+      @p1.stages.should.containEql attack: 0

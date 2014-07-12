@@ -19,7 +19,7 @@ describe 'Validations: Unreleased Ban', ->
     server = new BattleServer()
     format = 'xy1000'
     team = generateTeam()
-    team[0] = Factory("Diancie", item: "Leftovers", moves: [ "Moonblast" ])
+    team[0] = Factory("Hoopa", item: "Leftovers", moves: [ "Moonblast" ])
     conditions = [ Conditions.UNRELEASED_BAN ]
 
     server.validateTeam(team, format, conditions).should.not.be.empty
