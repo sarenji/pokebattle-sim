@@ -521,14 +521,15 @@ class @BattleView extends Backbone.View
   changeWeather: (newWeather, done) =>
     $overlays = @$('.battle_overlays')
     $overlays.find('.weather').transition(opacity: 0, 500, -> $(this).remove())
+    [overlayWidth, overlayHeight] = [600, 300]
     $weather = switch newWeather
       when Weather.RAIN
         $weather = $("<div/>").addClass("battle_overlay weather rain")
         $overlays.append($weather)
         for i in [0...100]
           setTimeout((->
-            dropLeft = _.random(-300, $overlays.width())
-            dropTop = _.random(- 3 * $overlays.height() - 100, -100)
+            dropLeft = _.random(-300, overlayWidth)
+            dropTop = _.random(- 3 * overlayHeight - 100, -100)
 
             $drop = $('<div class="drop"></div>')
             $drop.css(left: dropLeft, top: dropTop)
@@ -541,17 +542,17 @@ class @BattleView extends Backbone.View
         for i in [0...10]
           setTimeout((->
             $ray = $('<div class="ray"></div>')
-            $ray.css(left: Math.floor(Math.random() * $overlays.width()))
+            $ray.css(left: Math.floor(Math.random() * overlayWidth))
             $weather.append($ray)
           ), Math.floor(Math.random() * 3000))
         $weather
       when Weather.SAND
         $weather = $("<div/>").addClass("battle_overlay weather sand")
-        [width, height] = [$overlays.width(), $overlays.height()]
-        [overlayWidth, overlayHeight] = [600, 600]
+        [width, height] = [overlayWidth, overlayHeight]
+        [sandWidth, sandHeight] = [600, 600]
         streams = []
-        for x in [-(2 * width)..width] by overlayWidth
-          for y in [-(2 * height)...height] by overlayHeight
+        for x in [-(2 * width)..width] by sandWidth
+          for y in [-(2 * height)...height] by sandHeight
             percentX = Math.floor(100 * x / width) + "%"
             percentY = Math.floor(100 * y / height) + "%"
             streams.push([percentX, percentY])
@@ -566,8 +567,8 @@ class @BattleView extends Backbone.View
         $overlays.append($weather)
         for i in [0...100]
           setTimeout((->
-            hailstoneLeft = _.random(-300, $overlays.width())
-            hailstoneTop = _.random(-$overlays.height(), -10)
+            hailstoneLeft = _.random(-300, overlayWidth)
+            hailstoneTop = _.random(-overlayHeight, -10)
 
             $hailstone = $('<div class="hailstone"></div>')
             size = Math.floor(Math.random() * 5) + 5
