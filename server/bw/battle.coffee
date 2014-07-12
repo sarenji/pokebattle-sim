@@ -844,8 +844,11 @@ class @Battle extends EventEmitter
       teamJSON = @getTeam(player.id).toJSON()
       @tellPlayer(player.id, Protocol.RECEIVE_TEAM, teamJSON)
 
+    spark.on('end', => @removeSpectator(spark))
+
   removeSpectator: (spark) ->
     user = spark.user
+    return  if spark.user.hasSparks()
 
     for s, i in @spectators
       if user == s

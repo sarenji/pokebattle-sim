@@ -75,9 +75,6 @@ class @BattleServer
     @users.remove(spark)
     return  if spark.user.hasSparks()
     @stopChallenges(spark.user)
-    for battleId of @userBattles[spark.user.name]
-      battle = @battles[battleId]
-      battle.removeSpectator(spark)
 
   showTopic: (player) ->
     redis.hget "topic", "main", (err, topic) ->

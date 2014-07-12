@@ -774,6 +774,7 @@ describe 'BattleServer', ->
         broadcastSpy = @sandbox.spy(battle, 'broadcast')
         broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt1')
         server.leave(spark1)
+        spark1.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
         battle.removeSpectator.restore()
@@ -784,6 +785,7 @@ describe 'BattleServer', ->
         broadcastSpy = @sandbox.spy(battle, 'broadcast')
         broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt2')
         server.leave(spark2)
+        spark2.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
         battle.removeSpectator.restore()
