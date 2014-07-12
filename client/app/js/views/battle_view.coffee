@@ -507,24 +507,28 @@ class @BattleView extends Backbone.View
         $weather = $("<div/>").addClass("battle_overlay weather rain")
         $overlays.append($weather)
         for i in [0...100]
-          setTimeout((->
-            dropLeft = _.random(-300, overlayWidth)
-            dropTop = _.random(- 3 * overlayHeight - 100, -100)
+          dropLeft = _.random(-300, overlayWidth)
+          dropTop = _.random(-2 * overlayHeight - 100, overlayHeight)
 
-            $drop = $('<div class="drop"></div>')
-            $drop.css(left: dropLeft, top: dropTop)
-            $weather.append($drop)
-          ), Math.floor(Math.random() * 630))
+          $drop = $('<div class="drop"></div>')
+          $drop.css(left: dropLeft, top: dropTop)
+          $weather.append($drop)
         $weather
       when Weather.SUN
         $weather = $("<div/>").addClass("battle_overlay weather sun")
         $overlays.append($weather)
         for i in [0...10]
-          setTimeout((->
-            $ray = $('<div class="ray"></div>')
-            $ray.css(left: Math.floor(Math.random() * overlayWidth))
-            $weather.append($ray)
-          ), Math.floor(Math.random() * 3000))
+          millisecs = Math.floor(Math.random() * 3000) + 'ms'
+          $ray = $('<div class="ray"></div>')
+          $ray.css(left: Math.floor(Math.random() * overlayWidth))
+          $ray.css({
+            '-webkit-animation-delay': millisecs
+            '-moz-animation-delay': millisecs
+            '-ms-animation-delay': millisecs
+            '-o-animation-delay': millisecs
+            'animation-delay': millisecs
+          })
+          $weather.append($ray)
         $weather
       when Weather.SAND
         $weather = $("<div/>").addClass("battle_overlay weather sand")
@@ -544,19 +548,17 @@ class @BattleView extends Backbone.View
         $weather
       when Weather.HAIL
         $weather = $("<div/>").addClass("battle_overlay weather hail")
-        $overlays.append($weather)
         for i in [0...100]
-          setTimeout((->
-            hailstoneLeft = _.random(-300, overlayWidth)
-            hailstoneTop = _.random(-overlayHeight, -10)
+          hailstoneLeft = _.random(-300, overlayWidth)
+          hailstoneTop = _.random(-2 * overlayHeight, overlayHeight)
 
-            $hailstone = $('<div class="hailstone"></div>')
-            size = Math.floor(Math.random() * 5) + 5
-            $hailstone.width(size)
-            $hailstone.height(size)
-            $hailstone.css(left: hailstoneLeft, top: hailstoneTop)
-            $weather.append($hailstone)
-          ), Math.floor(Math.random() * 400))
+          $hailstone = $('<div class="hailstone"></div>')
+          size = Math.floor(Math.random() * 5) + 5
+          $hailstone.width(size)
+          $hailstone.height(size)
+          $hailstone.css(left: hailstoneLeft, top: hailstoneTop)
+          $weather.append($hailstone)
+        $overlays.append($weather)
         $weather
       else $()
     $weather.transition(opacity: 1, 500)
