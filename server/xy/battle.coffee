@@ -31,9 +31,9 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 # Retrofit `recordMove` to also record mega evolutions.
 oldRecordMove = @Battle::recordMove
-@Battle::recordMove = (playerId, move, forSlot = 0, megaEvolve = false) ->
+@Battle::recordMove = (playerId, move, forSlot = 0, options = {}) ->
   pokemon = @getTeam(playerId).at(forSlot)
-  if megaEvolve && !@getAction(pokemon) && pokemon.canMegaEvolve()
+  if options.megaEvolve && !@getAction(pokemon) && pokemon.canMegaEvolve()
     if @pokemonActions.filter((o) -> o.type == 'mega' && o.pokemon.team == pokemon.team).length == 0
       @addAction(type: 'mega', pokemon: pokemon)
   oldRecordMove.apply(this, arguments)

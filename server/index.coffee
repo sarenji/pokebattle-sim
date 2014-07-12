@@ -245,21 +245,23 @@ CLIENT_VERSION = assets.getVersion()
       server.removePlayer(user.name, generation)
       user.send("findBattleCanceled")
 
-    spark.on 'sendMove', (battleId, moveName, slot, forTurn, args...) ->
+    spark.on 'sendMove', (battleId, moveName, slot, forTurn, options, callback) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
         return
 
-      battle.makeMove(user.name, moveName, slot, forTurn, args...)
+      battle.makeMove(user.name, moveName, slot, forTurn, options)
+      callback()
     
-    spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn) ->
+    spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
       battle = server.findBattle(battleId)
       if !battle
         user.error(errors.BATTLE_DNE)
         return
 
       battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
+      callback()
 
     spark.on 'sendCancelAction', (battleId, forTurn) ->
       battle = server.findBattle(battleId)

@@ -931,6 +931,9 @@ class @BattleView extends Backbone.View
     else
       $pokemon.find(".pokemon-effect.#{pokemon.previous('status')}").remove()
 
+  showSpinner: =>
+    @$('.battle_actions .show_spinner').removeClass('hidden')
+
   mapStatusForDisplay: (status) =>
     switch status
       when "burn" then "BRN"
@@ -1215,6 +1218,7 @@ class @BattleView extends Backbone.View
     done()
 
   makeMove: (e) =>
+    forSlot = 0
     $target = $(e.currentTarget)
     moveName = $target.data('move-id')
     if $target.hasClass('disabled')
@@ -1222,10 +1226,11 @@ class @BattleView extends Backbone.View
       return
     console.log "Making move #{moveName}"
     pokemon = @model.getPokemon(@model.index, 0)
-    @model.makeMove(moveName)
-    @afterSelection(pokemon)
+    @showSpinner()
+    @model.makeMove(moveName, forSlot, @afterSelection.bind(this, pokemon))
 
   switchPokemon: (e) =>
+    forSlot = 0
     $target = $(e.currentTarget)
     toSlot = $target.data('slot')
     if $target.hasClass('disabled')
@@ -1234,8 +1239,8 @@ class @BattleView extends Backbone.View
     console.log "Switching to #{toSlot}"
     toSlot = parseInt(toSlot, 10)
     pokemon = @model.getPokemon(@model.index, 0)
-    @model.makeSwitch(toSlot)
-    @afterSelection(pokemon)
+    @showSpinner()
+    @model.makeSwitch(toSlot, forSlot, @afterSelection.bind(this, pokemon))
 
   cancelAction: (e) =>
     @$('.battle_actions').html """

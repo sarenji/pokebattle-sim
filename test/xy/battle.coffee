@@ -20,7 +20,7 @@ describe "XY Battle:", ->
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(0)
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       megas = @battle.pokemonActions.filter((o) -> o.type == 'mega')
       megas.should.have.length(1)
       megas[0].pokemon.should.equal(@p1)
@@ -30,7 +30,7 @@ describe "XY Battle:", ->
         gen: 'xy'
         team1: [ Factory("Magikarp", item: "Charizardite X") ]
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(0)
-      @battle.recordMove(@id1, @battle.getMove("Splash"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Splash"), 0, megaEvolve: true)
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(0)
 
     it "cannot happen if your partner is already going to mega-evolve", ->
@@ -39,9 +39,9 @@ describe "XY Battle:", ->
         numActive: 2
         team1: (Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X")  for x in [0..1])
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(0)
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(1)
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 1, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 1, megaEvolve: true)
       @battle.pokemonActions.filter((o) -> o.type == 'mega').should.have.length(1)
 
     it "happens after switches", ->
@@ -49,7 +49,7 @@ describe "XY Battle:", ->
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
         team2: (Factory("Magikarp")  for x in [0..1])
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.recordSwitch(@id2, 1)
       megaSpy = @sandbox.spy(@battle, 'performMegaEvolution')
       switchSpy = @sandbox.spy(@battle, 'performSwitch')
@@ -61,7 +61,7 @@ describe "XY Battle:", ->
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
         team2: (Factory("Magikarp")  for x in [0..1])
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.continueTurn()
       @p1.forme.should.equal('mega-x')
 
@@ -69,7 +69,7 @@ describe "XY Battle:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [ Factory("Kangaskhan", moves: ["Return"], item: "Kangaskhanite") ]
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.continueTurn()
       should.exist(@p1.ability)
       @p1.ability.should.equal(Ability.ParentalBond)
@@ -79,7 +79,7 @@ describe "XY Battle:", ->
         gen: 'xy'
         team1: [ Factory("Gardevoir", ability: "Regenerator", item: "Gardevoirite") ]
       @p1.currentHP = 1
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.continueTurn()
       should.exist(@p1.ability)
       @p1.ability.should.equal(Ability.Pixilate)
@@ -89,7 +89,7 @@ describe "XY Battle:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [ Factory("Kangaskhan", moves: ["Return"], item: "Kangaskhanite"), Factory("Magikarp") ]
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.continueTurn()
       should.exist(@p1.ability)
       @p1.ability.should.equal(Ability.ParentalBond)
@@ -103,7 +103,7 @@ describe "XY Battle:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.getAction(@p1).type.should.equal("move")
 
   describe "#undoCompletedRequest", ->
@@ -111,7 +111,7 @@ describe "XY Battle:", ->
       shared.create.call this,
         gen: 'xy'
         team1: [ Factory("Charizard", moves: ["Fire Blast"], item: "Charizardite X") ]
-      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, true)
+      @battle.recordMove(@id1, @battle.getMove("Fire Blast"), 0, megaEvolve: true)
       @battle.pokemonActions.should.not.be.empty
       (=> @battle.undoCompletedRequest(@id1)).should.not.throw()
       @battle.pokemonActions.should.be.empty

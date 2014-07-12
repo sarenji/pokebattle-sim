@@ -31,13 +31,19 @@ class @Battle extends Backbone.AssociatedModel
     teams = @get('teams')
     teams.at(@index).unset('hidden', silent: true).set(team)
 
-  makeMove: (moveName, forSlot) =>
+  makeMove: (moveName, forSlot, callback) =>
     pokemon = @getPokemon(@index, forSlot)
-    PokeBattle.primus.send('sendMove', @id, moveName, forSlot, @get('turn'), pokemon.get('megaEvolve'))
-    pokemon.set('megaEvolve', false)
+    options = {}
+    options['megaEvolve'] = pokemon.get('megaEvolve')  if pokemon.get('megaEvolve')
+    PokeBattle.primus.send(
+      'sendMove', @id, moveName, forSlot,
+      @get('turn'), options, callback,
+    )
 
-  makeSwitch: (toSlot, forSlot) =>
-    PokeBattle.primus.send('sendSwitch', @id, toSlot, forSlot, @get('turn'))
+  makeSwitch: (toSlot, forSlot, callback) =>
+    PokeBattle.primus.send(
+      'sendSwitch', @id, toSlot, forSlot, @get('turn'), callback
+    )
 
   makeCancel: =>
     PokeBattle.primus.send 'sendCancelAction', @id, @get('turn')

@@ -24,7 +24,7 @@ class @BattleController
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
+  makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, options = {}) ->
     return false  if @battle.isOver()
     return false  if forTurn != @battle.turn
     return false  if playerId not in @battle.playerIds
@@ -34,7 +34,7 @@ class @BattleController
     return false  if !request
     return false  if moveName not in (request.moves || [])
     move = @battle.getMove(moveName)
-    @battle.recordMove(playerId, move, forSlot, args...)
+    @battle.recordMove(playerId, move, forSlot, options)
     @transitionToNextState()
     return true
 
