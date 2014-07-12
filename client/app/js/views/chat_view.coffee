@@ -131,13 +131,13 @@ class @ChatView extends Backbone.View
 
   userMessage: (username, message) =>
     user = @collection.get(username)
-    username = user?.getDisplayName() || username
+    displayName = user?.getDisplayName() || username
     yourName = PokeBattle.username
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
 
     # Render the chat message
     u = "<b class='open_pm fake_link' data-user-id=#{username}
-      style='color: #{@userColor(username)}'>#{username}:</b>"
+      style='color: #{@userColor(username)}'>#{displayName}:</b>"
     @updateChat("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
 
     # We might want to run something based on the message, e.g. !pbv from a mod.
