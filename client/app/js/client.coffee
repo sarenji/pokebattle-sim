@@ -7,12 +7,10 @@ PokeBattle.primus.on 'updateChat', (username, data) ->
   PokeBattle.chatView.userMessage(username, data)
 
 PokeBattle.primus.on 'updateBattleChat', (battleId, username, data) ->
-  chatView = PokeBattle.battles.get(battleId).view.chatView
-  chatView.userMessage(username, data)
+  PokeBattle.battles.get(battleId)?.view.chatView.userMessage(username, data)
 
 PokeBattle.primus.on 'rawBattleMessage', (battleId, message) ->
-  chatView = PokeBattle.battles.get(battleId).view.chatView
-  chatView.updateChat(message)
+  PokeBattle.battles.get(battleId)?.view.chatView.updateChat(message)
 
 PokeBattle.primus.on 'rawMessage', (message) ->
   PokeBattle.chatView.updateChat(message)
