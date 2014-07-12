@@ -268,7 +268,12 @@ class @BattleCollection extends Backbone.Collection
     battle.view.pauseTimer(player, timeSinceLastAction)
 
 createBattleWindow = (collection, battle) ->
-  $battle = $(JST['battle_window'](battle: battle, window: window))
+  backgroundNumber = generateBackgroundNumber(battle.id, 6)
+  $battle = $(JST['battle_window']({battle, window, backgroundNumber}))
   $battle.appendTo $('#main-section')
   battle.view = new BattleView(el: $battle, model: battle)
   collection.add(battle)
+
+generateBackgroundNumber = (battleId, numBackgrounds) ->
+  number = parseInt(battleId[...6], 16)
+  number % numBackgrounds

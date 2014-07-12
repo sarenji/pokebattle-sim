@@ -1,19 +1,20 @@
 each team in [ yourTeam, opponentTeam ]
   - var leftOrRight = (team === yourTeam ? 'left' : 'right')
   - var teamIndex = (team === yourTeam ? yourIndex : 1 - yourIndex)
-  div(class = leftOrRight)
-    .owner_name= team.get('owner')
-    .battle-timer.frozen-timer.hidden
-    .battle-timer.remaining-timer
-    .pokemon_icons
-      - var teamPokemon = team.get('pokemon')
-      - for (var i = 0, len = teamPokemon.length; i < len; i += 1)
-        - var pokemon = teamPokemon.at(i)
-        if pokemon
-          .icon_wrapper
-            - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
-            - var style = window.PokemonIconBackground(pokemon)
-            a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)
-            if !pokemon.isFainted()
-              .pokemon_hp_background
-                .pokemon_hp(style="height: " + (pokemon.getPercentHP()) + "%", class=pokemon.getHPColor())
+  .bg-faded-blue(class = 'fill-' + leftOrRight)
+    div(class = leftOrRight)
+      .owner_name= team.get('owner')
+      .battle-timer.frozen-timer.hidden
+      .battle-timer.remaining-timer
+      .pokemon_icons
+        - var teamPokemon = team.get('pokemon')
+        - for (var i = 0, len = teamPokemon.length; i < len; i += 1)
+          - var pokemon = teamPokemon.at(i)
+          if pokemon
+            .icon_wrapper
+              - var faintClass = (pokemon.isFainted() ? 'fainted' : '')
+              - var style = window.PokemonIconBackground(pokemon)
+              a.pokemon_icon(href=pokemon.getPokedexUrl(), target="_blank", class = faintClass, style = style, data-team = teamIndex, data-slot = i)
+              if !pokemon.isFainted()
+                .pokemon_hp_background
+                  .pokemon_hp(style="height: " + (pokemon.getPercentHP()) + "%", class=pokemon.getHPColor())
