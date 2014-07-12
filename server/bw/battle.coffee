@@ -158,7 +158,7 @@ class @Battle extends EventEmitter
 
   getPlayerName: (playerId) ->
     index = @getPlayerIndex(playerId)
-    return (if index == -1 then playerId else @playerNames[index])
+    return (if index? then @playerNames[index] else playerId)
 
   getPlayer: (playerId) ->
     _(@players).find((p) -> p.id == playerId)

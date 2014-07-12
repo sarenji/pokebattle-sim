@@ -70,6 +70,8 @@ class @BattleServer
     return spark
 
   leave: (spark) ->
+    for room in @rooms
+      room.remove(spark)
     @users.remove(spark)
     return  if spark.user.hasSparks()
     @stopChallenges(spark.user)

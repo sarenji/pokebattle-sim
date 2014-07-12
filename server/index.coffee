@@ -132,10 +132,8 @@ CLIENT_VERSION = assets.getVersion()
 
     # After the `end` event, each listener should automatically disconnect.
     spark.on 'end', ->
-      user.removeSpark(spark)
-      lobby.remove(spark)
-      server.leave(spark)  unless user.hasSparks()
-      spark.emit("cancelFindBattle")  unless server.users.contains(user.id)
+      server.leave(spark)
+      spark.emit("cancelFindBattle")  unless spark.user.hasSparks()
 
     #########
     # TEAMS #
