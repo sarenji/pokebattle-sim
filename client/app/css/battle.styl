@@ -114,6 +114,7 @@ $screen-width = 400px
     right 0
     bottom 0
     pointer-events none
+    overflow hidden
     .battle_overlay
       position absolute
       top 0
@@ -478,3 +479,17 @@ $screen-width = 400px
 .save-log
   display block
   text-align center
+
+.drop
+  background linear-gradient(top, rgba($water, .7), rgba(255, 255, 255, 0.3))
+  width 1px
+  height 89px
+  position absolute
+  top 0
+  transform rotate(-20deg)
+  animation fall .63s linear infinite
+
+@keyframes fall
+  to
+    margin-top 2 * $battle-height
+    margin-left 2 * $battle-height * .36

@@ -523,7 +523,18 @@ class @BattleView extends Backbone.View
     $overlays.find('.weather').transition(opacity: 0, 500, -> $(this).remove())
     $weather = switch newWeather
       when Weather.RAIN
-        $overlays.append($("<div/>").addClass("battle_overlay weather rain"))
+        $weather = $("<div/>").addClass("battle_overlay weather rain")
+        $overlays.append($weather)
+        for i in [0...100]
+          setTimeout((->
+            dropLeft = _.random(-300, $overlays.width())
+            dropTop = _.random(- 3 * $overlays.height() - 100, -100)
+
+            $drop = $('<div class="drop"></div>')
+            $drop.css(left: dropLeft, top: dropTop)
+            $weather.append($drop)
+          ), Math.floor(Math.random() * 630))
+        $weather
       when Weather.SUN
         $overlays.append($("<div/>").addClass("battle_overlay weather sun"))
       when Weather.SAND
