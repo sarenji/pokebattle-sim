@@ -749,6 +749,7 @@ makeAbility 'Run Away'
 
 makeAbility 'Sand Force', ->
   this::modifyBasePower = (move, target) ->
+    return 0x1000  unless @battle.hasWeather(Weather.SAND)
     type = move.getType(@battle, @pokemon, target)
     return 0x14CD  if type in ['Rock', 'Ground', 'Steel']
     return 0x1000

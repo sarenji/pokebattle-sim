@@ -1887,6 +1887,7 @@ describe "BW Abilities:", ->
     it "increases BP of Ground-, Rock-, and Steel-type moves by 30% in sand", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sand Force")]
+      @battle.setWeather(Weather.SAND)
       tackle = @battle.getMove("Tackle")
       tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
       earthquake = @battle.getMove("Earthquake")
@@ -1895,6 +1896,19 @@ describe "BW Abilities:", ->
       rockSlide.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
       meteorMash = @battle.getMove("Meteor Mash")
       meteorMash.modifyBasePower(@battle, @p1, @p2).should.equal(0x14CD)
+
+    it "does not increase BP if weather is not sand", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Sand Force")]
+      @battle.setWeather(Weather.NONE)
+      tackle = @battle.getMove("Tackle")
+      tackle.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+      earthquake = @battle.getMove("Earthquake")
+      earthquake.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+      rockSlide = @battle.getMove("Rock Slide")
+      rockSlide.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
+      meteorMash = @battle.getMove("Meteor Mash")
+      meteorMash.modifyBasePower(@battle, @p1, @p2).should.equal(0x1000)
 
     it "grants immunity to sandstorm", ->
       shared.create.call this,
