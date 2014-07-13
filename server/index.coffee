@@ -155,7 +155,7 @@ CLIENT_VERSION = assets.getVersion()
       q = q.query('orderBy', 'created_at')
         .fetch()
         .then (teams) ->
-          user.send('receiveTeams', teams.toJSON())
+          spark.send('receiveTeams', teams.toJSON())
 
     spark.on 'destroyTeam', (teamId) ->
       attributes = {

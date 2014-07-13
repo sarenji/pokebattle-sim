@@ -469,10 +469,6 @@ class @BattleView extends Backbone.View
         $ability.remove()
     setTimeout(done, 500)
 
-  cancelSuccess: (done) =>
-    @enableButtons()
-    done()
-
   changeSprite: (player, slot, species, forme, done) =>
     $spriteContainer = @$spriteContainer(player, slot)
     $sprite = @$sprite(player, slot)
@@ -1168,10 +1164,12 @@ class @BattleView extends Backbone.View
         @pokemonPopover($sprite, pokemon)
 
   enableButtons: (validActions) =>
-    @lastValidActions = validActions || @lastValidActions
-    if @lastValidActions?
-      @renderActions(@lastValidActions)
+    if validActions
+      @renderActions(validActions)
       @resumeTimer(@model.index)
+    else
+      # We didn't get any actions; we must be already waiting.
+      @disableButtons()
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')

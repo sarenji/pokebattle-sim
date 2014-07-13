@@ -23,7 +23,6 @@
   SPRITE_CHANGE    : 22
   BOOSTS           : 23
   RESET_BOOSTS     : 24
-  CANCEL_SUCCESS   : 25
   MOVESET_UPDATE   : 26
   TEAM_PREVIEW     : 27
   INITIALIZE       : 28

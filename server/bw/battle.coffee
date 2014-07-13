@@ -559,7 +559,7 @@ class @Battle extends EventEmitter
       else
         index += 1
 
-    @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
+    @sendRequestTo(playerId)
 
     @emit('undoCompletedRequest', playerId)
     return true
@@ -843,6 +843,8 @@ class @Battle extends EventEmitter
     if player
       teamJSON = @getTeam(player.id).toJSON()
       @tellPlayer(player.id, Protocol.RECEIVE_TEAM, teamJSON)
+
+    @emit('spectateBattle', user)
 
     spark.on('end', => @removeSpectator(spark))
 

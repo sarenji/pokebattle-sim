@@ -203,8 +203,6 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.TEAM_PREVIEW
           view.renderTeamPreview()
           done()
-        when Protocol.CANCEL_SUCCESS
-          view.cancelSuccess(done)
         when Protocol.ACTIVATE_ABILITY
           [player, slot, ability] = rest
           pokemon = battle.getPokemon(player, slot)

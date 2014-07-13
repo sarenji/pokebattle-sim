@@ -241,7 +241,7 @@ createCondition Conditions.TIMED_BATTLE,
         @send('pauseTimer', @id, @getPlayerIndex(id))
 
     spectateBattle: (user) ->
-      playerId = user.id
+      playerId = user.name
       remainingTimes = (@timeRemainingFor(id)  for id in @playerIds)
       user.send('updateTimers', @id, remainingTimes)
 
