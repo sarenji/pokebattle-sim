@@ -11,6 +11,7 @@ class @BattleView extends Backbone.View
     'click .cancel': 'cancelAction'
 
     # After battle ends
+    'click .save-replay': 'saveReplay'
     'click .save-log': 'saveLog'
     'click .return-to-lobby': 'returnToLobby'
 
@@ -1086,14 +1087,22 @@ class @BattleView extends Backbone.View
   handleEnd: (battle, end) =>
     @disableButtons()
     @$('.battle_actions').html """
-    <div class="button big save-log">Save log</div>
-    <div class="button return-to-lobby block center">Return to lobby</div>
+    <div class="button big save-replay block">Save replay</div>
+    <div class="row-fluid">
+      <div class="button save-log block span6 center">Save log</div>
+      <div class="button return-to-lobby block span6 center">Return to lobby</div>
+    </div>
     """
     clearTimeout(@countdownTimersId)
 
   handleRemoval: (battle) =>
     if battle == @model
       @remove()
+
+  saveReplay: =>
+    PokeBattle.primus.send 'saveReplay', @model.id, (error, replayId) ->
+      return alert(error)  if error
+      console.log("replays/#{replayId}")
 
   saveLog: =>
     log = []

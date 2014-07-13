@@ -17,6 +17,7 @@ redis = require('./redis')
 ratings = require('./ratings')
 config = require('./config')
 alts = require('./alts')
+replays = require('./replays')
 
 MAX_MESSAGE_LENGTH = 250
 MAX_RANK_DISPLAYED = 100
@@ -36,7 +37,8 @@ CLIENT_VERSION = assets.getVersion()
   server = new BattleServer()
 
   # Configuration
-  app.set("views", "client")
+  app.set("views", "client/templates")
+  app.set('view engine', 'jade')
   app.use(express.logger())  if config.IS_LOCAL
   app.use(express.compress())  # gzip
   app.use(express.cookieParser())
@@ -54,6 +56,7 @@ CLIENT_VERSION = assets.getVersion()
 
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
+  app.get("/replays/:id", replays.routes.show)
 
   app.get '/leaderboard', (req, res) ->
     page = req.param('page')
@@ -201,9 +204,9 @@ CLIENT_VERSION = assets.getVersion()
     spark.on 'rejectChallenge', (challengerId, team) ->
       server.rejectChallenge(user, challengerId)
 
-    ##############
+    ########
     # ALTS #
-    ##############
+    ########
 
     spark.on 'createAlt', (altName) ->
       altName = String(altName).trim()
@@ -212,6 +215,18 @@ CLIENT_VERSION = assets.getVersion()
       alts.createAlt user.name, altName, (err, success) ->
         return user.error(errors.INVALID_ALT_NAME, err.message)  if err
         user.send('altCreated', altName)  if success
+
+    ###########
+    # REPLAYS #
+    ###########
+
+    spark.on 'saveReplay', (battleId, callback) ->
+      battle = server.findBattle(battleId)
+      return callback?("Battle could not be found")  unless battle
+      return callback?("Battle is not yet done")  unless battle.isOver()
+      replays.create(battle.battle)  # unwrap the facade
+        .then((replay) -> callback?(null, replay.battleId))
+        .error(-> callback?('Something went wrong saving the replay'))
 
     ###########
     # BATTLES #

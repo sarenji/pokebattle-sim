@@ -1,3 +1,5 @@
+return  if PokeBattle.autoConnect == false
+
 PokeBattle.primus = Primus.connect()
 
 PokeBattle.primus.on 'listChatroom', (users) ->

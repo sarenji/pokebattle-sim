@@ -9,9 +9,13 @@ class @BattleController
     conditions.attach(this)
     @battle.emit('initialize')
 
-  # Returns the player associated with an id
-  getPlayer: (playerId) ->
-    @battle.getPlayer(playerId)
+  BATTLE_DELEGATES = 'getPlayer isOver sendRequestTo
+              addSpectator removeSpectator'.trim().split(/\s+/)
+
+  for method in BATTLE_DELEGATES
+    do (method) =>
+      this::[method] = ->
+        @battle[method].apply(@battle, arguments)
 
   # Returns all the player ids participating in this battle.
   getPlayerIds: ->
@@ -66,15 +70,6 @@ class @BattleController
     return  if @battle.isOver()
     @battle.forfeit(playerId)
     @sendUpdates()
-
-  addSpectator: (spectator) ->
-    @battle.addSpectator(spectator)
-
-  sendRequestTo: (spectator) ->
-    @battle.sendRequestTo(spectator)
-
-  removeSpectator: (spectator) ->
-    @battle.removeSpectator(spectator)
 
   messageSpectators: (user, message) ->
     # In case the user is an alt.
