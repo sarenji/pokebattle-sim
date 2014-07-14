@@ -31,7 +31,7 @@
     "node-schedule": "~0.1.13",
     "nodetime": "~0.8.15",
     "pg": "~3.0.3",
-    "primus": "https://registry.npmjs.org/primus/-/primus-2.2.4.tgz",
+    "primus": "*",
     "primus-emitter": "~3.0.2",
     "redis": "~0.8.6",
     "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz",
