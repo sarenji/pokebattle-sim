@@ -116,7 +116,7 @@ updateMaxRatings = (ids, next) ->
 
 @getRank = (id, next) ->
   id = id.toLowerCase()
-  redis.zrevrank RATINGS_MAXKEY, id, (err, rank) ->
+  redis.zrevrank RATINGS_SUBKEYS['rating'], id, (err, rank) ->
     return next(err)  if err
     return next(null, null)  if !rank?
     return next(null, rank + 1)  # rank starts at 0
@@ -125,7 +125,7 @@ updateMaxRatings = (ids, next) ->
   idArray = idArray.map((id) -> id.toLowerCase())
   multi = redis.multi()
   for id in idArray
-    multi = multi.zrevrank(RATINGS_MAXKEY, id)
+    multi = multi.zrevrank(RATINGS_SUBKEYS['rating'], id)
   multi.exec (err, ranks) ->
     return next(err)  if err
     ranks = ranks.map (rank) ->
