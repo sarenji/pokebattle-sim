@@ -72,6 +72,8 @@ CLIENT_VERSION = assets.getVersion()
     spark.send('version', CLIENT_VERSION)
 
     spark.on 'login', (id, token) ->
+      return  unless _.isFinite(id)
+      return  unless _.isString(token)
       auth.matchToken id, token, (err, json) ->
         if err then return spark.send('errorMessage', errors.INVALID_SESSION)
 
@@ -103,9 +105,8 @@ CLIENT_VERSION = assets.getVersion()
 
   attachEvents = (user, spark) ->
     spark.on 'sendChat', (message) ->
-      return  if typeof message != "string"
-      return  if message.trim().length == 0
-      return  if message.length > MAX_MESSAGE_LENGTH
+      return  unless _.isString(message)
+      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
       if message[0] == '/' && message[1] == '/'
         message = message[1...]
         server.userMessage(lobby, user, message)
@@ -119,20 +120,18 @@ CLIENT_VERSION = assets.getVersion()
         server.userMessage(lobby, user, message)
 
     spark.on 'sendBattleChat', (battleId, message) ->
-      return  if typeof message != "string"
-      return  if message.trim().length == 0
-      return  if message.length > MAX_MESSAGE_LENGTH
-      battle = server.findBattle(battleId)
-      if !battle
-        user.error(errors.BATTLE_DNE)
-        return
+      return  unless _.isString(message)
+      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
 
-      # TODO: Use `userMessage` instead once rooms are implemented
-      auth.getMuteTTL user.name, (err, ttl) ->
-        if ttl == -2
-          battle.messageSpectators(user, message)
-        else
-          user.announce('warning', "You are muted for another #{ttl} seconds!")
+      if battle = server.findBattle(battleId)
+        # TODO: Use `userMessage` instead once rooms are implemented
+        auth.getMuteTTL user.name, (err, ttl) ->
+          if ttl == -2
+            battle.messageSpectators(user, message)
+          else
+            user.announce('warning', "You are muted for another #{ttl} seconds!")
+      else
+        user.error(errors.BATTLE_DNE)
 
     # After the `end` event, each listener should automatically disconnect.
     spark.on 'end', ->
@@ -146,12 +145,14 @@ CLIENT_VERSION = assets.getVersion()
     # Takes a temporary id and team JSON. Saves to server, and returns the real
     # unique id that was persisted onto the DB.
     spark.on 'saveTeam', (team, callback) ->
+      return  unless _.isObject(team)
+      return  unless _.isFunction(callback)
       attributes = _.pick(team, 'id', 'name', 'generation')
       attributes['trainer_id'] = user.id
       attributes['contents'] = JSON.stringify(team.pokemon)
       new database.Team(attributes)
         .save().then (team) ->
-          callback?(team.id)
+          callback(team.id)
 
     spark.on 'requestTeams', ->
       q = new database.Teams()
@@ -162,6 +163,7 @@ CLIENT_VERSION = assets.getVersion()
           spark.send('receiveTeams', teams.toJSON())
 
     spark.on 'destroyTeam', (teamId) ->
+      return  unless _.isString(teamId)
       attributes = {
         id: teamId
       }
@@ -177,7 +179,9 @@ CLIENT_VERSION = assets.getVersion()
     ####################
 
     spark.on 'privateMessage', (toUser, message) ->
-      return  unless typeof message == "string" && message.trim().length > 0
+      return  unless _.isString(toUser)
+      return  unless _.isString(message)
+      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
       if server.users.contains(toUser)
         recipient = server.users.get(toUser)
         recipient.send('privateMessage', user.name, user.name, message)
@@ -190,19 +194,29 @@ CLIENT_VERSION = assets.getVersion()
     ##############
 
     spark.on 'challenge', (challengeeId, generation, team, conditions, altName) ->
+      return  unless _.isString(challengeeId)
+      return  unless _.isString(generation)
+      return  unless _.isObject(team)
+      return  unless _.isArray(conditions)
+      return  unless !altName || _.isString(altName)
       alts.isAltOwnedBy user.name, altName, (err, valid) ->
         return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
         server.registerChallenge(user, challengeeId, generation, team, conditions, altName)
 
     spark.on 'cancelChallenge', (challengeeId) ->
+      return  unless _.isString(challengeeId)
       server.cancelChallenge(user, challengeeId)
 
     spark.on 'acceptChallenge', (challengerId, team, altName) ->
+      return  unless _.isString(challengerId)
+      return  unless _.isObject(team)
+      return  unless !altName || _.isString(altName)
       alts.isAltOwnedBy user.name, altName, (err, valid) ->
         return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
         server.acceptChallenge(user, challengerId, team, altName)
 
-    spark.on 'rejectChallenge', (challengerId, team) ->
+    spark.on 'rejectChallenge', (challengerId) ->
+      return  unless _.isString(challengerId)
       server.rejectChallenge(user, challengerId)
 
     ##############
@@ -222,6 +236,7 @@ CLIENT_VERSION = assets.getVersion()
     ###########
 
     spark.on 'getBattleList', (callback) ->
+      return  unless _.isFunction(callback)
       # TODO: Make this more efficient
       # TODO: Order by age
       # NOTE: Cache this? Even something like a 5 second expiration
@@ -233,9 +248,12 @@ CLIENT_VERSION = assets.getVersion()
           controller.battle.playerNames[1],
           currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
-      callback?(battleMetadata)
+      callback(battleMetadata)
 
     spark.on 'findBattle', (format, team, altName=null) ->
+      return  unless _.isString(format)
+      return  unless _.isObject(team)
+      return  unless !altName || _.isString(altName)
       # Note: If altName == null, then isAltOwnedBy will return true
       alts.isAltOwnedBy user.name, altName, (err, valid) ->
         if not valid
@@ -245,67 +263,64 @@ CLIENT_VERSION = assets.getVersion()
           if validationErrors.length > 0
             user.error(errors.FIND_BATTLE, validationErrors)
 
-    spark.on 'cancelFindBattle', (generation) ->
-      server.removePlayer(user.name, generation)
+    spark.on 'cancelFindBattle', ->
+      server.removePlayer(user.name)
       user.send("findBattleCanceled")
 
     spark.on 'sendMove', (battleId, moveName, slot, forTurn, options, callback) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      return  unless _.isString(moveName)
+      return  unless _.isFinite(slot)
+      return  unless _.isFinite(forTurn)
+      return  unless !options || _.isObject(options)
+      return  unless _.isFunction(callback)
+      if battle = server.findBattle(battleId)
+        battle.makeMove(user.name, moveName, slot, forTurn, options)
+        callback()
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.makeMove(user.name, moveName, slot, forTurn, options)
-      callback?()
     
     spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      return  unless _.isFinite(toSlot)
+      return  unless _.isFinite(fromSlot)
+      return  unless _.isFinite(forTurn)
+      return  unless _.isFunction(callback)
+      if battle = server.findBattle(battleId)
+        battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
+        callback()
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
-      callback?()
 
     spark.on 'sendCancelAction', (battleId, forTurn) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      return  unless _.isFinite(forTurn)
+      if battle = server.findBattle(battleId)
+        battle.undoCompletedRequest(user.name, forTurn)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.undoCompletedRequest(user.name, forTurn)
 
     spark.on 'arrangeTeam', (battleId, arrangement) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      return  unless _.isArray(arrangement)
+      if battle = server.findBattle(battleId)
+        battle.arrangeTeam(user.name, arrangement)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.arrangeTeam(user.name, arrangement)
 
     spark.on 'spectateBattle', (battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      if battle = server.findBattle(battleId)
+        battle.addSpectator(spark)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.addSpectator(spark)
 
     spark.on 'leaveBattle', (battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      if battle = server.findBattle(battleId)
+        battle.removeSpectator(spark)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.removeSpectator(spark)
 
     spark.on 'forfeit', (battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
+      if battle = server.findBattle(battleId)
+        battle.forfeit(user.name)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.forfeit(user.name)
 
   battleSearch = ->
     server.beginBattles (err, battleIds) ->
