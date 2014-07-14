@@ -36,6 +36,8 @@ RATIOS_ATTRIBUTES = Object.keys(@results).map((key) -> key.toLowerCase())
 RATIOS_SUBKEYS = {}
 for attribute in RATIOS_ATTRIBUTES
   RATIOS_SUBKEYS[attribute] = [RATIOS_KEY, attribute].join(':')
+RATIOS_STREAK_KEY = "#{RATIOS_KEY}:streak"
+RATIOS_MAXSTREAK_KEY = "#{RATIOS_KEY}:maxstreak"
 
 # Used internally by the ratings system to update
 # the max rating of user when a rating changes
@@ -59,6 +61,19 @@ updateMaxRatings = (ids, next) ->
   ops = ids.map (id) ->
     (callback) -> updateMaxRating(id, callback)
   async.parallel ops, next
+
+updateMaxStreak = (id, next) =>
+  multi = redis.multi()
+  multi = multi.hget(RATIOS_STREAK_KEY, id)
+  multi = multi.hget(RATIOS_MAXSTREAK_KEY, id)
+  multi.exec (err, results) ->
+    return next(err)  if err
+
+    [streak, maxStreak] = results
+    if streak > maxStreak
+      redis.hmset RATIOS_MAXSTREAK_KEY, id, streak, next
+    else
+      next(err)
 
 @getPlayer = (id, next) ->
   id = id.toLowerCase()
@@ -141,13 +156,22 @@ updateMaxRatings = (ids, next) ->
     when 0 then 'lose'
     else 'draw'
   multi = multi.hincrby(RATIOS_SUBKEYS[attribute], id, 1)
+  if attribute == "win"
+    multi = multi.hincrby(RATIOS_STREAK_KEY, id, 1)
+  else
+    multi = multi.hset(RATIOS_STREAK_KEY, id, 0)
+
   multi = multi.sadd(USERS_RATED_KEY, id)
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[attribute], value, id)
+
   multi.exec (err) ->
     return next(err)  if err
-    updateMaxRating(id, next)
+    async.parallel([
+      updateMaxRating.bind(this, id),
+      updateMaxStreak.bind(this, id)
+    ], next)
 
 @updatePlayers = (id, opponentId, score, next) ->
   if score < 0 || score > 1
@@ -209,3 +233,11 @@ updateMaxRatings = (ids, next) ->
     for attribute, i in RATIOS_ATTRIBUTES
       hash[attribute] = Number(results[i]) || 0
     return next(null, hash)
+
+@getStreak = (id, next) ->
+  id = id.toLowerCase()
+  multi = redis.multi()
+  multi = multi.hget(RATIOS_STREAK_KEY, id)
+  multi = multi.hget(RATIOS_MAXSTREAK_KEY, id)
+  multi.exec (err, results) ->
+    next(null, {streak: results[0], maxStreak: results[1]})

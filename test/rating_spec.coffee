@@ -113,6 +113,16 @@ describe "Ratings", ->
                 player2Ratio.should.eql(win: 1, lose: 2, draw: 0)
                 done()
 
+  describe '#getRatio', ->
+    it "returns a hash contain the current and maximum win streaks", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+         ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+            ratings.updatePlayers "player1", "player2", ratings.results.LOSE, ->
+              ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+                ratings.getStreak "player1", (err, streak) ->
+                  streak.should.eql(streak: 1, maxStreak: 2)
+                  done()
+
   describe '#getRank', ->
     it "returns the rank of a player", (done) ->
       ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
