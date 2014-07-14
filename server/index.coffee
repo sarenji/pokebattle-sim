@@ -85,12 +85,16 @@ CLIENT_VERSION = assets.getVersion()
               return
           else
             user = server.findOrCreateUser(json, spark)
+            if !user.name || !user.id
+              console.error("MISSING INFORMATION: #{json}")
+              spark.end()
+              return
+            attachEvents(user, spark)
             server.join(spark)
             spark.send('loginSuccess')
             lobby.add(spark)
 
             # After stuff
-            attachEvents(user, spark)
             alts.listUserAlts user.name, (err, alts) ->
               spark.send('altList', alts)
 
