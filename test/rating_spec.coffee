@@ -127,3 +127,11 @@ describe "Ratings", ->
                   ratings.getRank "player2", (err, rank) ->
                     rank.should.equal(1)
                     done()
+
+    it "only uses a person's max rating over all alts", (done) ->
+      alts.createAlt "player1", "alt1", ->
+        ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+          ratings.updatePlayers "player1:alt1", "player2", ratings.results.WIN, ->
+            ratings.getRank "player2", (err, rank) ->
+              rank.should.equal(2)
+              done()
