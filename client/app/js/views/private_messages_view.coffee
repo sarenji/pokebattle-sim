@@ -139,6 +139,7 @@ class @PrivateMessagesView extends Backbone.View
 
   scrollToBottom: ($popup) =>
     messages = $popup.find('.popup_messages')[0]
+    return  unless messages
     messages.scrollTop = messages.scrollHeight
     false
 
