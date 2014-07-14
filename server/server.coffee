@@ -258,7 +258,10 @@ class @BattleServer
     hmac = createHmac('sha1', config.SECRET_KEY)
     hmac.update((new Date).toISOString())
     for id in players
-      hmac.update(id)
+      if _.isString(id)
+        hmac.update(id)
+      else
+        console.error("NOT A STRING: #{id}")
     hmac.digest('hex')
 
   # Returns the battle with battleId.
