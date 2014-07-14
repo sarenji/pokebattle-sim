@@ -235,17 +235,17 @@ makeModCommand "ip", (user, room, next, nameOrIp) ->
   if !nameOrIp
     user.error(errors.COMMAND_ERROR, "Usage: /ip username")
     return next()
-  user = @users.get(nameOrIp)
-  if user
-    ips = user.sparks.map((spark) -> spark.address.ip)
+  checkedUser = @users.get(nameOrIp)
+  if checkedUser
+    ips = checkedUser.sparks.map((spark) -> spark.address.ip)
     ips = _.chain(ips).compact().unique().value()
     user.announce('success', "#{nameOrIp}'s IP addresses: #{ips.join(', ')}")
   else
     users = []
-    for user in @users.getUsers()
-      for spark in user.sparks
+    for checkedUser in @users.getUsers()
+      for spark in checkedUser.sparks
         if spark.address.ip == nameOrIp
-          users.push(user.name)
+          users.push(checkedUser.name)
           break
     user.announce('success', "Users with IP #{nameOrIp}: #{users.join(', ')}")
   next()
