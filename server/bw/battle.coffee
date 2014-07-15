@@ -2,6 +2,7 @@
 {User, MaskedUser} = require '../user'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
+{Move} = require './move'
 {Team} = require './team'
 {Weather} = require '../../shared/weather'
 {Attachment, Attachments, Status, BaseAttachment} = require './attachment'
@@ -906,6 +907,8 @@ class @Battle extends EventEmitter
     for arg in args
       if arg instanceof Pokemon
         newArgs.push(@getPlayerIndex(arg.playerId), arg.team.indexOf(arg))
+      else if arg instanceof Move
+        newArgs.push(arg.name)
       else if _.isObject(arg) && arg.prototype instanceof BaseAttachment
         newArgs.push(arg.displayName)
       else
