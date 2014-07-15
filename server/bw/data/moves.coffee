@@ -1604,7 +1604,7 @@ extendMove 'Role Play', ->
       @fail(battle, user)
 
 extendMove 'Safeguard', ->
-  @hit = (battle, user, target) ->
+  @execute = (battle, user, target) ->
     team = user.team
     if !team.attach(Attachment.Safeguard, {source: user})
       @fail(battle)
