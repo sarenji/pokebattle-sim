@@ -19,15 +19,16 @@ class @BattleView extends Backbone.View
     'click .arrange_pokemon' : 'togglePokemonOrSwitch'
     'click .submit_arrangement': 'submitTeamPreview'
 
-  initialize: =>
+  initialize: (options) =>
     @chatView = null
     @lastMove = null
     @skip     = null
-    @renderChat()
+    {@showSpectators} = options
+    @render()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
     @listenTo(@model, 'change:finished', @handleEnd)
-    @listenTo(PokeBattle.battles, 'remove', @handleRemoval)
+    @listenTo(@model.collection, 'remove', @handleRemoval)  if @model.collection
     @battleStartTime = $.now()
     @timers = []
     @timerUpdatedAt = []
@@ -35,12 +36,16 @@ class @BattleView extends Backbone.View
     @timerIterations = 0
     @countdownTimers()
 
+  render: =>
+    @renderChat()
+    # rendering the battle depends on a protocol being received
+
   renderBattle: =>
     locals =
       yourTeam     : @model.getTeam()
       opponentTeam : @model.getOpponentTeam()
       numActive    : @model.numActive
-      yourIndex    : @model.index
+      yourIndex    : @model.get('index')
       window       : window
     @$('.battle_pane').html @battle_template(locals)
     @renderPokemon()
@@ -79,7 +84,8 @@ class @BattleView extends Backbone.View
       noisy: true
       chatEvent: 'sendBattleChat'
       chatArgs: [ @model.id ]
-    ).render().renderUserList()
+    ).render()
+    @chatView.renderUserList()  if @model.spectators
     this
 
   # TODO: Support 2v2
@@ -91,7 +97,7 @@ class @BattleView extends Backbone.View
     $actions = @$('.battle_actions')
     $actions.html @action_template(locals)
 
-    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon = @model.getPokemon(@model.get('index'), 0)
     if pokemon.getItem()?.type == 'megastone'
       $button = $actions.find('.mega-evolve')
       $button.removeClass("hidden")
@@ -108,7 +114,7 @@ class @BattleView extends Backbone.View
     $actions.find('.switch.button').each (i, el) =>
       $this = $(el)
       slot = $this.data('slot')
-      pokemon = @model.getPokemon(@model.index, slot)
+      pokemon = @model.getPokemon(@model.get('index'), slot)
       @pokemonPopover($this, pokemon)
     this
 
@@ -125,7 +131,7 @@ class @BattleView extends Backbone.View
       yourTeam     : @model.getTeam()
       opponentTeam : @model.getOpponentTeam()
       numActive    : @model.numActive
-      yourIndex    : @model.index
+      yourIndex    : @model.get('index')
       window       : window
     $userInfo = @$('.battle_user_info')
     $userInfo.find('.pokemon_icon').popover('destroy')
@@ -1054,7 +1060,7 @@ class @BattleView extends Backbone.View
 
   $playerInfo: (index) =>
     $userInfo = @$('.battle_user_info')
-    if index == @model.index
+    if index == @model.get('index')
       return $userInfo.find('.left')
     else
       return $userInfo.find('.right')
@@ -1148,7 +1154,7 @@ class @BattleView extends Backbone.View
     $projectile
 
   isFront: (player) =>
-    @model.index != player
+    @model.get('index') != player
 
   faint: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
@@ -1180,7 +1186,7 @@ class @BattleView extends Backbone.View
     @lastValidActions = validActions || @lastValidActions
     if @lastValidActions?
       @renderActions(@lastValidActions)
-      @resumeTimer(@model.index)
+      @resumeTimer(@model.get('index'))
 
   disableButtons: =>
     @$('.battle_actions .switch.button').popover('destroy')
@@ -1221,11 +1227,10 @@ class @BattleView extends Backbone.View
     done()
 
   continueTurn: (done) =>
-    $battleWindow = @$el.closest('.battle_window')
     @$('.battle_summary').empty().hide()
-    offset = @$('.battle_pane').offset().top + $battleWindow.scrollTop()
-    offset -= $battleWindow.offset().top
-    $battleWindow.scrollTop(offset)
+    offset = @$('.battle_pane').offset().top + @$el.scrollTop()
+    offset -= @$el.offset().top
+    @$el.scrollTop(offset)
     done()
 
   makeMove: (e) =>
@@ -1236,7 +1241,7 @@ class @BattleView extends Backbone.View
       console.log "Cannot use #{moveName}."
       return
     console.log "Making move #{moveName}"
-    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon = @model.getPokemon(@model.get('index'), 0)
     @showSpinner()
     @model.makeMove(moveName, forSlot, @afterSelection.bind(this, pokemon))
 
@@ -1249,7 +1254,7 @@ class @BattleView extends Backbone.View
       return
     console.log "Switching to #{toSlot}"
     toSlot = parseInt(toSlot, 10)
-    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon = @model.getPokemon(@model.get('index'), 0)
     @showSpinner()
     @model.makeSwitch(toSlot, forSlot, @afterSelection.bind(this, pokemon))
 
@@ -1258,19 +1263,19 @@ class @BattleView extends Backbone.View
     <div class="well well-battle-actions">Canceling...</div>
     """
 
-    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon = @model.getPokemon(@model.get('index'), 0)
     @model.makeCancel()
     @afterAction(pokemon)
 
   megaEvolve: (e) =>
     $target = $(e.currentTarget)
     $target.toggleClass('pressed')
-    pokemon = @model.getPokemon(@model.index, 0)
+    pokemon = @model.getPokemon(@model.get('index'), 0)
     pokemon.set('megaEvolve', $target.hasClass("pressed"))
 
   afterSelection: (pokemon) =>
     @disableButtons()
-    @pauseTimer(@model.index, 0)
+    @pauseTimer(@model.get('index'), 0)
     @afterAction(pokemon)
 
   afterAction: (pokemon) =>
@@ -1313,7 +1318,7 @@ class @BattleView extends Backbone.View
     $image.hide().appendTo($div)
 
   getPokemonPosition: (player, slot) =>
-    if player == @model.index
+    if player == @model.get('index')
       [96, 208]
     else
       [332, 108]

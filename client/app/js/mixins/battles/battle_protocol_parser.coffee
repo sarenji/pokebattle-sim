@@ -1,8 +1,14 @@
-@PokeBattle.mixins ?= {}
 @PokeBattle.mixins.BattleProtocolParser =
-  __updateBattle: (battle, wasAtBottom) ->
-    view = battle.view
-    queue = @updateQueue[battle.id]
+  update: (actions) ->
+    return  if actions.length == 0
+    @notify()
+    hadStuff = (@updateQueue.length > 0)
+    @updateQueue.push(actions...)
+    @_update()  unless hadStuff
+
+  _update: (wasAtBottom) ->
+    view = @view
+    queue = @updateQueue
     return  if !queue  # closed battle in the middle of getting updates
     if queue.length == 0
       view.renderUserInfo()
@@ -28,21 +34,21 @@
       return  if done.called
       done.called = true
       if view.skip?
-        @__updateBattle.call(this, battle, wasAtBottom)
+        @_update.call(this, wasAtBottom)
       else
         # setTimeout 0 lets the browser breathe.
-        setTimeout(@__updateBattle.bind(this, battle, wasAtBottom), 0)
+        setTimeout(@_update.bind(this, wasAtBottom), 0)
 
     try
       switch type
         when Protocol.CHANGE_HP
           [player, slot, newPercent] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('percent', newPercent)
           if view.skip? then done() else setTimeout(done, 500)
         when Protocol.CHANGE_EXACT_HP
           [player, slot, newHP] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('hp', newHP)
           done()
         when Protocol.SWITCH_OUT
@@ -52,19 +58,19 @@
           # TODO: Get Pokemon data, infer which Pokemon it is.
           # Currently, it cheats with `fromSlot`.
           [player, toSlot, fromSlot] = rest
-          team = battle.getTeam(player).get('pokemon').models
+          team = @getTeam(player).get('pokemon').models
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
           view.switchIn(player, toSlot, fromSlot, done)
         when Protocol.CHANGE_PP
           [player, slot, moveIndex, newPP] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.setPP(moveIndex, newPP)
           done()
         when Protocol.REQUEST_ACTIONS
           [validActions] = rest
           view.enableButtons(validActions)
-          PokeBattle.notifyUser(PokeBattle.NotificationTypes.ACTION_REQUESTED, battle.id + "_" + battle.get('turn'))
+          PokeBattle.notifyUser(PokeBattle.NotificationTypes.ACTION_REQUESTED, @id + "_" + @get('turn'))
           done()
         when Protocol.START_TURN
           [turn] = rest
@@ -123,10 +129,10 @@
         when Protocol.INITIALIZE
           # TODO: Handle non-team-preview
           [teams] = rest
-          battle.receiveTeams(teams)
+          @receiveTeams(teams)
           view.preloadImages()
-          if !battle.get('spectating')
-            PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, battle.id)
+          if !@get('spectating')
+            PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, @id)
           done()
         when Protocol.START_BATTLE
           view.removeTeamPreview()
@@ -134,16 +140,16 @@
           done()
         when Protocol.REARRANGE_TEAMS
           arrangements = rest
-          battle.get('teams').forEach (team, i) ->
+          @get('teams').forEach (team, i) ->
             team.rearrange(arrangements[i])
           done()
         when Protocol.RECEIVE_TEAM
           [team] = rest
-          battle.receiveTeam(team)
+          @receiveTeam(team)
           done()
         when Protocol.SPRITE_CHANGE
           [player, slot, newSpecies, newForme] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('species', newSpecies)
           pokemon.set('forme', newForme)
           view.changeSprite(player, slot, newSpecies, newForme, done)
@@ -161,7 +167,7 @@
           done()
         when Protocol.MOVESET_UPDATE
           [player, slot, movesetJSON] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set(movesetJSON)
           done()
         when Protocol.WEATHER_CHANGE
@@ -174,7 +180,7 @@
           view.cancelSuccess(done)
         when Protocol.ACTIVATE_ABILITY
           [player, slot, ability] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('ability', ability)
           view.activateAbility(player, slot, ability, done)
         else

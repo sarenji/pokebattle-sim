@@ -13,12 +13,17 @@ class @Battle extends Backbone.AssociatedModel
     spectating: true
     finished: false
 
+  _.extend(this.prototype, PokeBattle.mixins.BattleProtocolParser)
+
   initialize: (attributes) =>
-    {@numActive, @index, spectators} = attributes
-    @spectators = new UserList(spectators || [])
+    @updateQueue = []
+    {@numActive, spectators} = attributes
+    @spectators = new UserList(spectators)  unless !spectators
     @set('notifications', 0)
     @set('turn', 0)
     @set('teams', [{hidden: true}, {hidden: true}])
+    @set('spectating', !@has('index'))
+    @set('index', Math.floor(2 * Math.random()))  unless @has('index')
 
   receiveTeams: (receivedTeams) =>
     teams = @get('teams')
@@ -29,10 +34,10 @@ class @Battle extends Backbone.AssociatedModel
 
   receiveTeam: (team) =>
     teams = @get('teams')
-    teams.at(@index).unset('hidden', silent: true).set(team)
+    teams.at(@get('index')).unset('hidden', silent: true).set(team)
 
   makeMove: (moveName, forSlot, callback) =>
-    pokemon = @getPokemon(@index, forSlot)
+    pokemon = @getPokemon(@get('index'), forSlot)
     options = {}
     options['megaEvolve'] = pokemon.get('megaEvolve')  if pokemon.get('megaEvolve')
     PokeBattle.primus.send(
@@ -55,10 +60,10 @@ class @Battle extends Backbone.AssociatedModel
     you = @getTeam().pokemon
     [you[fromIndex], you[toIndex]] = [you[toIndex], you[fromIndex]]
 
-  getTeam: (playerIndex = @index) =>
+  getTeam: (playerIndex = @get('index')) =>
     @get("teams").at(playerIndex)
 
-  getOpponentTeam: (playerIndex = @index) =>
+  getOpponentTeam: (playerIndex = @get('index')) =>
     @get("teams").at(1 - playerIndex)
 
   getPokemon: (playerIndex, slot = 0) =>

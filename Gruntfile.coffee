@@ -49,10 +49,14 @@ module.exports = (grunt) ->
       compile:
         files:
           'public/js/app.js': [
-            "client/app/js/init.coffee"
+            "client/app/js/initializers/index.coffee"
+            "client/app/js/initializers/**/*.coffee"
             "shared/**/*.coffee"
-            "client/app/js/models/pokemon.coffee"
-            "client/app/js/models/team.coffee"
+            "client/app/js/mixins/index.coffee"
+            "client/app/js/mixins/**/*.coffee"
+            "client/app/js/models/battles/pokemon.coffee"
+            "client/app/js/models/battles/team.coffee"
+            "client/app/js/models/battles/**/*.coffee"
             "client/app/js/models/**/*.coffee"
             "client/app/js/collections/**/*.coffee"
             "client/app/js/views/**/*.coffee"
@@ -60,6 +64,19 @@ module.exports = (grunt) ->
             "client/app/js/helpers/**/*.coffee"
             "client/app/js/concerns/**/*.coffee"
             "client/app/js/**/*.coffee"
+          ]
+          # The replay scripts are typically scoped to a battles/ folder
+          'public/js/replays.js': [
+            "client/app/js/initializers/index.coffee"
+            "client/app/js/initializers/**/*.coffee"
+            "shared/**/*.coffee"
+            "client/app/js/mixins/index.coffee"
+            "client/app/js/mixins/battles/**/*.coffee"
+            "client/app/js/models/battles/pokemon.coffee"
+            "client/app/js/models/battles/team.coffee"
+            "client/app/js/models/battles/**/*.coffee"
+            "client/app/js/views/battles/**/*.coffee"
+            "client/app/js/helpers/**/*.coffee"
           ]
     uglify:
       options:

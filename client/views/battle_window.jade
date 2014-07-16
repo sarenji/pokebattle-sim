@@ -1,5 +1,8 @@
 .window.battle_window(data-battle-id = battle.id)
   .battle
+    - var numBackgrounds = 6
+    - var backgroundNumber = parseInt(battle.id.substr(0, 6), 16)
+    - backgroundNumber = (backgroundNumber % numBackgrounds)
     .battle_container(class = 'battle_bg_' + backgroundNumber)
       .battle_user_info
       .battle_pane.clearfix

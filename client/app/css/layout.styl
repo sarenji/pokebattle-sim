@@ -12,14 +12,14 @@ for $i in (1 2 3 4)
   .mb{$i}
     margin-bottom $i * 10px
 
+.mt-header
+  margin-top $header_size
+
 .left
   float left
 
 .right
   float right
-
-.half_width
-  width 50%
 
 .center
   text-align center
@@ -28,6 +28,9 @@ for $i in (1 2 3 4)
   display flex
   align-items center
   justify-content center
+
+.flex-column
+  flex-direction column
 
 .hidden
   display none
