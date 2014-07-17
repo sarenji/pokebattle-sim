@@ -1,6 +1,7 @@
 Bookshelf = require('bookshelf')
 {_} = require('underscore')
 config = require('../knex_config').database
+{Formats} = require('../shared/conditions')
 
 Bookshelf.PG = PG = Bookshelf.initialize(config)
 
@@ -37,6 +38,9 @@ Battle = PG.Model.extend
   getName: ->
     @get('name') || @getPlayerNames().join(' vs. ') || 'Untitled'
 
+  getFormat: ->
+    Formats[@get('format')].humanName
+
   getPlayerNames: ->
     # players is denormalized. It's an array with a comma delimiter.
     @get('players')?.split(',') || []
@@ -47,7 +51,7 @@ Battle = PG.Model.extend
   toJSON: -> {
     id: @id
     name: @getName()
-    generation: @get('generation')
+    format: @get('format')
     battleId: @get('battle_id')
     trainerId: @get('trainer_id')
     numActive: @get('num_active')

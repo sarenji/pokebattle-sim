@@ -11,11 +11,11 @@ PokeBattle.primus.on 'updateBattle', (id, queue) ->
   battle.update(queue)
 
 # Create a BattleView when spectating a battle
-PokeBattle.primus.on 'spectateBattle', (id, generation, numActive, index, playerIds, spectators, log) ->
+PokeBattle.primus.on 'spectateBattle', (id, format, numActive, index, playerIds, spectators, log) ->
   if PokeBattle.battles.get(id)
     console.log "Already spectating battle #{id}!"
     return
-  battle = new Battle({id, generation, numActive, index, playerIds, spectators})
+  battle = new Battle({id, format, numActive, index, playerIds, spectators})
 
   # Create BattleView
   $battle = $(JST['battle_window']({battle, window}))

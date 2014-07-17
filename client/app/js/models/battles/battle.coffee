@@ -19,6 +19,7 @@ class @Battle extends Backbone.AssociatedModel
     @updateQueue = []
     {@numActive, spectators} = attributes
     @spectators = new UserList(spectators)  unless !spectators
+    @set('generation', Formats[@get('format')].generation)
     @set('notifications', 0)
     @set('turn', 0)
     @set('teams', [{hidden: true}, {hidden: true}])

@@ -16,7 +16,7 @@ database = require('./database')
 
 @create = (battle) ->
   new database.Battle({
-    generation: battle.generation
+    format: battle.format
     battle_id: battle.id
     num_active: battle.numActive
     players: battle.playerNames.join(',')
