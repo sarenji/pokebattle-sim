@@ -33,6 +33,9 @@ Battle = PG.Model.extend
   tableName: 'battles'
   hasTimestamps: ['created_at', 'updated_at']
 
+  savers: ->
+    @hasMany(SavedBattle)
+
   # TODO: Find (and jsonify) asset versions
 
   getName: ->
@@ -53,10 +56,16 @@ Battle = PG.Model.extend
     name: @getName()
     format: @get('format')
     battleId: @get('battle_id')
-    trainerId: @get('trainer_id')
     numActive: @get('num_active')
     players: @getPlayerNames()
     contents: jsonify(@get('contents'))
   }
 
-module.exports = {Team, Teams, Battle}
+SavedBattle = PG.Model.extend
+  tableName: 'saved_battles'
+  hasTimestamps: ['created_at', 'updated_at']
+
+  battle: ->
+    @belongsTo(Battle)
+
+module.exports = {Team, Teams, Battle, SavedBattle}
