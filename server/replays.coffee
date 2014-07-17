@@ -5,7 +5,14 @@ database = require('./database')
     new database.Battle(battle_id: req.params.id)
       .fetch()
       .then (replay) ->
-        res.render('replay', bodyClass: 'no-sidebar', replay: replay)
+        res.render('replays/show', bodyClass: 'no-sidebar', replay: replay)
+
+  index: (req, res) ->
+    new database.SavedBattle(user_id: req.user.id)
+      .fetch(withRelated: ['battle'])
+      .then (results) ->
+        replays = results.map((result) -> result.related('battle'))
+        res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
 
 @create = (battle) ->
   new database.Battle({

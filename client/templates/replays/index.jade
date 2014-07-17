@@ -1,12 +1,9 @@
-extends layout
+extends ../layout
 
 block content
   .fill.flex-center.flex-column
-    unless replay
-      p No replay found.
-    else
-      h1.mt-header.mb1 Replay: #{replay.getName()}
-      #replay.relative(style = 'width: 100%; height: 100%;')
+    each replay in replays
+      p= replay.getName()
 
 block footer
   if replay
