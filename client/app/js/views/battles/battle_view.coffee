@@ -23,7 +23,6 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
-    {@showSpectators} = options
     @render()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
@@ -85,7 +84,9 @@ class @BattleView extends Backbone.View
       chatEvent: 'sendBattleChat'
       chatArgs: [ @model.id ]
     ).render()
-    @chatView.renderUserList()  if @model.spectators
+    if @hasSpectators()
+      @showSpectators()
+      @chatView.renderUserList()
     this
 
   # TODO: Support 2v2
@@ -144,6 +145,12 @@ class @BattleView extends Backbone.View
       @pokemonPopover($this, pokemon)
     @renderTimers()
     this
+
+  hasSpectators: =>
+    !!(@model.get('spectators')?.length > 0)
+
+  showSpectators: =>
+    @$('.chat').removeClass('without_spectators')
 
   movePopover: ($this, moveName, move) =>
     {type, damage} = move
