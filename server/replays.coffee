@@ -1,4 +1,11 @@
 database = require('./database')
+Promise = require('bluebird')
+
+@MAX_SAVED_BATTLES = 15
+
+class @TooManyBattlesSaved extends Error
+  constructor: ->
+    super("You can only save up to #{exports.MAX_SAVED_BATTLES} replays.")
 
 @routes =
   show: (req, res) ->
@@ -14,11 +21,26 @@ database = require('./database')
         replays = results.map((result) -> result.related('battle'))
         res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
 
-@create = (battle) ->
-  new database.Battle({
-    format: battle.format
-    battle_id: battle.id
-    num_active: battle.numActive
-    players: battle.playerNames.join(',')
-    contents: JSON.stringify(battle.log)
-  }).save()
+@create = (user, battle) ->
+  database.knex(database.SavedBattle::tableName)
+  .where(user_id: user.id).count('*')
+  .then (numSaved) ->
+    if numSaved >= exports.MAX_SAVED_BATTLES
+      throw new exports.TooManyBattlesSaved()
+    new database.SavedBattle(user_id: user.id, battle_id: battle.id)
+    .save().catch (err) ->
+      throw err  unless /violates unique constraint/.test(err.message)
+  .then ->
+    new database.Battle({
+      format: battle.format
+      battle_id: battle.id
+      num_active: battle.numActive
+      players: battle.playerNames.join(',')
+      contents: JSON.stringify(battle.log)
+    }).save().catch (err) ->
+      throw err  unless /violates unique constraint/.test(err.message)
+  .then ->
+    battle.id
+  .catch (err) ->
+    console.log(err.stack)
+    throw err

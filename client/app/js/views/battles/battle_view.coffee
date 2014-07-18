@@ -1118,7 +1118,7 @@ class @BattleView extends Backbone.View
         @chatView.announce("error", error)
       else
         relativeUrl = "/replays/#{replayId}"
-        absoluteUrl = "#{window.location.protocol}//#{window.location.hostname}"
+        absoluteUrl = "#{window.location.protocol}//#{window.location.host}"
         absoluteUrl += relativeUrl
         @chatView.announce("success", "Your replay was saved! Share the link: #{absoluteUrl}.")
 

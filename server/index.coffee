@@ -224,10 +224,11 @@ CLIENT_VERSION = assets.getVersion()
       battle = server.findBattle(battleId)
       return callback?("The battle could not be found.")  unless battle
       return callback?("The battle is not yet done.")  unless battle.isOver()
-      replays.create(battle.battle)  # unwrap the facade
-        .then((replay) -> callback?(null, replay.get('battle_id')))
+      replays.create(user, battle.battle)  # unwrap the facade
+        .then((replayId) -> callback?(null, replayId))
+        .catch replays.TooManyBattlesSaved, (err) ->
+          callback?(err.message)
         .catch (err) ->
-          console.error(err.stack)
           callback?('Something went wrong saving the replay.')
 
     ###########

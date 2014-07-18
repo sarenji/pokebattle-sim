@@ -5,6 +5,8 @@ config = require('../knex_config').database
 
 Bookshelf.PG = PG = Bookshelf.initialize(config)
 
+knex = PG.knex
+
 # Postgres 9.2+ support the JSON datatype. Other versions/DBs do not.
 # So if the JSON data type is supported, then loading will load as JSON.
 jsonify = (contents) ->
@@ -68,4 +70,4 @@ SavedBattle = PG.Model.extend
   battle: ->
     @belongsTo(Battle)
 
-module.exports = {Team, Teams, Battle, SavedBattle}
+module.exports = {Team, Teams, Battle, SavedBattle, knex}
