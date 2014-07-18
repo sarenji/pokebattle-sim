@@ -3,6 +3,7 @@ class @BattleView extends Backbone.View
   user_info_template: JST['battle_user_info']
   action_template: JST['battle_actions']
   team_preview_template: JST['battle_team_preview']
+  battle_end_template: JST['battle_end']
 
   events:
     'click .move': 'makeMove'
@@ -1099,21 +1100,20 @@ class @BattleView extends Backbone.View
 
   handleEnd: (battle, end) =>
     @disableButtons()
-    @$('.battle_actions').html """
-    <div class="button big save-replay block">Save replay</div>
-    <div class="row-fluid">
-      <div class="button save-log block span6 center">Save log</div>
-      <div class="button return-to-lobby block span6 center">Return to lobby</div>
-    </div>
-    """
+    @$('.battle_actions').html(@battle_end_template({window}))
     clearTimeout(@countdownTimersId)
 
   handleRemoval: (battle) =>
     if battle == @model
       @remove()
 
-  saveReplay: =>
+  saveReplay: (e) =>
+    $replayButton = $(e.currentTarget)
+    return  if $replayButton.is('.disabled')
+    $replayButton.addClass('disabled')
+    $replayButton.find('.show_spinner').removeClass('hidden')
     PokeBattle.primus.send 'saveReplay', @model.id, (error, replayId) =>
+      $replayButton.find('.show_spinner').addClass('hidden')
       if error
         @chatView.announce("error", error)
       else
