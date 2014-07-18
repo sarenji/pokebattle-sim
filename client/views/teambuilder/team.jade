@@ -1,4 +1,4 @@
-.left.select-team.relative.rounded(data-id=team.id, data-cid=team.cid)
+.left.select-team.clickable-box.p1.mt1.ml1.relative(data-id=team.id, data-cid=team.cid)
   h2= team.getName()
   != window.JST['team_small']({team: team, window: window})
   .team-meta

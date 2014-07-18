@@ -1,6 +1,11 @@
 extends ../layout
 
 block content
-  .fill.flex-center.flex-column
-    each replay in replays
-      p= replay.getName()
+  .m4.mt-header.pt1
+    h2 Your replays
+    .row-fluid
+      each replay in replays
+        - var url = '/replays/' + replay.get('battle_id')
+        a.span4.p2.mb1.mr1.clickable-box(href = url)
+          strong.block= replay.getName()
+          = replay.getFormat()

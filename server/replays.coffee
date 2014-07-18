@@ -9,18 +9,25 @@ class @TooManyBattlesSaved extends Error
 
 @routes =
   show: (req, res) ->
-    new database.Battle(battle_id: req.params.id)
+    database.Battle
+    .where(battle_id: req.params.id)
     .fetch()
     .then (replay) ->
       res.render('replays/show', bodyClass: 'no-sidebar', replay: replay)
+    .catch (err) ->
+      console.error(err.stack)
+      res.render('replays/show', bodyClass: 'no-sidebar', replay: null)
 
   index: (req, res) ->
-    new database.SavedBattle(user_id: req.user.id)
-    .fetch(withRelated: 'battle')
-    .map (result) ->
-      result.related('battle')
-    .finally (replays = []) ->
+    database.SavedBattle
+    .where(user_id: req.user.id)
+    .fetchAll(withRelated: 'battle')
+    .then (saves) ->
+      replays = saves.map((save) -> save.relations.battle)
       res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
+    .catch (err) ->
+      console.error(err.stack)
+      res.render('replays/index', bodyClass: 'no-sidebar', replays: [])
 
 @create = (user, battle) ->
   database.knex(database.SavedBattle::tableName)
