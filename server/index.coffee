@@ -163,7 +163,7 @@ CLIENT_VERSION = assets.getVersion()
           spark.send('receiveTeams', teams.toJSON())
 
     spark.on 'destroyTeam', (teamId) ->
-      return  unless _.isString(teamId)
+      return  unless _.isFinite(teamId)
       attributes = {
         id: teamId
       }
