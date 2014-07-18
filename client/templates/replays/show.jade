@@ -12,9 +12,6 @@ block content
 
 block footer
   if replay
-    script.
-      var PokeBattle = {};
-      PokeBattle.autoConnect = false;
     script(src=asset_path('js/data.js', {fingerprint: replay.version('js/data.js')}))
     script(src=asset_path('js/vendor.js', {fingerprint: replay.version('js/vendor.js')}))
     script(src=asset_path('js/templates.js', {fingerprint: replay.version('js/templates.js')}))
