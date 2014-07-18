@@ -1,11 +1,9 @@
-Bookshelf = require('bookshelf')
 {_} = require('underscore')
 config = require('../knex_config').database
 {Formats} = require('../shared/conditions')
 
-Bookshelf.PG = PG = Bookshelf.initialize(config)
-
-knex = PG.knex
+knex = require('knex')(config)
+bookshelf = require('bookshelf')(knex)
 
 # Postgres 9.2+ support the JSON datatype. Other versions/DBs do not.
 # So if the JSON data type is supported, then loading will load as JSON.
@@ -17,7 +15,7 @@ jsonify = (contents) ->
   else
     JSON.parse(contents)
 
-Team = PG.Model.extend
+Team = bookshelf.Model.extend
   tableName: 'teams'
   hasTimestamps: ['created_at', 'updated_at']
 
@@ -28,10 +26,10 @@ Team = PG.Model.extend
     pokemon: jsonify(@get('contents'))
   }
 
-Teams = PG.Collection.extend
+Teams = bookshelf.Collection.extend
   model: Team
 
-Battle = PG.Model.extend
+Battle = bookshelf.Model.extend
   tableName: 'battles'
   hasTimestamps: ['created_at', 'updated_at']
 
@@ -63,7 +61,7 @@ Battle = PG.Model.extend
     contents: jsonify(@get('contents'))
   }
 
-SavedBattle = PG.Model.extend
+SavedBattle = bookshelf.Model.extend
   tableName: 'saved_battles'
   hasTimestamps: ['created_at', 'updated_at']
 
