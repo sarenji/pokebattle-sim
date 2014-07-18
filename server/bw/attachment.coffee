@@ -721,12 +721,12 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    {@team} = attributes.source
-    @slot = @team.indexOf(attributes.source)
+    {@source} = attributes
+    @slot = @source.team.indexOf(@source)
     @battle.cannedText('LEECH_SEED_START', @pokemon)
 
   endTurn: ->
-    user = @team.at(@slot)
+    user = @source.team.at(@slot)
     return  if user.isFainted() || @pokemon.isFainted()
     hp = @pokemon.stat('hp')
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
@@ -851,9 +851,10 @@ class @Attachment.PursuitModifiers extends @VolatileAttachment
 class @Attachment.Substitute extends @VolatileAttachment
   name: "SubstituteAttachment"
   passable: true
+  reinitializeOnPass: true
 
   initialize: (attributes) ->
-    {@hp} = attributes
+    {@hp} = attributes || this
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
 
   transformHealthChange: (damage, options = {}) ->
@@ -1330,7 +1331,9 @@ class @Attachment.BatonPass extends @TeamAttachment
       attachment.team = pokemon.team
       attachment.battle = pokemon.battle
       attachment.attached = true
-      pokemon.attachments.attachments.push(attachment)
+      index = (pokemon.attachments.attachments.push(attachment)) - 1
+      if attachment.reinitializeOnPass
+        pokemon.attachments.attachments[index]?.initialize?()
     pokemon.setBoosts(@stages)
     @team.unattach(@constructor)
 
