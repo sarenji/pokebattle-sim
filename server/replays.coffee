@@ -10,16 +10,17 @@ class @TooManyBattlesSaved extends Error
 @routes =
   show: (req, res) ->
     new database.Battle(battle_id: req.params.id)
-      .fetch()
-      .then (replay) ->
-        res.render('replays/show', bodyClass: 'no-sidebar', replay: replay)
+    .fetch()
+    .then (replay) ->
+      res.render('replays/show', bodyClass: 'no-sidebar', replay: replay)
 
   index: (req, res) ->
     new database.SavedBattle(user_id: req.user.id)
-      .fetch(withRelated: ['battle'])
-      .then (results) ->
-        replays = results.map((result) -> result.related('battle'))
-        res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
+    .fetch(withRelated: 'battle')
+    .map (result) ->
+      result.related('battle')
+    .finally (replays = []) ->
+      res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
 
 @create = (user, battle) ->
   database.knex(database.SavedBattle::tableName)
@@ -27,9 +28,6 @@ class @TooManyBattlesSaved extends Error
   .then (numSaved) ->
     if numSaved >= exports.MAX_SAVED_BATTLES
       throw new exports.TooManyBattlesSaved()
-    new database.SavedBattle(user_id: user.id, battle_id: battle.id)
-    .save().catch (err) ->
-      throw err  unless /violates unique constraint/.test(err.message)
   .then ->
     new database.Battle({
       format: battle.format
@@ -39,7 +37,12 @@ class @TooManyBattlesSaved extends Error
       contents: JSON.stringify(battle.log)
     }).save().catch (err) ->
       throw err  unless /violates unique constraint/.test(err.message)
+  .then (battle) ->
+    new database.SavedBattle(user_id: user.id, battle_id: battle.id)
+    .save().catch (err) ->
+      throw err  unless /violates unique constraint/.test(err.message)
   .then ->
+    # the string id
     battle.id
   .catch (err) ->
     console.log(err.stack)
