@@ -21,5 +21,4 @@ database = require('./database')
     num_active: battle.numActive
     players: battle.playerNames.join(',')
     contents: JSON.stringify(battle.log)
-  }).save().catch (err) ->
-    console.error(err.stack)
+  }).save()

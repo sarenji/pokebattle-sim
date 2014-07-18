@@ -1113,9 +1113,14 @@ class @BattleView extends Backbone.View
       @remove()
 
   saveReplay: =>
-    PokeBattle.primus.send 'saveReplay', @model.id, (error, replayId) ->
-      return alert(error)  if error
-      console.log("replays/#{replayId}")
+    PokeBattle.primus.send 'saveReplay', @model.id, (error, replayId) =>
+      if error
+        @chatView.announce("error", error)
+      else
+        relativeUrl = "/replays/#{replayId}"
+        absoluteUrl = "#{window.location.protocol}//#{window.location.hostname}"
+        absoluteUrl += relativeUrl
+        @chatView.announce("success", "Your replay was saved! Share the link: #{absoluteUrl}.")
 
   saveLog: =>
     log = []

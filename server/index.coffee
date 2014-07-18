@@ -222,11 +222,13 @@ CLIENT_VERSION = assets.getVersion()
 
     spark.on 'saveReplay', (battleId, callback) ->
       battle = server.findBattle(battleId)
-      return callback?("Battle could not be found")  unless battle
-      return callback?("Battle is not yet done")  unless battle.isOver()
+      return callback?("The battle could not be found.")  unless battle
+      return callback?("The battle is not yet done.")  unless battle.isOver()
       replays.create(battle.battle)  # unwrap the facade
-        .then((replay) -> callback?(null, replay.battleId))
-        .error(-> callback?('Something went wrong saving the replay'))
+        .then((replay) -> callback?(null, replay.get('battle_id')))
+        .catch (err) ->
+          console.error(err.stack)
+          callback?('Something went wrong saving the replay.')
 
     ###########
     # BATTLES #
