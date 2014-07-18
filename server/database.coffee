@@ -1,6 +1,6 @@
 {_} = require('underscore')
-config = require('../knex_config').database
 {Formats} = require('../shared/conditions')
+config = require('../knexfile')[process.env.NODE_ENV || 'development']
 
 knex = require('knex')(config)
 bookshelf = require('bookshelf')(knex)
