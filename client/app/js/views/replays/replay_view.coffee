@@ -15,6 +15,10 @@ class @ReplayView extends Backbone.View
       $row = $('<div/>').addClass('row-fluid')
       $row.append(groupHTML)
       $row.appendTo(@$el)
+
+    if @collection.length == 0
+      @$el.append($("<p/>").text("You have not saved any replays."))
+
     this
 
   deleteReplay: (e) =>
