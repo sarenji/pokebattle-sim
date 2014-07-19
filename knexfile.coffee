@@ -20,6 +20,7 @@ module.exports =
   development:
     client: 'postgresql'
     connection: connection
+    debug: true
     migrations:
       tableName: 'migrations'
 
