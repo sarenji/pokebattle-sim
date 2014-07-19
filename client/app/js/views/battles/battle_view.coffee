@@ -4,6 +4,7 @@ class @BattleView extends Backbone.View
   action_template: JST['battle_actions']
   team_preview_template: JST['battle_team_preview']
   battle_end_template: JST['battle_end']
+  battle_controls_template: JST['battle_controls']
 
   events:
     'click .move': 'makeMove'
@@ -19,6 +20,9 @@ class @BattleView extends Backbone.View
     # Team arrangement
     'click .arrange_pokemon' : 'togglePokemonOrSwitch'
     'click .submit_arrangement': 'submitTeamPreview'
+
+    # Battle controls
+    'change .battle-speed': 'changeBattleSpeed'
 
   initialize: (options) =>
     @chatView = null
@@ -49,6 +53,7 @@ class @BattleView extends Backbone.View
       window       : window
     @$('.battle_pane').html @battle_template(locals)
     @renderPokemon()
+    @renderControls()
     this
 
   renderPokemon: ($images, callback) =>
@@ -76,6 +81,10 @@ class @BattleView extends Backbone.View
         $image.css(top: y, left: x).show()
         callback?($image)
     this
+
+  renderControls: =>
+    html = @battle_controls_template()
+    @$el.find('.battle-controls').html(html)
 
   renderChat: =>
     @chatView = new ChatView(
