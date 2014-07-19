@@ -2,8 +2,9 @@
   a(href = replay.url())
     strong.block= replay.get('name')
   = replay.getFormat()
-  span.block.align-right
-    span.tiny-type.fake_link.delete-replay(data-replay-id = replay.id, data-cid = replay.cid)
+  span.block.align-right.tiny-type.mt1.grey
+    span.left= replay.getCreatedAt()
+    span.fake_link.delete-replay(data-replay-id = replay.id, data-cid = replay.cid)
       span.icon-remove
       | Delete
 

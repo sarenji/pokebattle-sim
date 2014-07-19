@@ -27,8 +27,8 @@ class @TooManyBattlesSaved extends Error
     .then (battleIds) ->
       battleIds = _.pluck(battleIds, 'battle_id')
       database.Battle
-      .query('where', 'battle_id', 'in', battleIds)
-      .fetchAll()
+      .where('battle_id', 'in', battleIds)
+      .fetchAll(columns: ['battle_id', 'players', 'name', 'format', 'created_at'])
     .then (replays) ->
       res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
     .catch (err) ->

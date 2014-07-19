@@ -55,6 +55,7 @@ Battle = bookshelf.Model.extend
     numActive: @get('num_active')
     players: @getPlayerNames()
     contents: jsonify(@get('contents'))
+    created_at: @get('created_at')
   }
 
 SavedBattle = bookshelf.Model.extend
