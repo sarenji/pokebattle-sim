@@ -15,7 +15,7 @@ block footer
     script(src=asset_path('js/data.js', {fingerprint: replay.version('js/data.js')}))
     script(src=asset_path('js/vendor.js', {fingerprint: replay.version('js/vendor.js')}))
     script(src=asset_path('js/templates.js', {fingerprint: replay.version('js/templates.js')}))
-    script(src=asset_path('js/replays.js', {fingerprint: replay.version('js/app.js')}))
+    script(src=asset_path('js/replays.js', {fingerprint: replay.version('js/replays.js')}))
     script.
       var replay = !{JSON.stringify(replay.toJSON())};
       var battle = new Battle({

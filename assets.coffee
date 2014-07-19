@@ -4,24 +4,24 @@ fs = require 'fs'
 
 config = require('./server/config')
 
-cache = {}
-
 cachedVersion = null
 cachedAssetHash = null
+cachedFingerprints = {}
 
 S3_ASSET_PREFIX = 'sim/'
 
 get = (src, options = {}) ->
   return src  if config.IS_LOCAL
-  return cache[src]  if src of cache && !options.force
-  hash = options.fingerprint || getAssetHash(src)
+  hash = options.fingerprint || getFingerprint(src)
   extName = path.extname(src)
-  cache[src] = "#{S3_ASSET_PREFIX}#{src[0...-extName.length]}-#{hash}#{extName}"
-  cache[src]
+  "#{S3_ASSET_PREFIX}#{src[0...-extName.length]}-#{hash}#{extName}"
 
-getAssetHash = (src) ->
+getFingerprint = (src) ->
+  return cachedFingerprints[src]  if cachedFingerprints[src]
   contents = fs.readFileSync("public/#{src}")
-  crypto.createHash('md5').update(contents).digest('hex')
+  fingerprint = crypto.createHash('md5').update(contents).digest('hex')
+  cachedFingerprints[src] = fingerprint
+  fingerprint
 
 getAbsolute = (src, options = {}) ->
   prefix = (if config.IS_LOCAL then "" else "//media.pokebattle.com")
@@ -42,7 +42,7 @@ asHash = ->
   cachedAssetHash = {}
   for jsPath in fs.readdirSync('public/js')
     jsPath = "js/#{jsPath}"
-    cachedAssetHash[jsPath] = getAssetHash(jsPath)
+    cachedAssetHash[jsPath] = getFingerprint(jsPath)
   cachedAssetHash
 
-module.exports = {S3_ASSET_PREFIX, get, asHash, getAssetHash, getAbsolute, getVersion}
+module.exports = {S3_ASSET_PREFIX, get, asHash, getAbsolute, getVersion}
