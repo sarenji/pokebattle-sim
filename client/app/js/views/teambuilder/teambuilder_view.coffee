@@ -10,7 +10,7 @@ class @TeambuilderView extends Backbone.View
     'click .export-team': 'exportTeam'
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeamEvent'
-    'click .select-team': 'clickTeam'
+    'click .go-to-team': 'clickTeam'
     'click .import-team': 'renderImportTeamModal'
 
     # Teambuild view
