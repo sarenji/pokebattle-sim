@@ -6,6 +6,10 @@ class @BattleView extends Backbone.View
   battle_end_template: JST['battle_end']
   battle_controls_template: JST['battle_controls']
 
+  SPEEDS:
+    Fast: 1
+    Medium: 1.5
+
   events:
     'click .move': 'makeMove'
     'click .switch': 'switchPokemon'
@@ -28,7 +32,10 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
-    @speed    = 1
+    try
+      @speed = Number(window.localStorage.getItem('battle_speed'))
+    catch
+    @speed ||= 1
     @render()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
@@ -84,7 +91,7 @@ class @BattleView extends Backbone.View
     this
 
   renderControls: =>
-    html = @battle_controls_template()
+    html = @battle_controls_template(speeds: @SPEEDS, currentSpeed: @speed)
     @$el.find('.battle-controls').html(html)
 
   renderChat: =>
@@ -1154,6 +1161,9 @@ class @BattleView extends Backbone.View
 
   changeBattleSpeed: (e) =>
     @speed = Number($(e.currentTarget).val()) || 1
+    try
+      window.localStorage.setItem('battle_speed', @speed)
+    catch
 
   $pokemon: (player, slot) =>
     if arguments.length == 1
