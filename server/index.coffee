@@ -167,11 +167,13 @@ CLIENT_VERSION = assets.getVersion()
         id: teamId
       }
       attributes['trainer_id'] = user.id  unless config.IS_LOCAL
-      new database.Team(attributes)
-        .fetch(columns: ['id'])
-        .then (team) ->
-          # If there is no team, the user doesn't own it.
-          team?.destroy()
+
+      database.Team.query().where(attributes).delete()
+      .then ->
+        # Do nothing, just execute the promise. We assume it was deleted.
+        return
+      .catch (err) ->
+        console.error(err)
 
     ####################
     # PRIVATE MESSAGES #
