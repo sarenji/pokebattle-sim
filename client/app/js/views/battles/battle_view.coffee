@@ -374,12 +374,13 @@ class @BattleView extends Backbone.View
     front = @isFront(player)
     scale = (if front then 1.3 else 1/1.3)
     if moveName == 'Earthquake'
+      speed = @speed
       $attacker.add($defender).each (index) ->
-        $(this).transition(x: -75, 62.5 * @speed, 'easeInOutCubic')
-          .transition(x: 75, 125 * @speed, 'easeInOutCubic')
-          .transition(x: -30, 125 * @speed, 'easeInOutCubic')
-          .transition(x: 30, 125 * @speed, 'easeInOutCubic')
-          .transition(x: 0, 62.5 * @speed, 'easeInOutCubic')
+        $(this).transition(x: -75, 62.5 * speed, 'easeInOutCubic')
+          .transition(x: 75, 125 * speed, 'easeInOutCubic')
+          .transition(x: -30, 125 * speed, 'easeInOutCubic')
+          .transition(x: 30, 125 * speed, 'easeInOutCubic')
+          .transition(x: 0, 62.5 * speed, 'easeInOutCubic')
       setTimeout(done, 500 * @speed)
     else if 'contact' in moveData.flags
       # Simple attack animation
