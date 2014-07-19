@@ -7,6 +7,7 @@ config = require('./server/config')
 cache = {}
 
 cachedVersion = null
+cachedAssetHash = null
 
 S3_ASSET_PREFIX = 'sim/'
 
@@ -35,4 +36,13 @@ getVersion = ->
   cachedVersion = hash.digest('hex')
   cachedVersion
 
-module.exports = {S3_ASSET_PREFIX, get, getAssetHash, getAbsolute, getVersion}
+# Returns a hash of asset hashes, keyed by filename
+asHash = ->
+  return cachedAssetHash  if cachedAssetHash
+  cachedAssetHash = {}
+  for jsPath in fs.readdirSync('public/js')
+    jsPath = "js/#{jsPath}"
+    cachedAssetHash[jsPath] = getAssetHash(jsPath)
+  cachedAssetHash
+
+module.exports = {S3_ASSET_PREFIX, get, asHash, getAssetHash, getAbsolute, getVersion}

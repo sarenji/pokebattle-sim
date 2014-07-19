@@ -1,6 +1,6 @@
 {_} = require('underscore')
 database = require('./database')
-Promise = require('bluebird')
+assets = require('../assets')
 
 @MAX_SAVED_BATTLES = 15
 
@@ -26,7 +26,6 @@ class @TooManyBattlesSaved extends Error
     .select('battle_id')
     .then (battleIds) ->
       battleIds = _.pluck(battleIds, 'battle_id')
-      console.log(battleIds)
       database.Battle
       .query('where', 'battle_id', 'in', battleIds)
       .fetchAll()
@@ -67,6 +66,7 @@ class @TooManyBattlesSaved extends Error
       num_active: battle.numActive
       players: battle.playerNames.join(',')
       contents: JSON.stringify(battle.log)
+      versions: assets.asHash()
     }).save().catch (err) ->
       throw err  unless /violates unique constraint/.test(err.message)
   .then ->
