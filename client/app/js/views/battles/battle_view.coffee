@@ -28,6 +28,7 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
+    @speed    = 1
     @render()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
@@ -295,12 +296,12 @@ class @BattleView extends Backbone.View
       $pokeball.css(opacity: 0)
       $newSprite
         .transition(y: -15, scale: .1, 0)
-        .transition(scale: 1, 250)
-        .transition y: 0, 250, 'out', =>
+        .transition(scale: 1, 250 * @speed)
+        .transition y: 0, 250 * @speed, 'out', =>
           @removePokeball($pokeball)
-      setTimeout(done, 500)
+      setTimeout(done, 500 * @speed)
       $newPokemon.transition(opacity: 1)
-    setTimeout(releasePokemon, 250)
+    setTimeout(releasePokemon, 250 * @speed)
 
   switchOut: (player, slot, done) =>
     $pokemon = @$pokemon(player, slot)
@@ -315,12 +316,12 @@ class @BattleView extends Backbone.View
 
     width = $sprite.width()
     height = $sprite.height()
-    $sprite.transition(scale: 0.1, x: width >> 1, y: height, 150)
-    $pokemon.transition opacity: 0, 250, ->
+    $sprite.transition(scale: 0.1, x: width >> 1, y: height, 150 * @speed)
+    $pokemon.transition opacity: 0, 250 * @speed, ->
       $pokemon.addClass('hidden').css(opacity: 1)
       $sprite.popover('destroy')
       $sprite.transition(scale: 1, x: 0, y: 0, 0)
-    setTimeout(done, 250)
+    setTimeout(done, 250 * @speed)
 
   makePokeball: (x, y) =>
     $pokeball = $("""<div class="pokeball"/>""")
@@ -367,56 +368,56 @@ class @BattleView extends Backbone.View
     scale = (if front then 1.3 else 1/1.3)
     if moveName == 'Earthquake'
       $attacker.add($defender).each (index) ->
-        $(this).transition(x: -75, 62.5, 'easeInOutCubic')
-          .transition(x: 75, 125, 'easeInOutCubic')
-          .transition(x: -30, 125, 'easeInOutCubic')
-          .transition(x: 30, 125, 'easeInOutCubic')
-          .transition(x: 0, 62.5, 'easeInOutCubic')
-      setTimeout(done, 500)
+        $(this).transition(x: -75, 62.5 * @speed, 'easeInOutCubic')
+          .transition(x: 75, 125 * @speed, 'easeInOutCubic')
+          .transition(x: -30, 125 * @speed, 'easeInOutCubic')
+          .transition(x: 30, 125 * @speed, 'easeInOutCubic')
+          .transition(x: 0, 62.5 * @speed, 'easeInOutCubic')
+      setTimeout(done, 500 * @speed)
     else if 'contact' in moveData.flags
       # Simple attack animation
       # Tackling the opponent
       $attacker
-        .transition(x: dx - ax, y: dy - ay, scale: scale, 250, 'in')
-        .transition(x: 0, y: 0, scale: 1, 250, 'out')
-      $defender.delay(400)
-        .transition(x: (if front then -16 else 8), 50, 'easeOutCubic')
-        .transition(x: 0, 50, 'easeInOutCubic')
-      setTimeout(done, 500)
+        .transition(x: dx - ax, y: dy - ay, scale: scale, 250 * @speed, 'in')
+        .transition(x: 0, y: 0, scale: 1, 250 * @speed, 'out')
+      $defender.delay(400 * @speed)
+        .transition(x: (if front then -16 else 8), 50 * @speed, 'easeOutCubic')
+        .transition(x: 0, 50 * @speed, 'easeInOutCubic')
+      setTimeout(done, 500 * @speed)
     else if moveData['power'] > 0
       # Non-contact attacking move
       # Projectile
       $projectile = @$projectile(player, slot, moveData)
       [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
-        .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200, 'easeOutCubic')
-        .transition(x: transX, y: transY, scale: scale, 200, 'easeOutCubic')
-        .transition(opacity: 0, 100, -> $projectile.remove())
-      $defender.delay(400)
-        .transition(x: -4, 0, 'linear').delay(50)
-        .transition(x: 4, 0, 'linear').delay(50)
+        .transition(x: transX / 2, y: transY / 2, scale: (scale + 1) / 2, 200 * @speed, 'easeOutCubic')
+        .transition(x: transX, y: transY, scale: scale, 200 * @speed, 'easeOutCubic')
+        .transition(opacity: 0, 100 * @speed, -> $projectile.remove())
+      $defender.delay(400 * @speed)
+        .transition(x: -4, 0, 'linear').delay(50 * @speed)
+        .transition(x: 4, 0, 'linear').delay(50 * @speed)
         .transition(x: 0, 0, 'linear')
-      setTimeout(done, 500)
+      setTimeout(done, 500 * @speed)
     else if player != targetPlayer || slot != targetSlot
       # This is a non-attacking move that affects another pokemon
       # S-shaped movement
       $projectile = @$projectile(player, slot, moveData)
       [transX, transY] = [(dx - ax), (dy - ay)]
       $projectile
-        .transition(x: transX * 2 / 3, y: transY / 3, 150, 'easeInOutSine')
-        .transition(x: transX / 3, y: transY * 2 / 3, 100, 'easeInOutSine')
-        .transition(x: transX, y: transY, 150, 'easeInOutSine')
-        .transition opacity: 0, 100, 'easeInOutSine', ->
+        .transition(x: transX * 2 / 3, y: transY / 3, 150 * @speed, 'easeInOutSine')
+        .transition(x: transX / 3, y: transY * 2 / 3, 100 * @speed, 'easeInOutSine')
+        .transition(x: transX, y: transY, 150 * @speed, 'easeInOutSine')
+        .transition opacity: 0, 100 * @speed, 'easeInOutSine', ->
           $projectile.remove()
-      setTimeout(done, 500)
+      setTimeout(done, 500 * @speed)
     else
       # Side-to-side movement
       $attacker = @$sprite(player, slot)
       $attacker
-        .transition(x: -16, 125, 'easeInOutSine')
-        .transition(x: 16, 250, 'easeInOutSine')
-        .transition(x: 0, 125, 'easeInOutSine')
-      setTimeout(done, 500)
+        .transition(x: -16, 125 * @speed, 'easeInOutSine')
+        .transition(x: 16, 250 * @speed, 'easeInOutSine')
+        .transition(x: 0, 125 * @speed, 'easeInOutSine')
+      setTimeout(done, 500 * @speed)
 
   cannedText: (cannedString, args...) =>
     @parseCannedText(CannedText[cannedString], args, ->)
@@ -434,7 +435,7 @@ class @BattleView extends Backbone.View
     switch cannedTextName
       when 'MOVE_MISS', 'JUMP_KICK_MISS', 'MOVE_FAIL', 'IMMUNITY'
         @addSummary(cannedText)
-        setTimeout(done, 500)
+        setTimeout(done, 500 * @speed)
       when 'PARALYZE_CONTINUE', 'FREEZE_CONTINUE', 'SLEEP_CONTINUE',\
             'SUN_END', 'RAIN_END', 'SAND_END', 'HAIL_END',\
             'SAND_CONTINUE', 'HAIL_CONTINUE'
@@ -488,10 +489,12 @@ class @BattleView extends Backbone.View
     $ability.addClass((if isFront then 'front' else 'back'))
     $ability.width(1)
     $ability.appendTo(@$('.battle_pane'))
-    $ability.transition opacity: 1, width: 150, 100, 'easeInQuad', ->
-      $ability.delay(3000).transition opacity: 0, 300, 'easeInQuad', ->
+    $ability
+      .transition(opacity: 1, width: 150, 100 * @speed, 'easeInQuad')
+      .delay(3000)
+      .transition opacity: 0, 300 * @speed, 'easeInQuad', ->
         $ability.remove()
-    setTimeout(done, 500)
+    setTimeout(done, 500 * @speed)
 
   cancelSuccess: (done) =>
     @enableButtons()
@@ -510,21 +513,21 @@ class @BattleView extends Backbone.View
       done()
       return
 
-    $sprite.fadeOut 200, =>
+    $sprite.fadeOut 200 * @speed, =>
       @renderPokemon $spriteContainer, ($image) ->
         $sprite.popover('destroy')
         $sprite.remove()
-        $image.hide().fadeIn(200)
+        $image.hide().fadeIn(200 * @speed)
 
     # Don't waste time changing the sprite if we can't see it.
     if @model.getPokemon(player, slot).isFainted()
       done()
     else
-      setTimeout(done, 400)
+      setTimeout(done, 400 * @speed)
 
   changeWeather: (newWeather, done) =>
     $overlays = @$('.battle_overlays')
-    $overlays.find('.weather').transition(opacity: 0, 500, -> $(this).remove())
+    $overlays.find('.weather').transition(opacity: 0, 500 * @speed, -> $(this).remove())
     [overlayWidth, overlayHeight] = [600, 300]
     $weather = switch newWeather
       when Weather.RAIN
@@ -585,7 +588,7 @@ class @BattleView extends Backbone.View
         $overlays.append($weather)
         $weather
       else $()
-    $weather.transition(opacity: 1, 500)
+    $weather.transition(opacity: 1, 500 * @speed)
     done()
 
   attachPokemon: (player, slot, attachment, done) =>
@@ -611,11 +614,11 @@ class @BattleView extends Backbone.View
           setTimeout ->
             $image
               .transition(y: -yOffset, 0)
-              .transition(y: 0, 200, 'easeInQuad')
-              .transition(y: -yOffset >> 3, 100, 'easeOutQuad')
-              .transition(y: 0, 100, 'easeInQuad')
+              .transition(y: 0, 200 * @speed, 'easeInQuad')
+              .transition(y: -yOffset >> 3, 100 * @speed, 'easeOutQuad')
+              .transition(y: 0, 100 * @speed, 'easeInQuad')
           , 0
-          setTimeout(done, 500)
+          setTimeout(done, 500 * @speed)
       when 'ConfusionAttachment'
         @addPokemonEffect($pokemon, "confusion", "Confusion")
         @addLog("#{pokemon.escape('name')} became confused!")
@@ -666,10 +669,10 @@ class @BattleView extends Backbone.View
           done()
         else
           $div.css(top: oldY, left: oldX, opacity: 0)
-          $div.animate(top: newY, left: newX, opacity: 1, 500)
-            .delay(1000).animate(opacity: .5)
+          $div.transition(top: newY, left: newX, opacity: 1, 500 * @speed)
+            .delay(1000 * @speed).transition(opacity: .5)
           $battlePane.prepend($div)
-          setTimeout(done, 500)
+          setTimeout(done, 500 * @speed)
       when "ToxicSpikesAttachment"
         $div = $("<div/>").addClass("field-#{player} team-toxic-spikes")
         previousLayers = @$(".field-#{player}.team-toxic-spikes").length
@@ -697,10 +700,10 @@ class @BattleView extends Backbone.View
           done()
         else
           $div.css(top: oldY, left: oldX, opacity: 0)
-          $div.animate(top: newY, left: newX, opacity: 1, 500)
-            .delay(1000).animate(opacity: .5)
+          $div.transition(top: newY, left: newX, opacity: 1, 500 * @speed)
+            .delay(1000 * @speed).transition(opacity: .5)
           $battlePane.prepend($div)
-          setTimeout(done, 500)
+          setTimeout(done, 500 * @speed)
       when "SpikesAttachment"
         $div = $("<div/>").addClass("field-#{player} team-spikes")
         previousLayers = @$(".field-#{player}.team-spikes").length
@@ -732,10 +735,10 @@ class @BattleView extends Backbone.View
           done()
         else
           $div.css(top: oldY, left: oldX, opacity: 0)
-          $div.animate(top: newY, left: newX, opacity: 1, 500)
-            .delay(1000).animate(opacity: .5)
+          $div.transition(top: newY, left: newX, opacity: 1, 500 * @speed)
+            .delay(1000 * @speed).transition(opacity: .5)
           $battlePane.prepend($div)
-          setTimeout(done, 500)
+          setTimeout(done, 500 * @speed)
       when "StickyWebAttachment"
         $div = $("<div/>").addClass("field-#{player} team-sticky-web")
         if isFront
@@ -750,10 +753,10 @@ class @BattleView extends Backbone.View
           done()
         else
           $div.css(top: oldY, left: oldX, opacity: 0)
-          $div.animate(top: newY, left: newX, opacity: 1, 1000, 'easeOutElastic')
-            .delay(1000).animate(opacity: .2)
+          $div.animate(top: newY, left: newX, opacity: 1, 1000 * @speed, 'easeOutElastic')
+            .delay(1000 * @speed).animate(opacity: .2)
           $battlePane.prepend($div)
-          setTimeout(done, 500)
+          setTimeout(done, 500 * @speed)
       when "ReflectAttachment"
         @cannedText('REFLECT_START', player)
         @attachScreen(player, 'blue', 10, done)
@@ -783,9 +786,9 @@ class @BattleView extends Backbone.View
       done()
     else
       $screen
-        .transition(width: finalSize, x: -halfSize, 250, 'easeInOutCubic')
-        .transition(height: finalSize, y: -halfSize, 250, 'easeInOutCubic')
-      setTimeout(done, 500)
+        .transition(width: finalSize, x: -halfSize, 250 * @speed, 'easeInOutCubic')
+        .transition(height: finalSize, y: -halfSize, 250 * @speed, 'easeInOutCubic')
+      setTimeout(done, 500 * @speed)
 
   unattachScreen: (player, slot, klass, done=->) =>
     if arguments.length == 3
@@ -793,7 +796,7 @@ class @BattleView extends Backbone.View
     selector = ".team-screen.#{klass}.field-#{player}"
     selector += ".slot-#{slot}"  if slot
     $selector = @$(selector)
-    $selector.fadeOut(500, -> $selector.remove())
+    $selector.fadeOut(500 * @speed, -> $selector.remove())
     done()
 
   boost: (player, slot, deltaBoosts, options = {}) =>
@@ -884,9 +887,9 @@ class @BattleView extends Backbone.View
           $substitute.remove()
           done()
         else
-          $substitute.transition y: 300, opacity: 0, 300, ->
+          $substitute.transition y: 300, opacity: 0, 300 * @speed, ->
             $substitute.remove()
-          setTimeout(done, 300)
+          setTimeout(done, 300 * @speed)
       when 'ProtectAttachment', 'KingsShieldAttachment', 'SpikyShieldAttachment'
         @unattachScreen(player, slot, 'pink', done)
       when 'Air Balloon'
@@ -1149,6 +1152,9 @@ class @BattleView extends Backbone.View
   returnToLobby: =>
     PokeBattle.navigation.focusLobby()
 
+  changeBattleSpeed: (e) =>
+    @speed = Number($(e.currentTarget).val()) || 1
+
   $pokemon: (player, slot) =>
     if arguments.length == 1
       pokemon = player
@@ -1187,10 +1193,10 @@ class @BattleView extends Backbone.View
       done()
       return
 
-    $sprite.transition y: 100, opacity: 0, 250, 'ease-in', ->
+    $sprite.transition y: 100, opacity: 0, 250 * @speed, 'ease-in', ->
       $sprite.popover('destroy')
       $sprite.remove()
-    setTimeout(done, 250)
+    setTimeout(done, 250 * @speed)
     @renderUserInfo()
 
   resetPopovers: =>
