@@ -46,7 +46,7 @@ class @TooManyBattlesSaved extends Error
       .where(battle_id: battleId).count('*')
     .then (results) ->
       # If no more saves of this replay exist, delete the replay itself.
-      if Number(results.count) == 0
+      if Number(results[0].count) == 0
         database.Battle.query().where(battle_id: battleId).delete()
     .then ->
       res.json(ok: true)
