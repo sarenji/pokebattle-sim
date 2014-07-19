@@ -57,6 +57,7 @@ CLIENT_VERSION = assets.getVersion()
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
   app.get("/replays/:id", replays.routes.show)
+  app.delete("/replays/:id", replays.routes.destroy)
   app.get("/replays", replays.routes.index)
 
   app.get '/leaderboard', (req, res) ->

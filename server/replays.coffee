@@ -1,3 +1,4 @@
+{_} = require('underscore')
 database = require('./database')
 Promise = require('bluebird')
 
@@ -19,15 +20,39 @@ class @TooManyBattlesSaved extends Error
       res.render('replays/show', bodyClass: 'no-sidebar', replay: null)
 
   index: (req, res) ->
-    database.SavedBattle
+    database.SavedBattles
+    .query()
     .where(user_id: req.user.id)
-    .fetchAll(withRelated: 'battle')
-    .then (saves) ->
-      replays = saves.map((save) -> save.relations.battle)
+    .select('battle_id')
+    .then (battleIds) ->
+      battleIds = _.pluck(battleIds, 'battle_id')
+      console.log(battleIds)
+      database.Battle
+      .query('where', 'battle_id', 'in', battleIds)
+      .fetchAll()
+    .then (replays) ->
       res.render('replays/index', bodyClass: 'no-sidebar', replays: replays)
     .catch (err) ->
       console.error(err.stack)
       res.render('replays/index', bodyClass: 'no-sidebar', replays: [])
+
+  destroy: (req, res) ->
+    battleId = req.param('id')
+    database.SavedBattle.query()
+    .where(user_id: req.user.id, battle_id: battleId)
+    .delete()
+    .then ->
+      database.knex(database.SavedBattle::tableName)
+      .where(battle_id: battleId).count('*')
+    .then (results) ->
+      # If no more saves of this replay exist, delete the replay itself.
+      if Number(results.count) == 0
+        database.Battle.query().where(battle_id: battleId).delete()
+    .then ->
+      res.json(ok: true)
+    .catch (err) ->
+      console.log(err.stack)
+      res.json(ok: false)
 
 @create = (user, battle) ->
   database.knex(database.SavedBattle::tableName)
@@ -37,19 +62,18 @@ class @TooManyBattlesSaved extends Error
       throw new exports.TooManyBattlesSaved()
   .then ->
     new database.Battle({
-      format: battle.format
       battle_id: battle.id
+      format: battle.format
       num_active: battle.numActive
       players: battle.playerNames.join(',')
       contents: JSON.stringify(battle.log)
     }).save().catch (err) ->
       throw err  unless /violates unique constraint/.test(err.message)
-  .then (battle) ->
+  .then ->
     new database.SavedBattle(user_id: user.id, battle_id: battle.id)
     .save().catch (err) ->
       throw err  unless /violates unique constraint/.test(err.message)
   .then ->
-    # the string id
     battle.id
   .catch (err) ->
     console.log(err.stack)

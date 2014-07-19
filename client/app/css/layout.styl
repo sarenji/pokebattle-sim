@@ -40,6 +40,12 @@ for $i in (1 2 3 4)
 .center
   text-align center
 
+.align-left
+  text-align left
+
+.align-right
+  text-align right
+
 .flex-center
   display flex
   align-items center
@@ -88,14 +94,12 @@ for $i in (1 2 3 4)
 .box-shadow
   box-shadow 1px 2px 0 rgba(0, 0, 0, .2)
 
+.tiny-type
+  font-size .75em
+
 .clickable-box
-  cursor pointer
   @extend .border
   @extend .bg-off-white
   @extend .hover-bg-white
   @extend .rounded
   @extend .box-shadow
-  color #333
-  &:hover
-    color #666
-    text-decoration none

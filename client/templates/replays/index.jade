@@ -3,9 +3,13 @@ extends ../layout
 block content
   .m4.mt-header.pt1
     h2 Your replays
-    .row-fluid
-      each replay in replays
-        - var url = '/replays/' + replay.get('battle_id')
-        a.span4.p2.mb1.mr1.clickable-box(href = url)
-          strong.block= replay.getName()
-          = replay.getFormat()
+    #all-replays.row-fluid
+
+block footer
+  script(src=asset_path('js/data.js'))
+  script(src=asset_path('js/vendor.js'))
+  script(src=asset_path('js/templates.js'))
+  script(src=asset_path('js/replays.js'))
+  script.
+    var replays = new Replays(!{JSON.stringify(replays)});
+    new ReplayView({el: '#all-replays', collection: replays}).render();

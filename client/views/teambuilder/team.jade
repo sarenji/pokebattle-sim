@@ -1,5 +1,5 @@
 .left.select-team.clickable-box.p1.mt1.ml1.relative(data-id=team.id, data-cid=team.cid)
-  h2= team.getName()
+  h2.go-to-team.fake_link= team.getName()
   != window.JST['team_small']({team: team, window: window})
   .team-meta
     span.fake_link.export-team

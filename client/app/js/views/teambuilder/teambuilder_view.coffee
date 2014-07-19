@@ -49,7 +49,7 @@ class @TeambuilderView extends Backbone.View
     )
 
   clickTeam: (e) =>
-    $team = $(e.currentTarget)
+    $team = $(e.currentTarget).closest('.select-team')
     team = PokeBattle.TeamStore.get($team.data('cid'))
     @setSelectedTeam(team)
 

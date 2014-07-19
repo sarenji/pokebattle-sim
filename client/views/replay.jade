@@ -1,0 +1,11 @@
+.span4.p2.mb1.clickable-box.relative
+  a(href = replay.url())
+    strong.block= replay.get('name')
+  = replay.getFormat()
+  span.block.align-right
+    span.tiny-type.fake_link.delete-replay(data-replay-id = replay.id, data-cid = replay.cid)
+      span.icon-remove
+      | Delete
+
+  .show_spinner.flex-center.fill.bg-faded-white.hidden
+    != window.JST['spinner']()

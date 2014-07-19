@@ -33,9 +33,6 @@ Battle = bookshelf.Model.extend
   tableName: 'battles'
   hasTimestamps: ['created_at', 'updated_at']
 
-  savers: ->
-    @hasMany(SavedBattle)
-
   # TODO: Find (and jsonify) asset versions
 
   getName: ->
@@ -52,10 +49,9 @@ Battle = bookshelf.Model.extend
     jsonify(@get('versions'))[js]
 
   toJSON: -> {
-    id: @id
+    id: @get('battle_id')
     name: @getName()
     format: @get('format')
-    battleId: @get('battle_id')
     numActive: @get('num_active')
     players: @getPlayerNames()
     contents: jsonify(@get('contents'))
@@ -65,7 +61,7 @@ SavedBattle = bookshelf.Model.extend
   tableName: 'saved_battles'
   hasTimestamps: ['created_at', 'updated_at']
 
-  battle: ->
-    @belongsTo(Battle)
+SavedBattles = bookshelf.Collection.extend
+  model: SavedBattle
 
-module.exports = {Team, Teams, Battle, SavedBattle, knex}
+module.exports = {Team, Teams, Battle, SavedBattle, SavedBattles, knex}

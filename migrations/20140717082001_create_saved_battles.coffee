@@ -2,7 +2,7 @@
 exports.up = (knex, Promise) ->
   knex.schema.createTable 'saved_battles', (t) ->
     t.increments()
-    t.integer('battle_id').notNull()
+    t.string('battle_id').index().notNull()
     t.integer('user_id').index().notNull()
     t.unique(['battle_id', 'user_id'])
     t.timestamps()

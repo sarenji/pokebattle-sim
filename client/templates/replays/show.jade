@@ -19,7 +19,7 @@ block footer
     script.
       var replay = !{JSON.stringify(replay.toJSON())};
       var battle = new Battle({
-        id: replay.battleId,
+        id: replay.id,
         format: replay.format,
         numActive: replay.numActive,
         playerIds: replay.players
