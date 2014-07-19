@@ -17,6 +17,7 @@ redis = require('./redis')
 ratings = require('./ratings')
 config = require('./config')
 alts = require('./alts')
+replays = require('./replays')
 
 MAX_MESSAGE_LENGTH = 250
 MAX_RANK_DISPLAYED = 100
@@ -36,7 +37,8 @@ CLIENT_VERSION = assets.getVersion()
   server = new BattleServer()
 
   # Configuration
-  app.set("views", "client")
+  app.set("views", "client/templates")
+  app.set('view engine', 'jade')
   app.use(express.logger())  if config.IS_LOCAL
   app.use(express.compress())  # gzip
   app.use(express.cookieParser())
@@ -54,6 +56,9 @@ CLIENT_VERSION = assets.getVersion()
 
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
+  app.get("/replays/:id", replays.routes.show)
+  app.delete("/replays/:id", replays.routes.destroy)
+  app.get("/replays", replays.routes.index)
 
   app.get '/leaderboard', (req, res) ->
     page = req.param('page')
@@ -168,11 +173,13 @@ CLIENT_VERSION = assets.getVersion()
         id: teamId
       }
       attributes['trainer_id'] = user.id  unless config.IS_LOCAL
-      new database.Team(attributes)
-        .fetch(columns: ['id'])
-        .then (team) ->
-          # If there is no team, the user doesn't own it.
-          team?.destroy()
+
+      database.Team.query().where(attributes).delete()
+      .then ->
+        # Do nothing, just execute the promise. We assume it was deleted.
+        return
+      .catch (err) ->
+        console.error(err)
 
     ####################
     # PRIVATE MESSAGES #
@@ -219,9 +226,9 @@ CLIENT_VERSION = assets.getVersion()
       return  unless _.isString(challengerId)
       server.rejectChallenge(user, challengerId)
 
-    ##############
+    ########
     # ALTS #
-    ##############
+    ########
 
     spark.on 'createAlt', (altName) ->
       altName = String(altName).trim()
@@ -230,6 +237,21 @@ CLIENT_VERSION = assets.getVersion()
       alts.createAlt user.name, altName, (err, success) ->
         return user.error(errors.INVALID_ALT_NAME, err.message)  if err
         user.send('altCreated', altName)  if success
+
+    ###########
+    # REPLAYS #
+    ###########
+
+    spark.on 'saveReplay', (battleId, callback) ->
+      battle = server.findBattle(battleId)
+      return callback?("The battle could not be found.")  unless battle
+      return callback?("The battle is not yet done.")  unless battle.isOver()
+      replays.create(user, battle.battle)  # unwrap the facade
+        .then((replayId) -> callback?(null, replayId))
+        .catch replays.TooManyBattlesSaved, (err) ->
+          callback?(err.message)
+        .catch (err) ->
+          callback?('Something went wrong saving the replay.')
 
     ###########
     # BATTLES #

@@ -8,6 +8,7 @@ assetPaths = '''
 js/data.js
 js/vendor.js
 js/templates.js
+js/replays.js
 js/app.js
 css/main.css
 css/vendor.css
@@ -49,17 +50,39 @@ module.exports = (grunt) ->
       compile:
         files:
           'public/js/app.js': [
-            "client/app/js/init.coffee"
+            "client/app/js/initializers/index.coffee"
+            "client/app/js/initializers/**/*.coffee"
             "shared/**/*.coffee"
-            "client/app/js/models/pokemon.coffee"
-            "client/app/js/models/team.coffee"
-            "client/app/js/models/**/*.coffee"
-            "client/app/js/collections/**/*.coffee"
-            "client/app/js/views/**/*.coffee"
+            "client/app/js/mixins/index.coffee"
+            "client/app/js/mixins/**/*.coffee"
+            "client/app/js/models/battles/pokemon.coffee"
+            "client/app/js/models/battles/team.coffee"
+            "client/app/js/models/battles/**/*.coffee"
+            "client/app/js/models/chats/**/*.coffee"
+            "client/app/js/collections/battles/**/*.coffee"
+            "client/app/js/collections/chats/**/*.coffee"
+            "client/app/js/views/battles/**/*.coffee"
+            "client/app/js/views/teambuilder/**/*.coffee"
+            "client/app/js/views/*.coffee"
             "client/app/js/client.coffee"
             "client/app/js/helpers/**/*.coffee"
             "client/app/js/concerns/**/*.coffee"
-            "client/app/js/**/*.coffee"
+          ]
+          # The replay scripts are typically scoped to a battles/ folder
+          'public/js/replays.js': [
+            "client/app/js/initializers/index.coffee"
+            "client/app/js/initializers/**/*.coffee"
+            "shared/**/*.coffee"
+            "client/app/js/mixins/index.coffee"
+            "client/app/js/mixins/battles/**/*.coffee"
+            "client/app/js/models/battles/pokemon.coffee"
+            "client/app/js/models/battles/team.coffee"
+            "client/app/js/models/battles/**/*.coffee"
+            "client/app/js/models/replays/**/*.coffee"
+            "client/app/js/collections/replays/**/*.coffee"
+            "client/app/js/views/battles/**/*.coffee"
+            "client/app/js/views/replays/**/*.coffee"
+            "client/app/js/helpers/**/*.coffee"
           ]
     uglify:
       options:
@@ -92,8 +115,6 @@ module.exports = (grunt) ->
           "client/vendor/js/backbone.js"
           "client/vendor/js/*.js"
         ]
-    knexmigrate:
-      config: require('./knex_config')
     external_daemon:
       cmd: "redis-server"
     exec:
@@ -174,7 +195,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-external-daemon')
   grunt.loadNpmTasks('grunt-aws')
   grunt.loadNpmTasks('grunt-exec')
-  grunt.loadNpmTasks('grunt-knex-migrate')
 
   grunt.registerTask('compile', ['concurrent:compile', 'uglify'])
 

@@ -36,9 +36,11 @@
 
 @Formats =
   xy1000:
+    humanName:  '1,000 PBV XY'
     generation: 'xy'
     conditions: [ @Conditions.PBV_1000 ]
   xy500:
+    humanName:  '500 PBV XY'
     generation: 'xy'
     conditions: [ @Conditions.PBV_500 ]
 

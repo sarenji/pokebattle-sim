@@ -13,11 +13,14 @@ S3_ASSET_PREFIX = 'sim/'
 get = (src, options = {}) ->
   return src  if config.IS_LOCAL
   return cache[src]  if src of cache && !options.force
-  contents = fs.readFileSync("public/#{src}")
-  hash = crypto.createHash('md5').update(contents).digest('hex')
+  hash = options.fingerprint || getAssetHash(src)
   extName = path.extname(src)
   cache[src] = "#{S3_ASSET_PREFIX}#{src[0...-extName.length]}-#{hash}#{extName}"
   cache[src]
+
+getAssetHash = (src) ->
+  contents = fs.readFileSync("public/#{src}")
+  crypto.createHash('md5').update(contents).digest('hex')
 
 getAbsolute = (src, options = {}) ->
   prefix = (if config.IS_LOCAL then "" else "//media.pokebattle.com")
@@ -32,4 +35,4 @@ getVersion = ->
   cachedVersion = hash.digest('hex')
   cachedVersion
 
-module.exports = {S3_ASSET_PREFIX, get, getAbsolute, getVersion}
+module.exports = {S3_ASSET_PREFIX, get, getAssetHash, getAbsolute, getVersion}

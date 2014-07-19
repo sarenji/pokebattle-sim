@@ -45,6 +45,8 @@ class @Battle extends EventEmitter
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
+    @format = attributes.format
+
     # An array of conditions like clauses or team preview that this battle has.
     # TODO: Remove
     @conditions = (attributes.conditions && _.clone(attributes.conditions))
@@ -837,7 +839,7 @@ class @Battle extends EventEmitter
       @spectators.push(user)
 
     spark.send('spectateBattle',
-      @id, @generation, @numActive, index,
+      @id, @format, @numActive, index,
       @playerNames, @spectatorsToJSON(), @log)
 
     # If this is a player, send them their own team

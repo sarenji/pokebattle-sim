@@ -222,15 +222,15 @@ class @BattleServer
     return true
 
   # Creates a battle and returns its battleId
-  createBattle: (format = DEFAULT_FORMAT, pair = [], conditions = []) ->
-    format = Formats[format]
+  createBattle: (rawFormat = DEFAULT_FORMAT, pair = [], conditions = []) ->
+    format = Formats[rawFormat]
     generation = format.generation
     conditions = conditions.concat(format.conditions)
     {Battle} = require("../server/#{generation}/battle")
     {BattleController} = require("../server/#{generation}/battle_controller")
     playerIds = pair.map((user) -> user.name)
     battleId = @generateBattleId(playerIds)
-    battle = new Battle(battleId, pair, conditions: _.clone(conditions))
+    battle = new Battle(battleId, pair, format: rawFormat, conditions: _.clone(conditions))
     @battles[battleId] = new BattleController(battle)
     for player in pair
       # Add user to spectators

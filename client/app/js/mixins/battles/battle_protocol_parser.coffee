@@ -1,44 +1,14 @@
-class @BattleCollection extends Backbone.Collection
-  model: Battle
+@PokeBattle.mixins.BattleProtocolParser =
+  update: (actions) ->
+    return  if actions.length == 0
+    @notify()
+    hadStuff = (@updateQueue.length > 0)
+    @updateQueue.push(actions...)
+    @_update()  unless hadStuff
 
-  initialize: (models, options) =>
-    PokeBattle.primus.on('updateBattle', @updateBattle)
-    PokeBattle.primus.on('spectateBattle', @spectateBattle)
-    PokeBattle.primus.on('joinBattle', @joinBattle)
-    PokeBattle.primus.on('leaveBattle', @leaveBattle)
-    PokeBattle.primus.on('updateTimers', @updateTimers)
-    PokeBattle.primus.on('resumeTimer', @resumeTimer)
-    PokeBattle.primus.on('pauseTimer', @pauseTimer)
-    @updateQueue = {}
-    @on 'add', (model) =>
-      @updateQueue[model.id] = []
-    @on 'remove', (model) =>
-      delete @updateQueue[model.id]
-      PokeBattle.primus.send('leaveBattle', model.id)
-
-  isPlaying: =>
-    @find((battle) -> battle.isPlaying())?
-
-  playingBattles: =>
-    @filter((battle) -> battle.isPlaying())
-
-  updateBattle: (battleId, actions) =>
-    battle = @get(battleId)
-    if !battle
-      console.log "Received events for #{battleId}, but no longer in battle!"
-      return
-    battle.notify()
-    @queueBattleUpdates(battle, actions)
-
-  queueBattleUpdates: (battle, actions) =>
-    queue = @updateQueue[battle.id]
-    hadStuff = (queue.length > 0)
-    queue.push(actions...)
-    if !hadStuff then @_updateBattle(battle)
-
-  _updateBattle: (battle, wasAtBottom) =>
-    view = battle.view
-    queue = @updateQueue[battle.id]
+  _update: (wasAtBottom) ->
+    view = @view
+    queue = @updateQueue
     return  if !queue  # closed battle in the middle of getting updates
     if queue.length == 0
       view.renderUserInfo()
@@ -52,7 +22,10 @@ class @BattleCollection extends Backbone.Collection
     action = queue.shift()
     [ type, rest... ] = action
     protocol = (key  for key, value of Protocol when value == type)[0]
-    console.log "Received protocol: #{protocol}"
+    try
+      if window.localStorage.debug == 'true'
+        console.log "Received protocol: #{protocol} with args: #{rest}"
+    catch
 
     doneTimeout = ->
       setTimeout(done, 0)
@@ -61,21 +34,21 @@ class @BattleCollection extends Backbone.Collection
       return  if done.called
       done.called = true
       if view.skip?
-        @_updateBattle.call(this, battle, wasAtBottom)
+        @_update.call(this, wasAtBottom)
       else
         # setTimeout 0 lets the browser breathe.
-        setTimeout(@_updateBattle.bind(this, battle, wasAtBottom), 0)
+        setTimeout(@_update.bind(this, wasAtBottom), 0)
 
     try
       switch type
         when Protocol.CHANGE_HP
           [player, slot, newPercent] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('percent', newPercent)
           if view.skip? then done() else setTimeout(done, 500)
         when Protocol.CHANGE_EXACT_HP
           [player, slot, newHP] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('hp', newHP)
           done()
         when Protocol.SWITCH_OUT
@@ -85,19 +58,19 @@ class @BattleCollection extends Backbone.Collection
           # TODO: Get Pokemon data, infer which Pokemon it is.
           # Currently, it cheats with `fromSlot`.
           [player, toSlot, fromSlot] = rest
-          team = battle.getTeam(player).get('pokemon').models
+          team = @getTeam(player).get('pokemon').models
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
           view.switchIn(player, toSlot, fromSlot, done)
         when Protocol.CHANGE_PP
           [player, slot, moveIndex, newPP] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.setPP(moveIndex, newPP)
           done()
         when Protocol.REQUEST_ACTIONS
           [validActions] = rest
           view.enableButtons(validActions)
-          PokeBattle.notifyUser(PokeBattle.NotificationTypes.ACTION_REQUESTED, battle.id + "_" + battle.get('turn'))
+          PokeBattle.notifyUser(PokeBattle.NotificationTypes.ACTION_REQUESTED, @id + "_" + @get('turn'))
           done()
         when Protocol.START_TURN
           [turn] = rest
@@ -156,10 +129,10 @@ class @BattleCollection extends Backbone.Collection
         when Protocol.INITIALIZE
           # TODO: Handle non-team-preview
           [teams] = rest
-          battle.receiveTeams(teams)
+          @receiveTeams(teams)
           view.preloadImages()
-          if !battle.get('spectating')
-            PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, battle.id)
+          if !@get('spectating')
+            PokeBattle.notifyUser(PokeBattle.NotificationTypes.BATTLE_STARTED, @id)
           done()
         when Protocol.START_BATTLE
           view.removeTeamPreview()
@@ -167,16 +140,16 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.REARRANGE_TEAMS
           arrangements = rest
-          battle.get('teams').forEach (team, i) ->
+          @get('teams').forEach (team, i) ->
             team.rearrange(arrangements[i])
           done()
         when Protocol.RECEIVE_TEAM
           [team] = rest
-          battle.receiveTeam(team)
+          @receiveTeam(team)
           done()
         when Protocol.SPRITE_CHANGE
           [player, slot, newSpecies, newForme] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('species', newSpecies)
           pokemon.set('forme', newForme)
           view.changeSprite(player, slot, newSpecies, newForme, done)
@@ -194,7 +167,7 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.MOVESET_UPDATE
           [player, slot, movesetJSON] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set(movesetJSON)
           done()
         when Protocol.WEATHER_CHANGE
@@ -205,7 +178,7 @@ class @BattleCollection extends Backbone.Collection
           done()
         when Protocol.ACTIVATE_ABILITY
           [player, slot, ability] = rest
-          pokemon = battle.getPokemon(player, slot)
+          pokemon = @getPokemon(player, slot)
           pokemon.set('ability', ability)
           view.activateAbility(player, slot, ability, done)
         else
@@ -216,62 +189,3 @@ class @BattleCollection extends Backbone.Collection
       done()
     if wasAtBottom && !view.chatView.isAtBottom()
       view.chatView.scrollToBottom()
-
-  spectateBattle: (id, generation, numActive, index, playerIds, spectators, log) =>
-    console.log "SPECTATING BATTLE #{id}."
-    isSpectating = (if index? then false else true)
-    # If not playing, pick a random index; it doesn't matter.
-    index ?= Math.floor(2 * Math.random())
-    battle = new Battle({id, generation, numActive, index, playerIds, spectators})
-    battle.set('spectating', isSpectating)
-    createBattleWindow(this, battle)
-    if log.length > 0
-      battle.view.skip = 0
-      battle.view.$('.battle_pane').hide()
-      @queueBattleUpdates(battle, log)
-
-  joinBattle: (id, user) =>
-    battle = @get(id)
-    if !battle
-      console.log "Received events for #{id}, but no longer in battle!"
-      return
-    battle.spectators.add(user)
-
-  leaveBattle: (id, user) =>
-    battle = @get(id)
-    if !battle
-      console.log "Received events for #{id}, but no longer in battle!"
-      return
-    battle.spectators.remove(id: user)
-
-  updateTimers: (id, timers) =>
-    battle = @get(id)
-    if !battle
-      console.log "Received events for #{id}, but no longer in battle!"
-      return
-    battle.view.updateTimers(timers)
-
-  resumeTimer: (id, player) =>
-    battle = @get(id)
-    if !battle
-      console.log "Received events for #{id}, but no longer in battle!"
-      return
-    battle.view.resumeTimer(player)
-
-  pauseTimer: (id, player, timeSinceLastAction) =>
-    battle = @get(id)
-    if !battle
-      console.log "Received events for #{id}, but no longer in battle!"
-      return
-    battle.view.pauseTimer(player, timeSinceLastAction)
-
-createBattleWindow = (collection, battle) ->
-  backgroundNumber = generateBackgroundNumber(battle.id, 6)
-  $battle = $(JST['battle_window']({battle, window, backgroundNumber}))
-  $battle.appendTo $('#main-section')
-  battle.view = new BattleView(el: $battle, model: battle)
-  collection.add(battle)
-
-generateBackgroundNumber = (battleId, numBackgrounds) ->
-  number = parseInt(battleId[...6], 16)
-  number % numBackgrounds

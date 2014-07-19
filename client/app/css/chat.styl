@@ -6,6 +6,11 @@
   top 0
   right 0
   bottom 0
+  &.without_spectators
+    .message_pane
+      right 0
+    .user_list
+      display none
 
 .user_list
   position absolute
@@ -44,12 +49,12 @@
   border-left 1px solid rgba(0, 0, 0, .2)
   border-right @border-left
   background white
+  word-wrap break-word
   h2, h3, p
     padding 0 16px 2px
   p
     font-size .875em
     text-rendering optimizeLegibility
-    word-wrap break-word
     &.move_message
       font-size 1em
       margin-top 10px

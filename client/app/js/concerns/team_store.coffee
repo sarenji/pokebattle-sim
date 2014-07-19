@@ -2,13 +2,13 @@ class TeamStore extends Backbone.Collection
   model: Team
 
   initialize: ->
-    @on('add remove reset saving saved', @saveLocally)
+    @on('add remove reset remoteSync', @saveLocally)
     @loadLocally()
 
+  # Only locally save teams without an id or is trying to save.
   unsavedTeams: =>
-    @filter((team) -> !team.id)
+    @filter((team) -> !team.id || team.get('saving'))
 
-  # Only locally save teams without an id.
   saveLocally: =>
     teams = @unsavedTeams()
     json = _.map(teams, (team) -> team.toJSON())

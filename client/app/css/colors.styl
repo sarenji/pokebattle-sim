@@ -3,6 +3,7 @@ $background-color = #f3f3f3
 $positive-color = #38AB46
 $negative-color = #DC4E48
 
+$off-white = #f5f5f5
 $grey = #666
 $yellow = #b92
 
@@ -32,6 +33,13 @@ $types = ('normal' $normal) ('fire' $fire) ('water' $water) ('electric' $electri
 
 .bg-faded-white
   background rgba(white, .5)
+
+.bg-off-white
+  background $off-white
+
+.hover-bg-white
+  &:hover
+    background white
 
 .bg-faded-blue
   background rgba(0, 20, 64, .5)

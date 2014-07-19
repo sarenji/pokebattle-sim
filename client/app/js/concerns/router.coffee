@@ -19,4 +19,3 @@ PokeBattle.primus.once "loginSuccess", ->
   return  if Backbone.History.started
   PokeBattle.events.trigger("ready")
   routed = Backbone.history.start(pushState: true)
-  if !routed then PokeBattle.router.navigate("")

@@ -10,7 +10,7 @@ class @TeambuilderView extends Backbone.View
     'click .export-team': 'exportTeam'
     'click .clone-team': 'cloneTeam'
     'click .delete-team': 'deleteTeamEvent'
-    'click .select-team': 'clickTeam'
+    'click .go-to-team': 'clickTeam'
     'click .import-team': 'renderImportTeamModal'
 
     # Teambuild view
@@ -49,7 +49,7 @@ class @TeambuilderView extends Backbone.View
     )
 
   clickTeam: (e) =>
-    $team = $(e.currentTarget)
+    $team = $(e.currentTarget).closest('.select-team')
     team = PokeBattle.TeamStore.get($team.data('cid'))
     @setSelectedTeam(team)
 

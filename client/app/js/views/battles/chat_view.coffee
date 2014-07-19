@@ -16,10 +16,11 @@ class @ChatView extends Backbone.View
     {@chatEvent, @chatArgs, @noisy} = options
     @chatEvent ||= "sendChat"
     @chatArgs ||= []
-    @listenTo(@collection, 'add remove reset', @renderUserList)
-    if @noisy
-      @listenTo(@collection, 'add', @userJoin)
-      @listenTo(@collection, 'remove', @userLeave)
+    if @collection
+      @listenTo(@collection, 'add remove reset', @renderUserList)
+      if @noisy
+        @listenTo(@collection, 'add', @userJoin)
+        @listenTo(@collection, 'remove', @userLeave)
     @chatHistory = []
     @mostRecentNames = []
     @tabCompleteIndex = -1

@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  .fill.flex-center.flex-column
+    unless replay
+      p No replay found.
+    else
+      h1.mt-header.mb1
+        = replay.getFormat()
+        = ": " + replay.getName()
+      #replay.relative(style = 'width: 100%; height: 100%;')
+
+block footer
+  if replay
+    script(src=asset_path('js/data.js', {fingerprint: replay.version('js/data.js')}))
+    script(src=asset_path('js/vendor.js', {fingerprint: replay.version('js/vendor.js')}))
+    script(src=asset_path('js/templates.js', {fingerprint: replay.version('js/templates.js')}))
+    script(src=asset_path('js/replays.js', {fingerprint: replay.version('js/app.js')}))
+    script.
+      var replay = !{JSON.stringify(replay.toJSON())};
+      var battle = new Battle({
+        id: replay.id,
+        format: replay.format,
+        numActive: replay.numActive,
+        playerIds: replay.players
+      });
+      var $battleWindow = $(window.JST['battle_window']({
+        battle: battle,
+        window: window
+      }));
+
+      $('#replay').html($battleWindow);
+
+      battle.view = new BattleView({
+        el: $battleWindow,
+        model: battle
+      });
+
+      battle.update(replay.contents);

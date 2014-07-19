@@ -41,7 +41,8 @@ CREATE DATABASE pokebattle_sim;
 Next, you must migrate the database. Simply run:
 
 ```bash
-grunt knexmigrate:latest
+npm install -g knex
+knex migrate:latest
 ```
 
 If you get an error complaining that the `postgres` role doesn't exist, run this: `createuser -s -r postgres`.

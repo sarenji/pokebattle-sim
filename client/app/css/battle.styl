@@ -17,7 +17,6 @@ $screen-width = 400px
 $side-width = ($battle-width - $screen-width) / 2
 
 .battle_window
-  overflow-y auto
   .chat
     left $pane-width
 
@@ -28,7 +27,6 @@ $side-width = ($battle-width - $screen-width) / 2
   bottom 0
   width $pane-width
   box-sizing border-box
-  background $body-color
   padding $padding
   h2
     font-size      0.6875em
@@ -376,6 +374,9 @@ $side-width = ($battle-width - $screen-width) / 2
   .button
     display block
     float none
+    &.disabled
+      .pokemon_icon
+        opacity .5
     .pokemon_icon
       display block
 

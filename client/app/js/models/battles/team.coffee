@@ -100,11 +100,13 @@ class @Team extends Backbone.AssociatedModel
   sync: (method) =>
     switch method
       when 'create', 'patch', 'update'
-        @trigger('saving', this)
+        @set('saving', true, silent: true)
+        @trigger('remoteSync', this)
         PokeBattle.primus.send 'saveTeam', @toJSON(), (id) =>
           # Note: If this model is saved multiple times, then this won't
           # tell you if some of the saves failed.
           @set('id', id)
-          @trigger('saved', this)
+          @set('saving', false, silent: true)
+          @trigger('remoteSync', this)
       when 'delete'
         PokeBattle.primus.send('destroyTeam', @id)  if @id
