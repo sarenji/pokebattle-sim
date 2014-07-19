@@ -21,7 +21,7 @@ class @BattleController
   getPlayerIds: ->
     @battle.playerIds
 
-  # Returns all the names of players participating in this battle. 
+  # Returns all the names of players participating in this battle.
   # These names may be masked by alts
   getPlayerNames: ->
     @battle.playerNames

@@ -37,7 +37,7 @@ MAX_ALT_LENGTH = 15
     redis.hsetnx ALTS_KEY, altName, userId, (err, success) ->
       return next(err) if err
       return next(new Error("This alt name is already in use"))  if not success
-      
+
       # If we got this far, adding the alt succeeded
       # Add it to the list of user's alts, and then call next
       redis.rpush altListKey, altName, ->

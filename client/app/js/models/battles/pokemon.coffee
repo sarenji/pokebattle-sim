@@ -189,7 +189,7 @@ class @Pokemon extends Backbone.Model
     for nature, stats of natures
       name = nature[0].toUpperCase() + nature.substr(1)
       invertedStats = _(stats).invert()
-      
+
       label = name
       if invertedStats[PLUS]
         # This nature has an effect, so update the label

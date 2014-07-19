@@ -115,7 +115,7 @@
     html = JST['alt_dropdown'](alts: PokeBattle.alts.list, username: PokeBattle.username)
     $wrapper.find('.alt-dropdown').html(html)
 
-  # Selecting an alt from the dropdown 
+  # Selecting an alt from the dropdown
   $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
     selectedAlt = $(this).data('alt-name')
     $wrapper.find('.select-alt').html($(this).html())
@@ -153,7 +153,7 @@
     format = $target.data('format')
     $selectFormat.text($target.text())
     $selectFormat.data('format', format)
-  
+
   # Select non-alt option
   $wrapper.find('.select-alt').html(JST['alt_dropdown'](alt: null, username: PokeBattle.username))
 

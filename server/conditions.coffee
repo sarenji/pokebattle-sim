@@ -158,7 +158,7 @@ createCondition Conditions.RATED_BATTLE,
       index = @getPlayerIndex(winnerId)
       loserId = @playerIds[1 - index]
       ratings = require './ratings'
-      
+
       winner = @getPlayer(winnerId)
       loser = @getPlayer(loserId)
 
@@ -168,15 +168,15 @@ createCondition Conditions.RATED_BATTLE,
       ratings.getRatings [ winnerId, loserId ], (err, oldRatings) =>
         ratings.updatePlayers winnerId, loserId, ratings.results.WIN, (err, result) =>
           return @message "An error occurred updating rankings :("  if err
-          
+
           oldRating = Math.floor(oldRatings[0])
           newRating = Math.floor(result[0])
           @cannedText('RATING_UPDATE', index, oldRating, newRating)
-          
+
           oldRating = Math.floor(oldRatings[1])
           newRating = Math.floor(result[1])
           @cannedText('RATING_UPDATE', 1 - index, oldRating, newRating)
-          
+
           @emit('ratingsUpdated')
           @sendUpdates()
 

@@ -13,7 +13,7 @@ class @SidebarView extends Backbone.View
 
   initialize: (attributes) =>
     @currentWindow = null
-    
+
     @listenTo(PokeBattle.battles, 'add', @addBattle)
     @listenTo(PokeBattle.battles, 'remove', @removeBattle)
     @listenTo(PokeBattle.battles, 'reset', @resetBattles)
@@ -23,7 +23,7 @@ class @SidebarView extends Backbone.View
     @listenTo(PokeBattle.messages, 'close', @removeMessage)
     @listenTo(PokeBattle.messages, 'reset', @resetMessages)
     @listenTo(PokeBattle.messages, 'change:notifications', @renderMessageNotifications)
-    
+
     @render()
 
   showTeambuilder: =>

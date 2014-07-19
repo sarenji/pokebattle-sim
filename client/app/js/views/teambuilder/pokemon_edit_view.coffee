@@ -66,13 +66,13 @@ class @PokemonEditView extends Backbone.View
     @speciesList = (species for species, data of SpeciesData)
     # TODO: filter irrelevant items
     @itemList = (_(itemName for itemName, data of ItemData).sort())
-    
+
     @render()
 
   setPokemon: (pokemon) =>
     # Stop listening for change events on the previously set pokemon
     @stopListening(@pokemon)  if @pokemon
-    
+
     @pokemon = pokemon
     @listenTo(pokemon, 'change:level', @renderStats)
     @listenTo(pokemon, 'change:ivs', @renderStats)
@@ -255,7 +255,7 @@ class @PokemonEditView extends Backbone.View
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
-    
+
     # The blur event may have been cancelled, so when removing the input also
     # remove the filter
     if $input.is(":focus")
@@ -372,7 +372,7 @@ class @PokemonEditView extends Backbone.View
       $select = $nonStats.find(searchStr).empty()
       for pair in valueTextPairs
         value = text = pair
-        if pair instanceof Array 
+        if pair instanceof Array
           value = pair[0]
           text = pair[1]
 
@@ -430,7 +430,7 @@ class @PokemonEditView extends Backbone.View
     @$('.remaining-evs-amount')
       .text(remainingEvs)
       .toggleClass("over-limit", remainingEvs < 0)
-    
+
     @$('.select-hidden-power').val(@pokemon.get('hiddenPowerType'))
 
   renderMoves: =>

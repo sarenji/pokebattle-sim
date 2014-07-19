@@ -160,7 +160,7 @@ class @TeambuilderView extends Backbone.View
   setSelectedPokemonIndex: (index) =>
     pokemon = @getSelectedTeam().at(index)
     @selectedPokemon = index
-    
+
     # Render the pokemon
     @pokemonEditView.setPokemon(pokemon)
     @renderPokemon(pokemon)
@@ -252,7 +252,7 @@ class @TeambuilderView extends Backbone.View
       individualPBV = pokemon.getPBV()
       $listItem = @$(".pokemon_list li[data-pokemon-cid=#{pokemon.cid}]")
       $listItem.find(".pbv-value").text(individualPBV)
-    
+
     totalPBV = @getSelectedTeam().getPBV()
     @pokemonEditView.setTeamPBV(totalPBV)
     @pokemonEditView.renderPBV()

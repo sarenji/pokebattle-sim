@@ -181,7 +181,7 @@ class @BattleServer
         @rejectChallenge(player, challengerId)
 
   # Adds the player to the queue. Note that there is no validation on whether altName
-  # is correct, so make 
+  # is correct, so make
   queuePlayer: (playerId, team, format = DEFAULT_FORMAT, altName) ->
     if @isLockedDown()
       err = ["The server is restarting after all battles complete. No new battles can start at this time."]
@@ -241,15 +241,15 @@ class @BattleServer
       # Add/remove player ids to/from user battles
       @userBattles[player.id] ?= {}
       @userBattles[player.id][battleId] = true
-      
+
       # Add the player to the list if its not an alt
       if player.id == player.ratingKey  # hacky - but no alternative right now
         @visibleUserBattles[player.id] ?= {}
         @visibleUserBattles[player.id][battleId] = true
-      
+
       battle.once 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
       battle.once 'expire', @removeBattle.bind(this, battleId)
-    
+
     @battles[battleId].beginBattle()
     battleId
 

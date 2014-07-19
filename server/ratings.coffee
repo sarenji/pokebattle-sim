@@ -44,7 +44,7 @@ updateMaxRating = (id, next) =>
   id = alts.getIdOwner(id).toLowerCase()
   alts.listUserAlts id, (err, altNames) =>
     return next(err)  if err
-    
+
     # Retrieve a list of all rating Keys
     ids = (alts.uniqueId(id, name) for name in altNames)
     ids.push(id)

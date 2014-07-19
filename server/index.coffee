@@ -300,7 +300,7 @@ CLIENT_VERSION = assets.getVersion()
         callback()
       else
         user.error(errors.BATTLE_DNE)
-    
+
     spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
       return  unless _.isFinite(toSlot)
       return  unless _.isFinite(fromSlot)
