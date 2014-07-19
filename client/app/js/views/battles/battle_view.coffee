@@ -1111,13 +1111,17 @@ class @BattleView extends Backbone.View
     done()
 
   handleEnd: (battle, end) =>
-    @disableButtons()
-    @$('.battle_actions').html(@battle_end_template({window}))
+    if @shouldRenderEnd()
+      @disableButtons()
+      @$('.battle_actions').html(@battle_end_template({window}))
     clearTimeout(@countdownTimersId)
 
   handleRemoval: (battle) =>
     if battle == @model
       @remove()
+
+  shouldRenderEnd: =>
+    PokeBattle.primus?
 
   saveReplay: (e) =>
     $replayButton = $(e.currentTarget)
