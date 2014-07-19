@@ -8,6 +8,7 @@ assetPaths = '''
 js/data.js
 js/vendor.js
 js/templates.js
+js/replays.js
 js/app.js
 css/main.css
 css/vendor.css

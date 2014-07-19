@@ -42,7 +42,7 @@ namespace :sim do
 
   desc "migrates the database"
   task :migrate do
-    run "cd #{release_path} && ./node_modules/knex/lib/bin/cli.js migrate:latest"
+    run "cd #{release_path} && NODE_ENV=#{fetch(:node_env)} ./node_modules/knex/lib/bin/cli.js migrate:latest"
   end
 end
 
