@@ -141,6 +141,7 @@ CannedText =
       SLOW_START_END: "$p finally got its act together!"
       WITHDREW: "$t withdrew $p!"
       SENT_OUT: "$t sent out $p!"
+      SWAP_ABILITY: "$p swapped Abilities with its target!"
 
 cannedMap = {}
 cannedMapReverse = {}

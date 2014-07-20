@@ -1624,6 +1624,22 @@ extendMove 'Simple Beam', ->
     else
       @fail(battle, user)
 
+extendMove 'Skill Swap', ->
+  bannedAbilities =
+    "Illusion": true
+    "Wonder Guard": true
+
+  @canSwapSameAbilities = false
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if user.hasChangeableAbility() && target.hasChangeableAbility() &&
+        user.ability.displayName not of bannedAbilities &&
+        target.ability.displayName not of bannedAbilities &&
+        (user.ability != target.ability || @canSwapSameAbilities)
+      user.swapAbilityWith(target)
+    else
+      @fail(battle)
+
 extendMove 'Sleep Talk', ->
   bannedMoves = [
     "Assist"
