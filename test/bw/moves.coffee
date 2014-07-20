@@ -7458,3 +7458,39 @@ describe "BW Moves:", ->
       mock = @sandbox.mock(helpingHand).expects('fail').once()
       @battle.performMove(@p1, helpingHand)
       mock.verify()
+
+  describe "Skill Swap", ->
+    it "swaps the user's ability with the target's", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Smeargle", ability: "Own Tempo")]
+      @battle.performMove(@p1, @battle.getMove('Skill Swap'))
+      @p1.hasAbility("Own Tempo").should.be.true
+      @p2.hasAbility("Swift Swim").should.be.true
+
+    it "cannot swap some abilities", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Shedinja", ability: "Wonder Guard")]
+      skillSwap = @battle.getMove("Skill Swap")
+      mock = @sandbox.mock(skillSwap).expects('fail').once()
+      @battle.performMove(@p1, skillSwap)
+      mock.verify()
+
+    it "cannot swap the abilities if they are the same", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Magikarp", ability: "Swift Swim")]
+      skillSwap = @battle.getMove("Skill Swap")
+      mock = @sandbox.mock(skillSwap).expects('fail').once()
+      @battle.performMove(@p1, skillSwap)
+      mock.verify()
+
+    it "activates abilities after swapping", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Gyarados", ability: "Intimidate")]
+      @battle.performMove(@p1, @battle.getMove('Skill Swap'))
+      @p1.hasAbility("Intimidate").should.be.true
+      @p2.hasAbility("Swift Swim").should.be.true
+      @p2.stages.should.containEql(attack: -1)

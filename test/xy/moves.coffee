@@ -649,3 +649,14 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
       @p1.stages.should.containEql attack: 0
+
+  describe "Skill Swap", ->
+    it "can swap the abilities if they are the same", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Magikarp", ability: "Swift Swim")]
+      skillSwap = @battle.getMove("Skill Swap")
+      mock = @sandbox.mock(skillSwap).expects('fail').never()
+      @battle.performMove(@p1, skillSwap)
+      mock.verify()

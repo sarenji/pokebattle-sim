@@ -273,12 +273,33 @@ class @Pokemon
     @unattach(ailment)
     return true
 
+  setAbility: (ability) ->
+    @unattach(@ability)  if @ability
+    @ability = ability
+
+  initializeAbility: ->
+    @attach(@ability).switchIn?()  if @ability && !@isAbilityBlocked()
+
   # TODO: really ugly copying of ability
   copyAbility: (ability) ->
-    if @ability
-      @unattach(@ability)
-    @ability = ability
-    @attach(@ability).switchIn?()  if @ability
+    @setAbility(ability)
+    @initializeAbility()
+
+  swapAbilityWith: (target) ->
+    # Abilities are not revealed during the swap
+    # if the user and the target are on the same side
+    if @team != target.team
+      @activateAbility()
+      target.activateAbility()
+    uAbility = @ability
+    @setAbility(target.ability)
+    target.setAbility(uAbility)
+    if @team != target.team
+      @activateAbility()
+      target.activateAbility()
+    @battle.cannedText('SWAP_ABILITY', this)
+    @initializeAbility()
+    target.initializeAbility()
 
   hasChangeableAbility: ->
     !@hasAbility("Multitype")
