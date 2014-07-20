@@ -28,7 +28,7 @@ parseCommand = (line) ->
     return [commandName, args]
   return null
 
-PokeBattle.commands.execute = (line) ->
+PokeBattle.commands.execute = (room, line) ->
   result = parseCommand(line)
   return false  if !result
   [commandName, args] = result
@@ -36,13 +36,12 @@ PokeBattle.commands.execute = (line) ->
   if !command
     # Fall-through to server.
     return false
-  command(args...)
+  command(room, args...)
   return true
 
 desc 'Displays a list of all commands.'
-makeCommand "commands", "help", "h", ->
-  user = PokeBattle.userList.get(PokeBattle.username)
-  return  unless user
+makeCommand "commands", "help", "h", (room) ->
+  user = room.get('users').get(PokeBattle.username)
 
   for level, descriptions of HelpDescriptions
     level = Number(level)
@@ -56,10 +55,11 @@ makeCommand "commands", "help", "h", ->
     for name, description of descriptions
       message.push("<b>/#{name}:</b> #{description}")
     message = message.join("<br>")
-    PokeBattle.chatView.announce('success', message)
+    room.announce('success', message)
+  true
 
 desc 'Opens the challenge for a specific user. Usage: /challenge username'
-makeCommand "challenge", "chall", "c", (username) ->
+makeCommand "challenge", "chall", "c", (room, username) ->
   if !username
     PokeBattle.events.trigger("errorMessage", "Usage: /challenge username")
     return
@@ -67,7 +67,7 @@ makeCommand "challenge", "chall", "c", (username) ->
   message.openChallenge(username)
 
 desc 'Private messages a certain user. Usage: /message username, message'
-makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
+makeCommand "message", "msg", "pm", "whisper", "w", (room, username, messages...) ->
   username = username?.trim()
   if !username
     PokeBattle.events.trigger("errorMessage", "Usage: /message username, msg")
@@ -82,11 +82,11 @@ makeCommand "message", "msg", "pm", "whisper", "w", (username, messages...) ->
     message.trigger('open', message)
 
 desc 'Clears the chat.'
-makeCommand "clear", ->
-  PokeBattle.chatView.clear()
+makeCommand "clear", (room) ->
+  room.clear()
 
 desc 'Displays a Pokemon\'s PokeBattle value, or displays all Pokemon at or under a particular PBV. Usage: /pbv pkmn1, pkmn2, OR /pbv number'
-makeCommand "pbv", (pokemon...) ->
+makeCommand "pbv", (room, pokemon...) ->
   pbv = Number(pokemon[0])
   if !isNaN(pbv)
     messages = findPokemonAtPBV(pbv)
@@ -94,11 +94,9 @@ makeCommand "pbv", (pokemon...) ->
     messages = findTotalPBV(pokemon)
 
   if messages.length == 0
-    PokeBattle.chatView.announce('error',
-      "<b>PBV error:</b> Enter valid Pokemon or PBV.")
+    room.announce('error', "<b>PBV error:</b> Enter valid Pokemon or PBV.")
   else
-    PokeBattle.chatView.announce('success',
-      "<b>PBV:</b> #{messages.join('; ')}")
+    room.announce('success', "<b>PBV:</b> #{messages.join('; ')}")
 
 findPokemonAtPBV = (pbv) ->
   messages = []
@@ -140,18 +138,20 @@ findTotalPBV = (pokemon) ->
   messages
 
 desc 'Looks up information about a Pokemon, move, item, or ability.'
-makeCommand "data", "dex", (query) ->
+makeCommand "data", "dex", (room, query) ->
   if (pokemon = findPokemon(query))
-    dataPokemon(pokemon)
+    message = dataPokemon(pokemon)
   else if (item = findItem(query))
-    dataItem(item)
+    message = dataItem(item)
   else if (move = findMove(query))
-    dataMove(move)
+    message = dataMove(move)
   else if (ability = findAbility(query))
-    dataAbility(ability)
+    message = dataAbility(ability)
   else
-    PokeBattle.chatView.announce("error",
-      "<b>Data error:</b> Enter a valid Pokemon, item, move, or ability.</div>")
+    room.announce("error", "<b>Data error:</b> Enter a valid Pokemon, item,
+      move, or ability.</div>")
+    return
+  room.announce('success', message)
 
 dataPokemon = (pokemon) ->
   [speciesName, formeName] = pokemon
@@ -185,7 +185,7 @@ dataPokemon = (pokemon) ->
     #{linkToDex("pokemon/#{speciesSlug}/#{formeSlug}", "See dex entry &raquo;")}
     </p>
     """
-  PokeBattle.chatView.announce('success', message)
+  message
 
 dataItem = (itemName) ->
   item = window.Generations.XY.ItemData[itemName]
@@ -194,7 +194,7 @@ dataItem = (itemName) ->
     and has #{item.naturalGift.power} base power."  if item.naturalGift
   message += " Fling has #{item.flingPower} base power."  if item.flingPower
   message += " Currently unreleased in Gen 6."  if item.unreleased
-  PokeBattle.chatView.announce('success', message)
+  message
 
 dataMove = (moveName) ->
   move = window.Generations.XY.MoveData[moveName]
@@ -219,14 +219,14 @@ dataMove = (moveName) ->
   message += " "
   message += linkToDex("moves/#{slugify(moveName)}",
     "See who learns this move &raquo;")
-  PokeBattle.chatView.announce('success', message)
+  message
 
 dataAbility = (abilityName) ->
   ability = window.Generations.XY.AbilityData[abilityName]
   message = """<b>#{abilityName}:</b> #{ability.description}
     #{linkToDex("abilities/#{slugify(abilityName)}",
       "See who obtains this ability &raquo;")}"""
-  PokeBattle.chatView.announce('success', message)
+  message
 
 # Finds the most lenient match possible.
 findPokemon = (pokemonName) ->

@@ -54,6 +54,12 @@ class @BattleServer
     # Battles can start.
     @unlockdown()
 
+  hasRoom: (roomId) ->
+    !!@getRoom(roomId)
+
+  getRoom: (roomId) ->
+    _.find(@rooms, (room) -> room.name == roomId)
+
   # Creates a new user or finds an existing one, and adds a spark to it
   findOrCreateUser: (json, spark) ->
     user = @users.get(json.name)

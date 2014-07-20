@@ -109,20 +109,21 @@ CLIENT_VERSION = assets.getVersion()
     console.error(err.message, err.stack)
 
   attachEvents = (user, spark) ->
-    spark.on 'sendChat', (message) ->
+    spark.on 'sendChat', (roomId, message) ->
       return  unless _.isString(message)
       return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
+      return  unless room = server.getRoom(roomId)
       if message[0] == '/' && message[1] == '/'
         message = message[1...]
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
       else if message[0] == '/'
         command = message.replace(/\s+.*$/, '')
         args = message.substr(command.length).replace(/^\s+/, '')
         command = command.substr(1)
         args = args.split(',')
-        commands.executeCommand(server, user, lobby, command, args...)
+        commands.executeCommand(server, user, room, command, args...)
       else
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
 
     spark.on 'sendBattleChat', (battleId, message) ->
       return  unless _.isString(message)

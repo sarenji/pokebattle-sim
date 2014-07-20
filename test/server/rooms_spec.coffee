@@ -26,14 +26,14 @@ describe "A server room:", ->
       mock1.verify()
       mock2.verify()
 
-  describe "#userMessage", ->
+  describe "#rawMessage", ->
     it "sends a message to all users in that room", ->
       mock1 = @sandbox.mock(@user1).expects('send')
-      mock1.withArgs("updateChat", @user1.name, "hello").once()
+      mock1.withArgs("rawMessage", @user1.name, "hello").once()
       mock2 = @sandbox.mock(@user2).expects('send').once()
-      mock2.withArgs("updateChat", @user1.name, "hello").once()
+      mock2.withArgs("rawMessage", @user1.name, "hello").once()
 
-      @room.userMessage(@user1, "hello")
+      @room.rawMessage(@user1, "hello")
       mock1.verify()
       mock2.verify()
 

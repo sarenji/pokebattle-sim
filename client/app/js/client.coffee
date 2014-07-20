@@ -2,43 +2,43 @@ return  if PokeBattle.autoConnect == false
 
 PokeBattle.primus = Primus.connect()
 
-PokeBattle.primus.on 'listChatroom', (users) ->
-  PokeBattle.userList.reset(users)
+PokeBattle.primus.on 'listChatroom', (id, users) ->
+  room = PokeBattle.rooms.add(id: id, users: users)
+  new ChatView(model: room, el: $('#main-section .chat')).render()
+  # TODO: Create ChatView
+  # Note: have to figure out how to create it for regular rooms and then battle rooms...
 
-PokeBattle.primus.on 'updateChat', (username, data) ->
-  PokeBattle.chatView.userMessage(username, data)
+PokeBattle.primus.on 'userMessage', (id, username, data) ->
+  room = PokeBattle.rooms.get(id)
+  room.userMessage(username, data)
 
-PokeBattle.primus.on 'updateBattleChat', (battleId, username, data) ->
-  PokeBattle.battles.get(battleId)?.view.chatView.userMessage(username, data)
+PokeBattle.primus.on 'rawMessage', (id, message) ->
+  room = PokeBattle.rooms.get(id)
+  room.rawMessage(message)
 
-PokeBattle.primus.on 'rawBattleMessage', (battleId, message) ->
-  PokeBattle.battles.get(battleId)?.view.chatView.updateChat(message)
+PokeBattle.primus.on 'announce', (id, klass, message) ->
+  room = PokeBattle.rooms.get(id)
+  room.announce(klass, message)
 
-PokeBattle.primus.on 'rawMessage', (message) ->
-  PokeBattle.chatView.updateChat(message)
+PokeBattle.primus.on 'joinChatroom', (id, user) ->
+  room = PokeBattle.rooms.get(id)
+  room.get('users').add(user)
 
-PokeBattle.primus.on 'announce', (klass, message) ->
-  PokeBattle.chatView.announce(klass, message)
+PokeBattle.primus.on 'leaveChatroom', (id, user) ->
+  room = PokeBattle.rooms.get(id)
+  room.get('users').remove(user)
 
-PokeBattle.primus.on 'joinChatroom', (userJSON) ->
-  PokeBattle.userList.add(userJSON)
-
-PokeBattle.primus.on 'leaveChatroom', (userJSON) ->
-  PokeBattle.userList.remove(userJSON)
-
-PokeBattle.primus.on 'topic', (topic) ->
-  PokeBattle.chatView.setTopic(topic)
+PokeBattle.primus.on 'topic', (id, topic) ->
+  room = PokeBattle.rooms.get(id)
+  room.setTopic(topic)
 
 PokeBattle.userList = new UserList()
 PokeBattle.battles = new BattleCollection([])
 PokeBattle.messages = new PrivateMessages([])
+PokeBattle.rooms = new Rooms([])
 
 $ ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"))
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))
-  PokeBattle.chatView = new ChatView(
-    el: $('.chat_window .chat')
-    collection: PokeBattle.userList
-  ).render()
   new PrivateMessagesView(el: $("#messages"), collection: PokeBattle.messages)

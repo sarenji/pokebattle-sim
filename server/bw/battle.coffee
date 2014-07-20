@@ -42,6 +42,7 @@ class @Battle extends EventEmitter
         @performMove(action.pokemon, action.move)
 
   constructor: (@id, @players, attributes = {}) ->
+    super(@id)
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 

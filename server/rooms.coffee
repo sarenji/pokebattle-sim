@@ -10,7 +10,7 @@ class @Room extends EventEmitter
     @sparks = []
 
   add: (spark) ->
-    @send('joinChatroom', spark.user.toJSON())  unless @users[spark.user.id]
+    @send('joinChatroom', @name, spark.user.toJSON())  unless @users[spark.user.id]
     @sparks.push(spark)
 
     userId = spark.user.id
@@ -19,7 +19,7 @@ class @Room extends EventEmitter
       @users[userId] = spark.user
     else
       @userCounts[userId] += 1
-    spark.send('listChatroom', @toJSON())
+    spark.send('listChatroom', @name, @toJSON())
 
   remove: (spark) ->
     index = @sparks.indexOf(spark.user)
@@ -28,18 +28,18 @@ class @Room extends EventEmitter
     userId = spark.user.id
     @userCounts[userId] -= 1
     if @userCounts[userId] == 0
-      @send('leaveChatroom', spark.user.name)
+      @send('leaveChatroom', @name, spark.user.name)
       delete @users[userId]
       delete @userCounts[userId]
 
   userMessage: (user, message) ->
-    @send('updateChat', user.name, message)
+    @send('userMessage', @name, user.name, message)
 
   message: (message) ->
-    @send('rawMessage', message)
+    @send('rawMessage', @name, message)
 
   announce: (klass, message) ->
-    @send('announce', klass, message)
+    @send('announce', @name, klass, message)
 
   send: ->
     user.send.apply(user, arguments)  for name, user of @users
