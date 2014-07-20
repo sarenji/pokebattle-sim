@@ -17,7 +17,7 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
   ability = @FormeData[species][forme]["abilities"][0]
   ability = Ability[ability.replace(/\s+/g, '')]
-  pokemon.copyAbility(ability)
+  pokemon.copyAbility(ability, reveal: false)
   # We set the original ability to this ability so that the ability
   # is not reset upon switch out.
   pokemon.originalAbility = ability

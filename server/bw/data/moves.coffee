@@ -583,8 +583,8 @@ extendMove 'Entrainment', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if user.hasChangeableAbility() && user.ability.displayName not of bannedSourceAbilities && target.hasChangeableAbility() && target.ability.displayName != 'Truant'
-      battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
       target.copyAbility(user.ability)
+      battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
     else
       @fail(battle, user)
 
@@ -1598,8 +1598,8 @@ extendMove 'Role Play', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if user.hasChangeableAbility() && target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities && user.ability != target.ability
-      battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
       user.copyAbility(target.ability)
+      battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
     else
       @fail(battle, user)
 
@@ -1619,8 +1619,8 @@ extendMove 'Simple Beam', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
       target.copyAbility(Ability.Simple)
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
     else
       @fail(battle, user)
 
@@ -1874,8 +1874,8 @@ extendMove 'Worry Seed', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
       target.copyAbility(Ability.Insomnia)
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
     else
       @fail(battle, user)
 

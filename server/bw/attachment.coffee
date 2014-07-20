@@ -1216,7 +1216,7 @@ class @Attachment.Transform extends @VolatileAttachment
     {@ability, @moves, @stages, @baseStats, @evs} = @pokemon
     {@types, @gender, @weight, @ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
-    @pokemon.copyAbility(target.ability)
+    @pokemon.copyAbility(target.ability, reveal: false)
     @pokemon.gender = target.gender
     @pokemon.weight = target.weight
     # The rest aren't.

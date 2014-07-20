@@ -645,8 +645,8 @@ makeAbility 'Mummy', ->
   this::afterBeingHit = (move, user) ->
     if move.hasFlag("contact") && user.hasChangeableAbility() && !user.hasAbility("Mummy")
       @pokemon.activateAbility()
-      @battle.cannedText('MUMMY', user)
       user.copyAbility(@constructor)
+      @battle.cannedText('MUMMY', user)
 
 makeAbility 'Natural Cure', ->
   this::switchOut = ->
@@ -937,9 +937,8 @@ makeAbility 'Trace', ->
     return  if abilities.length == 0
     ability = @battle.rng.choice(abilities, "trace")
     # TODO: Display whose ability it traced.
-    @pokemon.activateAbility()
-    @battle.cannedText('TRACE', ability)
     @pokemon.copyAbility(ability)
+    @battle.cannedText('TRACE', ability)
 
 makeAbility 'Truant', ->
   this::initialize = ->
