@@ -552,3 +552,16 @@ describe 'Mechanics', ->
       should.exist(request)
       request.should.have.property('moves')
       request.moves.should.eql(["Struggle"])
+
+  describe "Ability activation at the beginning of a battle", ->
+    it "considers Abilities that are always active", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Clear Body")]
+        team2: [Factory("Magikarp", ability: "Intimidate")]
+      @p1.stages.should.containEql(attack: 0)
+
+    xit "works the same way regardless of the entry order", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Intimidate")]
+        team2: [Factory("Magikarp", ability: "Clear Body")]
+      @p2.stages.should.containEql(attack: 0)
