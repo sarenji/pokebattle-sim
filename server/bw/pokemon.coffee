@@ -281,8 +281,11 @@ class @Pokemon
     @attach(@ability).switchIn?()  if @ability && !@isAbilityBlocked()
 
   # TODO: really ugly copying of ability
-  copyAbility: (ability) ->
+  copyAbility: (ability, options = {}) ->
+    shouldShow = options.reveal ? true
+    @activateAbility()  if shouldShow
     @setAbility(ability)
+    @activateAbility()  if shouldShow
     @initializeAbility()
 
   swapAbilityWith: (target) ->
