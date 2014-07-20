@@ -32,6 +32,7 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
+    @room = PokeBattle.rooms.add(id: @model.id, users: @model.get('spectators'))
     try
       @speed = Number(window.localStorage.getItem('battle_speed'))
     catch
@@ -97,10 +98,8 @@ class @BattleView extends Backbone.View
   renderChat: =>
     @chatView = new ChatView(
       el: @$('.chat')
-      collection: @model.spectators
+      model: @room
       noisy: true
-      chatEvent: 'sendBattleChat'
-      chatArgs: [ @model.id ]
     ).render()
     if @hasSpectators()
       @showSpectators()

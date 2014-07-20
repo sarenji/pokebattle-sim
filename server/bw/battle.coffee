@@ -9,11 +9,11 @@
 {Protocol} = require '../../shared/protocol'
 {CannedText} = require('../../shared/canned_text')
 Query = require './queries'
-{EventEmitter} = require 'events'
+{Room} = require '../rooms'
 logger = require '../logger'
 
 # Represents a single ongoing battle
-class @Battle extends EventEmitter
+class @Battle extends Room
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
   Moves: Moves
   MoveList: MoveList

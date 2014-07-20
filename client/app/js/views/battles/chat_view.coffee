@@ -28,8 +28,6 @@ class @ChatView extends Backbone.View
     @tabCompleteNames = []
 
   # Sets the channel topic
-  # TODO: Once we have rooms, create a "room" model, and make the topic
-  # update by listening to the model
   setTopic: (topic) =>
     topic = @sanitize(topic)
     @rawMessage("<div class='alert alert-info'><b>Topic:</b> #{topic}</div>")
