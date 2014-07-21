@@ -52,6 +52,9 @@ class @Battle extends EventEmitter
     @conditions = (attributes.conditions && _.clone(attributes.conditions))
     @conditions ||= []
 
+    # Which battle format was selected
+    @format = attributes.format
+
     # Stores the current turn of the battle
     @turn = 0
 
