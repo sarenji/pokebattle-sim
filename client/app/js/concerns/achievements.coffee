@@ -1,2 +1,5 @@
-PokeBattle.primus.on 'achievementEarned', (achievements) ->
-  console.log(achievements)
+currentModal = null
+
+PokeBattle.primus.on 'achievementsEarned', (achievements) ->
+  currentModal.close()  if currentModal
+  currentModal = PokeBattle.modal('modals/achievements', achievements: achievements)
