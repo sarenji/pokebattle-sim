@@ -10,7 +10,7 @@ class @BattleController
     @battle.emit('initialize')
 
   BATTLE_DELEGATES = 'getPlayer isOver sendRequestTo
-              addSpectator removeSpectator'.trim().split(/\s+/)
+              add remove'.trim().split(/\s+/)
 
   for method in BATTLE_DELEGATES
     do (method) =>

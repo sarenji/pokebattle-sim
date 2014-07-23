@@ -770,25 +770,25 @@ describe 'BattleServer', ->
         battle = server.findBattle(battleId).battle
 
         # test spark1
-        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark1)
+        spy = @sandbox.spy(battle, 'remove').withArgs(spark1)
         broadcastSpy = @sandbox.spy(battle, 'broadcast')
-        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt1')
+        broadcastSpy = broadcastSpy.withArgs('leaveChatroom', battle.id, 'alt1')
         server.leave(spark1)
         spark1.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
-        battle.removeSpectator.restore()
+        battle.remove.restore()
         battle.broadcast.restore()
 
         # test spark2
-        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark2)
+        spy = @sandbox.spy(battle, 'remove').withArgs(spark2)
         broadcastSpy = @sandbox.spy(battle, 'broadcast')
-        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt2')
+        broadcastSpy = broadcastSpy.withArgs('leaveChatroom', battle.id, 'alt2')
         server.leave(spark2)
         spark2.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
-        battle.removeSpectator.restore()
+        battle.remove.restore()
         battle.broadcast.restore()
         done()
 

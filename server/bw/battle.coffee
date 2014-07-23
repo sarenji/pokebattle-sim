@@ -73,9 +73,6 @@ class @Battle extends Room
     # Current turn duration for the weather. -1 means infinity.
     @weatherDuration = -1
 
-    # Array of spectators scouting these fine, upstanding players.
-    @spectators = []
-
     # Stores last move used
     @lastMove = null
 
@@ -281,8 +278,8 @@ class @Battle extends Room
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectatorIds = _.unique(@spectators.map((s) -> s.name))
-    @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
+    for id, user of @users
+      @tellPlayer(user.name, args...)
     @log.push(args)
     true
 
@@ -292,8 +289,8 @@ class @Battle extends Room
 
   # Sends a message to every spectator.
   send: ->
-    for spectator in @spectators
-      spectator.send.apply(spectator, arguments)
+    for id, user of @users
+      user.send.apply(user, arguments)
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
@@ -827,21 +824,21 @@ class @Battle extends Room
           else throw new Error("Unrecognized unknown ailment for #{move.name}")
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
-  addSpectator: (spark) ->
+  add: (spark) ->
     user = spark.user
 
     # If this is a player, mask the spectator in case this is an alt
     player = _(@players).find((p) -> p.id == user.name)
 
+    # Find the user's index (if any)
     index = (if player then @getPlayerIndex(player.id) else null)
 
-    if user not in @spectators
-      @broadcast('joinBattle', @id, user.toJSON(alt: @getPlayerName(user.name)))
-      @spectators.push(user)
-
+    # Start spectating battle
     spark.send('spectateBattle',
-      @id, @format, @numActive, index,
-      @playerNames, @spectatorsToJSON(), @log)
+      @id, @format, @numActive, index, @playerNames, @log)
+
+    # Add to internal user store
+    super(spark)
 
     # If this is a player, send them their own team
     if player
@@ -849,22 +846,6 @@ class @Battle extends Room
       @tellPlayer(player.id, Protocol.RECEIVE_TEAM, teamJSON)
 
     @emit('spectateBattle', user)
-
-    spark.on('end', => @removeSpectator(spark))
-
-  removeSpectator: (spark) ->
-    user = spark.user
-    return  if spark.user.hasSparks()
-
-    for s, i in @spectators
-      if user == s
-        @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, @getPlayerName(s.name))
-        break
-
-  spectatorsToJSON: (user) ->
-    @spectators.map (s) =>
-      s.toJSON(alt: @getPlayerName(s.name))
 
   forfeit: (id) ->
     return  if @isOver()
@@ -891,13 +872,9 @@ class @Battle extends Room
     else
       @ONGOING_BATTLE_TTL
 
-  # Proxies arguments the `send` function for all spectators.
-  broadcast: ->
-    s.send.apply(s, arguments)  for s in @spectators
-
   # Sends battle updates to each spectator.
   sendUpdates: ->
-    for user in @spectators
+    for id, user of @users
       userName = user.name
       queue = @queues[userName]
       continue  if !queue || queue.length == 0

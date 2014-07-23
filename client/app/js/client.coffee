@@ -3,10 +3,13 @@ return  if PokeBattle.autoConnect == false
 PokeBattle.primus = Primus.connect()
 
 PokeBattle.primus.on 'listChatroom', (id, users) ->
-  room = PokeBattle.rooms.add(id: id, users: users)
-  new ChatView(model: room, el: $('#main-section .chat')).render()
-  # TODO: Create ChatView
-  # Note: have to figure out how to create it for regular rooms and then battle rooms...
+  if room = PokeBattle.rooms.get(id: id)
+    room.reset(users: users)
+  else
+    room = PokeBattle.rooms.add(id: id, users: users)
+    new ChatView(model: room, el: $('#main-section .chat')).render()
+    # TODO: Create ChatView
+    # Note: have to figure out how to create it for regular rooms and then battle rooms...
 
 PokeBattle.primus.on 'userMessage', (id, username, data) ->
   room = PokeBattle.rooms.get(id)

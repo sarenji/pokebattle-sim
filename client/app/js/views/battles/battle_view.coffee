@@ -32,12 +32,11 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
-    @room = PokeBattle.rooms.add(id: @model.id, users: @model.get('spectators'))
+    @room = PokeBattle.rooms.add(id: @model.id, users: [])
     try
       @speed = Number(window.localStorage.getItem('battle_speed'))
     catch
     @speed ||= 1
-    @render()
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
     @listenTo(@model, 'change:finished', @handleEnd)
@@ -48,10 +47,12 @@ class @BattleView extends Backbone.View
     @timerFrozenAt = []
     @timerIterations = 0
     @countdownTimers()
+    @render()
 
   render: =>
     @renderChat()
     # rendering the battle depends on a protocol being received
+    this
 
   renderBattle: =>
     locals =
@@ -94,6 +95,7 @@ class @BattleView extends Backbone.View
   renderControls: =>
     html = @battle_controls_template(speeds: @SPEEDS, currentSpeed: @speed)
     @$el.find('.battle-controls').html(html)
+    this
 
   renderChat: =>
     @chatView = new ChatView(

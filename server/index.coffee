@@ -125,19 +125,9 @@ CLIENT_VERSION = assets.getVersion()
       else
         server.userMessage(room, user, message)
 
-    spark.on 'sendBattleChat', (battleId, message) ->
-      return  unless _.isString(message)
-      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
-
-      if battle = server.findBattle(battleId)
-        # TODO: Use `userMessage` instead once rooms are implemented
-        auth.getMuteTTL user.name, (err, ttl) ->
-          if ttl == -2
-            battle.messageSpectators(user, message)
-          else
-            user.announce('warning', "You are muted for another #{ttl} seconds!")
-      else
-        user.error(errors.BATTLE_DNE)
+    spark.on 'leaveChatroom', (roomId) ->
+      return  unless _.isString(roomId)
+      server.getRoom(roomId)?.remove(spark)
 
     # After the `end` event, each listener should automatically disconnect.
     spark.on 'end', ->
@@ -329,13 +319,7 @@ CLIENT_VERSION = assets.getVersion()
 
     spark.on 'spectateBattle', (battleId) ->
       if battle = server.findBattle(battleId)
-        battle.addSpectator(spark)
-      else
-        user.error(errors.BATTLE_DNE)
-
-    spark.on 'leaveBattle', (battleId) ->
-      if battle = server.findBattle(battleId)
-        battle.removeSpectator(spark)
+        battle.add(spark)
       else
         user.error(errors.BATTLE_DNE)
 

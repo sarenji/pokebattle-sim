@@ -6,7 +6,7 @@ class @SidebarView extends Backbone.View
     "click .nav_rooms li"   : 'focusRoomEvent'
     "click .nav_battles li" : 'focusBattleEvent'
     "click .nav_messages li": 'focusMessageEvent'
-    "click .nav_battles .close" : 'leaveBattleEvent'
+    "click .nav_battles .close" : 'leaveRoomEvent'
     "click .nav_messages .close" : 'closeMessageEvent'
     "click .nav_teambuilder": 'showTeambuilder'
     "click .nav_battle_list": 'showBattleList'
@@ -122,7 +122,7 @@ class @SidebarView extends Backbone.View
     @changeWindowTo($room, $lobbyLink)
     PokeBattle.router.navigate("")
 
-  leaveBattleEvent: (e) =>
+  leaveRoomEvent: (e) =>
     $navItem = $(e.currentTarget).closest('.nav_item')
     battleId = $navItem.data('battle-id')
     battle   = PokeBattle.battles.get(battleId)
