@@ -504,6 +504,8 @@ describe "XY Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
+  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"])
+  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"])
   testChargeMove('Geomancy')
   testChargeMove('Phantom Force', [])
 
