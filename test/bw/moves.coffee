@@ -5270,10 +5270,10 @@ describe "BW Moves:", ->
   testChargeMove('Skull Bash')
   testChargeMove('Razor Wind')
   testChargeMove('Shadow Force', [])
-  testChargeMove('Ice Burn', [])
-  testChargeMove('Freeze Shock', [])
-  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])
-  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])  # Additional 30% chance to par
+  testChargeMove('Ice Burn')
+  testChargeMove('Freeze Shock')
+  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"])
+  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"])  # Additional 30% chance to par
   testChargeMove('Dig', ["Earthquake", "Magnitude"])
   testChargeMove('Dive', ["Surf", "Whirlpool"])
   testChargeMove('SolarBeam')
