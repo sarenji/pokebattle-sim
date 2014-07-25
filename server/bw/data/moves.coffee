@@ -444,6 +444,14 @@ makeTrappingMove = (name) ->
 
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
 
+makeIgnoreStagesMove = (name) ->
+  extendMove name, ->
+    oldExecute = @execute
+    @execute = (battle, user, targets) ->
+      target.attach(Attachment.ChipAway)  for target in targets
+      oldExecute.call(this, battle, user, targets)
+      target.unattach(Attachment.ChipAway)  for target in targets
+
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'Baton Pass', ->
@@ -496,13 +504,7 @@ extendMove 'Charge', ->
     battle.message "#{user.name} began charging power!"
     oldUse.call(this, battle, user, target)
 
-extendMove 'Chip Away', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    target.attach(Attachment.ChipAway)  for target in targets
-    oldExecute.call(this, battle, user, targets)
-    target.unattach(Attachment.ChipAway)  for target in targets
-
+makeIgnoreStagesMove 'Chip Away'
 makeRandomSwitchMove "Circle Throw"
 makeTrappingMove "Clamp"
 
@@ -735,6 +737,7 @@ extendMove 'Roost', ->
     user.attach(Attachment.Roost)
 
 extendMove 'Sacred Fire', -> @thawsUser = true
+makeIgnoreStagesMove 'Sacred Sword'
 makeWeatherMove 'Sandstorm', Weather.SAND
 makeTrappingMove "Sand Tomb"
 extendMove 'Scald', -> @thawsUser = true
