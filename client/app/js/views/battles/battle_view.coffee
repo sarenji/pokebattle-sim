@@ -32,7 +32,7 @@ class @BattleView extends Backbone.View
     @chatView = null
     @lastMove = null
     @skip     = null
-    @room = PokeBattle.rooms.add(id: @model.id, users: [])
+    @room = PokeBattle.rooms?.add(id: @model.id, users: [])
     try
       @speed = Number(window.localStorage.getItem('battle_speed'))
     catch
@@ -40,7 +40,7 @@ class @BattleView extends Backbone.View
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
     @listenTo(@model, 'change:finished', @handleEnd)
-    if @room.has('users')
+    if @room
       @listenTo(@room.get('users'), 'add remove reset', @renderSpectators)
     @listenTo(@model.collection, 'remove', @handleRemoval)  if @model.collection
     @battleStartTime = $.now()
@@ -105,15 +105,7 @@ class @BattleView extends Backbone.View
       model: @room
       noisy: true
     ).render()
-    @renderSpectators()
     this
-
-  renderSpectators: =>
-    if @hasSpectators()
-      @showSpectators()
-      @chatView.renderUserList()
-    else
-      @hideSpectators()
 
   # TODO: Support 2v2
   renderActions: (validActions = []) =>
@@ -171,15 +163,6 @@ class @BattleView extends Backbone.View
       @pokemonPopover($this, pokemon)
     @renderTimers()
     this
-
-  hasSpectators: =>
-    !!(@room.get('users')?.length > 0)
-
-  showSpectators: =>
-    @$('.chat').removeClass('without_spectators')
-
-  hideSpectators: =>
-    @$('.chat').addClass('without_spectators')
 
   movePopover: ($this, moveName, move) =>
     {type, damage} = move

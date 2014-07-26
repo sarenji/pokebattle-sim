@@ -34,7 +34,10 @@ class @ChatView extends Backbone.View
 
   render: =>
     @$el.html @template()
-    @renderUserList()  if @model.has('users')
+    if @model
+      @$el.removeClass('without_spectators')
+      @$el.removeClass('without_chat_input')
+      @renderUserList()
     this
 
   renderUserList: =>
