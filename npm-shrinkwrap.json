@@ -1445,9 +1445,9 @@
       }
     },
     "primus": {
-      "version": "2.3.0",
-      "from": "primus@2.3.0",
-      "resolved": "https://registry.npmjs.org/primus/-/primus-2.3.0.tgz",
+      "version": "2.4.0",
+      "from": "primus@2.4.0",
+      "resolved": "https://registry.npmjs.org/primus/-/primus-2.4.0.tgz",
       "dependencies": {
         "access-control": {
           "version": "0.0.4",
@@ -1461,9 +1461,21 @@
             }
           }
         },
+        "create-server": {
+          "version": "0.0.5",
+          "from": "create-server@0.0.x",
+          "resolved": "https://registry.npmjs.org/create-server/-/create-server-0.0.5.tgz",
+          "dependencies": {
+            "connected": {
+              "version": "0.0.2",
+              "from": "connected@0.0.x",
+              "resolved": "https://registry.npmjs.org/connected/-/connected-0.0.2.tgz"
+            }
+          }
+        },
         "diagnostics": {
           "version": "0.0.2",
-          "from": "diagnostics@0.0.2",
+          "from": "diagnostics@0.0.x",
           "resolved": "https://registry.npmjs.org/diagnostics/-/diagnostics-0.0.2.tgz",
           "dependencies": {
             "color": {
@@ -1521,9 +1533,9 @@
           "resolved": "https://registry.npmjs.org/forwarded-for/-/forwarded-for-0.0.1.tgz"
         },
         "fusing": {
-          "version": "0.2.3",
-          "from": "fusing@0.2.x",
-          "resolved": "https://registry.npmjs.org/fusing/-/fusing-0.2.3.tgz",
+          "version": "0.3.2",
+          "from": "fusing@0.3.x",
+          "resolved": "https://registry.npmjs.org/fusing/-/fusing-0.3.2.tgz",
           "dependencies": {
             "predefine": {
               "version": "0.1.1",
