@@ -32,7 +32,8 @@ build = (context, opts={}) ->
     {id: context.id2, name: context.id2, team: team2, ratingKey: context.id2}
   ]
   numActive = opts.numActive || 1
-  context.battle = new Battle(createId(), players, {numActive, conditions})
+  format = opts.format
+  context.battle = new Battle(createId(), players, {numActive, conditions, format})
   context.controller = new BattleController(context.battle)
   context.team1  = context.battle.getTeam(context.id1)
   context.team2  = context.battle.getTeam(context.id2)

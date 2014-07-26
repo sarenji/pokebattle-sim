@@ -847,6 +847,9 @@ class @Battle extends Room
 
     @emit('spectateBattle', user)
 
+  transformName: (name) ->
+    @getPlayerName(name)
+
   forfeit: (id) ->
     return  if @isOver()
     index = @getPlayerIndex(id)

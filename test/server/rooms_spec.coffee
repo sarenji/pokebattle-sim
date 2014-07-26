@@ -11,29 +11,29 @@ describe "A server room:", ->
     @spark2 = @stubSpark()
     @user1 = @server.findOrCreateUser(id: 1, name: 'aaaa', @spark1)
     @user2 = @server.findOrCreateUser(id: 2, name: 'bbbb', @spark2)
-    @room = new Room()
+    @room = new Room('derp')
     @room.add(@spark1)
     @room.add(@spark2)
 
   describe "#message", ->
     it "sends a message to all users in that room", ->
       mock1 = @sandbox.mock(@user1)
-      mock1.expects('send').withArgs("rawMessage", "hello").once()
+      mock1.expects('send').withArgs("rawMessage", @room.name, "hello").once()
       mock2 = @sandbox.mock(@user2)
-      mock2.expects('send').withArgs("rawMessage", "hello").once()
+      mock2.expects('send').withArgs("rawMessage", @room.name, "hello").once()
 
       @room.message("hello")
       mock1.verify()
       mock2.verify()
 
-  describe "#rawMessage", ->
+  describe "#userMessage", ->
     it "sends a message to all users in that room", ->
       mock1 = @sandbox.mock(@user1).expects('send')
-      mock1.withArgs("rawMessage", @user1.name, "hello").once()
+      mock1.withArgs("userMessage", @room.name, @user1.name, "hello").once()
       mock2 = @sandbox.mock(@user2).expects('send').once()
-      mock2.withArgs("rawMessage", @user1.name, "hello").once()
+      mock2.withArgs("userMessage", @room.name, @user1.name, "hello").once()
 
-      @room.rawMessage(@user1, "hello")
+      @room.userMessage(@user1, "hello")
       mock1.verify()
       mock2.verify()
 
