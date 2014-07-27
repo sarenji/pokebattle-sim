@@ -29,8 +29,9 @@ PokeBattle.primus.on 'leaveChatroom', (id, user) ->
   room = PokeBattle.rooms.get(id)
   room.get('users').remove(user)
 
-PokeBattle.primus.on 'topic', (id, topic) ->
-  room = PokeBattle.rooms.get(id)
+PokeBattle.primus.on 'topic', (topic) ->
+  # TODO: Hardcoded
+  room = PokeBattle.rooms.get("Lobby")
   room.setTopic(topic)
 
 PokeBattle.userList = new UserList()
