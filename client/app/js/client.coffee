@@ -7,7 +7,7 @@ PokeBattle.primus.on 'listChatroom', (id, users) ->
     room.get('users').reset(users)
   else
     room = PokeBattle.rooms.add(id: id, users: users)
-    new ChatView(model: room, el: $('#main-section .chat')).render()
+    new ChatView(model: room, el: $('#chat-section .chat')).render()
 
 PokeBattle.primus.on 'userMessage', (id, username, data) ->
   room = PokeBattle.rooms.get(id)
