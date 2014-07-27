@@ -40,8 +40,6 @@ class @BattleView extends Backbone.View
     @listenTo(@model, 'change:teams[*].pokemon[*].status', @handleStatus)
     @listenTo(@model, 'change:teams[*].pokemon[*].percent', @handlePercent)
     @listenTo(@model, 'change:finished', @handleEnd)
-    if @room
-      @listenTo(@room.get('users'), 'add remove reset', @renderSpectators)
     @listenTo(@model.collection, 'remove', @handleRemoval)  if @model.collection
     @battleStartTime = $.now()
     @timers = []
