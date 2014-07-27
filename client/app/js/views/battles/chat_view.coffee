@@ -11,35 +11,38 @@ class @ChatView extends Backbone.View
   MAX_USERNAME_HISTORY = 10
   MAX_MESSAGES_LENGTH = 500
 
-  # Takes a `collection`, which is a UserList instance.
+  # Takes a `model`, which is a Room instance.
   initialize: (options) =>
-    {@chatEvent, @chatArgs, @noisy} = options
-    @chatEvent ||= "sendChat"
-    @chatArgs ||= []
-    if @collection
-      @listenTo(@collection, 'add remove reset', @renderUserList)
+    {@noisy} = options
+    if @model
+      @listenTo(@model.get('users'), 'add remove reset', @renderUserList)
       if @noisy
-        @listenTo(@collection, 'add', @userJoin)
-        @listenTo(@collection, 'remove', @userLeave)
+        @listenTo(@model.get('users'), 'add', @userJoin)
+        @listenTo(@model.get('users'), 'remove', @userLeave)
+      for eventName in Room::EVENTS
+        callback = this[eventName] || throw new Error("ChatView must implement #{eventName}.")
+        @listenTo(@model, eventName, callback)
     @chatHistory = []
     @mostRecentNames = []
     @tabCompleteIndex = -1
     @tabCompleteNames = []
 
   # Sets the channel topic
-  # TODO: Once we have rooms, create a "room" model, and make the topic
-  # update by listening to the model
   setTopic: (topic) =>
     topic = @sanitize(topic)
-    @updateChat("<div class='alert alert-info'><b>Topic:</b> #{topic}</div>")
+    @rawMessage("<div class='alert alert-info'><b>Topic:</b> #{topic}</div>")
 
   render: =>
     @$el.html @template()
+    if @model
+      @$el.removeClass('without_spectators')
+      @$el.removeClass('without_chat_input')
+      @renderUserList()
     this
 
   renderUserList: =>
-    @$('.user_count').text "Users (#{@collection.length})"
-    @$('.users').html @userListTemplate(userList: @collection.models)
+    @$('.user_count').text "Users (#{@model.get('users').length})"
+    @$('.users').html @userListTemplate(userList: @model.get('users').models)
     this
 
   getSelectedText: =>
@@ -57,14 +60,10 @@ class @ChatView extends Backbone.View
   sendChat: =>
     $this = @$('.chat_input')
     message = $this.val()
-    return  unless message?.replace(/\s+$/).length > 0
-    if !PokeBattle.commands.execute(message)
-      args = _.clone(@chatArgs)
-      args.push(message)
-      PokeBattle.primus.send(@chatEvent, args...)
-    @chatHistory.push(message)
-    delete @chatHistoryIndex
-    $this.val('')
+    if @model.sendChat(message)
+      @chatHistory.push(message)
+      delete @chatHistoryIndex
+      $this.val('')
 
   tabComplete: ($input, options = {}) =>
     cursorIndex = $input.prop('selectionStart')
@@ -84,7 +83,7 @@ class @ChatView extends Backbone.View
       rest += ' '  if pieces.length > 0  # Append a space if a word exists
       length = possibleName.length
       return  if length == 0
-      candidates = _.union(@mostRecentNames, @collection.pluck('id'))
+      candidates = _.union(@mostRecentNames, @model.get('users').pluck('id'))
       candidates = candidates.filter (name) ->
         name[...length].toLowerCase() == possibleName.toLowerCase()
       return  if candidates.length == 0
@@ -131,7 +130,7 @@ class @ChatView extends Backbone.View
           $input.val(@chatHistory[@chatHistoryIndex])
 
   userMessage: (username, message) =>
-    user = @collection.get(username)
+    user = @model.get('users').get(username)
     displayName = user?.getDisplayName() || username
     yourName = PokeBattle.username
     highlight = (new RegExp("\\b#{yourName}\\b", 'i').test(message))
@@ -139,7 +138,7 @@ class @ChatView extends Backbone.View
     # Render the chat message
     u = "<b class='open_pm fake_link' data-user-id='#{username}'
       style='color: #{@userColor(username)}'>#{displayName}:</b>"
-    @updateChat("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
+    @rawMessage("#{@timestamp()} #{u} #{@sanitize(message)}", {highlight})
 
     # We might want to run something based on the message, e.g. !pbv from a mod.
     @handleMessage(user, message)
@@ -166,18 +165,18 @@ class @ChatView extends Backbone.View
 
   handleMessage: (user, message) =>
     authority = user?.get('authority')
-    printableCommands = ['!pbv', '!data', '/pbv', '/data']
+    printableCommands = ['/pbv', '/data']
     # TODO: no magic constants. '1' is a regular user.
     if authority > 1 && message.split(/\s/, 1)[0] in printableCommands
-      PokeBattle.commands.execute(message.replace(/^\!/, '/'))
+      PokeBattle.commands.execute(@model, message)
 
   userJoin: (user) =>
-    @updateChat("#{@timestamp()} #{user.id} joined!")
+    @rawMessage("#{@timestamp()} #{user.id} joined!")
 
   userLeave: (user) =>
-    @updateChat("#{@timestamp()} #{user.id} left!")
+    @rawMessage("#{@timestamp()} #{user.id} left!")
 
-  updateChat: (message, options = {}) =>
+  rawMessage: (message, options = {}) =>
     wasAtBottom = @isAtBottom()
     klass = []
     klass.push('bg-blue')  if options.highlight

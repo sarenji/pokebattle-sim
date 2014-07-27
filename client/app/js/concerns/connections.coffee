@@ -3,13 +3,13 @@ $popup = $('#popup')
 
 PokeBattle.primus.on 'open', ->
   $popup.hide()
-  PokeBattle.chatView.updateChat("Connected to the server!", class: "yellow italic")
+  PokeBattle.rooms.rawMessage("Connected to the server!", class: "yellow italic")
 
 PokeBattle.primus.on 'reconnecting', ->
-  PokeBattle.chatView.updateChat("Lost connection to the server...", class: "red italic")
+  PokeBattle.rooms.rawMessage("Lost connection to the server...", class: "red italic")
 
 PokeBattle.primus.on 'end', ->
-  PokeBattle.chatView.updateChat("Connection terminated!", class: "red italic")
+  PokeBattle.rooms.rawMessage("Connection terminated!", class: "red italic")
 
 PokeBattle.primus.on 'reconnecting', (opts) ->
   seconds = Math.floor(opts.timeout / 1000)

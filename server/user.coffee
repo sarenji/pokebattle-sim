@@ -42,11 +42,11 @@ class @User
   error: (args...) ->
     @send("errorMessage", args...)
 
-  message: (msg) ->
-    @send("rawMessage", msg)
+  message: (roomId, msg) ->
+    @send("rawMessage", roomId, msg)
 
-  announce: (klass, msg) ->
-    @send("announce", klass, msg)
+  announce: (roomId, klass, msg) ->
+    @send("announce", roomId, klass, msg)
 
   close: ->
     spark.end()  for spark in @sparks

@@ -60,8 +60,8 @@ describe "Commands", ->
         spy = @sandbox.spy(@user1, 'announce')
         commands.executeCommand @server, @user1, @room, "rating", =>
           spy.callCount.should.equal(1)
-          spy.firstCall.args[1].should.containEql(@user1.name)
-          spy.firstCall.args[1].should.containEql(user1Rating)
+          spy.firstCall.args[2].should.containEql(@user1.name)
+          spy.firstCall.args[2].should.containEql(user1Rating)
           done()
 
       it "returns someone's rating to the user as an argument", (done) ->
@@ -69,8 +69,8 @@ describe "Commands", ->
         commands.executeCommand @server, @user1, @room, "rating", @user2.name, =>
           spy.callCount.should.equal(1)
           spy.callCount.should.equal(1)
-          spy.firstCall.args[1].should.containEql(@user2.name)
-          spy.firstCall.args[1].should.containEql(user2Rating)
+          spy.firstCall.args[2].should.containEql(@user2.name)
+          spy.firstCall.args[2].should.containEql(user2Rating)
           done()
 
     describe "voice", ->
@@ -411,10 +411,10 @@ describe "Commands", ->
           spy = @sandbox.spy(@user1, 'announce')
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
             spy.callCount.should.equal(1)
-            spy.firstCall.args[1].should.containEql(@user2.name)
-            spy.firstCall.args[1].should.containEql(battleIds[0])
-            spy.firstCall.args[1].should.not.containEql(@user1.name)
-            spy.firstCall.args[1].should.not.containEql(battleIds[1])
+            spy.firstCall.args[2].should.containEql(@user2.name)
+            spy.firstCall.args[2].should.containEql(battleIds[0])
+            spy.firstCall.args[2].should.not.containEql(@user1.name)
+            spy.firstCall.args[2].should.not.containEql(battleIds[1])
             done()
 
       it "does not containEql alts in the battle list", (done) ->
@@ -426,7 +426,7 @@ describe "Commands", ->
           commands.executeCommand @server, @user1, @room, "battles", @user2.name, =>
             if err then throw err
             spy.callCount.should.equal(1)
-            spy.firstCall.args[1].should.containEql(@user2.name)
+            spy.firstCall.args[2].should.containEql(@user2.name)
             done()
 
     describe "topic", ->
@@ -462,9 +462,8 @@ describe "Commands", ->
           @user1.authority = auth.levels.ADMIN
           commands.executeCommand @server, @user1, @room, "wall", "derper", =>
             mock.verify()
-            console.log()
-            spy1.calledWithMatch("rawBattleMessage", battleIds[0], "derper").should.be.true
-            spy2.calledWithMatch("rawBattleMessage", battleIds[0], "derper").should.be.true
+            spy1.calledWithMatch("announce", battleIds[0], 'warning', "derper").should.be.true
+            spy2.calledWithMatch("announce", battleIds[0], 'warning', "derper").should.be.true
             done()
 
     describe "lockdown", ->
@@ -506,7 +505,7 @@ describe "Commands", ->
         spy = @sandbox.spy(@user1, 'announce')
         commands.executeCommand @server, @user1, @room, "whois", @user1.name, =>
           spy.callCount.should.equal(1)
-          spy.firstCall.args[1].should.containEql(@user1.name)
-          spy.firstCall.args[1].should.containEql("alt1")
-          spy.firstCall.args[1].should.containEql("alt2")
+          spy.firstCall.args[2].should.containEql(@user1.name)
+          spy.firstCall.args[2].should.containEql("alt1")
+          spy.firstCall.args[2].should.containEql("alt2")
           done()

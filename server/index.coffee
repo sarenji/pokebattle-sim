@@ -109,34 +109,25 @@ CLIENT_VERSION = assets.getVersion()
     console.error(err.message, err.stack)
 
   attachEvents = (user, spark) ->
-    spark.on 'sendChat', (message) ->
+    spark.on 'sendChat', (roomId, message) ->
       return  unless _.isString(message)
       return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
+      return  unless room = server.getRoom(roomId)
       if message[0] == '/' && message[1] == '/'
         message = message[1...]
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
       else if message[0] == '/'
         command = message.replace(/\s+.*$/, '')
         args = message.substr(command.length).replace(/^\s+/, '')
         command = command.substr(1)
         args = args.split(',')
-        commands.executeCommand(server, user, lobby, command, args...)
+        commands.executeCommand(server, user, room, command, args...)
       else
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
 
-    spark.on 'sendBattleChat', (battleId, message) ->
-      return  unless _.isString(message)
-      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
-
-      if battle = server.findBattle(battleId)
-        # TODO: Use `userMessage` instead once rooms are implemented
-        auth.getMuteTTL user.name, (err, ttl) ->
-          if ttl == -2
-            battle.messageSpectators(user, message)
-          else
-            user.announce('warning', "You are muted for another #{ttl} seconds!")
-      else
-        user.error(errors.BATTLE_DNE)
+    spark.on 'leaveChatroom', (roomId) ->
+      return  unless _.isString(roomId)
+      server.getRoom(roomId)?.remove(spark)
 
     # After the `end` event, each listener should automatically disconnect.
     spark.on 'end', ->
@@ -328,13 +319,7 @@ CLIENT_VERSION = assets.getVersion()
 
     spark.on 'spectateBattle', (battleId) ->
       if battle = server.findBattle(battleId)
-        battle.addSpectator(spark)
-      else
-        user.error(errors.BATTLE_DNE)
-
-    spark.on 'leaveBattle', (battleId) ->
-      if battle = server.findBattle(battleId)
-        battle.removeSpectator(spark)
+        battle.add(spark)
       else
         user.error(errors.BATTLE_DNE)
 
