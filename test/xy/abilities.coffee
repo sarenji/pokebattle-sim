@@ -449,3 +449,37 @@ describe "XY Abilities:", ->
     Attachment.Encore, Attachment.Taunt, Attachment.Torment], cure: false)
   testAttachmentImmuneAbility("Oblivious", [Attachment.Attract, Attachment.Taunt])
   testAttachmentImmuneAbility("Sweet Veil", [Status.Sleep], cure: false)
+
+  describe "Effect Spore", ->
+    it "doesn't affect Grass types", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Effect Spore")]
+        team2: [Factory("Bulbasaur")]
+
+      # Sleep
+      shared.biasRNG.call(this, "randInt", 'effect spore', 1)
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+      @p2.has(Status.Sleep).should.be.false
+
+    it "doesn't affect Overcoat Pokemon", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Effect Spore")]
+        team2: [Factory("Magikarp", ability: "Overcoat")]
+
+      # Paralysis
+      shared.biasRNG.call(this, "randInt", 'effect spore', 2)
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+      @p2.has(Status.Paralyze).should.be.false
+
+    it "doesn't affect Safety Goggles holders", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Effect Spore")]
+        team2: [Factory("Magikarp", item: "Safety Goggles")]
+
+      # Poison
+      shared.biasRNG.call(this, "randInt", 'effect spore', 3)
+      @battle.performMove(@p2, @battle.getMove('Tackle'))
+      @p2.has(Status.Poison).should.be.false
