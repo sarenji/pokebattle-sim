@@ -3,5 +3,6 @@
     for achievement in achievements
       .achievement
         img(src="//media.pokebattle.com/logo/pb_red.png")
-        h2= achievement.name
-        p= achievement.condition
+        .achievement-info
+          h2= achievement.name
+          p= achievement.condition
