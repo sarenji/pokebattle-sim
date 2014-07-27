@@ -337,10 +337,10 @@ makeChargeMove 'Skull Bash', "$1 tucked in its head!"
 makeChargeMove 'Razor Wind', "$1 whipped up a whirlwind!"
 makeChargeMove 'Sky Attack', "$1 became cloaked in a harsh light!"
 makeChargeMove 'Shadow Force', [], "$1 vanished instantly!"
-makeChargeMove 'Ice Burn', [], "$1 became cloaked in freezing air!"
-makeChargeMove 'Freeze Shock', [], "$1 became cloaked in a freezing light!"
-makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 flew up high!"
-makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 sprang up!"
+makeChargeMove 'Ice Burn', "$1 became cloaked in freezing air!"
+makeChargeMove 'Freeze Shock', "$1 became cloaked in a freezing light!"
+makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"], "$1 flew up high!"
+makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"], "$1 sprang up!"
 makeChargeMove 'Dig', ["Earthquake", "Magnitude"], "$1 burrowed its way under the ground!"
 makeChargeMove 'Dive', ["Surf", "Whirlpool"], "$1 hid underwater!"
 makeChargeMove 'SolarBeam', "$1 absorbed light!", (battle) ->
@@ -444,6 +444,14 @@ makeTrappingMove = (name) ->
 
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
 
+makeIgnoreStagesMove = (name) ->
+  extendMove name, ->
+    oldExecute = @execute
+    @execute = (battle, user, targets) ->
+      target.attach(Attachment.ChipAway)  for target in targets
+      oldExecute.call(this, battle, user, targets)
+      target.unattach(Attachment.ChipAway)  for target in targets
+
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
 extendMove 'Baton Pass', ->
@@ -496,13 +504,7 @@ extendMove 'Charge', ->
     battle.message "#{user.name} began charging power!"
     oldUse.call(this, battle, user, target)
 
-extendMove 'Chip Away', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    target.attach(Attachment.ChipAway)  for target in targets
-    oldExecute.call(this, battle, user, targets)
-    target.unattach(Attachment.ChipAway)  for target in targets
-
+makeIgnoreStagesMove 'Chip Away'
 makeRandomSwitchMove "Circle Throw"
 makeTrappingMove "Clamp"
 
@@ -735,6 +737,7 @@ extendMove 'Roost', ->
     user.attach(Attachment.Roost)
 
 extendMove 'Sacred Fire', -> @thawsUser = true
+makeIgnoreStagesMove 'Sacred Sword'
 makeWeatherMove 'Sandstorm', Weather.SAND
 makeTrappingMove "Sand Tomb"
 extendMove 'Scald', -> @thawsUser = true

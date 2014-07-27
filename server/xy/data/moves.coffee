@@ -2,6 +2,8 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/moves.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
+makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"], "$1 sprang up!"
+
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
   @selectPokemon = (battle, user, target) ->
@@ -13,6 +15,8 @@ extendMove 'Facade', ->
 extendMove 'Fell Stinger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.boost(attack: 2)  if target.isFainted()
+
+makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"], "$1 flew up high!"
 
 extendMove 'Freeze-Dry', ->
   @superEffectiveAgainst = "Water"

@@ -10,7 +10,8 @@ class @Room extends EventEmitter
     @sparks = []
 
   add: (spark) ->
-    @send('joinChatroom', spark.user.toJSON())  unless @users[spark.user.id]
+    return  if spark in @sparks
+    @send('joinChatroom', @name, @userJSON(spark.user))  unless @users[spark.user.id]
     @sparks.push(spark)
 
     userId = spark.user.id
@@ -19,30 +20,38 @@ class @Room extends EventEmitter
       @users[userId] = spark.user
     else
       @userCounts[userId] += 1
-    spark.send('listChatroom', @toJSON())
+    spark.send('listChatroom', @name, @toJSON())
 
   remove: (spark) ->
-    index = @sparks.indexOf(spark.user)
-    @sparks.splice(index, 1)  if index
+    index = @sparks.indexOf(spark)
+    return  if index == -1
+    @sparks.splice(index, 1)
 
     userId = spark.user.id
     @userCounts[userId] -= 1
     if @userCounts[userId] == 0
-      @send('leaveChatroom', spark.user.name)
+      @send('leaveChatroom', @name, @transformName(spark.user.name))
       delete @users[userId]
       delete @userCounts[userId]
 
   userMessage: (user, message) ->
-    @send('updateChat', user.name, message)
+    @send('userMessage', @name, @transformName(user.name), message)
 
   message: (message) ->
-    @send('rawMessage', message)
+    @send('rawMessage', @name, message)
 
   announce: (klass, message) ->
-    @send('announce', klass, message)
+    @send('announce', @name, klass, message)
 
   send: ->
     user.send.apply(user, arguments)  for name, user of @users
+
+  userJSON: (user) ->
+    json = user.toJSON(alt: @transformName(user.name))
+
+  # Hook to transform a user's name to something else. Does the identity func.
+  transformName: (name) ->
+    name
 
   # Set the room's topic. Does not work for battle rooms.
   # TODO: Or rather, it shouldn't work for battle rooms. Once a distinction is
@@ -53,4 +62,4 @@ class @Room extends EventEmitter
 
   toJSON: ->
     for name, user of @users
-      user.toJSON()
+      @userJSON(user)

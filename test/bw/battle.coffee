@@ -1,5 +1,7 @@
 require '../helpers'
 
+sinon = require('sinon')
+
 {Attachment} = require('../../server/bw/attachment')
 {Battle} = require('../../server/bw/battle')
 {Weather} = require('../../shared/weather')
@@ -16,6 +18,7 @@ describe 'Battle', ->
   beforeEach ->
     @server = new BattleServer()
     shared.create.call this,
+      format: 'xy1000'
       team1: [Factory('Hitmonchan'), Factory('Heracross')]
       team2: [Factory('Hitmonchan'), Factory('Heracross')]
 
@@ -226,23 +229,22 @@ describe 'Battle', ->
       @p1.currentHP.should.be.lessThan @p1.stat('hp')
       @p2.currentHP.should.not.be.lessThan @p2.stat('hp')
 
-  describe "#addSpectator", ->
+  describe "#add", ->
     it "adds the spectator to an internal array", ->
       connection = @stubSpark()
       spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
-      length = @battle.spectators.length
-      @battle.addSpectator(connection)
-      @battle.spectators.should.have.length(length + 1)
-      @battle.spectators.should.containEql(spectator)
+      length = @battle.sparks.length
+      @battle.add(connection)
+      @battle.sparks.should.have.length(length + 1)
+      @battle.sparks.should.containEql(connection)
 
     it "gives the spectator battle information", ->
       connection = @stubSpark()
       spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
       spy = @sandbox.spy(connection, 'send')
-      @battle.addSpectator(connection)
-      spectators = @battle.spectators.map((s) -> s.toJSON())
+      @battle.add(connection)
       {id, numActive, log} = @battle
-      spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
+      spy.calledWithMatch("spectateBattle", id, sinon.match.string, numActive, null, @battle.playerNames, log).should.be.true
 
     it "receives the correct set of initial teams", ->
       connection = @stubSpark()
@@ -251,18 +253,17 @@ describe 'Battle', ->
       teams = @battle.getTeams().map((team) -> team.toJSON(hidden: true))
       @team1.switch(@p1, 1)
 
-      @battle.addSpectator(connection)
-      spectators = @battle.spectators.map((s) -> s.toJSON())
+      @battle.add(connection)
       {id, numActive, log} = @battle
-      spy.calledWithMatch("spectateBattle", id, 'bw', numActive, null, @battle.playerIds, spectators, log).should.be.true
+      spy.calledWithMatch("spectateBattle", id, sinon.match.string, numActive, null, @battle.playerNames, log).should.be.true
 
     it "does not add a spectator twice", ->
       connection = @stubSpark()
       spectator = @server.findOrCreateUser(id: 1, name: "derp", connection)
-      length = @battle.spectators.length
-      @battle.addSpectator(connection)
-      @battle.addSpectator(connection)
-      @battle.spectators.should.have.length(length + 1)
+      length = @battle.sparks.length
+      @battle.add(connection)
+      @battle.add(connection)
+      @battle.sparks.should.have.length(length + 1)
 
   describe "#getWinner", ->
     it "returns player 1 if player 2's team has all fainted", ->

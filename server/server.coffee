@@ -55,6 +55,12 @@ class @BattleServer
     # Battles can start.
     @unlockdown()
 
+  hasRoom: (roomId) ->
+    !!@getRoom(roomId)
+
+  getRoom: (roomId) ->
+    _.find(@rooms, (room) -> room.name == roomId)
+
   # Creates a new user or finds an existing one, and adds a spark to it
   findOrCreateUser: (json, spark) ->
     user = @users.get(json.name)
@@ -68,7 +74,7 @@ class @BattleServer
     @showTopic(spark)
     for battleId of @userBattles[spark.user.name]
       battle = @battles[battleId]
-      battle.addSpectator(spark)
+      battle.add(spark)
       battle.sendRequestTo(spark.user.name)
       battle.sendUpdates()
     return spark
@@ -240,7 +246,7 @@ class @BattleServer
       # Add user to spectators
       # TODO: player.id should be using player.name, but alts present a problem.
       user = @users.get(player.id)
-      battle.addSpectator(spark)  for spark in user.sparks
+      battle.add(spark)  for spark in user.sparks
 
       # Add/remove player ids to/from user battles
       @userBattles[player.id] ?= {}
@@ -259,6 +265,7 @@ class @BattleServer
     # Uneligible battles are ignored by this function
     achievements.registerBattle(this, battle)
 
+    @rooms.push(battle)
     @battles[battleId].beginBattle()
     battleId
 
@@ -290,6 +297,10 @@ class @BattleServer
     delete @visibleUserBattles[username]?[battleId]
 
   removeBattle: (battleId) ->
+    for room, i in @rooms
+      if room.name == battleId
+        @rooms.splice(i, 1)
+        break
     delete @battles[battleId]
 
   # A length of -1 denotes a permanent ban.
@@ -311,8 +322,6 @@ class @BattleServer
   announce: (message) ->
     for room in @rooms
       room.announce("warning", message)
-    for battleId, battle of @battles
-      battle.rawMessage("""<div class="alert alert-warning">#{message}</div>""")
 
   userMessage: (room, user, message) ->
     auth.getMuteTTL user.name, (err, ttl) ->

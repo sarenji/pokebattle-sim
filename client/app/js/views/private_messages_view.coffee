@@ -24,8 +24,8 @@ class @PrivateMessagesView extends Backbone.View
     @listenTo(@collection, 'closeChallenge', @closeChallenge)
     @listenTo(@collection, 'focus show', @resetNotifications)
 
-    @listenTo(PokeBattle.userList, 'add', @notifyJoin)
-    @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
+    # @listenTo(PokeBattle.userList, 'add', @notifyJoin)
+    # @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
 
   createPopup: (message) =>
     title = id = message.id

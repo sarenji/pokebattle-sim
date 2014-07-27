@@ -353,6 +353,7 @@ function Primus(url, options) {
  * Simple require wrapper to make browserify, node and require.js play nice.
  *
  * @param {String} name The module to require.
+ * @returns {Object|Undefined} The module that we required.
  * @api private
  */
 Primus.require = function requires(name) {
@@ -471,7 +472,7 @@ Primus.OPEN    = 3;   // The connection is open.
  * supported transports.
  *
  * @type {Boolean}
- * @api private
+ * @private
  */
 Primus.prototype.AVOID_WEBSOCKETS = false;
 
@@ -482,7 +483,7 @@ Primus.prototype.AVOID_WEBSOCKETS = false;
  * feature detection.
  *
  * @type {Boolean}
- * @api private
+ * @private
  */
 Primus.prototype.NETWORK_EVENTS = false;
 Primus.prototype.online = true;
@@ -511,7 +512,7 @@ Primus.prototype.ark = {};
  * Return the given plugin.
  *
  * @param {String} name The name of the plugin.
- * @returns {Mixed}
+ * @returns {Object|undefined} The plugin or undefined.
  * @api public
  */
 Primus.prototype.plugin = function plugin(name) {
@@ -532,7 +533,7 @@ Primus.prototype.plugin = function plugin(name) {
  * Checks if the given event is an emitted event by Primus.
  *
  * @param {String} evt The event name.
- * @returns {Boolean}
+ * @returns {Boolean} Indication of the event is reserved for internal use.
  * @api public
  */
 Primus.prototype.reserved = function reserved(evt) {
@@ -544,7 +545,7 @@ Primus.prototype.reserved = function reserved(evt) {
  * The actual events that are used by the client.
  *
  * @type {Object}
- * @api public
+ * @public
  */
 Primus.prototype.reserved.events = {
   readyStateChange: 1,
@@ -564,6 +565,7 @@ Primus.prototype.reserved.events = {
  * Initialise the Primus and setup all parsers and internal listeners.
  *
  * @param {Object} options The original options object.
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.initialise = function initialise(options) {
@@ -620,7 +622,8 @@ Primus.prototype.initialise = function initialise(options) {
   });
 
   primus.on('incoming::error', function error(e) {
-    var connect = primus.timers.connect;
+    var connect = primus.timers.connect
+      , err = e;
 
     //
     // We're still doing a reconnect attempt, it could be that we failed to
@@ -628,7 +631,24 @@ Primus.prototype.initialise = function initialise(options) {
     // always emit an `error` event instead of a `open` event.
     //
     if (primus.attempt) return primus.reconnect();
-    if (primus.listeners('error').length) primus.emit('error', e);
+
+    //
+    // When the error is not an Error instance we try to normalize it.
+    //
+    if ('string' === typeof e) {
+      err = new Error(e);
+    } else if (!(e instanceof Error) && 'object' === typeof e) {
+      //
+      // BrowserChannel and SockJS returns an object which contains some
+      // details of the error. In order to have a proper error we "copy" the
+      // details in an Error instance.
+      //
+      err = new Error(e.message || e.reason);
+      for (var key in e) {
+        if (e.hasOwnProperty(key)) err[key] = e[key];
+      }
+    }
+    if (primus.listeners('error').length) primus.emit('error', err);
 
     //
     // We received an error while connecting, this most likely the result of an
@@ -868,7 +888,7 @@ Primus.prototype.transforms = function transforms(primus, connection, type, data
     //
     // We always emit 2 arguments for the data event, the first argument is the
     // parsed data and the second argument is the raw string that we received.
-    // This allows you, for exampele, to do some validation on the parsed data
+    // This allows you, for example, to do some validation on the parsed data
     // and then save the raw string in your database without the stringify
     // overhead.
     //
@@ -884,6 +904,7 @@ Primus.prototype.transforms = function transforms(primus, connection, type, data
  * Retrieve the current id from the server.
  *
  * @param {Function} fn Callback function.
+ * @returns {Primus}
  * @api public
  */
 Primus.prototype.id = function id(fn) {
@@ -898,6 +919,7 @@ Primus.prototype.id = function id(fn) {
  * assume that we don't have any open connections. If you do call it when you
  * have a connection open, it could cause duplicate connections.
  *
+ * @returns {Primus}
  * @api public
  */
 Primus.prototype.open = function open() {
@@ -911,14 +933,15 @@ Primus.prototype.open = function open() {
   //
   if (!this.attempt && this.options.timeout) this.timeout();
 
-  return this.emit('outgoing::open');
+  this.emit('outgoing::open');
+  return this;
 };
 
 /**
  * Send a new message.
  *
  * @param {Mixed} data The data that needs to be written.
- * @returns {Boolean} Always returns true.
+ * @returns {Boolean} Always returns true as we don't support back pressure.
  * @api public
  */
 Primus.prototype.write = function write(data) {
@@ -932,7 +955,7 @@ Primus.prototype.write = function write(data) {
  * The actual message writer.
  *
  * @param {Mixed} data The message that needs to be written.
- * @returns {Boolean}
+ * @returns {Boolean} Successful write to the underlaying transport.
  * @api private
  */
 Primus.prototype._write = function write(data) {
@@ -973,6 +996,7 @@ Primus.prototype._write = function write(data) {
  * connected and our internet connection didn't drop. We cannot use server side
  * heartbeats for this unfortunately.
  *
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.heartbeat = function heartbeat() {
@@ -1004,17 +1028,21 @@ Primus.prototype.heartbeat = function heartbeat() {
    * @api private
    */
   function ping() {
-    primus.clearTimeout('ping').write('primus::ping::'+ (+new Date));
-    primus.emit('outgoing::ping');
+    var value = +new Date();
+
+    primus.clearTimeout('ping').write('primus::ping::'+ value);
+    primus.emit('outgoing::ping', value);
     primus.timers.pong = setTimeout(pong, primus.options.pong);
   }
 
   primus.timers.ping = setTimeout(ping, primus.options.ping);
+  return this;
 };
 
 /**
  * Start a connection timeout.
  *
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.timeout = function timeout() {
@@ -1056,6 +1084,7 @@ Primus.prototype.timeout = function timeout() {
  * Properly clean up all `setTimeout` references.
  *
  * @param {String} ..args.. The names of the timeout's we need clear.
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.clearTimeout = function clear() {
@@ -1073,6 +1102,7 @@ Primus.prototype.clearTimeout = function clear() {
  *
  * @param {Function} callback Callback to be called after the timeout.
  * @param {Object} opts Options for configuring the timeout.
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.backoff = function backoff(callback, opts) {
@@ -1139,6 +1169,7 @@ Primus.prototype.backoff = function backoff(callback, opts) {
 /**
  * Start a new reconnect procedure.
  *
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.reconnect = function reconnect() {
@@ -1166,7 +1197,7 @@ Primus.prototype.reconnect = function reconnect() {
 };
 
 /**
- * Close the connection.
+ * Close the connection completely.
  *
  * @param {Mixed} data last packet of data.
  * @returns {Primus}
@@ -1246,6 +1277,7 @@ Primus.prototype.merge = function merge(target) {
 /**
  * Parse the connection string.
  *
+ * @type {Function}
  * @param {String} url Connection URL.
  * @returns {Object} Parsed connection.
  * @api private
@@ -1377,6 +1409,7 @@ Primus.prototype.uri = function uri(options) {
  *
  * @param {String} event Name of the event that we should emit.
  * @param {Function} parser Argument parser.
+ * @returns {Function} The wrapped function that will emit events when called.
  * @api public
  */
 Primus.prototype.emits = function emits(event, parser) {
@@ -1403,6 +1436,7 @@ Primus.prototype.emits = function emits(event, parser) {
  *
  * @param {String} type Incoming or outgoing
  * @param {Function} fn A new message transformer.
+ * @returns {Primus}
  * @api public
  */
 Primus.prototype.transform = function transform(type, fn) {
@@ -1421,6 +1455,7 @@ Primus.prototype.transform = function transform(type, fn) {
  * If not, throw it, so we get a stack trace + proper error message.
  *
  * @param {Error} err The critical error.
+ * @returns {Primus}
  * @api private
  */
 Primus.prototype.critical = function critical(err) {
@@ -1556,7 +1591,7 @@ Primus.prototype.decoder = function decoder(data, fn) {
 
   fn(err, data);
 };
-Primus.prototype.version = "2.3.0";
+Primus.prototype.version = "2.4.0";
 
 //
 // Hack 1: \u2028 and \u2029 are allowed inside string in JSON. But JavaScript

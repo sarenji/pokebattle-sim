@@ -4971,23 +4971,27 @@ describe "BW Moves:", ->
   testRevengeMove("Avalanche")
   testRevengeMove("Revenge")
 
-  describe 'Chip Away', ->
-    it "ignores the target's defensive and evasive boosts", ->
-      shared.create.call(this)
-      chipAway = @battle.getMove('Chip Away')
-      stats = [ 'defense', 'specialDefense', 'evasion' ]
-      values = ( @p2.stat(stat)  for stat in stats )
-      spy = @sandbox.spy(@p2, 'stat')
-      spy.withArgs(stat)  for stat in stats
+  testIgnoreStagesMove = (moveName) ->
+    describe moveName, ->
+      it "ignores the target's defensive and evasive stat stages", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        stats = [ 'defense', 'specialDefense', 'evasion' ]
+        values = ( @p2.stat(stat)  for stat in stats )
+        spy = @sandbox.spy(@p2, 'stat')
+        spy.withArgs(stat)  for stat in stats
 
-      @p2.boost(defense: 1, specialDefense: 2, evasion: 6)
-      @battle.performMove(@p1, chipAway)
+        @p2.boost(defense: -3, specialDefense: 2, evasion: 6)
+        @battle.performMove(@p1, move)
 
-      for i in [0...stats.length]
-        stat  = stats[i]
-        value = values[i]
-        continue  if spy.withArgs(stat).returnValues.length == 0
-        spy.withArgs(stat).alwaysReturned(value).should.be.true
+        for i in [0...stats.length]
+          stat  = stats[i]
+          value = values[i]
+          continue  if spy.withArgs(stat).returnValues.length == 0
+          spy.withArgs(stat).alwaysReturned(value).should.be.true
+
+  testIgnoreStagesMove("Chip Away")
+  testIgnoreStagesMove("Sacred Sword")
 
   describe 'Captivate', ->
     it 'fails if the user and target are not opposite genders', ->
@@ -5270,10 +5274,10 @@ describe "BW Moves:", ->
   testChargeMove('Skull Bash')
   testChargeMove('Razor Wind')
   testChargeMove('Shadow Force', [])
-  testChargeMove('Ice Burn', [])
-  testChargeMove('Freeze Shock', [])
-  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])
-  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"])  # Additional 30% chance to par
+  testChargeMove('Ice Burn')
+  testChargeMove('Freeze Shock')
+  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"])
+  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"])  # Additional 30% chance to par
   testChargeMove('Dig', ["Earthquake", "Magnitude"])
   testChargeMove('Dive', ["Surf", "Whirlpool"])
   testChargeMove('SolarBeam')

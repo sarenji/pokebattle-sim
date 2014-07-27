@@ -1,6 +1,6 @@
 # Send primus event when leaving battles.
 PokeBattle.battles.on 'remove', (battle) ->
-  PokeBattle.primus.send('leaveBattle', battle.id)
+  PokeBattle.primus.send('leaveChatroom', battle.id)
 
 # Event listeners
 PokeBattle.primus.on 'updateBattle', (id, queue) ->
@@ -11,11 +11,11 @@ PokeBattle.primus.on 'updateBattle', (id, queue) ->
   battle.update(queue)
 
 # Create a BattleView when spectating a battle
-PokeBattle.primus.on 'spectateBattle', (id, format, numActive, index, playerIds, spectators, log) ->
+PokeBattle.primus.on 'spectateBattle', (id, format, numActive, index, playerIds, log) ->
   if PokeBattle.battles.get(id)
     console.log "Already spectating battle #{id}!"
     return
-  battle = new Battle({id, format, numActive, index, playerIds, spectators})
+  battle = new Battle({id, format, numActive, index, playerIds})
 
   # Create BattleView
   $battle = $(JST['battle_window']({battle, window}))
@@ -29,20 +29,6 @@ PokeBattle.primus.on 'spectateBattle', (id, format, numActive, index, playerIds,
 
   # Update log
   battle.update(log)
-
-PokeBattle.primus.on 'joinBattle', (id, user) ->
-  battle = PokeBattle.battles.get(id)
-  if !battle
-    console.log "Received events for #{id}, but no longer in battle!"
-    return
-  battle.spectators.add(user)
-
-PokeBattle.primus.on 'leaveBattle', (id, user) ->
-  battle = PokeBattle.battles.get(id)
-  if !battle
-    console.log "Received events for #{id}, but no longer in battle!"
-    return
-  battle.spectators.remove(id: user)
 
 PokeBattle.primus.on 'updateTimers', (id, timers) ->
   battle = PokeBattle.battles.get(id)

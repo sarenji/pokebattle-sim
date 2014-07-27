@@ -314,7 +314,7 @@ describe 'BattleServer', ->
       team = generateTeam()
       format = 'xy1000'
       conditions = []
-      
+
       @server.registerChallenge(@user, @other.name, format, team, conditions)
       mock = @sandbox.mock(@server).expects('createBattle').once()
       @server.acceptChallenge(@other, @user.name, team)
@@ -770,26 +770,26 @@ describe 'BattleServer', ->
         battle = server.findBattle(battleId).battle
 
         # test spark1
-        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark1)
-        broadcastSpy = @sandbox.spy(battle, 'broadcast')
-        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt1')
+        spy = @sandbox.spy(battle, 'remove').withArgs(spark1)
+        broadcastSpy = @sandbox.spy(battle, 'send')
+        broadcastSpy = broadcastSpy.withArgs('leaveChatroom', battle.id, 'alt1')
         server.leave(spark1)
         spark1.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
-        battle.removeSpectator.restore()
-        battle.broadcast.restore()
+        battle.remove.restore()
+        battle.send.restore()
 
         # test spark2
-        spy = @sandbox.spy(battle, 'removeSpectator').withArgs(spark2)
-        broadcastSpy = @sandbox.spy(battle, 'broadcast')
-        broadcastSpy = broadcastSpy.withArgs('leaveBattle', battle.id, 'alt2')
+        spy = @sandbox.spy(battle, 'remove').withArgs(spark2)
+        broadcastSpy = @sandbox.spy(battle, 'send')
+        broadcastSpy = broadcastSpy.withArgs('leaveChatroom', battle.id, 'alt2')
         server.leave(spark2)
         spark2.end()
         spy.calledOnce.should.be.true
         broadcastSpy.calledOnce.should.be.true
-        battle.removeSpectator.restore()
-        battle.broadcast.restore()
+        battle.remove.restore()
+        battle.send.restore()
         done()
 
   describe "a battle", ->
