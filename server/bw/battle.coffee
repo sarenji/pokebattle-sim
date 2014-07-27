@@ -46,15 +46,13 @@ class @Battle extends Room
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
 
+    # Which battling format was selected
     @format = attributes.format
 
     # An array of conditions like clauses or team preview that this battle has.
     # TODO: Remove
     @conditions = (attributes.conditions && _.clone(attributes.conditions))
     @conditions ||= []
-
-    # Which battle format was selected
-    @format = attributes.format
 
     # Stores the current turn of the battle
     @turn = 0

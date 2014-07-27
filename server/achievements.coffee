@@ -115,30 +115,23 @@ checkAchievements = (id, next) ->
     ratings.getStreak id, (err, streak) ->
       achievements = ACHIEVEMENTS.filter((o) -> o.conditionFn(ratio, streak))
 
-      # Remove the conditionFn attribute, since the client won't see it
-      results = for achievement in achievements
-        achievement = _(achievement).clone()
-        delete achievement.conditionFn  
-        achievement
-
+      # Send everything except the conditionFn attribute
+      results = (_(a).omit('conditionFn')  for a in achievements)
       next(null, results)
 
 # Removes the achievements that have already been earned from the list of achievements
 filterEarned = (playerId, achievements, next) ->
-  multi = redis.multi()
-  for achievement in achievements
-    multi = multi.hget("#{ACHIEVEMENT_KEY}:#{playerId}", achievement.id)
-  multi.exec (err, flagged) ->
+  ids = _(achievements).pluck('id')
+  redis.hmget "#{ACHIEVEMENT_KEY}:#{playerId}", ids, (err, flagged) ->
     return next(err)  if err
     filtered = achievements.filter((a, i) -> !flagged[i])
     next(null, filtered)
 
 # Flags achievements that have been earned in redis so we don't bother the webservice with it
 flagEarned = (playerId, achievements, next) ->
-  multi = redis.multi()
-  for achievement in achievements
-    multi = multi.hset("#{ACHIEVEMENT_KEY}:#{playerId}", achievement.id, true)
-  multi.exec next
+  hash = {}
+  hash[a.id] = true  for a in achievements
+  redis.hmset("#{ACHIEVEMENT_KEY}:#{playerId}", hash)
 
 # Notifies the server about achievements to add to the user
 # All achievements that have been successfully get passed to next

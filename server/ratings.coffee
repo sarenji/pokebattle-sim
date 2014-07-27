@@ -63,15 +63,11 @@ updateMaxRatings = (ids, next) ->
   async.parallel ops, next
 
 updateMaxStreak = (id, next) =>
-  multi = redis.multi()
-  multi = multi.hget(RATIOS_STREAK_KEY, id)
-  multi = multi.hget(RATIOS_MAXSTREAK_KEY, id)
-  multi.exec (err, results) ->
+  @getStreak id, (err, results) ->
     return next(err)  if err
 
-    [streak, maxStreak] = results
-    if streak > maxStreak
-      redis.hmset RATIOS_MAXSTREAK_KEY, id, streak, next
+    if results.streak > results.maxStreak
+      redis.hmset RATIOS_MAXSTREAK_KEY, id, results.streak, next
     else
       next(err)
 
@@ -169,7 +165,7 @@ updateMaxStreak = (id, next) =>
   multi.exec (err) ->
     return next(err)  if err
     async.parallel([
-      updateMaxRating.bind(this, id),
+      updateMaxRating.bind(this, id)
       updateMaxStreak.bind(this, id)
     ], next)
 
