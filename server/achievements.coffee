@@ -26,43 +26,43 @@ streak = (count) ->
 
 ACHIEVEMENTS = [
   {
-    id: 1,
+    id: 1
     name: "Taste of Victory"
     condition: "Win on PokeBattle for the first time"
     conditionFn: winCount(1)
   },
   {
-    id: 2,
+    id: 2
     name: "Centurian"
     condition: "Win 100 times"
     conditionFn: winCount(100)
   },
   {
-    id: 3,
+    id: 3
     name: "Jackpot!"
     condition: "Lucky 777 victories"
     conditionFn: winCount(777)
   },
   {
-    id: 4,
+    id: 4
     name: "Ladder Monster"
     condition: "Win a beastly 2500 matches"
     conditionFn: winCount(2500)
   },
   {
-    id: 5,
+    id: 5
     name: "Mile High Club"
     condition: "Win 52"
     conditionFn: winCount(5280)
   },
   {
-    id: 6,
+    id: 6
     name: "Better than Phil"
     condition: "More than 7086 victories"
     conditionFn: winCount(7087)
   },
   {
-    id: 7,
+    id: 7
     name: "KAKAROT!"
     condition: "What? More than 9000 victories?!"
     conditionFn: winCount(9001)
@@ -71,37 +71,37 @@ ACHIEVEMENTS = [
   # ladder ranking achievements go here
 
   {
-    id: 8,
+    id: 26
     name: "On a Roll!"
     condition: "Five in a row"
     conditionFn: streak(5)
   },
   {
-    id: 9,
+    id: 27
     name: "Perfect Ten!"
     condition: "10 in a row, very nice"
     conditionFn: streak(10)
   },
   {
-    id: 10,
+    id: 28
     name: "Incredible!"
     condition: "15 victories!"
     conditionFn: streak(15)
   },
   {
-    id: 11,
+    id: 29
     name: "Unreal!"
     condition: "20 victories in a row"
     conditionFn: streak(20)
   },
   {
-    id: 12,
+    id: 30
     name: "Impossible!"
     condition: "30 victories! Hopefully counting"
     conditionFn: streak(30)
   },
   {
-    id: 13,
+    id: 31
     name: "The One"
     condition: "50 in a row! PS: I love you <3"
     conditionFn: streak(50)
