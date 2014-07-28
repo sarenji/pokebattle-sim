@@ -155,20 +155,22 @@ notifyServer = (playerId, achievements, next) ->
 
   battle.once 'ratingsUpdated', ->
     for player in battle.players
-      checkAchievements player.ratingKey, (err, achievements) ->
-        return if err
-        
-        filterEarned player.id, achievements, (err, achievements) ->
+      do (player) ->
+        checkAchievements player.ratingKey, (err, achievements) ->
           return  if err
           return  if achievements.length == 0
-
-          notifyServer player.id, achievements, (err, result) ->
+          
+          filterEarned player.id, achievements, (err, achievements) ->
             return  if err
             return  if achievements.length == 0
 
-            flagEarned(player.id, achievements)
+            notifyServer player.id, achievements, (err, achievements) ->
+              return  if err
+              return  if achievements.length == 0
 
-            # for each new achievement, notify the user if said user is online
-            user = server.getUser(player.id)
-            if user
-              user.send('achievementsEarned', achievements)
+              flagEarned(player.id, achievements)
+
+              # for each new achievement, notify the user if said user is online
+              user = server.getUser(player.id)
+              if user
+                user.send('achievementsEarned', achievements)
