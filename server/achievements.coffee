@@ -3,6 +3,7 @@
 # on in the future.
 
 {_} = require 'underscore'
+async = require 'async'
 config = require './config'
 redis = require './redis'
 ratings = require './ratings'
@@ -108,6 +109,47 @@ ACHIEVEMENTS = [
   }
 ]
 
+# Checks what achievements a player is eligible for
+# The achievements are then awarded to the player
+@checkAndAwardAchievements = (server, player, next = ->) ->
+  checkAchievements player.ratingKey, (err, achievements) ->
+    return next(err) if err
+    return next() if achievements.length == 0
+
+    filterEarned player.id, achievements, (err, achievements) ->
+      return next(err) if err
+      return next() if achievements.length == 0
+
+      notifyServer player.name, achievements, (err, byStatus) ->
+        return next(err) if err
+
+        # TODO: Handle errors, probably add them to some queue to retry
+        # Currently its fine, as playing another battle will do a re-evalation
+        # but in the future this may not be the case!
+
+        # Flag all of the achievements that have been earned
+        achievementsToFlag = _.union(byStatus.success, byStatus.duplicate)
+        flagEarned(player.id, achievementsToFlag)  if achievementsToFlag.length > 0
+
+        # for each new achievement, notify the user if said user is online
+        if byStatus.success.length > 0
+          user = server.getUser(player.id)
+          if user
+            user.send('achievementsEarned', byStatus.success)
+
+        next()
+
+# Registers a battle with the achievement system
+# If the battle is not eligible for achievements, it is ignored
+@registerBattle = (server, battle) ->
+  return  if battle.format != 'xy1000'
+  return  unless Conditions.RATED_BATTLE in battle.conditions 
+
+  battle.once 'ratingsUpdated', =>
+    for player in battle.players
+      @checkAndAwardAchievements(server, player)
+
+
 # Returns the achievements a player is eligible for, including already earned ones
 # id is the rating key used to identify the player
 checkAchievements = (id, next) ->
@@ -134,43 +176,29 @@ flagEarned = (playerId, achievements, next) ->
   redis.hmset("#{ACHIEVEMENT_KEY}:#{playerId}", hash)
 
 # Notifies the server about achievements to add to the user
-# All achievements that have been successfully get passed to next
-notifyServer = (playerId, achievements, next) ->
+# All achievements are separated by server result and passed to next
+notifyServer = (playerName, achievements, next) ->
+  achievementsByStatus =
+    success: []
+    duplicate: []
+    error: []
+
   if config.IS_LOCAL
-    return next(null, achievements)
+    achievementsByStatus.success = achievements
+    return next(null, achievementsByStatus)
 
-  request.post {
-    url: "http://pokebattle.com/api/v1/achievements/"
-    json: achievements.map((a) -> a.id)
-  }, (err, res, duplicates) ->
-    return next(err)  if err
+  calls = for achievement in achievements
+    do (achievement) -> (callback) ->
+      request.post {
+        url: "https://www.pokebattle.com/api/v1/achievements/"
+        json: { user: playerName, achievement: achievement.name }
+      }, (err, res, data) ->
+        status = "success"
+        status = "error"  if err
+        status = "duplicate" if data.awarded
+        achievementsByStatus[status].push(achievement)
+        callback()
 
-    # Remove duplicate achievements then return
-    filtered = achievements.filter((a) -> a.id not in duplicates)
-    next(null, achievements)
-
-@registerBattle = (server, battle) ->
-  return  if battle.format != 'xy1000'
-  return  unless Conditions.RATED_BATTLE in battle.conditions 
-
-  battle.once 'ratingsUpdated', ->
-    for player in battle.players
-      do (player) ->
-        checkAchievements player.ratingKey, (err, achievements) ->
-          return  if err
-          return  if achievements.length == 0
+  async.parallel calls, (err, results) ->
+    next(null, achievementsByStatus)
           
-          filterEarned player.id, achievements, (err, achievements) ->
-            return  if err
-            return  if achievements.length == 0
-
-            notifyServer player.id, achievements, (err, achievements) ->
-              return  if err
-              return  if achievements.length == 0
-
-              flagEarned(player.id, achievements)
-
-              # for each new achievement, notify the user if said user is online
-              user = server.getUser(player.id)
-              if user
-                user.send('achievementsEarned', achievements)
