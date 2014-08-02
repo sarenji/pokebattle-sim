@@ -1350,55 +1350,57 @@ extendMove 'Memento', ->
     user.faint()
 
 extendMove 'Metronome', ->
-  impossibleMoves =
-    "After You": true
-    "Assist": true
-    "Bestow": true
-    'Chatter': true
-    "Copycat": true
-    "Counter": true
-    "Covet": true
-    "Destiny Bond": true
-    "Detect": true
-    "Endure": true
-    "Feint": true
-    "Focus Punch": true
-    "Follow Me": true
-    "Freeze Shock": true
-    "Helping Hand": true
-    "Ice Burn": true
-    "Me First": true
-    "Mimic": true
-    "Mirror Coat": true
-    "Mirror Move": true
-    "Nature Power": true
-    "Protect": true
-    "Quash": true
-    "Quick Guard": true
-    "Rage Powder": true
-    "Relic Song": true
-    "Secret Sword": true
-    "Sketch": true
-    "Sleep Talk": true
-    "Snatch": true
-    "Snarl": true
-    "Snore": true
-    "Struggle": true
-    "Switcheroo": true
-    "Techno Blast": true
-    "Thief": true
-    "Transform": true
-    "Trick": true
-    "V-create": true
-    "Wide Guard": true
+  @impossibleMoves = [
+    "After You"
+    "Assist"
+    "Bestow"
+    "Chatter"
+    "Copycat"
+    "Counter"
+    "Covet"
+    "Destiny Bond"
+    "Detect"
+    "Endure"
+    "Feint"
+    "Focus Punch"
+    "Follow Me"
+    "Freeze Shock"
+    "Helping Hand"
+    "Ice Burn"
+    "Me First"
+    "Metronome"
+    "Mimic"
+    "Mirror Coat"
+    "Mirror Move"
+    "Nature Power"
+    "Protect"
+    "Quash"
+    "Quick Guard"
+    "Rage Powder"
+    "Relic Song"
+    "Secret Sword"
+    "Sketch"
+    "Sleep Talk"
+    "Snarl"
+    "Snatch"
+    "Snore"
+    "Struggle"
+    "Switcheroo"
+    "Techno Blast"
+    "Thief"
+    "Transform"
+    "Trick"
+    "V-create"
+    "Wide Guard"
+  ]
 
-  for move of impossibleMoves
+  for move in @impossibleMoves
     if move not of Moves
       throw new Error("The illegal Metronome move '#{move}' does not exist.")
 
   @execute = (battle, user, targets) ->
     index = battle.rng.randInt(0, MoveList.length - 1, "metronome")
-    while MoveList[index].name of impossibleMoves || MoveList[index] in user.moves
+    while MoveList[index].name in @impossibleMoves
       index = battle.rng.randInt(0, MoveList.length - 1, "metronome reselect")
     move = MoveList[index]
     battle.message "Waggling a finger let it use #{move.name}!"

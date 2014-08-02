@@ -662,3 +662,19 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(skillSwap).expects('fail').never()
       @battle.performMove(@p1, skillSwap)
       mock.verify()
+
+  describe "Metronome", ->
+    it "reselects if chosen an illegal move", ->
+      shared.create.call(this, gen: 'xy')
+      @p1.moves = [ metronome ]
+      metronome = @battle.getMove("Metronome")
+      belch = @battle.getMove("Belch")
+      tackle = @battle.getMove("Tackle")
+      index = @battle.MoveList.indexOf(belch)
+      reselectIndex = @battle.MoveList.indexOf(tackle)
+      shared.biasRNG.call(this, 'randInt', "metronome", index)
+      shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@p1, metronome)
+      mock.verify()

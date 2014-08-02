@@ -5747,20 +5747,6 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, metronome)
       mock.verify()
 
-    it "reselects if chosen a user's move", ->
-      shared.create.call(this)
-      metronome = @battle.getMove("Metronome")
-      @p1.moves = [ metronome ]
-      tackle = @battle.getMove("Tackle")
-      index = @battle.MoveList.indexOf(metronome)
-      reselectIndex = @battle.MoveList.indexOf(tackle)
-      shared.biasRNG.call(this, 'randInt', "metronome", index)
-      shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
-
-      mock = @sandbox.mock(tackle).expects('execute').once()
-      @battle.performMove(@p1, metronome)
-      mock.verify()
-
     it "reselects if chosen an illegal move", ->
       shared.create.call(this)
       @p1.moves = [ metronome ]

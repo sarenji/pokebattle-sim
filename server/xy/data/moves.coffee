@@ -40,6 +40,11 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 
 makeTrappingMove "Infestation"
 
+extendMove "Metronome", ->
+  @impossibleMoves.push("Belch", "Celebrate", "Crafty Shield", "Diamond Storm",
+      "Happy Hour", "Hold Hands", "Hyperspace Hole", "King's Shield", "Light of Ruin",
+      "Mat Block", "Spiky Shield", "Steam Eruption", "Thousand Arrows", "Thousand Waves")
+
 extendMove 'Nature Power', ->
   @execute = (battle, user, targets) ->
     # In Wi-Fi battles, Tri Attack is always chosen.
