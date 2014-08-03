@@ -68,3 +68,23 @@
     &.disabled
       cursor not-allowed
       color #bbb
+
+.achievement
+  img
+    float left
+    width 75px
+  .achievement-info
+    padding-left: 90px;
+
+#achievements-modal
+  animation: achievement-glow 2s infinite
+
+$animation-glow-color = #D94E47
+
+@keyframes achievement-glow
+  0%
+    box-shadow 1px 1px 30px 2px $animation-glow-color
+  50%
+    box-shadow 1px 1px 45px 2px lighten($animation-glow-color, 20%)
+  100%
+    box-shadow 1px 1px 30px 2px $animation-glow-color

@@ -1,0 +1,8 @@
+#achievements-modal.modal.hide
+  .modal-body
+    for achievement in achievements
+      .achievement
+        img(src=window.AchievementSprite(achievement))
+        .achievement-info
+          h2= achievement.name
+          p= achievement.condition

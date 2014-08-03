@@ -14,6 +14,7 @@ config = require './config'
 errors = require '../shared/errors'
 redis = require('./redis')
 alts = require './alts'
+achievements = require './achievements'
 
 FIND_BATTLE_CONDITIONS = [
   Conditions.TEAM_PREVIEW
@@ -65,6 +66,9 @@ class @BattleServer
     user = @users.get(json.name)
     user = @users.add(json, spark)
     user
+
+  getUser: (userId) ->
+    @users.get(userId)
 
   join: (spark) ->
     @showTopic(spark)
@@ -254,7 +258,12 @@ class @BattleServer
         @visibleUserBattles[player.id][battleId] = true
 
       battle.once 'end', @removeUserBattle.bind(this, player.id, player.name, battleId)
+
       battle.once 'expire', @removeBattle.bind(this, battleId)
+
+    # Add the battle to the achievements system
+    # Uneligible battles are ignored by this function
+    achievements.registerBattle(this, battle)
 
     @rooms.push(battle)
     @battles[battleId].beginBattle()
