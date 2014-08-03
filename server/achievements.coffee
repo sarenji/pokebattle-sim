@@ -29,43 +29,50 @@ ACHIEVEMENTS = [
   {
     id: 1
     name: "Taste of Victory"
-    condition: "Win on PokeBattle for the first time"
+    condition: "Won on PokeBattle for the first time"
+    medium_image: "1_TasteOfVictory_50x50.png"
     conditionFn: winCount(1)
   },
   {
     id: 2
     name: "Centurian"
-    condition: "Win 100 times"
+    condition: "Won 100 times"
+    medium_image: "100_Centurian_50x50.png"
     conditionFn: winCount(100)
   },
   {
     id: 3
     name: "Jackpot!"
     condition: "Lucky 777 victories"
+    medium_image: "777_Jackpot_50x50.png"
     conditionFn: winCount(777)
   },
   {
     id: 4
     name: "Ladder Monster"
-    condition: "Win a beastly 2500 matches"
+    condition: "Won a beastly 2500 matches"
+    medium_image: "2500_LadderMonster_50x50_1.png"
     conditionFn: winCount(2500)
   },
   {
     id: 5
     name: "Mile High Club"
-    condition: "Win 52"
+    condition: "Won 5280 ladder matches"
+    medium_image: "5280_MileHighClub_50x50.png"
     conditionFn: winCount(5280)
   },
   {
     id: 6
     name: "Better than Phil"
     condition: "More than 7086 victories"
+    medium_image: "7087_BetterThanPhil_50x50.png"
     conditionFn: winCount(7087)
   },
   {
     id: 7
     name: "KAKAROT!"
     condition: "What? More than 9000 victories?!"
+    medium_image: "9001_KAKAROT_50x50.png"
     conditionFn: winCount(9001)
   },
 
@@ -74,37 +81,43 @@ ACHIEVEMENTS = [
   {
     id: 26
     name: "On a Roll!"
-    condition: "Five in a row"
+    condition: "Won 5 consecutive ladder matches"
+    medium_image: "5_OnARoll_50x50.png"
     conditionFn: streak(5)
   },
   {
     id: 27
     name: "Perfect Ten!"
-    condition: "10 in a row, very nice"
+    condition: "Won 10 consecutive ladder matches"
+    medium_image: "10_PerfectTen_50x50.png"
     conditionFn: streak(10)
   },
   {
     id: 28
     name: "Incredible!"
-    condition: "15 victories!"
+    condition: "Won 15 victories ladder matches"
+    medium_image: "15_Incredible_50x50.png"
     conditionFn: streak(15)
   },
   {
     id: 29
     name: "Unreal!"
-    condition: "20 victories in a row"
+    condition: "Won 20 consecutive ladder matches"
+    medium_image: "20_Unreal_50x50.png"
     conditionFn: streak(20)
   },
   {
     id: 30
     name: "Impossible!"
-    condition: "30 victories! Hopefully counting"
+    condition: "Won 30 consecutive ladder matches"
+    medium_image: "30_Impossible_50x50.png"
     conditionFn: streak(30)
   },
   {
     id: 31
     name: "The One"
-    condition: "50 in a row! PS: I love you <3"
+    condition: "You've won 50 in a row! Amazing!"
+    medium_image: "50_TheOne_50x50.png"
     conditionFn: streak(50)
   }
 ]

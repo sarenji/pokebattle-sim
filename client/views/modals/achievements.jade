@@ -2,7 +2,7 @@
   .modal-body
     for achievement in achievements
       .achievement
-        img(src="//media.pokebattle.com/logo/pb_red.png")
+        img(src=window.AchievementSprite(achievement))
         .achievement-info
           h2= achievement.name
           p= achievement.condition

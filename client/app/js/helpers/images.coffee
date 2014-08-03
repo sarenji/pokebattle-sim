@@ -40,6 +40,9 @@
     target = "distance"
   "//media.pokebattle.com/img/targets/#{target.toLowerCase()}.png"
 
+@AchievementSprite = (achievement) ->
+  "//media.pokebattle.com/achievements/#{achievement.medium_image}"
+
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)
 NON_DEFAULT_FORMES_OFFSET = maxSpeciesId + (16 - ((maxSpeciesId + 1) % 16))
