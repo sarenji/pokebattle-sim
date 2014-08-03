@@ -1,7 +1,10 @@
 #achievements-modal.modal.hide
+  .modal-header
+    button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+    h3 Achievements Earned
   .modal-body
     for achievement in achievements
-      .achievement
+      .achievement.clearfix
         img(src=window.AchievementSprite(achievement))
         .achievement-info
           h2= achievement.name
