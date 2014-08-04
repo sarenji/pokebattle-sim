@@ -315,7 +315,7 @@
             ],
             "isBattleOnly": true,
             "weight": 490,
-            "pokeBattleValue": 165
+            "pokeBattleValue": 155
         }
     },
     "Accelgor": {
@@ -6517,7 +6517,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1105,
-            "pokeBattleValue": 225
+            "pokeBattleValue": 210
         },
         "mega-y": {
             "types": [
@@ -6537,7 +6537,7 @@
             ],
             "isBattleOnly": true,
             "weight": 1005,
-            "pokeBattleValue": 215
+            "pokeBattleValue": 200
         }
     },
     "Charmander": {
@@ -11281,7 +11281,7 @@
                 "Flying"
             ],
             "weight": 2100,
-            "pokeBattleValue": 170
+            "pokeBattleValue": 165
         }
     },
     "Drapion": {
@@ -14962,7 +14962,7 @@
             ],
             "weight": 1100,
             "hiddenAbility": "Anticipation",
-            "pokeBattleValue": 155
+            "pokeBattleValue": 160
         }
     },
     "Finneon": {
@@ -16283,7 +16283,7 @@
                 "Ground"
             ],
             "weight": 950,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 175
         },
         "mega": {
             "types": [
@@ -16671,7 +16671,7 @@
                 "Steel"
             ],
             "weight": 825,
-            "pokeBattleValue": 230
+            "pokeBattleValue": 220
         }
     },
     "Gengar": {
@@ -22682,7 +22682,7 @@
                 "Water"
             ],
             "weight": 405,
-            "pokeBattleValue": 150
+            "pokeBattleValue": 155
         }
     },
     "Kadabra": {
@@ -24347,7 +24347,7 @@
                 "Ice"
             ],
             "weight": 3250,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 180
         },
         "default": {
             "abilities": [
@@ -24861,7 +24861,7 @@
                 "Flying"
             ],
             "weight": 680,
-            "pokeBattleValue": 180
+            "pokeBattleValue": 175
         }
     },
     "Lanturn": {
@@ -25427,7 +25427,7 @@
                 "Psychic"
             ],
             "weight": 600,
-            "pokeBattleValue": 185
+            "pokeBattleValue": 180
         },
         "mega": {
             "types": [
@@ -27902,7 +27902,7 @@
                 "Water"
             ],
             "weight": 100,
-            "pokeBattleValue": 9005
+            "pokeBattleValue": 5
         }
     },
     "Magmar": {
@@ -33198,7 +33198,7 @@
                 "Fire"
             ],
             "weight": 199,
-            "pokeBattleValue": 160
+            "pokeBattleValue": 155
         }
     },
     "Ninjask": {
@@ -36197,7 +36197,7 @@
             ],
             "isBattleOnly": true,
             "weight": 590,
-            "pokeBattleValue": 205
+            "pokeBattleValue": 190
         }
     },
     "Piplup": {
@@ -49075,7 +49075,7 @@
                 "Flying"
             ],
             "weight": 610,
-            "pokeBattleValue": 195
+            "pokeBattleValue": 190
         },
         "therian": {
             "abilities": [
@@ -51080,7 +51080,7 @@
             ],
             "isBattleOnly": true,
             "weight": 2550,
-            "pokeBattleValue": 210
+            "pokeBattleValue": 190
         }
     },
     "Tyrogue": {
@@ -51226,7 +51226,7 @@
                 "Dark"
             ],
             "weight": 270,
-            "pokeBattleValue": 125
+            "pokeBattleValue": 135
         }
     },
     "Unfezant": {
@@ -58451,7 +58451,7 @@
                     "Toxic": 0
                 }
             },
-            "pokeBattleValue": 190
+            "pokeBattleValue": 200
         },
         "blade": {
             "types": [
