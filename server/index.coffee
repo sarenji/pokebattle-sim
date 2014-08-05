@@ -20,7 +20,7 @@ alts = require('./alts')
 replays = require('./replays')
 
 MAX_MESSAGE_LENGTH = 250
-MAX_RANK_DISPLAYED = 100
+MAX_RANK_DISPLAYED = 10
 
 # A MD5 hash of all the JavaScript files used by the client. This is passed to
 # each new connection via the .jade template, and when the client connects. If
