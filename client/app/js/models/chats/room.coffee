@@ -6,7 +6,7 @@ class @Room extends Backbone.AssociatedModel
     collectionType: 'UserList'
   ]
 
-  EVENTS: "userMessage rawMessage announce clear".split(/\s+/)
+  EVENTS: "userMessage rawMessage announce clear setTopic".split(/\s+/)
 
   for eventName in this::EVENTS
     do (eventName) =>
