@@ -25,8 +25,8 @@ exports.middleware = -> (req, res, next) ->
 
   authenticate req, (body) ->
     if !body
-      redirectURL = "https://pokebattle.com/accounts/login"
-      redirectURL += "?next=/sim"
+      redirectURL = "forum.pokebattle.com/session/sso"
+      redirectURL += "?return_path=https://sim.pokebattle.com"
       return res.redirect(redirectURL)
     # The remote URL returns `username`, but we'd like a more unified interface,
     # so we replace `username` with `name`.
