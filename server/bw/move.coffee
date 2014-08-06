@@ -154,6 +154,8 @@ class @Move
     user.afterSuccessfulHit(this, user, target, damage, isDirect)
     target.afterBeingHit(this, user, target, damage, isDirect)
     @afterSuccessfulHit(battle, user, target, damage, isDirect)
+    user.update()
+    target.update()
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn, isDirect)
