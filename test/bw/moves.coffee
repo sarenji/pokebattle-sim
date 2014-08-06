@@ -398,6 +398,20 @@ describe "BW Moves:", ->
   describe "Splash", ->
     shared.shouldDoNoDamage('Splash')
 
+  describe 'a multi-hit move', ->
+    it 'potentially activates Berries after each hit', ->
+      shared.create.call this,
+        team1: [Factory('Magikarp', item: "Sitrus Berry", ability: "Skill Link")]
+        team2: [Factory('Magikarp', item: "Sitrus Berry", ability: "Iron Barbs")]
+      hp = @p1.currentHP
+      @p1.currentHP = (hp >> 1) + 1
+      @p2.currentHP = 4
+      move = @battle.getMove('Tail Slap')
+      @sandbox.stub(move, 'calculateDamage', -> 1)
+      @battle.performMove(@p1, move)
+      @p1.currentHP.should.equal (hp >> 1) + 1 - (5 * (hp >> 3)) + (hp >> 2)
+      @p2.currentHP.should.equal 4 + (hp >> 2) - 5
+
   describe 'jump kick attacks', ->
     it 'has 50% recoil if it misses', ->
       shared.create.call(this)
@@ -1027,6 +1041,16 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove("Knock Off"))
       @p2.hasItem().should.be.true
       @p1.isFainted().should.be.true
+
+    it 'removes healing Berries before they can activate', ->
+      shared.create.call this,
+        team1: [Factory('Magikarp')]
+        team2: [Factory('Magikarp', item: "Sitrus Berry")]
+      @p2.currentHP = 2
+      move = @battle.getMove('Knock Off')
+      @sandbox.stub(move, 'calculateDamage', -> 1)
+      @battle.performMove(@p1, move)
+      @p2.currentHP.should.equal 1
 
   describe 'trick and switcheroo', ->
     shared.shouldDoNoDamage('Trick')
