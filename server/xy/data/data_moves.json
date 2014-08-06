@@ -11164,7 +11164,7 @@
         "target": "all-opponents",
         "type": "Bug",
         "primaryBoostStats": {
-            "speed": -1
+            "speed": -2
         },
         "primaryBoostTarget": "target"
     },
