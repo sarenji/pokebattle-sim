@@ -142,6 +142,8 @@ CannedText =
       WITHDREW: "$t withdrew $p!"
       SENT_OUT: "$t sent out $p!"
       SWAP_ABILITY: "$p swapped Abilities with its target!"
+      TELEKINESIS_START: "$p was hurled into the air!"
+      TELEKINESIS_END: "$p was freed from the telekinesis!"
 
 cannedMap = {}
 cannedMapReverse = {}

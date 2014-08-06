@@ -1125,7 +1125,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
 
   initialize: ->
     @turns = 3
-    @battle.message("#{@pokemon.name} was hurled into the air!")
+    @battle.cannedText('TELEKINESIS_START', @pokemon)
 
   editEvasion: ->
     0  # Always hit
@@ -1136,7 +1136,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      @battle.message "#{@pokemon} was freed from the telekinesis!"
+      @battle.cannedText('TELEKINESIS_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.SmackDown extends @VolatileAttachment
