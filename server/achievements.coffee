@@ -210,7 +210,7 @@ notifyServer = (playerId, achievements, next) ->
       }, (err, res, data) ->
         status = "success"
         status = "error"  if err
-        status = "duplicate" if data.awarded
+        status = "duplicate" if data?.awarded
         achievementsByStatus[status].push(achievement)
         callback()
 
