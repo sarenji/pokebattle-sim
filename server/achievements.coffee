@@ -95,7 +95,7 @@ ACHIEVEMENTS = [
   {
     id: 28
     name: "Incredible!"
-    condition: "Won 15 victories ladder matches"
+    condition: "Won 15 consecutive ladder matches"
     medium_image: "15_Incredible_50x50.png"
     conditionFn: streak(15)
   },
