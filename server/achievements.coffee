@@ -124,16 +124,17 @@ ACHIEVEMENTS = [
 
 # Checks what achievements a player is eligible for
 # The achievements are then awarded to the player
-@checkAndAwardAchievements = (server, player, next = ->) ->
-  checkAchievements player.ratingKey, (err, achievements) ->
+# Note: In the current implementation, playerId is actually a name
+@checkAndAwardAchievements = (server, playerId, ratingKey, next = ->) ->
+  checkAchievements ratingKey, (err, achievements) ->
     return next(err) if err
     return next() if achievements.length == 0
 
-    filterEarned player.id, achievements, (err, achievements) ->
+    filterEarned playerId, achievements, (err, achievements) ->
       return next(err) if err
       return next() if achievements.length == 0
 
-      notifyServer player.name, achievements, (err, byStatus) ->
+      notifyServer playerId, achievements, (err, byStatus) ->
         return next(err) if err
 
         # TODO: Handle errors, probably add them to some queue to retry
@@ -142,11 +143,11 @@ ACHIEVEMENTS = [
 
         # Flag all of the achievements that have been earned
         achievementsToFlag = _.union(byStatus.success, byStatus.duplicate)
-        flagEarned(player.id, achievementsToFlag)  if achievementsToFlag.length > 0
+        flagEarned(playerId, achievementsToFlag)  if achievementsToFlag.length > 0
 
         # for each new achievement, notify the user if said user is online
         if byStatus.success.length > 0
-          user = server.getUser(player.id)
+          user = server.getUser(playerId)
           if user
             user.send('achievementsEarned', byStatus.success)
 
@@ -160,14 +161,13 @@ ACHIEVEMENTS = [
 
   battle.once 'ratingsUpdated', =>
     for player in battle.players
-      @checkAndAwardAchievements(server, player)
+      @checkAndAwardAchievements(server, player.id, player.ratingKey)
 
 
 # Returns the achievements a player is eligible for, including already earned ones
-# id is the rating key used to identify the player
-checkAchievements = (id, next) ->
-  ratings.getRatio id, (err, ratio) ->
-    ratings.getStreak id, (err, streak) ->
+checkAchievements = (ratingKey, next) ->
+  ratings.getRatio ratingKey, (err, ratio) ->
+    ratings.getStreak ratingKey, (err, streak) ->
       achievements = ACHIEVEMENTS.filter((o) -> o.conditionFn(ratio, streak))
 
       # Send everything except the conditionFn attribute
@@ -190,7 +190,9 @@ flagEarned = (playerId, achievements, next) ->
 
 # Notifies the server about achievements to add to the user
 # All achievements are separated by server result and passed to next
-notifyServer = (playerName, achievements, next) ->
+# Note: In the current implementation, playerId is actually a name
+# If playerId is refactored to a numerical id, the server will need to be updated
+notifyServer = (playerId, achievements, next) ->
   achievementsByStatus =
     success: []
     duplicate: []
@@ -204,7 +206,7 @@ notifyServer = (playerName, achievements, next) ->
     do (achievement) -> (callback) ->
       request.post {
         url: "https://www.pokebattle.com/api/v1/achievements/"
-        json: { user: playerName, achievement: achievement.name }
+        json: { user: playerId, achievement: achievement.name }
       }, (err, res, data) ->
         status = "success"
         status = "error"  if err
