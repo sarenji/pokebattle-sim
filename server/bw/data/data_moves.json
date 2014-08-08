@@ -5969,7 +5969,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Steel"
+        "type": "Steel",
+        "secondaryBoostChance": 20,
+        "secondaryBoostStats": {
+            "attack": 1
+        },
+        "secondaryBoostTarget": "self"
     },
     "Metronome": {
         "accuracy": 0,

@@ -775,7 +775,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "Raises the user's Attack to stage 6 in exchange for the user losing 1/2 of its maximum HP, rounded down. Fails if the user would faint or if its Attack stage is already 6.",
+        "description": "Raises the user's Attack by 12 stages in exchange for the user losing 1/2 of its maximum HP, rounded down. Fails if the user would faint or if its Attack stat stage is 6.",
         "flags": [
             "snatch"
         ],
@@ -6998,7 +6998,12 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Steel"
+        "type": "Steel",
+        "secondaryBoostChance": 20,
+        "secondaryBoostStats": {
+            "attack": 1
+        },
+        "secondaryBoostTarget": "self"
     },
     "Metronome": {
         "accuracy": 0,
