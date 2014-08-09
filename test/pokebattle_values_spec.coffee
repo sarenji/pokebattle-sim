@@ -6,17 +6,17 @@ values = require('../shared/pokebattle_values')
 describe "determining PBV", ->
   it "returns the total PBV for a single Pokemon", ->
     pokemon = {species: "Charizard"}
-    pbv = 130
+    pbv = GenerationJSON.XY.FormeData[pokemon.species].default.pokeBattleValue
     values.determinePBV(GenerationJSON.XY, pokemon).should.equal(pbv)
 
   it "takes mega formes into account", ->
     pokemon = {species: "Charizard", item: "Charizardite X"}
-    pbv = 225
+    pbv = GenerationJSON.XY.FormeData[pokemon.species]['mega-x'].pokeBattleValue
     values.determinePBV(GenerationJSON.XY, pokemon).should.equal(pbv)
 
   it "does not count items that do not match the species", ->
     pokemon = {species: "Charizard", item: "Blazikenite"}
-    pbv = 130
+    pbv = GenerationJSON.XY.FormeData[pokemon.species].default.pokeBattleValue
     values.determinePBV(GenerationJSON.XY, pokemon).should.equal(pbv)
 
   it "adds +15 PBV to a baton passer", ->
