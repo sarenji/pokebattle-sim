@@ -172,10 +172,9 @@ makeModCommand "mute", (user, room, next, username, reason...) ->
     user.error(errors.COMMAND_ERROR, room.name, "Usage: /mute username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
-  length = 10 * 60  if !length? || length <= 0
-  if user.authority >= auth.levels.ADMIN
-    length = Math.min(parseLength("2w"), length)  # max of two weeks
-  else
+  # Enforce a length for non-admins.
+  if user.authority < auth.levels.ADMIN
+    length = 10 * 60  if !length? || length <= 0
     length = Math.min(parseLength("2d"), length)  # max of two days
   @mute(username, reason, length)
   message = "#{user.name} muted #{username} for #{prettyPrintTime(length)}"
@@ -204,10 +203,9 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
     user.error(errors.COMMAND_ERROR, room.name, "Usage: /ban username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
-  length = 60 * 60  if !length? || length <= 0
-  if user.authority >= auth.levels.ADMIN
-    length = Math.min(parseLength("1w"), length)  # max of one week
-  else
+  # Enforce a length for non-admins
+  if user.authority < auth.levels.ADMIN
+    length = 60 * 60  if !length? || length <= 0
     length = Math.min(parseLength("1d"), length)  # max of one day
   @ban(username, reason, length)
   message = "#{user.name} banned #{username} for #{prettyPrintTime(length)}"

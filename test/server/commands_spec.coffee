@@ -226,16 +226,6 @@ describe "Commands", ->
             ttl.should.equal(1 * 24 * 60 * 60)
             done()
 
-      it "cannot ban over one week if admin", (done) ->
-        mock = @sandbox.mock(@user1).expects('error').never()
-        @user1.authority = auth.levels.ADMIN
-        commands.executeCommand @server, @user1, @room, "ban", @user2.name, "1y", =>
-          mock.verify()
-          auth.getBanTTL @user2.name, (err, ttl) ->
-            should.exist(ttl)
-            ttl.should.equal(7 * 24 * 60 * 60)
-            done()
-
     describe "unban", ->
       it "returns an error if insufficient authority", (done) ->
         mock1 = @sandbox.mock(@user1).expects('error').once()
@@ -331,26 +321,6 @@ describe "Commands", ->
           auth.getMuteTTL @user2.name, (err, ttl) ->
             should.exist(ttl)
             ttl.should.equal(2 * 24 * 60 * 60)
-            done()
-
-      it "cannot mute over two weeks if admin", (done) ->
-        mock = @sandbox.mock(@user1).expects('error').never()
-        @user1.authority = auth.levels.ADMIN
-        commands.executeCommand @server, @user1, @room, "mute", @user2.id, "1y", =>
-          mock.verify()
-          auth.getMuteTTL @user2.id, (err, ttl) ->
-            should.exist(ttl)
-            ttl.should.equal(2 * 7 * 24 * 60 * 60)
-            done()
-
-      it "cannot mute over two weeks if admin", (done) ->
-        mock = @sandbox.mock(@user1).expects('error').never()
-        @user1.authority = auth.levels.ADMIN
-        commands.executeCommand @server, @user1, @room, "mute", @user2.id, "1y", =>
-          mock.verify()
-          auth.getMuteTTL @user2.id, (err, ttl) ->
-            should.exist(ttl)
-            ttl.should.equal(2 * 7 * 24 * 60 * 60)
             done()
 
     describe "unmute", ->
