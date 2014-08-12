@@ -1202,6 +1202,13 @@ describe "BW Abilities:", ->
       @battle.performMove(@p1, @battle.getMove("Nasty Plot"))
       @p1.stages.should.containEql(attack: 0)
 
+    it "doesn't boost attack if the move hits a substitute", ->
+      shared.create.call(this, team1: [Factory("Magikarp", ability: "Justified")])
+      @p1.attach(Attachment.Substitute, hp: 1)
+      @p1.stages.should.containEql(attack: 0)
+      @battle.performMove(@p2, @battle.getMove("Crunch"))
+      @p1.stages.should.containEql(attack: 0)
+
   describe "Klutz", ->
     it "disables user's item upon switch-in", ->
       shared.create.call this,
@@ -1812,6 +1819,16 @@ describe "BW Abilities:", ->
           team1: [Factory("Magikarp", ability: "Rattled")]
         typedMove = _(@battle.MoveList).find (m) ->
           m.isNonDamaging() && m.type == type
+        @p1.stages.speed.should.equal(0)
+        @battle.performMove(@p2, typedMove)
+        @p1.stages.speed.should.equal(0)
+
+      it "does not raise speed by 1 when a #{type} move hits a substitute", ->
+        shared.create.call this,
+          team1: [Factory("Magikarp", ability: "Rattled")]
+        typedMove = _(@battle.MoveList).find (m) ->
+          m.isNonDamaging() && m.type == type
+        @p1.attach(Attachment.Substitute, hp: 1)
         @p1.stages.speed.should.equal(0)
         @battle.performMove(@p2, typedMove)
         @p1.stages.speed.should.equal(0)

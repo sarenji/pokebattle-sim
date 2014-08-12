@@ -552,8 +552,8 @@ makeAbility 'Iron Fist', ->
     if move.hasFlag('punch') then 0x1333 else 0x1000
 
 makeAbility 'Justified', ->
-  this::afterBeingHit = (move, user) ->
-    if !move.isNonDamaging() && move.getType(@battle, user, @pokemon) == 'Dark'
+  this::afterBeingHit = (move, user, target, damage, isDirect) ->
+    if !move.isNonDamaging() && move.getType(@battle, user, @pokemon) == 'Dark' && isDirect
       @pokemon.activateAbility()
       @pokemon.boost(attack: 1)
 
@@ -716,9 +716,9 @@ makeAbility 'Rain Dish', ->
     @pokemon.heal(amount)
 
 makeAbility 'Rattled', ->
-  this::afterBeingHit = (move, user) ->
+  this::afterBeingHit = (move, user, target, damage, isDirect) ->
     type = move.getType(@battle, user, @pokemon)
-    if type in [ "Bug", "Ghost", "Dark" ] && !move.isNonDamaging()
+    if type in [ "Bug", "Ghost", "Dark" ] && !move.isNonDamaging() && isDirect
       @pokemon.activateAbility()
       @pokemon.boost(speed: 1)
 
