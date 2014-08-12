@@ -36,6 +36,7 @@ ACHIEVEMENTS = [
   {
     id: 2
     name: "Centurian"
+    name: "Centurion"
     condition: "Won 100 times"
     medium_image: "100_Centurian_50x50.png"
     conditionFn: winCount(100)
