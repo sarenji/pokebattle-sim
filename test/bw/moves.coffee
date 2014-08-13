@@ -531,6 +531,12 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Low Sweep'))
       @p2.stages.speed.should.not.equal(-1)
 
+    it "does not lower the target's speed by 1 if it hits a substitute", ->
+      shared.create.call(this)
+      @p2.attach(Attachment.Substitute)
+      @battle.performMove(@p1, @battle.getMove('Low Sweep'))
+      @p2.stages.speed.should.not.equal(-1)
+
   describe 'Flame Charge', ->
     it "raises the user's speed by 1", ->
       shared.create.call(this)
@@ -540,6 +546,12 @@ describe "BW Moves:", ->
     it "raises the user's speed by 1 even if the target faints", ->
       shared.create.call(this)
       @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove('Flame Charge'))
+      @p1.stages.speed.should.equal(1)
+
+    it "raises the user's speed by 1 even if it hits a substitute", ->
+      shared.create.call(this)
+      @p2.attach(Attachment.Substitute)
       @battle.performMove(@p1, @battle.getMove('Flame Charge'))
       @p1.stages.speed.should.equal(1)
 

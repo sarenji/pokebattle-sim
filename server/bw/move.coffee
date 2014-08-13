@@ -149,7 +149,7 @@ class @Move
       battle.cannedText('DRAIN', target)
       battle.cannedText('ABSORB', user)
 
-    if isDirect && @shouldTriggerSecondary(battle, user, target)
+    if @shouldTriggerSecondary(battle, user, target, damage, isDirect)
       @triggerSecondaryEffect(battle, user, target)
     user.afterSuccessfulHit(this, user, target, damage, isDirect)
     target.afterBeingHit(this, user, target, damage, isDirect)
@@ -283,8 +283,9 @@ class @Move
   basePower: (battle, user, target, hitNumber) ->
     @power
 
-  shouldTriggerSecondary: (battle, user, target) ->
+  shouldTriggerSecondary: (battle, user, target, damage, isDirect) ->
     return false  if !@hasSecondaryEffect()
+    return false  if !isDirect && @secondaryBoostTarget != 'self'
     return false  if user.hasAbility("Sheer Force")
     return false  if target.hasAbility("Shield Dust") && @secondaryBoostTarget != 'self'
     return true
