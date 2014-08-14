@@ -125,14 +125,13 @@ class @Move
       @afterMiss(battle, user, target)
       return false
 
-  # Actually deals damage and runs hooks after hit.
+  # Calculates damage, deals damage, and returns the amount of damage dealt
   hit: (battle, user, target, hitNumber, isDirect) ->
     damage = @calculateDamage(battle, user, target, hitNumber, isDirect)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
       damage = target.damage(damage, direct: isDirect, source: "move")
       if damage != 0
-        # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
         battle.cannedText('GOT_HIT', target, percent)
       else

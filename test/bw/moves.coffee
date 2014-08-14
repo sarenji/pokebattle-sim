@@ -6865,13 +6865,23 @@ describe "BW Moves:", ->
         shared.create.call(this)
         move = @battle.getMove(moveName)
         @battle.performMove(@p1, move)
-        @p2.faint()
         for x in [0...2]
           @battle.endTurn()
         @p2.faint()
         mock = @sandbox.mock(move).expects('hit').never()
         @battle.endTurn()
         mock.verify()
+
+      it "is considered a direct attack", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.endTurn()
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.false
 
       it "can target multiple positions"
 

@@ -1314,7 +1314,8 @@ class @Attachment.DelayedAttack extends @TeamAttachment
       pokemon = @team.at(@slot)
       if pokemon.isAlive()
         @battle.message "#{pokemon.name} took the #{@move.name} attack!"
-        @move.hit(@battle, @user, pokemon)
+        damage = @move.hit(@battle, @user, pokemon, 1, false)
+        @move.afterHit(@battle, @user, pokemon, damage, false)
       @team.unattach(@constructor)
 
 class @Attachment.BatonPass extends @TeamAttachment
