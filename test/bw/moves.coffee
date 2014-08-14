@@ -1637,11 +1637,6 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Super Fang'))
       @p2.currentHP.should.equal 0
 
-  describe 'Avalanche', ->
-    it "doubles base power if moving after target"
-    it "has normal base power if moving before target"
-    it "doesn't double base power if moving after target, then before target"
-
   describe "A weather-based recovery move", ->
     it "heals 50% HP in no weather, rounded half down", ->
       shared.create.call(this)
