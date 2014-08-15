@@ -15,13 +15,13 @@ Priorities.beforeMove ?= [
   Status.Freeze
   Status.Sleep
   Ability.Truant
-  Attachment.Disable
-  Attachment.ImprisonPrevention
-  # TODO: Heal Block
-  Attachment.Confusion
   Attachment.Flinch
-  Attachment.Taunt
+  Attachment.Disable
+  # TODO: Heal Block
   Attachment.GravityPokemon
+  Attachment.Taunt
+  Attachment.ImprisonPrevention
+  Attachment.Confusion
   Attachment.Attract
   Status.Paralyze
 
