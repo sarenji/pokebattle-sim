@@ -12371,6 +12371,7 @@
             "abilities": [
                 "Pressure"
             ],
+            "hiddenAbility": "Frisk",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -12455,7 +12456,6 @@
                 "Ghost"
             ],
             "weight": 306,
-            "hiddenAbility": "Frisk",
             "pokeBattleValue": 120
         }
     },
@@ -12464,6 +12464,7 @@
             "abilities": [
                 "Pressure"
             ],
+            "hiddenAbility": "Frisk",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -12549,7 +12550,6 @@
                 "Ghost"
             ],
             "weight": 1066,
-            "hiddenAbility": "Frisk",
             "pokeBattleValue": 125
         }
     },
@@ -12558,6 +12558,7 @@
             "abilities": [
                 "Levitate"
             ],
+            "hiddenAbility": "Frisk",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -12638,7 +12639,6 @@
                 "Ghost"
             ],
             "weight": 150,
-            "hiddenAbility": "Frisk",
             "pokeBattleValue": 75
         }
     },
@@ -14641,7 +14641,8 @@
     "Feebas": {
         "default": {
             "abilities": [
-                "Swift Swim"
+                "Swift Swim",
+                "Oblivious"
             ],
             "hiddenAbility": "Adaptability",
             "isBattleOnly": false,
@@ -14876,7 +14877,6 @@
                 "Steel"
             ],
             "weight": 188,
-            "hiddenAbility": "Anticipation",
             "pokeBattleValue": 110
         }
     },
@@ -14885,6 +14885,7 @@
             "abilities": [
                 "Iron Barbs"
             ],
+            "hiddenAbility": "Anticipation",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -14961,7 +14962,6 @@
                 "Steel"
             ],
             "weight": 1100,
-            "hiddenAbility": "Anticipation",
             "pokeBattleValue": 160
         }
     },
@@ -23003,6 +23003,7 @@
             "abilities": [
                 "Color Change"
             ],
+            "hiddenAbility": "Protean",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -23097,7 +23098,6 @@
                 "Normal"
             ],
             "weight": 220,
-            "hiddenAbility": "Protean",
             "pokeBattleValue": 95
         }
     },
@@ -31309,6 +31309,7 @@
             "abilities": [
                 "Minus"
             ],
+            "hiddenAbility": "Volt Absorb",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -31381,7 +31382,6 @@
                 "Electric"
             ],
             "weight": 42,
-            "hiddenAbility": "Volt Absorb",
             "pokeBattleValue": 80
         }
     },
@@ -36294,6 +36294,7 @@
             "abilities": [
                 "Plus"
             ],
+            "hiddenAbility": "Lightningrod",
             "isBattleOnly": false,
             "learnset": {
                 "level-up": {
@@ -36365,7 +36366,6 @@
                 "Electric"
             ],
             "weight": 42,
-            "hiddenAbility": "Lightningrod",
             "pokeBattleValue": 80
         }
     },
@@ -55160,7 +55160,7 @@
             "abilities": [
                 "Pressure"
             ],
-            "hiddenAbility": "Lightningrod",
+            "hiddenAbility": "Static",
             "unreleasedHidden": true,
             "isBattleOnly": false,
             "learnset": {
