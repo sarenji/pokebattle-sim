@@ -28,17 +28,24 @@ On Windows, there is a Redis port that works fairly well: https://github.com/rgl
 
 PostgreSQL has installable versions for every major OS. In particular, for Mac OS X, there is Postgres.app.
 
-When you install PostgreSQL, you should create a database for pokebattle, called `pokebattle_sim`. The syntax is:
+When you install PostgreSQL, you should create a database for pokebattle, called `pokebattle_sim`. You can do this two ways:
 
-```sql
+```bash
+# command-line:
+$ createdb pokebattle_sim
+
+# or via SQL client:
 CREATE DATABASE pokebattle_sim;
 ```
 
 Next, you must migrate the database. Simply run:
 
 ```bash
-grunt knexmigrate:latest
+npm install -g knex
+knex migrate:latest
 ```
+
+If you get an error complaining that the `postgres` role doesn't exist, run this: `createuser -s -r postgres`.
 
 ## Run server
 
@@ -50,27 +57,7 @@ grunt
 
 to automatically compile all client-side files and run `nodemon` for you.
 
-### Vagrant (Windows-only, optional)
-
-In case the Windows redis-server does not work for you, we do provide Vagrant. First, you must install 
-[Vagrant](http://www.vagrantup.com/) and 
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads). Next, run this in the 
-terminal, inside the project directory:
-
-```bash
-vagrant up
-# a whole bunch of stuff
-vagrant ssh
-cd /vagrant
-grunt
-```
-
-From there, everything is as normal. To destroy the Vagrant VM when you're 
-done:
-
-```bash
-vagrant destroy
-```
+We also [support Vagrant](https://github.com/sarenji/pokebattle-sim/wiki/Running-via-Vagrant) if you are on a Windows machine and so desire.
 
 ## Run tests
 
@@ -92,10 +79,10 @@ mocha
 First, you must get SSH access to the server. Then, to deploy:
 
 ```bash
-cap deploy
+cap staging deploy
+# test on staging
+cap production deploy
 ```
-
-This will do all the work for you.
 
 ## Guide
 
@@ -106,7 +93,6 @@ api/             Hosts the code for the API that we host.
 client/          Main client code. Contains JS and CSS.
 config/          For Capistrano and deployment.
 public/          Public-facing dir. Generated files, fonts, images.
-scrapers/        Python scripts; turns Veekun's Pokedex into raw data.
 server/          Server, battle, move, Pokemon logic, etc.
 shared/          Files shared between server and client.
 test/            Automated tests for server and client.

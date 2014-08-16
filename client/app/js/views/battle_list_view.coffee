@@ -6,12 +6,9 @@ class @BattleListView extends Backbone.View
     @render()
 
   refreshList: =>
-    PokeBattle.socket.send("getBattleList")
-    # wait for refresh complete. It will be fired by concerns/battle_list.coffee
-
-  refreshListComplete: (battles) =>
-    @battles = _(battles).sortBy((battle) => battle[3])
-    @render()
+    PokeBattle.primus.send "getBattleList", (battles) =>
+      @battles = _(battles).sortBy((battle) => battle[3])
+      @render()
 
   render: =>
     @$el.html @template(battles: @battles)

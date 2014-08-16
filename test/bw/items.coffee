@@ -389,7 +389,7 @@ describe "BW Items:", ->
 
       @battle.performMove(@p1, @battle.getMove('Shell Smash'))
       @p1.update()
-      @p1.stages.should.include {
+      @p1.stages.should.containEql {
         attack: 2, defense: 0, speed: 2, specialAttack: 2, specialDefense: 0
       }
 
@@ -509,7 +509,7 @@ describe "BW Items:", ->
       hash = {}
       for stat in stats
         hash[stat] = 6
-      @p1.stages.should.include(hash)
+      @p1.stages.should.containEql(hash)
       @p1.hasItem().should.be.false
 
   describe "a flavor healing berry", ->
@@ -702,7 +702,7 @@ describe "BW Items:", ->
       shared.biasRNG.call(this, "randInt", 'confusion turns', 4)
       @p2.attach(Attachment.Confusion, {@battle})
       @p2.update()
-      spy.args.join(',').should.include("#{@p1.name}'s Lum Berry snapped it out of its confusion!")
+      spy.args.join(',').should.containEql("#{@p1.name}'s Lum Berry snapped it out of its confusion!")
 
   describe "Enigma Berry", ->
     it "restores 25% of HP after the owner is hit by a super-effective move", ->

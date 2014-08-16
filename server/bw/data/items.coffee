@@ -42,12 +42,9 @@ makeStatBoostBerry = (name, boosts) ->
 makeFlavorHealingBerry = (name, stat) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
-      # TODO: Replace with the real battle message.
-      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      battle.cannedText('BERRY_RESTORE', owner, this)
       owner.heal(Math.floor(owner.stat('hp') / 8))
       if owner.natureBoost(stat) < 1.0
-        # TODO: Replace with the real battle message.
-        battle.message "The #{name} was bitter!"
         owner.attach(Attachment.Confusion)
 
     this::update = ->
@@ -58,8 +55,7 @@ makeFlavorHealingBerry = (name, stat) ->
 makeHealingBerry = (name, func) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
-      # TODO: Replace with the real battle message.
-      battle.message "#{owner.name}'s #{name} restored its HP a little!"
+      battle.cannedText('BERRY_RESTORE', owner, this)
       owner.heal(func(owner))
 
     this::update = ->
@@ -73,7 +69,7 @@ makeTypeResistBerry = (name, type) ->
     this::modifyBasePowerTarget = (move, user) ->
       return 0x1000  if move.getType(@battle, user, @pokemon) != type
       return 0x1000  if util.typeEffectiveness(type, @pokemon.types) <= 1 && type != 'Normal'
-      @battle.message "The #{name} weakened the damage to #{@pokemon.name}!"
+      @battle.cannedText('ITEM_WEAKEN', @constructor, @pokemon)
       @pokemon.useItem()
       return 0x800
 
@@ -84,8 +80,7 @@ makeFeedbackDamageBerry = (name, klass) ->
       return  if !move[klass]()
       return  if target.isFainted()
       if user.damage(Math.floor(user.stat('hp') / 8))
-        # TODO: Real message.
-        @battle.message "The #{name} hurt #{user.name}!"
+        @battle.cannedText('POKEMON_HURT_BY_ITEM', user, target, @constructor)
       target.useItem()
 
 makeStatusCureBerry = (name, statuses...) ->
@@ -137,7 +132,7 @@ makeGemItem = (name, type) ->
 
     this::afterSuccessfulHit = (move, user, target) ->
       if move.type == type
-        @battle.message "The #{@displayName} strengthened #{move.name}'s power!"
+        @battle.cannedText('GEM_BOOST', @constructor, move)
         user.useItem()
 
 makeChoiceItem = (name, func) ->
@@ -208,7 +203,7 @@ makeBoostOnTypeItem = (name, type, boosts) ->
   makeItem name, ->
     this::afterBeingHit = (move, user, target) ->
       if move.type == type
-        @battle.message "#{user.name}'s #{@displayName} made its #{stats} rise!"
+        @battle.cannedText('BERRY_RAISE_STAT', @constructor, user, stats)
         target.boost(boosts)
         target.useItem()
 
@@ -243,13 +238,13 @@ makeItem 'Black Sludge', ->
       return  if maxHP == @pokemon.currentHP
       amount = Math.floor(maxHP / 16)
       amount = 1  if amount == 0
-      @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
+      @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
       @pokemon.heal(amount)
     else
       amount = Math.floor(maxHP / 8)
       amount = 1  if amount == 0
       if @pokemon.damage(amount)
-        @battle.message "#{@pokemon.name} is hurt by its #{@displayName}!"
+        @battle.cannedText('ITEM_SELF_HURT', @pokemon, @constructor)
 
 makeEvasionItem 'BrightPowder', 0.9
 makeGemItem 'Bug Gem', 'Bug'
@@ -291,7 +286,7 @@ makeItem 'Eject Button', ->
   this::afterAllHitsTarget = (move, user) ->
     return  if move.isNonDamaging()
     return  if !@battle.forceSwitch(@pokemon)
-    @battle.message "#{@pokemon.name} is switched out with the Eject Button!"
+    @battle.cannedText('EJECT_BUTTON', @pokemon)
     @pokemon.useItem()
 
 makeGemItem 'Electric Gem', 'Electric'
@@ -300,8 +295,7 @@ makeItem 'Enigma Berry', ->
   this.eat = ->
   this::afterBeingHit = (move, user, target) ->
     return  if util.typeEffectiveness(move.type, target.types) <= 1
-    # TODO: real message
-    @battle.message "The #{name} restored #{target.name}'s HP a little!"
+    @battle.cannedText('BERRY_RESTORE', target, @constructor)
     target.heal(Math.floor(target.stat('hp') / 4))
     target.useItem()
 
@@ -330,7 +324,7 @@ makeGemItem 'Flying Gem', 'Flying'
 makeItem 'Focus Band', ->
   this::editDamage = (damage, move) ->
     if damage >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
-      @battle.message "#{@pokemon.name} hung on using its #{@displayName}!"
+      @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return @pokemon.currentHP - 1
     return damage
@@ -339,7 +333,7 @@ makeItem 'Focus Sash', ->
   this::editDamage = (damage, move) ->
     maxHP = @pokemon.stat('hp')
     if @pokemon.currentHP == maxHP && damage >= maxHP
-      @battle.message "#{@pokemon.name} hung on using its #{@displayName}!"
+      @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return maxHP - 1
     return damage
@@ -376,12 +370,13 @@ makeItem 'Leftovers', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
     return  if maxHP == @pokemon.currentHP
-    @battle.message "#{@pokemon.name} restored a little HP using its #{@displayName}!"
+    @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
     amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
     @pokemon.heal(amount)
 
 makeStatBoostBerry 'Liechi Berry', attack: 1
+
 makeItem 'Life Orb', ->
   this::modifyAttack = ->
     0x14CC
@@ -389,7 +384,7 @@ makeItem 'Life Orb', ->
   this::afterAllHits = (move) ->
     return  if move.isNonDamaging()
     if @pokemon.damage(Math.floor(@pokemon.stat('hp') / 10))
-      @battle.message "#{@pokemon.name} lost some of its HP!"
+      @battle.cannedText('ITEM_SELF_HURT', @pokemon, @constructor)
 
 makeItem 'Light Clay' # Hardcoded in Attachment.Screen
 
@@ -470,7 +465,7 @@ makeItem 'Red Card', ->
     return  if move.isNonDamaging()
     benched  = user.team.getAliveBenchedPokemon()
     return  if benched.length == 0
-    @battle.message "#{@pokemon.name} held up its Red Card against #{user.name}!"
+    @battle.cannedText('RED_CARD', @pokemon, user)
     @pokemon.useItem()
     return  if user.shouldPhase(@battle, @pokemon) == false
     pokemon = @battle.rng.choice(benched)
@@ -487,7 +482,7 @@ makeItem 'Rocky Helmet', ->
     if move.hasFlag("contact")
       amount = Math.floor(user.stat('hp') / 6)
       if user.damage(amount)
-        @battle.message "#{user.name} was hurt by the #{@displayName}!"
+        @battle.cannedText('POKEMON_HURT_BY_ITEM', user, target, @constructor)
 
 makeTypeBoostItem 'Rock Incense', 'Rock'
 makeTypeBoostItem 'Rose Incense', 'Grass'
@@ -498,10 +493,9 @@ makeTypeBoostItem 'Sharp Beak', 'Flying'
 
 makeItem 'Shell Bell', ->
   this::afterSuccessfulHit = (move, user, target, damage) ->
-    # TODO: Does Shell Bell display a message if the Pokemon is at full HP?
     return  if damage == 0
-    user.heal(Math.floor(damage / 8))
-    @battle.message "#{user.name} restored some of its HP using its #{@displayName}!"
+    if user.heal(Math.floor(damage / 8))
+      @battle.cannedText('ITEM_RESTORE', user, @constructor)
 
 makeTypeResistBerry 'Shuca Berry', 'Ground'
 makeTypeBoostItem 'Silk Scarf', 'Normal'

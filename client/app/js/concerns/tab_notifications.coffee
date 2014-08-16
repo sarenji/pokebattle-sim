@@ -37,7 +37,7 @@ notifications = []
 PokeBattle.requestNotifyPermission = =>
   if notify.permissionLevel() == notify.PERMISSION_DEFAULT
     notify.requestPermission()
-    
+
 # TODO: Count the notifications by unique type/identifier combos
 PokeBattle.notifyUser = (type, identifier) =>
   return  if document.hasFocus()

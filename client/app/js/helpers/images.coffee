@@ -3,7 +3,7 @@
     pokemon = species
     species = pokemon.species || pokemon.get?("species")
     forme = pokemon.forme || pokemon.get?("forme")
-  
+
   if species
     id = SpriteIds[species][forme] || SpriteIds[species]["default"]
   else
@@ -18,7 +18,7 @@
     pokemon = id
     id = pokemon.getSpecies()?.id || 0
     forme = pokemon.get('forme')
-    options = { shiny: pokemon.get('shiny') } 
+    options = { shiny: pokemon.get('shiny') }
 
   front = options.front ? true
   shiny = options.shiny ? false
@@ -39,6 +39,9 @@
   if "distance" in move["flags"] && target == "selected-pokemon"
     target = "distance"
   "//media.pokebattle.com/img/targets/#{target.toLowerCase()}.png"
+
+@AchievementSprite = (achievement) ->
+  "//media.pokebattle.com/achievements/#{achievement.medium_image}"
 
 generation = Generations[DEFAULT_GENERATION.toUpperCase()]
 maxSpeciesId = Math.max((p.id  for n, p of generation.SpeciesData)...)

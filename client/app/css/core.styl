@@ -32,6 +32,12 @@ ul, ol, p
   bottom 0
   box-shadow 0 0 10px #000
 
+.no-sidebar
+  #content
+    left 0
+  #navigation
+    display none
+
 #main-section
   position absolute
   top $header_size
@@ -113,9 +119,6 @@ a, .fake_link
 .team-pbv
   font-size 0.75em
 
-.red
-  color $negative-color
-
 // Typography
 
 .monospace
@@ -123,3 +126,6 @@ a, .fake_link
 
 abbr
   border-bottom 1px dotted #333
+
+.italic
+  font-style italic

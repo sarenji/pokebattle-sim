@@ -8,6 +8,9 @@ if process.env.REDIS_DB_URL
 else
   db = redis.createClient()
 
+db.on 'error', (err) ->
+  console.error(err.stack)
+
 if process.env.NODE_ENV == 'test'
   # Select test database
   db.select(1)

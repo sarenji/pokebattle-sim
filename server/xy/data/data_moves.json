@@ -456,7 +456,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "A random move among those known by the user's party members is selected for use. Does not select Assist, Belch, Bestow, Bounce, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dig, Dive, Dragon Tail, Endure, Feint, Fly, Focus Punch, Follow Me, Helping Hand, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Phantom Force, Protect, Rage Powder, Roar, Shadow Force, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
+        "description": "A random move among those known by the user's party members is selected for use. Does not select Assist, Belch, Bestow, Bounce, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dig, Dive, Dragon Tail, Endure, Feint, Fly, Focus Punch, Follow Me, Helping Hand, Hold Hands, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Phantom Force, Protect, Rage Powder, Roar, Shadow Force, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -775,7 +775,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "Raises the user's Attack to stage 6 in exchange for the user losing 1/2 of its maximum HP, rounded down. Fails if the user would faint or if its Attack stage is already 6.",
+        "description": "Raises the user's Attack by 12 stages in exchange for the user losing 1/2 of its maximum HP, rounded down. Fails if the user would faint or if its Attack stat stage is 6.",
         "flags": [
             "snatch"
         ],
@@ -1840,7 +1840,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "The user uses the last move used by any Pokemon, including itself. Fails if no move has been used, or if the last move used was Assist, Belch, Bestow, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dragon Tail, Endure, Feint, Focus Punch, Follow Me, Helping Hand, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Rage Powder, Roar, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
+        "description": "The user uses the last move used by any Pokemon, including itself. Fails if no move has been used, or if the last move used was Assist, Belch, Bestow, Chatter, Circle Throw, Copycat, Counter, Covet, Destiny Bond, Detect, Dragon Tail, Endure, Feint, Focus Punch, Follow Me, Helping Hand, Hold Hands, King's Shield, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Rage Powder, Roar, Sketch, Sleep Talk, Snatch, Spiky Shield, Struggle, Switcheroo, Thief, Transform, Trick, or Whirlwind.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -5334,6 +5334,25 @@
         "target": "selected-pokemon",
         "type": "Normal"
     },
+    "Hold Hands": {
+        "accuracy": 0,
+        "ailmentChance": 0,
+        "ailmentId": "none",
+        "damage": "non-damaging",
+        "description": "Nothing happens... Fails if there is no ally adjacent to the user.",
+        "flags": [
+            "authentic"
+        ],
+        "flinchChance": 0,
+        "maxHits": 1,
+        "minHits": 1,
+        "power": 0,
+        "pp": 40,
+        "priority": 0,
+        "recoil": 0,
+        "target": "ally",
+        "type": "Normal"
+    },
     "Hone Claws": {
         "accuracy": 0,
         "ailmentChance": 0,
@@ -5580,7 +5599,8 @@
         "damage": "special",
         "description": "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
         "flags": [
-            "mirror"
+            "mirror",
+            "authentic"
         ],
         "flinchChance": 0,
         "maxHits": 1,
@@ -6978,14 +6998,19 @@
         "priority": 0,
         "recoil": 0,
         "target": "selected-pokemon",
-        "type": "Steel"
+        "type": "Steel",
+        "secondaryBoostChance": 20,
+        "secondaryBoostStats": {
+            "attack": 1
+        },
+        "secondaryBoostTarget": "self"
     },
     "Metronome": {
         "accuracy": 0,
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "A random move is selected for use, other than After You, Assist, Bestow, Chatter, Copycat, Counter, Covet, Destiny Bond, Detect, Endure, Feint, Focus Punch, Follow Me, Freeze Shock, Helping Hand, Ice Burn, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Quash, Quick Guard, Rage Powder, Relic Song, Secret Sword, Sketch, Sleep Talk, Snarl, Snatch, Snore, Struggle, Switcheroo, Techno Blast, Thief, Transform, Trick, V-create, or Wide Guard.",
+        "description": "A random move is selected for use, other than After You, Assist, Belch, Bestow, Celebrate, Chatter, Copycat, Counter, Covet, Crafty Shield, Destiny Bond, Detect, Diamond Storm, Endure, Feint, Focus Punch, Follow Me, Freeze Shock, Happy Hour, Helping Hand, Hold Hands, Hyperspace Hole, Ice Burn, King's Shield, Light of Ruin, Mat Block, Me First, Metronome, Mimic, Mirror Coat, Mirror Move, Nature Power, Protect, Quash, Quick Guard, Rage Powder, Relic Song, Secret Sword, Sketch, Sleep Talk, Snarl, Snatch, Snore, Spiky Shield, Steam Eruption, Struggle, Switcheroo, Techno Blast, Thief, Thousand Arrows, Thousand Waves, Transform, Trick, V-create, or Wide Guard.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -7126,7 +7151,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "The user uses the last move used by the target. The copied move is used against that target, if possible. Fails if the target has not made a move, or the last move used was Acupressure, After You, Aromatherapy, Aromatic Mist, Belch, Conversion 2, Counter, Crafty Shield, Curse, Doom Desire, Electric Terrain, Final Gambit, Flower Shield, Focus Punch, Future Sight, Grassy Terrain, Gravity, Guard Split, Hail, Happy Hour, Haze, Heal Bell, Heal Pulse, Helping Hand, Ion Deluge, Light Screen, Lucky Chant, Magnetic Flux, Mat Block, Me First, Mimic, Mirror Coat, Mirror Move, Mist, Misty Terrain, Mud Sport, Nature Power, Perish Song, Power Split, Psych Up, Quick Guard, Rain Dance, Reflect, Reflect Type, Role Play, Rototiller, Safeguard, Sandstorm, Sketch, Spikes, Spit Up, Stealth Rock, Sticky Web, Struggle, Sunny Day, Tailwind, Toxic Spikes, Transform, Water Sport, Wide Guard, or any move that is self-targeting.",
+        "description": "The user uses the last move used by the target. The copied move is used against that target, if possible. Fails if the target has not made a move, or the last move used was Acupressure, After You, Aromatherapy, Aromatic Mist, Belch, Conversion 2, Counter, Crafty Shield, Curse, Doom Desire, Electric Terrain, Final Gambit, Flower Shield, Focus Punch, Future Sight, Grassy Terrain, Gravity, Guard Split, Hail, Happy Hour, Haze, Heal Bell, Heal Pulse, Helping Hand, Hold Hands, Ion Deluge, Light Screen, Lucky Chant, Magnetic Flux, Mat Block, Me First, Mimic, Mirror Coat, Mirror Move, Mist, Misty Terrain, Mud Sport, Nature Power, Perish Song, Power Split, Psych Up, Quick Guard, Rain Dance, Reflect, Reflect Type, Role Play, Rototiller, Safeguard, Sandstorm, Sketch, Spikes, Spit Up, Stealth Rock, Sticky Web, Struggle, Sunny Day, Tailwind, Toxic Spikes, Transform, Water Sport, Wide Guard, or any move that is self-targeting.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -10383,7 +10408,7 @@
         "ailmentChance": 0,
         "ailmentId": "none",
         "damage": "non-damaging",
-        "description": "One of the user's known moves, besides this move, is selected for use at random. Fails if the user is not asleep. The selected move does not have PP deducted from it, and can currently have 0 PP. This move cannot select Assist, Bide, Chatter, Copycat, Focus Punch, Me First, Metronome, Mimic, Mirror Move, Nature Power, Sketch, Sleep Talk, Struggle, Uproar, or any two-turn move.",
+        "description": "One of the user's known moves, besides this move, is selected for use at random. Fails if the user is not asleep. The selected move does not have PP deducted from it, and can currently have 0 PP. This move cannot select Assist, Bide, Chatter, Copycat, Focus Punch, Hold Hands, Me First, Metronome, Mimic, Mirror Move, Nature Power, Sketch, Sleep Talk, Struggle, Uproar, or any two-turn move.",
         "flags": [],
         "flinchChance": 0,
         "maxHits": 1,
@@ -11144,7 +11169,7 @@
         "target": "all-opponents",
         "type": "Bug",
         "primaryBoostStats": {
-            "speed": -1
+            "speed": -2
         },
         "primaryBoostTarget": "target"
     },

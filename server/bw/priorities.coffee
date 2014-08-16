@@ -9,6 +9,7 @@ Priorities.beforeMove ?= [
   # Things that should happen no matter what
   Attachment.Pursuit
   Attachment.Fling
+  Attachment.DestinyBond
 
   # Order-dependent
   Status.Freeze
@@ -28,7 +29,6 @@ Priorities.beforeMove ?= [
   Attachment.FocusPunch
   Attachment.Recharge
   Attachment.Metronome
-  Attachment.DestinyBond
   Attachment.Grudge
   Attachment.Rage
   Attachment.Charging
@@ -39,6 +39,46 @@ Priorities.beforeMove ?= [
   Ability.MoldBreaker
   Ability.Teravolt
   Ability.Turboblaze
+]
+
+Priorities.switchIn ?= [
+  Attachment.BatonPass
+
+  # Order-dependent
+  Ability.Unnerve
+  Attachment.HealingWish
+  Attachment.LunarDance
+  Attachment.StealthRock
+  Attachment.Spikes
+  Attachment.ToxicSpikes
+
+  # TODO: Are these in the correct order?
+  Ability.AirLock
+  Ability.CloudNine
+  Ability.Chlorophyll
+  Ability.SwiftSwim
+  Ability.SandRush
+  Ability.Drizzle
+  Ability.Drought
+  Ability.SandStream
+  Ability.SnowWarning
+  Ability.MoldBreaker
+  Ability.Teravolt
+  Ability.Turboblaze
+  Ability.Anticipation
+  Ability.ArenaTrap
+  Ability.Download
+  Ability.Forewarn
+  Ability.Frisk
+  Ability.Imposter
+  Ability.Intimidate
+  Ability.Klutz
+  Ability.MagicBounce
+  Ability.MagnetPull
+  Ability.Pressure
+  Ability.ShadowTag
+  Ability.SlowStart
+  Ability.Trace
 ]
 
 Priorities.endTurn ?= [
@@ -106,8 +146,8 @@ Priorities.endTurn ?= [
   Attachment.Reflect
   Attachment.LightScreen
   Attachment.Screen
-  # Attachment.Safeguard
   # Attachment.Mist
+  Attachment.Safeguard
   Attachment.Tailwind
   Attachment.LuckyChant
   # TODO: Pledge moves

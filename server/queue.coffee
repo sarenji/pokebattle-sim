@@ -73,7 +73,7 @@ class @BattleQueue
   updateNewPlayers: (next) ->
     ratingKeys = (queued.player.ratingKey for queued in @newPlayers)
     return next(null)  if ratingKeys.length == 0
-    
+
     ratings.getRatings @format, ratingKeys, (err, returnedRatings) =>
       if err then return next(err)
 
@@ -86,7 +86,7 @@ class @BattleQueue
           @newPlayers[i].rating = rating
 
         # reset the new players list, we're done
-        @newPlayers.splice(0, @newPlayers.length)  
+        @newPlayers.splice(0, @newPlayers.length)
         next(null)
 
   # Returns an array of pairs. Each pair is a queue object that contains
@@ -96,7 +96,7 @@ class @BattleQueue
 
     @updateNewPlayers (err) =>
       if err then return next(err, null)
-      
+
       sortedPlayers = (queued for id, queued of @queue)
       sortedPlayers.sort((a, b) -> a.rating - b.rating)
 

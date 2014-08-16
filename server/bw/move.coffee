@@ -125,14 +125,13 @@ class @Move
       @afterMiss(battle, user, target)
       return false
 
-  # Actually deals damage and runs hooks after hit.
+  # Calculates damage, deals damage, and returns the amount of damage dealt
   hit: (battle, user, target, hitNumber, isDirect) ->
     damage = @calculateDamage(battle, user, target, hitNumber, isDirect)
     if damage > 0
       previousHP = target.get(Attachment.Substitute)?.hp ? target.currentHP
       damage = target.damage(damage, direct: isDirect, source: "move")
       if damage != 0
-        # TODO: Print out opponent's name alongside the pokemon.
         percent = Math.floor(100 * damage / target.stat('hp'))
         battle.cannedText('GOT_HIT', target, percent)
       else
@@ -149,11 +148,13 @@ class @Move
       battle.cannedText('DRAIN', target)
       battle.cannedText('ABSORB', user)
 
-    if isDirect && @shouldTriggerSecondary(battle, user, target)
+    if @shouldTriggerSecondary(battle, user, target, damage, isDirect)
       @triggerSecondaryEffect(battle, user, target)
     user.afterSuccessfulHit(this, user, target, damage, isDirect)
     target.afterBeingHit(this, user, target, damage, isDirect)
     @afterSuccessfulHit(battle, user, target, damage, isDirect)
+    user.update()
+    target.update()
 
     # Miscellaneous
     target.recordHit(user, damage, this, battle.turn, isDirect)
@@ -281,8 +282,9 @@ class @Move
   basePower: (battle, user, target, hitNumber) ->
     @power
 
-  shouldTriggerSecondary: (battle, user, target) ->
+  shouldTriggerSecondary: (battle, user, target, damage, isDirect) ->
     return false  if !@hasSecondaryEffect()
+    return false  if !isDirect && @secondaryBoostTarget != 'self'
     return false  if user.hasAbility("Sheer Force")
     return false  if target.hasAbility("Shield Dust") && @secondaryBoostTarget != 'self'
     return true

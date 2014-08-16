@@ -1,93 +1,46 @@
-# A wrapper around the sockjs socket to support a higher level of abstraction
-# Todo: Move this somewhere else
-class @Socket
-  constructor: (socket) ->
-    @closed = true
-    @callbacks = {}
-    @reconnect(socket)
-    @connectionAttempts = 0
+return  if PokeBattle.autoConnect == false
 
-  reconnect: (socket) =>
-    return  if !@closed
-    @closed = false
-    @socket = socket
-    @socket.onopen = =>
-      @handleEvent('connect')
-      @connectionAttempts = 0
+PokeBattle.primus = Primus.connect()
 
-    @socket.onmessage = (data) =>
-      console.log "Received data: #{data}"
+PokeBattle.primus.on 'listChatroom', (id, users) ->
+  if room = PokeBattle.rooms.get(id: id)
+    room.get('users').reset(users)
+  else
+    room = PokeBattle.rooms.add(id: id, users: users)
+    new ChatView(model: room, el: $('#chat-section .chat')).render()
 
-      # todo: error handling. If there's a syntax error here, its because of Json.parse
-      data = JSON.parse(data.data)
-      @handleEvent(data.messageType, data.data)
+PokeBattle.primus.on 'userMessage', (id, username, data) ->
+  room = PokeBattle.rooms.get(id)
+  room.userMessage(username, data)
 
-    @socket.onclose = =>
-      @handleEvent('close')
-      @closed = true
+PokeBattle.primus.on 'rawMessage', (id, message) ->
+  room = PokeBattle.rooms.get(id)
+  room.rawMessage(message)
 
-  handleEvent: (type, data) =>
-    data ?= []
+PokeBattle.primus.on 'announce', (id, klass, message) ->
+  room = PokeBattle.rooms.get(id)
+  room.announce(klass, message)
 
-    for callback in (@callbacks[type] || [])
-      callback.apply(this, [this].concat(data))
+PokeBattle.primus.on 'joinChatroom', (id, user) ->
+  room = PokeBattle.rooms.get(id)
+  room.get('users').add(user)
 
-    PokeBattle.events.trigger(type, data...)
+PokeBattle.primus.on 'leaveChatroom', (id, user) ->
+  room = PokeBattle.rooms.get(id)
+  room.get('users').remove(user)
 
-  on: (type, callback) ->
-    @callbacks[type] ?= []
-    @callbacks[type].push(callback)
-
-  addEvents: (events) ->
-    @on(type, callback) for type, callback of events
-
-  send: (type, data...) ->
-    @socket.send(JSON.stringify(messageType: type, data: data))
-
-PokeBattle.ready = false
-PokeBattle.socket = new Socket(new SockJS('/socket'))
-PokeBattle.socket.addEvents
-  'connect': (socket) ->
-
-  'listChatroom': (socket, users) ->
-    PokeBattle.userList.reset(users)
-
-  'updateChat': (socket, username, data) ->
-    PokeBattle.chatView.userMessage(username, data)
-
-  'updateBattleChat': (socket, battleId, username, data) ->
-    chatView = PokeBattle.battles.get(battleId).view.chatView
-    chatView.userMessage(username, data)
-
-  'rawBattleMessage': (socket, battleId, message) ->
-    chatView = PokeBattle.battles.get(battleId).view.chatView
-    chatView.updateChat(message)
-
-  'rawMessage': (socket, message) ->
-    PokeBattle.chatView.updateChat(message)
-
-  'announce': (socket, klass, message) ->
-    PokeBattle.chatView.announce(klass, message)
-
-  'joinChatroom': (socket, userJSON) ->
-    PokeBattle.userList.add(userJSON)
-
-  'leaveChatroom': (socket, userJSON) ->
-    PokeBattle.userList.remove(userJSON)
-
-  'topic': (socket, topic) ->
-    PokeBattle.chatView.setTopic(topic)
+PokeBattle.primus.on 'topic', (topic) ->
+  # TODO: Hardcoded
+  room = PokeBattle.rooms.get("Lobby")
+  room.setTopic(topic)
 
 PokeBattle.userList = new UserList()
 PokeBattle.battles = new BattleCollection([])
 PokeBattle.messages = new PrivateMessages([])
+PokeBattle.rooms = new Rooms([])
 
-PokeBattle.events.once 'ready', ->
+$ ->
   PokeBattle.navigation = new SidebarView(el: $('#navigation'))
   PokeBattle.teambuilder = new TeambuilderView(el: $("#teambuilder-section"))
   PokeBattle.battleList = new BattleListView(el: $("#battle-list-section"))
-  PokeBattle.chatView = new ChatView(
-    el: $('.chat_window .chat')
-    collection: PokeBattle.userList
-  ).render()
   new PrivateMessagesView(el: $("#messages"), collection: PokeBattle.messages)

@@ -14,9 +14,9 @@ $battle-width = 600px
 $battle-height = 300px
 $pane-width = $battle-width + $padding + $padding
 $screen-width = 400px
+$side-width = ($battle-width - $screen-width) / 2
 
 .battle_window
-  overflow-y auto
   .chat
     left $pane-width
 
@@ -27,7 +27,6 @@ $screen-width = 400px
   bottom 0
   width $pane-width
   box-sizing border-box
-  background $body-color
   padding $padding
   h2
     font-size      0.6875em
@@ -39,15 +38,20 @@ $screen-width = 400px
     position relative
     width $battle-width
     height $battle-height
-    background url("//media.pokebattle.com/img/battle/battle_bg.jpg")
     narrow-font()
+    &.battle_bg_0
+      background-image url("//media.pokebattle.com/img/battle/battle_bg.jpg")
+    &.battle_bg_1
+      background-image url("//media.pokebattle.com/img/battle/battle_bg_1.jpg")
+    &.battle_bg_2
+      background-image url("//media.pokebattle.com/img/battle/battle_bg_2.jpg")
+    &.battle_bg_3
+      background-image url("//media.pokebattle.com/img/battle/battle_bg_3.jpg")
+    &.battle_bg_4
+      background-image url("//media.pokebattle.com/img/battle/battle_bg_4.jpg")
+    &.battle_bg_5
+      background-image url("//media.pokebattle.com/img/battle/battle_bg_5.jpg")
   .battle_user_info
-    background rgba(0, 20, 64, .5)
-    position absolute
-    top 0
-    left 0
-    right 0
-    bottom 0
     .pokemon_icons
       margin 0 auto
       width 80px
@@ -57,6 +61,8 @@ $screen-width = 400px
         &:nth-child(even)
           position relative
           top 6px
+    .fill-left, .fill-right
+      width $side-width
     .left
       bottom 20px
       left 0
@@ -65,7 +71,7 @@ $screen-width = 400px
       right 0
     .left, .right
       position absolute
-      width 100px
+      width $side-width
       color #fff
       text-align center
       outline-text()
@@ -85,9 +91,7 @@ $screen-width = 400px
           background rgba(32, 32, 32, .4)
           pointer-events none
         .pokemon_hp
-          position absolute
-          bottom 0
-          left 0
+          absolute bottom left
           right 0
           &.green
             background #0f0
@@ -114,6 +118,7 @@ $screen-width = 400px
     right 0
     bottom 0
     pointer-events none
+    overflow hidden
     .battle_overlay
       position absolute
       top 0
@@ -126,7 +131,7 @@ $screen-width = 400px
         &.hail
           background rgba(128, 255, 255, .3)
         &.sand
-          background rgba(128, 64, 0, .3)
+          background linear-gradient(top, rgba(128, 64, 0, .3), rgba(64, 32, 48, .5))
         &.sun
           background rgba(255, 196, 64, .3)
 
@@ -135,8 +140,7 @@ $screen-width = 400px
     width         $screen-width
     height        $battle-height
     top           0
-    left          100px
-    background    url("//media.pokebattle.com/img/battle/battle_bg.jpg") center center
+    left          $side-width
     .pokemon
       &.bottom
         .pokemon-info
@@ -319,7 +323,7 @@ $screen-width = 400px
   .battle_summary
     position absolute
     bottom 0
-    left 100px
+    left $side-width
     right @left
     background rgba(black, .5)
     color white
@@ -370,6 +374,9 @@ $screen-width = 400px
   .button
     display block
     float none
+    &.disabled
+      .pokemon_icon
+        opacity .5
     .pokemon_icon
       display block
 
@@ -399,8 +406,8 @@ $screen-width = 400px
 
 .battle_teams
   position absolute
-  left 100px
-  right 100px
+  left $side-width
+  right $side-width
   text-align center
   margin 0 auto
   width 300px
@@ -478,3 +485,54 @@ $screen-width = 400px
 .save-log
   display block
   text-align center
+
+.drop
+  background linear-gradient(top, rgba($water, .7), rgba(255, 255, 255, 0.3))
+  width 1px
+  height 89px
+  position absolute
+  top 0
+  transform rotate(-20deg)
+  animation fall .63s linear infinite
+
+@keyframes fall
+  to
+    margin-top 2 * $battle-height
+    margin-left 2 * $battle-height * .36
+
+.ray
+  position absolute
+  background rgba(230, 192, 70, .5)
+  width ($battle-width / 10)
+  height 100%
+  transition all 1000ms ease
+  transform rotate(360deg) skewX(30deg)
+  animation fade-in-out 3s ease infinite
+
+@keyframes fade-in-out
+  0%, 100%
+    opacity 0
+  50%
+    opacity .3
+
+.sand_overlay
+  absolute top left
+  background url("//media.pokebattle.com/img/battle/weather_sand.png")
+  width 600px
+  height 600px
+  opacity .5
+  animation sandstorm .75s linear infinite
+
+@keyframes sandstorm
+  0%
+    transform translate(0, 0)
+  100%
+    transform translate(200%, 100%)
+
+.hailstone
+  position absolute
+  border-radius 4px
+  width 10px
+  height @width
+  background rgba(230, 200, 255, .5)
+  animation fall .4s linear infinite

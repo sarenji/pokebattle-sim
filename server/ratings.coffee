@@ -9,10 +9,12 @@ alts = require './alts'
 join = (keys...) ->
   keys.join(':')
 
+DEFAULT_PLAYER = @algorithm.createPlayer()
+
 USERS_RATED_KEY = "users:rated"
 USERS_ACTIVE_KEY = "users:active"
 RATINGS_KEY = "ratings"
-RATINGS_ATTRIBUTES = Object.keys(@algorithm.createPlayer())
+RATINGS_ATTRIBUTES = Object.keys(DEFAULT_PLAYER)
 RATINGS_SUBKEYS = {}
 for ladder in LADDER_FORMATS
   RATINGS_SUBKEYS[ladder] = {}
@@ -23,6 +25,8 @@ RATINGS_PER_PAGE = 15
 
 ALGORITHM_OPTIONS =
   systemConstant: 0.2  # Glicko2 tau
+
+@DEFAULT_RATING = DEFAULT_PLAYER['rating']
 
 @results =
   WIN  : 1
@@ -41,6 +45,8 @@ for ladder in LADDER_FORMATS
   RATIOS_SUBKEYS[ladder] = {}
   for attribute in RATIOS_ATTRIBUTES
     RATIOS_SUBKEYS[ladder][attribute] = join(RATIOS_KEY, ladder, attribute)
+RATIOS_STREAK_KEY = "#{RATIOS_KEY}:streak"
+RATIOS_MAXSTREAK_KEY = "#{RATIOS_KEY}:maxstreak"
 
 # Used internally by the ratings system to update
 # the max rating of user when a rating changes
@@ -49,7 +55,7 @@ updateMaxRating = (ladder, id, next) =>
   id = alts.getIdOwner(id).toLowerCase()
   alts.listUserAlts id, (err, altNames) =>
     return next(err)  if err
-    
+
     # Retrieve a list of all rating Keys
     ids = (alts.uniqueId(id, name) for name in altNames)
     ids.push(id)
@@ -65,6 +71,15 @@ updateMaxRatings = (ladder, ids, next) ->
     (callback) -> updateMaxRating(ladder, id, callback)
   async.parallel ops, next
 
+updateMaxStreak = (ladder, id, next) =>
+  @getStreak ladder, id, (err, results) ->
+    return next(err)  if err
+
+    if results.streak > results.maxStreak
+      redis.hmset([RATIOS_MAXSTREAK_KEY, ladder].join(':'), id, results.streak, next)
+    else
+      next(err)
+
 @getPlayer = (ladder, id, next) ->
   id = id.toLowerCase()
   multi = redis.multi()
@@ -75,7 +90,7 @@ updateMaxRatings = (ladder, ids, next) ->
     object = {}
     for value, i in results
       attribute = RATINGS_ATTRIBUTES[i]
-      value ||= 0
+      value ||= DEFAULT_PLAYER[attribute]
       object[attribute] = Number(value)
     return next(null, object)
 
@@ -145,14 +160,24 @@ updateMaxRatings = (ladder, ids, next) ->
     when 1 then 'win'
     when 0 then 'lose'
     else 'draw'
+
   multi = multi.hincrby(RATIOS_SUBKEYS[ladder][attribute], id, 1)
+  if attribute == "win"
+    multi = multi.hincrby(RATIOS_STREAK_KEY, id, 1)
+  else
+    multi = multi.hset(RATIOS_STREAK_KEY, id, 0)
+
   multi = multi.sadd(join(USERS_RATED_KEY, ladder), id)
   for attribute in RATINGS_ATTRIBUTES
     value = object[attribute]
     multi = multi.zadd(RATINGS_SUBKEYS[ladder][attribute], value, id)
+
   multi.exec (err) ->
     return next(err)  if err
-    updateMaxRating(ladder, id, next)
+    async.parallel([
+      updateMaxRating.bind(this, ladder, id)
+      updateMaxStreak.bind(this, ladder, id)
+    ], next)
 
 @updatePlayers = (ladder, id, opponentId, score, next) ->
   if score < 0 || score > 1
@@ -164,9 +189,6 @@ updateMaxRatings = (ladder, ids, next) ->
   exports.getPlayers ladder, [id, opponentId], (err, results) =>
     return next(err)  if err
     [player, opponent] = results
-    defaultRating = @algorithm.createPlayer().rating
-    player.rating ||= defaultRating
-    opponent.rating ||= defaultRating
     winnerMatches = [{opponent, score}]
     loserMatches = [{opponent: player, score: opponentScore}]
     newWinner = exports.algorithm.calculate(player, winnerMatches, ALGORITHM_OPTIONS)
@@ -217,3 +239,11 @@ updateMaxRatings = (ladder, ids, next) ->
     for attribute, i in RATIOS_ATTRIBUTES
       hash[attribute] = Number(results[i]) || 0
     return next(null, hash)
+
+@getStreak = (id, next) ->
+  id = id.toLowerCase()
+  multi = redis.multi()
+  multi = multi.hget([RATIOS_STREAK_KEY, ladder].join(':'), id)
+  multi = multi.hget([RATIOS_MAXSTREAK_KEY, ladder].join(':'), id)
+  multi.exec (err, results) ->
+    next(null, {streak: results[0], maxStreak: results[1]})

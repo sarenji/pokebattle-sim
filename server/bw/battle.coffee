@@ -2,17 +2,18 @@
 {User, MaskedUser} = require '../user'
 {FakeRNG} = require './rng'
 {Pokemon} = require './pokemon'
+{Move} = require './move'
 {Team} = require './team'
 {Weather} = require '../../shared/weather'
 {Attachment, Attachments, Status, BaseAttachment} = require './attachment'
 {Protocol} = require '../../shared/protocol'
 {CannedText} = require('../../shared/canned_text')
 Query = require './queries'
-{EventEmitter} = require 'events'
+{Room} = require '../rooms'
 logger = require '../logger'
 
 # Represents a single ongoing battle
-class @Battle extends EventEmitter
+class @Battle extends Room
   {Moves, MoveList, SpeciesData, FormeData} = require './data'
   Moves: Moves
   MoveList: MoveList
@@ -41,8 +42,13 @@ class @Battle extends EventEmitter
         @performMove(action.pokemon, action.move)
 
   constructor: (@id, @format, @players, attributes = {}) ->
+    super(@id)
+
     # Number of pokemon on each side of the field
     @numActive = attributes.numActive || 1
+
+    # Which battling format was selected
+    @format = attributes.format
 
     # An array of conditions like clauses or team preview that this battle has.
     # TODO: Remove
@@ -68,9 +74,6 @@ class @Battle extends EventEmitter
 
     # Current turn duration for the weather. -1 means infinity.
     @weatherDuration = -1
-
-    # Array of spectators scouting these fine, upstanding players.
-    @spectators = []
 
     # Stores last move used
     @lastMove = null
@@ -155,6 +158,10 @@ class @Battle extends EventEmitter
   getPlayerIndex: (playerId) ->
     index = @playerIds.indexOf(playerId)
     return (if index == -1 then null else index)
+
+  getPlayerName: (playerId) ->
+    index = @getPlayerIndex(playerId)
+    return (if index? then @playerNames[index] else playerId)
 
   getPlayer: (playerId) ->
     _(@players).find((p) -> p.id == playerId)
@@ -273,8 +280,8 @@ class @Battle extends EventEmitter
 
   # Tells every spectator something.
   tell: (args...) ->
-    spectatorIds = _.unique(@spectators.map((s) -> s.id))
-    @tellPlayer(spectatorId, args...)  for spectatorId in spectatorIds
+    for id, user of @users
+      @tellPlayer(user.name, args...)
     @log.push(args)
     true
 
@@ -284,8 +291,8 @@ class @Battle extends EventEmitter
 
   # Sends a message to every spectator.
   send: ->
-    for spectator in @spectators
-      spectator.send.apply(spectator, arguments)
+    for id, user of @users
+      user.send.apply(user, arguments)
 
   # Passing -1 to turns makes the weather last forever.
   setWeather: (weatherName, turns=-1) ->
@@ -555,7 +562,7 @@ class @Battle extends EventEmitter
       else
         index += 1
 
-    @tellPlayer(playerId, Protocol.CANCEL_SUCCESS)
+    @sendRequestTo(playerId)
 
     @emit('undoCompletedRequest', playerId)
     return true
@@ -819,36 +826,31 @@ class @Battle extends EventEmitter
           else throw new Error("Unrecognized unknown ailment for #{move.name}")
       else throw new Error("Unrecognized ailment: #{move.ailmentId} for #{move.name}")
 
-  addSpectator: (spectator) ->
-    return  if spectator in @spectators
+  add: (spark) ->
+    user = spark.user
+
     # If this is a player, mask the spectator in case this is an alt
-    player = _(@players).find((p) -> p.id == spectator.id)
-    spectator = spectator.maskName(player.name)  if player
+    player = _(@players).find((p) -> p.id == user.name)
 
-    if !_(@spectators).some((s) -> s.id == spectator.id)
-      @broadcast('joinBattle', @id, spectator)
+    # Find the user's index (if any)
+    index = (if player then @getPlayerIndex(player.id) else null)
 
-    @spectators.push(spectator)
-    index = @getPlayerIndex(spectator.id)
+    # Start spectating battle
+    spark.send('spectateBattle',
+      @id, @format, @numActive, index, @playerNames, @log)
 
-    # Get rid of non-unique spectators?
-    spectators = @spectators.map((s) -> s.toJSON())
-    spectator.send('spectateBattle',
-      @id, @generation, @numActive,
-      index, @playerNames, spectators, @log)
+    # Add to internal user store
+    super(spark)
 
     # If this is a player, send them their own team
     if player
-      @tellPlayer(spectator.id, Protocol.RECEIVE_TEAM, @getTeam(spectator.id).toJSON())
+      teamJSON = @getTeam(player.id).toJSON()
+      @tellPlayer(player.id, Protocol.RECEIVE_TEAM, teamJSON)
 
-    @emit('spectateBattle', spectator)
+    @emit('spectateBattle', user)
 
-  removeSpectator: (spectator) ->
-    for s, i in @spectators
-      if s.id == spectator.id
-        @spectators.splice(i, 1)
-        @broadcast('leaveBattle', @id, spectator.name)
-        break
+  transformName: (name) ->
+    @getPlayerName(name)
 
   forfeit: (id) ->
     return  if @isOver()
@@ -875,23 +877,14 @@ class @Battle extends EventEmitter
     else
       @ONGOING_BATTLE_TTL
 
-  # Proxies arguments the `send` function for all spectators.
-  broadcast: ->
-    s.send.apply(s, arguments)  for s in @spectators
-
   # Sends battle updates to each spectator.
   sendUpdates: ->
-    # Send battle updates to each spectator. Keep in mind that multiple
-    # spectators can belong to a single id, due to multiple clients.
-    # This is why we cleanup after all spectators are iterated through.
-    for spectator in @spectators
-      queue = @queues[spectator.id]
+    for id, user of @users
+      userName = user.name
+      queue = @queues[userName]
       continue  if !queue || queue.length == 0
-      spectator.send('updateBattle', @id, queue)
-
-    # Now clean-up.
-    for id of @queues
-      delete @queues[id]
+      user.send('updateBattle', @id, queue)
+      delete @queues[userName]
 
   cannedText: (type, args...) ->
     newArgs = []
@@ -899,6 +892,8 @@ class @Battle extends EventEmitter
     for arg in args
       if arg instanceof Pokemon
         newArgs.push(@getPlayerIndex(arg.playerId), arg.team.indexOf(arg))
+      else if arg instanceof Move
+        newArgs.push(arg.name)
       else if _.isObject(arg) && arg.prototype instanceof BaseAttachment
         newArgs.push(arg.displayName)
       else

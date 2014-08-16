@@ -1,0 +1,19 @@
+.row-fluid
+  .span4
+    h2 Battle speed
+    each speed, name in speeds
+      label.block
+        input.battle-speed(type = "radio", name = "battle_speed", checked = (speed === currentSpeed), value = speed)
+        |  #{name}
+
+  //-
+    .span8
+      h2 Controls
+      span.button.button-reset To beginning
+      span.button.button-pause Pause
+      span.button.button-play Play
+      span.button.button-skip Skip turn
+      label
+        input(type = "checkbox")
+        |  Disable spectators
+

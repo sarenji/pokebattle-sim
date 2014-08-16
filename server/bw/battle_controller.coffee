@@ -9,22 +9,26 @@ class @BattleController
     conditions.attach(this)
     @battle.emit('initialize')
 
-  # Returns the player associated with an id
-  getPlayer: (playerId) ->
-    @battle.getPlayer(playerId)
+  BATTLE_DELEGATES = 'getPlayer isOver sendRequestTo
+              add remove'.trim().split(/\s+/)
+
+  for method in BATTLE_DELEGATES
+    do (method) =>
+      this::[method] = ->
+        @battle[method].apply(@battle, arguments)
 
   # Returns all the player ids participating in this battle.
   getPlayerIds: ->
     @battle.playerIds
 
-  # Returns all the names of players participating in this battle. 
+  # Returns all the names of players participating in this battle.
   # These names may be masked by alts
   getPlayerNames: ->
     @battle.playerNames
 
   # Tells the player to execute a certain move by name. The move is added
   # to the list of player actions, which are executed once the turn continues.
-  makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, args...) ->
+  makeMove: (playerId, moveName, forSlot = 0, forTurn = @battle.turn, options = {}) ->
     return false  if @battle.isOver()
     return false  if forTurn != @battle.turn
     return false  if playerId not in @battle.playerIds
@@ -34,7 +38,7 @@ class @BattleController
     return false  if !request
     return false  if moveName not in (request.moves || [])
     move = @battle.getMove(moveName)
-    @battle.recordMove(playerId, move, forSlot, args...)
+    @battle.recordMove(playerId, move, forSlot, options)
     @transitionToNextState()
     return true
 
@@ -67,23 +71,11 @@ class @BattleController
     @battle.forfeit(playerId)
     @sendUpdates()
 
-  addSpectator: (spectator) ->
-    @battle.addSpectator(spectator)
-
-  sendRequestTo: (spectator) ->
-    @battle.sendRequestTo(spectator)
-
-  removeSpectator: (spectator) ->
-    @battle.removeSpectator(spectator)
-
   messageSpectators: (user, message) ->
-    # Find the user in the battle just in case its masked
-    # If it doesn't exist, this means its an outside user
-    userInBattle = _(@battle.spectators).find((s) -> s.id == user.id)
-    user = userInBattle  if userInBattle
-
+    # In case the user is an alt.
+    userName = @battle.getPlayerName(user.name)
     for spectator in @battle.spectators
-      spectator.send('updateBattleChat', @battle.id, user.name, message)
+      spectator.send('updateBattleChat', @battle.id, userName, message)
 
   rawMessage: (message) ->
     for spectator in @battle.spectators

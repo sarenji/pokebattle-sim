@@ -34,10 +34,10 @@
   cancelChallenge = ->
     enableButtons()
     if personId
-      PokeBattle.socket.send(cancelEventName, personId)
+      PokeBattle.primus.send(cancelEventName, personId)
     else
       format = $selectFormat.data('format')
-      PokeBattle.socket.send(cancelEventName, format)
+      PokeBattle.primus.send(cancelEventName, format)
     $button.trigger('cancelChallenge')
 
   disableButtons = ->
@@ -57,11 +57,11 @@
     $.contains(document, $wrapper.get(0))
 
   altCreatedEvent = ->
-    return PokeBattle.events.off('altCreated', altCreatedEvent)  unless isAttachedToDom()
+    return PokeBattle.primus.off('altCreated', altCreatedEvent)  unless isAttachedToDom()
     $wrapper.find('.alt-input input').val("")
     toggleAltInput(false)
 
-  PokeBattle.events.on 'altCreated', altCreatedEvent
+  PokeBattle.primus.on 'altCreated', altCreatedEvent
 
   enableButtons()
 
@@ -75,17 +75,21 @@
     format = $selectFormat.data('format')
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
-      disableButtons()
       team = getSelectedTeam()
+      unless team
+        alert("You need to create a team using the Teambuilder before you can battle.")
+        return
+
+      disableButtons()
       teamJSON = team.toNonNullJSON().pokemon
       # Send the event
       if personId
         $clauses = $wrapper.find('input:checked[type="checkbox"]')
         clauses = []
         $clauses.each(-> clauses.push(parseInt($(this).val(), 10)))
-        PokeBattle.socket.send(eventName, personId, format, teamJSON, clauses, selectedAlt)
+        PokeBattle.primus.send(eventName, personId, format, teamJSON, clauses, selectedAlt)
       else
-        PokeBattle.socket.send(eventName, format, teamJSON, selectedAlt)
+        PokeBattle.primus.send(eventName, format, teamJSON, selectedAlt)
       $button.addClass('disabled').trigger('challenge')
     else
       cancelChallenge()
@@ -93,21 +97,25 @@
   # Implement accept/reject buttons.
   $accept.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
+    team = getSelectedTeam()
+    unless team
+      alert("You need to create a team using the Teambuilder before you can battle.")
+      return
     disableButtons()
-    teamJSON = getSelectedTeam().toNonNullJSON().pokemon
-    PokeBattle.socket.send(acceptEventName, personId, teamJSON, selectedAlt)
+    teamJSON = team.toNonNullJSON().pokemon
+    PokeBattle.primus.send(acceptEventName, personId, teamJSON, selectedAlt)
 
   $reject.on 'click.challenge', ->
     return  if $(this).hasClass('disabled')
     disableButtons()
-    PokeBattle.socket.send(rejectEventName, personId)
+    PokeBattle.primus.send(rejectEventName, personId)
 
   # Clicking the alts dropdown brings down an alt selection dropdown menu
   $wrapper.find('.select-alt').click (e) ->
-    html = JST['alt_dropdown'](alts: PokeBattle.alts.listAlts(), username: PokeBattle.username)
+    html = JST['alt_dropdown'](alts: PokeBattle.alts.list, username: PokeBattle.username)
     $wrapper.find('.alt-dropdown').html(html)
 
-  # Selecting an alt from the dropdown 
+  # Selecting an alt from the dropdown
   $wrapper.find('.alt-dropdown').on 'click', '.select-alt-dropdown-item', (e) ->
     selectedAlt = $(this).data('alt-name')
     $wrapper.find('.select-alt').html($(this).html())
@@ -145,7 +153,7 @@
     format = $target.data('format')
     $selectFormat.text($target.text())
     $selectFormat.data('format', format)
-  
+
   # Select non-alt option
   $wrapper.find('.select-alt').html(JST['alt_dropdown'](alt: null, username: PokeBattle.username))
 

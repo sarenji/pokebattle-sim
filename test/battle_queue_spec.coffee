@@ -12,7 +12,7 @@ FORMAT = 'xy1000'
 
 describe 'BattleQueue', ->
   it 'should be empty by default', ->
-    new BattleQueue(FORMAT).should.be.empty
+    new BattleQueue(FORMAT).should.have.length(0)
 
   describe '#add', ->
     it 'queues a new player', ->
@@ -61,7 +61,7 @@ describe 'BattleQueue', ->
       queue = new BattleQueue(FORMAT)
       dude = 'dude'
       queue.add(dude)
-      queue.queuedPlayers().should.includeEql(dude)
+      queue.queuedPlayers().should.containEql(dude)
       queue.queuedPlayers().should.have.length 1
 
   describe '#hasRecentlyMatched', ->
@@ -201,7 +201,7 @@ describe 'BattleQueue', ->
       ]
 
       ratingTasks = []
-      for user in users 
+      for user in users
         # non-alt
         ratingTasks.push ratings.setRating.bind(null, FORMAT, user[0], user[2])
 
@@ -217,7 +217,7 @@ describe 'BattleQueue', ->
           results = results.map((result) -> [result[0].id, result[1].id])
           results.should.eql [[ "batman", "spiderman" ], [ "flash", "superman" ]]
 
-          # now test alts getting added   
+          # now test alts getting added
           queue.add(user[0], user[1], null, alts.uniqueId(user[0], user[1]))  for user in users
           queue.pairPlayers (err, results) ->
             should.not.exist(err)

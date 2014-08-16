@@ -1,0 +1,43 @@
+!!!
+html
+  head
+    meta(http-equiv="X-UA-Compatible", content="IE=Edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=0")
+    title PokeBattle
+    link(rel="icon", type="image/png", href="//media.pokebattle.com/img/favicon.png")
+    link(rel="stylesheet", href=asset_path("css/vendor.css"))
+    link(rel="stylesheet", href=asset_path("css/main.css"))
+  body(class = bodyClass)
+    #navigation
+    #content
+      #header
+        #main-nav
+          #leftmenu.left
+            a(href="#").show-navigation
+              span.icon.icon-menu
+          #logo
+            img(id="logoimg", src="//media.pokebattle.com/logo/pb_red.png", height="60px", alt="pokebattle.com")
+          nav#sections
+            ul
+              li
+                a(href="//sim.pokebattle.com") Simulator
+              li
+                a(href="//forums.pokebattle.com", target="_blank") Forums
+              li
+                a(href="//pokebattle.com/dex", target="_blank") Pokedex
+              li
+                a(href="//pokebattle.com/leaderboard", target="_blank") Leaderboard
+              li
+                a(href="//pokebattle.com/accounts/logout") Logout
+        #sub-nav
+      block content
+    block footer
+    script.
+      //- For Typekit
+      (function() {
+        var config = {
+          kitId: 'bgv2brq',
+          scriptTimeout: 1500
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();

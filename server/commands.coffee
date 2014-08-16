@@ -99,12 +99,12 @@ makeOwnerCommand = (commandNames..., func) ->
   func = Commands[commandName]
   if !func
     message = "Invalid command: #{commandName}. Type /help to see a list."
-    user.error(errors.COMMAND_ERROR, message)
+    user.error(errors.COMMAND_ERROR, room.name, message)
     callback()
   else if !func.authority || user.authority >= func.authority
     Commands[commandName]?.call(server, user, room, callback, args...)
   else
-    user.error(errors.COMMAND_ERROR, "You have insufficient authority.")
+    user.error(errors.COMMAND_ERROR, room.name, "You have insufficient authority.")
     callback()
 
 #######################
@@ -113,31 +113,48 @@ makeOwnerCommand = (commandNames..., func) ->
 
 desc "Gets a single username's rating on this server. Usage: /rating username"
 makeCommand "rating", "ranking", "rank", (user, room, next, username) ->
-  username ||= user.id
-  async.parallel [
-    ratings.getRating.bind(ratings, username)
-    ratings.getRank.bind(ratings, username)
-    ratings.getRatio.bind(ratings, username)
-  ], (err, results) ->
-    return user.error(errors.COMMAND_ERROR, err.message)  if err
-    [rating, rank, ratios] = results
-    ratio = []
-    rank ?= "Unranked"
-    ratio.push("Rank: #{rank}")
-    ratio.push("Win: #{ratios.win}")
-    if user.id == username
-      total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
-      ratio.push("Lose: #{ratios.lose}")
-      ratio.push("Tie: #{ratios.draw}")
-      ratio.push("Total: #{total}")
-    user.announce('success', "#{username}'s rating: #{rating} (#{ratio.join(' / ')})")
-    next()
+  username ||= user.name
+  alts.getAltOwner username, (err, owner) ->
+    altKey = alts.uniqueId(owner, username)
+    commands = [
+      ratings.getRating.bind(ratings, username)
+      ratings.getRank.bind(ratings, username)
+      ratings.getRatio.bind(ratings, username)
+    ]
+    commands.push(ratings.getRating.bind(ratings, altKey),
+                  ratings.getRank.bind(ratings, altKey),
+                  ratings.getRatio.bind(ratings, altKey))  if owner?
+    async.parallel commands, (err, results) ->
+      return user.error(errors.COMMAND_ERROR, room.name, err.message)  if err
+      messages = []
+      messages.push collectRatingResults(username, results[...3], isOwner: username == user.name)
+      messages.push collectRatingResults("(Alt) #{username}", results[3...], isOwner: owner == user.name)  if owner?
+      messages = _.compact(messages)
+      if messages.length == 0
+        user.announce(room.name, 'error', "Could not find rating for #{username}.")
+      else
+        user.announce(room.name, 'success', "#{messages.join('<br>')}")
+      next()
+
+collectRatingResults = (username, results, options = {}) ->
+  isOwner = options.isOwner ? false
+  [rating, rank, ratios] = results
+  return  if !rank
+  ratio = []
+  ratio.push("Rank: #{rank}")
+  ratio.push("Win: #{ratios.win}")
+  if isOwner
+    total = _.reduce(_.values(ratios), ((x, y) -> x + y), 0)
+    ratio.push("Lose: #{ratios.lose}")
+    ratio.push("Tie: #{ratios.draw}")
+    ratio.push("Total: #{total}")
+  "<b>#{username}'s rating:</b> #{rating} (#{ratio.join(' / ')})"
 
 desc "Finds all the battles a username is playing in on this server.
       Usage: /battles username"
 makeCommand "battles", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /battles username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /battles username")
     return next()
   battleIds = @getVisibleUserBattles(username)
   links = battleIds.map (id) ->
@@ -146,22 +163,21 @@ makeCommand "battles", (user, room, next, username) ->
       "#{username} is not playing any battles."
     else
       "#{username}'s battles: #{links.join(" | ")}"
-  user.announce('success', message)
+  user.announce(room.name, 'success', message)
   next()
 
 desc "Default length is 10 minutes, up to a maximum of two days. To specify different lengths, use 1m2h3d4w (minute, hour, day, week). Usage: /mute username, length, reason"
 makeModCommand "mute", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /mute username, length, reason")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /mute username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
-  length = 10 * 60  if !length? || length <= 0
-  if user.authority >= auth.levels.ADMIN
-    length = Math.min(parseLength("2w"), length)  # max of two weeks
-  else
+  # Enforce a length for non-admins.
+  if user.authority < auth.levels.ADMIN
+    length = 10 * 60  if !length? || length <= 0
     length = Math.min(parseLength("2d"), length)  # max of two days
   @mute(username, reason, length)
-  message = "#{user.id} muted #{username} for #{prettyPrintTime(length)}"
+  message = "#{user.name} muted #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
@@ -169,46 +185,30 @@ makeModCommand "mute", (user, room, next, username, reason...) ->
 desc "Unmutes a username. Usage: /unmute username"
 makeModCommand "unmute", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /unmute username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /unmute username")
     return next()
   auth.getMuteTTL username, (err, ttl) =>
     if ttl == -2
-      user.error(errors.COMMAND_ERROR, "#{username} is already unmuted!")
+      user.error(errors.COMMAND_ERROR, room.name, "#{username} is already unmuted!")
       return next()
     else
       @unmute(username)
-      message = "#{user.id} unmuted #{username}"
+      message = "#{user.name} unmuted #{username}"
       room.announce('warning', message)
       next()
-
-desc "Kicks a username for 3 minutes. The reason is optional. Usage: /kick username, reason"
-makeModCommand "kick", (user, room, next, username, reason...) ->
-  if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /kick username,reason")
-    return next()
-  else if !room.has(username)
-    user.error(errors.COMMAND_ERROR, "User #{username} is not online.")
-    return next()
-  reason = reason.join(',').trim()
-  @ban(username, reason, 3 * 60)
-  message = "#{user.id} kicked #{username} for 3 minutes"
-  message += " (#{reason})"  if reason.length > 0
-  room.announce('warning', message)
-  next()
 
 desc "Default length is one hour, up to a maximum of one day. To specify different lengths, use 1m2h3d (minute, hour, day). Usage: /ban username, length, reason"
 makeModCommand "ban", (user, room, next, username, reason...) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /ban username, length, reason")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /ban username, length, reason")
     return next()
   [length, reason] = parseLengthAndReason(reason)
-  length = 60 * 60  if !length? || length <= 0
-  if user.authority >= auth.levels.ADMIN
-    length = Math.min(parseLength("1w"), length)  # max of one week
-  else
+  # Enforce a length for non-admins
+  if user.authority < auth.levels.ADMIN
+    length = 60 * 60  if !length? || length <= 0
     length = Math.min(parseLength("1d"), length)  # max of one day
   @ban(username, reason, length)
-  message = "#{user.id} banned #{username} for #{prettyPrintTime(length)}"
+  message = "#{user.name} banned #{username} for #{prettyPrintTime(length)}"
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
@@ -216,49 +216,54 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
 desc "Unbans a username. Usage: /unban username"
 makeModCommand "unban", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /unban username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /unban username")
     return next()
   auth.getBanTTL username, (err, ttl) =>
     if ttl == -2
-      user.error(errors.COMMAND_ERROR, "#{username} is already unbanned!")
+      user.error(errors.COMMAND_ERROR, room.name, "#{username} is already unbanned!")
       return next()
     else
       @unban username, =>
-        message = "#{user.id} unbanned #{username}"
+        message = "#{user.name} unbanned #{username}"
         room.announce('warning', message)
         return next()
 
 desc "Finds the current ips under use by a user"
-makeModCommand "ip", (user, room, next, username) ->
-  if !username
+makeModCommand "ip", (user, room, next, nameOrIp) ->
+  if !nameOrIp
     user.error(errors.COMMAND_ERROR, "Usage: /ip username")
     return next()
-  sockets = @users.get(username)
-  ips = sockets.map (socket) ->
-    socket = socket.socket
-    tempIPs = (socket.headers?['x-forwarded-for'] ? '').split(',')
-    tempIPs.unshift(socket.remoteAddress)
-    tempIPs.filter((ip) -> ip).map((ip) -> ip.trim())
-  ips = _.chain(ips).flatten().compact().unique().value()
-  user.announce('success', "#{username}'s IP addresses: #{ips.join(', ')}")
+  checkedUser = @users.get(nameOrIp)
+  if checkedUser
+    ips = checkedUser.sparks.map((spark) -> spark.address.ip)
+    ips = _.chain(ips).compact().unique().value()
+    user.announce(room.name, 'success', "#{nameOrIp}'s IP addresses: #{ips.join(', ')}")
+  else
+    users = []
+    for checkedUser in @users.getUsers()
+      for spark in checkedUser.sparks
+        if spark.address.ip == nameOrIp
+          users.push(checkedUser.name)
+          break
+    user.announce(room.name, 'success', "Users with IP #{nameOrIp}: #{users.join(', ')}")
   next()
 
 desc "Prevents new battles from starting. Usage: /lockdown [on|off]"
 makeAdminCommand "lockdown", (user, room, next, option = "on") ->
   if option not in [ "on", "off" ]
-    user.error(errors.COMMAND_ERROR, "Usage: /lockdown [on|off]")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /lockdown [on|off]")
     return next()
   if option == 'on' then @lockdown() else @unlockdown()
   next()
 
-desc "Drivers a username permanently. Usage: /driver username"
-makeAdminCommand "driver", (user, room, next, username) ->
+desc "Voices a username permanently. Usage: /voice username"
+makeAdminCommand "voice", "driver", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /driver username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /voice username")
     return next()
   auth.setAuth username, auth.levels.DRIVER, (err, result) =>
     if err
-      user.error(errors.COMMAND_ERROR, err.message)
+      user.error(errors.COMMAND_ERROR, room.name, err.message)
       return next()
     @setAuthority(username, auth.levels.DRIVER)
     return next()
@@ -266,11 +271,11 @@ makeAdminCommand "driver", (user, room, next, username) ->
 desc "Mods a username permanently. Usage: /mod username"
 makeAdminCommand "mod", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /mod username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /mod username")
     return next()
   auth.setAuth username, auth.levels.MOD, (err, result) =>
     if err
-      user.error(errors.COMMAND_ERROR, err.message)
+      user.error(errors.COMMAND_ERROR, room.name, err.message)
       return next()
     @setAuthority(username, auth.levels.MOD)
     return next()
@@ -278,11 +283,11 @@ makeAdminCommand "mod", (user, room, next, username) ->
 desc "Admins a username permanently. Usage: /admin username"
 makeOwnerCommand "admin", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /admin username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /admin username")
     return next()
   auth.setAuth username, auth.levels.ADMIN, (err, result) =>
     if err
-      user.error(errors.COMMAND_ERROR, err.message)
+      user.error(errors.COMMAND_ERROR, room.name, err.message)
       return next()
     @setAuthority(username, auth.levels.ADMIN)
     return next()
@@ -290,11 +295,11 @@ makeOwnerCommand "admin", (user, room, next, username) ->
 desc "Deauthes a username permanently. Usage: /deauth username"
 makeOwnerCommand "deauth", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /deauth username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /deauth username")
     return next()
   auth.setAuth username, auth.levels.USER, (err, result) =>
     if err
-      user.error(errors.COMMAND_ERROR, err.message)
+      user.error(errors.COMMAND_ERROR, room.name, err.message)
       return next()
     @setAuthority(username, auth.levels.USER)
     return next()
@@ -308,28 +313,28 @@ desc "Announces something to the entire server. Usage: /wall message"
 makeModCommand "wall", "announce", (user, room, next, pieces...) ->
   message = pieces.join(',')
   return next()  if !message
-  @announce("<strong>#{user.id}:</strong> #{message}")
+  @announce("<strong>#{user.name}:</strong> #{message}")
   next()
 
 desc "Finds all alts associated with a username, or the main username of an alt"
 makeModCommand "whois", (user, room, next, username) ->
   if !username
-    user.error(errors.COMMAND_ERROR, "Usage: /whois username")
+    user.error(errors.COMMAND_ERROR, room.name, "Usage: /whois username")
     return next()
 
   messages = []
   alts.getAltOwner username, (err, ownerName) ->
     if err
-      user.error(errors.COMMAND_ERROR, err.message)
+      user.error(errors.COMMAND_ERROR, room.name, err.message)
       return next()
     ownerName ?= username
     messages.push("<b>Main account:</b> #{ownerName}")
     alts.listUserAlts username, (err, alts) ->
       if err
-        user.error(errors.COMMAND_ERROR, err.message)
+        user.error(errors.COMMAND_ERROR, room.name, err.message)
         return next()
       messages.push("<b>Alts:</b> #{alts.join(', ')}")  if alts.length > 0
-      user.announce('success', messages.join(' | '))
+      user.announce(room.name, 'success', messages.join(' | '))
       return next()
 
 desc "Evaluates a script in the context of the server."
@@ -338,7 +343,7 @@ makeOwnerCommand "eval", (user, room, next, pieces...) ->
   return next()  if !source
   try
     result = (new Function("with(this) { return #{source} }")).call(this)
-    user.announce('success', "> #{result}")
+    user.announce(room.name, 'success', "> #{result}")
   catch e
-    user.error(errors.COMMAND_ERROR, "EVAL ERROR: #{e.message}")
+    user.error(errors.COMMAND_ERROR, room.name, "EVAL ERROR: #{e.message}")
   next()

@@ -24,8 +24,8 @@ class @PrivateMessagesView extends Backbone.View
     @listenTo(@collection, 'closeChallenge', @closeChallenge)
     @listenTo(@collection, 'focus show', @resetNotifications)
 
-    @listenTo(PokeBattle.userList, 'add', @notifyJoin)
-    @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
+    # @listenTo(PokeBattle.userList, 'add', @notifyJoin)
+    # @listenTo(PokeBattle.userList, 'remove', @notifyLeave)
 
   createPopup: (message) =>
     title = id = message.id
@@ -67,12 +67,10 @@ class @PrivateMessagesView extends Backbone.View
     messageHtml = ""
     for {username, message, opts} in log
       username = "Me"  if username == PokeBattle.username
-      if opts.type == 'error'
-        messageHtml += "<p class='privmsg-error log-message'>#{message}</p>"
-      else if opts.type == 'alert'
-        messageHtml += "<p class='privmsg-alert log-message'>#{message}</p>"
+      if opts.type in [ 'error', 'alert' ]
+        messageHtml += "<p class='grey'>#{message}</p>"
       else
-        messageHtml += "<p class='log-message'><strong>#{username}:</strong> #{message}</p>"
+        messageHtml += "<p class='grey'><strong>#{username}:</strong> #{message}</p>"
 
     $messages = $popup.find('.popup_messages').append($(messageHtml))
     @scrollToBottom($popup)
@@ -84,9 +82,9 @@ class @PrivateMessagesView extends Backbone.View
     wasAtBottom = @isAtBottom($popup)
     username = "Me"  if username == PokeBattle.username
     if options.type == 'error'
-      $messages.append("<p class='privmsg-error'>#{message}</p>")
+      $messages.append("<p class='red italic'>#{message}</p>")
     else if options.type == 'alert'
-      $messages.append("<p class='privmsg-alert'>#{message}</p>")
+      $messages.append("<p class='yellow italic'>#{message}</p>")
     else
       if username != "Me" && !$popup.find('.chat_input').is(":focus")
         $popup.addClass('new_message')
@@ -141,6 +139,7 @@ class @PrivateMessagesView extends Backbone.View
 
   scrollToBottom: ($popup) =>
     messages = $popup.find('.popup_messages')[0]
+    return  unless messages
     messages.scrollTop = messages.scrollHeight
     false
 
@@ -207,7 +206,7 @@ class @PrivateMessagesView extends Backbone.View
         message = @messageFromPopup(e.currentTarget)
         text = $input.val()
         return  if text.length == 0
-        PokeBattle.socket.send('privateMessage', message.id, text)
+        PokeBattle.primus.send('privateMessage', message.id, text)
         $input.val('')
 
   keyUpEvent: (e) =>

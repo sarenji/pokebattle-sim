@@ -8,15 +8,14 @@ class PokeBattleRouter extends Backbone.Router
     $navigation.find('.nav_item').first().click()
 
   spectateBattle: (id) =>
-    # Need to login first!!
     if PokeBattle.battles.get(id)
       PokeBattle.navigation.changeWindowToBattle(id)
     else
-      PokeBattle.socket.send('spectateBattle', id)
+      PokeBattle.primus.send('spectateBattle', id)
 
-PokeBattle.events.once "loginSuccess", ->
+PokeBattle.router = new PokeBattleRouter()
+
+PokeBattle.primus.once "loginSuccess", ->
   return  if Backbone.History.started
-  PokeBattle.router = new PokeBattleRouter()
   PokeBattle.events.trigger("ready")
   routed = Backbone.history.start(pushState: true)
-  if !routed then PokeBattle.router.navigate("")

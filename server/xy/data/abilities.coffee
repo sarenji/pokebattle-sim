@@ -24,6 +24,13 @@ eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
 # Retcon old abilities
 
+# Effect Spore now does not affect Grass-type Pokemon,
+# Pokemon with Overcoat, or Pokemon holding Safety Goggles
+oldEffectSpore = Ability.EffectSpore::afterBeingHit
+Ability.EffectSpore::afterBeingHit = (move, user, target, damage) ->
+  unless user.hasType("Grass") || user.hasAbility("Overcoat") || user.hasItem("Safety Goggles")
+    oldEffectSpore.apply(this, arguments)
+
 # Oblivious now also prevents and cures Taunt
 makeAttachmentImmuneAbility("Oblivious", [Attachment.Attract, Attachment.Taunt])
 

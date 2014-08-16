@@ -25,6 +25,6 @@ withContext = (context) ->
     log: log
     withContext: withContext
   }
-    
+
 @log = log
 @withContext = withContext

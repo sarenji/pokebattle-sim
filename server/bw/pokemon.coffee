@@ -211,6 +211,7 @@ class @Pokemon
 
   hasAbility: (ability) ->
     return false  unless @ability
+    return false  if @isAbilityBlocked()
     if typeof ability == 'string'
       @ability.displayName == ability
     else
@@ -272,12 +273,36 @@ class @Pokemon
     @unattach(ailment)
     return true
 
-  # TODO: really ugly copying of ability
-  copyAbility: (ability) ->
-    if @ability
-      @unattach(@ability)
+  setAbility: (ability) ->
+    @unattach(@ability)  if @ability
     @ability = ability
-    @attach(@ability).switchIn?()  if @ability
+
+  initializeAbility: ->
+    @attach(@ability).switchIn?()  if @ability && !@isAbilityBlocked()
+
+  # TODO: really ugly copying of ability
+  copyAbility: (ability, options = {}) ->
+    shouldShow = options.reveal ? true
+    @activateAbility()  if shouldShow
+    @setAbility(ability)
+    @activateAbility()  if shouldShow
+    @initializeAbility()
+
+  swapAbilityWith: (target) ->
+    # Abilities are not revealed during the swap
+    # if the user and the target are on the same side
+    if @team != target.team
+      @activateAbility()
+      target.activateAbility()
+    uAbility = @ability
+    @setAbility(target.ability)
+    target.setAbility(uAbility)
+    if @team != target.team
+      @activateAbility()
+      target.activateAbility()
+    @battle.cannedText('SWAP_ABILITY', this)
+    @initializeAbility()
+    target.initializeAbility()
 
   hasChangeableAbility: ->
     !@hasAbility("Multitype")
@@ -406,10 +431,9 @@ class @Pokemon
     @currentHP = Math.max(@currentHP, 0)
     delta = oldHP - @currentHP
     if delta != 0
-      pixels = Math.floor(48 * @currentHP / @stat('hp'))
-      pixels = 1  if pixels == 0 && @isAlive()
-      @battle?.tell(Protocol.CHANGE_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), pixels)
-      @battle?.tellPlayer(@playerId, Protocol.CHANGE_EXACT_HP, @battle.getPlayerIndex(@playerId), @team.indexOf(this), @currentHP)
+      percent = Math.ceil(100 * @currentHP / @stat('hp'))
+      @tell(Protocol.CHANGE_HP, percent)
+      @tellPlayer(Protocol.CHANGE_EXACT_HP, @currentHP)
     delta
 
   recordMove: (move) ->

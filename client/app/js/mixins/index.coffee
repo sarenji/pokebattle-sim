@@ -1,0 +1,2 @@
+@PokeBattle ?= {}
+@PokeBattle.mixins ?= {}

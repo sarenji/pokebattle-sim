@@ -2,6 +2,8 @@ coffee = require 'coffee-script'
 path = require('path').resolve(__dirname, '../../bw/data/moves.coffee')
 eval(coffee.compile(require('fs').readFileSync(path, 'utf8'), bare: true))
 
+makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"], "$1 sprang up!"
+
 extendMove "Defog", ->
   @entryHazards.push(Attachment.StickyWeb)
   @selectPokemon = (battle, user, target) ->
@@ -13,6 +15,8 @@ extendMove 'Facade', ->
 extendMove 'Fell Stinger', ->
   @afterSuccessfulHit = (battle, user, target) ->
     user.boost(attack: 2)  if target.isFainted()
+
+makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"], "$1 flew up high!"
 
 extendMove 'Freeze-Dry', ->
   @superEffectiveAgainst = "Water"
@@ -36,6 +40,11 @@ makeProtectCounterMove "King's Shield", (battle, user, targets) ->
 
 makeTrappingMove "Infestation"
 
+extendMove "Metronome", ->
+  @impossibleMoves.push("Belch", "Celebrate", "Crafty Shield", "Diamond Storm",
+      "Happy Hour", "Hold Hands", "Hyperspace Hole", "King's Shield", "Light of Ruin",
+      "Mat Block", "Spiky Shield", "Steam Eruption", "Thousand Arrows", "Thousand Waves")
+
 extendMove 'Nature Power', ->
   @execute = (battle, user, targets) ->
     # In Wi-Fi battles, Tri Attack is always chosen.
@@ -52,6 +61,9 @@ makeChargeMove 'Phantom Force', [], "$1 vanished instantly!"
 
 extendMove "Rapid Spin", ->
   @entryHazards.push(Attachment.StickyWeb)
+
+extendMove 'Skill Swap', ->
+  @canSwapSameAbilities = true
 
 makeProtectCounterMove "Spiky Shield", (battle, user, targets) ->
   user.attach(Attachment.SpikyShield)

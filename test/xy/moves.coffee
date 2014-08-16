@@ -108,7 +108,7 @@ describe "XY Moves:", ->
       @battle.performMove(@p1, kingsShield)
       @battle.performMove(@p2, tackle)
       mock.verify()
-      @p2.stages.should.include(attack: 0)
+      @p2.stages.should.containEql(attack: 0)
 
     it "sharply lowers attacker's Attack if move was a contact move", ->
       shared.create.call(this, gen: 'xy')
@@ -171,7 +171,7 @@ describe "XY Moves:", ->
       @battle.performMove(@p1, spikyShield)
       @battle.performMove(@p2, tackle)
       mock.verify()
-      @p2.stages.should.include(attack: 0)
+      @p2.stages.should.containEql(attack: 0)
 
     it "damages attacker by 1/8 if move was a contact move", ->
       shared.create.call(this, gen: 'xy')
@@ -205,14 +205,14 @@ describe "XY Moves:", ->
       stickyWeb = @battle.getMove("Sticky Web")
       @battle.performMove(@p1, stickyWeb)
       @battle.performSwitch(@p2, 1)
-      @team2.first().stages.should.include(speed: -1)
+      @team2.first().stages.should.containEql(speed: -1)
 
     it "doesn't lower a pokemon's speed by 1 if immune to ground", ->
       shared.create.call(this, gen: 'xy', team2: [ Factory("Magikarp"), Factory("Gyarados") ])
       stickyWeb = @battle.getMove("Sticky Web")
       @battle.performMove(@p1, stickyWeb)
       @battle.performSwitch(@p2, 1)
-      @team2.first().stages.should.include(speed: 0)
+      @team2.first().stages.should.containEql(speed: 0)
 
   describe "Rapid Spin", ->
     it "removes Sticky Web", ->
@@ -504,6 +504,8 @@ describe "XY Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
+  testChargeMove('Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"])
+  testChargeMove('Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Thousand Arrows"])
   testChargeMove('Geomancy')
   testChargeMove('Phantom Force', [])
 
@@ -519,7 +521,7 @@ describe "XY Moves:", ->
     it "reduces the attack and special attack of the target by two stages", ->
       shared.create.call(this, gen: 'xy')
       @battle.performMove(@p1, @battle.getMove("Parting Shot"))
-      @p2.stages.should.include attack: -1, specialAttack: -1
+      @p2.stages.should.containEql attack: -1, specialAttack: -1
 
     it "forces the owner to switch", ->
       shared.create.call(this, gen: 'xy')
@@ -608,7 +610,7 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       @p2.attach(Status.Poison)
       @battle.performMove(@p1, @battle.getMove('Venom Drench'))
-      @p2.stages.should.include attack: -1, specialAttack: -1, speed: -1
+      @p2.stages.should.containEql attack: -1, specialAttack: -1, speed: -1
 
     it "fails if the target isn't poisoned", ->
       shared.create.call(this, gen: 'xy')
@@ -626,9 +628,9 @@ describe "XY Moves:", ->
 
       @battle.performMove(@p1, @battle.getMove('Topsy-Turvy'))
 
-      @p2.stages.should.include attack: -2
-      @p2.stages.should.include defense: 3
-      @p2.stages.should.include speed: 0
+      @p2.stages.should.containEql attack: -2
+      @p2.stages.should.containEql defense: 3
+      @p2.stages.should.containEql speed: 0
 
     it "fails if the target has no boosts", ->
       shared.create.call(this, gen: 'xy')
@@ -643,9 +645,36 @@ describe "XY Moves:", ->
       shared.create.call(this, gen: 'xy')
       @p2.currentHP = 1
       @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
-      @p1.stages.should.include attack: 2
+      @p1.stages.should.containEql attack: 2
 
     it "does not raise the user's Attack 2 stages otherwise", ->
       shared.create.call(this, gen: 'xy')
       @battle.performMove(@p1, @battle.getMove("Fell Stinger"))
-      @p1.stages.should.include attack: 0
+      @p1.stages.should.containEql attack: 0
+
+  describe "Skill Swap", ->
+    it "can swap the abilities if they are the same", ->
+      shared.create.call this,
+        gen: 'xy'
+        team1: [Factory("Magikarp", ability: "Swift Swim")]
+        team2: [Factory("Magikarp", ability: "Swift Swim")]
+      skillSwap = @battle.getMove("Skill Swap")
+      mock = @sandbox.mock(skillSwap).expects('fail').never()
+      @battle.performMove(@p1, skillSwap)
+      mock.verify()
+
+  describe "Metronome", ->
+    it "reselects if chosen an illegal move", ->
+      shared.create.call(this, gen: 'xy')
+      @p1.moves = [ metronome ]
+      metronome = @battle.getMove("Metronome")
+      belch = @battle.getMove("Belch")
+      tackle = @battle.getMove("Tackle")
+      index = @battle.MoveList.indexOf(belch)
+      reselectIndex = @battle.MoveList.indexOf(tackle)
+      shared.biasRNG.call(this, 'randInt', "metronome", index)
+      shared.biasRNG.call(this, 'randInt', "metronome reselect", reselectIndex)
+
+      mock = @sandbox.mock(tackle).expects('execute').once()
+      @battle.performMove(@p1, metronome)
+      mock.verify()

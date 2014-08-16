@@ -1,10 +1,11 @@
 http = require 'http'
+Primus = require 'primus'
+Emitter = require('primus-emitter')
 express = require 'express'
 path = require 'path'
 {_} = require 'underscore'
 
 {BattleServer} = require './server'
-{ConnectionServer} = require './connections'
 commands = require './commands'
 auth = require('./auth')
 generations = require './generations'
@@ -16,6 +17,7 @@ redis = require('./redis')
 ratings = require('./ratings')
 config = require('./config')
 alts = require('./alts')
+replays = require('./replays')
 
 MAX_MESSAGE_LENGTH = 250
 MAX_RANK_DISPLAYED = 100
@@ -29,13 +31,16 @@ CLIENT_VERSION = assets.getVersion()
 @createServer = (port) ->
   app = express()
   httpServer = http.createServer(app)
-  httpServer.battleServer = server = new BattleServer()
+  primus = new Primus(httpServer, transformer: 'sockjs')
+  primus.use('emitter', Emitter)
+  primus.save(path.join(__dirname, "../client/vendor/js/primus.js"))
+  server = new BattleServer()
 
   # Configuration
-  app.set("views", "client")
+  app.set("views", "client/templates")
+  app.set('view engine', 'jade')
   app.use(express.logger())  if config.IS_LOCAL
   app.use(express.compress())  # gzip
-  app.use(express.bodyParser())
   app.use(express.cookieParser())
   app.use(auth.middleware())
   app.use(express.methodOverride())
@@ -51,6 +56,9 @@ CLIENT_VERSION = assets.getVersion()
 
   app.get("/", renderHomepage)
   app.get("/battles/:id", renderHomepage)
+  app.get("/replays/:id", replays.routes.show)
+  app.delete("/replays/:id", replays.routes.destroy)
+  app.get("/replays", replays.routes.index)
 
   app.get '/leaderboard', (req, res) ->
     page = req.param('page')
@@ -65,82 +73,66 @@ CLIENT_VERSION = assets.getVersion()
   server.rooms.push(lobby)
 
   # Start responding to websocket clients
-  connections = new ConnectionServer(httpServer, lobby, prefix: '/socket')
+  primus.on 'connection', (spark) ->
+    spark.send('version', CLIENT_VERSION)
 
-  connections.addEvents
-    'connection': (user) ->
-      user.send('version', CLIENT_VERSION)
-
-    'login': (user, id, token) ->
+    spark.on 'login', (id, token) ->
+      return  unless _.isFinite(id)
+      return  unless _.isString(token)
       auth.matchToken id, token, (err, json) ->
-        if err then return user.error(errors.INVALID_SESSION)
+        if err then return spark.send('errorMessage', errors.INVALID_SESSION)
 
-        # REFACTOR INCOMING: The simulator currently uses user.id as the username of the user,
-        # there is no such as a numeric id. Eventually, we want to switch to a separated id/name system
-        # user.id will still be the same thing in the meantime, but now user._id and user.name will exist too.
-        # Eventually, once all uses of .id in the server are changed to ._id, replace all ._id -> .id
-        user.id = json.username   # will become deprecated
-        user._id = json.id        # user id
-        user.name = json.username # username
-
-        auth.getBanTTL user.id, (err, ttl) ->
+        auth.getBanTTL json.name, (err, ttl) ->
           if err
-            return user.error(errors.INVALID_SESSION)
+            return spark.send('errorMessage', errors.INVALID_SESSION)
           else if ttl != -2  # -2 means the ban does not exist
-            auth.getBanReason user.id, (err, reason) ->
-              user.error(errors.BANNED, reason, Number(ttl))
-              user.close()
+            auth.getBanReason json.name, (err, reason) ->
+              spark.send('errorMessage', errors.BANNED, reason, Number(ttl))
+              spark.end()
               return
           else
-            server.setAuthority(user, json.authority)
-            user.send('loginSuccess')
-            numConnections = lobby.addUser(user)
-            connections.broadcast('joinChatroom', user.toJSON())  if numConnections == 1
-            user.send('listChatroom', lobby.userJSON())
-            server.join(user)
+            user = server.findOrCreateUser(json, spark)
+            if !user.name || !user.id
+              console.error("MISSING INFORMATION: #{json}")
+              spark.end()
+              return
+            attachEvents(user, spark)
+            server.join(spark)
+            spark.send('loginSuccess')
+            lobby.add(spark)
 
-            alts.listUserAlts user.id, (err, alts) ->
-              user.send('altList', alts)
+            # After stuff
+            alts.listUserAlts user.name, (err, alts) ->
+              spark.send('altList', alts)
 
-    'sendChat': (user, message) ->
-      return  if typeof message != "string"
-      return  if message.trim().length == 0
-      return  if message.length > MAX_MESSAGE_LENGTH
+  primus.on 'error', (err) ->
+    console.error(err.message, err.stack)
+
+  attachEvents = (user, spark) ->
+    spark.on 'sendChat', (roomId, message) ->
+      return  unless _.isString(message)
+      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
+      return  unless room = server.getRoom(roomId)
       if message[0] == '/' && message[1] == '/'
         message = message[1...]
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
       else if message[0] == '/'
         command = message.replace(/\s+.*$/, '')
         args = message.substr(command.length).replace(/^\s+/, '')
         command = command.substr(1)
         args = args.split(',')
-        commands.executeCommand(server, user, lobby, command, args...)
+        commands.executeCommand(server, user, room, command, args...)
       else
-        server.userMessage(lobby, user, message)
+        server.userMessage(room, user, message)
 
-    'sendBattleChat': (user, battleId, message) ->
-      return  if typeof message != "string"
-      return  if message.trim().length == 0
-      return  if message.length > MAX_MESSAGE_LENGTH
-      battle = server.findBattle(battleId)
-      if !battle
-        user.error(errors.BATTLE_DNE)
-        return
+    spark.on 'leaveChatroom', (roomId) ->
+      return  unless _.isString(roomId)
+      server.getRoom(roomId)?.remove(spark)
 
-      # TODO: Use `userMessage` instead once rooms are implemented
-      auth.getMuteTTL user.id, (err, ttl) ->
-        if ttl == -2
-          battle.messageSpectators(user, message)
-        else
-          user.announce('warning', "You are muted for another #{ttl} seconds!")
-
-    'close': (user) ->
-      # Do nothing if this user never logged in.
-      return  if !user.id?
-      server.leave(user)
-      if lobby.removeUser(user) == 0  # No more connections.
-        user.broadcast('leaveChatroom', user.id)
-        connections.trigger(user, "cancelFindBattle")
+    # After the `end` event, each listener should automatically disconnect.
+    spark.on 'end', ->
+      server.leave(spark)
+      spark.emit("cancelFindBattle")  unless spark.user.hasSparks()
 
     #########
     # TEAMS #
@@ -148,37 +140,50 @@ CLIENT_VERSION = assets.getVersion()
 
     # Takes a temporary id and team JSON. Saves to server, and returns the real
     # unique id that was persisted onto the DB.
-    'saveTeam': (user, team, cid) ->
+    spark.on 'saveTeam', (team, callback) ->
+      return  unless _.isObject(team)
+      return  unless _.isFunction(callback)
       attributes = _.pick(team, 'id', 'name', 'generation')
-      attributes['trainer_id'] = user._id
+      attributes['trainer_id'] = user.id
       attributes['contents'] = JSON.stringify(team.pokemon)
       new database.Team(attributes)
         .save().then (team) ->
-          user.send('teamSaved', cid, team.id)
+          callback(team.id)
 
-    'requestTeams': (user) ->
+    spark.on 'requestTeams', ->
       q = new database.Teams()
-      q = q.query('where', trainer_id: user._id)  unless config.IS_LOCAL
+      q = q.query('where', trainer_id: user.id)  unless config.IS_LOCAL
       q = q.query('orderBy', 'created_at')
         .fetch()
         .then (teams) ->
-          user.send('receiveTeams', teams.toJSON())
+          spark.send('receiveTeams', teams.toJSON())
 
-    'destroyTeam': (user, teamId) ->
-      new database.Team(trainer_id: user._id, id: teamId)
-        .fetch(columns: ['id'])
-        .then (team) ->
-          team?.destroy()
+    spark.on 'destroyTeam', (teamId) ->
+      return  unless _.isFinite(teamId)
+      attributes = {
+        id: teamId
+      }
+      attributes['trainer_id'] = user.id  unless config.IS_LOCAL
+
+      database.Team.query().where(attributes).delete()
+      .then ->
+        # Do nothing, just execute the promise. We assume it was deleted.
+        return
+      .catch (err) ->
+        console.error(err)
 
     ####################
     # PRIVATE MESSAGES #
     ####################
 
-    'privateMessage': (user, toUser, message) ->
-      return  unless typeof message == "string" && message.trim().length > 0
+    spark.on 'privateMessage', (toUser, message) ->
+      return  unless _.isString(toUser)
+      return  unless _.isString(message)
+      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
       if server.users.contains(toUser)
-        server.users.send(toUser, 'privateMessage', user.id, user.id, message)
-        server.users.send(user.id, 'privateMessage', toUser, user.id, message)
+        recipient = server.users.get(toUser)
+        recipient.send('privateMessage', user.name, user.name, message)
+        user.send('privateMessage', toUser, user.name, message)
       else
         user.error(errors.PRIVATE_MESSAGE, toUser, "This user is offline.")
 
@@ -186,39 +191,65 @@ CLIENT_VERSION = assets.getVersion()
     # CHALLENGES #
     ##############
 
-    'challenge': (user, challengeeId, generation, team, conditions, altName) ->
-      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+    spark.on 'challenge', (challengeeId, generation, team, conditions, altName) ->
+      return  unless _.isString(challengeeId)
+      return  unless _.isString(generation)
+      return  unless _.isObject(team)
+      return  unless _.isArray(conditions)
+      return  unless !altName || _.isString(altName)
+      alts.isAltOwnedBy user.name, altName, (err, valid) ->
         return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
         server.registerChallenge(user, challengeeId, generation, team, conditions, altName)
 
-    'cancelChallenge': (user, challengeeId) ->
+    spark.on 'cancelChallenge', (challengeeId) ->
+      return  unless _.isString(challengeeId)
       server.cancelChallenge(user, challengeeId)
 
-    'acceptChallenge': (user, challengerId, team, altName) ->
-      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+    spark.on 'acceptChallenge', (challengerId, team, altName) ->
+      return  unless _.isString(challengerId)
+      return  unless _.isObject(team)
+      return  unless !altName || _.isString(altName)
+      alts.isAltOwnedBy user.name, altName, (err, valid) ->
         return user.error(errors.INVALID_ALT_NAME, "You do not own this alt")  unless valid
         server.acceptChallenge(user, challengerId, team, altName)
 
-    'rejectChallenge': (user, challengerId, team) ->
+    spark.on 'rejectChallenge', (challengerId) ->
+      return  unless _.isString(challengerId)
       server.rejectChallenge(user, challengerId)
 
-    ##############
+    ########
     # ALTS #
-    ##############
+    ########
 
-    'createAlt': (user, altName) ->
+    spark.on 'createAlt', (altName) ->
       altName = String(altName).trim()
       if !alts.isAltNameValid(altName)
         return user.error(errors.INVALID_ALT_NAME, "Invalid Alt Name")
-      alts.createAlt user.id, altName, (err, success) ->
+      alts.createAlt user.name, altName, (err, success) ->
         return user.error(errors.INVALID_ALT_NAME, err.message)  if err
         user.send('altCreated', altName)  if success
+
+    ###########
+    # REPLAYS #
+    ###########
+
+    spark.on 'saveReplay', (battleId, callback) ->
+      battle = server.findBattle(battleId)
+      return callback?("The battle could not be found.")  unless battle
+      return callback?("The battle is not yet done.")  unless battle.isOver()
+      replays.create(user, battle.battle)  # unwrap the facade
+        .then((replayId) -> callback?(null, replayId))
+        .catch replays.TooManyBattlesSaved, (err) ->
+          callback?(err.message)
+        .catch (err) ->
+          callback?('Something went wrong saving the replay.')
 
     ###########
     # BATTLES #
     ###########
 
-    'getBattleList': (user) ->
+    spark.on 'getBattleList', (callback) ->
+      return  unless _.isFunction(callback)
       # TODO: Make this more efficient
       # TODO: Order by age
       # NOTE: Cache this? Even something like a 5 second expiration
@@ -230,79 +261,73 @@ CLIENT_VERSION = assets.getVersion()
           controller.battle.playerNames[1],
           currentTime - controller.battle.createdAt
         ] for controller in server.getOngoingBattles())
-      user.send('battleList', battleMetadata)
+      callback(battleMetadata)
 
-    'findBattle': (user, format, team, altName=null) ->
+    spark.on 'findBattle', (format, team, altName=null) ->
+      return  unless _.isString(format)
+      return  unless _.isObject(team)
+      return  unless !altName || _.isString(altName)
       # Note: If altName == null, then isAltOwnedBy will return true
-      alts.isAltOwnedBy user.id, altName, (err, valid) ->
+      alts.isAltOwnedBy user.name, altName, (err, valid) ->
         if not valid
           user.error(errors.INVALID_ALT_NAME, "You do not own this alt")
         else
-          validationErrors = server.queuePlayer(user.id, team, format, altName)
+          validationErrors = server.queuePlayer(user.name, team, format, altName)
           if validationErrors.length > 0
             user.error(errors.FIND_BATTLE, validationErrors)
 
-    'cancelFindBattle': (user, generation) ->
-      server.removePlayer(user.id, generation)
+    spark.on 'cancelFindBattle', ->
+      server.removePlayer(user.name)
       user.send("findBattleCanceled")
 
-    'sendMove': (user, battleId, moveName, slot, forTurn, args...) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'sendMove', (battleId, moveName, slot, forTurn, options, callback) ->
+      return  unless _.isString(moveName)
+      return  unless _.isFinite(slot)
+      return  unless _.isFinite(forTurn)
+      return  unless !options || _.isObject(options)
+      return  unless _.isFunction(callback)
+      if battle = server.findBattle(battleId)
+        battle.makeMove(user.name, moveName, slot, forTurn, options)
+        callback()
+      else
         user.error(errors.BATTLE_DNE)
-        return
 
-      battle.makeMove(user.id, moveName, slot, forTurn, args...)
-    
-    'sendSwitch': (user, battleId, toSlot, fromSlot, forTurn) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
+      return  unless _.isFinite(toSlot)
+      return  unless _.isFinite(fromSlot)
+      return  unless _.isFinite(forTurn)
+      return  unless _.isFunction(callback)
+      if battle = server.findBattle(battleId)
+        battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
+        callback()
+      else
         user.error(errors.BATTLE_DNE)
-        return
 
-      battle.makeSwitch(user.id, toSlot, fromSlot, forTurn)
-
-    'sendCancelAction': (user, battleId, forTurn) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'sendCancelAction', (battleId, forTurn) ->
+      return  unless _.isFinite(forTurn)
+      if battle = server.findBattle(battleId)
+        battle.undoCompletedRequest(user.name, forTurn)
+      else
         user.error(errors.BATTLE_DNE)
-        return
 
-      battle.undoCompletedRequest(user.id, forTurn)
-
-    'arrangeTeam': (user, battleId, arrangement) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'arrangeTeam', (battleId, arrangement) ->
+      return  unless _.isArray(arrangement)
+      if battle = server.findBattle(battleId)
+        battle.arrangeTeam(user.name, arrangement)
+      else
         user.error(errors.BATTLE_DNE)
-        return
 
-      battle.arrangeTeam(user.id, arrangement)
-
-    'spectateBattle': (user, battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'spectateBattle', (battleId) ->
+      if battle = server.findBattle(battleId)
+        battle.add(spark)
+      else
         user.error(errors.BATTLE_DNE)
-        return
 
-      battle.addSpectator(user)
-
-    'leaveBattle': (user, battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
+    spark.on 'forfeit', (battleId) ->
+      if battle = server.findBattle(battleId)
+        battle.forfeit(user.name)
+      else
         user.error(errors.BATTLE_DNE)
-        return
-
-      battle.removeSpectator(user)
-
-    'forfeit': (user, battleId) ->
-      battle = server.findBattle(battleId)
-      if !battle
-        user.error(errors.BATTLE_DNE)
-        return
-
-      battle.forfeit(user.id)
-
-    # TODO: socket.off after disconnection
 
   battleSearch = ->
     server.beginBattles (err, battleIds) ->
@@ -327,4 +352,4 @@ CLIENT_VERSION = assets.getVersion()
 
   httpServer.listen(port)
 
-  httpServer
+  primus

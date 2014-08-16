@@ -8,6 +8,7 @@ Priorities.beforeMove ?= [
   # Things that should happen no matter what
   Attachment.Pursuit
   Attachment.Fling
+  Attachment.DestinyBond
 
   # Order-dependent
   Ability.StanceChange
@@ -28,7 +29,6 @@ Priorities.beforeMove ?= [
   Attachment.FocusPunch
   Attachment.Recharge
   Attachment.Metronome
-  Attachment.DestinyBond
   Attachment.Grudge
   Attachment.Rage
   Attachment.Charging
@@ -40,6 +40,47 @@ Priorities.beforeMove ?= [
   Ability.MoldBreaker
   Ability.Teravolt
   Ability.Turboblaze
+]
+
+Priorities.switchIn ?= [
+  Attachment.BatonPass
+
+  # Order-dependent
+  Ability.Unnerve
+  Attachment.HealingWish
+  Attachment.LunarDance
+  Attachment.StickyWeb
+  Attachment.StealthRock
+  Attachment.Spikes
+  Attachment.ToxicSpikes
+
+  # TODO: Are these in the correct order?
+  Ability.AirLock
+  Ability.CloudNine
+  Ability.Chlorophyll
+  Ability.SwiftSwim
+  Ability.SandRush
+  Ability.Drizzle
+  Ability.Drought
+  Ability.SandStream
+  Ability.SnowWarning
+  Ability.MoldBreaker
+  Ability.Teravolt
+  Ability.Turboblaze
+  Ability.Anticipation
+  Ability.ArenaTrap
+  Ability.Download
+  Ability.Forewarn
+  Ability.Frisk
+  Ability.Imposter
+  Ability.Intimidate
+  Ability.Klutz
+  Ability.MagicBounce
+  Ability.MagnetPull
+  Ability.Pressure
+  Ability.ShadowTag
+  Ability.SlowStart
+  Ability.Trace
 ]
 
 Priorities.endTurn = [
@@ -109,8 +150,8 @@ Priorities.endTurn = [
   Attachment.Reflect
   Attachment.LightScreen
   Attachment.Screen
-  # Attachment.Safeguard
   # Attachment.Mist
+  Attachment.Safeguard
   Attachment.Tailwind
   Attachment.LuckyChant
   # TODO: Pledge moves
@@ -128,4 +169,45 @@ Priorities.endTurn = [
   Item.FlameOrb
   Item.StickyBarb
   # Ability.ZenMode
+]
+
+Priorities.shouldBlockExecution ?= [
+  # Type-immunity/Levitate (Move#use)
+  # Wide Guard/Quick Guard
+  Attachment.Protect
+  Attachment.KingsShield
+  Attachment.SpikyShield
+  Attachment.MagicCoat
+  # TODO: Reimplement Magic Bounce as its own thing
+  Ability.DrySkin
+  Ability.FlashFire
+  Ability.Lightningrod
+  Ability.MotorDrive
+  Ability.SapSipper
+  Ability.Soundproof
+  Ability.StormDrain
+  Ability.Telepathy
+  Ability.VoltAbsorb
+  Ability.WaterAbsorb
+  Ability.WonderGuard
+  Ability.Overcoat
+  Item.SafetyGoggles
+  Attachment.Ingrain
+  Attachment.Charging
+  Attachment.SmackDown
+  Attachment.Substitute
+]
+
+Priorities.isImmune ?= [
+  Attachment.GravityPokemon  # Gravity overrides Ground-type immunities.
+  Attachment.Ingrain
+  Attachment.SmackDown
+  Item.IronBall
+  Attachment.Telekinesis
+  Ability.Levitate
+  Attachment.MagnetRise
+  Item.AirBalloon
+  Attachment.Identify
+  Ability.Soundproof
+  Ability.Bulletproof
 ]

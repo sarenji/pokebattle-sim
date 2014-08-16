@@ -58,3 +58,6 @@ mixin moveButton(forPokemon, i)
           .span4
             .switch.button(class = disabledClass, data-slot = i)
               .pokemon_icon(style = window.PokemonIconBackground(pokemon))
+
+.show_spinner.flex-center.fill.bg-faded-white.hidden
+  != window.JST['spinner']()

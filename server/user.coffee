@@ -1,58 +1,52 @@
 {_} = require 'underscore'
 
 class @User
-  constructor: (args...) ->
-    if args.length == 1
-      [ @id ] = args
-      @name = @id
-    else if args.length == 2
-      [ @socket, @connections ] = args
-    else if args.length == 3
-      [ @id, @socket, @connections ] = args
-      @name = @id
-    else if args.length == 4
-      [ @id, @socket, @connections, @name ] = args
+  constructor: (attributes) ->
+    if _.isObject(attributes)
+      {@id, @name, @authority} = attributes
+    else
+      @id = attributes
+    @name ?= @id
+    @sparks = []
 
-  toJSON: ->
+  addSpark: (spark) ->
+    unless @hasSpark(spark)
+      @sparks.push(spark)
+      spark.user = this
+
+  removeSpark: (spark) ->
+    index = @sparks.indexOf(spark)
+    @sparks.splice(index, 1)  if index != -1
+
+  hasSpark: (spark) ->
+    spark in @sparks
+
+  hasSparks: ->
+    @sparks.length >= 1
+
+  toJSON: (options = {}) ->
+    displayedName = options.alt ? @name
+    isAlt = (displayedName != @name)
     json = {
-      'id': @name
+      'id': displayedName
     }
-    json['authority'] = @authority  if @authority
+    if isAlt
+      json['isAlt'] = true
+    else
+      json['authority'] = @authority  if @authority
     json
 
-  send: (type, data...) ->
-    @socket?.write(JSON.stringify(messageType: type, data: data))
-
-  broadcast: (args...) ->
-    user.send(args...)  for user in @connections.users when this != user
+  send: ->
+    spark.send.apply(spark, arguments)  for spark in @sparks
 
   error: (args...) ->
-    @send("error", args...)
+    @send("errorMessage", args...)
 
-  message: (msg) ->
-    @send("rawMessage", msg)
+  message: (roomId, msg) ->
+    @send("rawMessage", roomId, msg)
 
-  announce: (klass, msg) ->
-    @send("announce", klass, msg)
+  announce: (roomId, klass, msg) ->
+    @send("announce", roomId, klass, msg)
 
   close: ->
-    @socket?.close()
-
-  # Returns a new user object where the name has been masked (useful for alts)
-  maskName: (name) ->
-    return this  if name == @name
-
-    # Copy over all properties.
-    newUser = new User()
-    newUser.original = this
-    for key, value of this
-      newUser[key] = value
-
-    newUser.toJSON = ->
-      json = @original.toJSON.apply(this, arguments)
-      json.isAlt = true
-      json.authority = undefined
-      json
-
-    newUser.name = name
-    return newUser
+    spark.end()  for spark in @sparks

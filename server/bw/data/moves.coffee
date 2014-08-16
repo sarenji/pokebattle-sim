@@ -125,8 +125,7 @@ makeRecoveryMove = (name) ->
         @fail(battle, user)
         return false
       amount = Math.round(hpStat / 2)
-      percent = Math.floor(100 * amount / hpStat)
-      battle.cannedText('RECOVER_HP', target, percent)
+      battle.cannedText('RECOVER_HP', target)
       target.heal(amount)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
@@ -338,10 +337,10 @@ makeChargeMove 'Skull Bash', "$1 tucked in its head!"
 makeChargeMove 'Razor Wind', "$1 whipped up a whirlwind!"
 makeChargeMove 'Sky Attack', "$1 became cloaked in a harsh light!"
 makeChargeMove 'Shadow Force', [], "$1 vanished instantly!"
-makeChargeMove 'Ice Burn', [], "$1 became cloaked in freezing air!"
-makeChargeMove 'Freeze Shock', [], "$1 became cloaked in a freezing light!"
-makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 flew up high!"
-makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down", "Whirlwind"], "$1 sprang up!"
+makeChargeMove 'Ice Burn', "$1 became cloaked in freezing air!"
+makeChargeMove 'Freeze Shock', "$1 became cloaked in a freezing light!"
+makeChargeMove 'Fly', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"], "$1 flew up high!"
+makeChargeMove 'Bounce', ["Gust", "Thunder", "Twister", "Sky Uppercut", "Hurricane", "Smack Down"], "$1 sprang up!"
 makeChargeMove 'Dig', ["Earthquake", "Magnitude"], "$1 burrowed its way under the ground!"
 makeChargeMove 'Dive', ["Surf", "Whirlpool"], "$1 hid underwater!"
 makeChargeMove 'SolarBeam', "$1 absorbed light!", (battle) ->
@@ -424,12 +423,15 @@ makeCounterMove = (name, multiplier, applies) ->
 
     @calculateDamage = -> 0
 
-    @afterSuccessfulHit = (battle, user, target) ->
+    oldUse = @use
+    @use = (battle, user, target) ->
+      return  if oldUse.call(this, battle, user, target) == false
       hit = user.lastHitBy
       if hit? && applies(hit.move) && hit.turn == battle.turn
         target.damage(multiplier * hit.damage, direct: false, source: "move")
       else
         @fail(battle, user)
+        return false
 
 makeTrappingMove = (name) ->
   extendMove name, ->
@@ -441,6 +443,14 @@ makeTrappingMove = (name) ->
           7
 
         target.attach(Attachment.Trap, user: user, moveName: name, turns: turns)
+
+makeIgnoreStagesMove = (name) ->
+  extendMove name, ->
+    oldExecute = @execute
+    @execute = (battle, user, targets) ->
+      target.attach(Attachment.ChipAway)  for target in targets
+      oldExecute.call(this, battle, user, targets)
+      target.unattach(Attachment.ChipAway)  for target in targets
 
 makeStatusCureMove 'Aromatherapy', 'A soothing aroma wafted through the area!'
 
@@ -494,13 +504,7 @@ extendMove 'Charge', ->
     battle.message "#{user.name} began charging power!"
     oldUse.call(this, battle, user, target)
 
-extendMove 'Chip Away', ->
-  oldExecute = @execute
-  @execute = (battle, user, targets) ->
-    target.attach(Attachment.ChipAway)  for target in targets
-    oldExecute.call(this, battle, user, targets)
-    target.unattach(Attachment.ChipAway)  for target in targets
-
+makeIgnoreStagesMove 'Chip Away'
 makeRandomSwitchMove "Circle Throw"
 makeTrappingMove "Clamp"
 
@@ -560,6 +564,7 @@ extendMove 'Defog', ->
     target.boost(evasion: -1, user)
     target.team.unattach(Attachment.Reflect)
     target.team.unattach(Attachment.LightScreen)
+    target.team.unattach(Attachment.Safeguard)
 
     for pokemon in @selectPokemon(battle, user, target)
       for hazard in @entryHazards
@@ -580,8 +585,8 @@ extendMove 'Entrainment', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if user.hasChangeableAbility() && user.ability.displayName not of bannedSourceAbilities && target.hasChangeableAbility() && target.ability.displayName != 'Truant'
-      battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
       target.copyAbility(user.ability)
+      battle.cannedText('ACQUIRE_ABILITY', target, user.ability)
     else
       @fail(battle, user)
 
@@ -732,6 +737,7 @@ extendMove 'Roost', ->
     user.attach(Attachment.Roost)
 
 extendMove 'Sacred Fire', -> @thawsUser = true
+makeIgnoreStagesMove 'Sacred Sword'
 makeWeatherMove 'Sandstorm', Weather.SAND
 makeTrappingMove "Sand Tomb"
 extendMove 'Scald', -> @thawsUser = true
@@ -1101,7 +1107,8 @@ extendMove 'Fling', ->
 
     oldUse.call(this, battle, user, target)
 
-  @afterSuccessfulHit = (battle, user, target) ->
+  @afterSuccessfulHit = (battle, user, target, damage, isDirect) ->
+    return  unless isDirect
     {item} = user.get(Attachment.Fling)
     switch item.displayName
       when "Poison Barb"
@@ -1343,55 +1350,57 @@ extendMove 'Memento', ->
     user.faint()
 
 extendMove 'Metronome', ->
-  impossibleMoves =
-    "After You": true
-    "Assist": true
-    "Bestow": true
-    'Chatter': true
-    "Copycat": true
-    "Counter": true
-    "Covet": true
-    "Destiny Bond": true
-    "Detect": true
-    "Endure": true
-    "Feint": true
-    "Focus Punch": true
-    "Follow Me": true
-    "Freeze Shock": true
-    "Helping Hand": true
-    "Ice Burn": true
-    "Me First": true
-    "Mimic": true
-    "Mirror Coat": true
-    "Mirror Move": true
-    "Nature Power": true
-    "Protect": true
-    "Quash": true
-    "Quick Guard": true
-    "Rage Powder": true
-    "Relic Song": true
-    "Secret Sword": true
-    "Sketch": true
-    "Sleep Talk": true
-    "Snatch": true
-    "Snarl": true
-    "Snore": true
-    "Struggle": true
-    "Switcheroo": true
-    "Techno Blast": true
-    "Thief": true
-    "Transform": true
-    "Trick": true
-    "V-create": true
-    "Wide Guard": true
+  @impossibleMoves = [
+    "After You"
+    "Assist"
+    "Bestow"
+    "Chatter"
+    "Copycat"
+    "Counter"
+    "Covet"
+    "Destiny Bond"
+    "Detect"
+    "Endure"
+    "Feint"
+    "Focus Punch"
+    "Follow Me"
+    "Freeze Shock"
+    "Helping Hand"
+    "Ice Burn"
+    "Me First"
+    "Metronome"
+    "Mimic"
+    "Mirror Coat"
+    "Mirror Move"
+    "Nature Power"
+    "Protect"
+    "Quash"
+    "Quick Guard"
+    "Rage Powder"
+    "Relic Song"
+    "Secret Sword"
+    "Sketch"
+    "Sleep Talk"
+    "Snarl"
+    "Snatch"
+    "Snore"
+    "Struggle"
+    "Switcheroo"
+    "Techno Blast"
+    "Thief"
+    "Transform"
+    "Trick"
+    "V-create"
+    "Wide Guard"
+  ]
 
-  for move of impossibleMoves
+  for move in @impossibleMoves
     if move not of Moves
       throw new Error("The illegal Metronome move '#{move}' does not exist.")
 
   @execute = (battle, user, targets) ->
     index = battle.rng.randInt(0, MoveList.length - 1, "metronome")
-    while MoveList[index].name of impossibleMoves || MoveList[index] in user.moves
+    while MoveList[index].name in @impossibleMoves
       index = battle.rng.randInt(0, MoveList.length - 1, "metronome reselect")
     move = MoveList[index]
     battle.message "Waggling a finger let it use #{move.name}!"
@@ -1594,10 +1603,19 @@ extendMove 'Role Play', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if user.hasChangeableAbility() && target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities && user.ability != target.ability
-      battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
       user.copyAbility(target.ability)
+      battle.message "#{user.name} copied #{target.name}'s #{target.ability.displayName}!"
     else
       @fail(battle, user)
+
+extendMove 'Safeguard', ->
+  @execute = (battle, user, target) ->
+    team = user.team
+    if !team.attach(Attachment.Safeguard, {source: user})
+      @fail(battle)
+      return false
+
+    battle.cannedText('SAFEGUARD_START', user)
 
 extendMove 'Simple Beam', ->
   bannedAbilities =
@@ -1606,10 +1624,26 @@ extendMove 'Simple Beam', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
       target.copyAbility(Ability.Simple)
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Simple')
     else
       @fail(battle, user)
+
+extendMove 'Skill Swap', ->
+  bannedAbilities =
+    "Illusion": true
+    "Wonder Guard": true
+
+  @canSwapSameAbilities = false
+
+  @afterSuccessfulHit = (battle, user, target) ->
+    if user.hasChangeableAbility() && target.hasChangeableAbility() &&
+        user.ability.displayName not of bannedAbilities &&
+        target.ability.displayName not of bannedAbilities &&
+        (user.ability != target.ability || @canSwapSameAbilities)
+      user.swapAbilityWith(target)
+    else
+      @fail(battle)
 
 extendMove 'Sleep Talk', ->
   bannedMoves = [
@@ -1845,8 +1879,8 @@ extendMove 'Worry Seed', ->
 
   @afterSuccessfulHit = (battle, user, target) ->
     if target.hasChangeableAbility() && target.ability.displayName not of bannedAbilities
-      battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
       target.copyAbility(Ability.Insomnia)
+      battle.cannedText('ACQUIRE_ABILITY', target, 'Insomnia')
     else
       @fail(battle, user)
 

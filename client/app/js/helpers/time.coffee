@@ -8,7 +8,7 @@ PokeBattle.humanizeTime = (unixTime) =>
   seconds = String(seconds)
   return minutes + ":" + "00".substr(seconds.length) + seconds
 
-$(document).ready ->
+$ ->
   window.setInterval( ->
     $(".elapsed-time").each ->
       $el = $(this)

@@ -3,6 +3,13 @@ for $i in (1 2 3)
     z-index $i
 
 for $i in (1 2 3 4)
+  .m{$i}
+    margin $i * 10px
+  .p{$i}
+    padding $i * 10px
+
+for $i in (1 2 3 4)
+  // margin
   .ml{$i}
     margin-left $i * 10px
   .mr{$i}
@@ -11,3 +18,88 @@ for $i in (1 2 3 4)
     margin-top $i * 10px
   .mb{$i}
     margin-bottom $i * 10px
+  // padding
+  .pl{$i}
+    padding-left $i * 10px
+  .pr{$i}
+    padding-right $i * 10px
+  .pt{$i}
+    padding-top $i * 10px
+  .pb{$i}
+    padding-bottom $i * 10px
+
+.mt-header
+  margin-top $header_size
+
+.left
+  float left
+
+.right
+  float right
+
+.center
+  text-align center
+
+.align-left
+  text-align left
+
+.align-right
+  text-align right
+
+.flex-center
+  display flex
+  align-items center
+  justify-content center
+
+.flex-column
+  flex-direction column
+
+.hidden
+  display none
+
+.absolute
+  position absolute
+
+.fill
+  absolute top left
+  bottom 0
+  right 0
+
+.fill-left
+  absolute top left
+  bottom 0
+
+.fill-right
+  absolute top right
+  bottom 0
+
+.relative
+  position relative
+
+.rounded
+  border-radius 3px
+
+.border
+  border 1px solid #ddd
+
+.block
+  display block
+
+.inline-block
+  display inline-block
+
+.inline
+  display inline
+
+.box-shadow
+  box-shadow 1px 2px 0 rgba(0, 0, 0, .2)
+
+.tiny-type
+  font-size .75em
+
+.clickable-box
+  @extend .border
+  @extend .bg-off-white
+  @extend .hover-bg-white
+  @extend .rounded
+  @extend .box-shadow

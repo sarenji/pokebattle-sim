@@ -32,7 +32,8 @@ build = (context, opts={}) ->
     {id: context.id2, name: context.id2, team: team2, ratingKey: context.id2}
   ]
   numActive = opts.numActive || 1
-  context.battle = new Battle('id', players, {numActive, conditions})
+  format = opts.format
+  context.battle = new Battle(createId(), players, {numActive, conditions, format})
   context.controller = new BattleController(context.battle)
   context.team1  = context.battle.getTeam(context.id1)
   context.team2  = context.battle.getTeam(context.id2)
@@ -48,6 +49,9 @@ build = (context, opts={}) ->
   biasRNG.call(context, 'randInt', 'flinch', 99)  # No flinch (unless fake out)
   # moves that call other moves also get new targets
   biasRNG.call(context, 'randInt', 'selected pokemon target', 0)
+
+createId = ->
+  Math.random().toString(16).substr(2)
 
 create = (opts={}) ->
   build(this, opts)
@@ -73,9 +77,9 @@ testEveryMove = (allMoves, gen) ->
             it "boosts properly", ->
               create.call(this, gen: gen)
               target = (if move.primaryBoostTarget == 'self' then @p1 else @p2)
-              target.stages.should.not.include(move.primaryBoostStats)
+              target.stages.should.not.containEql(move.primaryBoostStats)
               @battle.performMove(@p1, move)
-              target.stages.should.include(move.primaryBoostStats)
+              target.stages.should.containEql(move.primaryBoostStats)
 
             if move.primaryBoostTarget == 'self'
               it "can never miss self", ->

@@ -146,10 +146,17 @@ class @Attachment.Confusion extends @VolatileAttachment
   name: "ConfusionAttachment"
   passable: true
 
-  initialize: (attributes) ->
+  initialize: (attributes = {}) ->
+    cannedText = attributes.cannedText ? 'CONFUSION_START'
     @turns = @battle?.rng.randInt(1, 4, "confusion turns") || 1
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
+    @battle?.cannedText(cannedText, @pokemon)
     @turn = 0
+
+  @preattach: (options, attributes) ->
+    {pokemon} = attributes
+    {source} = options
+    return false  if (pokemon.team?.has(Attachment.Safeguard) && source != pokemon)
 
   unattach: ->
     @pokemon?.tell(Protocol.POKEMON_UNATTACH, @name)
@@ -200,6 +207,7 @@ class @Attachment.Yawn extends @VolatileAttachment
   @preattach: (options, attributes) ->
     {pokemon} = attributes
     return false  if pokemon.hasStatus()
+    return false  if pokemon.team.has(Attachment.Safeguard)
 
   initialize: (attributes = {}) ->
     {@source} = attributes
@@ -209,7 +217,7 @@ class @Attachment.Yawn extends @VolatileAttachment
   endTurn: ->
     @turn += 1
     if @turn == 2
-      @pokemon.attach(Status.Sleep, {@source})
+      @pokemon.attach(Status.Sleep, {@source, bypassSafeguard: true})
       @pokemon.unattach(@constructor)
 
 # TODO: Does weight get lowered if speed does not change?
@@ -238,6 +246,20 @@ class @Attachment.Nightmare extends @VolatileAttachment
         @battle.message "#{@pokemon.name} is locked in a nightmare!"
     else
       @pokemon.unattach(@constructor)
+
+class @Attachment.Safeguard extends @TeamAttachment
+  name: "SafeguardAttachment"
+
+  initialize: (attributes) ->
+    {@source} = attributes
+    @turns = 5
+    @turn = 0
+
+  endTurn: ->
+    @turn++
+    if @turn >= @turns
+      @battle.cannedText('SAFEGUARD_END', @source)
+      @team.unattach(@constructor)
 
 class @Attachment.Taunt extends @VolatileAttachment
   name: "TauntAttachment"
@@ -699,12 +721,12 @@ class @Attachment.LeechSeed extends @VolatileAttachment
   passable: true
 
   initialize: (attributes) ->
-    {@team} = attributes.source
-    @slot = @team.indexOf(attributes.source)
+    {@source} = attributes
+    @slot = @source.team.indexOf(@source)
     @battle.cannedText('LEECH_SEED_START', @pokemon)
 
   endTurn: ->
-    user = @team.at(@slot)
+    user = @source.team.at(@slot)
     return  if user.isFainted() || @pokemon.isFainted()
     hp = @pokemon.stat('hp')
     damage = Math.min(Math.floor(hp / 8), @pokemon.currentHP)
@@ -829,9 +851,10 @@ class @Attachment.PursuitModifiers extends @VolatileAttachment
 class @Attachment.Substitute extends @VolatileAttachment
   name: "SubstituteAttachment"
   passable: true
+  reinitializeOnPass: true
 
   initialize: (attributes) ->
-    {@hp} = attributes
+    {@hp} = attributes || this
     @pokemon?.tell(Protocol.POKEMON_ATTACH, @name)
 
   transformHealthChange: (damage, options = {}) ->
@@ -1102,7 +1125,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
 
   initialize: ->
     @turns = 3
-    @battle.message("#{@pokemon.name} was hurled into the air!")
+    @battle.cannedText('TELEKINESIS_START', @pokemon)
 
   editEvasion: ->
     0  # Always hit
@@ -1113,7 +1136,7 @@ class @Attachment.Telekinesis extends @VolatileAttachment
   endTurn: ->
     @turns--
     if @turns == 0
-      @battle.message "#{@pokemon} was freed from the telekinesis!"
+      @battle.cannedText('TELEKINESIS_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.SmackDown extends @VolatileAttachment
@@ -1156,8 +1179,7 @@ class @Attachment.Rampage extends @VolatileAttachment
   afterMove: ->
     @turn++
     if @turn >= @turns
-      @battle.cannedText('FATIGUE', @pokemon)
-      @pokemon.attach(Attachment.Confusion)
+      @pokemon.attach(Attachment.Confusion, cannedText: 'FATIGUE')
       @pokemon.unattach(@constructor)
     else
       # afterSuccessfulHit increases the number of layers. If the number of
@@ -1194,7 +1216,7 @@ class @Attachment.Transform extends @VolatileAttachment
     {@ability, @moves, @stages, @baseStats, @evs} = @pokemon
     {@types, @gender, @weight, @ppHash, @maxPPHash} = @pokemon
     # This data is safe to be copied.
-    @pokemon.copyAbility(target.ability)
+    @pokemon.copyAbility(target.ability, reveal: false)
     @pokemon.gender = target.gender
     @pokemon.weight = target.weight
     # The rest aren't.
@@ -1292,7 +1314,8 @@ class @Attachment.DelayedAttack extends @TeamAttachment
       pokemon = @team.at(@slot)
       if pokemon.isAlive()
         @battle.message "#{pokemon.name} took the #{@move.name} attack!"
-        @move.hit(@battle, @user, pokemon)
+        damage = @move.hit(@battle, @user, pokemon, 1, false)
+        @move.afterHit(@battle, @user, pokemon, damage, false)
       @team.unattach(@constructor)
 
 class @Attachment.BatonPass extends @TeamAttachment
@@ -1309,7 +1332,9 @@ class @Attachment.BatonPass extends @TeamAttachment
       attachment.team = pokemon.team
       attachment.battle = pokemon.battle
       attachment.attached = true
-      pokemon.attachments.attachments.push(attachment)
+      index = (pokemon.attachments.attachments.push(attachment)) - 1
+      if attachment.reinitializeOnPass
+        pokemon.attachments.attachments[index]?.initialize?()
     pokemon.setBoosts(@stages)
     @team.unattach(@constructor)
 
@@ -1380,10 +1405,11 @@ class @StatusAttachment extends @BaseAttachment
 
   @preattach: (options, attributes) ->
     {battle, pokemon} = attributes
-    {source, force} = options
+    {source, force, bypassSafeguard} = options
     force ?= false
     if !force
       return false  if pokemon.hasStatus()
+      return false  if (pokemon.team?.has(Attachment.Safeguard) && source != pokemon && !bypassSafeguard)
       return false  unless @worksOn(battle, pokemon)
       if source && this in [ Status.Toxic, Status.Burn, Status.Poison, Status.Paralyze ] && pokemon.hasAbility("Synchronize")
         return false  if source == pokemon

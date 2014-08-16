@@ -1,4 +1,7 @@
-PokeBattle.events.on "error", (type, args...) ->
+PokeBattle.primus.on 'errorMessage', (args...) ->
+  PokeBattle.events.trigger('errorMessage', args...)
+
+PokeBattle.events.on "errorMessage", (type, args...) ->
   e = PokeBattle.errors
   switch type
     when e.INVALID_SESSION
@@ -9,7 +12,7 @@ PokeBattle.events.on "error", (type, args...) ->
           <a href="//pokebattle.com/accounts/login">login again</a>."""
       $modal = PokeBattle.modal('modals/errors', options)
       $modal.find('.modal-footer button').first().focus()
-      PokeBattle.cancelReconnection()
+      PokeBattle.primus.end()
 
     when e.BANNED
       $('#errors-modal').remove()  if $('#errors-modal').length > 0
@@ -26,7 +29,7 @@ PokeBattle.events.on "error", (type, args...) ->
         body: body
       $modal = PokeBattle.modal('modals/errors', options)
       $modal.find('.modal-footer button').first().focus()
-      PokeBattle.cancelReconnection()
+      PokeBattle.primus.end()
 
     when e.FIND_BATTLE
       PokeBattle.events.trigger("findBattleCanceled")
@@ -35,8 +38,8 @@ PokeBattle.events.on "error", (type, args...) ->
       [errors] = args
       alert(errors)
     when e.COMMAND_ERROR
-      [ message ] = args
-      PokeBattle.chatView.announce('error', message)
+      [ roomId, message ] = args
+      PokeBattle.rooms.get(roomId).announce('error', message)
     when e.PRIVATE_MESSAGE
       [ toUser, messageText ] = args
       message = PokeBattle.messages.get(toUser)

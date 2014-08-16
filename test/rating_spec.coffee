@@ -13,7 +13,7 @@ describe "Ratings", ->
         should.not.exist(err)
         should.exist(result)
         result.should.be.instanceOf(Object)
-        result.should.include(rating: 0)
+        result.should.containEql(rating: ratings.DEFAULT_RATING)
         done()
 
     it "returns information for an existing player", (done) ->
@@ -22,7 +22,7 @@ describe "Ratings", ->
           should.not.exist(err)
           should.exist(result)
           result.should.be.instanceOf(Object)
-          result.rating.should.be.greaterThan(ratings.algorithm.createPlayer().rating)
+          result.rating.should.be.greaterThan(ratings.DEFAULT_RATING)
           done()
 
   describe "#resetRating", ->
@@ -30,10 +30,9 @@ describe "Ratings", ->
       ratings.updatePlayers LADDER, "player1", "player2", ratings.results.WIN, ->
         ratings.resetRating LADDER, "player1", ->
           ratings.getRatings LADDER, [ "player1", "player2" ], (err, results) ->
-            results[0].should.equal(0)
-            results[1].should.not.equal(0)
-            defaultRating = ratings.algorithm.createPlayer().rating
-            results[1].should.be.lessThan(defaultRating)
+            results[0].should.equal(ratings.DEFAULT_RATING)
+            results[1].should.not.equal(ratings.DEFAULT_RATING)
+            results[1].should.be.lessThan(ratings.DEFAULT_RATING)
             done()
 
   describe "#getMaxRating", ->
@@ -44,9 +43,9 @@ describe "Ratings", ->
           done()
 
     it "returns the maximum rating of a user and their alts", (done) ->
-      altOps = ["alt1","alt2"].map (altName) -> 
+      altOps = ["alt1","alt2"].map (altName) ->
         (callback) -> alts.createAlt("user", altName, callback)
-      
+
       async.parallel altOps, ->
         ratings.setRating LADDER, "user", 25, (err) ->
           ratings.setRating LADDER, alts.uniqueId("user", "alt1"), 5, (err) ->
@@ -92,8 +91,8 @@ describe "Ratings", ->
 
     it "returns the max rating for a user and their alts", (done) ->
       # Operations to create alts and then set the rating
-      altOps = [["alt1", 5], ["alt2", 30]].map (pair) -> 
-        (callback) -> 
+      altOps = [["alt1", 5], ["alt2", 30]].map (pair) ->
+        (callback) ->
           [altName, rating] = pair
           alts.createAlt "user", altName, ->
             ratings.setRating(LADDER, alts.uniqueId("user", altName), rating, callback)
@@ -114,6 +113,16 @@ describe "Ratings", ->
               ratings.getRatio LADDER, "player2", (err, player2Ratio) ->
                 player2Ratio.should.eql(win: 1, lose: 2, draw: 0)
                 done()
+
+  describe '#getRatio', ->
+    it "returns a hash contain the current and maximum win streaks", (done) ->
+      ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+         ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+            ratings.updatePlayers "player1", "player2", ratings.results.LOSE, ->
+              ratings.updatePlayers "player1", "player2", ratings.results.WIN, ->
+                ratings.getStreak "player1", (err, streak) ->
+                  streak.should.eql(streak: 1, maxStreak: 2)
+                  done()
 
   describe '#getRank', ->
     it "returns the rank of a player", (done) ->

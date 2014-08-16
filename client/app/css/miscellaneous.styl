@@ -9,21 +9,6 @@
 ::selection
   background #F27405
 
-.left
-  float left
-
-.right
-  float right
-
-.half_width
-  width 50%
-
-.center
-  text-align center
-
-.hidden
-  display none
-
 .select
   cursor pointer
   border 1px solid #aaa
@@ -83,3 +68,26 @@
     &.disabled
       cursor not-allowed
       color #bbb
+
+.achievement
+  img
+    float left
+    width 75px
+  h2
+    margin-top 0
+  .achievement-info
+    padding-left 90px
+
+#achievements-modal
+  border none
+  animation: achievement-glow 2s infinite
+
+$animation-glow-color = #4EABDA
+
+@keyframes achievement-glow
+  0%
+    box-shadow 1px 1px 30px 2px $animation-glow-color
+  50%
+    box-shadow 1px 1px 45px 2px lighten($animation-glow-color, 20%)
+  100%
+    box-shadow 1px 1px 30px 2px $animation-glow-color

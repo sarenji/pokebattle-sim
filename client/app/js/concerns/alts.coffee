@@ -1,13 +1,10 @@
-alts = []
+PokeBattle.primus.on 'altList', (list) ->
+  PokeBattle.alts.list = list
 
-PokeBattle.events.on 'altList', (altList) ->
-  alts = altList
-
-PokeBattle.events.on 'altCreated', (altName) ->
-  alts.push altName
+PokeBattle.primus.on 'altCreated', (altName) ->
+  PokeBattle.alts.list.push(altName)
 
 PokeBattle.alts =
-  listAlts: ->
-    return alts
+  list: []
   createAlt: (altName) ->
-    PokeBattle.socket.send('createAlt', altName)
+    PokeBattle.primus.send('createAlt', altName)
