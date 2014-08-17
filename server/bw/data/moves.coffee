@@ -262,9 +262,10 @@ makePickDefenseMove = (name) ->
 makeDelayedAttackMove = (name, message) ->
   extendMove name, ->
     @execute = (battle, user, targets) ->
-      # These moves pick a single target.
-      target = targets[0]
-      if !target.team.attach(Attachment.DelayedAttack, user: user, move: this)
+      # TODO: use slot
+      playerId = battle.getOpponentOwners(user)[0]
+      team = battle.getTeam(playerId)
+      if !team.attach(Attachment.DelayedAttack, user: user, move: this)
         @fail(battle, user)
         return
       battle.message message.replace("$1", user.name)

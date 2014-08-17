@@ -6856,7 +6856,13 @@ describe "BW Moves:", ->
           @battle.endTurn()
         @p2.currentHP.should.be.lessThan @p2.stat('hp')
 
-      it "does not activate if the target has fainted", ->
+      it "does not initialize and error if the target has fainted", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        @p2.faint()
+        (=> @battle.performMove(@p1, move)).should.not.throw()
+
+      it "does not hit if the target has fainted", ->
         shared.create.call(this)
         move = @battle.getMove(moveName)
         @battle.performMove(@p1, move)
