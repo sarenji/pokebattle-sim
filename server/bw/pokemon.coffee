@@ -344,6 +344,9 @@ class @Pokemon
   canLoseItem: ->
     @hasTakeableItem() && !@has(Ability.StickyHold)
 
+  canHeal: ->
+    !@has(Attachment.HealBlock)
+
   isAlive: ->
     !@isFainted()
 
@@ -372,6 +375,9 @@ class @Pokemon
     @setHP(@currentHP - amount)
 
   heal: (amount) ->
+    if amount > 0 && @currentHP < @stat('hp') && !@canHeal()
+      @battle.cannedText('HEAL_BLOCK_TRY_HEAL', this)
+      return false
     @setHP(@currentHP + amount)
 
   drain: (amount, source) ->

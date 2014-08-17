@@ -125,8 +125,8 @@ makeRecoveryMove = (name) ->
         @fail(battle, user)
         return false
       amount = Math.round(hpStat / 2)
-      battle.cannedText('RECOVER_HP', target)
-      target.heal(amount)
+      if target.heal(amount)
+        battle.cannedText('RECOVER_HP', target)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
   extendMove name, ->
@@ -1190,6 +1190,11 @@ extendMove 'Haze', ->
     for target in targets
       target.resetBoosts()
     battle.cannedText('RESET_ALL_STATS')
+
+extendMove 'Heal Block', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.attach(Attachment.HealBlock)
+      battle.cannedText('HEAL_BLOCK_FAIL', target)
 
 extendMove 'Heart Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->

@@ -7531,3 +7531,72 @@ describe "BW Moves:", ->
       @p1.hasAbility("Intimidate").should.be.true
       @p2.hasAbility("Swift Swim").should.be.true
       @p2.stages.should.containEql(attack: -1)
+
+  describe "Heal Block", ->
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      healBlock = @battle.getMove("Heal Block")
+      @battle.performMove(@p1, healBlock)
+      for x in [0...5]
+        @p2.has(Attachment.HealBlock).should.be.true
+        @battle.endTurn()
+      @p2.has(Attachment.HealBlock).should.be.false
+
+    it 'prevents the target from executing a healing move', ->
+      shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
+      move = @battle.getMove('Recover')
+      healBlock = @battle.getMove('Heal Block')
+      mock = @sandbox.mock(move)
+      mock.expects('execute').never()
+
+      @battle.performMove(@p1, healBlock)
+      @battle.performMove(@p2, move)
+
+      mock.verify()
+
+    it 'prevents the target from selecting a healing move', ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", moves: [ "Splash", "Recover" ])]
+
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.beginTurn()
+      requestedMoves = @battle.requestFor(@p2).moves
+      requestedMoves.should.not.containEql 'Recover'
+
+    it "prevents Abilities that heal from healing", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Water Absorb")]
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @battle.performMove(@p1, @battle.getMove('Water Gun'))
+      @p2.currentHP.should.equal 1
+
+    it "does not prevent Regenerator from healing", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Regenerator")]
+      @p1.currentHP = 1
+      @battle.performMove(@p2, @battle.getMove('Heal Block'))
+      @p1.switchOut(@battle)
+      hp = Math.floor(@p1.stat('hp') / 3)
+      @p1.currentHP.should.equal(1 + hp)
+
+    it "prevents items that heal from healing", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @p2.currentHP.should.equal 1
+
+    it "prevents Berries that heal from attempting to activate", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Sitrus Berry")]
+      item = @p2.item
+      hp = @p2.currentHP
+      @p2.currentHP >>= 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
+      @p2.currentHP.should.be.lessThan hp >> 1
+      @p2.item.should.equal item
