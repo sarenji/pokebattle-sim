@@ -67,12 +67,14 @@
 
   $wrapper.html(JST['new_battle']({window, defaultClauses}))
   $selectFormat = $wrapper.find(".select-format")
+  
   # Implement finding battle/challenging
   $button.on 'click.challenge', ->
     # Start requesting for notify permission here
     PokeBattle.requestNotifyPermission()
 
     format = $selectFormat.data('format')
+    
     # Toggle state when you press the button.
     if !$button.hasClass('disabled')
       team = getSelectedTeam()
@@ -136,16 +138,19 @@
   # Clicking the team dropdown brings down a team selection menu.
   # Also updates the allTeams collection
   $wrapper.find('.select-team').click (e) ->
-    allTeams = PokeBattle.TeamStore.models
-    if allTeams && allTeams.length > 0
-      html = JST['team_dropdown'](window: window, teams: allTeams)
-      $wrapper.find('.team-dropdown').html(html)
+    allTeams = PokeBattle.TeamStore.models || []
+    html = JST['team_dropdown'](window: window, teams: allTeams)
+    $wrapper.find('.team-dropdown').html(html)
 
   # Selecting a team from the menu
   $wrapper.find('.team-dropdown').on 'click', '.select-team-dropdown-item', (e) ->
     slot = $(e.currentTarget).data('slot')
     selectedTeamId = PokeBattle.TeamStore.at(slot).id
     renderCurrentTeam($wrapper)
+
+  # Selecting build team from the menu
+  $wrapper.find('.team-dropdown').on 'click', '.build-team-option', (e) ->
+    PokeBattle.navigation.showTeambuilder()
 
   # Selecting the format changes the dropdown.
   $wrapper.find('.format-dropdown').on 'click', '.select-format-dropdown-item', (e) ->

@@ -180,6 +180,8 @@ class @PokemonEditView extends Backbone.View
 
   blurMoves: (e) =>
     $input = $(e.currentTarget)
+
+    # If preventBlur is set, then perform a refocus (undo the blur)
     if @_preventBlur
       previousScrollPosition = @$el.scrollTop()
       $input.focus()
@@ -192,7 +194,7 @@ class @PokemonEditView extends Backbone.View
 
     # Remove filtering and row selection
     @filterMovesBy("")
-    $(".table-moves .active").removeClass("active")
+    @$(".table-moves .active").removeClass("active")
 
     if $input.val().length == 0
       @recordMoves()
@@ -222,14 +224,19 @@ class @PokemonEditView extends Backbone.View
       @$el.scrollTop(0)
     @recordMoves()
 
-  recordMoves: =>
+  # Returns the moves currently selected in the teambuilder (Not the Pokemon)
+  getSelectedMoves: =>
     movesArray = []
     $moves = @$el.find('.selected_moves')
     $moves.find('.move-button').each ->
       moveName = $(this).find("span").text().trim()
       if moveName != ""
         movesArray.push(moveName)
-    @pokemon.set("moves", movesArray)
+    movesArray
+
+  recordMoves: =>
+    @updateSelectedMoveStyles()
+    @pokemon.set("moves", @getSelectedMoves())
 
   $selectedMove: =>
     $table = @$el.find('.table-moves')
@@ -256,11 +263,11 @@ class @PokemonEditView extends Backbone.View
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
 
-    # The blur event may have been cancelled, so when removing the input also
-    # remove the filter
+    # The blur event may have been prevented by preventBlurMoves
+    # so when removing the input also remove the filter
     if $input.is(":focus")
       @filterMovesBy("")
-      $(".table-moves .active").removeClass("active")
+      @$(".table-moves .active").removeClass("active")
 
     type = @moveData[moveName].type.toLowerCase()
     $input.replaceWith("""
@@ -445,3 +452,10 @@ class @PokemonEditView extends Backbone.View
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
+
+    @updateSelectedMoveStyles()
+
+  updateSelectedMoveStyles: =>
+    @$(".table-moves .selected").removeClass("selected")
+    for move in @getSelectedMoves()
+      @$(".table-moves tr[data-move-id='#{move}']").addClass("selected")

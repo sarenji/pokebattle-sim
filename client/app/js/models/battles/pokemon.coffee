@@ -120,6 +120,9 @@ class @Pokemon extends Backbone.Model
         genders.push("M", "F")
     genders
 
+  hasSelectedMove: (moveName) ->
+    moveName && moveName in @moves
+
   getMovepool: ->
     {SpeciesData, MoveData} = @getGeneration()
     generation = GENERATION_TO_INT[@collection?.generation || DEFAULT_GENERATION]
