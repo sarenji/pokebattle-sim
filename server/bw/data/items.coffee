@@ -42,24 +42,24 @@ makeStatBoostBerry = (name, boosts) ->
 makeFlavorHealingBerry = (name, stat) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
-      battle.cannedText('BERRY_RESTORE', owner, this)
-      owner.heal(Math.floor(owner.stat('hp') / 8))
+      if owner.heal(Math.floor(owner.stat('hp') / 8))
+        battle.cannedText('BERRY_RESTORE', owner, this)
       if owner.natureBoost(stat) < 1.0
         owner.attach(Attachment.Confusion)
 
     this::update = ->
-      if @pokemon.currentHP <= Math.floor(@pokemon.stat('hp') / 2)
+      if @pokemon.currentHP <= Math.floor(@pokemon.stat('hp') / 2) && @pokemon.canHeal()
         @constructor.eat(@battle, @pokemon)
         @pokemon.useItem()
 
 makeHealingBerry = (name, func) ->
   makeItem name, ->
     this.eat = (battle, owner) ->
-      battle.cannedText('BERRY_RESTORE', owner, this)
-      owner.heal(func(owner))
+      if owner.heal(func(owner))
+        battle.cannedText('BERRY_RESTORE', owner, this)
 
     this::update = ->
-      if @pokemon.currentHP <= Math.floor(@pokemon.stat('hp') / 2)
+      if @pokemon.currentHP <= Math.floor(@pokemon.stat('hp') / 2) && @pokemon.canHeal()
         @constructor.eat(@battle, @pokemon)
         @pokemon.useItem()
 
@@ -238,8 +238,8 @@ makeItem 'Black Sludge', ->
       return  if maxHP == @pokemon.currentHP
       amount = Math.floor(maxHP / 16)
       amount = 1  if amount == 0
-      @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
-      @pokemon.heal(amount)
+      if @pokemon.heal(amount)
+        @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
     else
       amount = Math.floor(maxHP / 8)
       amount = 1  if amount == 0
@@ -295,9 +295,9 @@ makeItem 'Enigma Berry', ->
   this.eat = ->
   this::afterBeingHit = (move, user, target) ->
     return  if util.typeEffectiveness(move.type, target.types) <= 1
-    @battle.cannedText('BERRY_RESTORE', target, @constructor)
-    target.heal(Math.floor(target.stat('hp') / 4))
-    target.useItem()
+    if target.heal(Math.floor(target.stat('hp') / 4))
+      @battle.cannedText('BERRY_RESTORE', target, @constructor)
+      target.useItem()
 
 makeItem 'Eviolite', ->
   this::editDefense = this::editSpecialDefense = (defense) ->
@@ -370,10 +370,10 @@ makeItem 'Leftovers', ->
   this::endTurn = ->
     maxHP = @pokemon.stat('hp')
     return  if maxHP == @pokemon.currentHP
-    @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
     amount = Math.floor(maxHP / 16)
     amount = 1  if amount == 0
-    @pokemon.heal(amount)
+    if @pokemon.heal(amount)
+      @battle.cannedText('ITEM_RESTORE', @pokemon, @constructor)
 
 makeStatBoostBerry 'Liechi Berry', attack: 1
 

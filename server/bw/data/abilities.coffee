@@ -214,9 +214,9 @@ makeTypeAbsorbMove = (name, type) ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
-      @battle.cannedText('RECOVER_HP', @pokemon)
       amount = @pokemon.stat('hp') >> 2
-      @pokemon.heal(amount)
+      if @pokemon.heal(amount)
+        @battle.cannedText('RECOVER_HP', @pokemon)
       return true
 
 makeTypeAbsorbMove("Water Absorb", "Water")
@@ -740,7 +740,8 @@ makeAbility 'Rivalry', ->
 makeAbility 'Regenerator', ->
   this::switchOut = ->
     amount = Math.floor(@pokemon.stat('hp') / 3)
-    @pokemon.heal(amount)
+    # Uses setHP directly to bypass Heal Block's effect
+    @pokemon.setHP(@pokemon.currentHP + amount)
 
 # Hardcoded in move.coffee
 makeAbility 'Rock Head'

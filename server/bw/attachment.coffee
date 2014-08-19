@@ -287,6 +287,31 @@ class @Attachment.Taunt extends @VolatileAttachment
       @battle.cannedText('TAUNT_END', @pokemon)
       @pokemon.unattach(@constructor)
 
+class @Attachment.HealBlock extends @VolatileAttachment
+  name: "HealBlockAttachment"
+
+  initialize: (attributes) ->
+    @turns = 5
+    @turn = 0
+    @battle.cannedText('HEAL_BLOCK_START', @pokemon)
+
+  beginTurn: ->
+    for move in @pokemon.moves
+      if move.hasFlag("heal")
+        @pokemon.blockMove(move)
+
+  beforeMove: (move, user, targets) ->
+    # TODO: user is always == pokemon. Will this change?
+    if user == @pokemon && move.hasFlag("heal")
+      @battle.cannedText('HEAL_BLOCK_PREVENT', @pokemon, move.name)
+      return false
+
+  endTurn: ->
+    @turn++
+    if @turn >= @turns
+      @battle.cannedText('HEAL_BLOCK_END', @pokemon)
+      @pokemon.unattach(@constructor)
+
 class @Attachment.Tailwind extends @TeamAttachment
   name: "TailwindAttachment"
 
