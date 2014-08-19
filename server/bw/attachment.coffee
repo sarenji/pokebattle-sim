@@ -103,7 +103,6 @@ class @BaseAttachment
   # endTurn: ->
   # update: (owner) ->
   # editBoosts: (stages) ->
-  # editDamage: (damage, move, user) ->
   # afterFaint: ->
   # shouldBlockExecution: (move, user) ->
 
@@ -798,11 +797,11 @@ class @Attachment.Endure extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
-  editDamage: (damage, move, user) ->
-    if damage >= @pokemon.currentHP
+  transformHealthChange: (amount, options) ->
+    if amount >= @pokemon.currentHP
       @battle.message "#{@pokemon.name} endured the hit!"
       return @pokemon.currentHP - 1
-    return damage
+    return amount
 
 class @Attachment.Curse extends @VolatileAttachment
   name: "CurseAttachment"

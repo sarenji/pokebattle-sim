@@ -210,7 +210,6 @@ class @Move
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, @modifyDamage(battle, user, target, hitNumber))
-    damage = target.editDamage(this, damage)
 
     if effectiveness < 1
       battle.cannedText('NOT_VERY_EFFECTIVE')

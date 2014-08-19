@@ -322,21 +322,21 @@ makeItem 'Float Stone', ->
 makeGemItem 'Flying Gem', 'Flying'
 
 makeItem 'Focus Band', ->
-  this::editDamage = (damage, move) ->
-    if damage >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
+  this::transformHealthChange = (amount, options) ->
+    if amount >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
       @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return @pokemon.currentHP - 1
-    return damage
+    return amount
 
 makeItem 'Focus Sash', ->
-  this::editDamage = (damage, move) ->
+  this::transformHealthChange = (amount, options) ->
     maxHP = @pokemon.stat('hp')
-    if @pokemon.currentHP == maxHP && damage >= maxHP
+    if @pokemon.currentHP == maxHP && amount >= maxHP
       @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return maxHP - 1
-    return damage
+    return amount
 
 makeDelayItem 'Full Incense'
 makeStatBoostBerry 'Ganlon Berry', defense: 1

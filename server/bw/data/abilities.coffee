@@ -874,13 +874,13 @@ makeAbility 'Steadfast'
 makeAbility 'Sticky Hold'
 
 makeAbility 'Sturdy', ->
-  this::editDamage = (damage, move) ->
+  this::transformHealthChange = (amount, options) ->
     if @pokemon.currentHP == @pokemon.stat('hp')
-      if damage >= @pokemon.currentHP
+      if amount >= @pokemon.currentHP
         @pokemon.activateAbility()
         @battle.cannedText('ENDURE', @pokemon)
         return @pokemon.currentHP - 1
-    return damage
+    return amount
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (phaser) ->

@@ -392,9 +392,6 @@ class @Pokemon
   editPriority: (priority, move) ->
     Query.chain('editPriority', @attachments.all(), priority, move)
 
-  editDamage: (move, damage) ->
-    Query.chain('editDamage', @attachments.all(), damage, move, this)
-
   editBoosts: (opts = {}) ->
     stages = Query.chain('editBoosts', @attachments.all(), _.clone(@stages))
     for stat, amt of stages

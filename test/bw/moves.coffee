@@ -696,6 +696,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Seismic Toss'))
       (hp - @p2.currentHP).should.equal 100
 
+    it 'triggers Focus Sash', ->
+      shared.create.call this,
+        team1: [Factory('Blissey')]
+        team2: [Factory('Mew', level: 1, item: "Focus Sash")]
+      hp = @p2.currentHP
+      @battle.performMove(@p1, @battle.getMove('Seismic Toss'))
+      @p2.currentHP.should.equal(1)
+
   describe 'Psywave', ->
     it 'does user.level/2 damage minimum', ->
       shared.create.call this,
