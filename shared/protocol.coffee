@@ -34,3 +34,4 @@
   CONTINUE_TURN    : 37
   BATTLE_EXPIRED   : 38
   SET_BOOSTS       : 39
+  END_MOVE         : 40

@@ -727,6 +727,7 @@ class @Battle extends Room
         @executeMove(move, pokemon, targets)
       # After the move finishes (whether it executed properly or not, e.g. par)
       pokemon.afterMove(move, pokemon, targets)
+      pokemon.tell(Protocol.END_MOVE)
 
   # TODO: Put in priority queue
   performFaints: ->

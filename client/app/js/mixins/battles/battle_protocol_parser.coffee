@@ -27,9 +27,6 @@
         console.log "Received protocol: #{protocol} with args: #{rest}"
     catch
 
-    doneTimeout = ->
-      setTimeout(done, 0)
-
     done = () =>
       return  if done.called
       done.called = true
@@ -38,6 +35,15 @@
       else
         # setTimeout 0 lets the browser breathe.
         setTimeout(@_update.bind(this, wasAtBottom), 0)
+
+    doneTimeout = ->
+      setTimeout(done, 0)
+
+    doneSpeedTimeout = () =>
+      if view.skip? || view.speed <= 1
+        done()
+      else
+        setTimeout(done, (view.speed - 1) * 1000)
 
     try
       switch type
@@ -61,7 +67,7 @@
           team = @getTeam(player).get('pokemon').models
           [team[toSlot], team[fromSlot]] = [team[fromSlot], team[toSlot]]
           # TODO: Again, automatic.
-          view.switchIn(player, toSlot, fromSlot, done)
+          view.switchIn(player, toSlot, fromSlot, doneSpeedTimeout)
         when Protocol.CHANGE_PP
           [player, slot, moveIndex, newPP] = rest
           pokemon = @getPokemon(player, slot)
@@ -181,6 +187,8 @@
           pokemon = @getPokemon(player, slot)
           pokemon.set('ability', ability)
           view.activateAbility(player, slot, ability, done)
+        when Protocol.END_MOVE
+          doneSpeedTimeout()
         else
           done()
     catch e
