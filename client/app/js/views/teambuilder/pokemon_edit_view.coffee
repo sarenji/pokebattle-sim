@@ -245,26 +245,22 @@ class @PokemonEditView extends Backbone.View
 
   clickSelectedMove: (e) =>
     $this = $(e.currentTarget)
-    moveName = $this.find('span').text()
-    $input = $("<input type='text' value='#{moveName}'/>")
-    $this.replaceWith($input)
-    $input.focus().select()
+    moveName = @reverseButtonify($this).focus().select().val()
 
     # Set the current move row to active
     $(".table-moves tr[data-move-id='#{moveName}']").addClass("active")
 
   removeSelectedMove: (e) =>
     $this = $(e.currentTarget).parent()
-    $input = $("<input type='text'/>")
-    $this.replaceWith($input)
-    $input.focus()
+    @reverseButtonify($this).val('').focus()
     e.stopPropagation()
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
 
-    # The blur event may have been prevented by preventBlurMoves
-    # so when removing the input also remove the filter
+    # When removing the input also remove the filter
+    # Normally this is done by blurMoves,
+    # but the blur event may have been prevented by preventBlurMoves 
     if $input.is(":focus")
       @filterMovesBy("")
       @$(".table-moves .active").removeClass("active")
@@ -274,6 +270,12 @@ class @PokemonEditView extends Backbone.View
       <div class="button move-button #{type}"><span>#{moveName}</span><div class='close'>&times;</div></div>
     """)
     return true
+
+  reverseButtonify: ($button) =>
+    moveName = $button.find('span').text()
+    $input = $("<input type='text' value='#{moveName}'/>")
+    $button.replaceWith($input)
+    $input
 
   keydownMoves: (e) =>
     $input = $(e.currentTarget)
