@@ -235,7 +235,6 @@ class @PokemonEditView extends Backbone.View
     movesArray
 
   recordMoves: =>
-    @updateSelectedMoveStyles()
     @pokemon.set("moves", @getSelectedMoves())
 
   $selectedMove: =>
@@ -269,12 +268,16 @@ class @PokemonEditView extends Backbone.View
     $input.replaceWith("""
       <div class="button move-button #{type}"><span>#{moveName}</span><div class='close'>&times;</div></div>
     """)
+
+    @updateSelectedMoveStyles()
+
     return true
 
   reverseButtonify: ($button) =>
     moveName = $button.find('span').text()
     $input = $("<input type='text' value='#{moveName}'/>")
     $button.replaceWith($input)
+    @updateSelectedMoveStyles()
     $input
 
   keydownMoves: (e) =>
@@ -454,8 +457,6 @@ class @PokemonEditView extends Backbone.View
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
-
-    @updateSelectedMoveStyles()
 
   updateSelectedMoveStyles: =>
     @$(".table-moves .selected").removeClass("selected")
