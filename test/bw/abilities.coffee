@@ -2734,9 +2734,35 @@ describe "BW Abilities:", ->
       mock.verify()
 
   describe "Wonder Skin", ->
-    it "makes non-damaging moves with over 50% accuracy have 50% accuracy"
-    it "adjusts accuracy before any other modifiers take effect"
-    it "does nothing to non-damaging moves with under 50% accuracy"
+    it "makes non-damaging moves with over 50% accuracy have 50% accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      trick = @battle.getMove("Trick")
+      accuracy = trick.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 50
+
+    it "adjusts accuracy before any other modifiers take effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Compoundeyes")]
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      accuracy = willOWisp.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(50 * 1.3)
+
+    it "does nothing to non-damaging moves that don't check accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      meanLook = @battle.getMove("Mean Look")
+      accuracy = meanLook.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 0
+
+    it "does nothing to non-damaging moves with under 50% accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      trick = @battle.getMove("Trick")
+      trick.accuracy = 40
+      accuracy = trick.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 40
 
   describe "Zen Mode", ->
     it "changes Darmanitan's forme when going under or above 50% HP"

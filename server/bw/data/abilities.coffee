@@ -981,3 +981,6 @@ makeAbility 'Wonder Guard', ->
     return  if move.typeEffectiveness(@battle, user, @pokemon) > 1
     @pokemon.activateAbility()
     return true
+
+# Hardcoded in Move#chanceToHit
+makeAbility 'Wonder Skin'

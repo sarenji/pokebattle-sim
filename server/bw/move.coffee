@@ -231,6 +231,8 @@ class @Move
     userBoosts = user.editBoosts(ignoreAccuracy: target.hasAbility("Unaware"))
     targetBoosts = target.editBoosts(ignoreEvasion: user.hasAbility("Unaware"))
     accuracy = @getAccuracy(battle, user, target)
+    # TODO: Find out how accuracy/evasion is chained and do the rest properly
+    accuracy = 50  if @isNonDamaging() && accuracy > 50 && target.hasAbility("Wonder Skin")
     if userBoosts.accuracy > 0
       accuracy = Math.floor(accuracy * (3 + userBoosts.accuracy) / 3)
     else if userBoosts.accuracy < 0
