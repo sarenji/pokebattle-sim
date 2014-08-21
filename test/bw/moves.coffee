@@ -3434,8 +3434,8 @@ describe "BW Moves:", ->
 
       it "makes the user's next move never miss on this target", ->
         shared.create.call(this)
-        shared.biasRNG.call(this, 'randInt', 'miss', 101)
         @battle.performMove(@p1, @battle.getMove(moveName))
+        shared.biasRNG.call(this, 'randInt', 'miss', 101)
         missMove = @battle.getMove("Tackle")
         missMove.willMiss(@battle, @p1, @p2)
           .should.be.false
@@ -3448,10 +3448,42 @@ describe "BW Moves:", ->
           @battle.endTurn()
         @p1.has(Attachment.LockOn).should.be.false
 
-      it "hits through two-turn fade-away moves"
-      it "does not hit through Protect"
-      it "does not affect accuracy on another target"
-      it "re-locks on when used on another target"
+      it "hits through two-turn fade-away moves", ->
+        shared.create.call(this)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performMove(@p2, @battle.getMove("Fly"))
+        missMove = @battle.getMove("Tackle")
+        missMove.willMiss(@battle, @p1, @p2)
+          .should.be.false
+
+      it "does not hit through Protect", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        mock = @sandbox.mock(move).expects('hit').never()
+
+        @battle.recordMove(@id2, move)
+        @battle.determineTurnOrder()
+        @battle.performMove(@p1, @battle.getMove("Protect"))
+        @battle.performMove(@p2, move)
+        mock.verify()
+
+      it "does not affect accuracy on another target", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp"), Factory("Magikarp")]
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performSwitch(@p2, 1)
+        shared.biasRNG.call(this, 'randInt', 'miss', 101)
+        missMove = @battle.getMove("Tackle")
+        missMove.willMiss(@battle, @p1, @team2.first())
+          .should.be.true
+
+      it "re-locks on when used on another target", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp"), Factory("Magikarp")]
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performSwitch(@p2, 1)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @p1.has(Attachment.LockOn).should.be.true
 
   testLockOnMove("Lock-On")
   testLockOnMove("Mind Reader")
@@ -5246,12 +5278,12 @@ describe "BW Moves:", ->
           shared.create.call this,
             team1: [Factory("Magikarp", evs: {speed: 4})]
           move = @battle.getMove(moveName)
-          tackle = @battle.getMove("Tackle")
+          clearSmog = @battle.getMove("Clear Smog")
 
           @battle.recordMove(@id1, move)
-          @battle.recordMove(@id2, tackle)
+          @battle.recordMove(@id2, clearSmog)
 
-          mock = @sandbox.mock(tackle).expects('hit').never()
+          mock = @sandbox.mock(clearSmog).expects('hit').never()
           @battle.continueTurn()
           mock.verify()
 
@@ -5281,7 +5313,17 @@ describe "BW Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
-        it "is vulnerable to attacks if locked on"
+        it "is vulnerable to attacks if locked on", ->
+          shared.create.call(this)
+          @battle.performMove(@p1, @battle.getMove("Lock-On"))
+          @battle.performMove(@p2, @battle.getMove(moveName))
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, tackle)
+
+          mock = @sandbox.mock(tackle).expects('hit').once()
+          @battle.continueTurn()
+          mock.verify()
 
         for vulnerableMove in vulnerable
           it "is vulnerable to #{vulnerableMove}", ->
@@ -5926,15 +5968,17 @@ describe "BW Moves:", ->
         @battle.endTurn()
       @p1.isImmune('Ground').should.be.false
 
-    it "makes the target unable to avoid any attacks", ->
+    it "makes the target unable to avoid attacks other than ohko moves", ->
       shared.create.call(this)
       telekinesis = @battle.getMove("Telekinesis")
-      tackle = @battle.getMove("Tackle")
-      shared.biasRNG.call(this, 'randInt', "miss", 101)  # Always misses
+      inferno = @battle.getMove("Inferno")
+      sheerCold = @battle.getMove("Sheer Cold")
 
-      tackle.willMiss(@battle, @p2, @p1).should.be.true
+      inferno.chanceToHit(@battle, @p2, @p1).should.equal(50)
+      sheerCold.chanceToHit(@battle, @p2, @p1).should.equal(30)
       @battle.performMove(@p2, telekinesis)
-      tackle.willMiss(@battle, @p2, @p1).should.be.false
+      inferno.chanceToHit(@battle, @p2, @p1).should.equal(0)
+      sheerCold.chanceToHit(@battle, @p2, @p1).should.equal(30)
 
   describe "Smack Down", ->
     it "doesn't crash on secondary effect", ->

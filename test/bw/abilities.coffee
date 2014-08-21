@@ -1651,14 +1651,16 @@ describe "BW Abilities:", ->
     it "makes every move by this Pokemon never miss", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "No Guard")]
+      shared.biasRNG.call(this, 'randInt', 'miss', 101)
       focusBlast = @battle.getMove("Focus Blast")
-      focusBlast.chanceToHit(@battle, @p1, @p2).should.equal(0)
+      focusBlast.willMiss(@battle, @p1, @p2).should.be.false
 
     it "makes every move against this Pokemon never miss", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "No Guard")]
+      shared.biasRNG.call(this, 'randInt', 'miss', 101)
       focusBlast = @battle.getMove("Focus Blast")
-      focusBlast.chanceToHit(@battle, @p2, @p1).should.equal(0)
+      focusBlast.willMiss(@battle, @p2, @p1).should.be.false
 
   describe "Normalize", ->
     it "makes every move act as if it were Normal type", ->

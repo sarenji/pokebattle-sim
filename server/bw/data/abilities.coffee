@@ -652,9 +652,8 @@ makeAbility 'Natural Cure', ->
   this::switchOut = ->
     @pokemon.cureStatus(message: false)
 
-makeAbility 'No Guard', ->
-  this::editAccuracy = -> 0  # Never miss
-  this::editEvasion  = -> 0  # Never miss
+# Hardcoded in Move#willMiss
+makeAbility 'No Guard'
 
 makeAbility 'Normalize', ->
   this::editMoveType = (type, target) ->
