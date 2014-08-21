@@ -70,6 +70,7 @@ class @PrivateMessagesView extends Backbone.View
   addLogMessages: ($popup, log) =>
     messageHtml = ""
     for {username, message, opts} in log
+      message = _.escape(message)
       username = "Me"  if username == PokeBattle.username
       if opts.type in [ 'error', 'alert' ]
         messageHtml += "<p class='grey'>#{message}</p>"
@@ -81,6 +82,7 @@ class @PrivateMessagesView extends Backbone.View
 
   # todo: make this and addLogMessages construct messages from a common source
   receiveMessage: (messageModel, messageId, username, message, options) =>
+    message = _.escape(message)
     $popup = @$findOrCreatePopup(messageId)
     wasAtBottom = @isAtBottom($popup)
     username = "Me"  if username == PokeBattle.username
