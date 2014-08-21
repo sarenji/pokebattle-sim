@@ -221,9 +221,22 @@ class @Move
       target.informCriticalHit()
     damage
 
+  canMiss: (battle, user, target) ->
+    return true
+
+  # An accuracy of 0 means this move always hits. A negative accuracy means the
+  # target is invulnerable, even for 0-accuracy moves. A move always hits, regardless
+  # of accuracy and invulnerability, under any of the following conditions:
+  #   * The user or target has No Guard
+  #   * The user is locked onto the target (Lock-On, Mind Reader)
+  #   * The move has a "never-miss" effect built in
+  #     (Helping Hand, XY Toxic used by Poison types)
   willMiss: (battle, user, target) ->
+    return false  if user.hasAbility("No Guard") || target.hasAbility("No Guard")
+    return false  if user.get(Attachment.LockOn)?.target == target
+    return false  if !@canMiss(battle, user, target)
     accuracy = @chanceToHit(battle, user, target)
-    return false  if accuracy == 0
+    accuracy = 100  if accuracy == 0
     battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) ->

@@ -299,7 +299,7 @@ makeRampageMove("Thrash")
 #       other possibility?
 makeLockOnMove = (name) ->
   extendMove name, ->
-    @use = (battle, user, target) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       if user.attach(Attachment.LockOn, {target})
         battle.message "#{user.name} locked onto #{target.name}."
       else

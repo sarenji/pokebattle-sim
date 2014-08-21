@@ -641,13 +641,12 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 
 class @Attachment.LockOn extends @VolatileAttachment
   name: "LockOnAttachment"
-  passable: true
 
-  initialize: ->
+  initialize: (attributes) ->
+    {@target} = attributes
     @turns = 2
 
-  editAccuracy: ->
-    0  # Always hits
+  # Effect hardcoded in Move#willMiss
 
   endTurn: ->
     @turns -= 1
@@ -1017,7 +1016,7 @@ class @Attachment.Charging extends @VolatileAttachment
     @battle.recordMove(id, @move)
 
   editEvasion: (accuracy, move) ->
-    return -1  if @vulnerable && @charging && accuracy > 0 &&
+    return -1  if @vulnerable && @charging &&
                 (move not in @vulnerable.map((v) => @battle.getMove(v)))
     return accuracy
 
@@ -1151,8 +1150,8 @@ class @Attachment.Telekinesis extends @VolatileAttachment
     @turns = 3
     @battle.cannedText('TELEKINESIS_START', @pokemon)
 
-  editEvasion: ->
-    0  # Always hit
+  editEvasion: (accuracy, move) ->
+    if move.hasFlag("ohko") then accuracy else 0
 
   isImmune: (type) ->
     return true  if type == 'Ground'
