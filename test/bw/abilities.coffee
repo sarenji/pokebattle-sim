@@ -2351,14 +2351,19 @@ describe "BW Abilities:", ->
     it "prevents the user from being OHKOed at full HP", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sturdy")]
-      @p1.transformHealthChange(9999).should.equal(@p1.currentHP - 1)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p2, ember)
+      @p1.currentHP.should.equal(1)
 
     it "lets the user be KOed if not at full HP", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sturdy")]
-      damage = 9999
       @p1.currentHP -= 1
-      @p1.transformHealthChange(damage).should.equal(damage)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p2, ember)
+      @p1.currentHP.should.equal(0)
 
   describe "Suction Cups", ->
     it "prevents user from being phased", ->

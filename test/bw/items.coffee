@@ -196,7 +196,9 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      @p2.damage(9999)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p1, ember)
       @p2.currentHP.should.equal(1)
 
     it "fails to protect from multihit moves", ->
@@ -225,7 +227,9 @@ describe "BW Items:", ->
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
       @p2.currentHP -= 1
-      @p2.damage(9999)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p1, ember)
       @p2.currentHP.should.equal(0)
 
     it "disappears after activation", ->
