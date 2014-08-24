@@ -875,7 +875,7 @@ makeAbility 'Sticky Hold'
 makeAbility 'Sturdy', ->
   this::transformHealthChange = (amount, options) ->
     if @pokemon.currentHP == @pokemon.stat('hp')
-      if amount >= @pokemon.currentHP
+      if amount >= @pokemon.currentHP && options.source == 'move'
         @pokemon.activateAbility()
         @battle.cannedText('ENDURE', @pokemon)
         return @pokemon.currentHP - 1

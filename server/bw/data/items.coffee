@@ -323,7 +323,8 @@ makeGemItem 'Flying Gem', 'Flying'
 
 makeItem 'Focus Band', ->
   this::transformHealthChange = (amount, options) ->
-    if amount >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0
+    if amount >= @pokemon.currentHP && @battle.rng.randInt(0, 9, "focus band") == 0 &&
+        options.source == 'move'
       @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return @pokemon.currentHP - 1
@@ -332,7 +333,7 @@ makeItem 'Focus Band', ->
 makeItem 'Focus Sash', ->
   this::transformHealthChange = (amount, options) ->
     maxHP = @pokemon.stat('hp')
-    if @pokemon.currentHP == maxHP && amount >= maxHP
+    if @pokemon.currentHP == maxHP && amount >= maxHP && options.source == 'move'
       @battle.cannedText('HANG_ON', @pokemon, @constructor)
       @pokemon.useItem()
       return maxHP - 1
