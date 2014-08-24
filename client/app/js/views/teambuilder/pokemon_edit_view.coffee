@@ -33,6 +33,7 @@ class @PokemonEditView extends Backbone.View
     'click .selected_shininess': 'changeShiny'
     'click .selected_happiness': 'changeHappiness'
     'change .selected-forme': 'changeForme'
+    'change .selected-mega': 'changeMega'
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
@@ -113,6 +114,23 @@ class @PokemonEditView extends Backbone.View
     @pokemon.set('forme', $forme.val())
     # Forme changes may have different abilities, so we have to change this.
     @pokemon.set('ability', @pokemon.getAbilities()[0])
+
+  changeMega: (e) =>
+    mega = $(e.currentTarget).val()
+    if mega
+      for itemName, data of @generation.ItemData
+        if data.mega && data.mega[0] == @pokemon.get('species') && data.mega[1] == mega
+          @pokemon.set('item', itemName)
+          console.log(itemName)
+          break
+    else
+      # Converting to non-mega. Remove the megastone if any
+      item = @generation.ItemData[@pokemon.get('item')]
+      if item?.mega?[0] == @pokemon.get('species')
+        @pokemon.set('item', null)
+
+    # update the item dropdown (note: somewhat inefficient as it updates multiple dropdowns)
+    @renderNonStats()
 
   changeNature: (e) =>
     $list = $(e.currentTarget)
