@@ -72,17 +72,20 @@ class @Move
     targetsHit = []
     totalDamage = 0
 
-    targetSlots = targets.map (target) ->
-        return [ battle.playerIds.indexOf(target.playerId),
-                 target.team.indexOf(target) ]
-    user.tell(Protocol.MOVE_SUCCESS, targetSlots, @name)
-
     for target in targets
       continue  if @use(battle, user, target, hitNumber) == false
       if target.shouldBlockExecution(this, user) == true
         @afterFail(battle, user, target)
         continue
       targetsHit.push(target)
+
+    if targetsHit.length > 0
+      targetSlots = targetsHit.map (target) ->
+          return [ battle.playerIds.indexOf(target.playerId),
+                   target.team.indexOf(target) ]
+      user.tell(Protocol.MOVE_SUCCESS, targetSlots, @name)
+
+    for target in targetsHit
       numHits = @calculateNumberOfHits(battle, user, targets)
       wasSlept = user.has(Status.Sleep)
       for hitNumber in [1..numHits]
