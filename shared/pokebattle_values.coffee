@@ -18,8 +18,14 @@ self.determinePBV = (genData, pokemonArray) ->
       if species == megaSpecies
         forme = megaForme
 
+    # Get PBV of the Pokemon's forme
+    pbv = speciesData?[forme]?.pokeBattleValue || 0
+
+    # Handle Eviolite
+    pbv = Math.round(1.3 * pbv / 5) * 5  if item == 'Eviolite'
+
     # Add to total
-    total += speciesData?[forme]?.pokeBattleValue || 0
+    total += pbv
 
   # Handle Baton Pass. Baton Pass cray.
   bpers = (p  for p in pokemonArray when "Baton Pass" in (p.moves || []))
