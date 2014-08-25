@@ -45,6 +45,7 @@ class @PokemonEditView extends Backbone.View
     'change .ev-entry': 'changeEv'
     'input .ev-entry[type=range]': 'changeEv'
     'mouseup .ev-entry[type=range]': 'mouseupEVSlider'
+    'click .ev-lock': 'toggleEVLocked'
     'change .select-hidden-power': 'changeHiddenPower'
     'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
@@ -90,7 +91,10 @@ class @PokemonEditView extends Backbone.View
 
   # Returns true if Evs are locked to 510 maximum
   isEVLocked: =>
-    true
+    $('.ev-lock span:visible').data('locked')
+
+  toggleEVLocked: =>
+    $('.ev-lock span').toggle()
 
   changeSpecies: (e) =>
     return  if not @onPokemonChange
@@ -178,17 +182,17 @@ class @PokemonEditView extends Backbone.View
     $input.val("")  if value == 0
 
   changeEv: (e) =>
-    # todo: make changeIv and changeEv DRY
     $input = $(e.currentTarget)
     stat = $input.data("stat")
     value = parseInt($input.val(), 10)
+    value = 0  if isNaN(value) 
     value = 252  if value > 252
-    value = 0  if isNaN(value) || value < 0
 
     if @isEVLocked()
       availableEVs = 510 - @pokemon.getTotalEVs(exclude: stat)
       value = availableEVs  if value > availableEVs
 
+    value = 0  if value < 0
     value = @pokemon.setEv(stat, value)
     $input.val(value)  if not $input.is("[type=range]")
 
