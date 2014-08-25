@@ -43,7 +43,8 @@ class @PokemonEditView extends Backbone.View
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
     'change .ev-entry': 'changeEv'
-    'input .ev-entry[type=range]': 'changeEv'  # fix for firefox
+    'input .ev-entry[type=range]': 'changeEv'
+    'mouseup .ev-entry[type=range]': 'mouseupEVSlider'
     'change .select-hidden-power': 'changeHiddenPower'
     'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
@@ -86,6 +87,10 @@ class @PokemonEditView extends Backbone.View
 
   setTeamPBV: (pbv) =>
     @teamPBV = pbv
+
+  # Returns true if Evs are locked to 510 maximum
+  isEVLocked: =>
+    true
 
   changeSpecies: (e) =>
     return  if not @onPokemonChange
@@ -180,8 +185,17 @@ class @PokemonEditView extends Backbone.View
     value = 252  if value > 252
     value = 0  if isNaN(value) || value < 0
 
+    if @isEVLocked()
+      availableEVs = 510 - @pokemon.getTotalEVs(exclude: stat)
+      value = availableEVs  if value > availableEVs
+
     value = @pokemon.setEv(stat, value)
     $input.val(value)  if not $input.is("[type=range]")
+
+  mouseupEVSlider: (e) =>
+    $slider = $(e.currentTarget)
+    $input = @$(".ev-entry[data-stat=#{$slider.data('stat')}]").not($slider)
+    $slider.val $input.val()
 
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
