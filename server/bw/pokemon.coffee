@@ -347,6 +347,9 @@ class @Pokemon
   canHeal: ->
     !@has(Attachment.HealBlock)
 
+  isActive: ->
+    this in @team.getActiveAlivePokemon()
+
   isAlive: ->
     !@isFainted()
 

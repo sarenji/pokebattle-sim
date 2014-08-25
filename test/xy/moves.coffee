@@ -689,3 +689,35 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(tackle).expects('execute').once()
       @battle.performMove(@p1, metronome)
       mock.verify()
+
+  testDelayedAttackMove = (moveName, type) ->
+    describe moveName, ->
+      it "does not hit substitutes if the user has Infiltrator and is active", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: "Infiltrator")]
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.endTurn()
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+
+      it "always hits substitutes if the user is not on the field", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: "Infiltrator"), Factory("Magikarp")]
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.endTurn()
+        @battle.performSwitch(@p1, 1)
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.false
+
+  testDelayedAttackMove("Future Sight")
+  testDelayedAttackMove("Doom Desire")
