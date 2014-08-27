@@ -149,6 +149,7 @@ CannedText =
       HEAL_BLOCK_PREVENT: "$p can't use $m because of Heal Block!"
       HEAL_BLOCK_TRY_HEAL: "$p was prevented from healing due to Heal Block!"
       HEAL_BLOCK_FAIL: "But it failed to affect $p!"
+      FOUND_ITEM: "$p found one $i!"
 
 cannedMap = {}
 cannedMapReverse = {}

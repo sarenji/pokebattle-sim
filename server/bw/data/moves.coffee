@@ -1554,6 +1554,14 @@ extendMove 'Rapid Spin', ->
     # Remove leech seed
     user.unattach(Attachment.LeechSeed)
 
+extendMove 'Recycle', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.hasItem() && target.lastItem
+      battle.cannedText('FOUND_ITEM', target, target.lastItem)
+      target.setItem(target.lastItem, clearLastItem: true)
+    else
+      @fail(battle, user)
+
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->
     if !user.team.attach(Attachment.Reflect, {user})

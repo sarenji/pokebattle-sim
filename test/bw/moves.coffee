@@ -7652,3 +7652,72 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Tackle'))
       @p2.currentHP.should.be.lessThan hp >> 1
       @p2.item.should.equal item
+
+  describe "Recycle", ->
+    it "restores the user's last used item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      @p1.useItem()
+      @battle.performMove(@p1, @battle.getMove("Recycle"))
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "fails if the user has an item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "fails if the user has no last used item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+      recycle = @battle.getMove("Recycle")
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p1.hasItem("Air Balloon").should.be.false
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "cannot restore an item that was forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @battle.performMove(@p2, @battle.getMove("Covet"))
+      @p1.hasItem("Salac Berry").should.be.false
+      @p2.hasItem("Salac Berry").should.be.true
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "can restore the last used item if the current item is forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+        team2: [Factory("Magikarp", item: "Figy Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p2, @battle.getMove("Trick"))
+      @p1.hasItem("Figy Berry").should.be.true
+      @battle.performMove(@p2, @battle.getMove("Knock Off"))
+
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "cannot restore the last used item if it was restored and forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+      @battle.performMove(@p2, @battle.getMove("Knock Off"))
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()

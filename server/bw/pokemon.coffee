@@ -307,9 +307,10 @@ class @Pokemon
   hasChangeableAbility: ->
     !@hasAbility("Multitype")
 
-  setItem: (item) ->
+  setItem: (item, options = {}) ->
     if @hasItem() then @removeItem()
     @item = item
+    @lastItem = null  if options.clearLastItem
     attachment = @attach(@item)
     attachment.switchIn?()  if !@isItemBlocked()
 
@@ -326,7 +327,6 @@ class @Pokemon
     @attach(Attachment.Unburden)  if @hasAbility("Unburden")
     @get(@item).switchOut?()
     @unattach(@item)
-    @lastItem = null
     oldItem = @item
     @item = null
     oldItem
