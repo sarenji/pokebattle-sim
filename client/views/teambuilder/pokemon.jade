@@ -76,8 +76,8 @@ mixin printStat(statName, keyName)
         tr
           td
             .ev-lock
-              span(data-locked='false').hidden Unlocked
-              span(data-locked='true') Locked
+              span(data-locked='true').icon-lock
+              span(data-locked='false').icon-unlocked.hidden
           td(colspan="5")
             .remaining-evs
               | Remaining EVs: 
