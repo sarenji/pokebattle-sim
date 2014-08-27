@@ -383,7 +383,7 @@ describe 'Pokemon', ->
       pokemon.removeItem()
       pokemon.hasItem().should.be.false
 
-    it "removes prior records of an item", ->
+    it "does not remove prior records of an item", ->
       pokemon = new Pokemon(item: "Flying Gem")
       fake = new Pokemon(item: "Leftovers")
       pokemon.activate()
@@ -391,7 +391,7 @@ describe 'Pokemon', ->
       pokemon.useItem()
       pokemon.setItem(fake.getItem())
       pokemon.removeItem()
-      should.not.exist pokemon.lastItem
+      should.exist pokemon.lastItem
 
   describe '#changeForme', ->
     it "changes the Pokemon's forme from one to another", ->

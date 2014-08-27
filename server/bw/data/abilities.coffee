@@ -479,7 +479,7 @@ makeAbility 'Harvest', ->
     if shouldHarvest
       @pokemon.activateAbility()
       @battle.cannedText('HARVEST', @pokemon, @pokemon.lastItem)
-      @pokemon.setItem(@pokemon.lastItem)
+      @pokemon.setItem(@pokemon.lastItem, clearLastItem: true)
 
 makeAbility 'Healer', ->
   this::endTurn = ->

@@ -894,6 +894,9 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
       shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.useItem()
+      @battle.endTurn()
+      @p1.hasItem("Salac Berry").should.be.true
       @p1.removeItem()
       @battle.endTurn()
       @p1.hasItem("Salac Berry").should.be.false
