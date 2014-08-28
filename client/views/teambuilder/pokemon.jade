@@ -75,11 +75,11 @@ mixin printStat(statName, keyName)
         +printStat("Speed", "speed")
         tr
           td
-            .ev-lock
-              span(data-locked='true').icon-lock
-              span(data-locked='false').icon-unlocked.hidden
           td(colspan="5")
             .remaining-evs
+              .ev-lock
+                span(data-locked='true').icon-lock
+                span(data-locked='false').icon-unlocked.hidden
               | Remaining EVs: 
               span.remaining-evs-amount
             .hidden-power
