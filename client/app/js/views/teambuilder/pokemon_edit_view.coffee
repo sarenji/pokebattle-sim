@@ -240,13 +240,19 @@ class @PokemonEditView extends Backbone.View
   clickMoveName: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
-    $moves = @$el.find('.selected_moves')
-    $input = $moves.find('input:focus').first()
-    $input = $moves.find('input').first()  if $input.length == 0
-    return  if $input.length == 0
-    @insertMove($input, moveName)
 
-  insertMove: ($input, moveName) =>
+    if moveName in @getSelectedMoves()
+      @removeMove(moveName)
+    else
+      @insertMove(moveName)
+
+  insertMove: (moveName, $input) =>
+    if !$input
+      $moves = @$el.find('.selected_moves')
+      $input = $moves.find('input:focus').first()
+      $input = $moves.find('input').first()  if $input.length == 0
+      return  if $input.length == 0
+
     currentScrollPosition = @$el.scrollTop()
 
     @preventBlurMoves()
@@ -260,14 +266,25 @@ class @PokemonEditView extends Backbone.View
       @$el.scrollTop(0)
     @recordMoves()
 
+  removeMove: (moveName) =>
+    indices = (i for move, i in @getAllSelectedMoves() when move == moveName)
+
+    for idx in indices
+      $input = @$('.selected_moves .move-slot').eq(idx).children()
+      $input = @reverseButtonify($input)  if $input.is('.move-button')
+      $input.val("")
+
   # Returns the moves currently selected in the teambuilder (Not the Pokemon)
   getSelectedMoves: =>
+    _(@getAllSelectedMoves()).compact()
+
+  # Returns the contents of each selected move, even if that selected move is null
+  getAllSelectedMoves: =>
     movesArray = []
-    $moves = @$el.find('.selected_moves')
-    $moves.find('.move-button').each ->
-      moveName = $(this).find("span").text().trim()
-      if moveName != ""
-        movesArray.push(moveName)
+    $moves = @$el.find('.selected_moves .move-slot')
+    $moves.each ->
+      moveName = $(this).find(".move-button span").text().trim()
+      movesArray.push(moveName)
     movesArray
 
   recordMoves: =>
@@ -323,7 +340,7 @@ class @PokemonEditView extends Backbone.View
     switch e.which
       when 13  # [Enter]; we're selecting the active move.
         $activeMove = @$selectedMove()
-        $activeMove.click()
+        @insertMove($activeMove.data('move-id'))
       when 38  # [Up arrow]; selects move above
         $activeMove = $allMoves.filter('.active').first()
         $prevMove = $activeMove.prevAll(":visible").first()
