@@ -80,6 +80,7 @@
       team = getSelectedTeam()
       unless team
         alert("You need to create a team using the Teambuilder before you can battle.")
+        PokeBattle.navigation.showTeambuilder()
         return
 
       disableButtons()
@@ -102,6 +103,7 @@
     team = getSelectedTeam()
     unless team
       alert("You need to create a team using the Teambuilder before you can battle.")
+      PokeBattle.navigation.showTeambuilder()
       return
     disableButtons()
     teamJSON = team.toNonNullJSON().pokemon
