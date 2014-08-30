@@ -9,6 +9,7 @@ class @BattleView extends Backbone.View
   SPEEDS:
     Fast: 1
     Medium: 1.5
+    Slow: 2
 
   events:
     'click .move': 'makeMove'

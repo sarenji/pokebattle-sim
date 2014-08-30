@@ -17,7 +17,7 @@ Priorities.beforeMove ?= [
   Ability.Truant
   Attachment.Flinch
   Attachment.Disable
-  # TODO: Heal Block
+  Attachment.HealBlock
   Attachment.GravityPokemon
   Attachment.Taunt
   Attachment.ImprisonPrevention
@@ -139,7 +139,7 @@ Priorities.endTurn ?= [
   Attachment.Disable
   Attachment.MagnetRise
   Attachment.Telekinesis
-  # TODO: Attachment.HealBlock
+  Attachment.HealBlock
   Attachment.Embargo
   Attachment.Yawn
   Attachment.PerishSong

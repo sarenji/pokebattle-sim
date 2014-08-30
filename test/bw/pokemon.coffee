@@ -6,7 +6,9 @@ require '../helpers'
 {Status, Attachment, BaseAttachment, VolatileAttachment} = require('../../server/bw/attachment')
 {Moves, SpeciesData} = require('../../server/bw/data')
 {Protocol} = require '../../shared/protocol'
+{Factory} = require '../factory'
 should = require 'should'
+shared = require '../shared'
 
 describe 'Pokemon', ->
   it 'should have a species of Missingno by default', ->
@@ -381,7 +383,7 @@ describe 'Pokemon', ->
       pokemon.removeItem()
       pokemon.hasItem().should.be.false
 
-    it "removes prior records of an item", ->
+    it "does not remove prior records of an item", ->
       pokemon = new Pokemon(item: "Flying Gem")
       fake = new Pokemon(item: "Leftovers")
       pokemon.activate()
@@ -389,7 +391,7 @@ describe 'Pokemon', ->
       pokemon.useItem()
       pokemon.setItem(fake.getItem())
       pokemon.removeItem()
-      should.not.exist pokemon.lastItem
+      should.exist pokemon.lastItem
 
   describe '#changeForme', ->
     it "changes the Pokemon's forme from one to another", ->
@@ -448,3 +450,43 @@ describe 'Pokemon', ->
       json.should.have.property("pp")
       json.should.have.property("maxPP")
       json.should.have.property("ivs")
+
+describe "Shedinja holding Focus Sash", ->
+  it "faints from burn damage", ->
+    shared.create.call(this, team1: [Factory("Shedinja", item: "Focus Sash")])
+    @p1.attach(Status.Burn)
+    @p1.currentHP.should.equal(1)
+
+    @battle.endTurn()
+    @p1.currentHP.should.equal(0)
+
+  it "faints from switching into hazards", ->
+    shared.create.call this,
+      team2: [Factory("Magikarp"), Factory("Shedinja", item: "Focus Sash")]
+
+    @battle.performMove(@p1, @battle.getMove("Stealth Rock"))
+    @battle.performSwitch(@team2.first(), 1)
+
+    pokemon = @team2.first()
+    (pokemon.stat('hp') - pokemon.currentHP).should.equal(1)
+
+  it "faints from Perish Song", ->
+    shared.create.call(this, team1: [Factory("Shedinja", item: "Focus Sash")])
+
+    @battle.performMove(@p2, @battle.getMove('Perish Song'))
+    @battle.endTurn() for x in [0..3]
+    @p1.isFainted().should.be.true
+
+  it "faints from Destiny Bond", ->
+    shared.create.call(this, team1: [Factory("Shedinja", item: "Focus Sash")])
+
+    @p2.currentHP = 1
+    @battle.performMove(@p2, @battle.getMove("Destiny Bond"))
+    @battle.performMove(@p1, @battle.getMove("Tackle"))
+    @p1.isFainted().should.be.true
+
+  it "faints from using Final Gambit", ->
+    shared.create.call(this, team1: [Factory("Shedinja", item: "Focus Sash")])
+    finalGambit = @battle.getMove("Final Gambit")
+    @battle.performMove(@p1, finalGambit)
+    @p1.isFainted().should.be.true

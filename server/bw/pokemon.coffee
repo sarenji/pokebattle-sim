@@ -307,9 +307,10 @@ class @Pokemon
   hasChangeableAbility: ->
     !@hasAbility("Multitype")
 
-  setItem: (item) ->
+  setItem: (item, options = {}) ->
     if @hasItem() then @removeItem()
     @item = item
+    @lastItem = null  if options.clearLastItem
     attachment = @attach(@item)
     attachment.switchIn?()  if !@isItemBlocked()
 
@@ -326,7 +327,6 @@ class @Pokemon
     @attach(Attachment.Unburden)  if @hasAbility("Unburden")
     @get(@item).switchOut?()
     @unattach(@item)
-    @lastItem = null
     oldItem = @item
     @item = null
     oldItem
@@ -343,6 +343,12 @@ class @Pokemon
   # This differs from hasTakeableItem by virtue of Sticky Hold
   canLoseItem: ->
     @hasTakeableItem() && !@has(Ability.StickyHold)
+
+  canHeal: ->
+    !@has(Attachment.HealBlock)
+
+  isActive: ->
+    this in @team.getActiveAlivePokemon()
 
   isAlive: ->
     !@isFainted()
@@ -372,6 +378,9 @@ class @Pokemon
     @setHP(@currentHP - amount)
 
   heal: (amount) ->
+    if amount > 0 && @currentHP < @stat('hp') && !@canHeal()
+      @battle.cannedText('HEAL_BLOCK_TRY_HEAL', this)
+      return false
     @setHP(@currentHP + amount)
 
   drain: (amount, source) ->
@@ -385,9 +394,6 @@ class @Pokemon
 
   editPriority: (priority, move) ->
     Query.chain('editPriority', @attachments.all(), priority, move)
-
-  editDamage: (move, damage) ->
-    Query.chain('editDamage', @attachments.all(), damage, move, this)
 
   editBoosts: (opts = {}) ->
     stages = Query.chain('editBoosts', @attachments.all(), _.clone(@stages))

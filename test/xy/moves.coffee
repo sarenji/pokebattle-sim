@@ -436,12 +436,12 @@ describe "XY Moves:", ->
             gen: 'xy'
             team1: [Factory("Magikarp", evs: {speed: 4})]
           move = @battle.getMove(moveName)
-          tackle = @battle.getMove("Tackle")
+          swift = @battle.getMove("Swift")
 
           @battle.recordMove(@id1, move)
-          @battle.recordMove(@id2, tackle)
+          @battle.recordMove(@id2, swift)
 
-          mock = @sandbox.mock(tackle).expects('hit').never()
+          mock = @sandbox.mock(swift).expects('hit').never()
           @battle.continueTurn()
           mock.verify()
 
@@ -473,7 +473,17 @@ describe "XY Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
-        it "is vulnerable to attacks if locked on"
+        it "is vulnerable to attacks if locked on", ->
+          shared.create.call(this, gen: 'xy')
+          @battle.performMove(@p1, @battle.getMove("Lock-On"))
+          @battle.performMove(@p2, @battle.getMove(moveName))
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, tackle)
+
+          mock = @sandbox.mock(tackle).expects('hit').once()
+          @battle.continueTurn()
+          mock.verify()
 
         for vulnerableMove in vulnerable
           it "is vulnerable to #{vulnerableMove}", ->
@@ -510,12 +520,13 @@ describe "XY Moves:", ->
   testChargeMove('Phantom Force', [])
 
   describe "Toxic", ->
-    it "has perfect accuracy from a Poison type pokemon", ->
+    it "cannot miss when used by a Poison type pokemon", ->
       shared.create.call(this, gen: 'xy')
       @p1.types = [ "Poison" ]
       @p2.types = [ "Normal" ]
+      shared.biasRNG.call(this, "randInt", 'miss', 101)
       toxic = @battle.getMove("Toxic")
-      toxic.chanceToHit(@battle, @p1, @p2).should.equal(0)
+      toxic.willMiss(@battle, @p1, @p2).should.be.false
 
   describe "Parting Shot", ->
     it "reduces the attack and special attack of the target by two stages", ->
@@ -678,3 +689,35 @@ describe "XY Moves:", ->
       mock = @sandbox.mock(tackle).expects('execute').once()
       @battle.performMove(@p1, metronome)
       mock.verify()
+
+  testDelayedAttackMove = (moveName, type) ->
+    describe moveName, ->
+      it "does not hit substitutes if the user has Infiltrator and is active", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: "Infiltrator")]
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.endTurn()
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+
+      it "always hits substitutes if the user is not on the field", ->
+        shared.create.call this,
+          gen: 'xy'
+          team1: [Factory("Magikarp", ability: "Infiltrator"), Factory("Magikarp")]
+        move = @battle.getMove(moveName)
+        @battle.performMove(@p1, move)
+        @p2.attach(Attachment.Substitute, hp: 1)
+        @battle.endTurn()
+        @battle.performSwitch(@p1, 1)
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.true
+        @battle.endTurn()
+        @p2.has(Attachment.Substitute).should.be.false
+
+  testDelayedAttackMove("Future Sight")
+  testDelayedAttackMove("Doom Desire")

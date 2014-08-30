@@ -85,9 +85,8 @@ extendMove 'Topsy-Turvy', ->
       @fail(battle, user)
 
 extendMove 'Toxic', ->
-  @getAccuracy = (battle, user, target) ->
-    return 0  if user.hasType("Poison")
-    return @accuracy
+  @canMiss = (battle, user, target) ->
+    return !user.hasType("Poison")
 
 extendMove 'Venom Drench', ->
   @use = (battle, user, target) ->

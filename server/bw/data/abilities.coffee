@@ -214,9 +214,9 @@ makeTypeAbsorbMove = (name, type) ->
     this::shouldBlockExecution = (move, user) ->
       return  if move.getType(@battle, user, @pokemon) != type || user == @pokemon
       @pokemon.activateAbility()
-      @battle.cannedText('RECOVER_HP', @pokemon)
       amount = @pokemon.stat('hp') >> 2
-      @pokemon.heal(amount)
+      if @pokemon.heal(amount)
+        @battle.cannedText('RECOVER_HP', @pokemon)
       return true
 
 makeTypeAbsorbMove("Water Absorb", "Water")
@@ -479,7 +479,7 @@ makeAbility 'Harvest', ->
     if shouldHarvest
       @pokemon.activateAbility()
       @battle.cannedText('HARVEST', @pokemon, @pokemon.lastItem)
-      @pokemon.setItem(@pokemon.lastItem)
+      @pokemon.setItem(@pokemon.lastItem, clearLastItem: true)
 
 makeAbility 'Healer', ->
   this::endTurn = ->
@@ -652,9 +652,8 @@ makeAbility 'Natural Cure', ->
   this::switchOut = ->
     @pokemon.cureStatus(message: false)
 
-makeAbility 'No Guard', ->
-  this::editAccuracy = -> 0  # Never miss
-  this::editEvasion  = -> 0  # Never miss
+# Hardcoded in Move#willMiss
+makeAbility 'No Guard'
 
 makeAbility 'Normalize', ->
   this::editMoveType = (type, target) ->
@@ -740,7 +739,8 @@ makeAbility 'Rivalry', ->
 makeAbility 'Regenerator', ->
   this::switchOut = ->
     amount = Math.floor(@pokemon.stat('hp') / 3)
-    @pokemon.heal(amount)
+    # Uses setHP directly to bypass Heal Block's effect
+    @pokemon.setHP(@pokemon.currentHP + amount)
 
 # Hardcoded in move.coffee
 makeAbility 'Rock Head'
@@ -873,13 +873,13 @@ makeAbility 'Steadfast'
 makeAbility 'Sticky Hold'
 
 makeAbility 'Sturdy', ->
-  this::editDamage = (damage, move) ->
+  this::transformHealthChange = (amount, options) ->
     if @pokemon.currentHP == @pokemon.stat('hp')
-      if damage >= @pokemon.currentHP
+      if amount >= @pokemon.currentHP && options.source == 'move'
         @pokemon.activateAbility()
         @battle.cannedText('ENDURE', @pokemon)
         return @pokemon.currentHP - 1
-    return damage
+    return amount
 
 makeAbility 'Suction Cups', ->
   this::shouldPhase = (phaser) ->
@@ -980,3 +980,6 @@ makeAbility 'Wonder Guard', ->
     return  if move.typeEffectiveness(@battle, user, @pokemon) > 1
     @pokemon.activateAbility()
     return true
+
+# Hardcoded in Move#chanceToHit
+makeAbility 'Wonder Skin'

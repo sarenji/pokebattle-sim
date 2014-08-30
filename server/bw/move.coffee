@@ -71,16 +71,21 @@ class @Move
 
     targetsHit = []
     totalDamage = 0
+
     for target in targets
       continue  if @use(battle, user, target, hitNumber) == false
       if target.shouldBlockExecution(this, user) == true
         @afterFail(battle, user, target)
         continue
-      targetSlots = targets.map (target) ->
-        return [ battle.playerIds.indexOf(target.playerId),
-                 target.team.indexOf(target) ]
-      user.tell(Protocol.MOVE_SUCCESS, targetSlots, @name)
       targetsHit.push(target)
+
+    if targetsHit.length > 0
+      targetSlots = targetsHit.map (target) ->
+          return [ battle.playerIds.indexOf(target.playerId),
+                   target.team.indexOf(target) ]
+      user.tell(Protocol.MOVE_SUCCESS, targetSlots, @name)
+
+    for target in targetsHit
       numHits = @calculateNumberOfHits(battle, user, targets)
       wasSlept = user.has(Status.Sleep)
       for hitNumber in [1..numHits]
@@ -208,7 +213,6 @@ class @Move
     damage = Math.floor(@burnCalculation(user) * damage)
     damage = Math.max(damage, 1)
     damage = @modify(damage, @modifyDamage(battle, user, target, hitNumber))
-    damage = target.editDamage(this, damage)
 
     if effectiveness < 1
       battle.cannedText('NOT_VERY_EFFECTIVE')
@@ -220,9 +224,22 @@ class @Move
       target.informCriticalHit()
     damage
 
+  canMiss: (battle, user, target) ->
+    return true
+
+  # An accuracy of 0 means this move always hits. A negative accuracy means the
+  # target is invulnerable, even for 0-accuracy moves. A move always hits, regardless
+  # of accuracy and invulnerability, under any of the following conditions:
+  #   * The user or target has No Guard
+  #   * The user is locked onto the target (Lock-On, Mind Reader)
+  #   * The move has a "never-miss" effect built in
+  #     (Helping Hand, XY Toxic used by Poison types)
   willMiss: (battle, user, target) ->
+    return false  if user.hasAbility("No Guard") || target.hasAbility("No Guard")
+    return false  if user.get(Attachment.LockOn)?.target == target
+    return false  if !@canMiss(battle, user, target)
     accuracy = @chanceToHit(battle, user, target)
-    return false  if accuracy == 0
+    accuracy = 100  if accuracy == 0
     battle.rng.randInt(1, 100, "miss") > accuracy
 
   chanceToHit: (battle, user, target) ->
@@ -230,6 +247,8 @@ class @Move
     userBoosts = user.editBoosts(ignoreAccuracy: target.hasAbility("Unaware"))
     targetBoosts = target.editBoosts(ignoreEvasion: user.hasAbility("Unaware"))
     accuracy = @getAccuracy(battle, user, target)
+    # TODO: Find out how accuracy/evasion is chained and do the rest properly
+    accuracy = 50  if @isNonDamaging() && accuracy > 50 && target.hasAbility("Wonder Skin")
     if userBoosts.accuracy > 0
       accuracy = Math.floor(accuracy * (3 + userBoosts.accuracy) / 3)
     else if userBoosts.accuracy < 0

@@ -53,7 +53,6 @@ describe "An Attachment list", ->
       @attachments.attachments.push(new Attachment.Curse())
       @attachments.attachments.push(new Attachment.LeechSeed())
       @attachments.attachments.push(new Attachment.MagnetRise())
-      @attachments.attachments.push(new Attachment.LockOn())
       @attachments.attachments.push(new Attachment.Confusion())
 
     it "returns an array of passable attachments already attached", ->
@@ -67,4 +66,3 @@ describe "An Attachment list", ->
       attachments.should.containEql(Attachment.Substitute)
       attachments.should.containEql(Attachment.Curse)
       attachments.should.containEql(Attachment.LeechSeed)
-      attachments.should.containEql(Attachment.LockOn)

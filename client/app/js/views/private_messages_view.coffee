@@ -62,36 +62,41 @@ class @PrivateMessagesView extends Backbone.View
     @scrollToBottom($popup)
     @repositionPopups()
 
+  addMessage: ($popup, message) =>
+    $messages = $popup.find('.popup_messages')
+    $messages.append(message)
+
   # todo: make this and receiveMessage construct messages from a common source
   addLogMessages: ($popup, log) =>
     messageHtml = ""
     for {username, message, opts} in log
+      message = _.escape(message)
       username = "Me"  if username == PokeBattle.username
       if opts.type in [ 'error', 'alert' ]
         messageHtml += "<p class='grey'>#{message}</p>"
       else
         messageHtml += "<p class='grey'><strong>#{username}:</strong> #{message}</p>"
 
-    $messages = $popup.find('.popup_messages').append($(messageHtml))
+    @addMessage($popup, messageHtml)
     @scrollToBottom($popup)
 
   # todo: make this and addLogMessages construct messages from a common source
   receiveMessage: (messageModel, messageId, username, message, options) =>
+    message = _.escape(message)
     $popup = @$findOrCreatePopup(messageId)
-    $messages = $popup.find('.popup_messages')
     wasAtBottom = @isAtBottom($popup)
     username = "Me"  if username == PokeBattle.username
     if options.type == 'error'
-      $messages.append("<p class='red italic'>#{message}</p>")
+      @addMessage($popup, "<p class='red italic'>#{message}</p>")
     else if options.type == 'alert'
-      $messages.append("<p class='yellow italic'>#{message}</p>")
+      @addMessage($popup, "<p class='yellow italic'>#{message}</p>")
     else
       if username != "Me" && !$popup.find('.chat_input').is(":focus")
         $popup.addClass('new_message')
         PokeBattle.notifyUser(PokeBattle.NotificationTypes.PRIVATE_MESSAGE, username)
       else
         @resetNotifications(messageModel)
-      $messages.append("<p><strong>#{username}:</strong> #{message}</p>")
+      @addMessage($popup, "<p><strong>#{username}:</strong> #{message}</p>")
     if wasAtBottom then @scrollToBottom($popup)
 
   openChallenge: (messageId, generation, conditions) =>

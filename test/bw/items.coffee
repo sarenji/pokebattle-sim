@@ -8,6 +8,7 @@ require '../helpers'
 {Factory} = require '../factory'
 util = require '../../server/bw/util'
 should = require 'should'
+sinon = require 'sinon'
 {_} = require 'underscore'
 shared = require '../shared'
 
@@ -195,9 +196,10 @@ describe "BW Items:", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
-      tackle = @battle.getMove('Tackle')
-      @sandbox.stub(tackle, 'baseDamage', -> 99999)
-      tackle.calculateDamage(@battle, @p1, @p2).should.equal(@p2.stat('hp') - 1)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p1, ember)
+      @p2.currentHP.should.equal(1)
 
     it "fails to protect from multihit moves", ->
       shared.create.call this,
@@ -215,26 +217,27 @@ describe "BW Items:", ->
 
       overpoweredMultihitMove = new Move(null, minHits: 2, maxHits: 2, target: "selected-pokemon")
       overpoweredMultihitMove.calculateDamage = -> 99999
-      mock = @sandbox.mock(overpoweredMultihitMove).expects("hit").exactly(2)
+      spy = @sandbox.spy(overpoweredMultihitMove, 'hit')
 
       @battle.performMove(@p1, overpoweredMultihitMove)
-      mock.verify()
+      sinon.assert.calledTwice(spy)
 
     it "should not activate at <100% HP", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
       @p2.currentHP -= 1
-      tackle = @battle.getMove('Tackle')
-      @sandbox.stub(tackle, 'baseDamage', -> 99999)
-      tackle.calculateDamage(@battle, @p1, @p2).should.equal(99999)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p1, ember)
+      @p2.currentHP.should.equal(0)
 
     it "disappears after activation", ->
       shared.create.call this,
         team2: [Factory("Magikarp", item: "Focus Sash")]
 
       ember = @battle.getMove('Ember')
-      stub = @sandbox.stub(@battle.getMove('Ember'), 'baseDamage', -> 9999)
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
       @battle.performMove(@p1, ember)
       @p2.hasItem().should.be.false
 
@@ -711,8 +714,9 @@ describe "BW Items:", ->
 
       hp = @p1.stat('hp')
       damage = Math.floor(hp / 2)
-      @sandbox.stub(@p1, "editDamage", -> damage)
-      @battle.performMove(@p2, @battle.getMove("Thunderbolt"))
+      thunderbolt = @battle.getMove("Thunderbolt")
+      @sandbox.stub(thunderbolt, "calculateDamage", -> damage)
+      @battle.performMove(@p2, thunderbolt)
       @p1.currentHP.should.equal(hp - damage + Math.floor(hp / 4))
 
     it "is consumed after use", ->
@@ -728,8 +732,9 @@ describe "BW Items:", ->
 
       hp = @p1.stat('hp')
       damage = Math.floor(hp / 2)
-      @sandbox.stub(@p1, "editDamage", -> damage)
-      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      tackle = @battle.getMove("Tackle")
+      @sandbox.stub(tackle, "calculateDamage", -> damage)
+      @battle.performMove(@p2, tackle)
       @p1.currentHP.should.equal(hp - damage)
 
   testSpeciesBoostingItem = (itemName, speciesArray, statsHash) ->

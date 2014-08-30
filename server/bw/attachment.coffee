@@ -103,7 +103,6 @@ class @BaseAttachment
   # endTurn: ->
   # update: (owner) ->
   # editBoosts: (stages) ->
-  # editDamage: (damage, move, user) ->
   # afterFaint: ->
   # shouldBlockExecution: (move, user) ->
 
@@ -285,6 +284,31 @@ class @Attachment.Taunt extends @VolatileAttachment
     @turn++
     if @turn >= @turns
       @battle.cannedText('TAUNT_END', @pokemon)
+      @pokemon.unattach(@constructor)
+
+class @Attachment.HealBlock extends @VolatileAttachment
+  name: "HealBlockAttachment"
+
+  initialize: (attributes) ->
+    @turns = 5
+    @turn = 0
+    @battle.cannedText('HEAL_BLOCK_START', @pokemon)
+
+  beginTurn: ->
+    for move in @pokemon.moves
+      if move.hasFlag("heal")
+        @pokemon.blockMove(move)
+
+  beforeMove: (move, user, targets) ->
+    # TODO: user is always == pokemon. Will this change?
+    if user == @pokemon && move.hasFlag("heal")
+      @battle.cannedText('HEAL_BLOCK_PREVENT', @pokemon, move.name)
+      return false
+
+  endTurn: ->
+    @turn++
+    if @turn >= @turns
+      @battle.cannedText('HEAL_BLOCK_END', @pokemon)
       @pokemon.unattach(@constructor)
 
 class @Attachment.Tailwind extends @TeamAttachment
@@ -617,13 +641,12 @@ class @Attachment.MagnetRise extends @VolatileAttachment
 
 class @Attachment.LockOn extends @VolatileAttachment
   name: "LockOnAttachment"
-  passable: true
 
-  initialize: ->
+  initialize: (attributes) ->
+    {@target} = attributes
     @turns = 2
 
-  editAccuracy: ->
-    0  # Always hits
+  # Effect hardcoded in Move#willMiss
 
   endTurn: ->
     @turns -= 1
@@ -773,11 +796,11 @@ class @Attachment.Endure extends @VolatileAttachment
   endTurn: ->
     @pokemon.unattach(@constructor)
 
-  editDamage: (damage, move, user) ->
-    if damage >= @pokemon.currentHP
+  transformHealthChange: (amount, options) ->
+    if amount >= @pokemon.currentHP
       @battle.message "#{@pokemon.name} endured the hit!"
       return @pokemon.currentHP - 1
-    return damage
+    return amount
 
 class @Attachment.Curse extends @VolatileAttachment
   name: "CurseAttachment"
@@ -993,7 +1016,7 @@ class @Attachment.Charging extends @VolatileAttachment
     @battle.recordMove(id, @move)
 
   editEvasion: (accuracy, move) ->
-    return -1  if @vulnerable && @charging && accuracy > 0 &&
+    return -1  if @vulnerable && @charging &&
                 (move not in @vulnerable.map((v) => @battle.getMove(v)))
     return accuracy
 
@@ -1127,8 +1150,8 @@ class @Attachment.Telekinesis extends @VolatileAttachment
     @turns = 3
     @battle.cannedText('TELEKINESIS_START', @pokemon)
 
-  editEvasion: ->
-    0  # Always hit
+  editEvasion: (accuracy, move) ->
+    if move.hasFlag("ohko") then accuracy else 0
 
   isImmune: (type) ->
     return true  if type == 'Ground'
@@ -1314,8 +1337,9 @@ class @Attachment.DelayedAttack extends @TeamAttachment
       pokemon = @team.at(@slot)
       if pokemon.isAlive()
         @battle.message "#{pokemon.name} took the #{@move.name} attack!"
-        damage = @move.hit(@battle, @user, pokemon, 1, false)
-        @move.afterHit(@battle, @user, pokemon, damage, false)
+        isDirect = @move.isDirectHit(@battle, @user, pokemon)
+        damage = @move.hit(@battle, @user, pokemon, 1, isDirect)
+        @move.afterHit(@battle, @user, pokemon, damage, isDirect)
       @team.unattach(@constructor)
 
 class @Attachment.BatonPass extends @TeamAttachment

@@ -894,6 +894,9 @@ describe "BW Abilities:", ->
       shared.create.call this,
         team1: [Factory("Magikarp", item: "Salac Berry", ability: "Harvest")]
       shared.biasRNG.call(this, "randInt", "harvest", 1)
+      @p1.useItem()
+      @battle.endTurn()
+      @p1.hasItem("Salac Berry").should.be.true
       @p1.removeItem()
       @battle.endTurn()
       @p1.hasItem("Salac Berry").should.be.false
@@ -1651,14 +1654,16 @@ describe "BW Abilities:", ->
     it "makes every move by this Pokemon never miss", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "No Guard")]
+      shared.biasRNG.call(this, 'randInt', 'miss', 101)
       focusBlast = @battle.getMove("Focus Blast")
-      focusBlast.chanceToHit(@battle, @p1, @p2).should.equal(0)
+      focusBlast.willMiss(@battle, @p1, @p2).should.be.false
 
     it "makes every move against this Pokemon never miss", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "No Guard")]
+      shared.biasRNG.call(this, 'randInt', 'miss', 101)
       focusBlast = @battle.getMove("Focus Blast")
-      focusBlast.chanceToHit(@battle, @p2, @p1).should.equal(0)
+      focusBlast.willMiss(@battle, @p2, @p1).should.be.false
 
   describe "Normalize", ->
     it "makes every move act as if it were Normal type", ->
@@ -2349,16 +2354,19 @@ describe "BW Abilities:", ->
     it "prevents the user from being OHKOed at full HP", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sturdy")]
-      tackle = @battle.getMove("Tackle")
-      @p1.editDamage(tackle, 9999).should.equal(@p1.currentHP - 1)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p2, ember)
+      @p1.currentHP.should.equal(1)
 
     it "lets the user be KOed if not at full HP", ->
       shared.create.call this,
         team1: [Factory("Magikarp", ability: "Sturdy")]
-      tackle = @battle.getMove("Tackle")
-      damage = 9999
       @p1.currentHP -= 1
-      @p1.editDamage(tackle, damage).should.equal(damage)
+      ember = @battle.getMove('Ember')
+      stub = @sandbox.stub(ember, 'calculateDamage', -> 9999)
+      @battle.performMove(@p2, ember)
+      @p1.currentHP.should.equal(0)
 
   describe "Suction Cups", ->
     it "prevents user from being phased", ->
@@ -2736,9 +2744,35 @@ describe "BW Abilities:", ->
       mock.verify()
 
   describe "Wonder Skin", ->
-    it "makes non-damaging moves with over 50% accuracy have 50% accuracy"
-    it "adjusts accuracy before any other modifiers take effect"
-    it "does nothing to non-damaging moves with under 50% accuracy"
+    it "makes non-damaging moves with over 50% accuracy have 50% accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      trick = @battle.getMove("Trick")
+      accuracy = trick.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 50
+
+    it "adjusts accuracy before any other modifiers take effect", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Compoundeyes")]
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      willOWisp = @battle.getMove("Will-O-Wisp")
+      accuracy = willOWisp.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal Math.floor(50 * 1.3)
+
+    it "does nothing to non-damaging moves that don't check accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      meanLook = @battle.getMove("Mean Look")
+      accuracy = meanLook.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 0
+
+    it "does nothing to non-damaging moves with under 50% accuracy", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Wonder Skin")]
+      trick = @battle.getMove("Trick")
+      trick.accuracy = 40
+      accuracy = trick.chanceToHit(@battle, @p1, @p2)
+      accuracy.should.equal 40
 
   describe "Zen Mode", ->
     it "changes Darmanitan's forme when going under or above 50% HP"

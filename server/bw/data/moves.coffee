@@ -125,8 +125,8 @@ makeRecoveryMove = (name) ->
         @fail(battle, user)
         return false
       amount = Math.round(hpStat / 2)
-      battle.cannedText('RECOVER_HP', target)
-      target.heal(amount)
+      if target.heal(amount)
+        battle.cannedText('RECOVER_HP', target)
 
 makeBasePowerBoostMove = (name, rawBasePower, maxBasePower, what) ->
   extendMove name, ->
@@ -299,7 +299,7 @@ makeRampageMove("Thrash")
 #       other possibility?
 makeLockOnMove = (name) ->
   extendMove name, ->
-    @use = (battle, user, target) ->
+    @afterSuccessfulHit = (battle, user, target) ->
       if user.attach(Attachment.LockOn, {target})
         battle.message "#{user.name} locked onto #{target.name}."
       else
@@ -1191,6 +1191,11 @@ extendMove 'Haze', ->
       target.resetBoosts()
     battle.cannedText('RESET_ALL_STATS')
 
+extendMove 'Heal Block', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.attach(Attachment.HealBlock)
+      battle.cannedText('HEAL_BLOCK_FAIL', target)
+
 extendMove 'Heart Swap', ->
   @afterSuccessfulHit = (battle, user, target) ->
     [user.stages, target.stages] = [target.stages, user.stages]
@@ -1548,6 +1553,14 @@ extendMove 'Rapid Spin', ->
 
     # Remove leech seed
     user.unattach(Attachment.LeechSeed)
+
+extendMove 'Recycle', ->
+  @afterSuccessfulHit = (battle, user, target) ->
+    if !target.hasItem() && target.lastItem
+      battle.cannedText('FOUND_ITEM', target, target.lastItem)
+      target.setItem(target.lastItem, clearLastItem: true)
+    else
+      @fail(battle, user)
 
 extendMove 'Reflect', ->
   @execute = (battle, user, opponents) ->

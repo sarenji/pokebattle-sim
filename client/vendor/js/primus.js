@@ -1,4 +1,4 @@
-(function (name, context, definition) {  context[name] = definition.call(context);  if (typeof module !== "undefined" && module.exports) {    module.exports = context[name];  } else if (typeof define == "function" && define.amd) {    define(function reference() { return context[name]; });  }})("Primus", this, function PRIMUS() {/*globals require, define */
+(function (name, context, definition) {  context[name] = definition.call(context);  if (typeof module !== "undefined" && module.exports) {    module.exports = context[name];  } else if (typeof define == "function" && define.amd) {    define(function reference() { return context[name]; });  }})("Primus", this, function Primus() {/*globals require, define */
 'use strict';
 
 /**
@@ -550,6 +550,7 @@ Primus.prototype.reserved = function reserved(evt) {
 Primus.prototype.reserved.events = {
   readyStateChange: 1,
   reconnecting: 1,
+  reconnected: 1,
   reconnect: 1,
   offline: 1,
   timeout: 1,
@@ -584,6 +585,9 @@ Primus.prototype.initialise = function initialise(options) {
   });
 
   primus.on('incoming::open', function opened() {
+    var readyState = primus.readyState
+      , reconnect = primus.attempt;
+
     if (primus.attempt) primus.attempt = null;
 
     //
@@ -593,7 +597,14 @@ Primus.prototype.initialise = function initialise(options) {
     primus.writable = true;
     primus.readable = true;
 
-    var readyState = primus.readyState;
+    //
+    // Make sure we are flagged as `online` as we've successfully opened the
+    // connection.
+    //
+    if (!primus.online) {
+      primus.online = true;
+      primus.emit('online');
+    }
 
     primus.readyState = Primus.OPEN;
     if (readyState !== primus.readyState) {
@@ -603,6 +614,8 @@ Primus.prototype.initialise = function initialise(options) {
     primus.latency = +new Date() - start;
 
     primus.emit('open');
+    if (reconnect) primus.emit('reconnected');
+
     primus.clearTimeout('ping', 'pong').heartbeat();
 
     if (primus.buffer.length) {
@@ -1219,7 +1232,7 @@ Primus.prototype.end = function end(data) {
     return this;
   }
 
-  if (data) this.write(data);
+  if (data !== undefined) this.write(data);
 
   this.writable = false;
   this.readable = false;
@@ -1591,7 +1604,7 @@ Primus.prototype.decoder = function decoder(data, fn) {
 
   fn(err, data);
 };
-Primus.prototype.version = "2.4.0";
+Primus.prototype.version = "2.4.3";
 
 //
 // Hack 1: \u2028 and \u2029 are allowed inside string in JSON. But JavaScript
@@ -2595,12 +2608,14 @@ XDRObject.prototype.close = function() {
 // 3. Nope, but postMessage is there so it should work via the Iframe.
 // 4. Nope, sorry.
 utils.isXHRCorsCapable = function() {
-    if (_window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest()) {
-        return 1;
-    }
-    // XDomainRequest doesn't work if page is served from file://
-    if (_window.XDomainRequest && _document.domain) {
-        return 2;
+    // CORS doesn't work if page is served from file://
+    if (_document.domain) {
+      if (_window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest()) {
+          return 1;
+      }
+      if (_window.XDomainRequest) {
+          return 2;
+      }
     }
     if (IframeTransport.enabled()) {
         return 3;

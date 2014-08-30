@@ -696,6 +696,14 @@ describe "BW Moves:", ->
       @battle.performMove(@p1, @battle.getMove('Seismic Toss'))
       (hp - @p2.currentHP).should.equal 100
 
+    it 'triggers Focus Sash', ->
+      shared.create.call this,
+        team1: [Factory('Blissey')]
+        team2: [Factory('Mew', level: 1, item: "Focus Sash")]
+      hp = @p2.currentHP
+      @battle.performMove(@p1, @battle.getMove('Seismic Toss'))
+      @p2.currentHP.should.equal(1)
+
   describe 'Psywave', ->
     it 'does user.level/2 damage minimum', ->
       shared.create.call this,
@@ -3426,8 +3434,8 @@ describe "BW Moves:", ->
 
       it "makes the user's next move never miss on this target", ->
         shared.create.call(this)
-        shared.biasRNG.call(this, 'randInt', 'miss', 101)
         @battle.performMove(@p1, @battle.getMove(moveName))
+        shared.biasRNG.call(this, 'randInt', 'miss', 101)
         missMove = @battle.getMove("Tackle")
         missMove.willMiss(@battle, @p1, @p2)
           .should.be.false
@@ -3440,10 +3448,42 @@ describe "BW Moves:", ->
           @battle.endTurn()
         @p1.has(Attachment.LockOn).should.be.false
 
-      it "hits through two-turn fade-away moves"
-      it "does not hit through Protect"
-      it "does not affect accuracy on another target"
-      it "re-locks on when used on another target"
+      it "hits through two-turn fade-away moves", ->
+        shared.create.call(this)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performMove(@p2, @battle.getMove("Fly"))
+        missMove = @battle.getMove("Tackle")
+        missMove.willMiss(@battle, @p1, @p2)
+          .should.be.false
+
+      it "does not hit through Protect", ->
+        shared.create.call(this)
+        move = @battle.getMove(moveName)
+        mock = @sandbox.mock(move).expects('hit').never()
+
+        @battle.recordMove(@id2, move)
+        @battle.determineTurnOrder()
+        @battle.performMove(@p1, @battle.getMove("Protect"))
+        @battle.performMove(@p2, move)
+        mock.verify()
+
+      it "does not affect accuracy on another target", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp"), Factory("Magikarp")]
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performSwitch(@p2, 1)
+        shared.biasRNG.call(this, 'randInt', 'miss', 101)
+        missMove = @battle.getMove("Tackle")
+        missMove.willMiss(@battle, @p1, @team2.first())
+          .should.be.true
+
+      it "re-locks on when used on another target", ->
+        shared.create.call this,
+          team2: [Factory("Magikarp"), Factory("Magikarp")]
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @battle.performSwitch(@p2, 1)
+        @battle.performMove(@p1, @battle.getMove(moveName))
+        @p1.has(Attachment.LockOn).should.be.true
 
   testLockOnMove("Lock-On")
   testLockOnMove("Mind Reader")
@@ -5238,12 +5278,12 @@ describe "BW Moves:", ->
           shared.create.call this,
             team1: [Factory("Magikarp", evs: {speed: 4})]
           move = @battle.getMove(moveName)
-          tackle = @battle.getMove("Tackle")
+          clearSmog = @battle.getMove("Clear Smog")
 
           @battle.recordMove(@id1, move)
-          @battle.recordMove(@id2, tackle)
+          @battle.recordMove(@id2, clearSmog)
 
-          mock = @sandbox.mock(tackle).expects('hit').never()
+          mock = @sandbox.mock(clearSmog).expects('hit').never()
           @battle.continueTurn()
           mock.verify()
 
@@ -5273,7 +5313,17 @@ describe "BW Moves:", ->
           @battle.continueTurn()
           mock.verify()
 
-        it "is vulnerable to attacks if locked on"
+        it "is vulnerable to attacks if locked on", ->
+          shared.create.call(this)
+          @battle.performMove(@p1, @battle.getMove("Lock-On"))
+          @battle.performMove(@p2, @battle.getMove(moveName))
+          tackle = @battle.getMove("Tackle")
+
+          @battle.recordMove(@id1, tackle)
+
+          mock = @sandbox.mock(tackle).expects('hit').once()
+          @battle.continueTurn()
+          mock.verify()
 
         for vulnerableMove in vulnerable
           it "is vulnerable to #{vulnerableMove}", ->
@@ -5918,15 +5968,17 @@ describe "BW Moves:", ->
         @battle.endTurn()
       @p1.isImmune('Ground').should.be.false
 
-    it "makes the target unable to avoid any attacks", ->
+    it "makes the target unable to avoid attacks other than ohko moves", ->
       shared.create.call(this)
       telekinesis = @battle.getMove("Telekinesis")
-      tackle = @battle.getMove("Tackle")
-      shared.biasRNG.call(this, 'randInt', "miss", 101)  # Always misses
+      inferno = @battle.getMove("Inferno")
+      sheerCold = @battle.getMove("Sheer Cold")
 
-      tackle.willMiss(@battle, @p2, @p1).should.be.true
+      inferno.chanceToHit(@battle, @p2, @p1).should.equal(50)
+      sheerCold.chanceToHit(@battle, @p2, @p1).should.equal(30)
       @battle.performMove(@p2, telekinesis)
-      tackle.willMiss(@battle, @p2, @p1).should.be.false
+      inferno.chanceToHit(@battle, @p2, @p1).should.equal(0)
+      sheerCold.chanceToHit(@battle, @p2, @p1).should.equal(30)
 
   describe "Smack Down", ->
     it "doesn't crash on secondary effect", ->
@@ -7531,3 +7583,141 @@ describe "BW Moves:", ->
       @p1.hasAbility("Intimidate").should.be.true
       @p2.hasAbility("Swift Swim").should.be.true
       @p2.stages.should.containEql(attack: -1)
+
+  describe "Heal Block", ->
+    it "lasts 5 turns", ->
+      shared.create.call(this)
+      healBlock = @battle.getMove("Heal Block")
+      @battle.performMove(@p1, healBlock)
+      for x in [0...5]
+        @p2.has(Attachment.HealBlock).should.be.true
+        @battle.endTurn()
+      @p2.has(Attachment.HealBlock).should.be.false
+
+    it 'prevents the target from executing a healing move', ->
+      shared.create.call(this, team1: [ Factory('Magikarp', evs: {speed: 4}) ])
+      move = @battle.getMove('Recover')
+      healBlock = @battle.getMove('Heal Block')
+      mock = @sandbox.mock(move)
+      mock.expects('execute').never()
+
+      @battle.performMove(@p1, healBlock)
+      @battle.performMove(@p2, move)
+
+      mock.verify()
+
+    it 'prevents the target from selecting a healing move', ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", moves: [ "Splash", "Recover" ])]
+
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.beginTurn()
+      requestedMoves = @battle.requestFor(@p2).moves
+      requestedMoves.should.not.containEql 'Recover'
+
+    it "prevents Abilities that heal from healing", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", ability: "Water Absorb")]
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @battle.performMove(@p1, @battle.getMove('Water Gun'))
+      @p2.currentHP.should.equal 1
+
+    it "does not prevent Regenerator from healing", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", ability: "Regenerator")]
+      @p1.currentHP = 1
+      @battle.performMove(@p2, @battle.getMove('Heal Block'))
+      @p1.switchOut(@battle)
+      hp = Math.floor(@p1.stat('hp') / 3)
+      @p1.currentHP.should.equal(1 + hp)
+
+    it "prevents items that heal from healing", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Leftovers")]
+      @p2.currentHP = 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @p2.currentHP.should.equal 1
+
+    it "prevents Berries that heal from attempting to activate", ->
+      shared.create.call this,
+        team2: [Factory("Magikarp", item: "Sitrus Berry")]
+      item = @p2.item
+      hp = @p2.currentHP
+      @p2.currentHP >>= 1
+      @battle.performMove(@p1, @battle.getMove('Heal Block'))
+      @battle.endTurn()
+      @battle.performMove(@p1, @battle.getMove('Tackle'))
+      @p2.currentHP.should.be.lessThan hp >> 1
+      @p2.item.should.equal item
+
+  describe "Recycle", ->
+    it "restores the user's last used item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      @p1.useItem()
+      @battle.performMove(@p1, @battle.getMove("Recycle"))
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "fails if the user has an item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "fails if the user has no last used item", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Air Balloon")]
+      recycle = @battle.getMove("Recycle")
+      @battle.performMove(@p2, @battle.getMove("Tackle"))
+      @p1.hasItem("Air Balloon").should.be.false
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "cannot restore an item that was forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @battle.performMove(@p2, @battle.getMove("Covet"))
+      @p1.hasItem("Salac Berry").should.be.false
+      @p2.hasItem("Salac Berry").should.be.true
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()
+
+    it "can restore the last used item if the current item is forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+        team2: [Factory("Magikarp", item: "Figy Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p2, @battle.getMove("Trick"))
+      @p1.hasItem("Figy Berry").should.be.true
+      @battle.performMove(@p2, @battle.getMove("Knock Off"))
+
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+
+    it "cannot restore the last used item if it was restored and forcefully removed", ->
+      shared.create.call this,
+        team1: [Factory("Magikarp", item: "Salac Berry")]
+      recycle = @battle.getMove("Recycle")
+      @p1.useItem()
+      @battle.performMove(@p1, recycle)
+      @p1.hasItem("Salac Berry").should.be.true
+      @battle.performMove(@p2, @battle.getMove("Knock Off"))
+
+      mock = @sandbox.mock(recycle).expects('fail').once()
+      @battle.performMove(@p1, recycle)
+      mock.verify()

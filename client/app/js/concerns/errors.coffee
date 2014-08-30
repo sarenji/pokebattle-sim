@@ -37,6 +37,10 @@ PokeBattle.events.on "errorMessage", (type, args...) ->
       # Show errors
       [errors] = args
       alert(errors)
+    when e.BATTLE_DNE
+      [battleId] = args
+      message = 'This battle no longer exists.'
+      PokeBattle.rooms.get(battleId)?.announce('error', message)
     when e.COMMAND_ERROR
       [ roomId, message ] = args
       PokeBattle.rooms.get(roomId).announce('error', message)

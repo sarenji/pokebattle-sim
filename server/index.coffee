@@ -290,7 +290,7 @@ CLIENT_VERSION = assets.getVersion()
         battle.makeMove(user.name, moveName, slot, forTurn, options)
         callback()
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
     spark.on 'sendSwitch', (battleId, toSlot, fromSlot, forTurn, callback) ->
       return  unless _.isFinite(toSlot)
@@ -301,33 +301,33 @@ CLIENT_VERSION = assets.getVersion()
         battle.makeSwitch(user.name, toSlot, fromSlot, forTurn)
         callback()
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
     spark.on 'sendCancelAction', (battleId, forTurn) ->
       return  unless _.isFinite(forTurn)
       if battle = server.findBattle(battleId)
         battle.undoCompletedRequest(user.name, forTurn)
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
     spark.on 'arrangeTeam', (battleId, arrangement) ->
       return  unless _.isArray(arrangement)
       if battle = server.findBattle(battleId)
         battle.arrangeTeam(user.name, arrangement)
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
     spark.on 'spectateBattle', (battleId) ->
       if battle = server.findBattle(battleId)
         battle.add(spark)
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
     spark.on 'forfeit', (battleId) ->
       if battle = server.findBattle(battleId)
         battle.forfeit(user.name)
       else
-        user.error(errors.BATTLE_DNE)
+        user.error(errors.BATTLE_DNE, battleId)
 
   battleSearch = ->
     server.beginBattles (err, battleIds) ->

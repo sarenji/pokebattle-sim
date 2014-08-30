@@ -144,6 +144,12 @@ CannedText =
       SWAP_ABILITY: "$p swapped Abilities with its target!"
       TELEKINESIS_START: "$p was hurled into the air!"
       TELEKINESIS_END: "$p was freed from the telekinesis!"
+      HEAL_BLOCK_START: "$p was prevented from healing!"
+      HEAL_BLOCK_END: "$p's Heal Block wore off!"
+      HEAL_BLOCK_PREVENT: "$p can't use $m because of Heal Block!"
+      HEAL_BLOCK_TRY_HEAL: "$p was prevented from healing due to Heal Block!"
+      HEAL_BLOCK_FAIL: "But it failed to affect $p!"
+      FOUND_ITEM: "$p found one $i!"
 
 cannedMap = {}
 cannedMapReverse = {}
