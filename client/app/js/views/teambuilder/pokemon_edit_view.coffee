@@ -264,6 +264,8 @@ class @PokemonEditView extends Backbone.View
       @$el.scrollTop(currentScrollPosition)
     else
       @$el.scrollTop(0)
+
+    @collapseSelectedMoves()
     @recordMoves()
 
   removeMove: (moveName) =>
@@ -274,11 +276,14 @@ class @PokemonEditView extends Backbone.View
       $input = @reverseButtonify($input)  if $input.is('.move-button')
       $input.val("")
 
+    @collapseSelectedMoves()
+
   # Returns the moves currently selected in the teambuilder (Not the Pokemon)
   getSelectedMoves: =>
     _(@getAllSelectedMoves()).compact()
 
   # Returns the contents of each selected move, even if that selected move is null
+  # Non-buttonified moves are considered null
   getAllSelectedMoves: =>
     movesArray = []
     $moves = @$el.find('.selected_moves .move-slot')
@@ -305,6 +310,13 @@ class @PokemonEditView extends Backbone.View
   removeSelectedMove: (e) =>
     $this = $(e.currentTarget).parent()
     @reverseButtonify($this).val('').focus()
+
+    @collapseSelectedMoves()
+
+    # Nothing selected? Focus something
+    if @$('.selected_moves input:focus').length == 0
+      @$('.selected_moves input').first().focus()
+
     e.stopPropagation()
 
   buttonify: ($input, moveName) =>
@@ -326,12 +338,14 @@ class @PokemonEditView extends Backbone.View
 
     return true
 
-  reverseButtonify: ($button) =>
-    moveName = $button.find('span').text()
-    $input = $("<input type='text' value='#{moveName}'/>")
-    $button.replaceWith($input)
-    @updateSelectedMoveStyles()
-    $input
+  reverseButtonify: ($buttons) =>
+    $inputs = $buttons.replaceWith (i, element) =>
+      $button = $(element)
+      moveName = $button.find('span').text()
+      $("<input type='text' value='#{moveName}'/>")
+    
+    @updateSelectedMoveStyles()  
+    $inputs
 
   keydownMoves: (e) =>
     $input = $(e.currentTarget)
@@ -510,6 +524,23 @@ class @PokemonEditView extends Backbone.View
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
+
+  # Rerenders the list of selected moves without rerendering the entire moves table
+  collapseSelectedMoves: =>
+    $selectedMoves = @$('.selected_moves')
+
+    # First, check if an input is focused and empty. IF it is, we have to refocus
+    $focused = $selectedMoves.find('input:focus')
+    refocus = true  if $focused.length != 0 && $focused.val() == ''
+
+    $moveSlots = $selectedMoves.find('.move-slot')
+    $emptySlots = $moveSlots.filter -> 
+      input = $(this).find('input')
+      input.length > 0 && input.val() == ''
+
+    $selectedMoves.find('.row-fluid').append($emptySlots.detach())
+
+    $selectedMoves.find('input').first().focus()  if refocus
 
   updateSelectedMoveStyles: =>
     @$(".table-moves .selected").removeClass("selected")
