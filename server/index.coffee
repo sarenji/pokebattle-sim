@@ -113,17 +113,23 @@ CLIENT_VERSION = assets.getVersion()
       return  unless _.isString(message)
       return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
       return  unless room = server.getRoom(roomId)
-      if message[0] == '/' && message[1] == '/'
-        message = message[1...]
-        server.userMessage(room, user, message)
-      else if message[0] == '/'
-        command = message.replace(/\s+.*$/, '')
-        args = message.substr(command.length).replace(/^\s+/, '')
-        command = command.substr(1)
-        args = args.split(',')
-        commands.executeCommand(server, user, room, command, args...)
-      else
-        server.userMessage(room, user, message)
+      server.limit user, 'chat', max: 5, duration: 3000, (err, limit) ->
+        if err || limit.remaining == 0
+          server.runIfUnmuted user, roomId, ->
+            server.mute(user.name, '[AUTOMATED] Chat rate-limit.', 10 * 60)
+            room = server.getRoom(roomId)
+            room.announce('warning', "#{user.name} was automatically muted for 10 minutes.")
+        else if message[0] == '/' && message[1] == '/'
+          message = message[1...]
+          server.userMessage(user, room, message)
+        else if message[0] == '/'
+          command = message.replace(/\s+.*$/, '')
+          args = message.substr(command.length).replace(/^\s+/, '')
+          command = command.substr(1)
+          args = args.split(',')
+          commands.executeCommand(server, user, room, command, args...)
+        else
+          server.userMessage(user, room, message)
 
     spark.on 'leaveChatroom', (roomId) ->
       return  unless _.isString(roomId)

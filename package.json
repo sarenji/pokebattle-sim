@@ -33,6 +33,7 @@
     "pg": "~3.0.3",
     "primus": "^2.4.3",
     "primus-emitter": "~3.0.2",
+    "ratelimiter": "^1.0.3",
     "redis": "~0.8.6",
     "request": "https://registry.npmjs.org/request/-/request-2.25.0.tgz",
     "restify": "~2.6.1",

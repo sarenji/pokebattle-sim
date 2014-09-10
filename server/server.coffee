@@ -1,5 +1,6 @@
 {createHmac} = require 'crypto'
 {_} = require 'underscore'
+Limiter = require 'ratelimiter'
 
 {User} = require('./user')
 {BattleQueue} = require './queue'
@@ -52,6 +53,9 @@ class @BattleServer
 
     @rooms = []
 
+    # rate limiters
+    @limiters = {}
+
     # Battles can start.
     @unlockdown()
 
@@ -77,6 +81,7 @@ class @BattleServer
       battle.add(spark)
       battle.sendRequestTo(spark.user.name)
       battle.sendUpdates()
+    @limiters[spark.user.id] ?= {}
     return spark
 
   leave: (spark) ->
@@ -84,6 +89,7 @@ class @BattleServer
       room.remove(spark)
     @users.remove(spark)
     return  if spark.user.hasSparks()
+    delete @limiters[spark.user.id]
     @stopChallenges(spark.user)
 
   showTopic: (player) ->
@@ -323,16 +329,29 @@ class @BattleServer
     for room in @rooms
       room.announce("warning", message)
 
-  userMessage: (room, user, message) ->
+  userMessage: (user, room, message) ->
+    @runIfUnmuted user, room.name, ->
+      room.userMessage(user, message)
+
+  runIfUnmuted: (user, roomId, next) ->
     auth.getMuteTTL user.name, (err, ttl) ->
       if ttl == -2
-        room.userMessage(user, message)
+        next()
       else
-        user.announce('warning', "You are muted for another #{ttl} seconds!")
+        user.announce(roomId, 'warning', "You are muted for another #{ttl} seconds!")
 
   setAuthority: (user, newAuthority) ->
     user = @users.get(user)  if user not instanceof User
     user.authority = newAuthority  if user
+
+  limit: (player, kind, options, next) ->
+    attributes =
+      max: options.max
+      duration: options.duration
+      id: player.id
+      db: redis
+    @limiters[player.id][kind] ?= new Limiter(attributes)
+    @limiters[player.id][kind].get(next)
 
   lockdown: ->
     @canBattlesStart = false
