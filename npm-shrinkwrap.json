@@ -1570,6 +1570,11 @@
       "from": "https://registry.npmjs.org/primus-emitter/-/primus-emitter-3.0.2.tgz",
       "resolved": "https://registry.npmjs.org/primus-emitter/-/primus-emitter-3.0.2.tgz"
     },
+    "ratelimiter": {
+      "version": "1.0.3",
+      "from": "ratelimiter@",
+      "resolved": "https://registry.npmjs.org/ratelimiter/-/ratelimiter-1.0.3.tgz"
+    },
     "redis": {
       "version": "0.8.6",
       "from": "https://registry.npmjs.org/redis/-/redis-0.8.6.tgz",
