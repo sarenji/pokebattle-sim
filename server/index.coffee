@@ -130,6 +130,8 @@ CLIENT_VERSION = assets.getVersion()
           commands.executeCommand(server, user, room, command, args...)
         else
           server.userMessage(user, room, message)
+          if limit.remaining == 1
+            user.announce(room.name, 'warning', 'You are chatting too fast. Please slow down.')
 
     spark.on 'leaveChatroom', (roomId) ->
       return  unless _.isString(roomId)
