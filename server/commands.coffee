@@ -208,7 +208,8 @@ makeModCommand "ban", (user, room, next, username, reason...) ->
     length = 60 * 60  if !length? || length <= 0
     length = Math.min(parseLength("1d"), length)  # max of one day
   @ban(username, reason, length)
-  message = "#{user.name} banned #{username} for #{prettyPrintTime(length)}"
+  message = "#{user.name} banned #{username}"
+  message += " for #{prettyPrintTime(length)}"  if length
   message += " (#{reason})"  if reason.length > 0
   room.announce('warning', message)
   next()
