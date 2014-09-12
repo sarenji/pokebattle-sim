@@ -108,6 +108,10 @@ CLIENT_VERSION = assets.getVersion()
   primus.on 'error', (err) ->
     console.error(err.message, err.stack)
 
+  primus.on 'disconnection', (spark) ->
+    server.leave(spark)
+    spark.emit("cancelFindBattle")  unless spark.user.hasSparks()
+
   attachEvents = (user, spark) ->
     spark.on 'sendChat', (roomId, message) ->
       return  unless _.isString(message)
@@ -137,11 +141,6 @@ CLIENT_VERSION = assets.getVersion()
     spark.on 'leaveChatroom', (roomId) ->
       return  unless _.isString(roomId)
       server.getRoom(roomId)?.remove(spark)
-
-    # After the `end` event, each listener should automatically disconnect.
-    spark.on 'end', ->
-      server.leave(spark)
-      spark.emit("cancelFindBattle")  unless spark.user.hasSparks()
 
     #########
     # TEAMS #
