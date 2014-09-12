@@ -254,6 +254,8 @@ CLIENT_VERSION = assets.getVersion()
           callback?(err.message)
         .catch (err) ->
           callback?('Something went wrong saving the replay.')
+          console.error(err.message)
+          console.error(err.stack)
 
     ###########
     # BATTLES #

@@ -4,9 +4,13 @@ assets = require('../assets')
 
 @MAX_SAVED_BATTLES = 15
 
-class @TooManyBattlesSaved extends Error
-  constructor: ->
-    super("You can only save up to #{exports.MAX_SAVED_BATTLES} replays.")
+class TooManyBattlesSaved extends Error
+  constructor: (count) ->
+    @name = "TooManyBattlesSaved"
+    @message = "You have already saved #{count} replays. The maximum is #{exports.MAX_SAVED_BATTLES}."
+    Error.captureStackTrace(this, TooManyBattlesSaved)
+
+exports.TooManyBattlesSaved = TooManyBattlesSaved
 
 @routes =
   show: (req, res) ->
@@ -53,15 +57,17 @@ class @TooManyBattlesSaved extends Error
     .then ->
       res.json(ok: true)
     .catch (err) ->
-      console.log(err.stack)
+      console.error(err.message)
+      console.error(err.stack)
       res.json(ok: false)
 
 @create = (user, battle) ->
   database.knex(database.SavedBattle::tableName)
   .where(user_id: user.id).count('*')
-  .then (numSaved) ->
-    if numSaved >= exports.MAX_SAVED_BATTLES
-      throw new exports.TooManyBattlesSaved()
+  .then (results) ->
+    count = Number(results[0].count)
+    if count >= exports.MAX_SAVED_BATTLES
+      throw new exports.TooManyBattlesSaved(count)
   .then ->
     new database.Battle({
       battle_id: battle.id
@@ -78,6 +84,3 @@ class @TooManyBattlesSaved extends Error
       throw err  unless /violates unique constraint/.test(err.message)
   .then ->
     battle.id
-  .catch (err) ->
-    console.log(err.stack)
-    throw err
