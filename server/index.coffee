@@ -111,7 +111,8 @@ CLIENT_VERSION = assets.getVersion()
   attachEvents = (user, spark) ->
     spark.on 'sendChat', (roomId, message) ->
       return  unless _.isString(message)
-      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
+      message = message.trim().replace(/[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
+      return  unless 0 < message.length < MAX_MESSAGE_LENGTH
       return  unless room = server.getRoom(roomId)
       server.limit user, 'chat', max: 5, duration: 3000, (err, limit) ->
         if err || limit.remaining == 0
@@ -187,7 +188,8 @@ CLIENT_VERSION = assets.getVersion()
     spark.on 'privateMessage', (toUser, message) ->
       return  unless _.isString(toUser)
       return  unless _.isString(message)
-      return  unless 0 < message.trim().length < MAX_MESSAGE_LENGTH
+      message = message.trim().replace(/[\u0300-\u036F\u20D0-\u20FF\uFE20-\uFE2F]/g, '')
+      return  unless 0 < message.length < MAX_MESSAGE_LENGTH
       if server.users.contains(toUser)
         recipient = server.users.get(toUser)
         recipient.send('privateMessage', user.name, user.name, message)
