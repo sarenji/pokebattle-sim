@@ -1,5 +1,19 @@
-(function (name, context, definition) {  context[name] = definition.call(context);  if (typeof module !== "undefined" && module.exports) {    module.exports = context[name];  } else if (typeof define == "function" && define.amd) {    define(function reference() { return context[name]; });  }})("Primus", this, function Primus() {/*globals require, define */
+(function UMDish(name, context, definition) {  context[name] = definition.call(context);  if (typeof module !== "undefined" && module.exports) {    module.exports = context[name];  } else if (typeof define == "function" && define.amd) {    define(function reference() { return context[name]; });  }})("Primus", this, function Primus() {/*globals require, define */
 'use strict';
+
+/**
+ * Representation of a single EventEmitter function.
+ *
+ * @param {Function} fn Event handler to be called.
+ * @param {Mixed} context Context for function execution.
+ * @param {Boolean} once Only emit once
+ * @api private
+ */
+function EE(fn, context, once) {
+  this.fn = fn;
+  this.context = context;
+  this.once = once || false;
+}
 
 /**
  * Minimal EventEmitter interface that is molded against the Node.js
@@ -8,9 +22,15 @@
  * @constructor
  * @api public
  */
-function EventEmitter() {
-  this._events = {};
-}
+function EventEmitter() { /* Nothing to set */ }
+
+/**
+ * Holds the assigned EventEmitters by name.
+ *
+ * @type {Object}
+ * @private
+ */
+EventEmitter.prototype._events = undefined;
 
 /**
  * Return a list of assigned event listeners.
@@ -20,7 +40,13 @@ function EventEmitter() {
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event) {
-  return Array.apply(this, this._events[event] || []);
+  if (!this._events || !this._events[event]) return [];
+
+  for (var i = 0, l = this._events[event].length, ee = []; i < l; i++) {
+    ee.push(this._events[event][i].fn);
+  }
+
+  return ee;
 };
 
 /**
@@ -36,48 +62,42 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
   var listeners = this._events[event]
     , length = listeners.length
     , len = arguments.length
-    , fn = listeners[0]
+    , ee = listeners[0]
     , args
-    , i;
+    , i, j;
 
   if (1 === length) {
-    if (fn.__EE3_once) this.removeListener(event, fn);
+    if (ee.once) this.removeListener(event, ee.fn, true);
 
     switch (len) {
-      case 1:
-        fn.call(fn.__EE3_context || this);
-      break;
-      case 2:
-        fn.call(fn.__EE3_context || this, a1);
-      break;
-      case 3:
-        fn.call(fn.__EE3_context || this, a1, a2);
-      break;
-      case 4:
-        fn.call(fn.__EE3_context || this, a1, a2, a3);
-      break;
-      case 5:
-        fn.call(fn.__EE3_context || this, a1, a2, a3, a4);
-      break;
-      case 6:
-        fn.call(fn.__EE3_context || this, a1, a2, a3, a4, a5);
-      break;
-
-      default:
-        for (i = 1, args = new Array(len -1); i < len; i++) {
-          args[i - 1] = arguments[i];
-        }
-
-        fn.apply(fn.__EE3_context || this, args);
+      case 1: return ee.fn.call(ee.context), true;
+      case 2: return ee.fn.call(ee.context, a1), true;
+      case 3: return ee.fn.call(ee.context, a1, a2), true;
+      case 4: return ee.fn.call(ee.context, a1, a2, a3), true;
+      case 5: return ee.fn.call(ee.context, a1, a2, a3, a4), true;
+      case 6: return ee.fn.call(ee.context, a1, a2, a3, a4, a5), true;
     }
-  } else {
+
     for (i = 1, args = new Array(len -1); i < len; i++) {
       args[i - 1] = arguments[i];
     }
 
-    for (i = 0; i < length; fn = listeners[++i]) {
-      if (fn.__EE3_once) this.removeListener(event, fn);
-      fn.apply(fn.__EE3_context || this, args);
+    ee.fn.apply(ee.context, args);
+  } else {
+    for (i = 0; i < length; i++) {
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, true);
+
+      switch (len) {
+        case 1: listeners[i].fn.call(listeners[i].context); break;
+        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+        default:
+          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+            args[j - 1] = arguments[j];
+          }
+
+          listeners[i].fn.apply(listeners[i].context, args);
+      }
     }
   }
 
@@ -95,9 +115,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 EventEmitter.prototype.on = function on(event, fn, context) {
   if (!this._events) this._events = {};
   if (!this._events[event]) this._events[event] = [];
-
-  fn.__EE3_context = context;
-  this._events[event].push(fn);
+  this._events[event].push(new EE( fn, context || this ));
 
   return this;
 };
@@ -111,8 +129,11 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
-  fn.__EE3_once = true;
-  return this.on(event, fn, context);
+  if (!this._events) this._events = {};
+  if (!this._events[event]) this._events[event] = [];
+  this._events[event].push(new EE(fn, context || this, true ));
+
+  return this;
 };
 
 /**
@@ -120,16 +141,17 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  *
  * @param {String} event The event we want to remove.
  * @param {Function} fn The listener that we need to find.
+ * @param {Boolean} once Only remove once listeners.
  * @api public
  */
-EventEmitter.prototype.removeListener = function removeListener(event, fn) {
+EventEmitter.prototype.removeListener = function removeListener(event, fn, once) {
   if (!this._events || !this._events[event]) return this;
 
   var listeners = this._events[event]
     , events = [];
 
-  for (var i = 0, length = listeners.length; i < length; i++) {
-    if (fn && listeners[i] !== fn) {
+  if (fn) for (var i = 0, length = listeners.length; i < length; i++) {
+    if (listeners[i].fn !== fn && listeners[i].once !== once) {
       events.push(listeners[i]);
     }
   }
@@ -619,11 +641,15 @@ Primus.prototype.initialise = function initialise(options) {
     primus.clearTimeout('ping', 'pong').heartbeat();
 
     if (primus.buffer.length) {
-      for (var i = 0, length = primus.buffer.length; i < length; i++) {
-        primus._write(primus.buffer[i]);
-      }
+      var data = primus.buffer.slice()
+        , length = data.length
+        , i = 0;
 
-      primus.buffer = [];
+      primus.buffer.length = 0;
+
+      for (; i < length; i++) {
+        primus._write(data[i]);
+      }
     }
   });
 
@@ -1542,14 +1568,13 @@ Primus.prototype.client = function client() {
     socket.onopen = primus.emits('open');
     socket.onerror = primus.emits('error');
     socket.onclose = function (e) {
-      var event = e && e.code > 1000 ? 'error' : 'end';
-
       //
       // The timeout replicates the behaviour of primus.emits so we're not
       // affected by any timing bugs.
       //
       setTimeout(function timeout() {
-        primus.emit('incoming::'+ event, e);
+        if (e && e.code > 1000) primus.emit('incoming::error', e);
+        primus.emit('incoming::end');
       }, 0);
     };
     socket.onmessage = primus.emits('data', function parse(evt) {
@@ -1604,7 +1629,7 @@ Primus.prototype.decoder = function decoder(data, fn) {
 
   fn(err, data);
 };
-Primus.prototype.version = "2.4.3";
+Primus.prototype.version = "2.4.6";
 
 //
 // Hack 1: \u2028 and \u2029 are allowed inside string in JSON. But JavaScript
@@ -1683,8 +1708,8 @@ if (
     Primus.prototype.AVOID_WEBSOCKETS = true;
   }
 }
-Primus.prototype.ark["emitter"] = function (){}
- return Primus; });/* SockJS client, version 0.3.4, http://sockjs.org, MIT License
+Primus.prototype.ark["emitter"] = function (){};
+ return Primus; });(function PrimusLibraryWrap(Primus) {/* SockJS client, version 0.3.4, http://sockjs.org, MIT License
 
 Copyright (c) 2011-2012 VMware, Inc.
 
@@ -4081,8 +4106,8 @@ if (typeof define === 'function' && define.amd) {
 
 // [*] End of lib/all.js
 
-
-;(function (Primus, undefined) {
+})(this["Primus"]);
+(function PrimusLibraryWrap(Primus) {;(function (Primus, undefined) {
 function spark(Spark, Emitter) {
 
   'use strict';
@@ -4295,4 +4320,4 @@ function emitter() {
  Primus.$.emitter.spark = spark;
  Primus.$.emitter.emitter = emitter;
  spark(Primus, emitter());
-})(Primus);
+})(Primus);})(this["Primus"]);
