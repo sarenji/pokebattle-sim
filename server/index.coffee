@@ -98,6 +98,7 @@ CLIENT_VERSION = assets.getVersion()
               return
             attachEvents(user, spark)
             server.join(spark)
+            spark.loggedIn = true
             spark.send('loginSuccess')
             lobby.add(spark)
 
@@ -109,6 +110,7 @@ CLIENT_VERSION = assets.getVersion()
     console.error(err.message, err.stack)
 
   primus.on 'disconnection', (spark) ->
+    return  unless spark.loggedIn
     server.leave(spark)
     spark.emit("cancelFindBattle")  unless spark.user.hasSparks()
 
