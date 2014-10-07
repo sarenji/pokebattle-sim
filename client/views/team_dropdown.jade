@@ -1,9 +1,11 @@
-if teams
+if team
+  div= team.getName()
+  != window.JST['team_small']({team: team, window: window})
+else
   each team, i in teams
     li
       a.select-team-dropdown-item(data-slot = i)
         div= team.getName()
         != window.JST['team_small']({team: team, window: window})
-else
-  div= team.getName()
-  != window.JST['team_small']({team: team, window: window})
+  li
+    a.build-team-option Build a Team

@@ -5,13 +5,13 @@
       ="View " + pokemon.get('species') + " Movesets"
 
   .row-fluid
-    .span3
+    .span3.move-slot
       input(type="text", value=pokemon.get("moves")[0])
-    .span3
+    .span3.move-slot
       input(type="text", value=pokemon.get("moves")[1])
-    .span3
+    .span3.move-slot
       input(type="text", value=pokemon.get("moves")[2])
-    .span3
+    .span3.move-slot
       input(type="text", value=pokemon.get("moves")[3])
 
 table.table.table-hover.table-moves
@@ -27,7 +27,7 @@ table.table.table-hover.table-moves
   tbody
     each move in pokemon.getMovepool()
       tr(data-move-id=move.name, data-move-search-id=move.name.replace(/\s+|-/g, ""))
-        td= move.name
+        td.name= move.name
         td
           img(src=window.TypeSprite(move.type), alt=move.type)
         td
@@ -36,4 +36,4 @@ table.table.table-hover.table-moves
         td= (move.power == 0) ? "-" : move.power
         td.acc= (move.accuracy == 0) ? "-" : move.accuracy + '%'
         td.pp= move.pp
-        td.description Description will go here
+        td.description= move.description

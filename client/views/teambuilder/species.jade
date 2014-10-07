@@ -18,3 +18,14 @@ if formes.length > 1
         - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
         - var selected = (forme === pokemon.get('forme'))
         option(value=forme, selected=selected)= displayedForme
+
+- var megaFormes = pokemon.getMegaFormes()
+if megaFormes.length > 0
+  .teambuilder_row
+    .teambuilder_col Mega Forme:
+    select.teambuilder_col.selected-mega
+      option(value="", selected=(pokemon.getPossibleMegaForme() == null)) None
+      each forme in megaFormes
+        - var displayedForme = forme[0].toUpperCase() + forme.substr(1)
+        - var selected = (forme === pokemon.getPossibleMegaForme())
+        option(value=forme, selected=selected)= displayedForme

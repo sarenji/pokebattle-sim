@@ -100,6 +100,10 @@ class @Pokemon extends Backbone.Model
   getSelectableFormes: ->
     _(@getFormes()).reject((forme) => @getForme(forme).isBattleOnly)
 
+  # Returns all mega formes
+  getMegaFormes: ->
+    _(@getFormes()).reject((forme) => forme.indexOf('mega') != 0)
+
   getAbilities: ->
     forme = @getForme()
     abilities = _.clone(forme.abilities)
@@ -119,6 +123,9 @@ class @Pokemon extends Backbone.Model
       else
         genders.push("M", "F")
     genders
+
+  hasSelectedMove: (moveName) ->
+    moveName && moveName in @moves
 
   getMovepool: ->
     {SpeciesData, MoveData} = @getGeneration()
@@ -230,11 +237,20 @@ class @Pokemon extends Backbone.Model
       "Healthy"
 
   canMegaEvolve: ->
+    # TODO: Refactor this to use getPossibleMegaForme()
+    # I didn't feel like making the change and testing it while implementing getPossibleMegaForme()
     item = @getItem()
     return false  if item.type != 'megastone'
     [ species, forme ] = item.mega
     return false  if @get('species') != species || @get('forme') != 'default'
     return true
+
+  getPossibleMegaForme: ->
+    item = @getItem()
+    return null  if item?.type != 'megastone'
+    [ species, forme ] = item.mega
+    return forme  if @get('species') == species && @get('forme') == 'default'
+    return null
 
   # Returns the complete web address to the pokedex link for this pokemon.
   # For this project, this leads to our website at http://www.pokebattle.com,

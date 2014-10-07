@@ -33,6 +33,7 @@ class @PokemonEditView extends Backbone.View
     'click .selected_shininess': 'changeShiny'
     'click .selected_happiness': 'changeHappiness'
     'change .selected-forme': 'changeForme'
+    'change .selected-mega': 'changeMega'
     'change .selected_nature': 'changeNature'
     'change .selected_ability': 'changeAbility'
     'change .selected_item': 'changeItem'
@@ -42,7 +43,9 @@ class @PokemonEditView extends Backbone.View
     'focus .ev-entry': 'focusEv'
     'blur .ev-entry': 'changeEv'
     'change .ev-entry': 'changeEv'
-    'input .ev-entry[type=range]': 'changeEv'  # fix for firefox
+    'input .ev-entry[type=range]': 'changeEv'
+    'mouseup .ev-entry[type=range]': 'mouseupEVSlider'
+    'click .ev-lock': 'toggleEVLocked'
     'change .select-hidden-power': 'changeHiddenPower'
     'keydown .selected_moves input': 'keydownMoves'
     'blur .selected_moves input': 'blurMoves'
@@ -86,6 +89,13 @@ class @PokemonEditView extends Backbone.View
   setTeamPBV: (pbv) =>
     @teamPBV = pbv
 
+  # Returns true if Evs are locked to 510 maximum
+  isEVLocked: =>
+    $('.ev-lock span:visible').data('locked')
+
+  toggleEVLocked: =>
+    $('.ev-lock span').toggle()
+
   changeSpecies: (e) =>
     return  if not @onPokemonChange
     species = $(e.currentTarget).val()
@@ -113,6 +123,23 @@ class @PokemonEditView extends Backbone.View
     @pokemon.set('forme', $forme.val())
     # Forme changes may have different abilities, so we have to change this.
     @pokemon.set('ability', @pokemon.getAbilities()[0])
+
+  changeMega: (e) =>
+    mega = $(e.currentTarget).val()
+    if mega
+      for itemName, data of @generation.ItemData
+        if data.mega && data.mega[0] == @pokemon.get('species') && data.mega[1] == mega
+          @pokemon.set('item', itemName)
+          console.log(itemName)
+          break
+    else
+      # Converting to non-mega. Remove the megastone if any
+      item = @generation.ItemData[@pokemon.get('item')]
+      if item?.mega?[0] == @pokemon.get('species')
+        @pokemon.set('item', null)
+
+    # update the item dropdown (note: somewhat inefficient as it updates multiple dropdowns)
+    @renderNonStats()
 
   changeNature: (e) =>
     $list = $(e.currentTarget)
@@ -155,15 +182,24 @@ class @PokemonEditView extends Backbone.View
     $input.val("")  if value == 0
 
   changeEv: (e) =>
-    # todo: make changeIv and changeEv DRY
     $input = $(e.currentTarget)
     stat = $input.data("stat")
     value = parseInt($input.val(), 10)
+    value = 0  if isNaN(value) 
     value = 252  if value > 252
-    value = 0  if isNaN(value) || value < 0
 
+    if @isEVLocked()
+      availableEVs = 510 - @pokemon.getTotalEVs(exclude: stat)
+      value = availableEVs  if value > availableEVs
+
+    value = 0  if value < 0
     value = @pokemon.setEv(stat, value)
     $input.val(value)  if not $input.is("[type=range]")
+
+  mouseupEVSlider: (e) =>
+    $slider = $(e.currentTarget)
+    $input = @$(".ev-entry[data-stat=#{$slider.data('stat')}]").not($slider)
+    $slider.val $input.val()
 
   changeHiddenPower: (e) =>
     $input = $(e.currentTarget)
@@ -180,6 +216,8 @@ class @PokemonEditView extends Backbone.View
 
   blurMoves: (e) =>
     $input = $(e.currentTarget)
+
+    # If preventBlur is set, then perform a refocus (undo the blur)
     if @_preventBlur
       previousScrollPosition = @$el.scrollTop()
       $input.focus()
@@ -192,7 +230,7 @@ class @PokemonEditView extends Backbone.View
 
     # Remove filtering and row selection
     @filterMovesBy("")
-    $(".table-moves .active").removeClass("active")
+    @$(".table-moves .active").removeClass("active")
 
     if $input.val().length == 0
       @recordMoves()
@@ -202,13 +240,19 @@ class @PokemonEditView extends Backbone.View
   clickMoveName: (e) =>
     $this = $(e.currentTarget)
     moveName = $this.data('move-id')
-    $moves = @$el.find('.selected_moves')
-    $input = $moves.find('input:focus').first()
-    $input = $moves.find('input').first()  if $input.length == 0
-    return  if $input.length == 0
-    @insertMove($input, moveName)
 
-  insertMove: ($input, moveName) =>
+    if moveName in @getSelectedMoves()
+      @removeMove(moveName)
+    else
+      @insertMove(moveName)
+
+  insertMove: (moveName, $input) =>
+    if !$input
+      $moves = @$el.find('.selected_moves')
+      $input = $moves.find('input:focus').first()
+      $input = $moves.find('input').first()  if $input.length == 0
+      return  if $input.length == 0
+
     currentScrollPosition = @$el.scrollTop()
 
     @preventBlurMoves()
@@ -220,16 +264,36 @@ class @PokemonEditView extends Backbone.View
       @$el.scrollTop(currentScrollPosition)
     else
       @$el.scrollTop(0)
+
+    @collapseSelectedMoves()
     @recordMoves()
 
-  recordMoves: =>
+  removeMove: (moveName) =>
+    indices = (i for move, i in @getAllSelectedMoves() when move == moveName)
+
+    for idx in indices
+      $input = @$('.selected_moves .move-slot').eq(idx).children()
+      $input = @reverseButtonify($input)  if $input.is('.move-button')
+      $input.val("")
+
+    @collapseSelectedMoves()
+
+  # Returns the moves currently selected in the teambuilder (Not the Pokemon)
+  getSelectedMoves: =>
+    _(@getAllSelectedMoves()).compact()
+
+  # Returns the contents of each selected move, even if that selected move is null
+  # Non-buttonified moves are considered null
+  getAllSelectedMoves: =>
     movesArray = []
-    $moves = @$el.find('.selected_moves')
-    $moves.find('.move-button').each ->
-      moveName = $(this).find("span").text().trim()
-      if moveName != ""
-        movesArray.push(moveName)
-    @pokemon.set("moves", movesArray)
+    $moves = @$el.find('.selected_moves .move-slot')
+    $moves.each ->
+      moveName = $(this).find(".move-button span").text().trim()
+      movesArray.push(moveName)
+    movesArray
+
+  recordMoves: =>
+    @pokemon.set("moves", @getSelectedMoves())
 
   $selectedMove: =>
     $table = @$el.find('.table-moves')
@@ -238,35 +302,50 @@ class @PokemonEditView extends Backbone.View
 
   clickSelectedMove: (e) =>
     $this = $(e.currentTarget)
-    moveName = $this.find('span').text()
-    $input = $("<input type='text' value='#{moveName}'/>")
-    $this.replaceWith($input)
-    $input.focus().select()
+    moveName = @reverseButtonify($this).focus().select().val()
 
     # Set the current move row to active
     $(".table-moves tr[data-move-id='#{moveName}']").addClass("active")
 
   removeSelectedMove: (e) =>
     $this = $(e.currentTarget).parent()
-    $input = $("<input type='text'/>")
-    $this.replaceWith($input)
-    $input.focus()
+    @reverseButtonify($this).val('').focus()
+
+    @collapseSelectedMoves()
+
+    # Nothing selected? Focus something
+    if @$('.selected_moves input:focus').length == 0
+      @$('.selected_moves input').first().focus()
+
     e.stopPropagation()
 
   buttonify: ($input, moveName) =>
     return false  if moveName not of @moveData
 
-    # The blur event may have been cancelled, so when removing the input also
-    # remove the filter
+    # When removing the input also remove the filter
+    # Normally this is done by blurMoves,
+    # but the blur event may have been prevented by preventBlurMoves 
     if $input.is(":focus")
       @filterMovesBy("")
-      $(".table-moves .active").removeClass("active")
+      @$(".table-moves .active").removeClass("active")
 
     type = @moveData[moveName].type.toLowerCase()
     $input.replaceWith("""
       <div class="button move-button #{type}"><span>#{moveName}</span><div class='close'>&times;</div></div>
     """)
+
+    @updateSelectedMoveStyles()
+
     return true
+
+  reverseButtonify: ($buttons) =>
+    $inputs = $buttons.replaceWith (i, element) =>
+      $button = $(element)
+      moveName = $button.find('span').text()
+      $("<input type='text' value='#{moveName}'/>")
+    
+    @updateSelectedMoveStyles()  
+    $inputs
 
   keydownMoves: (e) =>
     $input = $(e.currentTarget)
@@ -275,7 +354,7 @@ class @PokemonEditView extends Backbone.View
     switch e.which
       when 13  # [Enter]; we're selecting the active move.
         $activeMove = @$selectedMove()
-        $activeMove.click()
+        @insertMove($activeMove.data('move-id'))
       when 38  # [Up arrow]; selects move above
         $activeMove = $allMoves.filter('.active').first()
         $prevMove = $activeMove.prevAll(":visible").first()
@@ -445,3 +524,25 @@ class @PokemonEditView extends Backbone.View
       $this = $(el)
       moveName = $this.val()
       @buttonify($this, moveName)
+
+  # Rerenders the list of selected moves without rerendering the entire moves table
+  collapseSelectedMoves: =>
+    $selectedMoves = @$('.selected_moves')
+
+    # First, check if an input is focused and empty. IF it is, we have to refocus
+    $focused = $selectedMoves.find('input:focus')
+    refocus = true  if $focused.length != 0 && $focused.val() == ''
+
+    $moveSlots = $selectedMoves.find('.move-slot')
+    $emptySlots = $moveSlots.filter -> 
+      input = $(this).find('input')
+      input.length > 0 && input.val() == ''
+
+    $selectedMoves.find('.row-fluid').append($emptySlots.detach())
+
+    $selectedMoves.find('input').first().focus()  if refocus
+
+  updateSelectedMoveStyles: =>
+    @$(".table-moves .selected").removeClass("selected")
+    for move in @getSelectedMoves()
+      @$(".table-moves tr[data-move-id='#{move}']").addClass("selected")
